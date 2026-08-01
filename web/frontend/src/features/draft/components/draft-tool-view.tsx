@@ -1,68 +1,70 @@
-'use client'
+'use client';
 
-import { useState, useEffect, useCallback } from 'react'
-import { useQuery, useMutation } from '@tanstack/react-query'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Icons } from '@/components/icons'
-import { draftBoardQueryOptions } from '@/features/nfl/api/queries'
-import { undoDraftPick } from '@/features/nfl/api/service'
-import { isConflictError } from '@/lib/nfl/api'
-import { useDraftState } from '../hooks/use-draft-state'
-import { useStackHints } from '../hooks/use-stack-hints'
-import { DraftBoardTable } from './draft-board-table'
-import { DraftConfigDialog } from './draft-config-dialog'
-import { DraftLanding } from './draft-landing'
-import { HowItWorksDialog, type HowItWorksMode } from './how-it-works-dialog'
-import { LeagueContextChip } from './league-context-chip'
-import { MockDraftSetupDialog } from './mock-draft-setup-dialog'
-import { MyRosterPanel } from './my-roster-panel'
-import { RecommendationsPanel } from './recommendations-panel'
-import { MockDraftView } from './mock-draft-view'
-import { LiveDraftPanel } from './live-draft-panel'
-import { MirrorTurnTracker } from './mirror-turn-tracker'
-import { PasteSyncPanel } from './paste-sync-panel'
-import { SleepersPanel } from './sleepers-panel'
-import { UndoButton } from './undo-button'
-import { requestTurnNotificationPermission } from '../hooks/use-turn-alert'
-import { usePlatformPresets } from '../hooks/use-platform-presets'
-import { isRoomPlatform, PLATFORM_ACCENT } from '../utils/platform-presets'
-import { STRATEGY_LABELS, asDraftStrategy } from '../utils/draft-strategy'
-import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
-import type { DraftPlatform, Position } from '@/lib/nfl/types'
+import { useState, useEffect, useCallback } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Icons } from '@/components/icons';
+import { Skeleton } from '@/components/ui/skeleton';
+import { draftBoardQueryOptions } from '@/features/nfl/api/queries';
+import { undoDraftPick } from '@/features/nfl/api/service';
+import { isConflictError } from '@/lib/nfl/api';
+import { useDraftState } from '../hooks/use-draft-state';
+import { useStackHints } from '../hooks/use-stack-hints';
+import { DraftBoardTable } from './draft-board-table';
+import { DraftConfigDialog } from './draft-config-dialog';
+import { DraftLanding } from './draft-landing';
+import { HowItWorksDialog, type HowItWorksMode } from './how-it-works-dialog';
+import { LeagueContextChip } from './league-context-chip';
+import { MockDraftSetupDialog } from './mock-draft-setup-dialog';
+import { MyRosterPanel } from './my-roster-panel';
+import { RecommendationsPanel } from './recommendations-panel';
+import { MockDraftView } from './mock-draft-view';
+import { LiveDraftPanel } from './live-draft-panel';
+import { MirrorTurnTracker } from './mirror-turn-tracker';
+import { PasteSyncPanel } from './paste-sync-panel';
+import { SleepersPanel } from './sleepers-panel';
+import { UndoButton } from './undo-button';
+import { requestTurnNotificationPermission } from '../hooks/use-turn-alert';
+import { usePlatformPresets } from '../hooks/use-platform-presets';
+import { isRoomPlatform, PLATFORM_ACCENT } from '../utils/platform-presets';
+import { STRATEGY_LABELS, asDraftStrategy } from '../utils/draft-strategy';
+import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives';
+import type { DraftPlatform, Position } from '@/lib/nfl/types';
 
-const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K', 'DST']
-const MAIN_TABS = ['board', 'sleepers'] as const
-type MainTab = (typeof MAIN_TABS)[number]
+const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K', 'DST'];
+const MAIN_TABS = ['board', 'sleepers'] as const;
+type MainTab = (typeof MAIN_TABS)[number];
 
 /** Which top-level mode the user has entered this session; null = landing. */
-type EnteredMode = 'board' | 'mock' | 'live' | null
+type EnteredMode = 'board' | 'mock' | 'live' | null;
 
-const BOARD_BANNER_SEEN_KEY = 'nfl.draftBoardBannerSeen'
+const BOARD_BANNER_SEEN_KEY = 'nfl.draftBoardBannerSeen';
 
 const MIRROR_COPY: Record<Exclude<DraftPlatform, 'sleeper'>, string> = {
   espn: 'ESPN has no public draft API, so picks can’t stream automatically. Mirror mode is still a co-pilot, not a chore: paste the draft room’s pick history any time and the whole board catches up in one shot (no per-pick clicking), while we track the clock, alert your turn, and call your pick from our board.',
-  yahoo: 'Yahoo auto-sync isn’t connected on this server. Mirror mode gives you the same co-pilot: paste-sync or Draft/Taken to record picks — we track the clock, alert your turn, and call your pick from our board.'
-}
+  yahoo:
+    'Yahoo auto-sync isn’t connected on this server. Mirror mode gives you the same co-pilot: paste-sync or Draft/Taken to record picks — we track the clock, alert your turn, and call your pick from our board.'
+};
 
 export function DraftToolView() {
   // Landing: shown until the user picks a mode this session. Reset/new-draft
   // returns here (see handleNewDraft/handleReset below).
-  const [entered, setEntered] = useState<EnteredMode>(null)
+  const [entered, setEntered] = useState<EnteredMode>(null);
 
   // Live co-pilot is a distinct surface from the manual board: it reads a real
   // Sleeper/Yahoo draft and drives our recommendation engine. Kept as local UI
   // state so it overlays the existing board/mock flow without touching it.
-  const [liveMode, setLiveMode] = useState(false)
-  const [livePlatform, setLivePlatform] = useState<DraftPlatform>('sleeper')
+  const [liveMode, setLiveMode] = useState(false);
+  const [livePlatform, setLivePlatform] = useState<DraftPlatform>('sleeper');
   // Yahoo tries true auto-sync first; mirror is the unauthenticated fallback.
-  const [yahooMode, setYahooMode] = useState<'live' | 'mirror'>('live')
+  const [yahooMode, setYahooMode] = useState<'live' | 'mirror'>('live');
   // Mirror mode: ESPN/Yahoo drafts tracked on the manual board with snake-math
   // turn alerts + paste-sync. null = not mirroring.
-  const [mirror, setMirror] = useState<{ platform: DraftPlatform; slot: number } | null>(null)
-  const [mirrorSlotInput, setMirrorSlotInput] = useState('')
+  const [mirror, setMirror] = useState<{ platform: DraftPlatform; slot: number } | null>(null);
+  const [mirrorSlotInput, setMirrorSlotInput] = useState('');
   const {
     sessionId,
     setSessionId,
@@ -75,18 +77,19 @@ export function DraftToolView() {
     handleStartMock,
     pickMutation,
     resetDraft
-  } = useDraftState()
+  } = useDraftState();
 
-  const [configOpen, setConfigOpen] = useState(false)
-  const [mockSetupOpen, setMockSetupOpen] = useState(false)
-  const [mainTab, setMainTab] = useState<MainTab>('board')
-  const [howItWorks, setHowItWorks] = useState<HowItWorksMode | null>(null)
-  const [boardBannerVisible, setBoardBannerVisible] = useState(false)
+  const [configOpen, setConfigOpen] = useState(false);
+  const [mockSetupOpen, setMockSetupOpen] = useState(false);
+  const [mainTab, setMainTab] = useState<MainTab>('board');
+  const [howItWorks, setHowItWorks] = useState<HowItWorksMode | null>(null);
+  const [boardBannerVisible, setBoardBannerVisible] = useState(false);
 
-  const presets = usePlatformPresets()
-  const activePlatform = isRoomPlatform(config.platform) ? config.platform : 'custom'
-  const activePreset = presets[activePlatform]
-  const mockTimerSeconds = config.timer_seconds !== undefined ? config.timer_seconds : activePreset.timer_seconds
+  const presets = usePlatformPresets();
+  const activePlatform = isRoomPlatform(config.platform) ? config.platform : 'custom';
+  const activePreset = presets[activePlatform];
+  const mockTimerSeconds =
+    config.timer_seconds !== undefined ? config.timer_seconds : activePreset.timer_seconds;
 
   // Fetch the draft board (creates a new session on first call)
   const { data, isLoading, isError, refetch } = useQuery({
@@ -100,36 +103,36 @@ export function DraftToolView() {
       config.strategy
     ),
     enabled: true
-  })
+  });
 
   const undoMutation = useMutation({
     mutationFn: () => undoDraftPick(sessionId as string),
     onSuccess: () => void refetch()
-  })
-  const undoIsConflict = undoMutation.isError && isConflictError(undoMutation.error)
+  });
+  const undoIsConflict = undoMutation.isError && isConflictError(undoMutation.error);
 
   // Store the session_id returned from the first board fetch
   useEffect(() => {
     if (data?.session_id && !sessionId) {
-      setSessionId(data.session_id)
+      setSessionId(data.session_id);
     }
-  }, [data?.session_id, sessionId, setSessionId])
+  }, [data?.session_id, sessionId, setSessionId]);
 
   // After a pick mutation succeeds the board query is invalidated; refetch it
   useEffect(() => {
     if (pickMutation.isSuccess) {
-      void refetch()
+      void refetch();
     }
-  }, [pickMutation.isSuccess, refetch])
+  }, [pickMutation.isSuccess, refetch]);
 
   // A mock draft can only start via handleStartMock (mockStartMutation),
   // which flips `mode` to 'mock' -- once that happens we're committed past
   // the landing even if it was opened from there.
   useEffect(() => {
     if (mode === 'mock' && entered === null) {
-      setEntered('mock')
+      setEntered('mock');
     }
-  }, [mode, entered])
+  }, [mode, entered]);
 
   // First time landing on the manual board this browser, surface the
   // dismissible cheat-sheet explainer banner.
@@ -139,51 +142,51 @@ export function DraftToolView() {
       typeof window !== 'undefined' &&
       !window.localStorage.getItem(BOARD_BANNER_SEEN_KEY)
     ) {
-      setBoardBannerVisible(true)
+      setBoardBannerVisible(true);
     }
-  }, [entered])
+  }, [entered]);
 
   const dismissBoardBanner = useCallback(() => {
-    setBoardBannerVisible(false)
-    if (typeof window !== 'undefined') window.localStorage.setItem(BOARD_BANNER_SEEN_KEY, '1')
-  }, [])
+    setBoardBannerVisible(false);
+    if (typeof window !== 'undefined') window.localStorage.setItem(BOARD_BANNER_SEEN_KEY, '1');
+  }, []);
 
   const enterLive = useCallback(() => {
-    requestTurnNotificationPermission()
-    setLiveMode(true)
-    setEntered('live')
-  }, [])
+    requestTurnNotificationPermission();
+    setLiveMode(true);
+    setEntered('live');
+  }, []);
 
   const enterBoard = useCallback(() => {
-    setEntered('board')
-  }, [])
+    setEntered('board');
+  }, []);
 
   const handleNewDraft = useCallback(() => {
-    resetDraft()
+    resetDraft();
     // Clear the session so next board fetch creates a fresh one
-    setSessionId(null)
-    setEntered(null)
-    void refetch()
-  }, [resetDraft, setSessionId, refetch])
+    setSessionId(null);
+    setEntered(null);
+    void refetch();
+  }, [resetDraft, setSessionId, refetch]);
 
   const handleReset = useCallback(() => {
-    resetDraft()
-    setEntered(null)
-    void refetch()
-  }, [resetDraft, refetch])
+    resetDraft();
+    setEntered(null);
+    void refetch();
+  }, [resetDraft, refetch]);
 
-  const players = data?.players ?? []
-  const roster = data?.my_roster ?? []
-  const remainingNeeds = data?.remaining_needs ?? {}
-  const picksCount = data?.my_pick_count ?? 0
+  const players = data?.players ?? [];
+  const roster = data?.my_roster ?? [];
+  const remainingNeeds = data?.remaining_needs ?? {};
+  const picksCount = data?.my_pick_count ?? 0;
 
   // Stack/overlap hints refetch whenever the roster changes (a parallel
   // backend lane -- degrades to an empty map on 404/error).
-  const { hints: stackHints, hintsByPlayerName } = useStackHints(sessionId, roster)
+  const { hints: stackHints, hintsByPlayerName } = useStackHints(sessionId, roster);
 
-  const activeStrategy = asDraftStrategy(data?.strategy ?? config.strategy)
+  const activeStrategy = asDraftStrategy(data?.strategy ?? config.strategy);
 
-  let content: React.ReactNode
+  let content: React.ReactNode;
 
   // -------------------------------------------------------------------------
   // Landing -- mode chooser with league-first setup
@@ -199,7 +202,7 @@ export function DraftToolView() {
         onOpenSettings={() => setConfigOpen(true)}
         onOpenHowItWorks={() => setHowItWorks('landing')}
       />
-    )
+    );
   } else if (mode === 'mock' && sessionId) {
     // -----------------------------------------------------------------------
     // Mock draft mode
@@ -230,7 +233,7 @@ export function DraftToolView() {
           accentColor={PLATFORM_ACCENT[activePlatform]}
         />
       </FadeIn>
-    )
+    );
   } else if (liveMode) {
     // -----------------------------------------------------------------------
     // Live draft co-pilot (reads a real Sleeper draft, our engine drives picks)
@@ -238,12 +241,9 @@ export function DraftToolView() {
     content = (
       <FadeIn className='space-y-[var(--gap-stack)]'>
         <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
-          <Tabs
-            value={livePlatform}
-            onValueChange={v => setLivePlatform(v as DraftPlatform)}
-          >
+          <Tabs value={livePlatform} onValueChange={(v) => setLivePlatform(v as DraftPlatform)}>
             <TabsList>
-              {(['sleeper', 'espn', 'yahoo'] as const).map(p => (
+              {(['sleeper', 'espn', 'yahoo'] as const).map((p) => (
                 <TabsTrigger
                   key={p}
                   value={p}
@@ -272,10 +272,7 @@ export function DraftToolView() {
         {livePlatform === 'sleeper' ? (
           <LiveDraftPanel />
         ) : livePlatform === 'yahoo' && yahooMode === 'live' ? (
-          <LiveDraftPanel
-            platform='yahoo'
-            onUseMirror={() => setYahooMode('mirror')}
-          />
+          <LiveDraftPanel platform='yahoo' onUseMirror={() => setYahooMode('mirror')} />
         ) : (
           <div className='rounded-md border p-[var(--space-4)] space-y-[var(--space-3)]'>
             <div className='flex items-center gap-[var(--space-2)]'>
@@ -309,7 +306,7 @@ export function DraftToolView() {
                   placeholder='e.g. 5'
                   inputMode='numeric'
                   value={mirrorSlotInput}
-                  onChange={e => setMirrorSlotInput(e.target.value)}
+                  onChange={(e) => setMirrorSlotInput(e.target.value)}
                 />
               </label>
               <PressScale>
@@ -317,9 +314,9 @@ export function DraftToolView() {
                   size='sm'
                   disabled={!Number(mirrorSlotInput)}
                   onClick={() => {
-                    requestTurnNotificationPermission()
-                    setMirror({ platform: livePlatform, slot: Number(mirrorSlotInput) })
-                    setLiveMode(false)
+                    requestTurnNotificationPermission();
+                    setMirror({ platform: livePlatform, slot: Number(mirrorSlotInput) });
+                    setLiveMode(false);
                   }}
                 >
                   Start Mirror Mode
@@ -327,14 +324,15 @@ export function DraftToolView() {
               </PressScale>
             </div>
             <p className='text-muted-foreground text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
-              Pro tip: copy our recommendation queue into your {livePlatform === 'espn' ? 'ESPN' : 'Yahoo'}{' '}
-              pick queue before the draft — if the timer ever expires, autopick
-              drafts from our board instead of the platform&apos;s rankings.
+              Pro tip: copy our recommendation queue into your{' '}
+              {livePlatform === 'espn' ? 'ESPN' : 'Yahoo'} pick queue before the draft — if the
+              timer ever expires, autopick drafts from our board instead of the platform&apos;s
+              rankings.
             </p>
           </div>
         )}
       </FadeIn>
-    )
+    );
   } else {
     // -----------------------------------------------------------------------
     // Normal draft board view
@@ -344,12 +342,18 @@ export function DraftToolView() {
         {/* Top toolbar */}
         <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
           {/* Board / Sleepers switch */}
-          <Tabs value={mainTab} onValueChange={v => setMainTab(v as MainTab)}>
+          <Tabs value={mainTab} onValueChange={(v) => setMainTab(v as MainTab)}>
             <TabsList>
-              <TabsTrigger value='board' className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              <TabsTrigger
+                value='board'
+                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+              >
                 Board
               </TabsTrigger>
-              <TabsTrigger value='sleepers' className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+              <TabsTrigger
+                value='sleepers'
+                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+              >
                 Sleepers
               </TabsTrigger>
             </TabsList>
@@ -357,12 +361,9 @@ export function DraftToolView() {
 
           {/* Position filter (board tab only) */}
           {mainTab === 'board' && (
-            <Tabs
-              value={positionFilter}
-              onValueChange={v => setPositionFilter(v as Position)}
-            >
+            <Tabs value={positionFilter} onValueChange={(v) => setPositionFilter(v as Position)}>
               <TabsList>
-                {POSITIONS.map(pos => (
+                {POSITIONS.map((pos) => (
                   <TabsTrigger
                     key={pos}
                     value={pos}
@@ -389,31 +390,19 @@ export function DraftToolView() {
               </Button>
             </PressScale>
             <PressScale>
-              <Button
-                variant='default'
-                size='sm'
-                onClick={enterLive}
-              >
+              <Button variant='default' size='sm' onClick={enterLive}>
                 <Icons.target className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Live Draft
               </Button>
             </PressScale>
             <PressScale>
-              <Button
-                variant='outline'
-                size='sm'
-                onClick={() => setConfigOpen(true)}
-              >
+              <Button variant='outline' size='sm' onClick={() => setConfigOpen(true)}>
                 <Icons.settings className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Settings
               </Button>
             </PressScale>
             <PressScale>
-              <Button
-                variant='outline'
-                size='sm'
-                onClick={() => setMockSetupOpen(true)}
-              >
+              <Button variant='outline' size='sm' onClick={() => setMockSetupOpen(true)}>
                 <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Mock Draft
               </Button>
@@ -425,11 +414,7 @@ export function DraftToolView() {
               isConflict={undoIsConflict || (data?.picks_taken ?? 0) === 0}
             />
             <PressScale>
-              <Button
-                variant='outline'
-                size='sm'
-                onClick={handleNewDraft}
-              >
+              <Button variant='outline' size='sm' onClick={handleNewDraft}>
                 <Icons.close className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Reset
               </Button>
@@ -460,7 +445,7 @@ export function DraftToolView() {
               picksTaken={data.picks_taken}
               nTeams={data.n_teams}
               mySlot={mirror.slot}
-              onSlotChange={slot => setMirror(m => (m ? { ...m, slot } : m))}
+              onSlotChange={(slot) => setMirror((m) => (m ? { ...m, slot } : m))}
               onExit={() => setMirror(null)}
             />
             <PasteSyncPanel sessionId={sessionId} mySlot={mirror.slot} />
@@ -471,15 +456,28 @@ export function DraftToolView() {
         <DataLoadReveal
           loading={isLoading}
           skeleton={
-            <div className='flex items-center justify-center py-[var(--space-12)]'>
-              <div className='flex flex-col items-center gap-[var(--space-3)]'>
-                <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />
-                <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  Generating projections and building draft board...
-                </p>
-                <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  This may take 15-30 seconds on first load
-                </p>
+            <div className='flex flex-col gap-[var(--gap-stack)] lg:flex-row'>
+              {/* Draft board skeleton (70%) */}
+              <div className='min-w-0 flex-1 space-y-[var(--space-3)]'>
+                <Skeleton className='h-9 w-full' />
+                <div className='rounded-md border'>
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className='flex items-center gap-[var(--space-3)] border-b p-[var(--space-3)] last:border-b-0'
+                    >
+                      <Skeleton className='h-[var(--space-4)] w-6' />
+                      <Skeleton className='h-[var(--space-4)] w-32' />
+                      <Skeleton className='h-[var(--space-4)] w-10' />
+                      <Skeleton className='ml-auto h-[var(--space-4)] w-16' />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Sidebar skeleton (30%) */}
+              <div className='w-full space-y-[var(--gap-stack)] lg:w-72 lg:shrink-0'>
+                <Skeleton className='h-32 w-full rounded-md' />
+                <Skeleton className='h-48 w-full rounded-md' />
               </div>
             </div>
           }
@@ -533,7 +531,7 @@ export function DraftToolView() {
           )}
         </DataLoadReveal>
       </FadeIn>
-    )
+    );
   }
 
   return (
@@ -562,10 +560,10 @@ export function DraftToolView() {
       <HowItWorksDialog
         mode={howItWorks ?? 'landing'}
         open={howItWorks !== null}
-        onOpenChange={open => {
-          if (!open) setHowItWorks(null)
+        onOpenChange={(open) => {
+          if (!open) setHowItWorks(null);
         }}
       />
     </>
-  )
+  );
 }

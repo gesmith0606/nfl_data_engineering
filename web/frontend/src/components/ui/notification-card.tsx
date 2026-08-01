@@ -94,7 +94,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
             <div className='flex items-center gap-2'>
               <h3
                 className={cn(
-                  'text-[15px] leading-tight font-semibold',
+                  'text-[length:var(--fs-body)] leading-tight font-semibold',
                   isUnread ? 'text-foreground' : 'text-muted-foreground'
                 )}
               >
@@ -106,7 +106,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
             {/* Description */}
             <p
               className={cn(
-                'mb-0 text-[13px]',
+                'mb-0 text-[length:var(--fs-sm)] leading-[var(--lh-sm)]',
                 isUnread ? 'text-muted-foreground' : 'text-muted-foreground/60'
               )}
             >
@@ -176,7 +176,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
 
           {/* Timestamp */}
           {createdAt && (
-            <span className='text-muted-foreground/60 inline-block text-[11px]'>
+            <span className='text-muted-foreground/60 inline-block text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
               {formatDate(createdAt)}
             </span>
           )}

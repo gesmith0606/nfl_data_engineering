@@ -1,21 +1,22 @@
-'use client'
+'use client';
 
-import { useState, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Icons } from '@/components/icons'
-import { liveDraftQueryOptions } from '@/features/nfl/api/queries'
-import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives'
-import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
-import { SUCCESS_BADGE } from '@/lib/nfl/semantic-colors'
-import { pickLabel } from '@/lib/nfl/draft-math'
-import { isServiceUnavailable } from '@/features/nfl/api/service'
-import { loadConnectedLeagues } from '@/lib/nfl/connected-leagues'
-import { useTurnAlert, requestTurnNotificationPermission } from '../hooks/use-turn-alert'
-import { CopyQueueButton } from './copy-queue-button'
-import { DraftIntelPanel } from './draft-intel-panel'
-import type { LiveDraftParams } from '@/lib/nfl/types'
+import { useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Icons } from '@/components/icons';
+import { Skeleton } from '@/components/ui/skeleton';
+import { liveDraftQueryOptions } from '@/features/nfl/api/queries';
+import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { SUCCESS_BADGE } from '@/lib/nfl/semantic-colors';
+import { pickLabel } from '@/lib/nfl/draft-math';
+import { isServiceUnavailable } from '@/features/nfl/api/service';
+import { loadConnectedLeagues } from '@/lib/nfl/connected-leagues';
+import { useTurnAlert, requestTurnNotificationPermission } from '../hooks/use-turn-alert';
+import { CopyQueueButton } from './copy-queue-button';
+import { DraftIntelPanel } from './draft-intel-panel';
+import type { LiveDraftParams } from '@/lib/nfl/types';
 
 const MOMENT_BADGE: Record<string, string> = {
   steal: 'text-emerald-500',
@@ -23,13 +24,13 @@ const MOMENT_BADGE: Record<string, string> = {
   reach: 'text-amber-500',
   positional_run: 'text-sky-500',
   grade: 'text-muted-foreground'
-}
+};
 
 interface LiveDraftPanelProps {
   /** Auto-sync platform. Sleeper is public; Yahoo needs a server OAuth grant. */
-  platform?: 'sleeper' | 'yahoo'
+  platform?: 'sleeper' | 'yahoo';
   /** Offered when Yahoo auto-sync is unavailable (server not connected). */
-  onUseMirror?: () => void
+  onUseMirror?: () => void;
 }
 
 /**
@@ -40,19 +41,19 @@ interface LiveDraftPanelProps {
  * answer to "autopick doesn't represent our board".
  */
 export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftPanelProps) {
-  const isYahoo = platform === 'yahoo'
+  const isYahoo = platform === 'yahoo';
   const [form, setForm] = useState<{ draftId: string; username: string; mySlot: string }>({
     draftId: '',
     username: '',
     mySlot: ''
-  })
-  const [connected, setConnected] = useState(false)
+  });
+  const [connected, setConnected] = useState(false);
 
   // Opponent Intel needs a known league_id — read it from the same
   // localStorage connected-leagues store League Sync writes to, rather than
   // requiring a redundant league picker here. Purely additive: renders null
   // (and never blocks connecting/drafting) when no league is connected.
-  const connectedLeagueId = useMemo(() => loadConnectedLeagues()[0]?.league_id ?? null, [])
+  const connectedLeagueId = useMemo(() => loadConnectedLeagues()[0]?.league_id ?? null, []);
 
   const params: LiveDraftParams = {
     draftId: form.draftId.trim() || undefined,
@@ -62,14 +63,14 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
     scoring: 'half_ppr',
     topN: 6,
     platform
-  }
+  };
 
   const { data, isLoading, isError, error, dataUpdatedAt } = useQuery(
     liveDraftQueryOptions(params, connected)
-  )
-  const notConnectedOnServer = isError && isServiceUnavailable(error)
+  );
+  const notConnectedOnServer = isError && isServiceUnavailable(error);
 
-  const canConnect = !!(params.draftId || params.username)
+  const canConnect = !!(params.draftId || params.username);
 
   // Chime + browser notification + tab flash the moment it's your pick — the
   // silent-border-only version is how drafts get autodrafted away.
@@ -79,7 +80,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
     data?.recommendations[0]
       ? `Our board says ${data.recommendations[0].player_name} (${data.recommendations[0].position}).`
       : 'Check the GIQ board for your pick.'
-  )
+  );
 
   return (
     <FadeIn className='space-y-[var(--gap-stack)]'>
@@ -98,9 +99,9 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
           )}
         </div>
         <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-          Connect your live {isYahoo ? 'Yahoo' : 'Sleeper'} draft. We read every
-          pick as it happens and recommend your pick from our board — VORP,
-          roster need, and stacks — not the platform&apos;s rankings.
+          Connect your live {isYahoo ? 'Yahoo' : 'Sleeper'} draft. We read every pick as it happens
+          and recommend your pick from our board — VORP, roster need, and stacks — not the
+          platform&apos;s rankings.
         </p>
         <div className='flex flex-wrap items-end gap-[var(--space-2)]'>
           <label
@@ -115,14 +116,12 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
               className='w-48'
               placeholder={isYahoo ? 'e.g. nfl.l.12345' : 'e.g. 1382528971035406336'}
               value={form.draftId}
-              onChange={e => setForm(f => ({ ...f, draftId: e.target.value }))}
+              onChange={(e) => setForm((f) => ({ ...f, draftId: e.target.value }))}
             />
           </label>
           {!isYahoo && (
             <>
-              <span className='text-muted-foreground pb-2 text-[length:var(--fs-xs)]'>
-                or
-              </span>
+              <span className='text-muted-foreground pb-2 text-[length:var(--fs-xs)]'>or</span>
               <label
                 htmlFor='live-draft-username'
                 className='flex flex-col gap-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
@@ -133,7 +132,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                   className='w-40'
                   placeholder='Gforceee'
                   value={form.username}
-                  onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
+                  onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
                 />
               </label>
             </>
@@ -149,7 +148,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
               placeholder='5'
               inputMode='numeric'
               value={form.mySlot}
-              onChange={e => setForm(f => ({ ...f, mySlot: e.target.value }))}
+              onChange={(e) => setForm((f) => ({ ...f, mySlot: e.target.value }))}
             />
           </label>
           <PressScale>
@@ -157,8 +156,8 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
               size='sm'
               disabled={!canConnect}
               onClick={() => {
-                if (!connected && canConnect) requestTurnNotificationPermission()
-                setConnected(c => (canConnect ? !c : c))
+                if (!connected && canConnect) requestTurnNotificationPermission();
+                setConnected((c) => (canConnect ? !c : c));
               }}
             >
               {connected ? 'Disconnect' : 'Connect'}
@@ -175,11 +174,19 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
         <DataLoadReveal
           loading={isLoading}
           skeleton={
-            <div className='flex items-center gap-[var(--space-2)] py-[var(--space-6)]'>
-              <Icons.spinner className='text-muted-foreground h-[var(--space-5)] w-[var(--space-5)] animate-spin' />
-              <span className='text-muted-foreground text-[length:var(--fs-sm)]'>
-                Connecting to your live draft…
-              </span>
+            <div className='flex flex-col gap-[var(--gap-stack)] lg:flex-row'>
+              <div className='min-w-0 flex-1 space-y-[var(--space-3)]'>
+                <div className='rounded-md border p-[var(--space-3)] space-y-[var(--space-2)]'>
+                  <Skeleton className='h-[var(--space-4)] w-2/3' />
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <Skeleton key={i} className='h-[var(--space-5)] w-full' />
+                  ))}
+                </div>
+              </div>
+              <div className='w-full space-y-[var(--space-3)] lg:w-64 lg:shrink-0'>
+                <Skeleton className='h-24 w-full rounded-md' />
+                <Skeleton className='h-24 w-full rounded-md' />
+              </div>
             </div>
           }
         >
@@ -187,9 +194,9 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
             notConnectedOnServer ? (
               <div className='space-y-[var(--space-2)] py-[var(--space-4)]'>
                 <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  Yahoo auto-sync isn&apos;t connected on this server (it needs a
-                  one-time Yahoo OAuth grant). You can still get the full
-                  co-pilot with mirror mode — same board, same alerts.
+                  Yahoo auto-sync isn&apos;t connected on this server (it needs a one-time Yahoo
+                  OAuth grant). You can still get the full co-pilot with mirror mode — same board,
+                  same alerts.
                 </p>
                 {onUseMirror && (
                   <PressScale>
@@ -202,8 +209,8 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
             ) : (
               <p className='text-muted-foreground text-[length:var(--fs-sm)] py-[var(--space-4)]'>
                 Couldn&apos;t reach that draft. Check the{' '}
-                {isYahoo ? 'league ID' : 'draft ID / username'} (the draft must
-                be active on {isYahoo ? 'Yahoo' : 'Sleeper'}).
+                {isYahoo ? 'league ID' : 'draft ID / username'} (the draft must be active on{' '}
+                {isYahoo ? 'Yahoo' : 'Sleeper'}).
               </p>
             )
           ) : data ? (
@@ -275,15 +282,14 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                       </li>
                     ))}
                   </ol>
-                  {data.recommendations.some(r => r.stack_note) && (
+                  {data.recommendations.some((r) => r.stack_note) && (
                     <p className='text-muted-foreground mt-[var(--space-2)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
-                      {data.recommendations.find(r => r.stack_note)?.stack_note}
+                      {data.recommendations.find((r) => r.stack_note)?.stack_note}
                     </p>
                   )}
                   <p className='text-muted-foreground mt-[var(--space-2)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
-                    Tip: Copy queue and preload it as your{' '}
-                    {isYahoo ? 'Yahoo' : 'Sleeper'} queue — if the pick timer
-                    ever expires, autopick drafts from our board instead of the
+                    Tip: Copy queue and preload it as your {isYahoo ? 'Yahoo' : 'Sleeper'} queue —
+                    if the pick timer ever expires, autopick drafts from our board instead of the
                     platform&apos;s.
                   </p>
                 </div>
@@ -295,7 +301,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                       Key Moments
                     </p>
                     <ul className='mt-[var(--space-2)] space-y-1'>
-                      {data.key_moments.map(m => (
+                      {data.key_moments.map((m) => (
                         <li
                           key={`${m.kind}-${m.pick_no}-${m.player}`}
                           className='flex items-baseline gap-[var(--space-2)] text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
@@ -336,7 +342,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                         No picks yet.
                       </li>
                     ) : (
-                      data.my_roster.map(p => (
+                      data.my_roster.map((p) => (
                         <li
                           key={p.player_id || p.player_name}
                           className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
@@ -375,5 +381,5 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
         </DataLoadReveal>
       )}
     </FadeIn>
-  )
+  );
 }

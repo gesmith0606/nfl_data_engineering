@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -10,16 +10,17 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '@/components/ui/table'
-import { Icons } from '@/components/icons'
-import { PressScale, DataLoadReveal } from '@/lib/motion-primitives'
-import { mockDraftReportQueryOptions } from '@/features/nfl/api/queries'
-import { SUCCESS_TEXT, SUCCESS_BADGE, WARN_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors'
+} from '@/components/ui/table';
+import { Icons } from '@/components/icons';
+import { Skeleton } from '@/components/ui/skeleton';
+import { PressScale, DataLoadReveal } from '@/lib/motion-primitives';
+import { mockDraftReportQueryOptions } from '@/features/nfl/api/queries';
+import { SUCCESS_TEXT, SUCCESS_BADGE, WARN_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors';
 
 interface DraftReportCardProps {
-  sessionId: string
+  sessionId: string;
   /** Report only exists once the mock is complete (or far enough along); gates the fetch. */
-  enabled: boolean
+  enabled: boolean;
 }
 
 const GRADE_COLORS: Record<string, string> = {
@@ -27,7 +28,7 @@ const GRADE_COLORS: Record<string, string> = {
   B: 'text-blue-600 dark:text-blue-400',
   C: 'text-[var(--warn)]',
   D: 'text-[var(--danger)]'
-}
+};
 
 /**
  * Post-draft report card: fetches GET /draft/mock/report and renders a
@@ -37,15 +38,17 @@ const GRADE_COLORS: Record<string, string> = {
  * Draft Report" toggle so a completed-but-unopened mock doesn't pay for it.
  */
 export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
-  const [open, setOpen] = useState(false)
-  const { data, isLoading, isError } = useQuery(mockDraftReportQueryOptions(sessionId, enabled && open))
+  const [open, setOpen] = useState(false);
+  const { data, isLoading, isError } = useQuery(
+    mockDraftReportQueryOptions(sessionId, enabled && open)
+  );
 
-  if (!enabled) return null
+  if (!enabled) return null;
 
   return (
     <div className='space-y-[var(--space-3)]'>
       <PressScale>
-        <Button variant='outline' size='sm' onClick={() => setOpen(o => !o)}>
+        <Button variant='outline' size='sm' onClick={() => setOpen((o) => !o)}>
           <Icons.chartBar className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
           {open ? 'Hide Draft Report' : 'View Draft Report'}
         </Button>
@@ -55,11 +58,19 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
         <DataLoadReveal
           loading={isLoading}
           skeleton={
-            <div className='flex items-center gap-[var(--space-2)] py-[var(--space-4)]'>
-              <Icons.spinner className='text-muted-foreground h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
-              <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                Building your draft report...
-              </span>
+            <div className='space-y-[var(--space-4)] rounded-md border p-[var(--space-4)]'>
+              <div className='flex items-center gap-[var(--space-3)]'>
+                <Skeleton className='h-[var(--space-12)] w-[var(--space-12)] rounded-full' />
+                <div className='space-y-1'>
+                  <Skeleton className='h-[var(--space-4)] w-32' />
+                  <Skeleton className='h-[var(--space-3)] w-48' />
+                </div>
+              </div>
+              <div className='space-y-[var(--space-2)]'>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className='h-[var(--space-5)] w-full' />
+                ))}
+              </div>
             </div>
           }
         >
@@ -94,7 +105,10 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
               {data.summary.grade_notes.length > 0 && (
                 <ul className='list-inside list-disc space-y-0.5'>
                   {data.summary.grade_notes.map((note, i) => (
-                    <li key={i} className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+                    <li
+                      key={i}
+                      className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                    >
                       {note}
                     </li>
                   ))}
@@ -114,7 +128,7 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {data.picks.map(pick => (
+                    {data.picks.map((pick) => (
                       <TableRow key={pick.overall_pick}>
                         <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
                           {pick.round}.{String(pick.overall_pick).padStart(2, '0')}
@@ -163,5 +177,5 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
         </DataLoadReveal>
       )}
     </div>
-  )
+  );
 }

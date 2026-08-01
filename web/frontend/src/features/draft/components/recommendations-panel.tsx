@@ -1,41 +1,41 @@
-'use client'
+'use client';
 
-import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Icons } from '@/components/icons'
-import { DataLoadReveal, HoverLift, Stagger } from '@/lib/motion-primitives'
-import { draftRecommendationsQueryOptions } from '@/features/nfl/api/queries'
-import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
-import { DANGER_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors'
-import { computeTierExhaustion } from '../utils/tier-exhaustion'
-import { CopyQueueButton } from './copy-queue-button'
-import { StackBadge } from './stack-badge'
-import type { DraftPlayer, Position, StackHint } from '@/lib/nfl/types'
+import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { DataLoadReveal, HoverLift, Stagger } from '@/lib/motion-primitives';
+import { draftRecommendationsQueryOptions } from '@/features/nfl/api/queries';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { DANGER_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
+import { computeTierExhaustion } from '../utils/tier-exhaustion';
+import { CopyQueueButton } from './copy-queue-button';
+import { StackBadge } from './stack-badge';
+import type { DraftPlayer, Position, StackHint } from '@/lib/nfl/types';
 
 interface RecommendationsPanelProps {
-  sessionId: string | null
-  positionFilter: Position
+  sessionId: string | null;
+  positionFilter: Position;
   /** Current board pool (undrafted players) — powers the tier-exhaustion cue. */
-  players?: DraftPlayer[]
+  players?: DraftPlayer[];
   /** Stack/overlap hints keyed by player_name (from useStackHints). */
-  hintsByPlayerName?: Map<string, StackHint[]>
+  hintsByPlayerName?: Map<string, StackHint[]>;
   /** All stack hints, for the "top hints" section. */
-  stackHints?: StackHint[]
+  stackHints?: StackHint[];
 }
 
 /** >70% gone reads urgent, <30% reads safe; the middle band stays neutral. */
 function goneProbabilityColor(p: number): string {
-  if (p > 0.7) return DANGER_TEXT
-  if (p < 0.3) return 'text-muted-foreground'
-  return ''
+  if (p > 0.7) return DANGER_TEXT;
+  if (p < 0.3) return 'text-muted-foreground';
+  return '';
 }
 
 /** <1pt reads negligible (muted), >=3pt reads urgent (warn); the middle band stays neutral. */
 function waitCostColor(cost: number): string {
-  if (cost >= 3) return WARN_TEXT
-  if (cost < 1) return 'text-muted-foreground'
-  return ''
+  if (cost >= 3) return WARN_TEXT;
+  if (cost < 1) return 'text-muted-foreground';
+  return '';
 }
 
 export function RecommendationsPanel({
@@ -52,11 +52,11 @@ export function RecommendationsPanel({
       positionFilter !== 'ALL' ? positionFilter : undefined
     ),
     enabled: !!sessionId
-  })
+  });
 
-  const tierWarnings = useMemo(() => computeTierExhaustion(players), [players])
-  const positionWait = data?.position_wait ?? []
-  const topStackHints = stackHints.slice(0, 5)
+  const tierWarnings = useMemo(() => computeTierExhaustion(players), [players]);
+  const positionWait = data?.position_wait ?? [];
+  const topStackHints = stackHints.slice(0, 5);
 
   return (
     <Card>
@@ -72,13 +72,16 @@ export function RecommendationsPanel({
         {positionWait.length > 0 && (
           <p className='text-muted-foreground border-b pb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             {positionWait
-              .map(w => `${w.position}: ${w.wait_cost > 0 ? '−' : '+'}${Math.abs(w.wait_cost).toFixed(1)} if you wait`)
+              .map(
+                (w) =>
+                  `${w.position}: ${w.wait_cost > 0 ? '−' : '+'}${Math.abs(w.wait_cost).toFixed(1)} if you wait`
+              )
               .join(' · ')}
           </p>
         )}
         {tierWarnings.length > 0 && (
           <div className='space-y-0.5 border-b pb-[var(--space-2)]'>
-            {tierWarnings.map(w => (
+            {tierWarnings.map((w) => (
               <p
                 key={w.position}
                 className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium ${w.count === 1 ? WARN_TEXT : 'text-muted-foreground'}`}
@@ -96,11 +99,22 @@ export function RecommendationsPanel({
           <DataLoadReveal
             loading={isLoading}
             skeleton={
-              <div className='flex items-center gap-[var(--space-2)] py-[var(--space-4)]'>
-                <Icons.spinner className='text-muted-foreground h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
-                <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                  Loading...
-                </span>
+              <div className='space-y-[var(--space-2)]'>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className='flex items-center justify-between rounded-md p-[var(--space-2)]'
+                  >
+                    <div className='flex items-center gap-[var(--space-2)]'>
+                      <Skeleton className='h-[var(--space-4)] w-4' />
+                      <div className='space-y-1'>
+                        <Skeleton className='h-[var(--space-4)] w-28' />
+                        <Skeleton className='h-[var(--space-3)] w-36' />
+                      </div>
+                    </div>
+                    <Skeleton className='h-[var(--space-4)] w-8 rounded-full' />
+                  </div>
+                ))}
               </div>
             }
           >
@@ -131,12 +145,16 @@ export function RecommendationsPanel({
                               {rec.vorp.toFixed(1)}
                             </p>
                             {rec.gone_probability != null && (
-                              <p className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${goneProbabilityColor(rec.gone_probability)}`}>
+                              <p
+                                className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${goneProbabilityColor(rec.gone_probability)}`}
+                              >
                                 {Math.round(rec.gone_probability * 100)}% gone by your next pick
                               </p>
                             )}
                             {rec.wait_cost != null && (
-                              <p className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${waitCostColor(rec.wait_cost)}`}>
+                              <p
+                                className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${waitCostColor(rec.wait_cost)}`}
+                              >
                                 Waiting costs ~{rec.wait_cost.toFixed(1)} pts of value
                               </p>
                             )}
@@ -164,7 +182,10 @@ export function RecommendationsPanel({
                     </p>
                     <div className='space-y-1'>
                       {topStackHints.map((hint, hi) => (
-                        <div key={`${hint.player_name}-${hi}`} className='flex items-center gap-[var(--space-2)]'>
+                        <div
+                          key={`${hint.player_name}-${hi}`}
+                          className='flex items-center gap-[var(--space-2)]'
+                        >
                           <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
                             {hint.player_name}
                           </span>
@@ -190,5 +211,5 @@ export function RecommendationsPanel({
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

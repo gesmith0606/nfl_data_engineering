@@ -20,14 +20,14 @@ import {
   fetchLeagueOverview,
   fetchLeagueRosterReport,
   fetchLeagueWaivers,
-  sleeperLogin,
+  sleeperLogin
 } from '@/lib/nfl/api';
 import {
   MAX_CONNECTED_LEAGUES as MAX_LEAGUES,
   loadConnectedLeagues as loadConnected,
   saveConnectedLeagues as saveConnected,
   upsertConnectedLeague as upsertConnected,
-  removeConnectedLeague as removeConnected,
+  removeConnectedLeague as removeConnected
 } from '@/lib/nfl/connected-leagues';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, SUCCESS_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
@@ -44,7 +44,7 @@ import type {
   RosterReportResponse,
   SleeperLeague,
   SleeperUser,
-  WaiversResponse,
+  WaiversResponse
 } from '@/lib/nfl/types';
 
 // localStorage helpers (cap 3 leagues) live in @/lib/nfl/connected-leagues —
@@ -58,7 +58,7 @@ import type {
 function PosBadge({ pos }: { pos: string | null }) {
   return (
     <span
-      className={`inline-flex items-center border px-1.5 py-0.5 text-[10px] font-bold ${getPositionBadgeClass(pos ?? '')}`}
+      className={`inline-flex items-center border px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold ${getPositionBadgeClass(pos ?? '')}`}
     >
       {pos ?? '?'}
     </span>
@@ -79,12 +79,14 @@ function slotLabel(slot: string): string {
 // PlayerRowList component — shared markup for Starters, Bench, Waivers
 // ---------------------------------------------------------------------------
 
-interface PlayerRowListProps<T extends {
-  position: string | null;
-  player_name: string | null;
-  team?: string | null;
-  projected_season_points?: number | null;
-}> {
+interface PlayerRowListProps<
+  T extends {
+    position: string | null;
+    player_name: string | null;
+    team?: string | null;
+    projected_season_points?: number | null;
+  }
+> {
   rows: T[];
   showSlot?: boolean;
   getSlot?: (row: T) => string | undefined;
@@ -99,21 +101,10 @@ function PlayerRowList<
     player_name: string | null;
     team?: string | null;
     projected_season_points?: number | null;
-  },
->({
-  rows,
-  showSlot,
-  getSlot,
-  dimPoints,
-  extra,
-  compact,
-}: PlayerRowListProps<T>) {
+  }
+>({ rows, showSlot, getSlot, dimPoints, extra, compact }: PlayerRowListProps<T>) {
   if (rows.length === 0) {
-    return (
-      <p className='px-4 py-3 text-sm text-muted-foreground'>
-        No rows available.
-      </p>
-    );
+    return <p className='px-4 py-3 text-sm text-muted-foreground'>No rows available.</p>;
   }
 
   if (extra) {
@@ -121,13 +112,10 @@ function PlayerRowList<
     return (
       <>
         {rows.map((row, i) => (
-          <div
-            key={i}
-            className='flex items-center justify-between px-4 py-2.5 gap-3'
-          >
+          <div key={i} className='flex items-center justify-between px-4 py-2.5 gap-3'>
             <div className='flex items-center gap-2.5 min-w-0'>
               {showSlot && getSlot?.(row) && (
-                <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono shrink-0'>
+                <span className='w-8 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold text-muted-foreground font-mono shrink-0'>
                   {slotLabel(getSlot(row)!) === (row.position ?? '')
                     ? ''
                     : slotLabel(getSlot(row)!)}
@@ -135,11 +123,9 @@ function PlayerRowList<
               )}
               <PosBadge pos={row.position} />
               <div className='min-w-0'>
-                <p className='text-sm font-medium truncate'>
-                  {row.player_name ?? '—'}
-                </p>
+                <p className='text-sm font-medium truncate'>{row.player_name ?? '—'}</p>
                 {row.team && (
-                  <p className='text-[10px] text-muted-foreground'>
+                  <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
                     {row.team}
                   </p>
                 )}
@@ -151,9 +137,7 @@ function PlayerRowList<
                   dimPoints ? 'text-muted-foreground' : SUCCESS_TEXT
                 }`}
               >
-                {row.projected_season_points != null
-                  ? row.projected_season_points.toFixed(1)
-                  : '—'}
+                {row.projected_season_points != null ? row.projected_season_points.toFixed(1) : '—'}
               </p>
               {extra(row, i)}
             </div>
@@ -169,36 +153,24 @@ function PlayerRowList<
       {rows.map((row, i) => (
         <div
           key={i}
-          className={`flex items-center justify-between px-4 ${
-            compact ? 'py-2' : 'py-2.5'
-          }`}
+          className={`flex items-center justify-between px-4 ${compact ? 'py-2' : 'py-2.5'}`}
         >
           <div className='flex items-center gap-2.5'>
             {showSlot && getSlot?.(row) && (
-              <span className='w-8 text-[10px] font-bold text-muted-foreground font-mono'>
-                {slotLabel(getSlot(row)!) === (row.position ?? '')
-                  ? ''
-                  : slotLabel(getSlot(row)!)}
+              <span className='w-8 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold text-muted-foreground font-mono'>
+                {slotLabel(getSlot(row)!) === (row.position ?? '') ? '' : slotLabel(getSlot(row)!)}
               </span>
             )}
             <PosBadge pos={row.position} />
-            <span className='text-sm font-medium'>
-              {row.player_name ?? '—'}
-            </span>
-            {row.team && (
-              <span className='text-xs text-muted-foreground'>{row.team}</span>
-            )}
+            <span className='text-sm font-medium'>{row.player_name ?? '—'}</span>
+            {row.team && <span className='text-xs text-muted-foreground'>{row.team}</span>}
           </div>
           <span
             className={`text-sm tabular-nums ${
-              dimPoints
-                ? 'text-muted-foreground'
-                : `font-semibold ${SUCCESS_TEXT}`
+              dimPoints ? 'text-muted-foreground' : `font-semibold ${SUCCESS_TEXT}`
             }`}
           >
-            {row.projected_season_points != null
-              ? row.projected_season_points.toFixed(1)
-              : '—'}
+            {row.projected_season_points != null ? row.projected_season_points.toFixed(1) : '—'}
           </span>
         </div>
       ))}
@@ -246,17 +218,20 @@ export function SleeperLeagueView() {
       sections: [
         {
           title: 'What is re-scoring?',
-          description: 'Projections are recomputed under your league\'s exact scoring settings, factoring in custom point values for PPR, pass TD, position multipliers, and more.',
+          description:
+            "Projections are recomputed under your league's exact scoring settings, factoring in custom point values for PPR, pass TD, position multipliers, and more."
         },
         {
-          title: 'Why don\'t I see my roster?',
-          description: 'Make sure you\'re using your Sleeper username (not display name). Pre-draft leagues show the draft board; once rosters are set, your players will appear here.',
+          title: "Why don't I see my roster?",
+          description:
+            "Make sure you're using your Sleeper username (not display name). Pre-draft leagues show the draft board; once rosters are set, your players will appear here."
         },
         {
           title: 'Is my data stored?',
-          description: 'Your connected leagues are stored locally in your browser only — no account or cloud storage required. Disconnect anytime without losing access.',
-        },
-      ],
+          description:
+            'Your connected leagues are stored locally in your browser only — no account or cloud storage required. Disconnect anytime without losing access.'
+        }
+      ]
     };
     setContent(leaguesFaqContent);
   }, [setContent]);
@@ -288,20 +263,18 @@ export function SleeperLeagueView() {
         setLoading(false);
       }
     },
-    [username],
+    [username]
   );
 
   const handlePickLeague = useCallback(
     (user: SleeperUser, league: SleeperLeague, leagues: SleeperLeague[]) => {
       if (connected.length >= MAX_LEAGUES) {
-        setError(
-          `You can connect up to ${MAX_LEAGUES} leagues. Remove one before adding another.`,
-        );
+        setError(`You can connect up to ${MAX_LEAGUES} leagues. Remove one before adding another.`);
         return;
       }
       setStep({ kind: 'pick_roster', user, league, leagues });
     },
-    [connected.length],
+    [connected.length]
   );
 
   // Prefetch the league overview when the confirm step opens; the fetch is
@@ -341,7 +314,7 @@ export function SleeperLeagueView() {
           username: user.username,
           roster_positions: overview.roster_positions,
           scoring_format_label: overview.scoring_format_label,
-          connected_at: new Date().toISOString(),
+          connected_at: new Date().toISOString()
         };
         const updated = upsertConnected(entry);
         saveConnected(updated);
@@ -356,7 +329,7 @@ export function SleeperLeagueView() {
         setLoading(false);
       }
     },
-    [preview],
+    [preview]
   );
 
   const handleDisconnect = useCallback(
@@ -367,7 +340,7 @@ export function SleeperLeagueView() {
         setActiveLeagueId(updated.length > 0 ? updated[0].league_id : null);
       }
     },
-    [activeLeagueId],
+    [activeLeagueId]
   );
 
   // ----- wizard: pick league -----
@@ -380,9 +353,7 @@ export function SleeperLeagueView() {
           </div>
           <p className='text-sm font-medium'>
             Connected as{' '}
-            <span className='font-bold'>
-              {step.user.display_name ?? step.user.username}
-            </span>
+            <span className='font-bold'>{step.user.display_name ?? step.user.username}</span>
           </p>
           <p className='text-xs text-muted-foreground mt-0.5'>
             Pick a league to sync (max {MAX_LEAGUES})
@@ -390,9 +361,7 @@ export function SleeperLeagueView() {
         </div>
         <div className='space-y-2'>
           {step.leagues.map((league) => {
-            const alreadyConnected = connected.some(
-              (c) => c.league_id === league.league_id,
-            );
+            const alreadyConnected = connected.some((c) => c.league_id === league.league_id);
             return (
               <button
                 key={league.league_id}
@@ -404,9 +373,7 @@ export function SleeperLeagueView() {
                 <div className='flex items-center justify-between'>
                   <span className='font-medium text-sm'>{league.name}</span>
                   {alreadyConnected && (
-                    <span className='text-xs text-muted-foreground'>
-                      Already connected
-                    </span>
+                    <span className='text-xs text-muted-foreground'>Already connected</span>
                   )}
                 </div>
                 <p className='text-xs text-muted-foreground mt-0.5'>
@@ -441,9 +408,7 @@ export function SleeperLeagueView() {
           </div>
           <p className='text-sm font-medium'>
             Connecting as{' '}
-            <span className='font-bold'>
-              {step.user.display_name ?? step.user.username}
-            </span>
+            <span className='font-bold'>{step.user.display_name ?? step.user.username}</span>
           </p>
           <p className='text-sm text-muted-foreground mt-1'>
             Joining <span className='font-medium'>{step.league.name}</span> — one of{' '}
@@ -453,17 +418,15 @@ export function SleeperLeagueView() {
             <p className='text-sm mt-2'>
               Your team:{' '}
               <span className='font-medium'>
-                {preview.team_name ??
-                  `Team ${step.user.display_name ?? step.user.username}`}
+                {preview.team_name ?? `Team ${step.user.display_name ?? step.user.username}`}
               </span>
               {preview.user_roster.length > 0 && (
                 <span className='text-muted-foreground'>
-                  {' '}· {preview.user_roster.length} players rostered
+                  {' '}
+                  · {preview.user_roster.length} players rostered
                 </span>
               )}
-              <span className='text-muted-foreground'>
-                {' '}· {preview.scoring_format_label}
-              </span>
+              <span className='text-muted-foreground'> · {preview.scoring_format_label}</span>
             </p>
           ) : (
             <p className='text-xs text-muted-foreground mt-2 flex items-center gap-1.5'>
@@ -472,8 +435,7 @@ export function SleeperLeagueView() {
             </p>
           )}
           <p className='text-xs text-muted-foreground mt-2'>
-            We'll fetch your roster and re-score it under the league's custom
-            settings.
+            We'll fetch your roster and re-score it under the league's custom settings.
           </p>
         </div>
         <div className='flex gap-2'>
@@ -491,7 +453,7 @@ export function SleeperLeagueView() {
               setStep({
                 kind: 'pick_league',
                 user: step.user,
-                leagues: step.leagues,
+                leagues: step.leagues
               })
             }
             className='rounded-md border px-3 py-2 text-sm hover:bg-muted'
@@ -556,23 +518,18 @@ export function SleeperLeagueView() {
           {connected.length === 0 && (
             <>
               <div className='flex items-center justify-between'>
-                <h3 className='text-lg font-semibold'>
-                  Connect your Sleeper league
-                </h3>
+                <h3 className='text-lg font-semibold'>Connect your Sleeper league</h3>
                 <span className='text-xs font-medium text-muted-foreground'>Step 1 of 3</span>
               </div>
               <p className='text-sm text-muted-foreground'>
-                Enter your Sleeper username to get roster advice under your
-                league's exact scoring. Your leagues are saved locally — no
-                account required.
+                Enter your Sleeper username to get roster advice under your league's exact scoring.
+                Your leagues are saved locally — no account required.
               </p>
             </>
           )}
           {step.kind === 'entering_username' && connected.length > 0 && (
             <div className='flex items-center justify-between'>
-              <h3 className='text-lg font-semibold'>
-                Connect another league
-              </h3>
+              <h3 className='text-lg font-semibold'>Connect another league</h3>
               <span className='text-xs font-medium text-muted-foreground'>Step 1 of 3</span>
             </div>
           )}
@@ -620,19 +577,14 @@ export function SleeperLeagueView() {
       {activeLeague(connected, activeLeagueId) && step.kind === 'idle' && (
         <LeagueHome
           league={activeLeague(connected, activeLeagueId)!}
-          onDisconnect={() =>
-            handleDisconnect(activeLeague(connected, activeLeagueId)!.league_id)
-          }
+          onDisconnect={() => handleDisconnect(activeLeague(connected, activeLeagueId)!.league_id)}
         />
       )}
     </div>
   );
 }
 
-function activeLeague(
-  connected: ConnectedLeague[],
-  id: string | null,
-): ConnectedLeague | null {
+function activeLeague(connected: ConnectedLeague[], id: string | null): ConnectedLeague | null {
   return connected.find((l) => l.league_id === id) ?? null;
 }
 
@@ -642,7 +594,7 @@ function activeLeague(
 
 function LeagueHome({
   league,
-  onDisconnect,
+  onDisconnect
 }: {
   league: ConnectedLeague;
   onDisconnect: () => void;
@@ -659,16 +611,13 @@ function LeagueHome({
     setLoading(true);
     setError(null);
 
-    const seasonYear =
-      parseInt(league.season, 10) || new Date().getFullYear();
+    const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
 
     Promise.all([
       fetchLeagueRosterReport(league.league_id, league.user_id, seasonYear),
       fetchLeagueWaivers(league.league_id, league.user_id, seasonYear),
       // Draft prep is best-effort: its absence must not take down the view.
-      fetchLeagueDraftPrep(league.league_id, league.user_id, seasonYear).catch(
-        () => null
-      ),
+      fetchLeagueDraftPrep(league.league_id, league.user_id, seasonYear).catch(() => null)
     ])
       .then(([r, w, p]) => {
         if (!cancelled) {
@@ -694,18 +643,14 @@ function LeagueHome({
 
   const isEmptyRoster = !report || report.roster_size === 0;
   const isMatchFailure =
-    report !== null &&
-    report.roster_size === 0 &&
-    report.unmatched_player_ids.length > 0;
+    report !== null && report.roster_size === 0 && report.unmatched_player_ids.length > 0;
   // Draft prep keys off the league's DRAFT status, not roster emptiness —
   // dynasty rosters carry players year-round, so an empty roster can't be
   // the pre-draft signal. Empty-roster (redraft) leagues stay covered as a
   // fallback for when the drafts API returns nothing.
   const draftStatus = prep?.draft_info?.status ?? null;
   const showDraftPrep =
-    draftStatus === 'pre_draft' ||
-    draftStatus === 'drafting' ||
-    (isEmptyRoster && !isMatchFailure);
+    draftStatus === 'pre_draft' || draftStatus === 'drafting' || (isEmptyRoster && !isMatchFailure);
 
   return (
     <div className='space-y-4'>
@@ -717,7 +662,7 @@ function LeagueHome({
             {league.username} · Season {league.season}
           </p>
           <div className='flex flex-wrap gap-1 mt-1'>
-            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium text-muted-foreground'>
+            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium text-muted-foreground'>
               {league.scoring_format_label}
             </span>
             {league.roster_positions
@@ -725,7 +670,7 @@ function LeagueHome({
               .map((p, i) => (
                 <span
                   key={i}
-                  className='inline-flex items-center rounded bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground'
+                  className='inline-flex items-center rounded bg-muted px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-mono text-muted-foreground'
                 >
                   {p}
                 </span>
@@ -756,11 +701,7 @@ function LeagueHome({
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              {t === 'myweek'
-                ? 'My Week'
-                : t === 'report'
-                  ? 'Roster Report'
-                  : 'Waiver Targets'}
+              {t === 'myweek' ? 'My Week' : t === 'report' ? 'Roster Report' : 'Waiver Targets'}
             </button>
           ))}
         </div>
@@ -768,40 +709,30 @@ function LeagueHome({
 
       {/* Loading / error states */}
       {loading && (
-        <div className='py-8 text-center text-sm text-muted-foreground'>
-          Loading league data…
-        </div>
+        <div className='py-8 text-center text-sm text-muted-foreground'>Loading league data…</div>
       )}
       {!loading && error && (
-        <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
-          {error}
-        </div>
+        <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>{error}</div>
       )}
 
       {/* Match-failure warning — roster exists but projections couldn't be matched */}
       {!loading && !error && isMatchFailure && report && (
         <div className='rounded-lg border p-6 text-center space-y-2'>
-          <p className={`font-medium text-sm ${WARN_TEXT}`}>
-            Roster Found — Projections Pending
-          </p>
+          <p className={`font-medium text-sm ${WARN_TEXT}`}>Roster Found — Projections Pending</p>
           <p className='text-sm text-muted-foreground'>
-            We found your roster but couldn&apos;t match{' '}
-            {report.unmatched_player_ids.length}{' '}
-            {report.unmatched_player_ids.length === 1 ? 'player' : 'players'} to
-            projections — data may be refreshing, try again shortly.
+            We found your roster but couldn&apos;t match {report.unmatched_player_ids.length}{' '}
+            {report.unmatched_player_ids.length === 1 ? 'player' : 'players'} to projections — data
+            may be refreshing, try again shortly.
           </p>
         </div>
       )}
 
       {/* Draft-prep panel — league draft status is pre_draft/drafting
           (dynasty rosters stay populated, so roster emptiness can't gate this) */}
-      {!loading && !error && showDraftPrep && prep && (
-        <DraftPrepView prep={prep} />
-      )}
+      {!loading && !error && showDraftPrep && prep && <DraftPrepView prep={prep} />}
       {!loading && !error && showDraftPrep && !prep && (
         <div className='rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground'>
-          Pre-Draft Mode — draft board data is unavailable right now; check
-          back shortly.
+          Pre-Draft Mode — draft board data is unavailable right now; check back shortly.
         </div>
       )}
 
@@ -836,17 +767,21 @@ function MyWeekStatusBadges({ p }: { p: MyWeekPlayer }) {
   return (
     <>
       {p.is_bye_week && (
-        <span className='rounded bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground'>
+        <span className='rounded bg-muted px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold text-muted-foreground'>
           BYE
         </span>
       )}
       {p.is_out && (
-        <span className={`rounded border px-1.5 py-0.5 text-[10px] font-bold ${DANGER_TEXT}`}>
+        <span
+          className={`rounded border px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold ${DANGER_TEXT}`}
+        >
           {p.injury_status?.toUpperCase() ?? 'OUT'}
         </span>
       )}
       {!p.is_out && p.injury_status && p.injury_status !== 'Active' && (
-        <span className={`rounded border px-1.5 py-0.5 text-[10px] font-bold ${WARN_TEXT}`}>
+        <span
+          className={`rounded border px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold ${WARN_TEXT}`}
+        >
           {p.injury_status.toUpperCase()}
         </span>
       )}
@@ -854,40 +789,32 @@ function MyWeekStatusBadges({ p }: { p: MyWeekPlayer }) {
   );
 }
 
-function MyWeekRow({
-  p,
-  slot,
-}: {
-  p: MyWeekPlayer;
-  slot?: string;
-}) {
+function MyWeekRow({ p, slot }: { p: MyWeekPlayer; slot?: string }) {
   return (
     <div className='flex items-center justify-between px-4 py-2.5 gap-3'>
       <div className='flex items-center gap-2.5 min-w-0'>
         {slot && (
-          <span className='w-10 text-[10px] font-bold text-muted-foreground font-mono shrink-0'>
+          <span className='w-10 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-bold text-muted-foreground font-mono shrink-0'>
             {slot}
           </span>
         )}
         <PosBadge pos={p.position} />
         <div className='min-w-0'>
           <div className='flex items-center gap-1.5'>
-            <p className='text-sm font-medium truncate'>
-              {p.player_name ?? '—'}
-            </p>
+            <p className='text-sm font-medium truncate'>{p.player_name ?? '—'}</p>
             <MyWeekStatusBadges p={p} />
           </div>
           {p.team && (
-            <p className='text-[11px] text-muted-foreground'>{p.team}</p>
+            <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
+              {p.team}
+            </p>
           )}
         </div>
       </div>
       <div className='text-right shrink-0'>
-        <p className='text-sm font-semibold tabular-nums'>
-          {fmtWeekPts(p.projected_points)}
-        </p>
+        <p className='text-sm font-semibold tabular-nums'>{fmtWeekPts(p.projected_points)}</p>
         {p.floor !== null && p.ceiling !== null && (
-          <p className='text-[10px] text-muted-foreground tabular-nums'>
+          <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground tabular-nums'>
             {p.floor.toFixed(1)}–{p.ceiling.toFixed(1)}
           </p>
         )}
@@ -898,7 +825,7 @@ function MyWeekRow({
 
 function MyWeekView({
   league,
-  onShowReport,
+  onShowReport
 }: {
   league: ConnectedLeague;
   onShowReport: () => void;
@@ -913,8 +840,7 @@ function MyWeekView({
     let cancelled = false;
     setLoading(true);
     setError(null);
-    const seasonYear =
-      parseInt(league.season, 10) || new Date().getFullYear();
+    const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
     fetchLeagueMyWeek(league.league_id, league.user_id, seasonYear, week)
       .then((d) => {
         if (!cancelled) setData(d);
@@ -936,18 +862,10 @@ function MyWeekView({
   const askGx01 = () => window.dispatchEvent(new Event('gx01:toggle'));
 
   if (loading) {
-    return (
-      <div className='py-8 text-center text-sm text-muted-foreground'>
-        Loading your week…
-      </div>
-    );
+    return <div className='py-8 text-center text-sm text-muted-foreground'>Loading your week…</div>;
   }
   if (error) {
-    return (
-      <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>
-        {error}
-      </div>
-    );
+    return <div className={`rounded-md border p-4 text-sm ${DANGER_TEXT}`}>{error}</div>;
   }
   if (!data) return null;
 
@@ -957,8 +875,7 @@ function MyWeekView({
       <div className='rounded-lg border border-dashed p-6 text-center space-y-3'>
         <p className='text-sm font-medium'>My Week starts with the season</p>
         <p className='text-sm text-muted-foreground'>
-          {data.message ??
-            'Weekly projections are not available yet for this week.'}
+          {data.message ?? 'Weekly projections are not available yet for this week.'}
         </p>
         <button
           type='button'
@@ -988,9 +905,7 @@ function MyWeekView({
           <select
             id='myweek-week'
             value={week ?? data.week ?? ''}
-            onChange={(e) =>
-              setWeek(e.target.value ? parseInt(e.target.value, 10) : undefined)
-            }
+            onChange={(e) => setWeek(e.target.value ? parseInt(e.target.value, 10) : undefined)}
             className='rounded-md border bg-background px-2 py-1 text-sm'
           >
             {Array.from({ length: 18 }, (_, i) => i + 1).map((w) => (
@@ -999,7 +914,7 @@ function MyWeekView({
               </option>
             ))}
           </select>
-          <span className='rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground'>
+          <span className='rounded-full bg-muted px-2 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium text-muted-foreground'>
             {data.scoring_format_label || league.scoring_format_label}
           </span>
         </div>
@@ -1028,7 +943,7 @@ function MyWeekView({
           </div>
           <div className='grid gap-3 sm:grid-cols-2'>
             <div>
-              <p className='text-[10px] font-semibold uppercase text-muted-foreground mb-1'>
+              <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase text-muted-foreground mb-1'>
                 Start
               </p>
               <div className='rounded-md border divide-y'>
@@ -1038,7 +953,7 @@ function MyWeekView({
               </div>
             </div>
             <div>
-              <p className='text-[10px] font-semibold uppercase text-muted-foreground mb-1'>
+              <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase text-muted-foreground mb-1'>
                 Bench
               </p>
               <div className='rounded-md border divide-y'>
@@ -1048,7 +963,7 @@ function MyWeekView({
               </div>
             </div>
           </div>
-          <p className='text-[11px] text-muted-foreground'>
+          <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
             Current lineup {changes.current_points.toFixed(1)} pts → optimal{' '}
             {changes.optimal_points.toFixed(1)} pts.
           </p>
@@ -1062,9 +977,7 @@ function MyWeekView({
         </h3>
         <div className='rounded-lg border divide-y'>
           {data.optimal_starters.length === 0 ? (
-            <p className='px-4 py-3 text-sm text-muted-foreground'>
-              No rows available.
-            </p>
+            <p className='px-4 py-3 text-sm text-muted-foreground'>No rows available.</p>
           ) : (
             data.optimal_starters.map((s: MyWeekSlot, i: number) => (
               <MyWeekRow key={i} p={s} slot={s.slot} />
@@ -1098,7 +1011,9 @@ function MyWeekView({
               <div key={i}>
                 <MyWeekRow p={t} />
                 {t.upgrades_over && (
-                  <p className={`px-4 pb-2 -mt-1 text-[11px] ${SUCCESS_TEXT}`}>
+                  <p
+                    className={`px-4 pb-2 -mt-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${SUCCESS_TEXT}`}
+                  >
                     Upgrades over {t.upgrades_over}
                     {t.upgrade_slot ? ` (${t.upgrade_slot})` : ''}
                   </p>
@@ -1110,11 +1025,10 @@ function MyWeekView({
       )}
 
       {data.unmatched_player_ids.length > 0 && (
-        <p className='text-[11px] text-muted-foreground'>
+        <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
           {data.unmatched_player_ids.length}{' '}
-          {data.unmatched_player_ids.length === 1 ? 'player' : 'players'} had no
-          weekly projection and {data.unmatched_player_ids.length === 1 ? 'is' : 'are'}{' '}
-          excluded.
+          {data.unmatched_player_ids.length === 1 ? 'player' : 'players'} had no weekly projection
+          and {data.unmatched_player_ids.length === 1 ? 'is' : 'are'} excluded.
         </p>
       )}
     </div>
@@ -1145,11 +1059,7 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
           Optimal Starters
         </h3>
         <div className='rounded-lg border divide-y'>
-          <PlayerRowList
-            rows={report.starters}
-            showSlot
-            getSlot={(s) => s.slot}
-          />
+          <PlayerRowList rows={report.starters} showSlot getSlot={(s) => s.slot} />
         </div>
       </section>
 
@@ -1173,19 +1083,14 @@ function RosterReportView({ report }: { report: RosterReportResponse }) {
           </h3>
           <div className='rounded-lg border divide-y'>
             {report.drop_candidates.map((d, i) => (
-              <div
-                key={i}
-                className='flex items-start justify-between px-4 py-2.5 gap-3'
-              >
+              <div key={i} className='flex items-start justify-between px-4 py-2.5 gap-3'>
                 <div className='flex items-center gap-2.5 min-w-0'>
                   <PosBadge pos={d.position ?? null} />
-                  <span className='text-sm font-medium truncate'>
-                    {d.player_name ?? '—'}
-                  </span>
+                  <span className='text-sm font-medium truncate'>{d.player_name ?? '—'}</span>
                 </div>
                 <div className='text-right shrink-0'>
                   <p className={`text-xs ${DANGER_TEXT}`}>{d.reason}</p>
-                  <p className='text-[10px] text-muted-foreground tabular-nums'>
+                  <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground tabular-nums'>
                     {Number(d.value).toFixed(1)} proj pts
                   </p>
                 </div>
@@ -1206,8 +1111,7 @@ function WaiversView({ waivers }: { waivers: WaiversResponse }) {
   if (waivers.targets.length === 0) {
     return (
       <p className='rounded-md border p-4 text-sm text-muted-foreground'>
-        No waiver targets available. All projected players may already be
-        rostered.
+        No waiver targets available. All projected players may already be rostered.
       </p>
     );
   }
@@ -1215,19 +1119,20 @@ function WaiversView({ waivers }: { waivers: WaiversResponse }) {
   return (
     <div className='space-y-2'>
       <div className='text-xs text-muted-foreground'>
-        Top {waivers.targets.length} available free agents ranked by
-        league-scored season projection
+        Top {waivers.targets.length} available free agents ranked by league-scored season projection
       </div>
       <div className='rounded-lg border divide-y'>
         <PlayerRowList
           rows={waivers.targets}
           extra={(t) =>
             t.upgrades_over ? (
-              <p className={`text-[10px] ${WARN_TEXT}`}>
+              <p className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] ${WARN_TEXT}`}>
                 upgrades over {t.upgrades_over}
               </p>
             ) : (
-              <p className='text-[10px] text-muted-foreground'>depth</p>
+              <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
+                depth
+              </p>
             )
           }
         />
@@ -1240,20 +1145,29 @@ function WaiversView({ waivers }: { waivers: WaiversResponse }) {
 // Draft-Prep view (pre-season / pre_draft league state)
 // ---------------------------------------------------------------------------
 
+const VALUE_DISPLAY_CAP = 99;
+
 /**
  * Value badge shown next to a player's ADP rank in the best-available table.
  *
  * Positive value means our model projects the player higher than the market
  * does (adp_rank - projection_rank > 0). Green when value >= 10 (strong
  * undervaluation signal), yellow for 1-9, muted for neutral/negative.
+ *
+ * Rookie-capital picks can push |value| into the hundreds (draft-capital
+ * projection ranks vs. a much later real-world ADP), which reads as a data
+ * glitch rather than signal. The DISPLAYED magnitude is capped at 99
+ * ("99+"/"-99+"); sort/comparison logic upstream keeps using the raw,
+ * uncapped value.
  */
-function ValueBadge({ value }: { value: number | null }) {
+function ValueBadge({ value, isRookie }: { value: number | null; isRookie?: boolean }) {
   if (value == null) return null;
+  const isCapped = Math.abs(value) > VALUE_DISPLAY_CAP;
   let cls: string;
   let label: string;
   if (value >= 10) {
     cls = `${SUCCESS_TEXT} font-semibold`;
-    label = `+${value}`;
+    label = isCapped ? `${VALUE_DISPLAY_CAP}+` : `+${value}`;
   } else if (value > 0) {
     cls = `${WARN_TEXT}`;
     label = `+${value}`;
@@ -1262,36 +1176,34 @@ function ValueBadge({ value }: { value: number | null }) {
     label = '±0';
   } else {
     cls = 'text-muted-foreground';
-    label = String(value);
+    label = isCapped ? `-${VALUE_DISPLAY_CAP}+` : String(value);
   }
+  const title = isRookie
+    ? 'Rookie — ADP rank − our projection rank'
+    : 'ADP rank − our projection rank';
   return (
-    <span className={`text-[10px] tabular-nums ${cls}`} title='ADP rank − our projection rank'>
+    <span
+      className={`text-[length:var(--fs-micro)] leading-[var(--lh-micro)] tabular-nums ${cls}`}
+      title={title}
+    >
       {label}
     </span>
   );
 }
 
 /** A single player row used in the best-available and rookies tables. */
-function BestAvailableRow({
-  player,
-  rank,
-}: {
-  player: BestAvailablePlayer;
-  rank: number;
-}) {
+function BestAvailableRow({ player, rank }: { player: BestAvailablePlayer; rank: number }) {
   return (
     <div className='flex items-center justify-between px-4 py-2.5 gap-3'>
       <div className='flex items-center gap-2.5 min-w-0'>
-        <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>
-          {rank}
-        </span>
+        <span className='w-5 text-xs text-muted-foreground tabular-nums shrink-0'>{rank}</span>
         <PosBadge pos={player.position} />
         <div className='min-w-0'>
-          <p className='text-sm font-medium truncate'>
-            {player.player_name ?? '—'}
-          </p>
+          <p className='text-sm font-medium truncate'>{player.player_name ?? '—'}</p>
           {player.team && (
-            <p className='text-[10px] text-muted-foreground'>{player.team}</p>
+            <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
+              {player.team}
+            </p>
           )}
         </div>
       </div>
@@ -1300,20 +1212,18 @@ function BestAvailableRow({
         <div className='text-right w-16'>
           {player.adp_rank != null ? (
             <>
-              <p className='text-xs tabular-nums text-muted-foreground'>
-                ADP {player.adp_rank}
-              </p>
-              <ValueBadge value={player.value} />
+              <p className='text-xs tabular-nums text-muted-foreground'>ADP {player.adp_rank}</p>
+              <ValueBadge value={player.value} isRookie={player.years_exp === 0} />
             </>
           ) : (
-            <p className='text-[10px] text-muted-foreground'>no ADP</p>
+            <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
+              no ADP
+            </p>
           )}
         </div>
         {/* Projected points column */}
         <p className={`text-sm font-semibold tabular-nums w-12 text-right ${SUCCESS_TEXT}`}>
-          {player.projected_season_points != null
-            ? player.projected_season_points.toFixed(1)
-            : '—'}
+          {player.projected_season_points != null ? player.projected_season_points.toFixed(1) : '—'}
         </p>
       </div>
     </div>
@@ -1342,29 +1252,23 @@ function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
         <div className='rounded-lg border p-4 space-y-2'>
           <div className='flex items-center justify-between'>
             <h3 className='text-sm font-semibold'>Draft</h3>
-            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium text-muted-foreground capitalize'>
+            <span className='inline-flex items-center rounded-full border px-2 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium text-muted-foreground capitalize'>
               {draft_info.status.replace('_', ' ')}
             </span>
           </div>
           <div className='flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground'>
             <span>
               Type:{' '}
-              <span className='font-medium text-foreground capitalize'>
-                {draft_info.type}
-              </span>
+              <span className='font-medium text-foreground capitalize'>{draft_info.type}</span>
             </span>
             <span>
-              <span className='font-medium text-foreground'>
-                {draft_info.rounds}
-              </span>{' '}
+              <span className='font-medium text-foreground'>{draft_info.rounds}</span>{' '}
               {draft_info.rounds === 1 ? 'round' : 'rounds'}
             </span>
             {draft_info.user_slot != null ? (
               <span>
                 Your slot:{' '}
-                <span className='font-medium text-foreground'>
-                  #{draft_info.user_slot}
-                </span>
+                <span className='font-medium text-foreground'>#{draft_info.user_slot}</span>
               </span>
             ) : (
               <span className='italic'>Draft order not set yet</span>
@@ -1381,32 +1285,25 @@ function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
           </h3>
           <div className='rounded-lg border divide-y'>
             {keeper_candidates.map((k, i) => (
-              <div
-                key={i}
-                className='flex items-center justify-between px-4 py-2.5 gap-3'
-              >
+              <div key={i} className='flex items-center justify-between px-4 py-2.5 gap-3'>
                 <div className='flex items-center gap-2.5 min-w-0'>
                   <PosBadge pos={k.position} />
                   <div className='min-w-0'>
-                    <p className='text-sm font-medium truncate'>
-                      {k.player_name ?? '—'}
-                    </p>
+                    <p className='text-sm font-medium truncate'>{k.player_name ?? '—'}</p>
                     {k.team && (
-                      <p className='text-[10px] text-muted-foreground'>
+                      <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
                         {k.team}
                       </p>
                     )}
                   </div>
                   {k.taxi_eligible && (
-                    <span className='inline-flex items-center rounded border border-dashed px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground'>
+                    <span className='inline-flex items-center rounded border border-dashed px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium text-muted-foreground'>
                       TAXI
                     </span>
                   )}
                 </div>
                 <p className={`text-sm font-semibold tabular-nums shrink-0 ${SUCCESS_TEXT}`}>
-                  {k.projected_season_points != null
-                    ? k.projected_season_points.toFixed(1)
-                    : '—'}
+                  {k.projected_season_points != null ? k.projected_season_points.toFixed(1) : '—'}
                 </p>
               </div>
             ))}
@@ -1437,14 +1334,14 @@ function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
 
         {/* Rookies tab note */}
         {tab === 'rookies' && rookie_note && (
-          <p className='text-[10px] text-muted-foreground px-1 pt-2 pb-1 italic'>
+          <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground px-1 pt-2 pb-1 italic'>
             {rookie_note}
           </p>
         )}
 
         {/* Column headers */}
         {activeList.length > 0 && (
-          <div className='flex items-center justify-between px-4 py-1.5 text-[10px] font-semibold uppercase text-muted-foreground'>
+          <div className='flex items-center justify-between px-4 py-1.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase text-muted-foreground'>
             <span>Player</span>
             <div className='flex gap-3'>
               <span className='w-16 text-right'>ADP / Value</span>
@@ -1460,11 +1357,7 @@ function DraftPrepView({ prep }: { prep: LeagueDraftPrepResponse }) {
         ) : (
           <div className='rounded-lg border divide-y'>
             {activeList.map((player, i) => (
-              <BestAvailableRow
-                key={player.sleeper_player_id || i}
-                player={player}
-                rank={i + 1}
-              />
+              <BestAvailableRow key={player.sleeper_player_id || i} player={player} rank={i + 1} />
             ))}
           </div>
         )}
