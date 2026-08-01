@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: launch-2026
 milestone_name: Pre-August Paid Launch
 status: active
-stopped_at: HF-Space staleness incident fixed (deploy-web daily cron, issue #71); all 8 workflows evidence-green; remaining rehearsal ~Aug 3-7 is --ml + sunday-refresh live-path only; WS2 billing go-live is user-owned.
-last_updated: "2026-07-30T00:00:00.000Z"
-last_activity: 2026-07-30
+stopped_at: Phase 81 live audit found 6 broken dashboard routes (draft CRASH + 5 suspended voids); P0 fixed in PR #73, remediation + advisor-tools + polish PRs in flight — merges pending user; billing go-live still user-owned.
+last_updated: "2026-08-01T00:00:00.000Z"
+last_activity: 2026-08-01
 ---
 
 # Project State
@@ -59,6 +59,24 @@ runbook in `WORKFLOW_READINESS.md`).
 4. **In-season gates (Sept+):** line-capture verdict by w10 (mean >+0.3,
    n≥150); prop-implied `--props-blend` eval once Sunday snapshots accumulate;
    RB +0.26 consensus gap levers; PFF decision ~Nov.
+5. **Site-fix sprint 2026-08-01 (Phase 81 executed):** live audit found 6 of
+   11 dashboard routes broken in prod — /dashboard/draft CRASHED for all
+   visitors since ~07-19 (presets envelope, fixed in **PR #73**) and
+   games/rankings/players/lineups/matchups render unresolved-Suspense voids
+   (remediation branch `fix/dashboard-suspended-routes`). Audit doc:
+   `.planning/milestones/v7.2-phases/81-dashboard-feature-audit/UX-01-AUDIT.md`.
+   Also in flight: **PR #72** advisor tools (Phase 83 TOOL-01/02),
+   frontend polish PR (font tokens, skeletons, demo-form removal, badge cap).
+   **User actions: merge the PRs** (gh pr merge is permission-gated for the
+   agent) in order #73 → suspended-routes → #72 → polish, resolving small
+   conflicts in lineup-view/player-detail if any. Process gap recorded: HTTP
+   live gates can't see client-side crashes — hydrated-content sentinel is a
+   follow-up candidate.
+6. **Push-v2 (blocked on operator infra):** delivery stub is intentionally
+   OFF; activation checklist (KV store + VAPID keys + env) documented in
+   `docs/PUSH_NOTIFICATIONS.md`. Sentiment-multiplier "wiring" note: already
+   BUILT as opt-in `--use-sentiment` (event-based, per Phase 61 D-03);
+   default-ON remains gated on in-season eval like `--props-blend`.
 
 ## Deferred (unchanged)
 
