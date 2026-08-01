@@ -19,10 +19,12 @@ jobs:
   frontend-build:
     name: Frontend Build
     runs-on: ubuntu-latest
-    if: |
-      github.event_name == 'workflow_dispatch' ||
-      contains(toJSON(github.event.pull_request.changed_files || '[]'), 'web/frontend') ||
-      github.event_name == 'push'
+    # No job-level path condition: the old guard read
+    # github.event.pull_request.changed_files — a NUMBER in the PR payload —
+    # so contains() was always false and this job SKIPPED on every PR
+    # (frontend changes reached main unbuilt and untested until 2026-08-01).
+    # The dorny/paths-filter steps below are the real gate; on PRs without
+    # frontend changes every step no-ops and the job passes in seconds.
     steps:
       - uses: actions/checkout@v4
 
@@ -47,6 +49,11 @@ jobs:
         if: steps.changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
         working-directory: web/frontend
         run: npm ci
+
+      - name: Unit tests (vitest)
+        if: steps.changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
+        working-directory: web/frontend
+        run: npm test
 
       - name: Build (catches missing imports, type errors, route errors)
         if: steps.changes.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
