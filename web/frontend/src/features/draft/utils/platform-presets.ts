@@ -66,6 +66,40 @@ export const FALLBACK_PLATFORM_PRESETS: Record<RoomPlatform, DraftPlatformPreset
   }
 }
 
+/**
+ * Merge whatever GET /api/draft/platforms returned over the hardcoded
+ * fallbacks, per platform AND per field. The live API's `custom` entry is
+ * all-null and any platform key may be absent, so a raw replacement of the
+ * fallback record crashes preset consumers (`activePreset.timer_seconds` on
+ * undefined took down /dashboard/draft on 2026-08-01). Null/undefined fields
+ * always resolve to the fallback value; `timer_seconds: null` from a real
+ * platform is preserved only via applyPlatformPreset's explicit opt-in, not
+ * here — presets must always be fully populated.
+ */
+export function normalizePlatformPresets(
+  data: Record<string, Partial<DraftPlatformPreset> | undefined> | undefined
+): Record<RoomPlatform, DraftPlatformPreset> {
+  const merged = {} as Record<RoomPlatform, DraftPlatformPreset>
+  for (const platform of ROOM_PLATFORMS) {
+    const fallback = FALLBACK_PLATFORM_PRESETS[platform]
+    const api = data?.[platform]
+    merged[platform] = api
+      ? {
+          scoring_format: api.scoring_format ?? fallback.scoring_format,
+          roster_format: api.roster_format ?? fallback.roster_format,
+          rounds: api.rounds ?? fallback.rounds,
+          timer_seconds: api.timer_seconds ?? fallback.timer_seconds,
+          adp_source: api.adp_source ?? fallback.adp_source,
+          roster_slots:
+            api.roster_slots && Object.keys(api.roster_slots).length > 0
+              ? api.roster_slots
+              : fallback.roster_slots
+        }
+      : fallback
+  }
+  return merged
+}
+
 const VALID_SCORING = new Set(['ppr', 'half_ppr', 'standard'])
 const VALID_ROSTER_FORMAT = new Set([
   'standard',
