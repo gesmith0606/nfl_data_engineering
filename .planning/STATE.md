@@ -65,13 +65,19 @@ runbook in `WORKFLOW_READINESS.md`).
    games/rankings/players/lineups/matchups render unresolved-Suspense voids
    (remediation branch `fix/dashboard-suspended-routes`). Audit doc:
    `.planning/milestones/v7.2-phases/81-dashboard-feature-audit/UX-01-AUDIT.md`.
-   Also in flight: **PR #72** advisor tools (Phase 83 TOOL-01/02),
-   frontend polish PR (font tokens, skeletons, demo-form removal, badge cap).
-   **User actions: merge the PRs** (gh pr merge is permission-gated for the
-   agent) in order #73 → suspended-routes → #72 → polish, resolving small
-   conflicts in lineup-view/player-detail if any. Process gap recorded: HTTP
-   live gates can't see client-side crashes — hydrated-content sentinel is a
-   follow-up candidate.
+   All four PRs are OPEN and CI-green (frontend gate now real, see below):
+   **#73** P0 draft crash · **#74** suspended routes + infobar/scorebug/
+   preseason-label/comparison fixes (root cause: RSC stream never flushing
+   bare no-fallback Suspense + Framer Motion rAF-freeze leaving content at
+   opacity 0) · **#72** advisor tools (Phase 83 TOOL-01/02) · **#75**
+   polish (font tokens 89→35, spinners→skeletons, demo-form deleted, badge
+   99+ cap). **User action: merge in order #73 → #74 → #72 → #75** (gh pr
+   merge is permission-gated for the agent; rebase #75 if lineup-view/
+   player-detail conflict). Bonus fix landed on main (42648579): ci.yml
+   Frontend Build had skipped on EVERY PR (changed_files is a number, not a
+   list) and never ran vitest — frontend gate is now real. Process gap
+   recorded: HTTP live gates can't see client-side crashes —
+   hydrated-content sentinel is a follow-up candidate.
 6. **Push-v2 (blocked on operator infra):** delivery stub is intentionally
    OFF; activation checklist (KV store + VAPID keys + env) documented in
    `docs/PUSH_NOTIFICATIONS.md`. Sentiment-multiplier "wiring" note: already
