@@ -4,6 +4,7 @@ import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
 import { getSubscriptionStatus } from '@/lib/billing/subscription';
 import { resolveDefaultWeek } from '@/lib/week-context';
+import { TEAM_FULL_NAMES, getTeamFullName } from '@/lib/nfl/team-meta';
 import {
   buildLeagueContextPrompt,
   parseAdvisorLeagues,
@@ -40,6 +41,8 @@ AVAILABLE CAPABILITIES:
 - Get player-specific news and injury updates.
 - Get draft board with ADP, VORP, and value tiers.
 - Get overall sentiment summary with bullish/bearish players.
+- Compare our projection for a player against ESPN, Sleeper, and Yahoo (FantasyPros proxy).
+- Get a team's defensive matchup quality by position (QB/RB/WR/TE) for a given week.
 - When the user has connected a Sleeper league: fetch their actual roster, their
   optimal lineup with drop candidates, and waiver targets scored under their
   league's exact scoring settings.
@@ -911,6 +914,194 @@ export async function POST(req: Request) {
               .filter((p) => p.rank_diff !== null)
               .sort((a, b) => Math.abs(b.rank_diff!) - Math.abs(a.rank_diff!))
               .slice(0, 5)
+          };
+        }
+      }),
+
+      // Phase 83 TOOL-01: 4-source projection comparison for a single player.
+      getProjectionComparison: tool({
+        description:
+          'Compare our fantasy projection for a player against external sources (ESPN, Sleeper, Yahoo via FantasyPros consensus). Returns each source\'s projected points plus delta_vs_ours (positive means externals are higher on the player than we are). Use this when the user asks things like "what does ESPN say about X", "compare projections for X", "is Sleeper higher on X than you", or wants to validate our number against the industry consensus for one player.',
+        inputSchema: z.object({
+          player_name: z
+            .string()
+            .describe('The player full name, e.g. "Justin Jefferson"'),
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .optional()
+            .describe(
+              'Optional NFL week (1-18). Omit to let the backend pick the ' +
+                'latest available week from the Gold layer.'
+            ),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format')
+        }),
+        execute: async ({ player_name, season, week, scoring }) => {
+          // Auto-resolve default week from Gold layer when the model didn't
+          // supply one, same as getPositionRankings.
+          let resolvedWeek: number;
+          let resolvedWeekAuto: boolean;
+          if (week === undefined || week === null) {
+            const latest = await resolveDefaultWeek(season);
+            if (latest && latest.week !== null) {
+              resolvedWeek = latest.week;
+              resolvedWeekAuto = true;
+            } else {
+              return {
+                found: false,
+                message:
+                  `No projection data available yet for season ${season}. ` +
+                  'Check back after the weekly pipeline runs on Tuesday.'
+              };
+            }
+          } else {
+            resolvedWeek = week;
+            resolvedWeekAuto = false;
+          }
+
+          const params = new URLSearchParams({
+            season: String(season),
+            week: String(resolvedWeek),
+            scoring,
+            // Full slate so name-search reaches mid-tier players. Only the
+            // matched player's row is returned to the AI.
+            limit: '200'
+          });
+          type ComparisonPayload = {
+            rows: Array<{
+              player_name: string;
+              position: string | null;
+              team: string | null;
+              ours: number | null;
+              espn: number | null;
+              sleeper: number | null;
+              yahoo: number | null;
+              delta_vs_ours: number | null;
+            }>;
+            source_labels: Record<string, string>;
+          };
+          const result = await fastapiGet<ComparisonPayload>(
+            `/api/projections/comparison?${params}`
+          );
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.rows?.length) {
+            return {
+              found: false,
+              message: `No external-projection comparison data for week ${resolvedWeek} of ${season} yet.`
+            };
+          }
+
+          const name = player_name.toLowerCase();
+          const match = result.data.rows.find((r) =>
+            r.player_name.toLowerCase().includes(name)
+          );
+
+          if (!match) {
+            return {
+              found: false,
+              message: `"${player_name}" not found in the week ${resolvedWeek} projection comparison.`
+            };
+          }
+
+          return {
+            found: true,
+            player_name: match.player_name,
+            team: match.team,
+            position: match.position,
+            season,
+            week: resolvedWeek,
+            resolved_week_auto: resolvedWeekAuto,
+            scoring_format: scoring,
+            ours: match.ours,
+            espn: match.espn,
+            sleeper: match.sleeper,
+            yahoo: match.yahoo,
+            delta_vs_ours: match.delta_vs_ours,
+            source_labels: result.data.source_labels
+          };
+        }
+      }),
+
+      // Phase 83 TOOL-02: per-position defensive matchup quality for a team-week.
+      getMatchupAdvantages: tool({
+        description:
+          'Get a team\'s defensive matchup quality — fantasy points allowed to QB/RB/WR/TE, positional ranks (1 = toughest matchup, 32 = easiest), and an overall defensive SOS rating. Use for questions like "how good is the Ravens defense", "which positions does KC give up points to", or "is this a good matchup for my RB this week".',
+        inputSchema: z.object({
+          team: z
+            .string()
+            .describe('NFL team abbreviation, e.g. "KC", "GB", "SF"'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .describe('NFL week number (1-18)'),
+          season: z.number().default(2026).describe('NFL season year')
+        }),
+        execute: async ({ team, week, season }) => {
+          const teamCode = team.trim().toUpperCase();
+          if (!(teamCode in TEAM_FULL_NAMES)) {
+            return {
+              found: false,
+              message: `"${team}" is not a recognized NFL team abbreviation (e.g. KC, GB, SF).`
+            };
+          }
+
+          const params = new URLSearchParams({
+            season: String(season),
+            week: String(week)
+          });
+          type DefenseMetricsPayload = {
+            team: string;
+            season: number;
+            requested_week: number;
+            source_week: number;
+            fallback: boolean;
+            overall_def_rating: number;
+            def_sos_rank: number | null;
+            positional: Array<{
+              position: 'QB' | 'RB' | 'WR' | 'TE';
+              avg_pts_allowed: number | null;
+              rank: number | null;
+              rating: number;
+            }>;
+          };
+          const result = await fastapiGet<DefenseMetricsPayload>(
+            `/api/teams/${encodeURIComponent(teamCode)}/defense-metrics?${params}`
+          );
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+
+          const easiestMatchup = [...result.data.positional]
+            .filter((p) => p.rank !== null)
+            .sort((a, b) => (b.rank ?? 0) - (a.rank ?? 0))[0];
+
+          return {
+            found: true,
+            team: result.data.team,
+            team_name: getTeamFullName(result.data.team),
+            season: result.data.season,
+            week: result.data.requested_week,
+            source_week: result.data.source_week,
+            used_fallback_week: result.data.fallback,
+            overall_def_rating: result.data.overall_def_rating,
+            def_sos_rank: result.data.def_sos_rank,
+            by_position: result.data.positional.map((p) => ({
+              position: p.position,
+              avg_pts_allowed: p.avg_pts_allowed,
+              rank: p.rank,
+              rating: p.rating
+            })),
+            best_position_to_target: easiestMatchup?.position ?? null
           };
         }
       }),
