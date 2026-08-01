@@ -205,6 +205,9 @@ def projections_comparison(
         rows=[ProjectionComparisonRow(**r) for r in payload["rows"]],
         source_labels=payload["source_labels"],
         data_as_of=payload["data_as_of"],
+        fallback=payload.get("fallback", False),
+        fallback_season=payload.get("fallback_season"),
+        fallback_week=payload.get("fallback_week"),
     )
 
 

@@ -15,6 +15,7 @@
 import { useEffect, useState } from 'react';
 import { fetchProjectionsComparison } from '@/lib/nfl/api';
 import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
+import { useWeekParams } from '@/hooks/use-week-params';
 import type { ProjectionComparison, ProjectionComparisonRow } from '@/lib/nfl/types';
 
 const EMPTY_DASH = '—';
@@ -36,18 +37,28 @@ function deltaClass(value: number | null): string {
 }
 
 export interface ProjectionComparisonTableProps {
-  season: number;
-  week: number;
+  /**
+   * Optional explicit season/week. Omit to track the same resolved
+   * "current" slice as the projections table above it (`useWeekParams`) —
+   * the page.tsx call site used to hardcode `season={2025} week={1}`
+   * forever, which is what the 2026-08-01 P1 audit's `sleeper: 2026-06-11`
+   * frozen-in-time chip was.
+   */
+  season?: number;
+  week?: number;
   scoring?: 'ppr' | 'half_ppr' | 'standard';
   position?: string;
 }
 
 export function ProjectionComparisonTable({
-  season,
-  week,
+  season: seasonProp,
+  week: weekProp,
   scoring = 'half_ppr',
   position
 }: ProjectionComparisonTableProps) {
+  const resolved = useWeekParams();
+  const season = seasonProp ?? resolved.season;
+  const week = weekProp ?? resolved.week;
   const [data, setData] = useState<ProjectionComparison | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +110,13 @@ export function ProjectionComparisonTable({
 
   return (
     <div className='space-y-2'>
+      {data.fallback && (
+        <div className='rounded-md border border-[var(--wc-yellow,#ffd84d)]/25 bg-[rgba(255,216,77,0.06)] px-3 py-2 text-xs text-muted-foreground'>
+          No external comparison data for {season} Week {week} yet — showing
+          the latest available snapshot ({data.fallback_season} Week{' '}
+          {String(data.fallback_week).padStart(2, '0')}) instead.
+        </div>
+      )}
       <FreshnessChips dataAsOf={data.data_as_of} />
       <div className='overflow-x-auto'>
         <table className='w-full text-sm'>

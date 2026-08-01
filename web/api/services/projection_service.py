@@ -657,6 +657,53 @@ def get_projections(
     return _get_projections_parquet(season, week, scoring_format, position, team, limit)
 
 
+def _resolve_comparison_slice(
+    silver_root: Path, season: int, week: int
+) -> Tuple[Optional[Path], int, int, bool]:
+    """Find the external_projections Silver parquet for (season, week).
+
+    ``weekly-external-projections.yml`` ingests ESPN/Sleeper/Yahoo on its own
+    cron, independent of our Gold projections, and can lag or gap behind the
+    requested slice (P1 audit 2026-08-01: 2026 has no partition at all yet).
+    Walk back to the latest available (season, week) at or before the
+    request — mirroring the fallback convention already used by
+    ``team_defense_service._load_positional`` / ``team_roster_service`` —
+    instead of silently returning an all-empty/all-null comparison for a slice
+    that was never going to have data.
+
+    Returns ``(path, resolved_season, resolved_week, fallback)``. ``path`` is
+    ``None`` when no external_projections Silver data exists for any slice.
+    """
+    week_dir = silver_root / f"season={season}" / f"week={week:02d}"
+    exact = _latest_parquet(week_dir) if week_dir.exists() else None
+    if exact is not None:
+        return exact, season, week, False
+
+    candidates: list[Tuple[int, int, Path]] = []
+    if silver_root.exists():
+        for season_dir in silver_root.glob("season=*"):
+            try:
+                s = int(season_dir.name.split("=", 1)[1])
+            except (IndexError, ValueError):
+                continue
+            for wk_dir in season_dir.glob("week=*"):
+                try:
+                    w = int(wk_dir.name.split("=", 1)[1])
+                except (IndexError, ValueError):
+                    continue
+                p = _latest_parquet(wk_dir)
+                if p is not None:
+                    candidates.append((s, w, p))
+
+    if not candidates:
+        return None, season, week, False
+
+    at_or_before = [c for c in candidates if (c[0], c[1]) <= (season, week)]
+    pool = at_or_before or candidates
+    resolved_season, resolved_week, path = max(pool, key=lambda c: (c[0], c[1]))
+    return path, resolved_season, resolved_week, True
+
+
 def get_comparison(
     season: int,
     week: int,
@@ -667,7 +714,10 @@ def get_comparison(
     """Read the latest external_projections Silver Parquet and pivot to wide format.
 
     Returns a dict matching the ProjectionComparison Pydantic model. Falls back
-    to an empty rows list if the Silver Parquet doesn't exist (D-06 fail-open).
+    to the latest available (season, week) slice — with ``fallback``/
+    ``fallback_season``/``fallback_week`` set — when the requested one has no
+    data, and to an empty rows list only when NO slice has ever been
+    ingested (D-06 fail-open).
 
     Args:
         season: NFL season year.
@@ -677,12 +727,12 @@ def get_comparison(
         limit: Max rows to return.
 
     Returns:
-        Dict with keys: season, week, scoring_format, rows, source_labels, data_as_of.
+        Dict with keys: season, week, scoring_format, rows, source_labels,
+        data_as_of, fallback, fallback_season, fallback_week.
     """
     # C-01 fix: anchor to NFL_DATA_DIR (env-overridable, __file__-resolved)
     # instead of CWD. Railway uvicorn's CWD is not the repo root.
     silver_root = DATA_DIR / "silver" / "external_projections"
-    week_dir = silver_root / f"season={season}" / f"week={week:02d}"
 
     source_labels = {
         "ours": "Our projections",
@@ -692,7 +742,14 @@ def get_comparison(
     }
     data_as_of = {}
 
-    latest = _latest_parquet(week_dir)
+    latest, resolved_season, resolved_week, fallback = _resolve_comparison_slice(
+        silver_root, season, week
+    )
+    fallback_fields = {
+        "fallback": fallback,
+        "fallback_season": resolved_season if fallback else None,
+        "fallback_week": resolved_week if fallback else None,
+    }
     if latest is None:
         return {
             "season": season,
@@ -701,6 +758,7 @@ def get_comparison(
             "rows": [],
             "source_labels": source_labels,
             "data_as_of": data_as_of,
+            **fallback_fields,
         }
 
     try:
@@ -714,6 +772,7 @@ def get_comparison(
             "rows": [],
             "source_labels": source_labels,
             "data_as_of": data_as_of,
+            **fallback_fields,
         }
 
     # Filter to scoring format
@@ -736,6 +795,7 @@ def get_comparison(
             "rows": [],
             "source_labels": source_labels,
             "data_as_of": data_as_of,
+            **fallback_fields,
         }
 
     # Pivot wide: index = (player_id, player_name, position, team), columns = source
@@ -802,6 +862,7 @@ def get_comparison(
         "rows": rows,
         "source_labels": source_labels,
         "data_as_of": data_as_of,
+        **fallback_fields,
     }
 
 
