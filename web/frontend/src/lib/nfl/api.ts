@@ -567,7 +567,17 @@ export async function fetchAdp(): Promise<AdpResponse> {
  * this endpoint is a parallel backend lane and may 404 until it ships.
  */
 export async function fetchDraftPlatforms(): Promise<DraftPlatformsResponse> {
-  return request<DraftPlatformsResponse>('/api/draft/platforms')
+  // The live endpoint wraps the record in a { platforms: {...} } envelope
+  // (web/api/routers/draft.py), while the original frontend contract was the
+  // flat record. Accept both — returning the raw envelope crashed the whole
+  // draft route on 2026-08-01 (presets['custom'].timer_seconds on undefined).
+  const raw = await request<DraftPlatformsResponse | { platforms: DraftPlatformsResponse }>(
+    '/api/draft/platforms'
+  )
+  if (raw && typeof raw === 'object' && 'platforms' in raw) {
+    return (raw as { platforms: DraftPlatformsResponse }).platforms
+  }
+  return raw as DraftPlatformsResponse
 }
 
 /** Fetch the post-draft report card for a (in-progress or completed) mock session. */
