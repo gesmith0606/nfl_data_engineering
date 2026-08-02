@@ -61,3 +61,41 @@ BUY ($29/mo tier first; upgrade only if credit limits bind). This is the
 highest-expected-value data acquisition available to the project, it is cheap, and the
 same key activates the already-built spread line-capture infrastructure (ELITE 2.4),
 which is calendar-critical before 2026 w1.
+
+---
+
+## Addendum 2026-08-02 — Season-long player futures (preseason blend)
+
+Sportsbooks posted 2026 season-total player lines (regular-season passing/rushing/
+receiving yards, passing/rushing/receiving TDs, receptions). These price the exact
+quantity the preseason draft projections predict — full-season player output,
+availability included — and are sharper than ranking consensus for covered players.
+
+**Source decision**: The Odds API has NO season-long player markets (confirmed against
+their market docs). DraftKings' sportsbook JSON does — league 88808, category 1759
+"Player Futures", seven O/U subcategories. No API key; requires `curl_cffi` (Akamai
+TLS fingerprinting 403s plain requests). Rookie "Milestones" (category 1801) are
+one-sided threshold bets — out of scope until the O/U path proves out.
+
+**Built** (branch `feat/season-props`):
+- `scripts/bronze_season_props_ingestion.py` → `data/bronze/dk/season_props/season=YYYY/`
+  (committed to git — season lines cannot be backfilled from any purchasable source).
+- `src/season_prop_implied.py` — same de-vig → Normal-inversion machinery
+  (`prop_implied.py` generalized with market-map/CV/core-market params), season CV
+  priors, blend on `projected_season_points` (same units — no per-game conversion).
+- `--season-props-blend` on `generate_projections.py --preseason`, applied AFTER the
+  consensus anchor so the market gets the last word on covered players. OPT-IN.
+- Tuesday 12:00 UTC capture job in `odds-capture.yml` (0 Odds-API credits).
+
+**Provisional lambdas** (`SEASON_PROPS_BLEND_LAMBDAS`): RB 0.40, WR 0.30, TE 0.30,
+QB 0.25. No historical archive exists to backtest, so the gate is forward-looking:
+score the 2026-08 snapshot's implied points vs 2026 season-end actuals against the
+unblended model's error, per position, before promoting to default-ON for 2027.
+
+**Caveats**: single book (no cross-book median until FanDuel/BetMGM adapters exist);
+DK lines embed expected missed games while the model scales to 17 (the blend pulls
+toward the market's availability estimate — desirable for draft value, but it means
+`prop_anchor_gap` mixes talent disagreement with availability disagreement); coverage
+is ~130 players (24 QB / 41 RB / 75 WR-TE rec yds), the tail keeps the pure model.
+
+First snapshot captured 2026-08-02: 286 lines, 132 players, all 7 markets.
