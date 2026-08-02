@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/EmptyState';
 import { formatRelativeTime } from '@/lib/format-relative-time';
 import { useState } from 'react';
@@ -24,11 +25,14 @@ export function LineupView() {
   // HOTFIX-05 (phase 66 / v7.0): resolve default season/week from
   // `/api/projections/latest-week` instead of hardcoded 2026/1 so
   // users land on the latest slice that actually has data.
-  const { season, week, setSeason, setWeek, isResolving, dataAsOf } =
-    useWeekParams();
+  const { season, week, setSeason, setWeek, isResolving, dataAsOf } = useWeekParams();
   const [team, setTeam] = useState<string | null>(null);
 
-  const { data: lineup, isLoading, isError } = useQuery({
+  const {
+    data: lineup,
+    isLoading,
+    isError
+  } = useQuery({
     ...lineupQueryOptions(season, week, team ?? ''),
     enabled: !isResolving && !!team
   });
@@ -37,8 +41,7 @@ export function LineupView() {
   // offense payload the same as "no lineup" for empty-state routing — the
   // backend's graceful defaulting (phase 66) returns a 200 with an empty
   // lineups[] in offseason.
-  const lineupIsEmpty =
-    lineup === null || (!!lineup && (lineup.offense?.length ?? 0) === 0);
+  const lineupIsEmpty = lineup === null || (!!lineup && (lineup.offense?.length ?? 0) === 0);
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
@@ -98,8 +101,13 @@ export function LineupView() {
             <DataLoadReveal
               loading={isLoading || isResolving}
               skeleton={
-                <div className='flex items-center justify-center py-[var(--space-12)]'>
-                  <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />
+                <div className='space-y-[var(--space-4)]'>
+                  <Skeleton className='mx-auto h-64 w-full max-w-md rounded-md' />
+                  <div className='grid grid-cols-2 gap-[var(--space-2)] sm:grid-cols-3'>
+                    {Array.from({ length: 9 }).map((_, i) => (
+                      <Skeleton key={i} className='h-[var(--space-8)] w-full rounded-md' />
+                    ))}
+                  </div>
                 </div>
               }
             >

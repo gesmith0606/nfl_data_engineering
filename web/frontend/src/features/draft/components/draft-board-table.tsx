@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react';
 import {
   Table,
   TableBody,
@@ -8,32 +8,32 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '@/components/ui/table'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Icons } from '@/components/icons'
-import { PressScale } from '@/lib/motion-primitives'
-import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
-import { SUCCESS_BADGE, DANGER_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors'
-import { StackBadge } from './stack-badge'
-import type { DraftPlayer, Position, SortDirection, StackHint } from '@/lib/nfl/types'
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Icons } from '@/components/icons';
+import { PressScale } from '@/lib/motion-primitives';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { SUCCESS_BADGE, DANGER_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors';
+import { StackBadge } from './stack-badge';
+import type { DraftPlayer, Position, SortDirection, StackHint } from '@/lib/nfl/types';
 
 interface DraftBoardTableProps {
-  players: DraftPlayer[]
-  positionFilter: Position
-  onDraft: (playerId: string, byMe?: boolean) => void
-  isPicking: boolean
+  players: DraftPlayer[];
+  positionFilter: Position;
+  onDraft: (playerId: string, byMe?: boolean) => void;
+  isPicking: boolean;
   /** Stack/overlap hints keyed by player_name; omitted rows simply render no badge. */
-  hintsByPlayerName?: Map<string, StackHint[]>
+  hintsByPlayerName?: Map<string, StackHint[]>;
 }
 
-type SortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp'
+type SortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp';
 
 const VALUE_TIER_COLORS: Record<string, string> = {
   undervalued: SUCCESS_BADGE,
   fair_value: 'bg-muted text-muted-foreground',
   overvalued: DANGER_BADGE
-}
+};
 
 function SortableHeader({
   label,
@@ -42,13 +42,13 @@ function SortableHeader({
   direction,
   onSort
 }: {
-  label: string
-  sortKey: SortKey
-  currentKey: SortKey
-  direction: SortDirection
-  onSort: (key: SortKey) => void
+  label: string;
+  sortKey: SortKey;
+  currentKey: SortKey;
+  direction: SortDirection;
+  onSort: (key: SortKey) => void;
 }) {
-  const isActive = sortKey === currentKey
+  const isActive = sortKey === currentKey;
   return (
     <TableHead
       className='cursor-pointer select-none whitespace-nowrap'
@@ -67,47 +67,64 @@ function SortableHeader({
         )}
       </span>
     </TableHead>
-  )
+  );
 }
 
-export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, hintsByPlayerName }: DraftBoardTableProps) {
-  const [sortKey, setSortKey] = useState<SortKey>('model_rank')
-  const [sortDir, setSortDir] = useState<SortDirection>('asc')
-  const [search, setSearch] = useState('')
+export function DraftBoardTable({
+  players,
+  positionFilter,
+  onDraft,
+  isPicking,
+  hintsByPlayerName
+}: DraftBoardTableProps) {
+  const [sortKey, setSortKey] = useState<SortKey>('model_rank');
+  const [sortDir, setSortDir] = useState<SortDirection>('asc');
+  const [search, setSearch] = useState('');
 
   function handleSort(key: SortKey) {
     if (key === sortKey) {
-      setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
     } else {
-      setSortKey(key)
-      setSortDir('asc')
+      setSortKey(key);
+      setSortDir('asc');
     }
   }
 
   const filtered = useMemo(() => {
-    let result = players
+    let result = players;
     if (positionFilter !== 'ALL') {
-      result = result.filter(p => p.position === positionFilter)
+      result = result.filter((p) => p.position === positionFilter);
     }
     if (search.trim()) {
-      const q = search.toLowerCase()
-      result = result.filter(p => p.player_name.toLowerCase().includes(q))
+      const q = search.toLowerCase();
+      result = result.filter((p) => p.player_name.toLowerCase().includes(q));
     }
     return [...result].sort((a, b) => {
-      const aVal = a[sortKey]
-      const bVal = b[sortKey]
-      if (aVal === null || aVal === undefined) return 1
-      if (bVal === null || bVal === undefined) return -1
-      const cmp = (aVal as number) - (bVal as number)
-      return sortDir === 'asc' ? cmp : -cmp
-    })
-  }, [players, positionFilter, search, sortKey, sortDir])
+      const aVal = a[sortKey];
+      const bVal = b[sortKey];
+      if (aVal === null || aVal === undefined) return 1;
+      if (bVal === null || bVal === undefined) return -1;
+      const cmp = (aVal as number) - (bVal as number);
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+  }, [players, positionFilter, search, sortKey, sortDir]);
 
-  const displayed = filtered.slice(0, 200)
+  const displayed = filtered.slice(0, 200);
 
   function adpDiffColor(diff: number | null): string {
-    if (diff === null) return 'text-muted-foreground'
-    return deltaTextClass(diff)
+    if (diff === null) return 'text-muted-foreground';
+    return deltaTextClass(diff);
+  }
+
+  /**
+   * Rookie-capital picks can push |adp_diff| into the hundreds, which reads
+   * as a data glitch rather than signal. Cap the DISPLAYED magnitude at 99
+   * ("99+"/"-99+"); sort/comparison logic upstream keeps using the raw value.
+   */
+  function formatAdpDiff(diff: number | null): string {
+    if (diff === null) return '—';
+    if (Math.abs(diff) > 99) return `${diff > 0 ? '+' : '-'}99+`;
+    return (diff > 0 ? '+' : '') + diff.toFixed(1);
   }
 
   return (
@@ -123,7 +140,7 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, h
           type='text'
           placeholder='Search players...'
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
           className='border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-[var(--space-3)] py-[var(--space-1)] pl-[var(--space-10)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-[length:var(--fs-sm)] file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50'
         />
       </div>
@@ -195,12 +212,12 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, h
               displayed.map((player, i) => {
                 // Subtle divider between draft tiers — only meaningful while
                 // sorted by rank, where tiers group into contiguous runs.
-                const prevTier = i > 0 ? displayed[i - 1].tier : undefined
+                const prevTier = i > 0 ? displayed[i - 1].tier : undefined;
                 const isTierBoundary =
                   sortKey === 'model_rank' &&
                   player.tier != null &&
                   prevTier != null &&
-                  player.tier !== prevTier
+                  player.tier !== prevTier;
                 return (
                   <TableRow
                     key={player.player_id}
@@ -220,7 +237,10 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, h
                           {player.position}
                         </span>
                         {hintsByPlayerName?.get(player.player_name)?.map((hint, hi) => (
-                          <StackBadge key={`${hint.kind}-${hint.rostered_player_name}-${hi}`} hint={hint} />
+                          <StackBadge
+                            key={`${hint.kind}-${hint.rostered_player_name}-${hi}`}
+                            hint={hint}
+                          />
                         ))}
                       </div>
                     </TableCell>
@@ -236,9 +256,7 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, h
                     <TableCell
                       className={`font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums ${adpDiffColor(player.adp_diff)}`}
                     >
-                      {player.adp_diff !== null
-                        ? (player.adp_diff > 0 ? '+' : '') + player.adp_diff.toFixed(1)
-                        : '—'}
+                      {formatAdpDiff(player.adp_diff)}
                     </TableCell>
                     <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
                       {player.vorp != null ? player.vorp.toFixed(1) : '—'}
@@ -290,12 +308,12 @@ export function DraftBoardTable({ players, positionFilter, onDraft, isPicking, h
                       </span>
                     </TableCell>
                   </TableRow>
-                )
+                );
               })
             )}
           </TableBody>
         </Table>
       </div>
     </div>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { useQuery } from '@tanstack/react-query'
-import { Icons } from '@/components/icons'
-import { DataLoadReveal, Stagger } from '@/lib/motion-primitives'
-import { sleepersQueryOptions } from '@/features/nfl/api/queries'
-import { normalizeSleepers } from '@/lib/nfl/api'
-import { getPositionBadgeClass } from '@/lib/nfl/position-colors'
-import { SUCCESS_TEXT } from '@/lib/nfl/semantic-colors'
+import { useQuery } from '@tanstack/react-query';
+import { Skeleton } from '@/components/ui/skeleton';
+import { DataLoadReveal, Stagger } from '@/lib/motion-primitives';
+import { sleepersQueryOptions } from '@/features/nfl/api/queries';
+import { normalizeSleepers } from '@/lib/nfl/api';
+import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
+import { SUCCESS_TEXT } from '@/lib/nfl/semantic-colors';
 
 interface SleepersPanelProps {
-  sessionId: string | null
+  sessionId: string | null;
 }
 
 /**
@@ -18,24 +18,31 @@ interface SleepersPanelProps {
  * right now" on any error, per the graceful-degradation contract.
  */
 export function SleepersPanel({ sessionId }: SleepersPanelProps) {
-  const { data, isLoading, isError } = useQuery(sleepersQueryOptions(sessionId ?? '', 20))
-  const sleepers = isError ? [] : normalizeSleepers(data)
+  const { data, isLoading, isError } = useQuery(sleepersQueryOptions(sessionId ?? '', 20));
+  const sleepers = isError ? [] : normalizeSleepers(data);
 
   if (!sessionId) {
     return (
       <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
         Initialize a draft to see sleepers.
       </p>
-    )
+    );
   }
 
   return (
     <DataLoadReveal
       loading={isLoading}
       skeleton={
-        <div className='flex items-center gap-[var(--space-2)] py-[var(--space-6)]'>
-          <Icons.spinner className='text-muted-foreground h-[var(--space-5)] w-[var(--space-5)] animate-spin' />
-          <span className='text-muted-foreground text-[length:var(--fs-sm)]'>Loading sleepers...</span>
+        <div className='space-y-[var(--space-2)]'>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className='rounded-md border p-[var(--space-3)] space-y-1'>
+              <div className='flex items-center justify-between gap-[var(--space-2)]'>
+                <Skeleton className='h-[var(--space-4)] w-32' />
+                <Skeleton className='h-[var(--space-3)] w-16' />
+              </div>
+              <Skeleton className='h-[var(--space-3)] w-full' />
+            </div>
+          ))}
         </div>
       }
     >
@@ -70,9 +77,7 @@ export function SleepersPanel({ sessionId }: SleepersPanelProps) {
                   Rank {s.model_rank}
                   {s.adp_rank != null ? ` · ADP ${s.adp_rank}` : ''}
                   {s.adp_gap != null && (
-                    <span className={`ml-1 ${SUCCESS_TEXT}`}>
-                      (+{s.adp_gap} gap)
-                    </span>
+                    <span className={`ml-1 ${SUCCESS_TEXT}`}>(+{s.adp_gap} gap)</span>
                   )}
                 </span>
               </div>
@@ -84,5 +89,5 @@ export function SleepersPanel({ sessionId }: SleepersPanelProps) {
         </Stagger>
       )}
     </DataLoadReveal>
-  )
+  );
 }

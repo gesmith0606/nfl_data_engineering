@@ -28,6 +28,7 @@ import {
   TableRow
 } from '@/components/ui/table';
 import { Icons } from '@/components/icons';
+import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/EmptyState';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { useState } from 'react';
@@ -51,19 +52,52 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
   const [week, setWeek] = useState(1);
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
 
-  const { data: player, isLoading, isError, refetch } = useQuery(
-    playerDetailQueryOptions(playerId, season, week, scoring)
-  );
+  const {
+    data: player,
+    isLoading,
+    isError,
+    refetch
+  } = useQuery(playerDetailQueryOptions(playerId, season, week, scoring));
 
   // NEWS-04: rule-extracted event badges for the player header card.
-  const { data: badges } = useQuery(
-    playerBadgesQueryOptions(playerId, season, week)
-  );
+  const { data: badges } = useQuery(playerBadgesQueryOptions(playerId, season, week));
 
   if (isLoading) {
     return (
-      <div className='flex items-center justify-center py-[var(--space-12)]'>
-        <Icons.spinner className='text-muted-foreground h-[var(--space-8)] w-[var(--space-8)] animate-spin' />
+      <div className='space-y-[var(--gap-section)]'>
+        <Card className='overflow-hidden'>
+          <div className='h-[var(--space-2)] w-full bg-muted' />
+          <CardHeader>
+            <div className='flex flex-wrap items-start justify-between gap-[var(--space-3)]'>
+              <div className='min-w-0 flex-1 space-y-[var(--space-2)]'>
+                <Skeleton className='h-[var(--space-6)] w-48' />
+                <Skeleton className='h-[var(--space-4)] w-32' />
+              </div>
+              <div className='space-y-[var(--space-2)] text-right'>
+                <Skeleton className='ml-auto h-[var(--space-8)] w-16' />
+                <Skeleton className='ml-auto h-[var(--space-3)] w-20' />
+              </div>
+            </div>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Skeleton className='h-[var(--space-5)] w-40' />
+          </CardHeader>
+          <CardContent>
+            <Skeleton className='h-[var(--space-3)] w-full' />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Skeleton className='h-[var(--space-5)] w-40' />
+          </CardHeader>
+          <CardContent className='space-y-[var(--space-2)]'>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className='h-[var(--space-5)] w-full' />
+            ))}
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -85,7 +119,8 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
 
   const teamColor = getTeamColor(player.team);
   const range = player.projected_ceiling - player.projected_floor;
-  const pointInRange = range > 0 ? ((player.projected_points - player.projected_floor) / range) * 100 : 50;
+  const pointInRange =
+    range > 0 ? ((player.projected_points - player.projected_floor) / range) * 100 : 50;
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
@@ -136,11 +171,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
         >
           <TabsList className='w-full sm:w-auto'>
             {SCORING_OPTIONS.map((opt) => (
-              <TabsTrigger
-                key={opt.value}
-                value={opt.value}
-                className='flex-1 sm:flex-initial'
-              >
+              <TabsTrigger key={opt.value} value={opt.value} className='flex-1 sm:flex-initial'>
                 {opt.label}
               </TabsTrigger>
             ))}
@@ -188,10 +219,7 @@ export function PlayerDetail({ playerId }: PlayerDetailProps) {
           )}
           {badges && badges.badges.length > 0 && (
             <div className='mt-[var(--space-3)]'>
-              <EventBadges
-                badges={badges.badges}
-                overallLabel={badges.overall_label}
-              />
+              <EventBadges badges={badges.badges} overallLabel={badges.overall_label} />
             </div>
           )}
         </CardHeader>
@@ -255,9 +283,8 @@ function PlayerCorrelationsCard({ playerId }: { playerId: string }) {
       <CardHeader>
         <CardTitle>Correlated Players</CardTitle>
         <CardDescription>
-          Historical fantasy-point correlation over shared games — stable
-          across seasons (2016–2025). Positive pairs spike together; negative
-          pairs trade off.
+          Historical fantasy-point correlation over shared games — stable across seasons
+          (2016–2025). Positive pairs spike together; negative pairs trade off.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -282,13 +309,13 @@ function PlayerCorrelationsCard({ playerId }: { playerId: string }) {
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Badge variant='outline'>
-                    {RELATION_LABELS[edge.relation] ?? edge.relation}
-                  </Badge>
+                  <Badge variant='outline'>{RELATION_LABELS[edge.relation] ?? edge.relation}</Badge>
                 </TableCell>
                 <TableCell
                   className={`text-right tabular-nums font-medium ${
-                    edge.rho >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'
+                    edge.rho >= 0
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : 'text-amber-600 dark:text-amber-400'
                   }`}
                 >
                   {edge.rho >= 0 ? '+' : ''}
@@ -326,14 +353,20 @@ function buildStatGroups(player: import('../api/types').PlayerProjection): StatG
 
   const passingRows: StatRow[] = [];
   if (player.proj_pass_yards !== null)
-    passingRows.push({ label: 'Passing Yards', value: Math.round(player.proj_pass_yards).toString() });
+    passingRows.push({
+      label: 'Passing Yards',
+      value: Math.round(player.proj_pass_yards).toString()
+    });
   if (player.proj_pass_tds !== null)
     passingRows.push({ label: 'Passing TDs', value: player.proj_pass_tds.toFixed(1) });
   if (passingRows.length > 0) groups.push({ heading: 'Passing', rows: passingRows });
 
   const rushingRows: StatRow[] = [];
   if (player.proj_rush_yards !== null)
-    rushingRows.push({ label: 'Rushing Yards', value: Math.round(player.proj_rush_yards).toString() });
+    rushingRows.push({
+      label: 'Rushing Yards',
+      value: Math.round(player.proj_rush_yards).toString()
+    });
   if (player.proj_rush_tds !== null)
     rushingRows.push({ label: 'Rushing TDs', value: player.proj_rush_tds.toFixed(1) });
   if (rushingRows.length > 0) groups.push({ heading: 'Rushing', rows: rushingRows });
@@ -342,7 +375,10 @@ function buildStatGroups(player: import('../api/types').PlayerProjection): StatG
   if (player.proj_rec !== null)
     receivingRows.push({ label: 'Receptions', value: player.proj_rec.toFixed(1) });
   if (player.proj_rec_yards !== null)
-    receivingRows.push({ label: 'Receiving Yards', value: Math.round(player.proj_rec_yards).toString() });
+    receivingRows.push({
+      label: 'Receiving Yards',
+      value: Math.round(player.proj_rec_yards).toString()
+    });
   if (player.proj_rec_tds !== null)
     receivingRows.push({ label: 'Receiving TDs', value: player.proj_rec_tds.toFixed(1) });
   if (receivingRows.length > 0) groups.push({ heading: 'Receiving', rows: receivingRows });
@@ -375,8 +411,8 @@ function StatBreakdown({ player }: StatBreakdownProps) {
       <CardHeader>
         <CardTitle>Projected Stats</CardTitle>
         <CardDescription>
-          Broken down by category for{' '}
-          {player.scoring_format.replace('_', ' ').toUpperCase()} scoring
+          Broken down by category for {player.scoring_format.replace('_', ' ').toUpperCase()}{' '}
+          scoring
         </CardDescription>
       </CardHeader>
       <CardContent className='space-y-[var(--gap-section)]'>

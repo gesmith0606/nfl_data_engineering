@@ -105,8 +105,7 @@ const WIDGET_SUGGESTIONS = [
 
 function InjuryBadge({ status }: { status: string | undefined }) {
   if (!status || status === 'Active') return null;
-  const variant =
-    status === 'Out' || status === 'IR' ? 'destructive' : 'secondary';
+  const variant = status === 'Out' || status === 'IR' ? 'destructive' : 'secondary';
   return <Badge variant={variant}>{status}</Badge>;
 }
 
@@ -125,7 +124,10 @@ function ProjectionCard({ data }: { data: ProjectionResult }) {
       <CardHeader className='pb-1 pt-2 px-2'>
         <CardTitle className='flex items-center gap-1 text-xs font-semibold'>
           {data.player_name}
-          <Badge variant='outline' className='text-[10px]'>
+          <Badge
+            variant='outline'
+            className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+          >
             {data.position}
           </Badge>
           <span className='text-muted-foreground font-normal'>{data.team}</span>
@@ -149,9 +151,8 @@ function ProjectionCard({ data }: { data: ProjectionResult }) {
             <p className='font-medium'>{data.projected_ceiling?.toFixed(1)}</p>
           </div>
         </div>
-        <p className='text-muted-foreground mt-0.5 text-[10px]'>
-          {data.scoring_format?.replace('_', '-').toUpperCase()} · Wk{' '}
-          {data.week}, {data.season}
+        <p className='text-muted-foreground mt-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
+          {data.scoring_format?.replace('_', '-').toUpperCase()} · Wk {data.week}, {data.season}
         </p>
       </CardContent>
     </Card>
@@ -175,14 +176,19 @@ function CompareCard({ data }: { data: CompareResult }) {
       return (
         <div className='flex-1 rounded-md border p-2'>
           <p className='text-xs font-medium'>{player.name}</p>
-          <p className='text-muted-foreground text-[10px]'>{player.error}</p>
+          <p className='text-muted-foreground text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
+            {player.error}
+          </p>
         </div>
       );
     }
     return (
       <div className='flex-1 rounded-md border p-2'>
         <div className='flex items-center gap-1 mb-0.5'>
-          <Badge variant='outline' className='text-[10px]'>
+          <Badge
+            variant='outline'
+            className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+          >
             {player.position}
           </Badge>
           <InjuryBadge status={player.injury_status} />
@@ -190,11 +196,11 @@ function CompareCard({ data }: { data: CompareResult }) {
         <p className='text-xs font-semibold'>{player.name}</p>
         <p className='text-lg font-bold'>
           {player.projected_points?.toFixed(1)}{' '}
-          <span className='text-[10px] font-normal text-muted-foreground'>
+          <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-normal text-muted-foreground'>
             pts
           </span>
         </p>
-        <div className='flex gap-2 text-[10px] text-muted-foreground'>
+        <div className='flex gap-2 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground'>
           <span>Floor: {player.floor?.toFixed(1)}</span>
           <span>Ceil: {player.ceiling?.toFixed(1)}</span>
         </div>
@@ -206,9 +212,7 @@ function CompareCard({ data }: { data: CompareResult }) {
     <Card className='border-primary/20 bg-primary/5 mt-1'>
       <CardHeader className='pb-1 pt-2 px-2'>
         <CardTitle className='text-xs font-semibold'>
-          Start/Sit ·{' '}
-          {data.scoring_format?.replace('_', '-').toUpperCase()} · Wk{' '}
-          {data.week}
+          Start/Sit · {data.scoring_format?.replace('_', '-').toUpperCase()} · Wk {data.week}
         </CardTitle>
       </CardHeader>
       <CardContent className='pb-2 px-2'>
@@ -238,9 +242,12 @@ function SearchCard({ data }: { data: SearchResult }) {
           {data.players.map((p) => (
             <div
               key={p.player_id}
-              className='flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[10px]'
+              className='flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
             >
-              <Badge variant='outline' className='text-[9px]'>
+              <Badge
+                variant='outline'
+                className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
+              >
                 {p.position}
               </Badge>
               <span className='font-medium'>{p.player_name}</span>
@@ -256,13 +263,8 @@ function SearchCard({ data }: { data: SearchResult }) {
 function SentimentDot({ score }: { score: number | null }) {
   if (score === null) return null;
   const color =
-    score > 0.1
-      ? 'bg-[var(--success)]'
-      : score < -0.1
-        ? 'bg-[var(--danger)]'
-        : 'bg-[var(--warn)]';
-  const label =
-    score > 0.1 ? 'Positive' : score < -0.1 ? 'Negative' : 'Neutral';
+    score > 0.1 ? 'bg-[var(--success)]' : score < -0.1 ? 'bg-[var(--danger)]' : 'bg-[var(--warn)]';
+  const label = score > 0.1 ? 'Positive' : score < -0.1 ? 'Negative' : 'Neutral';
   return (
     <span
       title={`Sentiment: ${label} (${score.toFixed(2)})`}
@@ -293,7 +295,7 @@ function NewsCard({ data }: { data: NewsFeedResult }) {
               </p>
             </div>
             {item.player_name && (
-              <p className='text-muted-foreground text-[10px] mt-0.5'>
+              <p className='text-muted-foreground text-[length:var(--fs-micro)] leading-[var(--lh-micro)] mt-0.5'>
                 {item.player_name}
                 {item.team ? ` · ${item.team}` : ''}
               </p>
@@ -325,9 +327,7 @@ function MessagePart({
           key={partIndex}
           className={cn(
             'rounded-2xl px-3 py-1.5 text-xs leading-relaxed whitespace-pre-wrap',
-            isUser
-              ? 'bg-primary text-primary-foreground rounded-tr-sm'
-              : 'bg-muted rounded-tl-sm'
+            isUser ? 'bg-primary text-primary-foreground rounded-tr-sm' : 'bg-muted rounded-tl-sm'
           )}
         >
           {part.text}
@@ -336,18 +336,13 @@ function MessagePart({
 
     case 'tool-getPlayerProjection':
       if (part.state === 'output-available') {
-        return (
-          <ProjectionCard
-            key={partIndex}
-            data={part.output as ProjectionResult}
-          />
-        );
+        return <ProjectionCard key={partIndex} data={part.output as ProjectionResult} />;
       }
       if (part.state === 'input-streaming' || part.state === 'input-available') {
         return (
           <div
             key={partIndex}
-            className='text-muted-foreground flex items-center gap-1 text-[10px]'
+            className='text-muted-foreground flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
           >
             <Icons.spinner className='h-3 w-3 animate-spin' />
             Looking up projection...
@@ -358,18 +353,13 @@ function MessagePart({
 
     case 'tool-compareStartSit':
       if (part.state === 'output-available') {
-        return (
-          <CompareCard
-            key={partIndex}
-            data={part.output as CompareResult}
-          />
-        );
+        return <CompareCard key={partIndex} data={part.output as CompareResult} />;
       }
       if (part.state === 'input-streaming' || part.state === 'input-available') {
         return (
           <div
             key={partIndex}
-            className='text-muted-foreground flex items-center gap-1 text-[10px]'
+            className='text-muted-foreground flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
           >
             <Icons.spinner className='h-3 w-3 animate-spin' />
             Comparing players...
@@ -380,18 +370,13 @@ function MessagePart({
 
     case 'tool-searchPlayers':
       if (part.state === 'output-available') {
-        return (
-          <SearchCard
-            key={partIndex}
-            data={part.output as SearchResult}
-          />
-        );
+        return <SearchCard key={partIndex} data={part.output as SearchResult} />;
       }
       if (part.state === 'input-streaming' || part.state === 'input-available') {
         return (
           <div
             key={partIndex}
-            className='text-muted-foreground flex items-center gap-1 text-[10px]'
+            className='text-muted-foreground flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
           >
             <Icons.spinner className='h-3 w-3 animate-spin' />
             Searching players...
@@ -402,18 +387,13 @@ function MessagePart({
 
     case 'tool-getNewsFeed':
       if (part.state === 'output-available') {
-        return (
-          <NewsCard
-            key={partIndex}
-            data={part.output as NewsFeedResult}
-          />
-        );
+        return <NewsCard key={partIndex} data={part.output as NewsFeedResult} />;
       }
       if (part.state === 'input-streaming' || part.state === 'input-available') {
         return (
           <div
             key={partIndex}
-            className='text-muted-foreground flex items-center gap-1 text-[10px]'
+            className='text-muted-foreground flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
           >
             <Icons.spinner className='h-3 w-3 animate-spin' />
             Fetching news...
@@ -429,7 +409,7 @@ function MessagePart({
         return (
           <div
             key={partIndex}
-            className='text-muted-foreground flex items-center gap-1 text-[10px]'
+            className='text-muted-foreground flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
           >
             <Icons.spinner className='h-3 w-3 animate-spin' />
             Checking your league...
@@ -538,9 +518,7 @@ export function ChatWidget() {
           'sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[400px] sm:h-[520px] sm:max-h-[calc(100dvh-40px)]',
           'sm:rounded-2xl sm:border',
           'transition-all duration-300 ease-out origin-bottom-right',
-          isOpen
-            ? 'scale-100 opacity-100'
-            : 'scale-0 opacity-0 pointer-events-none'
+          isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0 pointer-events-none'
         )}
       >
         {/* Header — action buttons bump to 44px on mobile, stay 28px on sm+. */}
@@ -553,7 +531,7 @@ export function ChatWidget() {
               <h3 className='wc-display text-sm leading-none tracking-[0.12em] text-[var(--wc-yellow,#ffd84d)]'>
                 Advisor // GX-01
               </h3>
-              <p className='text-[10px] text-muted-foreground mt-0.5'>
+              <p className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-muted-foreground mt-0.5'>
                 Fantasy football assistant
               </p>
             </div>
@@ -591,12 +569,9 @@ export function ChatWidget() {
                 <div className='bg-primary/10 mb-3 rounded-full p-3'>
                   <Icons.robot className='text-primary h-6 w-6' />
                 </div>
-                <h4 className='mb-0.5 text-sm font-semibold'>
-                  AI Fantasy Advisor
-                </h4>
+                <h4 className='mb-0.5 text-sm font-semibold'>AI Fantasy Advisor</h4>
                 <p className='text-muted-foreground mb-4 max-w-[280px] text-xs'>
-                  Ask about start/sit decisions, player projections, or trade
-                  analysis.
+                  Ask about start/sit decisions, player projections, or trade analysis.
                 </p>
                 <div className='flex flex-wrap justify-center gap-1.5'>
                   {WIDGET_SUGGESTIONS.map((s) => (
@@ -604,7 +579,7 @@ export function ChatWidget() {
                       key={s}
                       variant='outline'
                       size='sm'
-                      className='min-h-[var(--tap-min)] px-3 text-xs sm:min-h-0 sm:h-7 sm:px-2 sm:text-[10px]'
+                      className='min-h-[var(--tap-min)] px-3 text-xs sm:min-h-0 sm:h-7 sm:px-2 sm:text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'
                       onClick={() => handleSuggestion(s)}
                     >
                       {s}
@@ -629,7 +604,7 @@ export function ChatWidget() {
                     className={`flex gap-2 ${isUser ? 'flex-row-reverse' : ''}`}
                   >
                     <Avatar className='h-6 w-6 shrink-0'>
-                      <AvatarFallback className='text-[10px]'>
+                      <AvatarFallback className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
                         {isUser ? 'You' : 'AI'}
                       </AvatarFallback>
                     </Avatar>
@@ -640,7 +615,14 @@ export function ChatWidget() {
                       {message.parts.map((part, partIndex) => (
                         <MessagePart
                           key={partIndex}
-                          part={part as { type: string; text?: string; state?: string; output?: unknown }}
+                          part={
+                            part as {
+                              type: string;
+                              text?: string;
+                              state?: string;
+                              output?: unknown;
+                            }
+                          }
                           partIndex={partIndex}
                           isUser={isUser}
                         />
@@ -661,7 +643,9 @@ export function ChatWidget() {
                   className='flex gap-2'
                 >
                   <Avatar className='h-6 w-6 shrink-0'>
-                    <AvatarFallback className='text-[10px]'>AI</AvatarFallback>
+                    <AvatarFallback className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
+                      AI
+                    </AvatarFallback>
                   </Avatar>
                   <div className='bg-muted flex items-center gap-1 rounded-2xl rounded-tl-sm px-3 py-2'>
                     {[0, 1, 2].map((i) => (
@@ -669,9 +653,7 @@ export function ChatWidget() {
                         key={i}
                         className='bg-muted-foreground h-1 w-1 rounded-full'
                         animate={
-                          reduceMotion
-                            ? undefined
-                            : { y: [0, -3, 0], opacity: [0.4, 1, 0.4] }
+                          reduceMotion ? undefined : { y: [0, -3, 0], opacity: [0.4, 1, 0.4] }
                         }
                         transition={{
                           duration: MOTION.slow + MOTION.base,
@@ -690,7 +672,9 @@ export function ChatWidget() {
             {hasError && (
               <div className='flex gap-2'>
                 <Avatar className='h-6 w-6 shrink-0'>
-                  <AvatarFallback className='text-[10px]'>AI</AvatarFallback>
+                  <AvatarFallback className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)]'>
+                    AI
+                  </AvatarFallback>
                 </Avatar>
                 <div className='bg-destructive/10 border-destructive/30 flex flex-col gap-1.5 rounded-2xl rounded-tl-sm border px-3 py-2'>
                   <p className='text-destructive text-xs font-medium'>
@@ -700,7 +684,7 @@ export function ChatWidget() {
                     <Button
                       variant='outline'
                       size='sm'
-                      className='self-start text-[10px] h-6'
+                      className='self-start text-[length:var(--fs-micro)] leading-[var(--lh-micro)] h-6'
                       onClick={handleRetry}
                       disabled={isLoading}
                     >

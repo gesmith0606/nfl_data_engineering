@@ -32,7 +32,7 @@ export function NotificationCenter() {
         <Button variant='ghost' size='icon' className='relative h-8 w-8'>
           <Icons.notification className='h-4 w-4' />
           {count > 0 && (
-            <span className='bg-destructive text-destructive-foreground absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-medium'>
+            <span className='bg-destructive text-destructive-foreground absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-medium'>
               {count > 9 ? '9+' : count}
             </span>
           )}
