@@ -1,0 +1,602 @@
+{
+  "fetch_run_id": "9ab6c8ad-6c2e-44de-9809-71e33a8b9078",
+  "source": "pft",
+  "fetched_at": "2026-08-02T12:30:20.586243+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-te-zack-kuntz",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-te-zack-kuntz",
+      "permalink": "",
+      "title": "Raiders sign TE Zack Kuntz",
+      "body_text": "The Raiders added a tight end to their roster on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T12:23:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zack Kuntz",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0038406"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-im-extremely-comfortable-under-center-think-it-will-help-us-a-lot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-im-extremely-comfortable-under-center-think-it-will-help-us-a-lot",
+      "permalink": "",
+      "title": "Lamar Jackson: I'm extremely comfortable under center, think it will help us a lot",
+      "body_text": "Ravens quarterback Lamar Jackson is in a new offense this season and one of the changes he's adapting to this summer concerns where he's lining up.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T12:10:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-cbs-is-going-to-move-on-from-tony-romo-jerry-jones-could-try-to-stop-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-cbs-is-going-to-move-on-from-tony-romo-jerry-jones-could-try-to-stop-it",
+      "permalink": "",
+      "title": "If CBS is going to move on from Tony Romo, Jerry Jones could try to stop it",
+      "body_text": "Jones calls Romo a \"very, very unique talent.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T11:43:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Romo",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-we-all-trust-in-the-process-of-bijan-robinsons-contract-negotiations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-we-all-trust-in-the-process-of-bijan-robinsons-contract-negotiations",
+      "permalink": "",
+      "title": "Kevin Stefanski: We all trust in the process of Bijan Robinson's contract negotiations",
+      "body_text": "Falcons running back Bijan Robinson is not fully participating in training camp as he seeks a new contract.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-02T10:35:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kevin Stefanski",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-jaylon-johnson-caleb-williams-is-the-best-quarterback-ive-had-since-nick-foles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-jaylon-johnson-caleb-williams-is-the-best-quarterback-ive-had-since-nick-foles",
+      "permalink": "",
+      "title": "Bears' Jaylon Johnson: Caleb Williams is the best quarterback I've had since Nick Foles",
+      "body_text": "Johnson may have damned Williams with faint praise in suggesting that Williams is not the Bears' best quarterback during Johnson's seven years in Chicago.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-02T07:42:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylon Johnson",
+        "Caleb Williams",
+        "Nick Foles"
+      ],
+      "resolved_player_ids": [
+        "00-0036292",
+        "00-0039918",
+        "00-0029567"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-credits-his-wife-for-mended-fences-with-family",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-credits-his-wife-for-mended-fences-with-family",
+      "permalink": "",
+      "title": "Aaron Rodgers credits his wife for mended fences with family",
+      "body_text": "The final season of football for Aaron Rodgers was preceded by a reunion with his estranged family.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T01:49:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-doesnt-know-why-people-think-he-doesnt-like-cleveland",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-doesnt-know-why-people-think-he-doesnt-like-cleveland",
+      "permalink": "",
+      "title": "Deshaun Watson doesn't know why people think he doesn't like Cleveland",
+      "body_text": "Four years ago, when the Browns, Panthers, Falcons, and Saints entered a four-way competition for quarterback Deshaun Watson, Cleveland was the first team to which Watson said, \"No thanks.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T00:56:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Cleveland Four"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-seems-to-be-pulling-ahead-in-vikings-qb-competition-as-expected",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-seems-to-be-pulling-ahead-in-vikings-qb-competition-as-expected",
+      "permalink": "",
+      "title": "Kyler Murray seems to be pulling ahead in Vikings QB competition, as expected",
+      "body_text": "In Murray vs. McCarthy, it seems inevitable that the newcomer will win the job.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T00:45:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray",
+        "In Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-olb-donovan-ezeiruaku-expects-more-sacks-than-last-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-olb-donovan-ezeiruaku-expects-more-sacks-than-last-season",
+      "permalink": "",
+      "title": "Cowboys OLB Donovan Ezeiruaku expects more sacks than last season",
+      "body_text": "Cowboys outside linebacker Donovan Ezeiruaku ranked in the top five among rookies in pressures, win rate, hits and hurries in 2025, according to Pro Football Focus.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T23:02:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Donovan Ezeiruaku",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0040725"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-patrick-mahomes-sure-looks-sharp-out-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-patrick-mahomes-sure-looks-sharp-out-there",
+      "permalink": "",
+      "title": "Andy Reid: Patrick Mahomes sure looks sharp out there",
+      "body_text": "Chiefs head coach Andy Reid continues to see positive signs from Patrick Mahomes in the quarterback's recovery from a torn ACL.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-01T22:23:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-on-return-to-49ers-it-kind-of-felt-like-i-didnt-even-go-nowhere",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-on-return-to-49ers-it-kind-of-felt-like-i-didnt-even-go-nowhere",
+      "permalink": "",
+      "title": "Deebo Samuel on return to 49ers: \"It kind of felt like I didn't even go nowhere\"",
+      "body_text": "Samuel was back on the practice field with San Francisco on Saturday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-01T22:01:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-diagnosed-with-a-calf-strain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-diagnosed-with-a-calf-strain",
+      "permalink": "",
+      "title": "C.J. Gardner-Johnson diagnosed with a calf strain",
+      "body_text": "An MRI delivered good news to Bills safety C.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T22:12:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-says-his-surgically-repaired-ankle-wont-hold-him-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-says-his-surgically-repaired-ankle-wont-hold-him-back",
+      "permalink": "",
+      "title": "Bo Nix says his surgically repaired ankle won't hold him back",
+      "body_text": "Broncos quarterback Bo Nix is back practicing on his surgically repaired right ankle, which he fractured at the end of the divisional-round win over the Bills.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T21:51:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-lb-joseph-vaughn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-lb-joseph-vaughn",
+      "permalink": "",
+      "title": "Seahawks sign LB Joseph Vaughn",
+      "body_text": "The Seahawks added depth at linebacker on Saturday by signing Joseph Vaughn, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T21:22:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joseph Vaughn",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0040781"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-deebo-samuel-will-also-play-running-back-and-return-kicks-in-second-49ers-stint",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-deebo-samuel-will-also-play-running-back-and-return-kicks-in-second-49ers-stint",
+      "permalink": "",
+      "title": "WR Deebo Samuel will also play running back and return kicks in second 49ers stint",
+      "body_text": "Receiver Deebo Samuel is officially back with the 49ers, for a second time.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T21:08:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "Receiver Deebo"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-cowboys-wouldnt-rule-out-selling-a-piece-of-the-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-cowboys-wouldnt-rule-out-selling-a-piece-of-the-team",
+      "permalink": "",
+      "title": "Stephen Jones: Cowboys wouldn't rule out selling a piece of the team",
+      "body_text": "Plenty of NFL owners have sold pieces of their teams, either to individual partners or to pre-approved private equity funds.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T20:47:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0037551"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylon-johnson-2026-is-definitely-a-contract-year-for-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylon-johnson-2026-is-definitely-a-contract-year-for-me",
+      "permalink": "",
+      "title": "Jaylon Johnson: 2026 is definitely a contract year for me",
+      "body_text": "Bears cornerback Jaylon Johnson has two more years on his current deal, but he's looking at things a bit differently.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T20:26:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylon Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0036292"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-preseason-games-great-opportunity-to-showcase-what-i-can-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-preseason-games-great-opportunity-to-showcase-what-i-can-do",
+      "permalink": "",
+      "title": "Deshaun Watson: Preseason games great opportunity to showcase what I can do",
+      "body_text": "Browns quarterback Deshaun Watson said on Saturday that his performance in training camp thus far has \"been decent\" and that he has his eyes on the next steps in his push to win the starting job in Cleveland.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T20:11:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-rookie-de-mikail-kamara-carted-off-practice-field-with-apparent-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-rookie-de-mikail-kamara-carted-off-practice-field-with-apparent-knee-injury",
+      "permalink": "",
+      "title": "49ers rookie DE Mikail Kamara carted off practice field with apparent knee injury",
+      "body_text": "San Francisco 49ers rookie defensive end Mikail Kamara was carted off the practice field at training camp today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-01T20:04:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mikail Kamara",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0041360"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-agree-to-terms-with-lb-devin-white",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-agree-to-terms-with-lb-devin-white",
+      "permalink": "",
+      "title": "Lions agree to terms with LB Devin White",
+      "body_text": "The Lions have agreed to terms with free agent linebacker Devin White on a one-year deal, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-01T19:32:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Devin White",
+        "The Lions",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0035707"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-chiefs-wr-cyrus-allen-day-to-day-with-shin-bruise",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-chiefs-wr-cyrus-allen-day-to-day-with-shin-bruise",
+      "permalink": "",
+      "title": "Reports: Chiefs WR Cyrus Allen day-to-day with shin bruise",
+      "body_text": "Chiefs rookie wide receiver Cyrus Allen appears to have avoided a serious injury on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T19:32:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cyrus Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0040890"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-evaluate-bringing-in-taysom-hill",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-to-evaluate-bringing-in-taysom-hill",
+      "permalink": "",
+      "title": "Broncos to evaluate bringing in Taysom Hill",
+      "body_text": "Hill and Broncos head coach Sean Payton have a lot of history together.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T19:12:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Taysom Hill",
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [
+        "00-0033357"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-levis-i-know-for-sure-im-one-of-the-32-best-quarterbacks-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-levis-i-know-for-sure-im-one-of-the-32-best-quarterbacks-in-the-nfl",
+      "permalink": "",
+      "title": "Will Levis: I know for sure I'm one of the 32 best quarterbacks in the NFL",
+      "body_text": "Titans quarterback Will Levis is competing with Mitch Trubisky to be the backup to Cam Ward.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-01T18:10:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Levis",
+        "Mitch Trubisky",
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0039152",
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-to-the-browns-5-5-win-over-under-owner-jimmy-haslam-would-take-the-over",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-to-the-browns-5-5-win-over-under-owner-jimmy-haslam-would-take-the-over",
+      "permalink": "",
+      "title": "As to the Browns' 5.5-win over-under, owner Jimmy Haslam would \"take the over\"",
+      "body_text": "There was a time, not all that long ago, when even a vague reference to betting lines by a broadcaster would sound every alarm at 345 Park Avenue.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T18:03:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jimmy Haslam",
+        "Park Avenue"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-rookie-wr-dezhaun-stribling-out-of-practice-with-hamstring-tightness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-rookie-wr-dezhaun-stribling-out-of-practice-with-hamstring-tightness",
+      "permalink": "",
+      "title": "49ers rookie WR De'Zhaun Stribling out of practice with hamstring tightness",
+      "body_text": "The 49ers placed Ricky Pearsall on injured reserve Saturday and one of the players in position to help replace him on offense is out of practice with an injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T17:52:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zhaun Stribling",
+        "Ricky Pearsall"
+      ],
+      "resolved_player_ids": [
+        "00-0039916"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-toub-explains-presence-of-rookie-wr-cyrus-allen-on-special-teams-at-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-toub-explains-presence-of-rookie-wr-cyrus-allen-on-special-teams-at-practice",
+      "permalink": "",
+      "title": "Dave Toub explains presence of rookie WR Cyrus Allen on special teams at practice",
+      "body_text": "Promising Chiefs rookie receiver Cyrus Allen exited Saturday's practice on a cart.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T17:47:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Toub",
+        "Cyrus Allen",
+        "Promising Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0040890"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-worthy-left-chiefs-practice-with-a-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-worthy-left-chiefs-practice-with-a-shoulder-injury",
+      "permalink": "",
+      "title": "Xavier Worthy left Chiefs practice with a shoulder injury",
+      "body_text": "The Chiefs lost a pair of wide receivers to injuries at Saturday's training camp practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T17:42:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-c-j-gardner-johnson-will-have-an-mri-and-well-see",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-beane-c-j-gardner-johnson-will-have-an-mri-and-well-see",
+      "permalink": "",
+      "title": "Brandon Beane: C.J. Gardner-Johnson will have an MRI and we'll see",
+      "body_text": "Bills safety C.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T17:35:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Beane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-had-no-reaction-to-baker-mayfields-contract-comments",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-had-no-reaction-to-baker-mayfields-contract-comments",
+      "permalink": "",
+      "title": "Todd Bowles had no reaction to Baker Mayfield's contract comments",
+      "body_text": "On Thursday, Buccaneers quarterback Baker Mayfield had plenty to say about his inability to get the team to offer him a contract that he deemed to be suitable.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-01T17:29:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Bowles",
+        "Baker Mayfield",
+        "On Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-dl-brodric-martin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-dl-brodric-martin",
+      "permalink": "",
+      "title": "Cardinals sign DL Brodric Martin",
+      "body_text": "The Cardinals made a change on their defensive line Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-01T17:26:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brodric Martin",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038939"
+      ],
+      "team_hint": "ARI"
+    }
+  ]
+}
