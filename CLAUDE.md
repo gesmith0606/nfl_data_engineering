@@ -30,7 +30,7 @@ python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr --include-kickers
 python scripts/generate_projections.py --week 1 --season 2026 --ml                      # Hybrid heuristic+ML routing (weekly only; no-op in preseason)
 python scripts/generate_projections.py --week 1 --season 2026 --props-blend             # Blend toward prop-implied points (opt-in, RB-first)
-python scripts/bronze_season_props_ingestion.py                                          # DK season player futures snapshot (no key needed)
+python scripts/bronze_season_props_ingestion.py                                          # DK+FanDuel season player futures snapshot incl. rookie milestone ladders (no key needed)
 python scripts/generate_projections.py --preseason --season 2026 --season-props-blend   # Blend toward season-line implied points (opt-in)
 python scripts/generate_projections.py --preseason --season 2026 --vacated-opportunity  # Offseason churn boost (graph UC1, opt-in)
 # Preseason consensus anchor is ON by default; --no-consensus-anchor disables it
@@ -159,7 +159,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
 | `scripts/bronze_odds_ingestion.py` | Bronze odds CLI — FinnedAI JSON → Parquet (2016-2021) |
-| `scripts/bronze_season_props_ingestion.py` | Bronze season player futures CLI — DraftKings season O/U lines → Parquet (no API key; curl_cffi) |
+| `scripts/bronze_season_props_ingestion.py` | Bronze season player futures CLI — DraftKings + FanDuel season O/U lines + rookie milestone ladders → Parquet (no API key; curl_cffi) |
+| `src/season_prop_implied.py` | Season lines → implied season points: O/U inversion, rookie milestone ladder fits, cross-book median, preseason blend, draft-board attach |
 | `scripts/bronze_college_ingestion.py` | Bronze college CLI — CFBD API → Parquet (2016-2025) |
 | `scripts/silver_player_transformation.py` | Silver player CLI — usage metrics, rolling averages |
 | `scripts/silver_team_transformation.py` | Silver team CLI — PBP metrics, tendencies, SOS, situational |
