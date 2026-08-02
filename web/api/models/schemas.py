@@ -82,6 +82,20 @@ class ProjectionComparison(BaseModel):
         default_factory=dict,
         description="Per-source ISO 8601 freshness timestamps for the data_as_of chip",
     )
+    fallback: bool = Field(
+        False,
+        description=(
+            "True when the requested (season, week) had no external_projections "
+            "Silver data and the response was served from the latest available "
+            "slice instead (P1 audit 2026-08-01)."
+        ),
+    )
+    fallback_season: Optional[int] = Field(
+        None, description="Season actually served when fallback=True"
+    )
+    fallback_week: Optional[int] = Field(
+        None, description="Week actually served when fallback=True"
+    )
 
 
 class SleeperUser(BaseModel):

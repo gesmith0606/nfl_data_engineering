@@ -49,12 +49,28 @@ export interface GamePrediction {
 }
 
 /** Envelope for a list of player projections. */
+/**
+ * Upstream traceability for a projection response. `source` is
+ * `'preseason_fallback'` when the requested weekly Gold parquet was missing
+ * or stale and the season-total-scale preseason projections were served
+ * under the requested week's label instead (P1 audit 2026-08-01 — those
+ * numbers are NOT per-week points, e.g. Josh Allen "393.7" for "Week 1").
+ */
+export interface ProjectionMeta {
+  season: number;
+  week: number;
+  data_as_of: string | null;
+  source_path: string | null;
+  source: 'weekly' | 'preseason_fallback' | string;
+}
+
 export interface ProjectionResponse {
   season: number;
   week: number;
   scoring_format: string;
   projections: PlayerProjection[];
   generated_at: string;
+  meta?: ProjectionMeta | null;
 }
 
 /** Envelope for a list of game predictions. */
@@ -503,6 +519,15 @@ export interface ProjectionComparison {
   rows: ProjectionComparisonRow[];
   source_labels: Record<string, string>;
   data_as_of: Record<string, string>;
+  /**
+   * True when the requested (season, week) had no external_projections
+   * Silver data and the response was served from the latest available
+   * slice instead (P1 audit 2026-08-01 — the external ingest pipeline can
+   * lag behind the requested week).
+   */
+  fallback: boolean;
+  fallback_season: number | null;
+  fallback_week: number | null;
 }
 
 /**

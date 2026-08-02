@@ -144,3 +144,38 @@ def test_comparison_endpoint_filters_by_position(silver_fixture):
     data = resp.json()
     # No RB in fixture → empty
     assert data["rows"] == []
+
+
+def test_comparison_endpoint_falls_back_to_latest_available_slice(silver_fixture):
+    """P1 audit 2026-08-01: requesting a season/week that has never been
+    ingested (e.g. 2026, since weekly-external-projections.yml never wrote a
+    2026 partition) must not silently serve an all-null comparison — it
+    should walk back to the latest real slice and label it as a fallback.
+    """
+    resp = client.get(
+        "/api/projections/comparison",
+        params={"season": 2026, "week": 1, "scoring": "half_ppr"},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    # Requested slice echoed back...
+    assert data["season"] == 2026
+    assert data["week"] == 1
+    # ...but the real data (from season=2025/week=01 in the fixture) is what
+    # actually gets served, honestly labeled as a fallback.
+    assert data["fallback"] is True
+    assert data["fallback_season"] == 2025
+    assert data["fallback_week"] == 1
+    assert len(data["rows"]) == 1
+    assert data["rows"][0]["player_name"] == "Patrick Mahomes"
+
+
+def test_comparison_endpoint_no_fallback_flag_on_exact_match(silver_fixture):
+    resp = client.get(
+        "/api/projections/comparison",
+        params={"season": 2025, "week": 1, "scoring": "half_ppr"},
+    )
+    data = resp.json()
+    assert data["fallback"] is False
+    assert data["fallback_season"] is None
+    assert data["fallback_week"] is None

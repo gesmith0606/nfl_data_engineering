@@ -56,7 +56,12 @@ export default async function ProjectionsPage() {
             <PremiumUpsell surface='multi-compare' signedIn={status.signedIn} />
           ) : (
             <Suspense>
-              <ProjectionComparisonTable season={2025} week={1} scoring='half_ppr' />
+              {/* P1 audit 2026-08-01: used to hardcode season={2025} week={1}
+                  forever — now tracks the same resolved "current" slice as
+                  the projections table above (useWeekParams), with a
+                  backend fallback + honest label when that exact slice has
+                  no external-comparison data yet. */}
+              <ProjectionComparisonTable scoring='half_ppr' />
             </Suspense>
           )}
         </section>

@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { RouteSkeleton } from '@/components/layout/route-skeleton';
 import { LineupView } from '@/features/nfl/components/lineup-view';
 import { Suspense } from 'react';
 
@@ -13,7 +14,7 @@ export default function LineupsPage() {
       pageTitle='Team Lineups'
       pageDescription='Field view visualization with projected fantasy points'
     >
-      <Suspense>
+      <Suspense fallback={<RouteSkeleton rows={2} />}>
         <LineupView />
       </Suspense>
     </PageContainer>

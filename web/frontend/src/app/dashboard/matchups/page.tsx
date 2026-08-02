@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { RouteSkeleton } from '@/components/layout/route-skeleton';
 import { MatchupView } from '@/features/nfl/components/matchup-view';
 import { Suspense } from 'react';
 
@@ -26,7 +27,7 @@ export default function MatchupsPage() {
       pageTitle='Team Matchups'
       pageDescription='Madden-style offense vs defense breakdown with player ratings and matchup advantages'
     >
-      <Suspense>
+      <Suspense fallback={<RouteSkeleton rows={3} />}>
         <MatchupView />
       </Suspense>
     </PageContainer>

@@ -64,6 +64,12 @@ export function ProjectionsTable({ freeTier = false }: { freeTier?: boolean }) {
     projectionsQueryOptions(season, week, scoring, position === 'ALL' ? undefined : position)
   );
 
+  // P1 audit 2026-08-01: during preseason the weekly Gold parquet is often
+  // missing/stale, so the backend serves season-total-scale numbers under
+  // the requested week's label instead (e.g. Josh Allen "393.7" for "Week
+  // 1"). meta.source flags this — relabel instead of implying weekly points.
+  const isPreseasonFallback = data?.meta?.source === 'preseason_fallback';
+
   const allProjections = data?.projections ?? [];
   // Free tier (auth keys present, no premium): top-50 per position, no
   // floor/ceiling bands. Presentational only — see web/DEPLOYMENT.md.
@@ -84,6 +90,15 @@ export function ProjectionsTable({ freeTier = false }: { freeTier?: boolean }) {
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
+      {isPreseasonFallback && (
+        <div className='rounded-lg border border-[var(--wc-yellow,#ffd84d)]/25 bg-[rgba(255,216,77,0.06)] px-4 py-2.5 text-sm'>
+          <span className='font-semibold'>Preseason mode</span> — no weekly
+          Gold data yet for this slice, so these are{' '}
+          <span className='font-semibold'>season-total projected points</span>,
+          not per-week values. Weekly numbers replace this once the season
+          starts.
+        </div>
+      )}
       {/* Filters — on mobile (<sm) these stack into a 2-column grid so the
        *  Select triggers all fit in 343px without horizontal scroll. */}
       <Card>

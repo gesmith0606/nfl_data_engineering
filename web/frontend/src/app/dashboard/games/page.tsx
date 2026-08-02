@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { RouteSkeleton } from '@/components/layout/route-skeleton';
 import { GameResultsGrid } from '@/features/nfl/components/game-results';
 import { FadeIn } from '@/lib/motion-primitives';
 import { Suspense } from 'react';
@@ -27,7 +28,7 @@ export default function GamesPage() {
       pageTitle='Scores'
       pageDescription='Final scores and game results by week'
     >
-      <Suspense>
+      <Suspense fallback={<RouteSkeleton rows={4} />}>
         <FadeIn>
           <GameResultsGrid />
         </FadeIn>

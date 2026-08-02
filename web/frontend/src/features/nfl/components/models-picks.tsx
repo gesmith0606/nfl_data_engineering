@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
-import { getTeamColor } from '@/lib/nfl/team-colors';
+import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { resolvePredictionsLatestWeek } from '@/lib/week-context';
 import { predictionsQueryOptions } from '../api/queries';
 import { SectionHeading } from './section-heading';
@@ -39,9 +39,24 @@ function PickTile({ prediction }: { prediction: GamePrediction }) {
       />
       <div className='flex items-center justify-between gap-[var(--space-2)]'>
         <span className='wc-display text-[length:var(--fs-body)] leading-none'>
-          <span style={{ color: awayColor }}>{prediction.away_team}</span>
+          {/* P1 audit 2026-08-01 (home-hub scorebug contrast): raw team
+              colors include near-black values (LV, CHI, GB, ...) that are
+              near-illegible against this near-black card. Use the
+              luminance-lifted readable variant already used by
+              prediction-cards.tsx instead of the raw brand color. */}
+          <span
+            style={getReadableTeamColorVars(prediction.away_team)}
+            className='text-[var(--team-color)] dark:text-[var(--team-color-readable)]'
+          >
+            {prediction.away_team}
+          </span>
           <span className='text-muted-foreground mx-[var(--space-1)]'>@</span>
-          <span style={{ color: homeColor }}>{prediction.home_team}</span>
+          <span
+            style={getReadableTeamColorVars(prediction.home_team)}
+            className='text-[var(--team-color)] dark:text-[var(--team-color-readable)]'
+          >
+            {prediction.home_team}
+          </span>
         </span>
         <Badge
           variant={edge >= EDGE_HIGH_THRESHOLD ? 'default' : 'secondary'}

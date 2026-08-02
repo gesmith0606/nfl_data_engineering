@@ -1,6 +1,7 @@
 'use client';
 
 import PageContainer from '@/components/layout/page-container';
+import { RouteSkeleton } from '@/components/layout/route-skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PremiumUpsell } from '@/features/billing/components/premium-upsell';
 import { MultiCompareTable } from '@/features/nfl/components/multi-compare-table';
@@ -27,7 +28,7 @@ export function RankingsView({
       pageTitle='Season Rankings'
       pageDescription='Our season-long rankings — and how we compare to ESPN, Sleeper, Yahoo, Draft Sharks, and FTN'
     >
-      <Suspense>
+      <Suspense fallback={<RouteSkeleton rows={5} />}>
         <FadeIn>
           <Tabs defaultValue='ours' className='w-full'>
             <TabsList>
