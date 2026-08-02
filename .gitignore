@@ -342,6 +342,12 @@ data/gold/*
 !data/bronze/odds_api/
 !data/bronze/odds_api/**
 !data/bronze/odds_api/**/*.parquet
+# Season player futures (DraftKings, 2026-08-02): weekly GHA snapshots
+# committed so the season-line history accumulates for the forward
+# --season-props-blend gate (no historical archive is purchasable).
+!data/bronze/dk/
+!data/bronze/dk/**
+!data/bronze/dk/**/*.parquet
 
 # Ops dashboard snapshot (2026-07-09): built + committed 6-hourly by the
 # freshness-monitor workflow; served by /api/ops/pipeline-status (TD-09

@@ -30,6 +30,8 @@ python scripts/generate_projections.py --week 1 --season 2026 --scoring ppr
 python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr --include-kickers
 python scripts/generate_projections.py --week 1 --season 2026 --ml                      # Hybrid heuristic+ML routing (weekly only; no-op in preseason)
 python scripts/generate_projections.py --week 1 --season 2026 --props-blend             # Blend toward prop-implied points (opt-in, RB-first)
+python scripts/bronze_season_props_ingestion.py                                          # DK season player futures snapshot (no key needed)
+python scripts/generate_projections.py --preseason --season 2026 --season-props-blend   # Blend toward season-line implied points (opt-in)
 python scripts/generate_projections.py --preseason --season 2026 --vacated-opportunity  # Offseason churn boost (graph UC1, opt-in)
 # Preseason consensus anchor is ON by default; --no-consensus-anchor disables it
 python scripts/train_player_models.py --model-type xgb                                   # XGBoost models (default)
@@ -157,6 +159,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/utils.py` | Shared utils incl. `get_latest_s3_key`, `download_latest_parquet` |
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
 | `scripts/bronze_odds_ingestion.py` | Bronze odds CLI — FinnedAI JSON → Parquet (2016-2021) |
+| `scripts/bronze_season_props_ingestion.py` | Bronze season player futures CLI — DraftKings season O/U lines → Parquet (no API key; curl_cffi) |
 | `scripts/bronze_college_ingestion.py` | Bronze college CLI — CFBD API → Parquet (2016-2025) |
 | `scripts/silver_player_transformation.py` | Silver player CLI — usage metrics, rolling averages |
 | `scripts/silver_team_transformation.py` | Silver team CLI — PBP metrics, tendencies, SOS, situational |
@@ -243,7 +246,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 **In progress**: Site-fix sprint 2026-08-01 (Phase 81 audit): 6 of 11 dashboard routes were broken in prod — draft-room crash (P0, PR #73) + 5 unresolved-Suspense void routes (games/rankings/players/lineups/matchups; branch fix/dashboard-suspended-routes); PRs pending USER merge (#72 advisor tools, #73 P0, polish + remediation branches) — see .planning/STATE.md thread 5 and the Phase 81 audit doc | August dress rehearsal — scope narrowed 2026-07-30: all 8 workflows have evidence-green runs (see .planning/WORKFLOW_READINESS.md addendum); remaining ~Aug 3-7 checks are weekly-pipeline --ml against live preseason data + sunday-refresh non-no-op injury path. HF-Space staleness incident (issue #71) fixed 07-30 via daily 14:30 UTC deploy-web cron (bot data commits never fire push triggers — GITHUB_TOKEN suppression) | Billing go-live is user-owned (docs/BILLING_LAUNCH.md) and is the launch critical path | In-season gates (Sept+): line-capture verdict by w10 (mean >+0.3, n≥150), prop-implied eval once Sunday snapshots accumulate
 
-**Planned**: RB gap +0.26 vs consensus — levers: --props-blend in-season gate (machinery BUILT 2026-07-08, eval once Sunday snapshots accumulate) + live-season learnings (matchup features HOLD per re-gate; PFF decision ~Nov, must beat free ceiling ~+0.01 WR MAE by ≥3x) | v5.0 Sentiment multiplier wiring | v5.1 Perfect implementation (Neo4j Aura, PFF subscription) | v5.2 Live data sync | Offseason: packaging normalization (installable package, delete config alias guard) + projection_engine/god-module splits
+**Planned**: RB gap +0.26 vs consensus — levers: --props-blend in-season gate (machinery BUILT 2026-07-08, eval once Sunday snapshots accumulate) + --season-props-blend preseason blend toward DK season-futures implied points (BUILT 2026-08-02, opt-in; Tuesday capture cron; forward gate vs 2026 season-end actuals — see PROP_IMPLIED_DECISION.md addendum) + live-season learnings (matchup features HOLD per re-gate; PFF decision ~Nov, must beat free ceiling ~+0.01 WR MAE by ≥3x) | v5.0 Sentiment multiplier wiring | v5.1 Perfect implementation (Neo4j Aura, PFF subscription) | v5.2 Live data sync | Offseason: packaging normalization (installable package, delete config alias guard) + projection_engine/god-module splits
 
 ## Design Findings
 

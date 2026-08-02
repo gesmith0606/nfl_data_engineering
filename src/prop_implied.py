@@ -186,6 +186,8 @@ def implied_td_mean(p_anytime: float) -> float:
 def compute_prop_implied_points(
     props_df: pd.DataFrame,
     scoring_format: str = "half_ppr",
+    market_to_stat: Optional[Dict[str, str]] = None,
+    market_cv: Optional[Dict[str, float]] = None,
 ) -> pd.DataFrame:
     """Aggregate a props snapshot into per-player implied fantasy points.
 
@@ -203,6 +205,11 @@ def compute_prop_implied_points(
     Args:
         props_df:       Bronze props frame (``PROPS_SCHEMA_COLS`` shape).
         scoring_format: Fantasy scoring format for the implied points.
+        market_to_stat: Market key -> stat column mapping. Defaults to the
+                        weekly ``MARKET_TO_STAT``; season-long callers pass
+                        their own (see ``src/season_prop_implied.py``).
+        market_cv:      Market key -> coefficient of variation for the
+                        Normal inversion. Defaults to ``MARKET_CV``.
 
     Returns:
         One row per player: ``name_key``, ``player_name``, implied stat
@@ -210,6 +217,11 @@ def compute_prop_implied_points(
         ``prop_market_count`` and ``prop_implied_points``. Empty frame on
         empty/unusable input.
     """
+    if market_to_stat is None:
+        market_to_stat = MARKET_TO_STAT
+    if market_cv is None:
+        market_cv = MARKET_CV
+
     empty_cols = [
         "name_key",
         "player_name",
@@ -246,8 +258,8 @@ def compute_prop_implied_points(
             probs = group["price_over"].map(american_to_prob) * 0.93
             means = probs.map(implied_td_mean)
             stat = "rushing_tds"
-        elif market in MARKET_TO_STAT:
-            cv = MARKET_CV.get(market, 0.5)
+        elif market in market_to_stat:
+            cv = market_cv.get(market, 0.5)
             p_fair = group.apply(
                 lambda r: devig_two_way(r["price_over"], r["price_under"]),
                 axis=1,
@@ -259,7 +271,7 @@ def compute_prop_implied_points(
                 ],
                 index=group.index,
             )
-            stat = MARKET_TO_STAT[market]
+            stat = market_to_stat[market]
         else:
             continue
 
@@ -322,6 +334,7 @@ def apply_props_blend(
     implied_df: pd.DataFrame,
     lambdas: Optional[Dict[str, float]] = None,
     points_col: str = "projected_points",
+    core_markets: Optional[Dict[str, set]] = None,
 ) -> pd.DataFrame:
     """Blend projections toward prop-implied points, per position.
 
@@ -339,11 +352,16 @@ def apply_props_blend(
         lambdas:    Per-position blend weights (default
                     ``PROPS_BLEND_LAMBDAS`` — provisional, pre-gate).
         points_col: Points column to blend in place.
+        core_markets: Per-position market-coverage gate (default
+                    ``CORE_MARKETS_BY_POS``; season-long callers pass their
+                    own keys).
 
     Returns:
         The projections frame with blended points and provenance columns.
     """
     lambdas = lambdas if lambdas is not None else PROPS_BLEND_LAMBDAS
+    if core_markets is None:
+        core_markets = CORE_MARKETS_BY_POS
     proj = proj_df.copy()
     proj["prop_implied_points"] = np.nan
     proj["prop_anchor_gap"] = np.nan
@@ -362,7 +380,7 @@ def apply_props_blend(
     for pos, lam in lambdas.items():
         if lam <= 0:
             continue
-        core = CORE_MARKETS_BY_POS.get(pos, set())
+        core = core_markets.get(pos, set())
         coverage_ok = markets.map(lambda m: isinstance(m, set) and core.issubset(m))
         mask = (proj["position"] == pos) & implied.notna() & coverage_ok
         if not mask.any():

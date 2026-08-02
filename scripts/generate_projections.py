@@ -225,6 +225,18 @@ def main():
         ),
     )
     parser.add_argument(
+        "--season-props-blend",
+        action="store_true",
+        default=False,
+        help=(
+            "Preseason mode only: blend projected_season_points toward "
+            "season-long prop-implied points from the latest DraftKings "
+            "season futures snapshot (data/bronze/dk/season_props/; ingest "
+            "via scripts/bronze_season_props_ingestion.py). OPT-IN and "
+            "provisional — lambdas in src/season_prop_implied.py."
+        ),
+    )
+    parser.add_argument(
         "--vacated-opportunity",
         action="store_true",
         default=False,
@@ -276,12 +288,22 @@ def main():
             print(
                 "Note: --ml is a no-op in preseason mode (all positions use heuristic)"
             )
+        if args.props_blend:
+            print(
+                "Note: --props-blend has no effect in --preseason mode "
+                "(weekly game props only; use --season-props-blend here)"
+            )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
         if args.no_consensus_anchor:
             print(
                 "Note: --no-consensus-anchor has no effect in --week mode "
                 "(the consensus anchor only applies to preseason projections)"
+            )
+        if args.season_props_blend:
+            print(
+                "Note: --season-props-blend has no effect in --week mode "
+                "(season futures only apply to preseason projections)"
             )
     print("=" * 60)
 
@@ -608,6 +630,61 @@ def main():
             external_rankings_dir=external_rankings_dir,
             vacated_features_df=vacated_features_df,
         )
+        # --- Season prop-implied blend (opt-in via --season-props-blend) ---
+        # Season futures lines (DraftKings) are the market's full-season
+        # per-player consensus, priced on the same season-total scale as
+        # projected_season_points — availability risk included, which our
+        # 17-game scaling deliberately ignores. Applied AFTER the consensus
+        # anchor so the market line, not the ranking consensus, gets the
+        # last word on covered players. Lambdas are PROVISIONAL (no season-
+        # line archive to backtest); see src/season_prop_implied.py.
+        if args.season_props_blend and not projections.empty:
+            import glob as _glob
+
+            from season_prop_implied import (  # noqa: E402
+                apply_season_props_blend,
+                compute_season_prop_implied_points,
+            )
+
+            season_props_files = sorted(
+                _glob.glob(
+                    os.path.join(
+                        PROJECT_ROOT,
+                        "data",
+                        "bronze",
+                        "dk",
+                        "season_props",
+                        f"season={args.season}",
+                        "season_props_*.parquet",
+                    )
+                )
+            )
+            if not season_props_files:
+                print(
+                    "WARN: --season-props-blend requested but no season "
+                    f"props snapshots exist for season {args.season}; run "
+                    "scripts/bronze_season_props_ingestion.py first. "
+                    "Skipping blend."
+                )
+            else:
+                season_props_df = pd.read_parquet(season_props_files[-1])
+                season_implied = compute_season_prop_implied_points(
+                    season_props_df, scoring_format=args.scoring
+                )
+                before_total = float(projections["projected_season_points"].sum())
+                projections = apply_season_props_blend(projections, season_implied)
+                after_total = float(projections["projected_season_points"].sum())
+                projections = projections.sort_values(
+                    "projected_season_points", ascending=False, kind="mergesort"
+                ).reset_index(drop=True)
+                print(
+                    f"Season props blend: {len(season_implied)} players with "
+                    "implied season points from "
+                    f"{os.path.basename(season_props_files[-1])}; total "
+                    f"projected season points {before_total:.1f} -> "
+                    f"{after_total:.1f}"
+                )
+
         s3_key = f"projections/preseason/season={args.season}/season_proj_{ts}.parquet"
         local_name = f"preseason_{args.season}_{args.scoring}_{ts}.csv"
 
@@ -968,7 +1045,7 @@ def main():
                 print(
                     f"Props blend: {len(implied)} players with implied points "
                     f"from {os.path.basename(props_files[-1])}; total "
-                    f"projected points {before_total:.1f} → {after_total:.1f}"
+                    f"projected points {before_total:.1f} -> {after_total:.1f}"
                 )
 
         # --- Sentiment adjustments (opt-in via --use-sentiment) ---
