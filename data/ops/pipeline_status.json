@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T18:25:48.292428+00:00",
+  "generated_at": "2026-08-02T00:50:51.424758+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-08-01T13:32:01Z",
-        "duration_seconds": 78,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/30701916158",
+        "started_at": "2026-08-01T21:19:37Z",
+        "duration_seconds": 92,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/30718893467",
         "event": "schedule"
       },
       "recent": [
@@ -145,9 +145,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-08-01T18:25:27Z",
+        "started_at": "2026-08-02T00:50:29Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/30712482925",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/30725950126",
         "event": "schedule"
       },
       "recent": [
@@ -172,21 +172,21 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-08-01T14:50:20Z",
-        "duration_seconds": 325,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/30704616860",
-        "event": "schedule"
+        "started_at": "2026-08-02T00:35:58Z",
+        "duration_seconds": 308,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/30725504246",
+        "event": "push"
       },
       "recent": [
         "success",
         "success",
         "success",
         "success",
+        "success",
+        "success",
+        "success",
+        "success",
         "failure",
-        "success",
-        "success",
-        "success",
-        "success",
         "success"
       ],
       "success_rate": 0.9
