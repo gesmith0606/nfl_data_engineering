@@ -65,19 +65,23 @@ runbook in `WORKFLOW_READINESS.md`).
    games/rankings/players/lineups/matchups render unresolved-Suspense voids
    (remediation branch `fix/dashboard-suspended-routes`). Audit doc:
    `.planning/milestones/v7.2-phases/81-dashboard-feature-audit/UX-01-AUDIT.md`.
-   All four PRs are OPEN and CI-green (frontend gate now real, see below):
-   **#73** P0 draft crash · **#74** suspended routes + infobar/scorebug/
-   preseason-label/comparison fixes (root cause: RSC stream never flushing
-   bare no-fallback Suspense + Framer Motion rAF-freeze leaving content at
-   opacity 0) · **#72** advisor tools (Phase 83 TOOL-01/02) · **#75**
-   polish (font tokens 89→35, spinners→skeletons, demo-form deleted, badge
-   99+ cap). **User action: merge in order #73 → #74 → #72 → #75** (gh pr
-   merge is permission-gated for the agent; rebase #75 if lineup-view/
-   player-detail conflict). Bonus fix landed on main (42648579): ci.yml
-   Frontend Build had skipped on EVERY PR (changed_files is a number, not a
-   list) and never ran vitest — frontend gate is now real. Process gap
-   recorded: HTTP live gates can't see client-side crashes —
-   hydrated-content sentinel is a follow-up candidate.
+   **RESOLVED 2026-08-02 — all five PRs MERGED and verified live:**
+   **#73** P0 draft crash (draft room renders for fresh sessions) ·
+   **#74** route skeletons + infobar/scorebug/preseason-label/comparison
+   fixes · **#72** advisor tools (Phase 83 TOOL-01/02) · **#75** polish
+   (font tokens 89→35, spinners→skeletons, demo-form deleted, badge 99+
+   cap) · **#77** follow-up root-cause fix: the five routes' `<Suspense>`
+   wrappers were vestigial (nothing inside ever suspends — plain useQuery)
+   and on Vercel's runtime the SSR stream closed with the boundary still
+   pending, hanging the fallback forever; wrappers removed, components'
+   own isLoading states now drive UX. Verified live: 0 pending `<!--$?-->`
+   markers on all five routes; rankings serves 1,004 rows; scores shows
+   real results. Bonus fix on main (42648579): ci.yml Frontend Build had
+   skipped on EVERY PR (changed_files is a number, not a list) and never
+   ran vitest — frontend gate is now real. Process gaps recorded: HTTP
+   live gates can't see client-side crashes (hydrated-content sentinel is
+   a follow-up candidate); Vercel preview deploys are SSO-gated, blocking
+   automated preview verification.
 6. **Push-v2 (blocked on operator infra):** delivery stub is intentionally
    OFF; activation checklist (KV store + VAPID keys + env) documented in
    `docs/PUSH_NOTIFICATIONS.md`. Sentiment-multiplier "wiring" note: already
