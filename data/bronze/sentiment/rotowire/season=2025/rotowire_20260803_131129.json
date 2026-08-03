@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "3ebef7d9-c47a-44f2-ae42-067680bc6048",
+  "source": "rotowire",
+  "fetched_at": "2026-08-03T13:11:29.279079+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632458",
+      "url": "https://www.rotowire.com//football/player/kyle-monangai-18520",
+      "permalink": "",
+      "title": "Kyle Monangai: Dealing with soft-tissue injury",
+      "body_text": "Coach Ben Johnson noted Monday that Monangai is dealing with a soft-tissue injury, Brad Biggs of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-03T06:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai",
+        "Coach Ben",
+        "Brad Biggs",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632427",
+      "url": "https://www.rotowire.com//football/player/chris-rodriguez-16933",
+      "permalink": "",
+      "title": "Chris Rodriguez: Progressing in recovery",
+      "body_text": "Rodriguez (foot) participated in team drills during Sunday's training camp practice, John Shipley of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-02T09:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Rodriguez",
+        "John Shipley"
+      ],
+      "resolved_player_ids": [
+        "00-0038611"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632418",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "permalink": "",
+      "title": "Deebo Samuel: Goes through full practice Saturday",
+      "body_text": "Samuel was a full participant in Saturday's training camp practice, his first since signing with the 49ers on Thursday, Matt Barrows of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-01T01:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "Saturday Samuel",
+        "Matt Barrows",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl632409",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "permalink": "",
+      "title": "Xavier Worthy: Avoids serious injury",
+      "body_text": "Worthy is believed to avoided a serious shoulder injury that he sustained during the final session of Saturday's training camp practice, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-01T01:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632397",
+      "url": "https://www.rotowire.com//football/player/cyrus-allen-19631",
+      "permalink": "",
+      "title": "Cyrus Allen: Diagnosed with shin bruise",
+      "body_text": "Allen was diagnosed with a shin bruise on his left leg that he suffered during Saturday's training camp practice, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-01T12:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cyrus Allen",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0040890"
+      ],
+      "team_hint": null
+    }
+  ]
+}

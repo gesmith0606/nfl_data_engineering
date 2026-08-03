@@ -1,0 +1,515 @@
+{
+  "fetch_run_id": "09320054-09b4-4dae-93c8-e62de4505827",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-03T13:11:16.333152+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-seems-to-be-pulling-ahead-in-vikings-qb-competition-as-expected",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-seems-to-be-pulling-ahead-in-vikings-qb-competition-as-expected",
+      "title": "Kyler Murray seems to be pulling ahead in Vikings QB competition, as expected",
+      "body_text": "In Murray vs. McCarthy, it seems inevitable that the newcomer will win the job.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T00:45:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray",
+        "In Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-rb-kyle-monangai-day-to-day-with-soft-tissue-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-rb-kyle-monangai-day-to-day-with-soft-tissue-injury",
+      "title": "Bears RB Kyle Monangai day-to-day with soft tissue injury",
+      "body_text": "Bears running back Kyle Monangai has been out of practice since the first day of training camp and head coach Ben Johnson gave an update on his condition at a Monday press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T12:56:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Monangai",
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0040236",
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-put-ol-hakeem-adeniji-on-reserve-retired",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-put-ol-hakeem-adeniji-on-reserve-retired",
+      "title": "Ravens put OL Hakeem Adeniji on reserve/retired list",
+      "body_text": "Hakeem Adeniji will not be providing the Ravens with offensive line depth this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T12:48:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Hakeem Adeniji"
+      ],
+      "resolved_player_ids": [
+        "00-0036310"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-wants-aaron-rodgers-to-play-in-first-two-preseason-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-wants-aaron-rodgers-to-play-in-first-two-preseason-games",
+      "title": "Mike McCarthy wants Aaron Rodgers to play in first two preseason games",
+      "body_text": "The Steelers have a new head coach this season and they have a new plan for Aaron Rodgers in the preseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T12:40:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-activate-lb-kain-medrano",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-activate-lb-kain-medrano",
+      "title": "Commanders activate LB Kain Medrano",
+      "body_text": "Linebacker Kain Medrano is ready to get on the field at Commanders training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T11:54:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kain Medrano",
+        "Linebacker Kain"
+      ],
+      "resolved_player_ids": [
+        "00-0040216"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-expectation-is-for-me-to-lead-so-i-have-to-make-a-big-jump",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-expectation-is-for-me-to-lead-so-i-have-to-make-a-big-jump",
+      "title": "Ashton Jeanty: Expectation is for me to lead, so I have to make a big jump",
+      "body_text": "Ashton Jeanty came into the NFL with high expectations for what he'd do in the Raiders' backfield, but the 2025 first-round pick's rookie season did not meet them.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T11:39:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-luther-burden-competes-like-amon-ra-st-brown-wants-to-be-the-best",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-luther-burden-competes-like-amon-ra-st-brown-wants-to-be-the-best",
+      "title": "Ben Johnson: Luther Burden competes like Amon-Ra St. Brown, wants to be the best",
+      "body_text": "Bears coach Ben Johnson says wide receiver Luther Burden is poised to build off his promising rookie season in 2025 and become one of the best receivers in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-03T09:33:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Luther Burden"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0040735"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadeveon-clowney-signing-with-the-texans-was-a-really-easy-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadeveon-clowney-signing-with-the-texans-was-a-really-easy-decision",
+      "title": "Jadeveon Clowney: Signing with the Texans was \"a really easy decision\"",
+      "body_text": "“I've grown up and learned the game a lot more since leaving,” Clowney said. “I feel like I can help the younger guys.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-03T07:57:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadeveon Clowney"
+      ],
+      "resolved_player_ids": [
+        "00-0031364"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-taking-coaching-job-at-georgia-tech-deandre-hopkins-says-he-isnt-retired",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-taking-coaching-job-at-georgia-tech-deandre-hopkins-says-he-isnt-retired",
+      "title": "After taking coaching job at Georgia Tech, DeAndre Hopkins says he isn't retired",
+      "body_text": "Yes, receiver DeAndre Hopkins has taken a coaching job at Georgia Tech.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-03T03:20:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Georgia Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-lost-rookie-season-bucs-lb-david-walker-is-turning-heads-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-lost-rookie-season-bucs-lb-david-walker-is-turning-heads-again",
+      "title": "After lost rookie season, Bucs LB David Walker is turning heads again",
+      "body_text": "Last year, Buccaneers rookie linebacker David Walker was making a great impression.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T23:49:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0040158"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-on-his-13th-season-this-is-dog-years-out-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-on-his-13th-season-this-is-dog-years-out-there",
+      "title": "Davante Adams on his 13th season: \"This is dog years out there\"",
+      "body_text": "At 33, Rams receiver Davante Adams is young by societal standards.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T23:36:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-ol-sebastian-gutierrez-waive-injured-lb-charles-snowden",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-ol-sebastian-gutierrez-waive-injured-lb-charles-snowden",
+      "title": "Cowboys sign OL Sebastian Gutierrez, waive LB Charles Snowden",
+      "body_text": "The Cowboys swapped out an injured defensive lineman for an offensive lineman on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T22:03:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sebastian Gutierrez",
+        "Charles Snowden",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037381",
+        "00-0036711"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-rb-khalil-herbert-dl-titus-leo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-rb-khalil-herbert-dl-titus-leo",
+      "title": "49ers sign RB Khalil Herbert, DL Titus Leo",
+      "body_text": "The 49ers made a handful of roster moves on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T21:08:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Khalil Herbert",
+        "Titus Leo"
+      ],
+      "resolved_player_ids": [
+        "00-0036906",
+        "00-0038404"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-out-of-practice-with-lower-body-soreness-but-sean-mcvay-says-rams-arent-worried",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-out-of-practice-with-lower-body-soreness-but-sean-mcvay-says-rams-arent-worried",
+      "title": "Myles Garrett out of practice with lower body soreness, but Sean McVay says Rams aren't worried",
+      "body_text": "Myles Garrett missed a third consecutive day of practice, but Rams coach Sean McVay said the defensive end has lower body soreness and nothing of concern.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-02T20:57:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-years-later-jadeveon-clowney-returns-to-the-texans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eight-years-later-jadeveon-clowney-returns-to-the-texans",
+      "title": "Eight years later, Jadeveon Clowney returns to the Texans",
+      "body_text": "No. 1 overall pick in 2014 returns to the team that drafted him.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T20:13:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadeveon Clowney"
+      ],
+      "resolved_player_ids": [
+        "00-0031364"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-put-wr-jalynn-polk-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-put-wr-jalynn-polk-on-reserve-retired-list",
+      "title": "Saints put WR Ja'Lynn Polk on reserve/retired list",
+      "body_text": "Wide receiver Ja'Lynn Polk is walking away from football ahead of his third NFL season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T20:24:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lynn Polk"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-s-rayshawn-jenkins-cut-darnell-savage",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-s-rayshawn-jenkins-cut-darnell-savage",
+      "title": "Steelers sign S Rayshawn Jenkins, cut Darnell Savage",
+      "body_text": "The Steelers signed safety Rayshawn Jenkins to a one-year contract, the team announced Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-02T20:15:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rayshawn Jenkins",
+        "Darnell Savage",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0033941",
+        "00-0034968"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-defensive-tackles-khalen-saunders-laki-tasi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-defensive-tackles-khalen-saunders-laki-tasi",
+      "title": "Titans sign defensive tackles Khalen Saunders, Laki Tasi",
+      "body_text": "The Titans have two new defensive tackles in camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T20:15:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Khalen Saunders",
+        "Laki Tasi",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035656",
+        "00-0040762"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-c-trey-hill",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-c-trey-hill",
+      "title": "Commanders sign C Trey Hill",
+      "body_text": "The Commanders announced a pair of roster moves on Sunday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T20:08:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trey Hill",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036856"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-texans-to-sign-dl-mario-edwards-lb-sione-takitaki",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-texans-to-sign-dl-mario-edwards-lb-sione-takitaki",
+      "title": "Reports: Texans to sign DL Mario Edwards, LB Sione Takitaki",
+      "body_text": "The Texans are bringing back defensive lineman Mario Edwards.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T20:00:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mario Edwards",
+        "Sione Takitaki",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0032265",
+        "00-0035646"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/who-are-the-potential-successors-to-roger-goodell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/who-are-the-potential-successors-to-roger-goodell",
+      "title": "Who are the potential successors to Roger Goodell?",
+      "body_text": "This week, Roger Goodell will be in Canton for the annual distribution of a fresh set of gold jackets.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T19:50:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-says-he-wants-to-play-every-snap-after-putting-on-a-show-in-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-says-he-wants-to-play-every-snap-after-putting-on-a-show-in-practice",
+      "title": "Travis Hunter says he wants to play every snap after putting on a show in practice",
+      "body_text": "Travis Hunter played 324 offensive snaps and 162 defensive snaps in seven appearances last season before his knee injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-02T19:50:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-no-question-jahmyr-gibbs-should-be-the-highest-paid-rb-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-no-question-jahmyr-gibbs-should-be-the-highest-paid-rb-in-the-nfl",
+      "title": "Jameson Williams: No question Jahmyr Gibbs should be the highest-paid RB in the NFL",
+      "body_text": "Lions wide receiver Jameson Williams was asked today whether Jahmyr Gibbs deserves to be the highest-paid running back in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-02T19:38:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jameson Williams",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0037240",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-ehlinger-pushing-jarrett-stidham-for-broncos-backup-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-ehlinger-pushing-jarrett-stidham-for-broncos-backup-job",
+      "title": "Sam Ehlinger pushing Jarrett Stidham for Broncos' backup job",
+      "body_text": "Sam Ehlinger took the Broncos' second-team snaps on Saturday, Mike Klis of 9News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-02T19:30:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Ehlinger",
+        "Jarrett Stidham",
+        "Mike Klis"
+      ],
+      "resolved_player_ids": [
+        "00-0036879",
+        "00-0035264"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-robinson-gets-a-tryout-with-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-robinson-gets-a-tryout-with-raiders",
+      "title": "James Robinson gets a tryout with Raiders",
+      "body_text": "Six years after running back James Robinson rushed for 1,070 yards as a rookie in 2020 with the Jaguars, he's looking for a path back to the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-02T19:11:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Robinson",
+        "Raiders Six"
+      ],
+      "resolved_player_ids": [
+        "00-0035831"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-to-sign-db-derrick-canteen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-to-sign-db-derrick-canteen",
+      "title": "Titans to sign DB Derrick Canteen",
+      "body_text": "The Titans have agreed to terms with defensive back Derrick Canteen, Matt Zenitz of CBS Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-02T19:05:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Canteen",
+        "The Titans",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [
+        "00-0040659"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-t-zach-tom-changes-last-name-to-bako-bewele",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-t-zach-tom-changes-last-name-to-bako-bewele",
+      "title": "Packers T Zach Tom changes last name to Bako-Bewele",
+      "body_text": "The Packers are expected to have the same starting right tackle as last season when they take the field in September, but there will be a different name on the back of his jersey.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T19:00:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Tom",
+        "Bewele The"
+      ],
+      "resolved_player_ids": [
+        "00-0037817"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-defensive-tackle-bryan-bresee-to-have-surgery-for-torn-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-defensive-tackle-bryan-bresee-to-have-surgery-for-torn-acl",
+      "title": "Saints defensive tackle Bryan Bresee to have surgery for torn ACL",
+      "body_text": "Saints defensive tackle Bryan Bresee's knee injury didn't look good when it happened, and now it's confirmed that he needs surgery to repair a torn ACL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-02T17:17:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryan Bresee"
+      ],
+      "resolved_player_ids": [
+        "00-0038995"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-cb-jarod-washington",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-cb-jarod-washington",
+      "title": "Vikings sign CB Jarod Washington",
+      "body_text": "The Vikings announced a couple of roster moves on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-02T16:54:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jarod Washington",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-on-john-harbaugh-were-all-buying-in-because-of-how-great-a-coach-he-is",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-on-john-harbaugh-were-all-buying-in-because-of-how-great-a-coach-he-is",
+      "title": "Jaxson Dart on John Harbaugh: We're all buying in because of how great a coach he is",
+      "body_text": "Giants quarterback Jaxson Dart says he and his teammates are lining up behind new head coach John Harbaugh.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-02T16:34:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
