@@ -1,0 +1,527 @@
+{
+  "fetch_run_id": "3b94a437-27d2-4353-acd7-b9449fcff56d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-04T12:46:50.418660+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-te-anthony-firkser-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-te-anthony-firkser-on-injured-reserve",
+      "title": "Lions put TE Anthony Firkser on injured reserve",
+      "body_text": "Tight end Anthony Firkser's return to the Lions turned out to be a brief one.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T12:37:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Firkser"
+      ],
+      "resolved_player_ids": [
+        "00-0033455"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-bijan-robinsons-extension-certainly-wont-hurt-jahmyr-gibbs-talks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-bijan-robinsons-extension-certainly-wont-hurt-jahmyr-gibbs-talks",
+      "title": "Dan Campbell: Bijan Robinson's extension certainly won't hurt Jahmyr Gibbs talks",
+      "body_text": "Bijan Robinson's contract extension with the Falcons is done and that means a lot of attention will now shift to Detroit.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T12:27:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell",
+        "Bijan Robinson",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0038542",
+        "00-0039139"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-put-ahkello-witherspoon-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-put-ahkello-witherspoon-on-reserve-retired-list",
+      "title": "Commanders put Ahkello Witherspoon on reserve/retired list",
+      "body_text": "The Commanders confirmed the signing of Fabian Moreau on Tuesday morning and they also announced that another veteran cornerback has decided to call it a career.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T12:16:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ahkello Witherspoon",
+        "The Commanders",
+        "Fabian Moreau"
+      ],
+      "resolved_player_ids": [
+        "00-0033783",
+        "00-0033918"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-agrees-to-three-year-extension-with-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-agrees-to-three-year-extension-with-falcons",
+      "title": "Bijan Robinson agrees to three-year extension with Falcons",
+      "body_text": "Robinson's deal includes $51 million in guaranteed money.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T12:09:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "Falcons Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-sign-cb-fabian-moreau",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-sign-cb-fabian-moreau",
+      "title": "Commanders to sign CB Fabian Moreau",
+      "body_text": "Cornerback Fabian Moreau is heading back to where he started his NFL career.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T11:54:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fabian Moreau",
+        "Cornerback Fabian"
+      ],
+      "resolved_player_ids": [
+        "00-0033918"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-practice-is-as-high-quality-as-ive-been-around",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-practice-is-as-high-quality-as-ive-been-around",
+      "title": "Matthew Stafford: Practice is as high quality as I've been around",
+      "body_text": "The Rams opened up their offseason by making a pair of moves to improve their cornerback group and the impact was on display during Monday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T11:46:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-very-encouraged-by-arvell-reeses-start-to-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-very-encouraged-by-arvell-reeses-start-to-training-camp",
+      "title": "John Harbaugh \"very encouraged\" by Arvell Reese's start to training camp",
+      "body_text": "The Giants had their first padded practice of the summer on Monday and one of the newest members of the team stood out during the session.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T11:30:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Arvell Reese",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0041509"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-jadeveon-clowney-returning-to-houston-logan-hall-gives-up-no-90-jersey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-jadeveon-clowney-returning-to-houston-logan-hall-gives-up-no-90-jersey",
+      "title": "With Jadeveon Clowney returning to Houston, Logan Hall gives up No. 90 jersey",
+      "body_text": "Jadeveon Clowney is returning to Houston, and teammate Logan Hall has apparently given him the No. 90 jersey.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-04T11:28:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With Jadeveon",
+        "Logan Hall",
+        "Jadeveon Clowney"
+      ],
+      "resolved_player_ids": [
+        "00-0038127",
+        "00-0031364"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-mia-bieniemy-is-improving-every-day-no-timetable-for-eric-to-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-mia-bieniemy-is-improving-every-day-no-timetable-for-eric-to-return",
+      "title": "Andy Reid: Mia Bieniemy is improving every day, no timetable for Eric to return",
+      "body_text": "Mia Bieniemy, the wife of Chiefs offensive coordinator Eric Bieniemy, is improving after she was shot in their home in Virginia on July 26.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-04T08:52:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Mia Bieniemy",
+        "Eric Bieniemy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/penei-sewell-dan-campbell-sets-a-standard-if-you-dont-meet-it-youre-not-a-detroit-lion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/penei-sewell-dan-campbell-sets-a-standard-if-you-dont-meet-it-youre-not-a-detroit-lion",
+      "title": "Penei Sewell: Dan Campbell sets a standard, if you don't meet it you're not a Detroit Lion",
+      "body_text": "\"That's the mindset, I have to be the best today, be the greatest today,\" Sewell said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-04T08:41:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Penei Sewell",
+        "Dan Campbell",
+        "Detroit Lion"
+      ],
+      "resolved_player_ids": [
+        "00-0036880",
+        "00-0002565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-deebo-samuel-is-the-best-incredible-teammate-excited-to-have-him-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-deebo-samuel-is-the-best-incredible-teammate-excited-to-have-him-back",
+      "title": "Kyle Juszczyk: Deebo Samuel is the best, incredible teammate, excited to have him back",
+      "body_text": "\"His first day in pads he's making an impact right way. He just looked like the old Deebo,\" Juszczyk said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-04T07:39:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Juszczyk",
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0029892",
+        "00-0035719"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-on-aaron-rodgers-there-are-a-variety-of-opinions-on-many-topics",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-on-aaron-rodgers-there-are-a-variety-of-opinions-on-many-topics",
+      "title": "Steelers on Aaron Rodgers: \"Our players are entitled to their own personal views\"",
+      "body_text": "Monday's rollicking, grievance-airing appearance by Steelers quarterback Aaron Rodgers on The Pat McAfee Show prompted ESPN, one of the targets of Rodgers's ire, to say nothing.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T03:03:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Pat"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-usc-rivalry-returns-in-2030-for-at-least-four-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-usc-rivalry-returns-in-2030-for-at-least-four-years",
+      "title": "Notre Dame-USC rivalry returns in 2030, for at least four years",
+      "body_text": "One of the greatest rivalries in college football won't happen this year, exactly one century after USC and Notre Dame first played.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T02:17:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-olsen-could-be-the-eventual-successor-to-tony-romo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-olsen-could-be-the-eventual-successor-to-tony-romo",
+      "title": "Greg Olsen could be the eventual successor to Tony Romo",
+      "body_text": "Olsen can exit Fox contract for No. 1 spot elsewhere.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T01:31:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Olsen",
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0025418",
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-foles-clay-matthews-join-netflix-studio-show-for-the-week-1-game-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-foles-clay-matthews-join-netflix-studio-show-for-the-week-1-game-in-australia",
+      "title": "Nick Foles, Clay Matthews join Netflix studio show for the Week 1 game in Australia",
+      "body_text": "The Netflix lineup for next month's 49ers-Rams game has been finalized.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T01:44:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Foles",
+        "Clay Matthews",
+        "Australia The"
+      ],
+      "resolved_player_ids": [
+        "00-0029567",
+        "00-0027002"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-te-princeton-fant-carted-off-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-te-princeton-fant-carted-off-with-knee-injury",
+      "title": "Cowboys TE Princeton Fant carted off with knee injury",
+      "body_text": "Cowboys tight end Princeton Fant was carted off from Monday's practice after an apparent left knee injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T01:19:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Princeton Fant"
+      ],
+      "resolved_player_ids": [
+        "00-0038735"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-would-be-open-to-selling-a-minority-share-of-cowboys-to-mark-cuban",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-would-be-open-to-selling-a-minority-share-of-cowboys-to-mark-cuban",
+      "title": "Jerry Jones would be \"open to\" selling a minority share of Cowboys to Mark Cuban",
+      "body_text": "The man who once warned the NFL that \"pigs get fat, hogs get slaughtered\" could be looking for a spot at the trough.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T00:37:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Mark Cuban"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-dillon-gabriel-is-earning-more-reps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-dillon-gabriel-is-earning-more-reps",
+      "title": "Todd Monken: Dillon Gabriel is earning more reps",
+      "body_text": "In the Cleveland quarterback competition between Shedeur Sanders and Deshaun Watson, there could be a third candidate creeping up on the outside.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-03T23:52:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Dillon Gabriel",
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040704",
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-dt-walter-nolen-is-healthy-and-motivated",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-dt-walter-nolen-is-healthy-and-motivated",
+      "title": "Cardinals DT Walter Nolen is healthy and motivated",
+      "body_text": "The Cardinals drafted defensive tackle Walter Nolen with the 16th overall pick in 2025.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-03T23:38:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Walter Nolen",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0040706"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-warren-first-day-of-practice-in-pads-was-most-tame-uneventful-hes-seen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-warren-first-day-of-practice-in-pads-was-most-tame-uneventful-hes-seen",
+      "title": "Jaylen Warren: First day of practice in pads was \"most tame, uneventful\" he's seen",
+      "body_text": "Things are very different in Latrobe.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-03T23:25:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylen Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0037228"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-te-davis-allen-to-miss-some-time-with-quad-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-te-davis-allen-to-miss-some-time-with-quad-injury",
+      "title": "Rams TE Davis Allen to miss \"some time\" with quad injury",
+      "body_text": "The Rams are going to be short a tight end for a little while.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T23:15:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Davis Allen",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039074"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-has-no-comment-on-aaron-rodgers-comments-on-espn-about-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-has-no-comment-on-aaron-rodgers-comments-on-espn-about-espn",
+      "title": "ESPN has no comment on Aaron Rodgers's comments on ESPN, about ESPN",
+      "body_text": "On Monday, Aaron Rodgers had some strong things to say about ESPN.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-03T23:10:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "On Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-have-no-deadline-to-name-a-starting-center",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-have-no-deadline-to-name-a-starting-center",
+      "title": "Ravens have no deadline to name a starting center",
+      "body_text": "The Ravens aren't in any rush to name a starting center.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T22:06:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-broncos-dolphins-raiders-lb-jerry-wayne-hopkins-dies-at-85",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-broncos-dolphins-raiders-lb-jerry-wayne-hopkins-dies-at-85",
+      "title": "Former Broncos, Dolphins, Raiders LB Jerry Wayne Hopkins dies at 85",
+      "body_text": "Former NFL linebacker Jerry Wayne Hopkins has died at 85.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-03T21:54:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Broncos",
+        "Jerry Wayne"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-to-sign-ol-kendall-lamm",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-to-sign-ol-kendall-lamm",
+      "title": "Ravens to sign OL Kendall Lamm",
+      "body_text": "The Ravens lost an experienced backup offensive lineman when Hakeem Adeniji retired, but they've found another one to take his spot on the roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T21:43:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kendall Lamm",
+        "The Ravens",
+        "Hakeem Adeniji"
+      ],
+      "resolved_player_ids": [
+        "00-0031921",
+        "00-0036310"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-claim-rb-evan-hull-dt-cam-horsley-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-claim-rb-evan-hull-dt-cam-horsley-off-waivers",
+      "title": "Cardinals claim RB Evan Hull, DT Cam Horsley off waivers",
+      "body_text": "The Cardinals claimed two players off waivers on Monday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-03T21:39:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Evan Hull",
+        "Cam Horsley",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038397",
+        "00-0040517"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-teammates-say-daniel-jones-looks-like-he-never-got-hurt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-teammates-say-daniel-jones-looks-like-he-never-got-hurt",
+      "title": "Colts teammates say Daniel Jones looks like he never got hurt",
+      "body_text": "Colts quarterback Daniel Jones is coming off a torn Achilles tendon, but you wouldn't know that from seeing him at training camp.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-03T21:24:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-evans-quad-injury-could-get-resolved-relatively-quickly",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-evans-quad-injury-could-get-resolved-relatively-quickly",
+      "title": "Report: Mike Evans quad injury \"could get resolved relatively quickly\"",
+      "body_text": "The 49ers receiving corps has been hit by several injuries early on in camp, but one veteran may be back on the field sooner rather than later.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-03T20:50:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-no-hurry-with-taysom-hill-ill-see-him-in-canton-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-no-hurry-with-taysom-hill-ill-see-him-in-canton-this-week",
+      "title": "Sean Payton: No hurry with Taysom Hill, I'll see him in Canton this week",
+      "body_text": "Broncos head coach Sean Payton will be in Canton, Ohio this week to take part in Drew Brees's induction into the Pro Football Hall of Fame and he'll also do a little work on a possible addition to his roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-03T20:47:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Taysom Hill",
+        "Drew Brees",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0033357",
+        "00-0020531"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-aims-to-win-the-rushing-title-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devon-achane-aims-to-win-the-rushing-title-this-season",
+      "title": "De'Von Achane aims to win the rushing title this season",
+      "body_text": "The Dolphins rewarded De'Von Achane after a 1,350-yard season, making him the third-highest-paid running back in yearly average.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-03T20:33:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Achane",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    }
+  ]
+}

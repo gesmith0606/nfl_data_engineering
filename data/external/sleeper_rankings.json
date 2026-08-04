@@ -1,6 +1,6 @@
 {
   "source": "sleeper",
-  "fetched_at": "2026-08-02T12:30:30.638551+00:00",
+  "fetched_at": "2026-08-04T12:47:16.911537+00:00",
   "players": [
     {
       "player_name": "Bijan Robinson",
@@ -843,12 +843,20 @@
       "rank": 105
     },
     {
+      "player_name": "Parker Washington",
+      "position": "WR",
+      "team": "JAX",
+      "external_rank": 81,
+      "sleeper_id": "9487",
+      "rank": 106
+    },
+    {
       "player_name": "Tyler Shough",
       "position": "QB",
       "team": "NO",
       "external_rank": 81,
       "sleeper_id": "12545",
-      "rank": 106
+      "rank": 107
     },
     {
       "player_name": "Dalton Kincaid",
@@ -856,7 +864,7 @@
       "team": "BUF",
       "external_rank": 81,
       "sleeper_id": "10236",
-      "rank": 107
+      "rank": 108
     },
     {
       "player_name": "Alec Pierce",
@@ -864,7 +872,7 @@
       "team": "IND",
       "external_rank": 82,
       "sleeper_id": "8142",
-      "rank": 108
+      "rank": 109
     },
     {
       "player_name": "Oronde Gadsden",
@@ -872,7 +880,7 @@
       "team": "LAC",
       "external_rank": 83,
       "sleeper_id": "12493",
-      "rank": 109
+      "rank": 110
     },
     {
       "player_name": "Sam Darnold",
@@ -880,7 +888,7 @@
       "team": "SEA",
       "external_rank": 84,
       "sleeper_id": "4943",
-      "rank": 110
+      "rank": 111
     },
     {
       "player_name": "Aaron Jones",
@@ -888,7 +896,7 @@
       "team": "MIN",
       "external_rank": 85,
       "sleeper_id": "4199",
-      "rank": 111
+      "rank": 112
     },
     {
       "player_name": "Kenny Gainwell",
@@ -896,14 +904,6 @@
       "team": "TB",
       "external_rank": 86,
       "sleeper_id": "7567",
-      "rank": 112
-    },
-    {
-      "player_name": "Parker Washington",
-      "position": "WR",
-      "team": "JAX",
-      "external_rank": 87,
-      "sleeper_id": "9487",
       "rank": 113
     },
     {
