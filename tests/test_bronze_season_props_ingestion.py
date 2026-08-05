@@ -9,13 +9,18 @@ import unittest
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 from bronze_season_props_ingestion import (  # noqa: E402
+    FANDUEL_STAT_TO_MARKET,
+    ROOKIE_MILESTONE_MARKETS,
     SEASON_MARKETS,
     SEASON_PROPS_SCHEMA_COLS,
     extract_team_nfl,
+    normalize_fanduel_response,
+    normalize_milestone_response,
     normalize_subcategory_response,
     parse_american_odds,
     parse_event_name,
     parse_line_from_label,
+    parse_milestone_threshold,
 )
 
 
@@ -163,6 +168,149 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(rows, [])
 
 
+def _dk_milestone_response():
+    """Minimal Rookie Watch Milestones payload for one player."""
+    return {
+        "events": [
+            {
+                "id": "ev1",
+                "name": "NFL 2026/27 - Jeremiyah Love",
+                "participants": [
+                    {"type": "Team", "name": "Jeremiyah Love", "metadata": {}},
+                    {
+                        "type": "Team",
+                        "name": "DEN Broncos",
+                        "metadata": {"shortName": "DEN"},
+                    },
+                ],
+            }
+        ],
+        "markets": [
+            {
+                "id": "m1",
+                "eventId": "ev1",
+                "name": (
+                    "NFL 2026/27 - Jeremiyah Love Regular Season Rushing "
+                    "Yards Milestones"
+                ),
+                "marketType": {
+                    "name": "Rookie Regular Season Rushing Yards Milestones"
+                },
+            }
+        ],
+        "selections": [
+            {
+                "id": f"s{i}",
+                "marketId": "m1",
+                "label": label,
+                "displayOdds": {"american": odds},
+            }
+            for i, (label, odds) in enumerate(
+                [
+                    ("750+", "−210"),
+                    ("1,000+", "+200"),
+                    ("1250+", "+700"),
+                    ("1500+", "+2000"),
+                ]
+            )
+        ],
+    }
+
+
+class TestMilestoneNormalize(unittest.TestCase):
+    def test_parse_milestone_threshold(self):
+        self.assertEqual(parse_milestone_threshold("750+"), 750.0)
+        self.assertEqual(parse_milestone_threshold("1,000+"), 1000.0)
+        self.assertIsNone(parse_milestone_threshold("Over 824.5"))
+        self.assertIsNone(parse_milestone_threshold(""))
+
+    def test_ladder_rows(self):
+        rows = normalize_milestone_response(
+            _dk_milestone_response(), "rookie_rush_yds", "ts"
+        )
+        self.assertEqual(len(rows), 4)
+        self.assertEqual({r["market"] for r in rows}, {"rookie_rush_yds"})
+        self.assertEqual([r["line"] for r in rows], [750.0, 1000.0, 1250.0, 1500.0])
+        self.assertEqual(rows[0]["price_over"], -210)
+        self.assertIsNone(rows[0]["price_under"])
+        self.assertEqual(rows[0]["player_name"], "Jeremiyah Love")
+        self.assertEqual(rows[0]["team_nfl"], "DEN")
+        self.assertEqual(set(rows[0].keys()), set(SEASON_PROPS_SCHEMA_COLS))
+
+    def test_empty_payload(self):
+        self.assertEqual(normalize_milestone_response({}, "rookie_rush_yds", "ts"), [])
+
+
+def _fd_runner(name, odds):
+    return {
+        "runnerName": name,
+        "runnerStatus": "ACTIVE",
+        "winRunnerOdds": {"americanDisplayOdds": {"americanOdds": odds}},
+    }
+
+
+def _fd_response():
+    return {
+        "attachments": {
+            "markets": {
+                "734.1": {
+                    "marketId": "734.1",
+                    "eventId": 28297422,
+                    "marketName": (
+                        "Aaron Rodgers Regular Season Passing Yards 2026-27"
+                    ),
+                    "runners": [
+                        _fd_runner("Aaron Rodgers Over 3050.5", -114),
+                        _fd_runner("Aaron Rodgers Under 3050.5", -114),
+                    ],
+                },
+                "734.2": {
+                    "marketId": "734.2",
+                    "eventId": 28297423,
+                    "marketName": "Super Bowl Winner 2026-27",
+                    "runners": [_fd_runner("Chiefs", 500)],
+                },
+            }
+        }
+    }
+
+
+class TestFanduelNormalize(unittest.TestCase):
+    def test_season_market_extracted(self):
+        rows = normalize_fanduel_response(_fd_response(), "ts")
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        self.assertEqual(set(row.keys()), set(SEASON_PROPS_SCHEMA_COLS))
+        self.assertEqual(row["bookmaker"], "fanduel")
+        self.assertEqual(row["market"], "season_pass_yds")
+        self.assertEqual(row["player_name"], "Aaron Rodgers")
+        self.assertEqual(row["line"], 3050.5)
+        self.assertEqual(row["price_over"], -114)
+        self.assertEqual(row["price_under"], -114)
+        self.assertEqual(row["season"], 2026)
+
+    def test_non_player_markets_ignored(self):
+        rows = normalize_fanduel_response(_fd_response(), "ts")
+        self.assertEqual(
+            {r["market_name"] for r in rows},
+            {"Aaron Rodgers Regular Season Passing Yards 2026-27"},
+        )
+
+    def test_one_sided_market_kept(self):
+        payload = _fd_response()
+        payload["attachments"]["markets"]["734.1"]["runners"].pop()
+        rows = normalize_fanduel_response(payload, "ts")
+        self.assertEqual(len(rows), 1)
+        self.assertIsNone(rows[0]["price_under"])
+
+    def test_empty_payload(self):
+        self.assertEqual(normalize_fanduel_response({}, "ts"), [])
+
+    def test_fd_stat_map_targets_are_canonical(self):
+        for market_key in FANDUEL_STAT_TO_MARKET.values():
+            self.assertIn(market_key, SEASON_MARKETS)
+
+
 class TestMarketRegistry(unittest.TestCase):
     def test_all_markets_are_player_futures_category(self):
         for key, (category_id, subcategory_id) in SEASON_MARKETS.items():
@@ -172,6 +320,14 @@ class TestMarketRegistry(unittest.TestCase):
     def test_market_keys_are_season_scoped(self):
         for key in SEASON_MARKETS:
             self.assertTrue(key.startswith("season_"), key)
+
+    def test_rookie_markets_are_rookie_watch_category(self):
+        for key, (category_id, _) in ROOKIE_MILESTONE_MARKETS.items():
+            self.assertEqual(category_id, 1801, key)
+            self.assertTrue(key.startswith("rookie_"), key)
+
+    def test_no_key_collision_between_registries(self):
+        self.assertFalse(set(SEASON_MARKETS) & set(ROOKIE_MILESTONE_MARKETS))
 
 
 if __name__ == "__main__":

@@ -99,3 +99,32 @@ toward the market's availability estimate — desirable for draft value, but it 
 is ~130 players (24 QB / 41 RB / 75 WR-TE rec yds), the tail keeps the pure model.
 
 First snapshot captured 2026-08-02: 286 lines, 132 players, all 7 markets.
+
+## Addendum 2026-08-02 (later) — Rookie milestones, FanDuel second book, draft-board gap
+
+Follow-ups shipped the same day (branch `feat/rookie-milestones-and-draft-gap`):
+
+1. **Rookie milestone ladders (DK category 1801) — BUILT.** One-sided "750+/1000+/…"
+   threshold prices per rookie. Inversion: de-vig each rung with the flat 0.93 one-sided
+   haircut (anytime-TD convention), then fit a single mean through the exceedance ladder —
+   Normal(mu, cv·mu) for yardage, Poisson for TD counts (`invert_milestone_ladder`, scalar
+   SSE minimisation, bounded (0, 2×top rung]). Implied rows are recorded under the season
+   market keys; the two-way O/U wins any (player, stat) overlap. Verified stat-level
+   cross-source merge live (Mendoza: milestone pass yds + O/U pass TDs). Adds ~10
+   rookie-only names with market numbers — the exact players with no NFL history.
+
+2. **FanDuel second book — GO** (probe verdict; the NO-GO alternative was documented in
+   advance as the fallback). `content-managed-page?customPageId=nfl` returns every posted
+   "Regular Season <stat> YYYY-YY" market in ONE request (145 markets / 93 players at
+   first capture), two-way with clean American odds; `_ak` is FanDuel's public web-app
+   key; same curl_cffi/Akamai handling as DK. 139 markets now dual-quoted → the
+   existing median-across-books in `compute_prop_implied_points` activates (books
+   differ by up to 150 pass yds, e.g. Herbert DK 3650.5 vs FD 3500.5). No receptions
+   market on FD; DK remains the only receptions source.
+
+3. **Draft-board market gap — BUILT.** `attach_market_columns` joins the latest snapshot's
+   implied points onto any projections frame WITHOUT blending; `draft_assistant.py` now
+   prints `prop_implied_points` + `prop_anchor_gap` on every board/recommendation table.
+   The blend stays opt-in; the gap column is unconditional information.
+
+Snapshot after all three: 496 rows, 135 players, 13 markets, 2 books.
