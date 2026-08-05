@@ -209,7 +209,9 @@ def run_simulation(
         adp_df:         Optional ADP DataFrame.
         randomness:     Max random offset for opponent picks (default 3).
     """
-    enriched = compute_value_scores(projections, adp_df)
+    enriched = compute_value_scores(
+        projections, adp_df, roster_format=roster_format, n_teams=n_teams
+    )
     board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
     advisor = DraftAdvisor(board, scoring_format=scoring_format)
     simulator = MockDraftSimulator(
@@ -283,7 +285,9 @@ def run_auction_session(
         adp_df:          Optional ADP DataFrame.
         rostered_players: Pre-loaded list of rostered player names for waiver lookups.
     """
-    enriched = compute_value_scores(projections, adp_df)
+    enriched = compute_value_scores(
+        projections, adp_df, roster_format=roster_format, n_teams=n_teams
+    )
     board = AuctionDraftBoard(
         enriched, roster_format=roster_format, n_teams=n_teams, budget_per_team=budget
     )
@@ -563,7 +567,9 @@ def run_draft_session(
         rostered_players: Pre-loaded list of rostered player names for waiver lookups.
     """
     # Compute value scores (adds model_rank, adp_diff, value_tier, vorp)
-    enriched = compute_value_scores(projections, adp_df)
+    enriched = compute_value_scores(
+        projections, adp_df, roster_format=roster_format, n_teams=n_teams
+    )
 
     board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
     advisor = DraftAdvisor(board, scoring_format=scoring_format)
@@ -791,28 +797,38 @@ def main():
 
     # --- Core league settings ---
     parser.add_argument(
+        "--league",
+        choices=list(config.LEAGUE_PRESETS.keys()),
+        default=None,
+        help=(
+            "One of my leagues (config.LEAGUE_PRESETS) — sets scoring, "
+            "roster format, team count, and default pick in one flag. "
+            "Explicit flags below still override."
+        ),
+    )
+    parser.add_argument(
         "--scoring",
         choices=formats,
-        default="half_ppr",
-        help="Scoring format (default: half_ppr)",
+        default=None,
+        help="Scoring format (default: half_ppr, or the --league preset)",
     )
     parser.add_argument(
         "--roster-format",
         choices=roster_options,
-        default="standard",
-        help="Roster format (default: standard)",
+        default=None,
+        help="Roster format (default: standard, or the --league preset)",
     )
     parser.add_argument(
         "--teams",
         type=int,
-        default=12,
-        help="Number of teams in the league (default: 12)",
+        default=None,
+        help="Number of teams in the league (default: 12, or the --league preset)",
     )
     parser.add_argument(
         "--my-pick",
         type=int,
-        default=1,
-        help="Your draft position 1-based (default: 1)",
+        default=None,
+        help="Your draft position 1-based (default: 1, or the --league preset)",
     )
     parser.add_argument(
         "--season",
@@ -886,6 +902,19 @@ def main():
     )
 
     args = parser.parse_args()
+
+    # Resolve league preset -> defaults (explicit flags always win).
+    preset = config.LEAGUE_PRESETS.get(args.league, {}) if args.league else {}
+    args.scoring = args.scoring or preset.get("scoring_format") or "half_ppr"
+    args.roster_format = args.roster_format or preset.get("roster") or "standard"
+    args.teams = args.teams or preset.get("teams") or 12
+    args.my_pick = args.my_pick or preset.get("my_pick") or 1
+    if args.league:
+        print(
+            f"League preset '{args.league}' ({preset.get('platform')}): "
+            f"{args.scoring} | {args.roster_format} | {args.teams} teams | "
+            f"pick {args.my_pick}"
+        )
 
     # Validate mutual exclusivity of mode flags
     if args.simulate and args.auction:

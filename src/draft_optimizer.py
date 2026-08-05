@@ -32,6 +32,49 @@ SFLEX_ELIGIBLE = {"QB", "RB", "WR", "TE"}
 UNDERVALUED_THRESHOLD = 15
 OVERVALUED_THRESHOLD = 15
 
+# Legacy replacement levels (typical starter counts x 12 teams) — used
+# whenever no roster_format is supplied, preserving historical behavior.
+DEFAULT_REPLACEMENT_RANKS = {"QB": 13, "RB": 25, "WR": 30, "TE": 13, "K": 13, "DST": 13}
+
+# How a FLEX slot's usage splits across eligible positions in practice
+# (WR-heavy, RB next, TE rare). SFLEX credits QBs at 0.8 per slot.
+FLEX_SHARE = {"RB": 0.35, "WR": 0.50, "TE": 0.15}
+
+
+def replacement_ranks_for(
+    roster_format: Optional[str] = None, n_teams: int = 12
+) -> Dict[str, int]:
+    """Derive per-position replacement ranks from a roster shape.
+
+    Replacement level = 1 past the last league-wide starter:
+    ``n_teams x (dedicated starters + flex share) + 1``. Positions the
+    lineup cannot start at all (e.g. no-kicker Sleeper leagues) are
+    omitted, so their replacement level — and VORP — stays NaN rather
+    than fabricating value for undraftable positions.
+
+    Args:
+        roster_format: A ``config.ROSTER_CONFIGS`` key; None returns the
+            legacy ``DEFAULT_REPLACEMENT_RANKS`` unchanged.
+        n_teams: League size.
+
+    Returns:
+        Position -> replacement rank mapping.
+    """
+    if roster_format is None:
+        return dict(DEFAULT_REPLACEMENT_RANKS)
+    roster = ROSTER_CONFIGS[roster_format]
+    flex_slots = roster.get("FLEX", 0)
+    ranks: Dict[str, int] = {}
+    for pos in ("QB", "RB", "WR", "TE", "K", "DST"):
+        starters = float(roster.get(pos, 0))
+        share = FLEX_SHARE.get(pos, 0.0) * flex_slots
+        if pos == "QB":
+            share += 0.8 * roster.get("SFLEX", 0)
+        if starters + share <= 0:
+            continue
+        ranks[pos] = int(n_teams * (starters + share) + 0.5) + 1
+    return ranks
+
 
 # ---------------------------------------------------------------------------
 # ADP comparison utilities
@@ -41,6 +84,8 @@ OVERVALUED_THRESHOLD = 15
 def compute_value_scores(
     projections: pd.DataFrame,
     adp_df: Optional[pd.DataFrame] = None,
+    roster_format: Optional[str] = None,
+    n_teams: int = 12,
 ) -> pd.DataFrame:
     """
     Enrich projection DataFrame with draft value metrics.
@@ -82,12 +127,14 @@ def compute_value_scores(
     df["model_rank"] = raw_rank.fillna(unranked_fill).astype(int)
 
     # VORP: projected points minus replacement-level player at that position.
-    # Replacement level = 13th QB, 25th RB, 30th WR, 13th TE, 13th K, 13th DST
-    # (typical starter counts × 12 teams). DST has no projected_points in our
-    # model (ADP-only board row) — replacement_level stays NaN for it, so
+    # With no roster_format the legacy 12-team-standard ranks apply (13th QB,
+    # 25th RB, 30th WR, ...); with one, ranks derive from the actual lineup
+    # shape and league size — a 3-FLEX 12-teamer pushes WR replacement to
+    # ~43rd, a 10-team 3-WR league to ~36th. DST has no projected_points in
+    # our model (ADP-only board row) — replacement_level stays NaN for it, so
     # vorp is NaN (never a crash) rather than a fabricated number.
-    REPLACEMENT_RANKS = {"QB": 13, "RB": 25, "WR": 30, "TE": 13, "K": 13, "DST": 13}
-    for pos, rep_rank in REPLACEMENT_RANKS.items():
+    replacement_ranks = replacement_ranks_for(roster_format, n_teams)
+    for pos, rep_rank in replacement_ranks.items():
         pos_mask = df["position"] == pos
         pos_sorted = df[pos_mask][pts_col].dropna().sort_values(ascending=False)
         if len(pos_sorted) >= rep_rank:
@@ -1150,7 +1197,9 @@ class MockDraftSimulator:
         forced_pos: Optional[str] = None
         if rc.get("K", 0) > 0 and pos_counts.get("K", 0) == 0 and rounds_left <= 1:
             forced_pos = "K"
-        elif rc.get("DST", 0) > 0 and pos_counts.get("DST", 0) == 0 and rounds_left <= 2:
+        elif (
+            rc.get("DST", 0) > 0 and pos_counts.get("DST", 0) == 0 and rounds_left <= 2
+        ):
             forced_pos = "DST"
         if forced_pos:
             forced = candidates[

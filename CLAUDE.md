@@ -39,6 +39,7 @@ python scripts/train_residual_models.py --positions qb rb wr te                 
 python scripts/train_bayesian_models.py --positions qb rb wr te                          # Bayesian posterior intervals (Phase 56)
 python scripts/train_quantile_models.py --positions qb rb wr te                          # Quantile regression (Phase 57)
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
+python scripts/draft_assistant.py --league la_liga --simulate                            # League preset: la_liga | feetball | gentlemen | mahomos (config.LEAGUE_PRESETS)
 python scripts/espn_league_import.py --league-id 1493260 --my-team                       # ESPN league/team import (cookies in .env; public leagues need none)
 
 # Sentiment pipeline
@@ -221,7 +222,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 
 - **AWS**: Region us-east-2 | Buckets: `nfl-raw`, `nfl-refined`, `nfl-trusted`
 - **Scoring**: PPR (1.0/rec), Half-PPR (0.5/rec), Standard (0.0) — all: 0.1/yd, 6/TD, 0.04/pass yd
-- **Roster formats**: `standard`, `superflex`, `2qb` (see `ROSTER_CONFIGS` in config.py)
+- **Roster formats**: `standard`, `superflex`, `2qb`, platform defaults, + per-league shapes `espn_la_liga` (2 FLEX), `yahoo_feetball` (3 WR), `sleeper_gentlemen`/`sleeper_mahomos` (3 FLEX, no K) — see `ROSTER_CONFIGS`/`LEAGUE_PRESETS` in config.py. VORP replacement levels derive from roster shape + team count when a roster format is passed (`draft_optimizer.replacement_ranks_for`)
 - **MCPs**: aws-core, aws-s3, aws-docs, github, duckduckgo, duckdb, fetch, sleeper (neo4j configured/disabled)
 - **Credentials**: `.env` file (never commit — already in .gitignore; pre-commit hook blocks key patterns)
 - **Yahoo live draft (v8.0, optional)**: `YAHOO_CLIENT_ID` + `YAHOO_CLIENT_SECRET` in `.env`; one-time OAuth grant seeds `data/yahoo_tokens.json` (gitignored), then auto-refreshes

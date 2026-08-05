@@ -302,6 +302,90 @@ ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
         # IR-aware roster tracking ships.
         "BN": 6,
     },
+    # ------------------------------------------------------------------
+    # The user's actual 2026 leagues (settings imported 2026-08-04: ESPN
+    # via lm-api league fetch, Yahoo via commissioner rules, Sleeper via
+    # public API). Each differs from every platform default — 2 FLEX,
+    # 3 WR, 3 FLEX/no-K shapes — so VORP replacement levels must derive
+    # from these, not from the generic 12-team standard lineup.
+    # ------------------------------------------------------------------
+    "espn_la_liga": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 2,
+        "K": 1,
+        "DST": 1,
+        "BN": 7,  # 10 starters + 7 BN = 17 rounds
+    },
+    "yahoo_feetball": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 3,
+        "TE": 1,
+        "FLEX": 1,
+        "K": 1,
+        "DST": 1,
+        # 10 starters + 7 BN = 17 rounds (matches the league's 2025 draft).
+        # The 3 IR slots are unmodeled per the yahoo_default convention.
+        "BN": 7,
+    },
+    "sleeper_gentlemen": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 3,
+        "DST": 1,  # no kicker slot in this league
+        "BN": 10,  # 10 starters + 10 BN = 20 rounds
+    },
+    "sleeper_mahomos": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 2,
+        "TE": 1,
+        "FLEX": 3,  # no kicker, no DST
+        "BN": 9,  # 9 starters + 9 BN = 18 rounds
+    },
+}
+
+# The user's leagues, one key per league: everything the draft assistant
+# needs to model the room (scoring, roster shape, size) plus platform ids
+# for the import tooling. ``my_pick`` is a default only — CLI flags win.
+LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
+    "la_liga": {
+        "platform": "espn",
+        "league_id": "1493260",
+        "scoring_format": "half_ppr",
+        "roster": "espn_la_liga",
+        "teams": 12,
+        "my_pick": 1,  # snake order locked 2026-08-04: The Oracle picks 1st
+    },
+    "feetball": {
+        "platform": "yahoo",
+        "league_id": "658684",
+        "scoring_format": "half_ppr",
+        "roster": "yahoo_feetball",
+        "teams": 10,
+        "my_pick": None,  # order picked after the Aug 31 keeper deadline
+    },
+    "gentlemen": {
+        "platform": "sleeper",
+        "league_id": "1389709869531017216",
+        "scoring_format": "ppr",
+        "roster": "sleeper_gentlemen",
+        "teams": 12,
+        "my_pick": None,
+    },
+    "mahomos": {
+        "platform": "sleeper",
+        "league_id": "1354274270989021184",
+        "scoring_format": "ppr",
+        "roster": "sleeper_mahomos",
+        "teams": 12,
+        "my_pick": None,
+    },
 }
 
 # Platform-faithful draft-session defaults (v8.3 draft-tool upgrade).
