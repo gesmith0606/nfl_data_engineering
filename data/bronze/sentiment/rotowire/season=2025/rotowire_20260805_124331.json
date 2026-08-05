@@ -1,0 +1,116 @@
+{
+  "fetch_run_id": "235da99b-396c-48c2-b695-94d81c3f1f78",
+  "source": "rotowire",
+  "fetched_at": "2026-08-05T12:43:31.774276+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632631",
+      "url": "https://www.rotowire.com//football/player/jalen-mcmillan-17763",
+      "permalink": "",
+      "title": "Jalen McMillan: Held out of practice Tuesday",
+      "body_text": "McMillan (calf) isn't practicing Tuesday, Jenna Laine of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-04T05:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jenna Laine"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632626",
+      "url": "https://www.rotowire.com//football/player/travis-etienne-15385",
+      "permalink": "",
+      "title": "Travis Etienne: Ceding third-down work to Kamara?",
+      "body_text": "Etienne has taken most of the early down reps at training camp, with Alvin Kamara is getting more of the third-down snaps, according to Jeff Duncan of Nola.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-04T04:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Etienne",
+        "Alvin Kamara",
+        "Jeff Duncan"
+      ],
+      "resolved_player_ids": [
+        "00-0036973",
+        "00-0033906"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632587",
+      "url": "https://www.rotowire.com//football/player/mason-taylor-18535",
+      "permalink": "",
+      "title": "Mason Taylor: Headed for big Week 1 role?",
+      "body_text": "Taylor could see more opportunities this summer after teammate Kenyon Sadiq (sports hernia) suffered a setback in his return from May surgery, ESPN.com's Rich Cimini reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-04T01:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mason Taylor",
+        "Kenyon Sadiq",
+        "Rich Cimini"
+      ],
+      "resolved_player_ids": [
+        "00-0040736",
+        "00-0041032"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632586",
+      "url": "https://www.rotowire.com//football/player/trey-benson-17767",
+      "permalink": "",
+      "title": "Trey Benson: Back at practice Tuesday",
+      "body_text": "Benson (knee) returned to practice Tuesday, Bo Brack of GoPHNX.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-04T01:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Benson",
+        "Tuesday Benson",
+        "Bo Brack"
+      ],
+      "resolved_player_ids": [
+        "00-0039921"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632580",
+      "url": "https://www.rotowire.com//football/player/malik-willis-15872",
+      "permalink": "",
+      "title": "Malik Willis: Looks sharp early in camp",
+      "body_text": "Willis has played well at training camp, earning praise from coach Jeff Hafley and offensive coordinator Bobby Slowik, according to David Furones of the South Florida Sun Sentinel. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-04T12:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis",
+        "Jeff Hafley",
+        "Bobby Slowik",
+        "David Furones",
+        "South Florida",
+        "Sun Sentinel"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": null
+    }
+  ]
+}

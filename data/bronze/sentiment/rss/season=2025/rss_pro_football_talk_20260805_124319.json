@@ -1,0 +1,514 @@
+{
+  "fetch_run_id": "482cf520-cc10-4160-9bd5-fbb3c0ad7020",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-05T12:43:19.715441+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-pleased-with-anton-harrisons-consistency-at-left-tackle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-pleased-with-anton-harrisons-consistency-at-left-tackle",
+      "title": "Liam Coen \"pleased\" with Anton Harrison's consistency at left tackle",
+      "body_text": "Anton Harrison has spent the last three years as the Jaguars' right tackle, but he's been in an different spot at training camp this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T12:17:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen",
+        "Anton Harrison"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-on-vita-vea-were-not-concerned-at-this-point",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-bowles-on-vita-vea-were-not-concerned-at-this-point",
+      "title": "Todd Bowles on Vita Vea: We're not concerned at this point",
+      "body_text": "Defensive tackle Vita Vea remains off the field at Buccaneers training camp and head coach Todd Bowles said on Tuesday that he remains unworried about where things stand.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T11:51:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Bowles",
+        "Vita Vea"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadeveon-clowney-i-could-have-made-more-money-elsewhere-i-want-a-super-bowl-in-houston",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadeveon-clowney-i-could-have-made-more-money-elsewhere-i-want-a-super-bowl-in-houston",
+      "title": "Jadeveon Clowney: I could have made more money elsewhere, I want a Super Bowl in Houston",
+      "body_text": "\"It's Year 13, I started here, go back here, try to win, and see how the rest of my career goes,\" Clowney said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-05T09:36:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadeveon Clowney",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0031364"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-on-training-camp-with-michael-penix-its-definitely-a-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-on-training-camp-with-michael-penix-its-definitely-a-competition",
+      "title": "Tua Tagovailoa on training camp with Michael Penix: \"It's definitely a competition\"",
+      "body_text": "Both of the Falcons' quarterbacks are limited with injuries, but Tagovailoa says that isn't stopping them from competing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-05T07:52:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-deshaun-watson-will-each-get-a-preseason-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-deshaun-watson-will-each-get-a-preseason-start",
+      "title": "Shedeur Sanders, Deshaun Watson will each get a preseason start",
+      "body_text": "The leader after two preseason games is expected to start the third preseason game.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-05T02:50:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-anthony-faucis-lawyer-says-aaron-rodgers-should-stick-to-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-anthony-faucis-lawyer-says-aaron-rodgers-should-stick-to-football",
+      "title": "Dr. Anthony Fauci's lawyer says Aaron Rodgers \"should stick to football\"",
+      "body_text": "The ball is back in Rodgers's court.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-05T01:27:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Fauci",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-epenesa-not-inclined-to-discuss-weird-situation-with-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-epenesa-not-inclined-to-discuss-weird-situation-with-browns",
+      "title": "A.J. Epenesa not inclined to discuss \"weird situation\" with Browns",
+      "body_text": "Before Eagles defensive end A.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-05T02:18:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Browns Before"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-had-undisclosed-illness-before-playoff-loss-to-texans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-had-undisclosed-illness-before-playoff-loss-to-texans",
+      "title": "Aaron Rodgers had undisclosed illness before playoff loss to Texans",
+      "body_text": "\"He looked terrible\" before the game, said former Steelers offensive coordinator Arthur Smith.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T19:24:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Arthur Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-declines-comment-on-the-steelers-failure-to-disclose-aaron-rodgers-illness-before-playoff-loss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-declines-comment-on-the-steelers-failure-to-disclose-aaron-rodgers-illness-before-playoff-loss",
+      "title": "NFL declines comment on the Steelers' failure to disclose Aaron Rodgers' illness before playoff loss",
+      "body_text": "Steelers quarterback Aaron Rodgers recently disclosed to Mike Silver of The Athletic that Rodgers was ill before the January playoff loss to the Texans.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-05T01:46:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Mike Silver",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-te-zach-ertz-cleared-for-football-activities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-te-zach-ertz-cleared-for-football-activities",
+      "title": "Free agent TE Zach Ertz cleared for football activities",
+      "body_text": "Free agent tight end Zach Ertz said in April that he didn't want his torn ACL to be the final act of his NFL career.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-05T01:19:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Ertz"
+      ],
+      "resolved_player_ids": [
+        "00-0030061"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-rushing-title-james-cook-is-looking-forward-to-even-bigger-things",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-rushing-title-james-cook-is-looking-forward-to-even-bigger-things",
+      "title": "After rushing title, James Cook is looking forward to even bigger things",
+      "body_text": "Bills running back James Cook led the league in rushing last season with 1,621 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T23:55:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Cook"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-excited-to-start-the-hall-of-fame-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-excited-to-start-the-hall-of-fame-game",
+      "title": "Carson Beck excited to start the Hall of Fame Game",
+      "body_text": "Carson Beck had \"no clue\" he was going to start the Pro Football Hall of Fame Game until this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T22:17:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Beck",
+        "Fame Game",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-claim-wr-tejhaun-palmer-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-claim-wr-tejhaun-palmer-off-waivers",
+      "title": "Patriots claim WR Tejhaun Palmer off waivers",
+      "body_text": "The Patriots claimed wide receiver Tejhaun Palmer off waivers on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T21:37:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tejhaun Palmer",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039397"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-looks-to-establish-a-media-and-entertainment-footprint",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-looks-to-establish-a-media-and-entertainment-footprint",
+      "title": "Aaron Donald looks to establish a media and entertainment footprint",
+      "body_text": "As defensive tackle Aaron Donald focuses for now on whether he'll end a two-year playing hiatus in pursuit of a second Super Bowl ring, he's activating a longer-term vision for his post-football future.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T21:54:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-offensive-players-and-coaches-say-dexter-lawrence-is-dominating-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-offensive-players-and-coaches-say-dexter-lawrence-is-dominating-practices",
+      "title": "Bengals' offensive players and coaches say Dexter Lawrence is dominating practices",
+      "body_text": "The Bengals' offense has a problem in training camp: Dexter Lawrence.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-04T21:27:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dexter Lawrence",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0035683"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-rb-raheem-blackshear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-rb-raheem-blackshear",
+      "title": "Lions sign RB Raheem Blackshear",
+      "body_text": "The Lions added a running back to the roster while they wait for Jahmyr Gibbs to get on the practice field.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T21:23:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Raheem Blackshear",
+        "The Lions",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0037429",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-claim-dt-coziah-izzard-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-claim-dt-coziah-izzard-off-waivers",
+      "title": "Browns claim DT Coziah Izzard off waivers",
+      "body_text": "The Browns claimed defensive tackle Coziah Izzard off waivers, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T20:56:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Coziah Izzard",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040088"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-tes-mccallan-castles-drew-biber",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-tes-mccallan-castles-drew-biber",
+      "title": "Packers sign TEs McCallan Castles, Drew Biber",
+      "body_text": "The Packers signed tight ends McCallan Castles and Drew Biber on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T20:47:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Biber",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-dl-labryan-ray-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-dl-labryan-ray-on-reserve-retired-list",
+      "title": "Panthers put DL LaBryan Ray on reserve/retired list",
+      "body_text": "The Panthers will be playing in the Hall of Fame Game on Thursday night, but defensive lineman LaBryan Ray won't be getting any snaps against the Cardinals.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T20:47:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Panthers",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-pulled-out-of-titans-practice-for-throwing-a-punch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-pulled-out-of-titans-practice-for-throwing-a-punch",
+      "title": "Jeffery Simmons pulled out of Titans practice for throwing a punch",
+      "body_text": "Defensive tackle Jeffery Simmons made an early exit from Titans practice on Tuesday, but it wasn't because of an injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T20:40:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-te-princeton-fant-tears-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-te-princeton-fant-tears-acl",
+      "title": "Cowboys TE Princeton Fant tears ACL",
+      "body_text": "Cowboys tight end Princeton Fant, who was carted off from Monday's practice, will miss the season with a left knee injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T20:27:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Princeton Fant"
+      ],
+      "resolved_player_ids": [
+        "00-0038735"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-wr-jakobie-kenney-james",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-sign-wr-jakobie-kenney-james",
+      "title": "Steelers sign WR Jakobie Kenney-James",
+      "body_text": "The Steelers signed wide receiver Jakobie Kenney-James, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T20:20:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jakobie Kenney",
+        "James The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-four-year-deal-with-ot-darnell-wright",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-agree-to-four-year-deal-with-ot-darnell-wright",
+      "title": "Bears agree to four-year deal with OT Darnell Wright",
+      "body_text": "The Bears have locked up one of their key offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-04T20:15:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darnell Wright",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0038932"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-falcons-fear-jalon-walker-suffered-torn-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-falcons-fear-jalon-walker-suffered-torn-acl",
+      "title": "Report: Falcons fear Jalon Walker suffered torn ACL",
+      "body_text": "The Falcons have a serious injury concern.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-04T20:03:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalon Walker",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0040577"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-dont-worry-about-when-im-back-worry-about-how-ill-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-dont-worry-about-when-im-back-worry-about-how-ill-be",
+      "title": "Micah Parsons: Don't worry about when I'm back, worry about how I'll be",
+      "body_text": "It remains unclear when Packers defensive end Micah Parsons will be back on the field, but he doesn't think anyone should be focused on the calendar when thinking about his return from last year's torn ACL.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T19:58:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-scored-rushing-td-in-red-zone-drill-threw-ball-at-greg-newsomes-helmet",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-scored-rushing-td-in-red-zone-drill-threw-ball-at-greg-newsomes-helmet",
+      "title": "Jaxson Dart scored rushing TD in red-zone drill, threw ball at Greg Newsome's helmet",
+      "body_text": "Things are getting a little chippy for the Giants at The Greenbrier.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-04T19:57:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart",
+        "Greg Newsome",
+        "The Greenbrier"
+      ],
+      "resolved_player_ids": [
+        "00-0040691",
+        "00-0036996"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashawn-slater-exits-practice-with-apparent-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashawn-slater-exits-practice-with-apparent-injury",
+      "title": "Rashawn Slater exits practice with apparent injury",
+      "body_text": "The Chargers may have another injury concern along their offensive line.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-04T19:41:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashawn Slater",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0037009"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rookie-gabe-jacas-what-happened-in-the-past-doesnt-matter-im-100-percent-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rookie-gabe-jacas-what-happened-in-the-past-doesnt-matter-im-100-percent-now",
+      "title": "Patriots rookie Gabe Jacas: What happened in the past doesn't matter, I'm 100 percent now",
+      "body_text": "Patriots second-round pick Gabe Jacas was the final member of the 2025 draft class to sign an NFL contract, but the linebacker wasn't interested in discussing the reason why it took until camp was underway for that deal to get done.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T19:36:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gabe Jacas"
+      ],
+      "resolved_player_ids": [
+        "00-0041569"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-walker-carted-off-at-falcons-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-walker-carted-off-at-falcons-practice",
+      "title": "Jalon Walker carted off at Falcons practice",
+      "body_text": "The Falcons will be hoping for some positive news about linebacker Jalon Walker's condition on Tuesday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-04T19:11:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalon Walker",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0040577"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-guyton-will-remain-with-the-cowboys-first-team-at-lt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-guyton-will-remain-with-the-cowboys-first-team-at-lt",
+      "title": "Tyler Guyton will remain with the Cowboys' first-team at LT",
+      "body_text": "The Cowboys went into their offseason program with a competition between Tyler Guyton and Nate Thomas for the left tackle job.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-04T19:10:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Guyton",
+        "The Cowboys",
+        "Nate Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0039341"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
