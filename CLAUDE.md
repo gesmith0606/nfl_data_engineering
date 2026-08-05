@@ -39,6 +39,7 @@ python scripts/train_residual_models.py --positions qb rb wr te                 
 python scripts/train_bayesian_models.py --positions qb rb wr te                          # Bayesian posterior intervals (Phase 56)
 python scripts/train_quantile_models.py --positions qb rb wr te                          # Quantile regression (Phase 57)
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
+python scripts/espn_league_import.py --league-id 1493260 --my-team                       # ESPN league/team import (cookies in .env; public leagues need none)
 
 # Sentiment pipeline
 python scripts/ingest_sentiment_rss.py --weeks 1-18                                      # Ingest 5 RSS feeds
@@ -186,6 +187,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/yahoo_draft.py` | Yahoo `draft_results` parsing → neutral models (v8.0 Phase 88) |
 | `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
 | `src/espn_adapter.py` | `EspnAdapter` stub — ESPN has no live API (NO-GO), gated to `--manual` (v8.0 Phase 89) |
+| `src/espn_league.py` | ESPN league/team import via ESPN_S2+ESPN_SWID cookies (lm-api-reads v3): settings, teams, rosters, post-draft PickEvents — live-draft NO-GO stands |
+| `scripts/espn_league_import.py` | ESPN import CLI — league summary, rosters, `--my-team`, `--draft`, `--out` raw JSON |
 | `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |
 | `src/league_scoring.py` | Re-score projections under a league's custom Sleeper `scoring_settings` (full PPR, TE premium, 6pt pass TD, etc.) (v8.0 Phase 91) |
 | `scripts/sleeper_board.py` | UC1 sleeper board — consensus-unranked players ranked by vacated-opportunity absorption |
@@ -221,6 +224,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 - **MCPs**: aws-core, aws-s3, aws-docs, github, duckduckgo, duckdb, fetch, sleeper (neo4j configured/disabled)
 - **Credentials**: `.env` file (never commit — already in .gitignore; pre-commit hook blocks key patterns)
 - **Yahoo live draft (v8.0, optional)**: `YAHOO_CLIENT_ID` + `YAHOO_CLIENT_SECRET` in `.env`; one-time OAuth grant seeds `data/yahoo_tokens.json` (gitignored), then auto-refreshes
+- **ESPN league import (optional)**: `ESPN_S2` + `ESPN_SWID` in `.env` (DevTools > Application > Cookies on fantasy.espn.com, once per season — espn_s2 lives ~1 yr). Public leagues need no cookies. Live-draft capture remains NO-GO (Phase 89)
 - **Deployment**: Frontend https://frontend-jet-seven-33.vercel.app | Backend https://gesmith0606-nfl-data-api.hf.space (HF Spaces bridge, Parquet fallback; Railway app is DEAD since the May 2026 trial expiry — do not point env vars at it)
 - **Ops dashboard**: https://gesmith0606-nfl-data-api.hf.space/api/ops/dashboard — all workflow schedules + run history; snapshot rebuilt 6-hourly by freshness-monitor
 
