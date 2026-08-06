@@ -1,0 +1,514 @@
+{
+  "fetch_run_id": "4c002714-b69d-4dd1-9ce8-77d73c3c3ff1",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-06T12:45:05.041569+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-lb-otis-reese-put-lb-demetirus-flannigan-fowles-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-lb-otis-reese-put-lb-demetirus-flannigan-fowles-on-ir",
+      "title": "Bills sign LB Otis Reese, put LB Demetirus Flannigan-Fowles on IR",
+      "body_text": "Linebacker Otis Reese spent some time on the Bills' practice squad last year and he's back in Buffalo trying to earn a spot on the roster this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T12:40:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Otis Reese",
+        "Demetirus Flannigan",
+        "Linebacker Otis"
+      ],
+      "resolved_player_ids": [
+        "00-0038853"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/undrafted-rookie-kahlil-benson-working-as-first-team-right-tackle-for-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/undrafted-rookie-kahlil-benson-working-as-first-team-right-tackle-for-chiefs",
+      "title": "Undrafted rookie Kahlil Benson working as first-team right tackle for Chiefs",
+      "body_text": "An improbable story is playing out on the offensive line at Chiefs training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T12:31:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kahlil Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0041019"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-oc-declan-doyle-jakobi-lane-a-friendly-guy-to-throw-to-has-hands-like-michael-thomas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-oc-declan-doyle-jakobi-lane-a-friendly-guy-to-throw-to-has-hands-like-michael-thomas",
+      "title": "Ravens OC Declan Doyle: Ja'Kobi Lane a friendly guy to throw to, has hands like Michael Thomas",
+      "body_text": "Zay Flowers landed a big new contract in Baltimore this week, but he's not the only wideout that the Ravens are excited about for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T12:15:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Declan Doyle",
+        "Kobi Lane",
+        "Michael Thomas",
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-agrees-to-two-year-extension-with-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-agrees-to-two-year-extension-with-colts",
+      "title": "Jonathan Taylor agrees to two-year extension with Colts",
+      "body_text": "Taylor is set to make $44 million under the terms of his new deal.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T12:03:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Colts Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-shula-would-be-really-excited-about-aaron-donald-returning-if-he-does",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-shula-would-be-really-excited-about-aaron-donald-returning-if-he-does",
+      "title": "Chris Shula would be \"really excited\" about Aaron Donald returning (if he does)",
+      "body_text": "Rams defensive coordinator has considered what it would mean to have Donald and Myles Garrett together.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T10:20:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Shula",
+        "Aaron Donald",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0031388",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-depth-chart-lists-tyler-allgeier-as-no-1-rb-jeremiyah-love-as-no-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-depth-chart-lists-tyler-allgeier-as-no-1-rb-jeremiyah-love-as-no-2",
+      "title": "Cardinals' depth chart lists Tyler Allgeier as No. 1 RB, Jeremiyah Love as No. 2",
+      "body_text": "The Cardinals didn't draft running back Jeremiyah Love with the third overall pick so he could sit on the bench, but they're not going to declare him the starter just yet.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-06T10:20:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Allgeier",
+        "Jeremiyah Love",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0037263",
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donalds-tryout-i-think-he-could-make-the-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donalds-tryout-i-think-he-could-make-the-team",
+      "title": "Sean McVay on Aaron Donald's tryout: I think he could make the team",
+      "body_text": "Aaron Donald did not intend to create more comeback speculation, but the defensive tackle did just that.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T01:32:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dillon-gabriel-doesnt-feel-disrespected-by-being-omitted-from-the-starting-quarterback-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dillon-gabriel-doesnt-feel-disrespected-by-being-omitted-from-the-starting-quarterback-competition",
+      "title": "Dillon Gabriel doesn't feel disrespected by being omitted from the starting quarterback competition",
+      "body_text": "The forgotten man in the Cleveland quarterback rotation is forcing himself into the conversation by performing well in practice.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T10:05:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dillon Gabriel"
+      ],
+      "resolved_player_ids": [
+        "00-0040704"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-after-missing-practices-for-back-soreness-i-feel-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-after-missing-practices-for-back-soreness-i-feel-good",
+      "title": "Myles Garrett after missing practices for back soreness: \"I feel good\"",
+      "body_text": "Nerves were a bit frayed among Rams fans in recent days, with defensive end Myles Garrett missing four practices due to back soreness.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T09:46:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-josh-simmons-has-more-lead-in-his-pants-after-offseason-weight-gain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-josh-simmons-has-more-lead-in-his-pants-after-offseason-weight-gain",
+      "title": "Andy Reid: Josh Simmons has \"more lead in his pants\" after offseason weight gain",
+      "body_text": "“He put on weight in the offseason. He’s been able to maintain it,” Reid said. “I think it’ll help him.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-06T09:15:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Josh Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0040116"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-j-jones-broncos-can-break-the-nfl-record-of-72-sacks-in-a-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-j-jones-broncos-can-break-the-nfl-record-of-72-sacks-in-a-season",
+      "title": "D.J. Jones: Broncos can break the NFL record of 72 sacks in a season",
+      "body_text": "\"We can break it. We can break the record,\" Jones said. \"What is that, 72? Yeah, we can break it.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-06T08:07:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-provides-update-on-zach-charbonnets-rehab",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-provides-update-on-zach-charbonnets-rehab",
+      "title": "Mike Macdonald provides update on Zach Charbonnet's rehab",
+      "body_text": "Zach Charbonnet underwent surgery to repair the torn anterior cruciate ligament in his left knee on Feb. 20.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T02:21:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Zach Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demeco-ryans-jadeveon-clowney-is-fitting-right-in",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demeco-ryans-jadeveon-clowney-is-fitting-right-in",
+      "title": "DeMeco Ryans: Jadeveon Clowney is \"fitting right in\"",
+      "body_text": "Jadeveon Clowney is back in Houston, where his NFL career began 12 years ago.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T02:15:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadeveon Clowney"
+      ],
+      "resolved_player_ids": [
+        "00-0031364"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuels-deal-has-a-4-1-million-base-and-up-to-2-9-million-in-incentives",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuels-deal-has-a-4-1-million-base-and-up-to-2-9-million-in-incentives",
+      "title": "Deebo Samuel's deal has a $4.1 million base, and up to $2.9 million in incentives",
+      "body_text": "The initial reports as to many NFL player contracts focus on the \"up to\" amount, since it's a bigger number — and it's usually the number that gets attached to the deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T02:01:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinsons-congratulations-included-a-text-from-matthew-mcconaughey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinsons-congratulations-included-a-text-from-matthew-mcconaughey",
+      "title": "Bijan Robinson's congratulations included a text from Matthew McConaughey",
+      "body_text": "Yes, Matthew McConaughey is a Commanders fan.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T01:41:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-returns-to-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-returns-to-practice-wednesday",
+      "title": "Myles Garrett returns to practice Wednesday",
+      "body_text": "Myles Garrett returned to practice on Wednesday, according to multiple reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T00:11:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Wednesday Myles"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-id-love-for-lamar-jackson-to-be-my-qb-for-my-whole-career",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-id-love-for-lamar-jackson-to-be-my-qb-for-my-whole-career",
+      "title": "Zay Flowers: I'd love for Lamar Jackson to be my QB for my whole career",
+      "body_text": "Wide receiver Zay Flowers agreed to a four-year, $140 million contract extension on Tuesday, but quarterback Lamar Jackson has not been able to reach common ground with the team on one of his own.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T22:20:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Flowers",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-rb-t-j-harden",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-rb-t-j-harden",
+      "title": "Seahawks sign RB T.J. Harden, CB Jordan Washington",
+      "body_text": "The Seahawks announced a handful of roster moves on Wednesday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T21:54:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Washington",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-contract-will-cause-plenty-of-ripple-effects-in-the-receiver-market",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-contract-will-cause-plenty-of-ripple-effects-in-the-receiver-market",
+      "title": "Zay Flowers contract will cause plenty of ripple effects in the receiver market",
+      "body_text": "When the Ravens rewarded receiver Zay Flowers with a new deal that carries a new-money average of $35 million per year, plenty of other receivers surely took notice.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-05T21:51:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-re-sign-wr-tarik-black",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-re-sign-wr-tarik-black",
+      "title": "Lions re-sign WR Tarik Black",
+      "body_text": "The Lions re-signed wide receiver Tarik Black on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-05T21:50:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tarik Black",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0036491"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-everybodys-saying-travis-kelce-has-a-dad-body-but-hes-in-good-shape",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-everybodys-saying-travis-kelce-has-a-dad-body-but-hes-in-good-shape",
+      "title": "Andy Reid: Everybody's saying Travis Kelce has a dad body, but he's in good shape",
+      "body_text": "Chiefs coach Andy Reid is dismissing talk that tight end Travis Kelce showed up to training camp out of shape.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-05T21:41:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-hire-detroit-pistons-executive-richard-haddad-as-president-and-ceo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-hire-detroit-pistons-executive-richard-haddad-as-president-and-ceo",
+      "title": "Lions hire Detroit Pistons executive Richard Haddad as President and CEO",
+      "body_text": "The Lions stayed local in hiring their new President and CEO.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-05T19:07:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Detroit Pistons",
+        "Richard Haddad",
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-te-chris-myarick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-te-chris-myarick",
+      "title": "Raiders sign TE Chris Myarick",
+      "body_text": "The Raiders have added a tight end.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-05T21:09:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Myarick",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0035345"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-addison-shouldnt-be-out-long-with-jammed-thumb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-addison-shouldnt-be-out-long-with-jammed-thumb",
+      "title": "Jordan Addison shouldn't be out long with jammed thumb",
+      "body_text": "Vikings wide receiver Jordan Addison jammed his thumb, but his absence from practice should not be long, coach Kevin O'Connell said.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-05T20:59:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Addison"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-te-jeremiah-franklin-sign-dl-fatorma-mulbah",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-te-jeremiah-franklin-sign-dl-fatorma-mulbah",
+      "title": "Dolphins claim TE Jeremiah Franklin, sign DL Fatorma Mulbah",
+      "body_text": "The Dolphins picked up a tight end off the waiver wire on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T20:55:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiah Franklin",
+        "Fatorma Mulbah",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0040403"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-had-tryout-with-rams-to-evaluate-how-he-felt-with-helmet-pads-on",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-had-tryout-with-rams-to-evaluate-how-he-felt-with-helmet-pads-on",
+      "title": "Aaron Donald had tryout with Rams to evaluate how he felt with helmet, pads on",
+      "body_text": "The three-time AP defensive player of the year is getting closer to making his comeback decision.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-05T20:54:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rico-dowdle-is-no-2-rb-on-initial-steelers-depth-chart-mason-rudolph-is-no-2-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rico-dowdle-is-no-2-rb-on-initial-steelers-depth-chart-mason-rudolph-is-no-2-qb",
+      "title": "Rico Dowdle is No. 2 RB on initial Steelers depth chart, Mason Rudolph is No. 2 QB",
+      "body_text": "The Steelers have released their first depth chart of the season and it does not include running back Rico Dowdle among the starters.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T20:46:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rico Dowdle",
+        "Mason Rudolph",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0036139",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vita-veas-agent-i-dont-see-things-ending-in-anything-but-a-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vita-veas-agent-i-dont-see-things-ending-in-anything-but-a-trade",
+      "title": "Vita Vea's agent: I don't see things ending in anything but a trade",
+      "body_text": "Buccaneers head coach Todd Bowles said that the team is \"not concerned\" about defensive tackle Vita Vea's continued absence from practice in the wake of his trade request, but it also doesn't sound like there's much optimism about a new contract that would put an end to Vea's hold-in at training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T20:28:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vita Vea",
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-place-ol-saahdiq-charles-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-place-ol-saahdiq-charles-on-ir",
+      "title": "Panthers place OL Saahdiq Charles on IR",
+      "body_text": "The Panthers placed offensive lineman Saahdiq Charles on injured reserve Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-05T20:13:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saahdiq Charles",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036334"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-te-connor-hulstein-dl-patrick-jenkins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-te-connor-hulstein-dl-patrick-jenkins",
+      "title": "Jets sign TE Connor Hulstein, DL Patrick Jenkins",
+      "body_text": "The Jets did some roster rearranging on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-05T20:11:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Connor Hulstein",
+        "Patrick Jenkins",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040684"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}

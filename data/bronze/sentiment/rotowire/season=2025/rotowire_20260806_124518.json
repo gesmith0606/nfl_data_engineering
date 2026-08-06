@@ -1,0 +1,117 @@
+{
+  "fetch_run_id": "26f226fb-8774-4599-ac8c-76aa4d3931a6",
+  "source": "rotowire",
+  "fetched_at": "2026-08-06T12:45:18.057418+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632732",
+      "url": "https://www.rotowire.com//football/player/jonathan-taylor-14455",
+      "permalink": "",
+      "title": "Jonathan Taylor: Lands extension with Colts",
+      "body_text": "Taylor has agreed to terms on a two-year extension with the Colts, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-06T05:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Colts Taylor",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl632662",
+      "url": "https://www.rotowire.com//football/player/emeka-egbuka-18549",
+      "permalink": "",
+      "title": "Emeka Egbuka: Dealing with soreness",
+      "body_text": "Coach Todd Bowles said Egbuka didn't practice Tuesday due to soreness in his lower body, Brianna Dix of the Buccaneers' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-05T02:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emeka Egbuka",
+        "Coach Todd",
+        "Brianna Dix"
+      ],
+      "resolved_player_ids": [
+        "00-0040129"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "nfl632660",
+      "url": "https://www.rotowire.com//football/player/aaron-donald-9391",
+      "permalink": "",
+      "title": "Aaron Donald: Logs official tryout with Rams",
+      "body_text": "Donald had a tryout with the Rams on Wednesday, per the NFL's transaction log. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-05T02:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Rams Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl632659",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Listed behind Warren on depth chart",
+      "body_text": "Jaylen Warren is listed ahead of Dowdle on the Steelers' initial posted depth chart ahead of the preseason, Brian Batko of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-05T02:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle",
+        "Jaylen Warren",
+        "Brian Batko"
+      ],
+      "resolved_player_ids": [
+        "00-0036139",
+        "00-0037228"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl632658",
+      "url": "https://www.rotowire.com//football/player/jaylen-warren-15984",
+      "permalink": "",
+      "title": "Jaylen Warren: Listed ahead of Dowdle",
+      "body_text": "Warren is listed ahead of free-agent addition Rico Dowdle on the Steelers' initial depth chart ahead of the preseason, Brian Batko of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-05T01:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Warren",
+        "Dowdle Warren",
+        "Rico Dowdle",
+        "Brian Batko"
+      ],
+      "resolved_player_ids": [
+        "00-0037228",
+        "00-0036139"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
