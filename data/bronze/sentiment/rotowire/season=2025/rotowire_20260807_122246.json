@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "c1e1cf7a-45b0-4023-af01-3a3d7afe8a5d",
+  "source": "rotowire",
+  "fetched_at": "2026-08-07T12:22:46.576478+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632828",
+      "url": "https://www.rotowire.com//football/player/xavier-legette-17734",
+      "permalink": "",
+      "title": "Xavier Legette: Deemed healthy",
+      "body_text": "Coach Dave Canales said Thursday following the Hall of Fame Game that Legette (neck) \"feels great\" and is healthy, Mike Kaye of The Charlotte Observer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-06T08:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Legette",
+        "Coach Dave",
+        "Fame Game",
+        "Mike Kaye",
+        "The Charlotte"
+      ],
+      "resolved_player_ids": [
+        "00-0039342"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632824",
+      "url": "https://www.rotowire.com//football/player/carson-beck-19287",
+      "permalink": "",
+      "title": "Carson Beck: Stellar in preseason debut",
+      "body_text": "Beck started Thursday's Hall of Fame Game against the Panthers and completed 15 of 19 passes for 188 yards with a touchdown and no interceptions while adding two rushes for three yards. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-06T07:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "nfl632772",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Rejoins team drills",
+      "body_text": "Nabers (knee) participated in team drills at Thursday's practice, Patricia Traina of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-06T04:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Patricia Traina"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632760",
+      "url": "https://www.rotowire.com//football/player/jalon-walker-18683",
+      "permalink": "",
+      "title": "Jalon Walker: Moves to injured reserve",
+      "body_text": "The Falcons officially placed Walker (knee) on injured reserve Thursday, Will McFadden of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-06T02:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalon Walker",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0040577"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl632759",
+      "url": "https://www.rotowire.com//football/player/jahmyr-gibbs-16808",
+      "permalink": "",
+      "title": "Jahmyr Gibbs: Lands three-year extension",
+      "body_text": "The Lions and Gibbs (back) agreed to terms on a three-year extension Thursday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-06T02:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "The Lions",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}

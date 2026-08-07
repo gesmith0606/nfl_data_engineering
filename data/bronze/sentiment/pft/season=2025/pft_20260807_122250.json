@@ -1,0 +1,593 @@
+{
+  "fetch_run_id": "9f82d419-b781-4790-a2c8-e82b8ca012ae",
+  "source": "pft",
+  "fetched_at": "2026-08-07T12:22:50.752647+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-make-stefon-diggs-signing-official",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-make-stefon-diggs-signing-official",
+      "permalink": "",
+      "title": "Commanders make Stefon Diggs signing official",
+      "body_text": "Stefon Diggs is officially the newest member of the Commanders.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T12:01:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-daniel-jones-is-on-fire-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-daniel-jones-is-on-fire-right-now",
+      "permalink": "",
+      "title": "Shane Steichen: Daniel Jones is on fire right now",
+      "body_text": "Colts quarterback Daniel Jones's work in training camp has only generated positive reviews and that continued during an intrasquad scrimmage on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T11:46:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-carson-beck-the-same-thing-i-keep-seeing-in-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-on-carson-beck-the-same-thing-i-keep-seeing-in-practice",
+      "permalink": "",
+      "title": "Mike LaFleur on Carson Beck: The same thing I keep seeing in practice",
+      "body_text": "Beck threw for 188 yards and a touchdown in the Hall of Fame Game.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T11:27:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-says-hes-not-thinking-about-retiring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-says-hes-not-thinking-about-retiring",
+      "permalink": "",
+      "title": "Derrick Henry says he's not thinking about retiring",
+      "body_text": "At 32, Derrick Henry is the NFL's oldest starting running back.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-07T10:18:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-qb-haynes-king-dream-come-true-to-showcase-my-talent-in-front-of-hall-of-famers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-qb-haynes-king-dream-come-true-to-showcase-my-talent-in-front-of-hall-of-famers",
+      "permalink": "",
+      "title": "Panthers QB Haynes King: Dream come true to showcase my talent in front of Hall of Famers",
+      "body_text": "King, the Panthers' undrafted rookie quarterback, turned in a big game that culminated with the game-winning touchdown as time expired.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-07T08:56:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Haynes King",
+        "Famers King"
+      ],
+      "resolved_player_ids": [
+        "00-0041149"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-i-love-the-patriots-but-carlie-irsay-gordon-was-my-choice-to-induct-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-i-love-the-patriots-but-carlie-irsay-gordon-was-my-choice-to-induct-me",
+      "permalink": "",
+      "title": "Adam Vinatieri: I love the Patriots, but Carlie Irsay-Gordon was my choice to induct me",
+      "body_text": "\"I love both organizations,\" Vinatieri said. \"Living in Indy, what the Irsay family meant to me, Jim just meant the world bringing me into that organization, and Carlie I'm so excited watching her taking over her dad's legacy.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-07T08:08:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adam Vinatieri",
+        "Carlie Irsay"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-declines-to-discuss-rams-plans-for-australia-travel",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-declines-to-discuss-rams-plans-for-australia-travel",
+      "permalink": "",
+      "title": "Sean McVay declines to discuss Rams' plans for Australia travel",
+      "body_text": "On most topics raised during a press conference, Rams coach Sean McVay is willing to provide reporters with an answer.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-07T04:49:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-insists-he-doesnt-care-about-criticism",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-insists-he-doesnt-care-about-criticism",
+      "permalink": "",
+      "title": "Aaron Rodgers insists he doesn't care about criticism",
+      "body_text": "The week began with Steelers quarterback Aaron Rodgers causing a ruckus on ESPN, where he sharply criticized Dr.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-07T04:34:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/haynes-king-leads-panthers-to-33-30-win-on-final-play-of-hall-of-fame-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/haynes-king-leads-panthers-to-33-30-win-on-final-play-of-hall-of-fame-game",
+      "permalink": "",
+      "title": "Haynes King leads Panthers to 33-30 win on final play of Hall of Fame Game",
+      "body_text": "Haynes King wasn't drafted despite being the ACC Player of the Year last season.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-07T03:14:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Haynes King",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [
+        "00-0041149"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-throws-for-188-yards-td-in-impressive-preseason-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-throws-for-188-yards-td-in-impressive-preseason-debut",
+      "permalink": "",
+      "title": "Carson Beck throws for 188 yards, TD in impressive preseason debut",
+      "body_text": "Carson Beck has played in much bigger games than the Hall of Fame Game, so it probably should come as no surprise that the lights weren't too bright or the stage too big.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-07T02:15:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-held-firm-at-a-bump-above-bijan-robinson-for-jahmyr-gibbs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-held-firm-at-a-bump-above-bijan-robinson-for-jahmyr-gibbs",
+      "permalink": "",
+      "title": "Lions held firm at a bump above Bijan Robinson for Jahmyr Gibbs",
+      "body_text": "It's clear that both Falcons running back Bijan Robinson and Lions running back Jahmyr Gibbs wanted to get to $25 million in new-money APY on their new contracts.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-07T00:52:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bijan Robinson",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0038542",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-decision-could-be-made-in-the-coming-days",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-decision-could-be-made-in-the-coming-days",
+      "permalink": "",
+      "title": "Aaron Donald decision could be made in the coming days",
+      "body_text": "Donald could be on the field for 30-40 snaps in Week 1 vs. 49ers.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-07T00:14:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-rookie-lb-jaishawn-barham-has-a-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-rookie-lb-jaishawn-barham-has-a-groin-injury",
+      "permalink": "",
+      "title": "Cowboys rookie LB Jaishawn Barham has a groin injury",
+      "body_text": "Cowboys rookie linebacker Jaishawn Barham left Thursday's practice early.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T23:24:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaishawn Barham"
+      ],
+      "resolved_player_ids": [
+        "00-0040872"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-lb-jahlani-tavai",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-lb-jahlani-tavai",
+      "permalink": "",
+      "title": "Jaguars sign LB Jahlani Tavai",
+      "body_text": "The Jaguars signed linebacker Jahlani Tavai, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T22:56:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahlani Tavai",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0035240"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-suspends-saints-wr-brock-rechsteiner-for-the-first-six-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-suspends-saints-wr-brock-rechsteiner-for-the-first-six-games",
+      "permalink": "",
+      "title": "NFL suspends Saints WR Brock Rechsteiner for the first six games",
+      "body_text": "The NFL has suspended Saints wide receiver Brock Rechsteiner for the first six games of the 2026 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T22:11:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Rechsteiner"
+      ],
+      "resolved_player_ids": [
+        "00-0041451"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-put-jalon-walker-on-ir-claim-db-keidron-smith-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-put-jalon-walker-on-ir-claim-db-keidron-smith-off-of-waivers",
+      "permalink": "",
+      "title": "Falcons put Jalon Walker on IR, claim DB Keidron Smith off of waivers",
+      "body_text": "The Falcons officially brought linebacker Jalon Walker's season to an end on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T21:55:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalon Walker",
+        "Keidron Smith",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0040577",
+        "00-0038696"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-claim-te-zack-kuntz-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-claim-te-zack-kuntz-off-waivers",
+      "permalink": "",
+      "title": "Cowboys claim TE Zack Kuntz off waivers",
+      "body_text": "The Cowboys lost Princeton Fant for the season to a torn ACL and they replaced him on the roster with another tight end on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T21:47:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zack Kuntz",
+        "The Cowboys",
+        "Princeton Fant"
+      ],
+      "resolved_player_ids": [
+        "00-0038406",
+        "00-0038735"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-agrees-to-three-year-deal-worth-22-5-million-annually",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-agrees-to-three-year-deal-worth-22-5-million-annually",
+      "permalink": "",
+      "title": "Jahmyr Gibbs agrees to three-year deal worth $22.5 million annually",
+      "body_text": "The Lions' fourth-year running back will receive $51.5 million in guarantees.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T21:41:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-free-agent-te-pharaoh-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-free-agent-te-pharaoh-brown",
+      "permalink": "",
+      "title": "Colts sign free agent TE Pharaoh Brown",
+      "body_text": "The Colts signed free agent tight end Pharaoh Brown on Thursday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T21:31:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pharaoh Brown",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0033439"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-a-j-brown-and-i-are-battling-getting-each-other-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-a-j-brown-and-i-are-battling-getting-each-other-better",
+      "permalink": "",
+      "title": "Christian Gonzalez: A.J. Brown and I are battling, getting each other better",
+      "body_text": "Thursday's practice at Patriots camp featured some fireworks between wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T21:06:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-buck-troy-aikman-enter-contract-year-at-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-buck-troy-aikman-enter-contract-year-at-espn",
+      "permalink": "",
+      "title": "Joe Buck, Troy Aikman enter contract year at ESPN",
+      "body_text": "The first hint came in April, when Joe Buck declared that he'd like to spend the rest of his career at ESPN — with the caveat that no talks had commenced on a contract that expires after the upcoming season.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T21:04:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Buck",
+        "Troy Aikman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-release-ol-saahdiq-charles-wr-ainias-smith-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-release-ol-saahdiq-charles-wr-ainias-smith-from-ir",
+      "permalink": "",
+      "title": "Panthers release OL Saahdiq Charles, WR Ainias Smith from IR",
+      "body_text": "The Panthers waived wide receiver Ainias Smith with an injury settlement and released guard Saahdiq Charles with an injury settlement, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T21:02:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saahdiq Charles",
+        "Ainias Smith",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036334",
+        "00-0039747"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-claim-dt-junior-tafuna-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-claim-dt-junior-tafuna-off-waivers",
+      "permalink": "",
+      "title": "Jets claim DT Junior Tafuna off waivers",
+      "body_text": "Defensive tackle Junior Tafuna was dropped by the Texans on Wednesday, but he didn't have to wait long to find a new team.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T20:52:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Junior Tafuna"
+      ],
+      "resolved_player_ids": [
+        "00-0040414"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/madden-movie-makes-prime-video-debut-on-november-18",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/madden-movie-makes-prime-video-debut-on-november-18",
+      "permalink": "",
+      "title": "Madden movie makes Prime Video debut on November 18",
+      "body_text": "On the Wednesday night before the first-ever Thanksgiving Eve game, another piece of NFL-related entertainment will debut.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-06T20:44:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Prime Video",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-fired-up-to-broadcast-bucs-preseason-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-gruden-fired-up-to-broadcast-bucs-preseason-game",
+      "permalink": "",
+      "title": "Jon Gruden \"fired up\" to broadcast Bucs preseason game",
+      "body_text": "Jon Gruden, who won Super Bowl XXXVII as Tampa Bay's head coach, will be in the broadcast booth as the play-by-play announcer for the Bucs' second preseason game against the Chiefs on Aug. 22.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-06T20:34:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Gruden",
+        "Super Bowl",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cb-dru-phillips-to-miss-time-with-a-knee-sprain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cb-dru-phillips-to-miss-time-with-a-knee-sprain",
+      "permalink": "",
+      "title": "Giants CB Dru Phillips to miss time with a knee sprain",
+      "body_text": "The Giants will be missing a member of their secondary for a little while.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T20:25:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dru Phillips",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-just-cant-wait-to-face-texans-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-just-cant-wait-to-face-texans-in-week-1",
+      "permalink": "",
+      "title": "C.J. Gardner-Johnson \"just can't wait\" to face Texans in Week 1",
+      "body_text": "Safety C.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-06T20:04:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-first-round-rookie-max-iheanachor-leaves-practice-early",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-first-round-rookie-max-iheanachor-leaves-practice-early",
+      "permalink": "",
+      "title": "Steelers first-round rookie Max Iheanachor leaves practice early",
+      "body_text": "Steelers first-round rookie Max Iheanachor left practice early Thursday with an apparent injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T19:38:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Max Iheanachor"
+      ],
+      "resolved_player_ids": [
+        "00-0041482"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-fb-brock-lampe-waive-te-lance-mason",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-fb-brock-lampe-waive-te-lance-mason",
+      "permalink": "",
+      "title": "Seahawks sign FB Brock Lampe, waive TE Lance Mason",
+      "body_text": "The defending champs have brought in a fullback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-06T19:29:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Lampe",
+        "Lance Mason"
+      ],
+      "resolved_player_ids": [
+        "00-0040567",
+        "00-0040974"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-rb-isaiah-davis-will-miss-a-couple-weeks-with-a-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-rb-isaiah-davis-will-miss-a-couple-weeks-with-a-knee-injury",
+      "permalink": "",
+      "title": "Jets RB Isaiah Davis will miss \"a couple weeks\" with a knee injury",
+      "body_text": "Jets running back Isaiah Davis will miss some time with a knee injury, coach Aaron Glenn announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-06T19:22:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Davis",
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0039798",
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}
