@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T12:22:28.576366+00:00",
+  "generated_at": "2026-08-07T18:21:24.396560+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -35,15 +35,15 @@
       "schedule": "Daily 12:00 UTC",
       "purpose": "News ingestion + rankings refresh + archive",
       "last_run": {
-        "status": "in_progress",
-        "conclusion": null,
+        "status": "completed",
+        "conclusion": "success",
         "started_at": "2026-08-07T12:20:58Z",
-        "duration_seconds": null,
+        "duration_seconds": 137,
         "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31177803160",
         "event": "schedule"
       },
       "recent": [
-        "in_progress",
+        "success",
         "success",
         "success",
         "success",
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-08-07T00:00:17Z",
-        "duration_seconds": 104,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31133055082",
+        "started_at": "2026-08-07T13:29:16Z",
+        "duration_seconds": 87,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31182854655",
         "event": "schedule"
       },
       "recent": [
@@ -145,17 +145,17 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-08-07T12:22:04Z",
+        "started_at": "2026-08-07T18:21:02Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31177878132",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31206533991",
         "event": "schedule"
       },
       "recent": [
         "in_progress",
         "success",
         "success",
-        "failure",
         "success",
+        "failure",
         "success",
         "success",
         "success",
@@ -172,9 +172,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-08-06T15:17:24Z",
-        "duration_seconds": 360,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31115114689",
+        "started_at": "2026-08-07T14:48:58Z",
+        "duration_seconds": 330,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/31189489522",
         "event": "schedule"
       },
       "recent": [
