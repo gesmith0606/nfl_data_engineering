@@ -20,7 +20,26 @@ S3_PATHS = {
 }
 
 # NFL Data Configuration
-DEFAULT_SEASON = 2024
+
+
+def _compute_default_season(_today: "datetime.date | None" = None) -> int:
+    """Return the NFL season year that today's date belongs to.
+
+    Simple rule: a new season's rosters/schedule become the relevant ones
+    once the following year's league year opens (free agency/draft prep,
+    ~March), even though Week 1 itself doesn't kick off until September.
+    So from March onward the season is the current calendar year; Jan/Feb
+    still belong to the previous season (playoffs/Super Bowl wrapping up).
+
+    Args:
+        _today: Override for the current date (test seam). Defaults to
+            ``datetime.date.today()``.
+    """
+    today = _today or datetime.date.today()
+    return today.year if today.month >= 3 else today.year - 1
+
+
+DEFAULT_SEASON = _compute_default_season()
 DEFAULT_WEEK = 1
 
 # Seasons available for player projection training data (10 seasons).

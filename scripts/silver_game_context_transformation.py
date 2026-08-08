@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 # Project root on path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from config import SILVER_TEAM_S3_KEYS
+from config import DEFAULT_SEASON, SILVER_TEAM_S3_KEYS
 from game_context import compute_game_context, compute_referee_tendencies, compute_playoff_context, _unpivot_schedules
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -238,7 +238,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    seasons = args.seasons or ([args.season] if args.season else [2024])
+    seasons = args.seasons or ([args.season] if args.season else [DEFAULT_SEASON])
 
     # Try S3 only if credentials are available and --no-s3 not set
     s3_bucket = None

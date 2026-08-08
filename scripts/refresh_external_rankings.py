@@ -25,6 +25,7 @@ import json
 import logging
 import os
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -405,8 +406,16 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Tuple[Path, bool]:
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "players": data,
     }
-    with open(path, "w") as f:
-        json.dump(envelope, f, indent=2)
+    # Atomic write: this file is committed to main by the daily workflow, so
+    # a reader (or a racing `git add`) must never observe a partial write.
+    fd, tmp_path = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.")
+    try:
+        with os.fdopen(fd, "w") as f:
+            json.dump(envelope, f, indent=2)
+        os.replace(tmp_path, path)
+    except BaseException:
+        os.unlink(tmp_path)
+        raise
     logger.info("Saved %d rankings -> %s", len(data), path)
     return path, True
 

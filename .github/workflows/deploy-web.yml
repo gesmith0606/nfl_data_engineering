@@ -350,8 +350,11 @@ jobs:
   # Auto-rollback (Plan 68-03 SANITY-09):
   # Triggers ONLY when live-gate-blocking fails AND the failing commit
   # is within 5 minutes of workflow start. Reverts HEAD with
-  # `git revert --no-edit` and pushes to main. Railway auto-redeploys
-  # the previous green commit on push. Revert commit message is:
+  # `git revert --no-edit` and pushes to main. Vercel auto-redeploys the
+  # frontend on that push; the backend (HF Spaces bridge) does NOT
+  # rebuild on push (see the deploy-backend job below) — it only picks
+  # up the revert on the next deploy-web run (manual dispatch or the
+  # daily cron). Revert commit message is:
   #   `revert: auto-rollback after sanity-check failure on <sha>`
   # so git log --oneline makes rollbacks auditable.
   #
@@ -427,5 +430,6 @@ jobs:
           echo "## Auto-Rollback Executed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Reverted commit: ${{ steps.window_check.outputs.deploy_sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "Railway will auto-redeploy the previous green commit." >> $GITHUB_STEP_SUMMARY
+          echo "Frontend (Vercel) will auto-redeploy the reverted commit on this push." >> $GITHUB_STEP_SUMMARY
+          echo "Backend (HF Spaces bridge) does NOT rebuild on push — it will only pick up the revert on the next deploy-web run (manual dispatch or the daily cron)." >> $GITHUB_STEP_SUMMARY
           echo "Review the live-gate-blocking failure before re-deploying." >> $GITHUB_STEP_SUMMARY

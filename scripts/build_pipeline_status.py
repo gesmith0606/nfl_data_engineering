@@ -17,6 +17,7 @@ import json
 import logging
 import os
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -219,7 +220,16 @@ def main() -> int:
     status = build_status(args.repo, token)
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(status, indent=2))
+    # Atomic write: this file is committed to main by the ops dashboard
+    # workflow, so a reader must never observe a partial write.
+    fd, tmp_path = tempfile.mkstemp(dir=out.parent, prefix=f".{out.name}.")
+    try:
+        with os.fdopen(fd, "w") as f:
+            f.write(json.dumps(status, indent=2))
+        os.replace(tmp_path, out)
+    except BaseException:
+        os.unlink(tmp_path)
+        raise
     ok = sum(1 for w in status["workflows"] if w.get("last_run"))
     logger.info(
         "Wrote %s (%d/%d workflows with run history)",

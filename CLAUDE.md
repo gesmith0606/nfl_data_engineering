@@ -17,11 +17,13 @@ python scripts/bronze_odds_ingestion.py --season 2020
 # data-types: schedules, pbp, teams, player_weekly, snap_counts, injuries, rosters, player_seasonal, ngs, pfr_stats, qbr, depth_charts, draft_picks, combine, officials, odds
 
 # Silver transformations
-python scripts/silver_player_transformation.py --seasons 2020 2021 2022 2023 2024
-python scripts/silver_team_transformation.py --seasons 2020 2021 2022 2023 2024
+# Season lists below match PLAYER_DATA_SEASONS (src/config.py) — update both
+# together when a new season is added, so these examples don't go stale.
+python scripts/silver_player_transformation.py --seasons 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+python scripts/silver_team_transformation.py --seasons 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
 python scripts/silver_market_transformation.py --season 2020
-python scripts/silver_player_quality_transformation.py --seasons 2020 2021 2022 2023 2024
-python scripts/compute_graph_features.py --seasons 2020 2021 2022 2023 2024 2025  # Graph features
+python scripts/silver_player_quality_transformation.py --seasons 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+python scripts/compute_graph_features.py --seasons 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025  # Graph features
 python scripts/bronze_college_ingestion.py --season 2025                        # College data from CFBD
 
 # Gold: Fantasy projections

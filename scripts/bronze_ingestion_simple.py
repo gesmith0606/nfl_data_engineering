@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from src.nfl_data_adapter import NFLDataAdapter, format_validation_output
-from src.config import validate_season_for_type, DATA_TYPE_SEASON_RANGES
+from src.config import DEFAULT_SEASON, validate_season_for_type, DATA_TYPE_SEASON_RANGES
 
 # ---------------------------------------------------------------------------
 # DATA_TYPE_REGISTRY — single source of truth for all Bronze data types.
@@ -271,7 +271,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="NFL Data Bronze Layer Ingestion")
     parser.add_argument(
-        "--season", type=int, default=2024, help="NFL season (default: 2024)"
+        "--season", type=int, default=DEFAULT_SEASON, help="NFL season (default: current NFL season)"
     )
     parser.add_argument("--week", type=int, default=1, help="NFL week (default: 1)")
     parser.add_argument(

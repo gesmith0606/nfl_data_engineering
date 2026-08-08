@@ -2964,7 +2964,7 @@ def run_live_site_check(
     # Replaces the pre-v7.0 row-count-only contract (which passed on fully
     # empty payloads). CRITICAL when fewer than 17 of 32 teams have articles.
     # ------------------------------------------------------------------
-    news_path = "/api/news/team-events?season=2025&week=1"
+    news_path = f"/api/news/team-events?season={season}&week=1"
     news_url = backend_url.rstrip("/") + news_path
     try:
         news_resp = requests.get(news_url, timeout=_PROBE_TIMEOUT_SECONDS)

@@ -25,6 +25,7 @@ from dotenv import load_dotenv
 # Project root on path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+from config import DEFAULT_SEASON
 from nfl_data_integration import NFLDataFetcher
 from player_analytics import (
     compute_usage_metrics,
@@ -189,7 +190,8 @@ def run_silver_transform(seasons: list, week: Optional[int], s3_bucket: Optional
         if snap_df.empty:
             try:
                 snap_df = fetcher.fetch_snap_counts([season], week=week)
-            except Exception:
+            except Exception as e:
+                print(f"    WARN: Could not fetch snap counts: {e}")
                 snap_df = None
         if snap_df is not None and not snap_df.empty:
             snap_df = _prepare_snap_data(snap_df, weekly_df)
@@ -261,7 +263,7 @@ def main():
     parser.add_argument('--no-s3', action='store_true', help='Skip S3 upload even if credentials are available')
     args = parser.parse_args()
 
-    seasons = args.seasons or ([args.season] if args.season else [2024])
+    seasons = args.seasons or ([args.season] if args.season else [DEFAULT_SEASON])
 
     # Try S3 only if credentials are available and --no-s3 not set
     s3_bucket = None

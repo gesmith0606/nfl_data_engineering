@@ -136,17 +136,24 @@ def _safe_bool(val) -> bool:
 
 
 def _build_projected_stats_json(row: pd.Series) -> Optional[str]:
-    """Build a JSONB-compatible stats dict from projection row columns."""
+    """Build a JSONB-compatible stats dict from projection row columns.
+
+    ``row`` is a post-rename row as produced by ``_upsert_projections``
+    (its ``rename_map`` renames e.g. ``proj_passing_yards`` ->
+    ``proj_pass_yards`` before this function is ever called), so the
+    lookups here must use the renamed column names, not the raw Parquet
+    ones.
+    """
     stat_cols = {
-        "passing_yards": "proj_passing_yards",
-        "passing_tds": "proj_passing_tds",
+        "passing_yards": "proj_pass_yards",
+        "passing_tds": "proj_pass_tds",
         "interceptions": "proj_interceptions",
-        "rushing_yards": "proj_rushing_yards",
-        "rushing_tds": "proj_rushing_tds",
+        "rushing_yards": "proj_rush_yards",
+        "rushing_tds": "proj_rush_tds",
         "carries": "proj_carries",
-        "receptions": "proj_receptions",
-        "receiving_yards": "proj_receiving_yards",
-        "receiving_tds": "proj_receiving_tds",
+        "receptions": "proj_rec",
+        "receiving_yards": "proj_rec_yards",
+        "receiving_tds": "proj_rec_tds",
         "targets": "proj_targets",
     }
     stats = {}

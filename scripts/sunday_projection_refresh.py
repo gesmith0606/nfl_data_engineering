@@ -54,6 +54,7 @@ import glob as globmod
 import logging
 import os
 import sys
+import tempfile
 from typing import Optional
 
 import pandas as pd
@@ -552,7 +553,16 @@ def _write_gold_output(
     os.makedirs(partition, exist_ok=True)
     filename = f"projections_{scoring}_{ts}.parquet"
     output_path = os.path.join(partition, filename)
-    refreshed.to_parquet(output_path, index=False)
+    # Atomic write: this file is committed to main by the Sunday refresh
+    # workflow, so a reader must never observe a partial/truncated Parquet.
+    fd, tmp_path = tempfile.mkstemp(dir=partition, prefix=f".{filename}.")
+    os.close(fd)
+    try:
+        refreshed.to_parquet(tmp_path, index=False)
+        os.replace(tmp_path, output_path)
+    except BaseException:
+        os.unlink(tmp_path)
+        raise
     logger.info("Wrote refreshed Gold file: %s", output_path)
     return output_path
 

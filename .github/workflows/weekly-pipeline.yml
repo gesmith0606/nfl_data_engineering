@@ -51,7 +51,6 @@ env:
   S3_BUCKET_BRONZE: nfl-raw
   S3_BUCKET_SILVER: nfl-refined
   S3_BUCKET_GOLD: nfl-trusted
-  DEFAULT_SEASON: "2024"   # fallback if auto-compute produces nothing sensible
 
 # ---------------------------------------------------------------------------
 jobs:

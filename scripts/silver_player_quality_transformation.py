@@ -34,6 +34,7 @@ import pandas as pd
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "src"))
 
+from config import DEFAULT_SEASON
 from team_analytics import apply_team_rolling
 
 logging.basicConfig(level=logging.INFO)
@@ -459,7 +460,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    seasons = args.seasons or ([args.season] if args.season else [2024])
+    seasons = args.seasons or ([args.season] if args.season else [DEFAULT_SEASON])
 
     print("NFL Silver Layer - Player Quality Transformation")
     print(f"Seasons: {seasons}")
