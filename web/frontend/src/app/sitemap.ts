@@ -49,6 +49,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5
-    }
+    },
+    ...['trade', 'start-sit', 'value', 'sos', 'injuries', 'leagues'].map(
+      (slug) => ({
+        url: `${BASE_URL}/dashboard/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7
+      })
+    )
   ];
 }

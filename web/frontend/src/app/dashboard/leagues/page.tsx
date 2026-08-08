@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/page-container';
+import { EspnImportCard } from '@/features/nfl/components/espn-import-card';
 import { SleeperLeagueView } from '@/features/nfl/components/sleeper-league-view';
 import { FadeIn } from '@/lib/motion-primitives';
 
@@ -16,8 +17,9 @@ export default function LeaguesPage() {
       pageTitle='Your Leagues'
       pageDescription='Connect your Sleeper account for personalized roster + advisor context.'
     >
-      <FadeIn>
+      <FadeIn className='space-y-4'>
         <SleeperLeagueView />
+        <EspnImportCard />
       </FadeIn>
     </PageContainer>
   );

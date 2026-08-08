@@ -101,5 +101,58 @@ export const navGroups: NavGroup[] = [
         items: []
       }
     ]
+  },
+  {
+    label: 'Manager Tools',
+    items: [
+      {
+        title: 'Your Leagues',
+        url: '/dashboard/leagues',
+        icon: 'teams',
+        isActive: false,
+        shortcut: ['y', 'l'],
+        items: []
+      },
+      {
+        title: 'Trade Analyzer',
+        url: '/dashboard/trade',
+        icon: 'billing',
+        isActive: false,
+        shortcut: ['t', 't'],
+        items: []
+      },
+      {
+        title: 'Start/Sit',
+        url: '/dashboard/start-sit',
+        icon: 'checks',
+        isActive: false,
+        shortcut: ['w', 'w'],
+        items: []
+      },
+      {
+        title: 'Player Value',
+        url: '/dashboard/value',
+        icon: 'trendingUp',
+        isActive: false,
+        shortcut: ['v', 'v'],
+        items: []
+      },
+      {
+        title: 'Matchup Grid',
+        url: '/dashboard/sos',
+        icon: 'table',
+        isActive: false,
+        shortcut: ['o', 'o'],
+        items: []
+      },
+      {
+        title: 'Injuries & Depth',
+        url: '/dashboard/injuries',
+        icon: 'alertCircle',
+        isActive: false,
+        shortcut: ['j', 'j'],
+        items: []
+      }
+    ]
   }
 ];
