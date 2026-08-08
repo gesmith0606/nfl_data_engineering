@@ -362,6 +362,65 @@ class TestApplyBayesianCorrection:
             assert "bayesian_ceiling" in result.columns
             assert "bayesian_std" in result.columns
 
+    def test_floor_ceiling_not_double_counted(self, projections_df):
+        """Regression test: bayesian_floor/ceiling must not double-count the
+        posterior mean.
+
+        preds["floor"]/preds["ceiling"] from predict_with_uncertainty are
+        quantiles of samples centered on preds["mean"] -- i.e. already-
+        absolute residual quantiles, not deltas from the mean. They must be
+        added to the ORIGINAL projected_points, not to projected_points
+        after it has already been incremented by preds["mean"], or the mean
+        gets counted twice and floor/ceiling end up biased high (and could
+        even invert past bayesian_ceiling for a large enough mean).
+
+        Verified by independently reproducing predict_with_uncertainty on
+        the same feature matrix apply_bayesian_correction builds internally
+        (WR rows, zero-filled missing features) and asserting the exact
+        (not approximate) additive relationship to the ORIGINAL
+        projected_points.
+        """
+        model = BayesianResidualModel("WR", feature_names=["feat_0", "feat_1", "feat_2"])
+        # A deliberately large, one-sided target so a double-counted mean
+        # would produce an obviously wrong (much higher) floor/ceiling.
+        X_small = np.random.randn(50, 3)
+        y_small = np.full(50, 20.0) + np.random.randn(50) * 0.1
+        model.fit(X_small, y_small)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            import joblib
+
+            joblib.dump(model, os.path.join(tmpdir, "bayesian_wr.joblib"))
+
+            original = projections_df.copy()
+            result = apply_bayesian_correction(
+                projections_df,
+                positions=["WR"],
+                model_dir=tmpdir,
+                include_intervals=True,
+            )
+
+            wr_mask = projections_df["position"] == "WR"
+            orig_points = original.loc[wr_mask, "projected_points"].values
+            floor = result.loc[wr_mask, "bayesian_floor"].values
+            ceiling = result.loc[wr_mask, "bayesian_ceiling"].values
+            corrected = result.loc[wr_mask, "projected_points"].values
+
+            # Reproduce what apply_bayesian_correction computes internally:
+            # X built from the WR rows' feat_0/feat_1/feat_2 columns.
+            X = original.loc[wr_mask, ["feat_0", "feat_1", "feat_2"]].values
+            preds = model.predict_with_uncertainty(X)
+
+            # corrected projection = original + residual mean (single-counted)
+            np.testing.assert_allclose(corrected, orig_points + preds["mean"])
+
+            # floor/ceiling must be original + absolute residual quantile --
+            # NOT (original + mean) + quantile, which would double the mean.
+            np.testing.assert_allclose(floor, orig_points + preds["floor"])
+            np.testing.assert_allclose(ceiling, orig_points + preds["ceiling"])
+
+            assert (floor <= ceiling).all()
+
     def test_non_negative_projections(self, simple_train_data, projections_df):
         """Projected points are clipped to >= 0."""
         model = BayesianResidualModel("WR", feature_names=["feat_0", "feat_1", "feat_2"])

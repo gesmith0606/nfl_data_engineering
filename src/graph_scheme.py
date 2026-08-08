@@ -312,18 +312,33 @@ def compute_defensive_front_quality(
                 break
 
         if name_col and pos_col:
-            # Build lookup: (name, team) -> position
-            roster_lookup = roster.drop_duplicates(subset=[name_col, "team"]).set_index(
-                [name_col, "team"]
+            # Build lookup keyed on (name, team, season) — a multi-season
+            # roster frame can have the same (name, team) on different
+            # rosters (trades, re-signings) with different positions, so
+            # season must be part of the key or front-7 filtering can
+            # mislabel players.
+            has_season = "season" in roster.columns
+            lookup_cols = [name_col, "team", "season"] if has_season else [name_col, "team"]
+            roster_lookup = roster.drop_duplicates(subset=lookup_cols).set_index(
+                lookup_cols
             )[pos_col]
 
             if "pfr_player_name" in df.columns:
-                df["_position"] = df.apply(
-                    lambda r: roster_lookup.get(
-                        (r.get("pfr_player_name"), r.get("team")), None
-                    ),
-                    axis=1,
-                )
+                if has_season:
+                    df["_position"] = df.apply(
+                        lambda r: roster_lookup.get(
+                            (r.get("pfr_player_name"), r.get("team"), r.get("season")),
+                            None,
+                        ),
+                        axis=1,
+                    )
+                else:
+                    df["_position"] = df.apply(
+                        lambda r: roster_lookup.get(
+                            (r.get("pfr_player_name"), r.get("team")), None
+                        ),
+                        axis=1,
+                    )
                 df = df[
                     df["_position"].isin(_FRONT7_POSITIONS) | df["_position"].isna()
                 ]

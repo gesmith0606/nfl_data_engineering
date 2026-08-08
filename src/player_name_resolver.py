@@ -270,9 +270,16 @@ class PlayerNameResolver:
             return
 
         combined = combined.dropna(subset=["player_id", "full_name"])
-        # Sort newest season first so recent entries win de-dup
+        # Sort newest season first so recent entries win de-dup.
+        # MUST be a stable sort: `frames` is built source-by-source (depth
+        # charts, then rosters, then player_weekly -- see _PARQUET_PATTERNS),
+        # so pre-sort row order already encodes that source priority. The
+        # default quicksort is not stable and can reorder same-season rows
+        # across sources arbitrarily, breaking the depth_charts > rosters >
+        # player_weekly priority that drop_duplicates(keep="first") below
+        # relies on.
         if "season" in combined.columns:
-            combined = combined.sort_values("season", ascending=False)
+            combined = combined.sort_values("season", ascending=False, kind="stable")
 
         # De-duplicate BEFORE iterating: the loop below only keeps the first
         # occurrence per player_id anyway, but iterating every roster/depth

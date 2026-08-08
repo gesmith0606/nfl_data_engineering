@@ -289,9 +289,12 @@ def _compute_trailing_allowances(
             return pd.DataFrame()
         base = prior
     else:
-        # Blend recent + prior so every team has at least some data.
-        # (The nunique < 5 check was too strict for early-season weeks.)
-        base = pd.concat([recent, prior], ignore_index=True) if not prior.empty else recent
+        # Fallback-only: use the current-season trailing window when it has
+        # data. Do NOT blend in prior-season rows here — that would let
+        # all-time career totals swamp a real 4-week trailing window
+        # (matches the fallback-only pattern in graph_rb_matchup.py's
+        # _compute_def_rush_epa_allowed).
+        base = recent
 
     result = (
         base.groupby("defteam", as_index=False)

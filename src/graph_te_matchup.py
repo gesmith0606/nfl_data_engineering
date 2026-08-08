@@ -290,8 +290,12 @@ def _compute_trailing_allowances(
             return pd.DataFrame()
         base = prior
     else:
-        # Blend recent + prior so every team has at least some data.
-        base = pd.concat([recent, prior], ignore_index=True) if not prior.empty else recent
+        # Fallback-only: use the current-season trailing window when it has
+        # data. Do NOT blend in prior-season rows here — that would let
+        # all-time career totals swamp a real 4-week trailing window
+        # (matches the fallback-only pattern in graph_rb_matchup.py's
+        # _compute_def_rush_epa_allowed).
+        base = recent
 
     result = (
         base.groupby("defteam", as_index=False)
@@ -315,16 +319,17 @@ def _compute_trailing_allowances(
         result["_tgts"] > 0, result["_tds"] / result["_tgts"], np.nan
     )
 
-    # Add coverage shares if available
+    # Add coverage shares if available. Same fallback-only semantics as the
+    # yardage aggregation above: prefer the current-season trailing window
+    # and only fall back to all prior-season rows when that window is empty.
     if not coverage_df.empty:
-        cov_recent = coverage_df[
-            (coverage_df["season"] < target_season)
-            | (
-                (coverage_df["season"] == target_season)
-                & (coverage_df["week"] >= target_week - window)
-                & (coverage_df["week"] < target_week)
-            )
+        cov_window = coverage_df[
+            (coverage_df["season"] == target_season)
+            & (coverage_df["week"] >= target_week - window)
+            & (coverage_df["week"] < target_week)
         ]
+        cov_prior = coverage_df[coverage_df["season"] < target_season]
+        cov_recent = cov_window if not cov_window.empty else cov_prior
         if not cov_recent.empty:
             cov_agg = (
                 cov_recent.groupby("defteam", as_index=False)

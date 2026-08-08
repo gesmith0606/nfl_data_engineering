@@ -310,10 +310,14 @@ class TestAssignFieldPosition(unittest.TestCase):
 
 
 class TestStarterConfidence(unittest.TestCase):
-    """Test _compute_starter_confidence heuristic."""
+    """Test _compute_starter_confidence heuristic.
+
+    snap_pct is a 0.0-1.0 fraction (matching the rest of the codebase),
+    not a 0-100 percentage.
+    """
 
     def test_depth_starter_with_high_snaps(self):
-        conf = _compute_starter_confidence(True, 90.0)
+        conf = _compute_starter_confidence(True, 0.90)
         self.assertGreater(conf, 0.85)
         self.assertLessEqual(conf, 1.0)
 
@@ -322,7 +326,7 @@ class TestStarterConfidence(unittest.TestCase):
         self.assertAlmostEqual(conf, 0.70)
 
     def test_not_starter_high_snaps(self):
-        conf = _compute_starter_confidence(False, 80.0)
+        conf = _compute_starter_confidence(False, 0.80)
         self.assertAlmostEqual(conf, 0.65)
 
     def test_not_starter_no_snaps(self):
@@ -330,8 +334,29 @@ class TestStarterConfidence(unittest.TestCase):
         self.assertAlmostEqual(conf, 0.40)
 
     def test_depth_starter_borderline_snaps(self):
-        conf = _compute_starter_confidence(True, 50.0)
+        conf = _compute_starter_confidence(True, 0.50)
         self.assertGreaterEqual(conf, 0.85)
+
+    def test_fractional_snap_pct_hits_high_confidence_branch(self):
+        """Regression: snap_pct=0.75 (a realistic fraction) must land in the
+        both-signals high-confidence branch (>= 0.85), not the low-confidence
+        branch a 0-100 threshold comparison would incorrectly select."""
+        conf = _compute_starter_confidence(True, 0.75)
+        self.assertGreaterEqual(conf, 0.85)
+        self.assertLessEqual(conf, 1.0)
+
+    def test_fractional_snap_pct_not_starter_mid_confidence(self):
+        """snap_pct=0.75 without depth_team=1 should hit the snap_pct>=0.60
+        branch (0.65), not fall through to the no-signal 0.40 default."""
+        conf = _compute_starter_confidence(False, 0.75)
+        self.assertAlmostEqual(conf, 0.65)
+
+    def test_low_fractional_snap_pct_below_thresholds(self):
+        """A low but nonzero fraction (0.20) should NOT be misread as
+        exceeding the 0.50/0.60 thresholds the way it would under an
+        (incorrect) 0-100 scale comparison."""
+        conf = _compute_starter_confidence(False, 0.20)
+        self.assertAlmostEqual(conf, 0.40)
 
 
 # ---------------------------------------------------------------------------
@@ -564,6 +589,34 @@ class TestGetTeamLineupWithProjections(unittest.TestCase):
         mock_proj.assert_not_called()
         self.assertIn("projected_points", result.columns)
         self.assertTrue(result["projected_points"].isna().all())
+
+    @patch("lineup_builder._load_projections")
+    @patch("lineup_builder._load_snap_counts")
+    @patch("lineup_builder._load_depth_charts")
+    def test_fallback_merge_normalizes_team_aliases(self, mock_dc, mock_sc, mock_proj):
+        """Regression: the no-player_id fallback join (team+name) must apply
+        canonical_team normalization on both sides, same as the id-join's
+        stale-team check below it. Depth chart uses "KC"; projections (no
+        player_id column, forcing the fallback path) use the legacy alias
+        "KAN" — without normalization the merge silently drops the match."""
+        mock_dc.return_value = _make_depth_chart(teams=["KC"], include_defense=False)
+        mock_sc.return_value = pd.DataFrame()
+        mock_proj.return_value = pd.DataFrame(
+            [
+                {
+                    "player_name": "Patrick Mahomes",
+                    "recent_team": "KAN",
+                    "projected_points": 22.4,
+                    "projected_floor": 18.1,
+                    "projected_ceiling": 28.7,
+                },
+            ]
+        )
+
+        result = get_team_lineup_with_projections(2024, 1, "KC")
+
+        qb = result[result["position_group"] == "QB"]
+        self.assertAlmostEqual(qb.iloc[0]["projected_points"], 22.4)
 
 
 # ---------------------------------------------------------------------------

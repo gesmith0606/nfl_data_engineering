@@ -420,9 +420,9 @@ def compute_rb_matchup_features(
             prior_rushes_with_dl = prior_rushes.merge(
                 dl_counts, on=["game_id", "play_id"], how="left"
             )
-            prior_rushes_with_dl["dl_count"] = prior_rushes_with_dl["dl_count"].fillna(
-                np.nan
-            )
+            # dl_count intentionally stays NaN for plays without participation
+            # data (matches the no-participation branch below and lets mean()
+            # skip missing plays instead of treating them as 0 DL faced).
             prior_rushes_with_lb = prior_rushes.merge(
                 lb_presence, on=["game_id", "play_id"], how="left"
             )

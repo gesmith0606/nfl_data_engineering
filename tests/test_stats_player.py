@@ -5,6 +5,7 @@ import os
 from unittest.mock import MagicMock, patch
 
 import pandas as pd
+import pytest
 
 from src.config import STATS_PLAYER_COLUMN_MAP, STATS_PLAYER_MIN_SEASON
 
@@ -367,6 +368,91 @@ class TestAggregateSeasonalFromWeekly:
         qb_row = result[result["player_id"] == "QB01"]
         assert len(qb_row) == 1
         assert qb_row.iloc[0]["games"] == 3
+
+
+def _make_traded_player_weekly_df() -> pd.DataFrame:
+    """Weekly rows (already mapped to old-schema column names) for a player
+    traded mid-season plus teammates on both teams.
+
+    Used to verify team-share denominators (tgt_sh etc.) aggregate every
+    team the player suited up for that season, not just the last team.
+
+    - TRADED: weeks 1-2 on team A (targets 5+5=10), weeks 3-4 on team B
+      (targets 5+5=10) -> season total targets = 20.
+    - TEAM_A_MATE: stays on team A all 4 weeks (targets 10 each) -> team A
+      season total targets = 10 (TRADED) + 40 (TEAM_A_MATE) = 50.
+    - TEAM_B_MATE: on team B weeks 3-4 (targets 8 each) -> team B season
+      total targets = 10 (TRADED) + 16 (TEAM_B_MATE) = 26.
+
+    Correct tgt_sh for TRADED = 20 / (50 + 26) = 20/76 (both teams' totals).
+    The pre-fix bug used only the last team's total: 20/26 (inflated).
+    """
+    rows = []
+
+    def add(player_id, week, team, targets):
+        rows.append({
+            "player_id": player_id,
+            "season": 2025,
+            "week": week,
+            "season_type": "REG",
+            "recent_team": team,
+            "targets": targets,
+            "receiving_air_yards": targets,
+            "receiving_yards": targets,
+            "receiving_yards_after_catch": targets,
+            "receptions": targets,
+            "receiving_first_downs": targets,
+            "receiving_tds": 0,
+            "attempts": 0,
+        })
+
+    add("TRADED", 1, "A", 5)
+    add("TRADED", 2, "A", 5)
+    add("TRADED", 3, "B", 5)
+    add("TRADED", 4, "B", 5)
+    add("TEAM_A_MATE", 1, "A", 10)
+    add("TEAM_A_MATE", 2, "A", 10)
+    add("TEAM_A_MATE", 3, "A", 10)
+    add("TEAM_A_MATE", 4, "A", 10)
+    add("TEAM_B_MATE", 3, "B", 8)
+    add("TEAM_B_MATE", 4, "B", 8)
+
+    return pd.DataFrame(rows)
+
+
+class TestAggregateSeasonalTradedPlayerShares:
+    """Regression test: traded players' share denominators must sum every
+    team they played for that season instead of only the last team."""
+
+    def test_traded_player_share_uses_all_teams_denominator(self):
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        result = adapter._aggregate_seasonal_from_weekly(
+            _make_traded_player_weekly_df()
+        )
+
+        traded = result[result["player_id"] == "TRADED"].iloc[0]
+        # recent_team stays the last team played for.
+        assert traded["recent_team"] == "B"
+        assert traded["targets"] == 20
+
+        expected_tgt_sh = 20 / (50 + 26)
+        assert traded["tgt_sh"] == pytest.approx(expected_tgt_sh)
+        # Pre-fix behavior attributed the whole season to the last team only.
+        assert traded["tgt_sh"] != pytest.approx(20 / 26)
+
+    def test_non_traded_player_share_unaffected(self):
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        adapter = NFLDataAdapter()
+        result = adapter._aggregate_seasonal_from_weekly(
+            _make_traded_player_weekly_df()
+        )
+
+        mate = result[result["player_id"] == "TEAM_A_MATE"].iloc[0]
+        assert mate["recent_team"] == "A"
+        assert mate["tgt_sh"] == pytest.approx(40 / 50)
 
 
 class TestFetchSeasonalDataRouting:

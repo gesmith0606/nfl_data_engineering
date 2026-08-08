@@ -256,8 +256,21 @@ class NFLDataAdapter:
             team_receiving_tds=("receiving_tds", "sum"),
         )
 
+        # A traded player's numerator (targets, yards, ...) sums across every
+        # team they played for that season, so the denominator must too --
+        # summing each team's season total only for the teams the player
+        # actually suited up for -- instead of attributing the whole season
+        # to `recent_team` (last team only), which previously inflated
+        # shares for anyone traded mid-season.
+        player_teams = reg[group_cols + ["recent_team"]].drop_duplicates()
+
+        def _summed_team_totals(totals_df: pd.DataFrame) -> pd.DataFrame:
+            value_cols = [c for c in totals_df.columns if c not in ("season", "recent_team")]
+            per_team = player_teams.merge(totals_df, on=["season", "recent_team"], how="left")
+            return per_team.groupby(group_cols, as_index=False)[value_cols].sum()
+
         seasonal = seasonal.merge(
-            team_totals, on=["season", "recent_team"], how="left"
+            _summed_team_totals(team_totals), on=group_cols, how="left"
         )
 
         def _safe_div(num, denom):
@@ -298,7 +311,7 @@ class NFLDataAdapter:
                 ["season", "recent_team"], as_index=False
             ).agg(team_ppr=("fantasy_points_ppr", "sum"))
             seasonal = seasonal.merge(
-                team_ppr, on=["season", "recent_team"], how="left"
+                _summed_team_totals(team_ppr), on=group_cols, how="left"
             )
             seasonal["ppr_sh"] = _safe_div(
                 seasonal["fantasy_points_ppr"], seasonal["team_ppr"]
@@ -331,7 +344,7 @@ class NFLDataAdapter:
             ["season", "recent_team"], as_index=False
         ).agg(team_attempts=("attempts", "sum"))
         seasonal = seasonal.merge(
-            team_att, on=["season", "recent_team"], how="left"
+            _summed_team_totals(team_att), on=group_cols, how="left"
         )
         seasonal["yptmpa"] = _safe_div(
             seasonal["receiving_yards"], seasonal["team_attempts"]

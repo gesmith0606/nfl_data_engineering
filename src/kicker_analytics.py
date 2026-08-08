@@ -87,6 +87,7 @@ def compute_kicker_stats(
         bins=[0, _SHORT_MAX, _MEDIUM_MAX, 100],
         labels=["short", "medium", "long"],
         right=True,
+        include_lowest=True,  # distance == 0.0 must fall in "short", not NaN
     )
 
     fg_agg = (

@@ -305,6 +305,40 @@ class TestComputeKickerStats:
         result = compute_kicker_stats(sample_pbp, season=2023)
         assert result.empty
 
+    def test_zero_distance_fg_counted_in_short_bucket(self):
+        """Regression test: pd.cut's default excludes the left bin edge, so a
+        kick_distance of 0.0 (missing/blocked-at-the-line distance data)
+        used to fall outside all buckets and get silently dropped from
+        fg_att_short/fg_made_short. include_lowest=True fixes it."""
+        pbp = pd.DataFrame(
+            [
+                {
+                    "play_id": 200,
+                    "game_id": "2024_01_KC_BUF",
+                    "season": 2024,
+                    "week": 1,
+                    "play_type": "field_goal",
+                    "kicker_player_id": "K001",
+                    "kicker_player_name": "K. Alpha",
+                    "field_goal_result": "made",
+                    "kick_distance": 0.0,
+                    "extra_point_result": None,
+                    "posteam": "KC",
+                    "defteam": "BUF",
+                    "yardline_100": 15.0,
+                    "drive": 1,
+                    "touchdown": 0,
+                }
+            ]
+        )
+        result = compute_kicker_stats(pbp, season=2024, week=1)
+        row = result.iloc[0]
+        assert row["fg_att"] == 1
+        assert row["fg_made"] == 1
+        # Must land in the "short" bucket, not be dropped from every bucket.
+        assert row["fg_att_short"] == 1
+        assert row["fg_made_short"] == 1
+
 
 # ---------------------------------------------------------------------------
 # Team kicker feature tests

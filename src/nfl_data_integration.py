@@ -23,6 +23,11 @@ from datetime import datetime
 import logging
 from config import get_max_season
 
+try:
+    from src.utils import canonical_team
+except ImportError:  # script-level execution
+    from utils import canonical_team
+
 # Library module: logging configuration belongs to entrypoints, not here.
 logger = logging.getLogger(__name__)
 
@@ -31,7 +36,14 @@ class NFLDataFetcher:
     """Legacy facade over :class:`NFLDataAdapter` with error handling and validation."""
 
     def __init__(self):
-        self.available_seasons = list(range(1999, 2026))  # nfl-data-py coverage
+        # Upper bound derived from today's date instead of a hardcoded year,
+        # so the current season is always included without an annual edit.
+        # NFL season N's roster/schedule data starts releasing each March, so
+        # treat season N as available from March 1 of year N onward (Jan/Feb
+        # still belongs to the prior season).
+        now = datetime.now()
+        current_season = now.year if now.month >= 3 else now.year - 1
+        self.available_seasons = list(range(1999, current_season + 1))
         self._adapter = None
 
     def _get_adapter(self):
@@ -176,11 +188,28 @@ class NFLDataFetcher:
                 logger.info(f"Fetched seasonal data: {len(seasonal_data)} records")
 
                 if 'team' in seasonal_data.columns and 'team_abbr' in team_df.columns:
+                    # Normalize team codes before merging: seasonal_data may
+                    # use raw/historical nfl-data-py codes (e.g. LAR, WSH)
+                    # while team_abbr from fetch_team_descriptions() lists
+                    # both canonical and historical codes for relocated
+                    # franchises (e.g. LA and LAR as separate rows). An
+                    # un-normalized merge silently drops the aliased teams'
+                    # enrichment (NaN). Reuse the shared canonical_team()
+                    # alias table and layer the WAS/WSH pair it doesn't cover
+                    # on top -- validate='many_to_one' because several raw
+                    # team_abbr rows (LA + LAR) can canonicalize to one key.
+                    def _merge_key(code):
+                        canon = canonical_team(code)
+                        return "WAS" if canon == "WSH" else canon
+
+                    seasonal_data = seasonal_data.copy()
+                    seasonal_data['team'] = seasonal_data['team'].apply(_merge_key)
                     team_df = team_df.merge(
                         seasonal_data.groupby('team').first().reset_index(),
-                        left_on='team_abbr',
+                        left_on=team_df['team_abbr'].apply(_merge_key),
                         right_on='team',
-                        how='left'
+                        how='left',
+                        validate='many_to_one',
                     )
             except Exception as e:
                 logger.warning(f"Could not fetch seasonal data: {str(e)}. Using team descriptions only.")

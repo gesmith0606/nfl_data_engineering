@@ -1102,3 +1102,302 @@ class TestInteractionFeatures:
 
         compute_interaction_features(df)
         assert list(df.columns) == original_cols
+
+
+class TestJoinRedZoneFeaturesGraphWins:
+    """Regression tests for the graph_red_zone merge/cleanup bug.
+
+    compute_td_regression_features() computes an early, unsorted
+    shift(1).rolling(3) fallback for rz_target_share_roll3 when the raw
+    rz_target_share column is present but the rolled column isn't. Later,
+    _join_red_zone_features() left-joins the correct graph-derived version
+    of the same column. Because the column already exists on df, the old
+    code suffixed the incoming (correct) column to "__rz" and then dropped
+    every "__rz" column during cleanup -- discarding the correct value and
+    leaving the wrong fallback in place permanently. The fix makes the
+    graph-derived value win, falling back to the pre-existing value only
+    where the graph join has no match.
+    """
+
+    def test_graph_value_overrides_unsorted_fallback(self):
+        from player_feature_engineering import _join_red_zone_features
+
+        df = pd.DataFrame(
+            {
+                "player_id": ["P1", "P2", "P3"],
+                "season": [2024, 2024, 2024],
+                "week": [3, 3, 5],
+                # P1: wrong value from the unsorted shift/rolling fallback.
+                # P2: fallback never populated this player (no prior data).
+                # P3: fallback value present, but no graph row exists for it.
+                "rz_target_share_roll3": [0.05, np.nan, 0.11],
+            }
+        )
+        rz_df = pd.DataFrame(
+            {
+                "player_id": ["P1", "P2"],
+                "season": [2024, 2024],
+                "week": [3, 3],
+                "rz_target_share_roll3": [0.42, 0.30],
+            }
+        )
+
+        with patch(
+            "player_feature_engineering.glob.glob", return_value=["fake_rz.parquet"]
+        ), patch(
+            "player_feature_engineering.pd.read_parquet", return_value=rz_df
+        ):
+            result = _join_red_zone_features(df, 2024)
+
+        by_id = result.set_index("player_id")["rz_target_share_roll3"]
+        # Graph value must win over the wrong pre-existing fallback value.
+        assert by_id["P1"] == pytest.approx(0.42)
+        # Graph value populates where the fallback had nothing.
+        assert by_id["P2"] == pytest.approx(0.30)
+        # No graph match -- the pre-existing fallback value must survive,
+        # not get nulled out by the left join.
+        assert by_id["P3"] == pytest.approx(0.11)
+
+    def test_downstream_expected_td_uses_graph_value(self):
+        """The joined graph value must be what feeds expected_td_* features,
+        not the discarded unsorted fallback."""
+        from player_feature_engineering import (
+            _join_red_zone_features,
+            compute_td_regression_features,
+        )
+
+        # Simulate the real pipeline order: fallback computed first (step 10),
+        # then the graph join happens later (step 16).
+        raw = pd.DataFrame(
+            {
+                "player_id": ["P1"] * 4,
+                "season": [2024] * 4,
+                "week": [1, 2, 3, 4],
+                "rz_target_share": [0.10, 0.20, 0.30, 0.15],
+                "position": ["WR"] * 4,
+            }
+        )
+        df = compute_td_regression_features(raw)
+        assert "rz_target_share_roll3" in df.columns
+
+        rz_df = pd.DataFrame(
+            {
+                "player_id": ["P1"],
+                "season": [2024],
+                "week": [4],
+                "rz_target_share_roll3": [0.90],
+            }
+        )
+        with patch(
+            "player_feature_engineering.glob.glob", return_value=["fake_rz.parquet"]
+        ), patch(
+            "player_feature_engineering.pd.read_parquet", return_value=rz_df
+        ):
+            df = _join_red_zone_features(df, 2024)
+
+        # Week 4 must reflect the graph value (0.90), not the fallback's
+        # shift(1).rolling(3) mean of weeks 1-3 (0.20).
+        week4 = df[df["week"] == 4].iloc[0]
+        assert week4["rz_target_share_roll3"] == pytest.approx(0.90)
+
+        # And expected_td_pos_avg (POSITION_AVG_RZ_TD_RATE["WR"] = 0.12) must
+        # be derived from that same graph value, not the discarded fallback.
+        df = compute_td_regression_features(df)
+        week4 = df[df["week"] == 4].iloc[0]
+        assert week4["expected_td_pos_avg"] == pytest.approx(0.90 * 0.12, rel=1e-6)
+
+
+class TestJoinDeterministicDedup:
+    """Regression tests for unsorted drop_duplicates(keep='last') sites.
+
+    Multiple _join_* helpers dedup a Silver join table down to one row per
+    (player_id, season, week) with drop_duplicates(keep='last') and no
+    prior sort, making the surviving row depend on incidental parquet row
+    order. The fix sorts by the dedup key plus the best available tiebreaker
+    before deduping.
+    """
+
+    def test_def_trailing_dedup_is_order_independent(self):
+        """_join_def_trailing_features: same result regardless of input row order."""
+        from player_feature_engineering import _join_def_trailing_features
+
+        df = pd.DataFrame(
+            {
+                "player_id": ["P1"],
+                "season": [2024],
+                "week": [5],
+            }
+        )
+        trail_a = pd.DataFrame(
+            {
+                "player_id": ["P1", "P1"],
+                "season": [2024, 2024],
+                "week": [5, 5],
+                "wr_def_trail_yds_per_tgt": [7.5, 9.0],
+            }
+        )
+        trail_b = trail_a.iloc[::-1].reset_index(drop=True)  # reversed row order
+
+        def run(trail_df):
+            with patch(
+                "player_feature_engineering.glob.glob",
+                return_value=["fake_trail.parquet"],
+            ), patch(
+                "player_feature_engineering.pd.read_parquet", return_value=trail_df
+            ):
+                return _join_def_trailing_features(df.copy(), 2024)
+
+        result_a = run(trail_a)
+        result_b = run(trail_b)
+        # Same logical input in a different row order must yield the same
+        # surviving value -- the whole point of sorting before dedup.
+        assert (
+            result_a["wr_def_trail_yds_per_tgt"].iloc[0]
+            == result_b["wr_def_trail_yds_per_tgt"].iloc[0]
+        )
+
+    def test_route_participation_prefers_higher_snap_volume(self):
+        """_join_route_participation: when a player-week has two rows (e.g. a
+        mid-season team change), the row with more dropbacks_on_field --
+        the player's real stint that week -- must survive the dedup, not
+        whichever row happened to be written last."""
+        from player_feature_engineering import _join_route_participation
+
+        df = pd.DataFrame({"player_id": ["P1"], "season": [2024], "week": [8]})
+        rp_df = pd.DataFrame(
+            {
+                "player_id": ["P1", "P1"],
+                "season": [2024, 2024],
+                "week": [8, 8],
+                "recent_team": ["KC", "BUF"],
+                "route_rate": [0.85, 0.05],
+                # Deliberately put the high-volume (correct) row FIRST so
+                # the old unsorted keep="last" would pick the wrong one.
+                "dropbacks_on_field": [30, 2],
+            }
+        )
+        with patch(
+            "player_feature_engineering.glob.glob",
+            return_value=["fake_rp.parquet"],
+        ), patch(
+            "player_feature_engineering.pd.read_parquet", return_value=rp_df
+        ):
+            result = _join_route_participation(df, 2024)
+
+        assert result["dropbacks_on_field"].iloc[0] == 30
+        assert result["route_rate"].iloc[0] == pytest.approx(0.85)
+
+    def test_wr_advanced_matchup_prefers_higher_target_concentration(self):
+        """_join_wr_matchup_features: when a player-week has multiple defteam
+        rows, the row with the higher wr_matchup_target_concentration (the
+        player's real, primary matchup that week) must survive."""
+        from player_feature_engineering import _join_wr_matchup_features
+
+        df = pd.DataFrame({"player_id": ["P1"], "season": [2024], "week": [8]})
+        wr_adv_df = pd.DataFrame(
+            {
+                "player_id": ["P1", "P1"],
+                "season": [2024, 2024],
+                "week": [8, 8],
+                # Deliberately put the correct (high-concentration) row FIRST
+                # so the old unsorted keep="last" would pick the wrong one.
+                "wr_matchup_target_concentration": [0.75, 0.10],
+                "wr_matchup_air_yards_per_target": [9.0, 5.0],
+            }
+        )
+
+        def fake_glob(pattern):
+            if "graph_wr_advanced" in pattern:
+                return ["fake_wr_adv.parquet"]
+            return []
+
+        with patch(
+            "player_feature_engineering.glob.glob", side_effect=fake_glob
+        ), patch(
+            "player_feature_engineering.pd.read_parquet", return_value=wr_adv_df
+        ):
+            result = _join_wr_matchup_features(df, 2024)
+
+        assert result["wr_matchup_target_concentration"].iloc[0] == pytest.approx(0.75)
+        assert result["wr_matchup_air_yards_per_target"].iloc[0] == pytest.approx(9.0)
+
+
+class TestJoinFtnFeaturesRoleMatch:
+    """Regression test for the FTN dual-role averaging bug.
+
+    _join_ftn_features() used to dedup the FTN Silver table with
+    .groupby(avail).mean(), which for a dual-role player-week (one row as
+    receiver, one row as passer) blended the two disjoint feature sets
+    together. The fix matches each player-week to the FTN role consistent
+    with their primary roster position instead of averaging roles.
+    """
+
+    def test_qb_gets_qb_role_value_not_averaged_with_receiver_role(self):
+        from player_feature_engineering import _join_ftn_features
+
+        df = pd.DataFrame(
+            {
+                "player_id": ["QB1"],
+                "season": [2024],
+                "week": [1],
+                "position": ["QB"],
+            }
+        )
+        # Dual-role FTN rows for the same player-week (e.g. a scramble/
+        # trick-play catch produced a "receiver" row alongside the normal
+        # "qb" row). ftn_blitz_rate_roll4 is a QB-only feature: 0.40 is the
+        # real trailing value from the qb-role row; 0.10 is a leftover/
+        # contaminated value on the receiver-role row that must NOT be
+        # blended in for a QB player.
+        ftn_df = pd.DataFrame(
+            {
+                "player_id": ["QB1", "QB1"],
+                "season": [2024, 2024],
+                "week": [1, 1],
+                "position_type": ["receiver", "qb"],
+                "ftn_blitz_rate_roll4": [0.10, 0.40],
+            }
+        )
+        with patch(
+            "player_feature_engineering.glob.glob",
+            return_value=["fake_ftn.parquet"],
+        ), patch(
+            "player_feature_engineering.pd.read_parquet", return_value=ftn_df
+        ):
+            result = _join_ftn_features(df, 2024)
+
+        # Must equal the qb-role value (0.40), not
+        # mean(0.10, 0.40) == 0.25 -- the old meaningless composite.
+        assert result["ftn_blitz_rate_roll4"].iloc[0] == pytest.approx(0.40)
+
+    def test_wr_gets_receiver_role_value_not_averaged_with_qb_role(self):
+        from player_feature_engineering import _join_ftn_features
+
+        df = pd.DataFrame(
+            {
+                "player_id": ["WR1"],
+                "season": [2024],
+                "week": [1],
+                "position": ["WR"],
+            }
+        )
+        ftn_df = pd.DataFrame(
+            {
+                "player_id": ["WR1", "WR1"],
+                "season": [2024, 2024],
+                "week": [1, 1],
+                "position_type": ["receiver", "qb"],
+                "ftn_catchable_rate_roll4": [0.90, 0.20],
+            }
+        )
+        with patch(
+            "player_feature_engineering.glob.glob",
+            return_value=["fake_ftn.parquet"],
+        ), patch(
+            "player_feature_engineering.pd.read_parquet", return_value=ftn_df
+        ):
+            result = _join_ftn_features(df, 2024)
+
+        # Must equal the receiver-role value (0.90), not
+        # mean(0.90, 0.20) == 0.55 -- the old meaningless composite.
+        assert result["ftn_catchable_rate_roll4"].iloc[0] == pytest.approx(0.90)

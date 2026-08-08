@@ -153,44 +153,6 @@ def apply_team_rolling(
 
 
 # ---------------------------------------------------------------------------
-# Special Teams Filter Helper (needed by Plan 02 compute functions)
-# ---------------------------------------------------------------------------
-
-
-def _filter_st_plays(pbp_df: pd.DataFrame) -> pd.DataFrame:
-    """Filter play-by-play data to special teams plays (regular season, week <= 18).
-
-    Uses a union filter: ``special_teams_play == 1`` OR
-    ``play_type in ('field_goal', 'punt', 'kickoff', 'extra_point')``.
-
-    Args:
-        pbp_df: Raw play-by-play DataFrame.
-
-    Returns:
-        Filtered copy of the DataFrame containing only ST plays.
-    """
-    df = pbp_df.copy()
-
-    if "season_type" in df.columns:
-        df = df[df["season_type"] == "REG"]
-    if "week" in df.columns:
-        df = df[df["week"] <= 18]
-
-    st_types = ["field_goal", "punt", "kickoff", "extra_point"]
-    st_mask = pd.Series(False, index=df.index)
-    if "special_teams_play" in df.columns:
-        st_mask = st_mask | (df["special_teams_play"] == 1)
-    if "play_type" in df.columns:
-        st_mask = st_mask | df["play_type"].isin(st_types)
-
-    result = df[st_mask].reset_index(drop=True)
-    logger.info(
-        "Filtered to %d ST plays from %d total rows", len(result), len(pbp_df)
-    )
-    return result
-
-
-# ---------------------------------------------------------------------------
 # Complex PBP-Derived Metric Functions (Plan 02)
 # ---------------------------------------------------------------------------
 
@@ -1092,9 +1054,12 @@ def compute_sos_metrics(pbp_df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame()
 
     # Step 4: Add rankings per season-week (rank 1 = hardest schedule)
+    # off_sos_score is opponents' mean def_epa_per_play: LOWER means the
+    # opponents' defenses allowed less EPA (stingier), i.e. a HARDER offensive
+    # schedule, so the hardest schedule gets rank 1 via ascending=True.
     result["off_sos_rank"] = result.groupby(["season", "week"])[
         "off_sos_score"
-    ].rank(ascending=False, method="min")
+    ].rank(ascending=True, method="min")
     result["def_sos_rank"] = result.groupby(["season", "week"])[
         "def_sos_score"
     ].rank(ascending=False, method="min")
@@ -1470,11 +1435,32 @@ def compute_turnover_luck(pbp_df: pd.DataFrame) -> pd.DataFrame:
         logger.warning("No fumble column found; returning empty DataFrame")
         return pd.DataFrame(columns=empty_cols)
 
+    # Every team-week in scope (from all plays, not just fumble plays) must
+    # get a row — a team-week with zero fumbles is 0 turnovers, not a
+    # missing row, otherwise it silently drops out of the rolling/expanding
+    # averages below instead of counting as a 0.
+    team_weeks = pd.concat(
+        [
+            df[["posteam", "season", "week"]].rename(columns={"posteam": "team"}),
+            df[["defteam", "season", "week"]].rename(columns={"defteam": "team"}),
+        ]
+    ).dropna(subset=["team"]).drop_duplicates()
+
     fumbles = df[df["fumble"] == 1].copy()
 
     if fumbles.empty:
         logger.info("No fumble plays found")
-        return pd.DataFrame(columns=empty_cols)
+        if team_weeks.empty:
+            return pd.DataFrame(columns=empty_cols)
+        result = team_weeks.copy()
+        result["fumbles_lost"] = 0
+        result["fumbles_forced"] = 0
+        result["own_fumble_recovery_rate"] = np.nan
+        result["opp_fumble_recovery_rate"] = np.nan
+        result["own_fumble_recovery_rate_std"] = np.nan
+        result["opp_fumble_recovery_rate_std"] = np.nan
+        result["is_turnover_lucky"] = 0
+        return result
 
     # Offensive fumble stats (team had ball)
     fumbles["own_recovered"] = (
@@ -1524,11 +1510,16 @@ def compute_turnover_luck(pbp_df: pd.DataFrame) -> pd.DataFrame:
         np.nan,
     )
 
-    # Merge
-    result = off_agg[["team", "season", "week", "fumbles_lost", "own_fumble_recovery_rate"]].merge(
+    # Merge onto the full team-weeks skeleton (left join) so team-weeks with
+    # no fumbles at all still get a row instead of being dropped.
+    result = team_weeks.merge(
+        off_agg[["team", "season", "week", "fumbles_lost", "own_fumble_recovery_rate"]],
+        on=["team", "season", "week"],
+        how="left",
+    ).merge(
         def_agg[["team", "season", "week", "fumbles_forced", "opp_fumble_recovery_rate"]],
         on=["team", "season", "week"],
-        how="outer",
+        how="left",
     )
 
     # Fill NaN counts with 0

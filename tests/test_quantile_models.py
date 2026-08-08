@@ -181,6 +181,60 @@ class TestTrainQuantileModels:
                 np.int32,
             ]
 
+    def test_cv_fold_imputer_never_sees_future_seasons(
+        self, synthetic_df: pd.DataFrame, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Regression test for the walk-forward imputer leak.
+
+        Each walk-forward CV fold must fit its imputer only on that fold's
+        training slice (seasons strictly before the validation season). The
+        single production-fit call (before the CV loop, and reused for the
+        all-data final models) is exempt and is expected to see every
+        season. We spy on SimpleImputer.fit to record which row indices --
+        and therefore which seasons -- each fit call touched.
+        """
+        import quantile_models as qm
+
+        fit_calls: list = []
+        real_simple_imputer = qm.SimpleImputer
+
+        class SpyImputer(real_simple_imputer):
+            def fit(self, X, y=None):
+                fit_calls.append(X.index)
+                return super().fit(X, y)
+
+        monkeypatch.setattr(qm, "SimpleImputer", SpyImputer)
+
+        train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+        )
+
+        assert len(fit_calls) > 1, "expected both a production fit and fold fits"
+
+        # First fit call is the pre-loop production imputer fit on the full
+        # dataset -- it legitimately spans every season.
+        production_seasons = synthetic_df.loc[fit_calls[0], "season"]
+        assert production_seasons.max() == synthetic_df["season"].max()
+
+        # Every subsequent fit call is a per-fold imputer. None of them may
+        # contain rows from a season >= the max season in that same slice's
+        # neighboring validation fold; concretely, walk-forward means a
+        # fold's training slice must never reach the dataset's final season
+        # unless every season is used as training (impossible by construction
+        # here since validation_seasons excludes the two earliest seasons).
+        # The direct, robust check: no fold imputer fit call may include the
+        # dataset's maximum season, because the maximum season is always
+        # held out as a validation season for the last fold.
+        max_season = synthetic_df["season"].max()
+        for idx in fit_calls[1:]:
+            fold_seasons = synthetic_df.loc[idx, "season"]
+            assert fold_seasons.max() < max_season, (
+                "fold imputer was fit on data including the latest season, "
+                "meaning it saw validation/future data -- the walk-forward "
+                "imputer leak has regressed"
+            )
+
 
 # ---------------------------------------------------------------------------
 # T-02: Save / Load

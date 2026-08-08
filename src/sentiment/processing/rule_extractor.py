@@ -430,6 +430,15 @@ _RULE_CONFIDENCE = 0.7
 # aggregators can de-prioritise them. Capped at 0.5 per CONTEXT D-01.
 _DRAFT_SEASON_CONFIDENCE = 0.5
 
+# Max chars to scan outward from a player-name mention when growing its
+# sentence window (see ``RuleExtractor._sentence_window``). A real sentence
+# boundary (. ! ? or newline) almost always turns up well inside this span;
+# it only exists to bound the scan on a pathological punctuation-free blob.
+# ponytail: fixed delimiter set + char cap, not a real sentence tokenizer --
+# good enough to stop one player's event bleeding onto another's.
+_WINDOW_CEILING = 500
+_SENTENCE_DELIMS = ".!?\n"
+
 # Set of draft-season event flag keys (Plan 72-01). Used by
 # ``RuleExtractor.extract`` to decide whether a given best-match's
 # events dict should be capped at ``_DRAFT_SEASON_CONFIDENCE``.
@@ -502,21 +511,32 @@ class RuleExtractor:
         if not candidate_names:
             return []
 
-        # Find all matching patterns in the text
-        matches = self._find_matches(combined)
-        if not matches:
+        # Fast path: if nothing in the whole document matches any pattern,
+        # no per-player window can match either.
+        if not self._find_matches(combined):
             return []
 
         # For each player, pick the best (highest-priority) matching pattern
+        # found within THAT player's own sentence(s) -- not the whole
+        # document. Multi-player articles are the norm ("Mahomes is
+        # questionable. Kelce has been ruled out.") and matching against
+        # the whole document stamped one player's event onto every player
+        # in the text.
         signals: List[PlayerSignal] = []
         seen_players: set = set()
 
         for name in candidate_names:
             if name in seen_players:
                 continue
+            seen_players.add(name)
+
+            windows = self._player_windows(combined, name)
+            local_matches = self._find_matches_in_windows(windows)
+            if not local_matches:
+                continue
 
             # Find the best match: first match wins (patterns are priority-ordered)
-            best = matches[0]
+            best = local_matches[0]
             sentiment, category, events = best
 
             # Confidence cap (Plan 72-01): when the best-match's events
@@ -567,7 +587,6 @@ class RuleExtractor:
                 raw_excerpt=combined[:500],
             )
             signals.append(signal)
-            seen_players.add(name)
 
         return signals
 
@@ -608,6 +627,80 @@ class RuleExtractor:
             if regex.search(text):
                 matches.append((sentiment, category, events))
         return matches
+
+    def _find_matches_in_windows(
+        self, windows: List[str]
+    ) -> List[Tuple[float, str, Dict[str, bool]]]:
+        """Find pattern matches across a player's scoped text window(s).
+
+        Same priority-ordered semantics as ``_find_matches``, except a
+        pattern only counts if it appears in one of ``windows`` (the
+        sentence(s) mentioning this specific player) rather than anywhere
+        in the whole document. Checked per-window instead of on a joined
+        string so a match can't be manufactured by two windows' text
+        butting up against each other.
+
+        Args:
+            windows: Sentence-scoped text slices for one player's mentions.
+
+        Returns:
+            List of (sentiment, category, events) tuples, in
+            pattern-priority order.
+        """
+        matches: List[Tuple[float, str, Dict[str, bool]]] = []
+        for regex, sentiment, category, events in _PATTERNS:
+            if any(regex.search(window) for window in windows):
+                matches.append((sentiment, category, events))
+        return matches
+
+    def _player_windows(self, text: str, name: str) -> List[str]:
+        """Return the sentence(s) mentioning ``name`` within ``text``.
+
+        A player can be named more than once (title + body); every
+        mention contributes its own sentence window so a pattern near
+        any occurrence of the name is found.
+
+        Args:
+            text: Combined title + body text.
+            name: A candidate player name as returned by ``_extract_names``.
+
+        Returns:
+            List of sentence-scoped text windows, one per mention.
+        """
+        return [
+            self._sentence_window(text, m.start(), m.end())
+            for m in re.finditer(re.escape(name), text)
+        ]
+
+    def _sentence_window(self, text: str, start: int, end: int) -> str:
+        """Expand a [start, end) span out to its enclosing sentence.
+
+        Grows left and right from the span until hitting a sentence
+        delimiter (``.``, ``!``, ``?``, or newline), capped at
+        ``_WINDOW_CEILING`` chars each direction.
+
+        Args:
+            text: Full text the span was found in.
+            start: Start offset of the span (e.g. a name match).
+            end: End offset of the span.
+
+        Returns:
+            The substring of ``text`` covering the enclosing sentence(s).
+        """
+        left_limit = max(0, start - _WINDOW_CEILING)
+        right_limit = min(len(text), end + _WINDOW_CEILING)
+
+        left = start
+        while left > left_limit and text[left - 1] not in _SENTENCE_DELIMS:
+            left -= 1
+
+        right = end
+        while right < right_limit and text[right] not in _SENTENCE_DELIMS:
+            right += 1
+        if right < len(text):
+            right += 1  # include the delimiter itself for pattern context
+
+        return text[left:right]
 
     def extract_batch(
         self, docs: List[Dict[str, Any]]

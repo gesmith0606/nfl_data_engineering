@@ -1431,7 +1431,16 @@ def apply_residual_correction(
     feat_merge_on = [feat_id_col] + extra_keys if feat_id_col != id_col else merge_on
 
     dedup_keys = [feat_id_col] + extra_keys
-    feat_subset = enrich_df[
+    # When heuristic_projections lacks season/week, extra_keys is empty and
+    # dedup_keys collapses to just feat_id_col -- drop_duplicates(keep="last")
+    # would then pick an arbitrary row per player based on incidental
+    # enrich_df order. Sort enrich_df by season/week (when present, even if
+    # not usable as a merge key) *before* slicing down to the merge columns,
+    # so the most recent row deterministically wins regardless of extra_keys.
+    sort_keys = [feat_id_col] + [
+        c for c in ("season", "week") if c in enrich_df.columns
+    ]
+    feat_subset = enrich_df.sort_values(sort_keys)[
         list(dict.fromkeys([feat_id_col] + extra_keys + available))
     ].drop_duplicates(subset=dedup_keys, keep="last")
 

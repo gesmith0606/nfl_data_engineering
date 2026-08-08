@@ -1027,9 +1027,20 @@ def compute_ol_rb_features(
     else:
         rb_stats["ypc_backup"] = np.nan
 
-    rb_stats["rb_ypc_delta_backup_ol"] = rb_stats["rb_ypc_with_full_ol_val"].fillna(
-        0
-    ) - rb_stats["ypc_backup"].fillna(0)
+    # Only compute a delta where both sides were actually observed — filling
+    # a missing side with 0 fabricates large fake deltas (a never-observed
+    # situation reads as "0 YPC" instead of unknown).
+    # Named with a _val suffix (like rb_ypc_with_full_ol_val above) rather
+    # than the final output name: result already carries a default-NaN
+    # rb_ypc_delta_backup_ol column from the OL_RB_FEATURE_COLUMNS init
+    # above, and merging two frames with an identical non-key column name
+    # makes pandas silently rename both to _x/_y suffixes instead of using
+    # the computed value.
+    rb_stats["rb_ypc_delta_backup_ol_val"] = np.where(
+        rb_stats["rb_ypc_with_full_ol_val"].notna() & rb_stats["ypc_backup"].notna(),
+        rb_stats["rb_ypc_with_full_ol_val"] - rb_stats["ypc_backup"],
+        np.nan,
+    )
 
     # Map features to result
     result = result.merge(rb_stats, on="player_id", how="left")
@@ -1037,6 +1048,7 @@ def compute_ol_rb_features(
     result["ol_starters_active"] = result["avg_ol_count"].clip(0, 5)
     result["ol_backup_insertions"] = (5 - result["avg_ol_count"].fillna(5)).clip(0, 5)
     result["rb_ypc_with_full_ol"] = result.get("rb_ypc_with_full_ol_val", np.nan)
+    result["rb_ypc_delta_backup_ol"] = result.get("rb_ypc_delta_backup_ol_val", np.nan)
     # ol_continuity_score: fraction of plays with full 5 OL
     if not rushes.empty:
         team_continuity = rushes.groupby(
@@ -1061,6 +1073,7 @@ def compute_ol_rb_features(
         "total_carries",
         "rb_ypc_with_full_ol_val",
         "ypc_backup",
+        "rb_ypc_delta_backup_ol_val",
     ]
     result = result.drop(columns=[c for c in drop_cols if c in result.columns])
 

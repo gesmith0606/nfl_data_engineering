@@ -3150,9 +3150,16 @@ def generate_preseason_projections(
     agg_dict["season_weight"] = "sum"
     proj = weighted.groupby(group_cols, as_index=False).agg(agg_dict)
 
-    # Normalize by total weight → weighted per-game average, then scale to 17 games
+    # Normalize by total weight → weighted per-game average, then scale to 17 games.
+    # season_weight can sum to 0 (e.g. all seasons have games=0), so guard the
+    # division the same way games_safe does above: replace 0 with NaN to avoid
+    # div-by-zero, then fillna(0) so the NaN doesn't survive into the
+    # downstream fantasy-points calc / clip.
+    season_weight_safe = proj["season_weight"].replace(0, np.nan)
     for col in available_stats:
-        proj[col] = (proj[col] / proj["season_weight"] * _FULL_SEASON_GAMES).round(2)
+        proj[col] = (
+            (proj[col] / season_weight_safe * _FULL_SEASON_GAMES).round(2).fillna(0.0)
+        )
     proj.drop(columns=["season_weight"], inplace=True)
 
     # Scale to 17-game season (seasonal data = 17 games)

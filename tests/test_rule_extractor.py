@@ -285,6 +285,37 @@ class TestMultiPattern(unittest.TestCase):
         names = {s.player_name for s in signals}
         self.assertGreaterEqual(len(names), 2)
 
+    def test_multi_player_text_per_player_event_attribution(self) -> None:
+        """Each player must get THEIR OWN event, not the doc's top match.
+
+        Regression test: extract() used to run pattern matching against
+        the whole combined document and then stamp the single
+        highest-priority match onto every player found in the text. In
+        "Mahomes is questionable. Kelce has been ruled out.", that bug
+        tagged BOTH players is_ruled_out (sentiment -0.9), which zeroes
+        the fantasy projection multiplier for both downstream. Mahomes
+        should be questionable (not ruled out); Kelce should be ruled out.
+        """
+        doc = {
+            "title": "Injury report: multiple players",
+            "body_text": (
+                "Patrick Mahomes is questionable. "
+                "Travis Kelce has been ruled out."
+            ),
+        }
+        signals = self.extractor.extract(doc)
+        by_name = {s.player_name: s for s in signals}
+        self.assertIn("Patrick Mahomes", by_name)
+        self.assertIn("Travis Kelce", by_name)
+
+        mahomes = by_name["Patrick Mahomes"]
+        self.assertTrue(mahomes.is_questionable)
+        self.assertFalse(mahomes.is_ruled_out)
+
+        kelce = by_name["Travis Kelce"]
+        self.assertTrue(kelce.is_ruled_out)
+        self.assertFalse(kelce.is_questionable)
+
 
 class TestPlayerSignalFormat(unittest.TestCase):
     """Verify signals match the PlayerSignal dataclass from extractor.py."""

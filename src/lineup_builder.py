@@ -351,16 +351,20 @@ def _compute_starter_confidence(
 ) -> float:
     """Return a 0-1 confidence score for starter designation.
 
+    ``snap_pct`` is a 0.0-1.0 fraction (matching the rest of the codebase,
+    e.g. ``player_feature_engineering``'s ``snap_pct_roll3 >= 0.20`` filter),
+    not a 0-100 percentage.
+
     Heuristic:
       - depth_team=1 alone => 0.70
-      - snap_pct >= 60% alone => 0.65
+      - snap_pct >= 0.60 alone => 0.65
       - both => 0.85 + bonus up to 0.15 based on snap_pct
     """
-    if is_depth_starter and snap_pct is not None and snap_pct >= 50:
-        return min(1.0, 0.85 + (snap_pct - 50) / 333.0)
+    if is_depth_starter and snap_pct is not None and snap_pct >= 0.50:
+        return min(1.0, 0.85 + (snap_pct - 0.50) / 3.333)
     if is_depth_starter:
         return 0.70
-    if snap_pct is not None and snap_pct >= 60:
+    if snap_pct is not None and snap_pct >= 0.60:
         return 0.65
     return 0.40
 
@@ -623,12 +627,18 @@ def get_team_lineup_with_projections(
         proj_subset = proj_subset.drop_duplicates(
             subset=["_proj_team", "player_name"], keep="first"
         )
-        merged = starters.merge(
+        # Normalize team codes on both sides before joining (same
+        # canonicalization used below for the stale-team check) so alias
+        # codes like KAN/KC, LAR/LA don't silently miss matches.
+        starters_for_merge = starters.copy()
+        starters_for_merge["_team_canon"] = starters_for_merge["team"].apply(_canonical_team)
+        proj_subset["_proj_team_canon"] = proj_subset["_proj_team"].apply(_canonical_team)
+        merged = starters_for_merge.merge(
             proj_subset,
-            left_on=["team", "player_name"],
-            right_on=["_proj_team", "player_name"],
+            left_on=["_team_canon", "player_name"],
+            right_on=["_proj_team_canon", "player_name"],
             how="left",
-        )
+        ).drop(columns=["_team_canon", "_proj_team_canon"])
 
     # Drop projections where the depth chart's team disagrees with the
     # projection's team — the player has moved and the score reflects his

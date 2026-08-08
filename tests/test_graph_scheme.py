@@ -377,6 +377,64 @@ class TestDefensiveFrontQuality:
         result = compute_defensive_front_quality(df)
         assert not result.empty
 
+    def test_multi_season_roster_dedup_uses_season_key(self):
+        """Regression: roster_lookup must key on (name, team, season), not
+        just (name, team). A player who changed position between seasons
+        (same name, same team) must be filtered using their position in
+        THAT season, not whichever season's row happened to survive an
+        unkeyed drop_duplicates."""
+        from graph_scheme import compute_defensive_front_quality
+
+        # Same (name, team) pair across two seasons with DIFFERENT positions.
+        # The DE (front-7) row is listed first so a season-blind
+        # drop_duplicates(subset=[name, team]) would incorrectly keep it
+        # and mislabel the player as front-7 in every season.
+        roster_multi = pd.DataFrame(
+            [
+                {
+                    "full_name": "Ambiguous_Player",
+                    "team": "KC",
+                    "position": "DE",
+                    "season": 2023,
+                },
+                {
+                    "full_name": "Ambiguous_Player",
+                    "team": "KC",
+                    "position": "WR",
+                    "season": 2024,
+                },
+            ]
+        )
+
+        # PFR defensive stat rows in 2024 only, where the player is WR (not
+        # front-7) and should be excluded from the front-7 aggregate.
+        pfr_2024 = pd.DataFrame(
+            [
+                {
+                    "team": "KC",
+                    "season": 2024,
+                    "week": w,
+                    "pfr_player_name": "Ambiguous_Player",
+                    "def_sacks": 5.0,
+                    "def_pressures": 5.0,
+                    "def_times_hurried": 5.0,
+                    "def_tackles_combined": 5.0,
+                }
+                for w in range(1, 5)
+            ]
+        )
+
+        result = compute_defensive_front_quality(pfr_2024, roster_multi)
+        # The only player in the 2024 PFR data is a WR that season, so
+        # front-7 filtering should exclude all their stats -> no KC rows
+        # with nonzero front7_sacks (or no rows at all).
+        kc_rows = result[result["team"] == "KC"]
+        if not kc_rows.empty:
+            assert (kc_rows["front7_sacks"].fillna(0) == 0).all(), (
+                "Player should be excluded as front-7 based on their 2024 "
+                "(WR) position, not their 2023 (DE) position"
+            )
+
     def test_quality_is_positive(self, pfr_def_df):
         """Quality composite should be non-negative for non-NaN values."""
         from graph_scheme import compute_defensive_front_quality

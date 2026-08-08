@@ -265,6 +265,54 @@ class TestPlayerModelTraining:
             assert isinstance(features, list)
             assert len(features) > 0  # Each group should select at least 1 feature
 
+    def test_feature_selection_uses_temporal_split(self, monkeypatch):
+        """run_player_feature_selection must hold out the latest season for
+        eval, not a random train_test_split -- a random split would leak
+        future-season rows into the SHAP importance ranking, contradicting
+        the walk-forward discipline used everywhere else in this file
+        (player_walk_forward_cv: train = season < val_season).
+        """
+        import player_model_training as pmt
+
+        df = _make_synthetic_player_data(seasons=[2020, 2021, 2022, 2023, 2024])
+        feature_cols = [
+            "rushing_yards_roll3",
+            "rushing_yards_roll6",
+            "rushing_yards_std",
+            "passing_yards_roll3",
+            "receiving_yards_roll3",
+            "target_share_roll3",
+            "snap_pct_roll3",
+            "carry_share_roll3",
+            "targets_roll3",
+            "carries_roll3",
+            "def_epa_per_play_lag1",
+            "implied_team_total",
+            "spread_line",
+        ]
+
+        # If the fix regresses to a random split, train_test_split gets
+        # called; the temporal-split path never calls it (multi-season
+        # synthetic data always has both train_mask and eval_mask non-empty).
+        calls = []
+        real_split = pmt.train_test_split
+
+        def spy_split(*args, **kwargs):
+            calls.append((args, kwargs))
+            return real_split(*args, **kwargs)
+
+        monkeypatch.setattr(pmt, "train_test_split", spy_split)
+
+        pmt.run_player_feature_selection(
+            df, feature_cols, positions=["QB", "RB", "WR", "TE"]
+        )
+
+        assert not calls, (
+            "train_test_split was called -- the SHAP feature-selection split "
+            "has regressed to a random split instead of the temporal "
+            "latest-season-as-eval split"
+        )
+
     def test_model_serialization_paths(self):
         """save_player_model creates files at models/player/{position}/{stat}.json."""
         from player_model_training import save_player_model, load_player_model

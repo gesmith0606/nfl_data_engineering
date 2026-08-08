@@ -208,6 +208,15 @@ class TestScriptZoneClassification:
         assert _classify_script_zone(-13) == "trailing"
         assert _classify_script_zone(-14) == "trailing_big"
 
+    def test_no_dead_script_zones_dict(self):
+        """Regression: SCRIPT_ZONES was an unused dict whose boundaries could
+        silently drift from the hardcoded ones in _classify_script_zone.
+        It was deleted rather than kept in sync — guard against it (or an
+        equivalent duplicate boundary table) reappearing unused."""
+        import graph_game_script
+
+        assert not hasattr(graph_game_script, "SCRIPT_ZONES")
+
 
 # ---------------------------------------------------------------------------
 # Tests: compute_game_script_usage

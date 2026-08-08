@@ -803,13 +803,18 @@ def apply_bayesian_correction(
 
         if include_intervals:
             preds = model.predict_with_uncertainty(X)
-            df.loc[mask, "projected_points"] += preds["mean"]
-            df.loc[mask, "bayesian_floor"] = (
-                df.loc[mask, "projected_points"].values + preds["floor"]
-            )
-            df.loc[mask, "bayesian_ceiling"] = (
-                df.loc[mask, "projected_points"].values + preds["ceiling"]
-            )
+            # preds["floor"]/preds["ceiling"] are quantiles of the posterior
+            # predictive samples, which are centered on preds["mean"] -- i.e.
+            # they are already absolute residual quantiles that include the
+            # mean, not deltas from it (same as the correct pattern in
+            # train_bayesian_residual, which adds them to the pre-correction
+            # heuristic points). So floor/ceiling must be built from the
+            # ORIGINAL (uncorrected) projected_points, not the value after
+            # `+= preds["mean"]`, or the mean gets double-counted.
+            base_points = df.loc[mask, "projected_points"].values
+            df.loc[mask, "bayesian_floor"] = base_points + preds["floor"]
+            df.loc[mask, "bayesian_ceiling"] = base_points + preds["ceiling"]
+            df.loc[mask, "projected_points"] = base_points + preds["mean"]
             df.loc[mask, "bayesian_std"] = preds["std"]
         else:
             residual = model.predict(X)

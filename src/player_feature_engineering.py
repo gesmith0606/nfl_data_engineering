@@ -256,8 +256,18 @@ def _join_def_trailing_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         ]
         if not new_cols:
             continue
+        # Sort by the dedup key AND the feature columns themselves so which
+        # row "wins" is fully deterministic and not dependent on incidental
+        # parquet row order. No additional volume/confidence column is
+        # available in this trailing-defense table to prefer one duplicate
+        # over another on domain grounds, so sorting on the full row content
+        # (a total order) is the best available tiebreaker: it guarantees
+        # the same result for the same underlying set of duplicate rows
+        # regardless of the order they were written/read in.
         df = df.merge(
-            trail[join_cols + new_cols].drop_duplicates(subset=join_cols, keep="last"),
+            trail[join_cols + new_cols]
+            .sort_values(join_cols + new_cols)
+            .drop_duplicates(subset=join_cols, keep="last"),
             on=join_cols,
             how="left",
         )
@@ -304,8 +314,20 @@ def _join_route_participation(df: pd.DataFrame, season: int) -> pd.DataFrame:
     ]
     if not new_cols:
         return df
+    # Sort by the dedup key plus a meaningful tiebreaker before dedup so the
+    # surviving row is deterministic, not whatever order the parquet
+    # happened to be written in. dropbacks_on_field (snap volume) is the
+    # best signal for "this is the player's real stint that week" when a
+    # player-week appears more than once (e.g. a mid-season team change);
+    # fall back to sorting on all joined columns (a total order over the
+    # full row) so results stay reproducible even without that signal.
+    sort_cols = join_cols + (
+        ["dropbacks_on_field"] if "dropbacks_on_field" in rp.columns else new_cols
+    )
     out = df.merge(
-        rp[join_cols + new_cols].drop_duplicates(subset=join_cols, keep="last"),
+        rp[join_cols + new_cols]
+        .sort_values(sort_cols)
+        .drop_duplicates(subset=join_cols, keep="last"),
         on=join_cols,
         how="left",
     )
@@ -844,9 +866,20 @@ def _join_wr_matchup_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         avail = [c for c in join_cols if c in wr_adv_df.columns and c in df.columns]
         if len(avail) >= 3:
             feat_cols = [c for c in _WR_ADVANCED_FEATURES if c in wr_adv_df.columns]
-            # Drop duplicates keeping last (multiple defteam rows per player-week)
-            wr_adv_subset = wr_adv_df[avail + feat_cols].drop_duplicates(
-                subset=avail, keep="last"
+            # Multiple defteam rows can exist per player-week; sort by the
+            # dedup key plus wr_matchup_target_concentration (share of the
+            # team's targets against that defteam) so the row for the
+            # player's real, primary opponent that week wins deterministically
+            # instead of whatever order the parquet happened to be written in.
+            sort_cols = avail + (
+                ["wr_matchup_target_concentration"]
+                if "wr_matchup_target_concentration" in feat_cols
+                else feat_cols
+            )
+            wr_adv_subset = (
+                wr_adv_df[avail + feat_cols]
+                .sort_values(sort_cols, na_position="first")
+                .drop_duplicates(subset=avail, keep="last")
             )
             df = df.merge(
                 wr_adv_subset,
@@ -944,9 +977,17 @@ def _join_te_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         avail = [c for c in join_cols if c in te_adv_df.columns and c in df.columns]
         if len(avail) >= 3:
             feat_cols = [c for c in _TE_ADVANCED_FEATURES if c in te_adv_df.columns]
-            # Drop duplicates keeping last (multiple defteam rows per player-week)
-            te_adv_subset = te_adv_df[avail + feat_cols].drop_duplicates(
-                subset=avail, keep="last"
+            # Multiple defteam rows can exist per player-week. Unlike the WR
+            # advanced table, no target-volume proxy survives into
+            # _TE_ADVANCED_FEATURES, so there is no domain signal to prefer
+            # one defteam row over another. Sort on the dedup key plus the
+            # feature columns themselves (a total order over the full row)
+            # so the surviving row is fully deterministic and reproducible
+            # regardless of the order duplicates were written/read in.
+            te_adv_subset = (
+                te_adv_df[avail + feat_cols]
+                .sort_values(avail + feat_cols)
+                .drop_duplicates(subset=avail, keep="last")
             )
             df = df.merge(
                 te_adv_subset,
@@ -1348,6 +1389,14 @@ def _join_red_zone_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
                 suffixes=("", "__rz"),
             )
             dup = [c for c in df.columns if c.endswith("__rz")]
+            for rz_col in dup:
+                base_col = rz_col[: -len("__rz")]
+                # The graph-derived value must win over any pre-existing
+                # column of the same name (e.g. the unsorted shift/rolling
+                # fallback for rz_target_share_roll3 computed earlier in
+                # compute_td_regression_features); the fallback should only
+                # fill in where the graph join has no match.
+                df[base_col] = df[rz_col].combine_first(df[base_col])
             df = df.drop(columns=dup, errors="ignore")
 
     # Fill missing columns with NaN for schema consistency
@@ -1571,18 +1620,41 @@ def _join_ftn_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
         avail = [c for c in join_cols if c in ftn_df.columns and c in df.columns]
         if len(avail) >= 3:
             feat_cols = [c for c in FTN_FEATURE_COLUMNS if c in ftn_df.columns]
-            # Deduplicate (a player may appear once as receiver + once as QB)
-            ftn_slim = (
-                ftn_df[avail + feat_cols]
-                .groupby(avail, as_index=False)
-                .mean(numeric_only=True)
-            )
-            df = df.merge(
-                ftn_slim,
-                on=avail,
-                how="left",
-                suffixes=("", "__ftn"),
-            )
+            # FTN grain is (player_id, season, week, position_type): a
+            # dual-role player (e.g. a WR who threw a trick-play pass) gets
+            # one row per role, with receiver-only columns NaN on the QB row
+            # and vice versa. Averaging the two rows together (the old
+            # behavior) blends disjoint receiver/passer feature sets into a
+            # meaningless composite. Instead, match each player-week to the
+            # FTN role consistent with their primary roster position: QBs
+            # take the "qb" row, everyone else takes the "receiver" row.
+            if "position_type" in ftn_df.columns and "position" in df.columns:
+                ftn_role = (
+                    ftn_df[avail + ["position_type"] + feat_cols]
+                    .sort_values(avail)
+                    .drop_duplicates(subset=avail + ["position_type"], keep="last")
+                )
+                df["_ftn_role"] = np.where(df["position"] == "QB", "qb", "receiver")
+                df = df.merge(
+                    ftn_role,
+                    left_on=avail + ["_ftn_role"],
+                    right_on=avail + ["position_type"],
+                    how="left",
+                    suffixes=("", "__ftn"),
+                )
+                df = df.drop(columns=["_ftn_role", "position_type"], errors="ignore")
+            else:
+                ftn_slim = (
+                    ftn_df[avail + feat_cols]
+                    .groupby(avail, as_index=False)
+                    .mean(numeric_only=True)
+                )
+                df = df.merge(
+                    ftn_slim,
+                    on=avail,
+                    how="left",
+                    suffixes=("", "__ftn"),
+                )
             dup = [c for c in df.columns if c.endswith("__ftn")]
             df = df.drop(columns=dup, errors="ignore")
             logger.info("Joined %d FTN trailing feature columns", len(feat_cols))

@@ -301,6 +301,65 @@ class TestPreseasonMetadataUnification(unittest.TestCase):
         self.assertEqual(rows.iloc[0]["recent_team"], "MIA")
 
 
+class TestPreseasonZeroGamesSeasonWeight(unittest.TestCase):
+    """A player with games=0 in every considered season sums season_weight
+    to 0. The per-game-rate normalization (proj[col] / season_weight) must
+    not divide by that zero and let a NaN survive into
+    projected_season_points -- regression test for the missing zero-guard
+    on the season_weight normalization (games_safe divide-by-zero guard
+    exists nine lines above it in the same function, but season_weight
+    wasn't guarded the same way).
+    """
+
+    @staticmethod
+    def _seasonal_all_zero_games():
+        return pd.DataFrame({
+            "player_id": ["Z1", "Z1"],
+            "season": [2024, 2025],
+            "player_name": ["Zero Games", "Zero Games"],
+            "position": ["RB", "RB"],
+            "recent_team": ["MIA", "MIA"],
+            "games": [0, 0],
+            "rushing_yards": [0.0, 0.0],
+            "rushing_tds": [0.0, 0.0],
+            "carries": [0.0, 0.0],
+            "receiving_yards": [0.0, 0.0],
+            "receiving_tds": [0.0, 0.0],
+            "receptions": [0.0, 0.0],
+            "targets": [0.0, 0.0],
+            "passing_yards": [0.0, 0.0],
+            "passing_tds": [0.0, 0.0],
+            "interceptions": [0.0, 0.0],
+        })
+
+    def test_zero_season_weight_does_not_produce_nan(self):
+        from unittest.mock import patch
+        import projection_engine as pe
+
+        with patch.object(
+            pe, "_generate_preseason_kicker_projections",
+            return_value=pd.DataFrame(),
+        ):
+            proj = pe.generate_preseason_projections(
+                self._seasonal_all_zero_games(),
+                scoring_format="half_ppr",
+                target_season=2026,
+            )
+
+        rows = proj[proj["player_id"] == "Z1"]
+        self.assertEqual(len(rows), 1)
+        # projected_season_points must be a real, finite, non-negative number
+        # -- not NaN surviving through the clip(lower=0.0) call downstream.
+        pts = rows.iloc[0]["projected_season_points"]
+        self.assertFalse(pd.isna(pts))
+        self.assertGreaterEqual(pts, 0.0)
+        # The underlying per-game stat columns must also be finite (not NaN
+        # or inf) since games=0 in every season zeroes season_weight too.
+        for col in ["rushing_yards", "carries", "receiving_yards"]:
+            if col in rows.columns:
+                self.assertFalse(pd.isna(rows.iloc[0][col]))
+                self.assertNotEqual(rows.iloc[0][col], float("inf"))
+
 
 if __name__ == '__main__':
     unittest.main()

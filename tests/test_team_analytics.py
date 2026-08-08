@@ -931,6 +931,43 @@ class TestSOS:
         w1 = result[result["week"] == 1]
         assert w1["off_sos_rank"].isna().all()
 
+    def test_off_sos_rank_direction(self):
+        """Regression: off_sos_rank=1 must go to the LOWER off_sos_score
+        (opponents' defenses allowed less EPA => harder offensive schedule),
+        matching the docstring and the def_sos_rank convention below it —
+        not the highest score (easiest schedule), which an inverted
+        ascending=False would incorrectly produce.
+
+        Tiny 2-team, 2-week fixture: A and B play each other both weeks.
+        A's raw off EPA in week 1 (0.10) becomes B's def EPA faced in week 2
+        (i.e. team B's off_sos_score), and B's raw off EPA in week 1 (0.50)
+        becomes A's off_sos_score. A's off_sos_score (0.10) < B's (0.50), so
+        A faced the harder schedule and must get off_sos_rank == 1.
+        """
+        frames = [
+            _make_pbp_rows("A", "B", 2024, 1, [{"play_type": "pass", "epa": 0.10, "success": 1}]),
+            _make_pbp_rows("B", "A", 2024, 1, [{"play_type": "pass", "epa": 0.50, "success": 1}]),
+            _make_pbp_rows("A", "B", 2024, 2, [{"play_type": "pass", "epa": 0.20, "success": 1}]),
+            _make_pbp_rows("B", "A", 2024, 2, [{"play_type": "pass", "epa": -0.10, "success": 0}]),
+        ]
+        pbp = pd.concat(frames, ignore_index=True)
+        pbp["game_id"] = pbp.apply(
+            lambda r: f"{r['season']}_{r['week']:02d}_{'_'.join(sorted([r['posteam'], r['defteam']]))}",
+            axis=1,
+        )
+        result = compute_sos_metrics(pbp)
+
+        w2 = result[result["week"] == 2]
+        a_score = w2[w2["team"] == "A"]["off_sos_score"].iloc[0]
+        b_score = w2[w2["team"] == "B"]["off_sos_score"].iloc[0]
+        assert abs(a_score - 0.10) < 1e-6
+        assert abs(b_score - 0.50) < 1e-6
+
+        a_rank = w2[w2["team"] == "A"]["off_sos_rank"].iloc[0]
+        b_rank = w2[w2["team"] == "B"]["off_sos_rank"].iloc[0]
+        assert a_rank == 1.0, "Team A has the lower (harder) off_sos_score and must rank 1"
+        assert b_rank == 2.0
+
     def test_sos_separate_offense_defense(self):
         """Off SOS uses opponents' DEF EPA; def SOS uses opponents' OFF EPA."""
         pbp = _build_four_team_three_week_sos_pbp()
@@ -1656,6 +1693,49 @@ class TestComputeTurnoverLuck:
         assert pd.isna(a.iloc[0]["own_fumble_recovery_rate_std"])
         # Week 2 STD should be week 1's value (0.5) via expanding after shift
         assert abs(a.iloc[1]["own_fumble_recovery_rate_std"] - 0.5) < 1e-6
+
+    def test_zero_fumble_team_week_gets_a_row(self):
+        """Regression: a team-week with zero fumbles must still get a row
+        (fumbles_lost=0, fumbles_forced=0), not be silently dropped from
+        the output the way pre-filtering to fumble==1 rows before grouping
+        would do — a dropped row skips that week's 0 in any downstream
+        rolling/expanding average instead of counting it.
+        """
+        rows = []
+        # Week 1: A fumbles once, B recovers it (A's own_fumble_recovery_rate = 0.0)
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 1,
+            "season_type": "REG", "play_type": "run", "fumble": 1,
+            "fumble_recovery_1_team": "B", "epa": -0.5,
+        })
+        # Week 2: A and B play, but NO fumble occurs at all this week.
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 2,
+            "season_type": "REG", "play_type": "pass", "fumble": 0,
+            "fumble_recovery_1_team": None, "epa": 0.2,
+        })
+        # Week 3: A fumbles again, recovers it themselves.
+        rows.append({
+            "posteam": "A", "defteam": "B", "season": 2024, "week": 3,
+            "season_type": "REG", "play_type": "run", "fumble": 1,
+            "fumble_recovery_1_team": "A", "epa": -0.2,
+        })
+        pbp = pd.DataFrame(rows)
+        result = compute_turnover_luck(pbp)
+
+        a = result[result["team"] == "A"].sort_values("week")
+        # All 3 team-weeks must be present, including the zero-fumble week 2.
+        assert sorted(a["week"].tolist()) == [1, 2, 3]
+
+        wk2 = a[a["week"] == 2].iloc[0]
+        assert wk2["fumbles_lost"] == 0
+        assert wk2["fumbles_forced"] == 0
+        assert pd.isna(wk2["own_fumble_recovery_rate"])
+
+        # Week 3's expanding std (shift(1)) should be week 1's own recovery
+        # rate (0.0) carried forward through the zero-fumble week 2 row.
+        wk3 = a[a["week"] == 3].iloc[0]
+        assert abs(wk3["own_fumble_recovery_rate_std"] - 0.0) < 1e-6
 
 
 class TestComputeRedZoneTrips:

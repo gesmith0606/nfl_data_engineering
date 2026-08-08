@@ -143,16 +143,24 @@ def train_quantile_models(
             if len(train_data) < 50 or len(val_data) < 10:
                 continue
 
+            # Fold-local imputer: fit ONLY on this fold's training slice
+            # (seasons < val_season) so validation-season/future-season
+            # medians never leak into an earlier fold's imputation values.
+            # The module-level `imputer` fit on all data is reserved for
+            # the final production models trained below, after the CV loop.
+            fold_imputer = SimpleImputer(strategy="median")
+            fold_imputer.fit(train_data[valid_features])
+
             # Keep DataFrames through fit/predict — the imputer's bare
             # ndarray output makes LGBM emit a feature-names UserWarning on
             # every predict call.
             X_train = pd.DataFrame(
-                imputer.transform(train_data[valid_features]),
+                fold_imputer.transform(train_data[valid_features]),
                 columns=valid_features,
                 index=train_data.index,
             )
             X_val = pd.DataFrame(
-                imputer.transform(val_data[valid_features]),
+                fold_imputer.transform(val_data[valid_features]),
                 columns=valid_features,
                 index=val_data.index,
             )

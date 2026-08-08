@@ -22,10 +22,12 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from graph_wr_matchup import (
     WR_DEF_TRAILING_FEATURE_COLUMNS,
     compute_wr_def_trailing_features,
+    _compute_trailing_allowances as _wr_compute_trailing_allowances,
 )
 from graph_te_matchup import (
     TE_DEF_TRAILING_FEATURE_COLUMNS,
     compute_te_def_trailing_features,
+    _compute_trailing_allowances as _te_compute_trailing_allowances,
 )
 from player_feature_engineering import _is_unlagged_leak
 
@@ -344,6 +346,133 @@ class TestTEDefTrailingFeatures:
         )
         if not result.empty:
             assert not result.duplicated(subset=["player_id", "season", "week"]).any()
+
+
+# ---------------------------------------------------------------------------
+# Tests: fallback-only semantics (prior-season data must not swamp a
+# non-empty current-season trailing window)
+# ---------------------------------------------------------------------------
+
+
+def _weekly_row(defteam, season, week, tgts, comps, yds, tds, **extra):
+    row = {
+        "defteam": defteam,
+        "season": season,
+        "week": week,
+        "_tgts": tgts,
+        "_comps": comps,
+        "_yds": yds,
+        "_tds": tds,
+    }
+    row.update(extra)
+    return row
+
+
+class TestTrailingAllowancesFallbackOnly:
+    """Regression test: recent in-window data must win outright, not be
+    blended with prior-season totals (bug: unconditional pd.concat caused
+    career averages to swamp a real 4-week trailing window)."""
+
+    def test_wr_recent_window_ignores_prior_season(self):
+        # Prior season: huge volume, very high yards/target (career baseline).
+        prior = [
+            _weekly_row(
+                "BUF", 2021, w, tgts=100, comps=80, yds=2000, tds=20,
+                _slot_tgts=0, _outside_tgts=0, _outside_yds=0, _slot_yds=0,
+            )
+            for w in range(1, 18)
+        ]
+        # Current season recent window: small volume, low yards/target.
+        recent = [
+            _weekly_row(
+                "BUF", 2022, w, tgts=4, comps=2, yds=8, tds=0,
+                _slot_tgts=0, _outside_tgts=0, _outside_yds=0, _slot_yds=0,
+            )
+            for w in range(1, 4)
+        ]
+        weekly_df = pd.DataFrame(prior + recent)
+
+        result = _wr_compute_trailing_allowances(
+            weekly_df, target_season=2022, target_week=4, window=4
+        )
+        row = result[result["defteam"] == "BUF"].iloc[0]
+        # Recent-only: yds=24, tgts=12 -> 2.0 yds/tgt. If prior leaked in,
+        # this would be dragged toward the prior season's 20.0 yds/tgt.
+        assert row["wr_def_trail_yds_per_tgt"] == pytest.approx(2.0)
+
+    def test_te_recent_window_ignores_prior_season(self):
+        prior = [
+            _weekly_row("BUF", 2021, w, tgts=100, comps=80, yds=2000, tds=20)
+            for w in range(1, 18)
+        ]
+        recent = [
+            _weekly_row("BUF", 2022, w, tgts=4, comps=2, yds=8, tds=0)
+            for w in range(1, 4)
+        ]
+        weekly_df = pd.DataFrame(prior + recent)
+
+        result = _te_compute_trailing_allowances(
+            weekly_df, pd.DataFrame(), target_season=2022, target_week=4, window=4
+        )
+        row = result[result["defteam"] == "BUF"].iloc[0]
+        assert row["te_def_trail_yds_per_tgt"] == pytest.approx(2.0)
+
+    def test_te_coverage_share_recent_window_ignores_prior_season(self):
+        """Box-coverage block: a non-empty current-season coverage window
+        must not be diluted by all-time prior-season coverage rows."""
+        weekly = pd.DataFrame(
+            [_weekly_row("BUF", 2022, w, tgts=4, comps=2, yds=8, tds=0) for w in range(1, 4)]
+        )
+        # Prior season: heavy CB coverage (cb_share ~1.0)
+        prior_cov = [
+            {
+                "defteam": "BUF",
+                "season": 2021,
+                "week": w,
+                "_lb_sum": 0,
+                "_cb_sum": 100,
+                "_total_sum": 100,
+            }
+            for w in range(1, 18)
+        ]
+        # Current season recent window: heavy LB coverage (lb_share ~1.0)
+        recent_cov = [
+            {
+                "defteam": "BUF",
+                "season": 2022,
+                "week": w,
+                "_lb_sum": 10,
+                "_cb_sum": 0,
+                "_total_sum": 10,
+            }
+            for w in range(1, 4)
+        ]
+        coverage_df = pd.DataFrame(prior_cov + recent_cov)
+
+        result = _te_compute_trailing_allowances(
+            weekly, coverage_df, target_season=2022, target_week=4, window=4
+        )
+        row = result[result["defteam"] == "BUF"].iloc[0]
+        # If prior leaked in, cb_coverage_share would be pulled toward 1.0
+        # instead of staying at the recent-only value of 0.0.
+        assert row["te_def_trail_lb_coverage_share"] == pytest.approx(1.0)
+        assert row["te_def_trail_cb_coverage_share"] == pytest.approx(0.0)
+
+    def test_wr_falls_back_to_prior_when_recent_empty(self):
+        """Fallback path (recent window empty) should still use prior data."""
+        prior = [
+            _weekly_row(
+                "BUF", 2021, w, tgts=10, comps=5, yds=100, tds=1,
+                _slot_tgts=0, _outside_tgts=0, _outside_yds=0, _slot_yds=0,
+            )
+            for w in range(1, 4)
+        ]
+        weekly_df = pd.DataFrame(prior)
+        result = _wr_compute_trailing_allowances(
+            weekly_df, target_season=2022, target_week=1, window=4
+        )
+        row = result[result["defteam"] == "BUF"].iloc[0]
+        assert row["wr_def_trail_yds_per_tgt"] == pytest.approx(10.0)
 
 
 # ---------------------------------------------------------------------------

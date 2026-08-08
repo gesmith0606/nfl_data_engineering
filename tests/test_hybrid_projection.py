@@ -465,6 +465,73 @@ class TestApplyResidualCorrection:
 
 
 # ---------------------------------------------------------------------------
+# Tests: apply_residual_correction dedup determinism (no real model needed)
+# ---------------------------------------------------------------------------
+
+
+class TestApplyResidualCorrectionDedupDeterminism:
+    """Regression test for the feature-merge dedup bug.
+
+    When heuristic_projections lacks season/week columns, extra_keys is
+    empty and dedup_keys collapses to just the player id column --
+    drop_duplicates(keep="last") then picked an arbitrary row per player
+    based on incidental player_features row order. The fix sorts
+    player_features by season/week before the merge so the most recent row
+    wins deterministically. Uses a stub model (via patching
+    load_residual_model) instead of a real trained model, so this runs
+    without depending on any model artifact being present on disk.
+    """
+
+    def test_most_recent_season_week_row_wins(self):
+        from unittest.mock import patch
+
+        from hybrid_projection import apply_residual_correction
+
+        heuristic_projections = pd.DataFrame(
+            {
+                "player_id": ["P1"],
+                "player_name": ["Player One"],
+                "position": ["WR"],
+                "projected_points": [10.0],
+            }
+        )
+        # Multiple rows per player across season/week, deliberately out of
+        # order, with the earliest (wrong) row physically last so the old
+        # unsorted keep="last" would have picked it.
+        player_features = pd.DataFrame(
+            {
+                "player_id": ["P1", "P1", "P1"],
+                "season": [2023, 2024, 2022],
+                "week": [1, 1, 1],
+                "signal": [1.0, 99.0, 2.0],
+            }
+        )
+
+        class _DummyModel:
+            def predict(self, X):
+                return X["signal"].values
+
+        meta = {
+            "model_type": "ridge",
+            "features": ["signal"],
+            "graph_features_added": 0,
+        }
+
+        with patch(
+            "hybrid_projection.load_residual_model",
+            return_value=(_DummyModel(), meta),
+        ):
+            result = apply_residual_correction(
+                heuristic_projections, player_features, "WR", model_dir="unused"
+            )
+
+        # Must use the season=2024 (most recent) row's signal (99.0), not
+        # whichever row happened to be last in player_features (season=2022,
+        # signal=2.0 -> would give 12.0 instead of 109.0).
+        assert result["projected_points"].iloc[0] == pytest.approx(10.0 + 99.0)
+
+
+# ---------------------------------------------------------------------------
 # Tests: ML router hybrid integration
 # ---------------------------------------------------------------------------
 

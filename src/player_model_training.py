@@ -453,9 +453,23 @@ def run_player_feature_selection(
         X = group_data[active]
         y = group_data[representative]
 
-        X_train, X_eval, y_train, y_eval = train_test_split(
-            X, y, test_size=0.2, random_state=params_copy.get("random_state", 42)
-        )
+        # Temporal split (matches player_walk_forward_cv's convention):
+        # hold out the latest season as eval, train on everything before it.
+        # A random split here would leak future-season signal into the
+        # SHAP importance ranking, contradicting the walk-forward discipline
+        # enforced everywhere else in this file.
+        eval_season = group_data["season"].max()
+        train_mask = group_data["season"] < eval_season
+        eval_mask = group_data["season"] == eval_season
+        if train_mask.sum() == 0 or eval_mask.sum() == 0:
+            # Only one season present (or a degenerate split) -- no temporal
+            # boundary is possible, so fall back to a random split.
+            X_train, X_eval, y_train, y_eval = train_test_split(
+                X, y, test_size=0.2, random_state=params_copy.get("random_state", 42)
+            )
+        else:
+            X_train, X_eval = X[train_mask], X[eval_mask]
+            y_train, y_eval = y[train_mask], y[eval_mask]
 
         model = xgb.XGBRegressor(early_stopping_rounds=early_stopping, **params_copy)
         model.fit(X_train, y_train, eval_set=[(X_eval, y_eval)], verbose=False)

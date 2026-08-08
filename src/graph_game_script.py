@@ -20,14 +20,9 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-# Game script zone boundaries (from offensive team perspective)
-SCRIPT_ZONES = {
-    "leading_big": (14, None),  # score_diff >= 14
-    "leading": (7, 14),  # 7 <= score_diff < 14
-    "close": (-6, 7),  # -6 <= score_diff <= 6  (upper exclusive adjusted below)
-    "trailing": (-13, -6),  # -13 <= score_diff < -6  (upper exclusive adjusted below)
-    "trailing_big": (None, -13),  # score_diff < -13  (upper exclusive adjusted below)
-}
+# Game script zone boundaries are implemented directly in
+# _classify_script_zone below (leading_big >=14, leading >=7, close >=-6,
+# trailing >=-13, else trailing_big).
 
 # Output feature columns
 GAME_SCRIPT_FEATURE_COLUMNS = [
