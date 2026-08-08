@@ -127,3 +127,38 @@ def test_rookies_503_when_preseason_missing_but_roster_present():
     # projections parquet, so the 503 (not the 404) should fire.
     resp = client.get("/api/dynasty/rookies?season=2020")
     assert resp.status_code == 503
+
+
+def test_rookies_degrades_when_roster_missing_entry_year_and_years_exp(monkeypatch):
+    """Roster schema drift: a season's roster parquet without entry_year/
+    years_exp must not 500 (KeyError) — it should just find zero rookies.
+    """
+    roster = pd.DataFrame(
+        [
+            {"player_id": "1", "age": 24.0},
+            {"player_id": "2", "age": 30.0},
+        ]
+    )
+    preseason = pd.DataFrame(
+        [
+            {
+                "player_id": "1",
+                "player_name": "No Schema Rookie",
+                "position": "WR",
+                "team": "AAA",
+                "projected_season_points": 150.0,
+            },
+            {
+                "player_id": "2",
+                "player_name": "No Schema Vet",
+                "position": "WR",
+                "team": "BBB",
+                "projected_season_points": 100.0,
+            },
+        ]
+    )
+    monkeypatch.setattr(dynasty, "_load_roster", lambda season: roster)
+    monkeypatch.setattr(dynasty, "_load_preseason", lambda season: preseason.copy())
+    resp = client.get(f"/api/dynasty/rookies?season={SEASON}")
+    assert resp.status_code == 200
+    assert resp.json()["players"] == []

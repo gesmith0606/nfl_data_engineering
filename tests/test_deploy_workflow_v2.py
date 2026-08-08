@@ -17,7 +17,7 @@ WORKFLOW_PATH = Path(".github/workflows/deploy-web.yml")
 @pytest.fixture(scope="module")
 def workflow() -> dict:
     assert WORKFLOW_PATH.exists(), f"{WORKFLOW_PATH} missing"
-    with WORKFLOW_PATH.open() as fh:
+    with WORKFLOW_PATH.open(encoding="utf-8") as fh:
         return yaml.safe_load(fh)
 
 

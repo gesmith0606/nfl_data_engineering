@@ -68,6 +68,12 @@ _AUTH_EXEMPT_PATHS = {
     "/api/health/freshness",
     "/api/docs",
     "/api/openapi.json",
+    # Read-only pipeline schedule/run-status surface (workflow names,
+    # schedules, GH Actions run outcomes/URLs) — no secrets, no mutation.
+    # The dashboard's embedded fetch() sends no X-API-Key, so it 401s once
+    # API_KEY lockdown is enabled unless these are exempt.
+    "/api/ops/dashboard",
+    "/api/ops/pipeline-status",
 }
 
 

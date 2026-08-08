@@ -233,7 +233,16 @@ def rookie_rankings(
     df = _load_preseason(season)
     df["player_id"] = df["player_id"].astype(str)
     df = df.merge(roster, on="player_id", how="inner")
-    is_rookie = (df["entry_year"] == season) | (df["years_exp"] == 0)
+    # Roster schema drifts by season — entry_year/years_exp aren't always
+    # present (see _load_roster). Missing columns degrade to "no match" for
+    # that signal instead of a KeyError/500.
+    entry_year = df["entry_year"] if "entry_year" in df.columns else pd.Series(
+        pd.NA, index=df.index
+    )
+    years_exp = df["years_exp"] if "years_exp" in df.columns else pd.Series(
+        pd.NA, index=df.index
+    )
+    is_rookie = (entry_year == season) | (years_exp == 0)
     df = df[is_rookie]
     df = df.sort_values("projected_season_points", ascending=False).head(limit)
     return RookieRankingsResponse(

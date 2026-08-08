@@ -123,6 +123,27 @@ class TestOpsEndpoints(unittest.TestCase):
         self.assertIn("text/html", resp.headers["content-type"])
         self.assertIn("Pipeline Status", resp.text)
 
+    def test_ops_endpoints_exempt_from_api_key_lockdown(self):
+        """/api/ops/dashboard and /api/ops/pipeline-status must stay reachable
+        with no X-API-Key even when API_KEY lockdown is enabled — the
+        dashboard's embedded fetch() sends no key, and both endpoints are
+        read-only (no secrets, no mutation).
+        """
+        import tempfile
+        from pathlib import Path
+
+        from web.api import main as web_main
+
+        with mock.patch.object(web_main, "API_KEY", "secret-lockdown-key"):
+            dashboard_resp = client.get("/api/ops/dashboard")
+            self.assertNotEqual(dashboard_resp.status_code, 401)
+
+            with tempfile.TemporaryDirectory() as td:
+                path = self._write_status(Path(td))
+                with mock.patch.object(ops, "STATUS_PATH", path):
+                    status_resp = client.get("/api/ops/pipeline-status")
+            self.assertNotEqual(status_resp.status_code, 401)
+
 
 if __name__ == "__main__":
     unittest.main()

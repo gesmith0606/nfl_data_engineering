@@ -86,7 +86,14 @@ def test_build_authorization_url(tmp_path):
 
 
 @pytest.mark.unit
-def test_missing_credentials_raises_on_auth_steps(tmp_path):
+def test_missing_credentials_raises_on_auth_steps(tmp_path, monkeypatch):
+    # YahooOAuth falls back to $YAHOO_CLIENT_ID/$YAHOO_CLIENT_SECRET when the
+    # constructor args are empty (src/yahoo_oauth.py:99-100, intended
+    # behavior). Strip them so real ambient credentials on the dev machine
+    # can't leak in and make this "missing creds" test pass for the wrong
+    # reason.
+    monkeypatch.delenv("YAHOO_CLIENT_ID", raising=False)
+    monkeypatch.delenv("YAHOO_CLIENT_SECRET", raising=False)
     mgr = YahooOAuth(
         client_id="", client_secret="", token_path=str(tmp_path / "tok.json")
     )
