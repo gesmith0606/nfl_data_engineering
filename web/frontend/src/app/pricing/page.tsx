@@ -5,7 +5,11 @@ import {
   CheckoutButton,
   ManageSubscriptionButton
 } from '@/features/billing/components/billing-buttons';
-import { isClerkEnabled, isStripeEnabled } from '@/lib/billing/flags';
+import {
+  getStripeSeasonPriceId,
+  isClerkEnabled,
+  isStripeEnabled
+} from '@/lib/billing/flags';
 import { getSubscriptionStatus } from '@/lib/billing/subscription';
 
 export const dynamic = 'force-dynamic';
@@ -150,7 +154,14 @@ export default async function PricingPage() {
                   <ManageSubscriptionButton className='w-full' />
                 </div>
               ) : (
-                <CheckoutButton className='w-full' />
+                <div className='space-y-2'>
+                  <CheckoutButton className='w-full' />
+                  {getStripeSeasonPriceId() && (
+                    <CheckoutButton className='w-full' plan='season'>
+                      Season pass — one payment, whole season
+                    </CheckoutButton>
+                  )}
+                </div>
               )}
             </div>
           </section>

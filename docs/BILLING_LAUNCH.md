@@ -86,6 +86,7 @@ to test there — Preview would need its own Stripe webhook endpoint URL):
 | `STRIPE_SECRET_KEY` | `sk_live_...` (Stripe) | no | Presence turns on checkout/portal/webhook |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_...` | no | Webhook signature verification |
 | `NEXT_PUBLIC_STRIPE_PRICE_ID` | `price_...` | yes | The $7.99/mo price |
+| `NEXT_PUBLIC_STRIPE_PRICE_ID_SEASON` | `price_...` | yes | Optional season-pass price — the "Season pass" button on /pricing only renders when set (competitor anchor: 4for4 $39-99/season, Footballguys $59.99/yr) |
 | `NEXT_PUBLIC_CLERK_SIGN_IN_URL` | `/auth/sign-in` | yes | Our sign-in lives at a non-default path |
 | `NEXT_PUBLIC_CLERK_SIGN_UP_URL` | `/auth/sign-up` | yes | Ditto for sign-up |
 

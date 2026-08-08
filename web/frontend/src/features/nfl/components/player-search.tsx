@@ -9,6 +9,7 @@ import { Icons } from '@/components/icons';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FadeIn, HoverLift, Stagger, DataLoadReveal } from '@/lib/motion-primitives';
+import { WatchStar } from './watchlist-panel';
 
 export function PlayerSearch() {
   const [query, setQuery] = useState('');
@@ -55,7 +56,17 @@ export function PlayerSearch() {
                             </div>
                           </div>
                         </div>
-                        <Icons.chevronRight className='text-muted-foreground h-[var(--space-4)] w-[var(--space-4)]' />
+                        <span className='flex items-center gap-[var(--space-2)]'>
+                          <WatchStar
+                            player={{
+                              player_id: player.player_id,
+                              player_name: player.player_name,
+                              position: player.position,
+                              team: player.team
+                            }}
+                          />
+                          <Icons.chevronRight className='text-muted-foreground h-[var(--space-4)] w-[var(--space-4)]' />
+                        </span>
                       </CardContent>
                     </Card>
                   </HoverLift>

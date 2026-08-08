@@ -1,5 +1,10 @@
 import { currentUser } from '@clerk/nextjs/server';
-import { getStripePriceId, isClerkEnabled, isStripeEnabled } from '@/lib/billing/flags';
+import {
+  getStripePriceId,
+  getStripeSeasonPriceId,
+  isClerkEnabled,
+  isStripeEnabled
+} from '@/lib/billing/flags';
 import { getStripeClient } from '@/lib/billing/stripe';
 
 /**
@@ -29,6 +34,13 @@ export async function POST(req: Request) {
     );
   }
 
+  // Optional season pass: body {plan: 'season'} selects the seasonal Price
+  // when configured; anything else (or absent body) stays monthly.
+  const body = (await req.json().catch(() => ({}))) as { plan?: string };
+  const seasonPriceId = getStripeSeasonPriceId();
+  const priceId =
+    body.plan === 'season' && seasonPriceId ? seasonPriceId : getStripePriceId();
+
   const origin = new URL(req.url).origin;
   const existingCustomerId = user.privateMetadata?.stripeCustomerId;
   const email = user.emailAddresses.find(
@@ -38,7 +50,7 @@ export async function POST(req: Request) {
   try {
     const session = await getStripeClient().checkout.sessions.create({
       mode: 'subscription',
-      line_items: [{ price: getStripePriceId(), quantity: 1 }],
+      line_items: [{ price: priceId, quantity: 1 }],
       client_reference_id: user.id,
       metadata: { clerkUserId: user.id },
       subscription_data: {
