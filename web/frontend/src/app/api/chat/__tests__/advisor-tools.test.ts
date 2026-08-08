@@ -292,4 +292,192 @@ describe('advisor tools — Phase 83 (TOOL-01/TOOL-02)', () => {
       expect(result.message).toMatch(/backend.*unavailable|unavailable/i);
     });
   });
+
+  // Manager-tools wiring: evaluateTrade / getRosRankings / recommendStartSit /
+  // getMatchupGrid call the new /api/tools/* backend endpoints. Covered at the
+  // definition level (schema present) plus one happy-path execute() per tool,
+  // matching the minimal-mock style already used above.
+  describe('manager tools', () => {
+    it('are all registered with an input schema', async () => {
+      const tools = await getTools();
+      for (const name of [
+        'evaluateTrade',
+        'getRosRankings',
+        'recommendStartSit',
+        'getMatchupGrid'
+      ]) {
+        expect(tools).toHaveProperty(name);
+        expect((tools[name] as unknown as { inputSchema: unknown }).inputSchema).toBeDefined();
+      }
+    });
+
+    it('evaluateTrade resolves names to ids and returns the trade verdict', async () => {
+      const tools = await getTools();
+      vi.stubGlobal(
+        'fetch',
+        vi.fn(async (url: string) => {
+          if (url.includes('/api/players/search')) {
+            return new Response(
+              JSON.stringify([{ player_id: 'p1', player_name: 'Mock Player' }]),
+              { status: 200 }
+            );
+          }
+          return new Response(
+            JSON.stringify({
+              from_week: 5,
+              side_a: { players: [], total_ros_points: 100, unmatched_player_ids: [] },
+              side_b: { players: [], total_ros_points: 120, unmatched_player_ids: [] },
+              delta_ros_points: 20,
+              verdict: 'You win this trade — you gain 20.0 projected rest-of-season points.',
+              fairness_pct: 16.7
+            }),
+            { status: 200 }
+          );
+        })
+      );
+
+      const result = await tools.evaluateTrade.execute({
+        give: ['Player A'],
+        receive: ['Player B'],
+        season: 2026,
+        scoring: 'half_ppr'
+      } as never);
+
+      expect(result.found).toBe(true);
+      expect(result.delta_ros_points).toBe(20);
+      expect(result.verdict).toMatch(/win/i);
+    });
+
+    it('evaluateTrade reports unresolved player names without calling the trade endpoint', async () => {
+      const tools = await getTools();
+      const fetchSpy = vi.fn(async () => new Response(JSON.stringify([]), { status: 200 }));
+      vi.stubGlobal('fetch', fetchSpy);
+
+      const result = await tools.evaluateTrade.execute({
+        give: ['Nobody Matches'],
+        receive: ['Player B'],
+        season: 2026,
+        scoring: 'half_ppr'
+      } as never);
+
+      expect(result.found).toBe(false);
+      expect(result.message).toMatch(/could not find/i);
+      expect(fetchSpy).not.toHaveBeenCalledWith(
+        expect.stringContaining('/api/tools/trade'),
+        expect.anything()
+      );
+    });
+
+    it('getRosRankings returns rest-of-season rankings', async () => {
+      const tools = await getTools();
+      vi.stubGlobal(
+        'fetch',
+        vi.fn(
+          async () =>
+            new Response(
+              JSON.stringify({
+                from_week: 5,
+                weeks_remaining: 14,
+                players: [
+                  {
+                    player_id: 'p1',
+                    player_name: 'Mock RB',
+                    team: 'KC',
+                    position: 'RB',
+                    ros_points: 150.2,
+                    projected_season_points: 220.5,
+                    vorp: 45.1,
+                    position_rank: 3
+                  }
+                ]
+              }),
+              { status: 200 }
+            )
+        )
+      );
+
+      const result = await tools.getRosRankings.execute({
+        season: 2026,
+        scoring: 'half_ppr',
+        limit: 25
+      } as never);
+
+      expect(result.found).toBe(true);
+      expect(result.rankings).toHaveLength(1);
+      expect(result.weeks_remaining).toBe(14);
+    });
+
+    it('recommendStartSit resolves names, calls compare, and returns the recommendation', async () => {
+      const tools = await getTools();
+      vi.stubGlobal(
+        'fetch',
+        vi.fn(async (url: string) => {
+          if (url.includes('/api/players/search')) {
+            return new Response(
+              JSON.stringify([{ player_id: 'p1', player_name: 'Mock Player' }]),
+              { status: 200 }
+            );
+          }
+          return new Response(
+            JSON.stringify({
+              players: [
+                {
+                  player_id: 'p1',
+                  player_name: 'Mock Player',
+                  team: 'KC',
+                  position: 'RB',
+                  projected_points: 14.2,
+                  projected_floor: 8.1,
+                  projected_ceiling: 20.3,
+                  injury_status: null,
+                  opp_rank_vs_position: 28,
+                  ros_points: 150.2,
+                  recommended: true
+                }
+              ],
+              reason: 'Start Mock Player — highest projection (14.2 pts) this week.'
+            }),
+            { status: 200 }
+          );
+        })
+      );
+
+      const result = await tools.recommendStartSit.execute({
+        playerNames: ['Player A', 'Player B'],
+        season: 2026,
+        week: 5,
+        scoring: 'half_ppr'
+      } as never);
+
+      expect(result.found).toBe(true);
+      expect(result.reason).toMatch(/start/i);
+    });
+
+    it('getMatchupGrid returns the defense-vs-position grid sorted by rank', async () => {
+      const tools = await getTools();
+      vi.stubGlobal(
+        'fetch',
+        vi.fn(
+          async () =>
+            new Response(
+              JSON.stringify({
+                season: 2026,
+                week: 5,
+                cells: [
+                  { team: 'KC', position: 'RB', avg_pts_allowed: 22.1, rank: 28 },
+                  { team: 'BAL', position: 'RB', avg_pts_allowed: 10.4, rank: 1 }
+                ]
+              }),
+              { status: 200 }
+            )
+        )
+      );
+
+      const result = await tools.getMatchupGrid.execute({} as never);
+
+      expect(result.found).toBe(true);
+      const cells = result.cells as Array<{ rank: number }>;
+      expect(cells[0].rank).toBe(1);
+    });
+  });
 });

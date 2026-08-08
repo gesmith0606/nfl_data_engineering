@@ -28,6 +28,11 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/tools", tags=["tools"])
 
 _SEASON_WEEKS = 18
+_SKILL_POSITIONS = ("QB", "RB", "WR", "TE")
+_INJURY_ZERO_STATUSES = {"OUT", "IR", "PUP", "NFI", "SUSPENDED"}
+_INJURY_DOUBTFUL_MULT = 0.85
+_MATCHUP_RANK_MIN, _MATCHUP_RANK_MAX = 1, 32
+_MATCHUP_FACTOR_MIN, _MATCHUP_FACTOR_MAX = 0.95, 1.05
 
 
 # ---------------------------------------------------------------------------
@@ -203,18 +208,174 @@ def _preseason_scored(season: int, scoring: str) -> pd.DataFrame:
     return df
 
 
-def _with_ros(df: pd.DataFrame, from_week: int) -> pd.DataFrame:
-    """Add ros_points = season points x remaining-season fraction.
+def _remaining_schedule(
+    season: int, from_week: int
+) -> Optional[Dict[str, Dict[str, Any]]]:
+    """Schedule-derived per-team game counts for *season*.
 
-    ponytail: linear proration of the season-long projection; per-week
-    re-projection (matchups, injuries) is the upgrade path once weekly
-    ROS artifacts exist.
+    Returns ``{"total_games": {team: n}, "remaining_opponents": {team: [opp, ...]}}``
+    where ``remaining_opponents`` covers weeks ``[from_week, 18]`` (regular
+    season only). Returns None when the season's schedule parquet isn't on
+    disk so callers can fail open to linear proration.
     """
-    remaining = max(0, _SEASON_WEEKS - from_week + 1)
+    try:
+        sched_files = sorted(
+            glob.glob(
+                str(
+                    DATA_DIR
+                    / "bronze"
+                    / "schedules"
+                    / f"season={season}"
+                    / "**"
+                    / "*.parquet"
+                ),
+                recursive=True,
+            )
+        )
+        if not sched_files:
+            return None
+        sched = pd.read_parquet(sched_files[-1])
+        if not {"week", "home_team", "away_team"}.issubset(sched.columns):
+            return None
+        if "game_type" in sched.columns:
+            sched = sched[sched["game_type"] == "REG"]
+        sched = sched[sched["week"] <= _SEASON_WEEKS]
+        if sched.empty:
+            return None
+        total_games: Dict[str, int] = {}
+        remaining_opponents: Dict[str, List[str]] = {}
+        remaining = sched[sched["week"] >= from_week]
+        for _, g in sched.iterrows():
+            home, away = str(g["home_team"]), str(g["away_team"])
+            total_games[home] = total_games.get(home, 0) + 1
+            total_games[away] = total_games.get(away, 0) + 1
+        for _, g in remaining.iterrows():
+            home, away = str(g["home_team"]), str(g["away_team"])
+            remaining_opponents.setdefault(home, []).append(away)
+            remaining_opponents.setdefault(away, []).append(home)
+        return {"total_games": total_games, "remaining_opponents": remaining_opponents}
+    except Exception:  # pragma: no cover — any data gap degrades to linear
+        logger.warning("remaining-schedule lookup failed", exc_info=True)
+        return None
+
+
+def _latest_defense_rank_map() -> Dict[tuple, int]:
+    """(team, position) -> latest available defense-vs-position rank.
+
+    1 = toughest matchup (fewest fantasy pts allowed), 32 = softest.
+    """
+    try:
+        pos_files = sorted(
+            glob.glob(
+                str(
+                    DATA_DIR
+                    / "silver"
+                    / "defense"
+                    / "positional"
+                    / "season=*"
+                    / "opp_rankings_*.parquet"
+                )
+            )
+        )
+        if not pos_files:
+            return {}
+        ranks = pd.read_parquet(pos_files[-1])
+        if not {"week", "team", "position", "rank"}.issubset(ranks.columns):
+            return {}
+        ranks = ranks[ranks["week"] <= _SEASON_WEEKS]
+        ranks = (
+            ranks.sort_values("week")
+            .groupby(["team", "position"], as_index=False)
+            .last()
+        )
+        return {
+            (str(r["team"]), str(r["position"]).upper()): int(r["rank"])
+            for _, r in ranks.iterrows()
+        }
+    except Exception:  # pragma: no cover — any data gap degrades gracefully
+        logger.warning("defense rank lookup failed", exc_info=True)
+        return {}
+
+
+def _with_ros(df: pd.DataFrame, from_week: int) -> pd.DataFrame:
+    """Add ros_points = per-game rate x actual remaining games, tilted by
+    matchup difficulty and discounted for injury status.
+
+    ponytail ceiling: still no per-week stat re-projection — the existing
+    season-long heuristic/ML total is just reshaped across the player's
+    ACTUAL remaining games (bye weeks excluded via the schedule, so
+    per-game rate = season points / team's total scheduled games), tilted
+    +/-5% by the mean opponent defense-vs-position rank over those games
+    (rank 32 = softest schedule = 1.05x, rank 1 = toughest = 0.95x), and
+    zeroed for OUT/IR/PUP/NFI/SUSPENDED or cut 15% for DOUBTFUL when
+    injury_status is present. Falls back to the original linear
+    remaining/18 proration whenever the season's schedule or defense-rank
+    parquet isn't on disk — never raises/500s.
+    """
     df = df.copy()
-    df["ros_points"] = (
-        df["projected_season_points"].fillna(0) * remaining / _SEASON_WEEKS
+    remaining_weeks = max(0, _SEASON_WEEKS - from_week + 1)
+    linear = (
+        df["projected_season_points"].fillna(0) * remaining_weeks / _SEASON_WEEKS
     ).round(1)
+
+    season: Optional[int] = None
+    if "proj_season" in df.columns and not df.empty:
+        try:
+            season = int(df["proj_season"].dropna().iloc[0])
+        except (TypeError, ValueError, IndexError):
+            season = None
+
+    sched = _remaining_schedule(season, from_week) if season else None
+    if sched is None:
+        df["ros_points"] = linear
+        return df
+
+    total_games_map = sched["total_games"]
+    remaining_opp_map = sched["remaining_opponents"]
+    team_col = df["team"].astype(str)
+
+    games_remaining_map = {t: len(v) for t, v in remaining_opp_map.items()}
+    games_remaining = team_col.map(games_remaining_map).fillna(0.0)
+    games_total = team_col.map(total_games_map).fillna(float(_SEASON_WEEKS - 1))
+    games_total = games_total.where(games_total > 0, float(_SEASON_WEEKS - 1))
+
+    per_game = df["projected_season_points"].fillna(0) / games_total
+    ros = per_game * games_remaining
+
+    rank_map = _latest_defense_rank_map()
+    if rank_map:
+        team_pos_mean_rank: Dict[tuple, float] = {}
+        for team, opponents in remaining_opp_map.items():
+            for pos in _SKILL_POSITIONS:
+                opp_ranks = [
+                    rank_map[(opp, pos)] for opp in opponents if (opp, pos) in rank_map
+                ]
+                if opp_ranks:
+                    team_pos_mean_rank[(team, pos)] = sum(opp_ranks) / len(opp_ranks)
+        pos_col = df["position"].astype(str).str.upper()
+        mean_rank = pd.Series(
+            [team_pos_mean_rank.get((t, p)) for t, p in zip(team_col, pos_col)],
+            index=df.index,
+            dtype="float64",
+        )
+        span = _MATCHUP_FACTOR_MAX - _MATCHUP_FACTOR_MIN
+        factor = (
+            _MATCHUP_FACTOR_MIN
+            + (mean_rank - _MATCHUP_RANK_MIN)
+            / (_MATCHUP_RANK_MAX - _MATCHUP_RANK_MIN)
+            * span
+        )
+        factor = factor.clip(_MATCHUP_FACTOR_MIN, _MATCHUP_FACTOR_MAX).fillna(1.0)
+        ros = ros * factor
+
+    if "injury_status" in df.columns:
+        status = df["injury_status"].astype(str).str.upper()
+        mult = pd.Series(1.0, index=df.index)
+        mult[status.isin(_INJURY_ZERO_STATUSES)] = 0.0
+        mult[status == "DOUBTFUL"] = _INJURY_DOUBTFUL_MULT
+        ros = ros * mult
+
+    df["ros_points"] = ros.fillna(0).round(1)
     return df
 
 
@@ -367,34 +528,12 @@ def _opp_rank_lookup(season: int, week: int) -> Dict[tuple, int]:
             home, away = str(g.get("home_team")), str(g.get("away_team"))
             opp[home] = away
             opp[away] = home
-        pos_files = sorted(
-            glob.glob(
-                str(
-                    DATA_DIR
-                    / "silver"
-                    / "defense"
-                    / "positional"
-                    / "season=*"
-                    / "opp_rankings_*.parquet"
-                )
-            )
-        )
-        if not pos_files:
+        rank_by = _latest_defense_rank_map()
+        if not rank_by:
             return {}
-        ranks = pd.read_parquet(pos_files[-1])
-        ranks = ranks[ranks["week"] <= _SEASON_WEEKS]
-        ranks = (
-            ranks.sort_values("week")
-            .groupby(["team", "position"], as_index=False)
-            .last()
-        )
-        rank_by = {
-            (str(r["team"]), str(r["position"]).upper()): int(r["rank"])
-            for _, r in ranks.iterrows()
-        }
         out: Dict[tuple, int] = {}
         for team, opponent in opp.items():
-            for pos in ("QB", "RB", "WR", "TE"):
+            for pos in _SKILL_POSITIONS:
                 if (opponent, pos) in rank_by:
                     out[(team, pos)] = rank_by[(opponent, pos)]
         return out
