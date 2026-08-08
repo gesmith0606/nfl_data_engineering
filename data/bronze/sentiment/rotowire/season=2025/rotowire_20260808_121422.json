@@ -1,0 +1,117 @@
+{
+  "fetch_run_id": "28300397-6a58-4336-9bb6-7f180e814908",
+  "source": "rotowire",
+  "fetched_at": "2026-08-08T12:14:22.016396+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632906",
+      "url": "https://www.rotowire.com//football/player/tank-dell-16935",
+      "permalink": "",
+      "title": "Tank Dell: Week 1 status unclear",
+      "body_text": "Dell said, \"I'm taking it one day at a time\" when asked Friday about his potential availability for Week 1 of the regular season versus Buffalo, DJ Bien-Aime of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-07T07:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tank Dell"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632902",
+      "url": "https://www.rotowire.com//football/player/tyjae-spears-16941",
+      "permalink": "",
+      "title": "Tyjae Spears: Exits practice early Friday",
+      "body_text": "Spears is dealing with some soreness and irritation, which caused him to depart practice early Friday, Turron Davenport of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-07T07:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyjae Spears",
+        "Friday Spears",
+        "Turron Davenport"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632885",
+      "url": "https://www.rotowire.com//football/player/josh-jacobs-13582",
+      "permalink": "",
+      "title": "Josh Jacobs: DNP again Friday",
+      "body_text": "Jacobs (groin) isn't practicing Friday, Matt Schneidman of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-07T06:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Friday Jacobs",
+        "Matt Schneidman",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632855",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Harbaugh downplays exit from practice",
+      "body_text": "Coach John Harbaugh said Skattebo's early exit from Friday's practice is \"nothing serious at all,\" Dan Duggan of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-07T01:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Coach John",
+        "Dan Duggan",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632851",
+      "url": "https://www.rotowire.com//football/player/bhayshul-tuten-18524",
+      "permalink": "",
+      "title": "Bhayshul Tuten: Rotates with Rodriguez in scrimmage",
+      "body_text": "During Friday's scrimmage, Tuten started the first drive with the Jaguars' offense with LeQuint Allen mixing in on third down, then Chris Rodriguez started the second drive before rotating with Tuten, John Shipley of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-07T10:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bhayshul Tuten",
+        "During Friday",
+        "Chris Rodriguez",
+        "John Shipley"
+      ],
+      "resolved_player_ids": [
+        "00-0040719",
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    }
+  ]
+}

@@ -1,0 +1,518 @@
+{
+  "fetch_run_id": "74c3f1fd-4edb-4c01-a096-b209c3f53415",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-08T12:14:09.637570+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-once-chased-down-herschel-walker",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-once-chased-down-herschel-walker",
+      "title": "Adam Vinatieri once chased down Herschel Walker",
+      "body_text": "The Hall of Fame career of former Patriots and Colts kicker Adam Vinatieri had many highlights.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T11:56:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adam Vinatieri",
+        "Herschel Walker",
+        "The Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-set-to-pass-marcus-allen-for-third-most-rushing-tds-in-nfl-history",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-set-to-pass-marcus-allen-for-third-most-rushing-tds-in-nfl-history",
+      "title": "Derrick Henry set to pass Marcus Allen for third-most rushing TDs in NFL history",
+      "body_text": "Ravens running back Derrick Henry isn't even thinking about retiring, which means he's going to add to an already impressive list of career achievements.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-08T11:07:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry",
+        "Marcus Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0032764",
+        "00-0034335"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-fitzgerald-refuses-to-call-himself-retired",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-fitzgerald-refuses-to-call-himself-retired",
+      "title": "Larry Fitzgerald refuses to call himself \"retired\"",
+      "body_text": "Larry Fitzgerald will be inducted into the Pro Football Hall of Fame today, and he'll turn 43 years old this month.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-08T08:41:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Larry Fitzgerald",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0022921"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-bans-backflips-after-christian-watson-and-marshawn-lloyd-celebrations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-bans-backflips-after-christian-watson-and-marshawn-lloyd-celebrations",
+      "title": "Matt LaFleur bans backflips after Christian Watson and MarShawn Lloyd celebrations",
+      "body_text": "The Packers' head coach said he doesn't want to see any more backflips after two oft-injured players did them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-08T07:40:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Watson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-still-feels-guilty-about-sean-mcdermotts-firing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-still-feels-guilty-about-sean-mcdermotts-firing",
+      "title": "Josh Allen still feels guilty about Sean McDermott's firing",
+      "body_text": "The last of 10 head-coaching vacancies in the 2026 cycle arose when the Bills surprisingly fired Sean McDermott after a divisional-round overtime loss to the Broncos.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T04:04:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-wilf-our-family-intends-to-be-part-of-the-vikings-for-a-very-very-long-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-wilf-our-family-intends-to-be-part-of-the-vikings-for-a-very-very-long-time",
+      "title": "Mark Wilf: Our family intends to be part of the Vikings for a \"very, very long time\"",
+      "body_text": "The Wilfs have owned the Vikings for 21 years.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T03:33:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Wilf",
+        "The Wilfs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dl-matt-henningsen-tears-achilles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dl-matt-henningsen-tears-achilles",
+      "title": "Broncos DL Matt Henningsen tears Achilles",
+      "body_text": "Broncos defensive lineman Matt Henningsen, who was carted off at Friday's practice, was diagnosed with a torn Achilles, Mike Klis of 9News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-08T00:02:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Henningsen",
+        "Achilles Broncos",
+        "Mike Klis"
+      ],
+      "resolved_player_ids": [
+        "00-0037303"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-cam-skattebo-leaving-practice-just-working-through-the-football-shape-part-of-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-cam-skattebo-leaving-practice-just-working-through-the-football-shape-part-of-it",
+      "title": "John Harbaugh on Cam Skattebo leaving practice: Just working through the football shape part of it",
+      "body_text": "Running back Cam Skattebo made an early exit from Friday's practice, but Giants head coach John Harbaugh didn't show much concern about his condition after the workout.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T22:13:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-the-contract-process-was-extremely-stressful",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-the-contract-process-was-extremely-stressful",
+      "title": "Jahmyr Gibbs: The contract process was extremely stressful",
+      "body_text": "There was reason to believe that Lions running back Jahmyr Gibbs was close to signing a contract extension on Thursday morning when he suited up for practice for the first time at training camp and those thoughts became a reality when news of an agreement broke later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T22:01:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-agree-to-terms-with-c-brenden-jaimes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-agree-to-terms-with-c-brenden-jaimes",
+      "title": "Report: Giants agree to terms with C Brenden Jaimes",
+      "body_text": "The Giants are signing free agent center Brenden Jaimes, Dan Duggan of TheAthletic.com reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-07T21:21:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brenden Jaimes",
+        "The Giants",
+        "Dan Duggan"
+      ],
+      "resolved_player_ids": [
+        "00-0036636"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-returns-for-13th-season-after-considering-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-returns-for-13th-season-after-considering-retirement",
+      "title": "DeMarcus Lawrence returns for 13th season after considering retirement",
+      "body_text": "Seahawks defensive end DeMarcus Lawrence capped his 12th NFL season with his first Super Bowl ring.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-07T21:14:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-s-tanner-wall-claim-cb-ahmari-harvey-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-s-tanner-wall-claim-cb-ahmari-harvey-off-waivers",
+      "title": "Dolphins sign S Tanner Wall, claim CB Ahmari Harvey off waivers",
+      "body_text": "The Dolphins doubled down on defensive back moves on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T20:58:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tanner Wall",
+        "Ahmari Harvey",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0041010",
+        "00-0041291"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-db-xavier-woods-place-db-dallis-flowers-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-db-xavier-woods-place-db-dallis-flowers-on-ir",
+      "title": "Bears sign DB Xavier Woods, place DB Dallis Flowers on IR",
+      "body_text": "The Bears signed defensive back Xavier Woods, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-07T20:53:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Xavier Woods",
+        "Dallis Flowers",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0033579",
+        "00-0037395"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-claim-dt-patrick-jenkins-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-claim-dt-patrick-jenkins-off-of-waivers",
+      "title": "Browns claim DT Patrick Jenkins off of waivers",
+      "body_text": "The Browns plucked a defensive lineman off of the waiver wire on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T20:45:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Jenkins",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040684"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-s-eric-butler",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-s-eric-butler",
+      "title": "Patriots sign S Eric Butler",
+      "body_text": "The Patriots have made a pair of roster moves on Friday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-07T20:42:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Butler",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-rb-jashaun-corbin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-rb-jashaun-corbin",
+      "title": "Cowboys sign RB Jashaun Corbin",
+      "body_text": "The Cowboys made a change in their running back room on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T20:37:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jashaun Corbin",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037410"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/boye-mafe-on-cashius-howell-hes-gonna-be-a-dog-in-this-league",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/boye-mafe-on-cashius-howell-hes-gonna-be-a-dog-in-this-league",
+      "title": "Boye Mafe on Cashius Howell: He's gonna be a dog in this league",
+      "body_text": "Bengals rookie defensive end Cashius Howell has spent most of training camp playing with the second team behind Myles Murphy and Boye Mafe.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-07T20:33:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Boye Mafe",
+        "Cashius Howell",
+        "Myles Murphy"
+      ],
+      "resolved_player_ids": [
+        "00-0038133",
+        "00-0041546",
+        "00-0038546"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-to-sign-lb-jamon-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-to-sign-lb-jamon-johnson",
+      "title": "Ravens to sign LB Jamon Johnson",
+      "body_text": "The Ravens will close out the week by adding a linebacker.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T20:29:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamon Johnson",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0040037"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-zay-flowers-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-zay-flowers-deal",
+      "title": "Inside the Zay Flowers deal",
+      "body_text": "Earlier this week, the Ravens and receiver Zay Flowers agreed to terms on a new deal that, by way of new money, put him in the Justin Jefferson tax bracket at $35 million annually.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-07T20:23:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Flowers",
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0036322"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-cb-cam-taylor-britt-suspended-one-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-cb-cam-taylor-britt-suspended-one-game",
+      "title": "Colts CB Cam Taylor-Britt suspended one game",
+      "body_text": "The Colts won't be able to put cornerback Cam Taylor-Britt in the lineup for their season opener against the Ravens.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T20:09:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Taylor",
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-on-makai-lemon-working-like-crazy-to-get-him-healthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-on-makai-lemon-working-like-crazy-to-get-him-healthy",
+      "title": "Nick Sirianni on Makai Lemon: Working like crazy to get him healthy",
+      "body_text": "Eagles rookie wide receiver Makai Lemon was out of practice on Tuesday due to a hamstring injury and he has missed the rest of the week's work as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T19:55:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [
+        "00-0040867"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-jahmyr-gibbs-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-jahmyr-gibbs-deal",
+      "title": "Inside the Jahmyr Gibbs deal",
+      "body_text": "The Gibbs deal is virtually identical in structure to the Bijan Robinson deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-07T19:53:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "The Gibbs",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0039139",
+        "00-0038542"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/peter-skoronski-signs-four-year-extension-with-titans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/peter-skoronski-signs-four-year-extension-with-titans",
+      "title": "Peter Skoronski signs four-year extension with Titans",
+      "body_text": "The Titans have made a significant commitment to one of their key offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-07T19:25:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Peter Skoronski",
+        "Titans The"
+      ],
+      "resolved_player_ids": [
+        "00-0039034"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-de-daniel-rickert",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-de-daniel-rickert",
+      "title": "Rams sign DE Daniel Rickert",
+      "body_text": "The Rams have added a defensive lineman.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-07T19:10:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Rickert",
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-nothing-but-respect-for-christian-gonzalez",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-nothing-but-respect-for-christian-gonzalez",
+      "title": "A.J. Brown: Nothing but respect for Christian Gonzalez",
+      "body_text": "Wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T19:04:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-bieniemy-is-watching-chiefs-practice-live-streams-as-mia-bieniemy-continues-to-recover",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-bieniemy-is-watching-chiefs-practice-live-streams-as-mia-bieniemy-continues-to-recover",
+      "title": "Eric Bieniemy is watching Chiefs practice live streams as Mia Bieniemy continues to recover",
+      "body_text": "Chiefs offensive coordinator Eric Bieniemy is staying involved with the team while continuing to support his wife, Mia Bieniemy, as she recovers from a shooting.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-07T18:42:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Bieniemy",
+        "Mia Bieniemy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dl-matt-henningsen-carted-off-at-fridays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dl-matt-henningsen-carted-off-at-fridays-practice",
+      "title": "Broncos DL Matt Henningsen carted off at Friday's practice",
+      "body_text": "Broncos defensive lineman Matt Henningsen had to be carted off the field during Friday's training camp practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-07T18:38:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Henningsen"
+      ],
+      "resolved_player_ids": [
+        "00-0037303"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-agree-to-sign-lb-deion-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-agree-to-sign-lb-deion-jones",
+      "title": "Saints agree to sign LB Deion Jones",
+      "body_text": "Deion Jones is completing the cycle.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-07T18:27:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0032388"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-commanders-to-sign-ol-max-scharping",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-commanders-to-sign-ol-max-scharping",
+      "title": "Report: Commanders to sign OL Max Scharping",
+      "body_text": "The Commanders are adding a player to their offensive line.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-07T18:13:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Max Scharping",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0035245"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-on-scuffle-between-maxx-crosby-and-kirk-cousins-thats-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-on-scuffle-between-maxx-crosby-and-kirk-cousins-thats-training-camp",
+      "title": "Klint Kubiak on scuffle between Maxx Crosby and Kirk Cousins: \"That's training camp\"",
+      "body_text": "It sounds like the end of Friday’s Raiders practice brought out a little fire between Kirk Cousins and Maxx Crosby.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-07T18:04:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Maxx Crosby",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0034973",
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}
