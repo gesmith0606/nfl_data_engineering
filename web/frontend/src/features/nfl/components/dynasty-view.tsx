@@ -15,6 +15,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { FadeIn } from '@/lib/motion-primitives';
+import { toolSeason } from '@/lib/nfl/season';
 
 // ponytail: minimal fetch client scoped to this component — mirrors the
 // request()/BASE_URL pattern in @/lib/nfl/api.ts without touching that file.
@@ -89,7 +90,7 @@ function Spinner() {
 
 export function DynastyView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = toolSeason(cw?.season);
   const [position, setPosition] = useState('ALL');
 
   const rankings = useQuery({

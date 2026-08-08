@@ -16,6 +16,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { FadeIn } from '@/lib/motion-primitives';
+import { toolSeason } from '@/lib/nfl/season';
 
 const POS_ORDER = ['QB', 'RB', 'WR', 'TE'] as const;
 
@@ -26,7 +27,7 @@ function statusVariant(status: string): 'destructive' | 'secondary' {
 
 export function InjuryDepthView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = toolSeason(cw?.season);
   const week = cw?.week ?? 1;
   const [team, setTeam] = useState('PHI');
 

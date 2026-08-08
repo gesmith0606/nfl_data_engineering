@@ -399,6 +399,26 @@ def _check_scoring(scoring: str) -> None:
         raise HTTPException(status_code=400, detail=f"Invalid scoring: {scoring}")
 
 
+def _require_weekly_parquet(season: int, week: int) -> None:
+    """404 when no weekly Gold parquet exists for the slice.
+
+    projection_service silently substitutes PRESEASON data for a missing
+    current-season week — fine for the projections page, but a start/sit or
+    injury answer built on season-long numbers labeled as a week is a lie.
+    Guard before calling the service; the frontends already render a
+    friendly "publishes when the season starts" state on 404.
+    """
+    week_dir = DATA_DIR / "gold" / "projections" / f"season={season}" / f"week={week}"
+    if not week_dir.exists() or not any(week_dir.glob("*.parquet")):
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"No weekly projections for season {season} week {week} yet — "
+                "weekly tools go live once the season starts."
+            ),
+        )
+
+
 # ---------------------------------------------------------------------------
 # Rest-of-season rankings
 # ---------------------------------------------------------------------------
@@ -554,6 +574,7 @@ def compare_players(
     id_list = [i.strip() for i in ids.split(",") if i.strip()]
     if not 2 <= len(id_list) <= 4:
         raise HTTPException(status_code=400, detail="Provide 2-4 player ids.")
+    _require_weekly_parquet(season, week)
 
     try:
         df = projection_service.get_projections(
@@ -804,6 +825,7 @@ def injury_report(
 ) -> InjuryResponse:
     """Fantasy-relevant players carrying an injury designation this week."""
     _check_scoring(scoring)
+    _require_weekly_parquet(season, week)
     try:
         df = projection_service.get_projections(
             season=season, week=week, scoring_format=scoring, limit=1000

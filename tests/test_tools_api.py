@@ -120,3 +120,15 @@ def test_espn_import_validates():
     # No network in unit tests — invalid body only.
     resp = client.post("/api/espn/import", json={"league_id": "x"})
     assert resp.status_code == 422
+
+
+def test_compare_404_when_no_weekly_parquet():
+    # 2030 has no weekly Gold data — the preseason fallback must NOT leak
+    # season-long numbers through the weekly comparator.
+    resp = client.get("/api/tools/compare?ids=a,b&season=2030&week=1")
+    assert resp.status_code == 404
+
+
+def test_injuries_404_when_no_weekly_parquet():
+    resp = client.get("/api/tools/injuries?season=2030&week=1")
+    assert resp.status_code == 404

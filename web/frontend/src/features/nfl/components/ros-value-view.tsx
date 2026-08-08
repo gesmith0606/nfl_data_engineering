@@ -16,6 +16,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { FadeIn } from '@/lib/motion-primitives';
+import { toolSeason } from '@/lib/nfl/season';
 
 const POSITIONS = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
 
@@ -29,7 +30,7 @@ function Spinner() {
 
 export function RosValueView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = toolSeason(cw?.season);
   const [position, setPosition] = useState('ALL');
   const [teams, setTeams] = useState(12);
   const [budget, setBudget] = useState(200);
