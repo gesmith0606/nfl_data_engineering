@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { EspnImportCard } from '@/features/nfl/components/espn-import-card';
+import { YahooConnectCard } from '@/features/nfl/components/yahoo-connect-card';
 import { SleeperLeagueView } from '@/features/nfl/components/sleeper-league-view';
 import { FadeIn } from '@/lib/motion-primitives';
 
@@ -20,6 +21,7 @@ export default function LeaguesPage() {
       <FadeIn className='space-y-4'>
         <SleeperLeagueView />
         <EspnImportCard />
+        <YahooConnectCard />
       </FadeIn>
     </PageContainer>
   );

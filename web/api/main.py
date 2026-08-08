@@ -34,6 +34,7 @@ from .routers import (
     teams,
     teams_defense,
     tools,
+    yahoo,
 )
 
 app = FastAPI(
@@ -127,6 +128,7 @@ app.include_router(health_freshness.router, prefix="/api")
 app.include_router(ops.router, prefix="/api")
 app.include_router(tools.router, prefix="/api")
 app.include_router(espn.router, prefix="/api")
+app.include_router(yahoo.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------

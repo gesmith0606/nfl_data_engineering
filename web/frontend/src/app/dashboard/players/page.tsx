@@ -1,5 +1,6 @@
 import PageContainer from '@/components/layout/page-container';
 import { PlayerSearch } from '@/features/nfl/components/player-search';
+import { WatchlistPanel } from '@/features/nfl/components/watchlist-panel';
 
 export const metadata = {
   title: 'Players - NFL Analytics'
@@ -8,11 +9,14 @@ export const metadata = {
 export default function PlayersPage() {
   return (
     <PageContainer
-      scrollable={false}
+      scrollable={true}
       pageTitle='Player Search'
       pageDescription='Search and view detailed player projections'
     >
-      <PlayerSearch />
+      <div className='space-y-4'>
+        <PlayerSearch />
+        <WatchlistPanel />
+      </div>
     </PageContainer>
   );
 }

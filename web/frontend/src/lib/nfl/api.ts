@@ -962,3 +962,32 @@ export async function importEspnLeague(body: {
     body: JSON.stringify(body),
   });
 }
+
+// --- Yahoo connect + league import (deferred-items sprint) -----------------
+
+export async function fetchYahooStatus(): Promise<import('./types').YahooStatus> {
+  return request(`/api/yahoo/status`);
+}
+
+export async function fetchYahooAuthUrl(): Promise<{ url: string; redirect_mode: string }> {
+  return request(`/api/yahoo/auth-url`);
+}
+
+/** oob fallback: exchange a pasted authorization code. */
+export async function connectYahoo(code: string): Promise<import('./types').YahooStatus> {
+  return request(`/api/yahoo/connect`, {
+    method: 'POST',
+    body: JSON.stringify({ code })
+  });
+}
+
+export async function fetchYahooLeagues(season?: number): Promise<import('./types').YahooLeague[]> {
+  const params = new URLSearchParams();
+  if (season) params.set('season', String(season));
+  const qs = params.toString();
+  return request(`/api/yahoo/leagues${qs ? `?${qs}` : ''}`);
+}
+
+export async function fetchYahooTeams(leagueKey: string): Promise<import('./types').YahooTeamsResponse> {
+  return request(`/api/yahoo/league/${encodeURIComponent(leagueKey)}/teams`);
+}

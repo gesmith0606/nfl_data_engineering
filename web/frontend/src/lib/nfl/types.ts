@@ -1408,3 +1408,35 @@ export interface EspnImportResponse {
   scoring_type: string | null;
   teams: EspnTeam[];
 }
+
+export interface YahooStatus {
+  has_credentials: boolean;
+  connected: boolean;
+  redirect_mode: 'callback' | 'oob';
+}
+
+export interface YahooLeague {
+  league_key: string;
+  league_id: string;
+  name: string;
+  draft_status: string;
+}
+
+export interface YahooRosterPlayer {
+  player_name: string;
+  position: string;
+  team: string | null;
+  selected_position: string | null;
+}
+
+export interface YahooTeam {
+  team_key: string;
+  name: string;
+  is_my_team: boolean;
+  roster: YahooRosterPlayer[];
+}
+
+export interface YahooTeamsResponse {
+  league_key: string;
+  teams: YahooTeam[];
+}

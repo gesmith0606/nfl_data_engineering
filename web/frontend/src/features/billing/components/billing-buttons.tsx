@@ -12,9 +12,18 @@ import { cn } from '@/lib/utils';
  */
 async function redirectToBillingUrl(
   endpoint: string,
-  onUnauthenticated: () => void
+  onUnauthenticated: () => void,
+  body?: Record<string, string>
 ): Promise<void> {
-  const res = await fetch(endpoint, { method: 'POST' });
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    ...(body
+      ? {
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        }
+      : {})
+  });
   if (res.status === 401) {
     onUnauthenticated();
     return;
@@ -32,10 +41,13 @@ const CTA_CLASSES =
 
 export function CheckoutButton({
   className,
-  children = 'Start 7-day free trial'
+  children = 'Start 7-day free trial',
+  plan
 }: {
   className?: string;
   children?: React.ReactNode;
+  /** 'season' selects the season-pass Stripe Price when configured. */
+  plan?: 'season';
 }) {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
@@ -47,8 +59,10 @@ export function CheckoutButton({
       onClick={async () => {
         setBusy(true);
         try {
-          await redirectToBillingUrl('/api/billing/checkout', () =>
-            router.push('/auth/sign-up?redirect_url=/pricing')
+          await redirectToBillingUrl(
+            '/api/billing/checkout',
+            () => router.push('/auth/sign-up?redirect_url=/pricing'),
+            plan ? { plan } : undefined
           );
         } finally {
           setBusy(false);

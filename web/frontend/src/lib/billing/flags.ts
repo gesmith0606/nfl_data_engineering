@@ -24,3 +24,11 @@ export function isStripeEnabled(): boolean {
 export function getStripePriceId(): string | undefined {
   return process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || undefined;
 }
+
+/**
+ * Optional season-pass Stripe Price (one payment covers the NFL season).
+ * Absent env → the seasonal option simply doesn't render; monthly-only.
+ */
+export function getStripeSeasonPriceId(): string | undefined {
+  return process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_SEASON || undefined;
+}
