@@ -40,9 +40,12 @@ prediction ledger) into **third-party-verified proof**, the way 4for4 built its
 
 ## Work items (when picked up)
 
-1. **Export script** `scripts/export_rankings_submission.py` — weekly Gold →
-   the CSV layout FantasyPros specifies at onboarding (exact columns TBD by
-   their partner docs; typically rank, player name, team, position).
+1. **Export script** — BUILT (2026-08-08): `scripts/export_rankings_submission.py`
+   writes per-position weekly CSVs (`--weekly --season S --week W`) and
+   overall+positional preseason draft CSVs (`--preseason --season S`) to
+   `data/exports/rankings/`. Column layout is a flag
+   (`--columns rank,player_name,team,position` default) so the partner spec
+   is a one-flag adjustment, not a rewrite.
 2. **Cron hook** — append to the existing Thursday/weekly pipeline so the
    submission file is produced automatically; manual upload until they grant
    API/feed access.
@@ -57,6 +60,8 @@ prediction ledger) into **third-party-verified proof**, the way 4for4 built its
 
 - 2026-08-08: playbook written (deferred-items sprint). Entry itself is an
   external action requiring the user's application + FantasyPros onboarding;
-  no submission has been made yet. The export script is intentionally NOT
-  built until their partner spec is in hand (ponytail: don't guess a CSV
-  format a partner doc will define).
+  no submission has been made yet.
+- 2026-08-08 (later): export script built with a configurable column layout —
+  ready to run the moment onboarding specifies the format. Remaining steps
+  are all user-owned: application email, expert identity, then wire the
+  export into the weekly cron once submissions start.
