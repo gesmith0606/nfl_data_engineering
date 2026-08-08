@@ -152,6 +152,22 @@ export const navGroups: NavGroup[] = [
         isActive: false,
         shortcut: ['j', 'j'],
         items: []
+      },
+      {
+        title: 'Dynasty & Rookies',
+        url: '/dashboard/dynasty',
+        icon: 'sparkles',
+        isActive: false,
+        shortcut: ['x', 'x'],
+        items: []
+      },
+      {
+        title: 'Weekly Report',
+        url: '/dashboard/report',
+        icon: 'news',
+        isActive: false,
+        shortcut: ['e', 'e'],
+        items: []
       }
     ]
   }

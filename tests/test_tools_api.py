@@ -1,8 +1,11 @@
 """Smoke tests for /api/tools and /api/espn routers (market-gap sprint)."""
 
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
+import web.api.routers.tools as tools_mod
 from web.api.main import app
 
 client = TestClient(app)
@@ -24,6 +27,37 @@ def test_ros_rankings_sorted_and_prorated():
     # Proration: ros < season points mid-season.
     top = body["players"][0]
     assert 0 < top["ros_points"] < top["projected_season_points"]
+
+
+def test_ros_schedule_aware_sorted_and_bounded():
+    """Schedule/injury-aware ROS: still sorted desc, still <= season points mid-season."""
+    resp = client.get("/api/tools/ros?season=2026&week=10&limit=25")
+    _skip_if_no_data(resp)
+    assert resp.status_code == 200
+    players = resp.json()["players"]
+    pts = [p["ros_points"] for p in players]
+    assert pts == sorted(pts, reverse=True)
+    for p in players:
+        assert 0 <= p["ros_points"] <= p["projected_season_points"]
+
+
+def test_ros_fails_open_when_schedule_missing(monkeypatch):
+    """No schedule/rank parquet on disk -> linear remaining/18 fallback, still 200.
+
+    DATA_DIR backs both the schedule and defense-rank globs in tools.py, but
+    NOT the preseason-projection loader (anchored separately in
+    src/projection_store.py) — so pointing it at an empty directory
+    exercises the fail-open path without also breaking projection loading.
+    """
+    monkeypatch.setattr(tools_mod, "DATA_DIR", Path("Z:/does/not/exist"))
+    resp = client.get("/api/tools/ros?season=2026&week=10&limit=20")
+    _skip_if_no_data(resp)
+    assert resp.status_code == 200
+    body = resp.json()
+    remaining = body["weeks_remaining"]
+    for p in body["players"]:
+        expected = round(p["projected_season_points"] * remaining / 18, 1)
+        assert p["ros_points"] == expected
 
 
 def test_trade_verdict_consistent():

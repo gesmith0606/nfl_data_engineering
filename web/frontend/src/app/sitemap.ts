@@ -50,7 +50,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5
     },
-    ...['trade', 'start-sit', 'value', 'sos', 'injuries', 'leagues'].map(
+    ...[
+      'trade',
+      'start-sit',
+      'value',
+      'sos',
+      'injuries',
+      'leagues',
+      'dynasty',
+      'report'
+    ].map(
       (slug) => ({
         url: `${BASE_URL}/dashboard/${slug}`,
         lastModified: new Date(),

@@ -43,6 +43,14 @@ AVAILABLE CAPABILITIES:
 - Get overall sentiment summary with bullish/bearish players.
 - Compare our projection for a player against ESPN, Sleeper, and Yahoo (FantasyPros proxy).
 - Get a team's defensive matchup quality by position (QB/RB/WR/TE) for a given week.
+- Evaluate a proposed trade using rest-of-season (VORP-based) value, with a fairness
+  verdict (evaluateTrade).
+- Get rest-of-season player value rankings, not just this week's (getRosRankings).
+- Get a definitive start/sit recommendation for 2-4 players, including opponent
+  defensive rank and rest-of-season value (recommendStartSit) — prefer this over
+  compareStartSit when the user wants a clear verdict, not just raw numbers.
+- Get the league-wide defense-vs-position grid to find the easiest/toughest matchups
+  (getMatchupGrid).
 - When the user has connected a Sleeper league: fetch their actual roster, their
   optimal lineup with drop candidates, and waiver targets scored under their
   league's exact scoring settings.
@@ -134,6 +142,59 @@ async function fastapiGet<T>(path: string): Promise<FetchResult<T>> {
         'The data backend is currently unavailable. Please try again in a moment.'
     };
   }
+}
+
+/** POST a JSON body to the FastAPI backend and parse the JSON response (server-side only). */
+async function fastapiPost<T>(path: string, body: unknown): Promise<FetchResult<T>> {
+  const url = `${FASTAPI_URL}${path}`;
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      cache: 'no-store'
+    });
+    if (res.status === 404) {
+      return { ok: false, reason: 'not_found', message: `No data found at ${path}` };
+    }
+    if (!res.ok) {
+      return {
+        ok: false,
+        reason: 'error',
+        message: `Backend returned HTTP ${res.status} for ${path}`
+      };
+    }
+    const data = await res.json() as T;
+    return { ok: true, data };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`[advisor] FastAPI unreachable at ${url}: ${msg}`);
+    return {
+      ok: false,
+      reason: 'backend_down',
+      message:
+        'The data backend is currently unavailable. Please try again in a moment.'
+    };
+  }
+}
+
+/**
+ * Resolve a player full name to a GSIS player_id via the search endpoint.
+ * The trade and compare tools take ids, not names, so this bridges the
+ * name-based inputs the model naturally produces.
+ */
+async function resolvePlayerId(
+  name: string
+): Promise<{ player_id: string; player_name: string } | null> {
+  type SearchPayload = Array<{ player_id: string; player_name: string }>;
+  const result = await fastapiGet<SearchPayload>(
+    `/api/players/search?q=${encodeURIComponent(name)}`
+  );
+  if (!result.ok || !result.data.length) return null;
+  const lower = name.toLowerCase();
+  const exact = result.data.find((p) => p.player_name.toLowerCase() === lower);
+  const match = exact ?? result.data[0];
+  return { player_id: match.player_id, player_name: match.player_name };
 }
 
 export async function POST(req: Request) {
@@ -1322,6 +1383,324 @@ export async function POST(req: Request) {
             scoring_format: league.scoring_format_label,
             targets,
             target_count: targets.length
+          };
+        }
+      }),
+
+      // Manager-tools wiring: rest-of-season value, trade fairness, matchup-aware
+      // start/sit, and league-wide defense-vs-position grid.
+      evaluateTrade: tool({
+        description:
+          'Evaluate a proposed fantasy trade using rest-of-season value. Give the players on each side by name — returns each side\'s rest-of-season points, the point delta, a fairness percentage, and a plain-language verdict. Use for questions like "should I trade X for Y" or "is this trade fair".',
+        inputSchema: z.object({
+          give: z
+            .array(z.string())
+            .min(1)
+            .describe('Full names of the player(s) you would give away'),
+          receive: z
+            .array(z.string())
+            .min(1)
+            .describe('Full names of the player(s) you would receive'),
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .optional()
+            .describe(
+              'Optional NFL week (1-18) to value from. Omit to let the backend use the current week.'
+            ),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format')
+        }),
+        execute: async ({ give, receive, season, week, scoring }) => {
+          const giveMatches = await Promise.all(give.map(resolvePlayerId));
+          const receiveMatches = await Promise.all(receive.map(resolvePlayerId));
+          const unresolved = [
+            ...give.filter((_, i) => !giveMatches[i]),
+            ...receive.filter((_, i) => !receiveMatches[i])
+          ];
+          if (unresolved.length) {
+            return {
+              found: false,
+              message: `Could not find player(s): ${unresolved.join(', ')}`
+            };
+          }
+
+          const body: Record<string, unknown> = {
+            side_a: giveMatches.map((m) => m!.player_id),
+            side_b: receiveMatches.map((m) => m!.player_id),
+            season,
+            scoring
+          };
+          if (week !== undefined) body.week = week;
+
+          type TradeSide = {
+            players: Array<{
+              player_id: string;
+              player_name: string;
+              team: string | null;
+              position: string;
+              ros_points: number;
+              projected_season_points: number;
+              vorp: number | null;
+              position_rank: number | null;
+            }>;
+            total_ros_points: number;
+            unmatched_player_ids: string[];
+          };
+          type TradePayload = {
+            from_week: number;
+            side_a: TradeSide;
+            side_b: TradeSide;
+            delta_ros_points: number;
+            verdict: string;
+            fairness_pct: number;
+          };
+          const result = await fastapiPost<TradePayload>('/api/tools/trade', body);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+
+          return {
+            found: true,
+            season,
+            from_week: result.data.from_week,
+            scoring_format: scoring,
+            give: result.data.side_a,
+            receive: result.data.side_b,
+            delta_ros_points: result.data.delta_ros_points,
+            fairness_pct: result.data.fairness_pct,
+            verdict: result.data.verdict
+          };
+        }
+      }),
+
+      getRosRankings: tool({
+        description:
+          'Get rest-of-season (not just this week) player value rankings, including VORP and position rank. Use for questions like "who has the best ROS value at RB" or "rank WRs for the rest of the season" — prefer this over getPositionRankings for trade and long-term value questions since that tool is single-week only.',
+        inputSchema: z.object({
+          position: z
+            .enum(['QB', 'RB', 'WR', 'TE', 'K'])
+            .optional()
+            .describe('Optional position filter'),
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .optional()
+            .describe(
+              'Optional from-week (1-18) to value from. Omit to let the backend use the current week.'
+            ),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format'),
+          limit: z
+            .number()
+            .min(1)
+            .max(200)
+            .default(25)
+            .describe('Number of players to return')
+        }),
+        execute: async ({ position, season, week, scoring, limit }) => {
+          const params = new URLSearchParams({
+            season: String(season),
+            scoring,
+            limit: String(limit)
+          });
+          if (week !== undefined) params.set('week', String(week));
+          if (position) params.set('position', position);
+
+          type RosPayload = {
+            from_week: number;
+            weeks_remaining: number;
+            players: Array<{
+              player_id: string;
+              player_name: string;
+              team: string | null;
+              position: string;
+              ros_points: number;
+              projected_season_points: number;
+              vorp: number | null;
+              position_rank: number | null;
+            }>;
+          };
+          const result = await fastapiGet<RosPayload>(`/api/tools/ros?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.players?.length) {
+            return {
+              found: false,
+              message: `No rest-of-season rankings available for season ${season}.`
+            };
+          }
+
+          return {
+            found: true,
+            season,
+            from_week: result.data.from_week,
+            weeks_remaining: result.data.weeks_remaining,
+            scoring_format: scoring,
+            rankings: result.data.players
+          };
+        }
+      }),
+
+      // Named recommendStartSit (not compareStartSit) — the existing
+      // compareStartSit tool's output shape is rendered by a dedicated
+      // CompareCard in the advisor UI; reusing its name with this richer
+      // payload (opponent rank, ros_points, recommended flag) would silently
+      // break that card.
+      recommendStartSit: tool({
+        description:
+          'Get a start/sit recommendation for 2-4 players using this week\'s matchup: projected points, floor/ceiling, injury status, opponent defensive rank vs their position, and rest-of-season value. Returns which player is recommended and why. Prefer this over compareStartSit when the user wants a definitive verdict with matchup context, not just raw side-by-side numbers.',
+        inputSchema: z.object({
+          playerNames: z
+            .array(z.string())
+            .min(2)
+            .max(4)
+            .describe('2-4 player full names to compare head-to-head'),
+          season: z.number().default(2026).describe('NFL season year'),
+          week: z
+            .number()
+            .min(1)
+            .max(18)
+            .optional()
+            .describe(
+              'Optional NFL week (1-18). Omit to let the backend pick the latest available week.'
+            ),
+          scoring: z
+            .enum(['ppr', 'half_ppr', 'standard'])
+            .default('half_ppr')
+            .describe('Fantasy scoring format')
+        }),
+        execute: async ({ playerNames, season, week, scoring }) => {
+          const matches = await Promise.all(playerNames.map(resolvePlayerId));
+          const unresolved = playerNames.filter((_, i) => !matches[i]);
+          if (unresolved.length) {
+            return {
+              found: false,
+              message: `Could not find player(s): ${unresolved.join(', ')}`
+            };
+          }
+
+          let resolvedWeek = week;
+          let resolvedWeekAuto = false;
+          if (resolvedWeek === undefined) {
+            const latest = await resolveDefaultWeek(season);
+            if (latest && latest.week !== null) {
+              resolvedWeek = latest.week;
+              resolvedWeekAuto = true;
+            } else {
+              return {
+                found: false,
+                message:
+                  `No projection data available yet for season ${season}. ` +
+                  'Check back after the weekly pipeline runs on Tuesday.'
+              };
+            }
+          }
+
+          const ids = matches.map((m) => m!.player_id).join(',');
+          const params = new URLSearchParams({
+            ids,
+            season: String(season),
+            week: String(resolvedWeek),
+            scoring
+          });
+
+          type ComparePayload = {
+            players: Array<{
+              player_id: string;
+              player_name: string;
+              team: string | null;
+              position: string;
+              projected_points: number;
+              projected_floor: number | null;
+              projected_ceiling: number | null;
+              injury_status: string | null;
+              opp_rank_vs_position: number | null;
+              ros_points: number | null;
+              recommended: boolean;
+            }>;
+            reason: string;
+          };
+          const result = await fastapiGet<ComparePayload>(`/api/tools/compare?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+
+          return {
+            found: true,
+            season,
+            week: resolvedWeek,
+            resolved_week_auto: resolvedWeekAuto,
+            scoring_format: scoring,
+            players: result.data.players,
+            reason: result.data.reason
+          };
+        }
+      }),
+
+      getMatchupGrid: tool({
+        description:
+          'Get the league-wide defense-vs-position grid: fantasy points allowed and rank (1 = toughest defense) for every team at QB/RB/WR/TE. Use for questions like "which defenses are easiest to exploit at RB" or "toughest matchups this week". Optionally filter to one team or position.',
+        inputSchema: z.object({
+          season: z
+            .number()
+            .optional()
+            .describe('Optional NFL season year; omit for the latest available'),
+          team: z
+            .string()
+            .optional()
+            .describe('Optional NFL team abbreviation to filter to, e.g. "KC"'),
+          position: z
+            .enum(['QB', 'RB', 'WR', 'TE'])
+            .optional()
+            .describe('Optional position filter')
+        }),
+        execute: async ({ season, team, position }) => {
+          const params = new URLSearchParams();
+          if (season) params.set('season', String(season));
+
+          type SosPayload = {
+            season: number;
+            week: number;
+            cells: Array<{
+              team: string;
+              position: string;
+              avg_pts_allowed: number;
+              rank: number;
+            }>;
+          };
+          const result = await fastapiGet<SosPayload>(`/api/tools/sos?${params}`);
+
+          if (!result.ok) {
+            return { found: false, message: result.message };
+          }
+          if (!result.data.cells?.length) {
+            return { found: false, message: 'No defense-vs-position data available.' };
+          }
+
+          let cells = result.data.cells;
+          if (team) cells = cells.filter((c) => c.team === team.toUpperCase());
+          if (position) cells = cells.filter((c) => c.position === position);
+          cells = [...cells].sort((a, b) => a.rank - b.rank);
+
+          return {
+            found: true,
+            season: result.data.season,
+            week: result.data.week,
+            cell_count: cells.length,
+            cells
           };
         }
       })

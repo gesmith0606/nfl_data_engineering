@@ -20,6 +20,7 @@ from .db import check_health as db_health, is_db_enabled
 from .models.schemas import HealthResponse, VersionResponse
 from .routers import (
     draft,
+    dynasty,
     espn,
     games,
     health_freshness,
@@ -34,6 +35,7 @@ from .routers import (
     teams,
     teams_defense,
     tools,
+    weekly_report,
     yahoo,
 )
 
@@ -61,7 +63,12 @@ app.add_middleware(
 API_KEY = os.getenv("API_KEY", "")
 
 # Paths that skip authentication
-_AUTH_EXEMPT_PATHS = {"/api/health", "/api/health/freshness", "/api/docs", "/api/openapi.json"}
+_AUTH_EXEMPT_PATHS = {
+    "/api/health",
+    "/api/health/freshness",
+    "/api/docs",
+    "/api/openapi.json",
+}
 
 
 @app.middleware("http")
@@ -129,6 +136,8 @@ app.include_router(ops.router, prefix="/api")
 app.include_router(tools.router, prefix="/api")
 app.include_router(espn.router, prefix="/api")
 app.include_router(yahoo.router, prefix="/api")
+app.include_router(dynasty.router, prefix="/api")
+app.include_router(weekly_report.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------
