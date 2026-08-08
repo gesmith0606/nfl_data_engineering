@@ -1257,3 +1257,154 @@ export interface MultiCompareResponse {
   players: MultiCompareRow[];
   compared_at: string;
 }
+
+// ---------------------------------------------------------------------------
+// Manager Tools (market-gap sprint 2026-08): /api/tools/* + /api/espn/*
+// ---------------------------------------------------------------------------
+
+export interface RosPlayer {
+  player_id: string;
+  player_name: string;
+  team: string | null;
+  position: string;
+  ros_points: number;
+  projected_season_points: number;
+  vorp: number | null;
+  position_rank: number | null;
+}
+
+export interface RosResponse {
+  season: number;
+  from_week: number;
+  weeks_remaining: number;
+  scoring_format: string;
+  players: RosPlayer[];
+}
+
+export interface TradeSide {
+  players: RosPlayer[];
+  total_ros_points: number;
+  unmatched_player_ids: string[];
+}
+
+export interface TradeResponse {
+  season: number;
+  from_week: number;
+  scoring_format: string;
+  side_a: TradeSide;
+  side_b: TradeSide;
+  delta_ros_points: number;
+  verdict: string;
+  fairness_pct: number;
+}
+
+export interface ToolsComparePlayer {
+  player_id: string;
+  player_name: string;
+  team: string | null;
+  position: string;
+  projected_points: number;
+  projected_floor: number | null;
+  projected_ceiling: number | null;
+  injury_status: string | null;
+  opp_rank_vs_position: number | null;
+  ros_points: number | null;
+  recommended: boolean;
+}
+
+export interface ToolsCompareResponse {
+  season: number;
+  week: number;
+  scoring_format: string;
+  players: ToolsComparePlayer[];
+  reason: string;
+}
+
+export interface AuctionPlayer {
+  player_id: string;
+  player_name: string;
+  team: string | null;
+  position: string;
+  projected_season_points: number;
+  vorp: number | null;
+  auction_value: number;
+}
+
+export interface AuctionResponse {
+  season: number;
+  n_teams: number;
+  budget_per_team: number;
+  scoring_format: string;
+  players: AuctionPlayer[];
+}
+
+export interface SosCell {
+  team: string;
+  position: string;
+  avg_pts_allowed: number;
+  rank: number;
+}
+
+export interface SosResponse {
+  season: number;
+  week: number;
+  cells: SosCell[];
+}
+
+export interface DepthChartEntry {
+  team: string;
+  position: string;
+  player_name: string;
+  depth_rank: number;
+  gsis_id: string | null;
+}
+
+export interface DepthChartResponse {
+  season: number;
+  as_of: string | null;
+  entries: DepthChartEntry[];
+}
+
+export interface InjuryRow {
+  player_id: string;
+  player_name: string;
+  team: string | null;
+  position: string;
+  injury_status: string;
+  projected_points: number;
+}
+
+export interface InjuryResponse {
+  season: number;
+  week: number;
+  players: InjuryRow[];
+}
+
+export interface EspnRosterPlayer {
+  player_name: string;
+  position: string;
+  pro_team: string | null;
+  lineup_slot: string | null;
+  is_starter: boolean;
+  injury_status: string | null;
+}
+
+export interface EspnTeam {
+  team_id: number;
+  team_name: string;
+  abbrev: string | null;
+  owner_name: string | null;
+  wins: number;
+  losses: number;
+  is_my_team: boolean;
+  roster: EspnRosterPlayer[];
+}
+
+export interface EspnImportResponse {
+  league_id: number;
+  season: number;
+  league_name: string | null;
+  team_count: number | null;
+  scoring_type: string | null;
+  teams: EspnTeam[];
+}

@@ -20,6 +20,7 @@ from .db import check_health as db_health, is_db_enabled
 from .models.schemas import HealthResponse, VersionResponse
 from .routers import (
     draft,
+    espn,
     games,
     health_freshness,
     lineups,
@@ -32,6 +33,7 @@ from .routers import (
     sleeper_user,
     teams,
     teams_defense,
+    tools,
 )
 
 app = FastAPI(
@@ -123,6 +125,8 @@ app.include_router(teams.router, prefix="/api")
 app.include_router(teams_defense.router, prefix="/api")
 app.include_router(health_freshness.router, prefix="/api")
 app.include_router(ops.router, prefix="/api")
+app.include_router(tools.router, prefix="/api")
+app.include_router(espn.router, prefix="/api")
 
 
 # ---------------------------------------------------------------------------

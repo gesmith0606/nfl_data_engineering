@@ -857,3 +857,108 @@ export async function fetchMultiCompareRankings(opts: {
     `/api/rankings/multi-compare?${params}`
   );
 }
+
+// ---------------------------------------------------------------------------
+// Manager Tools (market-gap sprint 2026-08): /api/tools/* + /api/espn/*
+// ---------------------------------------------------------------------------
+
+/** Rest-of-season value rankings. */
+export async function fetchRosRankings(
+  season: number,
+  opts?: { week?: number; scoring?: ScoringFormat; position?: string; limit?: number },
+): Promise<import('./types').RosResponse> {
+  const params = new URLSearchParams({ season: String(season) });
+  if (opts?.week) params.set('week', String(opts.week));
+  if (opts?.scoring) params.set('scoring', opts.scoring);
+  if (opts?.position && opts.position !== 'ALL') params.set('position', opts.position);
+  params.set('limit', String(opts?.limit ?? 1000));
+  return request(`/api/tools/ros?${params}`);
+}
+
+/** Evaluate a trade (side_a = give, side_b = receive). */
+export async function evaluateTrade(body: {
+  side_a: string[];
+  side_b: string[];
+  season: number;
+  week?: number;
+  scoring?: ScoringFormat;
+}): Promise<import('./types').TradeResponse> {
+  return request(`/api/tools/trade`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+/** Start/sit head-to-head comparison of 2-4 players. */
+export async function fetchStartSitCompare(
+  ids: string[],
+  season: number,
+  week: number,
+  scoring: ScoringFormat = 'half_ppr',
+): Promise<import('./types').ToolsCompareResponse> {
+  const params = new URLSearchParams({
+    ids: ids.join(','),
+    season: String(season),
+    week: String(week),
+    scoring,
+  });
+  return request(`/api/tools/compare?${params}`);
+}
+
+/** VORP-proportional auction dollar values. */
+export async function fetchAuctionValues(
+  season: number,
+  opts?: { teams?: number; budget?: number; scoring?: ScoringFormat; limit?: number },
+): Promise<import('./types').AuctionResponse> {
+  const params = new URLSearchParams({ season: String(season) });
+  if (opts?.teams) params.set('teams', String(opts.teams));
+  if (opts?.budget) params.set('budget', String(opts.budget));
+  if (opts?.scoring) params.set('scoring', opts.scoring);
+  if (opts?.limit) params.set('limit', String(opts.limit));
+  return request(`/api/tools/auction-values?${params}`);
+}
+
+/** League-wide defense-vs-position grid. */
+export async function fetchSosGrid(season?: number): Promise<import('./types').SosResponse> {
+  const params = new URLSearchParams();
+  if (season) params.set('season', String(season));
+  const qs = params.toString();
+  return request(`/api/tools/sos${qs ? `?${qs}` : ''}`);
+}
+
+/** Latest depth chart (offense skill positions). */
+export async function fetchDepthCharts(
+  season: number,
+  team?: string,
+): Promise<import('./types').DepthChartResponse> {
+  const params = new URLSearchParams({ season: String(season) });
+  if (team) params.set('team', team);
+  return request(`/api/tools/depth-charts?${params}`);
+}
+
+/** Weekly injury report from the projection slate. */
+export async function fetchInjuryReport(
+  season: number,
+  week: number,
+  scoring: ScoringFormat = 'half_ppr',
+): Promise<import('./types').InjuryResponse> {
+  const params = new URLSearchParams({
+    season: String(season),
+    week: String(week),
+    scoring,
+  });
+  return request(`/api/tools/injuries?${params}`);
+}
+
+/** Import an ESPN league (cookies pass through, never stored). */
+export async function importEspnLeague(body: {
+  league_id: number;
+  season: number;
+  espn_s2?: string;
+  swid?: string;
+}): Promise<import('./types').EspnImportResponse> {
+  return request(`/api/espn/import`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
