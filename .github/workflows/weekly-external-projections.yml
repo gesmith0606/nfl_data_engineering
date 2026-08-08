@@ -33,9 +33,9 @@ jobs:
       matrix:
         source: [espn, sleeper, yahoo]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.9'
           cache: pip
@@ -74,7 +74,7 @@ jobs:
 
       - name: Upload Bronze artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bronze-${{ matrix.source }}-${{ steps.resolve.outputs.season }}-w${{ steps.resolve.outputs.week }}
           path: data/bronze/external_projections/${{ matrix.source == 'yahoo' && 'yahoo_proxy_fp' || matrix.source }}/
@@ -85,9 +85,9 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.9'
           cache: pip
@@ -113,7 +113,7 @@ jobs:
           echo "week=$WEEK" >> $GITHUB_OUTPUT
 
       - name: Download all Bronze artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: data/bronze/external_projections/
           merge-multiple: true
