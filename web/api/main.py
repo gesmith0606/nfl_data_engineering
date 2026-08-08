@@ -63,7 +63,12 @@ app.add_middleware(
 API_KEY = os.getenv("API_KEY", "")
 
 # Paths that skip authentication
-_AUTH_EXEMPT_PATHS = {"/api/health", "/api/health/freshness", "/api/docs", "/api/openapi.json"}
+_AUTH_EXEMPT_PATHS = {
+    "/api/health",
+    "/api/health/freshness",
+    "/api/docs",
+    "/api/openapi.json",
+}
 
 
 @app.middleware("http")
