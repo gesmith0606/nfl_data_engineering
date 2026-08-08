@@ -13,6 +13,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
+import { toolSeason } from '@/lib/nfl/season';
 
 /** Starred players with this week's projection. Lives on the Players page. */
 export function WatchlistPanel() {
@@ -23,7 +24,7 @@ export function WatchlistPanel() {
   }
 
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = toolSeason(cw?.season);
   const week = cw?.week ?? 1;
 
   const { data: slate } = useQuery({
@@ -50,7 +51,7 @@ export function WatchlistPanel() {
         <CardTitle className='text-base'>
           Watchlist{' '}
           <span className='text-muted-foreground text-xs font-normal'>
-            starred players · week {week}
+            starred players · latest projections
           </span>
         </CardTitle>
       </CardHeader>

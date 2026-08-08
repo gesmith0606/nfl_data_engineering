@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
 import { FadeIn } from '@/lib/motion-primitives';
+import { toolSeason } from '@/lib/nfl/season';
 
 /** Autocomplete picker over the ROS player pool (client-side filter). */
 export function RosPlayerPicker({
@@ -126,7 +127,7 @@ function SideColumn({
 
 export function TradeAnalyzerView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = toolSeason(cw?.season);
 
   const { data: ros, isLoading } = useQuery({
     queryKey: ['nfl', 'ros', season],

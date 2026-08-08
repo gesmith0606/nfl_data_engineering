@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
 import { FadeIn } from '@/lib/motion-primitives';
+import { toolSeason } from '@/lib/nfl/season';
 
 // ---------------------------------------------------------------------------
 // Types -- mirror web/api/routers/weekly_report.py response models.
@@ -113,7 +114,7 @@ function PlayerRow({
 
 export function WeeklyReportView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = toolSeason(cw?.season);
   const week = cw?.week ?? undefined;
 
   const report = useQuery({

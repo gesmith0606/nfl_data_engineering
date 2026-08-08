@@ -38,7 +38,14 @@ const MORE = [
   { label: 'Lineups', href: '/dashboard/lineups' },
   { label: 'Game Results', href: '/dashboard/games' },
   { label: 'Model Accuracy', href: '/dashboard/accuracy' },
-  { label: 'AI Advisor', href: '/dashboard/advisor' }
+  { label: 'AI Advisor', href: '/dashboard/advisor' },
+  { label: 'Trade Analyzer', href: '/dashboard/trade' },
+  { label: 'Start/Sit', href: '/dashboard/start-sit' },
+  { label: 'Player Value', href: '/dashboard/value' },
+  { label: 'Matchup Grid', href: '/dashboard/sos' },
+  { label: 'Injuries & Depth', href: '/dashboard/injuries' },
+  { label: 'Dynasty & Rookies', href: '/dashboard/dynasty' },
+  { label: 'Weekly Report', href: '/dashboard/report' }
 ] as const;
 
 function SearchButton() {
