@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "9b6d5a13-3c31-478c-9c11-9edb60da41b4",
+  "source": "rotowire",
+  "fetched_at": "2026-08-09T12:13:55.950272+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl632984",
+      "url": "https://www.rotowire.com//football/player/jawhar-jordan-17916",
+      "permalink": "",
+      "title": "Jawhar Jordan: Sidelined due to hip injury",
+      "body_text": "Jordan is dealing with a hip flexor strain and will be sidelined for \"roughly a week,\" Aaron Wilson of KPRC 2 Houston reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-08T08:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jawhar Jordan",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0039405"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632983",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Expected back soon",
+      "body_text": "Price (lower body) didn't practice Saturday, but coach Mike Macdonald said the rookie running back should be back in a matter of days, Curtis Crabtree of Fox 13 Seattle reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-08T07:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Mike Macdonald",
+        "Curtis Crabtree"
+      ],
+      "resolved_player_ids": [
+        "00-0041512"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632981",
+      "url": "https://www.rotowire.com//football/player/laremy-tunsil-10964",
+      "permalink": "",
+      "title": "Laremy Tunsil: Diagnosed with torn triceps",
+      "body_text": "Tunsil tore his triceps during practice Saturday and is expected to need surgery, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-08T05:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Laremy Tunsil",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0032380"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632980",
+      "url": "https://www.rotowire.com//football/player/ty-johnson-13587",
+      "permalink": "",
+      "title": "Ty Johnson: Departs practice with knee injury",
+      "body_text": "Johnson left practice early Saturday due to an apparent right knee injury, Matt Parrino of NYup.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-08T05:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Johnson",
+        "Matt Parrino"
+      ],
+      "resolved_player_ids": [
+        "00-0035537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl632937",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Dealing with lower-body soreness",
+      "body_text": "Price didn't practice Friday due to \"lower-body soreness,\" Gregg Bell of The Tacoma News Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-08T02:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Gregg Bell",
+        "The Tacoma",
+        "News Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0041512"
+      ],
+      "team_hint": null
+    }
+  ]
+}

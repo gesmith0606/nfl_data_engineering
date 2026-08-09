@@ -1,0 +1,612 @@
+{
+  "fetch_run_id": "a96efee9-e448-49ce-88e0-a34c4480b074",
+  "source": "pft",
+  "fetched_at": "2026-08-09T12:13:59.955993+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-feels-better-will-coach-preseason-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-feels-better-will-coach-preseason-opener",
+      "permalink": "",
+      "title": "Kyle Shanahan feels better, will coach preseason opener",
+      "body_text": "The 49ers' coach is making progress in his recovery from a car accident.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-09T09:48:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-recalls-how-he-and-ladainian-tomlinson-grew-up-together-on-the-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-recalls-how-he-and-ladainian-tomlinson-grew-up-together-on-the-chargers",
+      "permalink": "",
+      "title": "Drew Brees recalls how he and LaDainian Tomlinson \"grew up together\" on the Chargers",
+      "body_text": "Brees made a special mention of his former teammate during his Hall of Fame induction speech.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-09T07:21:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Brees",
+        "Chargers Brees"
+      ],
+      "resolved_player_ids": [
+        "00-0020531"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-will-play-in-the-preseason-no-decision-has-been-made-about-stetson-bennett-playing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-will-play-in-the-preseason-no-decision-has-been-made-about-stetson-bennett-playing",
+      "permalink": "",
+      "title": "Ty Simpson will play in the preseason; no decision has been made about Stetson Bennett playing",
+      "body_text": "As the Rams prepare for the first of their three preseason games, coach Sean McVay has made a decision as to whether one of his top backup quarterbacks will play.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T04:42:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "Stetson Bennett"
+      ],
+      "resolved_player_ids": [
+        "00-0041568",
+        "00-0039107"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-has-no-concern-about-nick-bosas-missed-practice-time-for-soreness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-has-no-concern-about-nick-bosas-missed-practice-time-for-soreness",
+      "permalink": "",
+      "title": "Kyle Shanahan has no concern about Nick Bosa's missed practice time for soreness",
+      "body_text": "49ers defensive end Nick Bosa, who missed most of last season with a torn ACL, has been absent from practice recently due to soreness.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T04:07:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-says-mike-tomlin-helped-restore-his-love-for-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-says-mike-tomlin-helped-restore-his-love-for-the-game",
+      "permalink": "",
+      "title": "Aaron Rodgers says Mike Tomlin helped restore his love for the game",
+      "body_text": "Aaron Rodgers loves football.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T02:34:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Mike Tomlin"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-switches-from-no-54-to-no-32",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-switches-from-no-54-to-no-32",
+      "permalink": "",
+      "title": "Jamal Adams switches from No. 54 to No. 32",
+      "body_text": "When veteran defender Jamal Adams joined the Vikings, the team assigned him a traditional linebacker number: 54.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T02:21:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jamal Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/laremy-tunsil-suffered-torn-triceps-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/laremy-tunsil-suffered-torn-triceps-on-saturday",
+      "permalink": "",
+      "title": "Laremy Tunsil suffered torn triceps on Saturday",
+      "body_text": "Tunsil is expected to miss significant regular-season time.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-09T00:35:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Laremy Tunsil",
+        "Saturday Tunsil"
+      ],
+      "resolved_player_ids": [
+        "00-0032380"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-panthers-are-expected-to-sign-qb-kyle-trask",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-panthers-are-expected-to-sign-qb-kyle-trask",
+      "permalink": "",
+      "title": "Report: Panthers are expected to sign QB Kyle Trask",
+      "body_text": "Panthers quarterback Haynes King injured his hamstring in the Hall of Fame Game this week and they are set to add another quarterback to the roster for the coming practice week.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T21:52:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Trask",
+        "Haynes King",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [
+        "00-0036928",
+        "00-0041149"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-put-dl-matt-henningsen-on-ir-release-db-sam-webb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-put-dl-matt-henningsen-on-ir-release-db-sam-webb",
+      "permalink": "",
+      "title": "Broncos put DL Matt Henningsen on IR, release DB Sam Webb",
+      "body_text": "Broncos defensive lineman Matt Henningsen tore his Achilles at practice this week and the team officially brought his season to an end on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T21:41:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Henningsen",
+        "Sam Webb"
+      ],
+      "resolved_player_ids": [
+        "00-0037303",
+        "00-0037516"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-defensive-backs-brandon-hill-and-william-wright",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-defensive-backs-brandon-hill-and-william-wright",
+      "permalink": "",
+      "title": "Bears sign defensive backs Brandon Hill and William Wright",
+      "body_text": "The Bears continued to shuffle their defensive backfield on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T21:35:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Hill",
+        "William Wright",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0038644"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-rb-owen-wright",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-rb-owen-wright",
+      "permalink": "",
+      "title": "Texans sign RB Owen Wright",
+      "body_text": "The Texans brought a new player into their backfield mix on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T21:08:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Owen Wright",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0038458"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-rb-justin-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-rb-justin-jones",
+      "permalink": "",
+      "title": "Seahawks sign RB Justin Jones",
+      "body_text": "The Seahawks announced a pair of roster moves on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T20:59:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jones",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0034677"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-says-his-tesla-was-on-autopilot-before-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-says-his-tesla-was-on-autopilot-before-accident",
+      "permalink": "",
+      "title": "Kyle Shanahan says his Tesla was on autopilot before accident",
+      "body_text": "Shanahan said he doesn't know whether it malfunctioned or he accidentally turned it off.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T20:59:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-put-s-joey-blount-te-kenny-yeboah-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-put-s-joey-blount-te-kenny-yeboah-on-injured-reserve",
+      "permalink": "",
+      "title": "Cardinals put S Joey Blount, TE Kenny Yeboah on injured reserve",
+      "body_text": "The Cardinals placed a couple of players on injured reserve on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T20:52:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Blount",
+        "Kenny Yeboah",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0037141",
+        "00-0036510"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-change-plans-saturday-give-deshaun-watson-unexpected-first-team-reps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-change-plans-saturday-give-deshaun-watson-unexpected-first-team-reps",
+      "permalink": "",
+      "title": "Browns change plans Saturday, give Deshaun Watson unexpected first-team reps",
+      "body_text": "The Browns have been rotating quarterbacks Deshaun Watson and Shedeur Sanders with the first team from day to day at training camp, so any deviation from that schedule is sure to grab attention.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T20:42:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "The Browns",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luther-burden-limped-to-locker-room-during-bears-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luther-burden-limped-to-locker-room-during-bears-practice",
+      "permalink": "",
+      "title": "Luther Burden limped to locker room during Bears practice",
+      "body_text": "Bears wide receiver Luther Burden had to make an early exit from Saturday's practice at training camp.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T20:31:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-david-bailey-fine-after-hurting-ankle-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-david-bailey-fine-after-hurting-ankle-saturday",
+      "permalink": "",
+      "title": "Aaron Glenn: David Bailey \"fine\" after hurting ankle Saturday",
+      "body_text": "Linebacker David Bailey gave the Jets a scare at Sautrday's practice, but it was only a momentary one.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T20:18:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "David Bailey",
+        "Saturday Linebacker"
+      ],
+      "resolved_player_ids": [
+        "00-0006034",
+        "BAI173035"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-says-his-left-knee-feels-great",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-says-his-left-knee-feels-great",
+      "permalink": "",
+      "title": "Patrick Mahomes says his left knee \"feels great\"",
+      "body_text": "Two weeks into 2026 training camp, Chiefs quarterback Patrick Mahomes is moving closer to being ready to go five weeks from Monday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T19:09:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-hall-of-fame-speech-focused-on-sean-payton-city-of-new-orleans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-hall-of-fame-speech-focused-on-sean-payton-city-of-new-orleans",
+      "permalink": "",
+      "title": "Drew Brees' Hall of Fame speech focused on Sean Payton, city of New Orleans",
+      "body_text": "Brees signed with the Saints in 2006 as New Orleans was healing from Hurricane Katrina.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-08T18:45:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Brees",
+        "Sean Payton",
+        "New Orleans",
+        "Hurricane Katrina"
+      ],
+      "resolved_player_ids": [
+        "00-0020531"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-craig-reveals-dementia-diagnosis-in-his-hall-of-fame-speech-this-diagnosis-doesnt-define-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-craig-reveals-dementia-diagnosis-in-his-hall-of-fame-speech-this-diagnosis-doesnt-define-me",
+      "permalink": "",
+      "title": "Roger Craig reveals dementia diagnosis in his Hall of Fame speech: This diagnosis doesn't define me",
+      "body_text": "The 66-year-old former 49ers running back said in his 10-minute speech he hopes telling his story can help someone else.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-08T18:10:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Craig"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-pokes-fun-at-bill-belichick-in-hall-of-fame-speech",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-pokes-fun-at-bill-belichick-in-hall-of-fame-speech",
+      "permalink": "",
+      "title": "Adam Vinatieri pokes fun at Bill Belichick in Hall of Fame speech",
+      "body_text": "Former Patriots and Colts kicker Adam Vinatieri entered the Hall of Fame on the same day that former Patriots and Browns coach Bill Belichick should have been getting his own bronze bust.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T18:21:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adam Vinatieri",
+        "Bill Belichick",
+        "Former Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/protect-college-sports-act-fails-to-pass-senate-before-recess",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/protect-college-sports-act-fails-to-pass-senate-before-recess",
+      "permalink": "",
+      "title": "Protect College Sports Act fails to pass Senate before recess",
+      "body_text": "The Protect College Sports Act has lost the latest game of beat the clock.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-08T17:59:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "The Protect",
+        "College Sports"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-kuechly-theres-no-way-to-measure-what-the-game-of-football-has-given-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-kuechly-theres-no-way-to-measure-what-the-game-of-football-has-given-me",
+      "permalink": "",
+      "title": "Luke Kuechly: There's no way to measure what the game of football has given me",
+      "body_text": "Luke Kuechly, at 35, became the second-youngest Pro Football Hall of Fame inductee ever on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-08T17:37:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luke Kuechly",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0029248"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-day-to-day-with-a-quad-contusion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-day-to-day-with-a-quad-contusion",
+      "permalink": "",
+      "title": "Zay Flowers day-to-day with a quad contusion",
+      "body_text": "Ravens head coach Jesse Minter gave an update on wide receiver Zay Flowers after Flowers left Saturday's practice early.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T17:20:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Jesse Minter"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/laremy-tunsil-to-be-evaluated-after-leaving-saturdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/laremy-tunsil-to-be-evaluated-after-leaving-saturdays-practice",
+      "permalink": "",
+      "title": "Laremy Tunsil to be evaluated after leaving Saturday's practice",
+      "body_text": "The Commanders are waiting for word on left tackle Laremy Tunsil's condition after he picked up an injury on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T17:12:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Laremy Tunsil",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0032380"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-i-can-officially-say-my-biggest-dream-has-come-true",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-i-can-officially-say-my-biggest-dream-has-come-true",
+      "permalink": "",
+      "title": "Adam Vinatieri: I can officially say my biggest dream has come true",
+      "body_text": "Despite his success, Adam Vinatieri was uncertain whether it was enough to get him in the Pro Football Hall of Fame.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-08T17:09:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adam Vinatieri",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-hold-kirk-cousins-maxx-crosby-out-of-saturdays-practice-due-to-fridays-fight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-hold-kirk-cousins-maxx-crosby-out-of-saturdays-practice-due-to-fridays-fight",
+      "permalink": "",
+      "title": "Raiders hold Kirk Cousins, Maxx Crosby out of Saturday's practice due to Friday's fight",
+      "body_text": "Raiders quarterback Kirk Cousins and defensive end Maxx Crosby got into a scuffle during practice on Friday and they received some extra time to cool off on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T17:05:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0034973"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-fitzgerald-its-not-just-about-the-excellence-its-about-the-people-who-help-get-you-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-fitzgerald-its-not-just-about-the-excellence-its-about-the-people-who-help-get-you-there",
+      "permalink": "",
+      "title": "Larry Fitzgerald: It's not just about the excellence; it's about the people who help get you there",
+      "body_text": "After a 17-year career with the Cardinals, Fitzgerald entered the Hall of Fame on Saturday as a first-ballot inductee.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-08T16:42:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Larry Fitzgerald"
+      ],
+      "resolved_player_ids": [
+        "00-0022921"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-offensive-linemen-daniel-brunskill-and-nicholas-petit-frere",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-offensive-linemen-daniel-brunskill-and-nicholas-petit-frere",
+      "permalink": "",
+      "title": "Commanders sign offensive linemen Daniel Brunskill and Nicholas Petit-Frere",
+      "body_text": "The Commanders tripled down on veteran offensive line additions Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T16:34:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Brunskill",
+        "Nicholas Petit",
+        "Frere The"
+      ],
+      "resolved_player_ids": [
+        "00-0033221"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lane-johnson-this-is-probably-my-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lane-johnson-this-is-probably-my-last-year",
+      "permalink": "",
+      "title": "Lane Johnson: This is probably my last year",
+      "body_text": "Johnson is heading into his 14th season with the Eagles.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-08T16:05:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lane Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0030561"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}
