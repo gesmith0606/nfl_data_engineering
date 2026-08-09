@@ -46,9 +46,11 @@ prediction ledger) into **third-party-verified proof**, the way 4for4 built its
    `data/exports/rankings/`. Column layout is a flag
    (`--columns rank,player_name,team,position` default) so the partner spec
    is a one-flag adjustment, not a rewrite.
-2. **Cron hook** — append to the existing Thursday/weekly pipeline so the
-   submission file is produced automatically; manual upload until they grant
-   API/feed access.
+2. **Cron hook** — BUILT (2026-08-08): the Tuesday weekly pipeline
+   (`.github/workflows/weekly-pipeline.yml`) runs the weekly export right
+   after the Gold sanity check (fail-open) and publishes the CSVs as the
+   `rankings-submission-<run_id>` workflow artifact (90-day retention);
+   manual upload to FantasyPros until they grant API/feed access.
 3. **Application email** — cite the accuracy page + ledger URLs:
    - https://frontend-jet-seven-33.vercel.app/dashboard/accuracy
    - https://frontend-jet-seven-33.vercel.app/dashboard/predictions
@@ -62,6 +64,9 @@ prediction ledger) into **third-party-verified proof**, the way 4for4 built its
   external action requiring the user's application + FantasyPros onboarding;
   no submission has been made yet.
 - 2026-08-08 (later): export script built with a configurable column layout —
-  ready to run the moment onboarding specifies the format. Remaining steps
-  are all user-owned: application email, expert identity, then wire the
-  export into the weekly cron once submissions start.
+  ready to run the moment onboarding specifies the format.
+- 2026-08-08 (later still): weekly cron hook wired (work item 2) — every
+  Tuesday pipeline run now attaches the submission CSVs as a workflow
+  artifact. Preseason draft CSVs regenerated + verified against the latest
+  Gold vintage. Remaining steps are user-owned: application email + expert
+  identity; flip `--columns` if the partner spec differs from the default.

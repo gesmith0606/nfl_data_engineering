@@ -552,6 +552,35 @@ jobs:
             --week   "$WEEK"
 
       # ------------------------------------------------------------------
+      # 8b. FantasyPros submission export — per-position ranked CSVs from
+      # the Gold parquet this run just produced and sanity-checked
+      # (docs/ACCURACY_COMPETITION.md work item 2). Fail-open: the
+      # submission artifact is a distribution concern, never a pipeline
+      # blocker. Manual upload to FantasyPros until they grant feed
+      # access; column layout adjusts via --columns once the partner
+      # spec arrives.
+      # ------------------------------------------------------------------
+      - name: Export rankings submission CSVs (FantasyPros)
+        id: rankings_export
+        continue-on-error: true
+        run: |
+          python scripts/export_rankings_submission.py \
+            --weekly \
+            --season  "$SEASON" \
+            --week    "$WEEK" \
+            --scoring half_ppr \
+            || echo "::warning::rankings submission export failed — run scripts/export_rankings_submission.py manually for season $SEASON week $WEEK"
+
+      - name: Upload rankings submission artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rankings-submission-${{ github.run_id }}
+          path: data/exports/rankings/
+          retention-days: 90
+          if-no-files-found: ignore
+
+      # ------------------------------------------------------------------
       # 9. Health check — S3 freshness/completeness. Fail-open since the
       # local-first conversion: without AWS credentials the S3 listings
       # fail, but S3 is now an optional mirror — the committed local Gold
@@ -667,6 +696,7 @@ jobs:
           | Silver — graph features (prior+current season) | attempted — fail-open, see step log |
           | Gold projections (half_ppr, hybrid WR/TE ML) | complete |
           | Sanity check | passed |
+          | Rankings submission export (FantasyPros) | attempted — fail-open, artifact `rankings-submission` |
           | Gold committed to main | see commit step log |
           | S3 health check | optional mirror — fail-open, see step log |
 
