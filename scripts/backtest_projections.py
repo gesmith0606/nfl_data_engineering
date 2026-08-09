@@ -37,6 +37,7 @@ from player_analytics import (
     compute_implied_team_totals,
 )
 from projection_engine import apply_injury_adjustments, generate_weekly_projections
+from early_season_prior import apply_early_season_prior, compute_prior_season_ppg
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -494,6 +495,8 @@ def run_backtest(
     apply_constraints: bool = False,
     full_features: bool = False,
     apply_injuries: bool = True,
+    early_season_prior: bool = False,
+    early_season_prior_weight: float = 1.0,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -510,6 +513,13 @@ def run_backtest(
         apply_injuries: Apply weekly injury-report adjustments
             (production-faithful; pre-game information, leak-free).
             Default True to match generate_projections.py.
+        early_season_prior: Apply the weeks 3-6 prior-season-PPG shrinkage
+            lever (see ``src/early_season_prior.py`` and
+            ``.planning/CONSENSUS_ERROR_DECOMPOSITION.md`` finding #1).
+            Mirrors ``generate_projections.py --early-season-prior`` so the
+            lever is evaluable on historical seasons.
+        early_season_prior_weight: Scale multiplier on the fixed weight
+            schedule (default 1.0).
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -677,6 +687,17 @@ def run_backtest(
         logger.warning("Defensive strength computation failed: %s", e)
         opp_rankings = pd.DataFrame()
 
+    # Prior-season per-game baselines for --early-season-prior, computed once
+    # per (prior) season and cached — weekly_df already spans season-1 for
+    # every requested season (all_seasons above), so no extra I/O is needed.
+    prior_ppg_cache: Dict[int, pd.DataFrame] = {}
+    if early_season_prior:
+        for prior_season in sorted({s - 1 for s in seasons}):
+            prior_weekly = weekly_df[weekly_df["season"] == prior_season]
+            prior_ppg_cache[prior_season] = compute_prior_season_ppg(
+                prior_weekly, scoring_format=scoring_format
+            )
+
     results = []
     total_weeks = 0
 
@@ -775,6 +796,19 @@ def run_backtest(
                 ]
                 if not inj_week.empty:
                     projections = apply_injury_adjustments(projections, inj_week)
+
+            # Apply the early-season prior blend (weeks 3-6 only; no-op
+            # elsewhere). Mirrors generate_projections.py ordering — after
+            # injury adjustments, before market/ranking-score nudges.
+            if early_season_prior:
+                prior_ppg_df = prior_ppg_cache.get(season - 1)
+                if prior_ppg_df is not None:
+                    projections = apply_early_season_prior(
+                        projections,
+                        prior_ppg_df,
+                        week=week,
+                        scale=early_season_prior_weight,
+                    )
 
             # Apply ranking score nudges (additive, capped at ±1.5 pts).
             # ranking_score is used for position ordering only; projected_points
@@ -1007,6 +1041,21 @@ def main():
             "pre-game information, leak-free)."
         ),
     )
+    parser.add_argument(
+        "--early-season-prior",
+        action="store_true",
+        help=(
+            "Apply the weeks 3-6 prior-season-PPG shrinkage lever (mirrors "
+            "generate_projections.py --early-season-prior). Evaluates lever "
+            "#1 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md."
+        ),
+    )
+    parser.add_argument(
+        "--early-season-prior-weight",
+        type=float,
+        default=1.0,
+        help="Scale multiplier on the --early-season-prior weight schedule (default 1.0).",
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -1020,9 +1069,14 @@ def main():
     constrain_label = " | Constraints: ON" if args.constrain else ""
     features_label = " | Full Features: ON" if full_features else ""
     consensus_label = " | vs-Consensus: ON" if vs_consensus else ""
+    prior_label = (
+        f" | Early-Season Prior: ON (x{args.early_season_prior_weight})"
+        if args.early_season_prior
+        else ""
+    )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1047,6 +1101,8 @@ def main():
         apply_constraints=args.constrain,
         full_features=full_features,
         apply_injuries=not args.no_injuries,
+        early_season_prior=args.early_season_prior,
+        early_season_prior_weight=args.early_season_prior_weight,
     )
 
     if results.empty:
@@ -1062,9 +1118,10 @@ def main():
     constrain_tag = "_constrained" if args.constrain else ""
     features_tag = "_fullfeatures" if full_features else ""
     consensus_tag = "_consensus" if vs_consensus else ""
+    prior_tag = "_earlyseasonprior" if args.early_season_prior else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")

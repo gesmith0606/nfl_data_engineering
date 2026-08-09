@@ -249,6 +249,29 @@ def main():
         ),
     )
     parser.add_argument(
+        "--early-season-prior",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only, weeks 3-6: blend projections toward the "
+            "player's prior-season per-game half-PPR points (min 6 games "
+            "played; no prior -> no adjustment). Fixed decaying schedule "
+            "w={3:0.4, 4:0.3, 5:0.2, 6:0.1}; QB/RB/WR/TE only. Lever #1 from "
+            ".planning/CONSENSUS_ERROR_DECOMPOSITION.md — OPT-IN and "
+            "provisional until the pre-registered backtest gate passes "
+            "(.planning/EARLY_SEASON_PRIOR_GATE.md)."
+        ),
+    )
+    parser.add_argument(
+        "--early-season-prior-weight",
+        type=float,
+        default=1.0,
+        help=(
+            "Scale multiplier on the --early-season-prior weight schedule "
+            "(default 1.0 = schedule as-is; 0 disables)."
+        ),
+    )
+    parser.add_argument(
         "--use-events",
         action="store_true",
         default=False,
@@ -292,6 +315,11 @@ def main():
             print(
                 "Note: --props-blend has no effect in --preseason mode "
                 "(weekly game props only; use --season-props-blend here)"
+            )
+        if args.early_season_prior:
+            print(
+                "Note: --early-season-prior has no effect in --preseason mode "
+                "(it only applies to weekly weeks 3-6)"
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
@@ -973,6 +1001,49 @@ def main():
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
+
+        # --- Early-season prior blend (opt-in via --early-season-prior) ---
+        # Lever #1 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md: weeks 3-6
+        # lose ~0.3-0.46 MAE to Sleeper/ESPN because rolling features have
+        # only 1-3 current-season games this early. Blends toward the
+        # player's prior-season per-game score on a decaying schedule
+        # (weeks 3-6 only; no-op elsewhere). Applied after injury
+        # adjustments (mirrors --props-blend ordering) but before
+        # market-based blends, since this is a rolling-average correction,
+        # not a news/market signal.
+        if args.early_season_prior and not projections.empty:
+            from early_season_prior import (  # noqa: E402
+                apply_early_season_prior,
+                compute_prior_season_ppg,
+            )
+
+            prior_season = args.season - 1
+            prior_weekly_df = _read_local_parquet(
+                BRONZE_DIR, f"players/weekly/season={prior_season}/*.parquet"
+            )
+            if prior_weekly_df.empty:
+                print(
+                    f"WARN: --early-season-prior requested but no prior-season "
+                    f"({prior_season}) weekly data found; skipping"
+                )
+            else:
+                prior_ppg_df = compute_prior_season_ppg(
+                    prior_weekly_df, scoring_format=args.scoring
+                )
+                before_total = float(projections["projected_points"].sum())
+                projections = apply_early_season_prior(
+                    projections,
+                    prior_ppg_df,
+                    week=args.week,
+                    scale=args.early_season_prior_weight,
+                )
+                after_total = float(projections["projected_points"].sum())
+                adjusted = int(projections["prior_season_ppg"].notna().sum())
+                print(
+                    f"Early-season prior blend: {adjusted} players with a "
+                    f"prior-season baseline ({prior_season}); total projected "
+                    f"points {before_total:.1f} -> {after_total:.1f}"
+                )
 
         # --- Structured event adjustments (opt-in via --use-events) ---
         # Per Phase 61 D-03: deterministic, tightly-bounded multipliers keyed
