@@ -279,7 +279,23 @@ def score_all(ours: pd.DataFrame, sleeper: pd.DataFrame, espn: pd.DataFrame) -> 
 
     baseline = build_baseline_table(truth)
     gaps = compute_accuracy_gaps(full, baseline)
-    return gaps, baseline
+
+    # Row-level detail (rank, actual_rank, per-row Accuracy Gap, pool flag) —
+    # `gaps` above only keeps the aggregated (season, week, position, source)
+    # scalar, which is enough for the summary table but not for row-level
+    # diagnosis (e.g. per-player ordering damage). Expose it so downstream
+    # scripts can reuse this same rank/baseline machinery instead of
+    # recomputing it.
+    full["accuracy_gap"] = np.nan
+    for pos in full["position"].unique():
+        mask = full["position"] == pos
+        full.loc[mask, "accuracy_gap"] = (
+            baseline_value(baseline, pos, full.loc[mask, "rank"]) - full.loc[mask, "actual_points"]
+        ).abs()
+    n_col = full["position"].map(POOL_N)
+    full["in_pool"] = (full["rank"] <= n_col) | (full["actual_rank"] <= n_col)
+
+    return gaps, baseline, full
 
 
 def summarize(gaps: pd.DataFrame) -> pd.DataFrame:
@@ -370,7 +386,7 @@ def main() -> int:
     espn = attach_actuals(load_consensus("espn", silver_root), ours)
     print(f"  sleeper: {len(sleeper):,} rows | espn: {len(espn):,} rows")
 
-    gaps, baseline = score_all(ours, sleeper, espn)
+    gaps, baseline, _full = score_all(ours, sleeper, espn)
     summary = summarize(gaps)
 
     pd.set_option("display.width", 140)
