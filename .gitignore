@@ -308,6 +308,9 @@ data/gold/*
 !data/bronze/players/weekly/
 !data/bronze/players/weekly/**
 !data/bronze/players/weekly/**/*.parquet
+!data/bronze/players/snaps/
+!data/bronze/players/snaps/**
+!data/bronze/players/snaps/**/*.parquet
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet

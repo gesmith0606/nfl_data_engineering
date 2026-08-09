@@ -295,6 +295,33 @@ def main():
         ),
     )
     parser.add_argument(
+        "--rb-tail-calibration",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: correct RB magnitude-tail miscalibration. "
+            "<8pt projections for snap-share-rising RBs (trailing slope > "
+            "0.15) are blended toward trailing-2-week opportunity-implied "
+            "PPG; 14+pt projections are shrunk toward the same-week RB "
+            "position mean. Lever #2 from "
+            ".planning/CONSENSUS_ERROR_DECOMPOSITION.md — OPT-IN and "
+            "provisional until the pre-registered backtest gate passes "
+            "(.planning/RB_TAIL_CALIBRATION_GATE.md)."
+        ),
+    )
+    parser.add_argument(
+        "--rb-tail-low-weight",
+        type=float,
+        default=0.4,
+        help="Blend weight toward trailing opportunity PPG for --rb-tail-calibration low band (default 0.4).",
+    )
+    parser.add_argument(
+        "--rb-tail-high-shrink",
+        type=float,
+        default=0.15,
+        help="Blend weight toward the position mean for --rb-tail-calibration high band (default 0.15).",
+    )
+    parser.add_argument(
         "--use-events",
         action="store_true",
         default=False,
@@ -348,6 +375,11 @@ def main():
             print(
                 "Note: --qb-starter-floor has no effect in --preseason mode "
                 "(it needs a weekly depth chart)"
+            )
+        if args.rb_tail_calibration:
+            print(
+                "Note: --rb-tail-calibration has no effect in --preseason mode "
+                "(it needs weekly snap-count history)"
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
@@ -1110,6 +1142,43 @@ def main():
                     f"QB starter floor: {flagged} new-starter QB(s) flagged; "
                     f"total projected points {before_total:.1f} -> {after_total:.1f}"
                 )
+
+        # --- RB tail calibration (opt-in via --rb-tail-calibration) ---
+        # Lever #2 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md: <8pt RB
+        # projections under-project actuals ~2.3-2.6 pts (source stays
+        # unbiased); 14+pt projections over-project ~1.2-1.4 pts. Boosts
+        # snap-share-rising low-band RBs toward trailing opportunity-implied
+        # PPG; shrinks high-band RBs toward the position mean. Applied after
+        # the QB starter floor (mirrors ordering — role/usage corrections
+        # grouped together, before market/news blends).
+        if args.rb_tail_calibration and not projections.empty:
+            from rb_tail_calibration import apply_rb_tail_calibration  # noqa: E402
+
+            if snap_counts_df.empty:
+                print(
+                    "WARN: --rb-tail-calibration requested but no snap-count "
+                    "data found; low-band boost will be skipped (high-band "
+                    "shrink is unaffected)"
+                )
+            before_total = float(projections["projected_points"].sum())
+            projections = apply_rb_tail_calibration(
+                projections,
+                snap_counts_df if not snap_counts_df.empty else None,
+                strength_weekly,
+                season=args.season,
+                week=args.week,
+                scoring_format=args.scoring,
+                low_weight=args.rb_tail_low_weight,
+                high_shrink=args.rb_tail_high_shrink,
+            )
+            after_total = float(projections["projected_points"].sum())
+            low_flagged = int(projections["rb_tail_low_boost_flag"].sum())
+            high_flagged = int(projections["rb_tail_high_shrink_flag"].sum())
+            print(
+                f"RB tail calibration: {low_flagged} low-band boosted, "
+                f"{high_flagged} high-band shrunk; total projected points "
+                f"{before_total:.1f} -> {after_total:.1f}"
+            )
 
         # --- Structured event adjustments (opt-in via --use-events) ---
         # Per Phase 61 D-03: deterministic, tightly-bounded multipliers keyed

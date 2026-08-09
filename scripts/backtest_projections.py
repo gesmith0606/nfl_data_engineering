@@ -39,6 +39,7 @@ from player_analytics import (
 from projection_engine import apply_injury_adjustments, generate_weekly_projections
 from early_season_prior import apply_early_season_prior, compute_prior_season_ppg
 from qb_starter_floor import apply_qb_starter_floor
+from rb_tail_calibration import apply_rb_tail_calibration
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -500,6 +501,9 @@ def run_backtest(
     early_season_prior_weight: float = 1.0,
     qb_starter_floor: bool = False,
     qb_starter_floor_haircut: float = 0.8,
+    rb_tail_calibration: bool = False,
+    rb_tail_low_weight: float = 0.4,
+    rb_tail_high_shrink: float = 0.15,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -529,6 +533,14 @@ def run_backtest(
             Mirrors ``generate_projections.py --qb-starter-floor``.
         qb_starter_floor_haircut: Discount on the starter-tier baseline
             (default 0.8).
+        rb_tail_calibration: Apply the RB magnitude-tail calibration lever
+            (see ``src/rb_tail_calibration.py`` and
+            ``.planning/CONSENSUS_ERROR_DECOMPOSITION.md`` finding #2/#4).
+            Mirrors ``generate_projections.py --rb-tail-calibration``.
+        rb_tail_low_weight: Blend weight toward trailing opportunity PPG
+            for the low band (default 0.4).
+        rb_tail_high_shrink: Blend weight toward the position mean for the
+            high band (default 0.15).
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -847,6 +859,21 @@ def run_backtest(
                         haircut=qb_starter_floor_haircut,
                     )
 
+            # Apply the RB tail calibration (low-band boost + high-band
+            # shrink). Mirrors generate_projections.py ordering — after the
+            # QB starter floor, before ranking-score nudges.
+            if rb_tail_calibration:
+                projections = apply_rb_tail_calibration(
+                    projections,
+                    snap_counts_df,
+                    weekly_df,
+                    season=season,
+                    week=week,
+                    scoring_format=scoring_format,
+                    low_weight=rb_tail_low_weight,
+                    high_shrink=rb_tail_high_shrink,
+                )
+
             # Apply ranking score nudges (additive, capped at ±1.5 pts).
             # ranking_score is used for position ordering only; projected_points
             # is unchanged so the backtest MAE numbers remain correct.
@@ -1108,6 +1135,27 @@ def main():
         default=0.8,
         help="Discount multiplier on the starter-tier baseline (default 0.8).",
     )
+    parser.add_argument(
+        "--rb-tail-calibration",
+        action="store_true",
+        help=(
+            "Apply the RB magnitude-tail calibration lever (mirrors "
+            "generate_projections.py --rb-tail-calibration). Evaluates lever "
+            "#2 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md."
+        ),
+    )
+    parser.add_argument(
+        "--rb-tail-low-weight",
+        type=float,
+        default=0.4,
+        help="Blend weight toward trailing opportunity PPG for the low band (default 0.4).",
+    )
+    parser.add_argument(
+        "--rb-tail-high-shrink",
+        type=float,
+        default=0.15,
+        help="Blend weight toward the position mean for the high band (default 0.15).",
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -1131,9 +1179,14 @@ def main():
         if args.qb_starter_floor
         else ""
     )
+    rb_tail_label = (
+        f" | RB Tail Calibration: ON (low={args.rb_tail_low_weight}, high={args.rb_tail_high_shrink})"
+        if args.rb_tail_calibration
+        else ""
+    )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}{rb_tail_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1162,6 +1215,9 @@ def main():
         early_season_prior_weight=args.early_season_prior_weight,
         qb_starter_floor=args.qb_starter_floor,
         qb_starter_floor_haircut=args.qb_starter_floor_haircut,
+        rb_tail_calibration=args.rb_tail_calibration,
+        rb_tail_low_weight=args.rb_tail_low_weight,
+        rb_tail_high_shrink=args.rb_tail_high_shrink,
     )
 
     if results.empty:
@@ -1179,9 +1235,10 @@ def main():
     consensus_tag = "_consensus" if vs_consensus else ""
     prior_tag = "_earlyseasonprior" if args.early_season_prior else ""
     qb_floor_tag = "_qbstarterfloor" if args.qb_starter_floor else ""
+    rb_tail_tag = "_rbtailcalibration" if args.rb_tail_calibration else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}{rb_tail_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
