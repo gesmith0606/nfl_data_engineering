@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { currentWeekQueryOptions } from '../api/queries';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Icons } from '@/components/icons';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Select,
@@ -14,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
 import { FadeIn } from '@/lib/motion-primitives';
 import { toolSeason } from '@/lib/nfl/season';
 
@@ -80,13 +80,109 @@ function fetchRookieRankings(season: number, limit = 100) {
 
 const POSITIONS = ['ALL', 'QB', 'RB', 'WR', 'TE'];
 
-function Spinner() {
-  return (
-    <div className='flex justify-center py-8'>
-      <Icons.spinner className='text-muted-foreground h-6 w-6 animate-spin' />
-    </div>
-  );
-}
+const dynastyColumns: BroadcastColumn<DynastyPlayer>[] = [
+  {
+    key: 'rank',
+    header: '#',
+    accessor: (_p, i) => i + 1,
+    cellClassName: 'text-muted-foreground',
+    width: 'w-10'
+  },
+  {
+    key: 'player',
+    header: 'Player',
+    sticky: true,
+    accessor: (p) => (
+      <>
+        <Badge variant='outline' className='mr-2'>
+          {p.position}
+        </Badge>
+        {p.player_name}
+        <span className='text-muted-foreground ml-1 text-xs'>{p.team}</span>
+      </>
+    )
+  },
+  {
+    key: 'age',
+    header: 'Age',
+    align: 'right',
+    accessor: (p) => p.age ?? '—',
+    cellClassName: 'font-mono'
+  },
+  {
+    key: 'dynasty_points',
+    header: 'Dynasty pts',
+    align: 'right',
+    accessor: (p) => p.dynasty_points.toFixed(1),
+    cellClassName: 'font-mono font-medium'
+  },
+  {
+    key: 'season_points',
+    header: 'Season pts',
+    align: 'right',
+    accessor: (p) => p.projected_season_points.toFixed(1),
+    cellClassName: 'font-mono'
+  },
+  {
+    key: 'age_mult',
+    header: 'Age mult',
+    align: 'right',
+    accessor: (p) => `${p.age_multiplier.toFixed(2)}x`,
+    cellClassName: 'font-mono'
+  },
+  {
+    key: 'vorp',
+    header: 'VORP',
+    align: 'right',
+    accessor: (p) => p.vorp?.toFixed(1) ?? '—',
+    cellClassName: 'font-mono'
+  }
+];
+
+const rookieColumns: BroadcastColumn<RookiePlayer>[] = [
+  {
+    key: 'rank',
+    header: '#',
+    accessor: (_p, i) => i + 1,
+    cellClassName: 'text-muted-foreground',
+    width: 'w-10'
+  },
+  {
+    key: 'player',
+    header: 'Player',
+    sticky: true,
+    accessor: (p) => (
+      <>
+        <Badge variant='outline' className='mr-2'>
+          {p.position}
+        </Badge>
+        {p.player_name}
+        <span className='text-muted-foreground ml-1 text-xs'>{p.team}</span>
+      </>
+    )
+  },
+  {
+    key: 'age',
+    header: 'Age',
+    align: 'right',
+    accessor: (p) => p.age ?? '—',
+    cellClassName: 'font-mono'
+  },
+  {
+    key: 'season_points',
+    header: 'Season pts',
+    align: 'right',
+    accessor: (p) => p.projected_season_points.toFixed(1),
+    cellClassName: 'font-mono'
+  },
+  {
+    key: 'role',
+    header: 'Role',
+    align: 'right',
+    accessor: (p) => p.low_sample_role ?? '—',
+    cellClassName: 'text-muted-foreground text-xs'
+  }
+];
 
 export function DynastyView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
@@ -113,7 +209,7 @@ export function DynastyView() {
           <TabsTrigger value='rookies'>Rookies</TabsTrigger>
         </TabsList>
 
-        <TabsContent value='dynasty'>
+        <TabsContent value='dynasty' className='space-y-4'>
           <Card>
             <CardHeader className='flex flex-row items-center justify-between'>
               <CardTitle className='text-base'>Dynasty rankings</CardTitle>
@@ -130,115 +226,30 @@ export function DynastyView() {
                 </SelectContent>
               </Select>
             </CardHeader>
-            <CardContent>
-              {rankings.isLoading ? (
-                <Spinner />
-              ) : (
-                <div className='overflow-x-auto'>
-                  <table className='w-full text-sm'>
-                    <thead>
-                      <tr className='text-muted-foreground border-b text-left text-xs'>
-                        <th className='py-2 pr-4'>#</th>
-                        <th className='py-2 pr-4'>Player</th>
-                        <th className='py-2 pr-4 text-right'>Age</th>
-                        <th className='py-2 pr-4 text-right'>Dynasty pts</th>
-                        <th className='py-2 pr-4 text-right'>Season pts</th>
-                        <th className='py-2 pr-4 text-right'>Age mult</th>
-                        <th className='py-2 text-right'>VORP</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {rankings.data?.players.map((p, i) => (
-                        <tr key={p.player_id} className='border-b last:border-0'>
-                          <td className='text-muted-foreground py-1.5 pr-4'>
-                            {i + 1}
-                          </td>
-                          <td className='py-1.5 pr-4'>
-                            <Badge variant='outline' className='mr-2'>
-                              {p.position}
-                            </Badge>
-                            {p.player_name}
-                            <span className='text-muted-foreground ml-1 text-xs'>
-                              {p.team}
-                            </span>
-                          </td>
-                          <td className='py-1.5 pr-4 text-right font-mono'>
-                            {p.age ?? '—'}
-                          </td>
-                          <td className='py-1.5 pr-4 text-right font-mono font-medium'>
-                            {p.dynasty_points.toFixed(1)}
-                          </td>
-                          <td className='py-1.5 pr-4 text-right font-mono'>
-                            {p.projected_season_points.toFixed(1)}
-                          </td>
-                          <td className='py-1.5 pr-4 text-right font-mono'>
-                            {p.age_multiplier.toFixed(2)}x
-                          </td>
-                          <td className='py-1.5 text-right font-mono'>
-                            {p.vorp?.toFixed(1) ?? '—'}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </CardContent>
           </Card>
+          <BroadcastTable
+            columns={dynastyColumns}
+            rows={rankings.data?.players ?? []}
+            getRowId={(p) => p.player_id}
+            isLoading={rankings.isLoading}
+            emptyMessage='No dynasty rankings available.'
+            filteredLabel={position !== 'ALL' ? `${position} only` : undefined}
+          />
         </TabsContent>
 
-        <TabsContent value='rookies'>
+        <TabsContent value='rookies' className='space-y-4'>
           <Card>
             <CardHeader>
               <CardTitle className='text-base'>Rookie rankings</CardTitle>
             </CardHeader>
-            <CardContent>
-              {rookies.isLoading ? (
-                <Spinner />
-              ) : (
-                <div className='overflow-x-auto'>
-                  <table className='w-full text-sm'>
-                    <thead>
-                      <tr className='text-muted-foreground border-b text-left text-xs'>
-                        <th className='py-2 pr-4'>#</th>
-                        <th className='py-2 pr-4'>Player</th>
-                        <th className='py-2 pr-4 text-right'>Age</th>
-                        <th className='py-2 pr-4 text-right'>Season pts</th>
-                        <th className='py-2 text-right'>Role</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {rookies.data?.players.map((p, i) => (
-                        <tr key={p.player_id} className='border-b last:border-0'>
-                          <td className='text-muted-foreground py-1.5 pr-4'>
-                            {i + 1}
-                          </td>
-                          <td className='py-1.5 pr-4'>
-                            <Badge variant='outline' className='mr-2'>
-                              {p.position}
-                            </Badge>
-                            {p.player_name}
-                            <span className='text-muted-foreground ml-1 text-xs'>
-                              {p.team}
-                            </span>
-                          </td>
-                          <td className='py-1.5 pr-4 text-right font-mono'>
-                            {p.age ?? '—'}
-                          </td>
-                          <td className='py-1.5 pr-4 text-right font-mono'>
-                            {p.projected_season_points.toFixed(1)}
-                          </td>
-                          <td className='text-muted-foreground py-1.5 text-right text-xs'>
-                            {p.low_sample_role ?? '—'}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </CardContent>
           </Card>
+          <BroadcastTable
+            columns={rookieColumns}
+            rows={rookies.data?.players ?? []}
+            getRowId={(p) => p.player_id}
+            isLoading={rookies.isLoading}
+            emptyMessage='No rookie rankings available.'
+          />
         </TabsContent>
       </Tabs>
     </FadeIn>

@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
 import { PressScale } from '@/lib/motion-primitives'
+import { WC_OUTLINE_BUTTON } from '../utils/broadcast-ui'
 
 interface UndoButtonProps {
   label: string
@@ -24,6 +25,7 @@ export function UndoButton({ label, onUndo, isPending, isConflict }: UndoButtonP
       <Button
         variant='outline'
         size='sm'
+        className={WC_OUTLINE_BUTTON}
         onClick={onUndo}
         disabled={isPending || isConflict}
         title={isConflict ? 'Nothing to undo' : undefined}

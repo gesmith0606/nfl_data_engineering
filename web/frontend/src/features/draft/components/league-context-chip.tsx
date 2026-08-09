@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { PLATFORM_ACCENT, PLATFORM_LABELS, isRoomPlatform, scoringLabel } from '../utils/platform-presets'
+import { WC_GHOST_BUTTON } from '../utils/broadcast-ui'
 import type { DraftConfig } from '@/lib/nfl/types'
 
 interface LeagueContextChipProps {
@@ -17,8 +18,8 @@ interface LeagueContextChipProps {
 export function LeagueContextChip({ config, onChange }: LeagueContextChipProps) {
   const platform = isRoomPlatform(config.platform) ? config.platform : 'custom'
   return (
-    <span className='bg-muted/60 inline-flex flex-wrap items-center gap-1.5 rounded-full border px-[var(--space-3)] py-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-      <span className='font-semibold'>{config.n_teams}-team</span>
+    <span className='wc-display inline-flex flex-wrap items-center gap-1.5 rounded-full border border-[rgba(145,237,208,0.25)] bg-[rgba(5,7,13,0.6)] px-[var(--space-3)] py-1 text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.04em] text-[#cfd6e4]'>
+      <span className='font-semibold text-[var(--wc-mint,#91edd0)]'>{config.n_teams}-team</span>
       <span aria-hidden>·</span>
       <span>{scoringLabel(config.scoring)}</span>
       <span aria-hidden>·</span>
@@ -31,7 +32,7 @@ export function LeagueContextChip({ config, onChange }: LeagueContextChipProps) 
       <Button
         variant='link'
         size='sm'
-        className='text-primary h-auto p-0 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+        className={`h-auto p-0 text-[length:var(--fs-xs)] leading-[var(--lh-xs)] ${WC_GHOST_BUTTON}`}
         onClick={onChange}
       >
         Change

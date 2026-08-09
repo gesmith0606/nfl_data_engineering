@@ -8,6 +8,7 @@ import { Icons } from '@/components/icons'
 import { syncPickLog } from '@/features/nfl/api/service'
 import { nflKeys } from '@/features/nfl/api/queries'
 import { PressScale } from '@/lib/motion-primitives'
+import { WC_PANEL_SURFACE, WC_INPUT, WC_CTA_BUTTON, WC_HEADING } from '../utils/broadcast-ui'
 import type { DraftSyncLogResponse } from '@/lib/nfl/types'
 
 interface PasteSyncPanelProps {
@@ -51,10 +52,13 @@ export function PasteSyncPanel({ sessionId, mySlot }: PasteSyncPanelProps) {
   if (!sessionId) return null
 
   return (
-    <div className='rounded-md border p-[var(--space-3)] space-y-[var(--space-2)]'>
+    <div className={`rounded-md border p-[var(--space-3)] space-y-[var(--space-2)] ${WC_PANEL_SURFACE}`}>
       <div className='flex items-center gap-[var(--space-2)]'>
-        <Icons.clipboardText className='h-[var(--space-4)] w-[var(--space-4)]' />
-        <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
+        <Icons.clipboardText
+          className='h-[var(--space-4)] w-[var(--space-4)]'
+          style={{ color: 'var(--wc-mint,#91edd0)' }}
+        />
+        <p className={`${WC_HEADING} text-[length:var(--fs-xs)] leading-[var(--lh-xs)]`}>
           Paste-sync pick history
         </p>
       </div>
@@ -68,11 +72,13 @@ export function PasteSyncPanel({ sessionId, mySlot }: PasteSyncPanelProps) {
         rows={4}
         value={text}
         onChange={e => setText(e.target.value)}
+        className={WC_INPUT}
       />
       <div className='flex items-center gap-[var(--space-2)]'>
         <PressScale>
           <Button
             size='sm'
+            className={WC_CTA_BUTTON}
             disabled={!text.trim() || syncMutation.isPending}
             onClick={() => syncMutation.mutate()}
           >

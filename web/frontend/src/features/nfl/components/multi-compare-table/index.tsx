@@ -2,13 +2,14 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { multiCompareQueryOptions } from '../../api/queries';
 import type {
+  MultiCompareRow,
   Position,
   RankingSortBy,
   RankingSource,
@@ -17,6 +18,7 @@ import type {
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
+import { cn } from '@/lib/utils';
 
 const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
 const SCORING_OPTIONS: { value: ScoringFormat; label: string }[] = [
@@ -60,46 +62,274 @@ function formatDiff(diff: number | null): string {
   return v > 0 ? `+${v}` : String(v);
 }
 
+function consensusOf(p: MultiCompareRow): number | null {
+  const externalRanks = [
+    p.sleeper_rank,
+    p.espn_rank,
+    p.yahoo_rank,
+    p.draftsharks_rank,
+    p.ftn_rank
+  ].filter((v): v is number => v !== null && v !== undefined);
+  return externalRanks.length > 0
+    ? externalRanks.reduce((a, b) => a + b, 0) / externalRanks.length
+    : null;
+}
+
+/** Clickable column header — click to re-sort by this source. Same affordance
+ *  as the old `SortHeader` <th>, now rendered as a `header` node so it fits
+ *  the shared `BroadcastColumn` API (which has no per-column onClick). */
+function sortableHeader(
+  label: string,
+  sortKey: RankingSortBy,
+  activeSort: RankingSortBy,
+  onSort: (k: RankingSortBy) => void,
+  title?: string
+) {
+  const isActive = activeSort === sortKey;
+  return (
+    <button
+      type='button'
+      onClick={() => onSort(sortKey)}
+      title={title}
+      className={cn(
+        'inline-flex select-none items-center gap-1 hover:text-foreground',
+        isActive ? 'text-foreground' : 'text-muted-foreground'
+      )}
+    >
+      {label}
+      {isActive && <span className='text-xs'>↓</span>}
+    </button>
+  );
+}
+
+function buildColumns(
+  sortBy: RankingSortBy,
+  onSort: (k: RankingSortBy) => void,
+  rankBasisLabel: string,
+  position: Position
+): BroadcastColumn<MultiCompareRow>[] {
+  return [
+    {
+      key: 'rank',
+      header: (
+        <span
+          title={`Row position in the current sort order (${
+            sortBy === 'consensus' ? 'consensus' : sortBy
+          }, ${rankBasisLabel}, ${position === 'ALL' ? 'all positions' : position})`}
+        >
+          #
+        </span>
+      ),
+      accessor: (p) => p.rank,
+      cellClassName: 'font-mono text-xs text-muted-foreground',
+      width: 'w-10'
+    },
+    {
+      key: 'player',
+      header: 'Player',
+      sticky: true,
+      accessor: (p) => {
+        const teamColor = p.team ? getTeamColor(p.team) : null;
+        return (
+          <Link
+            href={`/dashboard/players?q=${encodeURIComponent(p.player_name)}`}
+            className='hover:underline'
+          >
+            <span className='flex items-center gap-2'>
+              <span className='font-medium'>{p.player_name}</span>
+              {p.team && (
+                <span
+                  className='text-xs text-muted-foreground'
+                  style={teamColor ? { color: teamColor } : undefined}
+                >
+                  {p.team}
+                </span>
+              )}
+            </span>
+          </Link>
+        );
+      }
+    },
+    {
+      key: 'pos',
+      header: 'Pos',
+      accessor: (p) =>
+        p.position ? (
+          <Badge variant='outline' className={getPositionBadgeClass(p.position)}>
+            {p.position}
+          </Badge>
+        ) : null
+    },
+    {
+      key: 'ours',
+      header: sortableHeader(
+        'Ours',
+        'ours',
+        sortBy,
+        onSort,
+        `Our ${rankBasisLabel} rank — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.our_rank),
+      renderCell: (p) => <span className='wc-num-hero'>{formatRank(p.our_rank)}</span>
+    },
+    {
+      key: 'pts',
+      header: 'Pts',
+      align: 'right',
+      accessor: (p) =>
+        p.our_projected_points !== null ? p.our_projected_points.toFixed(1) : '—',
+      cellClassName: 'font-mono text-muted-foreground'
+    },
+    {
+      key: 'sleeper',
+      header: sortableHeader(
+        'Sleeper',
+        'sleeper',
+        sortBy,
+        onSort,
+        `Sleeper ${rankBasisLabel} rank — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.sleeper_rank),
+      cellClassName: 'font-mono'
+    },
+    {
+      key: 'espn',
+      header: sortableHeader(
+        'ESPN',
+        'espn',
+        sortBy,
+        onSort,
+        `ESPN ${rankBasisLabel} rank — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.espn_rank),
+      cellClassName: 'font-mono'
+    },
+    {
+      key: 'yahoo',
+      header: sortableHeader(
+        'Yahoo*',
+        'yahoo',
+        sortBy,
+        onSort,
+        `Yahoo ${rankBasisLabel} rank (via FantasyPros consensus) — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.yahoo_rank),
+      cellClassName: 'font-mono'
+    },
+    {
+      key: 'draftsharks',
+      header: sortableHeader(
+        'Sharks',
+        'draftsharks',
+        sortBy,
+        onSort,
+        `Draft Sharks ${rankBasisLabel} rank (site took #1+#2 of 225 in the 2024 FantasyPros draft-accuracy contest) — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.draftsharks_rank),
+      cellClassName: 'font-mono'
+    },
+    {
+      key: 'ftn',
+      header: sortableHeader(
+        'FTN',
+        'ftn',
+        sortBy,
+        onSort,
+        `Jeff Ratcliffe (FTN) ${rankBasisLabel} rank (#1 multi-year FantasyPros draft accuracy; empty until his ranks drop, typically Jul-Aug) — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.ftn_rank),
+      cellClassName: 'font-mono'
+    },
+    {
+      key: 'consensus',
+      header: sortableHeader(
+        'Consensus',
+        'consensus',
+        sortBy,
+        onSort,
+        'Mean of Sleeper / ESPN / Yahoo / Draft Sharks / FTN — click to sort'
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(consensusOf(p)),
+      cellClassName: 'font-mono text-muted-foreground'
+    },
+    {
+      key: 'diff_sleeper',
+      header: (
+        <span title='Sleeper rank − our rank (positive = we rank lower than Sleeper)'>
+          Δ Slp
+        </span>
+      ),
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_sleeper),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_sleeper))}>
+          {formatDiff(p.rank_diff_vs_sleeper)}
+        </span>
+      )
+    },
+    {
+      key: 'diff_espn',
+      header: <span title='ESPN rank − our rank'>Δ ESPN</span>,
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_espn),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_espn))}>
+          {formatDiff(p.rank_diff_vs_espn)}
+        </span>
+      )
+    },
+    {
+      key: 'diff_yahoo',
+      header: <span title='Yahoo rank − our rank'>Δ Yah</span>,
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_yahoo),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_yahoo))}>
+          {formatDiff(p.rank_diff_vs_yahoo)}
+        </span>
+      )
+    },
+    {
+      key: 'diff_draftsharks',
+      header: <span title='Draft Sharks rank − our rank'>Δ DS</span>,
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_draftsharks),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_draftsharks))}>
+          {formatDiff(p.rank_diff_vs_draftsharks)}
+        </span>
+      )
+    },
+    {
+      key: 'diff_ftn',
+      header: <span title='FTN (Ratcliffe) rank − our rank'>Δ FTN</span>,
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_ftn),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_ftn))}>
+          {formatDiff(p.rank_diff_vs_ftn)}
+        </span>
+      )
+    }
+  ];
+}
+
 interface MultiCompareTableProps {
   season?: number;
 }
 
-interface SortHeaderProps {
-  label: string;
-  sortKey: RankingSortBy;
-  activeSort: RankingSortBy;
-  onClick: (k: RankingSortBy) => void;
-  align?: 'left' | 'right';
-  title?: string;
-}
-
-function SortHeader({
-  label,
-  sortKey,
-  activeSort,
-  onClick,
-  align = 'right',
-  title
-}: SortHeaderProps) {
-  const isActive = activeSort === sortKey;
-  return (
-    <th
-      className={`select-none cursor-pointer py-2 px-2 font-medium text-${align} hover:bg-muted ${
-        isActive ? 'text-foreground' : 'text-muted-foreground'
-      }`}
-      onClick={() => onClick(sortKey)}
-      title={title}
-    >
-      <span className='inline-flex items-center gap-1'>
-        {label}
-        {isActive && <span className='text-xs'>↓</span>}
-      </span>
-    </th>
-  );
-}
-
 /**
- * Side-by-side rankings table: ours vs. Sleeper / ESPN / Yahoo.
+ * Side-by-side rankings table: ours vs. Sleeper / ESPN / Yahoo — the premium
+ * sibling of the flagship broadcast rankings table (rankings-table), sharing
+ * its BroadcastTable chrome (sticky Player column, mint hero numeral on our
+ * headline rank, yellow condensed headers).
  *
  * **Rank semantics** depend on the position filter:
  *   - ALL filter → ranks are **overall** (Bijan #1, Lamar #16, …)
@@ -128,6 +358,11 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
 
   const rankBasis = data?.rank_basis ?? 'overall';
   const rankBasisLabel = rankBasis === 'overall' ? 'overall' : 'positional';
+
+  const columns = useMemo(
+    () => buildColumns(sortBy, setSortBy, rankBasisLabel, position),
+    [sortBy, rankBasisLabel, position]
+  );
 
   return (
     <div className='space-y-4'>
@@ -206,244 +441,21 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
         </p>
       )}
 
-      {error && (
+      {error ? (
         <Card>
           <CardContent className='text-muted-foreground pt-6 text-sm'>
             Couldn’t load rankings. Try again in a moment.
           </CardContent>
         </Card>
-      )}
-
-      {isLoading && (
-        <Card>
-          <CardContent className='space-y-2 pt-6'>
-            {Array.from({ length: 8 }).map((_, i) => (
-              <Skeleton key={i} className='h-10 w-full' />
-            ))}
-          </CardContent>
-        </Card>
-      )}
-
-      {!isLoading && data && data.players.length === 0 && (
-        <Card>
-          <CardContent className='text-muted-foreground pt-6 text-sm'>
-            No rows for the current filter combination.
-          </CardContent>
-        </Card>
-      )}
-
-      {!isLoading && data && data.players.length > 0 && (
-        <Card>
-          <CardContent className='p-0'>
-            <div className='overflow-x-auto'>
-              <table className='w-full text-sm'>
-                <thead className='border-b bg-muted/40'>
-                  <tr className='text-left'>
-                    <th
-                      className='py-2 pl-4 pr-2 font-medium text-muted-foreground'
-                      title={`Row position in the current sort order (${
-                        sortBy === 'consensus' ? 'consensus' : sortBy
-                      }, ${rankBasisLabel}, ${
-                        position === 'ALL' ? 'all positions' : position
-                      })`}
-                    >
-                      #
-                    </th>
-                    <th className='py-2 px-2 font-medium'>Player</th>
-                    <th className='py-2 px-2 font-medium'>Pos</th>
-                    <SortHeader
-                      label='Ours'
-                      sortKey='ours'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title={`Our ${rankBasisLabel} rank — click to sort`}
-                    />
-                    <th className='py-2 px-2 text-right font-medium text-muted-foreground'>
-                      Pts
-                    </th>
-                    <SortHeader
-                      label='Sleeper'
-                      sortKey='sleeper'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title={`Sleeper ${rankBasisLabel} rank — click to sort`}
-                    />
-                    <SortHeader
-                      label='ESPN'
-                      sortKey='espn'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title={`ESPN ${rankBasisLabel} rank — click to sort`}
-                    />
-                    <SortHeader
-                      label='Yahoo*'
-                      sortKey='yahoo'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title={`Yahoo ${rankBasisLabel} rank (via FantasyPros consensus) — click to sort`}
-                    />
-                    <SortHeader
-                      label='Sharks'
-                      sortKey='draftsharks'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title={`Draft Sharks ${rankBasisLabel} rank (site took #1+#2 of 225 in the 2024 FantasyPros draft-accuracy contest) — click to sort`}
-                    />
-                    <SortHeader
-                      label='FTN'
-                      sortKey='ftn'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title={`Jeff Ratcliffe (FTN) ${rankBasisLabel} rank (#1 multi-year FantasyPros draft accuracy; empty until his ranks drop, typically Jul-Aug) — click to sort`}
-                    />
-                    <SortHeader
-                      label='Consensus'
-                      sortKey='consensus'
-                      activeSort={sortBy}
-                      onClick={setSortBy}
-                      title='Mean of Sleeper / ESPN / Yahoo / Draft Sharks / FTN — click to sort'
-                    />
-                    <th
-                      className='py-2 px-2 text-right font-medium text-muted-foreground'
-                      title='Sleeper rank − our rank (positive = we rank lower than Sleeper)'
-                    >
-                      Δ Slp
-                    </th>
-                    <th
-                      className='py-2 px-2 text-right font-medium text-muted-foreground'
-                      title='ESPN rank − our rank'
-                    >
-                      Δ ESPN
-                    </th>
-                    <th
-                      className='py-2 px-2 text-right font-medium text-muted-foreground'
-                      title='Yahoo rank − our rank'
-                    >
-                      Δ Yah
-                    </th>
-                    <th
-                      className='py-2 px-2 text-right font-medium text-muted-foreground'
-                      title='Draft Sharks rank − our rank'
-                    >
-                      Δ DS
-                    </th>
-                    <th
-                      className='py-2 pl-2 pr-4 text-right font-medium text-muted-foreground'
-                      title='FTN (Ratcliffe) rank − our rank'
-                    >
-                      Δ FTN
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.players.map((p) => {
-                    const teamColor = p.team ? getTeamColor(p.team) : null;
-                    const externalRanks = [
-                      p.sleeper_rank,
-                      p.espn_rank,
-                      p.yahoo_rank,
-                      p.draftsharks_rank,
-                      p.ftn_rank
-                    ].filter((v): v is number => v !== null && v !== undefined);
-                    const consensus =
-                      externalRanks.length > 0
-                        ? externalRanks.reduce((a, b) => a + b, 0) / externalRanks.length
-                        : null;
-                    return (
-                      <tr
-                        key={`${p.player_name}-${p.team}`}
-                        className='border-b last:border-0 hover:bg-muted/30'
-                      >
-                        <td className='py-2 pl-4 pr-2 font-mono text-xs text-muted-foreground'>
-                          {p.rank}
-                        </td>
-                        <td className='py-2 px-2'>
-                          <Link
-                            href={`/dashboard/players?q=${encodeURIComponent(p.player_name)}`}
-                            className='hover:underline'
-                          >
-                            <div className='flex items-center gap-2'>
-                              <span className='font-medium'>{p.player_name}</span>
-                              {p.team && (
-                                <span
-                                  className='text-xs text-muted-foreground'
-                                  style={teamColor ? { color: teamColor } : undefined}
-                                >
-                                  {p.team}
-                                </span>
-                              )}
-                            </div>
-                          </Link>
-                        </td>
-                        <td className='py-2 px-2'>
-                          {p.position && (
-                            <Badge
-                              variant='outline'
-                              className={getPositionBadgeClass(p.position)}
-                            >
-                              {p.position}
-                            </Badge>
-                          )}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono'>
-                          {formatRank(p.our_rank)}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono text-muted-foreground'>
-                          {p.our_projected_points !== null
-                            ? p.our_projected_points.toFixed(1)
-                            : '—'}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono'>
-                          {formatRank(p.sleeper_rank)}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono'>
-                          {formatRank(p.espn_rank)}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono'>
-                          {formatRank(p.yahoo_rank)}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono'>
-                          {formatRank(p.draftsharks_rank)}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono'>
-                          {formatRank(p.ftn_rank)}
-                        </td>
-                        <td className='py-2 px-2 text-right font-mono text-muted-foreground'>
-                          {formatRank(consensus)}
-                        </td>
-                        <td
-                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_sleeper)}`}
-                        >
-                          {formatDiff(p.rank_diff_vs_sleeper)}
-                        </td>
-                        <td
-                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_espn)}`}
-                        >
-                          {formatDiff(p.rank_diff_vs_espn)}
-                        </td>
-                        <td
-                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_yahoo)}`}
-                        >
-                          {formatDiff(p.rank_diff_vs_yahoo)}
-                        </td>
-                        <td
-                          className={`py-2 px-2 text-right font-mono ${diffClass(p.rank_diff_vs_draftsharks)}`}
-                        >
-                          {formatDiff(p.rank_diff_vs_draftsharks)}
-                        </td>
-                        <td
-                          className={`py-2 pl-2 pr-4 text-right font-mono ${diffClass(p.rank_diff_vs_ftn)}`}
-                        >
-                          {formatDiff(p.rank_diff_vs_ftn)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+      ) : (
+        <BroadcastTable
+          columns={columns}
+          rows={data?.players ?? []}
+          getRowId={(p) => `${p.player_name}-${p.team}`}
+          isLoading={isLoading}
+          emptyMessage='No rows for the current filter combination.'
+          minWidth='min-w-[1320px]'
+        />
       )}
 
       <p className='text-xs text-muted-foreground'>

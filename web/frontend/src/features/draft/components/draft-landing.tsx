@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
 import { FadeIn, PressScale } from '@/lib/motion-primitives'
@@ -18,6 +18,7 @@ import {
   applyPlatformPreset,
   type RoomPlatform
 } from '../utils/platform-presets'
+import { WC_HEADING, WC_KICKER, WC_CTA_BUTTON, WC_GHOST_BUTTON } from '../utils/broadcast-ui'
 import type { ConnectedLeague, DraftConfig } from '@/lib/nfl/types'
 
 export const DRAFT_TOUR_SEEN_KEY = 'nfl.draftTourSeen'
@@ -91,7 +92,8 @@ export function DraftLanding({
     <FadeIn className='space-y-[var(--gap-stack)]'>
       <div className='flex flex-wrap items-start justify-between gap-[var(--space-2)]'>
         <div>
-          <h1 className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-semibold'>
+          <div className={WC_KICKER}>Draft Room</div>
+          <h1 className={`${WC_HEADING} text-[length:var(--fs-lg)] leading-[var(--lh-lg)]`}>
             Set up your draft
           </h1>
           <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
@@ -99,7 +101,7 @@ export function DraftLanding({
           </p>
         </div>
         <PressScale>
-          <Button variant='ghost' size='sm' onClick={onOpenHowItWorks}>
+          <Button variant='ghost' size='sm' className={WC_GHOST_BUTTON} onClick={onOpenHowItWorks}>
             <Icons.help className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
             How this works
           </Button>
@@ -107,35 +109,34 @@ export function DraftLanding({
       </div>
 
       {introOpen && (
-        <Card>
-          <CardContent className='space-y-[var(--space-3)] p-[var(--space-4)]'>
-            <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>How this works</h2>
-            <ul className='text-muted-foreground list-disc space-y-1 pl-[var(--space-5)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-              <li>Set your league — connect Sleeper, pick a platform room, or go custom.</li>
-              <li>
-                Pick a mode — Mock Draft to practice, Live Co-Pilot to sync a real draft, or the
-                Cheat Sheet Board to track one by hand.
-              </li>
-              <li>
-                During any draft, Draft means it&apos;s your pick and Taken means anyone else&apos;s
-                — recommendations update every pick.
-              </li>
-            </ul>
-            <PressScale>
-              <Button size='sm' onClick={dismissIntro}>
-                Got it
-              </Button>
-            </PressScale>
-          </CardContent>
-        </Card>
+        <BroadcastPanel railColor='var(--wc-mint,#91edd0)' className='space-y-[var(--space-3)] p-[var(--space-4)]'>
+          <h2 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
+            How this works
+          </h2>
+          <ul className='text-muted-foreground list-disc space-y-1 pl-[var(--space-5)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
+            <li>Set your league — connect Sleeper, pick a platform room, or go custom.</li>
+            <li>
+              Pick a mode — Mock Draft to practice, Live Co-Pilot to sync a real draft, or the
+              Cheat Sheet Board to track one by hand.
+            </li>
+            <li>
+              During any draft, Draft means it&apos;s your pick and Taken means anyone else&apos;s
+              — recommendations update every pick.
+            </li>
+          </ul>
+          <PressScale>
+            <Button size='sm' className={WC_CTA_BUTTON} onClick={dismissIntro}>
+              Got it
+            </Button>
+          </PressScale>
+        </BroadcastPanel>
       )}
 
       {/* League setup strip */}
       <div className='grid gap-[var(--gap-stack)] md:grid-cols-3'>
-        <Card>
-          <CardContent className='space-y-[var(--space-2)] p-[var(--space-4)]'>
-            <h3 className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
-              <Icons.teams className='h-[var(--space-4)] w-[var(--space-4)]' />
+        <BroadcastPanel railColor='var(--wc-mint,#91edd0)' className='space-y-[var(--space-2)] p-[var(--space-4)]'>
+            <h3 className={`${WC_HEADING} flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
+              <Icons.teams className='h-[var(--space-4)] w-[var(--space-4)]' style={{ color: 'var(--wc-mint,#91edd0)' }} />
               Use my league
             </h3>
             {leagues.length === 0 ? (
@@ -155,8 +156,8 @@ export function DraftLanding({
                         onClick={() => leagueMutation.mutate(league)}
                         disabled={leagueMutation.isPending}
                         className={cn(
-                          'hover:bg-accent w-full rounded-md border px-[var(--space-3)] py-[var(--space-2)] text-left text-[length:var(--fs-xs)] leading-[var(--lh-xs)] transition-colors disabled:opacity-60',
-                          selectedLeagueId === league.league_id && 'border-primary'
+                          'hover:border-[var(--wc-mint,#91edd0)] hover:bg-[rgba(145,237,208,0.08)] w-full rounded-md border px-[var(--space-3)] py-[var(--space-2)] text-left text-[length:var(--fs-xs)] leading-[var(--lh-xs)] transition-colors disabled:opacity-60',
+                          selectedLeagueId === league.league_id && 'border-[var(--wc-mint,#91edd0)]'
                         )}
                       >
                         <div className='font-medium'>{league.league_name}</div>
@@ -175,13 +176,11 @@ export function DraftLanding({
                 Approximated from your league settings — exact custom scoring lands later.
               </p>
             )}
-          </CardContent>
-        </Card>
+        </BroadcastPanel>
 
-        <Card>
-          <CardContent className='space-y-[var(--space-2)] p-[var(--space-4)]'>
-            <h3 className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
-              <Icons.target className='h-[var(--space-4)] w-[var(--space-4)]' />
+        <BroadcastPanel railColor='var(--wc-mint,#91edd0)' className='space-y-[var(--space-2)] p-[var(--space-4)]'>
+            <h3 className={`${WC_HEADING} flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
+              <Icons.target className='h-[var(--space-4)] w-[var(--space-4)]' style={{ color: 'var(--wc-mint,#91edd0)' }} />
               Platform room
             </h3>
             <div className='flex flex-wrap gap-[var(--space-2)]'>
@@ -205,98 +204,100 @@ export function DraftLanding({
             <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
               Pre-fills scoring, roster shape, and pick clock to match that room.
             </p>
-          </CardContent>
-        </Card>
+        </BroadcastPanel>
 
         <PressScale>
-          <Card
+          <BroadcastPanel
+            as='div'
             role='button'
             tabIndex={0}
             onClick={onOpenSettings}
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') onOpenSettings()
             }}
-            className='hover:border-primary h-full cursor-pointer transition-colors'
+            rail={false}
+            className='h-full cursor-pointer space-y-[var(--space-2)] p-[var(--space-4)] transition-colors hover:border-[var(--wc-mint,#91edd0)]'
           >
-            <CardContent className='space-y-[var(--space-2)] p-[var(--space-4)]'>
-              <h3 className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+              <h3 className={`${WC_HEADING} flex items-center gap-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
                 <Icons.settings className='h-[var(--space-4)] w-[var(--space-4)]' />
                 Custom
               </h3>
               <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                 Skip the presets — set scoring, roster, and teams yourself.
               </p>
-            </CardContent>
-          </Card>
+          </BroadcastPanel>
         </PressScale>
       </div>
 
       {/* Mode cards */}
       <div className='grid gap-[var(--gap-stack)] md:grid-cols-3'>
         <PressScale className='md:col-span-2'>
-          <Card
+          <BroadcastPanel
+            as='div'
             role='button'
             tabIndex={0}
             onClick={onOpenMockSetup}
             onKeyDown={e => {
               if (e.key === 'Enter' || e.key === ' ') onOpenMockSetup()
             }}
-            className='h-full cursor-pointer border-2 transition-colors'
-            style={{ borderColor: 'var(--wc-mint,#91edd0)' }}
+            railColor='var(--wc-mint,#91edd0)'
+            borderColor='var(--wc-mint,#91edd0)'
+            className='h-full cursor-pointer space-y-[var(--space-3)] border-2 p-[var(--space-6)] transition-colors'
           >
-            <CardContent className='space-y-[var(--space-3)] p-[var(--space-6)]'>
               <Icons.football className='h-[var(--space-8)] w-[var(--space-8)]' style={{ color: 'var(--wc-mint,#91edd0)' }} />
-              <h2 className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-bold'>Mock Draft</h2>
+              <h2 className={`${WC_HEADING} text-[length:var(--fs-lg)] leading-[var(--lh-lg)]`}>Mock Draft</h2>
               <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
                 Practice vs realistic bots in your league&apos;s style.
               </p>
-            </CardContent>
-          </Card>
+              <span className={`inline-flex w-fit ${WC_CTA_BUTTON} rounded-full px-3 py-1 text-[11px]`}>
+                Start
+              </span>
+          </BroadcastPanel>
         </PressScale>
 
         <div className='flex flex-col gap-[var(--gap-stack)]'>
           <PressScale>
-            <Card
+            <BroadcastPanel
+              as='div'
               role='button'
               tabIndex={0}
               onClick={onEnterLive}
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') onEnterLive()
               }}
-              className='hover:border-primary cursor-pointer transition-colors'
+              railColor='var(--wc-peri,#5b67c7)'
+              className='cursor-pointer space-y-[var(--space-2)] p-[var(--space-4)] transition-colors hover:border-[var(--wc-peri,#5b67c7)]'
             >
-              <CardContent className='space-y-[var(--space-2)] p-[var(--space-4)]'>
-                <Icons.target className='h-[var(--space-6)] w-[var(--space-6)]' />
-                <h3 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+                <Icons.target className='h-[var(--space-6)] w-[var(--space-6)]' style={{ color: 'var(--wc-peri,#5b67c7)' }} />
+                <h3 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
                   Live Draft Co-Pilot
                 </h3>
                 <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   Sync your real Sleeper/Yahoo draft or mirror ESPN.
                 </p>
-              </CardContent>
-            </Card>
+            </BroadcastPanel>
           </PressScale>
 
           <PressScale>
-            <Card
+            <BroadcastPanel
+              as='div'
               role='button'
               tabIndex={0}
               onClick={onEnterBoard}
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') onEnterBoard()
               }}
-              className='hover:border-primary cursor-pointer transition-colors'
+              railColor='var(--wc-mint,#91edd0)'
+              className='cursor-pointer space-y-[var(--space-2)] p-[var(--space-4)] transition-colors hover:border-[var(--wc-mint,#91edd0)]'
             >
-              <CardContent className='space-y-[var(--space-2)] p-[var(--space-4)]'>
-                <Icons.table className='h-[var(--space-6)] w-[var(--space-6)]' />
-                <h3 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+                <Icons.table className='h-[var(--space-6)] w-[var(--space-6)]' style={{ color: 'var(--wc-mint,#91edd0)' }} />
+                <h3 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
                   Cheat Sheet Board
                 </h3>
                 <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
                   Full rankings with ADP value, tiers and sleepers — track any draft manually.
                 </p>
-              </CardContent>
-            </Card>
+            </BroadcastPanel>
           </PressScale>
         </div>
       </div>

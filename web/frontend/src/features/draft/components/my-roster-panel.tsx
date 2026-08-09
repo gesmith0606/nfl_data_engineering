@@ -1,8 +1,9 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel'
 import { Stagger } from '@/lib/motion-primitives'
 import { SUCCESS_TEXT, WARN_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors'
+import { WC_HEADING } from '../utils/broadcast-ui'
 import type { DraftPlayer, RosterRisk } from '@/lib/nfl/types'
 
 interface MyRosterPanelProps {
@@ -51,13 +52,13 @@ export function MyRosterPanel({ roster, remainingNeeds, picksCount, rosterRisk }
   const needs = Object.entries(remainingNeeds).filter(([, count]) => count > 0)
 
   return (
-    <Card>
-      <CardHeader className='pb-[var(--space-2)]'>
-        <CardTitle className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
-          My Team ({picksCount} pick{picksCount !== 1 ? 's' : ''})
-        </CardTitle>
-      </CardHeader>
-      <CardContent className='space-y-[var(--space-3)] pt-0'>
+    <BroadcastPanel
+      railColor='var(--wc-mint,#91edd0)'
+      className='space-y-[var(--space-3)] p-[var(--space-4)]'
+    >
+      <h3 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
+        My Team ({picksCount} pick{picksCount !== 1 ? 's' : ''})
+      </h3>
         {roster.length === 0 ? (
           <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             No players drafted yet. Click &apos;Draft&apos; on any player to start.
@@ -142,7 +143,6 @@ export function MyRosterPanel({ roster, remainingNeeds, picksCount, rosterRisk }
             </div>
           </div>
         )}
-      </CardContent>
-    </Card>
+    </BroadcastPanel>
   )
 }

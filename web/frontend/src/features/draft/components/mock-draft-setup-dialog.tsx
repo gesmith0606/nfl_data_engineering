@@ -30,6 +30,7 @@ import {
   type RoomPlatform
 } from '../utils/platform-presets'
 import { DraftStrategyToggle } from './draft-strategy-toggle'
+import { WC_HEADING, WC_CTA_BUTTON } from '../utils/broadcast-ui'
 import type { DraftConfig, DraftStrategy } from '@/lib/nfl/types'
 
 interface MockDraftSetupDialogProps {
@@ -111,13 +112,13 @@ export function MockDraftSetupDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='sm:max-w-md'>
         <DialogHeader>
-          <DialogTitle>Mock Draft Setup</DialogTitle>
+          <DialogTitle className={WC_HEADING}>Mock Draft Setup</DialogTitle>
         </DialogHeader>
 
         <div className='space-y-[var(--gap-stack)] py-[var(--space-2)]'>
           {/* Draft room style */}
           <div className='space-y-[var(--space-2)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Draft room style
             </label>
             <ToggleGroup
@@ -132,6 +133,7 @@ export function MockDraftSetupDialog({
                   key={p}
                   value={p}
                   aria-label={`${PLATFORM_LABELS[p]} draft room style`}
+                  className='wc-display tracking-[0.04em]'
                   style={activePlatform === p ? { color: PLATFORM_ACCENT[p], borderColor: PLATFORM_ACCENT[p] } : undefined}
                 >
                   {PLATFORM_LABELS[p]}
@@ -147,7 +149,7 @@ export function MockDraftSetupDialog({
 
           {/* Teams */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='mock-teams-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mock-teams-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Teams
             </label>
             <Select
@@ -173,7 +175,7 @@ export function MockDraftSetupDialog({
 
           {/* Your pick slot -- prominent: this was completely missing before. */}
           <div className='space-y-[var(--space-2)] rounded-md border p-[var(--space-3)]'>
-            <label htmlFor='mock-slot-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mock-slot-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Your pick slot
             </label>
             <Select
@@ -208,7 +210,7 @@ export function MockDraftSetupDialog({
 
           {/* Scoring */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='mock-scoring-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mock-scoring-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Scoring
             </label>
             <Select
@@ -228,7 +230,7 @@ export function MockDraftSetupDialog({
 
           {/* Roster Format */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='mock-rosterformat-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mock-rosterformat-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Roster Format
             </label>
             <Select
@@ -250,7 +252,7 @@ export function MockDraftSetupDialog({
 
           {/* Pick clock -- defaults from the platform preset, always editable */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='mock-timer-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mock-timer-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Pick clock
             </label>
             <Select
@@ -272,7 +274,7 @@ export function MockDraftSetupDialog({
 
           {/* Rankings (ADP) source */}
           <div className='space-y-[var(--space-2)]'>
-            <label htmlFor='mock-adp-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mock-adp-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Rankings (ADP) source
             </label>
             <Select value={effectiveAdpSource} onValueChange={v => update('adp_source', v)}>
@@ -298,7 +300,7 @@ export function MockDraftSetupDialog({
 
         <DialogFooter>
           <PressScale className='w-full'>
-            <Button className='w-full' onClick={handleStart}>
+            <Button className={`w-full ${WC_CTA_BUTTON}`} onClick={handleStart}>
               Start Mock Draft
             </Button>
           </PressScale>

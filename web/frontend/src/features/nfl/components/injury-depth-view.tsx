@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchDepthCharts, fetchInjuryReport } from '@/lib/nfl/api';
+import type { InjuryRow } from '@/lib/nfl/types';
 import { currentWeekQueryOptions } from '../api/queries';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
 import { FadeIn } from '@/lib/motion-primitives';
 import { toolSeason } from '@/lib/nfl/season';
 
@@ -24,6 +26,37 @@ function statusVariant(status: string): 'destructive' | 'secondary' {
   const out = ['OUT', 'IR', 'PUP', 'NFI', 'SUSPENDED', 'DOUBTFUL'];
   return out.includes(status.toUpperCase()) ? 'destructive' : 'secondary';
 }
+
+const injuryColumns: BroadcastColumn<InjuryRow>[] = [
+  {
+    key: 'player',
+    header: 'Player',
+    sticky: true,
+    accessor: (p) => (
+      <>
+        <Badge variant='outline' className='mr-2'>
+          {p.position}
+        </Badge>
+        {p.player_name}
+        <span className='text-muted-foreground ml-1 text-xs'>{p.team}</span>
+      </>
+    )
+  },
+  {
+    key: 'status',
+    header: 'Status',
+    accessor: (p) => (
+      <Badge variant={statusVariant(p.injury_status)}>{p.injury_status}</Badge>
+    )
+  },
+  {
+    key: 'proj',
+    header: 'Proj pts',
+    align: 'right',
+    accessor: (p) => p.projected_points.toFixed(1),
+    cellClassName: 'font-mono'
+  }
+];
 
 export function InjuryDepthView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
@@ -75,63 +108,25 @@ export function InjuryDepthView() {
           <TabsTrigger value='depth'>Depth charts</TabsTrigger>
         </TabsList>
 
-        <TabsContent value='injuries'>
+        <TabsContent value='injuries' className='space-y-4'>
           <Card>
             <CardHeader>
               <CardTitle className='text-base'>
                 Fantasy-relevant injuries — week {week}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              {injuries.isLoading && (
-                <div className='flex justify-center py-8'>
-                  <Icons.spinner className='text-muted-foreground h-6 w-6 animate-spin' />
-                </div>
-              )}
-              {noWeekly && (
-                <p className='text-muted-foreground text-sm'>
-                  The weekly injury slate publishes with weekly projections
-                  once the season starts.
-                </p>
-              )}
-              {injuries.data && (
-                <div className='overflow-x-auto'>
-                  <table className='w-full text-sm'>
-                    <thead>
-                      <tr className='text-muted-foreground border-b text-left text-xs'>
-                        <th className='py-2 pr-4'>Player</th>
-                        <th className='py-2 pr-4'>Status</th>
-                        <th className='py-2 text-right'>Proj pts</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {injuries.data.players.map((p) => (
-                        <tr key={p.player_id} className='border-b last:border-0'>
-                          <td className='py-1.5 pr-4'>
-                            <Badge variant='outline' className='mr-2'>
-                              {p.position}
-                            </Badge>
-                            {p.player_name}
-                            <span className='text-muted-foreground ml-1 text-xs'>
-                              {p.team}
-                            </span>
-                          </td>
-                          <td className='py-1.5 pr-4'>
-                            <Badge variant={statusVariant(p.injury_status)}>
-                              {p.injury_status}
-                            </Badge>
-                          </td>
-                          <td className='py-1.5 text-right font-mono'>
-                            {p.projected_points.toFixed(1)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </CardContent>
           </Card>
+          <BroadcastTable
+            columns={injuryColumns}
+            rows={injuries.data?.players ?? []}
+            getRowId={(p) => p.player_id}
+            isLoading={injuries.isLoading}
+            emptyMessage={
+              noWeekly
+                ? 'The weekly injury slate publishes with weekly projections once the season starts.'
+                : 'No fantasy-relevant injuries this week.'
+            }
+          />
         </TabsContent>
 
         <TabsContent value='depth'>

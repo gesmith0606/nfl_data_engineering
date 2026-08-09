@@ -16,6 +16,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { PressScale, DataLoadReveal } from '@/lib/motion-primitives';
 import { mockDraftReportQueryOptions } from '@/features/nfl/api/queries';
 import { SUCCESS_TEXT, SUCCESS_BADGE, WARN_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors';
+import { WC_OUTLINE_BUTTON, WC_PANEL_SURFACE, WC_HEADING } from '../utils/broadcast-ui';
 
 interface DraftReportCardProps {
   sessionId: string;
@@ -48,7 +49,12 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
   return (
     <div className='space-y-[var(--space-3)]'>
       <PressScale>
-        <Button variant='outline' size='sm' onClick={() => setOpen((o) => !o)}>
+        <Button
+          variant='outline'
+          size='sm'
+          className={WC_OUTLINE_BUTTON}
+          onClick={() => setOpen((o) => !o)}
+        >
           <Icons.chartBar className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
           {open ? 'Hide Draft Report' : 'View Draft Report'}
         </Button>
@@ -79,16 +85,16 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
               Couldn&apos;t load the draft report. Try again in a moment.
             </p>
           ) : data ? (
-            <div className='space-y-[var(--space-4)] rounded-md border p-[var(--space-4)]'>
+            <div className={`space-y-[var(--space-4)] rounded-md border p-[var(--space-4)] ${WC_PANEL_SURFACE}`}>
               {/* Grade hero */}
               <div className='flex items-center gap-[var(--space-3)]'>
                 <span
-                  className={`text-[length:var(--fs-h1)] leading-[var(--lh-h1)] font-bold ${GRADE_COLORS[data.summary.letter_grade] ?? 'text-foreground'}`}
+                  className={`wc-display font-extrabold tabular-nums text-[length:var(--fs-h1)] leading-[var(--lh-h1)] ${GRADE_COLORS[data.summary.letter_grade] ?? 'text-foreground'}`}
                 >
                   {data.summary.letter_grade}
                 </span>
                 <div>
-                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                  <p className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
                     Draft Report
                   </p>
                   <p className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
@@ -116,7 +122,7 @@ export function DraftReportCard({ sessionId, enabled }: DraftReportCardProps) {
               )}
 
               {/* Per-pick receipts */}
-              <div className='overflow-x-auto rounded-md border'>
+              <div className='wc-broadcast-table overflow-x-auto rounded-md border'>
                 <Table>
                   <TableHeader>
                     <TableRow>

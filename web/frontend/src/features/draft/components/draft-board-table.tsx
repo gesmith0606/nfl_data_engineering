@@ -1,20 +1,13 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
 import { PressScale } from '@/lib/motion-primitives';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { SUCCESS_BADGE, DANGER_BADGE, deltaTextClass } from '@/lib/nfl/semantic-colors';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
+import { WC_CTA_BUTTON, WC_OUTLINE_BUTTON, WC_INPUT, WC_NUM_HERO } from '../utils/broadcast-ui';
 import { StackBadge } from './stack-badge';
 import type { DraftPlayer, Position, SortDirection, StackHint } from '@/lib/nfl/types';
 
@@ -29,44 +22,42 @@ interface DraftBoardTableProps {
 
 type SortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp';
 
+/** A displayed row plus the tier-boundary flag precomputed at sort time — the
+ *  BroadcastTable `rowClassName` callback only receives the row, not its
+ *  neighbors, so the boundary check has to happen before render. */
+type DisplayRow = DraftPlayer & { __tierBoundary: boolean };
+
 const VALUE_TIER_COLORS: Record<string, string> = {
   undervalued: SUCCESS_BADGE,
   fair_value: 'bg-muted text-muted-foreground',
   overvalued: DANGER_BADGE
 };
 
-function SortableHeader({
-  label,
-  sortKey,
-  currentKey,
-  direction,
-  onSort
-}: {
-  label: string;
-  sortKey: SortKey;
-  currentKey: SortKey;
-  direction: SortDirection;
-  onSort: (key: SortKey) => void;
-}) {
+function sortHeader(
+  label: string,
+  sortKey: SortKey,
+  currentKey: SortKey,
+  direction: SortDirection,
+  onSort: (key: SortKey) => void
+) {
   const isActive = sortKey === currentKey;
   return (
-    <TableHead
-      className='cursor-pointer select-none whitespace-nowrap'
+    <button
+      type='button'
       onClick={() => onSort(sortKey)}
+      className='flex items-center gap-[var(--space-1)] select-none'
     >
-      <span className='flex items-center gap-[var(--space-1)]'>
-        {label}
-        {isActive ? (
-          direction === 'asc' ? (
-            <Icons.chevronUp className='h-[var(--space-3)] w-[var(--space-3)]' />
-          ) : (
-            <Icons.chevronDown className='h-[var(--space-3)] w-[var(--space-3)]' />
-          )
+      {label}
+      {isActive ? (
+        direction === 'asc' ? (
+          <Icons.chevronUp className='h-[var(--space-3)] w-[var(--space-3)]' />
         ) : (
-          <Icons.chevronsUpDown className='text-muted-foreground h-[var(--space-3)] w-[var(--space-3)]' />
-        )}
-      </span>
-    </TableHead>
+          <Icons.chevronDown className='h-[var(--space-3)] w-[var(--space-3)]' />
+        )
+      ) : (
+        <Icons.chevronsUpDown className='h-[var(--space-3)] w-[var(--space-3)] opacity-50' />
+      )}
+    </button>
   );
 }
 
@@ -109,7 +100,20 @@ export function DraftBoardTable({
     });
   }, [players, positionFilter, search, sortKey, sortDir]);
 
-  const displayed = filtered.slice(0, 200);
+  const displayed: DisplayRow[] = useMemo(() => {
+    const sliced = filtered.slice(0, 200);
+    return sliced.map((player, i) => {
+      // Subtle divider between draft tiers — only meaningful while sorted by
+      // rank, where tiers group into contiguous runs.
+      const prevTier = i > 0 ? sliced[i - 1].tier : undefined;
+      const isTierBoundary =
+        sortKey === 'model_rank' &&
+        player.tier != null &&
+        prevTier != null &&
+        player.tier !== prevTier;
+      return { ...player, __tierBoundary: isTierBoundary };
+    });
+  }, [filtered, sortKey]);
 
   function adpDiffColor(diff: number | null): string {
     if (diff === null) return 'text-muted-foreground';
@@ -127,6 +131,127 @@ export function DraftBoardTable({
     return (diff > 0 ? '+' : '') + diff.toFixed(1);
   }
 
+  const columns: BroadcastColumn<DisplayRow>[] = [
+    {
+      key: 'rank',
+      header: sortHeader('Rank', 'model_rank', sortKey, sortDir, handleSort),
+      align: 'right',
+      width: 'w-16',
+      cellClassName: 'font-mono tabular-nums',
+      accessor: (p) => p.model_rank
+    },
+    {
+      key: 'player',
+      header: 'Player',
+      sticky: true,
+      accessor: (p) => (
+        <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
+          <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            {p.player_name}
+          </span>
+          <span
+            className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${getPositionBadgeClass(p.position)}`}
+          >
+            {p.position}
+          </span>
+          {hintsByPlayerName?.get(p.player_name)?.map((hint, hi) => (
+            <StackBadge key={`${hint.kind}-${hint.rostered_player_name}-${hi}`} hint={hint} />
+          ))}
+        </div>
+      )
+    },
+    {
+      key: 'team',
+      header: 'Team',
+      cellClassName: 'text-muted-foreground',
+      accessor: (p) => p.team ?? '—'
+    },
+    {
+      key: 'pts',
+      header: sortHeader('Pts', 'projected_points', sortKey, sortDir, handleSort),
+      align: 'right',
+      cellClassName: WC_NUM_HERO,
+      accessor: (p) => (p.projected_points != null ? p.projected_points.toFixed(1) : '—')
+    },
+    {
+      key: 'adp',
+      header: sortHeader('ADP', 'adp_rank', sortKey, sortDir, handleSort),
+      align: 'right',
+      cellClassName: 'font-mono tabular-nums',
+      accessor: (p) => (p.adp_rank !== null ? p.adp_rank.toFixed(0) : '—')
+    },
+    {
+      key: 'value',
+      header: sortHeader('Value', 'adp_diff', sortKey, sortDir, handleSort),
+      align: 'right',
+      accessor: (p) => (
+        <span className={`font-mono tabular-nums ${adpDiffColor(p.adp_diff)}`}>
+          {formatAdpDiff(p.adp_diff)}
+        </span>
+      )
+    },
+    {
+      key: 'vorp',
+      header: sortHeader('VORP', 'vorp', sortKey, sortDir, handleSort),
+      align: 'right',
+      cellClassName: 'font-mono tabular-nums',
+      accessor: (p) => (p.vorp != null ? p.vorp.toFixed(1) : '—')
+    },
+    {
+      key: 'tier',
+      header: 'Tier',
+      accessor: (p) => (
+        <div className='flex items-center gap-[var(--space-1)]'>
+          {p.tier != null && (
+            <span
+              className='bg-muted text-foreground inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'
+              title={`Tier ${p.tier}`}
+            >
+              {`T${p.tier}`}
+            </span>
+          )}
+          <span
+            className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${VALUE_TIER_COLORS[p.value_tier] ?? VALUE_TIER_COLORS['fair_value']}`}
+          >
+            {p.value_tier === 'undervalued' ? 'Value' : p.value_tier === 'overvalued' ? 'Reach' : 'Fair'}
+          </span>
+        </div>
+      )
+    },
+    {
+      key: 'actions',
+      header: '',
+      width: 'w-32',
+      accessor: (p) => (
+        <span className='flex items-center gap-[var(--space-1)]'>
+          <PressScale>
+            <Button
+              variant='outline'
+              size='sm'
+              className={WC_CTA_BUTTON}
+              onClick={() => onDraft(p.player_id)}
+              disabled={isPicking}
+            >
+              Draft
+            </Button>
+          </PressScale>
+          <PressScale>
+            <Button
+              variant='ghost'
+              size='sm'
+              className={WC_OUTLINE_BUTTON}
+              title='Mark as drafted by another team'
+              onClick={() => onDraft(p.player_id, false)}
+              disabled={isPicking}
+            >
+              Taken
+            </Button>
+          </PressScale>
+        </span>
+      )
+    }
+  ];
+
   return (
     <div className='space-y-[var(--space-3)]'>
       {/* Search bar */}
@@ -141,7 +266,7 @@ export function DraftBoardTable({
           placeholder='Search players...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className='border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border px-[var(--space-3)] py-[var(--space-1)] pl-[var(--space-10)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-[length:var(--fs-sm)] file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50'
+          className={`ring-offset-background flex h-9 w-full rounded-md border px-[var(--space-3)] py-[var(--space-1)] pl-[var(--space-10)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] shadow-sm transition-colors file:border-0 file:bg-transparent file:text-[length:var(--fs-sm)] file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 ${WC_INPUT}`}
         />
       </div>
 
@@ -150,170 +275,17 @@ export function DraftBoardTable({
         Showing {displayed.length} of {filtered.length} available players
       </p>
 
-      {/* Mobile (Phase 62-05 DSGN-04): wrap the 9-column table in a horizontal
-       *  scroll container so the draft board remains usable at 375px without
-       *  overflowing the page gutter. */}
-      <div className='rounded-md border overflow-x-auto'>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <SortableHeader
-                label='Rank'
-                sortKey='model_rank'
-                currentKey={sortKey}
-                direction={sortDir}
-                onSort={handleSort}
-              />
-              <TableHead>Player</TableHead>
-              <TableHead>Team</TableHead>
-              <SortableHeader
-                label='Pts'
-                sortKey='projected_points'
-                currentKey={sortKey}
-                direction={sortDir}
-                onSort={handleSort}
-              />
-              <SortableHeader
-                label='ADP'
-                sortKey='adp_rank'
-                currentKey={sortKey}
-                direction={sortDir}
-                onSort={handleSort}
-              />
-              <SortableHeader
-                label='Value'
-                sortKey='adp_diff'
-                currentKey={sortKey}
-                direction={sortDir}
-                onSort={handleSort}
-              />
-              <SortableHeader
-                label='VORP'
-                sortKey='vorp'
-                currentKey={sortKey}
-                direction={sortDir}
-                onSort={handleSort}
-              />
-              <TableHead>Tier</TableHead>
-              <TableHead className='w-32' />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {displayed.length === 0 ? (
-              <TableRow>
-                <TableCell
-                  colSpan={9}
-                  className='text-muted-foreground py-[var(--space-12)] text-center text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
-                >
-                  No players match your filter.
-                </TableCell>
-              </TableRow>
-            ) : (
-              displayed.map((player, i) => {
-                // Subtle divider between draft tiers — only meaningful while
-                // sorted by rank, where tiers group into contiguous runs.
-                const prevTier = i > 0 ? displayed[i - 1].tier : undefined;
-                const isTierBoundary =
-                  sortKey === 'model_rank' &&
-                  player.tier != null &&
-                  prevTier != null &&
-                  player.tier !== prevTier;
-                return (
-                  <TableRow
-                    key={player.player_id}
-                    className={`hover:bg-muted/40 transition-colors duration-[var(--motion-fast)] ${isTierBoundary ? 'border-t-2' : ''}`}
-                  >
-                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                      {player.model_rank}
-                    </TableCell>
-                    <TableCell>
-                      <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
-                        <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
-                          {player.player_name}
-                        </span>
-                        <span
-                          className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${getPositionBadgeClass(player.position)}`}
-                        >
-                          {player.position}
-                        </span>
-                        {hintsByPlayerName?.get(player.player_name)?.map((hint, hi) => (
-                          <StackBadge
-                            key={`${hint.kind}-${hint.rostered_player_name}-${hi}`}
-                            hint={hint}
-                          />
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell className='text-muted-foreground text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                      {player.team ?? '—'}
-                    </TableCell>
-                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                      {player.projected_points != null ? player.projected_points.toFixed(1) : '—'}
-                    </TableCell>
-                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                      {player.adp_rank !== null ? player.adp_rank.toFixed(0) : '—'}
-                    </TableCell>
-                    <TableCell
-                      className={`font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums ${adpDiffColor(player.adp_diff)}`}
-                    >
-                      {formatAdpDiff(player.adp_diff)}
-                    </TableCell>
-                    <TableCell className='font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tabular-nums'>
-                      {player.vorp != null ? player.vorp.toFixed(1) : '—'}
-                    </TableCell>
-                    <TableCell>
-                      <div className='flex items-center gap-[var(--space-1)]'>
-                        {player.tier != null && (
-                          <span
-                            className='bg-muted text-foreground inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold'
-                            title={`Tier ${player.tier}`}
-                          >
-                            {`T${player.tier}`}
-                          </span>
-                        )}
-                        <span
-                          className={`inline-flex items-center rounded-full px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${VALUE_TIER_COLORS[player.value_tier] ?? VALUE_TIER_COLORS['fair_value']}`}
-                        >
-                          {player.value_tier === 'undervalued'
-                            ? 'Value'
-                            : player.value_tier === 'overvalued'
-                              ? 'Reach'
-                              : 'Fair'}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className='flex items-center gap-[var(--space-1)]'>
-                        <PressScale>
-                          <Button
-                            variant='outline'
-                            size='sm'
-                            onClick={() => onDraft(player.player_id)}
-                            disabled={isPicking}
-                          >
-                            Draft
-                          </Button>
-                        </PressScale>
-                        <PressScale>
-                          <Button
-                            variant='ghost'
-                            size='sm'
-                            title='Mark as drafted by another team'
-                            onClick={() => onDraft(player.player_id, false)}
-                            disabled={isPicking}
-                          >
-                            Taken
-                          </Button>
-                        </PressScale>
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
-      </div>
+      {/* Mobile (Phase 62-05 DSGN-04): BroadcastTable's own wrapper pans
+       *  horizontally with a sticky player column, so the 9-column board
+       *  stays usable at 375px without overflowing the page gutter. */}
+      <BroadcastTable
+        columns={columns}
+        rows={displayed}
+        getRowId={(p) => p.player_id}
+        emptyMessage='No players match your filter.'
+        rowClassName={(p) => (p.__tierBoundary ? 'border-t-2' : '')}
+        minWidth='min-w-[760px]'
+      />
     </div>
   );
 }

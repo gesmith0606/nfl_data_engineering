@@ -2,6 +2,7 @@
 
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { DRAFT_STRATEGIES, STRATEGY_LABELS, STRATEGY_DESCRIPTIONS, asDraftStrategy } from '../utils/draft-strategy'
+import { WC_HEADING } from '../utils/broadcast-ui'
 import type { DraftStrategy } from '@/lib/nfl/types'
 
 interface DraftStrategyToggleProps {
@@ -21,7 +22,7 @@ export function DraftStrategyToggle({ value, onChange }: DraftStrategyToggleProp
 
   return (
     <div className='space-y-[var(--space-2)]'>
-      <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+      <label className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
         Draft strategy
       </label>
       <ToggleGroup
@@ -32,7 +33,12 @@ export function DraftStrategyToggle({ value, onChange }: DraftStrategyToggleProp
         className='w-full'
       >
         {DRAFT_STRATEGIES.map(s => (
-          <ToggleGroupItem key={s} value={s} aria-label={`${STRATEGY_LABELS[s]} draft strategy`}>
+          <ToggleGroupItem
+            key={s}
+            value={s}
+            aria-label={`${STRATEGY_LABELS[s]} draft strategy`}
+            className='wc-display tracking-[0.04em] data-[state=on]:bg-[rgba(145,237,208,0.14)] data-[state=on]:text-[var(--wc-mint,#91edd0)]'
+          >
             {STRATEGY_LABELS[s]}
           </ToggleGroupItem>
         ))}

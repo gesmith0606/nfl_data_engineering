@@ -31,6 +31,16 @@ import { requestTurnNotificationPermission } from '../hooks/use-turn-alert';
 import { usePlatformPresets } from '../hooks/use-platform-presets';
 import { isRoomPlatform, PLATFORM_ACCENT } from '../utils/platform-presets';
 import { STRATEGY_LABELS, asDraftStrategy } from '../utils/draft-strategy';
+import {
+  WC_TABS_LIST,
+  WC_TAB_TRIGGER,
+  WC_CTA_BUTTON,
+  WC_OUTLINE_BUTTON,
+  WC_GHOST_BUTTON,
+  WC_PANEL_SURFACE,
+  WC_INPUT,
+  WC_HEADING
+} from '../utils/broadcast-ui';
 import { FadeIn, DataLoadReveal, PressScale } from '@/lib/motion-primitives';
 import type { DraftPlatform, Position } from '@/lib/nfl/types';
 
@@ -210,8 +220,11 @@ export function DraftToolView() {
     content = (
       <FadeIn className='space-y-[var(--gap-stack)]'>
         <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
-          <Icons.clipboardText className='h-[var(--space-4)] w-[var(--space-4)]' />
-          <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+          <Icons.clipboardText
+            className='h-[var(--space-4)] w-[var(--space-4)]'
+            style={{ color: 'var(--wc-mint,#91edd0)' }}
+          />
+          <h2 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
             Mock Draft Simulation
           </h2>
           <LeagueContextChip config={config} onChange={() => setConfigOpen(true)} />
@@ -219,7 +232,12 @@ export function DraftToolView() {
             {STRATEGY_LABELS[asDraftStrategy(config.strategy)]}
           </span>
           <PressScale className='ml-auto'>
-            <Button variant='ghost' size='sm' onClick={() => setHowItWorks('mock')}>
+            <Button
+              variant='ghost'
+              size='sm'
+              className={WC_GHOST_BUTTON}
+              onClick={() => setHowItWorks('mock')}
+            >
               <Icons.help className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
               How this works
             </Button>
@@ -242,12 +260,12 @@ export function DraftToolView() {
       <FadeIn className='space-y-[var(--gap-stack)]'>
         <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
           <Tabs value={livePlatform} onValueChange={(v) => setLivePlatform(v as DraftPlatform)}>
-            <TabsList>
+            <TabsList className={WC_TABS_LIST}>
               {(['sleeper', 'espn', 'yahoo'] as const).map((p) => (
                 <TabsTrigger
                   key={p}
                   value={p}
-                  className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] capitalize'
+                  className={`${WC_TAB_TRIGGER} text-[length:var(--fs-xs)] leading-[var(--lh-xs)] capitalize`}
                 >
                   {p}
                 </TabsTrigger>
@@ -256,13 +274,23 @@ export function DraftToolView() {
           </Tabs>
           <div className='ml-auto flex items-center gap-[var(--space-2)]'>
             <PressScale>
-              <Button variant='ghost' size='sm' onClick={() => setHowItWorks('live')}>
+              <Button
+                variant='ghost'
+                size='sm'
+                className={WC_GHOST_BUTTON}
+                onClick={() => setHowItWorks('live')}
+              >
                 <Icons.help className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 How this works
               </Button>
             </PressScale>
             <PressScale>
-              <Button variant='outline' size='sm' onClick={() => setLiveMode(false)}>
+              <Button
+                variant='outline'
+                size='sm'
+                className={WC_OUTLINE_BUTTON}
+                onClick={() => setLiveMode(false)}
+              >
                 <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)] rotate-180' />
                 Back to Board
               </Button>
@@ -274,17 +302,20 @@ export function DraftToolView() {
         ) : livePlatform === 'yahoo' && yahooMode === 'live' ? (
           <LiveDraftPanel platform='yahoo' onUseMirror={() => setYahooMode('mirror')} />
         ) : (
-          <div className='rounded-md border p-[var(--space-4)] space-y-[var(--space-3)]'>
+          <div className={`rounded-md border p-[var(--space-4)] space-y-[var(--space-3)] ${WC_PANEL_SURFACE}`}>
             <div className='flex items-center gap-[var(--space-2)]'>
-              <Icons.target className='h-[var(--space-4)] w-[var(--space-4)]' />
-              <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold capitalize'>
+              <Icons.target
+                className='h-[var(--space-4)] w-[var(--space-4)]'
+                style={{ color: 'var(--wc-mint,#91edd0)' }}
+              />
+              <h2 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)] capitalize`}>
                 {livePlatform} Draft — Mirror Mode
               </h2>
               {livePlatform === 'yahoo' && (
                 <Button
                   variant='ghost'
                   size='sm'
-                  className='ml-auto'
+                  className={`ml-auto ${WC_GHOST_BUTTON}`}
                   onClick={() => setYahooMode('live')}
                 >
                   Try auto-sync
@@ -302,7 +333,7 @@ export function DraftToolView() {
                 <span className='text-muted-foreground'>Your draft slot</span>
                 <Input
                   id='mirror-slot-input'
-                  className='w-24'
+                  className={`w-24 ${WC_INPUT}`}
                   placeholder='e.g. 5'
                   inputMode='numeric'
                   value={mirrorSlotInput}
@@ -312,6 +343,7 @@ export function DraftToolView() {
               <PressScale>
                 <Button
                   size='sm'
+                  className={WC_CTA_BUTTON}
                   disabled={!Number(mirrorSlotInput)}
                   onClick={() => {
                     requestTurnNotificationPermission();
@@ -343,16 +375,16 @@ export function DraftToolView() {
         <div className='flex flex-wrap items-center gap-[var(--space-2)]'>
           {/* Board / Sleepers switch */}
           <Tabs value={mainTab} onValueChange={(v) => setMainTab(v as MainTab)}>
-            <TabsList>
+            <TabsList className={WC_TABS_LIST}>
               <TabsTrigger
                 value='board'
-                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                className={`${WC_TAB_TRIGGER} text-[length:var(--fs-xs)] leading-[var(--lh-xs)]`}
               >
                 Board
               </TabsTrigger>
               <TabsTrigger
                 value='sleepers'
-                className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                className={`${WC_TAB_TRIGGER} text-[length:var(--fs-xs)] leading-[var(--lh-xs)]`}
               >
                 Sleepers
               </TabsTrigger>
@@ -362,12 +394,12 @@ export function DraftToolView() {
           {/* Position filter (board tab only) */}
           {mainTab === 'board' && (
             <Tabs value={positionFilter} onValueChange={(v) => setPositionFilter(v as Position)}>
-              <TabsList>
+              <TabsList className={WC_TABS_LIST}>
                 {POSITIONS.map((pos) => (
                   <TabsTrigger
                     key={pos}
                     value={pos}
-                    className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                    className={`${WC_TAB_TRIGGER} text-[length:var(--fs-xs)] leading-[var(--lh-xs)]`}
                   >
                     {pos}
                   </TabsTrigger>
@@ -384,25 +416,40 @@ export function DraftToolView() {
 
           <div className='ml-auto flex items-center gap-[var(--space-2)]'>
             <PressScale>
-              <Button variant='ghost' size='sm' onClick={() => setHowItWorks('board')}>
+              <Button
+                variant='ghost'
+                size='sm'
+                className={WC_GHOST_BUTTON}
+                onClick={() => setHowItWorks('board')}
+              >
                 <Icons.help className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 How this works
               </Button>
             </PressScale>
             <PressScale>
-              <Button variant='default' size='sm' onClick={enterLive}>
+              <Button variant='default' size='sm' className={WC_CTA_BUTTON} onClick={enterLive}>
                 <Icons.target className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Live Draft
               </Button>
             </PressScale>
             <PressScale>
-              <Button variant='outline' size='sm' onClick={() => setConfigOpen(true)}>
+              <Button
+                variant='outline'
+                size='sm'
+                className={WC_OUTLINE_BUTTON}
+                onClick={() => setConfigOpen(true)}
+              >
                 <Icons.settings className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Settings
               </Button>
             </PressScale>
             <PressScale>
-              <Button variant='outline' size='sm' onClick={() => setMockSetupOpen(true)}>
+              <Button
+                variant='outline'
+                size='sm'
+                className={WC_OUTLINE_BUTTON}
+                onClick={() => setMockSetupOpen(true)}
+              >
                 <Icons.arrowRight className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Mock Draft
               </Button>
@@ -414,7 +461,12 @@ export function DraftToolView() {
               isConflict={undoIsConflict || (data?.picks_taken ?? 0) === 0}
             />
             <PressScale>
-              <Button variant='outline' size='sm' onClick={handleNewDraft}>
+              <Button
+                variant='outline'
+                size='sm'
+                className={WC_OUTLINE_BUTTON}
+                onClick={handleNewDraft}
+              >
                 <Icons.close className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
                 Reset
               </Button>
@@ -424,13 +476,20 @@ export function DraftToolView() {
 
         {/* First-run cheat-sheet explainer (manual board only, own dismiss flag) */}
         {boardBannerVisible && (
-          <Alert>
-            <AlertDescription className='flex flex-wrap items-center justify-between gap-[var(--space-2)]'>
+          <Alert
+            className={`border-l-[3px] border-l-[var(--wc-mint,#91edd0)] ${WC_PANEL_SURFACE}`}
+          >
+            <AlertDescription className='flex flex-wrap items-center justify-between gap-[var(--space-2)] text-[#cfd6e4]'>
               <span>
                 This is your cheat sheet — our model&apos;s ranks vs real ADP. Following a real
                 draft? Hit Draft for your picks, Taken for everyone else&apos;s.
               </span>
-              <Button variant='ghost' size='sm' onClick={dismissBoardBanner}>
+              <Button
+                variant='ghost'
+                size='sm'
+                className={WC_GHOST_BUTTON}
+                onClick={dismissBoardBanner}
+              >
                 Got it
               </Button>
             </AlertDescription>

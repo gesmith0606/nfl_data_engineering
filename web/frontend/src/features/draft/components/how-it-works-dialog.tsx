@@ -1,6 +1,7 @@
 'use client'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { WC_HEADING } from '../utils/broadcast-ui'
 
 export type HowItWorksMode = 'landing' | 'board' | 'mock' | 'live'
 
@@ -57,7 +58,7 @@ export function HowItWorksDialog({ mode, open, onOpenChange }: HowItWorksDialogP
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='sm:max-w-md'>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className={WC_HEADING}>{title}</DialogTitle>
         </DialogHeader>
         <ul className='list-disc space-y-[var(--space-2)] py-[var(--space-2)] pl-[var(--space-5)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
           {bullets.map(bullet => (

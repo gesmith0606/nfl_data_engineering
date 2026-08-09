@@ -1,5 +1,21 @@
 'use client';
 
+/**
+ * Broadcast-overlay adoption, path B (see
+ * .claude/skills/sketch-findings-nfl-data-engineering): this table keeps the
+ * stock TanStack `DataTable` rather than switching to the shared
+ * `BroadcastTable`. It genuinely uses URL-synced sorting + pagination
+ * (`useDataTable` + nuqs), a text filter + column-visibility toolbar
+ * (`DataTableToolbar`), and responsive per-column hiding via
+ * `meta.headerClassName` — none of which `BroadcastTable` provides (it's
+ * intentionally a plain sorted/tiered list, see its own docstring). Instead
+ * the rendered markup is restyled to be visually indistinguishable from
+ * `BroadcastTable`: wrapping in `.wc-broadcast-table` below applies the
+ * yellow condensed headers / mint rule / zebra rows, and columns.tsx
+ * right-aligns numeric cells + gives the projected-points column the same
+ * `.wc-num-hero` treatment BroadcastTable adopters use for hero numerals.
+ */
+
 import { DataTable } from '@/components/ui/table/data-table';
 import { DataTableToolbar } from '@/components/ui/table/data-table-toolbar';
 import { useDataTable } from '@/hooks/use-data-table';
@@ -33,7 +49,7 @@ const POSITIONS: Position[] = ['ALL', 'QB', 'RB', 'WR', 'TE', 'K'];
 
 /** PLAN 2 free tier: top-N projections per position; bands are premium. */
 const FREE_TIER_LIMIT = 50;
-const BAND_COLUMN_IDS = new Set(['projected_floor', 'projected_ceiling']);
+const BAND_COLUMN_IDS = new Set(['range']);
 
 /** Keep the top `limit` rows per position by projected points. */
 function limitPerPosition(rows: PlayerProjection[], limit: number): PlayerProjection[] {
@@ -208,9 +224,15 @@ export function ProjectionsTable({ freeTier = false }: { freeTier?: boolean }) {
               </a>
             </div>
           )}
-          <DataTable table={table}>
-            <DataTableToolbar table={table} />
-          </DataTable>
+          {/* broadcast restyle (path B, see index.tsx module doc): wrapping in
+           *  .wc-broadcast-table applies the yellow condensed headers / mint
+           *  rule / zebra rows from src/styles/broadcast.css to the stock
+           *  TanStack markup without touching the shared DataTable component. */}
+          <div className='wc-broadcast-table'>
+            <DataTable table={table}>
+              <DataTableToolbar table={table} />
+            </DataTable>
+          </div>
         </>
       )}
     </div>

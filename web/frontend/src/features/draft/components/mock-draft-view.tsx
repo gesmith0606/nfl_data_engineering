@@ -21,6 +21,13 @@ import { slotOnClock, picksUntilNextTurn } from '@/lib/nfl/draft-math'
 import { PickClock } from './pick-clock'
 import { UndoButton } from './undo-button'
 import { DraftReportCard } from './draft-report-card'
+import {
+  WC_OUTLINE_BUTTON,
+  WC_GHOST_BUTTON,
+  WC_CTA_BUTTON,
+  WC_PANEL_SURFACE,
+  WC_HEADING
+} from '../utils/broadcast-ui'
 import type { DraftConfig, MockDraftPickResponse } from '@/lib/nfl/types'
 
 interface MockDraftViewProps {
@@ -233,6 +240,7 @@ export function MockDraftView({
           <Button
             variant='outline'
             size='sm'
+            className={WC_CTA_BUTTON}
             onClick={() => advanceMutation.mutate()}
             disabled={controlsDisabled}
           >
@@ -247,6 +255,7 @@ export function MockDraftView({
           <Button
             variant='outline'
             size='sm'
+            className={WC_OUTLINE_BUTTON}
             onClick={() => setIsRunning(prev => !prev)}
             disabled={isComplete || botBurstActive}
           >
@@ -272,7 +281,7 @@ export function MockDraftView({
         />
 
         <PressScale>
-          <Button variant='outline' size='sm' onClick={onReset}>
+          <Button variant='outline' size='sm' className={WC_OUTLINE_BUTTON} onClick={onReset}>
             <Icons.close className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
             Reset
           </Button>
@@ -305,13 +314,13 @@ export function MockDraftView({
 
       {/* Bot-burst ticker -- shown while opponent picks reveal in sequence after your pick. */}
       {botBurstActive && (
-        <div className='flex items-center gap-[var(--space-2)] rounded-md border p-[var(--space-2)]'>
+        <div className={`flex items-center gap-[var(--space-2)] rounded-md border p-[var(--space-2)] ${WC_PANEL_SURFACE}`}>
           <Icons.spinner className='text-muted-foreground h-[var(--space-4)] w-[var(--space-4)] animate-spin' />
           <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             Bots picking...
           </span>
           <PressScale className='ml-auto'>
-            <Button variant='ghost' size='sm' onClick={handleSkipBurst}>
+            <Button variant='ghost' size='sm' className={WC_GHOST_BUTTON} onClick={handleSkipBurst}>
               Skip
             </Button>
           </PressScale>
@@ -320,9 +329,9 @@ export function MockDraftView({
 
       {/* Results card when complete */}
       {isComplete && (
-        <Card className='border-green-200 dark:border-green-800'>
+        <Card className={`border-[var(--wc-mint,#91edd0)]/50 ${WC_PANEL_SURFACE}`}>
           <CardHeader className='pb-[var(--space-2)]'>
-            <CardTitle className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <CardTitle className={`${WC_HEADING} text-[length:var(--fs-lg)] leading-[var(--lh-lg)]`}>
               Draft Complete
             </CardTitle>
           </CardHeader>
@@ -330,12 +339,12 @@ export function MockDraftView({
             {draftGrade && (
               <div className='flex items-center gap-[var(--space-3)]'>
                 <span
-                  className={`text-[length:var(--fs-h1)] leading-[var(--lh-h1)] font-bold ${GRADE_COLORS[draftGrade] ?? 'text-foreground'}`}
+                  className={`wc-display font-extrabold tabular-nums text-[length:var(--fs-h1)] leading-[var(--lh-h1)] ${GRADE_COLORS[draftGrade] ?? 'text-foreground'}`}
                 >
                   {draftGrade}
                 </span>
                 <div>
-                  <p className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+                  <p className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
                     Draft Grade
                   </p>
                   {totalPts !== null && (
@@ -366,7 +375,7 @@ export function MockDraftView({
 
             <div className='flex flex-wrap gap-[var(--space-2)]'>
               <PressScale>
-                <Button onClick={onReset} size='sm'>
+                <Button onClick={onReset} size='sm' className={WC_CTA_BUTTON}>
                   Run Again
                 </Button>
               </PressScale>
@@ -378,7 +387,7 @@ export function MockDraftView({
       )}
 
       {/* Draft log */}
-      <div className='max-h-[500px] overflow-y-auto rounded-md border'>
+      <div className='wc-broadcast-table max-h-[500px] overflow-y-auto rounded-md border'>
         <Table>
           <TableHeader>
             <TableRow>

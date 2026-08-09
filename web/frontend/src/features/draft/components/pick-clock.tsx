@@ -5,6 +5,7 @@ import { Icons } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import { DANGER_TEXT } from '@/lib/nfl/semantic-colors'
 import { isAudioMuted, setAudioMuted, playTick } from '../hooks/use-turn-alert'
+import { WC_PANEL_SURFACE, WC_GHOST_BUTTON } from '../utils/broadcast-ui'
 
 interface PickClockProps {
   /** Current pick number — the countdown resets whenever this changes. */
@@ -88,7 +89,7 @@ export function PickClock({
   return (
     <div className='flex items-center gap-[var(--space-2)]'>
       <div
-        className={`flex items-center gap-[var(--space-2)] rounded-md border px-[var(--space-2)] py-1 ${isUrgent ? 'animate-pulse' : ''}`}
+        className={`flex items-center gap-[var(--space-2)] rounded-md border px-[var(--space-2)] py-1 ${isUrgent ? 'animate-pulse' : WC_PANEL_SURFACE}`}
         style={{ borderColor: isUrgent ? undefined : accentColor }}
       >
         <span
@@ -108,7 +109,7 @@ export function PickClock({
       <Button
         variant='ghost'
         size='icon'
-        className={`h-7 w-7 ${muted ? 'opacity-40' : ''}`}
+        className={`h-7 w-7 ${WC_GHOST_BUTTON} ${muted ? 'opacity-40' : ''}`}
         onClick={toggleMute}
         aria-label={muted ? 'Unmute pick clock sound' : 'Mute pick clock sound'}
         title={muted ? 'Unmute pick clock sound' : 'Mute pick clock sound'}

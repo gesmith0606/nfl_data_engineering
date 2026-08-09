@@ -10,25 +10,13 @@ import {
   CardAction
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table';
 import { Icons } from '@/components/icons';
 import { WeeklyAccuracyChart } from './accuracy-chart';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
-import {
-  SUCCESS_TEXT,
-  WARN_TEXT,
-  DANGER_TEXT,
-  SUCCESS_BADGE,
-  DANGER_BADGE
-} from '@/lib/nfl/semantic-colors';
+import { SUCCESS_TEXT, DANGER_TEXT, SUCCESS_BADGE, DANGER_BADGE } from '@/lib/nfl/semantic-colors';
 import { formatGap } from '@/lib/nfl/consensus';
+import { gradeGap, gradeMae } from '@/lib/nfl/accuracy-grade';
 import { cn } from '@/lib/utils';
 import { SectionOverline } from './section-heading';
 import modelMetrics from '../config/model-metrics.json';
@@ -51,6 +39,109 @@ const POSITION_METRICS = modelMetrics.positions.map((p) => ({
   ...p,
   notes: MODEL_NOTES[p.model] ?? p.model
 }));
+
+type PositionMetricRow = (typeof POSITION_METRICS)[number];
+
+/** Grade chip — letter grade rendered next to (never instead of) the raw
+ *  number it summarizes, so rows scan at a glance without hiding the math. */
+function GradeChip({ grade, className, title }: { grade: string; className: string; title?: string }) {
+  return (
+    <span
+      title={title}
+      className={cn(
+        'wc-display inline-flex min-w-[26px] items-center justify-center rounded-full border border-current/30 px-[6px] py-[1px] text-[11px] leading-none font-extrabold tracking-[0.02em]',
+        className
+      )}
+    >
+      {grade}
+    </span>
+  );
+}
+
+/** Verdict pill: BEAT CONSENSUS (win) / TRAILING (loss). */
+function VerdictBadge({ win }: { win: boolean }) {
+  return (
+    <span
+      className={cn(
+        'wc-display inline-flex items-center gap-[var(--space-1)] rounded-full px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.04em]',
+        win ? SUCCESS_BADGE : DANGER_BADGE
+      )}
+    >
+      {win ? (
+        <Icons.check className='size-[var(--space-3)]' />
+      ) : (
+        <Icons.close className='size-[var(--space-3)]' />
+      )}
+      {win ? 'Beat Consensus' : 'Trailing'}
+    </span>
+  );
+}
+
+const positionColumns: BroadcastColumn<PositionMetricRow>[] = [
+  {
+    key: 'position',
+    header: 'Position',
+    sticky: true,
+    accessor: (row) => (
+      <Badge variant='outline' className={getPositionBadgeClass(row.position)}>
+        {row.position}
+      </Badge>
+    )
+  },
+  {
+    key: 'model',
+    header: 'Model',
+    accessor: (row) => row.model,
+    cellClassName: 'text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'
+  },
+  {
+    key: 'mae',
+    header: 'MAE',
+    align: 'right',
+    accessor: (row) => <span className='wc-num-hero'>{row.mae.toFixed(2)}</span>
+  },
+  {
+    key: 'rmse',
+    header: 'RMSE',
+    align: 'right',
+    accessor: (row) => row.rmse.toFixed(2),
+    cellClassName: 'text-muted-foreground tabular-nums'
+  },
+  {
+    key: 'bias',
+    header: 'Bias',
+    align: 'right',
+    accessor: (row) => row.bias.toFixed(2),
+    cellClassName: 'text-muted-foreground tabular-nums'
+  },
+  {
+    key: 'grade',
+    header: 'Grade',
+    headerClassName: 'hidden sm:table-cell',
+    cellClassName: 'hidden sm:table-cell',
+    accessor: (row) => {
+      const grade = gradeMae(row.mae);
+      return (
+        <span className='inline-flex items-center gap-[var(--space-2)]'>
+          <GradeChip grade={grade.grade} className={grade.className} />
+          <span
+            className={cn('text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium', grade.className)}
+          >
+            {grade.label}
+          </span>
+        </span>
+      );
+    }
+  },
+  {
+    key: 'notes',
+    header: 'Notes',
+    headerClassName: 'hidden md:table-cell',
+    cellClassName:
+      'hidden text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground md:table-cell',
+    accessor: (row) => row.notes
+  }
+];
 
 interface MetricCardProps {
   title: string;
@@ -97,32 +188,76 @@ function MetricCard({
   );
 }
 
-/** MAE interpretation helper — lower is better for fantasy point error. */
-function getMaeRating(mae: number): { label: string; className: string } {
-  if (mae < 4.0) return { label: 'Excellent', className: SUCCESS_TEXT };
-  if (mae < 5.0) return { label: 'Good', className: 'text-blue-600 dark:text-blue-400' };
-  if (mae < 6.0) return { label: 'Fair', className: WARN_TEXT };
-  return { label: 'High', className: DANGER_TEXT };
-}
+type LeaderboardRow = (typeof CONSENSUS.positions)[number] & { isOverall?: boolean };
 
-/** Verdict pill: BEAT CONSENSUS (win) / TRAILING (loss). */
-function VerdictBadge({ win }: { win: boolean }) {
-  return (
-    <span
-      className={cn(
-        'wc-display inline-flex items-center gap-[var(--space-1)] rounded-full px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.04em]',
-        win ? SUCCESS_BADGE : DANGER_BADGE
-      )}
-    >
-      {win ? (
-        <Icons.check className='size-[var(--space-3)]' />
+/** Per-position rows + a visually distinct Overall summary row. */
+const LEADERBOARD_ROWS: LeaderboardRow[] = [
+  ...CONSENSUS.positions,
+  { ...CONSENSUS.overall, position: 'Overall', isOverall: true }
+];
+
+const leaderboardColumns: BroadcastColumn<LeaderboardRow>[] = [
+  {
+    key: 'position',
+    header: 'Position',
+    sticky: true,
+    accessor: (row) =>
+      row.isOverall ? (
+        <span className='wc-display text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
+          Overall
+        </span>
       ) : (
-        <Icons.close className='size-[var(--space-3)]' />
-      )}
-      {win ? 'Beat Consensus' : 'Trailing'}
-    </span>
-  );
-}
+        <Badge variant='outline' className={getPositionBadgeClass(row.position)}>
+          {row.position}
+        </Badge>
+      )
+  },
+  {
+    key: 'ourMae',
+    header: 'Our MAE',
+    align: 'right',
+    accessor: (row) => <span className='wc-num-hero'>{row.ourMae.toFixed(3)}</span>
+  },
+  {
+    key: 'consensusMae',
+    header: 'Consensus MAE',
+    align: 'right',
+    accessor: (row) => row.consensusMae.toFixed(3),
+    cellClassName: 'text-muted-foreground tabular-nums'
+  },
+  {
+    key: 'gap',
+    header: 'Gap',
+    align: 'right',
+    accessor: (row) => (
+      <span className={cn('font-bold tabular-nums', row.win ? SUCCESS_TEXT : DANGER_TEXT)}>
+        {formatGap(row.gap)}
+      </span>
+    )
+  },
+  {
+    key: 'grade',
+    header: 'Grade',
+    align: 'right',
+    accessor: (row) => {
+      const grade = gradeGap(row.gap);
+      return <GradeChip grade={grade.grade} className={grade.className} title={grade.description} />;
+    }
+  },
+  {
+    key: 'verdict',
+    header: 'Verdict',
+    accessor: (row) => <VerdictBadge win={row.win} />
+  },
+  {
+    key: 'playerWeeks',
+    header: 'Player-Weeks',
+    align: 'right',
+    headerClassName: 'hidden sm:table-cell',
+    cellClassName: 'hidden text-muted-foreground tabular-nums sm:table-cell',
+    accessor: (row) => row.playerWeeks.toLocaleString()
+  }
+];
 
 /** Lead section: headline claim + head-to-head consensus leaderboard. */
 function ConsensusLeaderboard() {
@@ -130,9 +265,9 @@ function ConsensusLeaderboard() {
 
   return (
     <div className='space-y-[var(--gap-stack)]'>
-      {/* Headline — fixed-dark broadcast panel so the gold win reads in both modes. */}
+      {/* Headline — fixed-dark broadcast panel so the mint win reads in both modes. */}
       <section className='relative flex flex-col gap-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
-        <div className='text-[var(--wc-gold,var(--chart-1))] relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.14em] uppercase'>
+        <div className='text-[var(--wc-yellow,#ffd84d)] relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.14em] uppercase'>
           <Icons.sparkles className='size-[var(--space-3)]' />
           {CONSENSUS_WINS} of {positions.length} positions + overall
         </div>
@@ -152,89 +287,37 @@ function ConsensusLeaderboard() {
           </span>
           ).
         </p>
+        <a
+          href='#methodology'
+          className='relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none tracking-[0.06em] text-white/60 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white'
+        >
+          How we grade this
+          <Icons.arrowRight className='size-[var(--space-3)] rotate-90' />
+        </a>
       </section>
 
-      {/* Leaderboard table */}
+      {/* Leaderboard table — BroadcastTable renders its own Card, so the
+          header lives in a separate Card above it (dynasty-view pattern). */}
       <Card>
         <CardHeader>
           <SectionOverline>Head to Head</SectionOverline>
           <CardTitle className='wc-display'>Consensus Leaderboard</CardTitle>
           <CardDescription>
-            Lower MAE is better. A negative gap means we beat the consensus.
+            Lower MAE is better. A negative gap means we beat the consensus. Grade reflects the
+            size of that gap — A+/A win decisively, B is a statistical tie, C/D trail.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Position</TableHead>
-                <TableHead className='text-right'>Our MAE</TableHead>
-                <TableHead className='text-right'>Consensus MAE</TableHead>
-                <TableHead className='text-right'>Gap</TableHead>
-                <TableHead>Verdict</TableHead>
-                <TableHead className='hidden text-right sm:table-cell'>Player-Weeks</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {positions.map((row) => (
-                <TableRow key={row.position}>
-                  <TableCell>
-                    <Badge variant='outline' className={getPositionBadgeClass(row.position)}>
-                      {row.position}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className='text-right font-bold tabular-nums'>
-                    {row.ourMae.toFixed(3)}
-                  </TableCell>
-                  <TableCell className='text-muted-foreground text-right tabular-nums'>
-                    {row.consensusMae.toFixed(3)}
-                  </TableCell>
-                  <TableCell
-                    className={cn(
-                      'text-right font-semibold tabular-nums',
-                      row.win ? SUCCESS_TEXT : DANGER_TEXT
-                    )}
-                  >
-                    {formatGap(row.gap)}
-                  </TableCell>
-                  <TableCell>
-                    <VerdictBadge win={row.win} />
-                  </TableCell>
-                  <TableCell className='text-muted-foreground hidden text-right tabular-nums sm:table-cell'>
-                    {row.playerWeeks.toLocaleString()}
-                  </TableCell>
-                </TableRow>
-              ))}
-              {/* Overall — visually distinct summary row. */}
-              <TableRow className='bg-muted/40 border-t-2 border-t-[var(--wc-gold,var(--primary))]'>
-                <TableCell className='wc-display text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                  Overall
-                </TableCell>
-                <TableCell className='text-right font-bold tabular-nums'>
-                  {overall.ourMae.toFixed(3)}
-                </TableCell>
-                <TableCell className='text-muted-foreground text-right tabular-nums'>
-                  {overall.consensusMae.toFixed(3)}
-                </TableCell>
-                <TableCell
-                  className={cn(
-                    'text-right font-bold tabular-nums',
-                    overall.win ? SUCCESS_TEXT : DANGER_TEXT
-                  )}
-                >
-                  {formatGap(overall.gap)}
-                </TableCell>
-                <TableCell>
-                  <VerdictBadge win={overall.win} />
-                </TableCell>
-                <TableCell className='text-muted-foreground hidden text-right tabular-nums sm:table-cell'>
-                  {overall.playerWeeks.toLocaleString()}
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </CardContent>
       </Card>
+      <BroadcastTable
+        columns={leaderboardColumns}
+        rows={LEADERBOARD_ROWS}
+        getRowId={(row) => (row.isOverall ? 'overall' : row.position)}
+        rowClassName={(row) =>
+          row.isOverall ? 'bg-muted/40 border-t-2 border-t-[var(--wc-yellow,#ffd84d)]' : ''
+        }
+        emptyMessage='No consensus benchmark data available.'
+        minWidth='min-w-[560px]'
+      />
     </div>
   );
 }
@@ -242,7 +325,7 @@ function ConsensusLeaderboard() {
 /** Honest matched-pairs methodology — the FantasyPros credibility pattern. */
 function ConsensusMethodology() {
   return (
-    <Card>
+    <Card id='methodology' className='scroll-mt-[var(--space-6)]'>
       <CardHeader>
         <SectionOverline>Methodology</SectionOverline>
         <CardTitle className='wc-display'>How this is measured</CardTitle>
@@ -309,7 +392,7 @@ function WeeklyGradingTeaser() {
       <CardHeader>
         <SectionOverline>Live In-Season</SectionOverline>
         <CardTitle className='wc-display flex items-center gap-[var(--space-2)]'>
-          <Icons.clock className='text-[var(--wc-gold,var(--chart-1))] size-[var(--space-4)]' />
+          <Icons.clock className='text-[var(--wc-yellow,#ffd84d)] size-[var(--space-4)]' />
           Graded every Tuesday in-season
         </CardTitle>
         <CardDescription>Live accountability once the games start</CardDescription>
@@ -396,62 +479,24 @@ export function AccuracyDashboard() {
         </CardContent>
       </Card>
 
-      {/* Per-position breakdown */}
+      {/* Per-position breakdown — header Card + standalone BroadcastTable,
+          same reasoning as the leaderboard above. */}
       <Card>
         <CardHeader>
           <CardTitle>Per-Position Breakdown</CardTitle>
-          <CardDescription>MAE, RMSE, and bias split by position and model type</CardDescription>
+          <CardDescription>
+            MAE, RMSE, and bias split by position and model type. Grade is the absolute-error
+            band (A = under 4.0 MAE) — separate from the head-to-head gap grade above.
+          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Position</TableHead>
-                <TableHead>Model</TableHead>
-                <TableHead className='text-right'>MAE</TableHead>
-                <TableHead className='text-right'>RMSE</TableHead>
-                <TableHead className='text-right'>Bias</TableHead>
-                <TableHead className='hidden sm:table-cell'>Rating</TableHead>
-                <TableHead className='hidden md:table-cell'>Notes</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {POSITION_METRICS.map((row) => {
-                const rating = getMaeRating(row.mae);
-                return (
-                  <TableRow key={row.position}>
-                    <TableCell>
-                      <Badge variant='outline' className={getPositionBadgeClass(row.position)}>
-                        {row.position}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
-                      {row.model}
-                    </TableCell>
-                    <TableCell className='text-right tabular-nums font-bold'>
-                      {row.mae.toFixed(2)}
-                    </TableCell>
-                    <TableCell className='text-right tabular-nums text-muted-foreground'>
-                      {row.rmse.toFixed(2)}
-                    </TableCell>
-                    <TableCell className='text-right tabular-nums text-muted-foreground'>
-                      {row.bias.toFixed(2)}
-                    </TableCell>
-                    <TableCell
-                      className={`hidden sm:table-cell text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium ${rating.className}`}
-                    >
-                      {rating.label}
-                    </TableCell>
-                    <TableCell className='hidden md:table-cell text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-muted-foreground'>
-                      {row.notes}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </CardContent>
       </Card>
+      <BroadcastTable
+        columns={positionColumns}
+        rows={POSITION_METRICS}
+        getRowId={(row) => row.position}
+        emptyMessage='No per-position backtest data available.'
+        minWidth='min-w-[640px]'
+      />
 
       {/* Weekly trend chart */}
       <WeeklyAccuracyChart />

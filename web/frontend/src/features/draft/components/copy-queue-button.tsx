@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
+import { WC_OUTLINE_BUTTON } from '../utils/broadcast-ui'
 
 interface CopyQueueButtonProps {
   players: Array<{ player_name: string; position: string }>
@@ -34,7 +35,12 @@ export function CopyQueueButton({ players, label = 'Copy queue' }: CopyQueueButt
   }
 
   return (
-    <Button variant='outline' size='sm' onClick={() => void handleCopy()}>
+    <Button
+      variant='outline'
+      size='sm'
+      className={WC_OUTLINE_BUTTON}
+      onClick={() => void handleCopy()}
+    >
       <Icons.clipboardText className='mr-1.5 h-[var(--space-4)] w-[var(--space-4)]' />
       {copied ? 'Copied ✓' : label}
     </Button>

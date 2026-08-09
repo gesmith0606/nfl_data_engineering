@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { fetchProjectionsComparison } from '@/lib/nfl/api';
 import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import { useWeekParams } from '@/hooks/use-week-params';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
 import type { ProjectionComparison, ProjectionComparisonRow } from '@/lib/nfl/types';
 
 const EMPTY_DASH = '—';
@@ -82,14 +83,6 @@ export function ProjectionComparisonTable({
     };
   }, [season, week, scoring, position]);
 
-  if (loading) {
-    return (
-      <div className='text-sm text-muted-foreground'>
-        Loading multi-source comparison…
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className={`text-sm ${DANGER_TEXT}`}>
@@ -98,72 +91,86 @@ export function ProjectionComparisonTable({
     );
   }
 
-  if (!data || data.rows.length === 0) {
-    return (
-      <div className='rounded-md border p-6 text-center text-sm text-muted-foreground'>
-        No comparison data available for {data?.season ?? season} W
-        {String(data?.week ?? week).padStart(2, '0')}. External projection sources
-        will populate after the next refresh cycle.
-      </div>
-    );
-  }
+  const emptyMessage = `No comparison data available for ${data?.season ?? season} W${String(
+    data?.week ?? week
+  ).padStart(2, '0')}. External projection sources will populate after the next refresh cycle.`;
+
+  const columns: BroadcastColumn<ProjectionComparisonRow>[] = [
+    {
+      key: 'player',
+      header: 'Player',
+      sticky: true,
+      accessor: (row) => row.player_name,
+      cellClassName: 'font-medium'
+    },
+    {
+      key: 'position',
+      header: 'Pos',
+      accessor: (row) => row.position ?? EMPTY_DASH
+    },
+    {
+      key: 'team',
+      header: 'Team',
+      accessor: (row) => row.team ?? EMPTY_DASH
+    },
+    {
+      key: 'ours',
+      header: 'Ours',
+      align: 'right',
+      accessor: (row) => formatPoints(row.ours),
+      renderCell: (row) => <span className='wc-num-hero'>{formatPoints(row.ours)}</span>
+    },
+    {
+      key: 'espn',
+      header: 'ESPN',
+      align: 'right',
+      accessor: (row) => formatPoints(row.espn)
+    },
+    {
+      key: 'sleeper',
+      header: 'Sleeper',
+      align: 'right',
+      accessor: (row) => formatPoints(row.sleeper)
+    },
+    {
+      key: 'yahoo',
+      header: (
+        <span title={data?.source_labels.yahoo ?? 'Yahoo'}>Yahoo</span>
+      ),
+      align: 'right',
+      accessor: (row) => formatPoints(row.yahoo)
+    },
+    {
+      key: 'delta',
+      header: <span title='Avg(externals) − Ours'>Δ</span>,
+      align: 'right',
+      accessor: (row) => formatDelta(row.delta_vs_ours),
+      renderCell: (row) => (
+        <span className={deltaClass(row.delta_vs_ours)}>
+          {formatDelta(row.delta_vs_ours)}
+        </span>
+      )
+    }
+  ];
 
   return (
     <div className='space-y-2'>
-      {data.fallback && (
+      {data?.fallback && (
         <div className='rounded-md border border-[var(--wc-yellow,#ffd84d)]/25 bg-[rgba(255,216,77,0.06)] px-3 py-2 text-xs text-muted-foreground'>
           No external comparison data for {season} Week {week} yet — showing
           the latest available snapshot ({data.fallback_season} Week{' '}
           {String(data.fallback_week).padStart(2, '0')}) instead.
         </div>
       )}
-      <FreshnessChips dataAsOf={data.data_as_of} />
-      <div className='overflow-x-auto'>
-        <table className='w-full text-sm'>
-          <thead>
-            <tr className='border-b text-left'>
-              <th className='py-2 pr-4'>Player</th>
-              <th className='py-2 pr-4'>Pos</th>
-              <th className='py-2 pr-4'>Team</th>
-              <th className='py-2 pr-2 text-right'>Ours</th>
-              <th className='py-2 pr-2 text-right'>ESPN</th>
-              <th className='py-2 pr-2 text-right'>Sleeper</th>
-              <th
-                className='py-2 pr-2 text-right'
-                title={data.source_labels.yahoo ?? 'Yahoo'}
-              >
-                Yahoo
-              </th>
-              <th className='py-2 pr-2 text-right' title='Avg(externals) − Ours'>
-                Δ
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.rows.map((row) => (
-              <ComparisonRow key={row.player_id || row.player_name} row={row} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {data && <FreshnessChips dataAsOf={data.data_as_of} />}
+      <BroadcastTable
+        columns={columns}
+        rows={data?.rows ?? []}
+        getRowId={(row) => row.player_id || row.player_name}
+        isLoading={loading}
+        emptyMessage={emptyMessage}
+      />
     </div>
-  );
-}
-
-function ComparisonRow({ row }: { row: ProjectionComparisonRow }) {
-  return (
-    <tr className='border-b hover:bg-muted/50'>
-      <td className='py-2 pr-4 font-medium'>{row.player_name}</td>
-      <td className='py-2 pr-4'>{row.position ?? EMPTY_DASH}</td>
-      <td className='py-2 pr-4'>{row.team ?? EMPTY_DASH}</td>
-      <td className='py-2 pr-2 text-right'>{formatPoints(row.ours)}</td>
-      <td className='py-2 pr-2 text-right'>{formatPoints(row.espn)}</td>
-      <td className='py-2 pr-2 text-right'>{formatPoints(row.sleeper)}</td>
-      <td className='py-2 pr-2 text-right'>{formatPoints(row.yahoo)}</td>
-      <td className={`py-2 pr-2 text-right ${deltaClass(row.delta_vs_ours)}`}>
-        {formatDelta(row.delta_vs_ours)}
-      </td>
-    </tr>
   );
 }
 

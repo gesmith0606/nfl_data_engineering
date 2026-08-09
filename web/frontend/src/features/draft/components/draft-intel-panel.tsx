@@ -6,6 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Icons } from '@/components/icons';
 import { Skeleton } from '@/components/ui/skeleton';
 import { draftIntelQueryOptions } from '@/features/nfl/api/queries';
+import { WC_PANEL_SURFACE, WC_HEADING } from '../utils/broadcast-ui';
 
 interface DraftIntelPanelProps {
   leagueId: string | null;
@@ -29,17 +30,17 @@ export function DraftIntelPanel({ leagueId }: DraftIntelPanelProps) {
     <Collapsible
       open={open}
       onOpenChange={setOpen}
-      className='rounded-md border p-[var(--space-3)]'
+      className={`rounded-md border p-[var(--space-3)] ${WC_PANEL_SURFACE}`}
     >
       <CollapsibleTrigger asChild>
         <button type='button' className='flex w-full items-center gap-[var(--space-2)] text-left'>
           {open ? (
-            <Icons.chevronDown className='h-[var(--space-4)] w-[var(--space-4)]' />
+            <Icons.chevronDown className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-mint,#91edd0)]' />
           ) : (
-            <Icons.chevronRight className='h-[var(--space-4)] w-[var(--space-4)]' />
+            <Icons.chevronRight className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-mint,#91edd0)]' />
           )}
           <Icons.teams className='h-[var(--space-4)] w-[var(--space-4)]' />
-          <h3 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+          <h3 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
             Opponent Intel
           </h3>
         </button>

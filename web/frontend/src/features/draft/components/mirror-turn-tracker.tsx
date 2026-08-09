@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Icons } from '@/components/icons'
 import { slotOnClock, nextPickForSlot, pickLabel } from '@/lib/nfl/draft-math'
 import { useTurnAlert } from '../hooks/use-turn-alert'
+import { WC_PANEL_SURFACE, WC_INPUT, WC_GHOST_BUTTON, WC_LIVE_BADGE, WC_LIVE_DOT } from '../utils/broadcast-ui'
 import type { DraftPlatform } from '@/lib/nfl/types'
 
 const PLATFORM_LABEL: Record<DraftPlatform, string> = {
@@ -52,16 +53,20 @@ export function MirrorTurnTracker({
   return (
     <div
       className={`flex flex-wrap items-center gap-[var(--space-3)] rounded-md border p-[var(--space-3)] ${
-        isMyTurn ? 'border-emerald-500 bg-emerald-500/5' : ''
+        isMyTurn
+          ? 'animate-pulse border-[var(--wc-yellow,#ffd84d)] bg-[rgba(255,216,77,0.08)]'
+          : WC_PANEL_SURFACE
       }`}
     >
-      <span className='inline-flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold text-emerald-500'>
-        <span className='h-2 w-2 rounded-full bg-emerald-500 animate-pulse' />
+      <span className={WC_LIVE_BADGE}>
+        <span className={WC_LIVE_DOT} />
         MIRRORING {PLATFORM_LABEL[platform].toUpperCase()}
       </span>
-      <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
+      <span
+        className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium ${isMyTurn ? 'wc-display tracking-[0.06em] text-[var(--wc-yellow,#ffd84d)]' : ''}`}
+      >
         {isMyTurn
-          ? `🟢 YOU'RE ON THE CLOCK (pick ${pickLabel(nextPickNo, nTeams)})`
+          ? `YOU'RE ON THE CLOCK (pick ${pickLabel(nextPickNo, nTeams)})`
           : `Pick ${pickLabel(nextPickNo, nTeams)} · slot ${onClock} on the clock`}
       </span>
       {!isMyTurn && picksUntil != null && (
@@ -76,13 +81,13 @@ export function MirrorTurnTracker({
         <span className='text-muted-foreground'>My slot</span>
         <Input
           id='mirror-slot'
-          className='w-16'
+          className={`w-16 ${WC_INPUT}`}
           inputMode='numeric'
           value={mySlot > 0 ? String(mySlot) : ''}
           onChange={e => onSlotChange(Number(e.target.value) || 0)}
         />
       </label>
-      <Button variant='ghost' size='sm' onClick={onExit}>
+      <Button variant='ghost' size='sm' className={WC_GHOST_BUTTON} onClick={onExit}>
         <Icons.close className='mr-1 h-[var(--space-4)] w-[var(--space-4)]' />
         Exit mirror
       </Button>

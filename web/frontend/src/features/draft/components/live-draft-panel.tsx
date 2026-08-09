@@ -14,6 +14,15 @@ import { pickLabel } from '@/lib/nfl/draft-math';
 import { isServiceUnavailable } from '@/features/nfl/api/service';
 import { loadConnectedLeagues } from '@/lib/nfl/connected-leagues';
 import { useTurnAlert, requestTurnNotificationPermission } from '../hooks/use-turn-alert';
+import {
+  WC_PANEL_SURFACE,
+  WC_CTA_BUTTON,
+  WC_OUTLINE_BUTTON,
+  WC_INPUT,
+  WC_HEADING,
+  WC_LIVE_BADGE,
+  WC_LIVE_DOT
+} from '../utils/broadcast-ui';
 import { CopyQueueButton } from './copy-queue-button';
 import { DraftIntelPanel } from './draft-intel-panel';
 import type { LiveDraftParams } from '@/lib/nfl/types';
@@ -85,15 +94,18 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
   return (
     <FadeIn className='space-y-[var(--gap-stack)]'>
       {/* Connection form */}
-      <div className='rounded-md border p-[var(--space-4)] space-y-[var(--space-3)]'>
+      <div className={`rounded-md border p-[var(--space-4)] space-y-[var(--space-3)] ${WC_PANEL_SURFACE}`}>
         <div className='flex items-center gap-[var(--space-2)]'>
-          <Icons.target className='h-[var(--space-4)] w-[var(--space-4)]' />
-          <h2 className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
+          <Icons.target
+            className='h-[var(--space-4)] w-[var(--space-4)]'
+            style={{ color: 'var(--wc-mint,#91edd0)' }}
+          />
+          <h2 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
             Live Draft Co-Pilot
           </h2>
           {connected && (
-            <span className='inline-flex items-center gap-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] text-emerald-500'>
-              <span className='h-2 w-2 rounded-full bg-emerald-500 animate-pulse' />
+            <span className={WC_LIVE_BADGE}>
+              <span className={WC_LIVE_DOT} />
               LIVE
             </span>
           )}
@@ -113,7 +125,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
             </span>
             <Input
               id='live-draft-id'
-              className='w-48'
+              className={`w-48 ${WC_INPUT}`}
               placeholder={isYahoo ? 'e.g. nfl.l.12345' : 'e.g. 1382528971035406336'}
               value={form.draftId}
               onChange={(e) => setForm((f) => ({ ...f, draftId: e.target.value }))}
@@ -129,7 +141,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                 <span className='text-muted-foreground'>Sleeper username</span>
                 <Input
                   id='live-draft-username'
-                  className='w-40'
+                  className={`w-40 ${WC_INPUT}`}
                   placeholder='Gforceee'
                   value={form.username}
                   onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
@@ -144,7 +156,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
             <span className='text-muted-foreground'>Your slot</span>
             <Input
               id='live-draft-slot'
-              className='w-20'
+              className={`w-20 ${WC_INPUT}`}
               placeholder='5'
               inputMode='numeric'
               value={form.mySlot}
@@ -154,6 +166,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
           <PressScale>
             <Button
               size='sm'
+              className={connected ? WC_OUTLINE_BUTTON : WC_CTA_BUTTON}
               disabled={!canConnect}
               onClick={() => {
                 if (!connected && canConnect) requestTurnNotificationPermission();
@@ -200,7 +213,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                 </p>
                 {onUseMirror && (
                   <PressScale>
-                    <Button size='sm' onClick={onUseMirror}>
+                    <Button size='sm' className={WC_CTA_BUTTON} onClick={onUseMirror}>
                       Use Mirror Mode instead
                     </Button>
                   </PressScale>
@@ -219,13 +232,17 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
               <div className='min-w-0 flex-1 space-y-[var(--space-3)]'>
                 <div
                   className={`rounded-md border p-[var(--space-3)] ${
-                    data.is_my_turn ? 'border-emerald-500 bg-emerald-500/5' : ''
+                    data.is_my_turn
+                      ? 'animate-pulse border-[var(--wc-yellow,#ffd84d)] bg-[rgba(255,216,77,0.08)]'
+                      : WC_PANEL_SURFACE
                   }`}
                 >
                   <div className='flex items-start justify-between gap-[var(--space-2)]'>
-                    <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
+                    <p
+                      className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold ${data.is_my_turn ? 'wc-display tracking-[0.06em] text-[var(--wc-yellow,#ffd84d)]' : ''}`}
+                    >
                       {data.is_my_turn
-                        ? "🟢 YOU'RE ON THE CLOCK — take:"
+                        ? "YOU'RE ON THE CLOCK — take:"
                         : data.picks_until_my_turn != null
                           ? `Your pick in ${data.picks_until_my_turn}${
                               data.my_next_pick_no != null
@@ -296,7 +313,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
 
                 {/* Key moments ticker — steals, reaches, positional runs */}
                 {data.key_moments.length > 0 && (
-                  <div className='rounded-md border p-[var(--space-3)]'>
+                  <div className={`rounded-md border p-[var(--space-3)] ${WC_PANEL_SURFACE}`}>
                     <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
                       Key Moments
                     </p>
@@ -332,7 +349,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
 
               {/* My roster + needs */}
               <div className='w-full space-y-[var(--space-3)] lg:w-64 lg:shrink-0'>
-                <div className='rounded-md border p-[var(--space-3)]'>
+                <div className={`rounded-md border p-[var(--space-3)] ${WC_PANEL_SURFACE}`}>
                   <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
                     My Team ({data.my_roster.length})
                   </p>
@@ -358,7 +375,7 @@ export function LiveDraftPanel({ platform = 'sleeper', onUseMirror }: LiveDraftP
                     )}
                   </ul>
                 </div>
-                <div className='rounded-md border p-[var(--space-3)]'>
+                <div className={`rounded-md border p-[var(--space-3)] ${WC_PANEL_SURFACE}`}>
                   <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold'>
                     Remaining Needs
                   </p>

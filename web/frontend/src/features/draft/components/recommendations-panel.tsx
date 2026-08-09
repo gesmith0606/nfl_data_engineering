@@ -2,13 +2,14 @@
 
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DataLoadReveal, HoverLift, Stagger } from '@/lib/motion-primitives';
 import { draftRecommendationsQueryOptions } from '@/features/nfl/api/queries';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { DANGER_TEXT, WARN_TEXT } from '@/lib/nfl/semantic-colors';
 import { computeTierExhaustion } from '../utils/tier-exhaustion';
+import { WC_HEADING } from '../utils/broadcast-ui';
 import { CopyQueueButton } from './copy-queue-button';
 import { StackBadge } from './stack-badge';
 import type { DraftPlayer, Position, StackHint } from '@/lib/nfl/types';
@@ -59,16 +60,16 @@ export function RecommendationsPanel({
   const topStackHints = stackHints.slice(0, 5);
 
   return (
-    <Card>
-      <CardHeader className='pb-[var(--space-2)]'>
-        <div className='flex items-center justify-between gap-[var(--space-2)]'>
-          <CardTitle className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold'>
-            Recommendations
-          </CardTitle>
-          <CopyQueueButton players={data?.recommendations ?? []} />
-        </div>
-      </CardHeader>
-      <CardContent className='space-y-[var(--space-2)] pt-0'>
+    <BroadcastPanel
+      railColor='var(--wc-mint,#91edd0)'
+      className='space-y-[var(--space-2)] p-[var(--space-4)]'
+    >
+      <div className='flex items-center justify-between gap-[var(--space-2)]'>
+        <h3 className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
+          Recommendations
+        </h3>
+        <CopyQueueButton players={data?.recommendations ?? []} />
+      </div>
         {positionWait.length > 0 && (
           <p className='text-muted-foreground border-b pb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
             {positionWait
@@ -209,7 +210,6 @@ export function RecommendationsPanel({
             )}
           </DataLoadReveal>
         )}
-      </CardContent>
-    </Card>
+    </BroadcastPanel>
   );
 }

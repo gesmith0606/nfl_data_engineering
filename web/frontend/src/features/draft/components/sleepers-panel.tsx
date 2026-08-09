@@ -7,6 +7,7 @@ import { sleepersQueryOptions } from '@/features/nfl/api/queries';
 import { normalizeSleepers } from '@/lib/nfl/api';
 import { getPositionBadgeClass } from '@/lib/nfl/position-colors';
 import { SUCCESS_TEXT } from '@/lib/nfl/semantic-colors';
+import { WC_PANEL_SURFACE } from '../utils/broadcast-ui';
 
 interface SleepersPanelProps {
   sessionId: string | null;
@@ -55,7 +56,7 @@ export function SleepersPanel({ sessionId }: SleepersPanelProps) {
           {sleepers.map((s, i) => (
             <div
               key={`${s.player_name}-${i}`}
-              className='rounded-md border p-[var(--space-3)] space-y-1'
+              className={`rounded-md border p-[var(--space-3)] space-y-1 ${WC_PANEL_SURFACE}`}
             >
               <div className='flex items-center justify-between gap-[var(--space-2)]'>
                 <div className='flex items-center gap-[var(--space-2)]'>

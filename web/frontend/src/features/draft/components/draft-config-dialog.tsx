@@ -28,6 +28,7 @@ import {
   type RoomPlatform
 } from '../utils/platform-presets'
 import { DraftStrategyToggle } from './draft-strategy-toggle'
+import { WC_HEADING, WC_CTA_BUTTON } from '../utils/broadcast-ui'
 import type { DraftConfig, DraftStrategy } from '@/lib/nfl/types'
 
 interface DraftConfigDialogProps {
@@ -82,13 +83,13 @@ export function DraftConfigDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='sm:max-w-md'>
         <DialogHeader>
-          <DialogTitle>Draft Settings</DialogTitle>
+          <DialogTitle className={WC_HEADING}>Draft Settings</DialogTitle>
         </DialogHeader>
 
         <div className='space-y-[var(--gap-stack)] py-[var(--space-2)]'>
           {/* Draft room style */}
           <div className='space-y-[var(--space-2)]'>
-            <label className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Draft room style
             </label>
             <ToggleGroup
@@ -103,6 +104,7 @@ export function DraftConfigDialog({
                   key={p}
                   value={p}
                   aria-label={`${PLATFORM_LABELS[p]} draft room style`}
+                  className='wc-display tracking-[0.04em]'
                   style={activePlatform === p ? { color: PLATFORM_ACCENT[p], borderColor: PLATFORM_ACCENT[p] } : undefined}
                 >
                   {PLATFORM_LABELS[p]}
@@ -121,7 +123,7 @@ export function DraftConfigDialog({
 
           {/* Teams */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='teams-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='teams-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Teams
             </label>
             <Select
@@ -147,7 +149,7 @@ export function DraftConfigDialog({
 
           {/* My Pick */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='mypick-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='mypick-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               My Pick
             </label>
             <Select
@@ -169,7 +171,7 @@ export function DraftConfigDialog({
 
           {/* Scoring */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='scoring-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='scoring-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Scoring
             </label>
             <Select
@@ -189,7 +191,7 @@ export function DraftConfigDialog({
 
           {/* Roster Format */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='rosterformat-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='rosterformat-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Roster Format
             </label>
             <Select
@@ -211,7 +213,7 @@ export function DraftConfigDialog({
 
           {/* Season */}
           <div className='flex items-center justify-between gap-[var(--space-4)]'>
-            <label htmlFor='season-select' className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium'>
+            <label htmlFor='season-select' className={`${WC_HEADING} text-[length:var(--fs-sm)] leading-[var(--lh-sm)]`}>
               Season
             </label>
             <Select
@@ -238,7 +240,7 @@ export function DraftConfigDialog({
         <DialogFooter className='flex gap-[var(--space-2)] sm:flex-col'>
           <PressScale className='w-full'>
             <Button
-              className='w-full'
+              className={`w-full ${WC_CTA_BUTTON}`}
               onClick={() => {
                 onNewDraft()
                 onOpenChange(false)

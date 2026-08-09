@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Icons } from '@/components/icons';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
 import { formatGap } from '@/lib/nfl/consensus';
 import { getSeasonPhase, getInSeasonCadence } from '@/lib/nfl/season-phase';
 import { SectionHeading } from './section-heading';
@@ -27,20 +28,10 @@ export function ProofStrip() {
       className='group focus-visible:ring-ring/50 block rounded-[var(--radius-lg)] focus-visible:ring-[3px] focus-visible:outline-none'
     >
       {/* Broadcast stat-pill container: near-black bg, mint-tinted border */}
-      <section
-        className='relative flex flex-wrap items-center gap-x-[var(--space-4)] gap-y-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-3)] pr-[var(--space-4)] pl-[var(--space-4)] shadow-sm transition-colors duration-[var(--motion-base)] md:pr-[var(--space-5)]'
-        style={{
-          background: 'rgba(5,7,13,0.85)',
-          borderColor: 'rgba(145,237,208,0.35)'
-        }}
+      <BroadcastPanel
+        as='section'
+        className='flex flex-wrap items-center gap-x-[var(--space-4)] gap-y-[var(--space-2)] py-[var(--space-3)] pr-[var(--space-4)] pl-[var(--space-4)] shadow-sm transition-colors duration-[var(--motion-base)] md:pr-[var(--space-5)]'
       >
-        {/* Mint left rail */}
-        <div
-          aria-hidden
-          className='absolute inset-y-[var(--space-2)] left-0 w-[3px] rounded-full'
-          style={{ background: 'var(--wc-mint,#91edd0)' }}
-        />
-
         <div className='flex items-center gap-[var(--space-2)]'>
           <Icons.sparkles
             className='size-[var(--space-4)]'
@@ -104,7 +95,7 @@ export function ProofStrip() {
           Track record
           <Icons.arrowRight className='size-[var(--space-3)] transition-transform duration-[var(--motion-base)] group-hover:translate-x-[var(--space-1)]' />
         </span>
-      </section>
+      </BroadcastPanel>
     </Link>
   );
 }
@@ -253,24 +244,14 @@ export function PhaseModule() {
         {content.tiles.map((tile) => {
           const Icon = Icons[tile.icon];
           return (
-            <Link
+            <BroadcastPanel
+              as={Link}
               key={tile.href}
               href={tile.href}
-              className='group focus-visible:ring-ring/50 relative flex items-start gap-[var(--space-3)] overflow-hidden rounded-[var(--radius-lg)] border py-[var(--space-4)] pr-[var(--space-3)] pl-[var(--space-4)] shadow-sm transition-all duration-[var(--motion-base)] focus-visible:ring-[3px] focus-visible:outline-none hover:-translate-y-px'
-              style={{
-                background: 'rgba(5,7,13,0.85)',
-                borderColor: 'rgba(145,237,208,0.2)'
-              }}
+              className='group focus-visible:ring-ring/50 relative flex items-start gap-[var(--space-3)] py-[var(--space-4)] pr-[var(--space-3)] pl-[var(--space-4)] shadow-sm transition-all duration-[var(--motion-base)] focus-visible:ring-[3px] focus-visible:outline-none hover:-translate-y-px'
+              borderColor='rgba(145,237,208,0.2)'
+              railClassName='inset-y-[var(--space-3)] opacity-50 transition-opacity duration-[var(--motion-base)] group-hover:opacity-100'
             >
-              {/* Mint left rail */}
-              <div
-                aria-hidden
-                className='absolute inset-y-[var(--space-3)] left-0 w-[3px] rounded-full transition-opacity duration-[var(--motion-base)] group-hover:opacity-100'
-                style={{
-                  background: 'var(--wc-mint,#91edd0)',
-                  opacity: 0.5
-                }}
-              />
               {tile.badge && (
                 <div
                   className='absolute top-[var(--space-3)] right-[var(--space-3)] inline-flex items-center rounded-full px-[var(--space-2)] py-[var(--space-1)] text-[length:var(--fs-xs)] font-semibold leading-none'
@@ -305,7 +286,7 @@ export function PhaseModule() {
                   {tile.description}
                 </p>
               </div>
-            </Link>
+            </BroadcastPanel>
           );
         })}
       </div>

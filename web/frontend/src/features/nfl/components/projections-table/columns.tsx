@@ -14,7 +14,7 @@ import Link from 'next/link';
  * At 375px viewport this 8-column table would force horizontal scroll. Instead
  * of card-view rewrite, we hide the less-critical columns below the `sm:`
  * breakpoint (640px) and keep the essentials visible: Player, Position,
- * Projected. Everything else (Rank, Team, Floor, Ceiling, Key Stats) is
+ * Projected. Everything else (Rank, Team, Range, Key Stats) is
  * reached by the player-detail page. This avoids horizontal scroll without
  * sacrificing the primary task (skim projections, tap a player).
  *
@@ -24,12 +24,44 @@ import Link from 'next/link';
 const HIDE_BELOW_SM = 'hidden sm:table-cell';
 const HIDE_BELOW_MD = 'hidden md:table-cell';
 
+/**
+ * Compact inline floor→ceiling band (broadcast restyle, task 3): a shaded
+ * range bar with a dot at the projection. Plain divs + system/theme colors,
+ * no chart lib — mirrors the `.wc-num-hero` / `renderCell` escape-hatch
+ * pattern from `BroadcastTable` but implemented as a TanStack `cell` since
+ * this table stays on TanStack (see projections-table/index.tsx path-B note).
+ */
+function ProjectionRangeBand({
+  floor,
+  ceiling,
+  projected
+}: {
+  floor: number;
+  ceiling: number;
+  projected: number;
+}) {
+  const span = ceiling - floor;
+  const pct = span > 0 ? Math.min(100, Math.max(0, ((projected - floor) / span) * 100)) : 50;
+  return (
+    <div className='flex items-center justify-end gap-1.5'>
+      <span className='text-muted-foreground text-[11px] tabular-nums'>{floor.toFixed(0)}</span>
+      <div className='relative h-1 w-12 rounded-full bg-muted-foreground/25'>
+        <div
+          className='bg-foreground absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full'
+          style={{ left: `${pct}%` }}
+        />
+      </div>
+      <span className='text-muted-foreground text-[11px] tabular-nums'>{ceiling.toFixed(0)}</span>
+    </div>
+  );
+}
+
 export const columns: ColumnDef<PlayerProjection>[] = [
   {
     id: 'position_rank',
     accessorKey: 'position_rank',
     header: ({ column }: { column: Column<PlayerProjection, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Pos Rk' />
+      <DataTableColumnHeader column={column} title='Pos Rk' className='ml-auto' />
     ),
     cell: ({ cell }) => (
       <span className='text-muted-foreground tabular-nums font-medium'>
@@ -37,8 +69,8 @@ export const columns: ColumnDef<PlayerProjection>[] = [
       </span>
     ),
     meta: {
-      headerClassName: HIDE_BELOW_SM,
-      cellClassName: HIDE_BELOW_SM
+      headerClassName: `${HIDE_BELOW_SM} text-right`,
+      cellClassName: `${HIDE_BELOW_SM} text-right`
     }
   },
   {
@@ -116,39 +148,33 @@ export const columns: ColumnDef<PlayerProjection>[] = [
     id: 'projected_points',
     accessorKey: 'projected_points',
     header: ({ column }: { column: Column<PlayerProjection, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Projected' />
+      <DataTableColumnHeader column={column} title='Projected' className='ml-auto' />
     ),
     cell: ({ cell }) => (
-      <span className='font-bold tabular-nums text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
-        {cell.getValue<number>().toFixed(1)}
-      </span>
-    )
-  },
-  {
-    id: 'projected_floor',
-    accessorKey: 'projected_floor',
-    header: 'Floor',
-    cell: ({ cell }) => (
-      <span className='text-muted-foreground tabular-nums'>
+      <span className='wc-num-hero !text-[length:var(--fs-lg)] !leading-[var(--lh-lg)]'>
         {cell.getValue<number>().toFixed(1)}
       </span>
     ),
     meta: {
-      headerClassName: HIDE_BELOW_MD,
-      cellClassName: HIDE_BELOW_MD
+      headerClassName: 'text-right',
+      cellClassName: 'text-right'
     }
   },
   {
-    id: 'projected_ceiling',
-    accessorKey: 'projected_ceiling',
-    header: 'Ceiling',
-    cell: ({ cell }) => (
-      <span className='text-muted-foreground tabular-nums'>
-        {cell.getValue<number>().toFixed(1)}
-      </span>
+    // Merged floor/ceiling into one compact range band (task 3) — was two
+    // separate text columns (`projected_floor` / `projected_ceiling`); the
+    // free-tier gate in projections-table/index.tsx keys off this id now.
+    id: 'range',
+    header: 'Range',
+    cell: ({ row }) => (
+      <ProjectionRangeBand
+        floor={row.original.projected_floor}
+        ceiling={row.original.projected_ceiling}
+        projected={row.original.projected_points}
+      />
     ),
     meta: {
-      headerClassName: HIDE_BELOW_MD,
+      headerClassName: `${HIDE_BELOW_MD} text-right`,
       cellClassName: HIDE_BELOW_MD
     }
   },
