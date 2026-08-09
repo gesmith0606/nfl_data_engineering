@@ -272,6 +272,29 @@ def main():
         ),
     )
     parser.add_argument(
+        "--qb-starter-floor",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: raise a QB's projection to a starter-tier "
+            "floor when he is listed as this week's depth-chart QB1 but his "
+            "own trailing passing-yards history is still backup-level "
+            "(missing or < 92 yds/game). Lever #3 from "
+            ".planning/CONSENSUS_ERROR_DECOMPOSITION.md — OPT-IN and "
+            "provisional until the pre-registered backtest gate passes "
+            "(.planning/QB_STARTER_FLOOR_GATE.md)."
+        ),
+    )
+    parser.add_argument(
+        "--qb-starter-floor-haircut",
+        type=float,
+        default=0.8,
+        help=(
+            "Discount multiplier on the starter-tier baseline used for "
+            "--qb-starter-floor (default 0.8)."
+        ),
+    )
+    parser.add_argument(
         "--use-events",
         action="store_true",
         default=False,
@@ -320,6 +343,11 @@ def main():
             print(
                 "Note: --early-season-prior has no effect in --preseason mode "
                 "(it only applies to weekly weeks 3-6)"
+            )
+        if args.qb_starter_floor:
+            print(
+                "Note: --qb-starter-floor has no effect in --preseason mode "
+                "(it needs a weekly depth chart)"
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
@@ -1043,6 +1071,44 @@ def main():
                     f"Early-season prior blend: {adjusted} players with a "
                     f"prior-season baseline ({prior_season}); total projected "
                     f"points {before_total:.1f} -> {after_total:.1f}"
+                )
+
+        # --- QB starter-tier floor (opt-in via --qb-starter-floor) ---
+        # Lever #3 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md: the <8pt
+        # QB band under-projects by ~6 pts because a backup thrust into a
+        # starting role still prices off his own thin/backup rolling
+        # history. Raises to a starter-tier floor when depth-chart QB1 for
+        # this week AND his own trailing passing yards/game is still
+        # backup-level. Applied after injury adjustments (mirrors
+        # --early-season-prior ordering) — a role/usage correction, not a
+        # news/market signal.
+        if args.qb_starter_floor and not projections.empty:
+            from qb_starter_floor import apply_qb_starter_floor  # noqa: E402
+
+            depth_chart_df = _read_local_parquet(
+                BRONZE_DIR, f"depth_charts/season={args.season}/*.parquet"
+            )
+            if depth_chart_df.empty:
+                print(
+                    "WARN: --qb-starter-floor requested but no depth chart "
+                    f"data found for season {args.season}; skipping"
+                )
+            else:
+                before_total = float(projections["projected_points"].sum())
+                projections = apply_qb_starter_floor(
+                    projections,
+                    depth_chart_df,
+                    strength_weekly,
+                    season=args.season,
+                    week=args.week,
+                    scoring_format=args.scoring,
+                    haircut=args.qb_starter_floor_haircut,
+                )
+                after_total = float(projections["projected_points"].sum())
+                flagged = int(projections["qb_starter_floor_flag"].sum())
+                print(
+                    f"QB starter floor: {flagged} new-starter QB(s) flagged; "
+                    f"total projected points {before_total:.1f} -> {after_total:.1f}"
                 )
 
         # --- Structured event adjustments (opt-in via --use-events) ---

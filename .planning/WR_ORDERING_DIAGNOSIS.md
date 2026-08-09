@@ -244,3 +244,161 @@ signals for the true top tier) and needs its own investigation.
 Per-analysis CSVs land in `output/backtest/diagnose_wr_*.csv`
 (rank_curve, swap_summary, swap_loss_pairs [top 200 by \|actual_diff\|],
 top_ordering_damage, compression, slice_overlap).
+
+---
+
+## Addendum (2026-08-09): `--early-season-prior` re-scored on the ordinal (FP Accuracy Gap) metric
+
+Follow-up to finding #1 above. `.planning/EARLY_SEASON_PRIOR_GATE.md` gated
+lever #1 (weeks-3-6 shrinkage toward prior-season PPG) on **MAE** and landed
+**HOLD** (weeks-3-6 MAE gap vs Sleeper improved 0.023 pts, needed ≥0.10). This
+addendum re-scores the same lever on the **ordinal FantasyPros Accuracy Gap**
+metric this report is built around, since finding #1 predicted it should help
+ordering specifically, not just MAE.
+
+**Pre-registered gate** (stated by the coordinator before any treated numbers
+were computed): SHIP-for-ordering if the overall (QB+RB+WR+TE mean, weeks
+3-17) Accuracy Gap vs Sleeper improves ≥0.05, **with WR improving** and **no
+position worsening >0.03**; else HOLD stands.
+
+### Data
+
+- **Baseline**: `output/backtest/backtest_half_ppr_consensus_20260809_145355.csv`
+  (regenerated this session for the main diagnosis above; same command as
+  `FP_ACCURACY_SIMULATION.md`, no `--early-season-prior`).
+- **Treated**: `output/backtest/treated_esp/backtest_half_ppr_consensus_earlyseasonprior_20260809_150316.csv`
+  — identical command plus `--early-season-prior`, isolated to its own
+  `--output-dir` so `simulate_fp_accuracy.load_ours()`'s glob picks it up
+  unambiguously instead of racing the baseline file:
+  ```bash
+  ./venv/Scripts/python.exe scripts/backtest_projections.py --seasons 2022,2023,2024 \
+      --weeks 1-18 --scoring half_ppr --vs-consensus --consensus-source sleeper \
+      --early-season-prior --output-dir output/backtest/treated_esp
+  ```
+  Deliberately **not** the `--ml --full-features` files
+  `EARLY_SEASON_PRIOR_GATE.md` used — those run a different engine path (ML
+  routing) than what `simulate_fp_accuracy.py`'s "ours" loader expects (the
+  plain walk-forward heuristic backtest, matching how `FP_ACCURACY_SIMULATION.md`
+  and this report's baseline were built). Same engine mode in both baseline
+  and treated, only the lever flag differs — apples-to-apples for this metric.
+- Both scored via `scripts/simulate_fp_accuracy.py --output-dir <dir>` (full
+  QB/RB/WR/TE summary) and `scripts/diagnose_wr_ordering.py --output-dir <dir>`
+  (WR week-band / rank-tier slices), unmodified — no script edits this round.
+
+**Data-coverage caveat found while diffing**: `data/bronze/players/weekly/`
+only has `season={2022,2023,2024,2025}` locally — no `season=2021`. The 2022
+backtest needs prior-season (2021) PPG for the lever to do anything; with that
+season absent, `apply_early_season_prior` is a confirmed no-op for every 2022
+player-week (diffed `projected_points` baseline vs treated: 0/397 WR
+weeks-3-6 rows changed, max diff 0.0). 2023 (needs 2022 data, present) and
+2024 (needs 2023, present) do get treated (309/402 and 295/371 WR rows
+changed respectively). This isn't a bug in this eval — it means the 2022 row
+below is mechanically a null-effect control, and the lever's real effect is
+almost entirely carried by the 2023/2024 rows. Worth fixing (ingest
+`season=2021` player_weekly) before trusting a 3-season average of this lever
+again.
+
+### Results — overall + per-position, 2022-2024, weeks 3-17 (the gate criterion)
+
+`gap = ours − source` Accuracy Gap; Δ = treated − baseline (negative =
+improvement).
+
+| Position | vs Sleeper base | vs Sleeper treated | Δ | vs ESPN base | vs ESPN treated | Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| QB | 0.034 | 0.011 | **−0.024** | 0.047 | 0.024 | **−0.024** |
+| RB | 0.271 | 0.272 | +0.001 | 0.280 | 0.280 | +0.001 |
+| WR | 0.375 | 0.348 | **−0.027** | 0.188 | 0.161 | **−0.027** |
+| TE | 0.221 | 0.197 | **−0.024** | 0.189 | 0.166 | **−0.024** |
+| **OVERALL (mean)** | **0.225** | **0.207** | **−0.018** | **0.176** | **0.158** | **−0.018** |
+
+### Gate check
+
+1. **Overall improvement ≥0.05 vs Sleeper**: measured **−0.018** — real,
+   same direction as hypothesized, but **about a third of the required
+   threshold**. **FAILS.**
+2. **WR improving**: yes, −0.027. **PASSES** (but see caveat below).
+3. **No position worsening >0.03**: RB is flat (+0.001, noise-level, not a
+   worsening). **PASSES.**
+
+Criterion 1 is the binding constraint — the gate requires ALL three, and it
+fails on the primary bar by a wide margin, so the composite result is HOLD
+regardless of 2 and 3 passing.
+
+### WR-specific slices (as requested — weeks 3-6 vs 13-18, and elite tier)
+
+**Week-band gap_diff (our_gap − sleeper_gap), WR only:**
+
+| Season | Weeks 3-6 base | Weeks 3-6 treated | Δ | Weeks 13-18 base | Weeks 13-18 treated | Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| 2022 | 0.969 (n251) | 0.969 (n251) | 0.000 *(no-op, no 2021 prior data)* | 0.139 | 0.139 | 0.000 |
+| 2023 | 0.482 (n238) | 0.283 (n236) | **−0.199** | 0.110 | 0.110 | 0.000 |
+| 2024 | 0.625 (n243) | 0.487 (n245) | **−0.138** | 0.234 | 0.234 | 0.000 |
+
+Weeks 13-18 are unchanged in every season/source, confirming the lever is
+correctly scoped to weeks 3-6 only (same no-leakage check
+`EARLY_SEASON_PRIOR_GATE.md` ran on the MAE side). For the two seasons where
+the lever actually fired (2023, 2024), the weeks-3-6 WR ordering gap dropped
+substantially — −0.199 and −0.138, both far larger than the −0.027 seen in
+the full-season WR average above. That's expected: weeks 3-6 is only
+~15-20% of the weeks-3-17 sample, so a real, concentrated improvement there
+gets diluted by the unaffected weeks 7-17 when averaged into a season number.
+This is consistent with — and adds ordinal-metric evidence for —
+`EARLY_SEASON_PRIOR_GATE.md`'s "RB/WR/TE show a real, consistent, if small,
+effect" caveat.
+
+**Rank-curve tier (actual-finish tier), WR only, full weeks 3-17:**
+
+| Tier | Base gap_diff | Treated gap_diff | Δ |
+|---|---:|---:|---:|
+| WR1-12 (elite) | 0.675 | 0.607 | **−0.068** |
+| WR13-30 | 0.229 | 0.193 | −0.036 |
+| WR31-50 | 0.203 | 0.217 | +0.014 (noise) |
+| WR51+ (overranked bust) | 0.602 | 0.542 | **−0.060** |
+
+The two tiers finding #5 flagged as the worst (elite and the overranked-bust
+tail) both improve more than the WR31-50 middle band, which is roughly flat.
+Directionally this matches the finding #3 hypothesis (declining/overrated
+veteran WRs — the overranked-bust tail — being where a faster-reacting prior
+should help most), but the magnitude is still well short of closing the
+~0.6-0.7 tier-level gap.
+
+**Swap-loss rate** (finding #2): 8.9% of pairs baseline → 8.5% treated — a
+small, same-direction reduction, consistent with everything else here: real,
+non-zero, not close to eliminating the underlying ordering weakness.
+
+### Verdict: **HOLD** (ordinal metric — consistent with the MAE-based gate)
+
+The pre-registered composite gate requires all three criteria; criterion 1
+(overall Accuracy Gap vs Sleeper improving ≥0.05) fails at a measured
+**−0.018**, roughly a third of the bar, even though it's the right sign and
+even though the WR-specific and rank-tier cuts show a real, sometimes
+substantially larger, effect within the weeks-3-6 window it targets. This
+independently corroborates `EARLY_SEASON_PRIOR_GATE.md`'s HOLD on a second,
+unrelated metric (ordinal instead of MAE) — do not flip `--early-season-prior`
+on by default based on either metric. It remains valid opt-in/evaluable
+machinery.
+
+**Follow-ups**, in addition to `EARLY_SEASON_PRIOR_GATE.md`'s existing list:
+1. Ingest `data/bronze/players/weekly/season=2021` so the 2022 backtest row
+   stops being a mechanical no-op — the current 3-season average is really a
+   2-season signal wearing a 3-season label.
+2. The weeks-3-6-only WR effect (−0.14 to −0.20) is meaningfully bigger than
+   the diluted full-season number (−0.027) — if a future iteration
+   specifically targets weeks 3-6 evaluation (rather than a weeks-3-17
+   season average) as its gate population, this lever looks more promising
+   than the current gate verdict suggests. Worth deciding whether the gate
+   *should* be scoped to the target window before the next re-run, rather
+   than always diluting into the full season.
+
+### Regeneration
+
+```bash
+./venv/Scripts/python.exe scripts/backtest_projections.py --seasons 2022,2023,2024 \
+    --weeks 1-18 --scoring half_ppr --vs-consensus --consensus-source sleeper \
+    --early-season-prior --output-dir output/backtest/treated_esp
+./venv/Scripts/python.exe scripts/simulate_fp_accuracy.py --output-dir output/backtest/treated_esp
+./venv/Scripts/python.exe scripts/diagnose_wr_ordering.py --output-dir output/backtest/treated_esp
+# baseline (already regenerated for the main report above):
+./venv/Scripts/python.exe scripts/simulate_fp_accuracy.py --output-dir output/backtest
+./venv/Scripts/python.exe scripts/diagnose_wr_ordering.py --output-dir output/backtest
+```

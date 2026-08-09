@@ -33,6 +33,7 @@ python scripts/generate_projections.py --week 1 --season 2026 --scoring half_ppr
 python scripts/generate_projections.py --week 1 --season 2026 --ml                      # Hybrid heuristic+ML routing (weekly only; no-op in preseason)
 python scripts/generate_projections.py --week 1 --season 2026 --props-blend             # Blend toward prop-implied points (opt-in, RB-first)
 python scripts/generate_projections.py --week 3 --season 2026 --early-season-prior      # Weeks 3-6 shrinkage toward prior-season PPG (opt-in, QB/RB/WR/TE — see EARLY_SEASON_PRIOR_GATE.md)
+python scripts/generate_projections.py --week 3 --season 2026 --qb-starter-floor        # Starter-tier floor for depth-chart QB1s with backup-level trailing usage (opt-in — HOLD verdict, see QB_STARTER_FLOOR_GATE.md)
 python scripts/bronze_season_props_ingestion.py                                          # DK+FanDuel season player futures snapshot incl. rookie milestone ladders (no key needed)
 python scripts/generate_projections.py --preseason --season 2026 --season-props-blend   # Blend toward season-line implied points (opt-in)
 python scripts/generate_projections.py --preseason --season 2026 --vacated-opportunity  # Offseason churn boost (graph UC1, opt-in)

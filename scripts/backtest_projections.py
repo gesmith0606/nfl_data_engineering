@@ -38,6 +38,7 @@ from player_analytics import (
 )
 from projection_engine import apply_injury_adjustments, generate_weekly_projections
 from early_season_prior import apply_early_season_prior, compute_prior_season_ppg
+from qb_starter_floor import apply_qb_starter_floor
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -497,6 +498,8 @@ def run_backtest(
     apply_injuries: bool = True,
     early_season_prior: bool = False,
     early_season_prior_weight: float = 1.0,
+    qb_starter_floor: bool = False,
+    qb_starter_floor_haircut: float = 0.8,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -520,6 +523,12 @@ def run_backtest(
             lever is evaluable on historical seasons.
         early_season_prior_weight: Scale multiplier on the fixed weight
             schedule (default 1.0).
+        qb_starter_floor: Apply the depth-chart-QB1 starter-tier floor
+            lever (see ``src/qb_starter_floor.py`` and
+            ``.planning/CONSENSUS_ERROR_DECOMPOSITION.md`` finding #3).
+            Mirrors ``generate_projections.py --qb-starter-floor``.
+        qb_starter_floor_haircut: Discount on the starter-tier baseline
+            (default 0.8).
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -662,6 +671,18 @@ def run_backtest(
             )
         else:
             print("No injury data found — injury adjustments skipped")
+
+    # Load depth charts (Bronze, one file per season, all weeks) for
+    # --qb-starter-floor. Leak-free: a depth-chart snapshot for week W is
+    # the team's plan going into week W, not derived from that week's game.
+    depth_chart_cache: Dict[int, pd.DataFrame] = {}
+    if qb_starter_floor:
+        for s in sorted(set(seasons)):
+            dc_pattern = os.path.join(bronze_dir, f"depth_charts/season={s}/*.parquet")
+            dc_files = sorted(globmod.glob(dc_pattern))
+            depth_chart_cache[s] = pd.read_parquet(dc_files[-1]) if dc_files else pd.DataFrame()
+            if depth_chart_cache[s].empty:
+                print(f"WARN: no depth chart data for season {s} — QB starter floor will no-op")
 
     # Pre-assemble full feature vectors per season (if requested)
     season_features: Dict[int, pd.DataFrame] = {}
@@ -808,6 +829,22 @@ def run_backtest(
                         prior_ppg_df,
                         week=week,
                         scale=early_season_prior_weight,
+                    )
+
+            # Apply the QB starter-tier floor (depth-chart QB1 + backup-level
+            # trailing usage). Mirrors generate_projections.py ordering —
+            # after injury adjustments and the early-season-prior blend.
+            if qb_starter_floor:
+                depth_chart_df = depth_chart_cache.get(season, pd.DataFrame())
+                if not depth_chart_df.empty:
+                    projections = apply_qb_starter_floor(
+                        projections,
+                        depth_chart_df,
+                        weekly_df,
+                        season=season,
+                        week=week,
+                        scoring_format=scoring_format,
+                        haircut=qb_starter_floor_haircut,
                     )
 
             # Apply ranking score nudges (additive, capped at ±1.5 pts).
@@ -1056,6 +1093,21 @@ def main():
         default=1.0,
         help="Scale multiplier on the --early-season-prior weight schedule (default 1.0).",
     )
+    parser.add_argument(
+        "--qb-starter-floor",
+        action="store_true",
+        help=(
+            "Apply the depth-chart-QB1 starter-tier floor lever (mirrors "
+            "generate_projections.py --qb-starter-floor). Evaluates lever "
+            "#3 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md."
+        ),
+    )
+    parser.add_argument(
+        "--qb-starter-floor-haircut",
+        type=float,
+        default=0.8,
+        help="Discount multiplier on the starter-tier baseline (default 0.8).",
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -1074,9 +1126,14 @@ def main():
         if args.early_season_prior
         else ""
     )
+    qb_floor_label = (
+        f" | QB Starter Floor: ON (haircut={args.qb_starter_floor_haircut})"
+        if args.qb_starter_floor
+        else ""
+    )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1103,6 +1160,8 @@ def main():
         apply_injuries=not args.no_injuries,
         early_season_prior=args.early_season_prior,
         early_season_prior_weight=args.early_season_prior_weight,
+        qb_starter_floor=args.qb_starter_floor,
+        qb_starter_floor_haircut=args.qb_starter_floor_haircut,
     )
 
     if results.empty:
@@ -1119,9 +1178,10 @@ def main():
     features_tag = "_fullfeatures" if full_features else ""
     consensus_tag = "_consensus" if vs_consensus else ""
     prior_tag = "_earlyseasonprior" if args.early_season_prior else ""
+    qb_floor_tag = "_qbstarterfloor" if args.qb_starter_floor else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
