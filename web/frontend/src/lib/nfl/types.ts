@@ -710,6 +710,40 @@ export interface PlayerGameLogResponse {
   game_log: PlayerGameLogEntry[];
 }
 
+/**
+ * One week's projected-vs-actual fantasy points for a player, from
+ * `GET /api/players/{player_id}/projection-history`. Either side can be
+ * `null` — a week can have a projection with no actual yet (future/unplayed)
+ * or an actual with no projection on record. See
+ * `web/api/models/schemas.py::PlayerProjectionHistoryWeek`.
+ */
+export interface PlayerProjectionHistoryWeek {
+  week: number;
+  projected_points: number | null;
+  actual_points: number | null;
+  projected_floor: number | null;
+  projected_ceiling: number | null;
+}
+
+/**
+ * Envelope for `GET /api/players/{player_id}/projection-history`. `reason`
+ * is set only when `weeks` is empty (no archived Gold projections or Bronze
+ * actuals exist for the season at all — e.g. a season the pipeline hasn't
+ * run yet). Note: on the production backend `actual_points` is currently
+ * `null` for every week (data-gap fix pending) — the overlay chart must
+ * degrade to a projection-only view rather than look broken.
+ */
+export interface PlayerProjectionHistoryResponse {
+  player_id: string;
+  player_name: string | null;
+  team: string | null;
+  position: string | null;
+  season: number;
+  scoring_format: string;
+  weeks: PlayerProjectionHistoryWeek[];
+  reason: string | null;
+}
+
 /** Scoring format options. */
 export type ScoringFormat = "ppr" | "half_ppr" | "standard";
 

@@ -21,6 +21,9 @@ import { PlayerProfileHeader, PlayerProfileHeaderSkeleton } from './player-profi
 import { BottomLinePanel, BottomLinePanelSkeleton } from './bottom-line-panel';
 import { PercentileBars, PercentileBarsSkeleton } from './percentile-bars';
 import { GameLogTable } from './game-log-table';
+import { ProjectionHistoryChart } from './projection-history-chart';
+import { CorrelationsPanel } from './correlations-panel';
+import { PlayerNewsSection } from './news-section';
 import { buildPercentileMetrics } from './percentile';
 
 export interface PlayerProfileProps {
@@ -149,6 +152,19 @@ export function PlayerProfile({ playerId }: PlayerProfileProps) {
       <BottomLinePanel player={player} positionPool={weeklyPointsPool} />
 
       {poolLoading ? <PercentileBarsSkeleton /> : <PercentileBars metrics={metrics} />}
+
+      {/* Projected-vs-actual overlay — same season resolution as the Game
+       *  Log below (gameLogSeason: current season if it has played games,
+       *  else the most recent season that does) so the two sections never
+       *  disagree about which season they're showing. */}
+      <ProjectionHistoryChart playerId={playerId} season={gameLogSeason} scoring={SCORING} />
+
+      {/* Correlated players (UC3) and recent news — ported from the retired
+       *  PlayerDetail page. Each section owns its own query/loading/empty
+       *  state, independent of the player-detail load above. */}
+      <CorrelationsPanel playerId={playerId} />
+
+      <PlayerNewsSection playerId={playerId} season={season} week={week} />
 
       <div>
         <h2 className='wc-display mb-[var(--space-2)] text-[length:var(--fs-sm)] tracking-[0.1em] text-muted-foreground'>

@@ -11,3 +11,14 @@ import { configure } from '@testing-library/react';
 // ceiling below vitest's 5s testTimeout so a single hung wait still produces
 // a DOM dump instead of an opaque test-timeout.
 configure({ asyncUtilTimeout: 3500 });
+
+// jsdom has no ResizeObserver — recharts' <ResponsiveContainer> reads it on
+// mount to size the chart. Without this stub, any component rendering a
+// recharts chart throws "ResizeObserver is not defined" in every test run.
+if (typeof globalThis.ResizeObserver === 'undefined') {
+  globalThis.ResizeObserver = class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}

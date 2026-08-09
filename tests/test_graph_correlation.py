@@ -406,6 +406,32 @@ class TestCorrelationsApi:
 
 
 @pytest.mark.integration
+class TestPartialSeasonAvailability:
+    def test_holdout_only_obs_returns_without_raising(self):
+        """Only holdout-window seasons available locally (e.g. a fresh
+        checkout with just the committed 2025 Bronze weekly parquet):
+        the train-window rho frame is empty and must stay float-typed so
+        the sign-stability gate doesn't raise on an object column."""
+        from graph_correlation import compute_correlation_edges
+
+        obs = pd.DataFrame(
+            {
+                "player_id_a": ["A"] * 4,
+                "player_id_b": ["B"] * 4,
+                "relation": ["qb_stack"] * 4,
+                "player_name_a": ["QB One"] * 4,
+                "player_name_b": ["WR Two"] * 4,
+                "season": [2025] * 4,
+                "week": [1, 2, 3, 4],
+                "points_a": [10.0, 20.0, 15.0, 25.0],
+                "points_b": [8.0, 18.0, 12.0, 22.0],
+            }
+        )
+        edges = compute_correlation_edges(obs)
+        assert list(edges.columns)  # returned, did not raise
+        assert edges[edges["level"] == "pair"].empty  # gate needs train games
+
+
 class TestRealDataSmoke:
     def test_build_real_edges(self):
         from graph_correlation import build_correlation_data

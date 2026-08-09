@@ -28,6 +28,7 @@ import type {
   PlayerEventBadges,
   PlayerGameLogResponse,
   PlayerProjection,
+  PlayerProjectionHistoryResponse,
   PlayerSearchResult,
   PlayerSentiment,
   PredictionResponse,
@@ -454,6 +455,24 @@ export async function fetchPlayerGameLog(
   const params = new URLSearchParams({ season: String(season), scoring });
   return request<PlayerGameLogResponse>(
     `/api/games/player-log/${encodeURIComponent(playerId)}?${params}`,
+  );
+}
+
+/**
+ * Fetch a player's per-week projected-vs-actual fantasy points for a season
+ * (the profile's projected-vs-actual overlay chart). Either side of a week
+ * can be `null` — see `PlayerProjectionHistoryWeek`. `reason` is set only
+ * when `weeks` comes back empty (no archived Gold projections or Bronze
+ * actuals exist for the season at all).
+ */
+export async function fetchPlayerProjectionHistory(
+  playerId: string,
+  season: number,
+  scoring: ScoringFormat = "half_ppr",
+): Promise<PlayerProjectionHistoryResponse> {
+  const params = new URLSearchParams({ season: String(season), scoring });
+  return request<PlayerProjectionHistoryResponse>(
+    `/api/players/${encodeURIComponent(playerId)}/projection-history?${params}`,
   );
 }
 

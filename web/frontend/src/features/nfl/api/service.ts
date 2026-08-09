@@ -47,6 +47,7 @@ export {
   fetchGames,
   fetchGameSeasons,
   fetchPlayerGameLog,
+  fetchPlayerProjectionHistory,
   // Manager tools
   fetchRosRankings,
 } from '@/lib/nfl/api';

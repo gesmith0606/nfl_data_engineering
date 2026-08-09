@@ -16,6 +16,8 @@ export type {
   PlayerGameLogEntry,
   PlayerGameLogResponse,
   PlayerProjection,
+  PlayerProjectionHistoryResponse,
+  PlayerProjectionHistoryWeek,
   PlayerSearchResult,
   PlayerSentiment,
   Position,

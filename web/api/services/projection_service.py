@@ -22,9 +22,13 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 
 import pandas as pd
+
+# src/ is importable via the web.api package bootstrap (web/api/__init__.py) --
+# same convention game_service.py uses for game_archive.
+from game_archive import get_player_game_log
 
 from ..config import DATA_DIR, GOLD_PROJECTIONS_DIR, WEEKLY_STALENESS_THRESHOLD_DAYS
 from ..db import get_connection, is_db_enabled
@@ -894,3 +898,224 @@ def search_players(
                 "PostgreSQL search failed (%s); falling back to Parquet", exc
             )
     return _search_players_parquet(query, season, week)
+
+
+# ---------------------------------------------------------------------------
+# Player projection-history (projected vs actual overlay, Parquet-only --
+# there is no Postgres actuals table, matching game_archive's Parquet-only
+# design for player-log data)
+# ---------------------------------------------------------------------------
+
+_PROJECTION_HISTORY_MAX_WEEK = 18
+
+
+def _sf(val) -> Optional[float]:
+    """Coerce a value to float, mapping NaN/None/unparsable to None."""
+    if val is None:
+        return None
+    try:
+        f = float(val)
+    except (TypeError, ValueError):
+        return None
+    return None if f != f else f
+
+
+def _ss(val) -> Optional[str]:
+    """Coerce a value to str, mapping NaN/None/empty to None."""
+    if val is None:
+        return None
+    try:
+        if val != val:  # NaN check
+            return None
+    except (TypeError, ValueError):
+        pass
+    s = str(val)
+    return None if s.lower() in ("nan", "none", "") else s
+
+
+def get_player_projection_weeks(
+    player_id: str,
+    season: int,
+    scoring_format: str = "half_ppr",
+) -> Tuple[Dict[int, dict], bool]:
+    """Scan every archived Gold projection week for `season` for one player.
+
+    Reads ``GOLD_PROJECTIONS_DIR/season=<season>/week=<1..18>/`` -- the same
+    per-week Gold partitions ``scripts/weekly_grading_report.py`` reads for
+    grading -- and pulls out this player's ``projected_points``/floor/ceiling
+    plus identity columns for each week a matching row is found.
+
+    Args:
+        player_id: NFL player ID.
+        season: NFL season year.
+        scoring_format: ppr / half_ppr / standard -- prefers the
+            scoring-specific parquet, falling back to any parquet in the
+            week dir (mirrors ``_get_projections_parquet``).
+
+    Returns:
+        Tuple of:
+          - Dict mapping week number -> dict with projected_points,
+            projected_floor, projected_ceiling, player_name, team, position.
+            Only weeks where this player_id matched a row are included.
+          - bool: True when at least one week directory under the season
+            had a non-empty parquet (regardless of whether it matched this
+            player) -- lets the caller distinguish "no archived projections
+            for this season at all" from "player not in this season's data".
+    """
+    season_dir = GOLD_PROJECTIONS_DIR / f"season={season}"
+    weeks_map: Dict[int, dict] = {}
+    season_has_data = False
+
+    if not season_dir.exists():
+        return weeks_map, season_has_data
+
+    for week in range(1, _PROJECTION_HISTORY_MAX_WEEK + 1):
+        week_dir = season_dir / f"week={week}"
+        if not week_dir.exists():
+            continue
+
+        parquet_path = _latest_parquet(
+            week_dir, f"projections_{scoring_format}_*.parquet"
+        ) or _latest_parquet(week_dir)
+        if parquet_path is None:
+            continue
+
+        try:
+            df = pd.read_parquet(parquet_path)
+        except Exception as exc:
+            logger.warning(
+                "Could not read projections parquet %s: %s", parquet_path, exc
+            )
+            continue
+
+        if df.empty:
+            continue
+        season_has_data = True
+
+        if "recent_team" in df.columns and "team" not in df.columns:
+            df = df.rename(columns={"recent_team": "team"})
+        if "projected_season_points" in df.columns and "projected_points" not in df.columns:
+            df = df.rename(columns={"projected_season_points": "projected_points"})
+
+        match = df[df["player_id"].astype(str) == str(player_id)]
+        if match.empty:
+            continue
+
+        row = match.iloc[0]
+        weeks_map[week] = {
+            "projected_points": _sf(row.get("projected_points")),
+            "projected_floor": _sf(row.get("projected_floor")),
+            "projected_ceiling": _sf(row.get("projected_ceiling")),
+            "player_name": _ss(row.get("player_name")),
+            "team": _ss(row.get("team")),
+            "position": _ss(row.get("position")),
+        }
+
+    return weeks_map, season_has_data
+
+
+def get_player_projection_history(
+    player_id: str,
+    season: int,
+    scoring_format: str = "half_ppr",
+) -> dict:
+    """Merge per-week Gold projections with Bronze actuals for one player.
+
+    Data sources (see module + ``game_archive`` docstrings):
+      - Projected: ``data/gold/projections/season=<season>/week=<1..18>/``
+        (committed to git, deployed to the HF Spaces image).
+      - Actual: ``game_archive.get_player_game_log`` reads
+        ``data/bronze/players/weekly/season=<season>`` -- NOT committed to
+        git and NOT copied by any deploy image (see ``deploy/huggingface/``
+        and ``web/Dockerfile``), so ``actual_points`` will be null for every
+        week in the current deployed backend until that path is added to
+        the .gitignore allowlist the way TD-08/TD-09 did for other Bronze
+        paths. This function still serves the projected side honestly.
+
+    Args:
+        player_id: NFL player ID.
+        season: NFL season year (caller should restrict to >= 2016 --
+            ``game_archive`` has no actuals before that).
+        scoring_format: ppr / half_ppr / standard.
+
+    Returns:
+        Dict shaped for ``PlayerProjectionHistoryResponse``: player_id,
+        player_name, team, position, season, scoring_format, weeks (list of
+        per-week dicts), reason.
+
+    Raises:
+        FileNotFoundError: When archived data exists for this season (on
+            either side) but none of it matches `player_id` -- the router
+            translates this to 404, consistent with sibling player/game
+            endpoints.
+    """
+    proj_weeks, season_has_proj_data = get_player_projection_weeks(
+        player_id, season, scoring_format
+    )
+
+    actuals_by_week: Dict[int, Optional[float]] = {}
+    actuals_available = False
+    try:
+        log_df = get_player_game_log(player_id, season, scoring_format)
+        actuals_available = True  # season is in the supported stats range
+        if not log_df.empty:
+            for _, row in log_df.iterrows():
+                actuals_by_week[int(row["week"])] = _sf(row.get("fantasy_points"))
+    except FileNotFoundError:
+        # Season predates player-stats coverage, or the local Bronze
+        # partition simply isn't present (dev/deploy data gap -- see
+        # docstring above). Either way: no actuals signal for this season.
+        pass
+
+    weeks_set = sorted(set(proj_weeks) | set(actuals_by_week))
+
+    if not weeks_set:
+        if season_has_proj_data or actuals_available:
+            # The season has archived data (for someone) but nothing
+            # matched this player_id on either side -- likely a bad/unknown
+            # player_id rather than a genuinely data-free season.
+            raise FileNotFoundError(
+                f"Player {player_id} not found in season={season} "
+                f"projection or actuals history"
+            )
+        return {
+            "player_id": player_id,
+            "player_name": None,
+            "team": None,
+            "position": None,
+            "season": season,
+            "scoring_format": scoring_format,
+            "weeks": [],
+            "reason": (
+                f"No archived projections or actuals found for season={season}."
+            ),
+        }
+
+    player_name = team = position = None
+    for week in sorted(proj_weeks):
+        p = proj_weeks[week]
+        player_name = p.get("player_name") or player_name
+        team = p.get("team") or team
+        position = p.get("position") or position
+
+    weeks = [
+        {
+            "week": week,
+            "projected_points": proj_weeks.get(week, {}).get("projected_points"),
+            "actual_points": actuals_by_week.get(week),
+            "projected_floor": proj_weeks.get(week, {}).get("projected_floor"),
+            "projected_ceiling": proj_weeks.get(week, {}).get("projected_ceiling"),
+        }
+        for week in weeks_set
+    ]
+
+    return {
+        "player_id": player_id,
+        "player_name": player_name,
+        "team": team,
+        "position": position,
+        "season": season,
+        "scoring_format": scoring_format,
+        "weeks": weeks,
+        "reason": None,
+    }

@@ -597,6 +597,47 @@ class SeasonsResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Player projection-history (projected vs actual overlay)
+# ---------------------------------------------------------------------------
+
+
+class PlayerProjectionHistoryWeek(BaseModel):
+    """One week's projected vs actual fantasy points for a player.
+
+    Either value may be ``None`` -- a week can have a projection with no
+    actual yet (future/unplayed), or an actual with no projection on record
+    (e.g. a week our Gold pipeline didn't publish). The frontend decides how
+    to render a missing side (e.g. gap in the overlay line).
+    """
+
+    week: int
+    projected_points: Optional[float] = None
+    actual_points: Optional[float] = None
+    projected_floor: Optional[float] = None
+    projected_ceiling: Optional[float] = None
+
+
+class PlayerProjectionHistoryResponse(BaseModel):
+    """Envelope for GET /api/players/{player_id}/projection-history."""
+
+    player_id: str
+    player_name: Optional[str] = None
+    team: Optional[str] = None
+    position: Optional[str] = None
+    season: int
+    scoring_format: str
+    weeks: List[PlayerProjectionHistoryWeek] = Field(default_factory=list)
+    reason: Optional[str] = Field(
+        None,
+        description=(
+            "Set when `weeks` is empty because no archived Gold projections "
+            "or Bronze actuals exist for this season at all (e.g. a season "
+            "the pipeline hasn't run yet). Null on a normal response."
+        ),
+    )
+
+
+# ---------------------------------------------------------------------------
 # News / Sentiment models
 # ---------------------------------------------------------------------------
 

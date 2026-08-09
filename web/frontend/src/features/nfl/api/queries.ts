@@ -19,6 +19,7 @@ import {
   fetchPlayerCorrelations,
   fetchPlayerGameLog,
   fetchPlayerNews,
+  fetchPlayerProjectionHistory,
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
@@ -99,6 +100,8 @@ export const nflKeys = {
   draftIntel: (leagueId: string) => [...nflKeys.all, 'draft-intel', leagueId] as const,
   playerGameLog: (playerId: string, season: number, scoring: ScoringFormat) =>
     [...nflKeys.all, 'player-game-log', { playerId, season, scoring }] as const,
+  playerProjectionHistory: (playerId: string, season: number, scoring: ScoringFormat) =>
+    [...nflKeys.all, 'player-projection-history', { playerId, season, scoring }] as const,
   rosRankings: (season: number, position: string | null) =>
     [...nflKeys.all, 'ros-rankings', { season, position }] as const
 };
@@ -534,6 +537,24 @@ export const playerGameLogQueryOptions = (
   queryOptions({
     queryKey: nflKeys.playerGameLog(playerId, season, scoring),
     queryFn: () => fetchPlayerGameLog(playerId, season, scoring),
+    enabled: !!playerId
+  });
+
+/**
+ * A player's per-week projected-vs-actual fantasy points for a season — backs
+ * the profile's projected-vs-actual overlay chart. Same season-fallback
+ * convention as `playerGameLogQueryOptions` (see `index.tsx`'s `gameLogSeason`
+ * derivation): callers should pass the season resolved with data, not
+ * blindly the current/preseason one.
+ */
+export const playerProjectionHistoryQueryOptions = (
+  playerId: string,
+  season: number,
+  scoring: ScoringFormat
+) =>
+  queryOptions({
+    queryKey: nflKeys.playerProjectionHistory(playerId, season, scoring),
+    queryFn: () => fetchPlayerProjectionHistory(playerId, season, scoring),
     enabled: !!playerId
   });
 

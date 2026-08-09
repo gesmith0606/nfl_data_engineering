@@ -14,6 +14,8 @@ from ..models.schemas import (
     PlayerCorrelation,
     PlayerCorrelationsResponse,
     PlayerProjection,
+    PlayerProjectionHistoryResponse,
+    PlayerProjectionHistoryWeek,
     PlayerSearchResult,
 )
 from ..services import projection_service
@@ -78,6 +80,53 @@ def get_player_correlations(
         player_id=player_id,
         correlations=correlations,
         generated_at=datetime.now(timezone.utc).isoformat(),
+    )
+
+
+@router.get(
+    "/{player_id}/projection-history", response_model=PlayerProjectionHistoryResponse
+)
+def get_player_projection_history(
+    player_id: str,
+    season: int = Query(..., ge=2016, le=2030, description="NFL season"),
+    scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
+) -> PlayerProjectionHistoryResponse:
+    """Per-week projected-vs-actual fantasy points for one player-season.
+
+    Projected points come from the archived Gold weekly projections
+    (``data/gold/projections/season=Y/week=W``); actual points come from
+    the Bronze weekly game log via ``game_archive`` (same source as
+    ``/api/games/player-log/{id}``). A week missing either side is included
+    with ``null`` for the missing value -- the frontend decides how to
+    render the gap in the projected-vs-actual overlay chart.
+
+    Returns 404 when `player_id` matches nothing in either source for a
+    season that otherwise has archived data. Returns 200 with an empty
+    `weeks` list (and `reason` set) when the season itself has no archived
+    projections or actuals at all.
+    """
+    if scoring not in VALID_SCORING_FORMATS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid scoring format. Choose from: {sorted(VALID_SCORING_FORMATS)}",
+        )
+
+    try:
+        result = projection_service.get_player_projection_history(
+            player_id, season, scoring
+        )
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+
+    return PlayerProjectionHistoryResponse(
+        player_id=result["player_id"],
+        player_name=result.get("player_name"),
+        team=result.get("team"),
+        position=result.get("position"),
+        season=result["season"],
+        scoring_format=result["scoring_format"],
+        weeks=[PlayerProjectionHistoryWeek(**w) for w in result["weeks"]],
+        reason=result.get("reason"),
     )
 
 

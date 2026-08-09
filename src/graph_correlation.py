@@ -320,7 +320,16 @@ def _pair_rho(obs: pd.DataFrame) -> pd.DataFrame:
     """
     keys = ["player_id_a", "player_id_b", "relation"]
     if obs.empty:
-        return pd.DataFrame(columns=keys + ["rho", "n_games"])
+        # Typed empty frame: an untyped one gives object-dtype columns, and
+        # np.sign(object column) in compute_correlation_edges raises when one
+        # window (e.g. train) has no seasons available locally.
+        return pd.DataFrame(
+            {
+                **{k: pd.Series(dtype=object) for k in keys},
+                "rho": pd.Series(dtype=float),
+                "n_games": pd.Series(dtype=int),
+            }
+        )
 
     # Vectorized Pearson via sufficient statistics — no per-group apply.
     df = obs[keys + ["points_a", "points_b"]].copy()

@@ -7,6 +7,7 @@ import {
   gameSeasonsQueryOptions,
   playerDetailQueryOptions,
   playerGameLogQueryOptions,
+  playerProjectionHistoryQueryOptions,
   projectionsQueryOptions,
   rosRankingsQueryOptions
 } from '@/features/nfl/api/queries';
@@ -16,6 +17,7 @@ import {
   fetchGameSeasons,
   fetchPlayer,
   fetchPlayerGameLog,
+  fetchPlayerProjectionHistory,
   fetchProjections,
   fetchRosRankings
 } from '@/lib/nfl/api';
@@ -24,6 +26,7 @@ import type {
   GameSeasonsResponse,
   PlayerGameLogResponse,
   PlayerProjection,
+  PlayerProjectionHistoryResponse,
   ProjectionResponse,
   RosResponse
 } from '@/lib/nfl/types';
@@ -39,7 +42,8 @@ vi.mock('@/lib/nfl/api', () => ({
   fetchProjections: vi.fn(),
   fetchRosRankings: vi.fn(),
   fetchGameSeasons: vi.fn(),
-  fetchPlayerGameLog: vi.fn()
+  fetchPlayerGameLog: vi.fn(),
+  fetchPlayerProjectionHistory: vi.fn()
 }));
 
 const CURRENT_WEEK: CurrentWeekResponse = { season: 2025, week: 3, source: 'schedule' };
@@ -144,6 +148,19 @@ const GAME_LOG: PlayerGameLogResponse = {
   ]
 };
 
+const PROJECTION_HISTORY: PlayerProjectionHistoryResponse = {
+  player_id: 'P1',
+  player_name: 'Christian McCaffrey',
+  team: 'SF',
+  position: 'RB',
+  season: 2025,
+  scoring_format: SCORING,
+  weeks: [
+    { week: 1, projected_points: 17.0, actual_points: 18.4, projected_floor: 12.0, projected_ceiling: 22.0 }
+  ],
+  reason: null
+};
+
 function renderProfile() {
   const client = new QueryClient({
     // staleTime: Infinity keeps every seeded cache entry fresh so no
@@ -166,6 +183,10 @@ function renderProfile() {
   );
   client.setQueryData(gameSeasonsQueryOptions().queryKey, GAME_SEASONS);
   client.setQueryData(playerGameLogQueryOptions('P1', 2025, SCORING).queryKey, GAME_LOG);
+  client.setQueryData(
+    playerProjectionHistoryQueryOptions('P1', 2025, SCORING).queryKey,
+    PROJECTION_HISTORY
+  );
 
   return render(
     <QueryClientProvider client={client}>
@@ -183,6 +204,7 @@ describe('PlayerProfile', () => {
     vi.mocked(fetchRosRankings).mockResolvedValue(ROS);
     vi.mocked(fetchGameSeasons).mockResolvedValue(GAME_SEASONS);
     vi.mocked(fetchPlayerGameLog).mockResolvedValue(GAME_LOG);
+    vi.mocked(fetchPlayerProjectionHistory).mockResolvedValue(PROJECTION_HISTORY);
   });
 
   it('renders the header with name, team, and injury status never hidden', async () => {

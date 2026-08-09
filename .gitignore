@@ -300,6 +300,14 @@ data/gold/*
 !data/bronze/players/rookies/
 !data/bronze/players/rookies/**
 !data/bronze/players/rookies/**/*.parquet
+# Player weekly ACTUAL stats (TD-10): deploy/huggingface/Dockerfile clones this
+# repo, so per-week actuals never reached prod (no allowlist entry existed).
+# get_player_game_log (src/game_archive.py) + /api/games/player-log/{id} +
+# /api/players/{id}/projection-history all silently returned empty actuals.
+# Same TD-08/TD-09 pattern: commit the Bronze parquet so the deployed clone has it.
+!data/bronze/players/weekly/
+!data/bronze/players/weekly/**
+!data/bronze/players/weekly/**/*.parquet
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet
