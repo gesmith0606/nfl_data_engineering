@@ -37,6 +37,8 @@ import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getTeamFullName, TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { getPositionColor } from '@/lib/design-tokens';
+import { DANGER_TEXT } from '@/lib/nfl/semantic-colors';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
 import {
   DataLoadReveal,
   FadeIn,
@@ -453,14 +455,22 @@ function buildDefensiveRosterFromApi(
 // Sub-components
 // ---------------------------------------------------------------------------
 
-function RatingBadge({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) {
-  let bg = 'bg-gray-500';
-  if (rating >= 90) bg = 'bg-emerald-500';
-  else if (rating >= 80) bg = 'bg-blue-500';
-  else if (rating >= 70) bg = 'bg-yellow-500';
-  else if (rating >= 60) bg = 'bg-orange-500';
-  else bg = 'bg-red-500';
+/**
+ * Rating → badge fill. Top two tiers are mint (broadcast "advantage" family,
+ * intensity banded — full mint at elite, mint-deep just below); mid-tier
+ * reuses the WC26 accent yellow; bottom two tiers step through the shared
+ * --warn/--danger system tokens (sos-grid-view/multi-compare-table
+ * convention) rather than raw orange/red literals.
+ */
+function ratingFillClass(rating: number): string {
+  if (rating >= 90) return 'bg-[var(--wc-mint,#91edd0)] text-[var(--wc-mint-ink,#04140e)]';
+  if (rating >= 80) return 'bg-[var(--wc-mint-deep,#5cc9a7)] text-[var(--wc-mint-ink,#04140e)]';
+  if (rating >= 70) return 'bg-[var(--wc-yellow,#ffd84d)] text-[#221b00]';
+  if (rating >= 60) return 'bg-[var(--warn)] text-white';
+  return 'bg-[var(--danger)] text-white';
+}
 
+function RatingBadge({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) {
   const sizeClasses = {
     sm: 'h-7 w-7 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]',
     md: 'h-9 w-9 text-[length:var(--fs-sm)] leading-[var(--lh-sm)]',
@@ -469,7 +479,7 @@ function RatingBadge({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'm
 
   return (
     <div
-      className={`${bg} ${sizeClasses[size]} inline-flex items-center justify-center rounded-lg font-black text-white shadow-md`}
+      className={`${ratingFillClass(rating)} ${sizeClasses[size]} inline-flex items-center justify-center rounded-lg font-black shadow-md`}
     >
       {rating}
     </div>
@@ -478,14 +488,19 @@ function RatingBadge({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'm
 
 function InjuryBadge({ status }: { status: string | null }) {
   if (!status || status === 'Active') return null;
+  // Two danger intensity bands (Doubtful mild, Out/IR/PUP severe) built the
+  // same way sos-grid-view derives its rank bands: color-mix off the shared
+  // --warn/--danger tokens instead of raw yellow-500/orange-500/red-500.
   const colors: Record<string, string> = {
-    Questionable: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-    Doubtful: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-    Out: 'bg-red-500/20 text-red-400 border-red-500/30',
-    IR: 'bg-red-500/20 text-red-400 border-red-500/30',
-    PUP: 'bg-red-500/20 text-red-400 border-red-500/30'
+    Questionable:
+      'text-[var(--warn)] bg-[color-mix(in_oklch,var(--warn)_14%,transparent)] border-[color-mix(in_oklch,var(--warn)_35%,transparent)]',
+    Doubtful:
+      'text-[var(--danger)] bg-[color-mix(in_oklch,var(--danger)_10%,transparent)] border-[color-mix(in_oklch,var(--danger)_28%,transparent)]',
+    Out: `${DANGER_TEXT} bg-[color-mix(in_oklch,var(--danger)_18%,transparent)] border-[color-mix(in_oklch,var(--danger)_40%,transparent)]`,
+    IR: `${DANGER_TEXT} bg-[color-mix(in_oklch,var(--danger)_18%,transparent)] border-[color-mix(in_oklch,var(--danger)_40%,transparent)]`,
+    PUP: `${DANGER_TEXT} bg-[color-mix(in_oklch,var(--danger)_18%,transparent)] border-[color-mix(in_oklch,var(--danger)_40%,transparent)]`
   };
-  const cls = colors[status] ?? 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+  const cls = colors[status] ?? 'bg-muted text-muted-foreground border-border';
   return (
     <span
       className={`${cls} inline-flex items-center rounded border px-[var(--space-2)] py-0.5 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase`}
@@ -515,9 +530,9 @@ function PlayerRow({
   const advantageIndicator = useMemo(() => {
     if (!matchupAdvantage || matchupAdvantage === 'neutral') return null;
     const config = {
-      strong: { icon: '>', color: 'text-emerald-400', label: 'Strong advantage' },
-      slight: { icon: '>', color: 'text-emerald-300/70', label: 'Slight advantage' },
-      disadvantage: { icon: '<', color: 'text-red-400', label: 'Disadvantage' }
+      strong: { icon: '>', color: 'text-[var(--wc-mint,#91edd0)]', label: 'Strong advantage' },
+      slight: { icon: '>', color: 'text-[var(--wc-mint,#91edd0)]/70', label: 'Slight advantage' },
+      disadvantage: { icon: '<', color: DANGER_TEXT, label: 'Disadvantage' }
     };
     const c = config[matchupAdvantage];
     if (!c) return null;
@@ -563,7 +578,7 @@ function PlayerRow({
       <div
         className={`group flex items-center gap-[var(--space-3)] rounded-lg px-[var(--space-3)] py-[var(--space-2)] transition-colors duration-[var(--motion-fast)] ${
           isLowRated
-            ? 'bg-red-900/20 border border-red-500/20 hover:bg-red-900/30'
+            ? 'border bg-[color-mix(in_oklch,var(--danger)_14%,transparent)] border-[color-mix(in_oklch,var(--danger)_30%,transparent)] hover:bg-[color-mix(in_oklch,var(--danger)_20%,transparent)]'
             : 'bg-white/5 hover:bg-white/10'
         }`}
       >
@@ -603,7 +618,7 @@ function PlayerRow({
             </span>
             <InjuryBadge status={player.injury_status} />
             {isLowRated && (
-              <Icons.alertCircle className='h-[var(--space-4)] w-[var(--space-4)] shrink-0 text-red-400' />
+              <Icons.alertCircle className={`h-[var(--space-4)] w-[var(--space-4)] shrink-0 ${DANGER_TEXT}`} />
             )}
           </div>
           {player.position_rank !== null && (
@@ -617,7 +632,7 @@ function PlayerRow({
         <div className='flex items-center gap-[var(--space-2)] shrink-0'>
           {advantageIndicator}
           {player.projected_points !== null ? (
-            <span className='min-w-[3rem] text-right font-mono text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold tabular-nums text-white'>
+            <span className='wc-num-hero min-w-[3rem] text-right !text-[length:var(--fs-sm)] tabular-nums'>
               {player.projected_points.toFixed(1)}
             </span>
           ) : (
@@ -634,7 +649,7 @@ function PlayerRow({
 function RowGroupLabel({ label }: { label: string }) {
   return (
     <div className='px-[var(--space-3)] pt-[var(--space-4)] pb-[var(--space-1)]'>
-      <span className='text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold uppercase tracking-widest text-white/30'>
+      <span className='wc-display text-[length:var(--fs-micro)] leading-[var(--lh-micro)] tracking-widest text-white/30'>
         {label}
       </span>
     </div>
@@ -735,7 +750,7 @@ function TeamPanel({ team, side, roster, opponentDefense }: TeamPanelProps) {
         <div className='relative z-10'>
           <div className='flex items-center justify-between'>
             <div>
-              <h3 className='text-[length:var(--fs-h3)] leading-[var(--lh-h3)] font-black uppercase tracking-wide text-white'>
+              <h3 className='wc-display text-[length:var(--fs-h3)] leading-[var(--lh-h3)] tracking-wide text-white'>
                 {team}
               </h3>
               <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium text-white/70'>
@@ -743,7 +758,7 @@ function TeamPanel({ team, side, roster, opponentDefense }: TeamPanelProps) {
               </p>
             </div>
             <div className='text-right'>
-              <div className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase text-white/50'>
+              <div className='wc-display text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
                 {side === 'offense' ? 'Offense' : 'Defense'}
               </div>
               {side === 'offense' && totalPts > 0 && (
@@ -819,8 +834,11 @@ function MatchupHeaderBar({
   const total = prediction?.vegas_total ?? schedule?.total_line ?? null;
 
   return (
-    <div className='relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-[var(--space-3)] sm:p-[var(--pad-card)] mb-[var(--space-6)]'>
-      {/* Decorative team color streaks */}
+    <BroadcastPanel
+      rail={false}
+      className='p-[var(--space-3)] sm:p-[var(--pad-card)] mb-[var(--space-6)]'
+    >
+      {/* Decorative team color streaks — real team data, kept bespoke */}
       <div
         className='absolute left-0 top-0 bottom-0 w-1.5'
         style={{ backgroundColor: awayColor }}
@@ -909,7 +927,7 @@ function MatchupHeaderBar({
           </div>
         </div>
       </div>
-    </div>
+    </BroadcastPanel>
   );
 }
 
@@ -962,8 +980,11 @@ function MatchupAdvantages({ offenseRoster, opponentDefense }: MatchupAdvantages
   if (edges.length === 0) return null;
 
   return (
-    <div className='rounded-xl border border-white/10 bg-gray-900/50 p-[var(--pad-card)] mt-[var(--space-4)]'>
-      <h4 className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-white/40 mb-[var(--space-3)]'>
+    <BroadcastPanel className='p-[var(--pad-card)] mt-[var(--space-4)]'>
+      <h4
+        className='wc-display text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold tracking-[0.2em] uppercase mb-[var(--space-3)]'
+        style={{ color: 'var(--wc-yellow,#ffd84d)' }}
+      >
         Key Matchups
       </h4>
       <Stagger className='grid grid-cols-1 gap-[var(--space-2)] sm:grid-cols-2'>
@@ -980,9 +1001,9 @@ function MatchupAdvantages({ offenseRoster, opponentDefense }: MatchupAdvantages
                     <div
                       className={`flex items-center justify-between rounded-lg px-[var(--space-3)] py-[var(--space-2)] ${
                         isAdvantage
-                          ? 'bg-emerald-900/20 border border-emerald-500/20'
+                          ? 'border bg-[color-mix(in_oklch,var(--wc-mint,#91edd0)_14%,transparent)] border-[color-mix(in_oklch,var(--wc-mint,#91edd0)_30%,transparent)]'
                           : isDisadvantage
-                            ? 'bg-red-900/20 border border-red-500/20'
+                            ? 'border bg-[color-mix(in_oklch,var(--danger)_14%,transparent)] border-[color-mix(in_oklch,var(--danger)_30%,transparent)]'
                             : 'bg-white/5'
                       }`}
                     >
@@ -999,9 +1020,9 @@ function MatchupAdvantages({ offenseRoster, opponentDefense }: MatchupAdvantages
                         <span
                           className={`text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-bold ${
                             isAdvantage
-                              ? 'text-emerald-400'
+                              ? 'text-[var(--wc-mint,#91edd0)]'
                               : isDisadvantage
-                                ? 'text-red-400'
+                                ? DANGER_TEXT
                                 : 'text-white/50'
                           }`}
                         >
@@ -1022,7 +1043,7 @@ function MatchupAdvantages({ offenseRoster, opponentDefense }: MatchupAdvantages
           );
         })}
       </Stagger>
-    </div>
+    </BroadcastPanel>
   );
 }
 
@@ -1342,7 +1363,7 @@ export function MatchupView() {
 
       {/* Fallback banner */}
       {anyFallback && (
-        <div className='rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-yellow-300/80'>
+        <div className='rounded-lg border border-[color-mix(in_oklch,var(--warn)_30%,transparent)] bg-[color-mix(in_oklch,var(--warn)_8%,transparent)] px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-[var(--warn)]'>
           Showing data from the most recent available season
           {fallbackSeason ? ` (${fallbackSeason})` : ''} — current-season data is not yet
           published.
@@ -1448,8 +1469,11 @@ export function MatchupView() {
               />
 
               {/* Matchup notes */}
-              <div className='rounded-xl border border-white/10 bg-gray-900/50 p-[var(--pad-card)]'>
-                <h4 className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-white/40 mb-[var(--space-3)]'>
+              <BroadcastPanel className='p-[var(--pad-card)]'>
+                <h4
+                  className='wc-display text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold tracking-[0.2em] uppercase mb-[var(--space-3)]'
+                  style={{ color: 'var(--wc-yellow,#ffd84d)' }}
+                >
                   Matchup Notes
                 </h4>
                 <div className='space-y-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/60'>
@@ -1469,7 +1493,7 @@ export function MatchupView() {
                   {prediction?.spread_edge != null &&
                     Math.abs(prediction.spread_edge) >= 1.5 && (
                       <p className='flex items-center gap-[var(--space-2)]'>
-                        <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-emerald-400' />
+                        <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-mint,#91edd0)]' />
                         <span>
                           Model sees {Math.abs(prediction.spread_edge).toFixed(1)}-point spread edge.{' '}
                           <span className='text-white/80 font-medium'>{prediction.ats_pick}</span>
@@ -1479,7 +1503,7 @@ export function MatchupView() {
                   {prediction?.total_edge != null &&
                     Math.abs(prediction.total_edge) >= 1.5 && (
                       <p className='flex items-center gap-[var(--space-2)]'>
-                        <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-blue-400' />
+                        <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-peri,#5b67c7)]' />
                         <span>
                           {Math.abs(prediction.total_edge).toFixed(1)}-point total edge.{' '}
                           <span className='text-white/80 font-medium'>{prediction.ou_pick}</span>
@@ -1488,7 +1512,7 @@ export function MatchupView() {
                     )}
                   {active.defMetrics && (
                     <p className='flex items-center gap-[var(--space-2)]'>
-                      <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)] text-indigo-300' />
+                      <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-cyan,#6ec7d1)]' />
                       <span>
                         {active.defTeam} defense: SoS rank{' '}
                         <span className='text-white/80 font-medium'>
@@ -1508,7 +1532,7 @@ export function MatchupView() {
                         key={p!.player_id}
                         className='flex items-center gap-[var(--space-2)]'
                       >
-                        <Icons.alertCircle className='h-[var(--space-4)] w-[var(--space-4)] text-orange-400' />
+                        <Icons.alertCircle className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--warn)]' />
                         <span>
                           <span className='text-white/80 font-medium'>{p!.player_name}</span>{' '}
                           ({p!.position}) rated just {p!.rating} -- possible injury replacement or
@@ -1517,7 +1541,7 @@ export function MatchupView() {
                       </p>
                     ))}
                 </div>
-              </div>
+              </BroadcastPanel>
             </div>
           )}
         </DataLoadReveal>

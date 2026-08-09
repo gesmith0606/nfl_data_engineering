@@ -100,7 +100,7 @@ export default function NewsPage() {
         {/* Team event density grid (NEWS-03) */}
         <Card>
           <CardHeader>
-            <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
               <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)]' />
               Team Event Density
             </CardTitle>

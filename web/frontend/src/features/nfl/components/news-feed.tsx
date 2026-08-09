@@ -24,6 +24,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
+import { BroadcastPanel, StatPill } from '@/components/nfl/broadcast-panel';
 import { formatRelativeTime } from '@/lib/format-relative-time';
 import { EventBadges } from './EventBadges';
 import {
@@ -102,27 +103,21 @@ function getSentimentLabel(sentiment: number | null): string {
   return 'Neutral';
 }
 
-function getMultiplierLabel(mult: number): string {
-  if (mult >= 1.10) return 'Bullish';
-  if (mult <= 0.90) return 'Bearish';
-  return 'Neutral';
-}
-
 function getMultiplierClass(mult: number): string {
   if (mult >= 1.10) return SUCCESS_TEXT;
   if (mult <= 0.90) return DANGER_TEXT;
   return WARN_TEXT;
 }
 
-/**
- * Color a signal COUNT by significance, not by category: a zero is neutral,
- * never alarming. Fixes the "0 Bearish Signals" red miscue — only a non-zero
- * count carries the semantic hue. */
-function countSignalClass(count: number, tone: 'success' | 'danger' | 'warn'): string {
-  if (count === 0) return 'text-muted-foreground';
-  if (tone === 'success') return SUCCESS_TEXT;
-  if (tone === 'danger') return DANGER_TEXT;
-  return WARN_TEXT;
+/** Color a signal COUNT by significance, not by category: a zero is neutral,
+ *  never alarming. Fixes the "0 Bearish Signals" red miscue — only a non-zero
+ *  count carries the semantic hue. Expressed as a CSS color value for
+ *  `StatPill`'s `railColor` prop (rail + numeral accent). */
+function countRailColor(count: number, tone: 'success' | 'danger' | 'warn'): string {
+  if (count === 0) return 'var(--muted-foreground)';
+  if (tone === 'success') return 'var(--success)';
+  if (tone === 'danger') return 'var(--danger)';
+  return 'var(--warn)';
 }
 
 function getTeamSentimentBg(label: string): string {
@@ -179,15 +174,13 @@ function NewsCardSkeleton() {
   );
 }
 
-function SummaryCardSkeleton() {
+function SummaryPillSkeleton() {
   return (
-    <Card>
-      <CardContent className='p-[var(--pad-card)] space-y-[var(--space-2)]'>
-        <Skeleton className='h-[var(--space-4)] w-20' />
-        <Skeleton className='h-[var(--space-8)] w-16' />
-        <Skeleton className='h-[var(--space-3)] w-24' />
-      </CardContent>
-    </Card>
+    <BroadcastPanel className='flex h-full flex-col gap-[var(--space-2)] px-[var(--space-4)] py-[var(--space-4)]'>
+      <Skeleton className='h-[var(--space-3)] w-20 bg-white/10' />
+      <Skeleton className='h-[var(--space-8)] w-16 bg-white/10' />
+      <Skeleton className='h-[var(--space-3)] w-24 bg-white/10' />
+    </BroadcastPanel>
   );
 }
 
@@ -206,7 +199,7 @@ function SentimentSummaryBar({
     return (
       <div className='grid grid-cols-2 gap-[var(--space-3)] md:grid-cols-4'>
         {Array.from({ length: 4 }).map((_, i) => (
-          <SummaryCardSkeleton key={i} />
+          <SummaryPillSkeleton key={i} />
         ))}
       </div>
     );
@@ -216,76 +209,36 @@ function SentimentSummaryBar({
 
   const dist = summary.sentiment_distribution;
   const total = dist.positive + dist.neutral + dist.negative;
+  const pct = (n: number) => (total > 0 ? Math.round((n / total) * 100) : 0);
 
   return (
-    <Stagger className='grid grid-cols-2 gap-[var(--space-3)] md:grid-cols-4'>
-      <HoverLift>
-        <Card>
-          <CardContent className='p-[var(--pad-card)]'>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              Players Tracked
-            </p>
-            <p className='text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums'>
-              {summary.total_players}
-            </p>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              {summary.total_docs} document{summary.total_docs !== 1 ? 's' : ''}{' '}
-              analyzed
-            </p>
-          </CardContent>
-        </Card>
-      </HoverLift>
-
-      <HoverLift>
-        <Card>
-          <CardContent className='p-[var(--pad-card)]'>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              Bullish Signals
-            </p>
-            <p className={`text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums ${countSignalClass(dist.positive, 'success')}`}>
-              {dist.positive}
-            </p>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              {total > 0 ? Math.round((dist.positive / total) * 100) : 0}% of
-              players
-            </p>
-          </CardContent>
-        </Card>
-      </HoverLift>
-
-      <HoverLift>
-        <Card>
-          <CardContent className='p-[var(--pad-card)]'>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              Bearish Signals
-            </p>
-            <p className={`text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums ${countSignalClass(dist.negative, 'danger')}`}>
-              {dist.negative}
-            </p>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              {total > 0 ? Math.round((dist.negative / total) * 100) : 0}% of
-              players
-            </p>
-          </CardContent>
-        </Card>
-      </HoverLift>
-
-      <HoverLift>
-        <Card>
-          <CardContent className='p-[var(--pad-card)]'>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              Neutral
-            </p>
-            <p className={`text-[length:var(--fs-h2)] leading-[var(--lh-h2)] font-semibold tabular-nums ${countSignalClass(dist.neutral, 'warn')}`}>
-              {dist.neutral}
-            </p>
-            <p className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
-              {total > 0 ? Math.round((dist.neutral / total) * 100) : 0}% of
-              players
-            </p>
-          </CardContent>
-        </Card>
-      </HoverLift>
+    <Stagger
+      step={0.05}
+      className='grid grid-cols-2 gap-[var(--space-3)] md:grid-cols-4'
+    >
+      <StatPill
+        label='Players Tracked'
+        value={summary.total_players}
+        sublabel={`${summary.total_docs} document${summary.total_docs !== 1 ? 's' : ''} analyzed`}
+      />
+      <StatPill
+        label='Bullish Signals'
+        value={dist.positive}
+        sublabel={`${pct(dist.positive)}% of players`}
+        railColor={countRailColor(dist.positive, 'success')}
+      />
+      <StatPill
+        label='Bearish Signals'
+        value={dist.negative}
+        sublabel={`${pct(dist.negative)}% of players`}
+        railColor={countRailColor(dist.negative, 'danger')}
+      />
+      <StatPill
+        label='Neutral'
+        value={dist.neutral}
+        sublabel={`${pct(dist.neutral)}% of players`}
+        railColor={countRailColor(dist.neutral, 'warn')}
+      />
     </Stagger>
   );
 }
@@ -305,7 +258,7 @@ function AlertsPanel({
     return (
       <Card>
         <CardHeader>
-          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+          <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
             <Icons.warning className='h-[var(--space-4)] w-[var(--space-4)]' />
             Active Alerts
           </CardTitle>
@@ -323,7 +276,7 @@ function AlertsPanel({
     return (
       <Card>
         <CardHeader>
-          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+          <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
             <Icons.circleCheck className={`h-[var(--space-4)] w-[var(--space-4)] ${SUCCESS_TEXT}`} />
             No Active Alerts
           </CardTitle>
@@ -341,7 +294,7 @@ function AlertsPanel({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+        <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
           <Icons.warning className={`h-[var(--space-4)] w-[var(--space-4)] ${WARN_TEXT}`} />
           Active Alerts ({alerts.length})
         </CardTitle>
@@ -425,7 +378,7 @@ function TopMoversPanel({
       {/* Bullish players */}
       <Card className='border-[color-mix(in_oklch,var(--success)_35%,transparent)]'>
         <CardHeader className='pb-[var(--space-2)]'>
-          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+          <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
             <Icons.trendingUp className={`h-[var(--space-4)] w-[var(--space-4)] ${SUCCESS_TEXT}`} />
             Bullish Players
           </CardTitle>
@@ -466,7 +419,7 @@ function TopMoversPanel({
       {/* Bearish players */}
       <Card className='border-[color-mix(in_oklch,var(--danger)_35%,transparent)]'>
         <CardHeader className='pb-[var(--space-2)]'>
-          <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+          <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
             <Icons.trendingDown className={`h-[var(--space-4)] w-[var(--space-4)] ${DANGER_TEXT}`} />
             Bearish Players
           </CardTitle>
@@ -834,10 +787,18 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
          *  without squeezing to illegible widths. */}
         <div className='-mx-[var(--space-1)] overflow-x-auto sm:mx-0 sm:overflow-visible'>
           <TabsList className='inline-flex w-max sm:w-auto'>
-            <TabsTrigger value='overview'>Overview</TabsTrigger>
-            <TabsTrigger value='feed'>News Feed</TabsTrigger>
-            <TabsTrigger value='teams'>Team Sentiment</TabsTrigger>
-            <TabsTrigger value='players'>Player Signals</TabsTrigger>
+            <TabsTrigger value='overview' className='wc-display tracking-[0.06em]'>
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value='feed' className='wc-display tracking-[0.06em]'>
+              News Feed
+            </TabsTrigger>
+            <TabsTrigger value='teams' className='wc-display tracking-[0.06em]'>
+              Team Sentiment
+            </TabsTrigger>
+            <TabsTrigger value='players' className='wc-display tracking-[0.06em]'>
+              Player Signals
+            </TabsTrigger>
           </TabsList>
         </div>
 
@@ -859,7 +820,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
           {/* Quick team sentiment preview */}
           <Card>
             <CardHeader>
-              <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+              <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
                 <Icons.shield className='h-[var(--space-4)] w-[var(--space-4)]' />
                 Team Outlook
               </CardTitle>
@@ -892,7 +853,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
                   <PressScale key={value}>
                     <button
                       onClick={() => handleSourceChange(value)}
-                      className={`min-h-[var(--tap-min)] whitespace-nowrap px-[var(--space-3)] py-[var(--space-2)] rounded-md text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium transition-colors sm:min-h-0 sm:py-[var(--space-1)] ${
+                      className={`wc-display min-h-[var(--tap-min)] whitespace-nowrap px-[var(--space-3)] py-[var(--space-2)] rounded-md text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tracking-[0.04em] transition-colors sm:min-h-0 sm:py-[var(--space-1)] ${
                         sourceFilter === value
                           ? 'bg-primary text-primary-foreground'
                           : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -980,7 +941,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
         <TabsContent value='teams' className='space-y-[var(--gap-stack)]'>
           <Card>
             <CardHeader>
-              <CardTitle className='flex items-center gap-[var(--space-2)]'>
+              <CardTitle className='wc-display flex items-center gap-[var(--space-2)]'>
                 <Icons.shield className='h-[var(--space-5)] w-[var(--space-5)]' />
                 Team Sentiment Overview
               </CardTitle>
@@ -1002,7 +963,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
           {teamSentiments && teamSentiments.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+                <CardTitle className='wc-display text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
                   Team Details
                 </CardTitle>
               </CardHeader>
@@ -1073,7 +1034,7 @@ export function NewsFeed({ season, week }: NewsFeedProps) {
           {summary && (
             <Card>
               <CardHeader>
-                <CardTitle className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+                <CardTitle className='wc-display text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
                   Sentiment Distribution
                 </CardTitle>
                 <CardDescription>

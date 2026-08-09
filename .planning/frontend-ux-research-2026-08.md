@@ -58,11 +58,16 @@ From design-trend research (Opta/StatMuse/Underdog/Sofascore/FOX scorebug):
   methodology link + player-level biggest-misses.
 - **P3 — Draft Room reskin**: wc tokens across the ~15-component tree (tabs, board table,
   panels); no functional rework.
-- **Backlog (deliberately deferred)**: matchups/news/games/players palette reconciliation
-  onto --wc- tokens; leagues raw-HTML → primitives cleanup; advisor/lineups/report
-  broadcast treatment; persisted row-density toggle; column customization; Opta-style
-  percentile radar on a future player-profile page; projected-vs-actual overlay chart
-  (needs a player detail surface first).
+- **Backlog — completed 2026-08-08 (second wave)**: matchups/news/games palette
+  reconciliation onto system tokens (team colors kept as data); leagues raw-HTML →
+  primitives; advisor/lineups/report broadcast treatment; BroadcastTable persisted
+  density toggle + column show/hide (additive, opt-in); player profile page at
+  /dashboard/players/[playerId] with Bottom Line verdict + Opta-style percentile BARS
+  (bars chosen over radar per research) + game-log BroadcastTable.
+- **Remaining follow-ups**: per-week projected-history endpoint so the profile's
+  projected-vs-actual overlay can land (game-log API returns actuals only — the page
+  says so honestly rather than fabricating); merge orphaned player-detail.tsx
+  correlations/news sections into the new profile; delete player-detail.tsx after.
 
 Full research reports: session transcript 2026-08-08 (competitor teardown + design trends
 + audit). Feature-gap market research (2026-08-06) lives in the knowledge vault:

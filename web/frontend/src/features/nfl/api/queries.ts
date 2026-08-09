@@ -17,10 +17,12 @@ import {
   fetchPlayer,
   fetchPlayerBadges,
   fetchPlayerCorrelations,
+  fetchPlayerGameLog,
   fetchPlayerNews,
   fetchPlayerSentiment,
   fetchPredictions,
   fetchProjections,
+  fetchRosRankings,
   fetchSentimentRankings,
   fetchSentimentSummary,
   fetchSleepers,
@@ -94,7 +96,11 @@ export const nflKeys = {
     [...nflKeys.all, 'stack-hints', { sessionId, rosterSignature }] as const,
   sleepers: (sessionId: string, limit: number) =>
     [...nflKeys.all, 'sleepers', { sessionId, limit }] as const,
-  draftIntel: (leagueId: string) => [...nflKeys.all, 'draft-intel', leagueId] as const
+  draftIntel: (leagueId: string) => [...nflKeys.all, 'draft-intel', leagueId] as const,
+  playerGameLog: (playerId: string, season: number, scoring: ScoringFormat) =>
+    [...nflKeys.all, 'player-game-log', { playerId, season, scoring }] as const,
+  rosRankings: (season: number, position: string | null) =>
+    [...nflKeys.all, 'ros-rankings', { season, position }] as const
 };
 
 export const projectionsQueryOptions = (
@@ -509,4 +515,40 @@ export const draftIntelQueryOptions = (leagueId: string | null) =>
     queryFn: () => fetchDraftIntel(leagueId as string),
     enabled: !!leagueId,
     retry: false
+  });
+
+// ---------------------------------------------------------------------------
+// Player profile (game log + ROS pool for percentile bars)
+// ---------------------------------------------------------------------------
+
+/**
+ * A player's full-season game log. Actuals only (see `PlayerGameLogEntry`) —
+ * the player profile page renders this as a results table, not a
+ * projected-vs-actual overlay.
+ */
+export const playerGameLogQueryOptions = (
+  playerId: string,
+  season: number,
+  scoring: ScoringFormat
+) =>
+  queryOptions({
+    queryKey: nflKeys.playerGameLog(playerId, season, scoring),
+    queryFn: () => fetchPlayerGameLog(playerId, season, scoring),
+    enabled: !!playerId
+  });
+
+/**
+ * Rest-of-season value pool for a position — backs the "ROS Points"
+ * percentile metric on the player profile. `position: null` fetches the
+ * unfiltered pool (unused by the profile page today but kept general).
+ */
+export const rosRankingsQueryOptions = (
+  season: number,
+  position: string | null,
+  limit = 300
+) =>
+  queryOptions({
+    queryKey: nflKeys.rosRankings(season, position),
+    queryFn: () => fetchRosRankings(season, { position: position ?? undefined, limit }),
+    enabled: !!season
   });

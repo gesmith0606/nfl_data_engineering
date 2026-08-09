@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { lineupQueryOptions } from '../api/queries';
 import TeamSelector from './team-selector';
 import FieldView from './field-view';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
@@ -16,10 +15,17 @@ import { Icons } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/EmptyState';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
+import { WC_KICKER } from '@/features/draft/utils/broadcast-ui';
 import { formatRelativeTime } from '@/lib/format-relative-time';
 import { useState } from 'react';
 import { useWeekParams } from '@/hooks/use-week-params';
 import { FadeIn, DataLoadReveal } from '@/lib/motion-primitives';
+
+/** Broadcast-styled Select trigger — dark surface, mint focus (mirrors
+ *  WC_INPUT's recipe; SelectTrigger isn't covered by broadcast-ui.ts). */
+const WC_SELECT_TRIGGER =
+  'wc-display tracking-[0.06em] border-[rgba(145,237,208,0.25)] bg-[rgba(5,7,13,0.5)] text-[#e6eaf2] focus-visible:border-[var(--wc-mint,#91edd0)] focus-visible:ring-[var(--wc-mint,#91edd0)]/40';
 
 export function LineupView() {
   // HOTFIX-05 (phase 66 / v7.0): resolve default season/week from
@@ -48,7 +54,7 @@ export function LineupView() {
       {/* Season/Week selectors — 2-col grid on mobile, flex at sm+. */}
       <div className='grid grid-cols-2 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>
         <Select value={String(season)} onValueChange={(v) => setSeason(Number(v))}>
-          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
+          <SelectTrigger className={`${WC_SELECT_TRIGGER} h-[var(--tap-min)] w-full sm:h-9 sm:w-28`}>
             <SelectValue placeholder='Season' />
           </SelectTrigger>
           <SelectContent>
@@ -61,7 +67,7 @@ export function LineupView() {
         </Select>
 
         <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
-          <SelectTrigger className='h-[var(--tap-min)] w-full sm:h-9 sm:w-28'>
+          <SelectTrigger className={`${WC_SELECT_TRIGGER} h-[var(--tap-min)] w-full sm:h-9 sm:w-28`}>
             <SelectValue placeholder='Week' />
           </SelectTrigger>
           <SelectContent>
@@ -85,19 +91,18 @@ export function LineupView() {
       </div>
 
       {/* Team Selector */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Select Team</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <BroadcastPanel className='p-[var(--space-4)]'>
+        <div className={WC_KICKER}>Select Team</div>
+        <div className='mt-[var(--space-3)]'>
           <TeamSelector selectedTeam={team} onSelectTeam={setTeam} />
-        </CardContent>
-      </Card>
+        </div>
+      </BroadcastPanel>
 
       {/* Field View with skeleton → content crossfade */}
       {team && (
-        <Card>
-          <CardContent className='pt-[var(--space-6)]'>
+        <BroadcastPanel className='p-[var(--space-4)] sm:p-[var(--space-6)]'>
+          <div className={`${WC_KICKER} mb-[var(--space-3)]`}>Field View</div>
+          <div>
             <DataLoadReveal
               loading={isLoading || isResolving}
               skeleton={
@@ -129,8 +134,8 @@ export function LineupView() {
                 <FieldView lineup={lineup} />
               ) : null}
             </DataLoadReveal>
-          </CardContent>
-        </Card>
+          </div>
+        </BroadcastPanel>
       )}
     </FadeIn>
   );

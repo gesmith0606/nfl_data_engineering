@@ -1,6 +1,8 @@
 'use client';
 
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
+import { WC_KICKER } from '@/features/draft/utils/broadcast-ui';
 import { PressScale } from '@/lib/motion-primitives';
 
 /** NFL division groupings. */
@@ -26,7 +28,10 @@ export default function TeamSelector({ selectedTeam, onSelectTeam }: TeamSelecto
     <div className='space-y-[var(--gap-section)]'>
       {['AFC', 'NFC'].map((conf) => (
         <div key={conf}>
-          <h3 className='text-muted-foreground mb-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-semibold uppercase tracking-wider'>
+          <h3
+            className='wc-display mb-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tracking-[0.14em]'
+            style={{ color: 'var(--wc-mint,#91edd0)' }}
+          >
             {conf}
           </h3>
           <div className='grid grid-cols-1 gap-[var(--gap-stack)] sm:grid-cols-2 lg:grid-cols-4'>
@@ -55,10 +60,8 @@ interface DivisionGroupProps {
 
 function DivisionGroup({ division, teams, selectedTeam, onSelectTeam }: DivisionGroupProps) {
   return (
-    <div className='bg-card rounded-lg border p-[var(--pad-card-sm)]'>
-      <div className='text-muted-foreground mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium uppercase tracking-wider'>
-        {division}
-      </div>
+    <BroadcastPanel rail={false} className='p-[var(--pad-card-sm)]'>
+      <div className={`${WC_KICKER} mb-[var(--space-2)]`}>{division}</div>
       <div className='grid grid-cols-2 gap-[var(--space-2)]'>
         {teams.map((team) => {
           const color = getTeamColor(team);
@@ -67,10 +70,10 @@ function DivisionGroup({ division, teams, selectedTeam, onSelectTeam }: Division
             <PressScale key={team}>
               <button
                 onClick={() => onSelectTeam(team)}
-                className={`relative flex h-[var(--tap-min)] w-full items-center justify-center rounded-md px-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 ${
+                className={`wc-display relative flex h-[var(--tap-min)] w-full items-center justify-center rounded-md px-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tracking-[0.06em] transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 ${
                   isSelected
                     ? 'text-white shadow-md scale-105'
-                    : 'bg-muted hover:shadow-sm'
+                    : 'border border-white/10 bg-white/5 text-white/70 hover:border-white/25 hover:text-white'
                 }`}
                 style={
                   isSelected
@@ -84,6 +87,6 @@ function DivisionGroup({ division, teams, selectedTeam, onSelectTeam }: Division
           );
         })}
       </div>
-    </div>
+    </BroadcastPanel>
   );
 }

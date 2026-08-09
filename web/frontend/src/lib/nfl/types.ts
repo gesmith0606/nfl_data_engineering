@@ -16,6 +16,16 @@ export interface PlayerProjection {
   proj_rec: number | null;
   proj_rec_yards: number | null;
   proj_rec_tds: number | null;
+  /**
+   * Present on the backend `PlayerProjection` schema (web/api/models/schemas.py)
+   * since before this type was written, but never typed here — the player
+   * profile's percentile bars need `proj_targets` (opportunity share) and use
+   * these three to fill the gap. Not new data, just catching the frontend
+   * type up to what the API already returns.
+   */
+  proj_interceptions: number | null;
+  proj_carries: number | null;
+  proj_targets: number | null;
 
   // Kicker stats
   proj_fg_makes: number | null;
@@ -665,6 +675,39 @@ export interface GameSeasonEntry {
 /** Envelope for the seasons list. */
 export interface GameSeasonsResponse {
   seasons: GameSeasonEntry[];
+}
+
+/**
+ * Single week entry in a player's game log (`GET /api/games/player-log/{id}`).
+ *
+ * Actuals only — there is no per-week projected value on this entry. The
+ * player profile's "projected vs actual" gap can therefore only show this
+ * WEEK's single projection (from `PlayerProjection`), not a projected series
+ * across the whole game log. See `web/api/models/schemas.py::PlayerGameLogEntry`.
+ */
+export interface PlayerGameLogEntry {
+  week: number;
+  opponent: string | null;
+  home_away: string;
+  fantasy_points: number;
+  game_result: string;
+  passing_yards: number | null;
+  passing_tds: number | null;
+  rushing_yards: number | null;
+  rushing_tds: number | null;
+  receptions: number | null;
+  receiving_yards: number | null;
+  receiving_tds: number | null;
+  targets: number | null;
+  carries: number | null;
+}
+
+/** Envelope for a player's full-season game log. */
+export interface PlayerGameLogResponse {
+  player_id: string;
+  season: number;
+  scoring_format: string;
+  game_log: PlayerGameLogEntry[];
 }
 
 /** Scoring format options. */

@@ -234,6 +234,8 @@ export function DynastyView() {
             isLoading={rankings.isLoading}
             emptyMessage='No dynasty rankings available.'
             filteredLabel={position !== 'ALL' ? `${position} only` : undefined}
+            densityKey='nfl.dynasty-view.rankings'
+            hideableColumns={['age', 'age_mult', 'vorp']}
           />
         </TabsContent>
 

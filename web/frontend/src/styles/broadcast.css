@@ -612,6 +612,23 @@
 .wc-broadcast-table tbody tr:hover {
   background: rgba(145, 237, 208, 0.07);
 }
+/* Persisted row-density toggle (BroadcastTable `densityKey`). No class ==
+ * "comfortable" == the original padding above — untouched for backward
+ * compat. These override the inline `py-[var(--space-3)]` utility because
+ * this stylesheet loads unlayered (see the .wc-tabbar note below), which
+ * always wins over Tailwind's `@layer utilities` regardless of specificity.
+ * Targets: compact ~40px / comfortable ~44px (unchanged) / spacious ~56px
+ * row height at the default --fs-sm/--lh-sm type size. */
+.wc-broadcast-table.wc-density-compact thead th,
+.wc-broadcast-table.wc-density-compact tbody td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.wc-broadcast-table.wc-density-spacious thead th,
+.wc-broadcast-table.wc-density-spacious tbody td {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
 .wc-num-hero {
   font-family: var(--wc-font-display, var(--font-barlow-condensed), sans-serif);
   font-size: 18px;

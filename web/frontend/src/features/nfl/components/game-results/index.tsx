@@ -2,8 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Select,
@@ -14,6 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getTeamFullName } from '@/lib/nfl/team-meta';
 import { ApiError } from '@/lib/nfl/api';
@@ -54,6 +53,20 @@ interface GameCardProps {
   game: GameResult;
 }
 
+/** "W" chip — mint-on-ink, matches the `.bug-verdict.hit` scorebug motif
+ *  rather than the shadcn secondary badge, which doesn't guarantee contrast
+ *  on the BroadcastPanel's hardcoded near-black surface. */
+function WinChip() {
+  return (
+    <span
+      className='wc-display shrink-0 rounded-full px-[6px] py-[1px] text-[10px] leading-[1.4] font-extrabold tracking-[0.08em]'
+      style={{ background: 'var(--wc-mint,#91edd0)', color: 'var(--wc-mint-ink,#04140e)' }}
+    >
+      W
+    </span>
+  );
+}
+
 function GameCard({ game }: GameCardProps) {
   const homeColor = getTeamColor(game.home_team);
   const awayColor = getTeamColor(game.away_team);
@@ -63,11 +76,12 @@ function GameCard({ game }: GameCardProps) {
 
   return (
     <HoverLift lift={3} className='h-full'>
-      <Card
-        className='h-full overflow-hidden transition-shadow duration-[var(--motion-base)] hover:shadow-[var(--elevation-overlay)]'
+      <BroadcastPanel
+        rail={false}
+        className='h-full transition-shadow duration-[var(--motion-fast)] ease-out hover:shadow-[var(--elevation-overlay)]'
         data-game-id={game.game_id}
       >
-        {/* Team color bar */}
+        {/* Team color bar — team colors are data, kept as-is */}
         <div
           className='flex h-1.5'
           style={{
@@ -75,82 +89,72 @@ function GameCard({ game }: GameCardProps) {
           }}
         />
 
-        <CardHeader className='pb-[var(--space-2)]'>
-          <CardTitle className='text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
-            {/* Away team */}
-            <div className='flex items-center justify-between gap-[var(--space-2)]'>
-              <div className='flex items-center gap-[var(--space-2)] min-w-0'>
-                <span
-                  className='h-2.5 w-2.5 shrink-0 rounded-full'
-                  style={{ background: awayColor }}
-                  aria-hidden
-                />
-                <span
-                  className={cn(
-                    'truncate font-semibold',
-                    awayWon ? 'text-foreground' : 'text-muted-foreground'
-                  )}
-                  title={getTeamFullName(game.away_team)}
-                >
-                  {game.away_team}
-                </span>
-                {awayWon && (
-                  <Badge variant='secondary' className='shrink-0 text-[length:var(--fs-xs)] leading-[var(--lh-xs)] py-0'>
-                    W
-                  </Badge>
+        <div className='wc-display px-[var(--space-4)] pt-[var(--space-3)] pb-[var(--space-2)] text-[length:var(--fs-body)] leading-[var(--lh-body)]'>
+          {/* Away team */}
+          <div className='flex items-center justify-between gap-[var(--space-2)]'>
+            <div className='flex items-center gap-[var(--space-2)] min-w-0'>
+              <span
+                className='h-2.5 w-2.5 shrink-0 rounded-full'
+                style={{ background: awayColor }}
+                aria-hidden
+              />
+              <span
+                className={cn(
+                  'truncate font-semibold tracking-[0.02em]',
+                  awayWon ? 'text-white' : 'text-white/50'
                 )}
-              </div>
-              {hasScore && (
-                <span
-                  className={cn(
-                    'font-mono tabular-nums text-[length:var(--fs-lg)] leading-[var(--lh-lg)] shrink-0',
-                    awayWon ? 'font-bold text-foreground' : 'text-muted-foreground'
-                  )}
-                >
-                  {game.away_score}
-                </span>
-              )}
+                title={getTeamFullName(game.away_team)}
+              >
+                {game.away_team}
+              </span>
+              {awayWon && <WinChip />}
             </div>
-
-            {/* Home team */}
-            <div className='flex items-center justify-between gap-[var(--space-2)] mt-[var(--space-2)]'>
-              <div className='flex items-center gap-[var(--space-2)] min-w-0'>
-                <span
-                  className='h-2.5 w-2.5 shrink-0 rounded-full'
-                  style={{ background: homeColor }}
-                  aria-hidden
-                />
-                <span
-                  className={cn(
-                    'truncate font-semibold',
-                    homeWon ? 'text-foreground' : 'text-muted-foreground'
-                  )}
-                  title={getTeamFullName(game.home_team)}
-                >
-                  {game.home_team}
-                </span>
-                {homeWon && (
-                  <Badge variant='secondary' className='shrink-0 text-[length:var(--fs-xs)] leading-[var(--lh-xs)] py-0'>
-                    W
-                  </Badge>
+            {hasScore && (
+              <span
+                className={cn(
+                  'wc-num-hero !text-[length:var(--fs-lg)] !leading-[var(--lh-lg)] shrink-0',
+                  !awayWon && 'opacity-50'
                 )}
-              </div>
-              {hasScore && (
-                <span
-                  className={cn(
-                    'font-mono tabular-nums text-[length:var(--fs-lg)] leading-[var(--lh-lg)] shrink-0',
-                    homeWon ? 'font-bold text-foreground' : 'text-muted-foreground'
-                  )}
-                >
-                  {game.home_score}
-                </span>
-              )}
-            </div>
-          </CardTitle>
-        </CardHeader>
+              >
+                {game.away_score}
+              </span>
+            )}
+          </div>
 
-        <CardContent className='pt-0'>
-          <div className='flex items-center justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-muted-foreground'>
+          {/* Home team */}
+          <div className='flex items-center justify-between gap-[var(--space-2)] mt-[var(--space-2)]'>
+            <div className='flex items-center gap-[var(--space-2)] min-w-0'>
+              <span
+                className='h-2.5 w-2.5 shrink-0 rounded-full'
+                style={{ background: homeColor }}
+                aria-hidden
+              />
+              <span
+                className={cn(
+                  'truncate font-semibold tracking-[0.02em]',
+                  homeWon ? 'text-white' : 'text-white/50'
+                )}
+                title={getTeamFullName(game.home_team)}
+              >
+                {game.home_team}
+              </span>
+              {homeWon && <WinChip />}
+            </div>
+            {hasScore && (
+              <span
+                className={cn(
+                  'wc-num-hero !text-[length:var(--fs-lg)] !leading-[var(--lh-lg)] shrink-0',
+                  !homeWon && 'opacity-50'
+                )}
+              >
+                {game.home_score}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className='px-[var(--space-4)] pb-[var(--space-3)] pt-0'>
+          <div className='flex items-center justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-white/50'>
             <span>
               {formatGameDate(game.game_date)}
               {game.game_time ? ` · ${formatGameTime(game.game_time)}` : ''}
@@ -161,35 +165,33 @@ function GameCard({ game }: GameCardProps) {
               </span>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </BroadcastPanel>
     </HoverLift>
   );
 }
 
 function GameCardSkeleton() {
   return (
-    <Card className='overflow-hidden'>
-      <div className='h-1.5 bg-muted' />
-      <CardHeader className='pb-[var(--space-2)]'>
-        <div className='space-y-[var(--space-2)]'>
-          <div className='flex items-center justify-between'>
-            <Skeleton className='h-[var(--space-4)] w-24' />
-            <Skeleton className='h-[var(--space-5)] w-8' />
-          </div>
-          <div className='flex items-center justify-between'>
-            <Skeleton className='h-[var(--space-4)] w-24' />
-            <Skeleton className='h-[var(--space-5)] w-8' />
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className='pt-0'>
+    <BroadcastPanel rail={false} className='h-full'>
+      <div className='h-1.5 bg-white/10' />
+      <div className='space-y-[var(--space-2)] px-[var(--space-4)] pt-[var(--space-3)] pb-[var(--space-2)]'>
         <div className='flex items-center justify-between'>
-          <Skeleton className='h-[var(--space-3)] w-32' />
-          <Skeleton className='h-[var(--space-3)] w-12' />
+          <Skeleton className='h-[var(--space-4)] w-24 bg-white/10' />
+          <Skeleton className='h-[var(--space-5)] w-8 bg-white/10' />
         </div>
-      </CardContent>
-    </Card>
+        <div className='flex items-center justify-between'>
+          <Skeleton className='h-[var(--space-4)] w-24 bg-white/10' />
+          <Skeleton className='h-[var(--space-5)] w-8 bg-white/10' />
+        </div>
+      </div>
+      <div className='px-[var(--space-4)] pb-[var(--space-3)] pt-0'>
+        <div className='flex items-center justify-between'>
+          <Skeleton className='h-[var(--space-3)] w-32 bg-white/10' />
+          <Skeleton className='h-[var(--space-3)] w-12 bg-white/10' />
+        </div>
+      </div>
+    </BroadcastPanel>
   );
 }
 

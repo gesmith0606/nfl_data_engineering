@@ -2,9 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { currentWeekQueryOptions } from '../api/queries';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Icons } from '@/components/icons';
+import { BroadcastPanel } from '@/components/nfl/broadcast-panel';
+import { BroadcastTable, type BroadcastColumn } from '@/components/nfl/broadcast-table';
 import { FadeIn } from '@/lib/motion-primitives';
 import { toolSeason } from '@/lib/nfl/season';
 
@@ -91,26 +92,34 @@ function Spinner() {
   );
 }
 
-function PlayerRow({
-  player,
-  right
+/** Section shell — broadcast panel with a condensed-caps title, wrapping
+ *  whatever table(s) the section renders. */
+function ReportSection({
+  title,
+  children
 }: {
-  player: { player_name: string; team: string | null; position: string };
-  right: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
 }) {
   return (
-    <div className='flex items-center justify-between border-b py-1.5 text-sm last:border-0'>
-      <span>
-        <Badge variant='outline' className='mr-2'>
-          {player.position}
-        </Badge>
-        {player.player_name}
-        <span className='text-muted-foreground ml-1 text-xs'>{player.team}</span>
-      </span>
-      {right}
-    </div>
+    <BroadcastPanel className='p-[var(--space-4)]'>
+      <h2 className='wc-display mb-[var(--space-3)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tracking-[0.12em] text-white'>
+        {title}
+      </h2>
+      {children}
+    </BroadcastPanel>
   );
 }
+
+const nameCell = (p: { player_name: string; team: string | null; position: string }) => (
+  <>
+    <Badge variant='outline' className='mr-2'>
+      {p.position}
+    </Badge>
+    {p.player_name}
+    <span className='text-muted-foreground ml-1 text-xs'>{p.team}</span>
+  </>
+);
 
 export function WeeklyReportView() {
   const { data: cw } = useQuery(currentWeekQueryOptions());
@@ -146,183 +155,208 @@ export function WeeklyReportView() {
   if (data.mode === 'preseason') {
     return (
       <FadeIn>
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-base'>Weekly report</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className='text-muted-foreground text-sm'>
-              {data.message ?? 'The weekly report goes live once the season starts.'}
-            </p>
-          </CardContent>
-        </Card>
+        <BroadcastPanel className='p-[var(--space-4)]'>
+          <h2 className='wc-display text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tracking-[0.12em] text-white'>
+            Weekly report
+          </h2>
+          <p className='mt-[var(--space-2)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/50'>
+            {data.message ?? 'The weekly report goes live once the season starts.'}
+          </p>
+        </BroadcastPanel>
       </FadeIn>
     );
   }
 
+  const topProjectedColumns: BroadcastColumn<SkillPlayer>[] = [
+    {
+      key: 'player',
+      header: 'Player',
+      sticky: true,
+      accessor: (p) => (
+        <>
+          {p.player_name}
+          <span className='text-muted-foreground ml-1 text-xs'>{p.team}</span>
+        </>
+      )
+    },
+    {
+      key: 'proj',
+      header: 'Proj',
+      align: 'right',
+      accessor: (p) => p.projected_points.toFixed(1),
+      renderCell: (p) => <span className='wc-num-hero'>{p.projected_points.toFixed(1)}</span>
+    },
+    {
+      key: 'range',
+      header: 'Floor – Ceiling',
+      align: 'right',
+      accessor: (p) =>
+        p.projected_floor != null && p.projected_ceiling != null
+          ? `${p.projected_floor.toFixed(1)}–${p.projected_ceiling.toFixed(1)}`
+          : '—',
+      cellClassName: 'text-muted-foreground font-mono text-xs'
+    }
+  ];
+
+  const injuryColumns: BroadcastColumn<InjuryWatchPlayer>[] = [
+    { key: 'player', header: 'Player', sticky: true, accessor: nameCell },
+    {
+      key: 'status',
+      header: 'Status',
+      accessor: (p) => <Badge variant='destructive'>{p.injury_status}</Badge>
+    },
+    {
+      key: 'proj',
+      header: 'Proj',
+      align: 'right',
+      accessor: (p) => p.projected_points.toFixed(1),
+      renderCell: (p) => <span className='wc-num-hero'>{p.projected_points.toFixed(1)}</span>
+    }
+  ];
+
+  const matchupColumns: BroadcastColumn<MatchupCell>[] = [
+    {
+      key: 'matchup',
+      header: 'Matchup',
+      sticky: true,
+      accessor: (c) => (
+        <>
+          <Badge variant='outline' className='mr-2'>
+            {c.position}
+          </Badge>
+          {c.team} vs {c.opponent}
+        </>
+      )
+    },
+    {
+      key: 'rank',
+      header: 'Opp rank',
+      align: 'right',
+      accessor: (c) => `#${c.opp_rank}`,
+      renderCell: (c) => <span className='wc-num-hero'>#{c.opp_rank}</span>
+    }
+  ];
+
+  const boomColumns: BroadcastColumn<BoomBustPlayer>[] = [
+    { key: 'player', header: 'Player', sticky: true, accessor: nameCell },
+    {
+      key: 'range',
+      header: 'Ceiling edge',
+      align: 'right',
+      accessor: (p) => `+${p.ceiling_minus_floor?.toFixed(1) ?? '—'}`,
+      renderCell: (p) => (
+        <span className='wc-num-hero'>+{p.ceiling_minus_floor?.toFixed(1) ?? '—'}</span>
+      )
+    }
+  ];
+
+  const bustColumns: BroadcastColumn<BoomBustPlayer>[] = [
+    { key: 'player', header: 'Player', sticky: true, accessor: nameCell },
+    {
+      key: 'floor_ratio',
+      header: 'Floor ratio',
+      align: 'right',
+      accessor: (p) => (p.floor_ratio != null ? `${(p.floor_ratio * 100).toFixed(0)}%` : '—'),
+      renderCell: (p) => (
+        <span className='wc-num-hero'>
+          {p.floor_ratio != null ? `${(p.floor_ratio * 100).toFixed(0)}%` : '—'}
+        </span>
+      )
+    }
+  ];
+
   return (
     <FadeIn>
-      <div className='space-y-4'>
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-base'>
-              Week {data.headline.week} weekly report{' '}
-              <span className='text-muted-foreground text-xs font-normal'>
-                {data.headline.season} season
-              </span>
-            </CardTitle>
-          </CardHeader>
-        </Card>
+      <div className='space-y-[var(--gap-section)]'>
+        <BroadcastPanel className='p-[var(--space-4)]'>
+          <h1 className='wc-display text-[length:var(--fs-lg)] leading-[var(--lh-lg)] text-white'>
+            Week {data.headline.week} weekly report
+          </h1>
+          <p className='mt-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.1em] text-white/40 uppercase'>
+            {data.headline.season} season
+          </p>
+        </BroadcastPanel>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-base'>Top projected</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
-              {POSITIONS.map((pos) => (
-                <div key={pos}>
-                  <h4 className='text-muted-foreground mb-2 text-xs font-semibold'>
-                    {pos}
-                  </h4>
-                  {(data.top_projected[pos] ?? []).map((p) => (
-                    <PlayerRow
-                      key={p.player_id}
-                      player={p}
-                      right={
-                        <span className='font-mono'>
-                          {p.projected_points.toFixed(1)}
-                          {p.projected_floor != null && p.projected_ceiling != null && (
-                            <span className='text-muted-foreground ml-1 text-xs'>
-                              ({p.projected_floor.toFixed(1)}-
-                              {p.projected_ceiling.toFixed(1)})
-                            </span>
-                          )}
-                        </span>
-                      }
-                    />
-                  ))}
-                </div>
-              ))}
+        <ReportSection title='Top projected'>
+          <BroadcastTable
+            columns={topProjectedColumns}
+            tiers={POSITIONS.map((pos) => ({
+              key: pos,
+              label: pos,
+              rows: data.top_projected[pos] ?? []
+            }))}
+            getRowId={(p) => p.player_id}
+            emptyMessage='No projections available.'
+            minWidth='min-w-[480px]'
+          />
+        </ReportSection>
+
+        <ReportSection title='Injury watch'>
+          <BroadcastTable
+            columns={injuryColumns}
+            rows={data.injury_watch}
+            getRowId={(p) => p.player_id}
+            emptyMessage='No notable injuries this week.'
+          />
+        </ReportSection>
+
+        <ReportSection title='Matchup spotlight'>
+          <div className='grid gap-[var(--gap-stack)] md:grid-cols-2'>
+            <div>
+              <div className='text-muted-foreground mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
+                Best matchups
+              </div>
+              <BroadcastTable
+                columns={matchupColumns}
+                rows={data.matchup_spotlight.best}
+                getRowId={(c, i) => `${c.team}-${c.position}-${i}`}
+                emptyMessage='No matchup data available.'
+                minWidth='min-w-[360px]'
+              />
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-base'>Injury watch</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {data.injury_watch.length === 0 ? (
-              <p className='text-muted-foreground text-sm'>No notable injuries this week.</p>
-            ) : (
-              data.injury_watch.map((p) => (
-                <PlayerRow
-                  key={p.player_id}
-                  player={p}
-                  right={
-                    <span>
-                      <Badge variant='destructive' className='mr-2'>
-                        {p.injury_status}
-                      </Badge>
-                      <span className='font-mono'>{p.projected_points.toFixed(1)}</span>
-                    </span>
-                  }
-                />
-              ))
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-base'>Matchup spotlight</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className='grid gap-4 md:grid-cols-2'>
-              <div>
-                <h4 className='text-muted-foreground mb-2 text-xs font-semibold'>
-                  Best matchups
-                </h4>
-                {data.matchup_spotlight.best.map((c, i) => (
-                  <div
-                    key={`${c.team}-${c.position}-${i}`}
-                    className='flex items-center justify-between border-b py-1.5 text-sm last:border-0'
-                  >
-                    <span>
-                      <Badge variant='outline' className='mr-2'>
-                        {c.position}
-                      </Badge>
-                      {c.team} vs {c.opponent}
-                    </span>
-                    <span className='font-mono'>rank {c.opp_rank}</span>
-                  </div>
-                ))}
+            <div>
+              <div className='text-muted-foreground mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
+                Toughest matchups
               </div>
-              <div>
-                <h4 className='text-muted-foreground mb-2 text-xs font-semibold'>
-                  Toughest matchups
-                </h4>
-                {data.matchup_spotlight.worst.map((c, i) => (
-                  <div
-                    key={`${c.team}-${c.position}-${i}`}
-                    className='flex items-center justify-between border-b py-1.5 text-sm last:border-0'
-                  >
-                    <span>
-                      <Badge variant='outline' className='mr-2'>
-                        {c.position}
-                      </Badge>
-                      {c.team} vs {c.opponent}
-                    </span>
-                    <span className='font-mono'>rank {c.opp_rank}</span>
-                  </div>
-                ))}
-              </div>
+              <BroadcastTable
+                columns={matchupColumns}
+                rows={data.matchup_spotlight.worst}
+                getRowId={(c, i) => `${c.team}-${c.position}-${i}`}
+                emptyMessage='No matchup data available.'
+                minWidth='min-w-[360px]'
+              />
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </ReportSection>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className='text-base'>Boom / bust</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className='grid gap-4 md:grid-cols-2'>
-              <div>
-                <h4 className='text-muted-foreground mb-2 text-xs font-semibold'>
-                  Upside plays
-                </h4>
-                {data.boom_bust.upside.map((p) => (
-                  <PlayerRow
-                    key={p.player_id}
-                    player={p}
-                    right={
-                      <span className='font-mono'>
-                        +{p.ceiling_minus_floor?.toFixed(1) ?? '—'}
-                      </span>
-                    }
-                  />
-                ))}
+        <ReportSection title='Boom / bust'>
+          <div className='grid gap-[var(--gap-stack)] md:grid-cols-2'>
+            <div>
+              <div className='text-muted-foreground mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
+                Upside plays
               </div>
-              <div>
-                <h4 className='text-muted-foreground mb-2 text-xs font-semibold'>
-                  Safe plays
-                </h4>
-                {data.boom_bust.safe.map((p) => (
-                  <PlayerRow
-                    key={p.player_id}
-                    player={p}
-                    right={
-                      <span className='font-mono'>
-                        {p.floor_ratio != null ? `${(p.floor_ratio * 100).toFixed(0)}%` : '—'}
-                      </span>
-                    }
-                  />
-                ))}
-              </div>
+              <BroadcastTable
+                columns={boomColumns}
+                rows={data.boom_bust.upside}
+                getRowId={(p) => p.player_id}
+                emptyMessage='No upside plays this week.'
+                minWidth='min-w-[280px]'
+              />
             </div>
-          </CardContent>
-        </Card>
+            <div>
+              <div className='text-muted-foreground mb-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
+                Safe plays
+              </div>
+              <BroadcastTable
+                columns={bustColumns}
+                rows={data.boom_bust.safe}
+                getRowId={(p) => p.player_id}
+                emptyMessage='No safe plays this week.'
+                minWidth='min-w-[280px]'
+              />
+            </div>
+          </div>
+        </ReportSection>
       </div>
     </FadeIn>
   );

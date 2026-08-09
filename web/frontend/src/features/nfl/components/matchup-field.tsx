@@ -28,6 +28,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Stagger, HoverLift } from '@/lib/motion-primitives';
+import { DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 
 /** Mirrors RatedPlayer in matchup-view.tsx (kept structural to avoid a cycle). */
 export interface FieldPlayer {
@@ -90,12 +91,15 @@ function computePairs(offense: RosterMap, defense: RosterMap): Map<string, PairI
   return pairs;
 }
 
-function ratingBg(rating: number): string {
-  if (rating >= 90) return 'bg-emerald-500';
-  if (rating >= 80) return 'bg-blue-500';
-  if (rating >= 70) return 'bg-yellow-500';
-  if (rating >= 60) return 'bg-orange-500';
-  return 'bg-red-500';
+/** Mirrors matchup-view.tsx's ratingFillClass — mint tiers for the top ratings,
+ *  the WC26 accent yellow for average, --warn/--danger tokens below that,
+ *  in place of raw emerald/blue/yellow/orange/red-500 literals. */
+function ratingFillClass(rating: number): string {
+  if (rating >= 90) return 'bg-[var(--wc-mint,#91edd0)] text-[var(--wc-mint-ink,#04140e)]';
+  if (rating >= 80) return 'bg-[var(--wc-mint-deep,#5cc9a7)] text-[var(--wc-mint-ink,#04140e)]';
+  if (rating >= 70) return 'bg-[var(--wc-yellow,#ffd84d)] text-[#221b00]';
+  if (rating >= 60) return 'bg-[var(--warn)] text-white';
+  return 'bg-[var(--danger)] text-white';
 }
 
 function ChipTooltip({
@@ -157,9 +161,9 @@ function FieldChip({
   if (injured) tooltipLines.push(`Status: ${player.injury_status}`);
 
   const ring = isExploit
-    ? 'ring-2 ring-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.35)]'
+    ? 'ring-2 ring-[var(--wc-mint,#91edd0)] shadow-[0_0_12px_color-mix(in_oklch,var(--wc-mint,#91edd0)_35%,transparent)]'
     : isDanger
-      ? 'ring-2 ring-red-400/80 shadow-[0_0_12px_rgba(248,113,113,0.3)]'
+      ? 'ring-2 ring-[var(--danger)] shadow-[0_0_12px_color-mix(in_oklch,var(--danger)_30%,transparent)]'
       : 'ring-1 ring-white/10';
 
   return (
@@ -172,7 +176,7 @@ function FieldChip({
           >
             <div className='flex items-center justify-center gap-[var(--space-1)]'>
               <span
-                className={`${ratingBg(player.rating)} inline-flex h-6 w-6 shrink-0 items-center justify-center rounded font-black text-white text-[length:var(--fs-xs)] leading-none`}
+                className={`${ratingFillClass(player.rating)} inline-flex h-6 w-6 shrink-0 items-center justify-center rounded font-black text-[length:var(--fs-xs)] leading-none`}
               >
                 {player.rating}
               </span>
@@ -181,7 +185,7 @@ function FieldChip({
               </span>
             </div>
             <div
-              className={`mt-0.5 truncate text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${injured ? 'text-red-300' : 'text-white'}`}
+              className={`mt-0.5 truncate text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-semibold ${injured ? DANGER_TEXT : 'text-white'}`}
             >
               {player.player_name}
             </div>
@@ -193,8 +197,10 @@ function FieldChip({
             {/* Rating differential badge */}
             {pair !== undefined && Math.abs(pair.diff) >= MISMATCH_THRESHOLD && (
               <span
-                className={`absolute -right-1.5 -top-2 rounded px-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-black text-white ${
-                  pair.diff > 0 ? 'bg-emerald-500' : 'bg-red-500'
+                className={`absolute -right-1.5 -top-2 rounded px-1 text-[length:var(--fs-micro)] leading-[var(--lh-micro)] font-black ${
+                  pair.diff > 0
+                    ? 'bg-[var(--wc-mint,#91edd0)] text-[var(--wc-mint-ink,#04140e)]'
+                    : 'bg-[var(--danger)] text-white'
                 }`}
               >
                 {pair.diff > 0 ? `+${pair.diff}` : pair.diff}
@@ -274,7 +280,10 @@ export default function MatchupFieldView({
     <div>
       <div
         className='relative overflow-hidden rounded-xl'
-        style={{ background: 'linear-gradient(to bottom, #24491f, #2d5a27 48%, #2d5a27 52%, #1a3a17)' }}
+        style={{
+          background:
+            'linear-gradient(to bottom, #24491f, var(--wc-pitch-a,#2d5a27) 48%, var(--wc-pitch-a,#2d5a27) 52%, var(--wc-pitch-b,#1a3a17))'
+        }}
       >
         <YardLine top='18%' />
         <YardLine top='34%' />
@@ -424,8 +433,8 @@ export default function MatchupFieldView({
                 key={slot}
                 className={`flex items-center gap-[var(--space-2)] rounded-lg border px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] ${
                   attacking
-                    ? 'border-emerald-500/30 bg-emerald-900/20 text-emerald-300'
-                    : 'border-red-500/30 bg-red-900/20 text-red-300'
+                    ? 'border-[color-mix(in_oklch,var(--wc-mint,#91edd0)_30%,transparent)] bg-[color-mix(in_oklch,var(--wc-mint,#91edd0)_14%,transparent)] text-[var(--wc-mint,#91edd0)]'
+                    : `border-[color-mix(in_oklch,var(--danger)_30%,transparent)] bg-[color-mix(in_oklch,var(--danger)_14%,transparent)] ${DANGER_TEXT}`
                 }`}
               >
                 <span className='font-black tabular-nums'>

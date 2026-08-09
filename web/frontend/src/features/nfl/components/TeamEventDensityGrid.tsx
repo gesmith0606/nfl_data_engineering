@@ -93,7 +93,7 @@ function TeamTile({
       className={`group flex flex-col items-start justify-between rounded-lg border p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${bgClass}`}
     >
       <div className='flex w-full items-center justify-between'>
-        <span className='text-sm font-bold tracking-tight'>{team.team}</span>
+        <span className='wc-display text-sm tracking-tight'>{team.team}</span>
         <Icon className={`h-4 w-4 ${textClass}`} />
       </div>
 

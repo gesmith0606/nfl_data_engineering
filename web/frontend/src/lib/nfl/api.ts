@@ -26,6 +26,7 @@ import type {
   NewsItem,
   PlayerCorrelationsResponse,
   PlayerEventBadges,
+  PlayerGameLogResponse,
   PlayerProjection,
   PlayerSearchResult,
   PlayerSentiment,
@@ -439,6 +440,21 @@ export async function fetchGames(season: number, week: number): Promise<GamesRes
 /** Fetch the list of seasons with game data. */
 export async function fetchGameSeasons(): Promise<GameSeasonsResponse> {
   return request<GameSeasonsResponse>('/api/games/seasons');
+}
+
+/**
+ * Fetch a player's full game log for a season. Actuals only — see
+ * `PlayerGameLogEntry` for why there's no per-week projected column.
+ */
+export async function fetchPlayerGameLog(
+  playerId: string,
+  season: number,
+  scoring: ScoringFormat = 'half_ppr',
+): Promise<PlayerGameLogResponse> {
+  const params = new URLSearchParams({ season: String(season), scoring });
+  return request<PlayerGameLogResponse>(
+    `/api/games/player-log/${encodeURIComponent(playerId)}?${params}`,
+  );
 }
 
 export { ApiError };

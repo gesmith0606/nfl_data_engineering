@@ -33,6 +33,7 @@ import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { formatRelativeTime } from '@/lib/format-relative-time';
 import { getTeamColor } from '@/lib/nfl/team-colors';
+import { SUCCESS_TEXT, DANGER_TEXT } from '@/lib/nfl/semantic-colors';
 import { FadeIn, HoverLift, PressScale, Stagger } from '@/lib/motion-primitives';
 
 const WINDOWS: { id: SentimentWindow; label: string }[] = [
@@ -43,8 +44,8 @@ const WINDOWS: { id: SentimentWindow; label: string }[] = [
 
 function sentimentColor(score: number | null): string {
   if (score === null) return 'text-muted-foreground';
-  if (score >= 0.1) return 'text-emerald-500';
-  if (score <= -0.1) return 'text-red-500';
+  if (score >= 0.1) return SUCCESS_TEXT;
+  if (score <= -0.1) return DANGER_TEXT;
   return 'text-muted-foreground';
 }
 
@@ -155,13 +156,13 @@ function RankingRow({
         </div>
         <div className='mt-0.5 h-1 w-full overflow-hidden rounded bg-muted'>
           <div
-            className={`h-full ${positive ? 'bg-emerald-500' : 'bg-red-500'}`}
+            className={`h-full ${positive ? 'bg-[var(--success)]' : 'bg-[var(--danger)]'}`}
             style={{ width: `${width}%` }}
           />
         </div>
       </div>
       <span
-        className={`shrink-0 text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold tabular-nums ${positive ? 'text-emerald-500' : 'text-red-500'}`}
+        className={`shrink-0 text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-bold tabular-nums ${positive ? SUCCESS_TEXT : DANGER_TEXT}`}
       >
         {positive ? '+' : ''}
         {entry.avg_sentiment.toFixed(2)}
@@ -186,7 +187,7 @@ function RankingsColumn({
 }) {
   return (
     <div>
-      <h4 className='mb-[var(--space-2)] flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-muted-foreground'>
+      <h4 className='wc-display mb-[var(--space-2)] flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-widest text-muted-foreground'>
         {icon}
         {title}
       </h4>
@@ -226,7 +227,7 @@ export function SentimentPulse() {
       <CardHeader>
         <div className='flex flex-wrap items-center justify-between gap-[var(--space-3)]'>
           <div>
-            <CardTitle className='flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
+            <CardTitle className='wc-display flex items-center gap-[var(--space-2)] text-[length:var(--fs-lg)] leading-[var(--lh-lg)]'>
               <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)]' />
               Season Sentiment Pulse
             </CardTitle>
@@ -242,7 +243,7 @@ export function SentimentPulse() {
                 <PressScale key={w.id}>
                   <button
                     onClick={() => setActiveWindow(w.id)}
-                    className={`rounded-md px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] font-medium transition-colors ${
+                    className={`wc-display rounded-md px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--fs-sm)] leading-[var(--lh-sm)] tracking-[0.04em] transition-colors ${
                       activeWindow === w.id
                         ? 'bg-background shadow-sm'
                         : 'text-muted-foreground hover:text-foreground'
@@ -265,7 +266,7 @@ export function SentimentPulse() {
         <div className='grid grid-cols-1 gap-[var(--gap-stack)] lg:grid-cols-2'>
           {/* Top stories */}
           <div>
-            <h4 className='mb-[var(--space-2)] flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-semibold uppercase tracking-widest text-muted-foreground'>
+            <h4 className='wc-display mb-[var(--space-2)] flex items-center gap-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-widest text-muted-foreground'>
               <Icons.news className='h-[var(--space-3)] w-[var(--space-3)]' />
               Top Stories — past {activeWindow}
             </h4>
@@ -303,7 +304,7 @@ export function SentimentPulse() {
                 <RankingsColumn
                   title={`Sentiment Risers — past ${activeWindow}`}
                   icon={
-                    <Icons.trendingUp className='h-[var(--space-3)] w-[var(--space-3)] text-emerald-500' />
+                    <Icons.trendingUp className={`h-[var(--space-3)] w-[var(--space-3)] ${SUCCESS_TEXT}`} />
                   }
                   entries={rankings?.risers ?? []}
                   empty='No positive player signals in this window.'
@@ -311,7 +312,7 @@ export function SentimentPulse() {
                 <RankingsColumn
                   title={`Sentiment Fallers — past ${activeWindow}`}
                   icon={
-                    <Icons.trendingDown className='h-[var(--space-3)] w-[var(--space-3)] text-red-500' />
+                    <Icons.trendingDown className={`h-[var(--space-3)] w-[var(--space-3)] ${DANGER_TEXT}`} />
                   }
                   entries={rankings?.fallers ?? []}
                   empty='No negative player signals in this window.'

@@ -89,8 +89,8 @@ function PlayerCard({ player, compact }: PlayerCardProps) {
         {player.projected_points !== null ? (
           <>
             <div
-              className={`font-bold tabular-nums ${
-                compact ? 'text-[length:var(--fs-lg)]' : 'text-[length:var(--fs-h3)]'
+              className={`wc-num-hero tabular-nums ${
+                compact ? '!text-[length:var(--fs-lg)]' : '!text-[length:var(--fs-h3)]'
               }`}
             >
               {player.projected_points.toFixed(1)}
@@ -326,7 +326,7 @@ function MobilePlayerRow({ player }: { player: LineupPlayer }) {
       <div className='text-right'>
         {player.projected_points !== null ? (
           <>
-            <div className='text-[length:var(--fs-lg)] leading-[var(--lh-lg)] font-bold tabular-nums text-gray-900 dark:text-white'>
+            <div className='wc-num-hero !text-[length:var(--fs-lg)] leading-[var(--lh-lg)] tabular-nums'>
               {player.projected_points.toFixed(1)}
             </div>
             {player.projected_floor !== null && player.projected_ceiling !== null && (

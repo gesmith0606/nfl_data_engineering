@@ -4,6 +4,12 @@ import * as React from 'react';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 
 /**
@@ -22,10 +28,11 @@ import { cn } from '@/lib/utils';
  *
  * ponytail: a plain styled <table>, not a TanStack wrapper. Every adopter
  * (dynasty/SOS/injury/start-sit/ROS views, multi-compare) is a simple
- * sorted or tiered list. No virtualization — fine under ~1000 rows. No
- * column resize/reorder/visibility toggles — reach for a real table lib
- * (the project already has one under components/ui/table) if that's ever
- * actually needed.
+ * sorted or tiered list. No virtualization — fine under ~1000 rows. Optional
+ * `densityKey`/`hideableColumns` add a persisted density toggle + show/hide
+ * popover (see below); still no column resize/reorder — reach for a real
+ * table lib (the project already has one under components/ui/table) if that's
+ * ever actually needed.
  */
 
 export interface BroadcastColumn<T> {
@@ -59,6 +66,52 @@ export interface BroadcastTier<T> {
   className?: string;
 }
 
+/** Three-state row density (UX research: persist density as a user setting
+ *  rather than a fixed choice). `comfortable` renders identically to the
+ *  table's pre-density-toggle padding — the backward-compat baseline. */
+export type BroadcastTableDensity = 'compact' | 'comfortable' | 'spacious';
+
+const DENSITY_VALUES: BroadcastTableDensity[] = ['compact', 'comfortable', 'spacious'];
+const DENSITY_LABEL: Record<BroadcastTableDensity, string> = {
+  compact: 'Compact',
+  comfortable: 'Comfortable',
+  spacious: 'Spacious'
+};
+
+interface BroadcastTablePrefs {
+  density?: BroadcastTableDensity;
+  hiddenColumns?: string[];
+}
+
+/** localStorage key namespace for `densityKey`. Density and hidden-column
+ *  choices are stored together as one JSON blob per key:
+ *  `{ density?: 'compact'|'comfortable'|'spacious', hiddenColumns?: string[] }`. */
+function prefsStorageKey(densityKey: string): string {
+  return `wc-broadcast-table:${densityKey}`;
+}
+
+function readPrefs(densityKey: string): BroadcastTablePrefs | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(prefsStorageKey(densityKey));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as unknown;
+    return parsed && typeof parsed === 'object' ? (parsed as BroadcastTablePrefs) : null;
+  } catch {
+    // Corrupt JSON / quota / private-mode denial — fall back to defaults silently.
+    return null;
+  }
+}
+
+function writePrefs(densityKey: string, prefs: BroadcastTablePrefs): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(prefsStorageKey(densityKey), JSON.stringify(prefs));
+  } catch {
+    // Quota / private-mode — the choice just won't persist this session.
+  }
+}
+
 export interface BroadcastTableProps<T> {
   columns: BroadcastColumn<T>[];
   /** Flat row list. Ignored when `tiers` is provided. */
@@ -82,6 +135,20 @@ export interface BroadcastTableProps<T> {
   /** Tailwind min-width utility for the inner <table>, e.g. 'min-w-[760px]'. */
   minWidth?: string;
   className?: string;
+  /** Opt-in — renders a persisted row-density toggle (compact/comfortable/
+   *  spacious) in a toolbar row above the table, and, when `hideableColumns`
+   *  is also set, the "Columns" show/hide popover in the same row. The choice
+   *  is stored client-side in localStorage under `wc-broadcast-table:${densityKey}`.
+   *  Omit to render the table exactly as before, with no toolbar. */
+  densityKey?: string;
+  /** Column keys the user may hide via the "Columns" popover. Works without
+   *  `densityKey` (session-only state); persists across reloads only when
+   *  `densityKey` is also provided, since both prefs share one storage entry.
+   *  A sticky (frozen identity) column is never hideable, even if its key is
+   *  listed here — enforced defensively.
+   *  ponytail: no drag-reorder, no column resize — reach for a real table lib
+   *  (components/ui/table) if that's ever actually needed. */
+  hideableColumns?: string[];
 }
 
 function alignClass(align: 'left' | 'right' = 'left') {
@@ -100,16 +167,74 @@ export function BroadcastTable<T>({
   renderExpanded,
   rowClassName,
   minWidth = 'min-w-[640px]',
-  className
+  className,
+  densityKey,
+  hideableColumns
 }: BroadcastTableProps<T>) {
   const [expanded, setExpanded] = React.useState<Set<string | number>>(
     () => new Set()
   );
+  const [density, setDensity] = React.useState<BroadcastTableDensity>('comfortable');
+  const [hiddenColumns, setHiddenColumns] = React.useState<Set<string>>(() => new Set());
+
+  // Hydrate persisted prefs client-side only, after the first render — the
+  // SSR/first-paint markup always matches the defaults above, so there's no
+  // hydration mismatch (same pattern as use-persistent-chat.ts).
+  React.useEffect(() => {
+    if (!densityKey) return;
+    const stored = readPrefs(densityKey);
+    if (!stored) return;
+    if (stored.density && DENSITY_VALUES.includes(stored.density)) {
+      setDensity(stored.density);
+    }
+    if (stored.hiddenColumns) {
+      setHiddenColumns(new Set(stored.hiddenColumns));
+    }
+    // densityKey is expected to stay stable for a mounted table instance.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sticky (frozen identity) column can never be hideable, even if the
+  // caller lists its key by mistake.
+  const hideableSet = React.useMemo(() => {
+    const stickyKeys = new Set(columns.filter((c) => c.sticky).map((c) => c.key));
+    return new Set((hideableColumns ?? []).filter((k) => !stickyKeys.has(k)));
+  }, [columns, hideableColumns]);
+
+  const visibleColumns =
+    hideableSet.size > 0
+      ? columns.filter((c) => !(hiddenColumns.has(c.key) && hideableSet.has(c.key)))
+      : columns;
+
+  function handleDensityChange(next: BroadcastTableDensity) {
+    setDensity(next);
+    if (densityKey) {
+      writePrefs(densityKey, { density: next, hiddenColumns: Array.from(hiddenColumns) });
+    }
+  }
+
+  function toggleColumn(key: string) {
+    setHiddenColumns((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      if (densityKey) {
+        writePrefs(densityKey, { density, hiddenColumns: Array.from(next) });
+      }
+      return next;
+    });
+  }
 
   const groups: BroadcastTier<T>[] =
     tiers ?? [{ key: '__flat', label: null, rows: rows ?? [] }];
   const totalRows = groups.reduce((n, g) => n + g.rows.length, 0);
-  const colCount = columns.length + (renderExpanded ? 1 : 0);
+  const colCount = visibleColumns.length + (renderExpanded ? 1 : 0);
+  const densityClass =
+    density === 'compact'
+      ? 'wc-density-compact'
+      : density === 'spacious'
+        ? 'wc-density-spacious'
+        : undefined;
 
   function toggle(id: string | number) {
     setExpanded((prev) => {
@@ -122,12 +247,67 @@ export function BroadcastTable<T>({
 
   return (
     <Card className={cn('overflow-hidden', className)}>
+      {(densityKey || hideableSet.size > 0) && (
+        <div className='wc-display flex items-center justify-end gap-[var(--space-2)] border-b px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-xs)]'>
+          {densityKey && (
+            <div
+              role='group'
+              aria-label='Row density'
+              className='flex items-center gap-0.5 rounded-full border border-border/60 p-0.5'
+            >
+              {DENSITY_VALUES.map((d) => (
+                <button
+                  key={d}
+                  type='button'
+                  onClick={() => handleDensityChange(d)}
+                  aria-pressed={density === d}
+                  className={cn(
+                    'rounded-full px-2 py-1 text-[10px] tracking-[0.08em] uppercase transition-colors',
+                    density === d
+                      ? 'bg-[var(--wc-mint,#91edd0)] text-[var(--wc-mint-ink,#04140e)]'
+                      : 'text-muted-foreground hover:text-foreground'
+                  )}
+                >
+                  {DENSITY_LABEL[d]}
+                </button>
+              ))}
+            </div>
+          )}
+          {hideableSet.size > 0 && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type='button'
+                  aria-label='Columns'
+                  className='flex items-center gap-1 rounded-full border border-border/60 px-2 py-1 text-[10px] tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:text-foreground'
+                >
+                  <Icons.table className='size-3.5' />
+                  Columns
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end' className='bg-popover'>
+                {columns
+                  .filter((c) => hideableSet.has(c.key))
+                  .map((c) => (
+                    <DropdownMenuCheckboxItem
+                      key={c.key}
+                      checked={!hiddenColumns.has(c.key)}
+                      onCheckedChange={() => toggleColumn(c.key)}
+                    >
+                      {typeof c.header === 'string' ? c.header : c.key}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
+      )}
       {filteredLabel && (
         <div className='wc-display flex items-center gap-[var(--space-2)] border-b px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-xs)] tracking-[0.1em] text-muted-foreground'>
           {filteredLabel}
         </div>
       )}
-      <div className='wc-broadcast-table overflow-x-auto'>
+      <div className={cn('wc-broadcast-table overflow-x-auto', densityClass)}>
         <table
           className={cn(
             'w-full text-[length:var(--fs-sm)] leading-[var(--lh-sm)]',
@@ -139,7 +319,7 @@ export function BroadcastTable<T>({
               {renderExpanded && (
                 <th className='w-8 px-[var(--space-2)] py-[var(--space-3)]' />
               )}
-              {columns.map((col) => (
+              {visibleColumns.map((col) => (
                 <th
                   key={col.key}
                   className={cn(
@@ -163,7 +343,7 @@ export function BroadcastTable<T>({
                   {renderExpanded && (
                     <td className='px-[var(--space-2)] py-[var(--space-3)]' />
                   )}
-                  {columns.map((col) => (
+                  {visibleColumns.map((col) => (
                     <td
                       key={col.key}
                       className={cn(
@@ -233,7 +413,7 @@ export function BroadcastTable<T>({
                               </button>
                             </td>
                           )}
-                          {columns.map((col) => (
+                          {visibleColumns.map((col) => (
                             <td
                               key={col.key}
                               className={cn(
