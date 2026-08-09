@@ -311,6 +311,9 @@ data/gold/*
 !data/bronze/players/snaps/
 !data/bronze/players/snaps/**
 !data/bronze/players/snaps/**/*.parquet
+!data/bronze/players/injuries/
+!data/bronze/players/injuries/**
+!data/bronze/players/injuries/**/*.parquet
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet

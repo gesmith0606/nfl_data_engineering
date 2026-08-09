@@ -234,3 +234,227 @@ qualifying player-weeks total.
 - `CLAUDE.md` — one-line command reference under "Gold: Fantasy
   projections" (if not already present, add
   `--qb-starter-floor` alongside `--early-season-prior`).
+
+---
+
+## v2: injuries-based detection (2026-08-09)
+
+v1's HOLD verdict was about the **detector**, not the floor value: leak-free
+depth-chart QB1 status and leak-free backup-level trailing usage only
+overlapped on 9 QB-weeks in 3 seasons (0.7%) because nflverse's official
+depth chart lags real in-season role changes by 1-3 weeks (root-cause
+section above). The follow-up candidate — `data/bronze/players/injuries`
+(incumbent starter Out/IR/Doubtful, publishes pre-kickoff, likely faster
+than the depth chart) — is evaluated here as a second, OR'd detection path.
+
+### Step 1 — data check
+
+`data/bronze/players/injuries` did **not exist locally** before this task
+(confirms the "levers silently no-op when bronze is absent" lesson).
+Ingested via `bronze_ingestion_simple.py --season <Y> --data-type injuries`
+for 2022-2024:
+
+| Season | Rows | Weeks | QB rows |
+|---|---|---|---|
+| 2022 | 5,682 | 22 | 212 |
+| 2023 | 5,599 | 19 | 197 |
+| 2024 | 6,215 | 22 | 201 |
+
+Schema: `season, game_type, team, week, gsis_id, position, full_name,
+report_primary_injury, report_secondary_injury, report_status,
+practice_primary_injury, practice_secondary_injury, practice_status,
+date_modified`. `report_status` values actually present: `Out`,
+`Doubtful`, `Questionable`, `Note`, and null (healthy/unlisted) — **no
+literal `"IR"` status exists in this table** (IR/roster moves are a
+separate nflverse transaction type, not a weekly report status); `Out`
+and `Doubtful` are the two that matter here. `team`/`gsis_id` use the
+same nflverse team-abbreviation and gsis_id conventions as
+`depth_charts.club_code` and `players/weekly.recent_team` /
+`player_id` — directly joinable, no name-resolution needed.
+
+Leak-free usability: same precedent already relied on by
+`projection_engine.apply_injury_adjustments` and
+`backtest_projections.py`'s production-faithful injury-adjustment step —
+weekly injury reports (practice status Wed-Fri + game status) are
+published before kickoff, and both existing call sites already slice
+strictly to `(season, week)` before use. Traced Joe Burrow/CIN 2023: he
+is marked **`Out` at week 12** in this table — a week *earlier* than the
+depth chart flip to Browning at week 14 (v1's root-cause example),
+confirming the injury signal is faster.
+
+### Step 2 — detection design
+
+Added to `src/qb_starter_floor.py` (only file besides the test file
+touched, per constraints):
+
+- `INJURY_OUT_STATUSES = {"Out", "Doubtful", "IR", "Injured Reserve"}`
+- `load_injury_reports(season)` — loads the latest Bronze
+  `players/injuries/season={season}` parquet, `lru_cache`d. Added because
+  both fixed call sites (`generate_projections.py`,
+  `backtest_projections.py`) call `apply_qb_starter_floor(...)` with a
+  signature that has no injuries parameter and could not be edited for
+  this task — the new `injuries_df: Optional[...] = None` parameter
+  defaults to `None` and falls back to loading Bronze internally, so v2
+  activates with **zero changes to either call site**. Tests pass a
+  fabricated `injuries_df` directly to stay disk-isolated.
+- `compute_qb_team_trailing_usage()` — per-QB trailing passing yds/gm
+  (same leak-free construction as v1's
+  `compute_qb_trailing_passing_yards`) plus each player's most recent
+  `recent_team`, used to rank a team's QBs by usage and find the
+  incumbent (trailing-usage leader).
+- `get_depth_chart_qb1_by_team()` — per-team companion to v1's
+  `get_depth_chart_qb1_ids()`, so the injury path can check whether the
+  depth chart has *already* caught up for a specific team.
+- `get_injury_based_replacements()` — for each team with a QB flagged
+  Out/Doubtful/IR this week: if that player is also the team's
+  trailing-usage leader (the incumbent, not e.g. an already-buried QB3),
+  the replacement is the depth chart's current QB1 for that team if it
+  already differs from the incumbent, else the team's
+  next-highest-trailing-yards QB.
+- `apply_qb_starter_floor()` extended with a `mask_v1 | mask_v2` OR
+  combination (both still gated by the shared backup-level trailing-usage
+  check — this stays a role-change floor, not a general QB1 floor) and a
+  new `qb_starter_floor_source` provenance column
+  (`"depth_chart"`/`"injury"`/`"both"`).
+
+### Step 3 — firing rate: v1 9 -> v2 24 (raw), 9 -> 17-21 (Sleeper/ESPN-matched)
+
+Re-ran the identical 2022-2024 `--ml --full-features --qb-starter-floor`
+backtest (now exercising v2 by default, no CLI change needed):
+
+| | v1 (depth-chart only) | v2 (v1 OR injury) |
+|---|---|---|
+| Raw backtest CSV (10,591 player-weeks, weeks 3-18) | 9 | 24 (7 depth_chart-only + 15 injury-only + 2 both) |
+| Sleeper-matched QB-weeks (n=1,250 pop.) | 9 | 21 (6 depth_chart + 14 injury + 1 both) |
+| ESPN-matched QB-weeks (n=1,211/1,222 pop.) | — | 17 (5 depth_chart + 12 injury) |
+
+The v1-only count reproduced from this session's own treated CSV (9) is
+an exact match to the original report's 9 — confirms the population and
+methodology are unchanged and the new injury path is strictly additive
+(OR). Firing rate roughly **2.4-2.7x** — meaningfully more, as expected,
+but still **under the 30-QB-week pre-registered stop threshold** from
+this task's brief. Per the brief ("if still <30, stop and report detector
+still starved rather than running full eval"), the intended action is to
+stop rather than treat this as a well-powered gate run. Because the
+downstream join/decompose scripts are cheap (seconds, not another
+backtest), they were run anyway for a complete picture — but the
+headline finding stands: **the injury signal helps recall (2.4-2.7x) but
+the detector is still starved**, nowhere near the volume needed for a
+statistically meaningful gate read.
+
+### Step 4 — gate numbers (same-session, same-vintage baseline)
+
+**Methodology correction worth recording**: the first pass reused the
+original v1 baseline CSVs (`*_20260809_035714.csv`) per the v1 doc's
+"Method" section. That comparison showed **RB/WR/TE metrics differing
+between baseline and treated** (e.g. RB Sleeper gap +0.319 -> +0.264) —
+impossible if the lever is correctly QB-scoped (verified: `mask_v1`/
+`mask_v2` in `apply_qb_starter_floor` only ever touch `position == "QB"`
+rows). This repo has multiple concurrent agents running evals today
+(other `output/backtest/consensus_matched_*` timestamps throughout the
+day belong to other sessions) — the original 035714 baseline had gone
+stale relative to current code/data state. Fix: **regenerated a fresh
+baseline in this same session** (`--ml --full-features`, no
+`--qb-starter-floor`, otherwise identical flags/seasons/scoring) and
+re-ran the benchmark+decompose against that. With the same-session
+baseline, RB/WR/TE `magnitude_band`/`week_band`/`season`/`archetype`/
+`top_20_contributors` are confirmed **byte-identical** between baseline
+and treated for both sources (full diff of decompose outputs, QB
+sections excluded) — the lever is correctly scoped.
+
+`<8 pts` QB magnitude band (gap = our_mae − source_mae; Δ = treated −
+baseline):
+
+| Source | n (base/treat) | our_mae base→treat | Δ MAE | our_bias base→treat | bias magnitude Δ |
+|---|---|---|---|---|---|
+| ESPN | 79 / 67 | 7.048 → 7.029 | −0.019 | −6.185 → −6.084 | 6.185→6.084 (−0.101, ~2%) |
+| Sleeper | 88 / 72 | 7.003 → 7.011 | **+0.008 (worse)** | −5.792 → −5.675 | 5.792→5.675 (−0.117, ~2%) |
+
+**Primary gate check**: required ≥1.0 pt MAE improvement or bias
+magnitude halving. Measured: MAE is flat-to-worse for both sources (ESPN
+−0.019, Sleeper **+0.008**, the wrong direction), and bias magnitude
+barely moves (~2% reduction, nowhere near halving). **Fails, more badly
+than v1** (v1 had at least a small 0.06-0.09 pt MAE improvement in the
+right direction). Population shrinks more aggressively than v1 too
+(88→72, 79→67 vs v1's 95→91, 87→85) since more players now cross the
+12.24-pt floor threshold out of the `<8` band.
+
+Overall QB gap (regression guard):
+
+| Source | baseline gap | treated gap | Δ |
+|---|---|---|---|
+| Sleeper | −0.386 | −0.423 | **−0.037 (worsens, exceeds ±0.02 tolerance)** |
+| ESPN | +0.186 | +0.151 | −0.035 (improves) |
+
+**Sleeper regression guard FAILS** (worsens by 0.037 > the 0.02
+tolerance) — a new failure mode v1 did not have (v1's Sleeper gap
+improved marginally, −0.343→−0.352). Mechanism: with ~2.4x more QB-weeks
+now floored, more of the "floor by construction can't help ceiling
+misses" downside from v1's caveats (a floored player who actually busts,
+e.g. well below 12.24, makes our error *worse* than leaving him at his
+low pre-floor number) shows up, and it now outweighs the upside cases
+enough to tip the aggregate Sleeper QB gap the wrong way.
+
+RB/WR/TE guard: **passes** (byte-identical, see above).
+
+### Verdict: **HOLD** (worse than v1 on the primary metric)
+
+The faster-updating injury signal does measurably improve recall
+(2.4-2.7x more QB-weeks flagged) but falls short on every count:
+
+1. Firing rate (17-21 matched QB-weeks) is still below the 30-QB-week
+   threshold this task pre-registered as the "worth a full gate read" bar.
+2. The primary `<8pt`-band MAE/bias criterion fails, and fails *more*
+   badly than v1 (MAE moves the wrong direction for Sleeper).
+3. The Sleeper overall-QB-gap regression guard now **fails outright**
+   (v1 passed it).
+4. The RB/WR/TE regression guard passes (lever remains correctly scoped).
+
+Do not flip `--qb-starter-floor` on by default. The flag stays
+opt-in/off, now evaluating both the v1 depth-chart path and the v2
+injury path combined via OR.
+
+### Follow-ups
+
+- The floor-overshoot mechanism (caveat 3 from v1) appears to dominate as
+  volume increases — more flagged player-weeks does not automatically
+  mean a better gate result if a meaningful share of those weeks are
+  busts the floor cannot see coming. A future iteration should look at
+  differentiating floor *confidence* (e.g. a smaller haircut or no floor
+  at all for the sub-population most likely to bust — perhaps QBs facing
+  a markedly worse matchup, or true emergency QB3s vs a clear primary
+  backup) rather than further widening detection recall.
+- Firing rate is still low enough (17-21 matched QB-weeks) that the gate
+  read here carries real sampling noise; treat the "fails more badly than
+  v1" finding as directional, not a precise measurement.
+- Confirmed methodological hazard for future backtests on this repo:
+  **do not reuse another session's baseline CSV** without checking
+  non-target-position metrics match current code/data state first —
+  other agents' concurrent evals can leave the "matched" file timestamps
+  looking current while the underlying data/model state has moved on.
+
+### Files changed (v2)
+
+- `src/qb_starter_floor.py` — added `INJURY_OUT_STATUSES`,
+  `load_injury_reports()`, `compute_qb_team_trailing_usage()`,
+  `get_depth_chart_qb1_by_team()`, `get_injury_based_replacements()`;
+  extended `apply_qb_starter_floor()` with the OR'd v2 path, a new
+  `injuries_df=None` parameter (Bronze-loaded internally when omitted —
+  no call-site changes needed), and a `qb_starter_floor_source`
+  provenance column.
+- `tests/test_qb_starter_floor.py` — 21 new unit tests (46 total, all
+  passing): `compute_qb_team_trailing_usage` (team ranking, leak-free,
+  missing-column handling), `get_depth_chart_qb1_by_team` (team mapping,
+  empty/missing-column handling), `get_injury_based_replacements`
+  (depth-chart-stale fallback to trailing backup — the Browning/CIN-2023
+  case — depth-chart-caught-up preference, non-usage-leader rejection,
+  leak-free week scoping, `Questionable` non-qualification, no-backup
+  no-op, `IR` status qualification), and `apply_qb_starter_floor`
+  integration tests (injury-only flag+source, `"both"` source when v1
+  and v2 agree, shared backup-level gate still applies to v2 replacements,
+  week-1 no-op, safe default `injuries_df=None` disk fallback). Existing
+  v1 tests updated to pass an explicit empty `injuries_df` so they stay
+  disk-isolated/deterministic.
+- No changes to `scripts/generate_projections.py` or
+  `scripts/backtest_projections.py` (out of scope, and unnecessary — v2
+  activates automatically via the new default-`None` fallback).
