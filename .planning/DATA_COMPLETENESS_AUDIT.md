@@ -215,3 +215,48 @@ staged/unstaged — no commits made.
 4. Add a loud (non-silent) check to `rb_role_signals.py` / `generate_projections.py`
    when snaps/injuries are empty for an in-scope season, so this exact class of bug
    can't silently recur.
+
+## Prevention wired (2026-08-09)
+
+Item 4 above is done, generalized: `scripts/check_data_completeness.py` is a
+declarative data-existence invariant gate covering every committed-and-required
+path this audit mapped — Bronze `players/{weekly,snaps,injuries}`,
+`depth_charts`, `players/rosters`, `schedules`, `draft_picks`, `combine`; Gold
+`projections/preseason` (current season) and the dynamically-resolved latest
+weekly `projections` partition; and WARN-tier `data/adp/`, `data/external/`
+rankings, and `gold/sentiment/`. Season/week expectations come straight from
+`config.PLAYER_DATA_SEASONS` and the audit findings above — nothing invented.
+
+- **Manifest** (`REQUIREMENTS` in the script): each entry declares an id, a
+  tier (`FAIL` blocks, `WARN` reports only), a `committed` flag, the seasons
+  to check, and a minimum file count (plus an optional row floor for the
+  three paths behind the original RB_SNAP_COLLAPSE no-op, so a
+  written-but-empty file fails the same way an absent one does).
+- **Two modes**: `--local` checks the full manifest (dev machines); `--ci`
+  checks only `committed=True` entries — what a fresh `git clone` gets,
+  matching what `deploy/huggingface/Dockerfile`'s clone-based prod deploy
+  actually sees. Every current manifest entry happens to be committed (that
+  was the point of TD-08/09/10 and this audit), so both modes currently
+  agree — the `committed` flag exists so a future local-only/deferred path
+  (e.g. `data/silver/graph_features/`, finding #3 above, once that's built)
+  can be added to `--local` without breaking `--ci`.
+- **Wiring**: `.github/workflows/ci.yml` runs `--ci` unconditionally on every
+  PR (fail-closed — a PR that silently drops a committed path fails CI, no
+  path filter, since data/ changes aren't covered by the existing
+  python-files paths-filter). `.github/workflows/weekly-pipeline.yml` runs
+  `--local` post-ingest (fail-open, step 9a) with the same deduped-GitHub-
+  issue escalation pattern as the existing `--ml` fallback (step 7): one
+  open issue per failure mode, closed manually to re-arm.
+- **Current-state result** (2026-08-09, both modes): 88/88 checks PASS. No
+  live findings — the audit's own remediation (weekly/snaps/injuries/
+  draft_picks/combine backfill, TD-08/09/10 gitignore allowlists) already
+  closed every gap this manifest checks for. The manifest deliberately does
+  NOT cover findings #3/#4 (`data/silver/graph_features/`,
+  `data/silver/players/{usage,advanced}/`) — those are out-of-scope,
+  not-yet-built paths per this audit, not committed-and-required ones; adding
+  them here would just be a permanently-red check for already-known,
+  already-deferred work.
+- **Tests**: `tests/test_check_data_completeness.py` (24 tests) — missing
+  FAIL-tier season, WARN-tier miss (non-blocking), row-floor catches an
+  empty-but-present file, `--ci` skips uncommitted entries, dynamic
+  latest-weekly-partition resolution, and end-to-end `main()` exit codes.

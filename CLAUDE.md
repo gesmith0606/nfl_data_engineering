@@ -206,6 +206,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/backtest_projections.py` | Fantasy backtest — MAE/RMSE/bias per position |
 | `scripts/refresh_adp.py` | Fetch ADP from Sleeper API → data/adp_latest.csv |
 | `scripts/check_pipeline_health.py` | S3 freshness + size checks across all layers |
+| `scripts/check_data_completeness.py` | Data-existence invariant gate — declarative manifest of required Bronze/Gold paths, `--local`/`--ci` modes, see `.planning/DATA_COMPLETENESS_AUDIT.md` |
 | `scripts/ingest_sentiment_rss.py` | RSS feed ingestion (5 feeds) for sentiment signals |
 | `scripts/ingest_sentiment_sleeper.py` | Sleeper trending players ingestion for sentiment |
 | `scripts/process_sentiment.py` | Sentiment pipeline CLI (ingest+extract+aggregate) |

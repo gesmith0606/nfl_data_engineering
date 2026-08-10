@@ -125,6 +125,38 @@ jobs:
           fi
 
   # ------------------------------------------------------------------
+  # Data completeness gate — fail-closed data-existence invariant check
+  # (scripts/check_data_completeness.py --ci). Runs on every PR
+  # unconditionally (no path filter): every prior silent hole in
+  # .planning/DATA_COMPLETENESS_AUDIT.md had the same shape — a required
+  # Bronze/Gold path went missing or partial and nothing signalled it
+  # (the shipped RB_SNAP_COLLAPSE correction was a no-op in every
+  # backtest ever run). --ci mode checks only committed=True manifest
+  # entries — exactly what a fresh `git clone` gets, which is exactly
+  # what deploy/huggingface/Dockerfile's clone-based prod deploy sees.
+  # ------------------------------------------------------------------
+  data-completeness:
+    name: Data Completeness Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # Only pyarrow is needed (Parquet footer metadata for the row-floor
+      # checks) — no need to install the full requirements.txt for this gate.
+      - name: Install dependencies
+        run: pip install pyarrow==21.0.0
+
+      - name: Check data completeness (committed paths only)
+        run: python scripts/check_data_completeness.py --ci
+
+  # ------------------------------------------------------------------
   # Unpushed-commit drift detector — opens an alert if main has drifted
   # more than 10 commits ahead of the last deploy (runs on push to main).
   # ------------------------------------------------------------------

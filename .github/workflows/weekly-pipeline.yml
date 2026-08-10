@@ -598,6 +598,39 @@ jobs:
             || echo "::warning::S3 health check failed — expected while S3 mirroring is inactive (no AWS credentials); local Gold committed to git is the production path"
 
       # ------------------------------------------------------------------
+      # 9a. Data completeness check (local) — data-existence invariant gate
+      # (scripts/check_data_completeness.py --local, see
+      # .planning/DATA_COMPLETENESS_AUDIT.md). Fail-open per this workflow's
+      # convention (never blocks the Tuesday cron) — but a repeated miss
+      # must not stay invisible in per-run warnings alone. Same deduped-
+      # issue escalation pattern as step 7's ML fallback: open ONE issue,
+      # close it to re-arm after the underlying data gap is fixed.
+      # ------------------------------------------------------------------
+      - name: Data completeness check (local)
+        id: data_completeness
+        continue-on-error: true
+        run: |
+          set +e
+          python scripts/check_data_completeness.py --local
+          COMPLETENESS_EXIT=$?
+          set -e
+
+          if [ "$COMPLETENESS_EXIT" -ne 0 ]; then
+            echo "::warning::Data completeness check failed (exit=$COMPLETENESS_EXIT) — see step log above for the specific FAIL-tier path(s). Pipeline continues (fail-open); repeated misses escalate via issue below."
+
+            COMPLETENESS_TITLE="Weekly pipeline data completeness check failing"
+            if ! gh issue list --state open --label pipeline-failure --json title \
+                 --jq '.[].title' 2>/dev/null | grep -qF "$COMPLETENESS_TITLE"; then
+              gh issue create --title "$COMPLETENESS_TITLE" \
+                --label "pipeline-failure,automated" \
+                --body "The Tuesday cron's data completeness check (scripts/check_data_completeness.py --local) failed for season=$SEASON week=$WEEK — at least one FAIL-tier data path is missing or partial. See .planning/DATA_COMPLETENESS_AUDIT.md for the manifest and this run's step log for which path(s) missed. This is the exact 'silent hole' bug class the audit closed (RB_SNAP_COLLAPSE was a no-op in every backtest ever run) — diagnose and backfill the missing path, then close this issue to re-arm the alert." \
+                2>/dev/null || echo "::warning::could not open data completeness escalation issue"
+            fi
+          else
+            echo "Data completeness check passed"
+          fi
+
+      # ------------------------------------------------------------------
       # 9b. Commit Gold projections to main (local-first, 2026-07-02).
       # Railway/HF serve committed parquet, so this is what actually
       # publishes the week's projections. Same rebase-retry race guard as
@@ -697,6 +730,7 @@ jobs:
           | Gold projections (half_ppr, hybrid WR/TE ML) | complete |
           | Sanity check | passed |
           | Rankings submission export (FantasyPros) | attempted — fail-open, artifact `rankings-submission` |
+          | Data completeness check (--local) | attempted — fail-open, escalates via deduped issue on repeat miss, see step log |
           | Gold committed to main | see commit step log |
           | S3 health check | optional mirror — fail-open, see step log |
 
