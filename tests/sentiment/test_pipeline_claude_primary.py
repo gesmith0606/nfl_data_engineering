@@ -285,6 +285,48 @@ def test_build_extractor_claude_primary_wires_di_client_and_cost_log(
     assert extractor.batch_size == BATCH_SIZE
 
 
+def test_run_rebinds_roster_provider_to_requested_season(
+    hermetic_tmp_tree: Path,
+    fake_resolver: Any,
+) -> None:
+    """Bug fix: run(season=...) must resolve rosters for that season.
+
+    ``_build_extractor`` binds a construction-time roster provider using the
+    current calendar year (the real season argument isn't known until
+    ``run()`` is called). Prior to the fix, that stale current-year provider
+    stayed wired for the extractor's whole lifetime, so backfill runs for a
+    past season resolved player names against the wrong roster year. ``run()``
+    must rebind ``extractor.roster_provider`` using its own ``season`` arg.
+    """
+    from datetime import datetime, timezone
+
+    current_year = datetime.now(timezone.utc).year
+    past_season = 2016  # guaranteed to differ from "now" for the life of this repo
+
+    _seed_roster_parquet(hermetic_tmp_tree, season=past_season, names=["Old Timer"])
+    _seed_roster_parquet(
+        hermetic_tmp_tree, season=current_year, names=["Current Player"]
+    )
+
+    fake = FakeClaudeClient(strict=True)
+    from src.sentiment.processing.pipeline import SentimentPipeline
+
+    pipeline = SentimentPipeline(
+        extractor_mode="claude_primary",
+        claude_client=fake,
+        resolver=fake_resolver,
+    )
+
+    # Construction-time placeholder: bound to the current calendar year.
+    assert pipeline._extractor.roster_provider() == ["Current Player"]
+
+    # run() with a past season must rebind the provider to that season —
+    # not leave the current-year placeholder wired in.
+    pipeline.run(season=past_season, week=1, dry_run=True)
+
+    assert pipeline._extractor.roster_provider() == ["Old Timer"]
+
+
 # ---------------------------------------------------------------------------
 # Task 2 tests — batched run loop, soft fallback, sinks, envelope flag
 # ---------------------------------------------------------------------------

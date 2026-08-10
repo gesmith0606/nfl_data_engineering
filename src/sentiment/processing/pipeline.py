@@ -327,8 +327,13 @@ class SentimentPipeline:
             logger.info("Using Claude extractor (forced by mode='claude')")
             return ClaudeExtractor(client=self._claude_client)
         elif mode == _EXTRACTOR_NAME_CLAUDE_PRIMARY:
+            # Construction-time placeholder only — the real season isn't
+            # known until run() is called, so it defaults to the current
+            # calendar year (UTC, for consistency with cost log
+            # timestamps). ``run()`` rebinds ``extractor.roster_provider``
+            # with the actual season argument before each run, so this
+            # value never actually drives roster resolution.
             roster_provider = self._roster_provider_factory(
-                # L-02 fix: use UTC for consistency with cost log timestamps.
                 season=datetime.now(timezone.utc).year
             )
             extractor = ClaudeExtractor(
@@ -815,6 +820,16 @@ class SentimentPipeline:
         result = PipelineResult()
         result.is_claude_primary = self._is_claude_primary
         batch_id = str(uuid.uuid4())[:8]
+
+        if self._is_claude_primary:
+            # Bug fix: the roster provider built in __init__ (before the
+            # caller's season is known) defaults to the current calendar
+            # year. Rebind it here with the actual season argument so
+            # backfill runs for past seasons resolve player names against
+            # the correct roster year instead of always the current one.
+            self._extractor.roster_provider = self._roster_provider_factory(
+                season
+            )
 
         logger.info(
             "SentimentPipeline: starting season=%d week=%s batch=%s "

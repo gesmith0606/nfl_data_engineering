@@ -129,6 +129,105 @@ def test_rookies_503_when_preseason_missing_but_roster_present():
     assert resp.status_code == 503
 
 
+def test_rookies_excludes_kickers(monkeypatch):
+    """A rookie K (entry_year/years_exp match season) must not appear on the
+    rookie board — bug observed on prod 2026-08-08: a kicker with a flat
+    preseason baseline outranked every skill-position rookie because rookie
+    WR/RB projections start near zero.
+    """
+    roster = pd.DataFrame(
+        [
+            {"player_id": "wr1", "age": 22.0, "years_exp": 0, "entry_year": SEASON},
+            {"player_id": "k1", "age": 23.0, "years_exp": 0, "entry_year": SEASON},
+        ]
+    )
+    preseason = pd.DataFrame(
+        [
+            {
+                "player_id": "wr1",
+                "player_name": "Rookie Receiver",
+                "position": "WR",
+                "team": "AAA",
+                "projected_season_points": 45.0,
+            },
+            {
+                "player_id": "k1",
+                "player_name": "Rookie Kicker",
+                "position": "K",
+                "team": "BBB",
+                "projected_season_points": 127.0,  # flat kicker baseline > any rookie WR
+            },
+        ]
+    )
+    monkeypatch.setattr(dynasty, "_load_roster", lambda season: roster)
+    monkeypatch.setattr(dynasty, "_load_preseason", lambda season: preseason.copy())
+    monkeypatch.setattr(dynasty, "_load_depth_chart_roles", lambda season: {})
+
+    resp = client.get(f"/api/dynasty/rookies?season={SEASON}")
+    assert resp.status_code == 200
+    positions = [p["position"] for p in resp.json()["players"]]
+    assert "K" not in positions
+    assert positions == ["WR"]
+
+
+def test_load_depth_chart_roles_drops_non_definitive_roles(tmp_path, monkeypatch):
+    """Only 'starter'/'backup' survive; deeper-string and off-chart players
+    are absent from the map so the caller shows nothing rather than the
+    depth-chart resolver's internal 'unknown' bucket for most rookies.
+    """
+    monkeypatch.setattr(dynasty, "DATA_DIR", tmp_path)
+
+    roster_dir = tmp_path / "bronze" / "players" / "rosters" / "season=2099"
+    roster_dir.mkdir(parents=True)
+    pd.DataFrame(
+        [
+            {"player_id": "00-1111", "team": "KC", "position": "WR"},
+            {"player_id": "00-2222", "team": "KC", "position": "WR"},
+            {"player_id": "00-3333", "team": "KC", "position": "WR"},
+        ]
+    ).to_parquet(roster_dir / "rosters.parquet", index=False)
+
+    dc_dir = tmp_path / "bronze" / "depth_charts" / "season=2099"
+    dc_dir.mkdir(parents=True)
+    pd.DataFrame(
+        [
+            {
+                "dt": "2099-01-01T00:00:00Z",
+                "team": "KC",
+                "pos_abb": "WR",
+                "pos_rank": 1,
+                "gsis_id": "00-1111",
+            },
+            {
+                "dt": "2099-01-01T00:00:00Z",
+                "team": "KC",
+                "pos_abb": "WR",
+                "pos_rank": 2,
+                "gsis_id": "00-2222",
+            },
+            {
+                "dt": "2099-01-01T00:00:00Z",
+                "team": "KC",
+                "pos_abb": "WR",
+                "pos_rank": 3,
+                "gsis_id": "00-3333",
+            },
+        ]
+    ).to_parquet(dc_dir / "depth_charts.parquet", index=False)
+
+    roles = dynasty._load_depth_chart_roles(2099)
+    assert roles.get("00-1111") == "starter"
+    assert roles.get("00-2222") == "backup"
+    # 3rd string resolves to "unknown" internally — must be dropped, not kept.
+    assert "00-3333" not in roles
+
+
+def test_load_depth_chart_roles_empty_when_no_bronze_data(tmp_path, monkeypatch):
+    """Missing depth_charts or roster parquet fails open to {} — no 500."""
+    monkeypatch.setattr(dynasty, "DATA_DIR", tmp_path)
+    assert dynasty._load_depth_chart_roles(2099) == {}
+
+
 def test_rookies_degrades_when_roster_missing_entry_year_and_years_exp(monkeypatch):
     """Roster schema drift: a season's roster parquet without entry_year/
     years_exp must not 500 (KeyError) — it should just find zero rookies.

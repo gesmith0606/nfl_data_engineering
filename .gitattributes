@@ -1,0 +1,8 @@
+# LightGBM text-format model artifacts (models/ensemble/lgb_*.txt) use a
+# byte-offset "tree_sizes" header to seek directly to each Tree= block.
+# Substituting CRLF for LF (e.g. Windows `core.autocrlf=true`) shifts every
+# offset by one byte per line and makes lightgbm.Booster fail with
+# "Model format error, expect a tree here" on load. Force these files to
+# checkout byte-for-byte regardless of the user's autocrlf setting.
+# See .planning/SMALL_FIXES_2026_08_10.md.
+models/ensemble/lgb_*.txt -text

@@ -25,6 +25,19 @@ router = APIRouter(prefix="/dynasty", tags=["dynasty"])
 
 _ROSTER_COLUMNS = ["player_id", "age", "years_exp", "entry_year", "rookie_year"]
 
+# Positions the rookie page ranks. No league-scoring context reaches this
+# endpoint (unlike weekly projections' --include-kickers), and the rest of
+# the dynasty page (frontend position filter) only offers QB/RB/WR/TE — so
+# K/DST/DEF are excluded rather than showing a kicker's flat preseason
+# baseline outranking every skill-position rookie.
+_ROOKIE_POSITIONS = frozenset({"QB", "RB", "WR", "TE"})
+
+# Roles worth surfacing. src.rookie_projection._role_from_depth_charts also
+# returns "unknown" for players it found on a depth chart at 3rd-string or
+# deeper — that's not meaningfully different from "not found" for a rookie
+# ranking page, so both collapse to a dropped (None) role below.
+_DEFINITIVE_DEPTH_ROLES = frozenset({"starter", "backup"})
+
 
 # ---------------------------------------------------------------------------
 # Schemas (local — only dynasty endpoints use them)
@@ -110,6 +123,57 @@ def age_multiplier(position: str, age: Optional[float]) -> float:
 # ---------------------------------------------------------------------------
 
 
+def _find_latest_roster_file(season: int) -> Optional[str]:
+    """Path to the latest committed roster parquet for *season*, or None."""
+    files = sorted(
+        glob.glob(
+            str(
+                DATA_DIR
+                / "bronze"
+                / "players"
+                / "rosters"
+                / f"season={season}"
+                / "*.parquet"
+            )
+        )
+    )
+    return files[-1] if files else None
+
+
+def _load_depth_chart_roles(season: int) -> Dict[str, str]:
+    """Best-effort ``player_id -> role`` map ("starter"/"backup") for *season*.
+
+    Reuses the canonical depth-chart role resolver from
+    ``src.rookie_projection`` (same logic the projection pipeline runs) so
+    this doesn't reimplement the depth_charts-vs-roster validation. Only
+    definitive roles are returned; fails open to ``{}`` on any error or
+    missing data (depth_charts and rosters are both optional Bronze inputs —
+    the caller degrades to dropping the role field, never a 500).
+    """
+    dc_files = sorted(
+        glob.glob(
+            str(DATA_DIR / "bronze" / "depth_charts" / f"season={season}" / "*.parquet")
+        )
+    )
+    roster_file = _find_latest_roster_file(season)
+    if not dc_files or roster_file is None:
+        return {}
+    try:
+        depth_charts = pd.read_parquet(dc_files[-1])
+        roster_full = pd.read_parquet(roster_file)
+        from src.rookie_projection import _role_from_depth_charts
+
+        role_map = _role_from_depth_charts(depth_charts, roster_df=roster_full)
+    except Exception:
+        logger.warning(
+            "Failed to resolve depth-chart roles for season %d", season, exc_info=True
+        )
+        return {}
+    return {
+        pid: role for pid, role in role_map.items() if role in _DEFINITIVE_DEPTH_ROLES
+    }
+
+
 def _load_preseason(season: int) -> pd.DataFrame:
     df = load_latest_preseason(season)
     if df is None or df.empty:
@@ -127,21 +191,10 @@ def _load_roster(season: int) -> Optional[pd.DataFrame]:
     callers decide whether that is fatal (rookie detection needs it) or
     degrades gracefully (dynasty age multiplier falls back to 1.0).
     """
-    files = sorted(
-        glob.glob(
-            str(
-                DATA_DIR
-                / "bronze"
-                / "players"
-                / "rosters"
-                / f"season={season}"
-                / "*.parquet"
-            )
-        )
-    )
-    if not files:
+    latest_file = _find_latest_roster_file(season)
+    if latest_file is None:
         return None
-    df = pd.read_parquet(files[-1])
+    df = pd.read_parquet(latest_file)
     cols = [c for c in _ROSTER_COLUMNS if c in df.columns]
     if "player_id" not in cols:
         return None
@@ -244,7 +297,21 @@ def rookie_rankings(
     )
     is_rookie = (entry_year == season) | (years_exp == 0)
     df = df[is_rookie]
+    # K/DST leak in as "rookies" via the same entry_year/years_exp signal
+    # (e.g. a UDFA kicker) but don't belong on a fantasy rookie board — a
+    # flat kicker preseason baseline can outrank every skill-position rookie
+    # simply because rookie WR/RB projections start near zero.
+    df = df[df["position"].astype(str).str.upper().isin(_ROOKIE_POSITIONS)]
     df = df.sort_values("projected_season_points", ascending=False).head(limit)
+
+    # Role: resolved fresh from Bronze depth_charts rather than trusting the
+    # projections file's stored `low_sample_role` column, which is "unknown"
+    # for most low-sample rookies (the projection pipeline couldn't place
+    # them on a depth chart at generation time either). Players who still
+    # can't be resolved to a definitive starter/backup role get None so the
+    # frontend renders "—" instead of a wall of "unknown".
+    depth_roles = _load_depth_chart_roles(season)
+
     return RookieRankingsResponse(
         season=season,
         players=[
@@ -255,12 +322,7 @@ def rookie_rankings(
                 position=str(r.get("position") or "").upper(),
                 age=None if pd.isna(r.get("age")) else float(r.get("age")),
                 projected_season_points=float(r.get("projected_season_points") or 0),
-                low_sample_role=(
-                    str(r.get("low_sample_role"))
-                    if r.get("low_sample_role") is not None
-                    and pd.notna(r.get("low_sample_role"))
-                    else None
-                ),
+                low_sample_role=depth_roles.get(str(r.get("player_id") or "")),
             )
             for r in df.to_dict("records")
         ],
