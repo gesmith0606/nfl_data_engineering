@@ -240,6 +240,15 @@ models/quantile/_backup_leaky/
 !web/frontend/**/*.json
 data/*
 !data/adp_latest.csv
+# Per-source/per-scoring ADP CSVs (2026-08-09 completeness audit):
+# web/api/routers/draft.py:get_adp / _load_adp_df read
+# data/adp/adp_{source}_{scoring}.csv (ffc/espn/sleeper) — no allowlist
+# existed, so the HF clone-based deploy never had them and every
+# non-default source silently fell back to the generic data/adp_latest.csv
+# with no error surfaced. ~276 KB.
+!data/adp/
+!data/adp/**
+!data/adp/**/*.csv
 !data/gold/
 data/gold/*
 !data/gold/projections/
@@ -349,6 +358,18 @@ data/gold/*
 !data/bronze/pfr/seasonal/def/
 !data/bronze/pfr/seasonal/def/**
 !data/bronze/pfr/seasonal/def/**/*.parquet
+# Draft picks + combine (TD-08/09/10 pattern, 2026-08-09 completeness audit):
+# src/graph_college_networks.py:_read_bronze_draft_picks/_read_bronze_combine
+# read these paths with a silent empty-DataFrame fallback (no try/except
+# error, no log) — before this ingest neither path existed at all, so every
+# college-network graph feature (coaching-tree lineage, prospect comps) was
+# a guaranteed no-op. ~720 KB total (2016-2025, one file per season).
+!data/bronze/draft_picks/
+!data/bronze/draft_picks/**
+!data/bronze/draft_picks/**/*.parquet
+!data/bronze/combine/
+!data/bronze/combine/**
+!data/bronze/combine/**/*.parquet
 # Phase 1.4 (Live Odds Capture): The Odds API snapshots committed so the
 # open/close proxy history accumulates in git (TD-08/09 pattern).
 # Each 2×/daily GHA cron run appends one parquet; the full season history
@@ -368,6 +389,15 @@ data/gold/*
 # class — the Space reads the committed file).
 !data/ops/
 !data/ops/pipeline_status.json
+# LLM cost ledger (2026-08-09 completeness audit): src/sentiment/processing/
+# cost_log.py:running_total_usd reads this to observe the weekly Claude
+# Haiku extraction budget; only the top-level dir was allowlisted, not the
+# parquet records themselves, so every fresh checkout/deploy silently reset
+# the running total to $0 (fail-open, no error) rather than accumulating
+# across runs. ~760 KB.
+!data/ops/llm_costs/
+!data/ops/llm_costs/**
+!data/ops/llm_costs/**/*.parquet
 
 # External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
 # so compareExternalRankings never returns empty on first deploy.

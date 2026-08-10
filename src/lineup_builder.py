@@ -257,10 +257,19 @@ def _load_snap_counts(season: int, week: int) -> pd.DataFrame:
 
     Returns an empty DataFrame if no data is found.
     """
-    sc_dir = _DATA_DIR / "bronze" / "snap_counts" / f"season={season}" / f"week={week}"
+    # NOTE (2026-08-09 completeness audit): this used to read
+    # data/bronze/snap_counts/, a path that has never existed anywhere —
+    # the actual ingestion CLI (scripts/bronze_ingestion_simple.py,
+    # PLAYER_S3_KEYS in src/config.py) writes to data/bronze/players/snaps/,
+    # the same path team_roster_service.py already reads correctly. The old
+    # path made this function a guaranteed silent no-op (empty DataFrame,
+    # logger.debug only) in every environment, dev included.
+    sc_dir = (
+        _DATA_DIR / "bronze" / "players" / "snaps" / f"season={season}" / f"week={week}"
+    )
     if not sc_dir.exists():
         # Try season-level directory (some ingestion layouts)
-        sc_dir = _DATA_DIR / "bronze" / "snap_counts" / f"season={season}"
+        sc_dir = _DATA_DIR / "bronze" / "players" / "snaps" / f"season={season}"
     parquets = sorted(sc_dir.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
     if not parquets:
         logger.debug("No snap count data for season=%d week=%d", season, week)

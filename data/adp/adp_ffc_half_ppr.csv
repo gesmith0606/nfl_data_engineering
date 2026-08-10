@@ -1,0 +1,181 @@
+adp_rank,player_name,position,team,sleeper_id,age,years_exp,source,scoring_format,adp,stdev,times_drafted,fetched_at,name_key
+1,Jahmyr Gibbs,RB,DET,,,,ffc,half_ppr,1.5,0.6,91.0,2026-07-18T22:47:55.457300+00:00,jahmyr gibbs
+2,Bijan Robinson,RB,ATL,,,,ffc,half_ppr,2.2,0.6,42.0,2026-07-18T22:47:55.457300+00:00,bijan robinson
+3,Puka Nacua,WR,LAR,,,,ffc,half_ppr,2.8,0.5,16.0,2026-07-18T22:47:55.457300+00:00,puka nacua
+4,Ja'Marr Chase,WR,CIN,,,,ffc,half_ppr,4.0,1.0,57.0,2026-07-18T22:47:55.457300+00:00,jamarr chase
+5,Christian McCaffrey,RB,SF,,,,ffc,half_ppr,4.9,1.6,48.0,2026-07-18T22:47:55.457300+00:00,christian mccaffrey
+6,Jonathan Taylor,RB,IND,,,,ffc,half_ppr,6.3,1.3,44.0,2026-07-18T22:47:55.457300+00:00,jonathan taylor
+7,Jaxon Smith-Njigba,WR,SEA,,,,ffc,half_ppr,6.6,1.4,76.0,2026-07-18T22:47:55.457300+00:00,jaxon smithnjigba
+8,Amon-Ra St. Brown,WR,DET,,,,ffc,half_ppr,8.4,1.5,51.0,2026-07-18T22:47:55.457300+00:00,amonra st brown
+9,De'Von Achane,RB,MIA,,,,ffc,half_ppr,9.6,1.0,16.0,2026-07-18T22:47:55.457300+00:00,devon achane
+10,Derrick Henry,RB,BAL,,,,ffc,half_ppr,10.1,1.6,35.0,2026-07-18T22:47:55.457300+00:00,derrick henry
+11,James Cook III,RB,BUF,,,,ffc,half_ppr,10.2,1.6,84.0,2026-07-18T22:47:55.457300+00:00,james cook
+12,CeeDee Lamb,WR,DAL,,,,ffc,half_ppr,12.7,2.0,75.0,2026-07-18T22:47:55.457300+00:00,ceedee lamb
+13,Drake London,WR,ATL,,,,ffc,half_ppr,13.1,2.4,13.0,2026-07-18T22:47:55.457300+00:00,drake london
+14,Justin Jefferson,WR,MIN,,,,ffc,half_ppr,13.8,2.4,70.0,2026-07-18T22:47:55.457300+00:00,justin jefferson
+15,Ashton Jeanty,RB,LV,,,,ffc,half_ppr,14.4,2.9,59.0,2026-07-18T22:47:55.457300+00:00,ashton jeanty
+16,A.J. Brown,WR,NE,,,,ffc,half_ppr,16.2,2.2,34.0,2026-07-18T22:47:55.457300+00:00,aj brown
+17,Saquon Barkley,RB,PHI,,,,ffc,half_ppr,16.7,3.0,95.0,2026-07-18T22:47:55.457300+00:00,saquon barkley
+18,Omarion Hampton,RB,LAC,,,,ffc,half_ppr,17.3,3.2,111.0,2026-07-18T22:47:55.457300+00:00,omarion hampton
+19,George Pickens,WR,DAL,,,,ffc,half_ppr,18.9,1.5,14.0,2026-07-18T22:47:55.457300+00:00,george pickens
+20,Kenneth Walker III,RB,KC,,,,ffc,half_ppr,19.2,2.9,59.0,2026-07-18T22:47:55.457300+00:00,kenneth walker
+21,Chase Brown,RB,CIN,,,,ffc,half_ppr,19.9,2.9,67.0,2026-07-18T22:47:55.457300+00:00,chase brown
+22,Chris Olave,WR,NO,,,,ffc,half_ppr,23.2,2.0,22.0,2026-07-18T22:47:55.457300+00:00,christopher olave
+23,Nico Collins,WR,HOU,,,,ffc,half_ppr,23.3,2.4,60.0,2026-07-18T22:47:55.457300+00:00,nico collins
+24,Tee Higgins,WR,CIN,,,,ffc,half_ppr,23.5,2.0,11.0,2026-07-18T22:47:55.457300+00:00,tee higgins
+25,Josh Jacobs,RB,GB,,,,ffc,half_ppr,25.9,2.9,42.0,2026-07-18T22:47:55.457300+00:00,joshua jacobs
+26,Jeremiyah Love,RB,ARI,,,,ffc,half_ppr,26.5,2.4,40.0,2026-07-18T22:47:55.457300+00:00,jeremiyah love
+27,Zay Flowers,WR,BAL,,,,ffc,half_ppr,26.7,1.7,9.0,2026-07-18T22:47:55.457300+00:00,zay flowers
+28,Rashee Rice,WR,KC,,,,ffc,half_ppr,26.9,3.4,47.0,2026-07-18T22:47:55.457300+00:00,rashee rice
+29,Garrett Wilson,WR,NYJ,,,,ffc,half_ppr,27.0,3.6,14.0,2026-07-18T22:47:55.457300+00:00,garrett wilson
+30,Josh Allen,QB,BUF,,,,ffc,half_ppr,28.2,6.2,76.0,2026-07-18T22:47:55.457300+00:00,joshua allen
+31,DeVonta Smith,WR,PHI,,,,ffc,half_ppr,29.8,3.4,52.0,2026-07-18T22:47:55.457300+00:00,devonta smith
+32,Breece Hall,RB,NYJ,,,,ffc,half_ppr,31.2,3.5,24.0,2026-07-18T22:47:55.457300+00:00,breece hall
+33,Kyren Williams,RB,LAR,,,,ffc,half_ppr,31.7,3.7,84.0,2026-07-18T22:47:55.457300+00:00,kyren williams
+34,Javonte Williams,RB,DAL,,,,ffc,half_ppr,34.1,3.7,54.0,2026-07-18T22:47:55.457300+00:00,javonte williams
+35,Tetairoa McMillan,WR,CAR,,,,ffc,half_ppr,34.6,3.5,52.0,2026-07-18T22:47:55.457300+00:00,tetairoa mcmillan
+36,Trey McBride,TE,ARI,,,,ffc,half_ppr,36.8,6.9,75.0,2026-07-18T22:47:55.457300+00:00,trey mcbride
+37,Terry McLaurin,WR,WAS,,,,ffc,half_ppr,37.0,3.9,43.0,2026-07-18T22:47:55.457300+00:00,terry mclaurin
+38,Cam Skattebo,RB,NYG,,,,ffc,half_ppr,37.1,2.9,36.0,2026-07-18T22:47:55.457300+00:00,cameron skattebo
+39,Ladd McConkey,WR,LAC,,,,ffc,half_ppr,37.9,3.6,74.0,2026-07-18T22:47:55.457300+00:00,ladd mcconkey
+40,Davante Adams,WR,LAR,,,,ffc,half_ppr,38.2,2.8,49.0,2026-07-18T22:47:55.457300+00:00,davante adams
+41,Travis Etienne Jr.,RB,NO,,,,ffc,half_ppr,39.5,3.0,33.0,2026-07-18T22:47:55.457300+00:00,travis etienne
+42,Malik Nabers,WR,NYG,,,,ffc,half_ppr,41.7,5.6,61.0,2026-07-18T22:47:55.457300+00:00,malik nabers
+43,Jameson Williams,WR,DET,,,,ffc,half_ppr,41.8,3.2,10.0,2026-07-18T22:47:55.457300+00:00,jameson williams
+44,Brock Bowers,TE,LV,,,,ffc,half_ppr,42.1,9.6,112.0,2026-07-18T22:47:55.457300+00:00,brock bowers
+45,Jaylen Waddle,WR,DEN,,,,ffc,half_ppr,42.9,4.5,38.0,2026-07-18T22:47:55.457300+00:00,jaylen waddle
+46,Joe Burrow,QB,CIN,,,,ffc,half_ppr,44.2,9.6,26.0,2026-07-18T22:47:55.457300+00:00,joseph burrow
+47,D'Andre Swift,RB,CHI,,,,ffc,half_ppr,45.5,5.4,21.0,2026-07-18T22:47:55.457300+00:00,dandre swift
+48,Emeka Egbuka,WR,TB,,,,ffc,half_ppr,46.0,5.1,112.0,2026-07-18T22:47:55.457300+00:00,emeka egbuka
+49,Luther Burden III,WR,CHI,,,,ffc,half_ppr,46.1,3.7,15.0,2026-07-18T22:47:55.457300+00:00,luther burden
+50,Bucky Irving,RB,TB,,,,ffc,half_ppr,46.7,4.6,27.0,2026-07-18T22:47:55.457300+00:00,bucky irving
+51,Quinshon Judkins,RB,CLE,,,,ffc,half_ppr,49.6,5.8,52.0,2026-07-18T22:47:55.457300+00:00,quinshon judkins
+52,Mike Evans,WR,SF,,,,ffc,half_ppr,50.0,4.8,50.0,2026-07-18T22:47:55.457300+00:00,michael evans
+53,Rome Odunze,WR,CHI,,,,ffc,half_ppr,53.4,4.3,27.0,2026-07-18T22:47:55.457300+00:00,rome odunze
+54,Colston Loveland,TE,CHI,,,,ffc,half_ppr,55.6,5.3,18.0,2026-07-18T22:47:55.457300+00:00,colston loveland
+55,Lamar Jackson,QB,BAL,,,,ffc,half_ppr,56.3,8.4,32.0,2026-07-18T22:47:55.457300+00:00,lamar jackson
+56,David Montgomery,RB,HOU,,,,ffc,half_ppr,56.3,4.5,77.0,2026-07-18T22:47:55.457300+00:00,david montgomery
+57,DK Metcalf,WR,PIT,,,,ffc,half_ppr,58.1,5.1,24.0,2026-07-18T22:47:55.457300+00:00,dk metcalf
+58,Bhayshul Tuten,RB,JAX,,,,ffc,half_ppr,58.2,5.1,40.0,2026-07-18T22:47:55.457300+00:00,bhayshul tuten
+59,Alec Pierce,WR,IND,,,,ffc,half_ppr,58.3,5.6,28.0,2026-07-18T22:47:55.457300+00:00,alec pierce
+60,TreVeyon Henderson,RB,NE,,,,ffc,half_ppr,59.7,4.0,66.0,2026-07-18T22:47:55.457300+00:00,treveyon henderson
+61,Christian Watson,WR,GB,,,,ffc,half_ppr,59.8,5.3,69.0,2026-07-18T22:47:55.457300+00:00,christian watson
+62,Tyler Warren,TE,IND,,,,ffc,half_ppr,61.7,6.4,64.0,2026-07-18T22:47:55.457300+00:00,tyler warren
+63,Dak Prescott,QB,DAL,,,,ffc,half_ppr,61.8,3.0,18.0,2026-07-18T22:47:55.457300+00:00,dak prescott
+64,Carnell Tate,WR,TEN,,,,ffc,half_ppr,62.6,5.7,44.0,2026-07-18T22:47:55.457300+00:00,carnell tate
+65,Drake Maye,QB,NE,,,,ffc,half_ppr,62.8,7.3,34.0,2026-07-18T22:47:55.457300+00:00,drake maye
+66,Marvin Harrison Jr.,WR,ARI,,,,ffc,half_ppr,63.2,6.5,60.0,2026-07-18T22:47:55.457300+00:00,marvin harrison
+67,DJ Moore,WR,BUF,,,,ffc,half_ppr,64.5,7.0,92.0,2026-07-18T22:47:55.457300+00:00,dj moore
+68,Courtland Sutton,WR,DEN,,,,ffc,half_ppr,67.0,7.0,50.0,2026-07-18T22:47:55.457300+00:00,courtland sutton
+69,Jadarian Price,RB,SEA,,,,ffc,half_ppr,67.9,5.8,56.0,2026-07-18T22:47:55.457300+00:00,jadarian price
+70,Rhamondre Stevenson,RB,NE,,,,ffc,half_ppr,71.8,7.4,24.0,2026-07-18T22:47:55.457300+00:00,rhamondre stevenson
+71,Parker Washington,WR,JAX,,,,ffc,half_ppr,73.4,6.8,24.0,2026-07-18T22:47:55.457300+00:00,parker washington
+72,Tony Pollard,RB,TEN,,,,ffc,half_ppr,74.4,6.8,23.0,2026-07-18T22:47:55.457300+00:00,anthony pollard
+73,Patrick Mahomes,QB,KC,,,,ffc,half_ppr,74.7,9.1,18.0,2026-07-18T22:47:55.457300+00:00,patrick mahomes
+74,Brian Thomas Jr.,WR,JAX,,,,ffc,half_ppr,75.3,6.6,99.0,2026-07-18T22:47:55.457300+00:00,brian thomas
+75,Tucker Kraft,TE,GB,,,,ffc,half_ppr,77.2,8.2,36.0,2026-07-18T22:47:55.457300+00:00,tucker kraft
+76,Justin Herbert,QB,LAC,,,,ffc,half_ppr,78.0,6.2,24.0,2026-07-18T22:47:55.457300+00:00,justin herbert
+77,Michael Wilson,WR,ARI,,,,ffc,half_ppr,78.7,9.6,30.0,2026-07-18T22:47:55.457300+00:00,michael wilson
+78,Rico Dowdle,RB,PIT,,,,ffc,half_ppr,79.2,6.9,39.0,2026-07-18T22:47:55.457300+00:00,rico dowdle
+79,Michael Pittman Jr.,WR,PIT,,,,ffc,half_ppr,79.5,5.8,47.0,2026-07-18T22:47:55.457300+00:00,michael pittman
+80,Sam LaPorta,TE,DET,,,,ffc,half_ppr,79.8,8.7,15.0,2026-07-18T22:47:55.457300+00:00,samuel laporta
+81,Harold Fannin Jr.,TE,CLE,,,,ffc,half_ppr,80.2,8.4,17.0,2026-07-18T22:47:55.457300+00:00,harold fannin
+82,Jordyn Tyson,WR,NO,,,,ffc,half_ppr,80.8,11.0,20.0,2026-07-18T22:47:55.457300+00:00,jordyn tyson
+83,Chuba Hubbard,RB,CAR,,,,ffc,half_ppr,82.5,6.5,43.0,2026-07-18T22:47:55.457300+00:00,chuba hubbard
+84,Jayden Reed,WR,GB,,,,ffc,half_ppr,82.7,7.2,20.0,2026-07-18T22:47:55.457300+00:00,jayden reed
+85,Chris Godwin Jr.,WR,TB,,,,ffc,half_ppr,82.7,6.6,42.0,2026-07-18T22:47:55.457300+00:00,christopher godwin
+86,Jayden Daniels,QB,WAS,,,,ffc,half_ppr,83.3,8.4,51.0,2026-07-18T22:47:55.457300+00:00,jayden daniels
+87,J.K. Dobbins,RB,DEN,,,,ffc,half_ppr,84.8,8.6,55.0,2026-07-18T22:47:55.457300+00:00,jk dobbins
+88,Trevor Lawrence,QB,JAX,,,,ffc,half_ppr,86.8,9.9,16.0,2026-07-18T22:47:55.457300+00:00,trevor lawrence
+89,Josh Downs,WR,IND,,,,ffc,half_ppr,87.3,8.9,19.0,2026-07-18T22:47:55.457300+00:00,joshua downs
+90,Jordan Addison,WR,MIN,,,,ffc,half_ppr,87.8,4.9,15.0,2026-07-18T22:47:55.457300+00:00,jordan addison
+91,Quentin Johnston,WR,LAC,,,,ffc,half_ppr,91.3,9.2,41.0,2026-07-18T22:47:55.457300+00:00,quentin johnston
+92,Xavier Worthy,WR,KC,,,,ffc,half_ppr,91.7,5.6,22.0,2026-07-18T22:47:55.457300+00:00,xavier worthy
+93,Seattle Defense,DST,SEA,,,,ffc,half_ppr,92.3,7.0,12.0,2026-07-18T22:47:55.457300+00:00,seattle defense
+94,Jared Goff,QB,DET,,,,ffc,half_ppr,92.8,14.3,13.0,2026-07-18T22:47:55.457300+00:00,jared goff
+95,Kyle Pitts Sr.,TE,ATL,,,,ffc,half_ppr,94.2,13.4,41.0,2026-07-18T22:47:55.457300+00:00,kyle pitts
+96,RJ Harvey,RB,DEN,,,,ffc,half_ppr,94.3,9.2,44.0,2026-07-18T22:47:55.457300+00:00,rj harvey
+97,Aaron Jones Sr.,RB,MIN,,,,ffc,half_ppr,95.7,9.7,13.0,2026-07-18T22:47:55.457300+00:00,aaron jones
+98,Jalen Hurts,QB,PHI,,,,ffc,half_ppr,97.2,12.2,90.0,2026-07-18T22:47:55.457300+00:00,jalen hurts
+99,Ricky Pearsall,WR,SF,,,,ffc,half_ppr,97.3,8.7,55.0,2026-07-18T22:47:55.457300+00:00,ricky pearsall
+100,Denver Defense,DST,DEN,,,,ffc,half_ppr,98.7,7.5,22.0,2026-07-18T22:47:55.457300+00:00,denver defense
+101,Romeo Doubs,WR,NE,,,,ffc,half_ppr,99.5,6.4,14.0,2026-07-18T22:47:55.457300+00:00,romeo doubs
+102,Kyle Monangai,RB,CHI,,,,ffc,half_ppr,99.6,11.1,51.0,2026-07-18T22:47:55.457300+00:00,kyle monangai
+103,Jakobi Meyers,WR,JAX,,,,ffc,half_ppr,99.9,6.5,13.0,2026-07-18T22:47:55.457300+00:00,jakobi meyers
+104,Wan'Dale Robinson,WR,TEN,,,,ffc,half_ppr,101.6,9.0,18.0,2026-07-18T22:47:55.457300+00:00,wandale robinson
+105,Khalil Shakir,WR,BUF,,,,ffc,half_ppr,102.8,8.2,13.0,2026-07-18T22:47:55.457300+00:00,khalil shakir
+106,Makai Lemon,WR,PHI,,,,ffc,half_ppr,103.1,8.1,57.0,2026-07-18T22:47:55.457300+00:00,makai lemon
+107,LA Rams Defense,DST,LAR,,,,ffc,half_ppr,104.4,8.2,36.0,2026-07-18T22:47:55.457300+00:00,la rams defense
+108,Matthew Stafford,QB,LAR,,,,ffc,half_ppr,104.8,14.5,52.0,2026-07-18T22:47:55.457300+00:00,matthew stafford
+109,Kenny Gainwell,RB,TB,,,,ffc,half_ppr,106.1,13.8,45.0,2026-07-18T22:47:55.457300+00:00,kenneth gainwell
+110,Rachaad White,RB,WAS,,,,ffc,half_ppr,106.7,11.5,40.0,2026-07-18T22:47:55.457300+00:00,rachaad white
+111,Brock Purdy,QB,SF,,,,ffc,half_ppr,107.2,12.4,25.0,2026-07-18T22:47:55.457300+00:00,brock purdy
+112,Caleb Williams,QB,CHI,,,,ffc,half_ppr,107.8,11.4,51.0,2026-07-18T22:47:55.457300+00:00,caleb williams
+113,George Kittle,TE,SF,,,,ffc,half_ppr,108.1,21.7,47.0,2026-07-18T22:47:55.457300+00:00,george kittle
+114,Houston Defense,DST,HOU,,,,ffc,half_ppr,109.6,7.1,24.0,2026-07-18T22:47:55.457300+00:00,houston defense
+115,Jalen Coker,WR,CAR,,,,ffc,half_ppr,110.0,5.0,10.0,2026-07-18T22:47:55.457300+00:00,jalen coker
+116,Matthew Golden,WR,GB,,,,ffc,half_ppr,111.7,8.0,19.0,2026-07-18T22:47:55.457300+00:00,matthew golden
+117,New England Defense,DST,NE,,,,ffc,half_ppr,112.0,9.9,8.0,2026-07-18T22:47:55.457300+00:00,new england defense
+118,Jayden Higgins,WR,HOU,,,,ffc,half_ppr,112.1,6.0,15.0,2026-07-18T22:47:55.457300+00:00,jayden higgins
+119,Travis Kelce,TE,KC,,,,ffc,half_ppr,112.8,20.0,12.0,2026-07-18T22:47:55.457300+00:00,travis kelce
+120,KC Concepcion,WR,CLE,,,,ffc,half_ppr,114.2,7.0,35.0,2026-07-18T22:47:55.457300+00:00,kc concepcion
+121,Blake Corum,RB,LAR,,,,ffc,half_ppr,115.9,15.1,66.0,2026-07-18T22:47:55.457300+00:00,blake corum
+122,Jacory Croskey-Merritt,RB,WAS,,,,ffc,half_ppr,120.5,13.4,26.0,2026-07-18T22:47:55.457300+00:00,jacory croskeymerritt
+123,Jordan Mason,RB,MIN,,,,ffc,half_ppr,121.7,13.7,33.0,2026-07-18T22:47:55.457300+00:00,jordan mason
+124,Mark Andrews,TE,BAL,,,,ffc,half_ppr,122.0,18.7,41.0,2026-07-18T22:47:55.457300+00:00,mark andrews
+125,Bo Nix,QB,DEN,,,,ffc,half_ppr,122.9,11.2,54.0,2026-07-18T22:47:55.457300+00:00,bo nix
+126,Philadelphia Defense,DST,PHI,,,,ffc,half_ppr,124.2,10.9,20.0,2026-07-18T22:47:55.457300+00:00,philadelphia defense
+127,Brandon Aubrey,K,DAL,,,,ffc,half_ppr,125.3,22.5,95.0,2026-07-18T22:47:55.457300+00:00,brandon aubrey
+128,Rashid Shaheed,WR,SEA,,,,ffc,half_ppr,126.9,6.8,51.0,2026-07-18T22:47:55.457300+00:00,rashid shaheed
+129,Jaxson Dart,QB,NYG,,,,ffc,half_ppr,127.4,9.1,27.0,2026-07-18T22:47:55.457300+00:00,jaxson dart
+130,Brandon Aiyuk,WR,SF,,,,ffc,half_ppr,128.0,18.4,5.0,2026-07-18T22:47:55.457300+00:00,brandon aiyuk
+131,Jake Ferguson,TE,DAL,,,,ffc,half_ppr,128.4,17.5,20.0,2026-07-18T22:47:55.457300+00:00,jacob ferguson
+132,Jauan Jennings,WR,MIN,,,,ffc,half_ppr,129.0,6.1,17.0,2026-07-18T22:47:55.457300+00:00,jauan jennings
+133,Jonathon Brooks,RB,CAR,,,,ffc,half_ppr,129.6,15.4,83.0,2026-07-18T22:47:55.457300+00:00,jonathon brooks
+134,Antonio Williams,WR,WAS,,,,ffc,half_ppr,130.4,8.7,5.0,2026-07-18T22:47:55.457300+00:00,antonio williams
+135,Dallas Goedert,TE,PHI,,,,ffc,half_ppr,130.7,17.0,33.0,2026-07-18T22:47:55.457300+00:00,dallas goedert
+136,Jacksonville Defense,DST,JAX,,,,ffc,half_ppr,131.2,8.8,8.0,2026-07-18T22:47:55.457300+00:00,jacksonville defense
+137,Baker Mayfield,QB,TB,,,,ffc,half_ppr,131.4,13.5,20.0,2026-07-18T22:47:55.457300+00:00,baker mayfield
+138,Woody Marks,RB,HOU,,,,ffc,half_ppr,132.2,14.3,5.0,2026-07-18T22:47:55.457300+00:00,woody marks
+139,Tre Tucker,WR,LV,,,,ffc,half_ppr,133.9,6.4,18.0,2026-07-18T22:47:55.457300+00:00,tre tucker
+140,Denzel Boston,WR,CLE,,,,ffc,half_ppr,134.0,6.6,30.0,2026-07-18T22:47:55.457300+00:00,denzel boston
+141,Cameron Dicker,K,LAC,,,,ffc,half_ppr,134.5,18.0,8.0,2026-07-18T22:47:55.457300+00:00,cameron dicker
+142,Jordan Love,QB,GB,,,,ffc,half_ppr,135.2,4.3,14.0,2026-07-18T22:47:55.457300+00:00,jordan love
+143,Omar Cooper Jr.,WR,NYJ,,,,ffc,half_ppr,136.1,9.5,21.0,2026-07-18T22:47:55.457300+00:00,omar cooper
+144,Jalen McMillan,WR,TB,,,,ffc,half_ppr,136.4,6.5,11.0,2026-07-18T22:47:55.457300+00:00,jalen mcmillan
+145,Jerry Jeudy,WR,CLE,,,,ffc,half_ppr,138.1,7.8,9.0,2026-07-18T22:47:55.457300+00:00,jerry jeudy
+146,Jalen Nailor,WR,LV,,,,ffc,half_ppr,139.7,2.1,7.0,2026-07-18T22:47:55.457300+00:00,jalen nailor
+147,Isiah Pacheco,RB,DET,,,,ffc,half_ppr,141.4,20.0,18.0,2026-07-18T22:47:55.457300+00:00,isiah pacheco
+148,Detroit Defense,DST,DET,,,,ffc,half_ppr,142.0,18.2,12.0,2026-07-18T22:47:55.457300+00:00,detroit defense
+149,Jason Myers,K,SEA,,,,ffc,half_ppr,142.6,23.7,7.0,2026-07-18T22:47:55.457300+00:00,jason myers
+150,Dalton Kincaid,TE,BUF,,,,ffc,half_ppr,142.6,25.7,7.0,2026-07-18T22:47:55.457300+00:00,dalton kincaid
+151,Minnesota Defense,DST,MIN,,,,ffc,half_ppr,142.9,18.3,11.0,2026-07-18T22:47:55.457300+00:00,minnesota defense
+152,Tyjae Spears,RB,TEN,,,,ffc,half_ppr,143.6,5.1,12.0,2026-07-18T22:47:55.457300+00:00,tyjae spears
+153,Tyler Loop,K,BAL,,,,ffc,half_ppr,145.2,14.6,13.0,2026-07-18T22:47:55.457300+00:00,tyler loop
+154,Adonai Mitchell,WR,NYJ,,,,ffc,half_ppr,146.7,10.3,6.0,2026-07-18T22:47:55.457300+00:00,adonai mitchell
+155,Ka'imi Fairbairn,K,HOU,,,,ffc,half_ppr,147.5,14.1,6.0,2026-07-18T22:47:55.457300+00:00,kaimi fairbairn
+156,Rashod Bateman,WR,BAL,,,,ffc,half_ppr,148.0,6.9,5.0,2026-07-18T22:47:55.457300+00:00,rashod bateman
+157,Cairo Santos,K,CHI,,,,ffc,half_ppr,148.2,10.6,11.0,2026-07-18T22:47:55.457300+00:00,cairo santos
+158,Sam Darnold,QB,SEA,,,,ffc,half_ppr,148.2,11.9,15.0,2026-07-18T22:47:55.457300+00:00,samuel darnold
+159,Chris Rodriguez Jr.,RB,JAX,,,,ffc,half_ppr,148.6,8.2,18.0,2026-07-18T22:47:55.457300+00:00,christopher rodriguez
+160,Kyler Murray,QB,MIN,,,,ffc,half_ppr,149.6,19.6,22.0,2026-07-18T22:47:55.457300+00:00,kyler murray
+161,Jake Bates,K,DET,,,,ffc,half_ppr,149.8,13.4,10.0,2026-07-18T22:47:55.457300+00:00,jacob bates
+162,Isaiah Likely,TE,NYG,,,,ffc,half_ppr,150.7,18.8,34.0,2026-07-18T22:47:55.457300+00:00,isaiah likely
+163,Zach Charbonnet,RB,SEA,,,,ffc,half_ppr,150.7,21.5,27.0,2026-07-18T22:47:55.457300+00:00,zachary charbonnet
+164,Hunter Henry,TE,NE,,,,ffc,half_ppr,150.8,17.2,5.0,2026-07-18T22:47:55.457300+00:00,hunter henry
+165,Baltimore Defense,DST,BAL,,,,ffc,half_ppr,152.9,20.1,28.0,2026-07-18T22:47:55.457300+00:00,baltimore defense
+166,Buffalo Defense,DST,BUF,,,,ffc,half_ppr,154.1,16.4,17.0,2026-07-18T22:47:55.457300+00:00,buffalo defense
+167,Cam Little,K,JAX,,,,ffc,half_ppr,154.6,19.5,12.0,2026-07-18T22:47:55.457300+00:00,cameron little
+168,Pittsburgh Defense,DST,PIT,,,,ffc,half_ppr,155.8,18.0,15.0,2026-07-18T22:47:55.457300+00:00,pittsburgh defense
+169,Tyler Bass,K,BUF,,,,ffc,half_ppr,155.8,23.4,5.0,2026-07-18T22:47:55.457300+00:00,tyler bass
+170,Malik Washington,WR,MIA,,,,ffc,half_ppr,159.8,18.2,5.0,2026-07-18T22:47:55.457300+00:00,malik washington
+171,LA Chargers Defense,DST,LAC,,,,ffc,half_ppr,161.3,13.7,35.0,2026-07-18T22:47:55.457300+00:00,la chargers defense
+172,Washington Defense,DST,WAS,,,,ffc,half_ppr,162.2,17.0,12.0,2026-07-18T22:47:55.457300+00:00,washington defense
+173,Chase McLaughlin,K,TB,,,,ffc,half_ppr,162.5,24.2,6.0,2026-07-18T22:47:55.457300+00:00,chase mclaughlin
+174,Chris Boswell,K,PIT,,,,ffc,half_ppr,164.9,22.6,7.0,2026-07-18T22:47:55.457300+00:00,christopher boswell
+175,Evan McPherson,K,CIN,,,,ffc,half_ppr,166.3,18.8,6.0,2026-07-18T22:47:55.457300+00:00,evan mcpherson
+176,Travis Hunter,WR,JAX,,,,ffc,half_ppr,167.0,12.0,6.0,2026-07-18T22:47:55.457300+00:00,travis hunter
+177,Harrison Butker,K,KC,,,,ffc,half_ppr,169.4,10.2,7.0,2026-07-18T22:47:55.457300+00:00,harrison butker
+178,Wil Lutz,K,DEN,,,,ffc,half_ppr,171.8,13.9,8.0,2026-07-18T22:47:55.457300+00:00,wil lutz
+179,NY Jets Defense,DST,NYJ,,,,ffc,half_ppr,177.6,25.3,5.0,2026-07-18T22:47:55.457300+00:00,ny jets defense
+180,Atlanta Defense,DST,ATL,,,,ffc,half_ppr,183.8,10.4,5.0,2026-07-18T22:47:55.457300+00:00,atlanta defense
