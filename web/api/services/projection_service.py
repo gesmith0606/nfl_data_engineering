@@ -788,8 +788,8 @@ def get_comparison(
         for src, group in long.groupby("source"):
             try:
                 data_as_of[str(src)] = str(group["projected_at"].max())
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug("Could not compute data_as_of for source=%s: %s", src, exc)
 
     if long.empty:
         return {

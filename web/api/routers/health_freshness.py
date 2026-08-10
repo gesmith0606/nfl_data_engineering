@@ -76,6 +76,7 @@ def _rankings_time(path: Path) -> datetime:
     for the same git-checkout reason as :func:`artifact_time`.
     """
     import json
+    import logging
 
     try:
         with open(path) as fh:
@@ -83,8 +84,12 @@ def _rankings_time(path: Path) -> datetime:
         if fetched_at:
             dt = datetime.fromisoformat(str(fetched_at).replace("Z", "+00:00"))
             return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-    except (OSError, ValueError, AttributeError):
-        pass
+    except (OSError, ValueError, AttributeError) as exc:
+        # mtime is meaningless on the HF clone deploy path — a systematic
+        # fetched_at parse failure must be visible, not a healthy reading.
+        logging.getLogger(__name__).warning(
+            "Could not parse fetched_at in %s (falling back to mtime): %s", path, exc
+        )
     return file_mtime(path)
 
 

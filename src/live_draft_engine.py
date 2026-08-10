@@ -112,6 +112,11 @@ class LiveDraftEngine:
                 edges[edges["level"] == "pair"] if not edges.empty else pd.DataFrame()
             )
         except Exception:
+            import logging
+
+            logging.getLogger(__name__).exception(
+                "Correlation edges unavailable — stack-aware recommendations disabled"
+            )
             self._corr_pairs = pd.DataFrame()
 
     # -- public --------------------------------------------------------------
