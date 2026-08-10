@@ -70,3 +70,38 @@ prediction ledger) into **third-party-verified proof**, the way 4for4 built its
   artifact. Preseason draft CSVs regenerated + verified against the latest
   Gold vintage. Remaining steps are user-owned: application email + expert
   identity; flip `--columns` if the partner spec differs from the default.
+- **2026-08-10: in-season ordinal tracking wired.** `FP_ACCURACY_SIMULATION.md`
+  found we lose the ordinal Accuracy Gap metric (what FantasyPros actually
+  scores) at every position on the 2022-2024 simulation, even where our MAE
+  beats consensus — so the weekly ELITE grading report now measures the
+  *right* metric automatically, in-season, every week:
+  - `scripts/weekly_grading_report.py` gained two new sections, computed
+    every Tuesday for the previous week alongside the existing MAE-gap
+    report: **"FantasyPros-Style Ordinal Accuracy Gap (Week W)"** (ours vs
+    sleeper/espn/yahoo_proxy_fp for that week) and **"Ordinal Accuracy Gap —
+    Season-to-Date"** (weeks 3..W pooled, so the rank→baseline-points table
+    stabilises as the season progresses, mirroring the pooled multi-season
+    baseline used in the offline simulation). Output lands in the same
+    places as the rest of the grading report: `output/grading/season=YYYY/
+    week=WW_report.{md,json}` (JSON keys `ordinal` / `cumulative_ordinal`),
+    uploaded as the `grading-report-<run_id>` workflow artifact.
+  - The scoring machinery is imported from `scripts/simulate_fp_accuracy.py`
+    (refactored to a generic `score_sources()` / `build_ordinal_table()` — no
+    metric logic duplicated between the offline simulation and the live
+    report). Sources: our Gold projections + whichever of
+    sleeper/espn/yahoo_proxy_fp the `weekly-external-projections` cron
+    captured that week (`data/silver/external_projections/season=YYYY/
+    week=WW/`, already wired since Phase 73 — confirmed end-to-end, no
+    pipeline changes needed).
+  - Fail-open at two levels: a source missing for a given week (e.g.
+    yahoo_proxy_fp isn't captured for any pre-2026 week, since that cron
+    started 2026) is recorded in `sources_missing` and the table still
+    renders for whatever sources ARE present (minimum: "ours" alone) — never
+    a crash, never a blocked pipeline run.
+  - Smoke-tested against real 2024 week 10 data (Gold + Sleeper + ESPN
+    present locally): Accuracy Gap (lower = better) — QB ours 11.73 vs
+    sleeper 7.13 / espn 6.95; RB ours 5.58 vs 4.88 / 4.50; WR ours 6.64 vs
+    6.46 / 5.65; TE ours 6.42 vs 4.45 / 4.99 — consistent in direction with
+    the 2022-2024 offline simulation (we trail consensus on this metric at
+    every position), confirming the live wiring reproduces the same finding
+    the offline simulation predicted.

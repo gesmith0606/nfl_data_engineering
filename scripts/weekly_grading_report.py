@@ -64,6 +64,8 @@ if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 if os.path.join(_PROJECT_ROOT, "src") not in sys.path:
     sys.path.insert(0, os.path.join(_PROJECT_ROOT, "src"))
+if _SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, _SCRIPT_DIR)
 
 from consensus_metrics import (  # noqa: E402
     CONSENSUS_MIN_PTS,
@@ -79,6 +81,16 @@ from prediction_backtester import (  # noqa: E402
 )
 from odds_snapshot_loader import load_open_close_lines  # noqa: E402
 from scoring_calculator import calculate_fantasy_points_df  # noqa: E402
+from simulate_fp_accuracy import build_ordinal_table  # noqa: E402
+
+# Windows terminals default stdout to cp1252, which can't encode the
+# non-ASCII glyphs (Δ, −, ✓...) used in print_compact_summary(). Reconfigure
+# to UTF-8 when available (Python 3.7+); best-effort, never fatal — a
+# console that can't be reconfigured just keeps its original encoding.
+try:  # pragma: no cover - platform/encoding dependent
+    sys.stdout.reconfigure(encoding="utf-8")
+except (AttributeError, ValueError):
+    pass
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -92,6 +104,12 @@ _APLUS_N_PICKS: int = 150              # minimum picks for kill criterion
 _APLUS_N_PICKS_GATE: int = 150         # picks needed for A+ gate verdict
 _APLUS_N_PICKS_INTERIM: int = 100      # interim check threshold
 _SPREAD_KILL_THRESHOLD: float = 0.0    # capture ≤ 0 at n ≥ 150 = no edge
+
+#: External consensus sources captured by the weekly-external-projections
+#: cron (data/silver/external_projections) — matches _EXTERNAL_SOURCES in
+#: src/external_projections.py. yahoo_proxy_fp is the FantasyPros-consensus
+#: proxy — see .planning/CONSENSUS_BENCHMARK_MULTI_SOURCE.md.
+_ORDINAL_EXTERNAL_SOURCES: tuple = ("sleeper", "espn", "yahoo_proxy_fp")
 
 
 # ---------------------------------------------------------------------------
@@ -206,7 +224,11 @@ def _load_consensus(
     df = df.rename(columns={"projected_points": "consensus_proj"})
     df["season"] = int(season)
     df["week"] = int(week)
-    keep = [c for c in ["player_id", "player_name", "season", "week", "consensus_proj"] if c in df.columns]
+    keep = [
+        c
+        for c in ["player_id", "player_name", "position", "season", "week", "consensus_proj"]
+        if c in df.columns
+    ]
     return df[keep]
 
 
@@ -331,6 +353,216 @@ def _load_schedules(
             logger.warning("Could not read schedule: %s", exc)
 
     return pd.DataFrame()
+
+
+# ---------------------------------------------------------------------------
+# Ordinal (FantasyPros-style Accuracy Gap) helpers
+# ---------------------------------------------------------------------------
+
+
+def _join_source_actuals(
+    proj_df: pd.DataFrame,
+    actuals_df: pd.DataFrame,
+    proj_col: str,
+    season: int,
+    week: int,
+) -> pd.DataFrame:
+    """Join one source's projections to actuals -> the frame shape
+    ``simulate_fp_accuracy.build_ordinal_table`` expects.
+
+    Args:
+        proj_df: Gold projections (``projected_points``) or Silver consensus
+            (``consensus_proj``) for one (season, week). Must have
+            ``player_id`` and ``position``.
+        actuals_df: Actual fantasy points for the same (season, week).
+        proj_col: Name of the projection column in ``proj_df``.
+        season: NFL season year.
+        week: NFL week number.
+
+    Returns:
+        DataFrame with ``player_id, player_name, position, season, week,
+        proj_points, actual_points``. Empty if either input is empty or the
+        join produces no rows (fail-open — caller treats this as "source
+        unavailable this week", not an error).
+    """
+    if proj_df.empty or actuals_df.empty:
+        return pd.DataFrame()
+    if "player_id" not in proj_df.columns or "player_id" not in actuals_df.columns:
+        return pd.DataFrame()
+
+    p = proj_df.copy()
+    a = actuals_df.copy()
+    p["player_id"] = p["player_id"].astype(str).str.strip()
+    a["player_id"] = a["player_id"].astype(str).str.strip()
+    a = a.sort_values("actual_points", ascending=False).drop_duplicates(subset=["player_id"], keep="first")
+
+    keep_a = [c for c in ["player_id", "actual_points", "position"] if c in a.columns]
+    merged = p.merge(a[keep_a], on="player_id", how="inner", suffixes=("", "_act"))
+    if "position_act" in merged.columns:
+        merged["position"] = merged["position_act"].combine_first(merged.get("position"))
+        merged = merged.drop(columns=["position_act"])
+
+    if merged.empty or "position" not in merged.columns or proj_col not in merged.columns:
+        return pd.DataFrame()
+
+    merged = merged.rename(columns={proj_col: "proj_points"})
+    merged["season"] = int(season)
+    merged["week"] = int(week)
+    keep_cols = [c for c in ["player_id", "player_name", "position", "season", "week", "proj_points", "actual_points"] if c in merged.columns]
+    return merged[keep_cols].dropna(subset=["proj_points", "actual_points", "position"])
+
+
+def _build_ordinal_section(
+    gold_df: pd.DataFrame,
+    actuals_df: pd.DataFrame,
+    external_consensus: Dict[str, pd.DataFrame],
+    season: int,
+    week: int,
+) -> Dict[str, Any]:
+    """FantasyPros-style ordinal Accuracy Gap for this week — ours vs each
+    captured external source (sleeper/espn/yahoo_proxy_fp).
+
+    Reuses ``simulate_fp_accuracy.build_ordinal_table`` (same rank/baseline/
+    pool machinery as the 2022-2024 competition simulation) rather than
+    re-deriving the metric. Baseline is built from THIS week's own actual
+    points by rank (not the pooled multi-year table from
+    .planning/FP_ACCURACY_SIMULATION.md) — see docs/ACCURACY_COMPETITION.md
+    for the tradeoff.
+
+    Fail-open: missing Gold/actuals -> section skipped entirely. A missing
+    individual external source is not fatal — it's recorded in
+    ``sources_missing`` and the table is still built from whatever sources
+    (min: "ours") ARE present.
+
+    Args:
+        gold_df: Our published projections for this week.
+        actuals_df: Actual fantasy points for this week.
+        external_consensus: mapping source_name -> Silver consensus
+            DataFrame (``consensus_proj``, ``position``), one entry per
+            entry in ``_ORDINAL_EXTERNAL_SOURCES``. May be empty per source.
+        season: NFL season year.
+        week: NFL week number.
+
+    Returns:
+        Dict with ``status``, ``reason``, ``week_table`` (list of
+        ``{position, source, accuracy_gap, n}``), ``sources_present``,
+        ``sources_missing``.
+    """
+    empty_result: Dict[str, Any] = {
+        "status": "skipped",
+        "reason": "",
+        "week_table": [],
+        "sources_present": [],
+        "sources_missing": [],
+    }
+
+    if gold_df.empty:
+        empty_result["reason"] = "No Gold projections found"
+        return empty_result
+    if actuals_df.empty:
+        empty_result["reason"] = "No actuals found (week not yet complete?)"
+        return empty_result
+
+    ours = _join_source_actuals(gold_df, actuals_df, "projected_points", season, week)
+    if ours.empty:
+        empty_result["reason"] = "No player-weeks matched between projections and actuals"
+        return empty_result
+
+    frames: Dict[str, pd.DataFrame] = {"ours": ours}
+    sources_missing: List[str] = []
+    for source_name in _ORDINAL_EXTERNAL_SOURCES:
+        cons_df = external_consensus.get(source_name, pd.DataFrame())
+        joined = _join_source_actuals(cons_df, actuals_df, "consensus_proj", season, week)
+        if joined.empty:
+            sources_missing.append(source_name)
+            continue
+        frames[source_name] = joined
+
+    if sources_missing:
+        logger.warning(
+            "Ordinal section: no data for source(s) %s at season=%s week=%s",
+            ", ".join(sources_missing), season, week,
+        )
+
+    table = build_ordinal_table(frames)
+
+    return {
+        "status": "ok",
+        "reason": "",
+        "week_table": table,
+        "sources_present": sorted(frames.keys()),
+        "sources_missing": sources_missing,
+    }
+
+
+def _build_cumulative_ordinal_section(
+    data_root: str,
+    season: int,
+    week: int,
+    scoring: str = "half_ppr",
+) -> Dict[str, Any]:
+    """Season-to-date ordinal Accuracy Gap — pools weeks 3..week per source
+    before scoring, so the baseline naturally stabilises as the season
+    progresses (same idea as the pooled 2022-2024 historical baseline).
+
+    Fail-open: no complete weeks -> status='skipped'. Missing sources for
+    individual weeks are absorbed silently (the per-week joins just
+    contribute nothing for that source/week — no warning spam here since
+    the weekly section already warns per-week).
+
+    Args:
+        data_root: Root data directory.
+        season: NFL season year.
+        week: Current completed week (inclusive upper bound).
+        scoring: Scoring format string.
+
+    Returns:
+        Dict with ``status``, ``reason``, ``cumulative_ordinal_table``,
+        ``weeks_loaded``.
+    """
+    empty_result: Dict[str, Any] = {
+        "status": "skipped",
+        "reason": "",
+        "cumulative_ordinal_table": [],
+        "weeks_loaded": 0,
+    }
+
+    accum: Dict[str, List[pd.DataFrame]] = {"ours": []}
+    for s in _ORDINAL_EXTERNAL_SOURCES:
+        accum[s] = []
+
+    weeks_with_data = set()
+    for w in range(3, week + 1):
+        gold_df = _load_gold_projections(data_root, season, w, scoring)
+        actuals_df = _load_actuals(data_root, season, w, scoring)
+        if gold_df.empty or actuals_df.empty:
+            continue
+
+        ours_w = _join_source_actuals(gold_df, actuals_df, "projected_points", season, w)
+        if ours_w.empty:
+            continue
+        accum["ours"].append(ours_w)
+        weeks_with_data.add(w)
+
+        for source_name in _ORDINAL_EXTERNAL_SOURCES:
+            cons_df = _load_consensus(data_root, season, w, scoring, source=source_name)
+            src_w = _join_source_actuals(cons_df, actuals_df, "consensus_proj", season, w)
+            if not src_w.empty:
+                accum[source_name].append(src_w)
+
+    if not weeks_with_data:
+        empty_result["reason"] = "No weeks with complete data (projections + actuals) for ordinal tracking"
+        return empty_result
+
+    frames = {name: pd.concat(parts, ignore_index=True) for name, parts in accum.items() if parts}
+    table = build_ordinal_table(frames)
+
+    return {
+        "status": "ok",
+        "reason": "",
+        "cumulative_ordinal_table": table,
+        "weeks_loaded": len(weeks_with_data),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -783,6 +1015,38 @@ def _fmt_gap(v: Any) -> str:
     return f"{sign} (win)" if fv < -0.01 else (f"{sign} (tie)" if abs(fv) <= 0.01 else sign)
 
 
+def _render_ordinal_rows(table: List[Dict[str, Any]]) -> List[str]:
+    """Render a ``build_ordinal_table`` output as markdown table rows,
+    grouped by position with "ours" listed first in each group.
+
+    Args:
+        table: list of ``{position, source, accuracy_gap, n}`` dicts.
+
+    Returns:
+        List of markdown lines (no header — caller prepends the header row).
+    """
+    lines: List[str] = []
+    by_pos: Dict[str, List[Dict[str, Any]]] = {}
+    for row in table:
+        by_pos.setdefault(row.get("position", "?"), []).append(row)
+
+    source_order = ["ours"] + list(_ORDINAL_EXTERNAL_SOURCES)
+    for pos in CONSENSUS_POSITIONS:
+        rows = by_pos.get(pos)
+        if not rows:
+            continue
+        rows_sorted = sorted(
+            rows,
+            key=lambda r: source_order.index(r["source"]) if r["source"] in source_order else 99,
+        )
+        for row in rows_sorted:
+            label = "Ours" if row["source"] == "ours" else row["source"]
+            gap = _fmt_float(row.get("accuracy_gap"), ".2f")
+            n = row.get("n", 0)
+            lines.append(f"| {pos} | {label} | {gap} | {n:,} |")
+    return lines
+
+
 def render_markdown(report: Dict[str, Any]) -> str:
     """Render the complete grading report as a markdown string.
 
@@ -884,6 +1148,45 @@ def render_markdown(report: Dict[str, Any]) -> str:
             lines += [f"| {pos} | {our_mae} | {con_mae} | {gap} | {sp} | {sp_gap} | {n:,} |"]
         lines += [""]
 
+    # --- Ordinal (FantasyPros-style) Accuracy Gap section, this week ---
+    ordinal = report.get("ordinal", {})
+    lines += [f"## FantasyPros-Style Ordinal Accuracy Gap (Week {week})", ""]
+
+    if ordinal.get("status") != "ok":
+        reason = ordinal.get("reason", "unknown")
+        lines += [f"**SKIPPED**: {reason}", ""]
+    else:
+        missing = ordinal.get("sources_missing", [])
+        if missing:
+            lines += [f"*Missing this week*: {', '.join(missing)}  "]
+        lines += [
+            "*Accuracy Gap = |baseline_points(your_rank) − actual_points|, lower = better "
+            "(FantasyPros in-season methodology — see .planning/FP_ACCURACY_SIMULATION.md).*",
+            "",
+            f"| Pos | Source | Accuracy Gap | n |",
+            f"|-----|--------|--------------|---|",
+        ]
+        lines += _render_ordinal_rows(ordinal.get("week_table", []))
+        lines += [""]
+
+    # --- Ordinal Accuracy Gap section, season-to-date ---
+    cumulative_ordinal = report.get("cumulative_ordinal", {})
+    lines += [f"## Ordinal Accuracy Gap — Season-to-Date (weeks 3–{week})", ""]
+
+    if cumulative_ordinal.get("status") != "ok":
+        reason = cumulative_ordinal.get("reason", "unknown")
+        lines += [f"**SKIPPED**: {reason}", ""]
+    else:
+        weeks_loaded = cumulative_ordinal.get("weeks_loaded", 0)
+        lines += [
+            f"*Weeks with complete data*: {weeks_loaded}",
+            "",
+            f"| Pos | Source | Accuracy Gap | n |",
+            f"|-----|--------|--------------|---|",
+        ]
+        lines += _render_ordinal_rows(cumulative_ordinal.get("cumulative_ordinal_table", []))
+        lines += [""]
+
     # --- Spread line capture section ---
     spread = report.get("spread", {})
     lines += [f"## Spread Line Capture (Season-to-Date)", ""]
@@ -963,7 +1266,8 @@ def build_report(
     Returns:
         Full report dict with keys:
             ``season``, ``week``, ``scoring``, ``generated_at``,
-            ``fantasy``, ``cumulative``, ``spread``.
+            ``fantasy``, ``cumulative``, ``spread``, ``ordinal``,
+            ``cumulative_ordinal``.
     """
     if data_root is None:
         data_root = os.path.join(_PROJECT_ROOT, "data")
@@ -997,6 +1301,12 @@ def build_report(
 
     schedules_df = _load_schedules(data_root, season, week)
 
+    external_consensus: Dict[str, pd.DataFrame] = {}
+    for source_name in _ORDINAL_EXTERNAL_SOURCES:
+        src_df = _load_consensus(data_root, season, week, scoring, source=source_name)
+        external_consensus[source_name] = src_df
+        print(f"  Consensus[{source_name}]: {len(src_df)} rows" if not src_df.empty else f"  Consensus[{source_name}]: NOT FOUND")
+
     # ---- Section 1: Fantasy consensus gap ----
     print("\nBuilding fantasy consensus-gap section…")
     try:
@@ -1027,6 +1337,26 @@ def build_report(
         logger.error("Spread section failed: %s", exc, exc_info=True)
         spread_section = {"status": "error", "reason": str(exc), "n": 0}
     report["spread"] = spread_section
+
+    # ---- Section 4: Ordinal (FantasyPros-style) Accuracy Gap, this week ----
+    print("Building ordinal Accuracy Gap section…")
+    try:
+        ordinal_section = _build_ordinal_section(
+            gold_df, actuals_df, external_consensus, season, week
+        )
+    except Exception as exc:
+        logger.error("Ordinal section failed: %s", exc, exc_info=True)
+        ordinal_section = {"status": "error", "reason": str(exc), "week_table": []}
+    report["ordinal"] = ordinal_section
+
+    # ---- Section 5: Ordinal Accuracy Gap, season-to-date ----
+    print("Building cumulative ordinal Accuracy Gap section…")
+    try:
+        cumulative_ordinal_section = _build_cumulative_ordinal_section(data_root, season, week, scoring)
+    except Exception as exc:
+        logger.error("Cumulative ordinal section failed: %s", exc, exc_info=True)
+        cumulative_ordinal_section = {"status": "error", "reason": str(exc), "cumulative_ordinal_table": []}
+    report["cumulative_ordinal"] = cumulative_ordinal_section
 
     return report
 
@@ -1122,6 +1452,26 @@ def print_compact_summary(report: Dict[str, Any]) -> None:
             print(f"  {pos}: MAE gap={_fmt_gap(g)}, SpearΔ={_fmt_float(sp_gap, '+.3f')}")
     else:
         print(f"\nCumulative: SKIPPED — {cumulative.get('reason', 'unknown')}")
+
+    # Ordinal (FantasyPros-style Accuracy Gap), cumulative.
+    cumulative_ordinal = report.get("cumulative_ordinal", {})
+    co_status = cumulative_ordinal.get("status", "skipped")
+    if co_status == "ok":
+        co_table = cumulative_ordinal.get("cumulative_ordinal_table", [])
+        wks = cumulative_ordinal.get("weeks_loaded", 0)
+        print(f"\nOrdinal Accuracy Gap (w3–{week}, {wks} weeks loaded):")
+        for pos in CONSENSUS_POSITIONS:
+            pos_rows = {r["source"]: r for r in co_table if r.get("position") == pos}
+            if not pos_rows:
+                continue
+            parts = [
+                f"{src}={_fmt_float(pos_rows[src].get('accuracy_gap'), '.2f')}"
+                for src in (["ours"] + list(_ORDINAL_EXTERNAL_SOURCES))
+                if src in pos_rows
+            ]
+            print(f"  {pos}: {' | '.join(parts)}")
+    else:
+        print(f"\nOrdinal Accuracy Gap: SKIPPED — {cumulative_ordinal.get('reason', 'unknown')}")
 
     # Spread.
     spread = report.get("spread", {})

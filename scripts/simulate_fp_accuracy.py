@@ -235,10 +235,37 @@ def compute_accuracy_gaps(long_df: pd.DataFrame, baseline: dict) -> pd.DataFrame
     return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
 
 
-def score_all(ours: pd.DataFrame, sleeper: pd.DataFrame, espn: pd.DataFrame) -> tuple:
-    """Full pipeline -> (gaps_df, baseline_table, pool_penalty_note)."""
-    stacked = pd.concat([ours, sleeper, espn], ignore_index=True)
+def score_sources(frames: "dict[str, pd.DataFrame]") -> tuple:
+    """N-source generalisation of the FP-style scoring pipeline.
+
+    Args:
+        frames: mapping ``source_name -> DataFrame`` with columns
+            ``player_id, player_name, position, season, week, proj_points,
+            actual_points``. Any number of sources (1+) is accepted — this
+            is what lets ``weekly_grading_report.py`` reuse the exact same
+            machinery for "ours" alone, or ours + whichever external
+            sources (sleeper/espn/yahoo_proxy_fp) were actually captured
+            that week, without duplicating the ranking/baseline/gap logic.
+
+    Returns:
+        (gaps_df, baseline_table, full_df) — same shape as the historical
+        ``score_all()`` 3-source pipeline.
+    """
+    sources = list(frames.keys())
+    tagged = []
+    for name, df in frames.items():
+        d = df.copy()
+        d["source"] = name
+        tagged.append(d)
+    stacked = pd.concat(tagged, ignore_index=True)
     stacked = stacked.dropna(subset=["actual_points"])
+    # POOL_N (and therefore compute_accuracy_gaps) only defines baselines for
+    # QB/RB/WR/TE. The historical CLI's loaders pre-filter to POSITIONS, but
+    # generic callers (e.g. weekly_grading_report.py, which joins straight
+    # off Gold/actuals) may carry other positions through (K, DST, FB, LS,
+    # ...) — drop them here rather than KeyError deep inside
+    # compute_accuracy_gaps.
+    stacked = stacked[stacked["position"].isin(POSITIONS)]
     stacked = add_rank(stacked, "proj_points", "rank")
 
     # Penalize players a source never ranked but who ARE in another source's
@@ -248,7 +275,7 @@ def score_all(ours: pd.DataFrame, sleeper: pd.DataFrame, espn: pd.DataFrame) -> 
         subset=["season", "week", "position", "player_id"]
     )
     complete = []
-    for source in SOURCES:
+    for source in sources:
         src = stacked[stacked["source"] == source]
         merged = full_index.merge(
             src[["season", "week", "position", "player_id", "proj_points", "rank"]],
@@ -263,9 +290,10 @@ def score_all(ours: pd.DataFrame, sleeper: pd.DataFrame, espn: pd.DataFrame) -> 
         complete.append(merged)
     full = pd.concat(complete, ignore_index=True)
 
-    # Ground-truth actual finish rank — identical across sources.
-    truth = full[full["source"] == "ours"][["season", "week", "position", "player_id", "actual_points"]].drop_duplicates()
-    truth = truth.copy()
+    # Ground-truth actual finish rank — identical across sources, so derive
+    # it from full_index directly rather than assuming any particular source
+    # (e.g. "ours") is always present in `frames`.
+    truth = full_index[["season", "week", "position", "player_id", "actual_points"]].drop_duplicates().copy()
     truth["actual_rank"] = (
         truth.groupby(["season", "week", "position"])["actual_points"]
         .rank(ascending=False, method="first")
@@ -298,9 +326,63 @@ def score_all(ours: pd.DataFrame, sleeper: pd.DataFrame, espn: pd.DataFrame) -> 
     return gaps, baseline, full
 
 
-def summarize(gaps: pd.DataFrame) -> pd.DataFrame:
+def score_all(ours: pd.DataFrame, sleeper: pd.DataFrame, espn: pd.DataFrame) -> tuple:
+    """Full 3-source pipeline -> (gaps_df, baseline_table, full_df).
+
+    Thin wrapper over ``score_sources()`` kept for backward compatibility
+    with the 2022-2024 historical CLI below.
+    """
+    return score_sources({"ours": ours, "sleeper": sleeper, "espn": espn})
+
+
+def build_ordinal_table(frames: "dict[str, pd.DataFrame]") -> list:
+    """FP-style Accuracy Gap per (position, source) for whatever weeks are
+    present in ``frames`` — reused by ``weekly_grading_report.py`` for both
+    the single graded week and the season-to-date cumulative slice.
+
+    Args:
+        frames: mapping ``source_name -> DataFrame`` with columns
+            ``player_id, player_name, position, season, week, proj_points,
+            actual_points`` (same shape ``score_sources`` expects). Empty or
+            None DataFrames are dropped — this is the fail-open path for a
+            source that wasn't captured that week.
+
+    Returns:
+        List of dicts ``{position, source, accuracy_gap, n}``, one row per
+        (position, source) combination that has data. Empty list if fewer
+        than 1 usable source is present.
+    """
+    usable = {k: v for k, v in (frames or {}).items() if v is not None and not v.empty}
+    if not usable:
+        return []
+
+    gaps, _baseline, _full = score_sources(usable)
+    if gaps.empty:
+        return []
+
+    agg = gaps.groupby(["position", "source"])["accuracy_gap"].agg(["mean", "count"]).reset_index()
+    return [
+        {
+            "position": row["position"],
+            "source": row["source"],
+            "accuracy_gap": float(row["mean"]),
+            "n": int(row["count"]),
+        }
+        for _, row in agg.iterrows()
+    ]
+
+
+def summarize(gaps: pd.DataFrame, sources: "tuple | None" = None) -> pd.DataFrame:
     """season score (mean weekly Accuracy Gap, weeks 3-17) per source x position x season,
-    plus a 2022-2024 combined row per source x position."""
+    plus a 2022-2024 combined row per source x position.
+
+    Args:
+        gaps: output of ``compute_accuracy_gaps`` / ``score_sources``.
+        sources: explicit column order for the pivoted source columns.
+            Defaults to the historical module-level ``SOURCES`` (ours,
+            sleeper, espn) for backward compatibility with the 2022-2024 CLI.
+    """
+    src_cols = list(sources) if sources is not None else list(SOURCES)
     scored_weeks = gaps[gaps["week"].isin(SCORE_WEEKS)]
     weekly = scored_weeks.groupby(["source", "season", "week", "position"])["accuracy_gap"].mean().reset_index()
 
@@ -308,13 +390,13 @@ def summarize(gaps: pd.DataFrame) -> pd.DataFrame:
         weekly.groupby(["position", "season", "source"])["accuracy_gap"]
         .mean()
         .unstack("source")
-        .reindex(columns=list(SOURCES))
+        .reindex(columns=src_cols)
     )
     combined = (
         weekly.groupby(["position", "source"])["accuracy_gap"]
         .mean()
         .unstack("source")
-        .reindex(columns=list(SOURCES))
+        .reindex(columns=src_cols)
     )
     combined["season"] = "2022-2024"
     combined = combined.reset_index().set_index(["position", "season"])

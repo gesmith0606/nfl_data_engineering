@@ -47,6 +47,7 @@ from consensus_metrics import (  # noqa: E402
     compute_spearman_rank_corr,
     compute_top_n_hit_rate,
 )
+from simulate_fp_accuracy import build_ordinal_table  # noqa: E402
 
 # Import the grading report module under test.
 import importlib
@@ -141,6 +142,31 @@ def _make_actuals_df(
     df["actual_points"] = gold_df["projected_points"] + rng.normal(0, noise_scale, len(df))
     df["actual_points"] = df["actual_points"].clip(lower=0.0)
     return df
+
+
+def _make_ordinal_pool(
+    n_per_pos: int = 25,
+    season: int = 2024,
+    week: int = 10,
+) -> pd.DataFrame:
+    """Gold-shaped frame with a large-enough per-position pool for the
+    ordinal section's POOL_N thresholds (QB 20/RB 40/WR 50/TE 15) to be
+    exercised meaningfully."""
+    rng = _rng()
+    rows = []
+    for pos in CONSENSUS_POSITIONS:
+        for i in range(n_per_pos):
+            rows.append(
+                {
+                    "player_id": f"pid-{pos}-{i:03d}",
+                    "player_name": f"{pos}{i:03d}",
+                    "position": pos,
+                    "projected_points": float(rng.uniform(5, 25)),
+                    "season": season,
+                    "week": week,
+                }
+            )
+    return pd.DataFrame(rows)
 
 
 # ---------------------------------------------------------------------------
@@ -487,10 +513,15 @@ class TestEmptyDataGrace:
 class TestJsonSchemaStability:
     """Required keys always present in the report JSON."""
 
-    _REQUIRED_TOP_LEVEL = {"season", "week", "scoring", "generated_at", "fantasy", "cumulative", "spread"}
+    _REQUIRED_TOP_LEVEL = {
+        "season", "week", "scoring", "generated_at",
+        "fantasy", "cumulative", "spread", "ordinal", "cumulative_ordinal",
+    }
     _REQUIRED_FANTASY = {"status", "reason", "week_table", "n_matched", "n_after_filter", "match_rate"}
     _REQUIRED_SPREAD = {"status", "reason", "n", "mean_capture", "gate_status"}
     _REQUIRED_CUMULATIVE = {"status", "reason", "cumulative_table", "weeks_loaded"}
+    _REQUIRED_ORDINAL = {"status", "reason", "week_table", "sources_present", "sources_missing"}
+    _REQUIRED_CUMULATIVE_ORDINAL = {"status", "reason", "cumulative_ordinal_table", "weeks_loaded"}
 
     @pytest.fixture
     def empty_report(self, tmp_path):
@@ -521,6 +552,18 @@ class TestJsonSchemaStability:
         for key in self._REQUIRED_CUMULATIVE:
             assert key in cumulative, f"Missing cumulative key: {key}"
 
+    def test_ordinal_keys(self, empty_report):
+        ordinal = empty_report["ordinal"]
+        for key in self._REQUIRED_ORDINAL:
+            assert key in ordinal, f"Missing ordinal key: {key}"
+        assert ordinal["status"] == "skipped"
+
+    def test_cumulative_ordinal_keys(self, empty_report):
+        cumulative_ordinal = empty_report["cumulative_ordinal"]
+        for key in self._REQUIRED_CUMULATIVE_ORDINAL:
+            assert key in cumulative_ordinal, f"Missing cumulative_ordinal key: {key}"
+        assert cumulative_ordinal["status"] == "skipped"
+
     def test_json_serialisable(self, empty_report, tmp_path):
         """Report is JSON-serialisable via _json_safe (no NaN/inf)."""
         safe = _json_safe(empty_report)
@@ -546,6 +589,8 @@ class TestJsonSchemaStability:
         md = render_markdown(empty_report)
         assert isinstance(md, str)
         assert "ELITE Grading Report" in md
+        assert "## FantasyPros-Style Ordinal Accuracy Gap" in md
+        assert "## Ordinal Accuracy Gap — Season-to-Date" in md
 
     def test_position_table_row_keys(self):
         """build_position_table rows always have the expected keys."""
@@ -616,6 +661,159 @@ class TestIntegrationSmoke2024W10:
         assert "## Fantasy Consensus Gap" in md
         assert "## Cumulative Season-to-Date" in md
         assert "## Spread Line Capture" in md
+        assert "## FantasyPros-Style Ordinal Accuracy Gap" in md
+        assert "## Ordinal Accuracy Gap — Season-to-Date" in md
+
+    def test_ordinal_section_runs_with_real_numbers(self, report_2024_w10):
+        """2024 w10 has Gold + Sleeper + ESPN consensus locally, so the
+        ordinal section should compute real (non-empty) Accuracy Gap numbers
+        for QB/RB/WR/TE, ours vs at least one external source."""
+        ordinal = report_2024_w10["ordinal"]
+        assert ordinal["status"] in ("ok", "skipped")
+        if ordinal["status"] == "ok":
+            table = ordinal["week_table"]
+            assert table, "expected non-empty ordinal week_table for 2024 w10"
+            positions_seen = {row["position"] for row in table}
+            assert positions_seen, "expected at least one position in the ordinal table"
+            sources_seen = {row["source"] for row in table}
+            assert "ours" in sources_seen
+            # yahoo_proxy_fp isn't captured for 2024 (cron started 2026) —
+            # the fail-open path should record it as missing, not crash.
+            assert "yahoo_proxy_fp" in ordinal["sources_missing"]
+            for row in table:
+                assert row["accuracy_gap"] >= 0
+                assert row["n"] > 0
+
+
+# ---------------------------------------------------------------------------
+# 6b. Ordinal (FantasyPros-style) Accuracy Gap section tests
+# ---------------------------------------------------------------------------
+
+
+class TestOrdinalSection:
+    """Tests for _join_source_actuals, _build_ordinal_section,
+    _build_cumulative_ordinal_section — the FantasyPros-style ordinal
+    Accuracy Gap wiring (reuses scripts/simulate_fp_accuracy.py's
+    score_sources/build_ordinal_table, no metric duplication)."""
+
+    def test_join_source_actuals_basic(self):
+        gold = _make_ordinal_pool(n_per_pos=5)
+        actuals = _make_actuals_df(gold, noise_scale=2.0)
+        joined = _grading._join_source_actuals(gold, actuals, "projected_points", 2024, 10)
+        assert not joined.empty
+        assert set(["player_id", "player_name", "position", "season", "week", "proj_points", "actual_points"]).issubset(joined.columns)
+        assert (joined["season"] == 2024).all()
+        assert (joined["week"] == 10).all()
+
+    def test_join_source_actuals_empty_inputs(self):
+        assert _grading._join_source_actuals(pd.DataFrame(), pd.DataFrame(), "projected_points", 2024, 10).empty
+        gold = _make_ordinal_pool(n_per_pos=3)
+        assert _grading._join_source_actuals(gold, pd.DataFrame(), "projected_points", 2024, 10).empty
+
+    def test_ordinal_section_full_sources_ok(self):
+        """All sources present -> status ok, ours + sleeper + espn in the table."""
+        gold = _make_ordinal_pool(n_per_pos=25)
+        actuals = _make_actuals_df(gold, noise_scale=4.0)
+        sleeper = _make_consensus_df(gold, noise_scale=3.0)
+        espn = _make_consensus_df(gold, noise_scale=3.5)
+
+        section = _grading._build_ordinal_section(
+            gold_df=gold,
+            actuals_df=actuals,
+            external_consensus={"sleeper": sleeper, "espn": espn, "yahoo_proxy_fp": pd.DataFrame()},
+            season=2024,
+            week=10,
+        )
+        assert section["status"] == "ok"
+        sources_seen = {row["source"] for row in section["week_table"]}
+        assert "ours" in sources_seen
+        assert "sleeper" in sources_seen
+        assert "espn" in sources_seen
+        assert "yahoo_proxy_fp" not in sources_seen
+        assert section["sources_missing"] == ["yahoo_proxy_fp"]
+        for row in section["week_table"]:
+            assert not math.isnan(row["accuracy_gap"])
+            assert row["accuracy_gap"] >= 0
+
+    def test_ordinal_section_missing_source_fail_open(self):
+        """No external sources at all -> still 'ok' with ours alone, never a crash."""
+        gold = _make_ordinal_pool(n_per_pos=25)
+        actuals = _make_actuals_df(gold, noise_scale=4.0)
+
+        section = _grading._build_ordinal_section(
+            gold_df=gold,
+            actuals_df=actuals,
+            external_consensus={},
+            season=2024,
+            week=10,
+        )
+        assert section["status"] == "ok"
+        assert set(section["sources_missing"]) == {"sleeper", "espn", "yahoo_proxy_fp"}
+        sources_seen = {row["source"] for row in section["week_table"]}
+        assert sources_seen == {"ours"}
+
+    def test_ordinal_section_empty_gold_skipped(self):
+        section = _grading._build_ordinal_section(
+            gold_df=pd.DataFrame(),
+            actuals_df=_make_actuals_df(_make_ordinal_pool(n_per_pos=5)),
+            external_consensus={},
+            season=2024,
+            week=10,
+        )
+        assert section["status"] == "skipped"
+        assert "No Gold projections found" in section["reason"]
+
+    def test_ordinal_section_empty_actuals_skipped(self):
+        gold = _make_ordinal_pool(n_per_pos=5)
+        section = _grading._build_ordinal_section(
+            gold_df=gold,
+            actuals_df=pd.DataFrame(),
+            external_consensus={},
+            season=2024,
+            week=10,
+        )
+        assert section["status"] == "skipped"
+
+    def test_cumulative_ordinal_section_empty_data_root(self, tmp_path):
+        section = _grading._build_cumulative_ordinal_section(
+            data_root=str(tmp_path),
+            season=2024,
+            week=10,
+            scoring="half_ppr",
+        )
+        assert section["status"] == "skipped"
+        assert section["cumulative_ordinal_table"] == []
+
+    def test_build_ordinal_table_perfect_ranker_zero_gap(self):
+        """Sanity check on the imported simulate_fp_accuracy machinery: a
+        source whose rank order exactly matches the actual finish order
+        scores Accuracy Gap 0 for every player (mirrors simulate_fp_accuracy's
+        own --selftest assertion)."""
+        actual_points = [30.0, 20.0, 10.0, 5.0]
+        df = pd.DataFrame(
+            {
+                "player_id": ["a", "b", "c", "d"],
+                "player_name": ["A", "B", "C", "D"],
+                "position": ["QB"] * 4,
+                "season": [2024] * 4,
+                "week": [10] * 4,
+                "proj_points": actual_points,  # perfect order == actual order
+                "actual_points": actual_points,
+            }
+        )
+        table = build_ordinal_table({"ours": df})
+        assert table
+        for row in table:
+            assert row["accuracy_gap"] == pytest.approx(0.0, abs=1e-9)
+
+    def test_render_ordinal_rows_orders_ours_first(self):
+        table = [
+            {"position": "QB", "source": "espn", "accuracy_gap": 5.0, "n": 10},
+            {"position": "QB", "source": "ours", "accuracy_gap": 6.0, "n": 10},
+            {"position": "QB", "source": "sleeper", "accuracy_gap": 4.0, "n": 10},
+        ]
+        lines = _grading._render_ordinal_rows(table)
+        assert lines[0].split("|")[2].strip() == "Ours"
 
 
 # ---------------------------------------------------------------------------
