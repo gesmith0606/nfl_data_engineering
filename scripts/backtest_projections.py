@@ -467,6 +467,17 @@ def print_consensus_report(
 
     # Summary verdict
     overall_df = pos_data_all
+    if overall_df.empty:
+        # Non-vacuity guard: with zero rows, (NaN < -0.01) and (NaN > 0.01)
+        # are both False, so the branches below would silently fall through
+        # to "Ours matches consensus" — a fabricated verdict on no data.
+        # Report the emptiness explicitly instead (VACUOUS_GATE_AUDIT.md).
+        print(
+            "\nVERDICT (consensus subset, all positions): NO DATA — 0 rows "
+            f"in {', '.join(_CONSENSUS_POSITIONS)} after position filter; "
+            "cannot compare to consensus."
+        )
+        return
     our_mae_overall = (
         (overall_df["projected_points"] - overall_df["actual_points"]).abs().mean()
     )
@@ -612,7 +623,15 @@ def run_backtest(
             ).fillna(0.0)
         print(f"Loaded {len(snap_counts_df):,} snap-count rows across {len(snap_dfs)} season(s)")
     else:
-        print("No snap count data found — RB snap-collapse signal will be skipped")
+        # Loud on purpose (VACUOUS_GATE_AUDIT.md): the RB_SNAP_COLLAPSE
+        # correction silently no-op'd in every backtest for months because
+        # this was a plain print() buried in stdout with no gate reading it.
+        logger.warning(
+            "GATE COVERAGE: no local snap-count Bronze data found for any "
+            "backtest season — RB snap-collapse correction will be a SILENT "
+            "NO-OP for this entire run. Any MAE/verdict comparison below "
+            "does NOT exercise that lever."
+        )
 
     # Load route participation features (Silver graph_features) for WR slope-collapse
     silver_dir = os.path.join(project_root, "data", "silver")
@@ -628,7 +647,13 @@ def run_backtest(
     if route_df is not None:
         print(f"Loaded {len(route_df):,} route-participation rows for WR slope-collapse")
     else:
-        print("No route participation data found — WR slope-collapse signal will be skipped")
+        # Loud on purpose — same class of bug as the RB snap-collapse gap
+        # above (silent no-op correction; see VACUOUS_GATE_AUDIT.md).
+        logger.warning(
+            "GATE COVERAGE: no route-participation Silver data found for any "
+            "backtest season — WR route-slope-collapse correction will be a "
+            "SILENT NO-OP for this entire run."
+        )
 
     # Load graph_all_features for ranking score nudges (latest file per season).
     # All columns in graph_all_features are shift(1)-lagged in source modules —

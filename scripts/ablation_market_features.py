@@ -321,6 +321,38 @@ def compute_ship_or_skip(baseline_ats: float, ablation_ats: float) -> str:
     return "SKIP"
 
 
+def compute_ship_or_skip_gated(baseline: Dict[str, Any], ablation: Dict[str, Any]) -> str:
+    """Non-vacuity-gated wrapper around :func:`compute_ship_or_skip`.
+
+    ``evaluate_baseline``/``evaluate_ablation_model`` both return
+    ``ats_accuracy=0.0`` (with ``n_games=0``) when the holdout season has no
+    rows. ``0.0 > 0.0`` is False so an all-empty holdout currently ties to
+    SKIP, but only by accident of the two zeros comparing equal — that is
+    exactly the vacuous-gate class of bug (VACUOUS_GATE_AUDIT.md). Make the
+    population floor explicit instead of relying on the tie.
+
+    Args:
+        baseline: Dict from ``evaluate_baseline`` (must carry ``n_games``
+            and ``ats_accuracy``).
+        ablation: Dict from ``evaluate_ablation_model`` (same shape).
+
+    Returns:
+        "SHIP" or "SKIP". Always "SKIP" when either arm has zero holdout
+        games, regardless of the (meaningless) accuracy numbers.
+    """
+    baseline_n = baseline.get("n_games", 0)
+    ablation_n = ablation.get("n_games", 0)
+    if baseline_n == 0 or ablation_n == 0:
+        logger.error(
+            "VACUOUS GATE: holdout has 0 games (baseline n=%d, ablation n=%d) "
+            "-- forcing SKIP; ats_accuracy comparison is meaningless on empty data",
+            baseline_n,
+            ablation_n,
+        )
+        return "SKIP"
+    return compute_ship_or_skip(baseline["ats_accuracy"], ablation["ats_accuracy"])
+
+
 # ---------------------------------------------------------------------------
 # SHAP report formatting
 # ---------------------------------------------------------------------------
@@ -571,8 +603,8 @@ def run_ablation(
         ablation.get("profit_stats", {}).get("profit", 0.0),
     )
 
-    # Step 7: Ship or skip
-    verdict = compute_ship_or_skip(baseline["ats_accuracy"], ablation["ats_accuracy"])
+    # Step 7: Ship or skip (non-vacuity-gated; see compute_ship_or_skip_gated)
+    verdict = compute_ship_or_skip_gated(baseline, ablation)
 
     # Step 8: Format report
     shap_report = format_shap_report(selection_result.shap_scores, top_n=20)

@@ -368,9 +368,22 @@ def _overall_verdict(
     baseline_df: pd.DataFrame,
     treatment_df: pd.DataFrame,
     positions: List[str],
+    events_weeks: int,
 ) -> Tuple[str, List[Tuple[str, float, float, float]]]:
-    """Compute the SHIP / SKIP verdict and per-position aggregates."""
+    """Compute the SHIP / SKIP verdict and per-position aggregates.
+
+    Non-vacuity guard (per gated-experiment-coverage-check.md): when
+    ``events_weeks == 0`` the treatment arm is byte-identical to baseline by
+    construction (no events fired anywhere), so every position's delta is
+    trivially 0 <= _MAE_SLACK and the loop below would report ``SHIP`` even
+    though nothing was ever tested. That is exactly the Phase 61 incident —
+    "no regression possible" was read as a real pass. Force a distinct
+    ``NO_DATA`` verdict in that case so no downstream automation can mistake
+    an untested lever for a shipped one.
+    """
     per_pos = _metrics_by_position(baseline_df, treatment_df, positions)
+    if events_weeks == 0:
+        return "NO_DATA", [(p, b, t, d) for p, _, b, t, d in per_pos]
     verdict = "SHIP"
     for _, _, b_mae, t_mae, delta in per_pos:
         if delta > _MAE_SLACK:
@@ -436,7 +449,14 @@ def _write_markdown(
 
     lines.append(f"\n## Final verdict\n\n`verdict={verdict}`\n")
 
-    if verdict == "SHIP":
+    if verdict == "NO_DATA":
+        lines.append(
+            "\nZero weeks had Gold sentiment/event data for the backtest "
+            "window, so treatment equals baseline by construction — this is "
+            "**not** a real pass. Keep ``--use-events`` opt-in; do not "
+            "default to True on the strength of this run.\n"
+        )
+    elif verdict == "SHIP":
         lines.append(
             "\nTreatment did not regress beyond the slack threshold on any "
             "position — events may default to ON in "
@@ -452,12 +472,14 @@ def _write_markdown(
         lines.append(
             "\n> **Note:** Zero weeks had Gold sentiment/event data for the "
             "backtest window. Treatment equals baseline by construction, so "
-            "the verdict is structurally SHIP (no regression possible). "
-            "This reflects the data pipeline state at time of backtest — "
-            "sentiment Gold Parquet is only populated for 2025 W1 as of "
-            "Phase 61-02.  Re-run the backtest after the sentiment pipeline "
-            "has produced Gold data for 2022-2024 before relying on the "
-            "verdict for a ship decision.\n"
+            "``verdict=NO_DATA`` — this is a lever-firing-rate problem, not "
+            "a hypothesis rejection or a ship signal (see "
+            "gated-experiment-coverage-check.md). This reflects the data "
+            "pipeline state at time of backtest — sentiment Gold Parquet is "
+            "only populated for 2025 W1 as of Phase 61-02. Re-run the "
+            "backtest after the sentiment pipeline has produced Gold data "
+            "for 2022-2024 before relying on the verdict for a ship "
+            "decision.\n"
         )
 
     BACKTEST_MD.write_text("\n".join(lines) + "\n")
@@ -532,15 +554,10 @@ def main() -> int:
         print("ERROR: no backtest rows produced")
         return 1
 
-    verdict, per_pos = _overall_verdict(
-        baseline_df, treatment_df, args.positions
-    )
-    per_week = _compute_per_week_rows(
-        baseline_df, treatment_df, args.positions
-    )
-
-    # Recompute events coverage from the per-week rows already collected.
-    # If treatment != baseline anywhere we had events data for that week.
+    # Events coverage (lever firing rate) must be known BEFORE reading the
+    # verdict — per gated-experiment-coverage-check.md, report firing rate
+    # before any headline number. If treatment != baseline anywhere we had
+    # events data for that week.
     events_weeks = int(
         ((baseline_df["projected_points"] != treatment_df["projected_points"]))
         .groupby([baseline_df["season"], baseline_df["week"]])
@@ -548,6 +565,14 @@ def main() -> int:
         .sum()
     )
     total_weeks = int(baseline_df[["season", "week"]].drop_duplicates().shape[0])
+    print(f"\nLever firing rate: {events_weeks}/{total_weeks} weeks had event data")
+
+    verdict, per_pos = _overall_verdict(
+        baseline_df, treatment_df, args.positions, events_weeks
+    )
+    per_week = _compute_per_week_rows(
+        baseline_df, treatment_df, args.positions
+    )
 
     _write_markdown(
         per_week,

@@ -217,6 +217,15 @@ def main() -> None:
 
     rb = agg.loc["RB"]
     others = agg.drop("RB")
+    # Non-vacuity guard: reindex(POSITIONS) fills a fully-missing position
+    # with NaN rather than dropping the row, and NaN comparisons are always
+    # False, so a wholly-absent RB season fails closed today only by that
+    # accident of pandas semantics. Assert non-zero N explicitly rather than
+    # relying on it (VACUOUS_GATE_AUDIT.md; RB_SNAP_COLLAPSE incident class).
+    rb_n = combined.loc[combined["position"] == "RB", "n"].sum()
+    if pd.isna(rb["spearman_delta"]) or rb_n == 0:
+        print(f"\nGate: RB has 0 backtest rows across seasons {args.seasons} -> HOLD (no data)")
+        return
     rb_improves = rb["spearman_delta"] > 0 or rb["mae_delta"] < 0
     others_ok = (others["spearman_delta"] >= -0.005).all()
     print(
