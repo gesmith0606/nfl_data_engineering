@@ -181,6 +181,54 @@ REQUIREMENTS: tuple = (
         path_template="bronze/combine/season={season}",
         seasons=PLAYER_SEASONS,
     ),
+    # -- Bronze NGS/PFR-weekly/QBR + Silver players/advanced (audit finding
+    # #6, closed 2026-08-10 — see .planning/SILVER_REGEN_REPORT.md "2026-08-10"
+    # section). WARN-tier, not FAIL: all three have real, expected upstream
+    # gaps that aren't bugs — pfr_weekly only starts 2018 (nfl-data-py source
+    # range), and QBR stopped publishing weekly data for 2024+ upstream (ESPN
+    # side, confirmed via a real ingest attempt, not assumed). Requiring those
+    # missing seasons at FAIL tier would make this check permanently red for
+    # a condition nothing here can fix. players/advanced is WARN too since a
+    # season with roster data but no NGS/PFR/QBR upstream still legitimately
+    # writes a join-keys-only file (silver_advanced_transformation.py's
+    # documented degrade path) rather than failing outright.
+    Requirement(
+        id="bronze_ngs",
+        description="Next Gen Stats passing/rushing/receiving — players/advanced feature input (audit #6)",
+        tier="WARN",
+        committed=True,
+        path_template="bronze/ngs",
+        seasons=None,
+        glob="*/season=*/*.parquet",
+        min_files=3,
+    ),
+    Requirement(
+        id="bronze_pfr_weekly",
+        description="PFR weekly pass/rush/rec/def — players/advanced feature input (audit #6); nfl-data-py source starts 2018, no 2016-2017 upstream. Static/coarse check (not per-season): season lives nested under each pass/rush/rec/def sub_type dir, so glob can't be parameterized per-season the way path_template can.",
+        tier="WARN",
+        committed=True,
+        path_template="bronze/pfr/weekly",
+        seasons=None,
+        glob="*/season=*/*.parquet",
+        min_files=4,
+    ),
+    Requirement(
+        id="bronze_qbr",
+        description="ESPN QBR weekly — players/advanced QB feature input (audit #6); upstream stopped publishing weekly QBR for 2024+, confirmed via live ingest attempt (2026-08-10), not just absent locally",
+        tier="WARN",
+        committed=True,
+        path_template="bronze/qbr/season={season}",
+        seasons=tuple(s for s in PLAYER_SEASONS if s <= 2023),
+        glob="qbr_weekly_*.parquet",
+    ),
+    Requirement(
+        id="silver_players_advanced",
+        description="Silver advanced player profiles (NGS/PFR/QBR merged) — assemble_player_features() full-feature input (audit #4/#6)",
+        tier="WARN",
+        committed=True,
+        path_template="silver/players/advanced/season={season}",
+        seasons=PLAYER_SEASONS,
+    ),
     # -- Gold: prod-serving output.
     Requirement(
         id="gold_projections_preseason",

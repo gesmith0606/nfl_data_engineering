@@ -288,6 +288,14 @@ data/gold/*
 !data/silver/players/usage/
 !data/silver/players/usage/**
 !data/silver/players/usage/**/*.parquet
+# Advanced player profiles (NGS/PFR/QBR merged), 2026-08-10: previously
+# join-keys-only (0 feature columns) because Bronze ngs/pfr-weekly/qbr didn't
+# exist; now has 88-128 real ngs_/pfr_/qbr_ feature columns per season. This
+# is the full-feature input to assemble_player_features() in
+# src/player_feature_engineering.py. ~7.3 MB total (2016-2025).
+!data/silver/players/advanced/
+!data/silver/players/advanced/**
+!data/silver/players/advanced/**/*.parquet
 !data/silver/defense/
 !data/silver/defense/**
 !data/silver/defense/**/*.parquet
@@ -361,6 +369,19 @@ data/gold/*
 !data/bronze/pfr/seasonal/def/
 !data/bronze/pfr/seasonal/def/**
 !data/bronze/pfr/seasonal/def/**/*.parquet
+# NGS/PFR-weekly/QBR (2026-08-10, closes DATA_COMPLETENESS_AUDIT.md finding
+# #6): silver_advanced_transformation.py reads these for players/advanced —
+# without them every advanced feature column (ngs_/pfr_/qbr_) was NaN-only
+# (0 real columns). ~5.5 MB total (2016-2025, well under the 50 MB cap).
+!data/bronze/ngs/
+!data/bronze/ngs/**
+!data/bronze/ngs/**/*.parquet
+!data/bronze/pfr/weekly/
+!data/bronze/pfr/weekly/**
+!data/bronze/pfr/weekly/**/*.parquet
+!data/bronze/qbr/
+!data/bronze/qbr/**
+!data/bronze/qbr/**/*.parquet
 # Draft picks + combine (TD-08/09/10 pattern, 2026-08-09 completeness audit):
 # src/graph_college_networks.py:_read_bronze_draft_picks/_read_bronze_combine
 # read these paths with a silent empty-DataFrame fallback (no try/except

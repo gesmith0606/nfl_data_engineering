@@ -185,7 +185,187 @@ own framing (prod HF Spaces deploy is `git clone`-based, so "committed" == "ship
 
 - NGS/PFR-weekly/QBR bronze ingestion — needed for `players/advanced` to carry real features,
   not just join keys. Not attempted here (task scope was "run what's runnable, document the
-  rest").
+  rest"). **Closed 2026-08-10, see below.**
 - `data/silver/graph_features/` — audit finding #3, needs PBP bronze, explicitly out of scope.
 - The 2025 Bronze `players/weekly` schema difference (145 cols incl. defense, vs. 53
   offense-only in prior seasons) — noted here as a new observation, not investigated further.
+
+---
+
+# 2026-08-10 — NGS/PFR-weekly/QBR bronze ingested, `players/advanced` now has real features
+
+Closes the deferred item above and `DATA_COMPLETENESS_AUDIT.md` finding #6. Bronze `ngs/`,
+`qbr/` were entirely absent locally and `pfr/` only had `seasonal/def`; as a result every
+`players/advanced/season=Y/` file had 0 `ngs_`/`pfr_`/`qbr_` columns (join keys only) and the
+`--ml` full-feature path NaN-imputed every advanced feature. This task ingested all three
+Bronze types via `scripts/bronze_ingestion_simple.py`, re-ran
+`scripts/silver_advanced_transformation.py`, and verified the actual downstream consumer
+(`assemble_player_features()`).
+
+## Bronze ingestion — per-season row counts (registry names: `ngs`, `pfr_weekly`, `qbr --frequency weekly`)
+
+**NGS** (`--data-type ngs --seasons 2016-2025`, valid range 2016+): all 10 seasons × all 3
+sub-types succeeded, 30/30, exit 0.
+
+| Season | passing | rushing | receiving |
+|---|---|---|---|
+| 2016 | 573 | 579 | 1,601 |
+| 2017 | 575 | 595 | 1,422 |
+| 2018 | 578 | 594 | 1,419 |
+| 2019 | 576 | 588 | 1,418 |
+| 2020 | 581 | 596 | 1,520 |
+| 2021 | 608 | 618 | 1,575 |
+| 2022 | 603 | 617 | 1,466 |
+| 2023 | 620 | 623 | 1,473 |
+| 2024 | 614 | 601 | 1,435 |
+| 2025 | 605 | 648 | 1,402 |
+
+**PFR weekly** (`--data-type pfr_weekly --seasons 2018-2025`, valid range starts 2018 —
+`validate_season_for_type` hard-rejects 2016-2017 upfront, so those two seasons were not
+requested at all rather than requested-and-failing): all 8 seasons × all 4 sub-types
+succeeded, 32/32, exit 0. **2016-2017 have no PFR-weekly data upstream by design, not a bug.**
+
+| Season | pass | rush | rec | def |
+|---|---|---|---|---|
+| 2018 | 646 | 2,189 | 4,292 | 7,277 |
+| 2019 | 640 | 2,148 | 4,269 | 7,285 |
+| 2020 | 666 | 2,266 | 4,428 | 7,643 |
+| 2021 | 706 | 2,375 | 4,608 | 8,442 |
+| 2022 | 685 | 2,389 | 4,547 | 7,878 |
+| 2023 | 700 | 2,380 | 4,594 | 7,902 |
+| 2024 | 697 | 2,359 | 4,453 | 7,992 |
+| 2025 | 684 | 2,355 | 4,533 | 7,926 |
+
+**QBR** (`--data-type qbr --frequency weekly --seasons 2016-2025`): 8/10 seasons ingested,
+**2024 and 2025 skipped — 0 rows returned upstream** (`nfl.import_qbr` returned empty for
+both). This matches the task brief's documented caveat ("QBR 2024+ may be absent upstream,
+fail-open"); confirmed by a real ingest attempt against the live source, not assumed. Because
+2 of 10 season/variant combinations were empty but the other 8 succeeded, the script's exit-code
+contract (fail only on a *total* no-op) correctly returned **exit 0** — this is the "upstream
+has no data" case, not "broken."
+
+| Season | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Rows | 529 | 531 | 531 | 525 | 543 | 567 | 561 | 573 | **0 (skip)** | **0 (skip)** |
+
+## Sizes before allowlist decision (step 2 gate: skip allowlisting anything over 50 MB)
+
+| Bronze path | Size |
+|---|---|
+| `data/bronze/ngs/` | 2.8 MB |
+| `data/bronze/pfr/weekly/` | 2.4 MB |
+| `data/bronze/qbr/` | 332 KB |
+| **Total new Bronze** | **~5.5 MB** |
+
+All three are far under the 50 MB cap — all allowlisted (see below).
+
+## Silver `players/advanced` regen — `scripts/silver_advanced_transformation.py --seasons 2016..2025 --no-s3`
+
+All 10 seasons processed, exit 0, row counts unchanged from the 2026-08-09 run (row-count
+preservation asserted internally — this transform only adds columns, never drops/fans-out
+rows). Advanced feature-column count **went from 0 in every season to real merged columns**:
+
+| Season | Rows | Advanced cols (was 0) | NGS any-nonNaN | PFR-offense any-nonNaN | PFR-def any-nonNaN | QBR any-nonNaN |
+|---|---|---|---|---|---|---|
+| 2016 | 5,274 | 88 | 47.7% | n/a (pre-2018) | n/a (pre-2018) | 9.0% |
+| 2017 | 5,319 | 88 | 44.5% | n/a (pre-2018) | n/a (pre-2018) | 9.0% |
+| 2018 | 5,281 | 128 | 44.7% | 11.8% | 96.9% | 9.2% |
+| 2019 | 5,261 | 128 | 44.9% | 11.4% | 96.8% | 9.2% |
+| 2020 | 5,447 | 128 | 45.2% | 11.9% | 100.0% | 9.2% |
+| 2021 | 5,698 | 128 | 45.2% | 12.3% | 100.0% | 9.5% |
+| 2022 | 5,631 | 128 | 43.8% | 12.1% | 100.0% | 9.3% |
+| 2023 | 5,653 | 128 | 44.2% | 12.0% | 99.3% | 9.5% |
+| 2024 | 5,597 | 112 | 43.3% | 12.2% | 99.3% | n/a (upstream absent) |
+| 2025 | 19,421 | 112 | 12.5% | 3.4% | 99.5% | n/a (upstream absent) |
+
+"Any-nonNaN" = share of player-week rows with at least one non-null value across that
+source's columns (each source only applies to a subset of positions/plays — QBR is QB-only,
+NGS passing/rushing/receiving each apply to different position groups, PFR-offense pressure
+is QB-only, PFR-def blitz rate is team-level so it applies to nearly every roster row). 2025's
+lower percentages are the already-documented 2025 Bronze `players/weekly` schema difference
+(145 cols incl. defense/special-teams players vs. 53 offense-only in prior seasons) diluting
+the denominator — not a regression in this task's ingest.
+
+Column count breakdown: 88 = 2016-2017 (NGS 3 sources + QBR, no PFR since PFR-weekly starts
+2018); 128 = 2018-2023 (NGS + PFR-offense + PFR-def + QBR, full coverage); 112 = 2024-2025
+(NGS + PFR-offense + PFR-def, no QBR since it's absent upstream for those seasons).
+
+**Silver size**: `data/silver/players/advanced/` = 6.8 MB (10 files, one per season, after
+deleting the 10 stale 2026-08-09 join-keys-only files that were still sitting alongside the
+new ones — same cleanup pattern as the prior `players/usage` fix in this report).
+
+## Full-feature consumer proof — `assemble_player_features()`
+
+Before this task (per the 2026-08-09 section above): `players/advanced` had 0 `ngs_`/`pfr_`/
+`qbr_` columns in every season, so every advanced feature in the assembled feature vector was
+NaN — **0% non-NaN advanced-feature coverage**, unconditionally, regardless of which season.
+
+After (ran live, `src/player_feature_engineering.py::assemble_player_features`):
+
+| Season | Rows | Total cols | Advanced cols | Rows with ≥1 non-NaN advanced feature | Mean per-column non-NaN rate |
+|---|---|---|---|---|---|
+| 2020 | 3,822 | 580 | 131 | 100.0% | 26.1% |
+| 2024 | 3,989 | 564 | 115 | 99.9% | 27.7% |
+| 2025 | 4,085 | 659 | 115 | 100.0% | 27.1% |
+
+"Mean per-column non-NaN rate" is lower than "rows with ≥1 non-NaN" for the same reason as the
+Silver table above — each advanced source is position/context-specific, so no single column is
+expected to be near-100% on its own; what matters is that virtually every eligible player-week
+now carries *some* real advanced signal, versus strictly zero before.
+
+## `check_data_completeness.py` manifest update (step 5)
+
+Added four **WARN**-tier, `committed=True` entries (not FAIL — see inline comments in the
+script for why): `bronze_ngs` (coarse: ≥3 files anywhere under `data/bronze/ngs/`),
+`bronze_pfr_weekly` (coarse: ≥4 files anywhere under `data/bronze/pfr/weekly/`, static glob
+since PFR-weekly's season dir is nested under each pass/rush/rec/def sub-type dir and the
+checker doesn't support per-season `{season}` substitution inside `glob`, only inside
+`path_template`), `bronze_qbr` (per-season, 2016-2023 only — 2024-2025 deliberately excluded
+from the manifest since they're a confirmed real upstream gap, not a bug; including them would
+make the check permanently WARN-red for a condition nothing here can fix), and
+`silver_players_advanced` (per-season, all of `PLAYER_SEASONS` 2016-2025). WARN tier because a
+season with roster data but no NGS/PFR/QBR upstream still legitimately produces a join-keys-only
+`players/advanced` file (the documented degrade path in `silver_advanced_transformation.py`) —
+that's graceful, not a failure.
+
+`--local`: **108/108 PASS** (up from 88/88 pre-task — 20 new checks, all passing).
+`--ci`: **108/108 PASS** (all four new entries are `committed=True` since all four paths are
+allowlisted below and well under size caps).
+
+## `.gitignore` allowlist additions (TD-08/09/10 pattern, step 6)
+
+All four new/changed paths are small and genuinely consumed (Silver reads Bronze `ngs`/
+`pfr/weekly`/`qbr` directly; `assemble_player_features()` reads Silver `players/advanced`
+directly) — allowlisted per precedent:
+
+```
+!data/bronze/ngs/**/*.parquet          # 2.8 MB
+!data/bronze/pfr/weekly/**/*.parquet   # 2.4 MB
+!data/bronze/qbr/**/*.parquet          # 332 KB
+!data/silver/players/advanced/**/*.parquet   # 6.8 MB
+```
+
+Total newly-shippable data this task: **~12.3 MB**, well under the 50 MB precedent cap. All
+four paths are staged (`git add`), not committed, per this task's instructions.
+
+## Tests run
+
+```
+pytest tests/test_player_analytics.py tests/test_player_advanced_analytics.py \
+       tests/test_player_quality.py tests/test_feature_engineering.py \
+       tests/test_player_feature_engineering.py tests/test_check_data_completeness.py \
+       tests/test_bronze_exit_code.py tests/test_silver_exit_codes.py -q
+```
+**156 passed.** `scripts/check_data_completeness.py --local` and `--ci`: both 108/108 PASS.
+
+## What's still deferred (unchanged)
+
+- `data/silver/graph_features/` — audit finding #3, needs PBP bronze (100-400 MB/season),
+  explicitly out of scope for "cheap" ingestion.
+- QBR 2024-2025 weekly data — confirmed absent upstream (ESPN side), not something a re-ingest
+  can fix. Revisit only if/when ESPN resumes publishing it.
+- PFR-weekly 2016-2017 — out of `nfl-data-py`'s supported range for that data type (starts
+  2018), same as above: not a local gap, an upstream one.
+- The 2025 `players/weekly` wide-schema note from the 2026-08-09 section remains unresolved
+  and continues to dilute 2025's advanced-feature coverage percentages (documented above, not
+  a new issue introduced by this task).
