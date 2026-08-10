@@ -144,7 +144,8 @@ def _try_s3_upload(df: pd.DataFrame, bucket: str, key: str) -> bool:
         os.remove(tmp)
         print(f"    Uploaded -> s3://{bucket}/{key}")
         return True
-    except Exception:
+    except Exception as e:
+        print(f"    WARNING: S3 upload failed for {key}: {e}")
         return False
 
 
@@ -152,10 +153,17 @@ def _try_s3_upload(df: pd.DataFrame, bucket: str, key: str) -> bool:
 # Main transform logic
 # ---------------------------------------------------------------------------
 
-def run_silver_transform(seasons: list, week: Optional[int], s3_bucket: Optional[str] = None):
-    """Read Bronze data, transform, and write to Silver layer."""
+def run_silver_transform(seasons: list, week: Optional[int], s3_bucket: Optional[str] = None) -> list:
+    """Read Bronze data, transform, and write to Silver layer.
+
+    Returns:
+        List of seasons that produced zero output rows (fetch failure or no
+        player weekly data found) -- the caller uses this to decide the
+        process exit code.
+    """
     fetcher = NFLDataFetcher()
     ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+    failed_seasons = []
 
     for season in seasons:
         print(f"\n{'='*60}")
@@ -173,10 +181,12 @@ def run_silver_transform(seasons: list, week: Optional[int], s3_bucket: Optional
                 weekly_df = fetcher.fetch_player_weekly([season], week=week)
             except Exception as e:
                 print(f"    ERROR: {e}")
+                failed_seasons.append(season)
                 continue
 
         if weekly_df.empty:
             print("    No player weekly data found, skipping.")
+            failed_seasons.append(season)
             continue
         weekly_df = _prepare_weekly_data(weekly_df)
         print(f"    Loaded {len(weekly_df):,} rows")
@@ -260,6 +270,7 @@ def run_silver_transform(seasons: list, week: Optional[int], s3_bucket: Optional
         print(f"  Season {season} complete: {len(transformed):,} player-week rows transformed")
 
     print("\nSilver transformation complete.")
+    return failed_seasons
 
 
 # ---------------------------------------------------------------------------
@@ -294,7 +305,20 @@ def main():
     print(f"Seasons: {seasons}" + (f", Week: {args.week}" if args.week else ""))
     print(f"Storage: local" + (f" + S3 ({s3_bucket})" if s3_bucket else ""))
 
-    run_silver_transform(seasons, args.week, s3_bucket)
+    failed_seasons = run_silver_transform(seasons, args.week, s3_bucket)
+    if failed_seasons:
+        if len(failed_seasons) == len(seasons):
+            print(
+                f"::error::Silver player transformation FAILED: all "
+                f"{len(seasons)} requested season(s) produced zero output "
+                f"rows: {failed_seasons}"
+            )
+            return 1
+        print(
+            f"::warning::Silver player transformation PARTIAL FAILURE -- "
+            f"{len(failed_seasons)}/{len(seasons)} season(s) produced zero "
+            f"output rows: {failed_seasons}"
+        )
     return 0
 
 

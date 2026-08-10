@@ -366,6 +366,7 @@ def main():
         variants = [(None, None)]  # single pass
 
     total = len(season_list)
+    grand_ingested = 0
     for variant_key, variant_val in variants:
         # Set the variant on args for _build_method_kwargs
         if variant_key == "sub_type":
@@ -517,8 +518,23 @@ def main():
         total_attempted = ingested + skipped
         skip_detail = f", {skipped} skipped: empty data" if skipped else ""
         print(f"\n{ingested}/{total_attempted} seasons ingested{skip_detail}")
+        grand_ingested += ingested
 
     print(f"\nBatch ingestion finished.")
+
+    # --- Fail hard on a total no-op run (every requested season/variant was
+    # empty) so weekly-pipeline.yml / weekly-reference-refresh.yml can catch
+    # it via exit code. A legitimately-empty in-progress season is fine as
+    # long as SOME season/variant produced data -- only a fully empty run
+    # is treated as a failure. ---
+    if grand_ingested == 0:
+        print(
+            f"::error::Bronze ingestion produced 0 ingested rows for "
+            f"data-type={args.data_type} seasons={season_list} -- every "
+            f"requested season/variant returned empty data"
+        )
+        return 1
+
     return 0
 
 

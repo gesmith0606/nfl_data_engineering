@@ -260,3 +260,79 @@ rankings, and `gold/sentiment/`. Season/week expectations come straight from
   FAIL-tier season, WARN-tier miss (non-blocking), row-floor catches an
   empty-but-present file, `--ci` skips uncommitted entries, dynamic
   latest-weekly-partition resolution, and end-to-end `main()` exit codes.
+
+## Fix round (findings 1-4) — 2026-08-09
+
+A separate silent-failure sweep of the ingestion/transformation CLI *processes
+themselves* (not the data-existence gate above) found four issues, all now
+fixed: none of the Bronze/Silver CLI scripts' `main()` functions ever
+propagated per-run failure into the process exit code, two duplicated
+S3-upload helpers swallowed exceptions with zero logging, and one workflow
+had a matrix step and a commit step that could both fail without any visible
+signal. Data was not touched — `check_data_completeness.py --local` still
+reports 88/88 PASS after these changes.
+
+1. **`scripts/bronze_ingestion_simple.py` `main()` always returned 0.**
+   Fixed: a `grand_ingested` counter now accumulates `ingested` across every
+   season/variant in the run. If it is still `0` after the full run (every
+   requested season/variant returned empty data), `main()` prints an
+   `::error::` line and returns `1`. Per-season skip behavior is unchanged —
+   a run where *some* season/variant succeeded still returns `0`, preserving
+   the existing "legitimately-empty in-progress week" tolerance.
+   **Contract**: exit 1 only on a total no-op run for the requested
+   data-type; exit 0 otherwise (unchanged).
+
+2. **Five Silver transformation scripts' `main()` always returned 0.**
+   `silver_player_transformation.py`, `silver_team_transformation.py`,
+   `silver_game_context_transformation.py`,
+   `silver_player_quality_transformation.py`, and
+   `silver_advanced_transformation.py` now track which requested seasons
+   produced zero output rows (`run_silver_transform` /
+   `run_silver_team_transform` / `run_game_context_transform` return a
+   `failed_seasons` list; the other two check `transform_season`/
+   `process_season`'s per-season return value inline). `main()` returns `1`
+   with an `::error::` line only when *every* requested season failed;
+   a partial failure prints an unmissable `::warning::` naming the failed
+   seasons but still returns `0`, preserving the existing multi-season
+   fail-open design. `silver_advanced_transformation.py` specifically does
+   **not** count a season with NGS/QBR bronze absent as failed — that
+   legitimately returns rows with NaN advanced columns (see
+   `SILVER_REGEN_REPORT.md`); only "no roster data at all" counts.
+   **Contract**: exit 1 iff `len(failed_seasons) == len(requested_seasons)`;
+   exit 0 + `::warning::` on partial failure; exit 0 clean otherwise.
+
+3. **`_try_s3_upload()` swallowed all exceptions with zero logging** in
+   `silver_player_transformation.py`, `silver_advanced_transformation.py`,
+   `silver_team_transformation.py`, and
+   `silver_game_context_transformation.py` (`silver_market_transformation.py`
+   already logged the exception, just not the key). All five now print a
+   `WARNING: S3 upload failed for {key}: {e}`-style message inside the
+   `except` block before returning `False`. Call sites are untouched — they
+   already discard the bool and fall back to the local Parquet copy, which
+   is correct local-first behavior; the fix is visibility, not control flow.
+
+4. **`.github/workflows/weekly-external-projections.yml`** had two silent
+   gaps: (a) the `ingest` matrix job's per-source step is
+   `continue-on-error: true` with no annotation on failure — fixed by
+   appending `|| echo "::warning::${{ matrix.source }} ingest failed..."`
+   to the step; (b) the `consolidate` job (`if: always()`) committed
+   Silver output regardless of whether any fresh Bronze rows arrived this
+   run — a run where every ingest source failed could still commit a Silver
+   file re-derived from stale, previously-committed Bronze data, because the
+   new file's timestamped name always differs from the old one. Fixed with a
+   pre-commit freshness gate: a `git ls-files` baseline count taken before
+   `actions/download-artifact`, compared against an on-disk count taken
+   after; when the delta is `<= 0`, the `Consolidate to Silver` and `Commit
+   Silver` steps are skipped (`if: steps.freshness.outputs.skip != 'true'`)
+   with an `::warning::`, and the workflow still succeeds — no fail-hard
+   escalation added here since `freshness-monitor.yml` already watches
+   staleness separately.
+
+**Tests**: `tests/test_bronze_exit_code.py` (4 tests, TDD red→green against
+the pre-fix `bronze_ingestion_simple.py`), `tests/test_silver_exit_codes.py`
+(13 tests covering all-fail/partial-fail/clean-success for all five Silver
+scripts, plus the NaN-columns-is-success and zero-row-DataFrame-is-failure
+edge cases), `tests/test_weekly_external_projections_workflow.py` (6 tests,
+`yaml.safe_load` structural checks for both the warning annotation and the
+freshness gate). Full suite: `3586 passed, 23 skipped` (no regressions).
+`check_data_completeness.py --local`: 88/88 PASS (data untouched).

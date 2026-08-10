@@ -111,7 +111,8 @@ def _try_s3_upload(df: pd.DataFrame, bucket: str, key: str) -> bool:
         os.remove(tmp)
         print(f"    Uploaded -> s3://{bucket}/{key}")
         return True
-    except Exception:
+    except Exception as e:
+        print(f"    WARNING: S3 upload failed for {key}: {e}")
         return False
 
 
@@ -122,7 +123,7 @@ def _try_s3_upload(df: pd.DataFrame, bucket: str, key: str) -> bool:
 
 def run_game_context_transform(
     seasons: list, s3_bucket: Optional[str] = None
-) -> None:
+) -> list:
     """Read Bronze schedules data, compute game context, and write to Silver.
 
     Processes seasons in ascending order so that prior-season coaching context
@@ -137,12 +138,17 @@ def run_game_context_transform(
     Args:
         seasons: List of NFL season years to process.
         s3_bucket: S3 bucket name for Silver layer. None to skip S3 upload.
+
+    Returns:
+        List of seasons that produced zero output rows (no schedules data or
+        no game context) -- the caller uses this to decide the exit code.
     """
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     # Sort ascending -- critical for coaching tenure across season boundaries
     seasons = sorted(seasons)
     prior_season_df = None
+    failed_seasons = []
 
     for season in seasons:
         print(f"\n{'=' * 60}")
@@ -155,6 +161,7 @@ def run_game_context_transform(
         if schedules_df.empty:
             print(f"    WARNING: No schedules data found for season {season}, skipping.")
             prior_season_df = None
+            failed_seasons.append(season)
             continue
         print(f"    Loaded {len(schedules_df):,} games")
 
@@ -164,6 +171,7 @@ def run_game_context_transform(
         if context_df.empty:
             print("    WARNING: No game context produced, skipping.")
             prior_season_df = schedules_df
+            failed_seasons.append(season)
             continue
         print(
             f"    Game context: {len(context_df):,} rows, "
@@ -213,6 +221,7 @@ def run_game_context_transform(
         prior_season_df = schedules_df
 
     print("\nSilver game context transformation complete.")
+    return failed_seasons
 
 
 # ---------------------------------------------------------------------------
@@ -257,7 +266,20 @@ def main() -> int:
     print(f"Seasons: {seasons}")
     print(f"Storage: local" + (f" + S3 ({s3_bucket})" if s3_bucket else ""))
 
-    run_game_context_transform(seasons, s3_bucket)
+    failed_seasons = run_game_context_transform(seasons, s3_bucket)
+    if failed_seasons:
+        if len(failed_seasons) == len(seasons):
+            print(
+                f"::error::Silver game context transformation FAILED: all "
+                f"{len(seasons)} requested season(s) produced zero output "
+                f"rows: {failed_seasons}"
+            )
+            return 1
+        print(
+            f"::warning::Silver game context transformation PARTIAL FAILURE -- "
+            f"{len(failed_seasons)}/{len(seasons)} season(s) produced zero "
+            f"output rows: {failed_seasons}"
+        )
     return 0
 
 

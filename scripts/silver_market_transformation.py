@@ -90,7 +90,7 @@ def _try_s3_upload(df: pd.DataFrame, bucket: str, key: str) -> None:
         s3.put_object(Bucket=bucket, Key=key, Body=buf.getvalue())
         print(f"    Uploaded -> s3://{bucket}/{key}")
     except Exception as e:
-        print(f"    S3 upload skipped: {e}")
+        print(f"    WARNING: S3 upload failed for {key}: {e}")
 
 
 # ---------------------------------------------------------------------------

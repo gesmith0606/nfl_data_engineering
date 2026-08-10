@@ -466,6 +466,7 @@ def main() -> int:
     print(f"Seasons: {seasons}")
 
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    failed_seasons = []
 
     for season in seasons:
         print(f"\n{'=' * 60}")
@@ -473,7 +474,8 @@ def main() -> int:
         print("=" * 60)
 
         result = transform_season(season)
-        if result is None:
+        if result is None or len(result) == 0:
+            failed_seasons.append(season)
             continue
 
         # Save to Silver
@@ -483,6 +485,20 @@ def main() -> int:
         print(f"  Season {season} complete.")
 
     print("\nSilver player quality transformation complete.")
+
+    if failed_seasons:
+        if len(failed_seasons) == len(seasons):
+            print(
+                f"::error::Silver player quality transformation FAILED: all "
+                f"{len(seasons)} requested season(s) produced zero output "
+                f"rows: {failed_seasons}"
+            )
+            return 1
+        print(
+            f"::warning::Silver player quality transformation PARTIAL "
+            f"FAILURE -- {len(failed_seasons)}/{len(seasons)} season(s) "
+            f"produced zero output rows: {failed_seasons}"
+        )
     return 0
 
 

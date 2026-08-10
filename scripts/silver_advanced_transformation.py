@@ -148,7 +148,8 @@ def _try_s3_upload(df: pd.DataFrame, bucket: str, key: str) -> bool:
         os.remove(tmp)
         print(f"    Uploaded -> s3://{bucket}/{key}")
         return True
-    except Exception:
+    except Exception as e:
+        print(f"    WARNING: S3 upload failed for {key}: {e}")
         return False
 
 
@@ -574,6 +575,21 @@ def main() -> int:
             print(w)
     print("\nSilver advanced player transformation complete.")
 
+    # NOTE: a season with roster data but missing NGS/QBR bronze is NOT a
+    # failure here -- process_season() still returns rows with those columns
+    # NaN (see .planning/SILVER_REGEN_REPORT.md). Only "no roster data at
+    # all" (process_season() returned None) counts toward failed_seasons.
+    if warnings:
+        if len(results) == 0:
+            print(
+                f"::error::Silver advanced transformation FAILED: all "
+                f"{len(seasons)} requested season(s) had no roster data"
+            )
+            return 1
+        print(
+            f"::warning::Silver advanced transformation PARTIAL FAILURE -- "
+            f"{len(warnings)}/{len(seasons)} season(s) had no roster data"
+        )
     return 0
 
 

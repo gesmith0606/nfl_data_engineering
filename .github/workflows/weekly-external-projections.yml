@@ -70,7 +70,8 @@ jobs:
           python scripts/ingest_external_projections_${{ matrix.source }}.py \
             --season ${{ steps.resolve.outputs.season }} \
             --week ${{ steps.resolve.outputs.week }} \
-            --scoring ${{ github.event.inputs.scoring || 'half_ppr' }}
+            --scoring ${{ github.event.inputs.scoring || 'half_ppr' }} \
+          || echo "::warning::${{ matrix.source }} ingest failed (see step logs above)"
 
       - name: Upload Bronze artifacts
         if: always()
@@ -112,13 +113,33 @@ jobs:
           echo "season=$SEASON" >> $GITHUB_OUTPUT
           echo "week=$WEEK" >> $GITHUB_OUTPUT
 
+      - name: Count baseline Bronze files (pre-download)
+        id: baseline
+        run: |
+          COUNT=$(git ls-files data/bronze/external_projections | wc -l)
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+
       - name: Download all Bronze artifacts
         uses: actions/download-artifact@v8
         with:
           path: data/bronze/external_projections/
           merge-multiple: true
 
+      - name: Check for fresh Bronze data
+        id: freshness
+        run: |
+          ON_DISK=$(find data/bronze/external_projections -type f | wc -l)
+          FRESH=$(( ON_DISK - ${{ steps.baseline.outputs.count }} ))
+          echo "fresh_files=$FRESH" >> $GITHUB_OUTPUT
+          if [ "$FRESH" -le 0 ]; then
+            echo "::warning::No fresh Bronze external-projections files arrived this run (all matrix ingest sources failed or returned 0 rows) -- skipping Silver consolidation and commit."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Consolidate to Silver
+        if: steps.freshness.outputs.skip != 'true'
         run: |
           python scripts/silver_external_projections_transformation.py \
             --season ${{ steps.resolve.outputs.season }} \
@@ -126,6 +147,7 @@ jobs:
             --scoring ${{ github.event.inputs.scoring || 'half_ppr' }}
 
       - name: Commit Silver
+        if: steps.freshness.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
