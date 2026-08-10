@@ -68,19 +68,37 @@ def _prepare_snap_data(snap_df: pd.DataFrame, weekly_df: pd.DataFrame) -> pd.Dat
         # 'player_display_name' instead (bug found 2026-08-09: snap_pct was
         # silently 100% NaN in every season's Silver usage output because of
         # this format mismatch).
-        id_map = weekly_df.dropna(subset=['player_id']).drop_duplicates('player_id')[
-            ['player_id', 'player_display_name']
-        ].copy()
-        # snap counts use 'player' (display name) and 'team'
+        # Display names are NOT unique league-wide (two Aaron Brewers, two
+        # Byron Youngs, ...) -- a name-only join fans out same-name players
+        # into duplicate rows (332 duplicate player_ids blocked the 2026-08-10
+        # pipeline run). Join on (display name, team) instead; keep one row
+        # per (player_id, team) so mid-season team changes map per-stint.
+        id_map = weekly_df.dropna(subset=['player_id']).drop_duplicates(
+            ['player_id', 'recent_team']
+        )[['player_id', 'player_display_name', 'recent_team']].copy()
+        before = len(snap)
         snap = snap.merge(
-            id_map, left_on='player', right_on='player_display_name', how='left',
+            id_map,
+            left_on=['player', 'team'],
+            right_on=['player_display_name', 'recent_team'],
+            how='left',
         )
+        # Same name AND same team resolving to two ids is data corruption;
+        # keep the first rather than double-count snaps, but say so.
+        key_cols = [c for c in ('player', 'team', 'week', 'game_id') if c in snap.columns]
+        fanned = snap.duplicated(subset=key_cols).sum()
+        if fanned:
+            print(f"WARNING: snap join fan-out on {fanned} row(s) despite name+team key -- keeping first")
+            snap = snap.drop_duplicates(subset=key_cols)
         # Drop unmatched rows: leaving null player_id here would let pandas
         # cross-join them against any null-keyed weekly rows in the downstream
         # usage merge (pandas treats NaN==NaN as a match), silently multiplying
         # row counts -- this is exactly what happened for season 2025, which
         # has a handful of null-player_id trailer rows in Bronze weekly.
         snap = snap.dropna(subset=['player_id'])
+        match_rate = len(snap) / before if before else 1.0
+        if match_rate < 0.80:
+            print(f"WARNING: GATE COVERAGE: snap join matched only {match_rate:.0%} of {before} rows")
     return snap
 
 
