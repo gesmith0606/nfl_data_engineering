@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "52ca7e08-a774-40f9-88f0-0bf1d23895e9",
+  "source": "rotowire",
+  "fetched_at": "2026-08-10T12:23:18.705207+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633059",
+      "url": "https://www.rotowire.com//football/player/hunter-henry-10735",
+      "permalink": "",
+      "title": "Hunter Henry: Agrees to two-year extension",
+      "body_text": "Henry has agreed to a two-year extension with the Patriots, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-10T05:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hunter Henry",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033090"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl633058",
+      "url": "https://www.rotowire.com//football/player/luther-burden-18548",
+      "permalink": "",
+      "title": "Luther Burden: Expected to miss one month",
+      "body_text": "Burden (groin) is expected to be sidelined for roughly one month, Matt Zenitz of CBSSports.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-09T09:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633043",
+      "url": "https://www.rotowire.com//football/player/jordan-addison-16895",
+      "permalink": "",
+      "title": "Jordan Addison: Nearing full participation",
+      "body_text": "Addison (thumb) is expected to be close to a full participant at the Vikings' night practice Sunday, Ben Goessling of The Minnesota Star Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-09T03:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison",
+        "Ben Goessling",
+        "The Minnesota",
+        "Star Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl633008",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: Strong practice Sunday",
+      "body_text": "Tate was a standout in team drills during Sunday's training camp practice, Terry McCormick of TitanInsider.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-09T11:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate",
+        "Sunday Tate"
+      ],
+      "resolved_player_ids": [
+        "00-0041438"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633001",
+      "url": "https://www.rotowire.com//football/player/luther-burden-18548",
+      "permalink": "",
+      "title": "Luther Burden: Will miss time with groin injury",
+      "body_text": "Burden is expected to \"miss a little bit of time\" due to a groin injury that he sustained during Saturday's training camp practice, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-09T10:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": null
+    }
+  ]
+}

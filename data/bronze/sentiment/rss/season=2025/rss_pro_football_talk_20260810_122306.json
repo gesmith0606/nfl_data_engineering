@@ -1,0 +1,514 @@
+{
+  "fetch_run_id": "4a6ebe02-121e-43a8-a07b-407d284d16b8",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-10T12:23:06.556879+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hunter-henry-patriots-agree-on-two-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hunter-henry-patriots-agree-on-two-year-extension",
+      "title": "Hunter Henry, Patriots agree on two-year extension",
+      "body_text": "Tight end Hunter Henry has spent the last five seasons in New England and his run is set to continue beyond the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T12:19:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Hunter Henry",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0033090"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-well-know-more-about-laremy-tunsils-timeline-after-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-well-know-more-about-laremy-tunsils-timeline-after-surgery",
+      "title": "Dan Quinn: We'll know more about Laremy Tunsil's timeline after surgery",
+      "body_text": "Commanders head coach Dan Quinn opened his Monday press conference by discussing the injury that forced left tackle Laremy Tunsil out of practice on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T12:12:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Quinn",
+        "Laremy Tunsil"
+      ],
+      "resolved_player_ids": [
+        "00-0032380"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-not-sure-whats-going-on-with-trade-request-just-want-to-help-the-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-not-sure-whats-going-on-with-trade-request-just-want-to-help-the-team",
+      "title": "Anthony Richardson: Not sure what's going on with trade request, just want to help the team",
+      "body_text": "Colts quarterback Anthony Richardson was fighting for a starting job at this time last year and he's in another competition as the team heads into its first preseason game of this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T12:02:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-safety-brandon-jones-goes-3-for-4-filling-in-for-kicker-wil-lutz-at-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-safety-brandon-jones-goes-3-for-4-filling-in-for-kicker-wil-lutz-at-training-camp",
+      "title": "Broncos safety Brandon Jones goes 3-for-4 filling in for kicker Wil Lutz at training camp",
+      "body_text": "The Broncos have only one kicker on their 90-man roster: Wil Lutz, who missed Saturday's practice to attend former teammate Drew Brees' induction into the Pro Football Hall of Fame.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-10T09:08:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Jones",
+        "Wil Lutz",
+        "The Broncos",
+        "Drew Brees",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0036221",
+        "00-0032569",
+        "00-0020531"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-expect-luther-burden-to-miss-about-a-month-be-ready-for-week-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-expect-luther-burden-to-miss-about-a-month-be-ready-for-week-one",
+      "title": "Bears expect Luther Burden to miss about a month, be ready for Week One",
+      "body_text": "Burden suffered a groin injury in practice on Saturday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-10T07:33:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Luther Burden",
+        "Week One"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-cb-terrion-arnold-visits-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-cb-terrion-arnold-visits-seahawks",
+      "title": "Free agent CB Terrion Arnold visits Seahawks",
+      "body_text": "Free agent cornerback Terrion Arnold visited the Seahawks on Sunday, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T01:41:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "Seahawks Free",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-worked-out-free-agent-cb-trevon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-worked-out-free-agent-cb-trevon-diggs",
+      "title": "Lions worked out free agent CB Trevon Diggs",
+      "body_text": "The Lions worked out free agent cornerback Trevon Diggs, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T00:32:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevon Diggs",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0036361"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-agree-to-terms-with-s-jt-woods",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-agree-to-terms-with-s-jt-woods",
+      "title": "Report: Giants agree to terms with S JT Woods",
+      "body_text": "The Giants are signing safety JT Woods, Aaron Wilson of KPRC reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T00:06:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Woods The",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-wr-kisean-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-wr-kisean-johnson",
+      "title": "Packers sign WR Kisean Johnson",
+      "body_text": "The Packers announced three roster on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-09T23:31:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kisean Johnson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0040616"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-believes-rookie-demond-claiborne-is-a-special-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-believes-rookie-demond-claiborne-is-a-special-back",
+      "title": "Aaron Jones believes rookie Demond Claiborne is a \"special back\"",
+      "body_text": "The running game has largely been an afterthought during Kevin O'Connell's first four years as the Vikings' head coach.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T22:57:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Jones",
+        "Demond Claiborne"
+      ],
+      "resolved_player_ids": [
+        "00-0033293",
+        "00-0041104"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-decision-is-currently-expected-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-decision-is-currently-expected-this-week",
+      "title": "Aaron Donald decision is currently expected this week",
+      "body_text": "Donald will take a little more time to make his play-or-don't-play call.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T22:33:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-altmyer-a-joy-to-spend-time-with-teddy-bridgewater-his-retirement-creates-opportunity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-altmyer-a-joy-to-spend-time-with-teddy-bridgewater-his-retirement-creates-opportunity",
+      "title": "Luke Altmyer: A joy to spend time with Teddy Bridgewater, his retirement creates opportunity",
+      "body_text": "Rookie quarterback Luke Altmyer is set to see a lot of action in the Lions' first preseason game.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-09T21:16:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Luke Altmyer",
+        "Teddy Bridgewater"
+      ],
+      "resolved_player_ids": [
+        "00-0041453",
+        "00-0031237"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-db-beanie-bishop",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-db-beanie-bishop",
+      "title": "Bears sign DB Beanie Bishop",
+      "body_text": "The Bears continue to be busy adding defensive backs to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-09T20:44:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Beanie Bishop",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039454"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-teddy-bridgewater-on-reserve-retired-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-teddy-bridgewater-on-reserve-retired-list",
+      "title": "Lions put Teddy Bridgewater on reserve/retired list",
+      "body_text": "Bridgewater stepped away from the team on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-09T20:36:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Teddy Bridgewater"
+      ],
+      "resolved_player_ids": [
+        "00-0031237"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-is-sued-for-not-making-payments-on-a-2021-porsche-lease",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-is-sued-for-not-making-payments-on-a-2021-porsche-lease",
+      "title": "Trent Williams is sued for not making payments on a 2021 Porsche lease",
+      "body_text": "Although it's hard to envision 49ers tackle Trent Williams fitting inside a Porsche 911, he leased one in 2021.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T20:10:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0027857"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-will-sign-josh-dobbs-to-replace-teddy-bridgewater",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-will-sign-josh-dobbs-to-replace-teddy-bridgewater",
+      "title": "Lions will sign Josh Dobbs to replace Teddy Bridgewater",
+      "body_text": "A rocket scientist is heading to the Motor City.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T19:44:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Dobbs",
+        "Teddy Bridgewater",
+        "Motor City"
+      ],
+      "resolved_player_ids": [
+        "00-0031237"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahans-recent-concussion-changes-his-perspective-on-head-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahans-recent-concussion-changes-his-perspective-on-head-injuries",
+      "title": "Kyle Shanahan's recent concussion changes his perspective on head injuries",
+      "body_text": "For most coaches, the issue of player concussions requires sympathy.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T19:15:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-starters-will-play-saturday-night-against-the-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-starters-will-play-saturday-night-against-the-bills",
+      "title": "Panthers starters will play Saturday night against the Bills",
+      "body_text": "The Panthers opened their preseason slate in the Pro Football Hall of Fame.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-09T18:55:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bills The",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-bring-back-wr-d-j-montgomery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-bring-back-wr-d-j-montgomery",
+      "title": "Colts bring back WR D.J. Montgomery",
+      "body_text": "The Colts signed free agent wide receiver D.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-09T18:46:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Montgomery The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-guard-dillon-radunz-is-out-for-the-year-with-torn-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-guard-dillon-radunz-is-out-for-the-year-with-torn-acl",
+      "title": "Saints guard Dillon Radunz is out for the year with torn ACL",
+      "body_text": "The Saints have lost another player to a torn ACL.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T18:43:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dillon Radunz",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0036619"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-s-xavier-williams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-s-xavier-williams",
+      "title": "Bucs sign S Xavier Williams",
+      "body_text": "The Buccaneers signed safety Xavier Williams on Sunday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-09T18:37:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Xavier Williams",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0031713"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-former-ufl-players-shawn-bowman-eugene-asante",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-former-ufl-players-shawn-bowman-eugene-asante",
+      "title": "Cardinals sign former UFL players Shawn Bowman, Eugene Asante",
+      "body_text": "The Cardinals signed tight end Shawn Bowman and linebacker Eugene Asante on Sunday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-09T18:29:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shawn Bowman",
+        "Eugene Asante",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0039550",
+        "00-0040299"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-luther-burden-to-miss-time-with-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-luther-burden-to-miss-time-with-groin-injury",
+      "title": "Report: Luther Burden to miss time with groin injury",
+      "body_text": "Bears receiver Luther Burden exited practice early on Saturday, and now there is more information about his status.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-09T18:06:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Luther Burden"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-mike-vrabel-dianna-russini-scandal-will-get-quiet-if-patriots-win-games-loud-if-they-lose",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-mike-vrabel-dianna-russini-scandal-will-get-quiet-if-patriots-win-games-loud-if-they-lose",
+      "title": "Mike Tomlin: Mike Vrabel-Dianna Russini scandal will get quiet if Patriots win games, loud if they lose",
+      "body_text": "In the same week that Steelers quarterback Aaron Rodgers literally crapped on ESPN, while appearing on ESPN, for not sufficiently covering the Mike Vrabel-Dianna Russini situation, former Steelers coach Mike Tomlin addressed the issue during his debut on NBC.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T18:01:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Tomlin",
+        "Mike Vrabel",
+        "Dianna Russini",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0023459"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-groin-injury-is-not-considered-serious",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-groin-injury-is-not-considered-serious",
+      "title": "Josh Downs' groin injury is not considered serious",
+      "body_text": "There is some positive news on the injury front for the Colts.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-09T17:58:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/grass-at-new-bills-stadium-drew-rave-reviews-some-of-the-sight-lines-did-not",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/grass-at-new-bills-stadium-drew-rave-reviews-some-of-the-sight-lines-did-not",
+      "title": "Grass at new Bills stadium drew rave reviews (some of the sight lines did not)",
+      "body_text": "The Buffalo Bills had a soft launch of their new stadium this weekend, with a practice there on Saturday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T17:46:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teddy-bridgewater-steps-away-from-lions-retirement-likely",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teddy-bridgewater-steps-away-from-lions-retirement-likely",
+      "title": "Teddy Bridgewater steps away from Lions, retirement likely",
+      "body_text": "Detroit needs a new backup QB, with HC Dan Campbell saying the team may bring someone in as soon as Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-09T17:12:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Teddy Bridgewater",
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0031237",
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bs-from-deebo-samuels-contact-squabble-is-irrelevant-to-his-49ers-reunion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bs-from-deebo-samuels-contact-squabble-is-irrelevant-to-his-49ers-reunion",
+      "title": "The \"BS\" from Deebo Samuel's contact squabble is irrelevant to his 49ers' reunion",
+      "body_text": "Receiver Deebo Samuel Sr. is back in San Francisco, and back in the number he wore from 2019 through 2023: 19.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T14:43:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deebo Samuel",
+        "Receiver Deebo",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-scramble-to-replace-turf-field-before-thursdays-preseason-opener-vs-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-scramble-to-replace-turf-field-before-thursdays-preseason-opener-vs-colts",
+      "title": "Patriots scramble to replace turf field before Thursday's preseason opener vs. Colts",
+      "body_text": "The first surface installed after the World Cup was deemed to be \"noncompliant.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T14:18:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Colts The",
+        "World Cup"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caley-texans-are-on-a-crusade-to-be-the-best-offense-they-can-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caley-texans-are-on-a-crusade-to-be-the-best-offense-they-can-be",
+      "title": "Nick Caley: Texans are on a \"crusade\" to be the best offense they can be",
+      "body_text": "Last year, the Texans' defense was nearly good enough to propel the team to the Super Bowl with minimal help offensively.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T13:53:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caley",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    }
+  ]
+}
