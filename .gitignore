@@ -285,6 +285,9 @@ data/gold/*
 !data/silver/players/historical/
 !data/silver/players/historical/**
 !data/silver/players/historical/**/*.parquet
+!data/silver/players/usage/
+!data/silver/players/usage/**
+!data/silver/players/usage/**/*.parquet
 !data/silver/defense/
 !data/silver/defense/**
 !data/silver/defense/**/*.parquet

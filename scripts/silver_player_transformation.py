@@ -62,12 +62,25 @@ def _prepare_snap_data(snap_df: pd.DataFrame, weekly_df: pd.DataFrame) -> pd.Dat
         snap['snap_pct'] = snap['offense_pct']
     # Map player name to player_id via weekly data lookup
     if 'player_id' not in snap.columns and 'player' in snap.columns:
-        # Build name -> id map from weekly data
-        id_map = weekly_df.drop_duplicates('player_id')[['player_id', 'player_name']].copy()
+        # Build name -> id map from weekly data. Snap counts' 'player' column
+        # holds full display names (e.g. "Cooper Kupp"); weekly's 'player_name'
+        # is abbreviated ("C.Kupp") and never matches it -- use
+        # 'player_display_name' instead (bug found 2026-08-09: snap_pct was
+        # silently 100% NaN in every season's Silver usage output because of
+        # this format mismatch).
+        id_map = weekly_df.dropna(subset=['player_id']).drop_duplicates('player_id')[
+            ['player_id', 'player_display_name']
+        ].copy()
         # snap counts use 'player' (display name) and 'team'
         snap = snap.merge(
-            id_map, left_on='player', right_on='player_name', how='left',
+            id_map, left_on='player', right_on='player_display_name', how='left',
         )
+        # Drop unmatched rows: leaving null player_id here would let pandas
+        # cross-join them against any null-keyed weekly rows in the downstream
+        # usage merge (pandas treats NaN==NaN as a match), silently multiplying
+        # row counts -- this is exactly what happened for season 2025, which
+        # has a handful of null-player_id trailer rows in Bronze weekly.
+        snap = snap.dropna(subset=['player_id'])
     return snap
 
 
