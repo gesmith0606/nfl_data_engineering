@@ -575,6 +575,86 @@ class TestEventFlagOrLogic(unittest.TestCase):
         result = self._agg_records(records, self._now())
         self.assertGreater(result["P5"]["sentiment_multiplier"], 1.0)
 
+    # -- Usage/transaction/weather flags (role-change wiring gap fix) ------
+    # These 7 flags are extracted at Silver time (rule_extractor.py sets
+    # is_usage_boost/is_usage_drop on role-change phrases like "named
+    # starter" / "timeshare") but were dropped during Gold aggregation --
+    # apply_event_adjustments()/EVENT_MULTIPLIERS in projection_engine.py
+    # already reads all 12 flags, so the role-change multiplier was a
+    # silent structural no-op until this OR-aggregation existed.
+
+    def _signal_with_events(self, player_id: str, **events: bool) -> Dict[str, Any]:
+        base = {
+            "is_ruled_out": False,
+            "is_inactive": False,
+            "is_questionable": False,
+            "is_suspended": False,
+            "is_returning": False,
+            "is_activated": False,
+            "is_traded": False,
+            "is_released": False,
+            "is_signed": False,
+            "is_usage_boost": False,
+            "is_usage_drop": False,
+            "is_weather_risk": False,
+        }
+        base.update(events)
+        return {
+            "signal_id": "sig-usage",
+            "player_id": player_id,
+            "player_name": "Test Player",
+            "sentiment_score": 0.0,
+            "sentiment_confidence": 0.7,
+            "published_at": "2026-04-07T10:00:00+00:00",
+            "events": base,
+            "source": "rss_espn",
+        }
+
+    def test_is_usage_boost_or_aggregation_propagates(self):
+        """A single is_usage_boost=True signal makes the aggregate True."""
+        records = [
+            self._signal_with_events("P6", is_usage_boost=False),
+            self._signal_with_events("P6", is_usage_boost=True),
+        ]
+        result = self._agg_records(records, self._now())
+        self.assertTrue(result["P6"]["is_usage_boost"])
+        self.assertFalse(result["P6"]["is_usage_drop"])
+
+    def test_is_usage_drop_or_aggregation_propagates(self):
+        """A single is_usage_drop=True signal makes the aggregate True."""
+        records = [
+            self._signal_with_events("P7", is_usage_drop=True),
+        ]
+        result = self._agg_records(records, self._now())
+        self.assertTrue(result["P7"]["is_usage_drop"])
+        self.assertFalse(result["P7"]["is_usage_boost"])
+
+    def test_usage_flags_all_false_stay_false(self):
+        """No usage-flag signals -> both usage flags stay False."""
+        records = [self._signal_with_events("P8")]
+        result = self._agg_records(records, self._now())
+        self.assertFalse(result["P8"]["is_usage_boost"])
+        self.assertFalse(result["P8"]["is_usage_drop"])
+
+    def test_transaction_and_weather_flags_or_aggregate(self):
+        """is_traded/is_released/is_signed/is_activated/is_weather_risk OR."""
+        records = [
+            self._signal_with_events(
+                "P9",
+                is_traded=True,
+                is_released=False,
+                is_signed=False,
+                is_activated=False,
+                is_weather_risk=True,
+            ),
+        ]
+        result = self._agg_records(records, self._now())
+        self.assertTrue(result["P9"]["is_traded"])
+        self.assertTrue(result["P9"]["is_weather_risk"])
+        self.assertFalse(result["P9"]["is_released"])
+        self.assertFalse(result["P9"]["is_signed"])
+        self.assertFalse(result["P9"]["is_activated"])
+
 
 # ===========================================================================
 # 5. Full weekly aggregation tests
@@ -709,6 +789,40 @@ class TestWeeklyAggregation(unittest.TestCase):
                 weekly_mod._SILVER_SIGNALS_DIR = orig
 
         self.assertTrue(df.empty)
+
+    def test_aggregate_usage_boost_column_survives_to_gold(self):
+        """is_usage_boost/is_usage_drop reach the Gold output DataFrame.
+
+        Regression test for the role-change wiring gap: these two flags
+        are set by the rule extractor on phrases like "named starter" /
+        "timeshare" and are read by projection_engine.apply_event_adjustments
+        (EVENT_MULTIPLIERS), but until this fix the Gold aggregation step
+        silently dropped them, so the role-change multiplier never fired
+        end-to-end even though every upstream/downstream piece worked.
+        """
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            boosted = _make_signal(player_id="P-BOOST", sentiment=0.3)
+            boosted["events"]["is_usage_boost"] = True
+            records = [boosted]
+            self._write_silver_file(tmp_path, records)
+
+            agg = WeeklyAggregator()
+            import src.sentiment.aggregation.weekly as weekly_mod
+            orig = weekly_mod._SILVER_SIGNALS_DIR
+            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            try:
+                df = agg.aggregate(
+                    season=2026, week=1, dry_run=True, reference_time=self._now()
+                )
+            finally:
+                weekly_mod._SILVER_SIGNALS_DIR = orig
+
+        self.assertIn("is_usage_boost", df.columns)
+        self.assertIn("is_usage_drop", df.columns)
+        row = df[df["player_id"] == "P-BOOST"].iloc[0]
+        self.assertTrue(bool(row["is_usage_boost"]))
+        self.assertFalse(bool(row["is_usage_drop"]))
 
     def test_aggregate_ruled_out_player_has_zero_multiplier(self):
         """Players with is_ruled_out=True get a 0.0 multiplier."""

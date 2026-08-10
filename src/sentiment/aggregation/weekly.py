@@ -327,6 +327,35 @@ class WeeklyAggregator:
         is_returning = any(
             rec.get("events", {}).get("is_returning", False) for rec in records
         )
+        # Transaction + usage + weather flags (Phase 61-02 event vocabulary).
+        # These were extracted at Silver time (rule_extractor.py /
+        # extractor.py) but never carried through to Gold — projection_engine's
+        # apply_event_adjustments()/EVENT_MULTIPLIERS already reads all 12
+        # flags (including is_usage_boost/is_usage_drop, the role-change
+        # signal), but only the 5 injury flags survived the OR-aggregation
+        # here, so the usage/transaction/weather multipliers were a silent
+        # structural no-op end-to-end. Closing that gap.
+        is_activated = any(
+            rec.get("events", {}).get("is_activated", False) for rec in records
+        )
+        is_traded = any(
+            rec.get("events", {}).get("is_traded", False) for rec in records
+        )
+        is_released = any(
+            rec.get("events", {}).get("is_released", False) for rec in records
+        )
+        is_signed = any(
+            rec.get("events", {}).get("is_signed", False) for rec in records
+        )
+        is_usage_boost = any(
+            rec.get("events", {}).get("is_usage_boost", False) for rec in records
+        )
+        is_usage_drop = any(
+            rec.get("events", {}).get("is_usage_drop", False) for rec in records
+        )
+        is_weather_risk = any(
+            rec.get("events", {}).get("is_weather_risk", False) for rec in records
+        )
 
         # If ruled out or inactive, multiplier is zero — skip score computation
         if is_ruled_out or is_inactive:
@@ -425,6 +454,13 @@ class WeeklyAggregator:
             "is_questionable": is_questionable,
             "is_suspended": is_suspended,
             "is_returning": is_returning,
+            "is_activated": is_activated,
+            "is_traded": is_traded,
+            "is_released": is_released,
+            "is_signed": is_signed,
+            "is_usage_boost": is_usage_boost,
+            "is_usage_drop": is_usage_drop,
+            "is_weather_risk": is_weather_risk,
             "rss_doc_count": source_counts["rss"],
             "sleeper_doc_count": source_counts["sleeper"],
             "official_report_count": source_counts["official"],
@@ -548,6 +584,13 @@ class WeeklyAggregator:
             "is_questionable",
             "is_suspended",
             "is_returning",
+            "is_activated",
+            "is_traded",
+            "is_released",
+            "is_signed",
+            "is_usage_boost",
+            "is_usage_drop",
+            "is_weather_risk",
             "rss_doc_count",
             "sleeper_doc_count",
             "official_report_count",
