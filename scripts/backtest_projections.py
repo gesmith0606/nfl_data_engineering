@@ -40,6 +40,7 @@ from projection_engine import apply_injury_adjustments, generate_weekly_projecti
 from early_season_prior import apply_early_season_prior, compute_prior_season_ppg
 from qb_starter_floor import apply_qb_starter_floor
 from rb_tail_calibration import apply_rb_tail_calibration
+from wr_tiebreak import apply_wr_tiebreak
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -504,6 +505,7 @@ def run_backtest(
     rb_tail_calibration: bool = False,
     rb_tail_low_weight: float = 0.4,
     rb_tail_high_shrink: float = 0.15,
+    wr_tiebreak: bool = False,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -541,6 +543,10 @@ def run_backtest(
             for the low band (default 0.4).
         rb_tail_high_shrink: Blend weight toward the position mean for the
             high band (default 0.15).
+        wr_tiebreak: Apply the WR near-tie ordinal tie-break lever (see
+            ``src/wr_tiebreak.py`` and
+            ``.planning/WR_ORDERING_DIAGNOSIS.md`` finding #2). Mirrors
+            ``generate_projections.py --wr-tiebreak``.
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -874,6 +880,18 @@ def run_backtest(
                     high_shrink=rb_tail_high_shrink,
                 )
 
+            # Apply the WR near-tie ordinal tie-break (adjacent near-tied
+            # WR pairs nudged apart per trailing target-share slope).
+            # Mirrors generate_projections.py ordering — after the RB tail
+            # calibration, before ranking-score nudges.
+            if wr_tiebreak:
+                projections = apply_wr_tiebreak(
+                    projections,
+                    weekly_df,
+                    season=season,
+                    week=week,
+                )
+
             # Apply ranking score nudges (additive, capped at ±1.5 pts).
             # ranking_score is used for position ordering only; projected_points
             # is unchanged so the backtest MAE numbers remain correct.
@@ -1156,6 +1174,15 @@ def main():
         default=0.15,
         help="Blend weight toward the position mean for the high band (default 0.15).",
     )
+    parser.add_argument(
+        "--wr-tiebreak",
+        action="store_true",
+        help=(
+            "Apply the WR near-tie ordinal tie-break lever (mirrors "
+            "generate_projections.py --wr-tiebreak). Evaluates lever #2 "
+            "from .planning/WR_ORDERING_DIAGNOSIS.md finding #2."
+        ),
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -1184,9 +1211,10 @@ def main():
         if args.rb_tail_calibration
         else ""
     )
+    wr_tiebreak_label = " | WR Tiebreak: ON" if args.wr_tiebreak else ""
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}{rb_tail_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1218,6 +1246,7 @@ def main():
         rb_tail_calibration=args.rb_tail_calibration,
         rb_tail_low_weight=args.rb_tail_low_weight,
         rb_tail_high_shrink=args.rb_tail_high_shrink,
+        wr_tiebreak=args.wr_tiebreak,
     )
 
     if results.empty:
@@ -1236,9 +1265,10 @@ def main():
     prior_tag = "_earlyseasonprior" if args.early_season_prior else ""
     qb_floor_tag = "_qbstarterfloor" if args.qb_starter_floor else ""
     rb_tail_tag = "_rbtailcalibration" if args.rb_tail_calibration else ""
+    wr_tiebreak_tag = "_wrtiebreak" if args.wr_tiebreak else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}{rb_tail_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")

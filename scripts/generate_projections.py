@@ -322,6 +322,19 @@ def main():
         help="Blend weight toward the position mean for --rb-tail-calibration high band (default 0.15).",
     )
     parser.add_argument(
+        "--wr-tiebreak",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: nudge apart adjacent near-tied WR pairs "
+            "(projected within 1.5 pts) whose trailing target-share slope "
+            "disagrees with our projected order. Lever from "
+            ".planning/WR_ORDERING_DIAGNOSIS.md finding #2 — OPT-IN and "
+            "provisional until the pre-registered backtest gate passes "
+            "(.planning/WR_TIEBREAK_GATE.md)."
+        ),
+    )
+    parser.add_argument(
         "--use-events",
         action="store_true",
         default=False,
@@ -380,6 +393,11 @@ def main():
             print(
                 "Note: --rb-tail-calibration has no effect in --preseason mode "
                 "(it needs weekly snap-count history)"
+            )
+        if args.wr_tiebreak:
+            print(
+                "Note: --wr-tiebreak has no effect in --preseason mode "
+                "(it needs weekly trailing target-share history)"
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
@@ -1178,6 +1196,30 @@ def main():
                 f"RB tail calibration: {low_flagged} low-band boosted, "
                 f"{high_flagged} high-band shrunk; total projected points "
                 f"{before_total:.1f} -> {after_total:.1f}"
+            )
+
+        # --- WR near-tie tie-break (opt-in via --wr-tiebreak) ---
+        # Lever from .planning/WR_ORDERING_DIAGNOSIS.md finding #2: WR pairs
+        # we misorder vs Sleeper are near-ties in OUR OWN projections but not
+        # in real outcomes. Nudges adjacent WR pairs within 1.5 pts apart by
+        # up to 0.5 pts each when a trailing target-share slope disagrees
+        # with our order. Applied after the RB tail calibration (mirrors
+        # ordering — role/usage corrections grouped together).
+        if args.wr_tiebreak and not projections.empty:
+            from wr_tiebreak import apply_wr_tiebreak  # noqa: E402
+
+            before_total = float(projections["projected_points"].sum())
+            projections = apply_wr_tiebreak(
+                projections,
+                strength_weekly,
+                season=args.season,
+                week=args.week,
+            )
+            after_total = float(projections["projected_points"].sum())
+            tiebreak_flagged = int(projections["wr_tiebreak_flag"].sum())
+            print(
+                f"WR tiebreak: {tiebreak_flagged} WR row(s) nudged; "
+                f"total projected points {before_total:.1f} -> {after_total:.1f}"
             )
 
         # --- Structured event adjustments (opt-in via --use-events) ---
