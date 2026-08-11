@@ -1,0 +1,490 @@
+{
+  "fetch_run_id": "a60ed116-8971-4dfd-85cb-cb8d75cd76a5",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-11T12:22:42.275531+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-dt-byron-cowart",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-dt-byron-cowart",
+      "title": "Commanders sign DT Byron Cowart",
+      "body_text": "The Commanders added a veteran to their defensive line on Tuesday morning.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-11T12:10:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Byron Cowart",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0035278"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-bump-rookies-spencer-fano-denzel-boston-up-to-the-first-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-bump-rookies-spencer-fano-denzel-boston-up-to-the-first-team",
+      "title": "Browns bump rookies Spencer Fano, Denzel Boston up to the first team",
+      "body_text": "Browns rookie offensive tackle Spencer Fano got into a scuffle with defensive end Jared Verse at training camp on Saturday and it earned him something much better than a reprimand from head coach Todd Monken.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-11T11:55:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Spencer Fano",
+        "Denzel Boston",
+        "Jared Verse",
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [
+        "00-0041030",
+        "00-0041037",
+        "00-0039852"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-happy-to-see-jaxson-dart-sliding-during-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-happy-to-see-jaxson-dart-sliding-during-practice",
+      "title": "Giants happy to see Jaxson Dart sliding during practice",
+      "body_text": "Practicing sliding is something that's usually associated with baseball, but it was a highlight for the football Giants at their training camp practice on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-11T11:40:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-tells-devon-achane-to-be-ready-for-a-very-heavy-workload-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-tells-devon-achane-to-be-ready-for-a-very-heavy-workload-this-season",
+      "title": "Jeff Hafley tells De'Von Achane to be ready for a very heavy workload this season",
+      "body_text": "No NFL player has had 40 touches in a game since Derrick Henry had 41 in a game in 2021.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-11T11:32:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeff Hafley",
+        "Von Achane",
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-broncos-have-to-get-a-handle-on-injuries-look-at-our-pre-practice-routine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-broncos-have-to-get-a-handle-on-injuries-look-at-our-pre-practice-routine",
+      "title": "Sean Payton: Broncos have to get a handle on injuries, look at our pre-practice routine",
+      "body_text": "\"You always try to look at your pre-practice routine,\" Payton said. \"Your hydration, obviously. And it’s incumbent on the player.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-11T08:38:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alec-pierce-had-a-second-prp-injection-to-speed-up-healing-in-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alec-pierce-had-a-second-prp-injection-to-speed-up-healing-in-ankle",
+      "title": "Report: Alec Pierce had a second PRP injection to speed up healing in ankle",
+      "body_text": "Colts wide receiver Alec Pierce has not seen the practice field in 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-11T02:50:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-is-eager-for-preseason-action",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-is-eager-for-preseason-action",
+      "title": "Bo Nix is eager for preseason action",
+      "body_text": "Sean Payton said the Broncos will play some starters against the Falcons on Friday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-11T02:19:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-criticizes-jon-gruden-for-lack-of-compliance-with-the-rules-in-case-against-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-criticizes-jon-gruden-for-lack-of-compliance-with-the-rules-in-case-against-nfl",
+      "title": "Judge criticizes Jon Gruden for \"lack of compliance with the rules\" in case against NFL",
+      "body_text": "Gruden is ordered to provide NFL with more information within the next seven days.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-11T02:08:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jon Gruden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-is-listed-as-qb2-in-first-raiders-depth-chart",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-is-listed-as-qb2-in-first-raiders-depth-chart",
+      "title": "Fernando Mendoza is listed as QB2 in first Raiders' depth chart",
+      "body_text": "As expected, the No. 1 overall pick in the 2026 NFL draft has landed at No. 2 on the first 2026 Raiders depth chart.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-11T01:25:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0041562"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derek-carr-joins-ucla-as-a-special-advisor-to-the-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derek-carr-joins-ucla-as-a-special-advisor-to-the-head-coach",
+      "title": "Derek Carr joins UCLA as a special advisor to the head coach",
+      "body_text": "Derek Carr is returning to football.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-11T00:02:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derek Carr"
+      ],
+      "resolved_player_ids": [
+        "00-0031280"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-are-figuring-out-the-best-way-to-configure-video-boards-at-new-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-are-figuring-out-the-best-way-to-configure-video-boards-at-new-stadium",
+      "title": "Bills are figuring out the best way to configure video boards at new stadium",
+      "body_text": "When the Bills' new stadium had a soft launch on Saturday, some spoke hard truths about the size of the video boards.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-10T23:52:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-terrion-arnold-we-are-going-to-do-our-diligence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-terrion-arnold-we-are-going-to-do-our-diligence",
+      "title": "Mike Macdonald on Terrion Arnold: We are going to do our diligence",
+      "body_text": "Free agent cornerback Terrion Arnold worked out for the Seahawks on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T23:42:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-cb-terrion-arnold-visits-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-cb-terrion-arnold-visits-seahawks",
+      "title": "Free agent CB Terrion Arnold visits Seahawks",
+      "body_text": "Free agent cornerback Terrion Arnold visited the Seahawks on Sunday, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T01:41:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "Seahawks Free",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/incoming-seahawks-owner-opens-door-for-conversion-to-grass-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/incoming-seahawks-owner-opens-door-for-conversion-to-grass-field",
+      "title": "Incoming Seahawks owner opens door for conversion to grass field",
+      "body_text": "Vinod Khosla defers to \"[t]he team that got us the Super Bowl.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-10T23:29:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Incoming Seahawks",
+        "Vinod Khosla",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-work-out-rbs-nyheim-miller-hines-zamir-white",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-work-out-rbs-nyheim-miller-hines-zamir-white",
+      "title": "49ers work out RBs Nyheim Miller-Hines, Zamir White",
+      "body_text": "The 49ers worked out running backs Nyheim Miller-Hines and Zamir White on Monday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T23:25:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nyheim Miller",
+        "Zamir White"
+      ],
+      "resolved_player_ids": [
+        "00-0038040"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-rb-trey-sermon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-rb-trey-sermon",
+      "title": "Falcons sign RB Trey Sermon",
+      "body_text": "The Falcons signed Bijan Robinson to a contract extension last week and they added a running back to compete for playing time behind him on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T22:41:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trey Sermon",
+        "The Falcons",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0036984",
+        "00-0038542"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-well-kinda-play-hot-hand-at-running-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-well-kinda-play-hot-hand-at-running-back",
+      "title": "Mike McDaniel: We'll kinda play hot hand at running back",
+      "body_text": "Chargers running back Omarion Hampton thinks the arrival of offensive coordinator Mike McDaniel is going to be a good thing for the team's running backs and McDaniel's plans for the position came up during a press conference on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T22:31:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Omarion Hampton"
+      ],
+      "resolved_player_ids": [
+        "00-0040666"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-quinnen-williams-represents-everything-cowboys-want-in-a-football-player",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-quinnen-williams-represents-everything-cowboys-want-in-a-football-player",
+      "title": "Stephen Jones: Quinnen Williams represents everything Cowboys want in a football player",
+      "body_text": "The Cowboys announced the three-year, $105.9 million extension with defensive tackle Quinnen Williams on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T22:19:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stephen Jones",
+        "Quinnen Williams",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037551",
+        "00-0035718"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monti-ossenfort-we-have-no-interest-in-trading-josh-sweat",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monti-ossenfort-we-have-no-interest-in-trading-josh-sweat",
+      "title": "Monti Ossenfort: We have no interest in trading Josh Sweat",
+      "body_text": "Cardinals outside linebacker Josh Sweat remains on the active/physically unable to perform list with a knee issue.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T21:44:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monti Ossenfort",
+        "Josh Sweat"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-announce-that-theyve-signed-josh-dobbs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-announce-that-theyve-signed-josh-dobbs",
+      "title": "Lions announce that they've signed Josh Dobbs",
+      "body_text": "Quarterback Josh Dobbs is officially a member of the Lions.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T21:44:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Dobbs",
+        "Quarterback Josh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-address-concerns-over-sight-lines-on-case-by-case-basis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-address-concerns-over-sight-lines-on-case-by-case-basis",
+      "title": "Bills will address concerns over sight lines on \"case-by-case basis\"",
+      "body_text": "The Bills unofficially opened their stadium on Saturday night, with the team practicing in the brand-new building.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-10T21:05:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-quinnen-williams-agree-to-three-year-105-9-million-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-quinnen-williams-agree-to-three-year-105-9-million-extension",
+      "title": "Cowboys, Quinnen Williams agree to three-year, $105.9 million extension",
+      "body_text": "Williams, who had two years left on his deal, is guaranteed $101 million.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T21:01:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinnen Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0035718"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-howard-everyone-says-preseason-isnt-real-football-but-to-me-it-is",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-howard-everyone-says-preseason-isnt-real-football-but-to-me-it-is",
+      "title": "Will Howard: Everyone says preseason isn't real football, but to me, it is",
+      "body_text": "Last year as a rookie, Steelers quarterback Will Howard suffered a fractured hand in early August that kept him out of the team’s preseason games.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-10T20:58:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Howard"
+      ],
+      "resolved_player_ids": [
+        "00-0040203"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-wr-chris-hilton-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-wr-chris-hilton-off-of-waivers",
+      "title": "Packers claim WR Chris Hilton off of waivers",
+      "body_text": "The Packers have added a wide receiver to the roster for the second time in as many days.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T20:48:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Hilton",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0041179"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-returns-to-xfinity-with-redzone-good-to-go-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-network-returns-to-xfinity-with-redzone-good-to-go-for-week-1",
+      "title": "NFL Network returns to Xfinity, with RedZone good to go for Week 1",
+      "body_text": "Deal gets done in time for start of preseason.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-10T20:45:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-not-even-thinking-about-retirement-thats-going-to-be-a-long-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-not-even-thinking-about-retirement-thats-going-to-be-a-long-time",
+      "title": "Jared Goff not even thinking about retirement: \"That's going to be a long time\"",
+      "body_text": "Lions quarterback Jared Goff was asked today if he has given any thought to retiring.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-10T20:42:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-keim-has-ties-to-alleged-scam-artist-who-was-recently-found-dead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-keim-has-ties-to-alleged-scam-artist-who-was-recently-found-dead",
+      "title": "Steve Keim has ties to alleged scam artist who was recently found dead",
+      "body_text": "With 32 training camps up and running (and plenty of things happening in all of them), other stories can slip through the cracks for us.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-10T14:23:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Keim"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-trade-ol-caedan-wallace-to-dolphins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-trade-ol-caedan-wallace-to-dolphins",
+      "title": "Patriots trade OL Caedan Wallace to Dolphins",
+      "body_text": "The Patriots won't release offensive tackle Caedan Wallace after all.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-10T20:35:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caedan Wallace",
+        "Dolphins The"
+      ],
+      "resolved_player_ids": [
+        "00-0039863"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-wr-ray-ray-mccloud",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-wr-ray-ray-mccloud",
+      "title": "Bears sign WR Ray-Ray McCloud",
+      "body_text": "Veteran wide receiver Ray-Ray McCloud has found a new team.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-10T20:24:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahans-recent-concussion-changes-his-perspective-on-head-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahans-recent-concussion-changes-his-perspective-on-head-injuries",
+      "title": "Kyle Shanahan's recent concussion changes his perspective on head injuries",
+      "body_text": "For most coaches, the issue of player concussions requires sympathy.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-09T19:15:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "fetch_run_id": "486a2878-3e4c-4a70-9e18-530e9ead44ab",
+  "source": "rotowire",
+  "fetched_at": "2026-08-11T12:22:52.779054+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633155",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: Receives second PRP injection",
+      "body_text": "Pierce (anke) received a second PRP injection in his left ankle this offseason, James Boyd of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-10T06:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "James Boyd",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0037664",
+        "00-0020328"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633144",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Still working in 7-on-7 drills",
+      "body_text": "Penix (knee) had some nice plays during 7-on-7 drills at Monday's practice, Tori McElhaney of the Falcons' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-10T05:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl633128",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Penciled in as No. 2 RB at camp",
+      "body_text": "White was listed as the Commanders' No. 2 running back on the team's unofficial depth chart Monday, Zach Selby of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-10T05:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "Zach Selby"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl633124",
+      "url": "https://www.rotowire.com//football/player/breece-hall-15810",
+      "permalink": "",
+      "title": "Breece Hall: Set to operate as bellcow",
+      "body_text": "Hall is expected to be featured more prominently as the Jets' lead back this season, Connor Hughes of SNY.TV reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-10T04:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall",
+        "Connor Hughes"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl633113",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "permalink": "",
+      "title": "RJ Harvey: Focused on big plays in 2026",
+      "body_text": "Harvey expects to provide a lot of big plays in Year 2 with the Broncos, Susanna Weir of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-10T04:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Susanna Weir"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    }
+  ]
+}

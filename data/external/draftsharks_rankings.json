@@ -1,6 +1,6 @@
 {
   "source": "draftsharks",
-  "fetched_at": "2026-08-10T12:23:34.941799+00:00",
+  "fetched_at": "2026-08-11T12:23:08.603110+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -150,30 +150,30 @@
       "rank": 21
     },
     {
-      "player_name": "Omarion Hampton",
+      "player_name": "De'Von Achane",
       "position": "RB",
-      "team": "LAC",
+      "team": "MIA",
       "external_rank": 22,
       "rank": 22
     },
     {
-      "player_name": "De'Von Achane",
+      "player_name": "Omarion Hampton",
       "position": "RB",
-      "team": "MIA",
+      "team": "LAC",
       "external_rank": 23,
       "rank": 23
-    },
-    {
-      "player_name": "Brock Bowers",
-      "position": "TE",
-      "team": "LVR",
-      "external_rank": 24,
-      "rank": 24
     },
     {
       "player_name": "Chase Brown",
       "position": "RB",
       "team": "CIN",
+      "external_rank": 24,
+      "rank": 24
+    },
+    {
+      "player_name": "Brock Bowers",
+      "position": "TE",
+      "team": "LVR",
       "external_rank": 25,
       "rank": 25
     },
@@ -227,16 +227,16 @@
       "rank": 32
     },
     {
-      "player_name": "Colston Loveland",
-      "position": "TE",
-      "team": "CHI",
+      "player_name": "DeVonta Smith",
+      "position": "WR",
+      "team": "PHI",
       "external_rank": 33,
       "rank": 33
     },
     {
-      "player_name": "DeVonta Smith",
-      "position": "WR",
-      "team": "PHI",
+      "player_name": "Colston Loveland",
+      "position": "TE",
+      "team": "CHI",
       "external_rank": 34,
       "rank": 34
     },
@@ -318,16 +318,16 @@
       "rank": 45
     },
     {
-      "player_name": "Luther Burden III",
-      "position": "WR",
-      "team": "CHI",
+      "player_name": "Lamar Jackson",
+      "position": "QB",
+      "team": "BAL",
       "external_rank": 48,
       "rank": 46
     },
     {
-      "player_name": "Lamar Jackson",
-      "position": "QB",
-      "team": "BAL",
+      "player_name": "Luther Burden III",
+      "position": "WR",
+      "team": "CHI",
       "external_rank": 49,
       "rank": 47
     },
@@ -342,7 +342,7 @@
       "player_name": "Ladd McConkey",
       "position": "WR",
       "team": "LAC",
-      "external_rank": 51,
+      "external_rank": 52,
       "rank": 49
     },
     {
@@ -370,7 +370,7 @@
       "player_name": "Tucker Kraft",
       "position": "TE",
       "team": "GB",
-      "external_rank": 58,
+      "external_rank": 59,
       "rank": 53
     },
     {
@@ -388,16 +388,16 @@
       "rank": 55
     },
     {
-      "player_name": "Jayden Daniels",
-      "position": "QB",
-      "team": "WAS",
+      "player_name": "Rome Odunze",
+      "position": "WR",
+      "team": "CHI",
       "external_rank": 62,
       "rank": 56
     },
     {
-      "player_name": "Rome Odunze",
-      "position": "WR",
-      "team": "CHI",
+      "player_name": "Jayden Daniels",
+      "position": "QB",
+      "team": "WAS",
       "external_rank": 63,
       "rank": 57
     },
@@ -458,16 +458,16 @@
       "rank": 65
     },
     {
-      "player_name": "Harold Fannin Jr.",
-      "position": "TE",
-      "team": "CLE",
+      "player_name": "Parker Washington",
+      "position": "WR",
+      "team": "JAC",
       "external_rank": 73,
       "rank": 66
     },
     {
-      "player_name": "Parker Washington",
-      "position": "WR",
-      "team": "JAC",
+      "player_name": "Harold Fannin Jr.",
+      "position": "TE",
+      "team": "CLE",
       "external_rank": 74,
       "rank": 67
     },
@@ -528,10 +528,10 @@
       "rank": 75
     },
     {
-      "player_name": "Jadarian Price",
-      "position": "RB",
-      "team": "SEA",
-      "external_rank": 85,
+      "player_name": "Carnell Tate",
+      "position": "WR",
+      "team": "TEN",
+      "external_rank": 84,
       "rank": 76
     },
     {
@@ -549,9 +549,9 @@
       "rank": 78
     },
     {
-      "player_name": "Carnell Tate",
-      "position": "WR",
-      "team": "TEN",
+      "player_name": "Jadarian Price",
+      "position": "RB",
+      "team": "SEA",
       "external_rank": 88,
       "rank": 79
     },
@@ -563,44 +563,44 @@
       "rank": 80
     },
     {
-      "player_name": "Alec Pierce",
-      "position": "WR",
-      "team": "IND",
-      "external_rank": 90,
-      "rank": 81
-    },
-    {
       "player_name": "Courtland Sutton",
       "position": "WR",
       "team": "DEN",
-      "external_rank": 91,
-      "rank": 82
+      "external_rank": 90,
+      "rank": 81
     },
     {
       "player_name": "Brian Thomas Jr.",
       "position": "WR",
       "team": "JAC",
-      "external_rank": 92,
-      "rank": 83
+      "external_rank": 91,
+      "rank": 82
     },
     {
       "player_name": "Tony Pollard",
       "position": "RB",
       "team": "TEN",
-      "external_rank": 93,
-      "rank": 84
-    },
-    {
-      "player_name": "Jaylen Warren",
-      "position": "RB",
-      "team": "PIT",
-      "external_rank": 94,
-      "rank": 85
+      "external_rank": 92,
+      "rank": 83
     },
     {
       "player_name": "Jordyn Tyson",
       "position": "WR",
       "team": "NO",
+      "external_rank": 93,
+      "rank": 84
+    },
+    {
+      "player_name": "George Kittle",
+      "position": "TE",
+      "team": "SF",
+      "external_rank": 94,
+      "rank": 85
+    },
+    {
+      "player_name": "Jaylen Warren",
+      "position": "RB",
+      "team": "PIT",
       "external_rank": 95,
       "rank": 86
     },
@@ -657,7 +657,7 @@
       "player_name": "Kyle Pitts",
       "position": "TE",
       "team": "ATL",
-      "external_rank": 104,
+      "external_rank": 105,
       "rank": 94
     },
     {
@@ -668,45 +668,45 @@
       "rank": 95
     },
     {
-      "player_name": "George Kittle",
-      "position": "TE",
-      "team": "SF",
-      "external_rank": 107,
-      "rank": 96
-    },
-    {
       "player_name": "Jordan Mason",
       "position": "RB",
       "team": "MIN",
-      "external_rank": 109,
-      "rank": 97
+      "external_rank": 108,
+      "rank": 96
     },
     {
       "player_name": "Michael Pittman Jr.",
       "position": "WR",
       "team": "PIT",
+      "external_rank": 114,
+      "rank": 97
+    },
+    {
+      "player_name": "Alec Pierce",
+      "position": "WR",
+      "team": "IND",
       "external_rank": 115,
       "rank": 98
-    },
-    {
-      "player_name": "Jonathon Brooks",
-      "position": "RB",
-      "team": "CAR",
-      "external_rank": 116,
-      "rank": 99
-    },
-    {
-      "player_name": "Jared Goff",
-      "position": "QB",
-      "team": "DET",
-      "external_rank": 117,
-      "rank": 100
     },
     {
       "player_name": "Josh Downs",
       "position": "WR",
       "team": "IND",
-      "external_rank": 119,
+      "external_rank": 116,
+      "rank": 99
+    },
+    {
+      "player_name": "Jonathon Brooks",
+      "position": "RB",
+      "team": "CAR",
+      "external_rank": 117,
+      "rank": 100
+    },
+    {
+      "player_name": "Jared Goff",
+      "position": "QB",
+      "team": "DET",
+      "external_rank": 118,
       "rank": 101
     },
     {
@@ -783,7 +783,7 @@
       "player_name": "Travis Kelce",
       "position": "TE",
       "team": "KC",
-      "external_rank": 132,
+      "external_rank": 133,
       "rank": 112
     },
     {
@@ -797,34 +797,34 @@
       "player_name": "Romeo Doubs",
       "position": "WR",
       "team": "NE",
-      "external_rank": 135,
+      "external_rank": 136,
       "rank": 114
     },
     {
       "player_name": "Stefon Diggs",
       "position": "WR",
       "team": "WAS",
-      "external_rank": 138,
+      "external_rank": 139,
       "rank": 115
     },
     {
       "player_name": "Kenneth Gainwell",
       "position": "RB",
       "team": "TB",
-      "external_rank": 140,
+      "external_rank": 142,
       "rank": 116
-    },
-    {
-      "player_name": "Makai Lemon",
-      "position": "WR",
-      "team": "PHI",
-      "external_rank": 143,
-      "rank": 117
     },
     {
       "player_name": "Jayden Higgins",
       "position": "WR",
       "team": "HOU",
+      "external_rank": 144,
+      "rank": 117
+    },
+    {
+      "player_name": "Makai Lemon",
+      "position": "WR",
+      "team": "PHI",
       "external_rank": 145,
       "rank": 118
     },
@@ -850,52 +850,52 @@
       "rank": 121
     },
     {
+      "player_name": "Zach Charbonnet",
+      "position": "RB",
+      "team": "SEA",
+      "external_rank": 151,
+      "rank": 122
+    },
+    {
       "player_name": "Matthew Golden",
       "position": "WR",
       "team": "GB",
-      "external_rank": 153,
-      "rank": 122
+      "external_rank": 154,
+      "rank": 123
     },
     {
       "player_name": "KC Concepcion",
       "position": "WR",
       "team": "CLE",
       "external_rank": 155,
-      "rank": 123
-    },
-    {
-      "player_name": "Mark Andrews",
-      "position": "TE",
-      "team": "BAL",
-      "external_rank": 157,
       "rank": 124
-    },
-    {
-      "player_name": "Aaron Jones",
-      "position": "RB",
-      "team": "MIN",
-      "external_rank": 158,
-      "rank": 125
-    },
-    {
-      "player_name": "Malik Willis",
-      "position": "QB",
-      "team": "MIA",
-      "external_rank": 159,
-      "rank": 126
     },
     {
       "player_name": "Michael Wilson",
       "position": "WR",
       "team": "ARI",
+      "external_rank": 157,
+      "rank": 125
+    },
+    {
+      "player_name": "Aaron Jones",
+      "position": "RB",
+      "team": "MIN",
+      "external_rank": 159,
+      "rank": 126
+    },
+    {
+      "player_name": "Malik Willis",
+      "position": "QB",
+      "team": "MIA",
       "external_rank": 162,
       "rank": 127
     },
     {
-      "player_name": "Zach Charbonnet",
-      "position": "RB",
-      "team": "SEA",
-      "external_rank": 163,
+      "player_name": "Mark Andrews",
+      "position": "TE",
+      "team": "BAL",
+      "external_rank": 164,
       "rank": 128
     },
     {
@@ -927,31 +927,31 @@
       "rank": 132
     },
     {
-      "player_name": "Isiah Pacheco",
-      "position": "RB",
-      "team": "DET",
-      "external_rank": 172,
-      "rank": 133
-    },
-    {
       "player_name": "Cameron Dicker",
       "position": "K",
       "team": "LAC",
-      "external_rank": 175,
-      "rank": 134
+      "external_rank": 174,
+      "rank": 133
     },
     {
       "player_name": "Dalton Kincaid",
       "position": "TE",
       "team": "BUF",
       "external_rank": 177,
-      "rank": 135
+      "rank": 134
     },
     {
       "player_name": "Woody Marks",
       "position": "RB",
       "team": "HOU",
-      "external_rank": 179,
+      "external_rank": 178,
+      "rank": 135
+    },
+    {
+      "player_name": "Isiah Pacheco",
+      "position": "RB",
+      "team": "DET",
+      "external_rank": 180,
       "rank": 136
     },
     {
@@ -976,31 +976,31 @@
       "rank": 139
     },
     {
+      "player_name": "Cameron Ward",
+      "position": "QB",
+      "team": "TEN",
+      "external_rank": 188,
+      "rank": 140
+    },
+    {
       "player_name": "Dallas Goedert",
       "position": "TE",
       "team": "PHI",
-      "external_rank": 188,
-      "rank": 140
+      "external_rank": 189,
+      "rank": 141
     },
     {
       "player_name": "Dylan Sampson",
       "position": "RB",
       "team": "CLE",
-      "external_rank": 189,
-      "rank": 141
+      "external_rank": 190,
+      "rank": 142
     },
     {
       "player_name": "Jalen McMillan",
       "position": "WR",
       "team": "TB",
-      "external_rank": 191,
-      "rank": 142
-    },
-    {
-      "player_name": "Cameron Ward",
-      "position": "QB",
-      "team": "TEN",
-      "external_rank": 193,
+      "external_rank": 192,
       "rank": 143
     },
     {
@@ -1018,73 +1018,73 @@
       "rank": 145
     },
     {
-      "player_name": "George Holani",
-      "position": "RB",
-      "team": "SEA",
-      "external_rank": 197,
-      "rank": 146
-    },
-    {
       "player_name": "Ka'imi Fairbairn",
       "position": "K",
       "team": "HOU",
-      "external_rank": 198,
-      "rank": 147
+      "external_rank": 197,
+      "rank": 146
     },
     {
       "player_name": "Sam Darnold",
       "position": "QB",
       "team": "SEA",
       "external_rank": 200,
-      "rank": 148
+      "rank": 147
     },
     {
       "player_name": "Jake Ferguson",
       "position": "TE",
       "team": "DAL",
       "external_rank": 202,
-      "rank": 149
+      "rank": 148
     },
     {
       "player_name": "Brenton Strange",
       "position": "TE",
       "team": "JAC",
       "external_rank": 203,
-      "rank": 150
+      "rank": 149
     },
     {
       "player_name": "Tyler Allgeier",
       "position": "RB",
       "team": "ARI",
       "external_rank": 206,
-      "rank": 151
+      "rank": 150
     },
     {
       "player_name": "Alvin Kamara",
       "position": "RB",
       "team": "NO",
+      "external_rank": 207,
+      "rank": 151
+    },
+    {
+      "player_name": "George Holani",
+      "position": "RB",
+      "team": "SEA",
       "external_rank": 208,
       "rank": 152
-    },
-    {
-      "player_name": "Isaiah Likely",
-      "position": "TE",
-      "team": "NYG",
-      "external_rank": 209,
-      "rank": 153
-    },
-    {
-      "player_name": "Hunter Henry",
-      "position": "TE",
-      "team": "NE",
-      "external_rank": 211,
-      "rank": 154
     },
     {
       "player_name": "Brian Robinson Jr.",
       "position": "RB",
       "team": "ATL",
+      "external_rank": 210,
+      "rank": 153
+    },
+    {
+      "player_name": "Isaiah Likely",
+      "position": "TE",
+      "team": "NYG",
       "external_rank": 212,
+      "rank": 154
+    },
+    {
+      "player_name": "Hunter Henry",
+      "position": "TE",
+      "team": "NE",
+      "external_rank": 214,
       "rank": 155
     },
     {
@@ -1112,34 +1112,34 @@
       "player_name": "Tyler Loop",
       "position": "K",
       "team": "BAL",
-      "external_rank": 222,
+      "external_rank": 223,
       "rank": 159
-    },
-    {
-      "player_name": "MarShawn Lloyd",
-      "position": "RB",
-      "team": "GB",
-      "external_rank": 226,
-      "rank": 160
     },
     {
       "player_name": "Eddy Pineiro",
       "position": "K",
       "team": "SF",
-      "external_rank": 227,
-      "rank": 161
+      "external_rank": 226,
+      "rank": 160
     },
     {
       "player_name": "Cairo Santos",
       "position": "K",
       "team": "CHI",
-      "external_rank": 228,
-      "rank": 162
+      "external_rank": 227,
+      "rank": 161
     },
     {
       "player_name": "Cam Little",
       "position": "K",
       "team": "JAC",
+      "external_rank": 228,
+      "rank": 162
+    },
+    {
+      "player_name": "MarShawn Lloyd",
+      "position": "RB",
+      "team": "GB",
       "external_rank": 229,
       "rank": 163
     },
@@ -1147,7 +1147,7 @@
       "player_name": "Denzel Boston",
       "position": "WR",
       "team": "CLE",
-      "external_rank": 231,
+      "external_rank": 232,
       "rank": 164
     },
     {
@@ -1179,45 +1179,45 @@
       "rank": 168
     },
     {
-      "player_name": "Kenyon Sadiq",
-      "position": "TE",
+      "player_name": "Adonai Mitchell",
+      "position": "WR",
       "team": "NYJ",
       "external_rank": 241,
       "rank": 169
     },
     {
-      "player_name": "Adonai Mitchell",
-      "position": "WR",
-      "team": "NYJ",
-      "external_rank": 242,
-      "rank": 170
-    },
-    {
       "player_name": "Harrison Mevis",
       "position": "K",
       "team": "LAR",
-      "external_rank": 243,
-      "rank": 171
+      "external_rank": 242,
+      "rank": 170
     },
     {
       "player_name": "Bryce Young",
       "position": "QB",
       "team": "CAR",
       "external_rank": 244,
-      "rank": 172
+      "rank": 171
     },
     {
       "player_name": "Jonah Coleman",
       "position": "RB",
       "team": "DEN",
       "external_rank": 246,
-      "rank": 173
+      "rank": 172
     },
     {
       "player_name": "Juwan Johnson",
       "position": "TE",
       "team": "NO",
-      "external_rank": 248,
+      "external_rank": 249,
+      "rank": 173
+    },
+    {
+      "player_name": "Kenyon Sadiq",
+      "position": "TE",
+      "team": "NYJ",
+      "external_rank": 251,
       "rank": 174
     },
     {
@@ -1228,23 +1228,23 @@
       "rank": 175
     },
     {
-      "player_name": "Chigoziem Okonkwo",
-      "position": "TE",
-      "team": "WAS",
-      "external_rank": 257,
-      "rank": 176
-    },
-    {
       "player_name": "Fernando Mendoza",
       "position": "QB",
       "team": "LVR",
-      "external_rank": 258,
-      "rank": 177
+      "external_rank": 257,
+      "rank": 176
     },
     {
       "player_name": "Jacoby Brissett",
       "position": "QB",
       "team": "ARI",
+      "external_rank": 258,
+      "rank": 177
+    },
+    {
+      "player_name": "Chigoziem Okonkwo",
+      "position": "TE",
+      "team": "WAS",
       "external_rank": 259,
       "rank": 178
     },
@@ -1266,28 +1266,28 @@
       "player_name": "Charlie Smyth",
       "position": "K",
       "team": "NO",
-      "external_rank": 265,
+      "external_rank": 266,
       "rank": 181
     },
     {
       "player_name": "Mike Washington Jr.",
       "position": "RB",
       "team": "LVR",
-      "external_rank": 270,
+      "external_rank": 271,
       "rank": 182
     },
     {
       "player_name": "Nicholas Singleton",
       "position": "RB",
       "team": "TEN",
-      "external_rank": 271,
+      "external_rank": 272,
       "rank": 183
     },
     {
       "player_name": "De'Zhaun Stribling",
       "position": "WR",
       "team": "SF",
-      "external_rank": 272,
+      "external_rank": 273,
       "rank": 184
     },
     {
@@ -1298,16 +1298,16 @@
       "rank": 185
     },
     {
-      "player_name": "Justice Hill",
+      "player_name": "Emmett Johnson",
       "position": "RB",
-      "team": "BAL",
+      "team": "KC",
       "external_rank": 275,
       "rank": 186
     },
     {
-      "player_name": "Emmett Johnson",
+      "player_name": "Justice Hill",
       "position": "RB",
-      "team": "KC",
+      "team": "BAL",
       "external_rank": 276,
       "rank": 187
     },
@@ -1315,14 +1315,14 @@
       "player_name": "Kaytron Allen",
       "position": "RB",
       "team": "WAS",
-      "external_rank": 277,
+      "external_rank": 278,
       "rank": 188
     },
     {
       "player_name": "Sean Tucker",
       "position": "RB",
       "team": "TB",
-      "external_rank": 279,
+      "external_rank": 280,
       "rank": 189
     },
     {
@@ -1340,16 +1340,16 @@
       "rank": 191
     },
     {
-      "player_name": "Keenan Allen",
-      "position": "WR",
-      "team": "UNS",
+      "player_name": "Tank Bigsby",
+      "position": "RB",
+      "team": "PHI",
       "external_rank": 283,
       "rank": 192
     },
     {
-      "player_name": "Oronde Gadsden II",
-      "position": "TE",
-      "team": "LAC",
+      "player_name": "Keenan Allen",
+      "position": "WR",
+      "team": "UNS",
       "external_rank": 284,
       "rank": 193
     },
@@ -1361,60 +1361,67 @@
       "rank": 194
     },
     {
-      "player_name": "Dalton Schultz",
+      "player_name": "Oronde Gadsden II",
       "position": "TE",
-      "team": "HOU",
+      "team": "LAC",
       "external_rank": 286,
       "rank": 195
     },
     {
-      "player_name": "T.J. Hockenson",
+      "player_name": "Dalton Schultz",
       "position": "TE",
-      "team": "MIN",
-      "external_rank": 290,
+      "team": "HOU",
+      "external_rank": 289,
       "rank": 196
     },
     {
       "player_name": "Andres Borregales",
       "position": "K",
       "team": "NE",
-      "external_rank": 291,
+      "external_rank": 292,
       "rank": 197
+    },
+    {
+      "player_name": "T.J. Hockenson",
+      "position": "TE",
+      "team": "MIN",
+      "external_rank": 293,
+      "rank": 198
     },
     {
       "player_name": "Jalen Nailor",
       "position": "WR",
       "team": "LVR",
-      "external_rank": 294,
-      "rank": 198
+      "external_rank": 295,
+      "rank": 199
     },
     {
       "player_name": "Germie Bernard",
       "position": "WR",
       "team": "PIT",
-      "external_rank": 295,
-      "rank": 199
-    },
-    {
-      "player_name": "Jerry Jeudy",
-      "position": "WR",
-      "team": "CLE",
       "external_rank": 296,
       "rank": 200
-    },
-    {
-      "player_name": "Samaje Perine",
-      "position": "RB",
-      "team": "CIN",
-      "external_rank": 297,
-      "rank": 201
     },
     {
       "player_name": "Jason Myers",
       "position": "K",
       "team": "SEA",
+      "external_rank": 297,
+      "rank": 201
+    },
+    {
+      "player_name": "Jerry Jeudy",
+      "position": "WR",
+      "team": "CLE",
       "external_rank": 298,
       "rank": 202
+    },
+    {
+      "player_name": "Samaje Perine",
+      "position": "RB",
+      "team": "CIN",
+      "external_rank": 299,
+      "rank": 203
     }
   ]
 }
