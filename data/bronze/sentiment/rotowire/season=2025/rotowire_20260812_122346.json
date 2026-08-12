@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "916f5721-c54f-4425-81de-c5883580bfe9",
+  "source": "rotowire",
+  "fetched_at": "2026-08-12T12:23:46.564487+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633285",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Returns to limited practice",
+      "body_text": "Price (lower body) returned to a limited practice Tuesday, Corbin K. Smith of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-11T04:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price"
+      ],
+      "resolved_player_ids": [
+        "00-0041512"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633283",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Dealing with minor groin soreness",
+      "body_text": "Nacua exited Tuesday's practice with minor groin soreness, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-11T04:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633266",
+      "url": "https://www.rotowire.com//football/player/isaiah-williams-17977",
+      "permalink": "",
+      "title": "Isaiah Williams: Impressing in camp",
+      "body_text": "Williams is making a case for a bigger role in the Jets offense with his performance in training camp, Rich Cimini of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-11T03:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Williams",
+        "Rich Cimini"
+      ],
+      "resolved_player_ids": [
+        "00-0039451"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl633251",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Listed as co-RB1 with Etienne",
+      "body_text": "Kamara and Travis Etienne are listed as co-RB1s on the Saints' first unofficial depth chart of training camp, Mike Triplett of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-11T02:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Etienne Kamara",
+        "Travis Etienne",
+        "Mike Triplett"
+      ],
+      "resolved_player_ids": [
+        "00-0033906",
+        "00-0036973"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl633249",
+      "url": "https://www.rotowire.com//football/player/keon-coleman-17732",
+      "permalink": "",
+      "title": "Keon Coleman: Listed as starter on unofficial depth chart",
+      "body_text": "Coleman is listed as a starter on Buffalo's first depth chart of the preseason, Lance Lysowski of The Buffalo News reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-11T02:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keon Coleman",
+        "Lance Lysowski",
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": null
+    }
+  ]
+}
