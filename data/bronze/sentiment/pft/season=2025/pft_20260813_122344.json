@@ -1,0 +1,591 @@
+{
+  "fetch_run_id": "f72a7134-706a-4dc7-8a8a-de7f64a9cf03",
+  "source": "pft",
+  "fetched_at": "2026-08-13T12:23:44.502595+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-were-looking-toward-ramping-malik-nabers-up-next-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-were-looking-toward-ramping-malik-nabers-up-next-week",
+      "permalink": "",
+      "title": "John Harbaugh: We're looking toward ramping Malik Nabers up next week",
+      "body_text": "Giants wide receiver Malik Nabers is nearing the next step in his return from last season's torn ACL.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-13T11:39:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-on-xavier-legette-really-good-to-see-him-back-to-playing-like-himself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-on-xavier-legette-really-good-to-see-him-back-to-playing-like-himself",
+      "permalink": "",
+      "title": "Dave Canales on Xavier Legette: Really good to see him back to playing like himself",
+      "body_text": "Panthers wide receiver Xavier Legette said in June that he \"can’t have another year like I did last year\" and the work he's done to turn things around has paid some dividends this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-13T11:12:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Canales",
+        "Xavier Legette"
+      ],
+      "resolved_player_ids": [
+        "00-0039342"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-is-the-betting-favorite-to-lead-the-nfl-in-interceptions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-is-the-betting-favorite-to-lead-the-nfl-in-interceptions",
+      "permalink": "",
+      "title": "Geno Smith is the betting favorite to lead the NFL in interceptions",
+      "body_text": "With the Raiders last year, Geno Smith led the NFL with 17 interceptions.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-13T10:28:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-wants-to-be-a-better-leader-for-the-chiefs-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-wants-to-be-a-better-leader-for-the-chiefs-in-2026",
+      "permalink": "",
+      "title": "Travis Kelce wants to be a better leader for the Chiefs in 2026",
+      "body_text": "\"There were things I could have done better in that regard,\" Kelce admitted.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-13T07:59:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/california-court-invalidates-rams-arbitration-clause-as-unconscionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/california-court-invalidates-rams-arbitration-clause-as-unconscionable",
+      "permalink": "",
+      "title": "California court invalidates Rams' arbitration clause as unconscionable",
+      "body_text": "The NFL's in-house arbitration procedure continues to crumble.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-13T03:33:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-i-can-do-just-about-anything-but-take-a-hit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-i-can-do-just-about-anything-but-take-a-hit",
+      "permalink": "",
+      "title": "Michael Penix: I can do just about anything but take a hit",
+      "body_text": "Tua Tagovailoa will start the first preseason game, but the Falcons are not ready to hand him the job for the regular season.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-13T02:01:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0039917",
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-wants-to-have-the-highest-scoring-offense-ever",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-wants-to-have-the-highest-scoring-offense-ever",
+      "permalink": "",
+      "title": "Ben Johnson wants to have the highest-scoring offense ever",
+      "body_text": "Anyone can aspire to win a championship, something that happens every year.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-13T01:42:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-new-move-the-sticks-podcast-was-not-ai-generated-or-hosted",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-new-move-the-sticks-podcast-was-not-ai-generated-or-hosted",
+      "permalink": "",
+      "title": "NFL says new \"Move the Sticks\" podcast was not AI-generated or hosted",
+      "body_text": "The NFL found itself in the middle of a bizarre AI controversy on Wednesday, given the suspicions that new content posted on the Move The Sticks podcast feed seemed to be machine-generated.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-13T01:08:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Move The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-faces-ai-accusations-over-new-content-on-move-the-sticks-podcast-feed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-faces-ai-accusations-over-new-content-on-move-the-sticks-podcast-feed",
+      "permalink": "",
+      "title": "NFL faces AI accusations over new content on \"Move the Sticks\" podcast feed",
+      "body_text": "As AI becomes more and more prevalent in society, it's also quietly infiltrating sports media.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-12T20:10:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-qwantez-stiggers-in-concussion-protocol",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-cb-qwantez-stiggers-in-concussion-protocol",
+      "permalink": "",
+      "title": "Jets CB Qwan'tez Stiggers in concussion protocol",
+      "body_text": "Jets cornerback Qwan'tez Stiggers, who lost consciousness during a joint practice on Tuesday, is in the NFL's concussion protocol.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-13T00:54:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darren-waller-agrees-to-terms-with-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darren-waller-agrees-to-terms-with-panthers",
+      "permalink": "",
+      "title": "Darren Waller agrees to terms with Panthers",
+      "body_text": "A year after he ended his retirement to play for the Dolphins, veteran tight end Darren Waller is heading to Carolina.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-13T00:52:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darren Waller"
+      ],
+      "resolved_player_ids": [
+        "00-0031610"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-elandon-roberts-returning-to-pittsburgh-on-a-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-elandon-roberts-returning-to-pittsburgh-on-a-one-year-deal",
+      "permalink": "",
+      "title": "LB Elandon Roberts returning to Pittsburgh on a one-year deal",
+      "body_text": "Free agent linebacker Elandon Roberts is returning to Pittsburgh.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-13T00:43:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Elandon Roberts"
+      ],
+      "resolved_player_ids": [
+        "00-0032442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-has-nothing-but-great-things-to-say-about-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-has-nothing-but-great-things-to-say-about-aaron-rodgers",
+      "permalink": "",
+      "title": "Jordan Love has \"nothing but great things to say\" about Aaron Rodgers",
+      "body_text": "Jordan Love will play in the Packers' first preseason game on Thursday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-12T23:12:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Love",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0023459"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-social-media-team-highlights-a-jalen-hurts-interception",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-social-media-team-highlights-a-jalen-hurts-interception",
+      "permalink": "",
+      "title": "Eagles' social-media team highlights a Jalen Hurts interception",
+      "body_text": "The problem with highlighting specific moments from NFL training camp is that one player's good play is another player's bad play.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-12T23:50:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/desjuan-johnson-on-aaron-donald-hes-a-little-faster-a-little-hungrier",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/desjuan-johnson-on-aaron-donald-hes-a-little-faster-a-little-hungrier",
+      "permalink": "",
+      "title": "Desjuan Johnson on Aaron Donald: He's a little faster, a little hungrier",
+      "body_text": "All signs point to Aaron Donald's return this season, though the defensive tackle has not officially announced his decision.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-12T23:38:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Desjuan Johnson",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0039061",
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-believes-hes-a-starter-in-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-believes-hes-a-starter-in-the-nfl",
+      "permalink": "",
+      "title": "J.J. McCarthy believes he's a starter in the NFL",
+      "body_text": "After losing the competition to Kyler Murray, McCarthy says all the right things.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-12T23:11:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-will-start-the-browns-preseason-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-will-start-the-browns-preseason-opener",
+      "permalink": "",
+      "title": "Deshaun Watson will start the Browns' preseason opener",
+      "body_text": "Shedeur Sanders is also going to play and is in line to start the second preseason game.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-12T22:08:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-bummed-that-thursdays-game-isnt-in-green-bay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-bummed-that-thursdays-game-isnt-in-green-bay",
+      "permalink": "",
+      "title": "Aaron Rodgers \"bummed\" that Thursday's game isn't in Green Bay",
+      "body_text": "Steelers quarterback Aaron Rodgers says that the 2026 season will be his final one as an NFL player and that means he will never play in Green Bay as a visiting player.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-12T21:50:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-terrion-arnold-is-a-player-that-can-help-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-terrion-arnold-is-a-player-that-can-help-us",
+      "permalink": "",
+      "title": "John Harbaugh: Terrion Arnold is a player that can help us",
+      "body_text": "Arnold visited the Giants on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-12T21:37:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-very-very-pleased-with-where-michael-penix-is-in-acl-recovery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-very-very-pleased-with-where-michael-penix-is-in-acl-recovery",
+      "permalink": "",
+      "title": "Kevin Stefanski \"very, very pleased\" with where Michael Penix is in ACL recovery",
+      "body_text": "Falcons quarterback Michael Penix has still not been fully cleared to return from his November ACL tear, but the team thinks Penix is exactly where he needs to be at this point in his recovery.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-12T21:34:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kevin Stefanski",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-wont-play-friday-but-will-play-final-two-preseason-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-wont-play-friday-but-will-play-final-two-preseason-games",
+      "permalink": "",
+      "title": "Bo Nix won't play Friday, but will play final two preseason games",
+      "body_text": "The Broncos will play their starters 10-15 snaps in Friday night's preseason opener against the Falcons.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-12T21:06:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-cb-eli-apple-dl-xavier-thomas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-cb-eli-apple-dl-xavier-thomas",
+      "permalink": "",
+      "title": "49ers sign CB Eli Apple, DL Xavier Thomas",
+      "body_text": "The 49ers have announced several roster moves on Wednesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-12T21:02:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eli Apple",
+        "Xavier Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0032379",
+        "00-0039367"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/how-real-was-the-vikings-quarterback-competition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/how-real-was-the-vikings-quarterback-competition",
+      "permalink": "",
+      "title": "How real was the Vikings' quarterback competition?",
+      "body_text": "From the moment quarterback Kyler Murray joined the Vikings, it seemed as if the starting job was his to lose.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-12T20:37:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-will-play-in-the-giants-preseason-opener-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-will-play-in-the-giants-preseason-opener-saturday",
+      "permalink": "",
+      "title": "Odell Beckham will play in the Giants' preseason opener Saturday",
+      "body_text": "Giants wide receiver Odell Beckham Jr. will play his first game in more than two years on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-12T20:32:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham",
+        "Saturday Giants",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-add-rb-zamir-white",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-add-rb-zamir-white",
+      "permalink": "",
+      "title": "49ers add RB Zamir White",
+      "body_text": "San Francisco has elected to add one of the running backs the club worked out this week.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-12T20:22:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zamir White",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0038040"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-rb-hassan-haskins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-rb-hassan-haskins",
+      "permalink": "",
+      "title": "Patriots sign RB Hassan Haskins",
+      "body_text": "The Patriots made a change to their running back group on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-12T20:11:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hassan Haskins",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0037617"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-place-ol-dillon-radunz-on-ir-sign-dt-kahlil-saunders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-place-ol-dillon-radunz-on-ir-sign-dt-kahlil-saunders",
+      "permalink": "",
+      "title": "Saints place OL Dillon Radunz on IR, sign DT Kahlil Saunders",
+      "body_text": "The Saints signed free agent defensive tackle Kahlil Saunders on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-12T19:46:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dillon Radunz",
+        "Kahlil Saunders",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0036619"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-keim-apologizes-to-those-who-were-hurt-by-mohamed-coulibalys-scams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-keim-apologizes-to-those-who-were-hurt-by-mohamed-coulibalys-scams",
+      "permalink": "",
+      "title": "Steve Keim apologizes to those who were hurt by Mohamed Coulibaly's alleged scams",
+      "body_text": "It's been a strange time for former Cardinals G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-12T17:51:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Steve Keim",
+        "Mohamed Coulibaly"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-emeka-egbuka-has-a-minor-toe-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-emeka-egbuka-has-a-minor-toe-injury",
+      "permalink": "",
+      "title": "Report: Emeka Egbuka has a minor toe injury",
+      "body_text": "Buccaneers head coach Todd Bowles didn't have an update on wide receiver Emeka Egbuka after Wednesday's practice, but it looks like Egbuka avoided a serious injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-12T19:07:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emeka Egbuka",
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [
+        "00-0040129"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-wedding-to-taylor-swift-was-the-best-night-of-my-life",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-wedding-to-taylor-swift-was-the-best-night-of-my-life",
+      "permalink": "",
+      "title": "Travis Kelce: Wedding to Taylor Swift \"was the best night of my life\"",
+      "body_text": "Travis Kelce's wedding to Taylor Swift in July was the celebrity social event of the summer, as the couple assembled guests at Madison Square Garden in New York for the occasion.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-12T19:04:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Taylor Swift",
+        "Madison Square",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": null
+    }
+  ]
+}

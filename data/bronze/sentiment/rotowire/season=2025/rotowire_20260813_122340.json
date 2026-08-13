@@ -1,0 +1,114 @@
+{
+  "fetch_run_id": "d9003c3d-c015-4620-94f6-ecc3cf7ef375",
+  "source": "rotowire",
+  "fetched_at": "2026-08-13T12:23:40.471950+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633388",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Top target during joint practice",
+      "body_text": "Brown remained the Patriots' No. 1 option in the passing game during Tuesday's joint practice with the Colts, Ethan Hurwitz of SI.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-12T07:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ethan Hurwitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl633384",
+      "url": "https://www.rotowire.com//football/player/justin-jefferson-14509",
+      "permalink": "",
+      "title": "Justin Jefferson: Building rapport with Murray",
+      "body_text": "Jefferson and newly named starting quarterback Kyler Murray have been starting to click at practice, Will Ragatz of Bring Me The Sports reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-12T07:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Murray Jefferson",
+        "Kyler Murray",
+        "Will Ragatz",
+        "Me The"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0035228"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633377",
+      "url": "https://www.rotowire.com//football/player/darren-waller-10215",
+      "permalink": "",
+      "title": "Darren Waller: Inks deal with Carolina",
+      "body_text": "The Panthers signed Waller (groin) to a one-year contract Wednesday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-12T05:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darren Waller",
+        "Carolina The",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0031610"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "nfl633363",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Takes part in Wednesday's walkthrough",
+      "body_text": "Price (lower body) participated in Wednesday's walkthrough, Bob Condotta of The Seattle Times reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-12T03:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Bob Condotta",
+        "The Seattle"
+      ],
+      "resolved_player_ids": [
+        "00-0041512"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl633361",
+      "url": "https://www.rotowire.com//football/player/shedeur-sanders-18479",
+      "permalink": "",
+      "title": "Shedeur Sanders: Set to start second preseason game",
+      "body_text": "Deshaun Watson will get the start in Saturday's preseason opener against the Bears, while Sanders will draw the start in the team's Aug. 22 contest against the Bills. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-12T03:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}
