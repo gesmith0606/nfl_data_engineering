@@ -1,0 +1,103 @@
+{
+  "fetch_run_id": "103e7bf2-b356-477a-bcc4-5a6429ac6a6f",
+  "source": "rotowire",
+  "fetched_at": "2026-08-14T12:23:08.816632+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633523",
+      "url": "https://www.rotowire.com//football/player/drake-maye-17673",
+      "permalink": "",
+      "title": "Drake Maye: Gets night off Thursday",
+      "body_text": "Maye did not play in the Patriots' 13-13 preseason tie with the Colts on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-13T11:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Thursday Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl633516",
+      "url": "https://www.rotowire.com//football/player/marshawn-lloyd-17795",
+      "permalink": "",
+      "title": "MarShawn Lloyd: Gets start in preseason opener",
+      "body_text": "Lloyd carried the ball four times for 13 yards in Thursday's 28-9 preseason loss to the Steelers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-13T11:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl633515",
+      "url": "https://www.rotowire.com//football/player/matthew-golden-18500",
+      "permalink": "",
+      "title": "Matthew Golden: Gets snaps Thursday",
+      "body_text": "Golden failed to see a target in Thursday's 28-9 preseason loss to the Steelers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-13T10:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Golden",
+        "Thursday Golden"
+      ],
+      "resolved_player_ids": [
+        "00-0040667"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl633514",
+      "url": "https://www.rotowire.com//football/player/jayden-reed-16977",
+      "permalink": "",
+      "title": "Jayden Reed: Sees field in preseason opener",
+      "body_text": "Reed caught one of two targets for 19 yards in Thursday's 28-9 preseason loss to the Steelers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-13T10:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Reed"
+      ],
+      "resolved_player_ids": [
+        "00-0039146"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl633513",
+      "url": "https://www.rotowire.com//football/player/christian-watson-15946",
+      "permalink": "",
+      "title": "Christian Watson: Cameo appearance in preseason opener",
+      "body_text": "Watson failed to bring in his only target in Thursday's 28-9 preseason loss to the Steelers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-13T10:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

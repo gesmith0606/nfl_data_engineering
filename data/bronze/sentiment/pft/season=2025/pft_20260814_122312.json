@@ -1,0 +1,612 @@
+{
+  "fetch_run_id": "b5ac632e-4cd4-4947-add6-4cd22dc105e1",
+  "source": "pft",
+  "fetched_at": "2026-08-14T12:23:12.985294+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-christian-gonzalez-was-physically-unavailable-for-practice-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-christian-gonzalez-was-physically-unavailable-for-practice-this-week",
+      "permalink": "",
+      "title": "Mike Vrabel: Christian Gonzalez was \"physically unavailable\" for practice this week",
+      "body_text": "Patriots cornerback Christian Gonzalez joined the rest of the team's starters in not playing against the Colts on Thursday night and he didn't take part in a joint practice on Tuesday either.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T12:09:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-ward-looked-a-little-sped-up-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-ward-looked-a-little-sped-up-on-thursday-night",
+      "permalink": "",
+      "title": "Robert Saleh: Cam Ward looked a little sped up on Thursday night",
+      "body_text": "Titans quarterback Cam Ward's first drive of the preseason covered 95 yards and ended with a Tony Pollard touchdown run, but the night wasn't a total success for the second-year starter.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T11:53:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Saleh",
+        "Cam Ward",
+        "Tony Pollard"
+      ],
+      "resolved_player_ids": [
+        "00-0040676",
+        "00-0035261"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-drew-allar-will-howard-were-very-poised",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-drew-allar-will-howard-were-very-poised",
+      "permalink": "",
+      "title": "Mike McCarthy: Drew Allar, Will Howard were very poised",
+      "body_text": "Drew Allar is the only rookie quarterback on the Steelers roster, but he wasn't the only Steelers quarterback to play in an NFL game for the first time on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T11:29:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Allar",
+        "Will Howard"
+      ],
+      "resolved_player_ids": [
+        "00-0041565",
+        "00-0040203"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-i-dont-think-i-played-well-in-preseason-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-i-dont-think-i-played-well-in-preseason-opener",
+      "permalink": "",
+      "title": "Anthony Richardson: I don't think I played well in preseason opener",
+      "body_text": "Colts quarterback Anthony Richardson was not satisfied with his own performance in Thursday night's preseason opener.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-14T10:58:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-lose-second-round-rookie-guard-chase-bisontis-to-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-lose-second-round-rookie-guard-chase-bisontis-to-knee-injury",
+      "permalink": "",
+      "title": "Cardinals lose second-round rookie guard Chase Bisontis to knee injury",
+      "body_text": "The Cardinals appear to have lost their second-round draft pick for a significant period of time with a preseason knee injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-14T10:18:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chase Bisontis",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0041468"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-special-teams-coach-brian-mason-injured-knee-in-sideline-collision-on-final-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-special-teams-coach-brian-mason-injured-knee-in-sideline-collision-on-final-play",
+      "permalink": "",
+      "title": "Colts special teams coach Brian Mason injured knee in sideline collision on final play",
+      "body_text": "Colts special teams coordinator Brian Mason was injured at the end of Thursday night's preseason game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-14T08:41:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Mason"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-raiders-qb1-is-kirk-cousins-job-to-lose",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-raiders-qb1-is-kirk-cousins-job-to-lose",
+      "permalink": "",
+      "title": "Klint Kubiak: Raiders QB1 is Kirk Cousins' job to lose",
+      "body_text": "Kubiak said he liked what he saw from Fernando Mendoza in the preseason opener, but Cousins has been working with the first string and will continue to do so.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-14T08:02:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "Kirk Cousins",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0041562"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-qb-kurtis-rourke-taken-to-hospital-for-tests-after-struggling-to-breathe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-qb-kurtis-rourke-taken-to-hospital-for-tests-after-struggling-to-breathe",
+      "permalink": "",
+      "title": "49ers QB Kurtis Rourke taken to hospital for tests after struggling to breathe",
+      "body_text": "Kyle Shanahan said Rourke appeared to be OK after suffering a rib injury, but the medical staff wanted to rule out anything serious.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-14T07:52:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kurtis Rourke",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [
+        "00-0040589"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-again-compares-the-micah-parsons-trade-to-the-herschel-walker-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-again-compares-the-micah-parsons-trade-to-the-herschel-walker-trade",
+      "permalink": "",
+      "title": "Jerry Jones again compares the Micah Parsons trade to the Herschel Walker trade",
+      "body_text": "After the Cowboys traded Micah Parsons to the Packers last year, Dallas owner and G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T04:35:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "Micah Parsons",
+        "Herschel Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-wont-be-delegating-challenge-flag-duties",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-wont-be-delegating-challenge-flag-duties",
+      "permalink": "",
+      "title": "Mike Vrabel won't be delegating challenge-flag duties",
+      "body_text": "The NFL has tweaked the rules to allow head coaches to delegate before each game the task of physically throwing the red challenge flag.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T04:07:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-has-no-thoughts-about-the-lsu-jayden-daniels-number-fracas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-has-no-thoughts-about-the-lsu-jayden-daniels-number-fracas",
+      "permalink": "",
+      "title": "Joe Burrow has no thoughts about the LSU, Jayden Daniels number fracas",
+      "body_text": "The sudden and surprising scuffle between Commanders quarterback Jayden Daniels and LSU over the re-issuance of his number (5) has implicated Bengals quarterback Joe Burrow, given that the school has to date honored its vow to not use his number (9) again.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T03:40:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0039910"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-allar-leads-steelers-offense-to-three-touchdowns-in-three-drives",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-allar-leads-steelers-offense-to-three-touchdowns-in-three-drives",
+      "permalink": "",
+      "title": "Drew Allar leads Steelers' offense to three touchdowns in three drives",
+      "body_text": "Third-rounder looks the part in his preseason debut.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T03:04:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Allar"
+      ],
+      "resolved_player_ids": [
+        "00-0041565"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-suspension-looming-falcons-list-james-pearce-jr-as-third-stringer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-suspension-looming-falcons-list-james-pearce-jr-as-third-stringer",
+      "permalink": "",
+      "title": "With suspension looming, Falcons list James Pearce Jr. as third-stringer",
+      "body_text": "Falcons defensive end James Pearce Jr., who entered a diversion program earlier this year to resolve multiple felonies arising from a February 2026 domestic violence incident, most likely will be suspended by the league before Week 1.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T02:49:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Pearce Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-has-tough-night-vs-49ers-backups",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-has-tough-night-vs-49ers-backups",
+      "permalink": "",
+      "title": "Cam Ward has tough night vs. 49ers backups",
+      "body_text": "Cam Ward completed 59.8 percent of his passes for 3,169 yards with 15 touchdowns and seven interceptions as a rookie.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T02:37:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-qb-depth-chart-has-tua-tagovailoa-as-starter-michael-penix-jr-omitted-as-injured-player",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-qb-depth-chart-has-tua-tagovailoa-as-starter-michael-penix-jr-omitted-as-injured-player",
+      "permalink": "",
+      "title": "Falcons ' QB depth chart has Tua Tagovailoa as starter, Michael Penix Jr. omitted as \"injured player\"",
+      "body_text": "From the outside, there's a quarterback competition in Atlanta.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T02:18:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-mccaskey-team-will-be-chicago-bears-if-new-stadium-is-built-in-indiana",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-mccaskey-team-will-be-chicago-bears-if-new-stadium-is-built-in-indiana",
+      "permalink": "",
+      "title": "George McCaskey: Team will be \"Chicago Bears\" if new stadium is built in Indiana",
+      "body_text": "The Bears say their \"sole focus\" when it comes to a new stadium is on Hammond, Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T02:29:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chicago Bears",
+        "Indiana The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-third-string-qb-kurtis-rourke-leaves-with-rib-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-third-string-qb-kurtis-rourke-leaves-with-rib-injury",
+      "permalink": "",
+      "title": "49ers third-string QB Kurtis Rourke leaves with rib injury",
+      "body_text": "The 49ers have four quarterbacks on their roster, but only two dressed Thursday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T02:19:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kurtis Rourke"
+      ],
+      "resolved_player_ids": [
+        "00-0040589"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-nfl-place-terrion-arnold-on-paid-leave",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-nfl-place-terrion-arnold-on-paid-leave",
+      "permalink": "",
+      "title": "Will NFL place Terrion Arnold on paid leave?",
+      "body_text": "Now that Arnold is on a team again, the league put him on the Commissioner Exempt list.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T02:02:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold",
+        "Commissioner Exempt"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-third-string-qb-graham-mertz-leaves-with-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-third-string-qb-graham-mertz-leaves-with-injury",
+      "permalink": "",
+      "title": "Texans third-string QB Graham Mertz leaves with injury",
+      "body_text": "Backup quarterback Davis Mills was expected to play only one series in Thursday night's preseason opener for the Texans.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T02:03:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Graham Mertz",
+        "Davis Mills"
+      ],
+      "resolved_player_ids": [
+        "00-0040211",
+        "00-0036898"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rookie-jeremiyah-love-had-14-touches-73-yards-in-first-half",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rookie-jeremiyah-love-had-14-touches-73-yards-in-first-half",
+      "permalink": "",
+      "title": "Cardinals rookie Jeremiyah Love had 14 touches, 73 yards in first half",
+      "body_text": "The Cardinals selected Jeremiyah Love with the third overall pick in April.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T01:52:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-throws-td-on-his-second-possession",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-throws-td-on-his-second-possession",
+      "permalink": "",
+      "title": "Fernando Mendoza throws TD on his second possession",
+      "body_text": "Fernando Mendoza threw his first completion to Jack Bech, and now has thrown his first touchdown pass to the second-year wide receiver.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T01:22:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Jack Bech"
+      ],
+      "resolved_player_ids": [
+        "00-0041562",
+        "00-0040729"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-completes-11-of-14-passes-in-first-half-of-preseason-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-completes-11-of-14-passes-in-first-half-of-preseason-opener",
+      "permalink": "",
+      "title": "Anthony Richardson completes 11 of 14 passes in first half of preseason opener",
+      "body_text": "As Colts quarterback Anthony Richardson prepares for his fourth season, he's fighting to avoid falling to third on the Indy depth chart behind Daniel Jones and Riley Leonard.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T01:07:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson",
+        "As Colts",
+        "Daniel Jones",
+        "Riley Leonard"
+      ],
+      "resolved_player_ids": [
+        "00-0039164",
+        "00-0035710",
+        "00-0040206"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-throws-td-on-his-only-drive-before-fernando-mendoza-replaces-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-throws-td-on-his-only-drive-before-fernando-mendoza-replaces-him",
+      "permalink": "",
+      "title": "Kirk Cousins throws TD on his only drive before Fernando Mendoza replaces him",
+      "body_text": "Kirk Cousins will start the season opener for the Raiders as No. 1 overall pick Fernando Mendoza begins his career on the bench.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T00:42:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0041562"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-plays-two-series-in-bengals-preseason-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-plays-two-series-in-bengals-preseason-opener",
+      "permalink": "",
+      "title": "Joe Burrow plays two series in Bengals' preseason opener",
+      "body_text": "Bengals quarterback Joe Burrow started the team's first preseason game Thursday night against the Lions.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T00:02:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-plays-one-series-leads-packers-to-a-field-goal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-plays-one-series-leads-packers-to-a-field-goal",
+      "permalink": "",
+      "title": "Jordan Love plays one series, leads Packers to a field goal",
+      "body_text": "The Packers made a different choice than the Steelers when it came to playing their starting quarterback on Thursday night, but they didn't leave Jordan Love in the game for long.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-13T23:57:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Love",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-terrion-arnold-agrees-to-terms-with-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-terrion-arnold-agrees-to-terms-with-seahawks",
+      "permalink": "",
+      "title": "CB Terrion Arnold agrees to terms with Seahawks",
+      "body_text": "The NFL now must decide whether to place Arnold on the Commissioner's Exempt List.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-13T23:26:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold",
+        "Seahawks The",
+        "Exempt List"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-jayden-danielss-objection-dj-pickett-wont-give-up-no-5",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/despite-jayden-danielss-objection-dj-pickett-wont-give-up-no-5",
+      "permalink": "",
+      "title": "Despite Jayden Daniels's objection, DJ Pickett won't give up No. 5",
+      "body_text": "LSU cornerback DJ Pickett wore No. 3 last year, even though he was promised No. 5.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-13T22:59:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Despite Jayden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-apologizes-to-reporters-for-his-actions-at-previous-press-conference",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-apologizes-to-reporters-for-his-actions-at-previous-press-conference",
+      "permalink": "",
+      "title": "Shedeur Sanders apologizes to reporters for his actions at previous press conference",
+      "body_text": "\"I feel drained when I express myself to people and places and cameras when it’s not received and taken the right way,\" Sanders said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-13T22:25:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-will-not-play-tonight-against-the-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-will-not-play-tonight-against-the-packers",
+      "permalink": "",
+      "title": "Aaron Rodgers will not play tonight against the Packers",
+      "body_text": "The Steelers did not announce their quarterback plans for Thursday night's preseason game against the Packers.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-13T22:43:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Packers The"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-wr-coach-chad-hall-left-bloodied-after-collision-with-malik-nabers-helmet",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-wr-coach-chad-hall-left-bloodied-after-collision-with-malik-nabers-helmet",
+      "permalink": "",
+      "title": "Giants WRs coach Chad Hall left bloodied after collision with Malik Nabers' helmet",
+      "body_text": "Giants wide receiver Malik Nabers is wearing a red practice jersey, meaning he is injured and should not be touched.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-13T21:10:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chad Hall",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0027188",
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
