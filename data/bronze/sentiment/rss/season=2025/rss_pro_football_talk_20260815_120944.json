@@ -1,0 +1,501 @@
+{
+  "fetch_run_id": "27e725a3-b25c-42e0-8c59-bceffb151c80",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-15T12:09:44.384568+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-rookie-wr-caleb-douglas-has-pretty-incredible-catch-in-preseason-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-rookie-wr-caleb-douglas-has-pretty-incredible-catch-in-preseason-debut",
+      "title": "Dolphins rookie WR Caleb Douglas has \"pretty incredible\" catch in preseason debut",
+      "body_text": "The third-round pick is on track for a big role in the Miami offense.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T12:05:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Douglas"
+      ],
+      "resolved_player_ids": [
+        "00-0041523"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-undrafted-rookie-qb-jalon-daniels-impresses-in-preseason-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-undrafted-rookie-qb-jalon-daniels-impresses-in-preseason-debut",
+      "title": "Buccaneers' undrafted rookie QB Jalon Daniels impresses in preseason debut",
+      "body_text": "Buccaneers undrafted rookie quarterback Jalon Daniels is fourth on the depth chart, but he looked in his preseason debut like he might have an NFL future.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-15T09:51:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalon Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0041251"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-it-starts-with-me-my-play-in-preseason-opener-was-not-up-to-standard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-it-starts-with-me-my-play-in-preseason-opener-was-not-up-to-standard",
+      "title": "Tua Tagovailoa: It starts with me, my play in preseason opener was not up to standard",
+      "body_text": "The Falcons' quarterback went 3-for-5 for 22 yards in Friday night's preseason game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-15T08:50:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nazeeh-johnson-says-his-ped-suspension-is-for-taking-a-fertility-medication",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nazeeh-johnson-says-his-ped-suspension-is-for-taking-a-fertility-medication",
+      "title": "Nazeeh Johnson says his PED suspension is for taking a fertility medication",
+      "body_text": "Titans cornerback Nazeeh Johnson, who has been suspended for the first six games of the season for violating the NFL policy on performance-enhancing substances, says his violation came from his and his wife's efforts to conceive a child.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-15T08:14:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nazeeh Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0037198"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-takes-shot-at-light-turnout-in-atlanta",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-takes-shot-at-light-turnout-in-atlanta",
+      "title": "Sean Payton takes shot at light turnout in Atlanta",
+      "body_text": "Broncos coach Sean Payton has a history with Atlanta, dating back to the intense rivalry between the Saints (whom he coached from 2006 through 2021) and the Falcons.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-15T03:42:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Atlanta Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-dt-keeanu-benton-agree-to-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-dt-keeanu-benton-agree-to-four-year-extension",
+      "title": "Steelers, DT Keeanu Benton agree to four-year extension",
+      "body_text": "The Steelers and defensive tackle Keeanu Benton have agreed to a long-term extension.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-15T02:15:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keeanu Benton",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039110"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rookie-ol-chase-bisontis-tears-mcl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rookie-ol-chase-bisontis-tears-mcl",
+      "title": "Cardinals rookie OL Chase Bisontis tears MCL",
+      "body_text": "Cardinals second-round offensive guard Chase Bisontis will miss most, or possibly all, of his rookie season.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-15T00:23:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chase Bisontis"
+      ],
+      "resolved_player_ids": [
+        "00-0041468"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-drives-two-punts-for-tua-tagovailoa-in-falcons-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-drives-two-punts-for-tua-tagovailoa-in-falcons-debut",
+      "title": "Two drives, two punts for Tua Tagovailoa in Falcons debut",
+      "body_text": "Quarterback Tua Tagovailoa made his preseason debut with the Falcons on Friday night against the Broncos.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-15T00:09:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Quarterback Tua"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cade-klubnik-plays-two-series-leads-jets-to-10-points",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cade-klubnik-plays-two-series-leads-jets-to-10-points",
+      "title": "Cade Klubnik plays two series, leads Jets to 10 points",
+      "body_text": "The Jets made a late change at quarterback on Friday and rookie Cade Klubnik got the start against the Buccaneers as a result.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T00:09:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cade Klubnik",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0041056"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-holley-is-fine-after-fainting-on-air-during-pft-live",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-holley-is-fine-after-fainting-on-air-during-pft-live",
+      "title": "Michael Holley is fine after fainting on-air during PFT Live",
+      "body_text": "Friday's edition of PFT Live included a moment that was unprecedented in the 15-year history of the show.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T23:48:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Holley",
+        "Live Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-devon-achane-play-one-series-score-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-devon-achane-play-one-series-score-td",
+      "title": "Malik Willis, De'Von Achane play one series, score TD",
+      "body_text": "Malik Willis made his Miami debut in the team's first preseason game.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T23:43:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Willis",
+        "Von Achane"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-mariota-injured-in-first-quarter-heads-to-locker-room",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-mariota-injured-in-first-quarter-heads-to-locker-room",
+      "title": "Marcus Mariota injured in first quarter, heads to locker room",
+      "body_text": "Marcus Mariota got the start at quarterback for the Commanders on Friday night, but his night came to an early end.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T23:39:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcus Mariota"
+      ],
+      "resolved_player_ids": [
+        "00-0032268"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bills-49ers-and-bears-have-called-bucs-about-vita-vea",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bills-49ers-and-bears-have-called-bucs-about-vita-vea",
+      "title": "Report: Bills, 49ers and Bears have called Bucs about Vita Vea",
+      "body_text": "Defensive tackle Vita Vea remains at odds with the Buccaneers over his contract and thus is not practicing.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T23:28:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vita Vea"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/heather-mcphee-settles-all-claims-in-lawsuit-against-nflpa-and-others",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/heather-mcphee-settles-all-claims-in-lawsuit-against-nflpa-and-others",
+      "title": "Heather McPhee settles all claims in lawsuit against NFLPA and others",
+      "body_text": "Earlier this summer, former NFL Players Association general counsel Heather McPhee settled her wrongful discharge lawsuit against the union, without resolving the pending claims against the other defendants in the lawsuit.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T23:21:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-emeka-egbuka-has-sprained-toe-should-be-good-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-emeka-egbuka-has-sprained-toe-should-be-good-for-week-1",
+      "title": "Report: Emeka Egbuka has sprained toe, should be good for Week 1",
+      "body_text": "The Buccaneers received good news about wide receiver Emeka Egbuka's injury on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T22:17:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Emeka Egbuka",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0040129"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-out-on-friday-due-to-foot-soreness-cade-klubnik-will-start-for-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-out-on-friday-due-to-foot-soreness-cade-klubnik-will-start-for-jets",
+      "title": "Geno Smith out on Friday due to foot soreness, Cade Klubnik will start for Jets",
+      "body_text": "Jets head coach Aaron Glenn said this week that the team's starters would play against the Buccaneers on Friday night, but there's one significant change to that plan.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T21:54:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Geno Smith",
+        "Cade Klubnik",
+        "Jets Jets",
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0030565",
+        "00-0041056",
+        "00-0006034"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-qb-jake-browning-will-not-play-against-the-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-qb-jake-browning-will-not-play-against-the-jets",
+      "title": "Bucs QB Jake Browning will not play against the Jets",
+      "body_text": "The Buccaneers have scrapped their plan to have Jake Browning start at quarterback against the Jets on Friday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T21:45:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Browning",
+        "Jets The"
+      ],
+      "resolved_player_ids": [
+        "00-0035100"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-announce-jayden-daniels-many-others-wont-play-on-friday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-announce-jayden-daniels-many-others-wont-play-on-friday-night",
+      "title": "Commanders announce Jayden Daniels, many others won't play on Friday night",
+      "body_text": "There won't be anyone wearing No. 5 for the Commanders on Friday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T21:39:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-wont-play-saturday-as-drew-lock-jalen-milroe-will-rotate-series",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-wont-play-saturday-as-drew-lock-jalen-milroe-will-rotate-series",
+      "title": "Sam Darnold won't play Saturday, as Drew Lock, Jalen Milroe will rotate series",
+      "body_text": "Seahawks quarterback Sam Darnold will not play the team's preseason opener against the Cowboys on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T21:39:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold",
+        "Drew Lock",
+        "Jalen Milroe"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0035704",
+        "00-0040673"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-is-officially-back-to-wearing-no-19-in-san-francisco",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-is-officially-back-to-wearing-no-19-in-san-francisco",
+      "title": "Deebo Samuel is officially back to wearing No. 19 in San Francisco",
+      "body_text": "New 49ers wide receiver Deebo Samuel's new number will be the same as old 49ers wide receiver Deebo Samuel's old number.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-14T21:36:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deebo Samuel",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-db-wande-owens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-db-wande-owens",
+      "title": "Bills sign DB Wande Owens",
+      "body_text": "Defensive back Wande Owens is back with the Bills.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T21:27:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Wande Owens"
+      ],
+      "resolved_player_ids": [
+        "00-0040364"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-could-return-to-packers-practice-next-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-could-return-to-packers-practice-next-week",
+      "title": "Josh Jacobs could return to Packers practice next week",
+      "body_text": "Packers running back Josh Jacobs has missed more than a week of practice with a groin injury, but his return could be around the corner.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T21:16:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-says-this-will-be-his-final-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarcus-lawrence-says-this-will-be-his-final-season",
+      "title": "DeMarcus Lawrence says this will be his final season",
+      "body_text": "Seahawks defensive end DeMarcus Lawrence thought about retiring after the 2025 season, but he won't go through the same process after the 2026 campaign.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-14T21:04:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-cut-k-chris-freeman",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-cut-k-chris-freeman",
+      "title": "Texans cut K Chris Freeman",
+      "body_text": "The Texans signed kicker Chris Freeman on Wednesday to have him kick in Friday's preseason game.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T20:31:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Freeman",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-activate-lb-teddye-buchanan-place-ol-kendall-lamm-on-reserve-retired",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-activate-lb-teddye-buchanan-place-ol-kendall-lamm-on-reserve-retired",
+      "title": "Ravens activate LB Teddye Buchanan, place OL Kendall Lamm on reserve/retired",
+      "body_text": "The Ravens activated linebacker Teddye Buchanan from active/physically unable to perform, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T20:20:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Teddye Buchanan",
+        "Kendall Lamm",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0040069",
+        "00-0031921"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dt-phidarian-mathis-suspended-three-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dt-phidarian-mathis-suspended-three-games",
+      "title": "Bills DT Phidarian Mathis suspended three games",
+      "body_text": "The NFL has suspended defensive tackle Phidarian Mathis for the first three games of the season for violating its substances of abuse policy.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T19:47:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Phidarian Mathis"
+      ],
+      "resolved_player_ids": [
+        "00-0038099"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-chief-of-staff-steve-scarnecchia-suffered-medical-situation-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-chief-of-staff-steve-scarnecchia-suffered-medical-situation-on-thursday",
+      "title": "Steelers chief of staff Steve Scarnecchia suffered \"medical situation\" on Thursday",
+      "body_text": "Steelers head coach Mike McCarthy shared on Friday that the club had a situation that resulted in some on-the-fly changes for last night’s preseason opener.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-14T19:57:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Scarnecchia",
+        "Thursday Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-de-dorance-armstrong-suspended-one-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-de-dorance-armstrong-suspended-one-game",
+      "title": "Commanders DE Dorance Armstrong suspended one game",
+      "body_text": "The NFL suspended Commanders defensive end Dorance Armstrong for one game for violating its personal conduct policy.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-14T19:57:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dorance Armstrong"
+      ],
+      "resolved_player_ids": [
+        "00-0034373"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nazeeh-johnson-suspended-six-games-for-violating-ped-policy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nazeeh-johnson-suspended-six-games-for-violating-ped-policy",
+      "title": "Nazeeh Johnson suspended six games for violating PED policy",
+      "body_text": "The Titans will not have one of their cornerbacks at the beginning of the regular season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-14T19:45:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nazeeh Johnson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0037198"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-suspends-james-pearce-jr-eight-games-for-february-domestic-violence-incident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-suspends-james-pearce-jr-eight-games-for-february-domestic-violence-incident",
+      "title": "NFL suspends James Pearce Jr. eight games for February domestic-violence incident",
+      "body_text": "Pearce entered a diversion program in May, triggering the disciplinary process.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-14T19:13:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Pearce Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": null
+    }
+  ]
+}

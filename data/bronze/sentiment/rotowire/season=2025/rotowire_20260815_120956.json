@@ -1,0 +1,106 @@
+{
+  "fetch_run_id": "2b7a0366-0e81-4223-8b50-071a95d1c5cc",
+  "source": "rotowire",
+  "fetched_at": "2026-08-15T12:09:56.030379+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633620",
+      "url": "https://www.rotowire.com//football/player/marcus-mariota-10074",
+      "permalink": "",
+      "title": "Marcus Mariota: Injury update in coming days",
+      "body_text": "Head coach Dan Quinn said after Friday's 20-7 preseason win over the Dolphins that he'll provide an update on Mariota (knee) on Sunday, John Keim of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-14T07:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcus Mariota",
+        "Dan Quinn",
+        "John Keim"
+      ],
+      "resolved_player_ids": [
+        "00-0032268"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl633619",
+      "url": "https://www.rotowire.com//football/player/malik-willis-15872",
+      "permalink": "",
+      "title": "Malik Willis: Sharp during successful opening drive",
+      "body_text": "Willis completed four of five passes for 43 yards with no touchdowns or interceptions and added two carries for nine yards in the Dolphins' 20-7 preseason loss to the Commanders on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-14T07:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl633618",
+      "url": "https://www.rotowire.com//football/player/courtland-sutton-12586",
+      "permalink": "",
+      "title": "Courtland Sutton: Strong start to preseason",
+      "body_text": "Sutton caught all three of his targets for 60 yards in Friday's 27-7 preseason win over the Falcons. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-14T07:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton"
+      ],
+      "resolved_player_ids": [
+        "00-0034348"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl633617",
+      "url": "https://www.rotowire.com//football/player/devon-achane-16661",
+      "permalink": "",
+      "title": "De'Von Achane: Gets in end zone in preseason opener",
+      "body_text": "Achane rushed seven times for 39 yards and a touchdown and wasn't targeted in the Dolphins' 20-7 preseason loss to the Commanders on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-14T07:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Achane"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl633616",
+      "url": "https://www.rotowire.com//football/player/brian-robinson-15907",
+      "permalink": "",
+      "title": "Brian Robinson: Gets preseason start Friday",
+      "body_text": "Robinson rushed twice for six yards in Friday's 27-7 preseason loss to the Broncos. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-14T07:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Robinson",
+        "Friday Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037746"
+      ],
+      "team_hint": "DEN"
+    }
+  ]
+}
