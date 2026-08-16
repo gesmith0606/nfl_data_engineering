@@ -15,9 +15,16 @@ import glob
 import os
 from typing import List, Optional
 
+import numpy as np
 import pandas as pd
 
-from config import LABEL_COLUMNS, SILVER_TEAM_LOCAL_DIRS, TEAM_DIVISIONS
+from config import (
+    LABEL_COLUMNS,
+    SILVER_PLAYER_LOCAL_DIRS,
+    SILVER_TEAM_LOCAL_DIRS,
+    TEAM_DIVISIONS,
+)
+from team_analytics import apply_team_rolling
 
 # Base directories for local data
 _BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)))
@@ -201,7 +208,275 @@ def _compute_momentum_features(season: int) -> pd.DataFrame:
     ].copy()
 
 
-def _assemble_team_features(season: int) -> pd.DataFrame:
+# Raw (same-week) player-aggregate stat columns computed by
+# _compute_player_team_features(). These names deliberately never appear in
+# get_feature_columns()'s allowlist -- only their apply_team_rolling()
+# derivatives (_roll3/_roll6/_std) are pre-game knowable and get selected as
+# model features. Mirrors teams/player_quality's construction exactly (see
+# scripts/silver_player_quality_transformation.py::transform_season).
+_PLAYER_TEAM_STAT_COLS = [
+    "qb_dakota",
+    "qb_cpoe",
+    "qb_pressure_rate",
+    "skill_snap_share_hhi",
+    "skill_target_share_hhi",
+    "skill_snap_participation_count",
+    "wr_weighted_separation",
+    "wr_weighted_yac_oe",
+    "rb_weighted_ryoe",
+    "rb_time_to_los",
+]
+
+
+def _herfindahl(shares: pd.Series) -> float:
+    """Herfindahl-Hirschman concentration index of a share series.
+
+    1/N (evenly split) is minimal concentration; 1.0 (one player has it all)
+    is maximal. Shares are renormalized to sum to 1 before squaring so the
+    index is well-defined regardless of the input's own normalization.
+
+    Args:
+        shares: Raw per-player share values (e.g. snap_pct) for one team-week.
+
+    Returns:
+        HHI in [0, 1], or 0.0 if all shares are zero/missing.
+    """
+    s = shares.fillna(0.0).clip(lower=0.0)
+    total = s.sum()
+    if total <= 0:
+        return 0.0
+    norm = s / total
+    return float((norm**2).sum())
+
+
+def _share_weighted_avg(group: pd.DataFrame, value_col: str, weight_col: str) -> float:
+    """Share-weighted average of a value column within one team-week group.
+
+    Args:
+        group: Rows for one (team, season, week), one row per player.
+        value_col: Column to average (e.g. an NGS metric).
+        weight_col: Column to weight by (e.g. target_share or carry_share).
+
+    Returns:
+        Weighted average, or NaN if no rows have both a valid value and
+        positive weight (real sparsity -- e.g. NGS qualification thresholds
+        -- not a bug; see .planning/OPPORTUNITY_SCAN_2026_08_16.md).
+    """
+    if value_col not in group.columns or weight_col not in group.columns:
+        return np.nan
+    w = group[weight_col].fillna(0.0)
+    v = group[value_col]
+    mask = v.notna() & (w > 0)
+    if not mask.any():
+        return np.nan
+    return float((v[mask] * w[mask]).sum() / w[mask].sum())
+
+
+def _compute_player_team_features(season: int) -> pd.DataFrame:
+    """Compute team-week player-aggregate features from repaired players/usage + players/advanced.
+
+    Move #2 of the 2026-08-16 opportunity scan: the game ensemble has never
+    read player-level Silver. Builds ~10 team-week raw aggregates from
+    ``players/usage`` (usage shares, dakota) and ``players/advanced`` (NGS/PFR),
+    joined on player_id/gsis_id (real ids, never name-only -- see
+    knowledge-vault concepts/gated-experiment-coverage-check.md's join-key
+    lesson). Idea groups:
+
+    - QB trailing efficiency composite: starter's dakota, NGS CPOE, PFR
+      pressure rate (starter = max pass attempts that team-week).
+    - Skill-corps snap/target concentration (Herfindahl) + rotation depth
+      (count of RB/WR/TE with snap_pct >= 0.30).
+    - Weighted receiver separation / YAC-over-expected (NGS, target-share
+      weighted across WR/TE).
+    - Rushing-room efficiency (NGS rush-yards-over-expected/att and
+      time-to-line-of-scrimmage, carry-share weighted across RB).
+
+    Construction mirrors ``silver_player_quality_transformation.py`` exactly:
+    raw values are SAME-WEEK actuals (fine -- they are never themselves
+    exposed as a model feature), then ``apply_team_rolling`` shift(1)-lags
+    them into ``_roll3``/``_roll6``/``_std`` columns, and only those pass
+    ``get_feature_columns()``'s rolling-suffix allowlist. Does not duplicate
+    existing ``teams/player_quality`` columns (qb_passing_epa, rb_weighted_epa,
+    wr_te_weighted_epa, *_injury_impact, backup_qb_start).
+
+    Args:
+        season: NFL season year.
+
+    Returns:
+        DataFrame with [team, season, week] + _PLAYER_TEAM_STAT_COLS raw
+        columns plus their _roll3/_roll6/_std derivatives. Empty DataFrame if
+        players/usage Silver is unavailable for the season.
+    """
+    usage = _read_latest_local(SILVER_PLAYER_LOCAL_DIRS["usage"], season)
+    if usage.empty:
+        return pd.DataFrame()
+
+    usage = usage.rename(columns={"recent_team": "team"})
+    usage_cols = [
+        "player_id",
+        "team",
+        "season",
+        "week",
+        "position",
+        "attempts",
+        "dakota",
+        "snap_pct",
+        "target_share",
+        "carry_share",
+    ]
+    df = usage[[c for c in usage_cols if c in usage.columns]].copy()
+
+    advanced = _read_latest_local(SILVER_PLAYER_LOCAL_DIRS["advanced"], season)
+    adv_metric_cols = [
+        "ngs_completion_percentage_above_expectation",
+        "pfr_times_pressured_pct",
+        "ngs_avg_separation",
+        "ngs_avg_yac_above_expectation",
+        "ngs_rush_yards_over_expected_per_att",
+        "ngs_avg_time_to_los",
+    ]
+    if not advanced.empty:
+        adv = advanced.rename(columns={"player_gsis_id": "player_id"})
+        adv_cols = ["player_id", "season", "week"] + [
+            c for c in adv_metric_cols if c in adv.columns
+        ]
+        df = df.merge(adv[adv_cols], on=["player_id", "season", "week"], how="left")
+    for col in adv_metric_cols:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    team_weeks = df[["team", "season", "week"]].drop_duplicates()
+
+    # --- QB trailing efficiency composite (starter = max attempts) ---
+    qb = df[df["position"] == "QB"]
+    if not qb.empty and "attempts" in qb.columns and qb["attempts"].notna().any():
+        idx = qb.groupby(["team", "season", "week"])["attempts"].idxmax()
+        qb_feats = qb.loc[
+            idx,
+            [
+                "team",
+                "season",
+                "week",
+                "dakota",
+                "ngs_completion_percentage_above_expectation",
+                "pfr_times_pressured_pct",
+            ],
+        ].rename(
+            columns={
+                "dakota": "qb_dakota",
+                "ngs_completion_percentage_above_expectation": "qb_cpoe",
+                "pfr_times_pressured_pct": "qb_pressure_rate",
+            }
+        )
+    else:
+        qb_feats = pd.DataFrame(
+            columns=[
+                "team",
+                "season",
+                "week",
+                "qb_dakota",
+                "qb_cpoe",
+                "qb_pressure_rate",
+            ]
+        )
+
+    # --- Skill-corps concentration/continuity (RB/WR/TE) ---
+    skill = df[df["position"].isin(["RB", "WR", "TE"])]
+    conc_rows = [
+        {
+            "team": team,
+            "season": season_,
+            "week": week,
+            "skill_snap_share_hhi": _herfindahl(g["snap_pct"]),
+            "skill_target_share_hhi": _herfindahl(g["target_share"]),
+            "skill_snap_participation_count": int((g["snap_pct"] >= 0.30).sum()),
+        }
+        for (team, season_, week), g in skill.groupby(["team", "season", "week"])
+    ]
+    conc_feats = (
+        pd.DataFrame(conc_rows)
+        if conc_rows
+        else pd.DataFrame(
+            columns=[
+                "team",
+                "season",
+                "week",
+                "skill_snap_share_hhi",
+                "skill_target_share_hhi",
+                "skill_snap_participation_count",
+            ]
+        )
+    )
+
+    # --- Weighted receiver separation / YAC-OE (WR/TE, target_share-weighted) ---
+    wrte = df[df["position"].isin(["WR", "TE"])]
+    sep_rows = [
+        {
+            "team": team,
+            "season": season_,
+            "week": week,
+            "wr_weighted_separation": _share_weighted_avg(
+                g, "ngs_avg_separation", "target_share"
+            ),
+            "wr_weighted_yac_oe": _share_weighted_avg(
+                g, "ngs_avg_yac_above_expectation", "target_share"
+            ),
+        }
+        for (team, season_, week), g in wrte.groupby(["team", "season", "week"])
+    ]
+    sep_feats = (
+        pd.DataFrame(sep_rows)
+        if sep_rows
+        else pd.DataFrame(
+            columns=[
+                "team",
+                "season",
+                "week",
+                "wr_weighted_separation",
+                "wr_weighted_yac_oe",
+            ]
+        )
+    )
+
+    # --- Rushing-room efficiency (RB, carry_share-weighted) ---
+    rb = df[df["position"] == "RB"]
+    rush_rows = [
+        {
+            "team": team,
+            "season": season_,
+            "week": week,
+            "rb_weighted_ryoe": _share_weighted_avg(
+                g, "ngs_rush_yards_over_expected_per_att", "carry_share"
+            ),
+            "rb_time_to_los": _share_weighted_avg(
+                g, "ngs_avg_time_to_los", "carry_share"
+            ),
+        }
+        for (team, season_, week), g in rb.groupby(["team", "season", "week"])
+    ]
+    rush_feats = (
+        pd.DataFrame(rush_rows)
+        if rush_rows
+        else pd.DataFrame(
+            columns=["team", "season", "week", "rb_weighted_ryoe", "rb_time_to_los"]
+        )
+    )
+
+    result = team_weeks.copy()
+    for feats in (qb_feats, conc_feats, sep_feats, rush_feats):
+        result = result.merge(feats, on=["team", "season", "week"], how="left")
+
+    for col in _PLAYER_TEAM_STAT_COLS:
+        if col not in result.columns:
+            result[col] = np.nan
+
+    result = apply_team_rolling(result, _PLAYER_TEAM_STAT_COLS, windows=[3, 6])
+    return result
+
+
+def _assemble_team_features(
+    season: int, include_player_features: bool = False
+) -> pd.DataFrame:
     """Load and merge all Silver team sources for a season.
 
     Uses game_context as the base (has game_id, is_home, team, season, week),
@@ -209,6 +484,11 @@ def _assemble_team_features(season: int) -> pd.DataFrame:
 
     Args:
         season: NFL season year.
+        include_player_features: If True, additionally merge the team-week
+            player-aggregate features from ``_compute_player_team_features``
+            (players/usage + players/advanced). Default False keeps the
+            shipped 120-feature path byte-for-byte unchanged (opt-in, per
+            .planning/ENSEMBLE_PLAYER_FEATURES_2026_08_16.md).
 
     Returns:
         Merged per-team-per-week DataFrame with all Silver columns.
@@ -235,10 +515,24 @@ def _assemble_team_features(season: int) -> pd.DataFrame:
         dup_cols = [c for c in base.columns if c.endswith(f"__{name}")]
         base = base.drop(columns=dup_cols)
 
+    if include_player_features:
+        player_feats = _compute_player_team_features(season)
+        if not player_feats.empty:
+            base = base.merge(
+                player_feats,
+                on=["team", "season", "week"],
+                how="left",
+                suffixes=("", "__playerfeat"),
+            )
+            dup_cols = [c for c in base.columns if c.endswith("__playerfeat")]
+            base = base.drop(columns=dup_cols)
+
     return base
 
 
-def assemble_game_features(season: int) -> pd.DataFrame:
+def assemble_game_features(
+    season: int, include_player_features: bool = False
+) -> pd.DataFrame:
     """Build game-level differential features for a single season.
 
     Pipeline:
@@ -251,12 +545,17 @@ def assemble_game_features(season: int) -> pd.DataFrame:
 
     Args:
         season: NFL season year.
+        include_player_features: If True, additionally assemble the
+            players/usage + players/advanced team-aggregate features (opt-in;
+            default False leaves the shipped 120-feature path unchanged).
 
     Returns:
         DataFrame with one row per game, differential features, and labels.
     """
     # Step 1: Assemble per-team features
-    team_df = _assemble_team_features(season)
+    team_df = _assemble_team_features(
+        season, include_player_features=include_player_features
+    )
     if team_df.empty:
         return pd.DataFrame()
 
@@ -500,11 +799,15 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
 
 def assemble_multiyear_features(
     seasons: Optional[List[int]] = None,
+    include_player_features: bool = False,
 ) -> pd.DataFrame:
     """Assemble game features for multiple seasons and concatenate.
 
     Args:
         seasons: List of season years. Defaults to PREDICTION_SEASONS from config.
+        include_player_features: If True, assemble each season with the
+            players/usage + players/advanced team-aggregate features (opt-in;
+            default False leaves the shipped 120-feature path unchanged).
 
     Returns:
         Combined DataFrame with all seasons' game features.
@@ -516,7 +819,9 @@ def assemble_multiyear_features(
 
     frames = []
     for season in seasons:
-        df = assemble_game_features(season)
+        df = assemble_game_features(
+            season, include_player_features=include_player_features
+        )
         if not df.empty:
             frames.append(df)
 

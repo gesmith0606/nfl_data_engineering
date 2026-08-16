@@ -23,6 +23,7 @@ from config import (
     CB_CONSERVATIVE_PARAMS,
     CONSERVATIVE_PARAMS,
     ENSEMBLE_DIR,
+    HOLDOUT_SEASON,
     LGB_CONSERVATIVE_PARAMS,
     SELECTED_FEATURES,
 )
@@ -37,6 +38,7 @@ from ensemble_training import (
     walk_forward_cv_with_oof,
 )
 from feature_engineering import assemble_multiyear_features, get_feature_columns
+from feature_selector import select_features_for_fold
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -75,6 +77,20 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "Path to an existing ensemble metadata.json whose selected_features "
             "list should be reused (e.g. models/ensemble/metadata.json)."
+        ),
+    )
+    parser.add_argument(
+        "--include-player-features",
+        action="store_true",
+        help=(
+            "Assemble players/usage + players/advanced team-aggregate candidate "
+            "features (opt-in; default off leaves the shipped 120-feature path "
+            "byte-for-byte unchanged -- see .planning/ENSEMBLE_PLAYER_FEATURES_"
+            "2026_08_16.md). Appends the new candidates to the --features-from "
+            "pool (or the full candidate pool if --features-from is omitted) and "
+            "re-runs the standard SHAP + correlation selection "
+            "(feature_selector.select_features_for_fold) at the same target "
+            "count, rather than hand-picking which new features to keep."
         ),
     )
     return parser
@@ -276,7 +292,9 @@ def main(argv: list = None) -> int:
     # Step 1: Assemble features
     print("Assembling game features...")
     try:
-        all_data = assemble_multiyear_features()
+        all_data = assemble_multiyear_features(
+            include_player_features=args.include_player_features
+        )
     except Exception as e:
         print(f"ERROR: Failed to assemble features: {e}")
         return 1
@@ -306,6 +324,36 @@ def main(argv: list = None) -> int:
         print(
             f"WARNING: SELECTED_FEATURES is None, "
             f"using all {len(feature_cols)} features"
+        )
+
+    # Step 2b: Append player-aggregate candidates and re-run the standard
+    # SHAP + correlation selection (mirrors run_final_selection() in
+    # scripts/run_feature_selection.py) at the same target count, rather
+    # than hand-picking which new features to keep.
+    if args.include_player_features:
+        prior_pool = feature_cols
+        full_pool = get_feature_columns(all_data)
+        candidate_pool = sorted(set(prior_pool) | set(full_pool))
+        target_count = len(prior_pool) if prior_pool else len(full_pool)
+        train_data = all_data[all_data["season"] < HOLDOUT_SEASON]
+        print(
+            f"\nRe-running SHAP feature selection: {len(candidate_pool)} candidates "
+            f"({len(prior_pool)} prior + {len(candidate_pool) - len(prior_pool)} "
+            f"new-or-unselected) -> target_count={target_count}"
+        )
+        selection = select_features_for_fold(
+            train_data,
+            candidate_pool,
+            target_col="actual_margin",
+            target_count=target_count,
+            correlation_threshold=0.90,
+            params=CONSERVATIVE_PARAMS.copy(),
+        )
+        feature_cols = selection.selected_features
+        n_new_selected = len([f for f in feature_cols if f not in prior_pool])
+        print(
+            f"Selected {len(feature_cols)} features "
+            f"({n_new_selected} newly selected, not in the prior pool)"
         )
 
     print(f"{len(all_data)} games, {len(feature_cols)} features")
