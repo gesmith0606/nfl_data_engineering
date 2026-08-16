@@ -84,10 +84,16 @@ export default function Dashboard() {
         <OverviewStatCards />
 
         <div className='grid grid-cols-1 gap-[var(--gap-stack)] md:grid-cols-2'>
-          <FadeIn delay={0.18} rise={6}>
+          {/* min-w-0: without it, CSS Grid's default auto min-width lets the
+              recharts ResponsiveContainer's intrinsic/aspect-video sizing
+              blow the track out to full content width instead of 50% —
+              the chart still renders (axes + data) but gets pushed off
+              screen to the right, reading as "no series" (2026-08-16
+              click-through fix). */}
+          <FadeIn delay={0.18} rise={6} className='min-w-0'>
             <MAEByPositionChart />
           </FadeIn>
-          <FadeIn delay={0.24} rise={6}>
+          <FadeIn delay={0.24} rise={6} className='min-w-0'>
             <WeeklyAccuracyChart />
           </FadeIn>
         </div>

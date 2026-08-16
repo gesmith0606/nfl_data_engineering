@@ -1,161 +1,165 @@
 {
-  "generatedFrom": "backtest_half_ppr_ml_fullfeatures_consensus_20260610_213405.csv",
+  "generatedFrom": "backtest_half_ppr_ml_fullfeatures_consensus_20260816_112121.csv",
   "generatedBy": "scripts/generate_frontend_metrics.py",
   "overall": {
-    "mae": 4.63,
-    "rmse": 6.33,
-    "correlation": 0.56,
-    "bias": -0.37,
-    "playerWeeks": 11183,
+    "mae": 4.25,
+    "rmse": 5.86,
+    "correlation": 0.641,
+    "bias": -0.62,
+    "playerWeeks": 11358,
     "seasons": "2022-2024",
-    "weeks": "3-18",
+    "weeks": "2-18",
     "scoringFormat": "Half-PPR"
   },
   "positions": [
     {
       "position": "QB",
-      "model": "Heuristic",
-      "mae": 6.28,
-      "rmse": 7.89,
-      "bias": 0.02
+      "model": "Hybrid Residual",
+      "mae": 5.59,
+      "rmse": 7.08,
+      "bias": -0.72
     },
     {
       "position": "RB",
-      "model": "Heuristic",
-      "mae": 4.84,
-      "rmse": 6.56,
-      "bias": -0.41
+      "model": "Hybrid Residual",
+      "mae": 4.27,
+      "rmse": 5.79,
+      "bias": -0.2
     },
     {
       "position": "WR",
-      "model": "Heuristic",
-      "mae": 4.63,
-      "rmse": 6.32,
-      "bias": -0.49
+      "model": "Hybrid Residual",
+      "mae": 4.35,
+      "rmse": 6.08,
+      "bias": -1.05
     },
     {
       "position": "TE",
       "model": "Hybrid Residual",
-      "mae": 3.28,
-      "rmse": 4.67,
-      "bias": -0.32
+      "mae": 3.16,
+      "rmse": 4.41,
+      "bias": -0.23
     }
   ],
   "weeklyMae": [
     {
+      "week": "W2",
+      "mae": 4.82
+    },
+    {
       "week": "W3",
-      "mae": 5.22
-    },
-    {
-      "week": "W4",
-      "mae": 4.81
-    },
-    {
-      "week": "W5",
-      "mae": 4.89
-    },
-    {
-      "week": "W6",
       "mae": 4.48
     },
     {
-      "week": "W7",
-      "mae": 4.77
+      "week": "W4",
+      "mae": 4.28
     },
     {
-      "week": "W8",
-      "mae": 4.64
-    },
-    {
-      "week": "W9",
-      "mae": 4.29
-    },
-    {
-      "week": "W10",
+      "week": "W5",
       "mae": 4.5
     },
     {
+      "week": "W6",
+      "mae": 4.08
+    },
+    {
+      "week": "W7",
+      "mae": 4.32
+    },
+    {
+      "week": "W8",
+      "mae": 4.26
+    },
+    {
+      "week": "W9",
+      "mae": 3.96
+    },
+    {
+      "week": "W10",
+      "mae": 4.11
+    },
+    {
       "week": "W11",
-      "mae": 4.42
+      "mae": 4.22
     },
     {
       "week": "W12",
-      "mae": 4.25
+      "mae": 4.01
     },
     {
       "week": "W13",
-      "mae": 4.45
+      "mae": 4.16
     },
     {
       "week": "W14",
-      "mae": 4.69
+      "mae": 4.28
     },
     {
       "week": "W15",
-      "mae": 4.79
+      "mae": 4.36
     },
     {
       "week": "W16",
-      "mae": 4.51
+      "mae": 4.06
     },
     {
       "week": "W17",
-      "mae": 4.75
+      "mae": 4.28
     },
     {
       "week": "W18",
-      "mae": 4.54
+      "mae": 4.01
     }
   ],
-  "testsPassing": 2242,
+  "testsPassing": 3749,
   "atsAccuracy": {
     "value": 53.0,
     "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble)"
   },
   "consensus": {
-    "generatedFrom": "consensus_matched_half_ppr_20260612_141246.csv",
+    "generatedFrom": "consensus_matched_half_ppr_20260816_112121.csv",
     "benchmark": "Sleeper expert consensus projections",
     "seasons": "2022-2024",
     "scoringFormat": "Half-PPR",
     "overall": {
-      "ourMae": 4.414,
-      "consensusMae": 4.423,
-      "gap": -0.009,
+      "ourMae": 4.96,
+      "consensusMae": 5.285,
+      "gap": -0.325,
       "win": true,
-      "playerWeeks": 10417
+      "playerWeeks": 7009
     },
     "positions": [
       {
         "position": "QB",
-        "ourMae": 6.034,
-        "consensusMae": 6.359,
-        "gap": -0.325,
+        "ourMae": 5.539,
+        "consensusMae": 6.401,
+        "gap": -0.862,
         "win": true,
-        "playerWeeks": 1265
+        "playerWeeks": 1250
       },
       {
         "position": "RB",
-        "ourMae": 4.683,
-        "consensusMae": 4.422,
-        "gap": 0.261,
-        "win": false,
-        "playerWeeks": 2814
+        "ourMae": 5.021,
+        "consensusMae": 5.332,
+        "gap": -0.31,
+        "win": true,
+        "playerWeeks": 1877
       },
       {
         "position": "WR",
-        "ourMae": 4.334,
-        "consensusMae": 4.34,
-        "gap": -0.006,
+        "ourMae": 4.975,
+        "consensusMae": 5.042,
+        "gap": -0.067,
         "win": true,
-        "playerWeeks": 4349
+        "playerWeeks": 2965
       },
       {
         "position": "TE",
-        "ourMae": 3.18,
-        "consensusMae": 3.375,
-        "gap": -0.195,
+        "ourMae": 4.001,
+        "consensusMae": 4.455,
+        "gap": -0.454,
         "win": true,
-        "playerWeeks": 1989
+        "playerWeeks": 917
       }
     ]
   }

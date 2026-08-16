@@ -129,7 +129,14 @@ export function Stagger({ children, step = STAGGER_STEP, delay = 0, className, s
       {React.Children.map(children, (child, idx) => {
         const key = React.isValidElement(child) && child.key !== null ? child.key : idx;
         return (
-          <motion.div key={key} variants={itemVariants}>
+          // min-w-0: this wrapper is the direct grid/flex item when Stagger
+          // is handed a `grid ...` className (e.g. card grids). CSS Grid's
+          // default `min-width: auto` lets a wide-content child (long text,
+          // a chart) blow the item out past its track's intended width
+          // instead of shrinking to fit — the content still renders
+          // correctly, just pushed off-screen, which reads as "missing"
+          // (2026-08-16 click-through fix, scores page 1-of-16 game cards).
+          <motion.div key={key} variants={itemVariants} className='min-w-0'>
             {child}
           </motion.div>
         );

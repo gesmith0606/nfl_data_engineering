@@ -109,9 +109,17 @@ def build_consensus_section(csv_path: Path) -> dict:
     # Restrict to the skill positions reported per-position so the overall
     # row describes the same population (a kicker-inclusive CSV would
     # otherwise inflate the headline claim with easy zero-variance weeks).
-    df = df[df["position"].isin(["QB", "RB", "WR", "TE"])].reset_index(drop=True)
+    # Also apply the consensus_proj >= 5 floor used everywhere else in the
+    # repo's "matched-pairs" methodology (backtest_projections.py's own
+    # --vs-consensus report, every .planning benchmark doc) — the raw
+    # consensus_matched_*.csv saved by that flag is NOT pre-filtered to this
+    # threshold, so skipping it here silently mixes in near-zero-projection
+    # bench players and no longer matches the population the site's own
+    # methodology copy claims to use.
+    df = df[df["position"].isin(["QB", "RB", "WR", "TE"])]
+    df = df[df["consensus_proj"] >= 5].reset_index(drop=True)
     if df.empty:
-        raise ValueError(f"No QB/RB/WR/TE rows in consensus CSV: {csv_path}")
+        raise ValueError(f"No QB/RB/WR/TE rows >= 5pts in consensus CSV: {csv_path}")
 
     con_abs_error = (df["consensus_proj"] - df["actual_points"]).abs()
 

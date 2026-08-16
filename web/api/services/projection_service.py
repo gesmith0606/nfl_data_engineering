@@ -827,6 +827,29 @@ def get_comparison(
         if src not in wide.columns:
             wide[src] = None
 
+    # Overlay live "ours" projections for the RESOLVED slice. The archived
+    # Silver snapshot's "ours" rows are only as fresh as whatever Gold
+    # weekly parquet existed at ingestion time -- for old fallback slices
+    # (e.g. the external-projections cron ran before our own weekly Gold
+    # projections for that week were generated) "ours" can be permanently
+    # empty even though live Gold data exists today. A live lookup keyed on
+    # the same (resolved_season, resolved_week) the externals resolved to
+    # always wins when available; the archived value is kept as-is when live
+    # data can't be found (e.g. Gold history has since been pruned).
+    try:
+        live_ours = get_projections(
+            resolved_season, resolved_week, scoring_format, limit=1000
+        )
+    except FileNotFoundError:
+        live_ours = None
+    if live_ours is not None and not live_ours.empty and "player_id" in live_ours.columns:
+        ours_map = dict(
+            zip(live_ours["player_id"].astype(str), live_ours["projected_points"])
+        )
+        wide["ours"] = wide["player_id"].astype(str).map(ours_map).combine_first(
+            wide["ours"]
+        )
+
     wide["delta_vs_ours"] = wide.apply(_comparison_delta, axis=1)
 
     if position:

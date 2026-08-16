@@ -513,9 +513,10 @@ export function AccuracyDashboard() {
             and per-position recency weighting (v4.2).
           </p>
           <p>
-            QB, RB, and WR projections use the tuned heuristic directly. TE projections add an ML
-            residual correction layer trained on 2016-2025 data. All models are evaluated on
-            held-out seasons, and ship decisions are confirmed on a sealed 2025 holdout.
+            QB, RB, WR, and TE projections all add an ML residual correction layer (hybrid
+            heuristic + ML) trained on 2016-2025 data on top of that heuristic base. All models
+            are evaluated on held-out seasons, and ship decisions are confirmed on a sealed 2025
+            holdout.
           </p>
           <p>
             <span className='font-medium text-foreground'>Lower MAE is better.</span> A bias near

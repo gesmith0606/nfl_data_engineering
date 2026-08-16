@@ -208,6 +208,19 @@ export function ProjectionsTable({ freeTier = false }: { freeTier?: boolean }) {
             </Button>
           }
         />
+      ) : projections.length === 0 ? (
+        // Mirrors the weekly-report page's honest empty state (mode:
+        // 'preseason' -> explanatory message instead of a silent void):
+        // a 200 response with zero rows means this week genuinely has no
+        // projections yet (e.g. before the season's first Gold parquet or
+        // preseason file has been generated), not a fetch failure.
+        <EmptyState
+          icon={Icons.info}
+          title='No projections yet'
+          description={`No projections are available for ${season} Week ${week}${
+            position !== 'ALL' ? ` (${position})` : ''
+          }. Check back once this week's data is published.`}
+        />
       ) : (
         <>
           {freeTier && (
