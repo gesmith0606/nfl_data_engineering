@@ -121,5 +121,41 @@
       },
       "verdict": "HOLD -- pinball/Q50 MAE improved across the board, but conformal coverage gate ([0.75,0.85] per position) is breached for WR (pre-existing, unchanged) and now newly breached for TE; not 'clearly better' per the pre-registered bar, so shipped models/quantile stays live. Researched artifact parked at models/quantile_graph_2026_08_16/."
     }
+  },
+  {
+    "timestamp": "2026-08-16T12:11:00",
+    "experiment": "candidate_polish_2026_08_16_quantile_width (this task, CANDIDATE_POLISH_2026_08_16.md sec1) -- fine-grid (0.01 step) conformal width factor recompute for models/quantile_graph_2026_08_16, selected on walk-forward OOF seasons 2018-2024 only, read once against sealed 2025",
+    "seasons": [2025],
+    "results": {
+      "sealed_coverage_new_factors": {"qb": 0.8104, "rb": 0.7811, "wr": 0.8619, "te": 0.8426},
+      "in_band_75_85": {"qb": true, "rb": true, "wr": false, "te": true},
+      "verdict": "HOLD for joint 4-position promotion (WR still 1.2pp over ceiling); QB/RB/TE individually in-band with better pinball than shipped -- optional per-position promotion path documented, not executed"
+    }
+  },
+  {
+    "timestamp": "2026-08-16T12:12:00",
+    "experiment": "candidate_polish_2026_08_16_te_ridge_sweep (this task, CANDIDATE_POLISH_2026_08_16.md sec2) -- 8-value log-spaced ridge alpha sweep on te_graph_2026_08_16's 60 SHAP-selected features, alpha selected via walk-forward MAE (val_seasons 2022-2024, 2016-2024 data only), read once against sealed 2025",
+    "seasons": [2025],
+    "results": {
+      "best_alpha": 0.0001,
+      "walkforward_avg_mae_2022_24": {"alpha_0_0001": 2.8613, "alpha_0_001_shipped_pick": 2.8614},
+      "sealed2025_mae": {"shipped": 2.9712, "graph_candidate_alpha_0_001": 2.9487, "ridge_sweep_alpha_0_0001": 2.9449},
+      "gap_shipped_minus_sweep": 0.0263,
+      "gate": ">=0.03 required",
+      "note": "absolute MAE differs materially from GRAPH_REVIVAL_2026_08_16's reported 3.449/3.491 -- mid-session data-vintage drift (new PBP-advanced trailing feature columns materialized between the two sessions); this task's baseline+treated were regenerated back-to-back in one run so the internal comparison is sound even though the absolute numbers and even the shipped-vs-candidate sign differ from the prior report",
+      "verdict": "KEEP SHIPPED / HOLD -- regularization sweep is flat (alpha barely matters), gap short of the 0.03 gate regardless of which sealed baseline is used"
+    }
+  },
+  {
+    "timestamp": "2026-08-16T12:15:00",
+    "experiment": "candidate_polish_2026_08_16_wr_shipped_width_bonus (this task, CANDIDATE_POLISH_2026_08_16.md sec3) -- fine-grid WR-only width factor recompute restricted to shipped models/quantile/metadata.json's 486 feature_cols, selected on walk-forward 2016-2024, read once against sealed 2025",
+    "seasons": [2025],
+    "results": {
+      "new_factor": 1.10,
+      "shipped_factor": 1.10,
+      "sealed_coverage": 0.8595,
+      "in_band_75_85": false,
+      "verdict": "HOLD -- no smaller factor clears the 80% walk-forward tuning target; still 0.95pp over the 85% ceiling on sealed 2025; no metadata-only fix staged"
+    }
   }
 ]
