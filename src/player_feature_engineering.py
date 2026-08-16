@@ -129,6 +129,16 @@ _SAME_WEEK_RAW_STATS = {
     "ftn_throw_away_rate",
     "ftn_interception_worthy_rate",
     "ftn_play_action_rate",
+    # PBP-advanced per-week raw values (pbp_advanced_features.py) — same-week
+    # stats, not model features. Only the _roll4/_trail/_slope lagged variants
+    # are valid.
+    "adot",
+    "deep_target_share",
+    "intermediate_target_share",
+    "short_target_share",
+    "qb_sack_rate",
+    "qb_avg_intended_air_yards",
+    "qb_deep_ball_rate",
 }
 
 # Lagged column suffixes — rolling variants have shift(1) applied upstream
@@ -1667,6 +1677,87 @@ def _join_ftn_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     return df
 
 
+def _join_pbp_advanced_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join PBP-advanced trailing features if available (2016+).
+
+    Reads Silver pbp_advanced player-week parquet and merges on
+    (player_id, season, week). Only the _roll4/_trail/_slope variants are
+    model features; the raw per-week columns are retained in the Silver
+    table for inspection but must remain in _SAME_WEEK_RAW_STATS to be
+    excluded from the model feature set.
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week, position.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with PBP_ADVANCED_FEATURE_COLUMNS joined (NaN-filled when
+        unavailable).
+    """
+    try:
+        from pbp_advanced_features import PBP_ADVANCED_FEATURE_COLUMNS
+    except ImportError:
+        logger.info("pbp_advanced_features module unavailable — skipping join")
+        return df
+
+    adv_dir = os.path.join(SILVER_DIR, "players", "pbp_advanced", f"season={season}")
+    adv_files = sorted(
+        glob.glob(os.path.join(adv_dir, "pbp_advanced_player_week_*.parquet"))
+    )
+
+    adv_df = pd.DataFrame()
+    if adv_files:
+        try:
+            adv_df = pd.read_parquet(adv_files[-1])
+            logger.info("Loaded Silver pbp_advanced features from %s", adv_files[-1])
+        except Exception as exc:
+            logger.warning("Failed to read Silver pbp_advanced features: %s", exc)
+
+    join_cols = ["player_id", "season", "week"]
+    if not adv_df.empty:
+        avail = [c for c in join_cols if c in adv_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [c for c in PBP_ADVANCED_FEATURE_COLUMNS if c in adv_df.columns]
+            # Grain is (player_id, season, week, position_type): a player who
+            # both threw and caught passes in the same week (e.g. a WR trick
+            # play) gets one row per role, with receiver-only columns NaN on
+            # the QB row and vice versa. Match each player-week to the role
+            # consistent with their primary roster position — same pattern as
+            # the FTN join (_join_ftn_features).
+            if "position_type" in adv_df.columns and "position" in df.columns:
+                adv_role = (
+                    adv_df[avail + ["position_type"] + feat_cols]
+                    .sort_values(avail)
+                    .drop_duplicates(subset=avail + ["position_type"], keep="last")
+                )
+                df["_adv_role"] = np.where(df["position"] == "QB", "qb", "receiver")
+                df = df.merge(
+                    adv_role,
+                    left_on=avail + ["_adv_role"],
+                    right_on=avail + ["position_type"],
+                    how="left",
+                    suffixes=("", "__adv"),
+                )
+                df = df.drop(columns=["_adv_role", "position_type"], errors="ignore")
+            else:
+                adv_slim = (
+                    adv_df[avail + feat_cols]
+                    .groupby(avail, as_index=False)
+                    .mean(numeric_only=True)
+                )
+                df = df.merge(adv_slim, on=avail, how="left", suffixes=("", "__adv"))
+            dup = [c for c in df.columns if c.endswith("__adv")]
+            df = df.drop(columns=dup, errors="ignore")
+            logger.info("Joined %d PBP-advanced trailing feature columns", len(feat_cols))
+
+    # Fill missing columns with NaN for schema consistency
+    for col in PBP_ADVANCED_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
 # ---------------------------------------------------------------------------
 # Core assembly
 # ---------------------------------------------------------------------------
@@ -1868,6 +1959,11 @@ def assemble_player_features(season: int) -> pd.DataFrame:
 
     # 19. Optional: join FTN charting trailing features (2022+ only; NaN for 2016-2021)
     base = _join_ftn_features(base, season)
+
+    # 20. Optional: join PBP-advanced trailing features (aDOT, target-share-
+    # by-zone, QB sack-rate/aggressiveness proxies — 2016+, mined directly
+    # from local Bronze PBP)
+    base = _join_pbp_advanced_features(base, season)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",
