@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "829b4be5-f15e-4cbe-8111-8cd9cd5a12e0",
+  "source": "rotowire",
+  "fetched_at": "2026-08-16T12:10:16.391626+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633799",
+      "url": "https://www.rotowire.com//football/player/george-holani-17968",
+      "permalink": "",
+      "title": "George Holani: Solid with double-digit touches",
+      "body_text": "Holani rushed 12 times for 42 yards in the Seahawks' 17-7 preseason loss to the Cowboys on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-15T08:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Holani"
+      ],
+      "resolved_player_ids": [
+        "00-0039299"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl633791",
+      "url": "https://www.rotowire.com//football/player/isaiah-likely-16033",
+      "permalink": "",
+      "title": "Isaiah Likely: Two grabs in preseason loss",
+      "body_text": "Likely caught both his targets for 11 yards in Saturday's 13-10 preseason loss to the Vikings. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-15T08:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Likely"
+      ],
+      "resolved_player_ids": [
+        "00-0037838"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl633789",
+      "url": "https://www.rotowire.com//football/player/tyrone-tracy-17967",
+      "permalink": "",
+      "title": "Tyrone Tracy: Just two touches in preseason opener",
+      "body_text": "Tracy carried the ball twice for five yards in Saturday's 13-10 preseason loss to the Vikings. He failed to catch his only target. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-15T07:58:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyrone Tracy"
+      ],
+      "resolved_player_ids": [
+        "00-0039384"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl633786",
+      "url": "https://www.rotowire.com//football/player/jaxson-dart-18574",
+      "permalink": "",
+      "title": "Jaxson Dart: Plays two series in preseason opener",
+      "body_text": "Dart completed three of four passes for 26 yards and a touchdown in Saturday's 13-10 preseason loss to the Vikings. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-15T07:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl633781",
+      "url": "https://www.rotowire.com//football/player/jordan-addison-16895",
+      "permalink": "",
+      "title": "Jordan Addison: Good to go in preseason opener",
+      "body_text": "Addison (thumb) caught his only target for eight yards in Saturday's 13-10 preseason win over the Giants. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-15T07:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

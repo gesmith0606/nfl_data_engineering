@@ -1,0 +1,511 @@
+{
+  "fetch_run_id": "64c53d17-4107-44bb-9575-bfb82c772ef9",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-16T12:10:03.284195+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-saw-his-first-game-action-since-his-second-torn-acl-in-2024",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-saw-his-first-game-action-since-his-second-torn-acl-in-2024",
+      "title": "Panthers RB Jonathon Brooks saw his first game action since his second torn ACL in 2024",
+      "body_text": "In Saturday's preseason game, Panthers running back Jonathon Brooks took his biggest step yet in his long road to recovery from his second serious knee injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-16T11:52:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathon Brooks",
+        "In Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-panthers-werent-able-to-execute-it-sucks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-panthers-werent-able-to-execute-it-sucks",
+      "title": "Bryce Young: Panthers weren't able to execute, it sucks",
+      "body_text": "\"We all want to do a better job, myself included,\" Young said. \"We all take ownership in that.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-16T09:37:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-undersized-center-willie-lampkin-continues-to-impress-in-the-preseason",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-undersized-center-willie-lampkin-continues-to-impress-in-the-preseason",
+      "title": "Eagles' undersized center Willie Lampkin continues to impress in the preseason",
+      "body_text": "A year ago, one of the stars of the NFL preseason was undrafted rookie center Willie Lampkin, who was playing for the Rams and putting on a show, repeatedly knocking opposing defensive linemen on their backs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-16T08:24:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Willie Lampkin"
+      ],
+      "resolved_player_ids": [
+        "00-0040631"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-undrafted-receiver-camden-brown-follows-strong-training-camp-with-two-preseason-tds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-undrafted-receiver-camden-brown-follows-strong-training-camp-with-two-preseason-tds",
+      "title": "Cowboys undrafted receiver Camden Brown follows strong training camp with two preseason TDs",
+      "body_text": "It's always an uphill battle for an undrafted rookie to make the team, but Cowboys wide receiver Camden Brown may be forcing his way onto the regular-season roster with his performance this summer.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-16T07:52:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Camden Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0040930"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-on-interception-i-made-the-right-read-right-decision-just-didnt-execute",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-on-interception-i-made-the-right-read-right-decision-just-didnt-execute",
+      "title": "Shedeur Sanders on interception: I made the right read, right decision, just didn't execute",
+      "body_text": "\"Any decision I make, I know is the right decision, I just didn't execute the decision, but the right decision was made,\" Sanders said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-16T07:30:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-pulled-ollie-gordon-ii-from-fridays-game-for-unsportsmanlike-conduct-foul",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-pulled-ollie-gordon-ii-from-fridays-game-for-unsportsmanlike-conduct-foul",
+      "title": "Jeff Hafley pulled Ollie Gordon II from Friday's game for unsportsmanlike conduct foul",
+      "body_text": "The Dolphins in recent years have had an issue with discipline.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T05:44:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeff Hafley",
+        "Ollie Gordon II",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0040198"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-dazzles-in-his-rams-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-dazzles-in-his-rams-debut",
+      "title": "Ty Simpson dazzles in his Rams debut",
+      "body_text": "And now it's becoming a little more apparent why the Rams used the 13th overall pick in the draft on quarterback Ty Simpson.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T05:25:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0041568"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-doesnt-want-to-put-an-invisible-deadline-on-aaron-donalds-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-doesnt-want-to-put-an-invisible-deadline-on-aaron-donalds-decision",
+      "title": "Sean McVay doesn't want to put an \"invisible deadline\" on Aaron Donald's decision",
+      "body_text": "The Rams are giving Donald plenty of space to make his decision.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T02:55:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-i-dont-doubt-myself-in-any-way",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-i-dont-doubt-myself-in-any-way",
+      "title": "Deshaun Watson: I don't doubt myself in any way",
+      "body_text": "Browns coach Todd Monken said it was \"cool\" and \"awesome\" to watch Deshaun Watson play on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-16T02:13:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-wrs-coach-antwaan-randle-el-called-plays-in-the-second-half-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-wrs-coach-antwaan-randle-el-called-plays-in-the-second-half-saturday",
+      "title": "Bears WRs coach Antwaan Randle El called plays in the second half Saturday",
+      "body_text": "The Bears scored 24 points and put up 235 yards in the second half of their 34-10 preseason win over the Browns on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-16T00:56:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Antwaan Randle",
+        "Saturday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceyair-wright-left-bengals-90-man-roster-for-an-acting-opportunity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceyair-wright-left-bengals-90-man-roster-for-an-acting-opportunity",
+      "title": "Ceyair Wright left Bengals 90-man roster for an acting opportunity",
+      "body_text": "For most football players who make it to the NFL, football is without question their best professional move.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-15T23:46:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ceyair Wright"
+      ],
+      "resolved_player_ids": [
+        "00-0041249"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-puzzled-that-he-ends-up-in-blue-tent-so-often",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-puzzled-that-he-ends-up-in-blue-tent-so-often",
+      "title": "Jaxson Dart \"puzzled\" that he ends up in blue tent so often",
+      "body_text": "Dart was checked after taking a big hit on a sack against the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-15T23:00:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-te-jaren-kanak-de-jaylen-harrell-out-for-season-with-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-te-jaren-kanak-de-jaylen-harrell-out-for-season-with-injuries",
+      "title": "Titans TE Jaren Kanak, DE Jaylen Harrell out for season with injuries",
+      "body_text": "The Titans lost a pair of players to season-ending injuries in their preseason opener on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T22:36:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaren Kanak",
+        "Jaylen Harrell",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040901",
+        "00-0039436"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-deshaun-watson-functioned-at-a-high-level",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-deshaun-watson-functioned-at-a-high-level",
+      "title": "Todd Monken: Deshaun Watson functioned at a high level",
+      "body_text": "Watson played in his first game since tearing his Achilles during the 2024 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T22:10:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-fourth-string-qb-max-brosmer-has-a-right-thumb-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-fourth-string-qb-max-brosmer-has-a-right-thumb-injury",
+      "title": "Vikings fourth-string QB Max Brosmer has a right thumb injury",
+      "body_text": "Vikings backup quarterback Carson Wentz played more than he had expected to play in Saturday's preseason opener.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-15T21:18:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Max Brosmer",
+        "Carson Wentz"
+      ],
+      "resolved_player_ids": [
+        "00-0040494",
+        "00-0032950"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-jaxson-darts-visit-to-medical-tent-we-need-to-block-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-jaxson-darts-visit-to-medical-tent-we-need-to-block-better",
+      "title": "John Harbaugh on Jaxson Dart's visit to medical tent: We need to block better",
+      "body_text": "Giants quarterback Jaxson Dart put the team's fans on a rollercoaster ride in Saturday's preseason opener against the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T21:12:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-has-a-right-knee-injury-that-doesnt-look-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-has-a-right-knee-injury-that-doesnt-look-good",
+      "title": "Jamal Adams has a right knee injury that \"doesn't look good\"",
+      "body_text": "Vikings linebacker/safety Jamal Adams' season is likely finished before it begins.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-15T21:06:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamal Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-ols-darrian-dalcourt-joe-michalski",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-ols-darrian-dalcourt-joe-michalski",
+      "title": "Patriots sign OLs Darrian Dalcourt, Joe Michalski",
+      "body_text": "The Patriots returned to the practice field on Saturday and they added a pair of offensive linemen to the roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T21:03:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darrian Dalcourt",
+        "Joe Michalski",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039246"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-fourth-string-qb-kyron-drones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-fourth-string-qb-kyron-drones",
+      "title": "Packers waive fourth-string QB Kyron Drones",
+      "body_text": "The Packers waived fourth-string quarterback Kyron Drones on Saturday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-15T20:21:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyron Drones",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0040942"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-rookie-og-chase-bisontis-on-season-ending-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-rookie-og-chase-bisontis-on-season-ending-ir",
+      "title": "Cardinals place rookie OG Chase Bisontis on season-ending IR",
+      "body_text": "It's official: Cardinals rookie guard Chase Bisontis will miss his entire rookie season.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-15T20:06:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chase Bisontis"
+      ],
+      "resolved_player_ids": [
+        "00-0041468"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-throws-for-79-yards-an-interception-vs-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-throws-for-79-yards-an-interception-vs-bears",
+      "title": "Shedeur Sanders throws for 79 yards, an interception vs. Bears",
+      "body_text": "After quarterback Deshaun Watson had a so-so first half against the Bears, throwing for 126 yards, Shedeur Sanders also had a middling performance in the second half of the Browns’ first preseason game.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-15T19:35:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Bears After",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-on-jamal-adams-crushed-for-him-were-going-to-miss-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-on-jamal-adams-crushed-for-him-were-going-to-miss-him",
+      "title": "Kevin O'Connell on Jamal Adams: Crushed for him, we're going to miss him",
+      "body_text": "The Vikings have not given an official update on the nature of the injury that caused linebacker/safety Jamal Adams to be carted off in the first half of Saturday's game against the Giants, but it does not sound like he's going to be making it back on the field anytime soon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T18:50:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamal Adams",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-nagy-is-in-the-booth-this-week-will-be-on-the-sideline-next-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-nagy-is-in-the-booth-this-week-will-be-on-the-sideline-next-week",
+      "title": "Matt Nagy is in the booth this week, will be on the sideline next week",
+      "body_text": "Former Chiefs offensive coordinator and Bears head coach Matt Nagy made his preseason debut with the Giants on Saturday.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-15T18:43:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Nagy",
+        "Former Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-to-sign-dl-foley-fatukasi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-to-sign-dl-foley-fatukasi",
+      "title": "Raiders to sign DL Foley Fatukasi",
+      "body_text": "The Raiders are adding a veteran defender.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-15T18:43:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Foley Fatukasi",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0034275"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-throws-for-126-yards-in-2026-preseason-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-throws-for-126-yards-in-2026-preseason-debut",
+      "title": "Deshaun Watson throws for 126 yards in 2026 preseason debut",
+      "body_text": "In competition with Shedeur Sanders, Deshaun Watson started the first preseason game for the Browns on Saturday against the Bears and played the entire first half.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-15T18:32:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-activate-tvondre-sweat-from-nfi-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-activate-tvondre-sweat-from-nfi-list",
+      "title": "Jets to activate T'Vondre Sweat from NFI list",
+      "body_text": "Defensive tackle T'Vondre Sweat is set to start practicing with the Jets.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T18:27:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vondre Sweat"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-and-panthers-offense-go-three-and-out-on-all-three-drives",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-and-panthers-offense-go-three-and-out-on-all-three-drives",
+      "title": "Bryce Young and Panthers' offense go three-and-out on all three drives",
+      "body_text": "Panthers quarterback Bryce Young is not off to a good start this preseason.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-15T18:11:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-devon-witherspoon-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-devon-witherspoon-deal",
+      "title": "Inside the Devon Witherspoon deal",
+      "body_text": "Here's the full breakdown of Witherspoon's new six-year deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-15T18:09:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Devon Witherspoon"
+      ],
+      "resolved_player_ids": [
+        "00-0039169"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-s-lb-jamal-adams-carted-off",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-s-lb-jamal-adams-carted-off",
+      "title": "Vikings S/LB Jamal Adams carted off",
+      "body_text": "Jamal Adams's first game with the Vikings ended with an early trip to the locker room.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-15T18:06:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamal Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-qb-brett-rypien-place-qb-graham-mertz-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-qb-brett-rypien-place-qb-graham-mertz-on-ir",
+      "title": "Texans sign QB Brett Rypien, place QB Graham Mertz on IR",
+      "body_text": "With Graham Mertz out for the season with a torn ACL, the Texans have signed a quarterback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-15T17:58:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brett Rypien",
+        "Graham Mertz",
+        "With Graham"
+      ],
+      "resolved_player_ids": [
+        "00-0034955",
+        "00-0040211"
+      ],
+      "team_hint": "HOU"
+    }
+  ]
+}
