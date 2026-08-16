@@ -337,6 +337,9 @@ data/gold/*
 !data/bronze/players/injuries/
 !data/bronze/players/injuries/**
 !data/bronze/players/injuries/**/*.parquet
+!data/bronze/weather/
+!data/bronze/weather/**
+!data/bronze/weather/**/*.parquet
 !data/bronze/depth_charts/
 !data/bronze/depth_charts/**
 !data/bronze/depth_charts/**/*.parquet
