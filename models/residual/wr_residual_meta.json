@@ -69,5 +69,6 @@
     "ngs_avg_intended_air_yards_roll3",
     "off_rz_success_rate_roll3"
   ],
-  "graph_features_added": 0
+  "graph_features_added": 0,
+  "correction_clip_abs": 18.80800000000003
 }

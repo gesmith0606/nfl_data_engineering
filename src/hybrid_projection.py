@@ -1086,6 +1086,11 @@ def train_and_save_residual_models(
         residual = train_actual - train_prod
         train_data["residual"] = residual
 
+        # Blowup-insurance clamp: 99th percentile of |train residual|. Applied
+        # at inference in apply_residual_correction to cap correction magnitude
+        # (see 2026-08-15 WR-blowup fix / model-staleness-after-data-repair).
+        correction_clip_abs = float(np.percentile(np.abs(residual), 99))
+
         # Feature selection
         available_features = [f for f in feature_cols if f in train_data.columns]
         if not available_features:
@@ -1157,6 +1162,7 @@ def train_and_save_residual_models(
                 "best_iteration": getattr(lgb_model, "best_iteration_", -1),
                 "graph_features_added": graph_features_added,
                 "lgb_params": RESIDUAL_LGB_PARAMS,
+                "correction_clip_abs": correction_clip_abs,
             }
             with open(meta_path, "w") as f:
                 json.dump(meta, f, indent=2)
@@ -1207,6 +1213,7 @@ def train_and_save_residual_models(
                 "n_features": len(selected_features),
                 "features": selected_features,
                 "graph_features_added": graph_features_added,
+                "correction_clip_abs": correction_clip_abs,
             }
             with open(meta_path, "w") as f:
                 json.dump(meta, f, indent=2)
@@ -1307,6 +1314,16 @@ def apply_residual_correction(
     This ensures graph features reach the model at inference time regardless
     of what the upstream pipeline assembled — eliminating the train/inference
     feature mismatch.
+
+    Correction clamp (2026-08-15 WR-blowup insurance): if the model's meta
+    carries ``correction_clip_abs`` (99th-percentile |train residual|, set by
+    ``train_and_save_residual_models``), the predicted correction is clipped
+    to +/-that value before being added to the heuristic. This kills the
+    extrapolation-blowup class (e.g. a 75.5pt WR projection vs 5.7 actual from
+    a frozen model fed feature values it never saw in training — see
+    BENCHMARK_REFRESH_2026_08_15.md section 5) without touching the vast
+    majority of in-distribution corrections, which fall well inside the clip.
+    Applies to every HYBRID position — cheap insurance, not just a WR fix.
 
     Args:
         heuristic_projections: DataFrame with 'projected_points' and
@@ -1486,16 +1503,27 @@ def apply_residual_correction(
             # Ridge Pipeline (has built-in imputer)
             corrections[has_features] = model_obj.predict(X_predict)
 
+    # Clamp the correction magnitude (blowup insurance -- see docstring).
+    # Backward compatible: metas without correction_clip_abs (older artifacts)
+    # skip clamping entirely, unchanged behavior.
+    clip_abs = meta.get("correction_clip_abs")
+    n_clipped = 0
+    if clip_abs is not None and clip_abs > 0:
+        pre_clip = corrections.copy()
+        corrections = np.clip(corrections, -clip_abs, clip_abs)
+        n_clipped = int(np.sum(pre_clip != corrections))
+
     # Apply correction (floor at 0)
     corrected = merged["projected_points"].values + corrections
     result["projected_points"] = np.clip(corrected, 0.0, None).round(2)
 
     logger.info(
-        "%s residual correction (%s): %d players, mean correction=%.2f",
+        "%s residual correction (%s): %d players, mean correction=%.2f%s",
         position,
         model_type,
         has_features.sum(),
         float(np.mean(corrections[has_features])) if has_features.any() else 0.0,
+        f", {n_clipped} clamped at +/-{clip_abs:.1f}" if n_clipped else "",
     )
 
     return result

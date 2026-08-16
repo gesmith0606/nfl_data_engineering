@@ -538,19 +538,22 @@ class TestApplyResidualCorrectionDedupDeterminism:
 
 class TestRouterHybridIntegration:
     def test_hybrid_positions_constant(self):
-        """HYBRID_POSITIONS is {TE, WR} after the v4.3 sealed-2025 gate.
+        """HYBRID_POSITIONS is {QB, RB, TE, WR} after the v4.4 sealed-2025 gate.
 
         v4.2: TE shipped (3.521 -> 3.361 MAE); WR failed (bias +0.73,
         pre-blend-consistency training). v4.3 (2026-06-12): WR ships after
         the blend-consistent retrain — sealed 2025 gap -0.148 vs Sleeper,
-        bias +0.29. RB retried and killed again (stays heuristic).
+        bias +0.29. v4.4 (2026-08-15): QB/RB retrained on repaired
+        snap_pct/NGS/PFR/QBR features, leak-verified, and flipped SKIP->HYBRID
+        (sealed 2025: QB 6.459->5.773 MAE, RB 5.109->4.920 MAE). See
+        .planning/HYBRID_SHIP_2026_08_15.md.
         """
         from ml_projection_router import HYBRID_POSITIONS
 
-        assert HYBRID_POSITIONS == {"TE", "WR"}
+        assert HYBRID_POSITIONS == {"QB", "RB", "TE", "WR"}
 
-    def test_ship_gate_verdicts_v42(self):
-        """QB/RB are heuristic-only; TE/WR are HYBRID when models exist."""
+    def test_ship_gate_verdicts_v44(self):
+        """QB/RB/TE/WR are all HYBRID when models exist with a v4.2+blend stamp."""
         model_dir = os.path.join(os.path.dirname(__file__), "..", "models", "player")
         if not os.path.exists(os.path.join(model_dir, "ship_gate_report.json")):
             pytest.skip("Ship gate report not found")
@@ -558,7 +561,20 @@ class TestRouterHybridIntegration:
         from ml_projection_router import _load_ship_gate
 
         verdicts = _load_ship_gate(model_dir)
-        assert verdicts.get("QB") == "SKIP"
+        for pos in ("QB", "RB"):
+            meta_path = os.path.join(
+                os.path.dirname(__file__), "..", "models", "residual",
+                f"{pos.lower()}_residual_meta.json",
+            )
+            if os.path.exists(meta_path):
+                with open(meta_path) as fh:
+                    meta = json.load(fh)
+                expected = (
+                    "HYBRID"
+                    if meta.get("heuristic_version") == "v4.2+blend"
+                    else "SKIP"
+                )
+                assert verdicts.get(pos) == expected
         wr_meta_path = os.path.join(
             os.path.dirname(__file__),
             "..",

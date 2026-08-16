@@ -111,12 +111,14 @@ def sample_implied_totals():
 class TestLoadShipGate:
     """Tests for _load_ship_gate function."""
 
-    def test_returns_skip_for_qb_bias_corrected(self, model_dir_with_qb):
-        """QB forced to SKIP — bias corrected in heuristic via POSITION_BIAS_CORRECTION."""
+    def test_no_qb_force_skip_without_residual_model(self, model_dir_with_qb):
+        """QB is no longer force-SKIPped (v4.4); RB/WR/TE stay SKIP absent a
+        residual model meta on disk (model_dir_with_qb has no sibling
+        residual/ dir, so HYBRID promotion in the loop below never fires)."""
         from ml_projection_router import _load_ship_gate
 
         result = _load_ship_gate(model_dir_with_qb)
-        assert result["QB"] == "SKIP"
+        assert "QB" not in result
         assert result["RB"] == "SKIP"
         assert result["WR"] == "SKIP"
         assert result["TE"] == "SKIP"

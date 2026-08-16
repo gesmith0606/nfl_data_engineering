@@ -6,18 +6,25 @@ Reads the ship gate report to determine which positions use ML models
 heuristic projections. Provides MAPIE confidence intervals for ML positions
 and team-total coherence checks.
 
-Routing (v4.3, 2026-06-12):
-    QB -> Heuristic only (SKIP; bias corrected via POSITION_BIAS_CORRECTION +2.3 pts)
-    RB -> Heuristic only (SKIP; residuals degrade even leak-free)
-    WR -> HYBRID (heuristic + residual; SHIPPED v4.3 via blend-consistent retrain
-          after the v4.2 gate had failed on non-stationary residuals)
+Routing (v4.4, 2026-08-15 — see .planning/HYBRID_SHIP_2026_08_15.md):
+    QB -> HYBRID (heuristic + LGB residual; retrained on repaired
+          snap_pct/NGS/PFR/QBR features, leak-verified, sealed 2025
+          6.459 -> 5.773 MAE)
+    RB -> HYBRID (heuristic + LGB residual; same repair/retrain,
+          sealed 2025 5.109 -> 4.920 MAE)
+    WR -> HYBRID (heuristic + residual; SHIPPED v4.3 blend-consistent Ridge,
+          unchanged by the 2026-08-15 retrain (which came out worse and was
+          rejected) — now with the correction clamp applied)
     TE -> HYBRID (heuristic + Ridge residual w/ graph features; sealed 2025
           gate 3.521 -> 3.361 MAE after the leakage + week-alignment fixes)
 
 Exports:
     generate_ml_projections: Main entry point for mixed ML/heuristic projections.
     check_team_total_coherence: Warn when team fantasy totals exceed implied total.
-    compute_mapie_intervals: MAPIE-based prediction intervals (optional dependency).
+    compute_mapie_intervals: MAPIE-based prediction intervals (optional dependency;
+        real/tested but not currently invoked by generate_ml_projections — see
+        MODEL_REVIEW_2026_08_15.md finding #13. ML-position floor/ceiling uses
+        the heuristic add_floor_ceiling() spread, not calibrated intervals.
 """
 
 import json
@@ -77,7 +84,20 @@ logger = logging.getLogger(__name__)
 #   WR: gap +0.09 -> -0.047 (beats Sleeper), Spearman -0.056 -> +0.017.
 #   RB: retried with the same protocol — null effect, killed again.
 # Sealed amber-2025 confirmation recorded in .planning/holdout_ledger.json.
-HYBRID_POSITIONS = {"TE", "WR"}
+#
+# v4.4 (2026-08-15, HYBRID_SHIP_2026_08_15.md): QB/RB retrained on repaired
+# snap_pct/NGS/PFR/QBR features (SILVER_REGEN_REPORT.md fix) — the June SKIP
+# verdicts were measured on all-NaN inputs. Leak-verified (feature audit +
+# within-season label-shuffle test collapsed sealed-2025 skill from -0.685 to
+# -0.053; sanity spot-check on 2025 QB weeks showed real, explainable misses,
+# not suspiciously-perfect leaked predictions) then re-gated on sealed 2025:
+#   QB: heuristic-only 6.459 -> hybrid 5.773 MAE (bias +0.05) — SHIP.
+#   RB: heuristic-only 5.109 -> hybrid 4.920 MAE (bias +0.16) — SHIP.
+# All four HYBRID positions now also carry a correction-magnitude clamp
+# (correction_clip_abs in each meta, p99 |train residual|) applied inside
+# apply_residual_correction() — blowup insurance for the WR extrapolation
+# failure mode documented in BENCHMARK_REFRESH_2026_08_15.md section 5.
+HYBRID_POSITIONS = {"TE", "WR", "QB", "RB"}
 
 # ---------------------------------------------------------------------------
 # MAPIE optional import
@@ -126,15 +146,14 @@ def _load_ship_gate(model_dir: str = "models/player") -> Dict[str, str]:
     for entry in report.get("positions", []):
         verdicts[entry["position"]] = entry["verdict"]
 
-    # v4.1-p5: QB XGB SHIP path disabled — bias now corrected at the heuristic
-    # level via POSITION_BIAS_CORRECTION in projection_engine.py (+2.3 pts
-    # since v4.2; originally +2.5).
-    # The heuristic-only QB MAE (6.58) is better than XGB SHIP (7.03) once
-    # the -2.47 bias is removed. Forcing SKIP regardless of model files on disk.
-    verdicts["QB"] = "SKIP"
-    logger.info(
-        "QB forced to SKIP: bias corrected in heuristic via POSITION_BIAS_CORRECTION"
-    )
+    # v4.1-p5 (SUPERSEDED 2026-08-15, see HYBRID_SHIP_2026_08_15.md): QB XGB
+    # SHIP path was disabled here and QB force-SKIPped regardless of model
+    # files on disk, because heuristic-only QB MAE beat the old XGB SHIP path
+    # once POSITION_BIAS_CORRECTION (+2.3 pts, still applied in the heuristic
+    # engine below every position) was accounted for. That verdict predates
+    # the snap_pct/NGS/PFR/QBR Silver repair; QB is no longer force-SKIPped
+    # here — it now routes through the HYBRID_POSITIONS check below like
+    # WR/TE, gated on the same v4.2+blend meta-stamp discipline.
 
     # NOTE: RB SHIP override disabled (Exp 4b — 2026-04-13).
     # Production 2022-2024 backtest shows RB XGBoost (5.25 MAE) is worse than
@@ -817,19 +836,21 @@ def _generate_ml_for_position(
 
                 ml_out["projected_points"] = scoring_input["projected_points"].values
 
-                # MAPIE intervals or heuristic floor/ceiling
-                if HAS_MAPIE:
-                    # Attempt MAPIE intervals per stat
-                    _apply_mapie_intervals(
-                        ml_out,
-                        model_dict,
-                        ml_players,
-                        feature_cols,
-                        position,
-                        scoring_format,
-                    )
-                else:
-                    ml_out = add_floor_ceiling(ml_out)
+                # Floor/ceiling: heuristic spread around the point estimate.
+                # NOTE (MODEL_REVIEW_2026_08_15.md finding #13): this used to
+                # branch on HAS_MAPIE and call a function named
+                # _apply_mapie_intervals that never actually computed a MAPIE
+                # interval — both branches did the same add_floor_ceiling()
+                # call regardless, which implied a calibration this path never
+                # performed. Collapsed to one honest call. compute_mapie_intervals()
+                # below is real, tested, working MAPIE code (see
+                # test_ml_projection_router.py) — it's just unused here
+                # because MAPIE's prefit calibration needs the model's
+                # training X/y, which this per-request inference path doesn't
+                # have. Wiring it for real means threading training data (or a
+                # pre-computed calibration set) through to this call site —
+                # not done here; use it directly if/when that plumbing exists.
+                ml_out = add_floor_ceiling(ml_out)
 
                 ml_out["projection_source"] = "ml"
                 results.append(ml_out)
@@ -886,32 +907,3 @@ def _generate_ml_for_position(
         return heuristic
 
 
-def _apply_mapie_intervals(
-    ml_out: pd.DataFrame,
-    model_dict: Dict[str, Dict[str, Any]],
-    ml_players: pd.DataFrame,
-    feature_cols: Dict[str, List[str]],
-    position: str,
-    scoring_format: str,
-) -> None:
-    """Apply MAPIE intervals to ML output in-place, falling back to heuristic.
-
-    Attempts to compute per-stat MAPIE intervals and derive fantasy point
-    floor/ceiling. If MAPIE fails for any reason, falls back to
-    add_floor_ceiling heuristic.
-
-    Args:
-        ml_out: ML output DataFrame (modified in-place).
-        model_dict: Dict of stat -> {model: ...}.
-        ml_players: Player feature DataFrame.
-        feature_cols: Feature columns per stat-type group.
-        position: Position code.
-        scoring_format: Scoring format for fantasy point calc.
-    """
-    # For now, use heuristic floor/ceiling as MAPIE calibration requires
-    # training data which may not be available at inference time.
-    # The compute_mapie_intervals function is available for callers who
-    # have training data.
-    temp = add_floor_ceiling(ml_out)
-    ml_out["projected_floor"] = temp["projected_floor"]
-    ml_out["projected_ceiling"] = temp["projected_ceiling"]
