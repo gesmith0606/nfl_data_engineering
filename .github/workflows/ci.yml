@@ -203,7 +203,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Check model freshness (artifact-only; no local Silver in CI)
-        continue-on-error: true  # TEMPORARY — see comment block above. Known-red on quantile until retrained.
+        # Flipped fail-closed 2026-08-16: quantile retrained+promoted, hybrids
+        # shipped, checker 41/41 PASS on main — the TODO condition is met.
         run: python scripts/check_model_freshness.py --no-probe
 
   # ------------------------------------------------------------------
