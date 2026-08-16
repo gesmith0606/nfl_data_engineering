@@ -59,28 +59,54 @@
   {
     "timestamp": "2026-08-15T00:00:00",
     "experiment": "retrain_on_repaired_features (concurrent task, RETRAIN_ON_REPAIRED_FEATURES.md) -- QB/RB/WR/TE retrained on snap_pct+NGS/PFR/QBR repair, sealed-2025 gate vs shipped/heuristic",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
-      "qb_mae_sealed2025": {"heuristic": 6.459, "retrained_hybrid": 5.773, "verdict": "FLIP SKIP->SHIP (recommend)"},
-      "rb_mae_sealed2025": {"heuristic": 5.109, "retrained_hybrid": 4.920, "verdict": "FLIP SKIP->SHIP (recommend)"},
-      "wr_mae_sealed2025": {"shipped_hybrid": 3.851, "retrained_hybrid": 3.962, "verdict": "KEEP SHIPPED"},
-      "te_mae_sealed2025": {"shipped_hybrid": 3.011, "retrained_hybrid": 2.971, "verdict": "REDEPLOY (marginal)"}
+      "qb_mae_sealed2025": {
+        "heuristic": 6.459,
+        "retrained_hybrid": 5.773,
+        "verdict": "FLIP SKIP->SHIP (recommend)"
+      },
+      "rb_mae_sealed2025": {
+        "heuristic": 5.109,
+        "retrained_hybrid": 4.92,
+        "verdict": "FLIP SKIP->SHIP (recommend)"
+      },
+      "wr_mae_sealed2025": {
+        "shipped_hybrid": 3.851,
+        "retrained_hybrid": 3.962,
+        "verdict": "KEEP SHIPPED"
+      },
+      "te_mae_sealed2025": {
+        "shipped_hybrid": 3.011,
+        "retrained_hybrid": 2.971,
+        "verdict": "REDEPLOY (marginal)"
+      }
     }
   },
   {
     "timestamp": "2026-08-15T00:00:00",
     "experiment": "benchmark_refresh_2026_08_15 (concurrent task, BENCHMARK_REFRESH_2026_08_15.md) -- full consensus + FP ordinal refresh on repaired data, 2022-2024 vs both sources",
-    "seasons": [2022, 2023, 2024],
+    "seasons": [
+      2022,
+      2023,
+      2024
+    ],
     "results": {
-      "overall_vs_sleeper": -0.050, "overall_vs_espn": 0.009,
-      "wr_vs_sleeper": 0.005, "wr_vs_espn": -0.038,
+      "overall_vs_sleeper": -0.05,
+      "overall_vs_espn": 0.009,
+      "wr_vs_sleeper": 0.005,
+      "wr_vs_espn": -0.038,
       "note": "WR flips from win to loss/wash -- shipped WR hybrid destabilized by real (non-imputed) NGS/snap inputs it never saw in training"
     }
   },
   {
     "timestamp": "2026-08-15T12:00:00",
     "experiment": "hybrid_ship_2026_08_15_leak_verify (this task) -- QB label-shuffle-within-season test + feature-construction audit + 2025-week sanity check, see HYBRID_SHIP_2026_08_15.md",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
       "qb_shuffle_delta_vs_heuristic": -0.053,
       "qb_real_delta_vs_heuristic": -0.685,
@@ -90,7 +116,9 @@
   {
     "timestamp": "2026-08-15T23:13:00",
     "experiment": "quantile_refit_2026_08_15 (this task, QUANTILE_REFIT_2026_08_15.md) -- imputer keep_empty_features=True mechanism fix + retrain on repaired snap_pct/NGS/PFR/QBR features; sealed-2025 walk-forward-OOF coverage/pinball gate (trained 2016-2024 only, predicting 2025 fold never touched in training) vs shipped (which crashes 100% of predict_quantiles calls -- confirmed independently, shape-mismatch from the pre-fix imputer dropping 28 NaN-statistic columns)",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
       "shipped_predict_quantiles": "CRASHED on every call (ValueError: shape mismatch) -- never served a real prediction; --conformal-bands always silently fell back to heuristic",
       "qb_coverage_10_90_sealed2025_conformal": 0.824,
@@ -104,19 +132,64 @@
   {
     "timestamp": "2026-08-16T11:00:00",
     "experiment": "graph_revival_2026_08_16 (this task, GRAPH_REVIVAL_2026_08_16.md) -- PBP bronze 2016-2025 ingested (was entirely absent locally), Silver graph_features regenerated, TE residual retrained (ridge, same protocol as HYBRID_SHIP_2026_08_15) and quantile retrained (same protocol as QUANTILE_REFIT_2026_08_15) now that graph-pattern features are live instead of 100% NaN",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
-      "te_mae_sealed2025_wk3_18": {"shipped": 3.449, "graph_retrain": 3.491, "gap": -0.042, "gate": ">=0.03 improvement required", "verdict": "KEEP SHIPPED (gate missed by 0.072; graph retrain is WORSE on sealed-2025 despite selecting 16 genuine graph-pattern features that were previously dead)"},
-      "te_mae_2022_24_wk3_18": {"shipped": 3.433, "graph_retrain": 3.425, "gap": 0.008, "note": "hold-check passes but moot -- primary sealed-2025 gate already failed"},
+      "te_mae_sealed2025_wk3_18": {
+        "shipped": 3.449,
+        "graph_retrain": 3.491,
+        "gap": -0.042,
+        "gate": ">=0.03 improvement required",
+        "verdict": "KEEP SHIPPED (gate missed by 0.072; graph retrain is WORSE on sealed-2025 despite selecting 16 genuine graph-pattern features that were previously dead)"
+      },
+      "te_mae_2022_24_wk3_18": {
+        "shipped": 3.433,
+        "graph_retrain": 3.425,
+        "gap": 0.008,
+        "note": "hold-check passes but moot -- primary sealed-2025 gate already failed"
+      },
       "quantile_conformal_coverage_sealed2025": {
-        "qb": {"before": 0.824, "after": 0.805, "in_band": true},
-        "rb": {"before": 0.795, "after": 0.791, "in_band": true},
-        "wr": {"before": 0.875, "after": 0.875, "in_band": false, "note": "unchanged soft miss, pre-existing"},
-        "te": {"before": 0.826, "after": 0.860, "in_band": false, "note": "NEW miss -- was in-band before, breaches 85% ceiling after graph retrain"}
+        "qb": {
+          "before": 0.824,
+          "after": 0.805,
+          "in_band": true
+        },
+        "rb": {
+          "before": 0.795,
+          "after": 0.791,
+          "in_band": true
+        },
+        "wr": {
+          "before": 0.875,
+          "after": 0.875,
+          "in_band": false,
+          "note": "unchanged soft miss, pre-existing"
+        },
+        "te": {
+          "before": 0.826,
+          "after": 0.86,
+          "in_band": false,
+          "note": "NEW miss -- was in-band before, breaches 85% ceiling after graph retrain"
+        }
       },
       "quantile_pinball_conformal_sealed2025": {
-        "qb": {"before": 1.863, "after": 1.821}, "rb": {"before": 1.520, "after": 1.490},
-        "wr": {"before": 1.135, "after": 1.099}, "te": {"before": 0.939, "after": 0.855},
+        "qb": {
+          "before": 1.863,
+          "after": 1.821
+        },
+        "rb": {
+          "before": 1.52,
+          "after": 1.49
+        },
+        "wr": {
+          "before": 1.135,
+          "after": 1.099
+        },
+        "te": {
+          "before": 0.939,
+          "after": 0.855
+        },
         "note": "pinball loss improved at every position"
       },
       "verdict": "HOLD -- pinball/Q50 MAE improved across the board, but conformal coverage gate ([0.75,0.85] per position) is breached for WR (pre-existing, unchanged) and now newly breached for TE; not 'clearly better' per the pre-registered bar, so shipped models/quantile stays live. Researched artifact parked at models/quantile_graph_2026_08_16/."
@@ -125,21 +198,42 @@
   {
     "timestamp": "2026-08-16T12:11:00",
     "experiment": "candidate_polish_2026_08_16_quantile_width (this task, CANDIDATE_POLISH_2026_08_16.md sec1) -- fine-grid (0.01 step) conformal width factor recompute for models/quantile_graph_2026_08_16, selected on walk-forward OOF seasons 2018-2024 only, read once against sealed 2025",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
-      "sealed_coverage_new_factors": {"qb": 0.8104, "rb": 0.7811, "wr": 0.8619, "te": 0.8426},
-      "in_band_75_85": {"qb": true, "rb": true, "wr": false, "te": true},
+      "sealed_coverage_new_factors": {
+        "qb": 0.8104,
+        "rb": 0.7811,
+        "wr": 0.8619,
+        "te": 0.8426
+      },
+      "in_band_75_85": {
+        "qb": true,
+        "rb": true,
+        "wr": false,
+        "te": true
+      },
       "verdict": "HOLD for joint 4-position promotion (WR still 1.2pp over ceiling); QB/RB/TE individually in-band with better pinball than shipped -- optional per-position promotion path documented, not executed"
     }
   },
   {
     "timestamp": "2026-08-16T12:12:00",
     "experiment": "candidate_polish_2026_08_16_te_ridge_sweep (this task, CANDIDATE_POLISH_2026_08_16.md sec2) -- 8-value log-spaced ridge alpha sweep on te_graph_2026_08_16's 60 SHAP-selected features, alpha selected via walk-forward MAE (val_seasons 2022-2024, 2016-2024 data only), read once against sealed 2025",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
       "best_alpha": 0.0001,
-      "walkforward_avg_mae_2022_24": {"alpha_0_0001": 2.8613, "alpha_0_001_shipped_pick": 2.8614},
-      "sealed2025_mae": {"shipped": 2.9712, "graph_candidate_alpha_0_001": 2.9487, "ridge_sweep_alpha_0_0001": 2.9449},
+      "walkforward_avg_mae_2022_24": {
+        "alpha_0_0001": 2.8613,
+        "alpha_0_001_shipped_pick": 2.8614
+      },
+      "sealed2025_mae": {
+        "shipped": 2.9712,
+        "graph_candidate_alpha_0_001": 2.9487,
+        "ridge_sweep_alpha_0_0001": 2.9449
+      },
       "gap_shipped_minus_sweep": 0.0263,
       "gate": ">=0.03 required",
       "note": "absolute MAE differs materially from GRAPH_REVIVAL_2026_08_16's reported 3.449/3.491 -- mid-session data-vintage drift (new PBP-advanced trailing feature columns materialized between the two sessions); this task's baseline+treated were regenerated back-to-back in one run so the internal comparison is sound even though the absolute numbers and even the shipped-vs-candidate sign differ from the prior report",
@@ -149,13 +243,50 @@
   {
     "timestamp": "2026-08-16T12:15:00",
     "experiment": "candidate_polish_2026_08_16_wr_shipped_width_bonus (this task, CANDIDATE_POLISH_2026_08_16.md sec3) -- fine-grid WR-only width factor recompute restricted to shipped models/quantile/metadata.json's 486 feature_cols, selected on walk-forward 2016-2024, read once against sealed 2025",
-    "seasons": [2025],
+    "seasons": [
+      2025
+    ],
     "results": {
-      "new_factor": 1.10,
-      "shipped_factor": 1.10,
+      "new_factor": 1.1,
+      "shipped_factor": 1.1,
       "sealed_coverage": 0.8595,
       "in_band_75_85": false,
       "verdict": "HOLD -- no smaller factor clears the 80% walk-forward tuning target; still 0.95pp over the 85% ceiling on sealed 2025; no metadata-only fix staged"
+    }
+  },
+  {
+    "timestamp": "2026-08-16T16:45:00",
+    "experiment": "CONSOLIDATION_2026_08_16 sealed-2025 confirmation: QB more-years+recency-hl3 combo vs shipped",
+    "seasons": [
+      2025
+    ],
+    "results": {
+      "shipped_mae": 6.7912,
+      "winner_mae": 6.695,
+      "delta": 0.0962
+    }
+  },
+  {
+    "timestamp": "2026-08-16T16:45:30",
+    "experiment": "CONSOLIDATION_2026_08_16 sealed-2025 confirmation: RB zone+more-years vs shipped",
+    "seasons": [
+      2025
+    ],
+    "results": {
+      "shipped_mae": 5.4041,
+      "winner_mae": 5.3332,
+      "delta": 0.0709
+    }
+  },
+  {
+    "timestamp": "2026-08-16T16:46:00",
+    "experiment": "CONSOLIDATION_2026_08_16 sealed-2025 check: WR more-years-alone vs shipped 60/40 blend (blend wins, no change)",
+    "seasons": [
+      2025
+    ],
+    "results": {
+      "shipped_blend_mae": 4.0263,
+      "more_years_alone_mae": 4.1548
     }
   }
 ]

@@ -179,3 +179,71 @@ def test_comparison_endpoint_no_fallback_flag_on_exact_match(silver_fixture):
     assert data["fallback"] is False
     assert data["fallback_season"] is None
     assert data["fallback_week"] is None
+
+
+def test_comparison_endpoint_overlays_live_ours_when_archive_missing_it(
+    tmp_path, monkeypatch
+):
+    """A stale archived Silver snapshot (weekly-external-projections.yml ran
+    before our own Gold weekly projections existed for that slice) must not
+    permanently blank the "ours" column -- live Gold data for the same
+    resolved (season, week) should be joined in instead of leaving dashes.
+    """
+    from web.api.services import projection_service
+
+    # Silver snapshot has externals only (mirrors the real
+    # season=2025/week=18 snapshot: sleeper rows, zero "ours" rows).
+    silver_root = tmp_path / "silver" / "external_projections"
+    week_dir = silver_root / "season=2025" / "week=18"
+    week_dir.mkdir(parents=True)
+    silver_df = pd.DataFrame(
+        [
+            {
+                "player_id": "00-001",
+                "player_name": "Patrick Mahomes",
+                "position": "QB",
+                "team": "KC",
+                "source": "sleeper",
+                "scoring_format": "half_ppr",
+                "projected_points": 21.8,
+                "projected_at": "2026-06-11T00:43:37+00:00",
+                "season": 2025,
+                "week": 18,
+            }
+        ]
+    )
+    silver_df.to_parquet(week_dir / "external_projections.parquet", index=False)
+    monkeypatch.setattr(projection_service, "DATA_DIR", tmp_path)
+
+    # Live Gold weekly projections for the same resolved slice, generated
+    # AFTER the archived Silver snapshot -- this is what should win.
+    gold_root = tmp_path / "gold" / "projections"
+    gold_week_dir = gold_root / "season=2025" / "week=18"
+    gold_week_dir.mkdir(parents=True)
+    gold_df = pd.DataFrame(
+        [
+            {
+                "player_id": "00-001",
+                "player_name": "Patrick Mahomes",
+                "position": "QB",
+                "recent_team": "KC",
+                "projected_points": 25.0,
+            }
+        ]
+    )
+    gold_df.to_parquet(
+        gold_week_dir / "projections_half_ppr_20260702_143534.parquet", index=False
+    )
+    monkeypatch.setattr(projection_service, "GOLD_PROJECTIONS_DIR", gold_root)
+
+    resp = client.get(
+        "/api/projections/comparison",
+        params={"season": 2025, "week": 18, "scoring": "half_ppr"},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert len(data["rows"]) == 1
+    row = data["rows"][0]
+    assert row["ours"] == 25.0
+    assert row["sleeper"] == 21.8
+    assert row["delta_vs_ours"] == round(21.8 - 25.0, 2)

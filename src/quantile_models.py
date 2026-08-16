@@ -522,11 +522,34 @@ def load_quantile_models(
         with open(imputer_path, "rb") as f:
             imputer = pickle.load(f)
 
+    # Optional per-position override (2026-08-16 consolidation): a mixed
+    # promotion where some positions' models were trained on a different
+    # feature pool than others (e.g. QB/RB/TE from a graph-feature retrain,
+    # WR left on the originally-shipped feature set) needs its own
+    # imputer/feature_cols per position, since a single shared imputer fit on
+    # one column layout cannot correctly transform features for a model
+    # trained on a different column layout. Absent for any normal
+    # single-recipe directory -- fully backward compatible.
+    per_position: Dict[str, Dict[str, Any]] = {}
+    for position, spec in metadata.get("per_position_artifacts", {}).items():
+        pp_imputer = None
+        imputer_file = spec.get("imputer_file")
+        if imputer_file:
+            pp_path = os.path.join(path, imputer_file)
+            if os.path.exists(pp_path):
+                with open(pp_path, "rb") as f:
+                    pp_imputer = pickle.load(f)
+        per_position[position] = {
+            "feature_cols": spec.get("feature_cols", metadata["feature_cols"]),
+            "imputer": pp_imputer or imputer,
+        }
+
     return {
         "models": models,
         "feature_cols": metadata["feature_cols"],
         "imputer": imputer,
         "conformal_width_factors": metadata.get("conformal_width_factors", {}),
+        "per_position": per_position,
     }
 
 
@@ -558,8 +581,16 @@ def predict_quantiles(
         columns aligned to features_df index.
     """
     models = quantile_data["models"]
-    feature_cols = quantile_data["feature_cols"]
-    imputer = quantile_data["imputer"]
+    # Per-position override wins when present (mixed-promotion directories --
+    # see load_quantile_models); falls back to the single shared
+    # imputer/feature_cols for any normal single-recipe directory.
+    pp_override = quantile_data.get("per_position", {}).get(position)
+    if pp_override is not None:
+        feature_cols = pp_override["feature_cols"]
+        imputer = pp_override["imputer"]
+    else:
+        feature_cols = quantile_data["feature_cols"]
+        imputer = quantile_data["imputer"]
 
     # Load-time integrity check: a loaded artifact whose imputer statistics
     # contain NaN would silently drop or NaN-out features at inference

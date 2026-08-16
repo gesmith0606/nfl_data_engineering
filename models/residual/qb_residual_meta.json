@@ -3,32 +3,32 @@
   "model_type": "lgb",
   "heuristic_version": "v4.2+blend",
   "scoring_format": "half_ppr",
-  "n_train": 4152,
-  "train_residual_mae": 5.216344456978852,
+  "n_train": 32336,
+  "train_residual_mae": 4.674007276639569,
   "n_features": 20,
   "features": [
+    "team_rz_trips_roll3",
     "implied_team_total",
-    "ngs_aggressiveness_std",
     "passing_yards_std",
+    "opp_rz_td_rate_allowed_roll3",
     "ngs_avg_air_yards_differential_std",
-    "ngs_expected_completion_percentage_std",
     "wind_speed",
-    "fantasy_points_ppr_std",
-    "bmi",
     "ngs_avg_completed_air_yards_std",
+    "fantasy_points_ppr_std",
     "ngs_avg_time_to_throw_std",
-    "closing_total",
-    "def_epa_per_play_std",
-    "snap_pct_std",
-    "opening_spread",
-    "off_success_rate_roll3",
+    "ngs_aggressiveness_std",
+    "travel_miles",
+    "rz_carry_share_roll3",
+    "proe_roll3",
+    "pace_std",
     "temperature",
-    "passing_yards_roll3",
-    "fantasy_points_ppr_roll3",
-    "pfr_def_times_hurried_std",
-    "off_rz_epa_roll6"
+    "def_rz_epa_roll6",
+    "qb_passing_epa_std",
+    "ngs_completion_percentage_above_expectation_std",
+    "rz_td_rate_roll3",
+    "proe_roll6"
   ],
-  "best_iteration": 91,
+  "best_iteration": 201,
   "graph_features_added": 0,
   "lgb_params": {
     "objective": "regression",
@@ -44,5 +44,35 @@
     "n_jobs": -1,
     "random_state": 42
   },
-  "correction_clip_abs": 18.744899999999994
+  "correction_clip_abs": 18.869999999999997,
+  "provenance": {
+    "generated_at": "2026-08-16T16:36:56.116298+00:00",
+    "git_sha": "a7a51505dc00ff3a96263459d091dc503b2fb731",
+    "sources": {
+      "silver_players_usage": {
+        "path": "silver/players/usage",
+        "row_count": 158696,
+        "n_files": 24,
+        "latest_partition_at": "2026-08-16T16:05:10.490163+00:00"
+      },
+      "silver_players_advanced": {
+        "path": "silver/players/advanced",
+        "row_count": 74235,
+        "n_files": 11,
+        "latest_partition_at": "2026-08-16T03:08:08.020408+00:00"
+      },
+      "bronze_players_snaps": {
+        "path": "bronze/players/snaps",
+        "row_count": 324611,
+        "n_files": 278,
+        "latest_partition_at": "2026-08-16T16:04:35.335417+00:00"
+      },
+      "bronze_players_injuries": {
+        "path": "bronze/players/injuries",
+        "row_count": 76469,
+        "n_files": 14,
+        "latest_partition_at": "2026-08-16T16:04:41.753427+00:00"
+      }
+    }
+  }
 }

@@ -3,32 +3,32 @@
   "model_type": "lgb",
   "heuristic_version": "v4.2+blend",
   "scoring_format": "half_ppr",
-  "n_train": 7450,
-  "train_residual_mae": 4.372547064113115,
+  "n_train": 10824,
+  "train_residual_mae": 4.291773068558363,
   "n_features": 20,
   "features": [
-    "ngs_efficiency_std",
+    "team_rz_trips_roll3",
     "ngs_avg_time_to_los_std",
-    "carries_std",
-    "ngs_rush_yards_over_expected_std",
-    "rushing_yards_roll3",
+    "ngs_efficiency_std",
+    "rushing_yards_std",
+    "implied_team_total",
     "fantasy_points_ppr_std",
+    "rz_carry_share_roll3",
+    "wr_matchup_target_concentration_trail8",
+    "deep_target_share_roll4",
     "fantasy_points_ppr_roll3",
-    "def_success_rate_roll3",
-    "air_yards_roll6",
-    "off_rz_success_rate_std",
-    "closing_spread",
-    "ngs_efficiency_roll3",
-    "bmi",
-    "receiving_yards_x_opp_rank",
-    "draft_value",
-    "snap_pct_roll6",
-    "closing_total",
-    "wind_speed",
+    "opp_rz_td_rate_allowed_roll3",
+    "catch_rate_roll6",
+    "rz_td_rate_roll3",
+    "rushing_yards_roll3",
+    "script_volatility",
     "yards_per_target_roll3",
-    "off_success_rate_roll6"
+    "rz_usage_vs_general",
+    "travel_miles",
+    "speed_score",
+    "def_run_epa_allowed"
   ],
-  "best_iteration": 104,
+  "best_iteration": 130,
   "graph_features_added": 0,
   "lgb_params": {
     "objective": "regression",
@@ -44,5 +44,35 @@
     "n_jobs": -1,
     "random_state": 42
   },
-  "correction_clip_abs": 20.965300000000006
+  "correction_clip_abs": 20.44850000000002,
+  "provenance": {
+    "generated_at": "2026-08-16T16:12:16.959683+00:00",
+    "git_sha": "53cba9460ea66f84933a07e465c8481f9420e883",
+    "sources": {
+      "silver_players_usage": {
+        "path": "silver/players/usage",
+        "row_count": 158696,
+        "n_files": 24,
+        "latest_partition_at": "2026-08-16T16:05:10.490163+00:00"
+      },
+      "silver_players_advanced": {
+        "path": "silver/players/advanced",
+        "row_count": 74235,
+        "n_files": 11,
+        "latest_partition_at": "2026-08-16T03:08:08.020408+00:00"
+      },
+      "bronze_players_snaps": {
+        "path": "bronze/players/snaps",
+        "row_count": 324611,
+        "n_files": 278,
+        "latest_partition_at": "2026-08-16T16:04:35.335417+00:00"
+      },
+      "bronze_players_injuries": {
+        "path": "bronze/players/injuries",
+        "row_count": 76469,
+        "n_files": 14,
+        "latest_partition_at": "2026-08-16T16:04:41.753427+00:00"
+      }
+    }
+  }
 }
