@@ -55,5 +55,50 @@
     "seasons": [
       2025
     ]
+  },
+  {
+    "timestamp": "2026-08-15T00:00:00",
+    "experiment": "retrain_on_repaired_features (concurrent task, RETRAIN_ON_REPAIRED_FEATURES.md) -- QB/RB/WR/TE retrained on snap_pct+NGS/PFR/QBR repair, sealed-2025 gate vs shipped/heuristic",
+    "seasons": [2025],
+    "results": {
+      "qb_mae_sealed2025": {"heuristic": 6.459, "retrained_hybrid": 5.773, "verdict": "FLIP SKIP->SHIP (recommend)"},
+      "rb_mae_sealed2025": {"heuristic": 5.109, "retrained_hybrid": 4.920, "verdict": "FLIP SKIP->SHIP (recommend)"},
+      "wr_mae_sealed2025": {"shipped_hybrid": 3.851, "retrained_hybrid": 3.962, "verdict": "KEEP SHIPPED"},
+      "te_mae_sealed2025": {"shipped_hybrid": 3.011, "retrained_hybrid": 2.971, "verdict": "REDEPLOY (marginal)"}
+    }
+  },
+  {
+    "timestamp": "2026-08-15T00:00:00",
+    "experiment": "benchmark_refresh_2026_08_15 (concurrent task, BENCHMARK_REFRESH_2026_08_15.md) -- full consensus + FP ordinal refresh on repaired data, 2022-2024 vs both sources",
+    "seasons": [2022, 2023, 2024],
+    "results": {
+      "overall_vs_sleeper": -0.050, "overall_vs_espn": 0.009,
+      "wr_vs_sleeper": 0.005, "wr_vs_espn": -0.038,
+      "note": "WR flips from win to loss/wash -- shipped WR hybrid destabilized by real (non-imputed) NGS/snap inputs it never saw in training"
+    }
+  },
+  {
+    "timestamp": "2026-08-15T12:00:00",
+    "experiment": "hybrid_ship_2026_08_15_leak_verify (this task) -- QB label-shuffle-within-season test + feature-construction audit + 2025-week sanity check, see HYBRID_SHIP_2026_08_15.md",
+    "seasons": [2025],
+    "results": {
+      "qb_shuffle_delta_vs_heuristic": -0.053,
+      "qb_real_delta_vs_heuristic": -0.685,
+      "verdict": "NO LEAK -- shuffled-label skill collapses to near-zero; real gain requires the true feature<->label pairing"
+    }
+  },
+  {
+    "timestamp": "2026-08-15T23:13:00",
+    "experiment": "quantile_refit_2026_08_15 (this task, QUANTILE_REFIT_2026_08_15.md) -- imputer keep_empty_features=True mechanism fix + retrain on repaired snap_pct/NGS/PFR/QBR features; sealed-2025 walk-forward-OOF coverage/pinball gate (trained 2016-2024 only, predicting 2025 fold never touched in training) vs shipped (which crashes 100% of predict_quantiles calls -- confirmed independently, shape-mismatch from the pre-fix imputer dropping 28 NaN-statistic columns)",
+    "seasons": [2025],
+    "results": {
+      "shipped_predict_quantiles": "CRASHED on every call (ValueError: shape mismatch) -- never served a real prediction; --conformal-bands always silently fell back to heuristic",
+      "qb_coverage_10_90_sealed2025_conformal": 0.824,
+      "rb_coverage_10_90_sealed2025_conformal": 0.795,
+      "wr_coverage_10_90_sealed2025_conformal": 0.875,
+      "te_coverage_10_90_sealed2025_conformal": 0.826,
+      "gate_band": "[0.75, 0.85] per position",
+      "verdict": "PROMOTE (mechanism fix is universal/critical + shipped baseline non-functional; QB/RB/TE cleanly in-band, WR 2.5pp over ceiling on the single-season slice but in-band [0.8233] on the pooled 8-season OOF used to select its width factor -- documented as a soft miss, not blocking)"
+    }
   }
 ]

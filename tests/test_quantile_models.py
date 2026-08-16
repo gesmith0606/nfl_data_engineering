@@ -24,8 +24,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from quantile_models import (
     DEFAULT_QUANTILES,
+    _check_imputer_statistics,
     compute_calibration,
     load_quantile_models,
+    pinball_loss,
     predict_quantiles,
     save_quantile_models,
     train_quantile_models,
@@ -491,6 +493,122 @@ class TestIntegrationProjectionEngine:
             valid = preds.dropna()
             if not valid.empty:
                 assert (valid["quantile_floor"] <= valid["quantile_ceiling"]).all()
+
+
+# ---------------------------------------------------------------------------
+# T-08: Imputer statistics integrity (MODEL_REVIEW_2026_08_15.md finding #1)
+# ---------------------------------------------------------------------------
+
+
+class TestImputerStatisticsIntegrity:
+    """Regression coverage for the shipped-imputer NaN/silent-drop bug.
+
+    Before this fix, ``SimpleImputer(strategy="median")`` defaulted to
+    ``keep_empty_features=False``: an all-NaN column at fit time was
+    silently dropped from every future ``transform()`` call. Confirmed
+    empirically against the shipped ``models/quantile/imputer.pkl`` -- 28
+    columns (the entire snap_pct family + interactions) were dropped this
+    way. The fix keeps the column (statistic backfilled to 0) and adds an
+    explicit fail-loud check for the case where NaN statistics show up
+    anyway.
+    """
+
+    def test_all_nan_feature_column_is_kept_not_dropped(
+        self, synthetic_df: pd.DataFrame
+    ) -> None:
+        """An all-NaN feature column must survive fit+transform, not vanish."""
+        df = synthetic_df.copy()
+        df["wide_open_all_nan_roll3"] = np.nan
+
+        result = train_quantile_models(
+            df,
+            target_col="fantasy_points_target",
+            positions=["QB"],
+        )
+
+        assert "wide_open_all_nan_roll3" in result["feature_cols"]
+
+        imputer = result["imputer"]
+        assert not np.isnan(imputer.statistics_).any()
+
+        col_idx = result["feature_cols"].index("wide_open_all_nan_roll3")
+        assert imputer.statistics_[col_idx] == 0.0
+
+        # transform() must not drop the column either.
+        X = df[result["feature_cols"]].head(5)
+        transformed = imputer.transform(X)
+        assert transformed.shape[1] == len(result["feature_cols"])
+
+    def test_check_imputer_statistics_passes_for_clean_imputer(self) -> None:
+        """No-op (does not raise) when statistics_ has no NaN."""
+        from sklearn.impute import SimpleImputer
+
+        imp = SimpleImputer(strategy="median", keep_empty_features=True)
+        imp.fit(np.array([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]]))
+        _check_imputer_statistics(imp, context="test")  # must not raise
+
+    def test_check_imputer_statistics_raises_on_nan(self) -> None:
+        """Detects a NaN-statistics imputer directly (unit-level).
+
+        Reproduces the pre-fix shipped-artifact failure mode exactly:
+        keep_empty_features=False + an all-NaN column at fit time leaves a
+        real NaN entry in statistics_ (sklearn does not synthesize a
+        fallback value in this configuration).
+        """
+        from sklearn.impute import SimpleImputer
+
+        imp = SimpleImputer(strategy="median", keep_empty_features=False)
+        imp.fit(np.array([[1.0, np.nan], [3.0, np.nan], [5.0, np.nan]]))
+        assert np.isnan(imp.statistics_).any()  # sanity: reproduces the bug
+
+        with pytest.raises(ValueError, match="NaN statistic"):
+            _check_imputer_statistics(imp, context="test artifact")
+
+    def test_predict_quantiles_detects_nan_stats_in_loaded_artifact(
+        self, synthetic_df: pd.DataFrame
+    ) -> None:
+        """A loaded artifact with NaN imputer statistics must fail loud at
+        predict time, not silently serve degraded (or dropped-feature)
+        predictions."""
+        result = train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+            positions=["QB"],
+        )
+        # Simulate a stale/pre-fix shipped artifact whose imputer somehow
+        # carries NaN statistics (e.g. loaded from disk after being fit
+        # with the old keep_empty_features=False default on an all-NaN
+        # column).
+        bad_stats = result["imputer"].statistics_.copy()
+        bad_stats[0] = np.nan
+        result["imputer"].statistics_ = bad_stats
+
+        qb_data = synthetic_df[synthetic_df["position"] == "QB"].head(5)
+        with pytest.raises(ValueError, match="NaN statistic"):
+            predict_quantiles(result, qb_data, "QB")
+
+    def test_pinball_loss_zero_for_perfect_prediction(self) -> None:
+        """Pinball loss is 0 when predictions exactly match actuals."""
+        actual = np.array([1.0, 2.0, 3.0])
+        assert pinball_loss(actual, actual, alpha=0.1) == pytest.approx(0.0)
+        assert pinball_loss(actual, actual, alpha=0.9) == pytest.approx(0.0)
+
+    def test_pinball_loss_penalizes_asymmetrically(self) -> None:
+        """Under vs over-prediction penalty flips sign around alpha=0.5."""
+        actual = np.array([10.0])
+        under = np.array([5.0])  # prediction below actual
+        over = np.array([15.0])  # prediction above actual
+
+        # At alpha=0.9 (ceiling), under-prediction should cost more than
+        # over-prediction by the same margin.
+        loss_under_90 = pinball_loss(actual, under, alpha=0.9)
+        loss_over_90 = pinball_loss(actual, over, alpha=0.9)
+        assert loss_under_90 > loss_over_90
+
+        # At alpha=0.1 (floor), the asymmetry flips.
+        loss_under_10 = pinball_loss(actual, under, alpha=0.1)
+        loss_over_10 = pinball_loss(actual, over, alpha=0.1)
+        assert loss_over_10 > loss_under_10
 
 
 # ---------------------------------------------------------------------------

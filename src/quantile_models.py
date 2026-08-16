@@ -52,6 +52,50 @@ POSITIONS = ["QB", "RB", "WR", "TE"]
 
 
 # ---------------------------------------------------------------------------
+# Imputer integrity
+# ---------------------------------------------------------------------------
+
+
+def _check_imputer_statistics(imputer: Optional[SimpleImputer], context: str) -> None:
+    """Fail loud if a fitted imputer's per-feature statistics contain NaN.
+
+    A NaN entry in ``statistics_`` means ``transform()`` will emit NaN for
+    that column forever -- or, with the (former default)
+    ``keep_empty_features=False``, sklearn silently *drops* the column from
+    every future ``transform()`` output instead. Both failure modes are
+    invisible unless checked explicitly. This shipped for months undetected:
+    the production ``models/quantile/imputer.pkl`` (fit before
+    ``keep_empty_features=True`` was adopted here) silently dropped 28
+    now-real features -- the entire ``snap_pct`` family plus its
+    interactions -- from every inference call. See
+    ``.planning/MODEL_REVIEW_2026_08_15.md`` finding #1.
+
+    Args:
+        imputer: A fitted SimpleImputer (or None -- no-op).
+        context: Human-readable description of the call site, used in the
+            error message/log line.
+
+    Raises:
+        ValueError: If any entry in ``imputer.statistics_`` is NaN.
+    """
+    if imputer is None or not hasattr(imputer, "statistics_"):
+        return
+    stats = np.asarray(imputer.statistics_, dtype=float)
+    n_nan = int(np.isnan(stats).sum())
+    if n_nan:
+        msg = (
+            f"Imputer has {n_nan} NaN statistic(s) ({context}). One or more "
+            "features were all-NaN at fit time and the imputer could not "
+            "compute a real statistic for them -- with keep_empty_features="
+            "False this means those columns are silently dropped from "
+            "every transform() call at inference. Refusing to proceed "
+            "silently; see MODEL_REVIEW_2026_08_15.md finding #1."
+        )
+        logger.error(msg)
+        raise ValueError(msg)
+
+
+# ---------------------------------------------------------------------------
 # Training
 # ---------------------------------------------------------------------------
 
@@ -112,10 +156,16 @@ def train_quantile_models(
         ]
     logger.info("Validation seasons: %s", validation_seasons)
 
-    # Fit imputer on all data (feature NaNs)
-    imputer = SimpleImputer(strategy="median")
+    # Fit imputer on all data (feature NaNs). keep_empty_features=True: an
+    # all-NaN column must be KEPT (statistic falls back to 0) rather than
+    # silently dropped from every future transform() call -- see
+    # _check_imputer_statistics docstring / MODEL_REVIEW_2026_08_15.md #1.
+    imputer = SimpleImputer(strategy="median", keep_empty_features=True)
     valid_features = [c for c in feature_cols if c in features_df.columns]
     imputer.fit(features_df[valid_features])
+    _check_imputer_statistics(
+        imputer, context="production imputer, post-fit in train_quantile_models"
+    )
 
     all_models: Dict[str, Dict[float, lgb.LGBMRegressor]] = {}
     oof_rows: List[pd.DataFrame] = []
@@ -148,8 +198,12 @@ def train_quantile_models(
             # medians never leak into an earlier fold's imputation values.
             # The module-level `imputer` fit on all data is reserved for
             # the final production models trained below, after the CV loop.
-            fold_imputer = SimpleImputer(strategy="median")
+            fold_imputer = SimpleImputer(strategy="median", keep_empty_features=True)
             fold_imputer.fit(train_data[valid_features])
+            _check_imputer_statistics(
+                fold_imputer,
+                context=f"fold imputer, position={position}, val_season={val_season}",
+            )
 
             # Keep DataFrames through fit/predict — the imputer's bare
             # ndarray output makes LGBM emit a feature-names UserWarning on
@@ -221,6 +275,27 @@ def train_quantile_models(
 # ---------------------------------------------------------------------------
 # Calibration evaluation
 # ---------------------------------------------------------------------------
+
+
+def pinball_loss(actual: np.ndarray, pred: np.ndarray, alpha: float) -> float:
+    """Mean pinball (quantile) loss for a single quantile level.
+
+    Standard asymmetric loss for evaluating a quantile forecast: penalizes
+    under-prediction more heavily when alpha > 0.5 and over-prediction more
+    heavily when alpha < 0.5. Lower is better; 0 is a perfect fit.
+
+    Args:
+        actual: Observed values.
+        pred: Predicted quantile values (same alpha for every element).
+        alpha: Quantile level in (0, 1), e.g. 0.1, 0.5, 0.9.
+
+    Returns:
+        Mean pinball loss across all elements.
+    """
+    actual = np.asarray(actual, dtype=float)
+    pred = np.asarray(pred, dtype=float)
+    diff = actual - pred
+    return float(np.mean(np.maximum(alpha * diff, (alpha - 1) * diff)))
 
 
 def compute_calibration(
@@ -479,6 +554,11 @@ def predict_quantiles(
     models = quantile_data["models"]
     feature_cols = quantile_data["feature_cols"]
     imputer = quantile_data["imputer"]
+
+    # Load-time integrity check: a loaded artifact whose imputer statistics
+    # contain NaN would silently drop or NaN-out features at inference
+    # (finding #1). Fail loud rather than serve degraded predictions.
+    _check_imputer_statistics(imputer, context=f"loaded artifact, position={position}")
 
     if position not in models:
         logger.warning("No quantile models for position %s", position)
