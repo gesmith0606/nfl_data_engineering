@@ -100,5 +100,26 @@
       "gate_band": "[0.75, 0.85] per position",
       "verdict": "PROMOTE (mechanism fix is universal/critical + shipped baseline non-functional; QB/RB/TE cleanly in-band, WR 2.5pp over ceiling on the single-season slice but in-band [0.8233] on the pooled 8-season OOF used to select its width factor -- documented as a soft miss, not blocking)"
     }
+  },
+  {
+    "timestamp": "2026-08-16T11:00:00",
+    "experiment": "graph_revival_2026_08_16 (this task, GRAPH_REVIVAL_2026_08_16.md) -- PBP bronze 2016-2025 ingested (was entirely absent locally), Silver graph_features regenerated, TE residual retrained (ridge, same protocol as HYBRID_SHIP_2026_08_15) and quantile retrained (same protocol as QUANTILE_REFIT_2026_08_15) now that graph-pattern features are live instead of 100% NaN",
+    "seasons": [2025],
+    "results": {
+      "te_mae_sealed2025_wk3_18": {"shipped": 3.449, "graph_retrain": 3.491, "gap": -0.042, "gate": ">=0.03 improvement required", "verdict": "KEEP SHIPPED (gate missed by 0.072; graph retrain is WORSE on sealed-2025 despite selecting 16 genuine graph-pattern features that were previously dead)"},
+      "te_mae_2022_24_wk3_18": {"shipped": 3.433, "graph_retrain": 3.425, "gap": 0.008, "note": "hold-check passes but moot -- primary sealed-2025 gate already failed"},
+      "quantile_conformal_coverage_sealed2025": {
+        "qb": {"before": 0.824, "after": 0.805, "in_band": true},
+        "rb": {"before": 0.795, "after": 0.791, "in_band": true},
+        "wr": {"before": 0.875, "after": 0.875, "in_band": false, "note": "unchanged soft miss, pre-existing"},
+        "te": {"before": 0.826, "after": 0.860, "in_band": false, "note": "NEW miss -- was in-band before, breaches 85% ceiling after graph retrain"}
+      },
+      "quantile_pinball_conformal_sealed2025": {
+        "qb": {"before": 1.863, "after": 1.821}, "rb": {"before": 1.520, "after": 1.490},
+        "wr": {"before": 1.135, "after": 1.099}, "te": {"before": 0.939, "after": 0.855},
+        "note": "pinball loss improved at every position"
+      },
+      "verdict": "HOLD -- pinball/Q50 MAE improved across the board, but conformal coverage gate ([0.75,0.85] per position) is breached for WR (pre-existing, unchanged) and now newly breached for TE; not 'clearly better' per the pre-registered bar, so shipped models/quantile stays live. Researched artifact parked at models/quantile_graph_2026_08_16/."
+    }
   }
 ]

@@ -288,6 +288,9 @@ data/gold/*
 !data/silver/players/usage/
 !data/silver/players/usage/**
 !data/silver/players/usage/**/*.parquet
+!data/silver/graph_features/
+!data/silver/graph_features/**
+!data/silver/graph_features/**/*.parquet
 # Advanced player profiles (NGS/PFR/QBR merged), 2026-08-10: previously
 # join-keys-only (0 feature columns) because Bronze ngs/pfr-weekly/qbr didn't
 # exist; now has 88-128 real ngs_/pfr_/qbr_ feature columns per season. This
