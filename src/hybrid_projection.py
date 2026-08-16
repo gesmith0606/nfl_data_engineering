@@ -1526,4 +1526,42 @@ def apply_residual_correction(
         f", {n_clipped} clamped at +/-{clip_abs:.1f}" if n_clipped else "",
     )
 
+    # -------------------------------------------------------------------------
+    # Optional secondary-model blend (2026-08-16 WR gap-fix — see
+    # WR_GAP_FIX_2026_08_16.md). When the primary meta carries
+    # ``blend_secondary_dir``/``blend_weight``, recursively apply a second
+    # residual model to the SAME heuristic input and blend the two final
+    # (already clipped+floored) projected_points columns:
+    #   final = (1 - blend_weight) * primary + blend_weight * secondary
+    # Root cause: the shipped WR Ridge (trained pre-repair, effectively on the
+    # unfiltered "position-only" population because snap_pct_roll3 was 100%
+    # NaN at training time) is well-calibrated for sealed-2025 MAE but loses
+    # the 2022-24 matched-pairs gap to Sleeper by a hair. A same-recipe WR
+    # retrain on the REPAIRED features with that same unfiltered population
+    # deliberately reproduced (see models/residual_wr_secondary/) swings the
+    # matched-pairs gap to an outright win but drifts sealed-2025 MAE worse.
+    # A partial blend (weight tuned on walk-forward 2022-24 only, never
+    # sealed data) keeps both: outright win vs Sleeper+ESPN, sealed-2025 MAE
+    # within the +/-0.02 gate tolerance of the unblended shipped model.
+    # No-op for any position/meta without these keys (default behavior
+    # unchanged for QB/RB/TE and any WR meta reverted to the plain shipped
+    # artifact).
+    # -------------------------------------------------------------------------
+    blend_dir = meta.get("blend_secondary_dir")
+    blend_weight = meta.get("blend_weight")
+    if blend_dir and blend_weight:
+        secondary_result = apply_residual_correction(
+            heuristic_projections, player_features, position, model_dir=blend_dir
+        )
+        primary_pts = result["projected_points"]
+        secondary_pts = secondary_result["projected_points"].reindex(primary_pts.index)
+        blended = primary_pts * (1 - blend_weight) + secondary_pts.fillna(primary_pts) * blend_weight
+        result["projected_points"] = blended.round(2)
+        logger.info(
+            "%s: blended with secondary model %s at weight=%.2f",
+            position,
+            blend_dir,
+            blend_weight,
+        )
+
     return result

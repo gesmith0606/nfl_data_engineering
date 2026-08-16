@@ -70,5 +70,7 @@
     "off_rz_success_rate_roll3"
   ],
   "graph_features_added": 0,
-  "correction_clip_abs": 18.80800000000003
+  "correction_clip_abs": 18.80800000000003,
+  "blend_secondary_dir": "models/residual_wr_secondary",
+  "blend_weight": 0.4
 }

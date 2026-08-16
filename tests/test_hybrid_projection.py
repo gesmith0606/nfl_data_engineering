@@ -464,6 +464,104 @@ class TestApplyResidualCorrection:
         pd.testing.assert_frame_equal(result, sample_heuristic_projections)
 
 
+class TestApplyResidualCorrectionBlend:
+    """Secondary-model blend (2026-08-16 WR gap-fix, WR_GAP_FIX_2026_08_16.md).
+
+    Fully synthetic — builds two tiny fitted Ridge pipelines directly so the
+    test doesn't depend on the real trained artifacts on disk.
+    """
+
+    @staticmethod
+    def _make_ridge_model_dir(tmp_dir, position, features, constant_pred, extra_meta=None):
+        import joblib
+        from sklearn.linear_model import Ridge
+        from sklearn.pipeline import Pipeline
+        from sklearn.impute import SimpleImputer
+
+        # A Ridge fit on all-zero features whose intercept equals
+        # constant_pred always predicts constant_pred regardless of X.
+        X = pd.DataFrame({f: [0.0, 0.0] for f in features})
+        y = pd.Series([constant_pred, constant_pred])
+        pipe = Pipeline(
+            [("imputer", SimpleImputer(strategy="median")), ("model", Ridge(alpha=1.0))]
+        )
+        pipe.fit(X, y)
+
+        os.makedirs(tmp_dir, exist_ok=True)
+        model_path = os.path.join(tmp_dir, f"{position.lower()}_residual.joblib")
+        meta_path = os.path.join(tmp_dir, f"{position.lower()}_residual_meta.json")
+        joblib.dump(pipe, model_path)
+        meta = {
+            "position": position,
+            "model_type": "ridge",
+            "features": features,
+            "graph_features_added": 0,
+        }
+        if extra_meta:
+            meta.update(extra_meta)
+        with open(meta_path, "w") as f:
+            json.dump(meta, f)
+        return tmp_dir
+
+    def test_blend_averages_primary_and_secondary(self, tmp_path):
+        """Blended projected_points == (1-w)*primary + w*secondary."""
+        features = ["targets_roll3"]
+        heuristic = pd.DataFrame(
+            {
+                "player_id": ["wr1", "wr2"],
+                "position": ["WR", "WR"],
+                "projected_points": [10.0, 20.0],
+            }
+        )
+        player_features = pd.DataFrame(
+            {"player_id": ["wr1", "wr2"], "targets_roll3": [8.0, 9.0]}
+        )
+
+        secondary_dir = self._make_ridge_model_dir(
+            tmp_path / "secondary", "WR", features, constant_pred=4.0
+        )
+        primary_dir = self._make_ridge_model_dir(
+            tmp_path / "primary",
+            "WR",
+            features,
+            constant_pred=2.0,
+            extra_meta={
+                "blend_secondary_dir": str(secondary_dir),
+                "blend_weight": 0.4,
+            },
+        )
+
+        result = apply_residual_correction(
+            heuristic, player_features, "WR", model_dir=str(primary_dir)
+        )
+
+        # primary correction = +2.0 -> 12.0, 22.0 ; secondary = +4.0 -> 14.0, 24.0
+        # blended = 0.6*primary + 0.4*secondary
+        expected = pd.Series([0.6 * 12.0 + 0.4 * 14.0, 0.6 * 22.0 + 0.4 * 24.0])
+        pd.testing.assert_series_equal(
+            result["projected_points"], expected, check_names=False, atol=0.05
+        )
+
+    def test_no_blend_keys_is_unaffected(self, tmp_path):
+        """Meta without blend_secondary_dir/blend_weight behaves exactly as before."""
+        features = ["targets_roll3"]
+        heuristic = pd.DataFrame(
+            {
+                "player_id": ["wr1"],
+                "position": ["WR"],
+                "projected_points": [10.0],
+            }
+        )
+        player_features = pd.DataFrame({"player_id": ["wr1"], "targets_roll3": [8.0]})
+        primary_dir = self._make_ridge_model_dir(
+            tmp_path / "primary_only", "WR", features, constant_pred=2.0
+        )
+        result = apply_residual_correction(
+            heuristic, player_features, "WR", model_dir=str(primary_dir)
+        )
+        assert result["projected_points"].iloc[0] == pytest.approx(12.0, abs=0.05)
+
+
 # ---------------------------------------------------------------------------
 # Tests: apply_residual_correction dedup determinism (no real model needed)
 # ---------------------------------------------------------------------------
