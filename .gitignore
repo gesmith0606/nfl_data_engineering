@@ -404,6 +404,14 @@ data/gold/*
 !data/bronze/odds_api/
 !data/bronze/odds_api/**
 !data/bronze/odds_api/**/*.parquet
+# THIRD-PARTY ARCHIVE DATA (2026-08-16, PROPS_DATA_PLAN.md Phase 1 /
+# scripts/ingest_props_archive.py): historical player-prop lines normalized
+# from github.com/firstandthirty/nfl-tools — ambiguous redistribution rights
+# (no LICENSE; underlying odds sourced from a commercial feed), private
+# research use only. Must NEVER be committed despite the odds_api/**
+# allowlist immediately above — re-ignore explicitly, file-pattern scoped so
+# it can't accidentally shadow our own forward-captured props_*.parquet.
+data/bronze/odds_api/props/season=*/props_archive_*.parquet
 # Season player futures (DraftKings, 2026-08-02): weekly GHA snapshots
 # committed so the season-line history accumulates for the forward
 # --season-props-blend gate (no historical archive is purchasable).
