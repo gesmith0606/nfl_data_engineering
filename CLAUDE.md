@@ -37,6 +37,7 @@ python scripts/generate_projections.py --week 3 --season 2026 --qb-starter-floor
 python scripts/generate_projections.py --week 3 --season 2026 --rb-tail-calibration     # RB <8pt boost (snap-share-rising) + 14+pt shrink toward position mean (opt-in — HOLD verdict, 79% of gate bar, see RB_TAIL_CALIBRATION_GATE.md)
 python scripts/generate_projections.py --week 3 --season 2026 --wr-tiebreak             # WR near-tie (<=1.5pt) pairs nudged apart per trailing target-share slope (opt-in — HOLD verdict, 16% of gate bar, see WR_TIEBREAK_GATE.md)
 python scripts/bronze_season_props_ingestion.py                                          # DK+FanDuel season player futures snapshot incl. rookie milestone ladders (no key needed)
+python scripts/bronze_weekly_props_ingestion.py --days-ahead 8                           # DK+FanDuel weekly player props (pass/rush/rec yds+TDs, receptions, anytime TD), no key needed; --props-blend redundancy/cross-book source, see PROPS_DATA_PLAN.md Phase 2
 python scripts/generate_projections.py --preseason --season 2026 --season-props-blend   # Blend toward season-line implied points (opt-in)
 python scripts/generate_projections.py --preseason --season 2026 --vacated-opportunity  # Offseason churn boost (graph UC1, opt-in)
 # Preseason consensus anchor is ON by default; --no-consensus-anchor disables it
@@ -170,6 +171,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/bronze_ingestion_simple.py` | Bronze CLI — all 16 data types via registry |
 | `scripts/bronze_odds_ingestion.py` | Bronze odds CLI — FinnedAI JSON → Parquet (2016-2021) |
 | `scripts/bronze_season_props_ingestion.py` | Bronze season player futures CLI — DraftKings + FanDuel season O/U lines + rookie milestone ladders → Parquet (no API key; curl_cffi) |
+| `scripts/bronze_weekly_props_ingestion.py` | Bronze weekly player props CLI — DraftKings + FanDuel per-game props (pass/rush/rec yds+TDs, receptions, anytime TD) → Parquet, same schema as the Odds API weekly capture (no API key; curl_cffi; DK category discovery dynamic — yardage markets not yet posted as of 2026-08-16, needs-week-1-verification) |
 | `src/season_prop_implied.py` | Season lines → implied season points: O/U inversion, rookie milestone ladder fits, cross-book median, preseason blend, draft-board attach |
 | `scripts/bronze_college_ingestion.py` | Bronze college CLI — CFBD API → Parquet (2016-2025) |
 | `scripts/silver_player_transformation.py` | Silver player CLI — usage metrics, rolling averages |

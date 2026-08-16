@@ -200,8 +200,30 @@ jobs:
             --max-credits 100
 
       # -----------------------------------------------------------------------
+      # 4b. DIY DK+FanDuel weekly-props capture (no API key, 0 Odds-API
+      # credits) — Phase 2 of .planning/PROPS_DATA_PLAN.md. Redundancy if
+      # free Odds-API credits run dry mid-season, plus two extra books for
+      # cross-book medians. Writes into a `week=WW/` subdirectory under the
+      # same data/bronze/odds_api/props/ tree the step above uses (see the
+      # script's module docstring for why it's a separate filename
+      # convention that can't collide with the Odds API's own latest-file
+      # selection). continue-on-error: true because the script's honest
+      # exit-1-on-zero-rows contract (both books blocked, or — expected for
+      # most of the 2026 preseason — no weekly markets posted yet for any
+      # in-window game) must not fail this job or page via notify-failure;
+      # the step still shows red in the Actions UI for visibility.
+      # -----------------------------------------------------------------------
+      - name: Fetch NFL weekly player-props snapshot (DraftKings + FanDuel)
+        continue-on-error: true
+        run: |
+          python scripts/bronze_weekly_props_ingestion.py --days-ahead 8
+
+      # -----------------------------------------------------------------------
       # 5. Commit new parquet files back to the repo
-      # Mirrors the spreads commit pattern (TD-08/09).
+      # Mirrors the spreads commit pattern (TD-08/09). Covers both the Odds
+      # API step above and the DK/FanDuel step above it — both write under
+      # data/bronze/odds_api/props/, and `git add` on the parent directory
+      # is recursive.
       # -----------------------------------------------------------------------
       - name: Commit props snapshot to repo
         run: |

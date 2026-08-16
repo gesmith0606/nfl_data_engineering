@@ -113,3 +113,188 @@ before the in-season 2026 gate lands — treating anytime-TD as still gapped
 (falls back to the Phase 2/3 in-season plan for that one market). Re-verify
 license comfort with the user before any redistribution (not just internal
 backtest use) of derived results.
+
+## Phase 2 built (2026-08-16)
+
+**`scripts/bronze_weekly_props_ingestion.py`** (new) — DIY DK+FanDuel weekly
+player-props scraper, no API key, mirroring
+`bronze_season_props_ingestion.py`'s curl_cffi/Chrome-impersonation pattern.
+Targets the six markets in the task brief: pass yds, pass TDs, rush yds, rec
+yds, receptions, anytime TD.
+
+### Endpoints used
+
+- **DraftKings**: `sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/leagues/88808`
+  (same base as the season script) plus `/categories/{id}` for per-category
+  markets. Unlike season futures, weekly per-game player-prop category ids
+  are **not stable/hardcoded** — they don't exist in DK's system until the
+  book posts that market family. `discover_dk_weekly_category_ids` instead
+  walks whatever categories the live league doc reports and treats any id
+  outside a known season/futures/specials exclude-set (`DK_NON_WEEKLY_CATEGORY_IDS`,
+  19 ids) as a per-game candidate, then matches **subcategory names** (not
+  ids) to the target markets — self-healing once DK posts the yardage
+  markets, no id to guess or re-hardcode later. Confirmed live 2026-08-16:
+  the old `sites/US-SB/api/v5/eventgroups` API (used by several public DK
+  scrapers) is now Akamai-blocked (403); the `eventIds` query param on the
+  new nash API is silently ignored (a category call always returns
+  everything currently posted league-wide, filtering happens client-side
+  post-hoc against the event's `commence_time`).
+- **FanDuel**: reuses the season script's `content-managed-page`
+  (`customPageId=nfl`) for the game catalog (event ids + kickoff times),
+  then `sbapi.nj.sportsbook.fanduel.com/api/event-page?eventId=...` per
+  game for market data. FanDuel's live market-blurb catalog for a real Week
+  1 2026 event confirms an `ANY_TIME_TOUCHDOWN_SCORER` market type exists in
+  their system (rule text present) even though no event currently has it as
+  a live, selectable market this far from kickoff.
+
+### Schema mapping
+
+Output columns are the exact `PROPS_SCHEMA_COLS` from
+`scripts/bronze_props_ingestion.py` (re-imported, not redefined): snapshot_ts /
+event_id / commence_time / home_team / away_team / home_team_nfl /
+away_team_nfl / bookmaker / market / player_name / line / price_over /
+price_under / season. Market keys reuse the Odds-API vocabulary
+(`player_pass_yds`, `player_pass_tds`, `player_rush_yds`,
+`player_reception_yds`, `player_receptions`, `player_anytime_td`) so
+`src/prop_implied.py` consumes either source unmodified — verified directly:
+a real captured DK file round-tripped through
+`compute_prop_implied_points()` without error and produced sane per-player
+implied points. Prices are American odds throughout (DK: parsed from its
+unicode-minus display string via the same `parse_american_odds` pattern as
+the season script; FanDuel: `winRunnerOdds.americanDisplayOdds.americanOdds`,
+already an int) — the archive's decimal-odds trap
+(`PROPS_BLEND_BACKTEST_2026_08_16.md`) does not apply to either book's live
+JSON API.
+
+**Output path is deliberately NOT the same file-naming convention as the
+Odds API's own weekly capture.** The Odds API writes flat into
+`data/bronze/odds_api/props/season=YYYY/props_<timestamp>.parquet`, and
+`generate_projections.py --props-blend` globs exactly that
+(`props/season={season}/props_*.parquet`, non-recursive) and reads only the
+single lexicographically-latest file. A numeric-timestamp filename
+(`props_2026...`) always sorts before a letter-prefixed one
+(`props_dk_...`) in ASCII, so writing DK/FD into that same flat directory
+under any `props_*` name would make a DK/FD snapshot silently and
+permanently win the "latest file" selection over a newer, more complete
+Odds API capture (which alone has multi-market game coverage today),
+regardless of actual timestamp. This script instead writes to
+`data/bronze/odds_api/props/season=YYYY/week=WW/props_dk_<ts>.parquet` and
+`.../props_fd_<ts>.parquet` — a `week=WW` subdirectory the existing glob
+does not recurse into, so today's `--props-blend` behavior is completely
+unaffected. **Wiring DK/FD into the actual `--props-blend` multi-book read
+path (e.g. cross-book median across Odds API + DK + FD) is a follow-up, not
+done here** — this phase only builds and lands the capture.
+`git check-ignore` confirms the new path is NOT ignored (the existing
+`!data/bronze/odds_api/**/*.parquet` allowlist covers the nested `week=WW/`
+dir; the archive re-ignore rule is scoped to the flat `season=X/` archive
+filename only and does not match `props_dk_*`/`props_fd_*`).
+
+### Smoke-test reality — live capture vs machinery-only (do not conflate)
+
+- **`player_anytime_td` on DraftKings: REAL LIVE CAPTURE**, not a fixture.
+  Ran the finished script against the live DK API on 2026-08-16 (`--days-ahead
+  30 --skip-fanduel`, non-dry-run): DraftKings had genuine "Anytime TD
+  Scorer" markets already posted for several real Week 1 2026 games (kickoff
+  2026-09-10/11), 25 days out. Captured **78 real rows** (e.g. Jaxon
+  Smith-Njigba −105, Christian McCaffrey, Kyren Williams, Kenneth Walker
+  III), wrote a real Parquet file to
+  `data/bronze/odds_api/props/season=2026/week=1/`, and confirmed it
+  round-trips through `compute_prop_implied_points()`. One real bug found
+  and fixed by this live test: DK's Rams `shortName` is `"LAR"`, nflverse
+  uses `"LA"` — 22/78 rows silently failed week resolution until
+  `DK_TEAM_ABBR_FIXUPS = {"LAR": "LA"}` was added; all other team
+  abbreviations DK reports already match nflverse directly.
+- **`player_pass_yds`, `player_pass_tds`, `player_rush_yds`,
+  `player_reception_yds`, `player_receptions` on DraftKings: NEEDS
+  WEEK-1-VERIFICATION.** Confirmed live (2026-08-16) that DK has posted
+  ZERO markets in these five families for any Week 1 2026 game — the
+  category-discovery scan found exactly one non-excluded category with live
+  markets (1003, "TD Scorers"); a manual scan of DK's known adjacent
+  category ids (528/530/992-1030 range) found nothing else live. This is
+  the expected, documented off-season caveat from the task brief, not a
+  scraper bug — DK typically doesn't post detailed yardage props until
+  much closer to kickoff. The parser (`normalize_dk_category`'s
+  over/under path) is unit-tested against a **constructed fixture** modeled
+  on DK's own confirmed-live selection shape for a different market family
+  (the "Total" game market, which already uses a `points` field +
+  `outcomeType: "Over"/"Under"`) — a reasonable, defensible guess, but
+  unverified against a real weekly player-level payload. **Must be
+  re-checked once DK posts Week 1 yardage props** (historically within
+  1-2 weeks of kickoff, i.e. by ~2026-09-01).
+- **All six markets on FanDuel: NEEDS WEEK-1-VERIFICATION, no live markets
+  at all right now.** FanDuel does not book NFL preseason games (confirmed:
+  its NFL page's event catalog jumps straight from futures placeholders to
+  Week 1 games, no exhibition games), so there was no near-term FanDuel game
+  to test parsing against at any market family. The one positive signal:
+  the `ANY_TIME_TOUCHDOWN_SCORER` market **type** is confirmed present in
+  FanDuel's own live market-blurb rules catalog for a real Week 1 event
+  (proof the market family exists in their system), but zero events
+  currently expose it as a live, purchasable market. All FanDuel parsing
+  (`normalize_fanduel_event_markets`) is unit-tested against constructed
+  fixtures modeled on FanDuel's confirmed-live "Total Match Points" selection
+  shape (`handicap` field + `Over`/`Under` runnerName) — same caveat as DK's
+  yardage markets, un-fired against real data.
+- **Explicitly not fabricated**: no test claims a live capture for anything
+  except the one DK anytime-TD path that was actually run against the live
+  API and produced real rows.
+
+### Wiring
+
+`.github/workflows/odds-capture.yml` — added a new step, "Fetch NFL weekly
+player-props snapshot (DraftKings + FanDuel)", inside the existing
+`capture-props` job (already gated to the Thu 22:00 UTC + Sun 14:00 UTC
+triggers, same job the Odds API weekly capture runs in). Runs
+`bronze_weekly_props_ingestion.py --days-ahead 8`. Uses
+`continue-on-error: true` — the script's honest exit-1-on-zero-rows contract
+(both books blocked, or, expected for most of the 2026 preseason, nothing
+posted yet) must not fail the job or trigger `notify-failure`'s GitHub-issue
+page; the step still renders red in the Actions UI for visibility. No
+change needed to the commit step's `git add data/bronze/odds_api/props/` —
+it's already recursive and picks up the new `week=WW/` files for free.
+
+### Tests
+
+`tests/test_bronze_weekly_props_ingestion.py` — 45 tests: American-odds/line
+parsing, DK category discovery (exclude-set), DK anytime-TD + O/U
+normalization (including the LAR→LA fixup and sibling-market skip), FanDuel
+game-event discovery (placeholder exclusion, window filter) + market
+normalization, `resolve_week` (single match, home/away swap, no match,
+divisional-rematch disambiguation by nearest kickoff date), `finish_rows`
+(schema-conformance: output columns == `PROPS_SCHEMA_COLS`, window filter,
+unresolvable-week rows dropped not mis-partitioned), Parquet write
+(season/week partition path, book-tagged filename never starts with a digit
+or matches `props_archive_*`), and the zero-rows-exit-1 / fail-open-per-book
+exit-code contract.
+
+### Manifest
+
+`scripts/check_data_completeness.py` — added `bronze_weekly_props`
+(WARN-tier, `committed=True`, current-season-only,
+`glob="week=*/props_*.parquet"`). Confirmed locally: after the real DK
+capture above, `--local` reports `[PASS] bronze_weekly_props[2026] 1
+file(s)`. WARN-tier because a miss is expected and correct off-season/most
+of preseason — never blocks.
+
+### What Week 1 must confirm
+
+1. **DK yardage/reception markets**: once DK posts `player_pass_yds` /
+   `player_pass_tds` / `player_rush_yds` / `player_reception_yds` /
+   `player_receptions` for a real game, re-run the script and check whether
+   `normalize_dk_category`'s O/U path parses real rows correctly (the
+   `points`-field assumption) or needs adjustment — watch the GHA Actions
+   log for the per-category row-count summary; a category appearing with 0
+   parsed rows despite the category having live markets is the signal
+   something changed.
+2. **FanDuel, all markets**: same check once FanDuel posts anything —
+   confirm `marketName` actually follows the assumed `"<player> <stat>"`
+   pattern (vs., e.g., an `"Alt "` prefix or different word order) and that
+   `ANY_TIME_TOUCHDOWN_SCORER` fires as expected.
+3. **Cross-book wiring**: decide whether/how to merge DK/FD data into the
+   `--props-blend` read path (currently untouched — see schema-mapping
+   section above) once real multi-market coverage exists to make a
+   cross-book median meaningful.
+4. **DK team-abbreviation fixups**: the live test only surfaced the Rams
+   (`LAR`→`LA`); watch for other DK/nflverse abbreviation mismatches as more
+   teams' markets get exercised (e.g. Washington, Las Vegas) — extend
+   `DK_TEAM_ABBR_FIXUPS` if the weekly warning log ("N/M rows dropped —
+   could not resolve NFL week") fires for a resolvable-looking team pair.

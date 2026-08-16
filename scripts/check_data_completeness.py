@@ -270,6 +270,22 @@ REQUIREMENTS: tuple = (
         path_template="gold/sentiment/season={season}",
         seasons=(CURRENT_SEASON,),
     ),
+    # DK+FanDuel weekly player props (Phase 2, .planning/PROPS_DATA_PLAN.md,
+    # scripts/bronze_weekly_props_ingestion.py) — cross-book redundancy for
+    # the Odds-API weekly props capture. In-season-only by nature (books
+    # don't post weekly game markets until close to kickoff — confirmed
+    # empirically 2026-08-16, ~4 weeks before Week 1: zero files expected
+    # here for most of the preseason), so WARN-tier: a miss here is
+    # expected off-season/early-season, never a block.
+    Requirement(
+        id="bronze_weekly_props",
+        description="DK+FanDuel weekly player props (pass/rush/rec yds+TDs, receptions, anytime TD) — cross-book redundancy for --props-blend",
+        tier="WARN",
+        committed=True,
+        path_template="bronze/odds_api/props/season={season}",
+        seasons=(CURRENT_SEASON,),
+        glob="week=*/props_*.parquet",
+    ),
 )
 
 
