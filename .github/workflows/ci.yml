@@ -157,6 +157,56 @@ jobs:
         run: python scripts/check_data_completeness.py --ci
 
   # ------------------------------------------------------------------
+  # Model freshness gate — fail-closed model-staleness invariant check
+  # (scripts/check_model_freshness.py), mirroring the data-completeness
+  # gate above for MODEL_REVIEW_2026_08_15.md's finding class: a shipped
+  # model artifact's frozen SimpleImputer silently drops now-real columns
+  # from every future transform() forever (finding #1, confirmed against
+  # models/quantile/imputer.pkl -- 28 NaN fit-time statistics, including
+  # the entire snap_pct* family). --no-probe runs the artifact-only checks
+  # (imputer NaN statistics, ensemble meta-learner shape) that need only
+  # models/ (committed to git, unlike data/silver/ which is not) --
+  # exactly what this job's fresh checkout has.
+  #
+  # *** continue-on-error: true is intentional and TEMPORARY. ***
+  # models/quantile/imputer.pkl genuinely had 28 NaN fit-time statistics
+  # (finding #1) when this gate was built; a concurrent retrain fixed it
+  # mid-session (see .planning/MODEL_FRESHNESS_GUARDS.md section 2 for the
+  # full before/after). continue-on-error stays wired regardless, because
+  # (a) other WARN-tier staleness misses remain real and this job's FAIL
+  # threshold could flip red again the moment another retrain lands, and
+  # (b) this branch can't attest to what state models/ is in by the time it
+  # merges to main -- several other workstreams have uncommitted changes to
+  # models/ and the residual/quantile training code as of this commit.
+  # TODO: once `python scripts/check_model_freshness.py --no-probe` has
+  # been green on main for a while with no other workstream mid-retrain,
+  # flip continue-on-error to false (or delete the line) -- leaving it
+  # soft-fail indefinitely defeats the gate.
+  # ------------------------------------------------------------------
+  model-freshness:
+    name: Model Freshness Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # Full requirements.txt: unpickling shipped artifacts needs the same
+      # sklearn/lightgbm/xgboost/catboost/joblib versions they were saved
+      # with, not just pyarrow.
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check model freshness (artifact-only; no local Silver in CI)
+        continue-on-error: true  # TEMPORARY — see comment block above. Known-red on quantile until retrained.
+        run: python scripts/check_model_freshness.py --no-probe
+
+  # ------------------------------------------------------------------
   # Unpushed-commit drift detector — opens an alert if main has drifted
   # more than 10 commits ahead of the last deploy (runs on push to main).
   # ------------------------------------------------------------------

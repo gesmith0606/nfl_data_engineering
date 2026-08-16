@@ -464,6 +464,34 @@ def process_season(season: int) -> Optional[pd.DataFrame]:
                 f"QBR merge changed row count: {before} -> {len(master)}"
             )
 
+            # Match-rate assertion (audit finding #9): name+team join, so a
+            # name-normalization drift could silently 0%-match without ever
+            # tripping the row-count assert above (a left join preserves row
+            # count even when nothing matched). QBR is QB-only, so scope the
+            # denominator to QB rows -- checking against all positions would
+            # always read as a "low" match rate and mask a real regression.
+            # Mirrors the PFR pressure match-rate check above and
+            # scripts/silver_player_transformation.py::_prepare_snap_data's
+            # GATE COVERAGE pattern.
+            if "position" in master.columns and qbr_metric_cols:
+                qb_mask = master["position"] == "QB"
+                qb_total = int(qb_mask.sum())
+                if qb_total > 0:
+                    qb_matched = int(master.loc[qb_mask, qbr_metric_cols[0]].notna().sum())
+                    qb_match_pct = (qb_matched / qb_total) * 100
+                    logger.info(
+                        "QBR match rate: %.1f%% (%d/%d QB player-weeks)",
+                        qb_match_pct,
+                        qb_matched,
+                        qb_total,
+                    )
+                    if qb_match_pct < 50:
+                        logger.warning(
+                            "GATE COVERAGE: QBR match rate below 50%% (%.1f%%) -- "
+                            "check name normalization",
+                            qb_match_pct,
+                        )
+
             # Set QBR columns to NaN for non-QB rows
             if "position" in master.columns and qbr_metric_cols:
                 # Find all qbr_ columns in master (including rolling)

@@ -95,6 +95,17 @@ SNAP_COLLAPSE_RECENT_CEILING = 0.55
 # Minimum recent snap share to be considered active (filters IR'd players)
 MIN_SNAP_ACTIVE = 0.05
 
+# Row-count floor per season for the snaps/injuries coverage assertion below
+# (MODEL_REVIEW_2026_08_15.md finding #5). Mirrors the min_rows=100 floor
+# scripts/check_data_completeness.py already applies to these same Bronze
+# paths -- that gate catches a missing season at CI/pipeline time, but
+# build_rb_role_signals() degrades silently (0-fill / empty DataFrame) if
+# called directly with a season that happens to have thin/absent data, e.g.
+# from a notebook or a script that bypasses the CI gate. This is
+# defense-in-depth at the point of consumption, not a replacement for that
+# gate.
+MIN_COVERAGE_ROWS_PER_SEASON = 100
+
 
 # ---------------------------------------------------------------------------
 # Bronze data readers
@@ -705,6 +716,60 @@ def compute_depth_chart_staleness(
 
 
 # ---------------------------------------------------------------------------
+# Coverage assertion (audit finding #5)
+# ---------------------------------------------------------------------------
+
+
+def _assert_season_coverage(
+    df: pd.DataFrame,
+    seasons: List[int],
+    source_name: str,
+    min_rows: int = MIN_COVERAGE_ROWS_PER_SEASON,
+) -> List[int]:
+    """Warn loudly for any requested season with near-zero rows in ``df``.
+
+    This is the structural version of the original RB_SNAP_COLLAPSE bug: a
+    season silently missing (or near-empty) snaps/injuries data used to make
+    ``build_rb_role_signals`` fall back to an all-zero/empty signal table
+    with no error and no log line pointing at *which* season was the
+    problem. ``scripts/check_data_completeness.py`` now gates this at the
+    Bronze-path level, but this check runs at the point of consumption so a
+    caller who invokes this module directly (bypassing the CI gate) still
+    gets a loud, per-season signal instead of quietly-wrong RB corrections.
+
+    Args:
+        df: Loaded Bronze table (must have a ``season`` column, or be empty).
+        seasons: Seasons the caller requested.
+        source_name: Label for the log line (e.g. "snaps", "injuries").
+        min_rows: Row-count floor per season for a PASS.
+
+    Returns:
+        The list of seasons that failed the floor (empty if all passed) --
+        returned (not just logged) so tests can assert on it directly.
+    """
+    thin_seasons: List[int] = []
+    counts = (
+        df["season"].value_counts().to_dict()
+        if not df.empty and "season" in df.columns
+        else {}
+    )
+    for season in seasons:
+        n = int(counts.get(season, 0))
+        if n < min_rows:
+            thin_seasons.append(season)
+            logger.warning(
+                "GATE COVERAGE: %s has only %d row(s) for season %d (need >= %d) "
+                "-- RB role signals for this season will silently degrade "
+                "toward all-zero/neutral",
+                source_name,
+                n,
+                season,
+                min_rows,
+            )
+    return thin_seasons
+
+
+# ---------------------------------------------------------------------------
 # Top-level builder
 # ---------------------------------------------------------------------------
 
@@ -751,6 +816,12 @@ def build_rb_role_signals(
         len(snaps),
         len(player_weekly),
     )
+
+    # Coverage assertion (finding #5): loud, per-season warning before the
+    # signal computation below silently degrades toward all-zero/neutral for
+    # any season with thin/absent snaps or injuries data.
+    _assert_season_coverage(snaps, seasons, "snaps")
+    _assert_season_coverage(injuries, seasons, "injuries")
 
     if depth_charts.empty:
         logger.warning("No depth chart data — returning empty signal table")

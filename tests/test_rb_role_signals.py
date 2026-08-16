@@ -551,6 +551,97 @@ class TestBuildRbRoleSignals:
 
 
 # ---------------------------------------------------------------------------
+# Tests: _assert_season_coverage (audit finding #5 — coverage assertion)
+# ---------------------------------------------------------------------------
+
+
+class TestAssertSeasonCoverage:
+    """Loud, per-season warning when snaps/injuries data is thin or absent.
+
+    Structural regression test for MODEL_REVIEW_2026_08_15.md finding #5:
+    build_rb_role_signals used to degrade silently (all-zero/empty signals)
+    when a season's snaps or injuries Bronze data was missing, with no log
+    line identifying which season was the problem.
+    """
+
+    def test_empty_dataframe_flags_every_requested_season(self, caplog):
+        import rb_role_signals as rrs
+
+        with caplog.at_level("WARNING", logger="rb_role_signals"):
+            thin = rrs._assert_season_coverage(pd.DataFrame(), [2022, 2023], "snaps")
+
+        assert thin == [2022, 2023]
+        assert "GATE COVERAGE" in caplog.text
+        assert "snaps" in caplog.text
+        assert "season 2022" in caplog.text
+        assert "season 2023" in caplog.text
+
+    def test_below_floor_season_is_flagged(self, caplog):
+        import rb_role_signals as rrs
+
+        df = pd.DataFrame({"season": [2022] * 5})  # well under the 100-row floor
+
+        with caplog.at_level("WARNING", logger="rb_role_signals"):
+            thin = rrs._assert_season_coverage(df, [2022], "injuries")
+
+        assert thin == [2022]
+        assert "GATE COVERAGE" in caplog.text
+        assert "injuries" in caplog.text
+
+    def test_at_or_above_floor_season_is_not_flagged(self, caplog):
+        import rb_role_signals as rrs
+
+        df = pd.DataFrame({"season": [2022] * rrs.MIN_COVERAGE_ROWS_PER_SEASON})
+
+        with caplog.at_level("WARNING", logger="rb_role_signals"):
+            thin = rrs._assert_season_coverage(df, [2022], "snaps")
+
+        assert thin == []
+        assert "GATE COVERAGE" not in caplog.text
+
+    def test_only_the_thin_season_is_flagged_among_several(self, caplog):
+        import rb_role_signals as rrs
+
+        healthy = rrs.MIN_COVERAGE_ROWS_PER_SEASON
+        df = pd.DataFrame({"season": [2021] * healthy + [2022] * 3})
+
+        with caplog.at_level("WARNING", logger="rb_role_signals"):
+            thin = rrs._assert_season_coverage(df, [2021, 2022], "snaps")
+
+        assert thin == [2022]
+        assert "season 2022" in caplog.text
+        assert "season 2021" not in caplog.text
+
+    def test_build_rb_role_signals_warns_on_thin_snaps(self, monkeypatch, caplog):
+        """End-to-end: build_rb_role_signals surfaces the GATE COVERAGE
+        warning for a season with real depth-chart data but near-empty
+        snaps -- the exact shape of the original RB_SNAP_COLLAPSE bug.
+        """
+        import rb_role_signals as rrs
+
+        dc = _make_depth_chart([
+            {"season": 2022, "week": w, "club_code": "KC", "gsis_id": "ID1", "depth_team": 1}
+            for w in range(3, 8)
+        ])
+        inj = _make_injury_report([])
+        snaps = _make_snaps([
+            {"season": 2022, "week": 1, "team": "KC", "player": "I.Pacheco", "offense_pct": 0.65},
+        ])  # 1 row — far below the coverage floor
+        pw = pd.DataFrame({"player_id": ["ID1"], "player_name": ["I.Pacheco"], "recent_team": ["KC"], "season": [2022]})
+
+        monkeypatch.setattr(rrs, "_read_depth_charts", lambda seasons: dc)
+        monkeypatch.setattr(rrs, "_read_injuries", lambda seasons: inj)
+        monkeypatch.setattr(rrs, "_read_snaps", lambda seasons: snaps)
+        monkeypatch.setattr(rrs, "_read_player_weekly_for_id_map", lambda seasons: pw)
+
+        with caplog.at_level("WARNING", logger="rb_role_signals"):
+            build_rb_role_signals([2022], weeks=(3, 18))
+
+        assert "GATE COVERAGE" in caplog.text
+        assert "snaps" in caplog.text
+
+
+# ---------------------------------------------------------------------------
 # Tests: temporal lag correctness
 # ---------------------------------------------------------------------------
 
