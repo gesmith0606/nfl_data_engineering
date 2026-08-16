@@ -28,8 +28,10 @@ Input schema: the Bronze props parquet written by
 player_name / line / price_over / price_under / ...).
 """
 
+import glob
 import logging
 import math
+import os
 from typing import Dict, Optional
 
 import numpy as np
@@ -398,3 +400,145 @@ def apply_props_blend(
     if blended_total == 0:
         logger.info("Props blend: no eligible players (coverage/position gates)")
     return proj
+
+
+# ---------------------------------------------------------------------------
+# Multi-book read path (.planning/PROPS_MULTIBOOK_2026_08_16.md)
+# ---------------------------------------------------------------------------
+#
+# ``--props-blend`` originally read only the latest single Odds API flat
+# capture (``scripts/bronze_props_ingestion.py``). The DK/FanDuel direct
+# scraper (``scripts/bronze_weekly_props_ingestion.py``) writes its own
+# book-tagged, week-partitioned files that glob never saw (deliberately —
+# see that script's docstring on the filename-collision it avoids). The
+# functions below gather every available source for a (season, week) and
+# concatenate them; no change to :func:`compute_prop_implied_points` is
+# needed for the cross-book median to fire, because every source already
+# carries a correct ``bookmaker`` column (verified in
+# ``bronze_weekly_props_ingestion.py``'s schema-mapping notes) and that
+# column already drives the per-market median-across-books grouping.
+
+
+def _latest_glob(pattern: str) -> Optional[str]:
+    """Return the lexicographically-latest file matching a glob, or None."""
+    files = sorted(glob.glob(pattern))
+    return files[-1] if files else None
+
+
+def discover_props_sources(season: int, week: int, project_root: str) -> Dict[str, str]:
+    """Locate the latest props Parquet per capture source for (season, week).
+
+    Three possible sources, unioned (mirrors the cross-book precedent in
+    ``src/season_prop_implied.py``):
+
+    - ``"odds_api"``: latest flat ``props/season={season}/props_*.parquet``
+      (``scripts/bronze_props_ingestion.py``) — already carries multiple
+      bookmakers per snapshot; excludes the gitignored historical-backtest
+      ``props_archive_*.parquet`` files
+      (``.planning/PROPS_BLEND_BACKTEST_2026_08_16.md``). Not week-scoped
+      (matches this source's existing season-only partitioning — it has no
+      ``week=`` subdirectory).
+    - ``"dk_direct"``: latest week-partitioned
+      ``props/season={season}/week={week}/props_dk_*.parquet``
+      (``scripts/bronze_weekly_props_ingestion.py``).
+    - ``"fd_direct"``: same directory, ``props_fd_*.parquet``.
+
+    A source with no file present is simply absent from the result — the
+    caller fails open on an empty dict, exactly like today's zero-props
+    behavior.
+
+    Args:
+        season: NFL season year.
+        week:   NFL week number.
+        project_root: Absolute repo root (so this works from any cwd).
+
+    Returns:
+        Dict of source label -> absolute file path, only for sources that
+        have at least one file.
+    """
+    base = os.path.join(project_root, "data", "bronze", "odds_api", "props")
+    sources: Dict[str, str] = {}
+
+    odds_api_files = [
+        f
+        for f in sorted(
+            glob.glob(os.path.join(base, f"season={season}", "props_*.parquet"))
+        )
+        if not os.path.basename(f).startswith("props_archive_")
+    ]
+    if odds_api_files:
+        sources["odds_api"] = odds_api_files[-1]
+
+    week_dir = os.path.join(base, f"season={season}", f"week={week}")
+    dk_path = _latest_glob(os.path.join(week_dir, "props_dk_*.parquet"))
+    if dk_path:
+        sources["dk_direct"] = dk_path
+    fd_path = _latest_glob(os.path.join(week_dir, "props_fd_*.parquet"))
+    if fd_path:
+        sources["fd_direct"] = fd_path
+
+    return sources
+
+
+def load_multibook_props(season: int, week: int, project_root: str) -> pd.DataFrame:
+    """Load and concatenate every available props source for (season, week).
+
+    Adds a ``capture_source`` provenance column (``odds_api`` / ``dk_direct``
+    / ``fd_direct``) on top of the existing Bronze props schema, purely for
+    caller-side logging/diagnostics — :func:`compute_prop_implied_points`
+    does not read it and its output is unaffected by its presence.
+
+    Backward compatible: when only the Odds API source exists, the returned
+    frame's rows are identical to ``pd.read_parquet(<that file>)`` (plus the
+    added ``capture_source`` column), so anything downstream that only
+    consumes the ``PROPS_SCHEMA_COLS`` shape (i.e. everything today) behaves
+    identically to reading that single file directly.
+
+    Args:
+        season: NFL season year.
+        week:   NFL week number.
+        project_root: Absolute repo root.
+
+    Returns:
+        Concatenated frame, or an empty DataFrame when no source exists for
+        this (season, week) — the fail-open case.
+    """
+    sources = discover_props_sources(season, week, project_root)
+    if not sources:
+        return pd.DataFrame()
+
+    frames = []
+    for label, path in sources.items():
+        df = pd.read_parquet(path).copy()
+        df["capture_source"] = label
+        frames.append(df)
+    return pd.concat(frames, ignore_index=True)
+
+
+def summarize_book_coverage(props_df: pd.DataFrame) -> pd.DataFrame:
+    """Per-market distinct-book counts, for visibility/logging.
+
+    Args:
+        props_df: A (possibly multi-book) props frame with ``market`` and
+            ``bookmaker`` columns.
+
+    Returns:
+        DataFrame indexed by ``market`` with columns ``book_count``
+        (distinct bookmakers seen) and ``books`` (sorted list of bookmaker
+        names); empty frame on empty/unusable input.
+    """
+    if (
+        props_df is None
+        or props_df.empty
+        or "market" not in props_df.columns
+        or "bookmaker" not in props_df.columns
+    ):
+        return pd.DataFrame(columns=["book_count", "books"])
+
+    grouped = props_df.groupby("market")["bookmaker"]
+    return pd.DataFrame(
+        {
+            "book_count": grouped.nunique(),
+            "books": grouped.apply(lambda s: sorted(s.dropna().unique().tolist())),
+        }
+    )

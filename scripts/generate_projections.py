@@ -133,6 +133,99 @@ def upload_df(df, bucket, key, creds) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Floor/ceiling — quantile-model feature wiring
+# ---------------------------------------------------------------------------
+
+
+def attach_floor_ceiling_with_features(
+    projections: pd.DataFrame,
+    season: int,
+    week: int,
+    use_conformal: bool,
+    log=print,
+) -> pd.DataFrame:
+    """Add projected_floor/projected_ceiling, wiring in real features first.
+
+    ``add_floor_ceiling()``'s quantile-model path only engages when the
+    frame it receives carries the model's feature columns (see
+    ``has_features`` in ``projection_engine.add_floor_ceiling()``). The
+    weekly CLI's ``projections`` frame is the trimmed output shape
+    (``proj_passing_yards``, ``projected_points``, ...) — it never has
+    them, so this call site always silently fell through to the heuristic
+    +/-mult fallback, for every call, with or without ``--conformal-bands``
+    (``.planning/QUANTILE_REFIT_2026_08_15.md`` section 7). This assembles
+    the real feature vector (same source used by the ``--ml`` branch) and
+    joins it onto ``projections`` by ``player_id`` so the quantile path can
+    actually fire; only the two new floor/ceiling columns are kept
+    afterward, so output schema is unchanged.
+
+    A separate, real gap surfaces once features are wired through: some
+    seasons' Silver ``advanced`` join is missing columns the shipped
+    quantile imputer was fit on (e.g. ``qbr_*`` — confirmed 2024/2025 have
+    zero QBR columns while 2022/2023 have 16; a Bronze/Silver QBR coverage
+    gap, not a code bug here). ``sklearn.SimpleImputer.transform()`` raises
+    rather than gracefully imputing when handed a strict subset of its
+    fit-time columns, so any single missing column would otherwise crash
+    the whole quantile path back to the heuristic fallback. Any of the
+    model's ``feature_cols`` absent from the assembled frame are added as
+    all-NaN — the imputer's own median statistics (verified non-NaN by
+    ``quantile_models._check_imputer_statistics``) fill them in, same as
+    a legitimately-missing-at-training-time column already does.
+
+    Args:
+        projections: Weekly projections frame (``player_id``,
+            ``projected_points``, ``position``, ...).
+        season: NFL season year (feature assembly + week filter).
+        week:   NFL week number (feature row filter).
+        use_conformal: Forwarded to ``add_floor_ceiling``.
+        log:    Callable for status/warning lines (default ``print``; tests
+            may pass a list-collecting stub).
+
+    Returns:
+        ``projections`` with ``projected_floor``/``projected_ceiling``
+        columns added; all other columns and row order unchanged.
+    """
+    floor_ceiling_input = projections
+    try:
+        from player_feature_engineering import assemble_player_features
+        from quantile_models import load_quantile_models
+
+        feat_df = assemble_player_features(season=season)
+        if not feat_df.empty and "week" in feat_df.columns:
+            feat_df = feat_df[feat_df["week"] == week]
+        if (
+            not feat_df.empty
+            and "player_id" in feat_df.columns
+            and "player_id" in projections.columns
+        ):
+            qdata = load_quantile_models()
+            if qdata is not None:
+                for col in qdata["feature_cols"]:
+                    if col not in feat_df.columns:
+                        feat_df[col] = float("nan")
+            feat_lookup = feat_df.drop_duplicates("player_id").set_index("player_id")
+            new_cols = [c for c in feat_lookup.columns if c not in projections.columns]
+            floor_ceiling_input = projections.join(feat_lookup[new_cols], on="player_id")
+        else:
+            log(
+                "WARN: Could not assemble feature vector for floor/ceiling "
+                f"(season {season} week {week}); quantile-model path will "
+                "fall back to heuristic multipliers"
+            )
+    except Exception as e:
+        log(
+            f"WARN: Could not assemble feature vector for floor/ceiling: {e}; "
+            "quantile-model path will fall back to heuristic multipliers"
+        )
+
+    floor_ceiling_input = add_floor_ceiling(floor_ceiling_input, use_conformal=use_conformal)
+    projections = projections.copy()
+    projections["projected_floor"] = floor_ceiling_input["projected_floor"]
+    projections["projected_ceiling"] = floor_ceiling_input["projected_ceiling"]
+    return projections
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -1257,33 +1350,43 @@ def main():
         # price public news, so a sentiment multiplier on top of the
         # blended value double-counts the same signal.
         if args.props_blend and not projections.empty:
-            import glob as _glob
-
             from prop_implied import (  # noqa: E402
                 apply_props_blend,
                 compute_prop_implied_points,
+                discover_props_sources,
+                load_multibook_props,
+                summarize_book_coverage,
             )
 
-            props_files = sorted(
-                _glob.glob(
-                    os.path.join(
-                        PROJECT_ROOT,
-                        "data",
-                        "bronze",
-                        "odds_api",
-                        "props",
-                        f"season={args.season}",
-                        "props_*.parquet",
-                    )
-                )
-            )
-            if not props_files:
+            # Multi-book read path (.planning/PROPS_MULTIBOOK_2026_08_16.md):
+            # gathers the latest Odds API flat capture (season-only
+            # partition) PLUS the latest week-partitioned DK/FanDuel direct
+            # captures (scripts/bronze_weekly_props_ingestion.py), which the
+            # old single-glob read never saw. Fails open exactly as before
+            # when nothing is found at all.
+            props_sources = discover_props_sources(args.season, args.week, PROJECT_ROOT)
+            if not props_sources:
                 print(
                     "WARN: --props-blend requested but no props snapshots "
-                    f"exist for season {args.season}; skipping blend"
+                    f"exist for season {args.season} week {args.week}; "
+                    "skipping blend"
                 )
             else:
-                props_df = pd.read_parquet(props_files[-1])
+                props_df = load_multibook_props(args.season, args.week, PROJECT_ROOT)
+                source_summary = ", ".join(
+                    f"{label}={os.path.basename(path)}"
+                    for label, path in sorted(props_sources.items())
+                )
+                print(f"Props blend sources ({len(props_sources)}): {source_summary}")
+                coverage = summarize_book_coverage(props_df)
+                if not coverage.empty:
+                    print(
+                        "Props book coverage per market: "
+                        + ", ".join(
+                            f"{market}={row.book_count} book(s) {row.books}"
+                            for market, row in coverage.iterrows()
+                        )
+                    )
                 implied = compute_prop_implied_points(
                     props_df, scoring_format=args.scoring
                 )
@@ -1292,8 +1395,8 @@ def main():
                 after_total = float(projections["projected_points"].sum())
                 print(
                     f"Props blend: {len(implied)} players with implied points "
-                    f"from {os.path.basename(props_files[-1])}; total "
-                    f"projected points {before_total:.1f} -> {after_total:.1f}"
+                    f"from {len(props_sources)} source(s); total projected "
+                    f"points {before_total:.1f} -> {after_total:.1f}"
                 )
 
         # --- Sentiment adjustments (opt-in via --use-sentiment) ---
@@ -1381,7 +1484,13 @@ def main():
     # Preseason mode uses projected_season_points (full-season totals), not
     # projected_points (weekly), so floor/ceiling is not applicable there.
     if not args.ml and not args.preseason:
-        projections = add_floor_ceiling(projections, use_conformal=args.conformal_bands)
+        projections = attach_floor_ceiling_with_features(
+            projections,
+            season=args.season,
+            week=args.week,
+            use_conformal=args.conformal_bands,
+            log=print,
+        )
 
     # Apply ranking scores (ordering nudges from graph features). This step
     # adds a 'ranking_score' column used ONLY for position_rank / overall_rank
