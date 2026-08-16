@@ -25,6 +25,7 @@ from college_prospect_features import (
     COLLEGE_SCHEME_MAP,
     NFL_SCHEME_MAP,
     _DEFAULT_CONFERENCE_MULT,
+    _build_feature_vectors,
     build_prospect_profile,
     compute_college_production_features,
     compute_conference_adjustment,
@@ -563,3 +564,106 @@ class TestPreseasonWithCollegeFeatures:
         unboosted = result_no_boost["projected_season_points"].iloc[0]
         # Pick 1 gets 1.20x boost
         assert boosted > unboosted
+
+
+# ── College name-join hardening (MODEL_FRESHNESS_GUARDS.md, finding #9) ────
+
+
+class TestCollegeNameJoinHardening:
+    """_build_feature_vectors merges NFL-side prospect/historical rows onto
+    CFBD college_stats_df on player_name -- a genuine cross-source join with
+    no shared ID. Covers the normalize_player_name hardening (casing/suffix/
+    punctuation-insensitive) and the GATE COVERAGE match-rate warning."""
+
+    def test_exact_name_match_merges_college_columns(self):
+        df = pd.DataFrame({"player_name": ["Player A"], "player_id": ["p1"]})
+        college_stats_df = pd.DataFrame(
+            {
+                "player_name": ["Player A"],
+                "rushing_yards": [1000],
+                "games": [12],
+            }
+        )
+        result = _build_feature_vectors(df, college_stats_df, conf_adj={})
+        assert result.loc[0, "rushing_yards_pg"] == pytest.approx(1000 / 12)
+
+    def test_normalized_name_variants_still_match(self):
+        """'Kenneth Walker III' (NFL side) must match 'kenneth walker'
+        (CFBD) despite casing/suffix differences -- the join-key-hardening
+        fix (normalize_player_name), not a raw string-equality merge."""
+        df = pd.DataFrame({"player_name": ["Kenneth Walker III"]})
+        college_stats_df = pd.DataFrame(
+            {
+                "player_name": ["kenneth walker"],
+                "rushing_yards": [1200],
+                "games": [12],
+            }
+        )
+        result = _build_feature_vectors(df, college_stats_df, conf_adj={})
+        assert result.loc[0, "rushing_yards_pg"] == pytest.approx(100.0)
+
+    def test_no_match_leaves_nan_not_crash(self):
+        df = pd.DataFrame({"player_name": ["Nobody Here"]})
+        college_stats_df = pd.DataFrame(
+            {"player_name": ["Someone Else"], "rushing_yards": [500], "games": [10]}
+        )
+        result = _build_feature_vectors(df, college_stats_df, conf_adj={})
+        assert pd.isna(result.loc[0, "rushing_yards_pg"])
+
+    # normalize_player_name strips digits (real names never contain them), so
+    # these fixtures use distinct alphabetic names rather than numbered
+    # variants -- numbered names would collapse to the same normalized key.
+    _TEN_NAMES = [
+        "Alpha Bravo", "Charlie Delta", "Echo Foxtrot", "Golf Hotel",
+        "India Juliet", "Kilo Lima", "Mike November", "Oscar Papa",
+        "Quebec Romeo", "Sierra Tango",
+    ]
+
+    def test_low_match_rate_logs_gate_coverage_warning(self, caplog):
+        import logging
+
+        df = pd.DataFrame({"player_name": self._TEN_NAMES})
+        # Only 1 of 10 names present on the college side -> 10% match rate.
+        college_stats_df = pd.DataFrame(
+            {
+                "player_name": [self._TEN_NAMES[0]],
+                "rushing_yards": [900],
+                "games": [12],
+            }
+        )
+        with caplog.at_level(logging.WARNING, logger="college_prospect_features"):
+            _build_feature_vectors(df, college_stats_df, conf_adj={})
+        assert any("GATE COVERAGE" in r.getMessage() for r in caplog.records)
+
+    def test_high_match_rate_does_not_warn(self, caplog):
+        import logging
+
+        df = pd.DataFrame({"player_name": self._TEN_NAMES})
+        college_stats_df = pd.DataFrame(
+            {
+                "player_name": self._TEN_NAMES,
+                "rushing_yards": [900] * 10,
+                "games": [12] * 10,
+            }
+        )
+        with caplog.at_level(logging.WARNING, logger="college_prospect_features"):
+            _build_feature_vectors(df, college_stats_df, conf_adj={})
+        assert not any("GATE COVERAGE" in r.getMessage() for r in caplog.records)
+
+    def test_no_duplicate_columns_or_row_fanout(self):
+        """The merge must not create a stray player_name_college column
+        (both sides carry a raw player_name column) and must never fan out
+        rows for a 1:1 name match."""
+        df = pd.DataFrame({"player_name": ["Player A", "Player B"]})
+        college_stats_df = pd.DataFrame(
+            {
+                "player_name": ["Player A", "Player B"],
+                "rushing_yards": [500, 600],
+                "games": [10, 12],
+            }
+        )
+        result = _build_feature_vectors(df, college_stats_df, conf_adj={})
+        assert len(result) == 2
+        assert "player_name_college" not in result.columns
+        assert "_name_key" not in result.columns
+        assert "_college_match" not in result.columns

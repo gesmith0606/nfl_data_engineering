@@ -289,6 +289,14 @@ class TestTrainEnsemble:
         assert "selected_features" in disk_meta
         assert "n_features" in disk_meta
 
+        # Provenance stamp (MODEL_FRESHNESS_GUARDS.md) -- build_provenance()
+        # output embedded at save time: per-source row counts + git SHA.
+        assert "provenance" in disk_meta
+        assert "sources" in disk_meta["provenance"]
+        assert "silver_teams_pbp_derived" in disk_meta["provenance"]["sources"]
+        assert "bronze_schedules" in disk_meta["provenance"]["sources"]
+        assert "git_sha" in disk_meta["provenance"]
+
         # Per-target entries
         assert "spread" in disk_meta
         assert "total" in disk_meta

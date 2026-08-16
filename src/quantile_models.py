@@ -26,6 +26,8 @@ import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error
 
+from model_provenance import build_provenance
+
 logger = logging.getLogger(__name__)
 
 _BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -467,6 +469,10 @@ def save_quantile_models(
         ),
         "created_at": datetime.now().isoformat(),
         "conformal_width_factors": conformal,
+        "provenance": build_provenance({
+            "silver_players_usage": "silver/players/usage",
+            "silver_players_advanced": "silver/players/advanced",
+        }),
     }
     with open(os.path.join(path, "metadata.json"), "w") as f:
         json.dump(metadata, f, indent=2)

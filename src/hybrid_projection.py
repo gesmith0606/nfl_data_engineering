@@ -46,6 +46,7 @@ from sklearn.linear_model import RidgeCV
 from sklearn.metrics import mean_absolute_error
 from sklearn.pipeline import Pipeline
 
+from model_provenance import build_provenance
 from projection_engine import POSITION_STAT_PROFILE
 from scoring_calculator import calculate_fantasy_points_df
 
@@ -1164,6 +1165,12 @@ def train_and_save_residual_models(
                 "lgb_params": RESIDUAL_LGB_PARAMS,
                 "correction_clip_abs": correction_clip_abs,
             }
+            meta["provenance"] = build_provenance({
+                "silver_players_usage": "silver/players/usage",
+                "silver_players_advanced": "silver/players/advanced",
+                "bronze_players_snaps": "bronze/players/snaps",
+                "bronze_players_injuries": "bronze/players/injuries",
+            })
             with open(meta_path, "w") as f:
                 json.dump(meta, f, indent=2)
 
@@ -1215,6 +1222,12 @@ def train_and_save_residual_models(
                 "graph_features_added": graph_features_added,
                 "correction_clip_abs": correction_clip_abs,
             }
+            meta["provenance"] = build_provenance({
+                "silver_players_usage": "silver/players/usage",
+                "silver_players_advanced": "silver/players/advanced",
+                "bronze_players_snaps": "bronze/players/snaps",
+                "bronze_players_injuries": "bronze/players/injuries",
+            })
             with open(meta_path, "w") as f:
                 json.dump(meta, f, indent=2)
 

@@ -203,6 +203,43 @@ class TestCheckStaleness:
 
 
 # ---------------------------------------------------------------------------
+# check_provenance
+# ---------------------------------------------------------------------------
+
+
+class TestCheckProvenance:
+    def test_missing_provenance_is_warn_miss(self):
+        r = cmf.check_provenance("x", {})
+        assert r.tier == "WARN"
+        assert r.passed is False
+        assert "legacy artifact" in r.message
+
+    def test_none_provenance_is_warn_miss(self):
+        r = cmf.check_provenance("x", {"provenance": None})
+        assert r.tier == "WARN"
+        assert r.passed is False
+
+    def test_present_provenance_is_warn_pass(self):
+        meta = {
+            "provenance": {
+                "generated_at": "2026-08-16T00:00:00+00:00",
+                "git_sha": "a" * 40,
+                "sources": {"silver_players_usage": {"row_count": 10}},
+            }
+        }
+        r = cmf.check_provenance("x", meta)
+        assert r.tier == "WARN"
+        assert r.passed is True
+        assert "1 source" in r.message
+
+    def test_never_fail_tier(self):
+        """Absence of provenance must never be FAIL-tier -- legacy artifacts
+        predating the stamp are expected, not a defect on their own."""
+        r = cmf.check_provenance("x", {})
+        assert r.tier != "FAIL"
+
+
+# ---------------------------------------------------------------------------
 # residual_family_results
 # ---------------------------------------------------------------------------
 
@@ -270,6 +307,14 @@ class TestResidualFamilyResults:
         # No silver_newest given -> skipped, but should not raise regardless
         assert staleness.tier == "WARN"
 
+    def test_legacy_artifact_without_provenance_is_warn_miss(self, tmp_path):
+        models_dir = tmp_path / "residual"
+        self._write_lgb_artifact(models_dir, "qb", _clean_imputer(3))
+        results = cmf.residual_family_results(models_dir, None, None)
+        prov = next(r for r in results if r.id == "residual/qb/provenance")
+        assert prov.tier == "WARN"
+        assert prov.passed is False
+
 
 # ---------------------------------------------------------------------------
 # quantile_family_results
@@ -310,6 +355,31 @@ class TestQuantileFamilyResults:
         assert nan_check.passed is False
         assert dropped_check.passed is False
         assert "college_market_share" in dropped_check.message
+
+    def test_provenance_present_is_warn_pass(self, tmp_path):
+        models_dir = tmp_path / "quantile"
+        os.makedirs(models_dir)
+        meta = {
+            "feature_cols": ["age"],
+            "created_at": "2026-08-16T00:00:00",
+            "provenance": {"git_sha": "b" * 40, "sources": {}},
+        }
+        with open(models_dir / "metadata.json", "w") as f:
+            json.dump(meta, f)
+        results = cmf.quantile_family_results(models_dir, None, None)
+        prov = next(r for r in results if r.id == "quantile/provenance")
+        assert prov.passed is True
+        assert prov.tier == "WARN"
+
+    def test_legacy_metadata_without_provenance_is_warn_miss(self, tmp_path):
+        models_dir = tmp_path / "quantile"
+        os.makedirs(models_dir)
+        with open(models_dir / "metadata.json", "w") as f:
+            json.dump({"feature_cols": ["age"], "created_at": "2026-06-01T00:00:00"}, f)
+        results = cmf.quantile_family_results(models_dir, None, None)
+        prov = next(r for r in results if r.id == "quantile/provenance")
+        assert prov.passed is False
+        assert prov.tier == "WARN"
 
 
 # ---------------------------------------------------------------------------
@@ -368,6 +438,24 @@ class TestEnsembleFamilyResults:
         staleness = next(r for r in results if r.id == "ensemble/staleness")
         assert staleness.passed is False  # 2026-06-10 predates "now"
 
+    def test_provenance_check_never_fails_on_legacy_metadata(self, tmp_path):
+        models_dir = tmp_path / "ensemble"
+        os.makedirs(models_dir)
+        with open(models_dir / "metadata.json", "w") as f:
+            json.dump({"trained_at": "2026-06-10T02:36:12.791577Z"}, f)
+        results = cmf.ensemble_family_results(models_dir, None)
+        prov = next(r for r in results if r.id == "ensemble/provenance")
+        assert prov.tier == "WARN"
+        assert prov.passed is False
+
+    def test_provenance_check_missing_metadata_json_is_warn_not_fail(self, tmp_path):
+        models_dir = tmp_path / "ensemble"
+        os.makedirs(models_dir)
+        results = cmf.ensemble_family_results(models_dir, None)
+        prov = next(r for r in results if r.id == "ensemble/provenance")
+        assert prov.tier == "WARN"
+        assert prov.passed is False
+
 
 # ---------------------------------------------------------------------------
 # bayesian_family_results — WARN-only tier (finding #14)
@@ -410,6 +498,20 @@ class TestBayesianFamilyResults:
 
         # Every single result in this family must be WARN tier, never FAIL.
         assert all(r.tier == "WARN" for r in results)
+
+    def test_provenance_check_present_in_results_warn_tier(self, tmp_path):
+        models_dir = tmp_path / "bayesian"
+        os.makedirs(models_dir)
+        imp = _clean_imputer(3)
+        model = MockBayesianModel(imp, ["a", "b", "c"])
+        joblib.dump(model, models_dir / "bayesian_rb.joblib")
+        with open(models_dir / "bayesian_rb_meta.json", "w") as f:
+            json.dump({"position": "RB"}, f)
+
+        results = cmf.bayesian_family_results(models_dir, None, None)
+        prov = next(r for r in results if r.id == "bayesian/rb/provenance")
+        assert prov.tier == "WARN"
+        assert prov.passed is False  # legacy meta, no provenance key
 
 
 # ---------------------------------------------------------------------------

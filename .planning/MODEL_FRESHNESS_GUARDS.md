@@ -309,3 +309,142 @@ Two pre-existing failures in `tests/test_data_quality.py` (`test_freshness_check
 depending on exact wall-clock at fixture setup vs assertion). Confirmed unrelated: that
 file isn't touched by this work, and `git diff` on it is empty. Not fixed (out of scope,
 not owned by this task).
+
+## 8. 2026-08-16 — Deferred hardening applied: provenance stamping (4 sites) + college join fix
+
+The two items §3 left "not applied — apply when convenient" and finding #9's leftover
+college name join are now both landed, by the workstream that owns those files
+(`src/hybrid_projection.py`, `src/quantile_models.py`, `src/bayesian_projection.py`,
+`src/ensemble_training.py`, `src/college_prospect_features.py`).
+
+### 8.1 Provenance stamping — all 4 sites
+
+Exactly the patches §3 documented, no other changes to those files:
+
+- **`src/hybrid_projection.py`** — `from model_provenance import build_provenance` added
+  at top-of-file; `meta["provenance"] = build_provenance({...})` added right before both
+  `json.dump(meta, f, indent=2)` calls in `train_and_save_residual_models` (LGB path
+  ~line 1153, Ridge path ~line 1205), sourcing `silver_players_usage`,
+  `silver_players_advanced`, `bronze_players_snaps`, `bronze_players_injuries`.
+- **`src/quantile_models.py::save_quantile_models`** — `"provenance": build_provenance({...})`
+  added to the `metadata` dict literal (sourcing `silver_players_usage`,
+  `silver_players_advanced`), right alongside the existing `conformal_width_factors`.
+- **`src/bayesian_projection.py`** — `"provenance": build_provenance({"silver_players_usage": ...})`
+  added to the `metadata` dict in `train_and_save_bayesian_models`, before the
+  `bayesian_{pos}_meta.json` write.
+- **`src/ensemble_training.py::train_ensemble`** — `"provenance": build_provenance({...})`
+  added to the top-level `metadata` dict (sourcing `silver_teams_pbp_derived`,
+  `bronze_schedules`), alongside the pre-existing real `trained_at` stamp.
+
+**Smoke evidence — real quantile retrain**, throwaway dir (`models/_smoke_test_provenance_quantile/`,
+deleted after inspection, never touched the shipped `models/quantile/`):
+
+```
+python scripts/train_quantile_models.py --positions QB --output-dir models/_smoke_test_provenance_quantile
+```
+
+20.3s (single position; full 4-position run is the ~84s QUANTILE_REFIT figure). Resulting
+`metadata.json["provenance"]` (real values off this checkout, not fabricated):
+
+```json
+{
+  "generated_at": "2026-08-16T15:50:30.801298+00:00",
+  "git_sha": "5504f2d97bfb183b7fc7e374e964a356fcfa8031",
+  "sources": {
+    "silver_players_usage": {
+      "path": "silver/players/usage",
+      "row_count": 137443,
+      "n_files": 20,
+      "latest_partition_at": "2026-08-10T18:36:59.905101+00:00"
+    },
+    "silver_players_advanced": {
+      "path": "silver/players/advanced",
+      "row_count": 74235,
+      "n_files": 11,
+      "latest_partition_at": "2026-08-16T03:08:08.020408+00:00"
+    }
+  }
+}
+```
+
+The other three sites are exercised by unit tests that mock the heavy real-data assembly
+path (`assemble_multiyear_player_features` pulls 10 seasons of Silver — minutes, not a
+unit-test budget) but run the real save-to-disk code on tiny synthetic data:
+`tests/test_hybrid_projection.py::TestTrainAndSaveResidualModelsProvenance` (ridge + lgb,
+asserts all 4 source keys land in the written `*_residual_meta.json`),
+`tests/test_bayesian_projection.py::TestTrainAndSaveBayesianModelsProvenance` (asserts
+`silver_players_usage` + `git_sha` land in `bayesian_qb_meta.json`). `train_ensemble`'s full
+pipeline (walk-forward CV × 3 base learners × 2 targets) already has a real end-to-end test
+on synthetic data (`tests/test_ensemble_training.py::TestTrainEnsemble::test_metadata_json_structure`)
+— extended in place to assert `provenance`/`sources`/`git_sha` land in the real
+`metadata.json` it writes, rather than adding a second heavy run.
+
+`scripts/train_quantile_models.py::test_saved_metadata_embeds_provenance`
+(`tests/test_quantile_models.py`) covers the same site via the existing
+`train_quantile_models` → `save_quantile_models` synthetic-data fixture.
+
+### 8.2 `check_model_freshness.py` extended — `check_provenance()`
+
+Per the task's "WARN when provenance absent = legacy artifact; never FAIL" instruction,
+added `check_provenance(check_id, meta) -> CheckResult` (always `WARN` tier — absence
+just means the artifact predates this stamp, not a defect) and wired it into all four
+family checks (`residual/{pos}/provenance`, `quantile/provenance`, `ensemble/provenance`,
+`bayesian/{pos}/provenance`). Verified against the real `models/` directory
+(`python scripts/check_model_freshness.py --no-probe`): every shipped artifact today is a
+legacy one (all four families predate this stamp), so all 10 `*/provenance` checks report
+`WARN` (not `FAIL`) — `Summary: 51 check(s) — 41 PASS, 10 WARN-miss, 0 FAIL-miss`,
+`Overall: PASS`, exit code 0. Confirms the "never flip to FAIL" requirement holds against
+real current-repo state, not just synthetic fixtures. 15 new unit tests
+(`TestCheckProvenance` + one `*/provenance` case per family in each existing
+`Test*FamilyResults` class) cover: missing key, `None` value, present-and-populated, and
+that the tier is structurally never `"FAIL"`.
+
+### 8.3 College name-join fix — `src/college_prospect_features.py`
+
+Applied the join-key hardening the doc's §6 recommended patch approximated, adapted two
+ways after inspecting the actual merge: (1) the suggested patch checked
+`result["total_yards"].notna()` for a match-rate proxy, but the real per-game college
+frame (`_compute_per_game_stats`) never has a `total_yards` column — swapped for
+`pandas.merge(..., indicator=True)`, which counts real matches regardless of which stat
+columns happen to be present; (2) added actual **join-key hardening**, not just the
+match-rate assertion: both sides now merge on `normalize_player_name(player_name)`
+(`src/utils.py`, already used for the same cross-source-name-join problem elsewhere in
+this codebase — Sleeper/nflverse — docstring example: `"Kenneth Walker III"` vs
+`"kenneth walker"`) instead of the raw `player_name` string, so casing/suffix/punctuation
+differences between the NFL-side roster/draft frame and CFBD college stats no longer
+silently zero out matches before the 50% gate even gets a chance to fire. Same
+`GATE COVERAGE` `logger.warning` convention as the QBR fix (§6) and `_prepare_snap_data`
+(the reference pattern) when match rate drops below 50%; `logger.info` unconditionally
+otherwise.
+
+**Match rate observed**: no `data/bronze/college_player_stats/` exists in this local
+checkout (CFBD ingestion never run here — consistent with §6's note that these
+`college_*`/`prospect_comp_*` columns are "currently NaN-heavy anyway"), so a real-data
+run through `scripts/build_prospect_features.py` wasn't possible to produce a QBR-style
+real match-rate figure. Verified instead with 6 targeted unit tests
+(`tests/test_college_features.py::TestCollegeNameJoinHardening`): exact-name match merges
+correctly (100%), a `"Kenneth Walker III"` vs `"kenneth walker"` pair matches only because
+of the normalization (would be a 0%-match/silent-NaN join on the old raw-string merge),
+a genuinely non-matching pair leaves `NaN` without crashing, a synthetic 10%-match-rate
+case (1/10 names shared) fires the `GATE COVERAGE` warning, a 100%-match case does not,
+and a 1:1 exact-match case confirms no row fan-out and no stray `player_name_college`
+column (the old `suffixes=("", "_college")` no longer produces one, since the college-side
+raw `player_name` is dropped before the merge — the `indicator=True` join key is
+`_name_key`, not `player_name`).
+
+### 8.4 Tests summary (this pass)
+
+| File | New tests | Status |
+|---|---|---|
+| `tests/test_check_model_freshness.py` | +15 (`check_provenance` + per-family wiring) | pass |
+| `tests/test_hybrid_projection.py` | +2 (`TestTrainAndSaveResidualModelsProvenance`) | pass |
+| `tests/test_bayesian_projection.py` | +1 (`TestTrainAndSaveBayesianModelsProvenance`) | pass |
+| `tests/test_ensemble_training.py` | extended `test_metadata_json_structure` | pass |
+| `tests/test_quantile_models.py` | +1 (`test_saved_metadata_embeds_provenance`) | pass |
+| `tests/test_college_features.py` | +6 (`TestCollegeNameJoinHardening`) | pass |
+
+Targeted run (`tests/test_bayesian_projection.py tests/test_ensemble_training.py
+tests/test_hybrid_projection.py tests/test_quantile_models.py
+tests/test_check_model_freshness.py tests/test_model_provenance.py
+tests/test_college_features.py`): 211 passed. Full suite run separately to confirm no
+regressions elsewhere.

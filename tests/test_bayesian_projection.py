@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import tempfile
+from unittest import mock
 
 import numpy as np
 import pandas as pd
@@ -20,6 +21,7 @@ from bayesian_projection import (
     BayesianResidualModel,
     apply_bayesian_correction,
     load_bayesian_model,
+    train_and_save_bayesian_models,
 )
 
 
@@ -529,3 +531,74 @@ class TestCalibration:
         )
 
         assert wide_coverage >= narrow_coverage
+
+
+# ---------------------------------------------------------------------------
+# Tests: train_and_save_bayesian_models provenance stamping
+# (MODEL_FRESHNESS_GUARDS.md) -- mocks the heavy real-data assembly path
+# so the test runs fast while exercising the REAL save-to-disk code,
+# including the build_provenance() call site.
+# ---------------------------------------------------------------------------
+
+
+class TestTrainAndSaveBayesianModelsProvenance:
+    @staticmethod
+    def _make_all_data(n=150):
+        rng = np.random.RandomState(0)
+        seasons = [2020, 2021]
+        rows = []
+        for i in range(n):
+            rows.append(
+                {
+                    "player_id": f"p{i % 20}",
+                    "position": "QB",
+                    "season": seasons[i % 2],
+                    "week": 3 + (i % 16),
+                    "game_id": f"g{i}",
+                    "feature_1": rng.rand(),
+                    "feature_2": rng.rand(),
+                }
+            )
+        return pd.DataFrame(rows)
+
+    def test_meta_json_embeds_provenance(self, tmp_path):
+        import player_feature_engineering as pfe
+        import unified_evaluation as ue
+
+        all_data = self._make_all_data()
+        heuristic = pd.Series(
+            np.random.RandomState(1).rand(len(all_data)) * 10, index=all_data.index
+        )
+        actual = pd.Series(
+            np.random.RandomState(2).rand(len(all_data)) * 15, index=all_data.index
+        )
+
+        with (
+            mock.patch.object(
+                pfe, "assemble_multiyear_player_features", return_value=all_data
+            ),
+            mock.patch.object(
+                pfe, "get_player_feature_columns",
+                return_value=["feature_1", "feature_2"],
+            ),
+            mock.patch.object(
+                ue, "build_opp_rankings", return_value=pd.DataFrame()
+            ),
+            mock.patch.object(
+                ue, "compute_production_heuristic", return_value=heuristic
+            ),
+            mock.patch.object(
+                ue, "compute_actual_fantasy_points", return_value=actual
+            ),
+        ):
+            train_and_save_bayesian_models(positions=["QB"], output_dir=str(tmp_path))
+
+        meta_path = tmp_path / "bayesian_qb_meta.json"
+        assert meta_path.exists()
+        with open(meta_path) as f:
+            meta = json.load(f)
+
+        assert "provenance" in meta
+        assert "sources" in meta["provenance"]
+        assert "silver_players_usage" in meta["provenance"]["sources"]
+        assert "git_sha" in meta["provenance"]

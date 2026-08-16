@@ -345,7 +345,15 @@ def _build_feature_vectors(
     if college_stats_df is not None and not college_stats_df.empty:
         college = _compute_per_game_stats(college_stats_df)
         if not college.empty:
-            # Merge on player_name (fuzzy — best effort)
+            # Merge on player_name (fuzzy, cross-source join: NFL-side
+            # roster/draft data vs CFBD college stats -- no shared ID exists
+            # between the two sources). Hardened via normalize_player_name
+            # (lowercase, strip Jr/Sr/II-V suffixes, punctuation) so e.g.
+            # "Kenneth Walker III" (NFL side) matches "kenneth walker" (CFBD)
+            # instead of silently 0%-matching on raw string equality --
+            # finding #9 sweep, .planning/MODEL_FRESHNESS_GUARDS.md.
+            from utils import normalize_player_name
+
             merge_cols = ["player_name"]
             if "college_team" in result.columns and "college_team" in college.columns:
                 merge_cols.append("college_team")
@@ -354,9 +362,34 @@ def _build_feature_vectors(
                 c for c in merge_cols if c in result.columns and c in college.columns
             ]
             if available_merge:
+                before = len(result)
+                result["_name_key"] = result["player_name"].apply(normalize_player_name)
+                college = college.copy()
+                college["_name_key"] = college["player_name"].apply(normalize_player_name)
+                key_cols = [
+                    "_name_key" if c == "player_name" else c for c in available_merge
+                ]
                 result = result.merge(
-                    college, on=available_merge, how="left", suffixes=("", "_college")
+                    college.drop(columns=["player_name"]),
+                    on=key_cols,
+                    how="left",
+                    suffixes=("", "_college"),
+                    indicator="_college_match",
                 )
+                matched = int((result["_college_match"] == "both").sum())
+                result = result.drop(columns=["_name_key", "_college_match"])
+
+                match_pct = (matched / before * 100) if before else 0.0
+                logger.info(
+                    "College stats match rate: %.1f%% (%d/%d)",
+                    match_pct, matched, before,
+                )
+                if match_pct < 50:
+                    logger.warning(
+                        "GATE COVERAGE: college stats match rate below 50%% "
+                        "(%.1f%%) -- check player_name normalization",
+                        match_pct,
+                    )
 
     # Rename college stat columns to match similarity weight keys
     rename_map = {

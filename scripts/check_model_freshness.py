@@ -280,6 +280,29 @@ def check_feature_coverage(
     return results
 
 
+def check_provenance(check_id: str, meta: Dict) -> CheckResult:
+    """WARN (never blocks) if an artifact's meta.json has no ``provenance``
+    key -- the src/model_provenance.py stamp (per-source row counts,
+    partition timestamps, git SHA) wired into the four train_*.py save
+    paths per .planning/MODEL_FRESHNESS_GUARDS.md. Absence just means a
+    legacy artifact predates the stamp, not a defect on its own -- WARN-tier
+    only, never FAIL.
+    """
+    provenance = meta.get("provenance")
+    if not provenance:
+        return CheckResult(
+            check_id, "WARN", False,
+            "no provenance stamp in meta.json -- legacy artifact predating "
+            "src/model_provenance.py (retrain to pick it up)",
+        )
+    sources = provenance.get("sources", {}) if isinstance(provenance, dict) else {}
+    git_sha = provenance.get("git_sha") if isinstance(provenance, dict) else None
+    return CheckResult(
+        check_id, "WARN", True,
+        f"provenance stamp present: {len(sources)} source(s), git_sha={git_sha!r}",
+    )
+
+
 def check_staleness(
     check_id: str,
     trained_at: Any,
@@ -363,6 +386,7 @@ def residual_family_results(
 
         results.append(check_imputer_nan(f"{cid}/imputer_nan", imputer, tier="FAIL"))
         results.extend(check_feature_coverage(f"{cid}/features", features, imputer, live_columns, tier="FAIL"))
+        results.append(check_provenance(f"{cid}/provenance", meta))
 
         trained_at = meta.get("trained_at")
         proxy_used = trained_at is None
@@ -397,6 +421,7 @@ def quantile_family_results(
 
     results = [check_imputer_nan(f"{cid}/imputer_nan", imputer, tier="FAIL")]
     results.extend(check_feature_coverage(f"{cid}/features", features, imputer, live_columns, tier="FAIL"))
+    results.append(check_provenance(f"{cid}/provenance", meta))
 
     trained_at = meta.get("created_at") or meta.get("trained_at")
     results.append(check_staleness(f"{cid}/staleness", trained_at, silver_newest, proxy_used=False))
@@ -473,10 +498,12 @@ def ensemble_family_results(
                 results.append(CheckResult(f"{cid}/meta_shape", "FAIL", True, "meta-learner shape OK (3 base predictions)"))
 
     meta_path = models_dir / "metadata.json"
-    trained_at = None
+    ensemble_meta: Dict = {}
     if meta_path.exists():
-        trained_at = _load_json(meta_path).get("trained_at")
+        ensemble_meta = _load_json(meta_path)
+    trained_at = ensemble_meta.get("trained_at")
     results.append(check_staleness("ensemble/staleness", trained_at, silver_newest, proxy_used=False))
+    results.append(check_provenance("ensemble/provenance", ensemble_meta))
 
     return results
 
@@ -521,6 +548,7 @@ def bayesian_family_results(
 
         features = getattr(model_obj, "feature_names", None) or meta.get("features", [])
         results.extend(check_feature_coverage(f"{cid}/features", features, imputer, live_columns, tier="WARN"))
+        results.append(check_provenance(f"{cid}/provenance", meta))
 
         trained_at = meta.get("trained_at")
         proxy_used = trained_at is None

@@ -8,6 +8,7 @@ import tempfile
 
 import sys
 import os
+from unittest import mock
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
@@ -337,6 +338,102 @@ class TestTrainResidualModel:
         for fold in result["fold_details"]:
             assert "ridge_alpha" in fold
             assert fold["ridge_alpha"] > 0
+
+
+# ---------------------------------------------------------------------------
+# Tests: train_and_save_residual_models provenance stamping
+# (MODEL_FRESHNESS_GUARDS.md) -- mocks the heavy real-data assembly path
+# (assemble_multiyear_player_features etc. pull years of Silver data and
+# take minutes) so the test runs fast while exercising the REAL save-to-disk
+# code, including the build_provenance() call site.
+# ---------------------------------------------------------------------------
+
+
+class TestTrainAndSaveResidualModelsProvenance:
+    @staticmethod
+    def _make_all_data(n=150):
+        rng = np.random.RandomState(0)
+        seasons = [2020, 2021]
+        rows = []
+        for i in range(n):
+            rows.append(
+                {
+                    "player_id": f"p{i % 20}",
+                    "position": "QB",
+                    "season": seasons[i % 2],
+                    "week": 3 + (i % 16),
+                    "game_id": f"g{i}",
+                    "feature_1": rng.rand(),
+                    "feature_2": rng.rand(),
+                }
+            )
+        return pd.DataFrame(rows)
+
+    def _run_with_mocks(self, tmp_path, model_type):
+        import hybrid_projection as hp
+        import player_feature_engineering as pfe
+        import unified_evaluation as ue
+
+        all_data = self._make_all_data()
+        heuristic = pd.Series(
+            np.random.RandomState(1).rand(len(all_data)) * 10, index=all_data.index
+        )
+        actual = pd.Series(
+            np.random.RandomState(2).rand(len(all_data)) * 15, index=all_data.index
+        )
+
+        with (
+            mock.patch.object(
+                pfe, "assemble_multiyear_player_features", return_value=all_data
+            ),
+            mock.patch.object(
+                pfe, "get_player_feature_columns",
+                return_value=["feature_1", "feature_2"],
+            ),
+            mock.patch.object(
+                ue, "build_defensive_strength_table", return_value=pd.DataFrame()
+            ),
+            mock.patch.object(
+                ue, "compute_production_heuristic", return_value=heuristic
+            ),
+            mock.patch.object(
+                ue, "compute_actual_fantasy_points", return_value=actual
+            ),
+        ):
+            hp.train_and_save_residual_models(
+                positions=["QB"],
+                output_dir=str(tmp_path),
+                model_type=model_type,
+                training_seasons=[2099],  # no real Bronze weekly files match
+            )
+
+    def test_ridge_meta_json_embeds_provenance(self, tmp_path):
+        self._run_with_mocks(tmp_path, model_type="ridge")
+
+        meta_path = tmp_path / "qb_residual_meta.json"
+        assert meta_path.exists()
+        with open(meta_path) as f:
+            meta = json.load(f)
+
+        assert "provenance" in meta
+        assert "sources" in meta["provenance"]
+        assert "silver_players_usage" in meta["provenance"]["sources"]
+        assert "silver_players_advanced" in meta["provenance"]["sources"]
+        assert "bronze_players_snaps" in meta["provenance"]["sources"]
+        assert "bronze_players_injuries" in meta["provenance"]["sources"]
+        assert "git_sha" in meta["provenance"]
+
+    def test_lgb_meta_json_embeds_provenance(self, tmp_path):
+        self._run_with_mocks(tmp_path, model_type="lgb")
+
+        meta_path = tmp_path / "qb_residual_meta.json"
+        assert meta_path.exists()
+        with open(meta_path) as f:
+            meta = json.load(f)
+
+        assert "provenance" in meta
+        assert "sources" in meta["provenance"]
+        assert "silver_players_usage" in meta["provenance"]["sources"]
 
 
 # ---------------------------------------------------------------------------

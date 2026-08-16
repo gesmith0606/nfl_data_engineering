@@ -269,6 +269,32 @@ class TestSaveLoadQuantileModels:
         loaded = load_quantile_models(path=os.path.join(tmp_model_dir, "nonexistent"))
         assert loaded is None
 
+    def test_saved_metadata_embeds_provenance(
+        self, synthetic_df: pd.DataFrame, tmp_model_dir: str
+    ) -> None:
+        """MODEL_FRESHNESS_GUARDS.md provenance stamping: metadata.json must
+        embed build_provenance() output (sources dict, git_sha, generated_at)
+        on every save, not just conformal_width_factors/created_at."""
+        import json
+
+        result = train_quantile_models(
+            synthetic_df,
+            target_col="fantasy_points_target",
+            positions=["QB"],
+        )
+        save_quantile_models(result, path=tmp_model_dir)
+
+        with open(os.path.join(tmp_model_dir, "metadata.json")) as f:
+            metadata = json.load(f)
+
+        assert "provenance" in metadata
+        provenance = metadata["provenance"]
+        assert "generated_at" in provenance
+        assert "git_sha" in provenance
+        assert "sources" in provenance
+        assert "silver_players_usage" in provenance["sources"]
+        assert "silver_players_advanced" in provenance["sources"]
+
     def test_predictions_match_after_reload(
         self, synthetic_df: pd.DataFrame, tmp_model_dir: str
     ) -> None:

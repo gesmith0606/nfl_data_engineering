@@ -44,6 +44,8 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
+from model_provenance import build_provenance
+
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -688,6 +690,7 @@ def train_and_save_bayesian_models(
             "learned_alpha": priors.get("alpha", 0.0),
             "learned_lambda": priors.get("lambda", 0.0),
             "noise_sigma": priors.get("sigma", 0.0),
+            "provenance": build_provenance({"silver_players_usage": "silver/players/usage"}),
         }
 
         meta_path = os.path.join(output_dir, f"bayesian_{position.lower()}_meta.json")

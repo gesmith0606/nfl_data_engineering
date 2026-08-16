@@ -33,6 +33,7 @@ import xgboost as xgb
 from sklearn.linear_model import LogisticRegression, Ridge, RidgeCV
 from sklearn.metrics import mean_absolute_error
 
+from model_provenance import build_provenance
 from model_training import WalkForwardResult
 from config import (
     CB_CONSERVATIVE_PARAMS,
@@ -517,6 +518,10 @@ def train_ensemble(
         "holdout_season": HOLDOUT_SEASON,
         "selected_features": feature_cols,
         "n_features": len(feature_cols),
+        "provenance": build_provenance({
+            "silver_teams_pbp_derived": "silver/teams/pbp_derived",
+            "bronze_schedules": "bronze/schedules",
+        }),
     }
 
     for target_name, target_col in targets.items():
