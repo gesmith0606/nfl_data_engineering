@@ -165,3 +165,55 @@ Billing misbehaving in prod? Unset in Vercel and redeploy:
   enforced server-side. Locking down the FastAPI data itself is future work.
 - **`/api/billing/webhook` must stay middleware-exempt** — `proxy.ts` deliberately
   adds no route protection; the Stripe signature is the auth.
+
+## Marketing instrumentation (2026-08-16)
+
+Code-side marketing prep, landed ahead of the actual billing go-live (no new accounts
+or keys needed — see `docs/BILLING_LAUNCH.md#1-clerk-dashboard-setup` /
+`#2-stripe-dashboard-setup` for the account-creation steps that are still user-owned).
+
+**1. Vercel Web Analytics** — `@vercel/analytics` is installed and `<Analytics />` is
+mounted unconditionally in `src/app/layout.tsx` (outside the Clerk feature flag — it
+has no dependency on auth/billing and no keys of its own). It is inert everywhere
+except a real Vercel deployment.
+
+- **The one dashboard toggle you flip**: Vercel project → **Analytics** tab → **Enable**.
+  That's it — no env var, no code change, no redeploy required. Once enabled, page-view
+  data starts flowing from the next visit.
+- Page analytics only (page views, referrers, top pages) — no custom events wired yet,
+  per the "don't build ahead of need" plan. Add `track()` calls later if funnel/event
+  data becomes useful.
+
+**2. Marketing-consent flag at signup** — Clerk's prebuilt `<SignUp/>` component (the
+one this app uses at `/auth/sign-up`) has no supported slot for a custom checkbox
+without rebuilding the whole form from Clerk Elements primitives, which is materially
+more code for the same outcome. Instead: a **one-time post-signup consent prompt**
+(`src/features/marketing/components/consent-prompt.tsx`) shows for any signed-in user
+whose Clerk `publicMetadata.marketingConsent` is still unset. It's a small dismissible
+banner with a single **unchecked-by-default** checkbox — copy: "Send me product
+updates & fantasy insights (optional)" — matching the GDPR default of no pre-ticked
+consent. Both "Save" and dismiss (×) record an explicit choice (checked → `true`,
+dismissed/unchecked → `false`) so the prompt never asks twice.
+
+- **Where the flag lands**: Clerk user → `publicMetadata.marketingConsent` (boolean) +
+  `publicMetadata.marketingConsentAt` (ISO timestamp), written by
+  `POST /api/marketing/consent` (`src/app/api/marketing/consent/route.ts`) via
+  `clerkClient().users.updateUserMetadata()`. That call merges shallowly, so it never
+  touches `publicMetadata.premium` (the billing stamp) or any other metadata key.
+  Feature-flagged the same way as billing: 503 with no Clerk keys, 401 signed-out,
+  guarded server-side by `currentUser()` — never trust a client-only check.
+- **How to query the consented list later**: Clerk's user list is the marketing list
+  (see the top of this doc). Clerk's Backend API has no first-class metadata filter, so
+  page through `clerkClient().users.getUserList({ limit, offset })` in a small script
+  and keep users where `publicMetadata.marketingConsent === true`, then pull
+  `emailAddresses` off each. For a one-off check, the Clerk dashboard's per-user
+  **Metadata** tab shows the same field. No separate database or export step — same
+  "Clerk is the user store" model billing already relies on.
+
+**Tests**: `src/features/marketing/components/__tests__/consent-prompt.test.tsx`
+(loading/signed-out/already-decided render nothing; default-unchecked; Save posts
+`consent:true`; dismiss posts `consent:false`; both hide the prompt after) · 
+`src/app/api/marketing/__tests__/consent-route.test.ts` (503/401/500 guards, stamps
+`marketingConsent`, malformed body defaults to `false` — never an implicit opt-in) ·
+`src/app/__tests__/layout.test.tsx` (asserts `<Analytics/>` is in the rendered tree
+regardless of the Clerk flag state).
