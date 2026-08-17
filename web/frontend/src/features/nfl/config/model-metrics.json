@@ -1,11 +1,11 @@
 {
-  "generatedFrom": "backtest_half_ppr_ml_fullfeatures_consensus_20260816_112121.csv",
+  "generatedFrom": "backtest_half_ppr_ml_fullfeatures_consensus_pooled_2022_2024.csv",
   "generatedBy": "scripts/generate_frontend_metrics.py",
   "overall": {
-    "mae": 4.25,
-    "rmse": 5.86,
-    "correlation": 0.641,
-    "bias": -0.62,
+    "mae": 4.13,
+    "rmse": 5.71,
+    "correlation": 0.663,
+    "bias": -0.59,
     "playerWeeks": 11358,
     "seasons": "2022-2024",
     "weeks": "2-18",
@@ -15,21 +15,21 @@
     {
       "position": "QB",
       "model": "Hybrid Residual",
-      "mae": 5.59,
-      "rmse": 7.08,
-      "bias": -0.72
+      "mae": 4.84,
+      "rmse": 6.28,
+      "bias": -0.52
     },
     {
       "position": "RB",
       "model": "Hybrid Residual",
-      "mae": 4.27,
-      "rmse": 5.79,
-      "bias": -0.2
+      "mae": 4.13,
+      "rmse": 5.67,
+      "bias": -0.19
     },
     {
       "position": "WR",
       "model": "Hybrid Residual",
-      "mae": 4.35,
+      "mae": 4.36,
       "rmse": 6.08,
       "bias": -1.05
     },
@@ -44,112 +44,112 @@
   "weeklyMae": [
     {
       "week": "W2",
-      "mae": 4.82
+      "mae": 4.77
     },
     {
       "week": "W3",
-      "mae": 4.48
+      "mae": 4.35
     },
     {
       "week": "W4",
-      "mae": 4.28
-    },
-    {
-      "week": "W5",
-      "mae": 4.5
-    },
-    {
-      "week": "W6",
-      "mae": 4.08
-    },
-    {
-      "week": "W7",
-      "mae": 4.32
-    },
-    {
-      "week": "W8",
-      "mae": 4.26
-    },
-    {
-      "week": "W9",
-      "mae": 3.96
-    },
-    {
-      "week": "W10",
-      "mae": 4.11
-    },
-    {
-      "week": "W11",
-      "mae": 4.22
-    },
-    {
-      "week": "W12",
-      "mae": 4.01
-    },
-    {
-      "week": "W13",
       "mae": 4.16
     },
     {
+      "week": "W5",
+      "mae": 4.32
+    },
+    {
+      "week": "W6",
+      "mae": 3.98
+    },
+    {
+      "week": "W7",
+      "mae": 4.16
+    },
+    {
+      "week": "W8",
+      "mae": 4.09
+    },
+    {
+      "week": "W9",
+      "mae": 3.82
+    },
+    {
+      "week": "W10",
+      "mae": 3.96
+    },
+    {
+      "week": "W11",
+      "mae": 4.1
+    },
+    {
+      "week": "W12",
+      "mae": 3.87
+    },
+    {
+      "week": "W13",
+      "mae": 4.05
+    },
+    {
       "week": "W14",
-      "mae": 4.28
+      "mae": 4.09
     },
     {
       "week": "W15",
-      "mae": 4.36
+      "mae": 4.23
     },
     {
       "week": "W16",
-      "mae": 4.06
+      "mae": 3.97
     },
     {
       "week": "W17",
-      "mae": 4.28
+      "mae": 4.16
     },
     {
       "week": "W18",
-      "mae": 4.01
+      "mae": 3.9
     }
   ],
-  "testsPassing": 3749,
+  "testsPassing": 3813,
   "atsAccuracy": {
     "value": 53.0,
     "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble)"
   },
   "consensus": {
-    "generatedFrom": "consensus_matched_half_ppr_20260816_112121.csv",
+    "generatedFrom": "consensus_matched_sleeper_half_ppr_20260817_001331.csv",
     "benchmark": "Sleeper expert consensus projections",
     "seasons": "2022-2024",
     "scoringFormat": "Half-PPR",
     "overall": {
-      "ourMae": 4.96,
+      "ourMae": 4.777,
       "consensusMae": 5.285,
-      "gap": -0.325,
+      "gap": -0.508,
       "win": true,
       "playerWeeks": 7009
     },
     "positions": [
       {
         "position": "QB",
-        "ourMae": 5.539,
+        "ourMae": 4.742,
         "consensusMae": 6.401,
-        "gap": -0.862,
+        "gap": -1.659,
         "win": true,
         "playerWeeks": 1250
       },
       {
         "position": "RB",
-        "ourMae": 5.021,
+        "ourMae": 4.866,
         "consensusMae": 5.332,
-        "gap": -0.31,
+        "gap": -0.466,
         "win": true,
         "playerWeeks": 1877
       },
       {
         "position": "WR",
-        "ourMae": 4.975,
+        "ourMae": 4.977,
         "consensusMae": 5.042,
-        "gap": -0.067,
+        "gap": -0.065,
         "win": true,
         "playerWeeks": 2965
       },
