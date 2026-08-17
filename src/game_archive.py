@@ -6,8 +6,9 @@ season leaders, and player game logs from Bronze data.
 """
 
 import logging
+import re
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -28,10 +29,24 @@ _PLAYER_WEEKLY_DIR = _DATA_DIR / "bronze" / "players" / "weekly"
 # Earliest season with player weekly data
 _PLAYER_STATS_MIN_SEASON = 2016
 
+#: Bronze filenames embed a YYYYMMDD_HHMMSS generation timestamp. Sort on it,
+#: NOT on filesystem mtime: in the HF Spaces deployment the repo is cloned
+#: fresh at build time, so every file shares the clone-time mtime and an
+#: mtime sort picks an arbitrary file rather than the newest one (this is
+#: the same class of bug documented/fixed in
+#: web/api/services/projection_service.py after the 2026-06-12 incident).
+_FILENAME_TS_RE = re.compile(r"(\d{8}_\d{6})")
+
+
+def _filename_sort_key(p: Path) -> Tuple[str, str]:
+    m = _FILENAME_TS_RE.search(p.name)
+    return (m.group(1) if m else "", p.name)
+
 
 def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most-recently modified Parquet file in *directory*."""
-    parquets = sorted(directory.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
+    """Return the newest Parquet file in *directory* by filename-embedded
+    timestamp (falls back to filename sort when no timestamp is present)."""
+    parquets = sorted(directory.glob("*.parquet"), key=_filename_sort_key)
     return parquets[-1] if parquets else None
 
 

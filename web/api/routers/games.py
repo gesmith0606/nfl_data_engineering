@@ -136,7 +136,7 @@ def list_games(
 ) -> GameListResponse:
     """List game results for a season (optionally filtered by week)."""
     try:
-        games = game_service.list_games(season, week)
+        games, source = game_service.list_games(season, week)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
 
@@ -145,4 +145,5 @@ def list_games(
         week=week,
         games=[GameResult(**g) for g in games],
         count=len(games),
+        source=source,
     )

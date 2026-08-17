@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from fastapi.testclient import TestClient
 
 from web.api.main import app
+from web.api.services import game_service
 
 client = TestClient(app)
 
@@ -397,6 +398,9 @@ class TestGameAPIEndpoints:
         assert data["week"] == 1
         assert data["count"] == 1
         assert data["games"][0]["game_id"] == "2024_01_BAL_KC"
+        # DATABASE_URL is unset in the test env, so the DB branch is never
+        # attempted -- source must be "parquet" (local behavior unchanged).
+        assert data["source"] == "parquet"
 
     @patch("web.api.services.game_service.get_game_results")
     def test_list_games_not_found(self, mock_fn):
@@ -529,3 +533,133 @@ class TestGameAPIEndpoints:
         assert len(data["seasons"]) == 2
         assert data["seasons"][0]["season"] == 2024
         assert data["seasons"][0]["has_player_stats"] is True
+
+
+# ---------------------------------------------------------------------------
+# DB-first / Parquet-fallback tests (games has no Postgres table today --
+# scripts/sync_gold_to_db.py only syncs projections/predictions -- but
+# game_service.list_games follows the same DB-first-with-Parquet-fallback
+# convention as projection_service.py/prediction_service.py so it's ready
+# the moment one ships, and so a reachable-but-empty `games` table degrades
+# to Parquet instead of a false "not found".)
+# ---------------------------------------------------------------------------
+
+
+def _mock_week1_2025_results() -> pd.DataFrame:
+    """16-game mock schedule result set, matching the real week-1 2025 slate size."""
+    teams = [
+        ("ARI", "NO"), ("BAL", "BUF"), ("CAR", "JAX"), ("CIN", "CLE"),
+        ("DAL", "PHI"), ("DET", "GB"), ("HOU", "LA"), ("KC", "LAC"),
+        ("LV", "NE"), ("MIA", "IND"), ("MIN", "CHI"), ("NYG", "WAS"),
+        ("PIT", "NYJ"), ("SF", "SEA"), ("TB", "ATL"), ("TEN", "DEN"),
+    ]
+    rows = []
+    for away, home in teams:
+        rows.append(
+            {
+                "game_id": f"2025_01_{away}_{home}",
+                "season": 2025,
+                "week": 1,
+                "home_team": home,
+                "away_team": away,
+                "home_score": 20,
+                "away_score": 17,
+                "winner": home,
+                "point_spread_result": 3,
+                "total_points": 37,
+                "game_date": "2025-09-07",
+                "game_time": "13:00",
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+class TestGameServiceDbFallback:
+    """Unit tests for game_service.list_games's DB-first/Parquet-fallback."""
+
+    @patch("web.api.services.game_service.get_game_results")
+    @patch("web.api.services.game_service._get_game_results_db")
+    @patch("web.api.services.game_service.is_db_enabled")
+    def test_db_disabled_uses_parquet_unchanged(
+        self, mock_enabled, mock_db, mock_parquet
+    ):
+        """DB-disabled: parquet path unchanged, DB is never even queried."""
+        mock_enabled.return_value = False
+        mock_parquet.return_value = _mock_week1_2025_results()
+
+        records, source = game_service.list_games(2025, 1)
+
+        mock_db.assert_not_called()
+        assert source == "parquet"
+        assert len(records) == 16
+
+    @patch("web.api.services.game_service.get_game_results")
+    @patch("web.api.services.game_service._get_game_results_db")
+    @patch("web.api.services.game_service.is_db_enabled")
+    def test_db_empty_falls_back_to_parquet(
+        self, mock_enabled, mock_db, mock_parquet
+    ):
+        """DB-empty (reachable, zero rows for this season/week): parquet
+        fallback serves the full 16-game slate rather than a false miss."""
+        mock_enabled.return_value = True
+        mock_db.return_value = pd.DataFrame()
+        mock_parquet.return_value = _mock_week1_2025_results()
+
+        records, source = game_service.list_games(2025, 1)
+
+        mock_db.assert_called_once()
+        mock_parquet.assert_called_once()
+        assert source == "parquet_fallback"
+        assert len(records) == 16
+
+    @patch("web.api.services.game_service.get_game_results")
+    @patch("web.api.services.game_service._get_game_results_db")
+    @patch("web.api.services.game_service.is_db_enabled")
+    def test_db_error_falls_back_to_parquet(
+        self, mock_enabled, mock_db, mock_parquet
+    ):
+        """DB reachable-but-erroring (bad creds, dropped connection) also
+        falls back to Parquet rather than surfacing a 500/404."""
+        mock_enabled.return_value = True
+        mock_db.side_effect = RuntimeError("connection refused")
+        mock_parquet.return_value = _mock_week1_2025_results()
+
+        records, source = game_service.list_games(2025, 1)
+
+        assert source == "parquet_fallback"
+        assert len(records) == 16
+
+    @patch("web.api.services.game_service.get_game_results")
+    @patch("web.api.services.game_service._get_game_results_db")
+    @patch("web.api.services.game_service.is_db_enabled")
+    def test_db_success_skips_parquet(self, mock_enabled, mock_db, mock_parquet):
+        """DB reachable with rows: served from Postgres, Parquet untouched."""
+        mock_enabled.return_value = True
+        mock_db.return_value = _mock_week1_2025_results()
+
+        records, source = game_service.list_games(2025, 1)
+
+        mock_parquet.assert_not_called()
+        assert source == "postgres"
+        assert len(records) == 16
+
+
+class TestGameApiDbFallbackIntegration:
+    """Router-level: DB-empty response still serves the full games list."""
+
+    @patch("web.api.services.game_service.get_game_results")
+    @patch("web.api.services.game_service._get_game_results_db")
+    @patch("web.api.services.game_service.is_db_enabled")
+    def test_results_endpoint_falls_back_to_parquet_when_db_empty(
+        self, mock_enabled, mock_db, mock_parquet
+    ):
+        mock_enabled.return_value = True
+        mock_db.return_value = pd.DataFrame()
+        mock_parquet.return_value = _mock_week1_2025_results()
+
+        resp = client.get("/api/games?season=2025&week=1")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["count"] == 16
+        assert data["source"] == "parquet_fallback"
+        assert any(g["game_id"] == "2025_01_ARI_NO" for g in data["games"])

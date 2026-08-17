@@ -522,6 +522,16 @@ class GameListResponse(BaseModel):
     week: Optional[int] = None
     games: List[GameResult]
     count: int
+    source: Literal["postgres", "parquet", "parquet_fallback"] = Field(
+        default="parquet",
+        description=(
+            "'postgres' when a games DB table served the response, 'parquet' "
+            "when the DB backend was never attempted (DATABASE_URL unset), "
+            "'parquet_fallback' when the DB was enabled but errored or "
+            "returned zero rows for the requested season/week and Parquet "
+            "served the request instead."
+        ),
+    )
 
 
 class GameDetailResponse(BaseModel):
