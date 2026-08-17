@@ -41,6 +41,7 @@ from early_season_prior import apply_early_season_prior, compute_prior_season_pp
 from qb_starter_floor import apply_qb_starter_floor
 from rb_tail_calibration import apply_rb_tail_calibration
 from wr_tiebreak import apply_wr_tiebreak
+from wind_adjust import apply_wind_adjust
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -517,6 +518,8 @@ def run_backtest(
     rb_tail_low_weight: float = 0.4,
     rb_tail_high_shrink: float = 0.15,
     wr_tiebreak: bool = False,
+    wind_adjust: bool = False,
+    wind_adjust_shrink: float = 0.0539,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -558,6 +561,13 @@ def run_backtest(
             ``src/wr_tiebreak.py`` and
             ``.planning/WR_ORDERING_DIAGNOSIS.md`` finding #2). Mirrors
             ``generate_projections.py --wr-tiebreak``.
+        wind_adjust: Apply the high-wind QB/WR/TE bias-shrink lever (see
+            ``src/wind_adjust.py`` and ``.planning/WIND_LEVER_2026_08_16.md``
+            — pre-registered gate verdict: HOLD, fit direction doesn't
+            replicate on sealed 2025). Mirrors
+            ``generate_projections.py --wind-adjust``.
+        wind_adjust_shrink: Multiplicative shrink for high-wind QB/WR/TE
+            rows (default :data:`wind_adjust.HIGH_WIND_SHRINK`).
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -917,6 +927,22 @@ def run_backtest(
                     week=week,
                 )
 
+            # Apply the high-wind QB/WR/TE bias shrink. Mirrors
+            # generate_projections.py ordering — after the WR tiebreak,
+            # before ranking-score nudges. Backtest seasons are always in
+            # committed Bronze weather (2016-2025), so this never exercises
+            # the forecast fallback — schedules_df is passed only so the
+            # signature matches production and a future season addition
+            # degrades gracefully (fail-open) instead of crashing.
+            if wind_adjust:
+                projections = apply_wind_adjust(
+                    projections,
+                    season=season,
+                    week=week,
+                    schedules_df=schedules_df,
+                    shrink=wind_adjust_shrink,
+                )
+
             # Apply ranking score nudges (additive, capped at ±1.5 pts).
             # ranking_score is used for position ordering only; projected_points
             # is unchanged so the backtest MAE numbers remain correct.
@@ -1208,6 +1234,23 @@ def main():
             "from .planning/WR_ORDERING_DIAGNOSIS.md finding #2."
         ),
     )
+    parser.add_argument(
+        "--wind-adjust",
+        action="store_true",
+        help=(
+            "Apply the high-wind QB/WR/TE bias-shrink lever (mirrors "
+            "generate_projections.py --wind-adjust). Evaluates the "
+            ".planning/WEATHER_DATA_2026_08_16.md narrow lever — "
+            "pre-registered gate verdict: HOLD (see "
+            ".planning/WIND_LEVER_2026_08_16.md)."
+        ),
+    )
+    parser.add_argument(
+        "--wind-adjust-shrink",
+        type=float,
+        default=0.0539,
+        help="Multiplicative shrink for high-wind QB/WR/TE rows (default 0.0539).",
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -1237,9 +1280,14 @@ def main():
         else ""
     )
     wr_tiebreak_label = " | WR Tiebreak: ON" if args.wr_tiebreak else ""
+    wind_adjust_label = (
+        f" | Wind Adjust: ON (shrink={args.wind_adjust_shrink})"
+        if args.wind_adjust
+        else ""
+    )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{wind_adjust_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1272,6 +1320,8 @@ def main():
         rb_tail_low_weight=args.rb_tail_low_weight,
         rb_tail_high_shrink=args.rb_tail_high_shrink,
         wr_tiebreak=args.wr_tiebreak,
+        wind_adjust=args.wind_adjust,
+        wind_adjust_shrink=args.wind_adjust_shrink,
     )
 
     if results.empty:
@@ -1291,9 +1341,10 @@ def main():
     qb_floor_tag = "_qbstarterfloor" if args.qb_starter_floor else ""
     rb_tail_tag = "_rbtailcalibration" if args.rb_tail_calibration else ""
     wr_tiebreak_tag = "_wrtiebreak" if args.wr_tiebreak else ""
+    wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{wind_adjust_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")

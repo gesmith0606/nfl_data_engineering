@@ -200,9 +200,27 @@ def attach_floor_ceiling_with_features(
         ):
             qdata = load_quantile_models()
             if qdata is not None:
-                for col in qdata["feature_cols"]:
-                    if col not in feat_df.columns:
-                        feat_df[col] = float("nan")
+                # Backfill the UNION of feature sets: the top-level list is
+                # the legacy/shared vintage, but since the 2026-08-16
+                # consolidation QB/RB/TE carry per-position feature_cols
+                # (graph vintage) that may include columns the top-level
+                # list lacks. Any model's missing columns become NaN so its
+                # imputer medians them instead of transform() raising.
+                needed = set(qdata.get("feature_cols", []))
+                for pos_meta in (qdata.get("per_position") or {}).values():
+                    if isinstance(pos_meta, dict):
+                        needed.update(pos_meta.get("feature_cols", []))
+                missing = [c for c in needed if c not in feat_df.columns]
+                if missing:
+                    feat_df = pd.concat(
+                        [
+                            feat_df,
+                            pd.DataFrame(
+                                float("nan"), index=feat_df.index, columns=missing
+                            ),
+                        ],
+                        axis=1,
+                    )
             feat_lookup = feat_df.drop_duplicates("player_id").set_index("player_id")
             new_cols = [c for c in feat_lookup.columns if c not in projections.columns]
             floor_ceiling_input = projections.join(feat_lookup[new_cols], on="player_id")
@@ -426,6 +444,28 @@ def main():
             "provisional until the pre-registered backtest gate passes "
             "(.planning/WR_TIEBREAK_GATE.md)."
         ),
+    )
+    parser.add_argument(
+        "--wind-adjust",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: multiplicative shrink to QB/WR/TE projections "
+            "in games with wind_speed_mph >= 15 (src/weather_features.py, "
+            "committed Bronze weather or an Open-Meteo forecast fallback for "
+            "current-season weeks not yet archived; fail-open — no forecast "
+            "data means no adjustment). Narrow lever from "
+            ".planning/WEATHER_DATA_2026_08_16.md — OPT-IN and NOT "
+            "recommended: the pre-registered gate is a HOLD (fit direction "
+            "found on 2022-2023 doesn't replicate on sealed 2025; see "
+            ".planning/WIND_LEVER_2026_08_16.md)."
+        ),
+    )
+    parser.add_argument(
+        "--wind-adjust-shrink",
+        type=float,
+        default=0.0539,
+        help="Multiplicative shrink for high-wind QB/WR/TE rows (default 0.0539, fit on 2022-2023).",
     )
     parser.add_argument(
         "--use-events",
@@ -1312,6 +1352,34 @@ def main():
             tiebreak_flagged = int(projections["wr_tiebreak_flag"].sum())
             print(
                 f"WR tiebreak: {tiebreak_flagged} WR row(s) nudged; "
+                f"total projected points {before_total:.1f} -> {after_total:.1f}"
+            )
+
+        # --- High-wind QB/WR/TE bias shrink (opt-in via --wind-adjust) ---
+        # Narrow lever from .planning/WEATHER_DATA_2026_08_16.md: pass-catcher
+        # bias flips from -0.503 (low wind) to +0.409 (>=15mph wind) net of
+        # Vegas. Fit on 2022-2023 only; pre-registered gate verdict is HOLD
+        # (doesn't replicate on sealed 2025 — see .planning/WIND_LEVER_2026_08_16.md).
+        # Prefers committed Bronze weather, falls back to an Open-Meteo
+        # forecast fetch for current-season weeks (fail-open). Applied after
+        # the WR tiebreak (mirrors ordering — weather is a different signal
+        # class than the role/usage corrections above, applied last among
+        # the opt-in heuristic levers).
+        if args.wind_adjust and not projections.empty:
+            from wind_adjust import apply_wind_adjust  # noqa: E402
+
+            before_total = float(projections["projected_points"].sum())
+            projections = apply_wind_adjust(
+                projections,
+                season=args.season,
+                week=args.week,
+                schedules_df=schedules_df if not schedules_df.empty else None,
+                shrink=args.wind_adjust_shrink,
+            )
+            after_total = float(projections["projected_points"].sum())
+            flagged = int(projections["wind_adjust_flag"].sum())
+            print(
+                f"Wind adjust: {flagged} QB/WR/TE row(s) shrunk (high wind); "
                 f"total projected points {before_total:.1f} -> {after_total:.1f}"
             )
 

@@ -288,5 +288,39 @@
       "shipped_blend_mae": 4.0263,
       "more_years_alone_mae": 4.1548
     }
+  },
+  {
+    "timestamp": "2026-08-16T20:09:52",
+    "experiment": "WIND_LEVER_2026_08_16 -- high-wind QB/WR/TE bias-shrink lever, shrink fit on 2022-2023 only (mean_error/mean_projected in QB/WR/TE high-wind bucket), read once against held-out 2024 + sealed-2025 (new backtest generated this task, backtest_half_ppr_ml_fullfeatures_20260816_200952.csv, same --ml --full-features recipe as BASELINE_combined.csv)",
+    "seasons": [
+      2025
+    ],
+    "results": {
+      "fit_2022_23": {
+        "n": 342,
+        "mean_bias_before": 0.4228,
+        "shrink": 0.0539
+      },
+      "2024_holdout": {
+        "n": 108,
+        "bias_before": 0.3644,
+        "bias_after": -0.0691,
+        "reduction_pct": 81.0
+      },
+      "sealed_2025_holdout": {
+        "n": 188,
+        "bias_before": -0.6166,
+        "bias_after": -0.9348,
+        "reduction_pct": -51.6
+      },
+      "combined_2024_2025": {
+        "n": 296,
+        "bias_before": -0.2586,
+        "bias_after": -0.619,
+        "reduction_pct": -139.3
+      },
+      "gate": ">=50pct combined |bias| reduction required, n>=150",
+      "verdict": "HOLD -- fit-window bias direction inverts on sealed 2025, combined gate fails (bias got worse, not better)"
+    }
   }
 ]
