@@ -1,0 +1,117 @@
+{
+  "fetch_run_id": "cdac07b8-3fd2-4fab-bebb-d52e4d5f2c97",
+  "source": "rotowire",
+  "fetched_at": "2026-08-17T12:12:34.632307+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl633900",
+      "url": "https://www.rotowire.com//football/player/tyler-allgeier-15976",
+      "permalink": "",
+      "title": "Tyler Allgeier: Love's injury opens up opportunity",
+      "body_text": "Allgeier could open the regular season as the Cardinals' primary running back, as Adam Schefter of ESPN reports that Jeremiyah Love sustained a high-ankle sprain in Thursday's preseason win over the Raiders. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-16T07:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Allgeier",
+        "Adam Schefter",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0037263",
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl633898",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: Won't return during training camp",
+      "body_text": "Head coach Shane Steichen said Sunday that he doesn't expect Pierce (ankle) to return during joint practices leading up to the Colts' second preseason game against the Falcons on Saturday, so Pierce will have missed all of training camp, James Boyd of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-16T07:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "Shane Steichen",
+        "James Boyd",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0037664",
+        "00-0020328"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl633893",
+      "url": "https://www.rotowire.com//football/player/von-miller-7421",
+      "permalink": "",
+      "title": "Von Miller: Agrees to terms with Cowboys",
+      "body_text": "Miller and the Cowboys agreed to terms on a contract Sunday, Tommy Yarish of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-16T06:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller",
+        "Cowboys Miller",
+        "Tommy Yarish"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl633892",
+      "url": "https://www.rotowire.com//football/player/von-miller-7421",
+      "permalink": "",
+      "title": "Von Miller: Expected to sign with Dallas",
+      "body_text": "Miller is expected to sign with the Cowboys, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-16T06:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller",
+        "Dallas Miller",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl633883",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "permalink": "",
+      "title": "Jeremiyah Love: Dealing with high-ankle sprain",
+      "body_text": "Love reportedly sustained a high-ankle sprain in Thursday's preseason win over the Raiders, and he is unlikely to play again during the preseason, Adam Schefter of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-16T05:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}

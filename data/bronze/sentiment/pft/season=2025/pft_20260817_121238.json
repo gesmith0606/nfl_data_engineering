@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "b7a2a28f-07e5-4d28-8587-a7e93453687e",
+  "source": "pft",
+  "fetched_at": "2026-08-17T12:12:38.880073+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-jaxson-darts-trips-to-medical-tent-im-sure-his-history-comes-into-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-jaxson-darts-trips-to-medical-tent-im-sure-his-history-comes-into-play",
+      "permalink": "",
+      "title": "John Harbaugh on Jaxson Dart's trips to medical tent: I'm sure his history comes into play",
+      "body_text": "Giants quarterback Jaxson Dart said he was \"puzzled\" by having to go into the sideline medical tent after taking a big hit during Saturday's preseason game against the Vikings because he feels like it happens to him more frequently than other quarterbacks.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-17T11:38:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-st-coordinator-brian-mason-to-coach-preseason-games-from-booth-due-to-torn-knee-ligaments",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-st-coordinator-brian-mason-to-coach-preseason-games-from-booth-due-to-torn-knee-ligaments",
+      "permalink": "",
+      "title": "Colts ST coordinator Brian Mason to coach preseason games from booth due to torn knee ligaments",
+      "body_text": "Colts special teams coordinator Brian Mason will be working from a new spot for the rest of the preseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-17T11:26:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Mason"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sixth-round-rookie-receiver-malik-benson-earning-first-team-reps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sixth-round-rookie-receiver-malik-benson-earning-first-team-reps",
+      "permalink": "",
+      "title": "Raiders sixth-round rookie receiver Malik Benson earning first-team reps",
+      "body_text": "No one has ever doubted the talent of Raiders rookie wide receiver Malik Benson, but in college his production didn't match his talent.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-17T09:18:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0040894"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-calls-signing-with-the-cowboys-a-dream-within-a-dream",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-calls-signing-with-the-cowboys-a-dream-within-a-dream",
+      "permalink": "",
+      "title": "Von Miller calls signing with the Cowboys \"a dream within a dream\"",
+      "body_text": "Miller, who had nine sacks for the Commanders last season, said he's expecting that kind of production in Dallas this year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-17T07:31:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-im-not-giving-my-challenge-flag-up-to-anybody",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-im-not-giving-my-challenge-flag-up-to-anybody",
+      "permalink": "",
+      "title": "Dan Campbell: I'm not giving my challenge flag up to anybody",
+      "body_text": "\"The buck stops with me anyway. I'm answering the questions, so why would I give it to somebody else, for me to answer for somebody else?\" Campbell said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-17T07:10:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-is-subpoenaed-for-shilos-upcoming-bankruptcy-trial",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-is-subpoenaed-for-shilos-upcoming-bankruptcy-trial",
+      "permalink": "",
+      "title": "Deion Sanders is subpoenaed for Shilo's upcoming bankruptcy trial",
+      "body_text": "Deion Sanders's preparation for Colorado's 2026 opener could be complicated by an unrelated obligation.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T03:40:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rodney-harrisons-son-christian-could-be-heartbeat-of-arkansas-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rodney-harrisons-son-christian-could-be-heartbeat-of-arkansas-defense",
+      "permalink": "",
+      "title": "Rodney Harrison's son, Christian, could be \"heartbeat\" of Arkansas defense",
+      "body_text": "As college football season approaches, safety Christian Harrison is preparing for his first season at Arkansas.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T03:07:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rodney Harrison",
+        "Christian Harrison"
+      ],
+      "resolved_player_ids": [
+        "00-0007030"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-very-confident-he-wont-start-season-on-reserve-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-very-confident-he-wont-start-season-on-reserve-pup",
+      "permalink": "",
+      "title": "George Kittle \"very confident\" he won't start season on reserve/PUP",
+      "body_text": "49ers tight end George Kittle is on the active/physically unable to perform list.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-16T20:18:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-remains-day-to-day-with-rib-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-remains-day-to-day-with-rib-injury",
+      "permalink": "",
+      "title": "Carson Beck remains day-to-day with rib injury",
+      "body_text": "Cardinals rookie quarterback Carson Beck is not yet ready to practice.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-17T01:16:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-agrees-to-deal-with-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-agrees-to-deal-with-cowboys",
+      "permalink": "",
+      "title": "Von Miller agrees to deal with Cowboys",
+      "body_text": "Miller finally gets to play at home, having grown up in DeSoto, Texas, 24 miles from AT&T Stadium.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T01:14:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller",
+        "Cowboys Miller"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-assistant-g-m-ed-dodds-suggests-team-will-keep-anthony-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-assistant-g-m-ed-dodds-suggests-team-will-keep-anthony-richardson",
+      "permalink": "",
+      "title": "Colts assistant G.M. Ed Dodds suggests team will keep Anthony Richardson",
+      "body_text": "The Colts haven't found a trade partner for fourth-year quarterback Anthony Richardson Sr.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T01:02:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ed Dodds",
+        "Anthony Richardson",
+        "The Colts",
+        "Anthony Richardson Sr"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-cowboys-og-john-niland-dies-at-82",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-cowboys-og-john-niland-dies-at-82",
+      "permalink": "",
+      "title": "Former Cowboys OG John Niland dies at 82",
+      "body_text": "Former Cowboys offensive guard John Niland died Saturday morning in McKinney, Texas, his family announced Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T01:01:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Cowboys",
+        "John Niland"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-has-a-high-ankle-sprain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-has-a-high-ankle-sprain",
+      "permalink": "",
+      "title": "Jeremiyah Love has a high ankle sprain",
+      "body_text": "Cardinals hope he'll be ready for Week 1 at Chargers.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T00:23:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-new-grass-field-draws-mixed-reviews",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-new-grass-field-draws-mixed-reviews",
+      "permalink": "",
+      "title": "Bills' new grass field draws mixed reviews",
+      "body_text": "The Bills have dumped artificial turf for grass in their new stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T00:12:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-pro-bowl-season-packers-cb-keisean-nixon-is-fighting-for-starting-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-pro-bowl-season-packers-cb-keisean-nixon-is-fighting-for-starting-job",
+      "permalink": "",
+      "title": "After Pro Bowl season, Packers CB Keisean Nixon is fighting for starting job",
+      "body_text": "Keisean Nixon had previously been a Pro Bowler as a return specialist.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T23:35:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "After Pro",
+        "Keisean Nixon",
+        "Pro Bowler"
+      ],
+      "resolved_player_ids": [
+        "00-0035133"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-is-out-for-the-year-with-a-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamal-adams-is-out-for-the-year-with-a-knee-injury",
+      "permalink": "",
+      "title": "Jamal Adams is out for the year with a knee injury",
+      "body_text": "As expected, veteran defender Jamal Adams's 2026 season is over, after only one preseason game.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T23:23:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jamal Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-kyle-monangai-to-have-mri-on-knee-bears-believe-he-avoided-serious-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-kyle-monangai-to-have-mri-on-knee-bears-believe-he-avoided-serious-injury",
+      "permalink": "",
+      "title": "Report: Kyle Monangai to have MRI on knee, Bears believe he avoided serious injury",
+      "body_text": "Running back Kyle Monangai made an early exit from Bears practice on Sunday after hurting his knee, but the team's current belief is that he avoided a major injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T22:36:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-noah-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-noah-brown",
+      "permalink": "",
+      "title": "Raiders sign WR Noah Brown",
+      "body_text": "Veteran wide receiver Noah Brown has found a new team.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T21:49:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Noah Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0033591"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jonathan-ward-signs-with-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jonathan-ward-signs-with-ravens",
+      "permalink": "",
+      "title": "RB Jonathan Ward signs with Ravens",
+      "body_text": "The Ravens signed running back Jonathan Ward on Sunday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-16T21:42:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Ward",
+        "Ravens The"
+      ],
+      "resolved_player_ids": [
+        "00-0035924"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-davenport-visits-the-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-davenport-visits-the-bears",
+      "permalink": "",
+      "title": "Marcus Davenport visits the Bears",
+      "body_text": "Free agent defensive end Marcus Davenport has spent the last three seasons with NFC North teams and he met with another club in the division as he looks for a spot to play in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T21:41:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcus Davenport",
+        "Bears Free"
+      ],
+      "resolved_player_ids": [
+        "00-0034344"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-shedeur-sanders-has-improved-so-much",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-shedeur-sanders-has-improved-so-much",
+      "permalink": "",
+      "title": "Todd Monken: Shedeur Sanders has \"improved so much\"",
+      "body_text": "After Deshaun Watson started against the Bears on Saturday, Browns head coach Todd Monken detailed how he'll divide the QB reps between Watson and second-year signal-caller Shedeur Sanders on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-16T21:37:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Shedeur Sanders",
+        "After Deshaun"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-worked-out-at-rams-facility-for-a-second-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-worked-out-at-rams-facility-for-a-second-time",
+      "permalink": "",
+      "title": "Aaron Donald worked out at Rams facility for a second time",
+      "body_text": "Aaron Donald initially worked out at the Rams team facility on Aug. 5 to evaluate how he felt.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-16T21:18:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-lt-ozzy-trapilo-from-active-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-lt-ozzy-trapilo-from-active-pup",
+      "permalink": "",
+      "title": "Bears activate LT Ozzy Trapilo from active/PUP",
+      "body_text": "The Bears activated offensive tackle Ozzy Trapilo from active/physically unable to perform, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-16T20:31:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ozzy Trapilo",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0040740"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-isnt-surprised-terrion-arnold-found-a-landing-spot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-isnt-surprised-terrion-arnold-found-a-landing-spot",
+      "permalink": "",
+      "title": "Dan Campbell isn't surprised Terrion Arnold found a landing spot",
+      "body_text": "Campbell's praise of Arnold doesn't mesh with the Lions' decision to release him.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T20:38:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0039903"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-is-still-not-practicing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-is-still-not-practicing",
+      "permalink": "",
+      "title": "Christian McCaffrey is still not practicing",
+      "body_text": "McCaffrey has now missed a full week.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T20:15:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-believes-that-in-2026-he-can-george-pickens-can-be-the-best-ever",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-believes-that-in-2026-he-can-george-pickens-can-be-the-best-ever",
+      "permalink": "",
+      "title": "CeeDee Lamb believes that, in 2026, he and George Pickens can be \"the best ever\"",
+      "body_text": "Cowboys quarterback Dak Prescott has dubbed the Dallas unit the \"Greatest Offense There Is.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-16T16:40:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Dak Prescott",
+        "Greatest Offense"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-te-matt-lauter-rb-dominic-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-te-matt-lauter-rb-dominic-richardson",
+      "permalink": "",
+      "title": "Titans sign TE Matt Lauter, RB Dominic Richardson",
+      "body_text": "The Titans lost a pair of players to season-ending injuries in their preseason opener and they replaced them on the active roster on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T18:49:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Lauter",
+        "Dominic Richardson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-qb-quinn-ewers-to-miss-time-with-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-qb-quinn-ewers-to-miss-time-with-groin-injury",
+      "permalink": "",
+      "title": "Dolphins QB Quinn Ewers to miss time with groin injury",
+      "body_text": "The Dolphins brought quarterback Mark Gronowski back to the roster on Sunday and an injury to another player at the position likely contributed to the decision.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T18:41:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinn Ewers",
+        "The Dolphins",
+        "Mark Gronowski"
+      ],
+      "resolved_player_ids": [
+        "00-0040234"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-does-11-on-11-work-at-packers-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-does-11-on-11-work-at-packers-practice",
+      "permalink": "",
+      "title": "Tucker Kraft does 11-on-11 work at Packers practice",
+      "body_text": "Packers tight end Tucker Kraft took a big step back toward the lineup on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T18:06:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-add-te-louis-hansen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-add-te-louis-hansen",
+      "permalink": "",
+      "title": "Texans add TE Louis Hansen",
+      "body_text": "The Texans announced the addition of a tight end to the roster on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-16T17:57:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Louis Hansen",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    }
+  ]
+}
