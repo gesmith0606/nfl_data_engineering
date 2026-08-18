@@ -1,0 +1,500 @@
+{
+  "fetch_run_id": "4d034ee5-46f4-4ac9-95d8-a92a03562c92",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-18T12:13:13.715705+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-justin-herbert-everything-i-hoped-for-and-more",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-justin-herbert-everything-i-hoped-for-and-more",
+      "title": "Mike McDaniel: Justin Herbert everything I hoped for and more",
+      "body_text": "Mike McDaniel was hired as the Chargers' offensive coordinator for the 2026 season with a simple goal in mind.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-18T12:04:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-qb-cole-payton-gave-the-eagles-offense-some-life-in-listless-preseason-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-qb-cole-payton-gave-the-eagles-offense-some-life-in-listless-preseason-opener",
+      "title": "Rookie QB Cole Payton gave the Eagles' offense some life in listless preseason opener",
+      "body_text": "The Eagles' offense didn't play its starters in the preseason opener, and the backups couldn't move the ball much — until fourth-string rookie quarterback Cole Payton entered the game in the fourth quarter.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-18T11:10:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cole Payton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0040891"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-i-have-no-doubt-there-will-be-nfl-teams-outside-the-united-states",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-i-have-no-doubt-there-will-be-nfl-teams-outside-the-united-states",
+      "title": "Roger Goodell: I have no doubt there will be NFL teams outside the United States",
+      "body_text": "Goodell spoke with a German broadcaster about the league's ongoing efforts to expand abroad.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-18T09:44:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "United States"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-verse-on-practice-fight-with-spencer-fano-fighting-is-necessary-in-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-verse-on-practice-fight-with-spencer-fano-fighting-is-necessary-in-football",
+      "title": "Jared Verse on practice fight with Spencer Fano: Fighting is necessary in football",
+      "body_text": "Verse said he gained respect for Fano because the rookie didn't back down against him.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-18T07:50:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jared Verse",
+        "Spencer Fano"
+      ],
+      "resolved_player_ids": [
+        "00-0039852",
+        "00-0041030"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-keenan-allen-agrees-to-terms-with-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-keenan-allen-agrees-to-terms-with-colts",
+      "title": "Report: Keenan Allen agrees to terms with Colts",
+      "body_text": "Another veteran receiver who had been available for months in free agency has found a new home.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T03:12:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keenan Allen",
+        "Colts Another"
+      ],
+      "resolved_player_ids": [
+        "00-0030279"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-out-of-practice-with-a-minor-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-out-of-practice-with-a-minor-shoulder-injury",
+      "title": "Jameson Williams out of practice with a minor shoulder injury",
+      "body_text": "Lions wide receiver Jameson Williams did not practice on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T01:47:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jameson Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037240"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/smoking-gun-document-produced-by-korn-ferry-could-shake-up-brian-flores-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/smoking-gun-document-produced-by-korn-ferry-could-shake-up-brian-flores-case",
+      "title": "Smoking-gun document produced by Korn Ferry could shake up Brian Flores case",
+      "body_text": "Flores seeks to amend complaint based on \"insane\" document from search firm.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T01:36:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Korn Ferry",
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-still-open-to-substantive-move-despite-adding-von-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-still-open-to-substantive-move-despite-adding-von-miller",
+      "title": "Jerry Jones still open to substantive move despite adding Von Miller",
+      "body_text": "The Cowboys agreed to terms with veteran outside linebacker Von Miller on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T01:26:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Von Miller",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-og-patrick-mekari-recently-underwent-back-procedure",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-og-patrick-mekari-recently-underwent-back-procedure",
+      "title": "Jaguars OG Patrick Mekari recently underwent back procedure",
+      "body_text": "Jaguars right guard Patrick Mekari recently underwent surgery on his back and will miss some time, NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T00:35:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mekari"
+      ],
+      "resolved_player_ids": [
+        "00-0035112"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-first-anniversary-of-release-big-shield-ebook-is-free-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-first-anniversary-of-release-big-shield-ebook-is-free-on-tuesday",
+      "title": "For first anniversary of release, Big Shield ebook is free on Tuesday",
+      "body_text": "A year ago, Big Shield arrived as a cautionary tale regarding pro sports and legalized betting.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T00:30:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Shield"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cbs-wont-replace-insider-jonathan-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cbs-wont-replace-insider-jonathan-jones",
+      "title": "Report: CBS won't replace insider Jonathan Jones",
+      "body_text": "CBS has gotten out of the NFL Insider business.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T00:16:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0032580"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-aaron-donalds-second-tryout-is-part-of-his-process",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-aaron-donalds-second-tryout-is-part-of-his-process",
+      "title": "Sean McVay: Aaron Donald's second \"tryout\" is part of his process",
+      "body_text": "Aaron Donald had a second workout at the Rams' team facility as he continues to decide whether to unretire.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T00:04:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-no-update-on-formal-arrival-of-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-no-update-on-formal-arrival-of-terrion-arnold",
+      "title": "Mike Macdonald: \"No update\" on formal arrival of Terrion Arnold",
+      "body_text": "On Thursday, reports emerged that the Seahawks had an agreement with free-agent cornerback Terrion Arnold.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T23:55:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Terrion Arnold",
+        "On Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-despite-injury-jamal-adams-will-be-important-to-vikings-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-despite-injury-jamal-adams-will-be-important-to-vikings-in-2026",
+      "title": "Kevin O'Connell: Despite injury, Jamal Adams will be \"important\" to Vikings in 2026",
+      "body_text": "The Vikings lost safety/linebacker Jamal Adams to a torn quad tendon during Saturday's preseason opener at the Giants.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T23:39:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamal Adams",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0033872"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-agree-to-terms-with-lb-krys-barnes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-agree-to-terms-with-lb-krys-barnes",
+      "title": "Commanders agree to terms with LB Krys Barnes",
+      "body_text": "The Commanders have agreed to terms with linebacker Krys Barnes, Matt Zenitz of CBS Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T23:26:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Krys Barnes",
+        "The Commanders",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [
+        "00-0035961"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-agree-to-terms-with-og-greg-van-roten",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-agree-to-terms-with-og-greg-van-roten",
+      "title": "Patriots agree to terms with OG Greg Van Roten",
+      "body_text": "Veteran offensive guard Greg Van Roten will sign a one-year deal with the Patriots, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T22:58:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Van",
+        "Roten Veteran",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-first-round-pick-jordyn-tyson-to-miss-two-months-with-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-first-round-pick-jordyn-tyson-to-miss-two-months-with-hamstring-injury",
+      "title": "Report: Saints first-round pick Jordyn Tyson to miss two months with hamstring injury",
+      "body_text": "Tyson could open the season on the injured reserve list.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-17T22:31:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordyn Tyson"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-rb-kyle-monangai-will-miss-weeks-with-a-hyperextended-knee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-bears-rb-kyle-monangai-will-miss-weeks-with-a-hyperextended-knee",
+      "title": "Report: Bears RB Kyle Monangai will miss weeks with a hyperextended knee",
+      "body_text": "The MRI of Bears running back Kyle Monangai's injured knee diagnosed a hyperextension, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T22:32:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Monangai",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-follow-up-confirms-breece-halls-groin-injury-is-minor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-follow-up-confirms-breece-halls-groin-injury-is-minor",
+      "title": "Report: Follow-up confirms Breece Hall's groin injury is minor",
+      "body_text": "Jets running back Breece Hall received good news Monday: A follow-up confirmed his groin injury is minor, Connor Hughes of SNY TV reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T22:09:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Breece Hall",
+        "Connor Hughes"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-ravens-player-executive-o-j-brigance-dies-at-56-after-long-als-battle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-ravens-player-executive-o-j-brigance-dies-at-56-after-long-als-battle",
+      "title": "Former Ravens player/executive O.J. Brigance dies at 56 after long ALS battle",
+      "body_text": "Former Ravens player and executive O.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T21:56:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zadarius-smith-works-out-for-falcons-after-he-was-expected-to-sign-with-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zadarius-smith-works-out-for-falcons-after-he-was-expected-to-sign-with-browns",
+      "title": "Za'Darius Smith works out for Falcons after he was expected to sign with Browns",
+      "body_text": "The Falcons worked out veteran pass rusher Za'Darius Smith on Monday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T21:43:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Smith",
+        "Browns The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-dl-victor-dimukeje-ol-nick-zakelj",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-dl-victor-dimukeje-ol-nick-zakelj",
+      "title": "49ers sign DL Victor Dimukeje, OL Nick Zakelj",
+      "body_text": "The 49ers signed defensive lineman Victor Dimukeje and offensive lineman Nick Zakelj to one-year deals, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T21:26:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Victor Dimukeje",
+        "Nick Zakelj"
+      ],
+      "resolved_player_ids": [
+        "00-0036896",
+        "00-0037831"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mannion-is-experimenting-with-calling-offense-from-sideline-booth",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mannion-is-experimenting-with-calling-offense-from-sideline-booth",
+      "title": "Sean Mannion is experimenting with calling offense from sideline, booth",
+      "body_text": "Half of the NFC East's offensive coordinators are trying to figure out where to best call games.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-17T21:15:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0032245"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-myles-garrett-puka-nacua-likely-to-return-to-practice-next-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-myles-garrett-puka-nacua-likely-to-return-to-practice-next-week",
+      "title": "Sean McVay: Myles Garrett, Puka Nacua likely to return to practice next week",
+      "body_text": "Rams stars Myles Garrett and Puka Nacua remained sidelined by their injuries, but they should be able to return to the field sooner than later — though it may not be this week.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-17T21:05:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-cowboys-championship-drought-is-hard-to-fathom",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-cowboys-championship-drought-is-hard-to-fathom",
+      "title": "Troy Aikman: Cowboys' championship drought is hard to fathom",
+      "body_text": "When Troy Aikman won his third Super Bowl with the Cowboys after the 1995 season, he never dreamed that ahead of the 2026 season, it would still be the team's last.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-17T21:06:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Troy Aikman",
+        "When Troy",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-returns-to-practice-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-returns-to-practice-monday",
+      "title": "Jaylen Waddle returns to practice Monday",
+      "body_text": "Broncos wide receiver Jaylen Waddle returned to practice on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T20:38:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylen Waddle",
+        "Monday Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-dl-cam-rice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-dl-cam-rice",
+      "title": "Dolphins sign DL Cam Rice",
+      "body_text": "The Dolphins made an addition to their defensive line group on Monday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-17T20:37:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Rice",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-return-to-team-drills-brought-my-soul-back-to-life",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-return-to-team-drills-brought-my-soul-back-to-life",
+      "title": "Malik Nabers: Return to team drills brought my soul back to life",
+      "body_text": "Nabers took another step toward a full return to the Giants lineup.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-17T20:25:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-ol-jackson-powers-johnson-exited-mondays-practice-with-apparent-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-ol-jackson-powers-johnson-exited-mondays-practice-with-apparent-injury",
+      "title": "Raiders OL Jackson Powers-Johnson exited Monday's practice with apparent injury",
+      "body_text": "It appears Raiders offensive lineman Jackson Powers-Johnson has another injury concern.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-17T20:23:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jackson Powers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-pearce-jr-will-play-in-the-preseason-before-his-eight-game-suspension-starts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-pearce-jr-will-play-in-the-preseason-before-his-eight-game-suspension-starts",
+      "title": "James Pearce Jr. will play in the preseason before his eight-game suspension starts",
+      "body_text": "Falcons head coach Kevin Stefanski addressed linebacker James Pearce's suspension on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-17T20:09:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Pearce Jr",
+        "Kevin Stefanski",
+        "James Pearce"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}
