@@ -422,6 +422,17 @@ data/gold/*
 # allowlist immediately above — re-ignore explicitly, file-pattern scoped so
 # it can't accidentally shadow our own forward-captured props_*.parquet.
 data/bronze/odds_api/props/season=*/props_archive_*.parquet
+# DynastyProcess FantasyPros ECR history archive (2026-08-18,
+# scripts/ingest_fp_ecr_history.py): historical weekly consensus rankings
+# 2020-2024 for the pre-registered WR-ordinal experiment. Source repo is
+# GPL-3.0, and the underlying rankings are scraped from FantasyPros.com (a
+# commercial site whose ToS restricts redistribution) -> LOCAL-ONLY, private
+# research use only. Neither path has an allowlist entry above so the
+# blanket `data/*` deny already covers them, but re-ignored explicitly here
+# (same pattern as the props archive above) so the intent is documented and
+# survives any future allowlist added nearby.
+data/bronze/fp_ecr_history/
+data/silver/fp_ecr/
 # Season player futures (DraftKings, 2026-08-02): weekly GHA snapshots
 # committed so the season-line history accumulates for the forward
 # --season-props-blend gate (no historical archive is purchasable).

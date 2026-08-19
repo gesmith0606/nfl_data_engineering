@@ -174,6 +174,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/bronze_weekly_props_ingestion.py` | Bronze weekly player props CLI — DraftKings + FanDuel per-game props (pass/rush/rec yds+TDs, receptions, anytime TD) → Parquet, same schema as the Odds API weekly capture (no API key; curl_cffi; DK category discovery dynamic — yardage markets not yet posted as of 2026-08-16, needs-week-1-verification) |
 | `src/season_prop_implied.py` | Season lines → implied season points: O/U inversion, rookie milestone ladder fits, cross-book median, preseason blend, draft-board attach |
 | `scripts/bronze_college_ingestion.py` | Bronze college CLI — CFBD API → Parquet (2016-2025) |
+| `scripts/ingest_fp_ecr_history.py` | Bronze/Silver DynastyProcess FP-ECR history CLI — historical weekly FantasyPros consensus rankings 2020-2024 → `data/{bronze,silver}/fp_ecr*` (local-only, GPL-3.0/FP-scraped provenance; never committed — see `.planning/FP_ECR_HISTORY_COVERAGE.md`) |
 | `scripts/silver_player_transformation.py` | Silver player CLI — usage metrics, rolling averages |
 | `scripts/silver_team_transformation.py` | Silver team CLI — PBP metrics, tendencies, SOS, situational |
 | `scripts/silver_game_context_transformation.py` | Silver game context CLI — weather, referee, playoff, defense |
