@@ -40,6 +40,7 @@ from projection_engine import apply_injury_adjustments, generate_weekly_projecti
 from early_season_prior import apply_early_season_prior, compute_prior_season_ppg
 from adp_prior import (
     apply_adp_prior,
+    build_name_id_crosswalk,
     compute_adp_implied_ppg,
     fit_adp_ppg_mapping,
     load_adp_snapshot,
@@ -821,23 +822,43 @@ def run_backtest(
                 [weekly_df[weekly_df["season"].isin(training_seasons)]] + extra_dfs,
                 ignore_index=True,
             )
+            # Name->player_id crosswalk for resolving ADP's full names. MUST
+            # come from Bronze players/rosters (full names + player_id,
+            # covers pre-debut rookies), NOT players/weekly (whose
+            # player_name is abbreviated, e.g. "T.Brady" — see
+            # compute_actuals' docstring; using weekly here silently
+            # 0%-matched every ADP row in the first version of this lever).
+            # Pool rosters for training seasons AND the eval season itself
+            # (crosswalk identity resolution isn't outcome data, so pooling
+            # the eval season here is not a leakage risk).
+            roster_dfs = [
+                _load_local_parquet(bronze_dir, f"players/rosters/season={y}/*.parquet")
+                for y in training_seasons + [eval_season]
+            ]
+            roster_dfs = [d for d in roster_dfs if not d.empty]
+            rosters_df = pd.concat(roster_dfs, ignore_index=True) if roster_dfs else pd.DataFrame()
+            crosswalk = build_name_id_crosswalk(rosters_df)
             mapping = fit_adp_ppg_mapping(
-                training_seasons, train_weekly_df, scoring_format=scoring_format,
+                training_seasons, train_weekly_df, crosswalk, scoring_format=scoring_format,
                 adp_dir=adp_history_dir,
             )
             adp_current = load_adp_snapshot(
                 eval_season, scoring_format=scoring_format, adp_dir=adp_history_dir
             )
-            if not mapping or adp_current.empty:
+            if not mapping or adp_current.empty or crosswalk.empty:
                 print(
-                    f"WARN: --adp-prior — no fitted mapping or no {eval_season} "
-                    "ADP snapshot; lever will no-op for this season"
+                    f"WARN: --adp-prior — no fitted mapping, no {eval_season} "
+                    "ADP snapshot, or no roster crosswalk; lever will no-op "
+                    "for this season"
                 )
                 continue
-            adp_implied_cache[eval_season] = compute_adp_implied_ppg(adp_current, mapping)
+            adp_implied_cache[eval_season] = compute_adp_implied_ppg(adp_current, mapping, crosswalk)
+            fired_n = int(adp_implied_cache[eval_season]["adp_implied_ppg"].notna().sum())
             print(
                 f"  ADP prior mapping for {eval_season}: trained on "
-                f"{training_seasons}, positions={sorted(mapping.keys())}"
+                f"{training_seasons}, positions={sorted(mapping.keys())}, "
+                f"{fired_n} players resolved to an implied PPG "
+                f"(crosswalk={len(crosswalk)} rows, ADP snapshot={len(adp_current)} rows)"
             )
 
     results = []

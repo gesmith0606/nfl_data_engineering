@@ -16,16 +16,19 @@ from adp_prior import (  # noqa: E402
     ADP_PRIOR_WEIGHTS,
     MIN_TRAINING_ROWS,
     apply_adp_prior,
+    build_name_id_crosswalk,
     compute_adp_implied_ppg,
     compute_realized_season_ppg,
     fit_adp_ppg_mapping,
     load_adp_snapshot,
+    resolve_adp_player_ids,
 )
 
 
-def _weekly_row(player_name, position, season, week, rushing_yards=0, receiving_yards=0, receptions=0):
+def _weekly_row(player_id, position, season, week, rushing_yards=0, receiving_yards=0, receptions=0):
     return {
-        "player_name": player_name,
+        "player_id": player_id,
+        "player_name": "Abbrev.Name",  # deliberately NOT matchable by name — proves the join is by id
         "position": position,
         "season": season,
         "week": week,
@@ -39,6 +42,10 @@ def _weekly_row(player_name, position, season, week, rushing_yards=0, receiving_
         "interceptions": 0,
         "fumbles_lost": 0,
     }
+
+
+def _roster_row(player_id, player_name, position):
+    return {"player_id": player_id, "player_name": player_name, "position": position}
 
 
 class TestLoadAdpSnapshot(unittest.TestCase):
@@ -56,81 +63,130 @@ class TestLoadAdpSnapshot(unittest.TestCase):
         self.assertIn("jonathan taylor", out["name_key"].values)
 
 
+class TestBuildNameIdCrosswalk(unittest.TestCase):
+    def test_builds_from_rosters(self):
+        rosters = pd.DataFrame(
+            [
+                _roster_row("P1", "Jonathan Taylor", "RB"),
+                _roster_row("P2", "Marvin Harrison Jr.", "WR"),
+            ]
+        )
+        cw = build_name_id_crosswalk(rosters)
+        self.assertEqual(len(cw), 2)
+        self.assertIn(("jonathan taylor", "RB"), set(zip(cw["name_key"], cw["position"])))
+        # suffix-stripping matches early_season_prior/normalize_name convention
+        self.assertIn(("marvin harrison", "WR"), set(zip(cw["name_key"], cw["position"])))
+
+    def test_empty_rosters_returns_empty_with_columns(self):
+        out = build_name_id_crosswalk(pd.DataFrame())
+        self.assertTrue(out.empty)
+        self.assertEqual(list(out.columns), ["name_key", "position", "player_id"])
+
+    def test_missing_columns_returns_empty(self):
+        out = build_name_id_crosswalk(pd.DataFrame([{"foo": 1}]))
+        self.assertTrue(out.empty)
+
+
+class TestResolveAdpPlayerIds(unittest.TestCase):
+    def test_resolves_via_crosswalk(self):
+        adp = load_adp_snapshot(2022, scoring_format="ppr")
+        crosswalk = pd.DataFrame(
+            [{"name_key": "jonathan taylor", "position": "RB", "player_id": "00-0036223"}]
+        )
+        resolved = resolve_adp_player_ids(adp, crosswalk)
+        self.assertEqual(len(resolved), 1)
+        self.assertEqual(resolved.iloc[0]["player_id"], "00-0036223")
+
+    def test_empty_crosswalk_returns_empty(self):
+        adp = load_adp_snapshot(2022, scoring_format="ppr")
+        out = resolve_adp_player_ids(adp, pd.DataFrame())
+        self.assertTrue(out.empty)
+
+    def test_no_match_drops_row(self):
+        adp = pd.DataFrame([{"player_name": "Nobody Here", "position": "RB", "adp": 50.0, "name_key": "nobody here"}])
+        crosswalk = pd.DataFrame([{"name_key": "somebody else", "position": "RB", "player_id": "X1"}])
+        out = resolve_adp_player_ids(adp, crosswalk)
+        self.assertTrue(out.empty)
+
+
 class TestComputeRealizedSeasonPpg(unittest.TestCase):
     def test_ppg_averages_across_games(self):
-        rows = [_weekly_row("Player One", "RB", 2024, w, rushing_yards=10) for w in range(1, 9)]
+        rows = [_weekly_row("P1", "RB", 2024, w, rushing_yards=10) for w in range(1, 9)]
         out = compute_realized_season_ppg(pd.DataFrame(rows), season=2024, scoring_format="half_ppr")
         self.assertEqual(len(out), 1)
         self.assertAlmostEqual(out.iloc[0]["realized_ppg"], 1.0, places=2)
-        self.assertEqual(out.iloc[0]["name_key"], "player one")
+        self.assertEqual(out.iloc[0]["player_id"], "P1")
 
     def test_below_min_games_excluded(self):
-        rows = [_weekly_row("Player One", "RB", 2024, w, rushing_yards=10) for w in range(1, 6)]
+        rows = [_weekly_row("P1", "RB", 2024, w, rushing_yards=10) for w in range(1, 6)]
         out = compute_realized_season_ppg(pd.DataFrame(rows), season=2024, scoring_format="half_ppr")
         self.assertTrue(out.empty)
 
     def test_empty_input_returns_empty_with_columns(self):
         out = compute_realized_season_ppg(pd.DataFrame(), season=2024)
         self.assertTrue(out.empty)
-        self.assertEqual(list(out.columns), ["name_key", "position", "realized_ppg", "games"])
+        self.assertEqual(list(out.columns), ["player_id", "position", "realized_ppg", "games"])
 
     def test_wrong_season_excluded(self):
-        rows = [_weekly_row("Player One", "RB", 2023, w, rushing_yards=10) for w in range(1, 9)]
+        rows = [_weekly_row("P1", "RB", 2023, w, rushing_yards=10) for w in range(1, 9)]
         out = compute_realized_season_ppg(pd.DataFrame(rows), season=2024, scoring_format="half_ppr")
         self.assertTrue(out.empty)
 
 
 class TestFitAdpPpgMapping(unittest.TestCase):
     def test_empty_training_seasons_returns_empty(self):
-        out = fit_adp_ppg_mapping([], pd.DataFrame(), scoring_format="half_ppr")
+        out = fit_adp_ppg_mapping([], pd.DataFrame(), pd.DataFrame(), scoring_format="half_ppr")
         self.assertEqual(out, {})
 
     def test_no_matching_bronze_data_returns_empty(self):
-        # 2022 ADP history exists on disk, but weekly_df has nothing for 2022.
-        out = fit_adp_ppg_mapping([2022], pd.DataFrame(), scoring_format="half_ppr")
+        adp = load_adp_snapshot(2022, scoring_format="half_ppr")
+        crosswalk = build_name_id_crosswalk(
+            pd.DataFrame([_roster_row(pid, name, "RB") for pid, name in zip(["X1"], ["Jonathan Taylor"])])
+        )
+        # crosswalk resolves ADP names fine, but weekly_df has no rows -> no realized labels
+        out = fit_adp_ppg_mapping([2022], pd.DataFrame(), crosswalk, scoring_format="half_ppr")
         self.assertEqual(out, {})
 
     def test_fits_on_real_2022_adp_with_synthetic_realized_ppg(self):
-        # Use the real committed 2022 ADP snapshot; synthesize realized PPG
-        # for the same players so the join has hits.
+        # Use the real committed 2022 ADP snapshot; synthesize a crosswalk +
+        # realized PPG for the same players so the joins have hits.
         adp = load_adp_snapshot(2022, scoring_format="ppr")
-        rb_names = adp[adp["position"] == "RB"]["player_name"].head(MIN_TRAINING_ROWS + 2)
-        self.assertGreaterEqual(len(rb_names), MIN_TRAINING_ROWS)
-        rows = []
-        for name in rb_names:
+        rb_rows = adp[adp["position"] == "RB"].head(MIN_TRAINING_ROWS + 2)
+        self.assertGreaterEqual(len(rb_rows), MIN_TRAINING_ROWS)
+
+        roster_rows = [
+            _roster_row(f"ID{i}", name, "RB") for i, name in enumerate(rb_rows["player_name"])
+        ]
+        crosswalk = build_name_id_crosswalk(pd.DataFrame(roster_rows))
+
+        weekly_rows = []
+        for i in range(len(rb_rows)):
             for w in range(1, 9):
-                rows.append(_weekly_row(name, "RB", 2022, w, rushing_yards=50))
-        mapping = fit_adp_ppg_mapping([2022], pd.DataFrame(rows), scoring_format="ppr")
+                weekly_rows.append(_weekly_row(f"ID{i}", "RB", 2022, w, rushing_yards=50))
+
+        mapping = fit_adp_ppg_mapping([2022], pd.DataFrame(weekly_rows), crosswalk, scoring_format="ppr")
         self.assertIn("RB", mapping)
         self.assertIn("slope", mapping["RB"])
         self.assertIn("intercept", mapping["RB"])
         self.assertGreaterEqual(mapping["RB"]["n"], MIN_TRAINING_ROWS)
 
-    def test_below_min_training_rows_position_omitted(self):
-        adp = pd.DataFrame(
-            [
-                {"player_name": "Solo Kicker", "position": "K", "adp": 150.0, "name_key": "solo kicker"},
-            ]
-        )
-        realized = pd.DataFrame(
-            [{"name_key": "solo kicker", "position": "K", "realized_ppg": 8.0, "games": 10}]
-        )
-        # Monkeypatch via direct merge check is awkward; instead confirm the
-        # public fit function omits positions with too few pooled rows by
-        # using synthetic weekly rows for a single K player only.
-        rows = [_weekly_row("Solo Kicker", "K", 2022, w) for w in range(1, 9)]
-        weekly_df = pd.DataFrame(rows)
-        # Patch load_adp_snapshot indirectly isn't available without I/O, so
-        # just assert the real 2022 fit (many positions) never includes K
-        # (K is outside ADP_PRIOR_POSITIONS regardless of row count).
-        mapping = fit_adp_ppg_mapping([2022], weekly_df, scoring_format="ppr")
+    def test_non_skill_position_never_fit(self):
+        adp = load_adp_snapshot(2022, scoring_format="ppr")
+        k_rows = adp[adp["position"] == "K"]
+        if k_rows.empty:
+            self.skipTest("no K rows in fixture ADP file")
+        roster_rows = [_roster_row(f"K{i}", name, "K") for i, name in enumerate(k_rows["player_name"])]
+        crosswalk = build_name_id_crosswalk(pd.DataFrame(roster_rows))
+        weekly_rows = [_weekly_row(f"K{i}", "K", 2022, w) for i in range(len(k_rows)) for w in range(1, 9)]
+        mapping = fit_adp_ppg_mapping([2022], pd.DataFrame(weekly_rows), crosswalk, scoring_format="ppr")
         self.assertNotIn("K", mapping)
 
 
 class TestComputeAdpImpliedPpg(unittest.TestCase):
     def test_empty_mapping_returns_empty(self):
         adp = pd.DataFrame([{"player_name": "A", "position": "RB", "adp": 5.0, "name_key": "a"}])
-        out = compute_adp_implied_ppg(adp, {})
+        crosswalk = pd.DataFrame([{"name_key": "a", "position": "RB", "player_id": "P1"}])
+        out = compute_adp_implied_ppg(adp, {}, crosswalk)
         self.assertTrue(out.empty)
 
     def test_applies_linear_mapping(self):
@@ -140,38 +196,50 @@ class TestComputeAdpImpliedPpg(unittest.TestCase):
                 {"player_name": "Late Pick", "position": "RB", "adp": 100.0, "name_key": "late pick"},
             ]
         )
+        crosswalk = pd.DataFrame(
+            [
+                {"name_key": "top pick", "position": "RB", "player_id": "P1"},
+                {"name_key": "late pick", "position": "RB", "player_id": "P2"},
+            ]
+        )
         mapping = {"RB": {"slope": -5.0, "intercept": 20.0, "n": 10}}
-        out = compute_adp_implied_ppg(adp, mapping)
+        out = compute_adp_implied_ppg(adp, mapping, crosswalk)
         self.assertEqual(len(out), 2)
-        top = out[out["name_key"] == "top pick"].iloc[0]["adp_implied_ppg"]
-        late = out[out["name_key"] == "late pick"].iloc[0]["adp_implied_ppg"]
+        top = out[out["player_id"] == "P1"].iloc[0]["adp_implied_ppg"]
+        late = out[out["player_id"] == "P2"].iloc[0]["adp_implied_ppg"]
         # log10(1)=0 -> 20.0; log10(100)=2 -> 20 - 10 = 10.0
         self.assertAlmostEqual(top, 20.0, places=2)
         self.assertAlmostEqual(late, 10.0, places=2)
 
     def test_negative_implied_clipped_to_zero(self):
-        adp = pd.DataFrame(
-            [{"player_name": "Deep Sleeper", "position": "WR", "adp": 300.0, "name_key": "deep sleeper"}]
-        )
+        adp = pd.DataFrame([{"player_name": "Deep Sleeper", "position": "WR", "adp": 300.0, "name_key": "deep sleeper"}])
+        crosswalk = pd.DataFrame([{"name_key": "deep sleeper", "position": "WR", "player_id": "P1"}])
         mapping = {"WR": {"slope": -50.0, "intercept": 10.0, "n": 10}}
-        out = compute_adp_implied_ppg(adp, mapping)
+        out = compute_adp_implied_ppg(adp, mapping, crosswalk)
         self.assertAlmostEqual(out.iloc[0]["adp_implied_ppg"], 0.0, places=2)
 
     def test_position_without_mapping_dropped(self):
         adp = pd.DataFrame([{"player_name": "A", "position": "TE", "adp": 5.0, "name_key": "a"}])
+        crosswalk = pd.DataFrame([{"name_key": "a", "position": "TE", "player_id": "P1"}])
         mapping = {"RB": {"slope": -5.0, "intercept": 20.0, "n": 10}}
-        out = compute_adp_implied_ppg(adp, mapping)
+        out = compute_adp_implied_ppg(adp, mapping, crosswalk)
+        self.assertTrue(out.empty)
+
+    def test_unresolved_name_dropped(self):
+        adp = pd.DataFrame([{"player_name": "Ghost Player", "position": "RB", "adp": 5.0, "name_key": "ghost player"}])
+        mapping = {"RB": {"slope": -5.0, "intercept": 20.0, "n": 10}}
+        out = compute_adp_implied_ppg(adp, mapping, pd.DataFrame())
         self.assertTrue(out.empty)
 
 
 class TestApplyAdpPrior(unittest.TestCase):
     @staticmethod
-    def _proj(name="Player One", pos="RB", pts=10.0):
-        return pd.DataFrame([{"player_name": name, "position": pos, "projected_points": pts}])
+    def _proj(pid="P1", pos="RB", pts=10.0):
+        return pd.DataFrame([{"player_id": pid, "position": pos, "projected_points": pts}])
 
     @staticmethod
-    def _implied(name="Player One", pos="RB", ppg=20.0):
-        return pd.DataFrame([{"name_key": name.lower(), "position": pos, "adp_implied_ppg": ppg}])
+    def _implied(pid="P1", pos="RB", ppg=20.0):
+        return pd.DataFrame([{"player_id": pid, "position": pos, "adp_implied_ppg": ppg}])
 
     def test_week1_blends_at_schedule_weight(self):
         out = apply_adp_prior(self._proj(pts=10.0), self._implied(ppg=20.0), week=1)
@@ -198,20 +266,8 @@ class TestApplyAdpPrior(unittest.TestCase):
         # w = 0.5*0.5 = 0.25: 0.75*10 + 0.25*20 = 7.5 + 5 = 12.5
         self.assertAlmostEqual(out.iloc[0]["projected_points"], 12.5, places=2)
 
-    def test_no_name_match_is_noop(self):
-        out = apply_adp_prior(
-            self._proj(name="Unknown Guy", pts=10.0), self._implied(name="Player One", ppg=20.0), week=1
-        )
-        self.assertAlmostEqual(out.iloc[0]["projected_points"], 10.0, places=2)
-        self.assertTrue(pd.isna(out.iloc[0]["adp_implied_ppg"]))
-
-    def test_position_mismatch_is_noop(self):
-        # Same name, different position -> the (name_key, position) join key misses.
-        out = apply_adp_prior(
-            self._proj(name="Player One", pos="WR", pts=10.0),
-            self._implied(name="Player One", pos="RB", ppg=20.0),
-            week=1,
-        )
+    def test_no_id_match_is_noop(self):
+        out = apply_adp_prior(self._proj(pid="UNKNOWN", pts=10.0), self._implied(pid="P1", ppg=20.0), week=1)
         self.assertAlmostEqual(out.iloc[0]["projected_points"], 10.0, places=2)
         self.assertTrue(pd.isna(out.iloc[0]["adp_implied_ppg"]))
 
@@ -230,10 +286,15 @@ class TestApplyAdpPrior(unittest.TestCase):
         )
 
     def test_zero_row_projections_no_crash(self):
-        empty_proj = pd.DataFrame(columns=["player_name", "position", "projected_points"])
+        empty_proj = pd.DataFrame(columns=["player_id", "position", "projected_points"])
         out = apply_adp_prior(empty_proj, self._implied(ppg=20.0), week=1)
         self.assertTrue(out.empty)
         self.assertIn("adp_implied_ppg", out.columns)
+
+    def test_missing_player_id_column_is_noop(self):
+        proj = pd.DataFrame([{"position": "RB", "projected_points": 10.0}])
+        out = apply_adp_prior(proj, self._implied(ppg=20.0), week=1)
+        self.assertAlmostEqual(out.iloc[0]["projected_points"], 10.0, places=2)
 
 
 if __name__ == "__main__":

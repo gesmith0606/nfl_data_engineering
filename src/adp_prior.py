@@ -12,18 +12,30 @@ projections, mirroring ``early_season_prior.py``'s
 ``proj' = (1-w)*proj + w*prior`` pattern.
 
 Join key: ADP snapshots carry no ``player_id`` (FFC exposes name/team/
-position only), so the join is on ``sleeper_player_map.normalize_name`` +
-position — the same hardened name-join helper used by ``adp_sources.py`` and
-the live-draft pick-matching code, not a raw name string (see
-knowledge-vault ``gated-experiment-coverage-check.md``: "never join on name
-alone").
+position only) — CAUGHT LIVE (2026-08-18) doing this the naive way: Bronze
+``players/weekly``'s ``player_name`` column is ABBREVIATED (e.g.
+``"T.Brady"``; see ``backtest_projections.compute_actuals``'s docstring),
+and so is our own PROJECTIONS output's ``player_name`` column — joining
+either of those against ADP's full names ("Tom Brady") on name alone is a
+structural 0%-match no-op (confirmed: it silently produced a byte-identical
+treated/baseline backtest). The fix used here: resolve ADP's full names to
+``player_id`` ONCE via a name+position crosswalk built from Bronze
+``players/rosters`` (which — unlike ``players/weekly`` — carries FULL names
+alongside ``player_id``, and covers pre-debut rookies since it's a
+season-roster snapshot, not per-game participation). Every other join in
+this module (realized-PPG training labels, and the final blend into
+projections) is by ``player_id``, never by name — matching the repo's
+hardened-join precedent (``early_season_prior.py``,
+``knowledge-vault/concepts/gated-experiment-coverage-check.md``: "never
+join on name alone; prefer real ids").
 
 Public API
 ----------
 ``load_adp_snapshot(year, scoring_format, source="ffc") -> DataFrame``
+``build_name_id_crosswalk(rosters_df) -> DataFrame``
 ``compute_realized_season_ppg(weekly_df, season, scoring_format) -> DataFrame``
-``fit_adp_ppg_mapping(training_seasons, weekly_df, scoring_format) -> dict``
-``compute_adp_implied_ppg(adp_df, mapping) -> DataFrame``
+``fit_adp_ppg_mapping(training_seasons, weekly_df, crosswalk, scoring_format) -> dict``
+``compute_adp_implied_ppg(adp_df, mapping, crosswalk) -> DataFrame``
 ``apply_adp_prior(proj_df, implied_df, week, scale=1.0) -> DataFrame``
 """
 
@@ -119,13 +131,73 @@ def load_adp_snapshot(
     return df
 
 
+def build_name_id_crosswalk(rosters_df: pd.DataFrame) -> pd.DataFrame:
+    """Build a (normalized name, position) -> player_id lookup from rosters.
+
+    Uses Bronze ``players/rosters`` (NOT ``players/weekly`` — that source's
+    ``player_name`` is abbreviated, e.g. ``"T.Brady"``; rosters carries the
+    full name FFC's ADP data uses, and covers players before their season
+    debut since it's a roster snapshot, not per-game participation).
+
+    Args:
+        rosters_df: Bronze ``players/rosters`` rows (one or more seasons
+            pooled — a player's (name, position) is effectively stable
+            across seasons, so pooling is safe and avoids needing a
+            separate crosswalk per season).
+
+    Returns:
+        DataFrame with columns ``name_key``, ``position``, ``player_id``,
+        deduplicated (last row wins on a rare (name, position) collision).
+        Empty (with columns) on empty/malformed input.
+    """
+    empty = pd.DataFrame(columns=["name_key", "position", "player_id"])
+    if rosters_df is None or rosters_df.empty:
+        return empty
+    if not {"player_name", "position", "player_id"}.issubset(rosters_df.columns):
+        return empty
+
+    out = pd.DataFrame(
+        {
+            "name_key": rosters_df["player_name"].astype(str).map(normalize_name),
+            "position": rosters_df["position"].astype(str).str.upper(),
+            "player_id": rosters_df["player_id"].astype(str),
+        }
+    )
+    out = out[out["name_key"] != ""]
+    return out.drop_duplicates(["name_key", "position"], keep="last").reset_index(drop=True)
+
+
+def resolve_adp_player_ids(adp_df: pd.DataFrame, crosswalk: pd.DataFrame) -> pd.DataFrame:
+    """Attach ``player_id`` to an ADP snapshot via the (name_key, position) crosswalk.
+
+    Rows without a crosswalk match are dropped (not zero-filled) — an
+    unresolved ADP row simply never fires the lever for that player, which
+    is what the coverage/firing-rate report is meant to surface.
+
+    Args:
+        adp_df: Output of :func:`load_adp_snapshot`.
+        crosswalk: Output of :func:`build_name_id_crosswalk`.
+
+    Returns:
+        ``adp_df`` inner-joined with ``player_id``; empty if either input
+        is empty.
+    """
+    if adp_df is None or adp_df.empty or crosswalk is None or crosswalk.empty:
+        return pd.DataFrame()
+    return adp_df.merge(crosswalk[["name_key", "position", "player_id"]], on=["name_key", "position"], how="inner")
+
+
 def compute_realized_season_ppg(
     weekly_df: pd.DataFrame,
     season: int,
     scoring_format: str = "half_ppr",
     min_games: int = MIN_LABEL_GAMES,
 ) -> pd.DataFrame:
-    """Per-player realized full-season PPG for ``season``, name-keyed.
+    """Per-player realized full-season PPG for ``season``, keyed by ``player_id``.
+
+    Mirrors ``early_season_prior.compute_prior_season_ppg`` exactly (same
+    player_id-based grouping, same min-games gate) — no name matching
+    involved, since Bronze weekly's own ``player_id`` is reliable.
 
     Args:
         weekly_df: Bronze ``players/weekly`` rows spanning at least
@@ -133,17 +205,17 @@ def compute_realized_season_ppg(
         season: Season to compute realized PPG for.
         scoring_format: Scoring format key for ``calculate_fantasy_points_df``.
         min_games: Minimum games played to trust the season PPG as a
-            training label (matches ``early_season_prior.MIN_PRIOR_GAMES``).
+            training label.
 
     Returns:
-        DataFrame with columns ``name_key``, ``position``, ``realized_ppg``,
+        DataFrame with columns ``player_id``, ``position``, ``realized_ppg``,
         ``games``. Empty (with those columns) on empty/malformed input.
     """
-    empty = pd.DataFrame(columns=["name_key", "position", "realized_ppg", "games"])
+    empty = pd.DataFrame(columns=["player_id", "position", "realized_ppg", "games"])
     if (
         weekly_df is None
         or weekly_df.empty
-        or "player_name" not in weekly_df.columns
+        or "player_id" not in weekly_df.columns
         or "season" not in weekly_df.columns
     ):
         return empty
@@ -155,10 +227,10 @@ def compute_realized_season_ppg(
     scored = calculate_fantasy_points_df(
         season_df, scoring_format=scoring_format, output_col="_season_game_pts"
     )
-    scored["name_key"] = scored["player_name"].astype(str).map(normalize_name)
     scored["position"] = scored["position"].astype(str).str.upper()
+    scored["player_id"] = scored["player_id"].astype(str)
     grouped = (
-        scored.groupby(["name_key", "position"])["_season_game_pts"]
+        scored.groupby(["player_id", "position"])["_season_game_pts"]
         .agg(realized_ppg="mean", games="count")
         .reset_index()
     )
@@ -168,6 +240,7 @@ def compute_realized_season_ppg(
 def fit_adp_ppg_mapping(
     training_seasons: Iterable[int],
     weekly_df: pd.DataFrame,
+    crosswalk: pd.DataFrame,
     scoring_format: str = "half_ppr",
     adp_dir: str = _DEFAULT_ADP_HISTORY_DIR,
     min_training_rows: int = MIN_TRAINING_ROWS,
@@ -181,6 +254,9 @@ def fit_adp_ppg_mapping(
     Args:
         training_seasons: Prior seasons to pool for fitting.
         weekly_df: Bronze weekly rows covering (at least) ``training_seasons``.
+        crosswalk: Output of :func:`build_name_id_crosswalk` — must cover
+            the players in ``training_seasons``' ADP snapshots (pool
+            rosters for those seasons when building it).
         scoring_format: Scoring format key.
         adp_dir: Root of ``data/adp/history/``.
         min_training_rows: Minimum pooled rows per position to fit (below
@@ -196,12 +272,13 @@ def fit_adp_ppg_mapping(
         adp = load_adp_snapshot(yr, scoring_format=scoring_format, adp_dir=adp_dir)
         if adp.empty:
             continue
+        resolved = resolve_adp_player_ids(adp, crosswalk)
+        if resolved.empty:
+            continue
         realized = compute_realized_season_ppg(weekly_df, yr, scoring_format=scoring_format)
         if realized.empty:
             continue
-        merged = adp.merge(
-            realized[["name_key", "realized_ppg"]], on="name_key", how="inner"
-        )
+        merged = resolved.merge(realized[["player_id", "realized_ppg"]], on="player_id", how="inner")
         if not merged.empty:
             frames.append(merged[["position", "adp", "realized_ppg"]])
 
@@ -222,27 +299,34 @@ def fit_adp_ppg_mapping(
 
 
 def compute_adp_implied_ppg(
-    adp_df: pd.DataFrame, mapping: Dict[str, Dict[str, float]]
+    adp_df: pd.DataFrame, mapping: Dict[str, Dict[str, float]], crosswalk: pd.DataFrame
 ) -> pd.DataFrame:
-    """Apply a fitted mapping to one season's ADP snapshot.
+    """Apply a fitted mapping to one season's ADP snapshot, keyed by player_id.
 
     Args:
         adp_df: Output of :func:`load_adp_snapshot` for the eval season.
         mapping: Output of :func:`fit_adp_ppg_mapping`.
+        crosswalk: Output of :func:`build_name_id_crosswalk` — must cover
+            the eval season's ADP snapshot (pool rosters including the eval
+            season when building it, so pre-debut rookies resolve).
 
     Returns:
-        DataFrame with columns ``name_key``, ``position``, ``adp_implied_ppg``
+        DataFrame with columns ``player_id``, ``position``, ``adp_implied_ppg``
         (floored at 0 — projected points are never negative). Empty if
-        ``adp_df`` or ``mapping`` is empty. Rows whose position has no
-        fitted mapping are dropped (not zero-filled).
+        ``adp_df``/``mapping``/``crosswalk`` is empty. Rows whose position
+        has no fitted mapping, or whose name doesn't resolve to a
+        ``player_id``, are dropped (not zero-filled).
     """
-    empty = pd.DataFrame(columns=["name_key", "position", "adp_implied_ppg"])
+    empty = pd.DataFrame(columns=["player_id", "position", "adp_implied_ppg"])
     if adp_df is None or adp_df.empty or not mapping:
+        return empty
+    resolved = resolve_adp_player_ids(adp_df, crosswalk)
+    if resolved.empty:
         return empty
 
     rows: List[pd.DataFrame] = []
     for pos, coefs in mapping.items():
-        sub = adp_df[(adp_df["position"] == pos) & adp_df["adp"].notna() & (adp_df["adp"] > 0)]
+        sub = resolved[(resolved["position"] == pos) & resolved["adp"].notna() & (resolved["adp"] > 0)]
         if sub.empty:
             continue
         log_adp = np.log10(sub["adp"].clip(lower=1.0))
@@ -250,7 +334,7 @@ def compute_adp_implied_ppg(
         rows.append(
             pd.DataFrame(
                 {
-                    "name_key": sub["name_key"].values,
+                    "player_id": sub["player_id"].values,
                     "position": pos,
                     "adp_implied_ppg": implied.values,
                 }
@@ -258,7 +342,7 @@ def compute_adp_implied_ppg(
         )
     if not rows:
         return empty
-    return pd.concat(rows, ignore_index=True).drop_duplicates(["name_key", "position"])
+    return pd.concat(rows, ignore_index=True).drop_duplicates(["player_id", "position"])
 
 
 def apply_adp_prior(
@@ -273,12 +357,12 @@ def apply_adp_prior(
 
     ``proj' = (1-w)*proj + w*adp_implied_ppg`` where
     ``w = scale * weight_schedule.get(week, 0)`` — zero (no-op) outside the
-    weight schedule's weeks, for players with no ADP-implied match (name+
-    position join miss), and for positions outside
+    weight schedule's weeks, for players with no ADP-implied match
+    (``player_id`` join miss), and for positions outside
     ``ADP_PRIOR_POSITIONS``.
 
     Args:
-        proj_df: Projections with ``player_name``, ``position``, ``points_col``.
+        proj_df: Projections with ``player_id``, ``position``, ``points_col``.
         implied_df: Output of :func:`compute_adp_implied_ppg`.
         week: Current projection week (int).
         scale: Single knob multiplying the fixed weight schedule (default
@@ -300,25 +384,17 @@ def apply_adp_prior(
     if (
         implied_df is None
         or implied_df.empty
-        or "player_name" not in proj.columns
+        or "player_id" not in proj.columns
         or "position" not in proj.columns
     ):
         return proj
 
-    lookup = implied_df.drop_duplicates(["name_key", "position"]).set_index(
-        ["name_key", "position"]
-    )["adp_implied_ppg"]
-    lookup_dict = lookup.to_dict()
-
-    name_keys = proj["player_name"].astype(str).map(normalize_name)
-    positions = proj["position"].astype(str).str.upper()
-    implied = pd.Series(
-        [lookup_dict.get((nk, pos)) for nk, pos in zip(name_keys, positions)],
-        index=proj.index,
-        dtype="float64",
-    )
+    lookup = implied_df.drop_duplicates("player_id").set_index("player_id")["adp_implied_ppg"]
+    pids = proj["player_id"].astype(str)
+    implied = pids.map(lookup)
     proj["adp_implied_ppg"] = implied
 
+    positions = proj["position"].astype(str).str.upper()
     mask = positions.isin(ADP_PRIOR_POSITIONS) & implied.notna()
     if mask.any():
         proj.loc[mask, points_col] = (

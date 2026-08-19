@@ -1296,6 +1296,7 @@ def main():
         if args.adp_prior and not projections.empty:
             from adp_prior import (  # noqa: E402
                 apply_adp_prior,
+                build_name_id_crosswalk,
                 compute_adp_implied_ppg,
                 fit_adp_ppg_mapping,
                 load_adp_snapshot,
@@ -1327,20 +1328,39 @@ def main():
                     if train_weekly_parts
                     else pd.DataFrame()
                 )
+                # Name->player_id crosswalk from Bronze players/rosters (full
+                # names + player_id, covers pre-debut rookies) — NOT
+                # players/weekly, whose player_name is abbreviated (e.g.
+                # "T.Brady"). Pool rosters for training seasons + the
+                # current season (identity resolution, not outcome data —
+                # not a leakage risk).
+                roster_parts = [
+                    _read_local_parquet(
+                        BRONZE_DIR, f"players/rosters/season={y}/*.parquet"
+                    )
+                    for y in training_seasons + [args.season]
+                ]
+                roster_parts = [d for d in roster_parts if not d.empty]
+                rosters_df = (
+                    pd.concat(roster_parts, ignore_index=True)
+                    if roster_parts
+                    else pd.DataFrame()
+                )
+                crosswalk = build_name_id_crosswalk(rosters_df)
                 mapping = fit_adp_ppg_mapping(
-                    training_seasons, train_weekly_df, scoring_format=args.scoring
+                    training_seasons, train_weekly_df, crosswalk, scoring_format=args.scoring
                 )
                 adp_current = load_adp_snapshot(
                     args.season, scoring_format=args.scoring, adp_dir=adp_history_dir
                 )
-                if not mapping or adp_current.empty:
+                if not mapping or adp_current.empty or crosswalk.empty:
                     print(
-                        "WARN: --adp-prior requested but no fitted mapping or "
-                        f"no current-season ({args.season}) ADP snapshot "
-                        "available; skipping"
+                        "WARN: --adp-prior requested but no fitted mapping, "
+                        f"no current-season ({args.season}) ADP snapshot, or "
+                        "no roster crosswalk available; skipping"
                     )
                 else:
-                    implied_df = compute_adp_implied_ppg(adp_current, mapping)
+                    implied_df = compute_adp_implied_ppg(adp_current, mapping, crosswalk)
                     before_total = float(projections["projected_points"].sum())
                     projections = apply_adp_prior(
                         projections,
