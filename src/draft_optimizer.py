@@ -535,6 +535,16 @@ class DraftAdvisor:
         if avail.empty:
             return pd.DataFrame(), "Draft board is empty."
 
+        # Never recommend a position the roster shape can't start at all (e.g.
+        # K/DST in a no-kicker Sleeper league) -- those players carry NaN VORP
+        # by design (see replacement_ranks_for) and would otherwise poison
+        # total_vorp the moment one gets drafted.
+        elig = draftable_positions(self.board.roster_config)
+        if "position" in avail.columns:
+            avail = avail[avail["position"].astype(str).str.upper().isin(elig)]
+        if avail.empty:
+            return pd.DataFrame(), "No draftable players remain."
+
         needs = self.board.remaining_needs()
         my_picks = self.board.my_pick_count()
         picks_taken = self.board.picks_taken()
@@ -591,12 +601,28 @@ class DraftAdvisor:
             "TE": base["TE"] + 1,
             "RB": base["RB"] + flex_total + 2,
             "WR": base["WR"] + flex_total + 2,
+            # K/DST have no bench value in practice -- cap at exactly the
+            # roster's slot count (0 when the league has none, e.g. K in
+            # sleeper_gentlemen/sleeper_mahomos; the elig filter above already
+            # keeps those off the board, so this is belt-and-suspenders).
+            "K": int(rc.get("K", 0)),
+            "DST": int(rc.get("DST", 0)),
         }
         have = Counter(str(p.get("position", "")).upper() for p in self.board.my_roster)
-        for pos in ("QB", "RB", "WR", "TE"):
+        for pos in ("QB", "RB", "WR", "TE", "K", "DST"):
             over = have.get(pos, 0) - pos_cap[pos]
             if over >= 0:
-                unit = 40 if pos in ("QB", "TE") else 25
+                # K/DST carry ~zero bench value (unlike a backup QB/TE), so
+                # once the roster's single slot is filled the penalty must
+                # dominate any remaining VORP spread rather than just taper
+                # it -- otherwise a still-decent kicker keeps outscoring a
+                # deeply-negative-VORP skill player late in the draft.
+                if pos in ("K", "DST"):
+                    unit = 1000
+                elif pos in ("QB", "TE"):
+                    unit = 40
+                else:
+                    unit = 25
                 avail.loc[avail["position"] == pos, "recommendation_score"] -= unit * (
                     over + 1
                 )
@@ -1110,9 +1136,9 @@ class MockDraftSimulator:
         if position == "WR":
             return base["WR"] + flex + 3
         if position == "K":
-            return max(1, int(rc.get("K", 0)))
+            return int(rc.get("K", 0))
         if position == "DST":
-            return max(1, int(rc.get("DST", 0)))
+            return int(rc.get("DST", 0))
         return 99
 
     def _run_position(self) -> Optional[str]:
@@ -1165,6 +1191,16 @@ class MockDraftSimulator:
             Player name string if a pick was made, or None if the board is empty.
         """
         avail = self.board.available
+        if avail.empty:
+            return None
+
+        # Never let an opponent draft a position the roster shape can't
+        # start at all (e.g. K/DST in a no-kicker Sleeper league) -- keeps
+        # the "every position capped out" stall fallback below from ever
+        # reintroducing an undraftable position into the candidate pool.
+        elig = draftable_positions(self.board.roster_config)
+        if "position" in avail.columns:
+            avail = avail[avail["position"].astype(str).str.upper().isin(elig)]
         if avail.empty:
             return None
 
@@ -1381,17 +1417,25 @@ class MockDraftSimulator:
         if "vorp" not in self.board.available.columns:
             return 0.0
 
+        # An ADP-optimal drafter would never take a position the roster shape
+        # can't start at all (e.g. K in a no-kicker Sleeper league) -- those
+        # rows carry NaN vorp by design (replacement_ranks_for), and one
+        # landing on a user pick slot here would NaN out the whole baseline,
+        # producing a bogus 'D' grade downstream (nan <= 0 is False, so
+        # _pick_grade falls through every threshold to "D").
+        pool = self.board.available
+        elig = draftable_positions(self.board.roster_config)
+        if "position" in pool.columns:
+            pool = pool[pool["position"].astype(str).str.upper().isin(elig)]
+
         sort_col = (
             "adp_rank"
-            if (
-                "adp_rank" in self.board.available.columns
-                and self.board.available["adp_rank"].notna().any()
-            )
+            if ("adp_rank" in pool.columns and pool["adp_rank"].notna().any())
             else "model_rank"
         )
-        sorted_pool = self.board.available.sort_values(
-            sort_col, na_position="last"
-        ).reset_index(drop=True)
+        sorted_pool = pool.sort_values(sort_col, na_position="last").reset_index(
+            drop=True
+        )
 
         # Simulate which overall pick numbers belong to the user
         user_pick_numbers = []

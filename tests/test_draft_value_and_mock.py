@@ -13,8 +13,10 @@ These lock in the draft-day-readiness fixes:
 from __future__ import annotations
 
 import importlib.util
+import math
 import os
 import sys
+from collections import Counter
 
 import pandas as pd
 
@@ -29,6 +31,7 @@ from draft_optimizer import (  # noqa: E402
     roster_config_from_positions,
     roster_config_from_slots,
 )
+import config  # noqa: E402
 
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -509,3 +512,118 @@ def test_run_auto_mock_report_has_picks_lineup_and_no_kickers():
     assert "OPTIMAL STARTING LINEUP" in report
     assert "Draftable positions: QB, RB, TE, WR" in report
     assert " K " not in report  # no kicker drafted in a no-K league
+
+
+# ---------------------------------------------------------------------------
+# --simulate kicker-loop bug (knowledge-vault:
+# nfl-draft-assistant-simulate-kicker-loop-bug.md, 2026-08-18)
+#
+# scripts/draft_assistant.py --league <preset> --simulate builds a
+# DraftBoard/MockDraftSimulator straight from config.ROSTER_CONFIGS without
+# the draftable_positions() pre-filter that scripts/draft_live.py already
+# applies -- once skill-position VORP drops below a kicker's flat baseline
+# late in a draft, the advisor keeps recommending kickers (no saturation cap
+# on K/DST) and, for the no-K sleeper_gentlemen/sleeper_mahomos presets, a
+# K that has no roster slot at all still gets drafted, leaving vorp NaN for
+# that pick (replacement_ranks_for correctly omits K from a no-K shape) and
+# poisoning total_vorp -> a bogus 'D' draft grade.
+# ---------------------------------------------------------------------------
+
+
+def _deep_pool_with_kd(n_per_pos: int = 80) -> pd.DataFrame:
+    """A player pool deep enough to run a full 12-team, ~20-round simulated
+    draft to completion across every startable position, including K/DST."""
+    rows = []
+    for pos, base in (
+        ("QB", 380),
+        ("RB", 320),
+        ("WR", 330),
+        ("TE", 250),
+        ("K", 140),
+        ("DST", 130),
+    ):
+        for i in range(n_per_pos):
+            rows.append(
+                {
+                    "player_id": f"{pos}{i}",
+                    "player_name": f"{pos} {i}",
+                    "position": pos,
+                    "projected_season_points": base - i * 1.5,
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _run_preset_simulation(preset_key: str, seed: int = 20260818):
+    """Reproduce ``draft_assistant.py --league <preset_key> --simulate``:
+    build the board/simulator the same way the CLI does (roster_format ->
+    config.ROSTER_CONFIGS, no manual pre-filtering by the caller) and run a
+    full simulation."""
+    import random
+
+    random.seed(seed)
+    preset = config.LEAGUE_PRESETS[preset_key]
+    roster_format = preset["roster"]
+    n_teams = preset["teams"]
+    pool = _deep_pool_with_kd()
+    enriched = compute_value_scores(pool, roster_format=roster_format, n_teams=n_teams)
+    board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
+    advisor = DraftAdvisor(board)
+    sim = MockDraftSimulator(
+        board, user_pick=1, n_teams=n_teams, randomness=3, draft_type="snake"
+    )
+    result = sim.run_full_simulation(advisor)
+    return result, board
+
+
+def test_simulate_no_k_roster_never_drafts_a_kicker():
+    for preset_key in ("gentlemen", "mahomos"):
+        result, board = _run_preset_simulation(preset_key)
+        my_positions = Counter(
+            str(p.get("position", "")).upper() for p in result["my_roster"]
+        )
+        assert my_positions.get("K", 0) == 0, (
+            f"{preset_key}: user roster drafted a K despite no K slot "
+            f"(roster={my_positions})"
+        )
+        all_positions = Counter(
+            str(pick.get("position", "")).upper() for pick in result["picks"]
+        )
+        assert all_positions.get("K", 0) == 0, (
+            f"{preset_key}: some team in the sim drafted a K despite no K "
+            f"slot in {config.LEAGUE_PRESETS[preset_key]['roster']}"
+        )
+
+
+def test_simulate_with_k_roster_drafts_at_most_configured_kickers():
+    for preset_key in ("la_liga", "feetball"):
+        result, board = _run_preset_simulation(preset_key)
+        k_slots = config.ROSTER_CONFIGS[config.LEAGUE_PRESETS[preset_key]["roster"]][
+            "K"
+        ]
+        my_positions = Counter(
+            str(p.get("position", "")).upper() for p in result["my_roster"]
+        )
+        assert my_positions.get("K", 0) <= k_slots, (
+            f"{preset_key}: user roster drafted {my_positions.get('K', 0)} "
+            f"kickers, roster only has {k_slots} K slot(s)"
+        )
+
+
+def test_simulate_total_vorp_finite_for_all_league_presets():
+    for preset_key in config.LEAGUE_PRESETS:
+        result, _ = _run_preset_simulation(preset_key)
+        assert math.isfinite(result["total_vorp"]), (
+            f"{preset_key}: total_vorp is not finite ({result['total_vorp']!r})"
+        )
+        # expected_vorp (the ADP-optimal baseline the grade is measured
+        # against) walks the board independently of my_roster -- it must
+        # stay finite too, or _pick_grade's `nan <= 0` check silently falls
+        # through to a bogus 'D' (see MockDraftSimulator._estimate_expected_vorp).
+        assert math.isfinite(result["expected_vorp"]), (
+            f"{preset_key}: expected_vorp is not finite ({result['expected_vorp']!r})"
+        )
+        assert math.isfinite(result["total_pts"]), (
+            f"{preset_key}: total_pts is not finite ({result['total_pts']!r})"
+        )
+        assert result["draft_grade"] in {"A", "B", "C", "D"}
