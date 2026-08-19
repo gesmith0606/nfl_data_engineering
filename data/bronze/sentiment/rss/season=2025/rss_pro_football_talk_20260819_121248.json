@@ -1,0 +1,510 @@
+{
+  "fetch_run_id": "ab50aca9-c402-4e85-a5ac-5dd9ad93bd57",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-19T12:12:48.046136+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-frustrated-by-defenders-hitting-his-arm-during-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-frustrated-by-defenders-hitting-his-arm-during-practice",
+      "title": "Kirk Cousins frustrated by defenders hitting his arm during practice",
+      "body_text": "Raiders quarterback Kirk Cousins found himself in the middle of another practice skirmish during Tuesday's joint workout with the Texans.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-19T11:36:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/najee-harris-i-know-i-have-a-lot-to-prove-coming-off-a-torn-achilles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/najee-harris-i-know-i-have-a-lot-to-prove-coming-off-a-torn-achilles",
+      "title": "Najee Harris: I know I have a lot to prove coming off a torn Achilles",
+      "body_text": "The Giants signed running back Najee Harris on Tuesday and he said at a press conference that he thinks he has \"a good opportunity\" to contribute because of how John Harbaugh-coached teams approach offensive football.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-19T11:10:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Najee Harris",
+        "Achilles The",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0036893"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-has-cut-back-on-the-caffeine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-has-cut-back-on-the-caffeine",
+      "title": "Dan Campbell has cut back on the caffeine",
+      "body_text": "Lions head coach Dan Campbell is famous for his coffee consumption, but even Campbell has his limits.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-19T09:01:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-on-practice-fights-with-cowboys-not-ideal-but-we-got-the-work-we-need",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-on-practice-fights-with-cowboys-not-ideal-but-we-got-the-work-we-need",
+      "title": "Kellen Moore on practice fights with Cowboys: Not ideal, but we got the work we need",
+      "body_text": "Several fights broke out between the Saints and Cowboys at joint practice on Tuesday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-19T08:12:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kellen Moore"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-nothing-new-on-aaron-donald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-nothing-new-on-aaron-donald",
+      "title": "Sean McVay: \"Nothing new\" on Aaron Donald",
+      "body_text": "The clock keeps ticking toward Week 1, and Rams defensive tackle Aaron Donald has yet to decide whether he'll be playing in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T04:40:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-avoided-major-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alvin-kamara-avoided-major-knee-injury",
+      "title": "Report: Alvin Kamara avoided major knee injury",
+      "body_text": "Tuesday's Rock 'Em Sock 'Em joint practice between the Cowboys and Saints included veteran running back Alvin Kamara leaving with an injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T04:07:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alvin Kamara",
+        "Em Sock"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-schneider-shocking-allegations-against-terrion-arnold-would-have-prompted-seahawks-to-cut-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-schneider-shocking-allegations-against-terrion-arnold-would-have-prompted-seahawks-to-cut-him",
+      "title": "John Schneider: \"Shocking\" allegations against Terrion Arnold would have prompted Seahawks to cut him",
+      "body_text": "Latest Hard Knocks includes revealing conversation between Schneider and Jay Harbaugh.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T03:56:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Schneider",
+        "Terrion Arnold",
+        "Latest Hard",
+        "Jay Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-floress-lawyers-seek-information-from-nfl-about-jon-gruden-colin-kaepernick-cases",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-floress-lawyers-seek-information-from-nfl-about-jon-gruden-colin-kaepernick-cases",
+      "title": "Brian Flores's lawyers seek information from NFL about Jon Gruden, Colin Kaepernick cases",
+      "body_text": "The lawsuit filed by Vikings defensive coordinator Brian Flores against the NFL and various teams has finally moved forward (as to several of the pending claims) to the discovery process.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T01:55:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Flores",
+        "Jon Gruden",
+        "Colin Kaepernick"
+      ],
+      "resolved_player_ids": [
+        "00-0027974"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-says-nick-bosa-is-making-a-lot-of-progress-in-rehab",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-says-nick-bosa-is-making-a-lot-of-progress-in-rehab",
+      "title": "Kyle Shanahan says Nick Bosa is \"making a lot of progress\" in rehab",
+      "body_text": "49ers defensive end Nick Bosa has not practiced since Aug. 3 with soreness and tendinitis in his surgically repaired right knee. 49ers coach Kyle Shanahan did not provide a timeline for Bosa on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T01:51:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/multiple-fights-mar-cowboys-saints-joint-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/multiple-fights-mar-cowboys-saints-joint-practice",
+      "title": "Multiple fights mar Cowboys-Saints joint practice",
+      "body_text": "Cowboys coach Brian Schottenheimer was upset with his team after double-digit fights broke out during a joint practice with the Saints.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T01:33:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodells-comments-about-foreign-teams-put-expansion-on-the-table",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodells-comments-about-foreign-teams-put-expansion-on-the-table",
+      "title": "Roger Goodell's comments about foreign teams put expansion on the table",
+      "body_text": "The league is currently in its longest stretch ever without adding another team.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T00:47:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-chris-olave-exits-joint-practice-with-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-chris-olave-exits-joint-practice-with-cowboys",
+      "title": "Saints WR Chris Olave exits joint practice with Cowboys",
+      "body_text": "Saints wide receiver Chris Olave left Tuesday's joint practice with the Cowboys early.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T22:51:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave",
+        "Cowboys Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-chris-olave-returns-to-joint-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-chris-olave-returns-to-joint-practice",
+      "title": "Saints WR Chris Olave returns to joint practice",
+      "body_text": "Saints fans can breathe a sigh of relief: Chris Olave is just fine.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T00:40:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-will-have-davis-webb-calling-his-plays-for-the-first-time-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-will-have-davis-webb-calling-his-plays-for-the-first-time-friday",
+      "title": "Bo Nix will have Davis Webb calling his plays for the first time Friday",
+      "body_text": "Broncos quarterback Bo Nix wanted to play last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T00:32:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Davis Webb",
+        "Friday Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732",
+        "00-0033550"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-seahawks-may-be-looking-for-a-graceful-exit-from-terrion-arnold-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-seahawks-may-be-looking-for-a-graceful-exit-from-terrion-arnold-deal",
+      "title": "The Seahawks may be looking for a graceful exit from Terrion Arnold deal",
+      "body_text": "Seattle miscalculated as to whether he'd be available to practice and play in the preseason.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T00:05:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Seahawks",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tv-audiences-for-deion-sanderss-colorado-team-plummeted-from-2023-to-2025",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tv-audiences-for-deion-sanderss-colorado-team-plummeted-from-2023-to-2025",
+      "title": "TV audiences for Deion Sanders's Colorado team plummeted from 2023 to 2025",
+      "body_text": "As Hall of Famer Deion Sanders prepares for his fourth season as the head coach at Colorado, the Buffaloes are stumbling and bumbling as a TV attraction.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T23:47:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "As Hall",
+        "Famer Deion"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/longtime-special-teams-coach-frank-gansz-jr-dies-at-64",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/longtime-special-teams-coach-frank-gansz-jr-dies-at-64",
+      "title": "Longtime special teams coach Frank Gansz Jr. dies at 64",
+      "body_text": "Frank Gansz Jr., who spent decades as an assistant coach in the NFL, college football and multiple spring leagues, has died at the age of 64.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-18T21:42:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Frank Gansz Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-dl-greg-gaines-agrees-to-terms-with-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-dl-greg-gaines-agrees-to-terms-with-bills",
+      "title": "Free agent DL Greg Gaines agrees to terms with Bills",
+      "body_text": "The Bills are signing free agent defensive lineman Greg Gaines, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T21:36:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Gaines",
+        "Bills The",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0035667"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-gets-upset-ends-browns-practice-early",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-gets-upset-ends-browns-practice-early",
+      "title": "Todd Monken gets upset, ends physical Browns practice early",
+      "body_text": "Browns head coach Todd Monken found himself \"emotionally hijacked\" during a practice early in training camp and he was hot under the collar again on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-18T21:33:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-work-out-free-agent-cb-trevon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-work-out-free-agent-cb-trevon-diggs",
+      "title": "Seahawks work out free agent CB Trevon Diggs",
+      "body_text": "The Seahawks agreed to terms with free agent cornerback Terrion Arnold, but he has not signed and the NFL reportedly will place him on the commissioner’s exempt list if he does.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T21:18:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevon Diggs",
+        "The Seahawks",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0036361",
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-shaq-thompson-dl-daquan-jones-visit-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-shaq-thompson-dl-daquan-jones-visit-patriots",
+      "title": "LB Shaq Thompson, DL DaQuan Jones visit Patriots",
+      "body_text": "The Patriots met with a pair of veteran defensive free agents on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-18T21:16:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shaq Thompson",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0031550"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-claypool-josh-reynolds-get-tryouts-with-the-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-claypool-josh-reynolds-get-tryouts-with-the-saints",
+      "title": "Chase Claypool, Josh Reynolds get tryouts with the Saints",
+      "body_text": "Six years ago, it appeared that the Steelers had found a keeper in second-round receiver Chase Claypool.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T21:13:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chase Claypool",
+        "Josh Reynolds",
+        "Saints Six"
+      ],
+      "resolved_player_ids": [
+        "00-0036326",
+        "00-0033943"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-de-arden-walker-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-claim-de-arden-walker-off-waivers",
+      "title": "Packers claim DE Arden Walker off waivers",
+      "body_text": "The Packers have brought in a player from a division rival.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-18T21:08:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arden Walker",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0041355"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-wants-to-wear-no-40-has-offers-out-to-fb-hunter-luepke",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-wants-to-wear-no-40-has-offers-out-to-fb-hunter-luepke",
+      "title": "Von Miller wants to wear No. 40, has offers out to FB Hunter Luepke",
+      "body_text": "Von Miller doesn't currently have a number on the Cowboys' official roster, and a day after signing a one-year deal with the team, he doesn't know what his number will be.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T20:55:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Miller",
+        "Hunter Luepke"
+      ],
+      "resolved_player_ids": [
+        "00-0027940",
+        "00-0038738"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-list-jawaan-taylor-as-their-starting-right-tackle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-list-jawaan-taylor-as-their-starting-right-tackle",
+      "title": "Falcons list Jawaan Taylor as their starting right tackle",
+      "body_text": "A week after he was activated from the physically unable to perform list, Jawaan Taylor is listed as the Falcons' starting right tackle.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-18T20:49:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jawaan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0035237"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-aaron-donalds-second-tryout-is-part-of-his-process",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-aaron-donalds-second-tryout-is-part-of-his-process",
+      "title": "Sean McVay: Aaron Donald's second \"tryout\" is part of his process",
+      "body_text": "Aaron Donald had a second workout at the Rams' team facility as he continues to decide whether to unretire.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T00:04:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/smoking-gun-document-produced-by-korn-ferry-could-shake-up-brian-flores-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/smoking-gun-document-produced-by-korn-ferry-could-shake-up-brian-flores-case",
+      "title": "Smoking-gun document produced by Korn Ferry could shake up Brian Flores case",
+      "body_text": "Flores seeks to amend complaint based on \"insane\" document from search firm.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-18T01:36:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Korn Ferry",
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-wr-alex-bachman",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-wr-alex-bachman",
+      "title": "Rams sign WR Alex Bachman",
+      "body_text": "The Rams have brought in a veteran receiver who started his career with the club.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-18T20:41:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alex Bachman",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0035602"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-left-the-joint-practice-early-with-tightness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-left-the-joint-practice-early-with-tightness",
+      "title": "49ers WR Mike Evans left the joint practice early with \"tightness\"",
+      "body_text": "49ers wide receiver Mike Evans exited Tuesday's joint practice early.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-18T20:16:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-ot-david-sharpe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-sign-ot-david-sharpe",
+      "title": "Ravens sign OT David Sharpe",
+      "body_text": "Veteran offensive tackle David Sharpe is back for a second stint with the Ravens.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-18T20:10:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Sharpe"
+      ],
+      "resolved_player_ids": [
+        "00-0033946"
+      ],
+      "team_hint": "BAL"
+    }
+  ]
+}

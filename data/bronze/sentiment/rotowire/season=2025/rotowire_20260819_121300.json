@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "aae42fcc-e624-407e-9454-4ac7949efda6",
+  "source": "rotowire",
+  "fetched_at": "2026-08-19T12:13:00.613190+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634134",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Avoids serious setback but will miss weeks",
+      "body_text": "Kamara (knee) avoided a major injury but \"will be out for a few weeks,\" Nick Underhill of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-18T08:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634113",
+      "url": "https://www.rotowire.com//football/player/jaydon-blue-18499",
+      "permalink": "",
+      "title": "Jaydon Blue: Misses practice with shoulder injury",
+      "body_text": "Blue missed Tuesday's joint practice with the Saints due to a shoulder injury, Patrik Walker of the Cowboys' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-18T04:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaydon Blue",
+        "Patrik Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl634105",
+      "url": "https://www.rotowire.com//football/player/devaughn-vele-17975",
+      "permalink": "",
+      "title": "Devaughn Vele: Had a rest day Tuesday",
+      "body_text": "Vele missed Tuesday's practice due to a planned rest day, Matthew Paras of The New Orleans Times-Picayune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-18T04:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Devaughn Vele",
+        "Tuesday Vele",
+        "Matthew Paras",
+        "The New",
+        "Orleans Times"
+      ],
+      "resolved_player_ids": [
+        "00-0039424"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634103",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Dealing with knee injury",
+      "body_text": "Kamara was unable to finish Tuesday's joint practice with the Cowboys due to a knee injury, Ross Jackson of WWL Louisiana reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-18T04:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Ross Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl634093",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Returns to Tuesday's practice",
+      "body_text": "Olave returned to Tuesday's joint practice with the Cowboys after making a brief exit during the session, Katherine Terrell of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-18T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Katherine Terrell"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
