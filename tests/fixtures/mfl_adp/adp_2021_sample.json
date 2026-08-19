@@ -1,0 +1,5 @@
+{"version": "1.0", "adp": {"totalDrafts": "12954", "timestamp": "1787101578", "totalPicks": "1602", "player": [
+  {"draftSelPct": "63", "maxPick": "143", "id": "13130", "minPick": "1", "averagePick": "1.42", "rank": "1", "draftsSelectedIn": "8165"},
+  {"draftSelPct": "63", "id": "13128", "draftsSelectedIn": "8281", "rank": "2", "minPick": "1", "averagePick": "2.87", "maxPick": "91"},
+  {"averagePick": "4.16", "minPick": "1", "rank": "3", "draftsSelectedIn": "8208", "id": "13132", "maxPick": "44", "draftSelPct": "63"}
+]}, "encoding": "utf-8"}

@@ -1,0 +1,125 @@
+season,snapshot_date,source,format,player_name,team,position,adp,high,low,stdev,times_drafted
+2022,2022-09-04,ffc,half_ppr,Jonathan Taylor,IND,RB,1.3,1.0,3.0,0.6,158.0
+2022,2022-09-04,ffc,half_ppr,Christian McCaffrey,SF,RB,2.5,1.0,4.0,0.8,107.0
+2022,2022-09-04,ffc,half_ppr,Derrick Henry,TEN,RB,4.1,1.0,6.0,1.0,149.0
+2022,2022-09-04,ffc,half_ppr,Justin Jefferson,MIN,WR,4.8,2.0,9.0,1.4,156.0
+2022,2022-09-04,ffc,half_ppr,Dalvin Cook,MIN,RB,5.8,3.0,16.0,1.6,156.0
+2022,2022-09-04,ffc,half_ppr,Cooper Kupp,LAR,WR,6.6,2.0,11.0,1.8,174.0
+2022,2022-09-04,ffc,half_ppr,Najee Harris,PIT,RB,7.5,3.0,13.0,2.1,116.0
+2022,2022-09-04,ffc,half_ppr,Ja'Marr Chase,CIN,WR,8.9,4.0,13.0,1.8,160.0
+2022,2022-09-04,ffc,half_ppr,Joe Mixon,CIN,RB,9.5,5.0,17.0,2.1,148.0
+2022,2022-09-04,ffc,half_ppr,D'Andre Swift,DET,RB,10.8,5.0,16.0,1.9,90.0
+2022,2022-09-04,ffc,half_ppr,Alvin Kamara,NO,RB,11.1,5.0,17.0,2.1,187.0
+2022,2022-09-04,ffc,half_ppr,Davante Adams,LV,WR,12.4,6.0,20.0,2.6,147.0
+2022,2022-09-04,ffc,half_ppr,Stefon Diggs,BUF,WR,14.2,10.0,21.0,2.2,165.0
+2022,2022-09-04,ffc,half_ppr,Nick Chubb,CLE,RB,14.6,8.0,24.0,2.2,73.0
+2022,2022-09-04,ffc,half_ppr,Saquon Barkley,NYG,RB,15.4,9.0,22.0,2.8,181.0
+2022,2022-09-04,ffc,half_ppr,Aaron Jones Sr.,GB,RB,16.4,9.0,25.0,2.7,175.0
+2022,2022-09-04,ffc,half_ppr,Travis Kelce,KC,TE,17.2,8.0,24.0,3.3,135.0
+2022,2022-09-04,ffc,half_ppr,Javonte Williams,DEN,RB,18.1,12.0,31.0,2.9,156.0
+2022,2022-09-04,ffc,half_ppr,CeeDee Lamb,DAL,WR,19.2,13.0,28.0,2.9,148.0
+2022,2022-09-04,ffc,half_ppr,Leonard Fournette,TB,RB,21.0,14.0,27.0,2.6,181.0
+2022,2022-09-04,ffc,half_ppr,Deebo Samuel Sr.,SF,WR,21.3,14.0,28.0,2.7,94.0
+2022,2022-09-04,ffc,half_ppr,Josh Allen,BUF,QB,21.7,5.0,51.0,6.3,66.0
+2022,2022-09-04,ffc,half_ppr,Mark Andrews,BAL,TE,23.3,16.0,30.0,3.0,141.0
+2022,2022-09-04,ffc,half_ppr,Tyreek Hill,MIA,WR,23.6,14.0,31.0,3.5,199.0
+2022,2022-09-04,ffc,half_ppr,James Conner,ARI,RB,25.1,15.0,33.0,3.5,111.0
+2022,2022-09-04,ffc,half_ppr,Mike Evans,TB,WR,26.7,19.0,37.0,3.0,141.0
+2022,2022-09-04,ffc,half_ppr,Ezekiel Elliott,DAL,RB,27.7,18.0,56.0,4.0,139.0
+2022,2022-09-04,ffc,half_ppr,A.J. Brown,PHI,WR,28.4,19.0,36.0,3.4,130.0
+2022,2022-09-04,ffc,half_ppr,Michael Pittman Jr.,IND,WR,28.9,20.0,38.0,3.1,183.0
+2022,2022-09-04,ffc,half_ppr,Keenan Allen,LAC,WR,31.2,26.0,38.0,2.5,104.0
+2022,2022-09-04,ffc,half_ppr,Cam Akers,LAR,RB,31.4,22.0,41.0,3.3,100.0
+2022,2022-09-04,ffc,half_ppr,Kyle Pitts Sr.,ATL,TE,31.8,22.0,45.0,3.4,180.0
+2022,2022-09-04,ffc,half_ppr,Tee Higgins,CIN,WR,33.2,26.0,43.0,3.1,109.0
+2022,2022-09-04,ffc,half_ppr,Justin Herbert,LAC,QB,33.9,20.0,61.0,5.2,101.0
+2022,2022-09-04,ffc,half_ppr,Travis Etienne Jr.,JAX,RB,34.5,23.0,43.0,4.4,216.0
+2022,2022-09-04,ffc,half_ppr,J.K. Dobbins,BAL,RB,36.2,21.0,123.0,11.8,65.0
+2022,2022-09-04,ffc,half_ppr,Mike Williams,LAC,WR,36.8,28.0,47.0,3.3,172.0
+2022,2022-09-04,ffc,half_ppr,Patrick Mahomes,KC,QB,38.0,23.0,59.0,5.7,86.0
+2022,2022-09-04,ffc,half_ppr,David Montgomery,CHI,RB,38.1,22.0,48.0,6.1,112.0
+2022,2022-09-04,ffc,half_ppr,Jaylen Waddle,MIA,WR,38.8,24.0,50.0,5.6,53.0
+2022,2022-09-04,ffc,half_ppr,DJ Moore,CAR,WR,40.8,30.0,52.0,4.1,217.0
+2022,2022-09-04,ffc,half_ppr,Elijah Mitchell,SF,RB,41.8,28.0,51.0,5.0,111.0
+2022,2022-09-04,ffc,half_ppr,Terry McLaurin,WAS,WR,42.3,32.0,51.0,3.7,127.0
+2022,2022-09-04,ffc,half_ppr,Breece Hall,NYJ,RB,43.6,30.0,53.0,5.0,125.0
+2022,2022-09-04,ffc,half_ppr,George Kittle,SF,TE,44.5,31.0,54.0,4.8,92.0
+2022,2022-09-04,ffc,half_ppr,AJ Dillon,GB,RB,46.4,32.0,70.0,5.5,188.0
+2022,2022-09-04,ffc,half_ppr,DK Metcalf,SEA,WR,46.7,34.0,62.0,5.1,56.0
+2022,2022-09-04,ffc,half_ppr,Michael Thomas,NO,WR,47.1,34.0,57.0,4.8,71.0
+2022,2022-09-04,ffc,half_ppr,Lamar Jackson,BAL,QB,47.3,35.0,61.0,4.7,130.0
+2022,2022-09-04,ffc,half_ppr,Courtland Sutton,DEN,WR,47.3,33.0,60.0,5.3,301.0
+2022,2022-09-04,ffc,half_ppr,Diontae Johnson,PIT,WR,50.9,42.0,61.0,4.1,108.0
+2022,2022-09-04,ffc,half_ppr,Darren Waller,LV,TE,51.8,37.0,75.0,5.5,104.0
+2022,2022-09-04,ffc,half_ppr,Clyde Edwards-Helaire,KC,RB,52.4,36.0,74.0,6.2,101.0
+2022,2022-09-04,ffc,half_ppr,Damien Harris,NE,RB,53.5,41.0,63.0,4.7,72.0
+2022,2022-09-04,ffc,half_ppr,Chris Godwin Jr.,TB,WR,53.9,38.0,63.0,6.0,116.0
+2022,2022-09-04,ffc,half_ppr,Kyler Murray,ARI,QB,56.9,44.0,80.0,6.1,90.0
+2022,2022-09-04,ffc,half_ppr,DeAndre Hopkins,ARI,WR,57.1,44.0,105.0,6.9,84.0
+2022,2022-09-04,ffc,half_ppr,Brandin Cooks,HOU,WR,57.5,47.0,70.0,5.0,126.0
+2022,2022-09-04,ffc,half_ppr,Jalen Hurts,PHI,QB,57.6,40.0,78.0,6.5,133.0
+2022,2022-09-04,ffc,half_ppr,Allen Robinson II,LAR,WR,58.3,43.0,73.0,5.8,219.0
+2022,2022-09-04,ffc,half_ppr,Rashaad Penny,SEA,RB,60.6,45.0,74.0,6.0,90.0
+2022,2022-09-04,ffc,half_ppr,Dalton Schultz,DAL,TE,61.8,41.0,80.0,8.0,118.0
+2022,2022-09-04,ffc,half_ppr,Miles Sanders,PHI,RB,62.2,50.0,124.0,9.2,69.0
+2022,2022-09-04,ffc,half_ppr,Jerry Jeudy,DEN,WR,63.6,50.0,76.0,5.2,99.0
+2022,2022-09-04,ffc,half_ppr,Gabe Davis,BUF,WR,64.5,47.0,81.0,6.7,214.0
+2022,2022-09-04,ffc,half_ppr,Kareem Hunt,CLE,RB,64.9,46.0,84.0,7.0,74.0
+2022,2022-09-04,ffc,half_ppr,Hollywood Brown,ARI,WR,66.4,49.0,78.0,6.5,148.0
+2022,2022-09-04,ffc,half_ppr,Chase Edmonds,DEN,RB,68.2,50.0,122.0,6.9,231.0
+2022,2022-09-04,ffc,half_ppr,Russell Wilson,DEN,QB,68.3,55.0,111.0,6.5,100.0
+2022,2022-09-04,ffc,half_ppr,Tony Pollard,DAL,RB,69.3,53.0,86.0,6.1,84.0
+2022,2022-09-04,ffc,half_ppr,Adam Thielen,MIN,WR,70.8,50.0,86.0,7.9,102.0
+2022,2022-09-04,ffc,half_ppr,T.J. Hockenson,MIN,TE,73.4,54.0,106.0,8.7,53.0
+2022,2022-09-04,ffc,half_ppr,Darnell Mooney,CHI,WR,73.8,65.0,86.0,5.0,80.0
+2022,2022-09-04,ffc,half_ppr,Devin Singletary,BUF,RB,74.8,58.0,86.0,6.3,62.0
+2022,2022-09-04,ffc,half_ppr,Amon-Ra St. Brown,DET,WR,75.3,57.0,89.0,6.8,183.0
+2022,2022-09-04,ffc,half_ppr,Rhamondre Stevenson,NE,RB,75.6,54.0,125.0,8.3,161.0
+2022,2022-09-04,ffc,half_ppr,Dameon Pierce,HOU,RB,76.4,48.0,98.0,10.7,390.0
+2022,2022-09-04,ffc,half_ppr,Dallas Goedert,PHI,TE,77.8,60.0,96.0,6.5,89.0
+2022,2022-09-04,ffc,half_ppr,Dak Prescott,DAL,QB,79.2,59.0,109.0,7.4,67.0
+2022,2022-09-04,ffc,half_ppr,JuJu Smith-Schuster,KC,WR,80.5,55.0,96.0,9.5,219.0
+2022,2022-09-04,ffc,half_ppr,Tom Brady,TB,QB,82.0,59.0,110.0,8.6,77.0
+2022,2022-09-04,ffc,half_ppr,Melvin Gordon III,KC,RB,83.4,70.0,121.0,7.9,51.0
+2022,2022-09-04,ffc,half_ppr,Rashod Bateman,BAL,WR,85.4,64.0,101.0,8.2,169.0
+2022,2022-09-04,ffc,half_ppr,Matthew Stafford,LAR,QB,85.8,60.0,112.0,10.7,67.0
+2022,2022-09-04,ffc,half_ppr,DeVonta Smith,PHI,WR,87.7,73.0,101.0,5.7,66.0
+2022,2022-09-04,ffc,half_ppr,Cordarrelle Patterson,ATL,RB,90.6,73.0,105.0,6.4,70.0
+2022,2022-09-04,ffc,half_ppr,Elijah Moore,NYJ,WR,91.8,71.0,108.0,7.8,84.0
+2022,2022-09-04,ffc,half_ppr,Trey Lance,SF,QB,91.8,67.0,118.0,9.4,118.0
+2022,2022-09-04,ffc,half_ppr,James Cook III,BUF,RB,92.9,75.0,129.0,7.4,57.0
+2022,2022-09-04,ffc,half_ppr,Zach Ertz,ARI,TE,94.7,68.0,116.0,10.0,84.0
+2022,2022-09-04,ffc,half_ppr,Brandon Aiyuk,SF,WR,95.6,79.0,112.0,6.7,83.0
+2022,2022-09-04,ffc,half_ppr,Aaron Rodgers,GB,QB,95.6,73.0,120.0,9.8,153.0
+2022,2022-09-04,ffc,half_ppr,Allen Lazard,GB,WR,95.7,76.0,117.0,7.2,178.0
+2022,2022-09-04,ffc,half_ppr,Alexander Mattison,MIN,RB,95.8,74.0,131.0,9.3,51.0
+2022,2022-09-04,ffc,half_ppr,Nyheim Hines,BUF,RB,99.0,77.0,140.0,8.4,52.0
+2022,2022-09-04,ffc,half_ppr,Tyler Allgeier,ATL,RB,99.2,84.0,109.0,6.3,50.0
+2022,2022-09-04,ffc,half_ppr,Christian Kirk,JAX,WR,101.3,84.0,118.0,6.6,127.0
+2022,2022-09-04,ffc,half_ppr,Robert Woods,TEN,WR,101.5,83.0,116.0,6.9,54.0
+2022,2022-09-04,ffc,half_ppr,Antonio Gibson,WAS,RB,102.2,79.0,121.0,8.9,183.0
+2022,2022-09-04,ffc,half_ppr,Derek Carr,LV,QB,102.8,75.0,133.0,10.6,112.0
+2022,2022-09-04,ffc,half_ppr,Tyler Lockett,SEA,WR,106.5,84.0,118.0,8.5,61.0
+2022,2022-09-04,ffc,half_ppr,Kirk Cousins,MIN,QB,107.4,87.0,123.0,8.3,68.0
+2022,2022-09-04,ffc,half_ppr,Kadarius Toney,KC,WR,108.1,87.0,125.0,7.9,63.0
+2022,2022-09-04,ffc,half_ppr,Isiah Pacheco,KC,RB,109.8,77.0,138.0,12.4,64.0
+2022,2022-09-04,ffc,half_ppr,Pat Freiermuth,PIT,TE,111.5,87.0,138.0,10.9,68.0
+2022,2022-09-04,ffc,half_ppr,Chris Olave,NO,WR,114.2,97.0,133.0,7.1,97.0
+2022,2022-09-04,ffc,half_ppr,Drake London,ATL,WR,115.7,89.0,146.0,10.3,85.0
+2022,2022-09-04,ffc,half_ppr,Michael Carter,NYJ,RB,115.8,87.0,150.0,11.8,74.0
+2022,2022-09-04,ffc,half_ppr,Cole Kmet,CHI,TE,116.2,86.0,151.0,11.7,103.0
+2022,2022-09-04,ffc,half_ppr,Tampa Bay Defense,TB,DST,118.5,79.0,143.0,14.9,69.0
+2022,2022-09-04,ffc,half_ppr,Buffalo Defense,BUF,DST,120.9,93.0,151.0,11.3,142.0
+2022,2022-09-04,ffc,half_ppr,George Pickens,PIT,WR,121.1,92.0,148.0,11.1,116.0
+2022,2022-09-04,ffc,half_ppr,Julio Jones,TB,WR,126.2,89.0,148.0,14.2,53.0
+2022,2022-09-04,ffc,half_ppr,Romeo Doubs,GB,WR,128.1,98.0,150.0,11.3,55.0
+2022,2022-09-04,ffc,half_ppr,Josh Jacobs,LV,RB,128.7,71.0,180.0,21.8,201.0
+2022,2022-09-04,ffc,half_ppr,LA Rams Defense,LAR,DST,134.5,106.0,151.0,10.9,60.0
+2022,2022-09-04,ffc,half_ppr,Justin Fields,CHI,QB,136.3,113.0,178.0,13.6,56.0
+2022,2022-09-04,ffc,half_ppr,Darrell Henderson Jr.,JAX,RB,138.1,87.0,180.0,19.6,148.0
+2022,2022-09-04,ffc,half_ppr,Justin Tucker,BAL,K,138.4,92.0,179.0,17.9,170.0
+2022,2022-09-04,ffc,half_ppr,LA Chargers Defense,LAC,DST,144.1,109.0,165.0,14.9,53.0
+2022,2022-09-04,ffc,half_ppr,Harrison Butker,KC,K,146.9,108.0,187.0,16.7,55.0
+2022,2022-09-04,ffc,half_ppr,Indianapolis Defense,IND,DST,150.7,109.0,193.0,18.8,52.0
+2022,2022-09-04,ffc,half_ppr,Raheem Mostert,MIA,RB,151.1,111.0,180.0,17.1,57.0
+2022,2022-09-04,ffc,half_ppr,Dawson Knox,BUF,TE,157.9,87.0,204.0,26.9,61.0

@@ -1,0 +1,148 @@
+season,snapshot_date,source,format,player_name,team,position,adp,high,low,stdev,times_drafted
+2025,2025-09-01,ffc,standard,Saquon Barkley,PHI,RB,1.6,1.0,3.0,0.8,19.0
+2025,2025-09-01,ffc,standard,Bijan Robinson,ATL,RB,2.0,1.0,3.0,0.8,27.0
+2025,2025-09-01,ffc,standard,Ja'Marr Chase,CIN,WR,3.8,1.0,7.0,1.7,75.0
+2025,2025-09-01,ffc,standard,Jahmyr Gibbs,DET,RB,4.1,1.0,7.0,1.1,48.0
+2025,2025-09-01,ffc,standard,Josh Jacobs,GB,RB,6.7,5.0,9.0,1.3,19.0
+2025,2025-09-01,ffc,standard,Justin Jefferson,MIN,WR,7.1,5.0,11.0,1.3,32.0
+2025,2025-09-01,ffc,standard,Christian McCaffrey,SF,RB,8.2,4.0,14.0,2.2,79.0
+2025,2025-09-01,ffc,standard,Ashton Jeanty,LV,RB,8.8,5.0,13.0,2.2,39.0
+2025,2025-09-01,ffc,standard,CeeDee Lamb,DAL,WR,10.7,5.0,16.0,2.0,69.0
+2025,2025-09-01,ffc,standard,Kyren Williams,LAR,RB,11.8,8.0,17.0,2.0,28.0
+2025,2025-09-01,ffc,standard,Bucky Irving,TB,RB,12.8,6.0,16.0,2.4,37.0
+2025,2025-09-01,ffc,standard,Nico Collins,HOU,WR,13.3,9.0,17.0,1.7,31.0
+2025,2025-09-01,ffc,standard,Malik Nabers,NYG,WR,14.6,10.0,19.0,1.6,38.0
+2025,2025-09-01,ffc,standard,Lamar Jackson,BAL,QB,16.0,7.0,22.0,3.4,23.0
+2025,2025-09-01,ffc,standard,Brian Thomas Jr.,JAX,WR,16.8,11.0,21.0,3.3,15.0
+2025,2025-09-01,ffc,standard,De'Von Achane,MIA,RB,17.5,12.0,22.0,2.7,41.0
+2025,2025-09-01,ffc,standard,Puka Nacua,LAR,WR,17.7,7.0,24.0,3.8,33.0
+2025,2025-09-01,ffc,standard,Josh Allen,BUF,QB,18.0,7.0,24.0,3.9,29.0
+2025,2025-09-01,ffc,standard,Chase Brown,CIN,RB,18.8,11.0,28.0,4.3,105.0
+2025,2025-09-01,ffc,standard,Drake London,ATL,WR,20.8,14.0,26.0,3.0,25.0
+2025,2025-09-01,ffc,standard,A.J. Brown,PHI,WR,20.8,14.0,26.0,3.1,19.0
+2025,2025-09-01,ffc,standard,Amon-Ra St. Brown,DET,WR,23.1,13.0,32.0,3.9,77.0
+2025,2025-09-01,ffc,standard,Joe Burrow,CIN,QB,24.2,8.0,30.0,5.8,28.0
+2025,2025-09-01,ffc,standard,James Cook III,BUF,RB,24.4,15.0,30.0,3.7,34.0
+2025,2025-09-01,ffc,standard,Jayden Daniels,WAS,QB,26.7,19.0,34.0,3.6,20.0
+2025,2025-09-01,ffc,standard,Tee Higgins,CIN,WR,27.2,16.0,32.0,4.0,19.0
+2025,2025-09-01,ffc,standard,Mike Evans,SF,WR,28.4,20.0,36.0,3.7,20.0
+2025,2025-09-01,ffc,standard,Ladd McConkey,LAC,WR,29.5,23.0,36.0,2.7,34.0
+2025,2025-09-01,ffc,standard,Omarion Hampton,LAC,RB,29.6,22.0,36.0,3.0,74.0
+2025,2025-09-01,ffc,standard,Chuba Hubbard,CAR,RB,32.0,25.0,38.0,3.3,29.0
+2025,2025-09-01,ffc,standard,Jalen Hurts,PHI,QB,32.2,17.0,40.0,5.6,52.0
+2025,2025-09-01,ffc,standard,Davante Adams,LAR,WR,33.2,27.0,38.0,4.2,10.0
+2025,2025-09-01,ffc,standard,Tyreek Hill,FA,WR,33.2,27.0,42.0,4.1,20.0
+2025,2025-09-01,ffc,standard,DK Metcalf,PIT,WR,33.9,24.0,39.0,4.3,14.0
+2025,2025-09-01,ffc,standard,James Conner,ARI,RB,34.5,25.0,40.0,3.5,19.0
+2025,2025-09-01,ffc,standard,Marvin Harrison Jr.,ARI,WR,35.9,25.0,47.0,5.4,17.0
+2025,2025-09-01,ffc,standard,Alvin Kamara,NO,RB,38.2,27.0,45.0,4.4,31.0
+2025,2025-09-01,ffc,standard,Kenneth Walker,KC,RB,38.3,25.0,47.0,4.8,79.0
+2025,2025-09-01,ffc,standard,Terry McLaurin,WAS,WR,39.2,30.0,51.0,4.3,36.0
+2025,2025-09-01,ffc,standard,Xavier Worthy,KC,WR,41.1,35.0,47.0,4.1,17.0
+2025,2025-09-01,ffc,standard,Jameson Williams,DET,WR,41.8,35.0,53.0,5.6,18.0
+2025,2025-09-01,ffc,standard,Courtland Sutton,DEN,WR,42.8,31.0,53.0,4.7,30.0
+2025,2025-09-01,ffc,standard,TreVeyon Henderson,NE,RB,43.4,26.0,59.0,7.2,115.0
+2025,2025-09-01,ffc,standard,Jaxon Smith-Njigba,SEA,WR,44.2,31.0,65.0,5.1,49.0
+2025,2025-09-01,ffc,standard,Breece Hall,NYJ,RB,44.4,31.0,53.0,6.2,41.0
+2025,2025-09-01,ffc,standard,Baker Mayfield,TB,QB,46.5,35.0,55.0,7.5,13.0
+2025,2025-09-01,ffc,standard,Brock Bowers,LV,TE,46.8,30.0,66.0,10.4,71.0
+2025,2025-09-01,ffc,standard,Tetairoa McMillan,CAR,WR,47.9,38.0,58.0,4.6,18.0
+2025,2025-09-01,ffc,standard,Patrick Mahomes,KC,QB,49.5,38.0,57.0,6.1,12.0
+2025,2025-09-01,ffc,standard,George Kittle,SF,TE,49.6,29.0,62.0,7.7,47.0
+2025,2025-09-01,ffc,standard,DeVonta Smith,PHI,WR,50.2,44.0,61.0,4.2,19.0
+2025,2025-09-01,ffc,standard,DJ Moore,BUF,WR,51.3,38.0,61.0,5.3,15.0
+2025,2025-09-01,ffc,standard,David Montgomery,HOU,RB,53.5,41.0,63.0,7.8,20.0
+2025,2025-09-01,ffc,standard,Garrett Wilson,NYJ,WR,54.1,48.0,67.0,4.0,19.0
+2025,2025-09-01,ffc,standard,Calvin Ridley,TEN,WR,54.1,42.0,66.0,5.9,44.0
+2025,2025-09-01,ffc,standard,Tony Pollard,TEN,RB,54.4,38.0,67.0,6.0,45.0
+2025,2025-09-01,ffc,standard,D'Andre Swift,CHI,RB,54.8,35.0,65.0,7.3,54.0
+2025,2025-09-01,ffc,standard,Trey McBride,ARI,TE,55.1,36.0,68.0,8.2,30.0
+2025,2025-09-01,ffc,standard,George Pickens,DAL,WR,57.0,45.0,69.0,4.8,50.0
+2025,2025-09-01,ffc,standard,Zay Flowers,BAL,WR,58.8,49.0,68.0,6.5,18.0
+2025,2025-09-01,ffc,standard,RJ Harvey,DEN,RB,61.2,42.0,74.0,7.2,58.0
+2025,2025-09-01,ffc,standard,Isiah Pacheco,DET,RB,62.4,44.0,72.0,7.0,39.0
+2025,2025-09-01,ffc,standard,Aaron Jones Sr.,MIN,RB,64.0,48.0,71.0,6.2,21.0
+2025,2025-09-01,ffc,standard,Sam LaPorta,DET,TE,64.2,49.0,75.0,6.0,23.0
+2025,2025-09-01,ffc,standard,Deebo Samuel Sr.,FA,WR,65.0,45.0,75.0,7.5,21.0
+2025,2025-09-01,ffc,standard,Bo Nix,DEN,QB,66.8,49.0,84.0,10.0,20.0
+2025,2025-09-01,ffc,standard,Jaylen Waddle,MIA,WR,67.5,56.0,83.0,6.8,37.0
+2025,2025-09-01,ffc,standard,Kaleb Johnson,PIT,RB,67.6,48.0,74.0,7.4,12.0
+2025,2025-09-01,ffc,standard,Ricky Pearsall,SF,WR,68.5,51.0,83.0,6.6,82.0
+2025,2025-09-01,ffc,standard,Matthew Golden,GB,WR,69.4,59.0,83.0,5.1,45.0
+2025,2025-09-01,ffc,standard,Tyrone Tracy Jr.,NYG,RB,69.9,65.0,76.0,3.2,18.0
+2025,2025-09-01,ffc,standard,Travis Hunter,JAX,WR,72.4,60.0,82.0,6.2,30.0
+2025,2025-09-01,ffc,standard,Rome Odunze,CHI,WR,75.7,66.0,86.0,5.6,41.0
+2025,2025-09-01,ffc,standard,Jaylen Warren,PIT,RB,77.5,70.0,88.0,5.8,16.0
+2025,2025-09-01,ffc,standard,Brock Purdy,SF,QB,77.8,65.0,87.0,7.1,12.0
+2025,2025-09-01,ffc,standard,Chris Olave,NO,WR,79.7,65.0,89.0,5.3,21.0
+2025,2025-09-01,ffc,standard,Travis Kelce,KC,TE,81.1,61.0,92.0,9.7,11.0
+2025,2025-09-01,ffc,standard,Jordan Mason,MIN,RB,81.4,67.0,101.0,8.9,34.0
+2025,2025-09-01,ffc,standard,Jauan Jennings,FA,WR,82.3,73.0,93.0,6.2,12.0
+2025,2025-09-01,ffc,standard,Emeka Egbuka,TB,WR,83.3,65.0,98.0,6.8,105.0
+2025,2025-09-01,ffc,standard,Keon Coleman,BUF,WR,83.8,73.0,95.0,5.4,22.0
+2025,2025-09-01,ffc,standard,Dak Prescott,DAL,QB,84.2,50.0,110.0,13.0,59.0
+2025,2025-09-01,ffc,standard,Jacory Croskey-Merritt,WAS,RB,84.8,59.0,106.0,9.8,72.0
+2025,2025-09-01,ffc,standard,Jakobi Meyers,JAX,WR,85.2,71.0,102.0,9.2,13.0
+2025,2025-09-01,ffc,standard,J.K. Dobbins,DEN,RB,85.8,60.0,103.0,9.6,32.0
+2025,2025-09-01,ffc,standard,Kyler Murray,MIN,QB,86.5,65.0,110.0,13.0,21.0
+2025,2025-09-01,ffc,standard,Stefon Diggs,FA,WR,87.4,68.0,105.0,8.0,34.0
+2025,2025-09-01,ffc,standard,Tucker Kraft,GB,TE,92.5,68.0,104.0,9.5,11.0
+2025,2025-09-01,ffc,standard,Austin Ekeler,FA,RB,94.2,66.0,112.0,13.4,14.0
+2025,2025-09-01,ffc,standard,Rashee Rice,KC,WR,95.5,74.0,110.0,9.6,44.0
+2025,2025-09-01,ffc,standard,Khalil Shakir,BUF,WR,95.5,73.0,107.0,8.3,18.0
+2025,2025-09-01,ffc,standard,Michael Pittman Jr.,PIT,WR,96.6,84.0,109.0,7.6,14.0
+2025,2025-09-01,ffc,standard,Jordan Addison,MIN,WR,96.6,83.0,107.0,5.5,27.0
+2025,2025-09-01,ffc,standard,Tyler Warren,IND,TE,98.2,67.0,125.0,11.6,49.0
+2025,2025-09-01,ffc,standard,Zach Charbonnet,SEA,RB,98.8,69.0,125.0,11.2,69.0
+2025,2025-09-01,ffc,standard,Jared Goff,DET,QB,99.3,60.0,123.0,15.1,35.0
+2025,2025-09-01,ffc,standard,Cooper Kupp,SEA,WR,99.8,84.0,113.0,7.6,24.0
+2025,2025-09-01,ffc,standard,Caleb Williams,CHI,QB,100.4,74.0,116.0,10.9,23.0
+2025,2025-09-01,ffc,standard,Marvin Mims Jr.,DEN,WR,106.1,91.0,116.0,7.2,18.0
+2025,2025-09-01,ffc,standard,J.J. McCarthy,MIN,QB,107.2,64.0,125.0,18.7,13.0
+2025,2025-09-01,ffc,standard,Christian Kirk,SF,WR,108.9,81.0,144.0,10.4,28.0
+2025,2025-09-01,ffc,standard,Keenan Allen,FA,WR,108.9,85.0,122.0,10.1,13.0
+2025,2025-09-01,ffc,standard,Denver Defense,DEN,DST,109.4,81.0,126.0,12.2,47.0
+2025,2025-09-01,ffc,standard,Rhamondre Stevenson,NE,RB,109.8,92.0,143.0,13.4,11.0
+2025,2025-09-01,ffc,standard,Justin Herbert,LAC,QB,110.4,56.0,133.0,20.7,25.0
+2025,2025-09-01,ffc,standard,Chris Godwin Jr.,TB,WR,111.3,98.0,134.0,9.3,11.0
+2025,2025-09-01,ffc,standard,Trevor Lawrence,JAX,QB,113.1,71.0,141.0,23.1,14.0
+2025,2025-09-01,ffc,standard,Drake Maye,NE,QB,114.3,89.0,132.0,9.4,40.0
+2025,2025-09-01,ffc,standard,Javonte Williams,DAL,RB,116.2,78.0,146.0,15.8,40.0
+2025,2025-09-01,ffc,standard,Jayden Higgins,HOU,WR,116.7,100.0,140.0,11.1,10.0
+2025,2025-09-01,ffc,standard,Romeo Doubs,NE,WR,118.0,94.0,140.0,15.2,10.0
+2025,2025-09-01,ffc,standard,Travis Etienne Jr.,NO,RB,118.8,90.0,149.0,13.7,39.0
+2025,2025-09-01,ffc,standard,Tank Bigsby,PHI,RB,118.9,90.0,143.0,13.1,37.0
+2025,2025-09-01,ffc,standard,Justin Fields,KC,QB,119.2,101.0,140.0,11.8,30.0
+2025,2025-09-01,ffc,standard,Philadelphia Defense,PHI,DST,122.2,107.0,134.0,8.2,15.0
+2025,2025-09-01,ffc,standard,Pittsburgh Defense,PIT,DST,122.4,98.0,134.0,10.4,13.0
+2025,2025-09-01,ffc,standard,Dallas Goedert,PHI,TE,123.8,95.0,155.0,15.7,12.0
+2025,2025-09-01,ffc,standard,Nick Chubb,FA,RB,124.0,80.0,148.0,16.7,61.0
+2025,2025-09-01,ffc,standard,Baltimore Defense,BAL,DST,125.2,109.0,141.0,8.0,15.0
+2025,2025-09-01,ffc,standard,Hollywood Brown,FA,WR,126.0,108.0,144.0,10.4,16.0
+2025,2025-09-01,ffc,standard,Jordan Love,GB,QB,126.2,101.0,143.0,11.4,30.0
+2025,2025-09-01,ffc,standard,Jake Ferguson,DAL,TE,128.4,112.0,167.0,18.2,15.0
+2025,2025-09-01,ffc,standard,Joshua Palmer,BUF,WR,128.6,114.0,138.0,6.7,14.0
+2025,2025-09-01,ffc,standard,Xavier Legette,CAR,WR,128.8,85.0,150.0,16.8,12.0
+2025,2025-09-01,ffc,standard,Cam Skattebo,NYG,RB,132.6,110.0,162.0,13.1,30.0
+2025,2025-09-01,ffc,standard,Trey Benson,ARI,RB,133.0,84.0,159.0,18.8,11.0
+2025,2025-09-01,ffc,standard,Brandon Aiyuk,SF,WR,133.4,99.0,153.0,13.2,25.0
+2025,2025-09-01,ffc,standard,Evan Engram,DEN,TE,134.5,88.0,176.0,22.2,50.0
+2025,2025-09-01,ffc,standard,Jalen Coker,CAR,WR,135.7,130.0,179.0,12.2,15.0
+2025,2025-09-01,ffc,standard,Brandon Aubrey,DAL,K,137.0,87.0,157.0,20.1,71.0
+2025,2025-09-01,ffc,standard,Cameron Dicker,LAC,K,138.0,92.0,163.0,22.5,15.0
+2025,2025-09-01,ffc,standard,Houston Defense,HOU,DST,138.4,122.0,163.0,12.0,10.0
+2025,2025-09-01,ffc,standard,Tyler Bass,BUF,K,140.2,103.0,158.0,19.8,12.0
+2025,2025-09-01,ffc,standard,C.J. Stroud,HOU,QB,141.0,130.0,164.0,9.6,12.0
+2025,2025-09-01,ffc,standard,Jaydon Blue,DAL,RB,143.0,101.0,176.0,17.7,23.0
+2025,2025-09-01,ffc,standard,Joe Mixon,FA,RB,144.7,112.0,171.0,15.9,22.0
+2025,2025-09-01,ffc,standard,Jerome Ford,WAS,RB,145.5,107.0,167.0,16.6,15.0
+2025,2025-09-01,ffc,standard,Green Bay Defense,GB,DST,146.4,109.0,179.0,19.7,19.0
+2025,2025-09-01,ffc,standard,Braelon Allen,NYJ,RB,147.7,115.0,179.0,20.3,28.0
+2025,2025-09-01,ffc,standard,Dylan Sampson,CLE,RB,148.8,127.0,164.0,12.0,12.0
+2025,2025-09-01,ffc,standard,Harrison Butker,KC,K,149.2,135.0,163.0,11.0,12.0
+2025,2025-09-01,ffc,standard,Minnesota Defense,MIN,DST,151.3,89.0,180.0,23.7,31.0
+2025,2025-09-01,ffc,standard,Adam Thielen,FA,WR,157.6,139.0,179.0,13.2,14.0
+2025,2025-09-01,ffc,standard,Dalton Kincaid,BUF,TE,158.9,124.0,178.0,17.0,16.0
+2025,2025-09-01,ffc,standard,Bhayshul Tuten,JAX,RB,161.8,150.0,174.0,9.1,10.0
+2025,2025-09-01,ffc,standard,San Francisco Defense,SF,DST,164.5,138.0,179.0,16.0,16.0
+2025,2025-09-01,ffc,standard,Ka'imi Fairbairn,HOU,K,166.3,122.0,180.0,16.8,12.0

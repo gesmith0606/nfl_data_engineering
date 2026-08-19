@@ -1,0 +1,196 @@
+season,snapshot_date,source,format,player_name,team,position,adp,high,low,stdev,times_drafted
+2022,2022-09-04,ffc,standard,Jonathan Taylor,IND,RB,1.3,1.0,3.0,0.6,368.0
+2022,2022-09-04,ffc,standard,Derrick Henry,TEN,RB,2.4,1.0,5.0,0.6,107.0
+2022,2022-09-04,ffc,standard,Christian McCaffrey,SF,RB,2.6,1.0,5.0,0.8,244.0
+2022,2022-09-04,ffc,standard,Dalvin Cook,MIN,RB,4.2,2.0,7.0,0.9,284.0
+2022,2022-09-04,ffc,standard,Cooper Kupp,LAR,WR,5.1,1.0,10.0,1.5,191.0
+2022,2022-09-04,ffc,standard,Justin Jefferson,MIN,WR,5.5,1.0,12.0,1.7,349.0
+2022,2022-09-04,ffc,standard,Austin Ekeler,LAC,RB,7.2,1.0,13.0,2.1,697.0
+2022,2022-09-04,ffc,standard,Nick Chubb,CLE,RB,7.6,1.0,15.0,2.6,117.0
+2022,2022-09-04,ffc,standard,Ja'Marr Chase,CIN,WR,7.6,3.0,11.0,1.5,205.0
+2022,2022-09-04,ffc,standard,Najee Harris,PIT,RB,9.4,1.0,16.0,2.9,422.0
+2022,2022-09-04,ffc,standard,D'Andre Swift,DET,RB,10.4,6.0,16.0,1.8,128.0
+2022,2022-09-04,ffc,standard,Stefon Diggs,BUF,WR,12.3,7.0,18.0,2.2,169.0
+2022,2022-09-04,ffc,standard,Davante Adams,LV,WR,12.7,6.0,18.0,2.5,201.0
+2022,2022-09-04,ffc,standard,Alvin Kamara,NO,RB,13.0,6.0,21.0,2.7,426.0
+2022,2022-09-04,ffc,standard,Aaron Jones Sr.,GB,RB,14.9,7.0,22.0,2.7,233.0
+2022,2022-09-04,ffc,standard,Joe Mixon,CIN,RB,15.0,5.0,24.0,3.6,762.0
+2022,2022-09-04,ffc,standard,Travis Kelce,KC,TE,15.6,8.0,23.0,2.7,174.0
+2022,2022-09-04,ffc,standard,Javonte Williams,DEN,RB,15.8,6.0,22.0,3.5,252.0
+2022,2022-09-04,ffc,standard,Josh Allen,BUF,QB,16.7,3.0,28.0,5.3,133.0
+2022,2022-09-04,ffc,standard,Saquon Barkley,NYG,RB,18.5,10.0,27.0,3.2,435.0
+2022,2022-09-04,ffc,standard,CeeDee Lamb,DAL,WR,20.1,12.0,27.0,2.9,387.0
+2022,2022-09-04,ffc,standard,Mike Evans,TB,WR,22.6,14.0,30.0,3.2,169.0
+2022,2022-09-04,ffc,standard,Tyreek Hill,MIA,WR,22.7,14.0,30.0,3.0,271.0
+2022,2022-09-04,ffc,standard,Leonard Fournette,TB,RB,22.7,14.0,34.0,3.1,366.0
+2022,2022-09-04,ffc,standard,Ezekiel Elliott,DAL,RB,24.5,15.0,34.0,3.4,221.0
+2022,2022-09-04,ffc,standard,Mark Andrews,BAL,TE,25.5,14.0,38.0,4.1,297.0
+2022,2022-09-04,ffc,standard,Deebo Samuel Sr.,SF,WR,26.1,17.0,35.0,3.3,565.0
+2022,2022-09-04,ffc,standard,A.J. Brown,PHI,WR,26.2,18.0,36.0,2.9,235.0
+2022,2022-09-04,ffc,standard,Cam Akers,LAR,RB,28.2,20.0,36.0,3.1,182.0
+2022,2022-09-04,ffc,standard,James Conner,ARI,RB,28.6,17.0,37.0,4.4,413.0
+2022,2022-09-04,ffc,standard,Keenan Allen,LAC,WR,29.7,21.0,36.0,3.0,212.0
+2022,2022-09-04,ffc,standard,Tee Higgins,CIN,WR,32.0,23.0,40.0,3.2,220.0
+2022,2022-09-04,ffc,standard,Michael Pittman Jr.,IND,WR,32.1,22.0,41.0,3.6,538.0
+2022,2022-09-04,ffc,standard,David Montgomery,CHI,RB,32.5,23.0,45.0,3.6,143.0
+2022,2022-09-04,ffc,standard,J.K. Dobbins,BAL,RB,33.9,25.0,42.0,3.6,107.0
+2022,2022-09-04,ffc,standard,Kyle Pitts Sr.,ATL,TE,34.1,21.0,48.0,4.9,445.0
+2022,2022-09-04,ffc,standard,Elijah Mitchell,SF,RB,34.9,25.0,48.0,4.7,234.0
+2022,2022-09-04,ffc,standard,Terry McLaurin,WAS,WR,36.7,29.0,45.0,2.9,186.0
+2022,2022-09-04,ffc,standard,Lamar Jackson,BAL,QB,37.5,20.0,51.0,6.4,158.0
+2022,2022-09-04,ffc,standard,Jalen Hurts,PHI,QB,38.8,9.0,53.0,11.3,108.0
+2022,2022-09-04,ffc,standard,George Kittle,SF,TE,39.3,27.0,50.0,4.6,114.0
+2022,2022-09-04,ffc,standard,Antonio Gibson,WAS,RB,39.4,26.0,48.0,4.9,78.0
+2022,2022-09-04,ffc,standard,Travis Etienne Jr.,JAX,RB,40.2,27.0,53.0,5.1,458.0
+2022,2022-09-04,ffc,standard,Justin Herbert,LAC,QB,41.2,21.0,56.0,7.7,442.0
+2022,2022-09-04,ffc,standard,Diontae Johnson,PIT,WR,43.7,29.0,57.0,5.5,181.0
+2022,2022-09-04,ffc,standard,Josh Jacobs,LV,RB,43.9,31.0,54.0,4.7,187.0
+2022,2022-09-04,ffc,standard,AJ Dillon,GB,RB,45.4,30.0,63.0,5.9,395.0
+2022,2022-09-04,ffc,standard,DK Metcalf,SEA,WR,45.6,30.0,58.0,6.0,297.0
+2022,2022-09-04,ffc,standard,DeAndre Hopkins,ARI,WR,46.3,33.0,57.0,5.1,144.0
+2022,2022-09-04,ffc,standard,Jaylen Waddle,MIA,WR,47.2,35.0,62.0,4.5,295.0
+2022,2022-09-04,ffc,standard,Patrick Mahomes,KC,QB,47.2,28.0,62.0,7.1,463.0
+2022,2022-09-04,ffc,standard,Darren Waller,LV,TE,47.9,34.0,63.0,5.3,201.0
+2022,2022-09-04,ffc,standard,DJ Moore,CAR,WR,48.4,31.0,65.0,6.7,560.0
+2022,2022-09-04,ffc,standard,Mike Williams,LAC,WR,49.8,32.0,65.0,6.8,648.0
+2022,2022-09-04,ffc,standard,Breece Hall,NYJ,RB,51.2,36.0,65.0,5.6,366.0
+2022,2022-09-04,ffc,standard,Damien Harris,NE,RB,51.5,38.0,63.0,5.5,129.0
+2022,2022-09-04,ffc,standard,Michael Thomas,NO,WR,54.3,38.0,67.0,6.1,231.0
+2022,2022-09-04,ffc,standard,Miles Sanders,PHI,RB,56.2,35.0,69.0,7.9,101.0
+2022,2022-09-04,ffc,standard,Chris Godwin Jr.,TB,WR,56.7,38.0,69.0,7.1,204.0
+2022,2022-09-04,ffc,standard,Adam Thielen,MIN,WR,57.6,40.0,73.0,6.4,186.0
+2022,2022-09-04,ffc,standard,Rashaad Penny,SEA,RB,58.8,41.0,72.0,6.8,220.0
+2022,2022-09-04,ffc,standard,Jerry Jeudy,DEN,WR,60.1,44.0,75.0,6.1,214.0
+2022,2022-09-04,ffc,standard,Joe Burrow,CIN,QB,60.4,41.0,78.0,7.1,183.0
+2022,2022-09-04,ffc,standard,Courtland Sutton,DEN,WR,60.6,38.0,78.0,8.5,595.0
+2022,2022-09-04,ffc,standard,Allen Robinson II,LAR,WR,61.7,43.0,76.0,6.8,452.0
+2022,2022-09-04,ffc,standard,Kareem Hunt,CLE,RB,64.1,48.0,76.0,6.2,121.0
+2022,2022-09-04,ffc,standard,Aaron Rodgers,GB,QB,64.3,41.0,84.0,8.8,95.0
+2022,2022-09-04,ffc,standard,Kyler Murray,ARI,QB,64.9,47.0,92.0,6.7,256.0
+2022,2022-09-04,ffc,standard,Hollywood Brown,ARI,WR,66.8,47.0,81.0,7.6,261.0
+2022,2022-09-04,ffc,standard,Dallas Goedert,PHI,TE,67.2,44.0,86.0,8.6,145.0
+2022,2022-09-04,ffc,standard,Tony Pollard,DAL,RB,68.2,53.0,81.0,5.7,236.0
+2022,2022-09-04,ffc,standard,Dawson Knox,BUF,TE,69.9,43.0,87.0,10.2,88.0
+2022,2022-09-04,ffc,standard,Amari Cooper,CLE,WR,70.7,57.0,85.0,5.0,109.0
+2022,2022-09-04,ffc,standard,Russell Wilson,DEN,QB,70.7,51.0,86.0,7.2,202.0
+2022,2022-09-04,ffc,standard,Gabe Davis,BUF,WR,71.0,50.0,87.0,7.7,548.0
+2022,2022-09-04,ffc,standard,Brandin Cooks,HOU,WR,71.7,55.0,88.0,6.3,292.0
+2022,2022-09-04,ffc,standard,Dalton Schultz,DAL,TE,73.4,49.0,103.0,9.1,269.0
+2022,2022-09-04,ffc,standard,Chase Edmonds,DEN,RB,73.8,52.0,92.0,8.2,462.0
+2022,2022-09-04,ffc,standard,Melvin Gordon III,KC,RB,75.3,55.0,93.0,7.5,124.0
+2022,2022-09-04,ffc,standard,Clyde Edwards-Helaire,KC,RB,77.3,52.0,97.0,9.4,382.0
+2022,2022-09-04,ffc,standard,Devin Singletary,BUF,RB,77.4,51.0,97.0,9.8,153.0
+2022,2022-09-04,ffc,standard,Matthew Stafford,LAR,QB,78.2,60.0,96.0,6.7,81.0
+2022,2022-09-04,ffc,standard,DeVonta Smith,PHI,WR,79.1,59.0,96.0,7.6,150.0
+2022,2022-09-04,ffc,standard,Rhamondre Stevenson,NE,RB,80.7,61.0,101.0,7.5,349.0
+2022,2022-09-04,ffc,standard,Dak Prescott,DAL,QB,81.9,56.0,109.0,9.7,178.0
+2022,2022-09-04,ffc,standard,Amon-Ra St. Brown,DET,WR,82.5,59.0,103.0,9.0,402.0
+2022,2022-09-04,ffc,standard,Cordarrelle Patterson,ATL,RB,83.6,64.0,103.0,7.5,200.0
+2022,2022-09-04,ffc,standard,Tom Brady,TB,QB,83.6,57.0,108.0,10.0,268.0
+2022,2022-09-04,ffc,standard,Darnell Mooney,CHI,WR,85.5,61.0,107.0,9.3,192.0
+2022,2022-09-04,ffc,standard,Hunter Renfrow,LV,WR,88.9,70.0,105.0,7.3,147.0
+2022,2022-09-04,ffc,standard,JuJu Smith-Schuster,KC,WR,89.2,67.0,120.0,8.3,500.0
+2022,2022-09-04,ffc,standard,T.J. Hockenson,MIN,TE,90.1,62.0,129.0,10.6,236.0
+2022,2022-09-04,ffc,standard,Dameon Pierce,HOU,RB,90.2,40.0,125.0,19.1,984.0
+2022,2022-09-04,ffc,standard,Elijah Moore,NYJ,WR,91.2,71.0,108.0,7.6,128.0
+2022,2022-09-04,ffc,standard,Kenneth Walker,SEA,RB,91.3,70.0,111.0,8.2,128.0
+2022,2022-09-04,ffc,standard,Rashod Bateman,BAL,WR,92.9,74.0,110.0,7.1,304.0
+2022,2022-09-04,ffc,standard,James Robinson,NYJ,RB,93.6,73.0,104.0,7.8,82.0
+2022,2022-09-04,ffc,standard,Trey Lance,SF,QB,95.1,68.0,125.0,10.4,288.0
+2022,2022-09-04,ffc,standard,Brandon Aiyuk,SF,WR,96.0,73.0,108.0,8.6,240.0
+2022,2022-09-04,ffc,standard,James Cook III,BUF,RB,97.8,80.0,114.0,6.6,173.0
+2022,2022-09-04,ffc,standard,Zach Ertz,ARI,TE,98.5,66.0,142.0,12.2,213.0
+2022,2022-09-04,ffc,standard,Michael Carter,NYJ,RB,99.3,76.0,113.0,8.7,78.0
+2022,2022-09-04,ffc,standard,Ronald Jones,KC,RB,99.5,86.0,113.0,6.7,23.0
+2022,2022-09-04,ffc,standard,Raheem Mostert,MIA,RB,99.8,74.0,116.0,9.6,108.0
+2022,2022-09-04,ffc,standard,Derek Carr,LV,QB,101.7,72.0,125.0,11.4,284.0
+2022,2022-09-04,ffc,standard,Darrell Henderson Jr.,JAX,RB,102.6,83.0,118.0,7.4,169.0
+2022,2022-09-04,ffc,standard,Allen Lazard,GB,WR,103.1,79.0,127.0,8.9,449.0
+2022,2022-09-04,ffc,standard,Tyler Lockett,SEA,WR,103.9,84.0,121.0,8.0,107.0
+2022,2022-09-04,ffc,standard,Kirk Cousins,MIN,QB,106.1,81.0,130.0,9.5,219.0
+2022,2022-09-04,ffc,standard,Kadarius Toney,KC,WR,107.2,88.0,121.0,7.2,114.0
+2022,2022-09-04,ffc,standard,Christian Kirk,JAX,WR,107.2,82.0,123.0,9.3,268.0
+2022,2022-09-04,ffc,standard,Pat Freiermuth,PIT,TE,108.6,68.0,151.0,15.6,177.0
+2022,2022-09-04,ffc,standard,Buffalo Defense,BUF,DST,109.6,75.0,135.0,13.0,352.0
+2022,2022-09-04,ffc,standard,Tyler Allgeier,ATL,RB,110.5,85.0,145.0,9.6,142.0
+2022,2022-09-04,ffc,standard,Michael Gallup,DAL,WR,112.2,85.0,150.0,10.4,94.0
+2022,2022-09-04,ffc,standard,Robert Woods,TEN,WR,112.7,92.0,145.0,7.7,174.0
+2022,2022-09-04,ffc,standard,Russell Gage Jr.,TB,WR,113.6,97.0,124.0,6.2,40.0
+2022,2022-09-04,ffc,standard,Nyheim Hines,BUF,RB,114.3,91.0,132.0,8.7,103.0
+2022,2022-09-04,ffc,standard,Alexander Mattison,MIN,RB,114.3,91.0,127.0,8.7,189.0
+2022,2022-09-04,ffc,standard,Mike Gesicki,MIA,TE,119.2,83.0,153.0,13.9,85.0
+2022,2022-09-04,ffc,standard,Chris Olave,NO,WR,121.2,91.0,150.0,11.2,298.0
+2022,2022-09-04,ffc,standard,Kenny Gainwell,PHI,RB,121.8,92.0,150.0,11.4,120.0
+2022,2022-09-04,ffc,standard,Gus Edwards,BAL,RB,122.1,110.0,135.0,5.6,40.0
+2022,2022-09-04,ffc,standard,Marquez Valdes-Scantling,KC,WR,123.4,96.0,148.0,10.4,143.0
+2022,2022-09-04,ffc,standard,Skyy Moore,KC,WR,123.4,100.0,148.0,8.9,162.0
+2022,2022-09-04,ffc,standard,LA Rams Defense,LAR,DST,124.1,90.0,152.0,12.9,250.0
+2022,2022-09-04,ffc,standard,Mark Ingram II,NO,RB,124.1,97.0,150.0,10.1,73.0
+2022,2022-09-04,ffc,standard,Tua Tagovailoa,MIA,QB,124.5,85.0,150.0,15.1,170.0
+2022,2022-09-04,ffc,standard,Hunter Henry,NE,TE,126.1,94.0,153.0,12.0,134.0
+2022,2022-09-04,ffc,standard,Drake London,ATL,WR,127.1,98.0,152.0,10.9,287.0
+2022,2022-09-04,ffc,standard,Trey Sermon,PHI,RB,127.3,97.0,145.0,11.4,29.0
+2022,2022-09-04,ffc,standard,Brian Robinson,WAS,RB,127.6,95.0,149.0,12.2,74.0
+2022,2022-09-04,ffc,standard,Matt Ryan,IND,QB,128.0,96.0,152.0,12.2,145.0
+2022,2022-09-04,ffc,standard,Cole Kmet,CHI,TE,129.2,86.0,180.0,16.3,313.0
+2022,2022-09-04,ffc,standard,Tampa Bay Defense,TB,DST,129.9,97.0,154.0,12.4,119.0
+2022,2022-09-04,ffc,standard,Chase Claypool,CHI,WR,130.0,96.0,150.0,12.8,111.0
+2022,2022-09-04,ffc,standard,Jamaal Williams,DET,RB,130.5,105.0,148.0,9.7,92.0
+2022,2022-09-04,ffc,standard,Isaiah Spiller,LAC,RB,131.1,102.0,150.0,10.9,58.0
+2022,2022-09-04,ffc,standard,Jarvis Landry,NO,WR,132.9,95.0,163.0,14.2,75.0
+2022,2022-09-04,ffc,standard,Julio Jones,TB,WR,132.9,96.0,164.0,13.9,155.0
+2022,2022-09-04,ffc,standard,Justin Tucker,BAL,K,133.7,81.0,181.0,20.1,448.0
+2022,2022-09-04,ffc,standard,Sony Michel,LAC,RB,134.3,94.0,165.0,15.5,40.0
+2022,2022-09-04,ffc,standard,J.D. McKissic,WAS,RB,134.8,108.0,150.0,10.2,38.0
+2022,2022-09-04,ffc,standard,Deshaun Watson,CLE,QB,135.1,99.0,179.0,13.8,50.0
+2022,2022-09-04,ffc,standard,Treylon Burks,TEN,WR,135.8,111.0,156.0,9.4,110.0
+2022,2022-09-04,ffc,standard,George Pickens,PIT,WR,137.6,95.0,177.0,16.3,253.0
+2022,2022-09-04,ffc,standard,Darrel Williams,ARI,RB,137.7,101.0,169.0,15.1,20.0
+2022,2022-09-04,ffc,standard,Isiah Pacheco,KC,RB,137.9,97.0,175.0,15.5,205.0
+2022,2022-09-04,ffc,standard,San Francisco Defense,SF,DST,138.2,102.0,163.0,13.9,142.0
+2022,2022-09-04,ffc,standard,Tyler Bass,BUF,K,139.1,95.0,166.0,16.8,123.0
+2022,2022-09-04,ffc,standard,Daniel Carlson,LV,K,139.4,92.0,168.0,17.9,93.0
+2022,2022-09-04,ffc,standard,Pittsburgh Defense,PIT,DST,139.6,111.0,161.0,12.1,62.0
+2022,2022-09-04,ffc,standard,Indianapolis Defense,IND,DST,140.5,103.0,161.0,14.1,125.0
+2022,2022-09-04,ffc,standard,Harrison Butker,KC,K,141.5,100.0,166.0,15.9,92.0
+2022,2022-09-04,ffc,standard,DeVante Parker,NE,WR,143.0,114.0,175.0,11.0,59.0
+2022,2022-09-04,ffc,standard,Jameis Winston,NO,QB,143.0,101.0,178.0,15.9,177.0
+2022,2022-09-04,ffc,standard,Robert Tonyan,GB,TE,145.2,91.0,188.0,20.7,136.0
+2022,2022-09-04,ffc,standard,LA Chargers Defense,LAC,DST,145.2,107.0,164.0,14.4,69.0
+2022,2022-09-04,ffc,standard,Justin Fields,CHI,QB,145.4,106.0,180.0,19.3,128.0
+2022,2022-09-04,ffc,standard,Trevor Lawrence,JAX,QB,145.9,99.0,180.0,18.0,155.0
+2022,2022-09-04,ffc,standard,Dallas Defense,DAL,DST,147.2,107.0,177.0,15.2,141.0
+2022,2022-09-04,ffc,standard,Tyrion Davis-Price,SF,RB,148.6,125.0,179.0,13.2,31.0
+2022,2022-09-04,ffc,standard,Matt Gay,LAR,K,149.6,111.0,170.0,14.7,119.0
+2022,2022-09-04,ffc,standard,Mac Jones,NE,QB,150.9,100.0,180.0,20.9,35.0
+2022,2022-09-04,ffc,standard,Rachaad White,TB,RB,151.1,121.0,178.0,14.7,91.0
+2022,2022-09-04,ffc,standard,Ryan Succop,TB,K,151.2,107.0,173.0,16.8,82.0
+2022,2022-09-04,ffc,standard,Irv Smith Jr.,MIN,TE,151.8,98.0,192.0,20.4,72.0
+2022,2022-09-04,ffc,standard,Albert Okwuegbunam Jr.,DEN,TE,152.0,102.0,180.0,19.2,74.0
+2022,2022-09-04,ffc,standard,Zamir White,LV,RB,152.2,109.0,180.0,16.4,134.0
+2022,2022-09-04,ffc,standard,Romeo Doubs,GB,WR,152.5,111.0,180.0,15.8,126.0
+2022,2022-09-04,ffc,standard,Green Bay Defense,GB,DST,153.3,113.0,180.0,15.4,109.0
+2022,2022-09-04,ffc,standard,Denver Defense,DEN,DST,153.4,120.0,180.0,12.8,83.0
+2022,2022-09-04,ffc,standard,David Njoku,CLE,TE,154.6,113.0,191.0,16.4,47.0
+2022,2022-09-04,ffc,standard,Brandon McManus,DEN,K,155.6,118.0,176.0,14.1,85.0
+2022,2022-09-04,ffc,standard,D'Onta Foreman,CAR,RB,156.6,114.0,174.0,16.2,38.0
+2022,2022-09-04,ffc,standard,Mecole Hardman Jr.,KC,WR,157.0,109.0,176.0,22.1,20.0
+2022,2022-09-04,ffc,standard,Nico Collins,HOU,WR,157.6,138.0,180.0,13.7,32.0
+2022,2022-09-04,ffc,standard,New Orleans Defense,NO,DST,157.9,118.0,180.0,16.4,65.0
+2022,2022-09-04,ffc,standard,Philadelphia Defense,PHI,DST,158.0,134.0,180.0,13.7,51.0
+2022,2022-09-04,ffc,standard,Garrett Wilson,NYJ,WR,158.2,118.0,178.0,15.2,40.0
+2022,2022-09-04,ffc,standard,Tyler Higbee,LAR,TE,158.6,125.0,177.0,16.6,22.0
+2022,2022-09-04,ffc,standard,Christian Watson,GB,WR,158.6,123.0,178.0,14.9,37.0
+2022,2022-09-04,ffc,standard,New England Defense,NE,DST,160.0,122.0,180.0,16.4,28.0
+2022,2022-09-04,ffc,standard,Jason Sanders,MIA,K,160.1,98.0,178.0,23.8,54.0
+2022,2022-09-04,ffc,standard,Nick Folk,NE,K,161.5,120.0,179.0,15.6,51.0
+2022,2022-09-04,ffc,standard,Tyler Boyd,CIN,WR,161.5,114.0,191.0,17.9,37.0
+2022,2022-09-04,ffc,standard,Matt Prater,ARI,K,161.8,139.0,180.0,14.3,52.0
+2022,2022-09-04,ffc,standard,Gerald Everett,LAC,TE,162.8,123.0,199.0,15.0,28.0
+2022,2022-09-04,ffc,standard,Dustin Hopkins,LAC,K,163.2,143.0,180.0,13.4,69.0
+2022,2022-09-04,ffc,standard,DJ Chark,DET,WR,163.6,115.0,180.0,21.4,20.0
+2022,2022-09-04,ffc,standard,Kenny Golladay,NYG,WR,163.8,140.0,180.0,11.5,27.0
+2022,2022-09-04,ffc,standard,Jerick McKinnon,KC,RB,164.5,131.0,180.0,13.9,30.0
+2022,2022-09-04,ffc,standard,Jalen Tolbert,DAL,WR,165.3,142.0,180.0,10.8,25.0
+2022,2022-09-04,ffc,standard,Baltimore Defense,BAL,DST,165.7,139.0,180.0,11.6,40.0
+2022,2022-09-04,ffc,standard,Rodrigo Blankenship,ARI,K,166.0,130.0,205.0,13.7,71.0

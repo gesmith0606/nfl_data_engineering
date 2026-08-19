@@ -1,0 +1,225 @@
+season,snapshot_date,source,format,player_name,team,position,adp,high,low,stdev,times_drafted
+2021,2021-09-01,ffc,standard,Christian McCaffrey,CAR,RB,1.2,1.0,4.0,0.5,789.0
+2021,2021-09-01,ffc,standard,Dalvin Cook,MIN,RB,2.7,1.0,5.0,0.8,682.0
+2021,2021-09-01,ffc,standard,Derrick Henry,TEN,RB,3.4,1.0,9.0,1.3,551.0
+2021,2021-09-01,ffc,standard,Alvin Kamara,NO,RB,4.1,1.0,8.0,1.1,645.0
+2021,2021-09-01,ffc,standard,Ezekiel Elliott,DAL,RB,5.4,2.0,10.0,1.1,629.0
+2021,2021-09-01,ffc,standard,Nick Chubb,CLE,RB,6.2,2.0,11.0,1.4,681.0
+2021,2021-09-01,ffc,standard,Aaron Jones Sr.,GB,RB,7.2,3.0,13.0,1.5,683.0
+2021,2021-09-01,ffc,standard,Davante Adams,GB,WR,8.0,3.0,15.0,1.8,645.0
+2021,2021-09-01,ffc,standard,Jonathan Taylor,IND,RB,8.9,4.0,17.0,1.7,542.0
+2021,2021-09-01,ffc,standard,Saquon Barkley,NYG,RB,9.6,3.0,18.0,2.3,565.0
+2021,2021-09-01,ffc,standard,Travis Kelce,KC,TE,10.5,4.0,18.0,2.5,804.0
+2021,2021-09-01,ffc,standard,Tyreek Hill,KC,WR,11.8,6.0,20.0,2.2,875.0
+2021,2021-09-01,ffc,standard,Najee Harris,PIT,RB,12.5,5.0,20.0,2.6,897.0
+2021,2021-09-01,ffc,standard,Austin Ekeler,LAC,RB,13.3,6.0,24.0,2.5,764.0
+2021,2021-09-01,ffc,standard,Antonio Gibson,WAS,RB,13.8,8.0,21.0,2.2,612.0
+2021,2021-09-01,ffc,standard,Patrick Mahomes,KC,QB,14.6,1.0,37.0,5.3,516.0
+2021,2021-09-01,ffc,standard,Stefon Diggs,BUF,WR,16.0,10.0,22.0,2.2,887.0
+2021,2021-09-01,ffc,standard,Joe Mixon,CIN,RB,17.3,10.0,24.0,2.6,701.0
+2021,2021-09-01,ffc,standard,DK Metcalf,SEA,WR,18.2,11.0,24.0,2.4,678.0
+2021,2021-09-01,ffc,standard,Clyde Edwards-Helaire,KC,RB,18.6,12.0,25.0,2.5,616.0
+2021,2021-09-01,ffc,standard,DeAndre Hopkins,ARI,WR,20.8,13.0,30.0,2.9,936.0
+2021,2021-09-01,ffc,standard,Calvin Ridley,ATL,WR,20.9,13.0,31.0,2.8,969.0
+2021,2021-09-01,ffc,standard,A.J. Brown,TEN,WR,23.5,16.0,29.0,2.6,420.0
+2021,2021-09-01,ffc,standard,Josh Jacobs,LV,RB,24.0,14.0,34.0,3.6,483.0
+2021,2021-09-01,ffc,standard,Justin Jefferson,MIN,WR,24.1,16.0,33.0,2.8,512.0
+2021,2021-09-01,ffc,standard,Darren Waller,LV,TE,24.7,15.0,39.0,3.7,692.0
+2021,2021-09-01,ffc,standard,David Montgomery,CHI,RB,26.1,16.0,37.0,3.7,645.0
+2021,2021-09-01,ffc,standard,Josh Allen,BUF,QB,26.6,9.0,41.0,6.6,576.0
+2021,2021-09-01,ffc,standard,Chris Carson,SEA,RB,28.0,19.0,38.0,3.1,962.0
+2021,2021-09-01,ffc,standard,Keenan Allen,LAC,WR,29.7,21.0,38.0,3.2,750.0
+2021,2021-09-01,ffc,standard,James Robinson,JAX,RB,30.6,20.0,44.0,4.0,1018.0
+2021,2021-09-01,ffc,standard,George Kittle,SF,TE,30.9,21.0,42.0,3.6,630.0
+2021,2021-09-01,ffc,standard,Terry McLaurin,WAS,WR,31.0,23.0,38.0,2.9,597.0
+2021,2021-09-01,ffc,standard,CeeDee Lamb,DAL,WR,31.7,23.0,40.0,3.2,680.0
+2021,2021-09-01,ffc,standard,D'Andre Swift,DET,RB,34.5,24.0,46.0,4.0,415.0
+2021,2021-09-01,ffc,standard,Miles Sanders,PHI,RB,34.9,25.0,44.0,3.7,529.0
+2021,2021-09-01,ffc,standard,Kyler Murray,ARI,QB,35.9,21.0,49.0,5.6,413.0
+2021,2021-09-01,ffc,standard,Mike Evans,TB,WR,37.4,26.0,56.0,4.1,899.0
+2021,2021-09-01,ffc,standard,Allen Robinson II,CHI,WR,38.2,28.0,50.0,3.7,993.0
+2021,2021-09-01,ffc,standard,Darrell Henderson Jr.,LAR,RB,38.2,28.0,56.0,3.9,463.0
+2021,2021-09-01,ffc,standard,Myles Gaskin,MIA,RB,40.3,29.0,51.0,4.2,464.0
+2021,2021-09-01,ffc,standard,Kyle Pitts Sr.,ATL,TE,41.6,27.0,61.0,5.6,543.0
+2021,2021-09-01,ffc,standard,Robert Woods,LAR,WR,41.9,30.0,56.0,4.2,851.0
+2021,2021-09-01,ffc,standard,Julio Jones,TEN,WR,42.7,29.0,55.0,5.1,522.0
+2021,2021-09-01,ffc,standard,Lamar Jackson,BAL,QB,44.0,28.0,69.0,5.9,535.0
+2021,2021-09-01,ffc,standard,Mike Davis,ATL,RB,44.7,31.0,61.0,4.9,824.0
+2021,2021-09-01,ffc,standard,Adam Thielen,MIN,WR,46.9,34.0,61.0,4.8,517.0
+2021,2021-09-01,ffc,standard,Amari Cooper,DAL,WR,47.3,35.0,61.0,4.6,713.0
+2021,2021-09-01,ffc,standard,Mark Andrews,BAL,TE,48.4,31.0,69.0,6.5,399.0
+2021,2021-09-01,ffc,standard,Kareem Hunt,CLE,RB,48.8,33.0,68.0,6.0,469.0
+2021,2021-09-01,ffc,standard,Chris Godwin Jr.,TB,WR,48.9,37.0,64.0,4.4,664.0
+2021,2021-09-01,ffc,standard,Javonte Williams,DEN,RB,50.5,32.0,65.0,6.9,597.0
+2021,2021-09-01,ffc,standard,Aaron Rodgers,GB,QB,52.1,30.0,86.0,8.2,623.0
+2021,2021-09-01,ffc,standard,Cooper Kupp,LAR,WR,52.2,39.0,66.0,4.9,618.0
+2021,2021-09-01,ffc,standard,Raheem Mostert,SF,RB,52.3,34.0,68.0,6.7,683.0
+2021,2021-09-01,ffc,standard,Dak Prescott,DAL,QB,54.0,36.0,74.0,6.9,411.0
+2021,2021-09-01,ffc,standard,Damien Harris,NE,RB,54.6,39.0,66.0,5.9,783.0
+2021,2021-09-01,ffc,standard,Tyler Lockett,SEA,WR,55.1,42.0,70.0,5.0,762.0
+2021,2021-09-01,ffc,standard,T.J. Hockenson,DET,TE,55.5,41.0,70.0,5.3,260.0
+2021,2021-09-01,ffc,standard,Brandon Aiyuk,SF,WR,56.9,45.0,72.0,4.5,493.0
+2021,2021-09-01,ffc,standard,Diontae Johnson,PIT,WR,58.5,44.0,70.0,5.5,547.0
+2021,2021-09-01,ffc,standard,Michael Thomas,NO,WR,61.0,45.0,78.0,5.9,415.0
+2021,2021-09-01,ffc,standard,Justin Herbert,LAC,QB,61.2,43.0,94.0,6.7,455.0
+2021,2021-09-01,ffc,standard,Russell Wilson,SEA,QB,63.4,47.0,93.0,6.3,968.0
+2021,2021-09-01,ffc,standard,Chase Edmonds,ARI,RB,63.7,47.0,80.0,6.2,756.0
+2021,2021-09-01,ffc,standard,DJ Moore,CAR,WR,64.3,49.0,79.0,5.8,746.0
+2021,2021-09-01,ffc,standard,Trey Sermon,SF,RB,65.3,49.0,84.0,6.0,792.0
+2021,2021-09-01,ffc,standard,Chase Claypool,PIT,WR,66.0,49.0,81.0,6.3,441.0
+2021,2021-09-01,ffc,standard,Odell Beckham Jr.,LAR,WR,66.4,51.0,85.0,5.6,540.0
+2021,2021-09-01,ffc,standard,Melvin Gordon III,DEN,RB,68.6,48.0,87.0,7.5,453.0
+2021,2021-09-01,ffc,standard,Tee Higgins,CIN,WR,68.6,55.0,85.0,5.2,475.0
+2021,2021-09-01,ffc,standard,Gus Edwards,BAL,RB,70.3,24.0,108.0,17.4,1556.0
+2021,2021-09-01,ffc,standard,Ronald Jones,TB,RB,72.1,53.0,90.0,7.2,455.0
+2021,2021-09-01,ffc,standard,Tom Brady,TB,QB,72.7,52.0,97.0,7.9,545.0
+2021,2021-09-01,ffc,standard,Jerry Jeudy,DEN,WR,73.0,56.0,86.0,6.3,706.0
+2021,2021-09-01,ffc,standard,Ja'Marr Chase,CIN,WR,73.3,57.0,89.0,6.2,302.0
+2021,2021-09-01,ffc,standard,Zack Moss,BUF,RB,73.6,56.0,92.0,6.7,277.0
+2021,2021-09-01,ffc,standard,Logan Thomas,WAS,TE,75.6,52.0,119.0,9.0,508.0
+2021,2021-09-01,ffc,standard,AJ Dillon,GB,RB,77.2,60.0,93.0,6.3,300.0
+2021,2021-09-01,ffc,standard,Michael Carter,NYJ,RB,78.0,61.0,93.0,6.3,478.0
+2021,2021-09-01,ffc,standard,Kenny Golladay,NYG,WR,78.8,61.0,95.0,6.5,436.0
+2021,2021-09-01,ffc,standard,DeVonta Smith,PHI,WR,81.2,66.0,97.0,5.8,579.0
+2021,2021-09-01,ffc,standard,Antonio Brown,TB,WR,81.7,62.0,101.0,7.2,653.0
+2021,2021-09-01,ffc,standard,Matthew Stafford,LAR,QB,82.0,61.0,107.0,7.9,569.0
+2021,2021-09-01,ffc,standard,Rob Gronkowski,TB,TE,82.2,49.0,116.0,12.5,151.0
+2021,2021-09-01,ffc,standard,Courtland Sutton,DEN,WR,83.4,68.0,104.0,5.7,537.0
+2021,2021-09-01,ffc,standard,Robert Tonyan,GB,TE,83.8,59.0,113.0,9.5,445.0
+2021,2021-09-01,ffc,standard,Leonard Fournette,TB,RB,85.1,67.0,102.0,6.9,386.0
+2021,2021-09-01,ffc,standard,James Conner,ARI,RB,86.0,66.0,107.0,7.6,371.0
+2021,2021-09-01,ffc,standard,Devin Singletary,BUF,RB,86.6,69.0,103.0,6.4,276.0
+2021,2021-09-01,ffc,standard,JuJu Smith-Schuster,PIT,WR,88.1,68.0,106.0,7.3,484.0
+2021,2021-09-01,ffc,standard,Ryan Tannehill,TEN,QB,88.6,64.0,113.0,9.4,630.0
+2021,2021-09-01,ffc,standard,Robbie Chosen,CAR,WR,89.4,71.0,108.0,7.0,708.0
+2021,2021-09-01,ffc,standard,Dallas Goedert,PHI,TE,89.8,63.0,125.0,10.2,157.0
+2021,2021-09-01,ffc,standard,Deebo Samuel Sr.,SF,WR,92.0,73.0,106.0,7.3,348.0
+2021,2021-09-01,ffc,standard,Jalen Hurts,PHI,QB,94.0,67.0,123.0,10.2,443.0
+2021,2021-09-01,ffc,standard,DJ Chark,JAX,WR,94.1,74.0,120.0,7.6,243.0
+2021,2021-09-01,ffc,standard,Michael Pittman Jr.,IND,WR,94.3,75.0,115.0,7.4,395.0
+2021,2021-09-01,ffc,standard,Jamaal Williams,DET,RB,96.4,75.0,113.0,7.9,453.0
+2021,2021-09-01,ffc,standard,David Johnson,HOU,RB,96.4,76.0,118.0,7.6,204.0
+2021,2021-09-01,ffc,standard,Laviska Shenault Jr.,JAX,WR,97.4,77.0,115.0,7.6,498.0
+2021,2021-09-01,ffc,standard,Tyler Boyd,CIN,WR,99.6,81.0,120.0,6.9,354.0
+2021,2021-09-01,ffc,standard,Pittsburgh Defense,PIT,DST,100.1,71.0,157.0,11.0,453.0
+2021,2021-09-01,ffc,standard,Kenyan Drake,LV,RB,100.9,83.0,123.0,6.5,259.0
+2021,2021-09-01,ffc,standard,Tony Pollard,DAL,RB,102.3,84.0,120.0,7.0,191.0
+2021,2021-09-01,ffc,standard,Noah Fant,DEN,TE,102.4,61.0,147.0,15.7,354.0
+2021,2021-09-01,ffc,standard,Sony Michel,LAR,RB,103.7,67.0,144.0,13.7,847.0
+2021,2021-09-01,ffc,standard,Mike Williams,LAC,WR,103.7,82.0,119.0,8.1,354.0
+2021,2021-09-01,ffc,standard,Mecole Hardman Jr.,KC,WR,104.5,85.0,122.0,7.4,331.0
+2021,2021-09-01,ffc,standard,LA Rams Defense,LAR,DST,105.4,78.0,129.0,10.5,445.0
+2021,2021-09-01,ffc,standard,Joe Burrow,CIN,QB,105.7,83.0,127.0,8.7,335.0
+2021,2021-09-01,ffc,standard,Phillip Lindsay,MIA,RB,106.6,82.0,131.0,9.1,330.0
+2021,2021-09-01,ffc,standard,Alexander Mattison,MIN,RB,107.7,83.0,126.0,9.3,150.0
+2021,2021-09-01,ffc,standard,Jaylen Waddle,MIA,WR,109.5,89.0,140.0,7.8,538.0
+2021,2021-09-01,ffc,standard,Jarvis Landry,CLE,WR,111.4,87.0,134.0,9.1,260.0
+2021,2021-09-01,ffc,standard,Marquez Callaway,NO,WR,112.4,79.0,146.0,12.5,590.0
+2021,2021-09-01,ffc,standard,Brandin Cooks,HOU,WR,113.2,87.0,135.0,9.7,366.0
+2021,2021-09-01,ffc,standard,Corey Davis,NYJ,WR,114.3,81.0,150.0,12.4,660.0
+2021,2021-09-01,ffc,standard,Washington Defense,WAS,DST,114.4,87.0,150.0,10.5,360.0
+2021,2021-09-01,ffc,standard,Tampa Bay Defense,TB,DST,116.0,84.0,158.0,12.1,347.0
+2021,2021-09-01,ffc,standard,Will Fuller,MIA,WR,116.2,88.0,144.0,10.6,211.0
+2021,2021-09-01,ffc,standard,Latavius Murray,BAL,RB,117.6,85.0,149.0,12.3,199.0
+2021,2021-09-01,ffc,standard,Darnell Mooney,CHI,WR,118.4,93.0,150.0,9.5,229.0
+2021,2021-09-01,ffc,standard,Matt Ryan,ATL,QB,118.8,88.0,150.0,11.6,312.0
+2021,2021-09-01,ffc,standard,Tyler Higbee,LAR,TE,119.3,70.0,173.0,18.7,770.0
+2021,2021-09-01,ffc,standard,Trey Lance,SF,QB,120.2,85.0,150.0,13.4,445.0
+2021,2021-09-01,ffc,standard,Chuba Hubbard,CAR,RB,122.1,91.0,150.0,11.8,272.0
+2021,2021-09-01,ffc,standard,Mike Gesicki,MIA,TE,123.1,82.0,170.0,15.5,495.0
+2021,2021-09-01,ffc,standard,Hunter Henry,NE,TE,124.9,79.0,170.0,17.6,271.0
+2021,2021-09-01,ffc,standard,Trevor Lawrence,JAX,QB,126.3,88.0,155.0,14.4,233.0
+2021,2021-09-01,ffc,standard,Rashaad Penny,SEA,RB,126.6,96.0,151.0,11.7,204.0
+2021,2021-09-01,ffc,standard,Baltimore Defense,BAL,DST,126.7,100.0,160.0,10.0,365.0
+2021,2021-09-01,ffc,standard,Hollywood Brown,BAL,WR,127.6,104.0,152.0,8.7,220.0
+2021,2021-09-01,ffc,standard,Rhamondre Stevenson,NE,RB,127.7,92.0,151.0,13.4,377.0
+2021,2021-09-01,ffc,standard,Tevin Coleman,NYJ,RB,127.8,97.0,152.0,11.7,197.0
+2021,2021-09-01,ffc,standard,Justin Fields,CHI,QB,128.0,92.0,150.0,13.6,362.0
+2021,2021-09-01,ffc,standard,Nyheim Hines,IND,RB,128.2,96.0,150.0,12.3,197.0
+2021,2021-09-01,ffc,standard,San Francisco Defense,SF,DST,131.5,99.0,159.0,12.2,315.0
+2021,2021-09-01,ffc,standard,Deshaun Watson,HOU,QB,132.1,92.0,153.0,15.4,105.0
+2021,2021-09-01,ffc,standard,Henry Ruggs III,LV,WR,132.6,107.0,150.0,9.5,305.0
+2021,2021-09-01,ffc,standard,J.D. McKissic,WAS,RB,132.8,101.0,165.0,14.2,100.0
+2021,2021-09-01,ffc,standard,Michael Gallup,DAL,WR,134.0,105.0,151.0,10.9,297.0
+2021,2021-09-01,ffc,standard,Harrison Butker,KC,K,134.3,93.0,163.0,15.9,811.0
+2021,2021-09-01,ffc,standard,Xavier Jones,LAR,RB,134.5,102.0,156.0,12.1,37.0
+2021,2021-09-01,ffc,standard,Marvin Jones Jr.,JAX,WR,135.1,105.0,153.0,11.3,269.0
+2021,2021-09-01,ffc,standard,Baker Mayfield,CLE,QB,135.2,92.0,166.0,16.5,181.0
+2021,2021-09-01,ffc,standard,Justin Tucker,BAL,K,135.3,87.0,163.0,18.5,514.0
+2021,2021-09-01,ffc,standard,Elijah Moore,NYJ,WR,137.1,107.0,169.0,11.5,162.0
+2021,2021-09-01,ffc,standard,Buffalo Defense,BUF,DST,137.6,107.0,175.0,12.6,268.0
+2021,2021-09-01,ffc,standard,Curtis Samuel,WAS,WR,138.0,110.0,169.0,10.5,140.0
+2021,2021-09-01,ffc,standard,Younghoe Koo,ATL,K,138.3,88.0,164.0,19.1,263.0
+2021,2021-09-01,ffc,standard,Indianapolis Defense,IND,DST,141.0,109.0,176.0,12.5,155.0
+2021,2021-09-01,ffc,standard,Ben Roethlisberger,PIT,QB,141.7,94.0,178.0,18.0,185.0
+2021,2021-09-01,ffc,standard,Tyler Bass,BUF,K,142.5,104.0,172.0,14.7,101.0
+2021,2021-09-01,ffc,standard,Jason Sanders,MIA,K,143.3,102.0,175.0,15.7,110.0
+2021,2021-09-01,ffc,standard,Irv Smith Jr.,MIN,TE,143.5,85.0,180.0,22.3,290.0
+2021,2021-09-01,ffc,standard,Jameis Winston,NO,QB,143.9,96.0,180.0,18.0,352.0
+2021,2021-09-01,ffc,standard,Jonnu Smith,NE,TE,144.2,88.0,190.0,21.3,319.0
+2021,2021-09-01,ffc,standard,Ryan Succop,TB,K,144.7,111.0,176.0,12.8,153.0
+2021,2021-09-01,ffc,standard,Ty Johnson,NYJ,RB,144.8,98.0,180.0,21.7,18.0
+2021,2021-09-01,ffc,standard,Pat Freiermuth,PIT,TE,145.7,85.0,186.0,23.3,101.0
+2021,2021-09-01,ffc,standard,Zach Ertz,ARI,TE,146.3,96.0,178.0,20.9,29.0
+2021,2021-09-01,ffc,standard,Nelson Agholor,NE,WR,146.4,118.0,206.0,26.3,13.0
+2021,2021-09-01,ffc,standard,Kenny Gainwell,PHI,RB,146.4,107.0,210.0,23.4,57.0
+2021,2021-09-01,ffc,standard,Jakobi Meyers,NE,WR,146.7,106.0,180.0,15.5,316.0
+2021,2021-09-01,ffc,standard,Giovani Bernard,TB,RB,146.7,107.0,179.0,15.0,108.0
+2021,2021-09-01,ffc,standard,Evan Engram,NYG,TE,147.3,89.0,180.0,22.2,189.0
+2021,2021-09-01,ffc,standard,Rodrigo Blankenship,IND,K,147.5,111.0,181.0,13.9,113.0
+2021,2021-09-01,ffc,standard,New England Defense,NE,DST,149.0,115.0,185.0,13.0,315.0
+2021,2021-09-01,ffc,standard,Adam Trautman,NO,TE,149.2,96.0,201.0,25.7,26.0
+2021,2021-09-01,ffc,standard,Bryan Edwards,LV,WR,149.3,108.0,178.0,15.8,136.0
+2021,2021-09-01,ffc,standard,Greg Zuerlein,DAL,K,150.0,115.0,186.0,13.1,204.0
+2021,2021-09-01,ffc,standard,Terrace Marshall Jr.,CAR,WR,150.3,85.0,179.0,28.1,45.0
+2021,2021-09-01,ffc,standard,Denver Defense,DEN,DST,150.5,106.0,179.0,17.1,263.0
+2021,2021-09-01,ffc,standard,Matt Prater,ARI,K,150.7,119.0,177.0,11.8,127.0
+2021,2021-09-01,ffc,standard,DeVante Parker,MIA,WR,151.2,99.0,185.0,24.4,103.0
+2021,2021-09-01,ffc,standard,Emmanuel Sanders,BUF,WR,151.2,109.0,177.0,21.9,14.0
+2021,2021-09-01,ffc,standard,Jared Cook,LAC,TE,152.6,99.0,194.0,20.4,65.0
+2021,2021-09-01,ffc,standard,Mark Ingram II,NO,RB,152.9,107.0,180.0,17.5,156.0
+2021,2021-09-01,ffc,standard,Marlon Mack,IND,RB,153.0,112.0,180.0,15.7,89.0
+2021,2021-09-01,ffc,standard,Darrel Williams,KC,RB,153.0,111.0,180.0,15.9,258.0
+2021,2021-09-01,ffc,standard,Tony Jones,NO,RB,153.3,131.0,179.0,13.2,55.0
+2021,2021-09-01,ffc,standard,T.Y. Hilton,IND,WR,153.7,108.0,178.0,17.2,96.0
+2021,2021-09-01,ffc,standard,Kirk Cousins,MIN,QB,154.0,108.0,180.0,17.4,137.0
+2021,2021-09-01,ffc,standard,Mac Jones,NE,QB,154.0,120.0,179.0,17.4,32.0
+2021,2021-09-01,ffc,standard,Randall Cobb,GB,WR,154.3,108.0,178.0,17.5,74.0
+2021,2021-09-01,ffc,standard,Ryan Fitzpatrick,WAS,QB,155.2,107.0,183.0,18.4,80.0
+2021,2021-09-01,ffc,standard,Tua Tagovailoa,MIA,QB,155.5,110.0,181.0,17.2,93.0
+2021,2021-09-01,ffc,standard,Tyrell Williams,DET,WR,155.8,120.0,174.0,18.8,13.0
+2021,2021-09-01,ffc,standard,Rondale Moore,ARI,WR,156.4,99.0,180.0,21.7,92.0
+2021,2021-09-01,ffc,standard,Malcolm Brown,MIA,RB,156.4,105.0,187.0,19.4,111.0
+2021,2021-09-01,ffc,standard,Matt Gay,LAR,K,156.7,137.0,179.0,12.6,108.0
+2021,2021-09-01,ffc,standard,Mason Crosby,GB,K,156.9,135.0,178.0,12.0,121.0
+2021,2021-09-01,ffc,standard,Gerald Everett,SEA,TE,157.2,98.0,180.0,22.8,46.0
+2021,2021-09-01,ffc,standard,James White,NE,RB,158.3,113.0,186.0,17.3,54.0
+2021,2021-09-01,ffc,standard,Cleveland Defense,CLE,DST,158.6,116.0,180.0,16.4,185.0
+2021,2021-09-01,ffc,standard,Chicago Defense,CHI,DST,158.6,112.0,203.0,22.2,19.0
+2021,2021-09-01,ffc,standard,Jerick McKinnon,KC,RB,158.8,134.0,196.0,14.5,32.0
+2021,2021-09-01,ffc,standard,A.J. Green,ARI,WR,158.9,114.0,180.0,17.0,103.0
+2021,2021-09-01,ffc,standard,Derek Carr,LV,QB,159.1,106.0,187.0,22.1,15.0
+2021,2021-09-01,ffc,standard,Damien Williams,CHI,RB,159.1,120.0,188.0,18.0,32.0
+2021,2021-09-01,ffc,standard,Cole Beasley,BUF,WR,159.8,111.0,189.0,19.5,66.0
+2021,2021-09-01,ffc,standard,Marquez Valdes-Scantling,GB,WR,160.8,116.0,197.0,19.9,42.0
+2021,2021-09-01,ffc,standard,Devontae Booker,NYG,RB,161.0,123.0,186.0,15.1,78.0
+2021,2021-09-01,ffc,standard,Russell Gage Jr.,ATL,WR,161.0,121.0,180.0,15.2,192.0
+2021,2021-09-01,ffc,standard,Gabe Davis,BUF,WR,161.4,118.0,180.0,19.1,20.0
+2021,2021-09-01,ffc,standard,Justin Jackson,LAC,RB,161.6,106.0,204.0,23.1,31.0
+2021,2021-09-01,ffc,standard,Minnesota Defense,MIN,DST,161.9,139.0,180.0,15.7,36.0
+2021,2021-09-01,ffc,standard,Carlos Hyde,JAX,RB,161.9,122.0,179.0,16.9,29.0
+2021,2021-09-01,ffc,standard,Miami Defense,MIA,DST,164.1,129.0,192.0,13.7,132.0
+2021,2021-09-01,ffc,standard,Amon-Ra St. Brown,DET,WR,164.3,121.0,191.0,19.2,44.0
+2021,2021-09-01,ffc,standard,Carolina Defense,CAR,DST,165.1,136.0,179.0,11.2,20.0
+2021,2021-09-01,ffc,standard,Zach Wilson,NYJ,QB,165.1,123.0,199.0,16.0,50.0
+2021,2021-09-01,ffc,standard,Robbie Gould,SF,K,165.1,140.0,180.0,13.6,84.0
+2021,2021-09-01,ffc,standard,Carson Wentz,IND,QB,165.4,121.0,180.0,16.7,32.0
+2021,2021-09-01,ffc,standard,Daniel Carlson,LV,K,165.4,135.0,203.0,15.4,63.0
+2021,2021-09-01,ffc,standard,Jason Myers,SEA,K,165.9,122.0,180.0,16.9,83.0
+2021,2021-09-01,ffc,standard,Kansas City Defense,KC,DST,166.0,129.0,183.0,14.1,55.0
+2021,2021-09-01,ffc,standard,Wil Lutz,NO,K,166.0,118.0,206.0,19.0,28.0
+2021,2021-09-01,ffc,standard,Blake Jarwin,DAL,TE,166.4,98.0,179.0,26.2,14.0
+2021,2021-09-01,ffc,standard,Darrynton Evans,TEN,RB,166.6,122.0,207.0,19.2,17.0
+2021,2021-09-01,ffc,standard,Michael Badgley,IND,K,168.4,135.0,179.0,14.8,19.0
+2021,2021-09-01,ffc,standard,Brandon McManus,DEN,K,172.2,145.0,208.0,11.1,43.0
+2021,2021-09-01,ffc,standard,Nick Folk,NE,K,172.2,145.0,178.0,12.2,12.0
