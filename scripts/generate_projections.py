@@ -470,6 +470,32 @@ def main():
         ),
     )
     parser.add_argument(
+        "--ecr-anchor",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: blend/nudge WR ordering toward weekly "
+            "FantasyPros expert-consensus rank (ECR), Thursday-leak "
+            "excluded. Lever from .planning/WR_ECR_ORDINAL_GATE.md — "
+            "OPT-IN and provisional until the pre-registered backtest gate "
+            "passes. NOTE: no-op in live production until a 2026 "
+            "forward-capture ECR source is wired in (the committed archive "
+            "stops Aug 2025 — see .planning/FP_ECR_HISTORY_COVERAGE.md)."
+        ),
+    )
+    parser.add_argument(
+        "--ecr-anchor-mode",
+        choices=["near_tie", "blend"],
+        default="near_tie",
+        help="--ecr-anchor mechanism: near_tie (default, mechanism b) or blend (mechanism a).",
+    )
+    parser.add_argument(
+        "--ecr-anchor-weight",
+        type=float,
+        default=0.3,
+        help="Blend weight for --ecr-anchor-mode blend (default 0.3; ignored for near_tie).",
+    )
+    parser.add_argument(
         "--wind-adjust",
         action="store_true",
         default=False,
@@ -560,6 +586,11 @@ def main():
             print(
                 "Note: --wr-tiebreak has no effect in --preseason mode "
                 "(it needs weekly trailing target-share history)"
+            )
+        if args.ecr_anchor:
+            print(
+                "Note: --ecr-anchor has no effect in --preseason mode "
+                "(it needs a weekly ECR snapshot)"
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
@@ -1474,6 +1505,45 @@ def main():
             print(
                 f"WR tiebreak: {tiebreak_flagged} WR row(s) nudged; "
                 f"total projected points {before_total:.1f} -> {after_total:.1f}"
+            )
+
+        # --- WR weekly-ECR ordinal anchor (opt-in via --ecr-anchor) ---
+        # Hypothesis from .planning/WR_ECR_ORDINAL_GATE.md: weekly
+        # FantasyPros expert-consensus rank (ECR), Thursday-leak-excluded,
+        # blended/nudged into our WR ordering. Applied after the WR
+        # tiebreak (mirrors ordering — role/usage/ordering corrections
+        # grouped together, before the wind adjust). PRODUCTION NOTE: the
+        # committed ECR archive (data/silver/fp_ecr/) has no current-season
+        # (2026) data — see .planning/FP_ECR_HISTORY_COVERAGE.md ("2025
+        # status" — the source stopped scraping in Aug 2025) — so this flag
+        # is a structural no-op in live weekly runs until a 2026
+        # forward-capture ECR source is wired in. Kept wired here (not
+        # gated out) so the backtest and production code paths share the
+        # exact same lever, per repo convention.
+        if args.ecr_anchor and not projections.empty:
+            from ecr_anchor import apply_ecr_anchor, build_ecr_lookup  # noqa: E402
+
+            before_total = float(projections["projected_points"].sum())
+            ecr_lookup, ecr_stats = build_ecr_lookup(
+                projections,
+                args.season,
+                args.week,
+                schedules_df if not schedules_df.empty else pd.DataFrame(),
+            )
+            projections = apply_ecr_anchor(
+                projections,
+                ecr_lookup,
+                mode=args.ecr_anchor_mode,
+                weight=args.ecr_anchor_weight,
+            )
+            after_total = float(projections["projected_points"].sum())
+            ecr_flagged = int(projections["ecr_anchor_flag"].sum())
+            print(
+                f"ECR anchor ({args.ecr_anchor_mode}): {ecr_stats['n_final_matched']} "
+                f"WR matched (of {ecr_stats['n_proj_wr_rows']} WR rows, "
+                f"{ecr_stats['n_thursday_excluded']} Thursday/unresolved-excluded), "
+                f"{ecr_flagged} row(s) nudged; total projected points "
+                f"{before_total:.1f} -> {after_total:.1f}"
             )
 
         # --- High-wind QB/WR/TE bias shrink (opt-in via --wind-adjust) ---

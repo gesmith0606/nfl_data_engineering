@@ -48,6 +48,7 @@ from adp_prior import (
 from qb_starter_floor import apply_qb_starter_floor
 from rb_tail_calibration import apply_rb_tail_calibration
 from wr_tiebreak import apply_wr_tiebreak
+from ecr_anchor import apply_ecr_anchor, build_ecr_lookup
 from wind_adjust import apply_wind_adjust
 
 try:
@@ -527,6 +528,9 @@ def run_backtest(
     rb_tail_low_weight: float = 0.4,
     rb_tail_high_shrink: float = 0.15,
     wr_tiebreak: bool = False,
+    ecr_anchor: bool = False,
+    ecr_anchor_mode: str = "near_tie",
+    ecr_anchor_weight: float = 0.3,
     wind_adjust: bool = False,
     wind_adjust_shrink: float = 0.0539,
 ) -> pd.DataFrame:
@@ -576,6 +580,15 @@ def run_backtest(
             ``src/wr_tiebreak.py`` and
             ``.planning/WR_ORDERING_DIAGNOSIS.md`` finding #2). Mirrors
             ``generate_projections.py --wr-tiebreak``.
+        ecr_anchor: Apply the WR weekly-ECR ordinal anchor lever (see
+            ``src/ecr_anchor.py`` and ``.planning/WR_ECR_ORDINAL_GATE.md``).
+            Mirrors ``generate_projections.py --ecr-anchor``.
+        ecr_anchor_mode: ``"blend"`` (mechanism a, rank-blend) or
+            ``"near_tie"`` (mechanism b, default — reuses the
+            ``--wr-tiebreak`` clustering constants).
+        ecr_anchor_weight: Blend weight for ``ecr_anchor_mode="blend"``
+            (grid-tuned on 2022-2023, see the gate doc; ignored for
+            ``"near_tie"``).
         wind_adjust: Apply the high-wind QB/WR/TE bias-shrink lever (see
             ``src/wind_adjust.py`` and ``.planning/WIND_LEVER_2026_08_16.md``
             — pre-registered gate verdict: HOLD, fit direction doesn't
@@ -1029,6 +1042,24 @@ def run_backtest(
                     week=week,
                 )
 
+            # Apply the WR weekly-ECR ordinal anchor (Thursday-leak-free
+            # ECR blend/near-tie-nudge). Mirrors generate_projections.py
+            # ordering — after the WR tiebreak, before wind adjust. No
+            # training/fitting step (unlike --adp-prior) — ECR is a
+            # same-week piece of pre-game public info once the
+            # Thursday-exclusion rule is applied, so every eval season
+            # reads its own year's ECR data directly.
+            if ecr_anchor:
+                ecr_lookup, _ecr_stats = build_ecr_lookup(
+                    projections, season, week, schedules_df
+                )
+                projections = apply_ecr_anchor(
+                    projections,
+                    ecr_lookup,
+                    mode=ecr_anchor_mode,
+                    weight=ecr_anchor_weight,
+                )
+
             # Apply the high-wind QB/WR/TE bias shrink. Mirrors
             # generate_projections.py ordering — after the WR tiebreak,
             # before ranking-score nudges. Backtest seasons are always in
@@ -1353,6 +1384,28 @@ def main():
         ),
     )
     parser.add_argument(
+        "--ecr-anchor",
+        action="store_true",
+        help=(
+            "Apply the WR weekly-ECR ordinal anchor lever (mirrors "
+            "generate_projections.py --ecr-anchor). Evaluates the "
+            "weekly-consensus-rank hypothesis from "
+            ".planning/WR_ECR_ORDINAL_GATE.md."
+        ),
+    )
+    parser.add_argument(
+        "--ecr-anchor-mode",
+        choices=["near_tie", "blend"],
+        default="near_tie",
+        help="--ecr-anchor mechanism: near_tie (default, mechanism b) or blend (mechanism a).",
+    )
+    parser.add_argument(
+        "--ecr-anchor-weight",
+        type=float,
+        default=0.3,
+        help="Blend weight for --ecr-anchor-mode blend (default 0.3; ignored for near_tie).",
+    )
+    parser.add_argument(
         "--wind-adjust",
         action="store_true",
         help=(
@@ -1401,6 +1454,11 @@ def main():
         else ""
     )
     wr_tiebreak_label = " | WR Tiebreak: ON" if args.wr_tiebreak else ""
+    ecr_anchor_label = (
+        f" | ECR Anchor: ON (mode={args.ecr_anchor_mode}, weight={args.ecr_anchor_weight})"
+        if args.ecr_anchor
+        else ""
+    )
     wind_adjust_label = (
         f" | Wind Adjust: ON (shrink={args.wind_adjust_shrink})"
         if args.wind_adjust
@@ -1408,7 +1466,7 @@ def main():
     )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{wind_adjust_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{ecr_anchor_label}{wind_adjust_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1443,6 +1501,9 @@ def main():
         rb_tail_low_weight=args.rb_tail_low_weight,
         rb_tail_high_shrink=args.rb_tail_high_shrink,
         wr_tiebreak=args.wr_tiebreak,
+        ecr_anchor=args.ecr_anchor,
+        ecr_anchor_mode=args.ecr_anchor_mode,
+        ecr_anchor_weight=args.ecr_anchor_weight,
         wind_adjust=args.wind_adjust,
         wind_adjust_shrink=args.wind_adjust_shrink,
     )
@@ -1465,10 +1526,11 @@ def main():
     qb_floor_tag = "_qbstarterfloor" if args.qb_starter_floor else ""
     rb_tail_tag = "_rbtailcalibration" if args.rb_tail_calibration else ""
     wr_tiebreak_tag = "_wrtiebreak" if args.wr_tiebreak else ""
+    ecr_anchor_tag = f"_ecranchor{args.ecr_anchor_mode}" if args.ecr_anchor else ""
     wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{wind_adjust_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{wind_adjust_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
