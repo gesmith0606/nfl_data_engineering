@@ -38,6 +38,12 @@ from player_analytics import (
 )
 from projection_engine import apply_injury_adjustments, generate_weekly_projections
 from early_season_prior import apply_early_season_prior, compute_prior_season_ppg
+from adp_prior import (
+    apply_adp_prior,
+    compute_adp_implied_ppg,
+    fit_adp_ppg_mapping,
+    load_adp_snapshot,
+)
 from qb_starter_floor import apply_qb_starter_floor
 from rb_tail_calibration import apply_rb_tail_calibration
 from wr_tiebreak import apply_wr_tiebreak
@@ -512,6 +518,8 @@ def run_backtest(
     apply_injuries: bool = True,
     early_season_prior: bool = False,
     early_season_prior_weight: float = 1.0,
+    adp_prior: bool = False,
+    adp_prior_weight: float = 1.0,
     qb_starter_floor: bool = False,
     qb_starter_floor_haircut: float = 0.8,
     rb_tail_calibration: bool = False,
@@ -543,6 +551,12 @@ def run_backtest(
             lever is evaluable on historical seasons.
         early_season_prior_weight: Scale multiplier on the fixed weight
             schedule (default 1.0).
+        adp_prior: Apply the weeks 1-6 draft-time-ADP shrinkage lever (see
+            ``src/adp_prior.py`` and ``.planning/ADP_EARLY_SEASON_GATE.md``).
+            Mirrors ``generate_projections.py --adp-prior`` so the lever is
+            evaluable on historical seasons.
+        adp_prior_weight: Scale multiplier on the fixed weight schedule
+            (default 1.0).
         qb_starter_floor: Apply the depth-chart-QB1 starter-tier floor
             lever (see ``src/qb_starter_floor.py`` and
             ``.planning/CONSENSUS_ERROR_DECOMPOSITION.md`` finding #3).
@@ -772,6 +786,60 @@ def run_backtest(
                 prior_weekly, scoring_format=scoring_format
             )
 
+    # ADP-implied PPG for --adp-prior, computed once per eval season and
+    # cached. Walk-forward: eval season S's log(ADP)->PPG mapping is fit on
+    # ADP-history seasons strictly before S (never S itself). ADP history
+    # starts at 2021, so training seasons needed can extend earlier than
+    # weekly_df's own coverage (which only spans season ∪ {season-1}) — a
+    # sealed single-season run (e.g. --seasons 2025) needs 2021-2024 weekly
+    # data for training labels, not just 2024, so any training season
+    # missing from weekly_df is loaded separately here.
+    adp_implied_cache: Dict[int, pd.DataFrame] = {}
+    if adp_prior:
+        adp_history_dir = os.path.join(project_root, "data", "adp", "history")
+        for eval_season in sorted(set(seasons)):
+            training_seasons = [
+                y
+                for y in range(2021, eval_season)
+                if os.path.exists(
+                    os.path.join(adp_history_dir, f"adp_ffc_{scoring_format}_{y}.csv")
+                )
+            ]
+            if not training_seasons:
+                print(
+                    f"WARN: --adp-prior — no ADP-history training seasons "
+                    f"before {eval_season}; lever will no-op for this season"
+                )
+                continue
+            missing = [y for y in training_seasons if y not in all_seasons]
+            extra_dfs = [
+                _prepare_weekly(_load_local_parquet(bronze_dir, f"players/weekly/season={y}/*.parquet"))
+                for y in missing
+            ]
+            extra_dfs = [d for d in extra_dfs if not d.empty]
+            train_weekly_df = pd.concat(
+                [weekly_df[weekly_df["season"].isin(training_seasons)]] + extra_dfs,
+                ignore_index=True,
+            )
+            mapping = fit_adp_ppg_mapping(
+                training_seasons, train_weekly_df, scoring_format=scoring_format,
+                adp_dir=adp_history_dir,
+            )
+            adp_current = load_adp_snapshot(
+                eval_season, scoring_format=scoring_format, adp_dir=adp_history_dir
+            )
+            if not mapping or adp_current.empty:
+                print(
+                    f"WARN: --adp-prior — no fitted mapping or no {eval_season} "
+                    "ADP snapshot; lever will no-op for this season"
+                )
+                continue
+            adp_implied_cache[eval_season] = compute_adp_implied_ppg(adp_current, mapping)
+            print(
+                f"  ADP prior mapping for {eval_season}: trained on "
+                f"{training_seasons}, positions={sorted(mapping.keys())}"
+            )
+
     results = []
     total_weeks = 0
 
@@ -882,6 +950,19 @@ def run_backtest(
                         prior_ppg_df,
                         week=week,
                         scale=early_season_prior_weight,
+                    )
+
+            # Apply the ADP prior blend (weeks 1-6 only; no-op elsewhere).
+            # Mirrors generate_projections.py ordering — after the
+            # early-season prior blend, before the QB starter floor.
+            if adp_prior:
+                implied_df = adp_implied_cache.get(season)
+                if implied_df is not None:
+                    projections = apply_adp_prior(
+                        projections,
+                        implied_df,
+                        week=week,
+                        scale=adp_prior_weight,
                     )
 
             # Apply the QB starter-tier floor (depth-chart QB1 + backup-level
@@ -1190,6 +1271,22 @@ def main():
         help="Scale multiplier on the --early-season-prior weight schedule (default 1.0).",
     )
     parser.add_argument(
+        "--adp-prior",
+        action="store_true",
+        help=(
+            "Apply the weeks 1-6 draft-time-ADP shrinkage lever (mirrors "
+            "generate_projections.py --adp-prior). Evaluates the "
+            "draft-time-ADP hypothesis from "
+            ".planning/ADP_EARLY_SEASON_GATE.md."
+        ),
+    )
+    parser.add_argument(
+        "--adp-prior-weight",
+        type=float,
+        default=1.0,
+        help="Scale multiplier on the --adp-prior weight schedule (default 1.0).",
+    )
+    parser.add_argument(
         "--qb-starter-floor",
         action="store_true",
         help=(
@@ -1269,6 +1366,9 @@ def main():
         if args.early_season_prior
         else ""
     )
+    adp_prior_label = (
+        f" | ADP Prior: ON (x{args.adp_prior_weight})" if args.adp_prior else ""
+    )
     qb_floor_label = (
         f" | QB Starter Floor: ON (haircut={args.qb_starter_floor_haircut})"
         if args.qb_starter_floor
@@ -1287,7 +1387,7 @@ def main():
     )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{wind_adjust_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{wind_adjust_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1314,6 +1414,8 @@ def main():
         apply_injuries=not args.no_injuries,
         early_season_prior=args.early_season_prior,
         early_season_prior_weight=args.early_season_prior_weight,
+        adp_prior=args.adp_prior,
+        adp_prior_weight=args.adp_prior_weight,
         qb_starter_floor=args.qb_starter_floor,
         qb_starter_floor_haircut=args.qb_starter_floor_haircut,
         rb_tail_calibration=args.rb_tail_calibration,
@@ -1338,13 +1440,14 @@ def main():
     features_tag = "_fullfeatures" if full_features else ""
     consensus_tag = "_consensus" if vs_consensus else ""
     prior_tag = "_earlyseasonprior" if args.early_season_prior else ""
+    adp_prior_tag = "_adpprior" if args.adp_prior else ""
     qb_floor_tag = "_qbstarterfloor" if args.qb_starter_floor else ""
     rb_tail_tag = "_rbtailcalibration" if args.rb_tail_calibration else ""
     wr_tiebreak_tag = "_wrtiebreak" if args.wr_tiebreak else ""
     wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{wind_adjust_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{wind_adjust_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")

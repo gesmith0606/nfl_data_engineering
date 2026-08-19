@@ -383,6 +383,30 @@ def main():
         ),
     )
     parser.add_argument(
+        "--adp-prior",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only, weeks 1-6: blend projections toward "
+            "draft-time ADP-implied per-game points (Fantasy Football "
+            "Calculator snapshot, data/adp/history/). A log10(ADP)->PPG "
+            "mapping is fit per position, walk-forward on prior seasons "
+            "only. Fixed decaying schedule w={1:0.5, 2:0.45, 3:0.4, 4:0.3, "
+            "5:0.2, 6:0.1}; QB/RB/WR/TE only. Draft-time-ADP hypothesis — "
+            "OPT-IN and provisional until the pre-registered backtest gate "
+            "passes (.planning/ADP_EARLY_SEASON_GATE.md)."
+        ),
+    )
+    parser.add_argument(
+        "--adp-prior-weight",
+        type=float,
+        default=1.0,
+        help=(
+            "Scale multiplier on the --adp-prior weight schedule "
+            "(default 1.0 = schedule as-is; 0 disables)."
+        ),
+    )
+    parser.add_argument(
         "--qb-starter-floor",
         action="store_true",
         default=False,
@@ -516,6 +540,11 @@ def main():
             print(
                 "Note: --early-season-prior has no effect in --preseason mode "
                 "(it only applies to weekly weeks 3-6)"
+            )
+        if args.adp_prior:
+            print(
+                "Note: --adp-prior has no effect in --preseason mode "
+                "(it only applies to weekly weeks 1-6)"
             )
         if args.qb_starter_floor:
             print(
@@ -1255,6 +1284,78 @@ def main():
                     f"prior-season baseline ({prior_season}); total projected "
                     f"points {before_total:.1f} -> {after_total:.1f}"
                 )
+
+        # --- ADP prior blend (opt-in via --adp-prior) ---
+        # Draft-time-ADP hypothesis (.planning/ADP_EARLY_SEASON_GATE.md):
+        # crowd-consensus ADP prices in role changes (rookies, team changes,
+        # promoted starters) faster than trailing-usage features, which are
+        # thin/absent in weeks 1-6. Blends toward a per-position log(ADP)->
+        # PPG mapping fit walk-forward on prior seasons only. Applied after
+        # the early-season prior blend (same ordering family — a
+        # role/usage correction, not a news/market signal).
+        if args.adp_prior and not projections.empty:
+            from adp_prior import (  # noqa: E402
+                apply_adp_prior,
+                compute_adp_implied_ppg,
+                fit_adp_ppg_mapping,
+                load_adp_snapshot,
+            )
+
+            adp_history_dir = os.path.join(PROJECT_ROOT, "data", "adp", "history")
+            training_seasons = [
+                y
+                for y in range(2021, args.season)
+                if os.path.exists(
+                    os.path.join(adp_history_dir, f"adp_ffc_{args.scoring}_{y}.csv")
+                )
+            ]
+            if not training_seasons:
+                print(
+                    "WARN: --adp-prior requested but no ADP-history training "
+                    f"seasons found before {args.season}; skipping"
+                )
+            else:
+                train_weekly_parts = [
+                    _read_local_parquet(
+                        BRONZE_DIR, f"players/weekly/season={y}/*.parquet"
+                    )
+                    for y in training_seasons
+                ]
+                train_weekly_parts = [d for d in train_weekly_parts if not d.empty]
+                train_weekly_df = (
+                    pd.concat(train_weekly_parts, ignore_index=True)
+                    if train_weekly_parts
+                    else pd.DataFrame()
+                )
+                mapping = fit_adp_ppg_mapping(
+                    training_seasons, train_weekly_df, scoring_format=args.scoring
+                )
+                adp_current = load_adp_snapshot(
+                    args.season, scoring_format=args.scoring, adp_dir=adp_history_dir
+                )
+                if not mapping or adp_current.empty:
+                    print(
+                        "WARN: --adp-prior requested but no fitted mapping or "
+                        f"no current-season ({args.season}) ADP snapshot "
+                        "available; skipping"
+                    )
+                else:
+                    implied_df = compute_adp_implied_ppg(adp_current, mapping)
+                    before_total = float(projections["projected_points"].sum())
+                    projections = apply_adp_prior(
+                        projections,
+                        implied_df,
+                        week=args.week,
+                        scale=args.adp_prior_weight,
+                    )
+                    after_total = float(projections["projected_points"].sum())
+                    adjusted = int(projections["adp_implied_ppg"].notna().sum())
+                    print(
+                        f"ADP prior blend: {adjusted} players matched to "
+                        f"{args.season} ADP (mapping trained on "
+                        f"{training_seasons}); total projected points "
+                        f"{before_total:.1f} -> {after_total:.1f}"
+                    )
 
         # --- QB starter-tier floor (opt-in via --qb-starter-floor) ---
         # Lever #3 from .planning/CONSENSUS_ERROR_DECOMPOSITION.md: the <8pt
