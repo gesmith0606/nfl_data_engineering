@@ -305,6 +305,15 @@ data/gold/*
 !data/silver/teams/
 !data/silver/teams/**
 !data/silver/teams/**/*.parquet
+# ffopportunity expected-points player-week features (2026-08-18): small
+# aggregate (~3.7 MB, 2016-2025) derived from the LOCAL-ONLY raw
+# data/bronze/ffopportunity/ play-level parquet (~43.5 MB — intentionally
+# NOT allowlisted below; re-download via
+# `python scripts/ingest_ffopportunity.py`). See
+# .planning/FFOPPORTUNITY_COVERAGE.md for the full size/licensing decision.
+!data/silver/ffopportunity_features/
+!data/silver/ffopportunity_features/**
+!data/silver/ffopportunity_features/**/*.parquet
 !data/bronze/
 !data/bronze/sentiment/
 !data/bronze/sentiment/**
