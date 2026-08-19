@@ -1,0 +1,181 @@
+name: OurLads Depth Chart Capture
+
+# ---------------------------------------------------------------------------
+# Triggers
+# ---------------------------------------------------------------------------
+# Daily 11:00 UTC — same-day starter-identity forward-capture. OurLads
+# depth charts react same-day to beat-writer/coach reporting; our existing
+# nflverse depth_charts Bronze lags real role changes 1-3 weeks, which
+# starved the QB-starter-floor model lever (see QB_STARTER_FLOOR_GATE.md).
+# A separate, dedicated workflow (rather than a job in odds-capture.yml) so
+# this daily cron does not also re-trigger the Odds API spreads job there
+# (that workflow's base `capture` job runs unconditionally on every cron
+# in its own `on.schedule` list).
+#
+# workflow_dispatch for manual one-off runs:
+#   gh workflow run depthchart-capture.yml
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 11:00 UTC daily
+  workflow_dispatch: {}
+
+# ---------------------------------------------------------------------------
+# Prevent overlapping runs from racing on the same parquet directory.
+# cancel-in-progress: false so a slow run always completes and we never
+# silently skip a snapshot.
+# ---------------------------------------------------------------------------
+concurrency:
+  group: depthchart-capture
+  cancel-in-progress: false
+
+# ---------------------------------------------------------------------------
+# Permissions
+# The workflow commits new parquet files back to main (TD-08/09 pattern).
+# contents:write is the only permission needed.
+# ---------------------------------------------------------------------------
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    name: Fetch and persist OurLads depth-chart snapshot
+    runs-on: ubuntu-latest
+
+    steps:
+      # -----------------------------------------------------------------------
+      # 1. Checkout
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      # -----------------------------------------------------------------------
+      # 2. Python
+      # -----------------------------------------------------------------------
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # -----------------------------------------------------------------------
+      # 3. Dependencies
+      # -----------------------------------------------------------------------
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # -----------------------------------------------------------------------
+      # 4. Run ingestion
+      # continue-on-error: true because the script's honest exit-1-on-any-
+      # empty-team contract (a single OurLads team briefly 500ing, or a
+      # future site layout change) must not fail this job or page via
+      # notify-failure -- the step still shows red in the Actions UI for
+      # visibility, and any teams that DID parse are still committed below.
+      # -----------------------------------------------------------------------
+      - name: Fetch OurLads depth-chart snapshot
+        continue-on-error: true
+        run: python scripts/bronze_depthchart_ourlads_ingestion.py
+
+      # -----------------------------------------------------------------------
+      # 5. Commit new parquet file back to the repo
+      # Mirrors odds-capture.yml (TD-08/09):
+      #   - git add only the specific path
+      #   - skip commit when nothing changed (script failed before writing)
+      #   - rebase-and-retry up to 3x to handle concurrent pushes
+      # -----------------------------------------------------------------------
+      - name: Commit depth-chart snapshot to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/bronze/depth_charts_ourlads/ 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No new depth-chart data to commit (capture failed before any write)"
+          else
+            COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
+
+            git commit -m "data(depth-charts): OurLads daily snapshot — ${COUNT} file(s)
+
+          Automated daily same-day starter-identity forward-capture."
+
+            for attempt in 1 2 3; do
+              if git push origin main 2>&1; then
+                echo "Pushed ${COUNT} depth-chart file(s) (attempt ${attempt})"
+                break
+              fi
+              echo "Push attempt ${attempt} rejected; rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || {
+                echo "::error::Rebase conflict on depth-chart data commit — manual intervention required"
+                exit 1
+              }
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times after rebase — bailing"
+                exit 1
+              fi
+            done
+          fi
+
+      # -----------------------------------------------------------------------
+      # 6. Surface a per-team failure in the Actions log even though the
+      # job itself doesn't fail hard (continue-on-error above).
+      # -----------------------------------------------------------------------
+      - name: Log capture status
+        if: always()
+        run: |
+          echo "::notice::Depth-chart capture complete. Check script output above for per-team row counts — any team logged at ERROR with zero rows needs investigation (see script docstring: ARZ/ARI silent-empty-table gotcha)."
+
+  # ---------------------------------------------------------------------------
+  # Hard-failure notification — opens a GitHub issue when the job fails
+  # outright (rebase conflict, push rejection, runner error). The scraper's
+  # own per-team/overall failures are fail-open at the job level (see
+  # continue-on-error above) and do NOT land here by design.
+  # ---------------------------------------------------------------------------
+  notify-failure:
+    name: Notify on hard failure
+    runs-on: ubuntu-latest
+    needs: [capture]
+    if: failure()
+    permissions:
+      issues: write
+
+    steps:
+      - name: Create GitHub issue for capture failure
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const now = new Date().toISOString().split('T')[0];
+            const title = `OurLads Depth Chart Capture Failed - ${now}`;
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'pipeline-failure',
+            });
+            if (open.data.some(i => i.title === title)) {
+              core.info('Failure issue already open today — not duplicating.');
+              return;
+            }
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body: [
+                '## OurLads depth-chart capture hard failure',
+                '',
+                'Same-day starter-identity history cannot be backfilled — diagnose promptly.',
+                '',
+                `Run: [${context.runId}](${runUrl})`,
+                '',
+                '```bash',
+                'gh run view --log ' + context.runId,
+                'gh workflow run depthchart-capture.yml   # manual retry',
+                '```',
+                '',
+                '_Auto-generated by depthchart-capture notify-failure._',
+              ].join('\n'),
+              labels: ['pipeline-failure', 'automated'],
+            });
