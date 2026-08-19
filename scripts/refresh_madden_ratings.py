@@ -77,6 +77,10 @@ TEAM_LABEL_TO_ABBR = {
     "New Orleans Saints": "NO",
     "New York Giants": "NYG",
     "New York Jets": "NYJ",
+    # The 2026 game rollover (Madden NFL 27 base iteration) shortened both
+    # New York labels — keep old and new spellings mapped.
+    "NY Giants": "NYG",
+    "NY Jets": "NYJ",
     "Philadelphia Eagles": "PHI",
     "Pittsburgh Steelers": "PIT",
     "San Francisco 49ers": "SF",
@@ -197,6 +201,20 @@ def main() -> int:
 
     df = pd.DataFrame(all_rows).drop_duplicates(subset=["madden_id"])
     df["fetched_at"] = datetime.now().isoformat()
+
+    # Guard against silent label drift (the 2026 rollover renamed both NY
+    # teams, dumping 116 players into FA): every one of the 32 abbreviations
+    # must be present, and any unmapped label is an error, not a shrug.
+    mapped_teams = set(df["team"].unique()) - {"FA"}
+    unmapped = df.loc[df["team"] == "FA", "team_label"]
+    unmapped = unmapped[unmapped != ""].value_counts()
+    if len(mapped_teams) != 32 or not unmapped.empty:
+        logger.error(
+            "Team mapping incomplete: %d/32 teams mapped; unmapped labels: %s",
+            len(mapped_teams),
+            unmapped.to_dict(),
+        )
+        return 1
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
