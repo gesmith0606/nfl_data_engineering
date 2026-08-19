@@ -158,22 +158,37 @@ Tuten — model rates all of these meaningfully worse than the market.
 
 ## Keeper math (feetball)
 
-**The rule (as given):** keeper round = last year's (2025) draft round the player was
-selected in, minus 3. This repo doesn't have your 2025 feetball roster or draft results on
-file, so **we can't compute your actual keeper costs — please paste your current roster
-plus the round each player went in last year**, and I'll run the real numbers before the
-Aug 31 deadline.
+**The rule (commissioner-confirmed, per the knowledge-vault note from the 2026-07-26
+session — [[yahoo-keeper-league-2026]]):** keeper cost = the round the player was drafted
+last year (2025), minus 3. **Floor: anyone drafted round 13+ (or undrafted) keeps at a flat
+round 10** — i.e. the floor is a *cap* on the high end, not a discount on early picks (a
+1st-rounder still costs roughly round 1-3, it does not "float up" to round 10). Tag = same
+round as last year, capped at round 13 for round-13+/undrafted players; a tag + a keeper
+together use all 3 keeper slots (menu is 3 keepers, or 1 tag + 1 keeper).
 
-**Confirm the "floor round 10" direction with your commissioner before deciding** — it reads
-naturally as a lower bound (`keeper_round = max(drafted_round - 3, 10)`, i.e. no keeper ever
-costs cheaper than a round-10 pick, which caps how much you can steal a 1st-rounder for) but
-league bylaws sometimes use "floor" loosely to mean a cap on the high end instead. Either way,
-the generic principle holds regardless of which direction "floor" points:
+**We already have a partial answer from that prior session's analysis** (2025 draft results
+were captured then; not re-verified this session — reconcile against your actual 2026 roster
+before Aug 31):
 
-> **Any player currently priced in the top 3 rounds of this year's ADP (picks 1-30 of feetball's
-> 10-team format) who you originally drafted late enough to land in the rounds 4-10 keeper
-> band is an outstanding keep** — you'd be paying a mid-round pick for a player who'd otherwise
-> cost you a 1st-3rd round pick to redraft.
+| Player | 2025 draft round | Keeper cost | This year's ADP round (refreshed 8/18) | Read |
+|---|---|---|---|---|
+| Luther Burden III | round 13+ (floored) | round 10 | round 7 (ADP 62) | Still a keep, but thinner margin than July — Burden's market price cooled (ADP 62→ still ahead of round-10 cost, +3 rounds of surplus, down from +5 in July) |
+| Colston Loveland | round 13+ (floored) | round 10 | round 7 (ADP 61, model rank 96, **VORP +45.2**) | Keep — strong positive VORP, comfortably beats a round-10 price |
+| Jordan Addison | round 12 | round 9 | round 10 (ADP 96, model rank 131, VORP −5.2) | **Re-check** — his market has cooled to roughly the same round as his keeper cost (near-even trade now, not the clear value it was in July); worth a fresh look at his current outlook (offseason/suspension situation) before committing a slot |
+| Omarion Hampton | round 2 | **tag-only** (round 2−3 < round 1, keep not allowed) | round 3 (ADP 23, **VORP +69.0**, model rank 36) | Tagging at round 2 for a player now going round 3 is close to fair value, not a discount — fine to tag if you want him locked in, but it's not a steal |
+
+Preliminary read (same as July): **keep Burden + Loveland**, still investigate whether
+Addison is worth the 3rd keeper slot at his current (cooled) price vs. taking a fresh round-9
+pick instead, don't tag Hampton unless you specifically want him locked in.
+
+**Beyond these four already-analyzed names, we still need your full 2026 feetball roster +
+last year's draft round for every keeper-eligible player** to check for anyone else worth
+keeping. Generic principle for spotting more candidates yourself:
+
+> **Any player currently priced in the top 3 rounds of this year's ADP (picks 1-30 of
+> feetball's 10-team format) who you drafted in round 13+ last year (floors at a round-10
+> keeper cost) is an outstanding keep** — you'd be paying a round-10 pick for a player who'd
+> otherwise cost a 1st-3rd round pick to redraft.
 
 This year's top-30-ADP talent, ranked by our model (check this against who's actually on your
 2025 roster):
@@ -255,10 +270,13 @@ Kelce at TE), same fades.
 
 ## Open items for the user
 
-1. **feetball keeper math** — need your actual 2025 feetball roster + the round each
-   keeper-eligible player was drafted last year to compute real keeper costs before Aug 31.
-2. **Confirm "floor round 10" direction** with your feetball commissioner (see Keeper math
-   section) — changes which players are the best keeps at the margin.
+1. **feetball keeper math** — full roster reconciliation still needed: paste your current
+   2026 feetball roster + last year's draft round for every keeper-eligible player so we can
+   check for keeper candidates beyond the four already analyzed (Burden/Loveland/Addison/
+   Hampton, from the 2026-07-26 vault note) with today's refreshed projections/ADP.
+2. Decide on Jordan Addison as the 3rd keeper slot — his market has cooled since July
+   (current VORP is now slightly negative); worth checking his current offseason outlook
+   before locking him in over a fresh round-9 pick.
 3. **draft_assistant.py --simulate late-round kicker loop** (see Tool note) — cosmetic for
    this report (worked around by querying the board directly) but worth a look before relying
    on `--simulate`'s draft grade for `gentlemen`/`mahomos` on draft night.
