@@ -1,0 +1,584 @@
+{
+  "fetch_run_id": "102eaaf7-aba0-49fb-a206-9693cff70cc3",
+  "source": "pft",
+  "fetched_at": "2026-08-20T12:13:54.510385+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-terence-steele-needs-to-be-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-terence-steele-needs-to-be-better",
+      "permalink": "",
+      "title": "Brian Schottenheimer: Terence Steele needs to be better",
+      "body_text": "Cowboys head coach Brian Schottenheimer wants more consistency from right tackle Terence Steele.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-20T10:35:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Terence Steele"
+      ],
+      "resolved_player_ids": [
+        "00-0036036"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-on-the-reception-hell-get-from-browns-fans-i-dont-care",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-on-the-reception-hell-get-from-browns-fans-i-dont-care",
+      "permalink": "",
+      "title": "Deshaun Watson on the reception he'll get from Browns fans: \"I don't care\"",
+      "body_text": "Watson, who is often booed in Cleveland, says it doesn't matter to him what he hears at Saturday's preseason home opener.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-20T08:17:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-myles-gaskin-announces-his-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-myles-gaskin-announces-his-retirement",
+      "permalink": "",
+      "title": "RB Myles Gaskin announces his retirement",
+      "body_text": "Running back Myles Gaskin announced his retirement from the NFL on Wednesday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T03:49:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Gaskin"
+      ],
+      "resolved_player_ids": [
+        "00-0035311"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recent-legal-developments-could-open-the-door-for-diego-pavia-to-play-college-football-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/recent-legal-developments-could-open-the-door-for-diego-pavia-to-play-college-football-again",
+      "permalink": "",
+      "title": "Recent legal developments could open the door for Diego Pavia to play college football again",
+      "body_text": "There has been no news about 2025 Heisman Trophy runner-up Diego Pavia since the Ravens released him shortly before the opening of training camp.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T03:38:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pavia",
+        "Heisman Trophy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-vita-vea-is-the-type-of-player-and-person-we-want-to-build-around",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-vita-vea-is-the-type-of-player-and-person-we-want-to-build-around",
+      "permalink": "",
+      "title": "Jason Licht: Vita Vea is the type of player and person we want to build around",
+      "body_text": "The Buccaneers announced the one-year extension for defensive lineman Vita Vea on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T03:02:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jason Licht",
+        "Vita Vea",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-rb-rachaad-white-tweaked-his-hamstring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-rb-rachaad-white-tweaked-his-hamstring",
+      "permalink": "",
+      "title": "Commanders RB Rachaad White tweaked his hamstring",
+      "body_text": "Commanders running back Rachaad White has missed the past few days with an undisclosed injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T02:34:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-warren-has-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-warren-has-groin-injury",
+      "permalink": "",
+      "title": "Tyler Warren has groin injury",
+      "body_text": "Colts tight end Tyler Warren left practice on Wednesday with an injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T01:22:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0040128"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-uses-tuesdays-tussle-to-warn-players-about-potential-ejections-from-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-uses-tuesdays-tussle-to-warn-players-about-potential-ejections-from-games",
+      "permalink": "",
+      "title": "Sean Payton uses Tuesday's \"tussle\" to warn players about potential ejections from games",
+      "body_text": "The Broncos had a fight at practice on Tuesday.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T01:03:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-the-seahawks-ever-finalize-their-agreement-to-sign-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-the-seahawks-ever-finalize-their-agreement-to-sign-terrion-arnold",
+      "permalink": "",
+      "title": "Will the Seahawks ever finalize their agreement to sign Terrion Arnold?",
+      "body_text": "It's been six days since the Seahawks reached an agreement to sign cornerback Terrion Arnold.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T00:47:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-gonna-be-really-fun-watching-keenan-allen-with-daniel-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-gonna-be-really-fun-watching-keenan-allen-with-daniel-jones",
+      "permalink": "",
+      "title": "Shane Steichen: Gonna be really fun watching Keenan Allen with Daniel Jones",
+      "body_text": "Wide receiver Keenan Allen wasn't on the field for the Colts' joint practice with the Falcons on Wednesday, but thoughts of what he'll look like in the offense were on head coach Shane Steichen's mind.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-20T00:02:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "Keenan Allen",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0030279",
+        "00-0035710"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/multiple-first-year-nfl-players-win-tro-for-fifth-year-of-college-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/multiple-first-year-nfl-players-win-tro-for-fifth-year-of-college-football",
+      "permalink": "",
+      "title": "Multiple first-year NFL players win TRO for fifth-year of college football",
+      "body_text": "The general chaos could yield specific benefits for multiple programs.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T23:57:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifth-round-pick-fernando-carmona-pushing-for-starting-guard-job-with-titans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fifth-round-pick-fernando-carmona-pushing-for-starting-guard-job-with-titans",
+      "permalink": "",
+      "title": "Fifth-round pick Fernando Carmona pushing for starting guard job with Titans",
+      "body_text": "The Titans added several veteran offensive linemen this offseason, but a rookie that joined the team on the final day of the draft may wind up as one of their five starters come week one.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-19T23:26:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Carmona",
+        "Titans The"
+      ],
+      "resolved_player_ids": [
+        "00-0040881"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-nfl-issued-fines-for-fights-during-joint-practices-the-fights-would-stop",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-nfl-issued-fines-for-fights-during-joint-practices-the-fights-would-stop",
+      "permalink": "",
+      "title": "If NFL issued fines for fights during joint practices, the fights would stop",
+      "body_text": "It's joint practice fighting season, with Tuesday's all-out brawl between the Saints and Cowboys making its way to NBC Nightly News.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T23:24:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nightly News"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-one-year-extension-for-bucs-dt-vita-vea",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-one-year-extension-for-bucs-dt-vita-vea",
+      "permalink": "",
+      "title": "Report: One-year extension for Bucs DT Vita Vea",
+      "body_text": "Vea gets a $6 million raise for 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T23:01:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vita Vea"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-practiced-sam-laporta-did-not-for-lions-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameson-williams-practiced-sam-laporta-did-not-for-lions-today",
+      "permalink": "",
+      "title": "Jameson Williams practiced, Sam LaPorta did not for Lions today",
+      "body_text": "The Lions got wide receiver Jameson Williams back on the practice field today, but they didn't have their whole first-string offense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-19T22:41:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameson Williams",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0037240"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevon-diggs-im-looking-to-show-im-still-the-best",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevon-diggs-im-looking-to-show-im-still-the-best",
+      "permalink": "",
+      "title": "Trevon Diggs: I'm looking to show I'm still the best",
+      "body_text": "Trevon Diggs led the league with 11 interceptions in 2021 and earned All-Pro honors, becoming one of the top cornerbacks in the NFL in his second season.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T21:48:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trevon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0036361"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-no-extra-anxiety-or-pressure-about-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-no-extra-anxiety-or-pressure-about-this-week",
+      "permalink": "",
+      "title": "Shedeur Sanders: No extra anxiety or pressure about this week",
+      "body_text": "Browns quarterback Shedeur Sanders is going to get a pair of chances to work against an opposing defense this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-19T21:34:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-place-rb-trey-sermon-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-place-rb-trey-sermon-on-injured-reserve",
+      "permalink": "",
+      "title": "Falcons place RB Trey Sermon on injured reserve",
+      "body_text": "The Falcons placed running back Trey Sermon on injured reserve Wednesday, according to the NFL's transactions report.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T21:18:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Sermon",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0036984"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-claim-dl-ben-barten-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-claim-dl-ben-barten-off-waivers",
+      "permalink": "",
+      "title": "Giants claim DL Ben Barten off waivers",
+      "body_text": "The Giants claimed defensive lineman Ben Barten off waivers, according to the NFL's transaction report.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T21:06:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ben Barten",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0041141"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-de-jamil-muhammad-waive-cb-jeadyn-lukus",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-de-jamil-muhammad-waive-cb-jeadyn-lukus",
+      "permalink": "",
+      "title": "Browns sign DE Jamil Muhammad, waive CB Jeadyn Lukus",
+      "body_text": "The Browns have made a pair of roster moves on Wednesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-19T20:24:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jamil Muhammad",
+        "Jeadyn Lukus",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040594",
+        "00-0040915"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-wr-liam-clifford",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-sign-wr-liam-clifford",
+      "permalink": "",
+      "title": "Chargers sign WR Liam Clifford",
+      "body_text": "The Chargers signed wide receiver Liam Clifford on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T20:17:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Liam Clifford",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-te-tyler-warren-exits-practice-with-an-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-te-tyler-warren-exits-practice-with-an-injury",
+      "permalink": "",
+      "title": "Colts TE Tyler Warren exits practice with an injury",
+      "body_text": "Colts tight end Tyler Warren left practice early after going down on a route in 11-on-11 drills.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T20:07:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0040128"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-regrets-his-approach-to-the-media-in-his-first-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-regrets-his-approach-to-the-media-in-his-first-year",
+      "permalink": "",
+      "title": "Aaron Glenn regrets his approach to the media in his first year",
+      "body_text": "For those in the public eye who choose to treat the media as an enemy, they tend to get one.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T19:33:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-is-the-vikings-backup-qb-for-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-is-the-vikings-backup-qb-for-now",
+      "permalink": "",
+      "title": "J.J. McCarthy is the Vikings' backup QB for now",
+      "body_text": "The Vikings continue to list J.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T19:30:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-waive-rookie-wr-roydell-williams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-waive-rookie-wr-roydell-williams",
+      "permalink": "",
+      "title": "Colts waive rookie WR Roydell Williams",
+      "body_text": "The Colts made official the signing of free agent wide receiver Keenan Allen, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-19T19:02:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roydell Williams",
+        "The Colts",
+        "Keenan Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0023570",
+        "00-0030279"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-center-danny-pinter-carted-off-the-field-at-joint-practice-with-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-center-danny-pinter-carted-off-the-field-at-joint-practice-with-vikings",
+      "permalink": "",
+      "title": "Ravens center Danny Pinter carted off the field at joint practice with Vikings",
+      "body_text": "Ravens center Danny Pinter suffered an injury at today's joint practice with the Vikings.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-19T18:55:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Danny Pinter",
+        "Vikings Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0036215"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinshon-judkins-is-not-practicing-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinshon-judkins-is-not-practicing-on-wednesday",
+      "permalink": "",
+      "title": "Quinshon Judkins is not practicing on Wednesday",
+      "body_text": "One of Cleveland's key offensive players is not on the practice field on Wednesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-19T18:40:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinshon Judkins",
+        "Wednesday One"
+      ],
+      "resolved_player_ids": [
+        "00-0040784"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-says-he-hasnt-spoken-with-jalen-hurts-since-the-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-says-he-hasnt-spoken-with-jalen-hurts-since-the-trade",
+      "permalink": "",
+      "title": "A.J. Brown says he hasn't spoken with Jalen Hurts since the trade",
+      "body_text": "With the Eagles and Patriots going head-to-head for a joint practice in Foxborough before playing Saturday's preseason game, members of Philadelphia's beat corps got a chance to visit with receiver A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-19T18:12:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevon-diggs-seahawks-agree-to-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevon-diggs-seahawks-agree-to-one-year-deal",
+      "permalink": "",
+      "title": "Trevon Diggs, Seahawks agree to one-year deal",
+      "body_text": "With Terrion Arnold seemingly out of the picture, Seattle has turned to another cornerback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-19T17:58:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trevon Diggs",
+        "With Terrion"
+      ],
+      "resolved_player_ids": [
+        "00-0036361"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffreys-injury-absence-has-more-nuance-than-meets-the-eye",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffreys-injury-absence-has-more-nuance-than-meets-the-eye",
+      "permalink": "",
+      "title": "Christian McCaffrey's injury absence has more nuance than meets the eye",
+      "body_text": "When is a hold in not a hold in, but still kind of a hold in?",
+      "author": "Mike Florio",
+      "published_at": "2026-08-19T17:42:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

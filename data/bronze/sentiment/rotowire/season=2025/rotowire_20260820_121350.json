@@ -1,0 +1,116 @@
+{
+  "fetch_run_id": "f95666e5-5ecf-4d93-b6b4-257f027c69f9",
+  "source": "rotowire",
+  "fetched_at": "2026-08-20T12:13:50.235800+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634216",
+      "url": "https://www.rotowire.com//football/player/tyler-warren-18534",
+      "permalink": "",
+      "title": "Tyler Warren: Groin injury not believed to be serious",
+      "body_text": "Warren (groin) suffered a strained abductor in Wednesday's practice but is expected to return to practice next week, NFL reporter Jordan Schultz reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-19T06:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Warren",
+        "Jordan Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0040128"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634215",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Nursing hamstring injury",
+      "body_text": "White has missed the last few days of practice with a hamstring injury, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-19T06:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634181",
+      "url": "https://www.rotowire.com//football/player/vita-vea-12500",
+      "permalink": "",
+      "title": "Vita Vea: Agrees to one-year extension with Bucs",
+      "body_text": "Vea (back) and the Buccaneers reached an agreement on a one-year, $30 million extension Wednesday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-19T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vita Vea",
+        "Bucs Vea",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0034773"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "nfl634179",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: In line to play in Friday's preseason contest",
+      "body_text": "Coach Sean Payton said Nix is expected to play roughly 14 snaps during Friday's preseason game against the Packers, Zac Stevens of TheDNVR.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-19T03:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "Coach Sean",
+        "Zac Stevens"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl634173",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: Moving around well, per Steichen",
+      "body_text": "Coach Shane Steichen told Kevin Bowen of 107.5 The Fan Indianapolis on Wednesday that Pierce (ankle) is \"in a great spot right now. ... Hopefully, we will have him back soon.\" Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-19T03:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "Steichen Coach",
+        "Shane Steichen",
+        "Kevin Bowen",
+        "The Fan"
+      ],
+      "resolved_player_ids": [
+        "00-0037664",
+        "00-0032373"
+      ],
+      "team_hint": null
+    }
+  ]
+}
