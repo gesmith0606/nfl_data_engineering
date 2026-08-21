@@ -1,0 +1,570 @@
+{
+  "fetch_run_id": "c756a4c4-d34a-4b5d-ba09-05bff2909388",
+  "source": "pft",
+  "fetched_at": "2026-08-21T12:13:29.675691+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-is-a-jared-verse-fan-after-bills-browns-joint-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dion-dawkins-is-a-jared-verse-fan-after-bills-browns-joint-practices",
+      "permalink": "",
+      "title": "Dion Dawkins is a Jared Verse fan after Bills-Browns joint practices",
+      "body_text": "Bills left tackle Dion Dawkins and Browns right defensive end Jared Verse had some heated battles during joint practice this week, and afterward Dawkins said they brought out the best in each other.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-21T08:59:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dion Dawkins",
+        "Jared Verse"
+      ],
+      "resolved_player_ids": [
+        "00-0033904",
+        "00-0039852"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-not-ready-to-name-the-raiders-starting-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-not-ready-to-name-the-raiders-starting-quarterback",
+      "permalink": "",
+      "title": "Klint Kubiak not ready to name the Raiders' starting quarterback",
+      "body_text": "Kirk Cousins looks like the Raiders' Week One starter, but Kubiak is holding off on announcing it.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-21T08:13:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "Kirk Cousins",
+        "Week One"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-grass-vs-turf-nfl-clings-to-the-injury-rate-statistics",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-grass-vs-turf-nfl-clings-to-the-injury-rate-statistics",
+      "permalink": "",
+      "title": "On grass vs. turf, NFL clings to the injury-rate statistics",
+      "body_text": "Injury rates don't overcome the reality that players strongly prefer grass.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T04:25:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-more-than-200-players-want-to-participate-in-olympics-only-32-will-be-permitted-to-do-so",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-more-than-200-players-want-to-participate-in-olympics-only-32-will-be-permitted-to-do-so",
+      "permalink": "",
+      "title": "NFL says more than 200 players want to participate in Olympics (only 32 will be permitted to do so)",
+      "body_text": "When it comes to NFL rosters, the supply of willing players far outweighs the demand.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T04:04:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/woody-johnson-buys-minority-stake-in-f1-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/woody-johnson-buys-minority-stake-in-f1-team",
+      "permalink": "",
+      "title": "Woody Johnson buys minority stake in F1 team",
+      "body_text": "Woody Johnson is two-thirds of the way to the planes, trains, and automobiles trifecta.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T03:41:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Woody Johnson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-committees-recommend-approval-of-seahawks-sale-to-vinod-khosla",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-committees-recommend-approval-of-seahawks-sale-to-vinod-khosla",
+      "permalink": "",
+      "title": "NFL committees recommend approval of Seahawks sale to Vinod Khosla",
+      "body_text": "The group led by billionaire Vinod Khosla took a major step on Thursday toward officially purchasing the Seahawks.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T03:14:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Vinod Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-plays-one-drive-throws-for-29-yards-vs-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-plays-one-drive-throws-for-29-yards-vs-chargers",
+      "permalink": "",
+      "title": "Brock Purdy plays one drive, throws for 29 yards vs. Chargers",
+      "body_text": "Brock Purdy got some playing time against the Chargers on Thursday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T02:37:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Purdy",
+        "Chargers Brock"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-plays-just-three-snaps-in-preseason-game-vs-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-plays-just-three-snaps-in-preseason-game-vs-49ers",
+      "permalink": "",
+      "title": "Justin Herbert plays just three snaps in preseason game vs. 49ers",
+      "body_text": "Chargers quarterback Justin Herbert was on the field for Thursday night’s preseason game against the 49ers.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T02:26:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-kittle-ahead-of-schedule-has-legitimate-chance-to-play-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-george-kittle-ahead-of-schedule-has-legitimate-chance-to-play-week-1",
+      "permalink": "",
+      "title": "Report: George Kittle ahead of schedule, has legitimate chance to play Week 1",
+      "body_text": "There is another positive update on 49ers tight end George Kittle, who is recovering from a torn Achilles suffered in January.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T02:17:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-havent-decided-their-no-2-qb-yet",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-havent-decided-their-no-2-qb-yet",
+      "permalink": "",
+      "title": "Colts haven't decided their No. 2 QB yet",
+      "body_text": "The Colts have not decided who will back up Daniel Jones this season with the competition between Riley Leonard and Anthony Richardson continuing through the rest of the preseason.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T02:17:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Colts",
+        "Daniel Jones",
+        "Riley Leonard",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0040206",
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-cb-chigozie-anusiem-carted-off-with-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-cb-chigozie-anusiem-carted-off-with-leg-injury",
+      "permalink": "",
+      "title": "Raiders CB Chigozie Anusiem carted off with leg injury",
+      "body_text": "Raiders cornerback Chigozie Anusiem appeared to be seriously injured in the third quarter of Thursday night's preseason game against the Texans.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T02:00:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chigozie Anusiem"
+      ],
+      "resolved_player_ids": [
+        "00-0039676"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-throws-pick-six-leads-raiders-to-three-points",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-throws-pick-six-leads-raiders-to-three-points",
+      "permalink": "",
+      "title": "Fernando Mendoza throws pick-six, leads Raiders to three points",
+      "body_text": "Fernando Mendoza took a sack, was hit four other times, threw a pick-six and led the Raiders to only three points.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T01:50:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0041562"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-leads-texans-to-td-on-his-one-series",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-leads-texans-to-td-on-his-one-series",
+      "permalink": "",
+      "title": "C.J. Stroud leads Texans to TD on his one series",
+      "body_text": "Texans quarterback C.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T00:55:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-jalen-hurts-speak-for-the-first-time-since-browns-departure",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-jalen-hurts-speak-for-the-first-time-since-browns-departure",
+      "permalink": "",
+      "title": "A.J. Brown, Jalen Hurts speak for the first time since Brown's departure",
+      "body_text": "The Patriots receiver revealed Wednesday that the former teammates hadn't talked since his trade Philadelphia.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T00:28:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-will-play-tonight-vs-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-will-play-tonight-vs-raiders",
+      "permalink": "",
+      "title": "C.J. Stroud will play tonight vs. Raiders",
+      "body_text": "DeMeco Ryans has changed his mind yet again.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T23:38:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-still-waiting-for-fully-clearance-but-expects-it-real-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-still-waiting-for-fully-clearance-but-expects-it-real-soon",
+      "permalink": "",
+      "title": "Michael Penix still waiting for full clearance but expects it \"real soon\"",
+      "body_text": "Michael Penix was meeting with his doctor on a call Thursday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T23:20:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gardner-minshew-to-start-for-cardinals-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gardner-minshew-to-start-for-cardinals-on-saturday",
+      "permalink": "",
+      "title": "Gardner Minshew to start for Cardinals on Saturday",
+      "body_text": "The Cardinals will have their third starting quarterback in as many preseason games when they face the Cowboys on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-20T22:02:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gardner Minshew",
+        "Saturday The"
+      ],
+      "resolved_player_ids": [
+        "00-0035289"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-ol-timothy-mckay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-ol-timothy-mckay",
+      "permalink": "",
+      "title": "Jaguars sign OL Timothy McKay",
+      "body_text": "The Jaguars got Cole Van Lanen back from the physically unable to perform list on Thursday and they added another offensive lineman later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-20T21:51:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jaguars",
+        "Cole Van"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-te-daequan-wright-enters-college-transfer-portal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-te-daequan-wright-enters-college-transfer-portal",
+      "permalink": "",
+      "title": "Browns TE Dae'Quan Wright enters college transfer portal",
+      "body_text": "Nothing encapsulates the current chaos in college football like this — Browns tight end Dae'Quan Wright has entered the college transfer portal, via Matt Zenitz of CBS Sports.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T21:39:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quan Wright",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/austin-jackson-jermaine-eluemunor-pulled-from-dolphins-giants-practice-after-fights",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/austin-jackson-jermaine-eluemunor-pulled-from-dolphins-giants-practice-after-fights",
+      "permalink": "",
+      "title": "Austin Jackson, Jermaine Eluemunor pulled from Dolphins-Giants practice after fights",
+      "body_text": "The Cowboys and Saints were fined after players from the two teams fought at a joint practice this week and two other clubs could be hearing from the league as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-20T21:40:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Austin Jackson",
+        "Jermaine Eluemunor",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0036248",
+        "00-0033290"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-re-sign-rb-khalil-herbert-place-patrick-taylor-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-re-sign-rb-khalil-herbert-place-patrick-taylor-on-ir",
+      "permalink": "",
+      "title": "49ers re-sign RB Khalil Herbert, place Patrick Taylor on IR",
+      "body_text": "The 49ers re-signed running back Khalil Herbert after cutting him earlier this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T21:28:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Khalil Herbert",
+        "Patrick Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036906",
+        "00-0035973"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-cowboys-will-fine-the-players-responsible-for-joint-practice-fights-with-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-cowboys-will-fine-the-players-responsible-for-joint-practice-fights-with-saints",
+      "permalink": "",
+      "title": "Jerry Jones: Cowboys will fine the players responsible for joint practice fights with Saints",
+      "body_text": "Jerry will be passing along some of the $500,000 directly to the players who caused it.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T21:27:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "Saints Jerry"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donald-hell-keep-working-out-hope-to-have-answer-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donald-hell-keep-working-out-hope-to-have-answer-soon",
+      "permalink": "",
+      "title": "Sean McVay on Aaron Donald: Think he'll keep working out, hope to have answer soon",
+      "body_text": "The Rams have reported a pair of workouts for Aaron Donald in recent weeks and there will likely be more to come before the defensive tackle makes a decision on playing in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-20T21:19:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-hates-joint-practices",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-hates-joint-practices",
+      "permalink": "",
+      "title": "Saquon Barkley hates joint practices",
+      "body_text": "Eagles running back Saquon Barkley hates joint practices.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-20T21:23:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-fining-teams-wont-stop-joint-practice-fights",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-fining-teams-wont-stop-joint-practice-fights",
+      "permalink": "",
+      "title": "The NFL fining teams won't stop joint practice fights",
+      "body_text": "The NFL has cracked down on fighting at joint practices.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-20T21:19:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-de-alex-wright-carted-off-with-lower-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-de-alex-wright-carted-off-with-lower-leg-injury",
+      "permalink": "",
+      "title": "Browns DE Alex Wright carted off with lower-leg injury",
+      "body_text": "Browns defensive end Alex Wright was carted off the field with a lower-leg injury, Chris Easterling of the Akron Beacon Journal reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T21:13:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alex Wright",
+        "Chris Easterling",
+        "Akron Beacon"
+      ],
+      "resolved_player_ids": [
+        "00-0037251"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-jr-meeting-with-doctor-on-thursday-hopes-to-be-cleared",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-jr-meeting-with-doctor-on-thursday-hopes-to-be-cleared",
+      "permalink": "",
+      "title": "Michael Penix Jr. meeting with doctor on Thursday, hopes to be cleared",
+      "body_text": "Atlanta's quarterback competition may be about to truly begin.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-20T20:54:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-activate-cb-garrett-williams-from-active-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-activate-cb-garrett-williams-from-active-pup",
+      "permalink": "",
+      "title": "Cardinals activate CB Garrett Williams from active/PUP",
+      "body_text": "The Cardinals activated cornerback Garrett Williams from the active/physically unable to perform list, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T20:42:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Williams",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0039007"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-saints-fined-500-000-each-for-fights-at-joint-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-saints-fined-500-000-each-for-fights-at-joint-practice",
+      "permalink": "",
+      "title": "Cowboys, Saints fined $500,000 each for fights at joint practice",
+      "body_text": "The teams had double-digit fights during their work in Oxnard, California, earlier this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T20:28:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-lauds-the-recent-rb-deals-thats-how-its-supposed-to-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-lauds-the-recent-rb-deals-thats-how-its-supposed-to-be",
+      "permalink": "",
+      "title": "Saquon Barkley lauds the recent RB deals: That's how it's supposed to be",
+      "body_text": "Saquon Barkley was among a group of running backs who took part in a Zoom call in 2023 to discuss the depressed market for their position.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-20T20:08:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    }
+  ]
+}

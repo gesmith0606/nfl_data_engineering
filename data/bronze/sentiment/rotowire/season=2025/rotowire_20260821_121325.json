@@ -1,0 +1,99 @@
+{
+  "fetch_run_id": "af8bc5d3-f88f-44ff-bd2c-6aba7af89784",
+  "source": "rotowire",
+  "fetched_at": "2026-08-21T12:13:25.377424+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634310",
+      "url": "https://www.rotowire.com//football/player/dezhaun-stribling-19330",
+      "permalink": "",
+      "title": "De'Zhaun Stribling: Continues impressing in preseason win",
+      "body_text": "Stribling secured four of five targets for 46 yards in the 49ers' 41-17 preseason win over the Chargers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-20T10:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zhaun Stribling"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl634309",
+      "url": "https://www.rotowire.com//football/player/keaton-mitchell-16810",
+      "permalink": "",
+      "title": "Keaton Mitchell: Four touches in preseason loss",
+      "body_text": "Mitchell rushed three times for minus-1 yard and brought in his only target for 11 yards in the Chargers' 41-17 preseason loss to the 49ers on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-20T10:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keaton Mitchell"
+      ],
+      "resolved_player_ids": [
+        "00-0038454"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl634308",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "permalink": "",
+      "title": "Deebo Samuel: One catch in preseason debut",
+      "body_text": "Samuel brought in one of two targets for four yards in the 49ers' 41-17 preseason win over the Chargers on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-20T10:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl634307",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "permalink": "",
+      "title": "Ladd McConkey: Plays opening series Thursday",
+      "body_text": "McConkey failed to bring in his only target in the Chargers' 41-17 preseason loss to the 49ers on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-20T10:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl634306",
+      "url": "https://www.rotowire.com//football/player/justin-herbert-14446",
+      "permalink": "",
+      "title": "Justin Herbert: One completion in preseason cameo",
+      "body_text": "Herbert completed one of two passes for nine yards with no touchdowns or interceptions in the Chargers' 41-17 preseason loss to the 49ers on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-20T10:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
