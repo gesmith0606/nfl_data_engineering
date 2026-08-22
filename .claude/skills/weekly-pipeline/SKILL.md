@@ -17,6 +17,23 @@ Run the complete weekly NFL data pipeline: Bronze → Silver → Gold (projectio
 
 ## Pipeline Steps
 
+### Step 0 — WR ECR bridge (optional; only during the `--ecr-anchor` forward gate)
+`data/silver/fp_ecr/season=2026/` is local-only (gitignored, never committed
+by any cron — see `.planning/ECR_ANCHOR_FORWARD_GATE.md` §4), so if this
+week's projections will be run with `--ecr-anchor` for the 2026 forward
+gate, refresh that data first:
+```bash
+source venv/bin/activate && python scripts/bridge_fp_ecr_live.py
+```
+Bridges every available FantasyPros capture (`data/external/
+fantasypros_rankings.json` + dated archive) into
+`data/silver/fp_ecr/season=2026/`, idempotently. Skip this step entirely
+when not exercising `--ecr-anchor` — it has no effect on the rest of the
+pipeline. See `scripts/bridge_fp_ecr_live.py`'s module docstring for known
+schema/scoring gaps (in particular: the scoring-label mismatch that means
+`--ecr-anchor` won't read this data until `src/ecr_anchor.py`'s
+`ECR_SCORING` filter is generalized).
+
 ### Step 1 — Bronze Ingestion (all player data types for the week)
 Run these in order for the given season/week:
 ```bash
