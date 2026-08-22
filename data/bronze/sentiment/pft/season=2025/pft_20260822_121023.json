@@ -1,0 +1,606 @@
+{
+  "fetch_run_id": "29169c21-8c44-4e92-91e8-9fd5fb6b8697",
+  "source": "pft",
+  "fetched_at": "2026-08-22T12:10:23.733849+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-is-the-fourth-rb-ever-to-retire-with-over-1-000-carries-over-5-yards-a-carry",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-is-the-fourth-rb-ever-to-retire-with-over-1-000-carries-over-5-yards-a-carry",
+      "permalink": "",
+      "title": "Nick Chubb is the fourth RB ever to retire with over 1,000 carries, over 5 yards a carry",
+      "body_text": "Chubb retired with 7,349 yards on 1,462 carries, an average of 5.03 yards per carry.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-22T11:09:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Chubb"
+      ],
+      "resolved_player_ids": [
+        "00-0034791"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-legette-misses-panthers-preseason-game-with-foot-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-legette-misses-panthers-preseason-game-with-foot-ankle-injury",
+      "permalink": "",
+      "title": "Xavier Legette misses Panthers' preseason game with foot/ankle injury",
+      "body_text": "Panthers wide receiver Xavier Legette missed Friday night's preseason game with what head coach Dave Canales described as a foot and ankle injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-22T10:11:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Legette",
+        "Dave Canales"
+      ],
+      "resolved_player_ids": [
+        "00-0039342"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/riley-moss-left-week-2-preseason-game-with-rib-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/riley-moss-left-week-2-preseason-game-with-rib-injury",
+      "permalink": "",
+      "title": "Riley Moss left Week 2 preseason game with rib injury",
+      "body_text": "The best outcome of any preseason game is to emerge with as few injuries as possible.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T08:04:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Riley Moss"
+      ],
+      "resolved_player_ids": [
+        "00-0038552"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-coach-sean-payton-on-preseason-performance-vs-packers-that-wasnt-good-enough",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-coach-sean-payton-on-preseason-performance-vs-packers-that-wasnt-good-enough",
+      "permalink": "",
+      "title": "Broncos coach Sean Payton on preseason performance vs. Packers: \"That wasn't good enough\"",
+      "body_text": "The Broncos had a rough outing in their preseason home opener against the Packers.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T07:40:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-feels-great-about-rookie-kicker-trey-smack",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-feels-great-about-rookie-kicker-trey-smack",
+      "permalink": "",
+      "title": "Matt LaFleur feels great about rookie kicker Trey Smack",
+      "body_text": "The Packers drafted kicker Trey Smack in the sixth round this year, then cut veterans Brandon McManus and Lucas Havrisik to leave Smack as the only kicker on the roster.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-22T07:38:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Smack",
+        "The Packers",
+        "Lucas Havrisik"
+      ],
+      "resolved_player_ids": [
+        "00-0040899",
+        "00-0038152"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-howards-two-picks-could-jeopardize-his-roster-spot-in-pittsburgh",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-howards-two-picks-could-jeopardize-his-roster-spot-in-pittsburgh",
+      "permalink": "",
+      "title": "Will Howard's two picks could jeopardize his roster spot in Pittsburgh",
+      "body_text": "Howard's rough night comes as decision time looms for the team's QB depth chart.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T05:21:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Howard",
+        "Pittsburgh Howard"
+      ],
+      "resolved_player_ids": [
+        "00-0040203"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-leads-broncos-to-10-points-in-his-two-series",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-leads-broncos-to-10-points-in-his-two-series",
+      "permalink": "",
+      "title": "Bo Nix leads Broncos to 10 points in his two series",
+      "body_text": "Bo Nix played in a football game for the first time in 216 days.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T02:03:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-plays-one-series-throws-td-pass",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-plays-one-series-throws-td-pass",
+      "permalink": "",
+      "title": "Jordan Love plays one series, throws TD pass",
+      "body_text": "Packers coach Matt LaFleur's plan was to play his starting offense more than one drive in Denver.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T01:49:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-retires-from-the-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-chubb-retires-from-the-nfl",
+      "permalink": "",
+      "title": "Nick Chubb retires from the NFL",
+      "body_text": "Running back Nick Chubb, a four-time Pro Bowler, has announced his retirement.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T01:36:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Chubb",
+        "Pro Bowler"
+      ],
+      "resolved_player_ids": [
+        "00-0034791"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-fitzgerald-hits-61-yard-fg-for-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-fitzgerald-hits-61-yard-fg-for-panthers",
+      "permalink": "",
+      "title": "Ryan Fitzgerald hits 61-yard FG for Panthers",
+      "body_text": "Panthers starting quarterback Bryce Young played 11 snaps on Friday against the Jaguars.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T01:32:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Fitzgerald",
+        "Panthers Panthers",
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0040279",
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-mcdaniels-has-ideal-response-as-to-whether-tom-brady-helped-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-mcdaniels-has-ideal-response-as-to-whether-tom-brady-helped-seahawks",
+      "permalink": "",
+      "title": "Josh McDaniels has ideal response as to whether Tom Brady helped Seahawks",
+      "body_text": "Patriots offensive coordinator Josh McDaniels worked in New England for each of the six Super Bowls that Tom Brady won there.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T00:05:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady",
+        "Seahawks Patriots",
+        "New England",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-perfect-in-his-only-drive-throwing-a-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-perfect-in-his-only-drive-throwing-a-td",
+      "permalink": "",
+      "title": "Geno Smith perfect in his only drive, throwing a TD",
+      "body_text": "Jets starting quarterback Geno Smith made his preseason debut on Friday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T23:33:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-tory-horton-will-be-out-for-a-period-of-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-tory-horton-will-be-out-for-a-period-of-time",
+      "permalink": "",
+      "title": "Mike Macdonald: Tory Horton will be \"out for a period of time\"",
+      "body_text": "Seahawks receiver Tory Horton's promising rookie year ended with surgery to repair a fractured shin.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T23:33:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Tory Horton"
+      ],
+      "resolved_player_ids": [
+        "00-0040648"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-steelers-chiefs-wr-barry-pearson-dies-at-76",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-steelers-chiefs-wr-barry-pearson-dies-at-76",
+      "permalink": "",
+      "title": "Former Steelers, Chiefs WR Barry Pearson dies at 76",
+      "body_text": "Former Steelers wide receiver Barry Pearson died Aug. 16, Chris Ward of steelersnow.com reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T23:16:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Steelers",
+        "Barry Pearson",
+        "Chris Ward"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-freeman-too-late-for-notre-dame-to-add-players-who-get-fifth-year-of-eligibility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-freeman-too-late-for-notre-dame-to-add-players-who-get-fifth-year-of-eligibility",
+      "permalink": "",
+      "title": "Marcus Freeman: \"Too late\" for Notre Dame to add players who get fifth year of eligibility",
+      "body_text": "Some college programs are waiting for a chance to pounce on current NFL players who may end up finagling another year of college football.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T23:16:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcus Freeman",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [
+        "00-0024711"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rashod-bateman-faces-three-charges-from-june-incident-with-ex-girlfriend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rashod-bateman-faces-three-charges-from-june-incident-with-ex-girlfriend",
+      "permalink": "",
+      "title": "Report: Rashod Bateman faces three charges from June incident with ex-girlfriend",
+      "body_text": "Ravens wide receiver Rashod Bateman faces three charges from a June 3 incident, TMZ Sports reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T22:30:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashod Bateman"
+      ],
+      "resolved_player_ids": [
+        "00-0036550"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-raiders-have-to-get-a-lot-better-very-fast-at-wide-receiver",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-raiders-have-to-get-a-lot-better-very-fast-at-wide-receiver",
+      "permalink": "",
+      "title": "Klint Kubiak: Raiders have to get a lot better very fast at wide receiver",
+      "body_text": "The Raiders have to get better at wide receiver in a hurry.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-21T21:04:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-veteran-wrs-sterling-shepard-zay-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-veteran-wrs-sterling-shepard-zay-jones",
+      "permalink": "",
+      "title": "Texans sign veteran WRs Sterling Shepard, Zay Jones",
+      "body_text": "With Jayden Higgins now out for the season, the Texans are adding a pair of veteran receivers.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T20:59:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sterling Shepard",
+        "Zay Jones",
+        "With Jayden"
+      ],
+      "resolved_player_ids": [
+        "00-0032385",
+        "00-0033891"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/massachusetts-gaming-commission-is-investigating-cards-exec-ryan-gold-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/massachusetts-gaming-commission-is-investigating-cards-exec-ryan-gold-too",
+      "permalink": "",
+      "title": "Massachusetts Gaming Commission is investigating Cards exec Ryan Gold, too",
+      "body_text": "Cardinals director of college scouting Ryan Gold is currently under investigation by the Arizona Department of Gaming in connection with inside-information and betting allegations that have him suspended from his job.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T20:58:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Massachusetts Gaming",
+        "Ryan Gold",
+        "Arizona Department"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-spillane-on-tom-bradys-dog-in-the-fight-remark-it-made-me-feel-sad-for-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-spillane-on-tom-bradys-dog-in-the-fight-remark-it-made-me-feel-sad-for-him",
+      "permalink": "",
+      "title": "Robert Spillane on Tom Brady's \"dog in the fight\" remark: \"It made me feel sad for him\"",
+      "body_text": "When Patriots legend Tom Brady, whose statue sits outside the team's stadium, said before the Seahawks-Patriots Super Bowl \"I don't have a dog in the fight,\" New England linebacker Robert Spillane said of the remark, \"[P]ersonally it makes me sick.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T20:39:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Spillane",
+        "Tom Brady",
+        "When Patriots",
+        "Patriots Super",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0034720",
+        "00-0019596"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-waive-wr-johnny-wilson-with-an-injury-designation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-waive-wr-johnny-wilson-with-an-injury-designation",
+      "permalink": "",
+      "title": "Eagles waive WR Johnny Wilson with an injury designation",
+      "body_text": "The Eagles waived wide receiver Johnny Wilson with an injury designation, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T20:31:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Wilson",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039236"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-moves-to-quash-subpoena-to-testify-in-shilos-trial",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-moves-to-quash-subpoena-to-testify-in-shilos-trial",
+      "permalink": "",
+      "title": "Deion Sanders moves to quash subpoena to testify in Shilo's trial",
+      "body_text": "Colorado coach Deion Sanders has indeed been subpoenaed to testify at his son Shilo's bankruptcy trial, which starts on August 31.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-21T20:12:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-maxx-crosby-wont-play-in-the-preseason",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-maxx-crosby-wont-play-in-the-preseason",
+      "permalink": "",
+      "title": "Klint Kubiak: Maxx Crosby won't play in the preseason",
+      "body_text": "After Maxx Crosby’s tumultuous offseason, he is set to play for the Raiders in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T19:56:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "Maxx Crosby",
+        "After Maxx"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-free-agent-ilb-stephen-dix",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-free-agent-ilb-stephen-dix",
+      "permalink": "",
+      "title": "Dolphins sign free agent ILB Stephen Dix",
+      "body_text": "The Dolphins signed inside linebacker Stephen Dix Jr. on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T19:23:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Dix",
+        "The Dolphins",
+        "Stephen Dix Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-place-wr-jayden-higgins-on-season-ending-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-place-wr-jayden-higgins-on-season-ending-ir",
+      "permalink": "",
+      "title": "Texans place WR Jayden Higgins on season-ending IR",
+      "body_text": "The Texans placed wide receiver Jayden Higgins on injured reserve Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T19:16:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Higgins",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0040130"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-carnell-tate-will-be-a-key-reason-were-successful-on-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-ward-carnell-tate-will-be-a-key-reason-were-successful-on-offense",
+      "permalink": "",
+      "title": "Cam Ward: Carnell Tate will be a key reason we're successful on offense",
+      "body_text": "Titans rookie wide receiver Carnell Tate was held without a catch in the preseason opener and then missed practice time this week, but quarterback Cam Ward has no doubt that there are big things in store for Tate.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-21T19:12:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Ward",
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "00-0040676",
+        "00-0041438"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/initial-diagnosis-for-jake-bobo-is-a-serious-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/initial-diagnosis-for-jake-bobo-is-a-serious-knee-injury",
+      "permalink": "",
+      "title": "Initial diagnosis for Jake Bobo is a \"serious knee injury\"",
+      "body_text": "Jake Bobo's injury looked bad when it happened during a joint practice with the Titans, and when both teams took a knee, it was an indication it was as bad as it looked.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T18:45:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Bobo"
+      ],
+      "resolved_player_ids": [
+        "00-0038752"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyreek-hill-is-not-ready-to-sign-with-a-team-yet-as-his-rehab-continues",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyreek-hill-is-not-ready-to-sign-with-a-team-yet-as-his-rehab-continues",
+      "permalink": "",
+      "title": "Tyreek Hill is not ready to sign with a team yet as his rehab continues",
+      "body_text": "Tyreek Hill became a free agent Feb. 16 when the Dolphins released him.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-21T18:23:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyreek Hill"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-still-not-ready-to-name-starting-qb-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-still-not-ready-to-name-starting-qb-for-week-1",
+      "permalink": "",
+      "title": "Klint Kubiak still not ready to name starting QB for Week 1",
+      "body_text": "After Fernando Mendoza's second preseason game, Kubiak told reporters it doesn't benefit the team to name a QB before the spot is secured.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T17:59:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "After Fernando"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jake-bobo-carted-off-with-apparent-leg-injury-at-seahawks-titans-joint-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jake-bobo-carted-off-with-apparent-leg-injury-at-seahawks-titans-joint-practice",
+      "permalink": "",
+      "title": "Jake Bobo carted off with apparent leg injury at Seahawks-Titans joint practice",
+      "body_text": "The Seahawks may have a significant injury concern with one of their key contributors.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-21T17:08:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Bobo",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0038752"
+      ],
+      "team_hint": "SEA"
+    }
+  ]
+}

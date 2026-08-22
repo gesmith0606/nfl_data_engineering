@@ -1,0 +1,97 @@
+{
+  "fetch_run_id": "8ad876b0-db46-4154-bdb9-1ffe693bef92",
+  "source": "rotowire",
+  "fetched_at": "2026-08-22T12:10:19.440949+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634398",
+      "url": "https://www.rotowire.com//football/player/marshawn-lloyd-17795",
+      "permalink": "",
+      "title": "MarShawn Lloyd: Records receiving TD in win",
+      "body_text": "Lloyd rushed six times for 17 yards and secured his only target for an 11-yard touchdown in the Packers' 33-13 preseason win over the Broncos on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-21T10:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl634397",
+      "url": "https://www.rotowire.com//football/player/matthew-golden-18500",
+      "permalink": "",
+      "title": "Matthew Golden: Big gain on one reception",
+      "body_text": "Golden secured his only target for 19 yards in the Packers' 33-13 preseason win over the Broncos on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-21T10:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Golden"
+      ],
+      "resolved_player_ids": [
+        "00-0040667"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl634395",
+      "url": "https://www.rotowire.com//football/player/courtland-sutton-12586",
+      "permalink": "",
+      "title": "Courtland Sutton: Quiet night in preseason loss",
+      "body_text": "Sutton failed to bring in either of his two targets in the Broncos' 33-13 preseason loss to the Packers on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-21T09:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton"
+      ],
+      "resolved_player_ids": [
+        "00-0034348"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl634394",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "permalink": "",
+      "title": "RJ Harvey: Scores receiving TD in loss",
+      "body_text": "Harvey rushed once for five yards and brought in both targets for 25 yards and a touchdown in the Broncos' 33-13 preseason loss to the Packers on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-21T09:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl634393",
+      "url": "https://www.rotowire.com//football/player/christian-watson-15946",
+      "permalink": "",
+      "title": "Christian Watson: Pair of catches in preseason win",
+      "body_text": "Watson brought in two of three targets for 19 yards in the Packers' 33-13 preseason win over the Broncos on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-21T09:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}
