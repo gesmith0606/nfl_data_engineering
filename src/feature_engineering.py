@@ -20,6 +20,7 @@ import pandas as pd
 
 from config import (
     LABEL_COLUMNS,
+    SILVER_EP_FEATURES_LOCAL_DIR,
     SILVER_PLAYER_LOCAL_DIRS,
     SILVER_TEAM_LOCAL_DIRS,
     TEAM_DIVISIONS,
@@ -474,8 +475,168 @@ def _compute_player_team_features(season: int) -> pd.DataFrame:
     return result
 
 
+# Raw (same-week) team-EP-aggregate stat columns computed by
+# _compute_ep_team_features(). Same double-layer discipline as
+# _PLAYER_TEAM_STAT_COLS: these raw names never appear in
+# get_feature_columns()'s allowlist -- only their apply_team_rolling()
+# _roll3/_roll6/_std derivatives are pre-game knowable and selectable.
+_EP_TEAM_STAT_COLS = [
+    "ep_team_exp_fp_total",
+    "ep_team_fp_over_expected",
+    "ep_team_exp_pass_fp",
+    "ep_team_exp_rush_fp",
+    "ep_team_exp_rec_fp",
+    "ep_team_exp_total_tds",
+    "ep_team_td_over_expected",
+    "ep_team_opportunity_hhi",
+    "ep_team_rush_share_hhi",
+]
+
+
+def _read_ep_features(season: int) -> pd.DataFrame:
+    """Read ffopportunity_features Silver (single season-level file) for one season.
+
+    Args:
+        season: NFL season year.
+
+    Returns:
+        Raw player-week DataFrame (player_id, season, week, team, position,
+        opportunity/production/expected columns), or empty DataFrame if the
+        season has no ffopportunity_features Silver file.
+    """
+    pattern = os.path.join(
+        SILVER_DIR, SILVER_EP_FEATURES_LOCAL_DIR, f"season={season}", "*.parquet"
+    )
+    files = glob.glob(pattern)
+    if not files:
+        return pd.DataFrame()
+    return pd.read_parquet(max(files, key=os.path.basename))
+
+
+def _compute_ep_team_features(season: int) -> pd.DataFrame:
+    """Compute team-week ffopportunity expected-points aggregate features.
+
+    2026-08-21 gated re-experiment (.planning/ENSEMBLE_EP_FEATURES_GATE.md) --
+    new input data vs. the 2026-08-16 player-aggregate attempt
+    (.planning/ENSEMBLE_PLAYER_FEATURES_2026_08_16.md, HOLD): ffopportunity
+    expected-points player-weeks did not exist at that time. Builds 9
+    team-week raw aggregates from ``ffopportunity_features`` (gsis-keyed,
+    joins directly on ``player_id``/``team`` -- see
+    .planning/FFOPPORTUNITY_COVERAGE.md):
+
+    - Trailing team offense expected output: summed exp_fantasy_points_total,
+      and its pass/rush/rec role components.
+    - Actual-minus-expected regression signal: summed fantasy_points_over_expected
+      (teams overperforming expectation regress) and the analogous raw-TD version
+      (total_tds - exp_total_tds, TD variance/luck rather than points-level).
+    - Expected scoring-opportunity volume: summed exp_total_tds.
+    - Opportunity concentration: Herfindahl of each player's share of the
+      team's (targets + carries) that week, and an RB-only carries HHI
+      (workload concentration among backs specifically).
+
+    Construction mirrors ``_compute_player_team_features`` exactly: raw
+    values are SAME-WEEK team sums (fine -- never themselves exposed as a
+    model feature), then ``apply_team_rolling`` shift(1)-lags them into
+    ``_roll3``/``_roll6``/``_std`` columns, and only those pass
+    ``get_feature_columns()``'s rolling-suffix allowlist.
+
+    Args:
+        season: NFL season year.
+
+    Returns:
+        DataFrame with [team, season, week] + _EP_TEAM_STAT_COLS raw columns
+        plus their _roll3/_roll6/_std derivatives. Empty DataFrame if
+        ffopportunity_features Silver is unavailable for the season.
+    """
+    ep = _read_ep_features(season)
+    if ep.empty:
+        return pd.DataFrame()
+
+    df = ep.copy()
+    team_weeks = df[["team", "season", "week"]].drop_duplicates()
+
+    sum_cols = {
+        "exp_fantasy_points_total": "ep_team_exp_fp_total",
+        "fantasy_points_over_expected": "ep_team_fp_over_expected",
+        "exp_pass_fantasy_points": "ep_team_exp_pass_fp",
+        "exp_rush_fantasy_points": "ep_team_exp_rush_fp",
+        "exp_rec_fantasy_points": "ep_team_exp_rec_fp",
+        "exp_total_tds": "ep_team_exp_total_tds",
+    }
+    agg = (
+        df.groupby(["team", "season", "week"])[list(sum_cols.keys())]
+        .sum()
+        .reset_index()
+        .rename(columns=sum_cols)
+    )
+
+    td_actual = (
+        df.groupby(["team", "season", "week"])["total_tds"]
+        .sum()
+        .reset_index()
+        .rename(columns={"total_tds": "_actual_total_tds"})
+    )
+    agg = agg.merge(td_actual, on=["team", "season", "week"], how="left")
+    agg["ep_team_td_over_expected"] = (
+        agg["_actual_total_tds"] - agg["ep_team_exp_total_tds"]
+    )
+    agg = agg.drop(columns=["_actual_total_tds"])
+
+    # --- Opportunity concentration (all offensive players, targets+carries) ---
+    opp_rows = [
+        {
+            "team": team,
+            "season": season_,
+            "week": week,
+            "ep_team_opportunity_hhi": _herfindahl(
+                g["targets"].fillna(0.0) + g["carries"].fillna(0.0)
+            ),
+        }
+        for (team, season_, week), g in df.groupby(["team", "season", "week"])
+    ]
+    opp_feats = (
+        pd.DataFrame(opp_rows)
+        if opp_rows
+        else pd.DataFrame(
+            columns=["team", "season", "week", "ep_team_opportunity_hhi"]
+        )
+    )
+
+    # --- Rushing-workload concentration (RB-only carries) ---
+    rb = df[df["position"] == "RB"]
+    rush_rows = [
+        {
+            "team": team,
+            "season": season_,
+            "week": week,
+            "ep_team_rush_share_hhi": _herfindahl(g["carries"]),
+        }
+        for (team, season_, week), g in rb.groupby(["team", "season", "week"])
+    ]
+    rush_feats = (
+        pd.DataFrame(rush_rows)
+        if rush_rows
+        else pd.DataFrame(
+            columns=["team", "season", "week", "ep_team_rush_share_hhi"]
+        )
+    )
+
+    result = team_weeks.copy()
+    for feats in (agg, opp_feats, rush_feats):
+        result = result.merge(feats, on=["team", "season", "week"], how="left")
+
+    for col in _EP_TEAM_STAT_COLS:
+        if col not in result.columns:
+            result[col] = np.nan
+
+    result = apply_team_rolling(result, _EP_TEAM_STAT_COLS, windows=[3, 6])
+    return result
+
+
 def _assemble_team_features(
-    season: int, include_player_features: bool = False
+    season: int,
+    include_player_features: bool = False,
+    include_ep_features: bool = False,
 ) -> pd.DataFrame:
     """Load and merge all Silver team sources for a season.
 
@@ -489,6 +650,12 @@ def _assemble_team_features(
             (players/usage + players/advanced). Default False keeps the
             shipped 120-feature path byte-for-byte unchanged (opt-in, per
             .planning/ENSEMBLE_PLAYER_FEATURES_2026_08_16.md).
+        include_ep_features: If True, additionally merge the team-week
+            ffopportunity expected-points aggregate features from
+            ``_compute_ep_team_features`` (opt-in; default False keeps the
+            shipped 120-feature path byte-for-byte unchanged -- see
+            .planning/ENSEMBLE_EP_FEATURES_GATE.md). Independent of and
+            composable with ``include_player_features``.
 
     Returns:
         Merged per-team-per-week DataFrame with all Silver columns.
@@ -527,11 +694,25 @@ def _assemble_team_features(
             dup_cols = [c for c in base.columns if c.endswith("__playerfeat")]
             base = base.drop(columns=dup_cols)
 
+    if include_ep_features:
+        ep_feats = _compute_ep_team_features(season)
+        if not ep_feats.empty:
+            base = base.merge(
+                ep_feats,
+                on=["team", "season", "week"],
+                how="left",
+                suffixes=("", "__epfeat"),
+            )
+            dup_cols = [c for c in base.columns if c.endswith("__epfeat")]
+            base = base.drop(columns=dup_cols)
+
     return base
 
 
 def assemble_game_features(
-    season: int, include_player_features: bool = False
+    season: int,
+    include_player_features: bool = False,
+    include_ep_features: bool = False,
 ) -> pd.DataFrame:
     """Build game-level differential features for a single season.
 
@@ -548,13 +729,19 @@ def assemble_game_features(
         include_player_features: If True, additionally assemble the
             players/usage + players/advanced team-aggregate features (opt-in;
             default False leaves the shipped 120-feature path unchanged).
+        include_ep_features: If True, additionally assemble the
+            ffopportunity expected-points team-aggregate features (opt-in;
+            default False leaves the shipped 120-feature path unchanged --
+            see .planning/ENSEMBLE_EP_FEATURES_GATE.md).
 
     Returns:
         DataFrame with one row per game, differential features, and labels.
     """
     # Step 1: Assemble per-team features
     team_df = _assemble_team_features(
-        season, include_player_features=include_player_features
+        season,
+        include_player_features=include_player_features,
+        include_ep_features=include_ep_features,
     )
     if team_df.empty:
         return pd.DataFrame()
@@ -800,6 +987,7 @@ def get_feature_columns(game_df: pd.DataFrame) -> List[str]:
 def assemble_multiyear_features(
     seasons: Optional[List[int]] = None,
     include_player_features: bool = False,
+    include_ep_features: bool = False,
 ) -> pd.DataFrame:
     """Assemble game features for multiple seasons and concatenate.
 
@@ -808,6 +996,10 @@ def assemble_multiyear_features(
         include_player_features: If True, assemble each season with the
             players/usage + players/advanced team-aggregate features (opt-in;
             default False leaves the shipped 120-feature path unchanged).
+        include_ep_features: If True, assemble each season with the
+            ffopportunity expected-points team-aggregate features (opt-in;
+            default False leaves the shipped 120-feature path unchanged --
+            see .planning/ENSEMBLE_EP_FEATURES_GATE.md).
 
     Returns:
         Combined DataFrame with all seasons' game features.
@@ -820,7 +1012,9 @@ def assemble_multiyear_features(
     frames = []
     for season in seasons:
         df = assemble_game_features(
-            season, include_player_features=include_player_features
+            season,
+            include_player_features=include_player_features,
+            include_ep_features=include_ep_features,
         )
         if not df.empty:
             frames.append(df)

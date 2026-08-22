@@ -93,6 +93,20 @@ def build_parser() -> argparse.ArgumentParser:
             "count, rather than hand-picking which new features to keep."
         ),
     )
+    parser.add_argument(
+        "--include-ep-features",
+        action="store_true",
+        help=(
+            "Assemble ffopportunity expected-points team-aggregate candidate "
+            "features (opt-in; default off leaves the shipped 120-feature path "
+            "byte-for-byte unchanged -- see .planning/ENSEMBLE_EP_FEATURES_"
+            "GATE.md). Composable with --include-player-features. Appends the "
+            "new candidates to the --features-from pool (or the full candidate "
+            "pool if --features-from is omitted) and re-runs the standard SHAP "
+            "+ correlation selection (feature_selector.select_features_for_fold) "
+            "at the same target count."
+        ),
+    )
     return parser
 
 
@@ -293,7 +307,8 @@ def main(argv: list = None) -> int:
     print("Assembling game features...")
     try:
         all_data = assemble_multiyear_features(
-            include_player_features=args.include_player_features
+            include_player_features=args.include_player_features,
+            include_ep_features=args.include_ep_features,
         )
     except Exception as e:
         print(f"ERROR: Failed to assemble features: {e}")
@@ -330,7 +345,7 @@ def main(argv: list = None) -> int:
     # SHAP + correlation selection (mirrors run_final_selection() in
     # scripts/run_feature_selection.py) at the same target count, rather
     # than hand-picking which new features to keep.
-    if args.include_player_features:
+    if args.include_player_features or args.include_ep_features:
         prior_pool = feature_cols
         full_pool = get_feature_columns(all_data)
         candidate_pool = sorted(set(prior_pool) | set(full_pool))

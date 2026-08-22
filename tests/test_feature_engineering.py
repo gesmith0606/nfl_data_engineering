@@ -23,9 +23,11 @@ from feature_engineering import (
     get_feature_columns,
     _compute_momentum_features,
     _compute_player_team_features,
+    _compute_ep_team_features,
     _herfindahl,
     _share_weighted_avg,
     _PLAYER_TEAM_STAT_COLS,
+    _EP_TEAM_STAT_COLS,
 )
 from config import LABEL_COLUMNS
 
@@ -813,3 +815,229 @@ class TestPlayerFeaturesOptIn:
         df = assemble_multiyear_features([2024], include_player_features=True)
         pf_cols = [c for c in df.columns if c.startswith("diff_qb_dakota")]
         assert pf_cols, "Expected diff_qb_dakota* columns when flag is passed through"
+
+
+def _synthetic_ep_df() -> pd.DataFrame:
+    """Team AAA has a QB/WR/RB across weeks 1-4; team BBB is a bystander RB
+    so the team-week groupby doesn't collapse to a single group.
+
+    AAA's per-role exp fantasy points scale linearly with week (w, 2w, 3w)
+    so the shift(1) rolling test has real week-to-week variation; the
+    over/under-expected and opportunity-share columns are held constant
+    across weeks so their manually-computed values are easy to check.
+    """
+    rows = []
+    for week in range(1, 5):
+        w = float(week)
+        rows.append(
+            {
+                "player_id": "QB1",
+                "team": "AAA",
+                "season": 2023,
+                "week": week,
+                "position": "QB",
+                "targets": 0.0,
+                "carries": 1.0,
+                "total_tds": 0.0,
+                "exp_total_tds": 0.1,
+                "exp_pass_fantasy_points": w,
+                "exp_rush_fantasy_points": 0.0,
+                "exp_rec_fantasy_points": 0.0,
+                "exp_fantasy_points_total": w,
+                "actual_fantasy_points_total": w + 1.0,
+                "fantasy_points_over_expected": 1.0,
+            }
+        )
+        rows.append(
+            {
+                "player_id": "WR1",
+                "team": "AAA",
+                "season": 2023,
+                "week": week,
+                "position": "WR",
+                "targets": 8.0,
+                "carries": 0.0,
+                "total_tds": 0.0,
+                "exp_total_tds": 0.2,
+                "exp_pass_fantasy_points": 0.0,
+                "exp_rush_fantasy_points": 0.0,
+                "exp_rec_fantasy_points": 2 * w,
+                "exp_fantasy_points_total": 2 * w,
+                "actual_fantasy_points_total": 2 * w - 0.5,
+                "fantasy_points_over_expected": -0.5,
+            }
+        )
+        rows.append(
+            {
+                "player_id": "RB1",
+                "team": "AAA",
+                "season": 2023,
+                "week": week,
+                "position": "RB",
+                "targets": 2.0,
+                "carries": 10.0,
+                "total_tds": 1.0,
+                "exp_total_tds": 0.3,
+                "exp_pass_fantasy_points": 0.0,
+                "exp_rush_fantasy_points": 3 * w,
+                "exp_rec_fantasy_points": 0.0,
+                "exp_fantasy_points_total": 3 * w,
+                "actual_fantasy_points_total": 3 * w + 2.0,
+                "fantasy_points_over_expected": 2.0,
+            }
+        )
+        rows.append(
+            {
+                "player_id": "RB2",
+                "team": "BBB",
+                "season": 2023,
+                "week": week,
+                "position": "RB",
+                "targets": 1.0,
+                "carries": 5.0,
+                "total_tds": 0.0,
+                "exp_total_tds": 0.1,
+                "exp_pass_fantasy_points": 0.0,
+                "exp_rush_fantasy_points": 1.0,
+                "exp_rec_fantasy_points": 0.0,
+                "exp_fantasy_points_total": 1.0,
+                "actual_fantasy_points_total": 1.0,
+                "fantasy_points_over_expected": 0.0,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+class TestEpTeamFeatures:
+    """Leak-free construction tests for _compute_ep_team_features()
+    (2026-08-21 gated re-experiment -- .planning/ENSEMBLE_EP_FEATURES_GATE.md)."""
+
+    @pytest.fixture
+    def result(self, monkeypatch):
+        """Compute EP team features against synthetic ffopportunity_features data."""
+        ep_df = _synthetic_ep_df()
+        monkeypatch.setattr(
+            "feature_engineering._read_ep_features", lambda season: ep_df
+        )
+        return _compute_ep_team_features(2023)
+
+    def test_returns_expected_raw_and_rolled_columns(self, result):
+        """Output has team/season/week plus each raw stat and its roll3/roll6/std."""
+        assert not result.empty
+        for col in _EP_TEAM_STAT_COLS:
+            assert col in result.columns, f"Missing raw column {col}"
+            for suffix in ("roll3", "roll6", "std"):
+                assert f"{col}_{suffix}" in result.columns, f"Missing {col}_{suffix}"
+
+    def test_missing_ep_data_returns_empty(self, monkeypatch):
+        """No ffopportunity_features Silver for the season -> empty DataFrame, no crash."""
+        monkeypatch.setattr(
+            "feature_engineering._read_ep_features", lambda season: pd.DataFrame()
+        )
+        result = _compute_ep_team_features(2099)
+        assert result.empty
+
+    def test_week1_rolling_is_nan(self, result):
+        """Week 1 has no prior data -- shift(1) makes every rolled column NaN."""
+        team_a = result[result["team"] == "AAA"].sort_values("week")
+        wk1 = team_a[team_a["week"] == 1].iloc[0]
+        assert pd.isna(wk1["ep_team_exp_fp_total_roll3"])
+        assert pd.isna(wk1["ep_team_opportunity_hhi_roll3"])
+
+    def test_shift1_lag_excludes_current_week(self, result):
+        """Week 4's roll3 reflects only weeks 1-3's raw exp_fp_total (mean=12.0), not week 4 (24.0)."""
+        team_a = result[result["team"] == "AAA"].sort_values("week")
+        wk4 = team_a[team_a["week"] == 4].iloc[0]
+        # raw ep_team_exp_fp_total per week = 6*week (1,2,3,4)*6 = 6,12,18,24
+        # roll3 at week4 = mean(6,12,18) = 12.0
+        assert (
+            abs(wk4["ep_team_exp_fp_total_roll3"] - 12.0) < 1e-9
+        ), f"Expected 12.0, got {wk4['ep_team_exp_fp_total_roll3']}"
+        # If shift(1) were missing, this would equal mean(6,12,18,24)=15.0 instead.
+        assert abs(wk4["ep_team_exp_fp_total_roll3"] - 15.0) > 1e-9
+
+    def test_raw_aggregation_sums_match_manual_computation(self, result):
+        """Raw team-week sums match hand-computed values for team AAA."""
+        team_a = result[result["team"] == "AAA"].sort_values("week")
+        row = team_a[team_a["week"] == 2].iloc[0]
+        # exp_fp_total = QB(2) + WR(4) + RB(6) = 12.0
+        assert abs(row["ep_team_exp_fp_total"] - 12.0) < 1e-9
+        assert abs(row["ep_team_exp_pass_fp"] - 2.0) < 1e-9
+        assert abs(row["ep_team_exp_rush_fp"] - 6.0) < 1e-9
+        assert abs(row["ep_team_exp_rec_fp"] - 4.0) < 1e-9
+        # fp_over_expected = 1.0 + (-0.5) + 2.0 = 2.5 (constant across weeks)
+        assert abs(row["ep_team_fp_over_expected"] - 2.5) < 1e-9
+        # exp_total_tds = 0.1 + 0.2 + 0.3 = 0.6; actual total_tds = 0+0+1 = 1
+        assert abs(row["ep_team_exp_total_tds"] - 0.6) < 1e-9
+        assert abs(row["ep_team_td_over_expected"] - 0.4) < 1e-9
+
+    def test_opportunity_hhi_matches_manual_computation(self, result):
+        """Opportunity HHI (targets+carries share) matches hand computation for AAA."""
+        team_a = result[result["team"] == "AAA"].sort_values("week")
+        row = team_a[team_a["week"] == 1].iloc[0]
+        # opportunities: QB1=0+1=1, WR1=8+0=8, RB1=2+10=12; total=21
+        # HHI = (1/21)^2 + (8/21)^2 + (12/21)^2 = 209/441
+        expected = (1 / 21) ** 2 + (8 / 21) ** 2 + (12 / 21) ** 2
+        assert abs(row["ep_team_opportunity_hhi"] - expected) < 1e-9
+
+    def test_rush_share_hhi_full_concentration_single_back(self, result):
+        """Only one RB carrying the ball on AAA -> rush_share_hhi == 1.0 (full concentration)."""
+        team_a = result[result["team"] == "AAA"].sort_values("week")
+        assert (team_a["ep_team_rush_share_hhi"] == 1.0).all()
+
+
+class TestEpFeaturesOptIn:
+    """Verify the include_ep_features flag is additive/opt-in only."""
+
+    @pytest.fixture(autouse=True)
+    def _skip_if_data_missing(self):
+        if not _silver_data_available(2024):
+            pytest.skip("Silver/Bronze data for 2024 not available locally")
+
+    def test_default_flag_off_matches_no_ep_columns(self):
+        """assemble_game_features(season) with no flag has zero EP-feature diff cols."""
+        df = assemble_game_features(2024)
+        ep_cols = [
+            c
+            for c in df.columns
+            if any(
+                c == f"diff_{base}" or c.startswith(f"diff_{base}_")
+                for base in _EP_TEAM_STAT_COLS
+            )
+        ]
+        assert ep_cols == [], f"Unexpected EP-feature columns with flag off: {ep_cols}"
+
+    def test_flag_on_adds_columns_without_shrinking_baseline(self):
+        """include_ep_features=True is strictly additive vs the default assembly."""
+        base = assemble_game_features(2024)
+        with_ep = assemble_game_features(2024, include_ep_features=True)
+        assert set(base.columns).issubset(set(with_ep.columns))
+        assert len(with_ep) == len(base), "Row count must be unchanged by the merge"
+
+    def test_flags_are_independent_and_composable(self):
+        """include_player_features and include_ep_features can be combined."""
+        both = assemble_game_features(
+            2024, include_player_features=True, include_ep_features=True
+        )
+        pf_cols = [c for c in both.columns if c.startswith("diff_qb_dakota")]
+        ep_cols = [c for c in both.columns if c.startswith("diff_ep_team_exp_fp_total")]
+        assert pf_cols, "Expected player-feature columns when both flags are on"
+        assert ep_cols, "Expected EP-feature columns when both flags are on"
+
+    def test_flag_on_selected_features_include_only_rolled_epfeat_cols(self):
+        """get_feature_columns() only ever selects the _roll3/_roll6/_std EP diffs."""
+        with_ep = assemble_game_features(2024, include_ep_features=True)
+        selected = get_feature_columns(with_ep)
+        ep_selected = [
+            c for c in selected if any(base in c for base in _EP_TEAM_STAT_COLS)
+        ]
+        assert ep_selected, "Expected at least one EP-feature column to be selectable"
+        assert all(
+            ("roll3" in c or "roll6" in c or "std" in c) for c in ep_selected
+        ), f"Raw (unlagged) EP-feature column leaked into features: {ep_selected}"
+
+    def test_multiyear_assembly_passes_ep_flag_through(self):
+        """assemble_multiyear_features forwards include_ep_features per season."""
+        df = assemble_multiyear_features([2024], include_ep_features=True)
+        ep_cols = [c for c in df.columns if c.startswith("diff_ep_team_exp_fp_total")]
+        assert ep_cols, "Expected diff_ep_team_exp_fp_total* columns when flag is passed through"

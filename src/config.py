@@ -884,6 +884,10 @@ SILVER_PLAYER_LOCAL_DIRS = {
     "historical": "players/historical",
 }
 
+# ffopportunity expected-points player-week Silver (gsis-keyed, 2016-2025).
+# See .planning/FFOPPORTUNITY_COVERAGE.md for grain/coverage/licensing.
+SILVER_EP_FEATURES_LOCAL_DIR = "ffopportunity_features"
+
 # Bronze college data subdirectories (local path pattern)
 BRONZE_COLLEGE_LOCAL_DIRS = {
     "player_stats": "college_player_stats",
