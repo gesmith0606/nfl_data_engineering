@@ -1758,6 +1758,74 @@ def _join_pbp_advanced_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     return df
 
 
+def _join_ffopportunity_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
+    """Left-join ffopportunity Expected-Points trailing features if available.
+
+    Reads the already-built ffopportunity Silver player-week parquet (see
+    scripts/ingest_ffopportunity.py, .planning/FFOPPORTUNITY_COVERAGE.md),
+    computes shift(1)-lagged trailing features via
+    src/ffopportunity_features.py, and merges on (player_id, season, week).
+    Unlike the FTN/pbp_advanced joins there is no position_type role split
+    needed — ffopportunity Silver already merges a player's passer/rusher/
+    receiver contributions onto one row per (player_id, season, week).
+
+    Only the trailing (_roll3/_roll5/_trail) variants are model features —
+    the raw ffopportunity columns describing the week being predicted are
+    never merged into df, so no _SAME_WEEK_RAW_STATS registration is needed
+    (there is no raw-column leak vector to guard against here).
+
+    Args:
+        df: Player-week DataFrame with player_id, season, week.
+        season: NFL season year.
+
+    Returns:
+        DataFrame with FFOPPORTUNITY_EP_FEATURE_COLUMNS joined (NaN-filled
+        when the Silver partition or a given row is unavailable).
+    """
+    try:
+        from ffopportunity_features import (
+            FFOPPORTUNITY_EP_FEATURE_COLUMNS,
+            build_ffopportunity_features_for_season,
+        )
+    except ImportError:
+        logger.info("ffopportunity_features module unavailable — skipping join")
+        return df
+
+    try:
+        ffopp_df = build_ffopportunity_features_for_season(
+            season, include_ablation=False
+        )
+    except Exception as exc:
+        logger.warning(
+            "Failed to build ffopportunity trailing features for season %d: %s",
+            season,
+            exc,
+        )
+        ffopp_df = pd.DataFrame()
+
+    join_cols = ["player_id", "season", "week"]
+    if not ffopp_df.empty:
+        avail = [c for c in join_cols if c in ffopp_df.columns and c in df.columns]
+        if len(avail) >= 3:
+            feat_cols = [
+                c for c in FFOPPORTUNITY_EP_FEATURE_COLUMNS if c in ffopp_df.columns
+            ]
+            ffopp_slim = ffopp_df[avail + feat_cols].drop_duplicates(subset=avail)
+            df = df.merge(ffopp_slim, on=avail, how="left", suffixes=("", "__ffopp"))
+            dup = [c for c in df.columns if c.endswith("__ffopp")]
+            df = df.drop(columns=dup, errors="ignore")
+            logger.info(
+                "Joined %d ffopportunity trailing feature columns", len(feat_cols)
+            )
+
+    # Fill missing columns with NaN for schema consistency
+    for col in FFOPPORTUNITY_EP_FEATURE_COLUMNS:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    return df
+
+
 # ---------------------------------------------------------------------------
 # Core assembly
 # ---------------------------------------------------------------------------
@@ -1964,6 +2032,12 @@ def assemble_player_features(season: int) -> pd.DataFrame:
     # by-zone, QB sack-rate/aggressiveness proxies — 2016+, mined directly
     # from local Bronze PBP)
     base = _join_pbp_advanced_features(base, season)
+
+    # 21. Optional: join ffopportunity Expected-Points trailing candidate
+    # features (exp fantasy points, over/under-expectation residual,
+    # opportunity counts — 2016+, mined from the already-built ffopportunity
+    # Silver table). See .planning/EP_FEATURES_GATE.md for the gate.
+    base = _join_ffopportunity_features(base, season)
 
     logger.info(
         "Assembled player features for season %d: %d rows, %d columns",
