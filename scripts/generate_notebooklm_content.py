@@ -29,11 +29,16 @@ OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output", "notebooklm")
 
 
 def _load_projections(season: int, scoring: str = "half_ppr") -> pd.DataFrame:
-    """Load latest preseason projections."""
-    pattern = os.path.join(
-        GOLD_DIR, f"projections/preseason/season={season}/season_proj_*.parquet"
-    )
-    files = sorted(globmod.glob(pattern))
+    """Load latest preseason projections, scoped to ``scoring`` when available.
+
+    Scoring-scoped filenames (``season_proj_{scoring}_*.parquet``) landed
+    2026-08 after a --scoring ppr file silently became "latest" for every
+    unscoped reader; fall back to the legacy unscored glob for older archives.
+    """
+    preseason_dir = os.path.join(GOLD_DIR, f"projections/preseason/season={season}")
+    files = sorted(globmod.glob(os.path.join(preseason_dir, f"season_proj_{scoring}_*.parquet")))
+    if not files:
+        files = sorted(globmod.glob(os.path.join(preseason_dir, "season_proj_*.parquet")))
     if not files:
         return pd.DataFrame()
     return pd.read_parquet(files[-1])

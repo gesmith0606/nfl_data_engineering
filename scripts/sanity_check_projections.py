@@ -222,12 +222,20 @@ _POS_RANK_GAP_THRESHOLD: Dict[str, int] = {
 
 
 def _load_our_projections(scoring: str, season: int) -> pd.DataFrame:
-    """Load latest preseason projections from Gold layer."""
-    pattern = os.path.join(
-        GOLD_DIR,
-        f"projections/preseason/season={season}/season_proj_*.parquet",
-    )
-    files = sorted(globmod.glob(pattern))
+    """Load latest preseason projections from Gold layer.
+
+    Scoring-scoped first (``season_proj_{scoring}_*.parquet``, the naming
+    convention since the 2026-08-18 wrong-scoring-file incident — see
+    generate_projections.py) so a ``--scoring ppr`` regeneration can never
+    again become "latest" for a half_ppr caller. Falls back to the legacy
+    unscored glob for archives written before that fix shipped.
+    """
+    preseason_dir = os.path.join(GOLD_DIR, f"projections/preseason/season={season}")
+    scoped_pattern = os.path.join(preseason_dir, f"season_proj_{scoring}_*.parquet")
+    files = sorted(globmod.glob(scoped_pattern))
+    if not files:
+        legacy_pattern = os.path.join(preseason_dir, "season_proj_*.parquet")
+        files = sorted(globmod.glob(legacy_pattern))
     if not files:
         return pd.DataFrame()
 

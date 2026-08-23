@@ -1085,7 +1085,16 @@ def main():
                     f"{after_total:.1f}"
                 )
 
-        s3_key = f"projections/preseason/season={args.season}/season_proj_{ts}.parquet"
+        # Scoring format MUST be encoded in the filename (mirrors the weekly
+        # convention below: projections_{scoring}_{ts}.parquet). Without it,
+        # every reader's "latest file in this directory" glob is scoring-blind
+        # -- a --scoring ppr run silently becomes "latest" for half_ppr
+        # consumers (2026-08-18 incident: WR mean drift-gate CRITICAL, live
+        # site briefly served PPR points mislabeled half_ppr).
+        s3_key = (
+            f"projections/preseason/season={args.season}/"
+            f"season_proj_{args.scoring}_{ts}.parquet"
+        )
         local_name = f"preseason_{args.season}_{args.scoring}_{ts}.csv"
 
     # -----------------------------------------------------------------------

@@ -881,7 +881,7 @@ def get_external_rankings(
 _FILENAME_TS_RE = re.compile(r"(\d{8}_\d{6})")
 
 
-def _latest_parquet(directory: Path) -> Optional[Path]:
+def _latest_parquet(directory: Path, pattern: str = "*.parquet") -> Optional[Path]:
     """Return the newest Parquet in *directory* by filename-embedded timestamp.
 
     Filenames carry a YYYYMMDD_HHMMSS generation timestamp; sort on that, not
@@ -889,13 +889,18 @@ def _latest_parquet(directory: Path) -> Optional[Path]:
     every file the same mtime. Directories here can mix filename prefixes
     (e.g. scoring formats), so the timestamp is extracted rather than relying
     on a whole-name sort.
+
+    Args:
+        directory: Directory to scan (non-recursive).
+        pattern: Glob pattern; pass e.g. ``"season_proj_half_ppr_*.parquet"``
+            to scope the read to one scoring format.
     """
 
     def _key(p: Path) -> Tuple[str, str]:
         m = _FILENAME_TS_RE.search(p.name)
         return (m.group(1) if m else "", p.name)
 
-    parquets = sorted(directory.glob("*.parquet"), key=_key)
+    parquets = sorted(directory.glob(pattern), key=_key)
     return parquets[-1] if parquets else None
 
 
@@ -928,7 +933,21 @@ def _load_our_projections(
     for week_dir in candidate_dirs:
         if not week_dir.exists():
             continue
-        parquet_path = _latest_parquet(week_dir)
+        # Scoring-scoped filenames (projections_{scoring}_*.parquet /
+        # season_proj_{scoring}_*.parquet) let a run in one scoring format
+        # coexist without silently becoming "latest" for another -- the
+        # `scoring` param was previously accepted but never applied to file
+        # selection here (2026-08-18 WR mean drift-gate incident traced to
+        # this class of bug in the preseason reader). Try both known
+        # filename conventions with the exact scoring token as a full
+        # underscore-delimited segment (a bare "*ppr*" glob would also match
+        # "half_ppr"), then fall back to the unscoped glob for archives that
+        # predate the scoring-suffix convention.
+        parquet_path = (
+            _latest_parquet(week_dir, pattern=f"projections_{scoring}_*.parquet")
+            or _latest_parquet(week_dir, pattern=f"season_proj_{scoring}_*.parquet")
+            or _latest_parquet(week_dir)
+        )
         if parquet_path is None:
             continue
         df = pd.read_parquet(parquet_path)

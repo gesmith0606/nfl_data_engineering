@@ -501,7 +501,7 @@ SILVER_TEAM_S3_KEYS = {
 # S3 key templates for Gold layer projections
 GOLD_PROJECTION_S3_KEYS = {
     "weekly_projections": "projections/season={season}/week={week}/projections_{ts}.parquet",
-    "season_projections": "projections/preseason/season={season}/season_proj_{ts}.parquet",
+    "season_projections": "projections/preseason/season={season}/season_proj_{scoring}_{ts}.parquet",
 }
 
 

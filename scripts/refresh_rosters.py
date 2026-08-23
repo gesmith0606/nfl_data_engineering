@@ -188,11 +188,23 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
     return mapping
 
 
-def find_latest_parquet(projections_dir: str) -> Optional[str]:
-    """Find the latest parquet file in the projections directory."""
+def find_latest_parquet(projections_dir: str, scoring: Optional[str] = None) -> Optional[str]:
+    """Find the latest parquet file in the projections directory.
+
+    Scoring-scoped filenames (``season_proj_{scoring}_{ts}.parquet``) landed
+    2026-08 after a --scoring ppr regeneration silently became "latest" for
+    this (scoring-blind) roster-refresh cron and got re-persisted forward
+    under a new timestamp every day -- the WR mean distribution-drift-gate
+    incident. When ``scoring`` is given, prefer files tagged with it; fall
+    back to the legacy unscored glob for archives predating that convention.
+    """
     p = Path(projections_dir)
     if not p.exists():
         return None
+    if scoring:
+        scoped = sorted(p.glob(f'season_proj_{scoring}_*.parquet'))
+        if scoped:
+            return str(scoped[-1])
     files = sorted(p.glob('*.parquet'))
     if not files:
         return None
@@ -437,6 +449,13 @@ def main() -> int:
         action='store_true',
         help='Skip writing data/bronze/players/rosters_live/ (Gold-only refresh)',
     )
+    parser.add_argument(
+        '--scoring',
+        default='half_ppr',
+        help='Scoring format of the preseason projections file to refresh '
+             '(default: half_ppr, matching generate_projections.py and the '
+             'deploy-web quality gate)',
+    )
     args = parser.parse_args()
 
     print(f"\nRoster Refresh Pipeline")
@@ -471,7 +490,7 @@ def main() -> int:
     proj_dir = os.path.join(
         'data', 'gold', 'projections', 'preseason', f'season={args.season}'
     )
-    latest_file = find_latest_parquet(proj_dir)
+    latest_file = find_latest_parquet(proj_dir, scoring=args.scoring)
     if not latest_file:
         print(f"ERROR: No parquet files found in {proj_dir}")
         return 1
@@ -523,7 +542,13 @@ def main() -> int:
         return 0
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    output_file = os.path.join(proj_dir, f'season_proj_{timestamp}.parquet')
+    # Preserve the scoring tag on the output filename only when the input
+    # file we loaded actually carried one -- an untagged legacy input's
+    # scoring format was never verified, so don't fabricate a claim about it.
+    if os.path.basename(latest_file).startswith(f'season_proj_{args.scoring}_'):
+        output_file = os.path.join(proj_dir, f'season_proj_{args.scoring}_{timestamp}.parquet')
+    else:
+        output_file = os.path.join(proj_dir, f'season_proj_{timestamp}.parquet')
     updated_df.to_parquet(output_file, index=False)
     print(f"\nSaved: {output_file}")
 

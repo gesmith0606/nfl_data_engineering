@@ -275,7 +275,16 @@ def _get_preseason_projections_parquet(
     if not preseason_dir.exists():
         raise FileNotFoundError(f"No preseason projection data for season={season}")
 
-    parquet_path = _latest_parquet(preseason_dir)
+    # Scoring-scoped filenames (season_proj_{scoring}_*.parquet) landed
+    # 2026-08 after a --scoring ppr regeneration silently became "latest" for
+    # every caller regardless of requested scoring_format (points were read
+    # as-is and merely relabelled below -- WR mean drift-gate incident).
+    # Fall back to the legacy unscored glob for archives written before that.
+    parquet_path = _latest_parquet(
+        preseason_dir, pattern=f"season_proj_{scoring_format}_*.parquet"
+    )
+    if parquet_path is None:
+        parquet_path = _latest_parquet(preseason_dir)
     if parquet_path is None:
         raise FileNotFoundError(f"No preseason parquet files in {preseason_dir}")
 
