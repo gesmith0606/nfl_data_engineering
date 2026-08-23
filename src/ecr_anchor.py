@@ -65,22 +65,56 @@ EPSILON = 1.5
 #: unchanged from ``wr_tiebreak.NUDGE``.
 NUDGE = 0.5
 
-#: ECR archive scoring variant — weekly RB/WR/TE pages are PPR-only (see
-#: FP_ECR_HISTORY_COVERAGE.md); there is no half-PPR weekly ECR to select.
-ECR_SCORING = "ppr"
+#: ECR scoring-variant preference (a set-membership filter, tried as a
+#: whole, not a precedence tie-break — see ``_load_ecr_season``). The
+#: historical archive (2020-2024, ``data/silver/fp_ecr/season<=2024``) only
+#: ever contains "ppr" rows for RB/WR/TE weekly pages (see
+#: FP_ECR_HISTORY_COVERAGE.md) — gated entirely on PPR because that's the
+#: only scoring variant DynastyProcess's archive ever captured, an
+#: archive-only limitation, not a modeling choice. The 2026+ live bridge
+#: (``scripts/bridge_fp_ecr_live.py``) captures our own daily FantasyPros
+#: refresh, whose honest scoring label is "half_ppr" (``refresh_external_
+#: rankings.py``'s un-overridden CLI default) — seeing "ppr" is impossible
+#: on a live season and vice versa, so ``isin(ECR_SCORING_PREFERENCE)`` reads
+#: exactly the same historical rows the old hardcoded ``== "ppr"`` filter did
+#: (proven byte-identical in
+#: ``tests/test_ecr_anchor.py::TestScoringPreferenceRegression``) while also
+#: reading the live half_ppr rows that filter used to silently return zero
+#: of. See ``.planning/ECR_ANCHOR_FORWARD_GATE.md`` §0.2 for the discovery
+#: and this amendment.
+ECR_SCORING = "ppr"  # kept for backward-compat display/reference only
+ECR_SCORING_PREFERENCE: Tuple[str, ...] = ("ppr", "half_ppr")
 
 _DEFAULT_SILVER_DIR = os.path.join(
     os.path.dirname(__file__), "..", "data", "silver", "fp_ecr"
 )
 
 
-def _load_ecr_season(season: int, silver_dir: str = _DEFAULT_SILVER_DIR) -> pd.DataFrame:
-    """Load one season's Silver FP-ECR parquet, WR/PPR rows only."""
+def _load_ecr_season(
+    season: int,
+    silver_dir: str = _DEFAULT_SILVER_DIR,
+    scoring_preference: Tuple[str, ...] = ECR_SCORING_PREFERENCE,
+) -> pd.DataFrame:
+    """Load one season's Silver FP-ECR parquet, WR rows matching ``scoring_preference``.
+
+    ``scoring_preference`` is a set-membership filter (``scoring.isin(...)``),
+    not a precedence tie-break: no season in practice carries more than one
+    scoring label under a single ``gsis_id``/week (historical seasons are
+    100% "ppr", the 2026+ live bridge is 100% "half_ppr" — see
+    ``ECR_SCORING_PREFERENCE``'s docstring), so simple membership is
+    sufficient and keeps this byte-identical to the old hardcoded
+    ``scoring == "ppr"`` filter for every season that filter used to read.
+    If a season ever legitimately carries both labels for the same
+    player/week, ``build_ecr_lookup``'s unguarded
+    ``drop_duplicates("player_id", keep="first")`` would need an explicit
+    scoring tie-break too — not silently handled here, flagged for whoever
+    hits it.
+    """
     path = os.path.join(silver_dir, f"season={season}", f"fp_ecr_{season}.parquet")
     if not os.path.exists(path):
         return pd.DataFrame(columns=["season", "week", "scrape_date", "position", "gsis_id", "pos_rank"])
     df = pd.read_parquet(path)
-    df = df[(df["position"] == WR_POSITION) & (df["scoring"] == ECR_SCORING)].copy()
+    df = df[(df["position"] == WR_POSITION) & (df["scoring"].isin(scoring_preference))].copy()
     return df
 
 
@@ -119,6 +153,7 @@ def build_ecr_lookup(
     week: int,
     schedules_df: pd.DataFrame,
     silver_dir: str = _DEFAULT_SILVER_DIR,
+    scoring_preference: Tuple[str, ...] = ECR_SCORING_PREFERENCE,
 ) -> Tuple[pd.DataFrame, Dict[str, int]]:
     """Build the (player_id -> ecr_pos_rank) lookup for one (season, week), leak-free.
 
@@ -131,6 +166,10 @@ def build_ecr_lookup(
         schedules_df: Bronze ``schedules`` rows (any seasons; filtered
             internally to ``season``).
         silver_dir: Root of ``data/silver/fp_ecr/``.
+        scoring_preference: Scoring labels to accept, see
+            ``ECR_SCORING_PREFERENCE`` / ``_load_ecr_season``. Defaults to
+            reading both the historical PPR archive and the live half_ppr
+            bridge output.
 
     Returns:
         ``(lookup_df, stats)`` — ``lookup_df`` has columns ``player_id``,
@@ -158,7 +197,7 @@ def build_ecr_lookup(
     if proj_wr.empty:
         return empty, stats
 
-    ecr_season = _load_ecr_season(season, silver_dir=silver_dir)
+    ecr_season = _load_ecr_season(season, silver_dir=silver_dir, scoring_preference=scoring_preference)
     ecr_week = ecr_season[ecr_season["week"] == week]
     ecr_week = ecr_week[ecr_week["gsis_id"].notna()]
     stats["n_ecr_wr_rows"] = int(len(ecr_week))

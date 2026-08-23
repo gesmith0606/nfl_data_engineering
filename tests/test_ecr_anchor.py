@@ -14,7 +14,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from ecr_anchor import (  # noqa: E402
     EPSILON,
+    ECR_SCORING_PREFERENCE,
     NUDGE,
+    WR_POSITION,
+    _load_ecr_season,
     apply_ecr_anchor,
     apply_ecr_anchor_blend,
     apply_ecr_anchor_near_tie,
@@ -367,3 +370,89 @@ class TestShuffleCollapse:
         # once the signal is randomized, rather than persisting at the
         # same magnitude regardless of what's being nudged.
         assert n_fired_shuffled < n_fired_true
+
+
+# ---------------------------------------------------------------------------
+# Scoring-preference generalization (ECR_ANCHOR_FORWARD_GATE.md #0.2):
+# ECR_SCORING="ppr" hardcode -> ECR_SCORING_PREFERENCE=("ppr", "half_ppr").
+# Historical (season<=2024, 100% ppr) reads MUST stay byte-identical; the
+# live 2026+ bridge (100% half_ppr) must now read nonzero rows.
+# ---------------------------------------------------------------------------
+
+_HISTORICAL_2024_FILE = os.path.join(
+    os.path.dirname(__file__), "..", "data", "silver", "fp_ecr", "season=2024", "fp_ecr_2024.parquet"
+)
+_HISTORICAL_2024_SILVER_DIR = os.path.dirname(os.path.dirname(_HISTORICAL_2024_FILE))
+
+
+class TestScoringPreferenceRegression:
+    @pytest.mark.skipif(
+        not os.path.exists(_HISTORICAL_2024_FILE),
+        reason="Local-only historical FP-ECR archive not present in this checkout",
+    )
+    def test_load_ecr_season_byte_identical_to_old_hardcoded_ppr_filter(self):
+        raw = pd.read_parquet(_HISTORICAL_2024_FILE)
+        old_behavior = raw[(raw["position"] == WR_POSITION) & (raw["scoring"] == "ppr")].copy()
+
+        new_behavior = _load_ecr_season(2024, silver_dir=_HISTORICAL_2024_SILVER_DIR)
+
+        pd.testing.assert_frame_equal(
+            old_behavior.reset_index(drop=True), new_behavior.reset_index(drop=True)
+        )
+
+    @pytest.mark.skipif(
+        not os.path.exists(_HISTORICAL_2024_FILE),
+        reason="Local-only historical FP-ECR archive not present in this checkout",
+    )
+    def test_build_ecr_lookup_byte_identical_for_2024(self, schedules_df):
+        # schedules_df fixture is season=2023; build_ecr_lookup for a season
+        # with no matching schedule rows returns an empty (but still
+        # correctly-shaped) lookup either way -- what matters here is that
+        # the OLD single-value filter and the NEW preference filter feed
+        # build_ecr_lookup identical upstream rows, which the direct
+        # _load_ecr_season comparison above already proves. This test
+        # additionally proves build_ecr_lookup's own dispatch doesn't
+        # regress the empty-schedule path for a season it has no schedule
+        # fixture for.
+        proj = pd.DataFrame([_wr_row("ANY", "ZZ", 9.0, season=2024, week=1)])
+        lookup_old, stats_old = build_ecr_lookup(
+            proj, 2024, 1, schedules_df, silver_dir=_HISTORICAL_2024_SILVER_DIR,
+            scoring_preference=("ppr",),
+        )
+        lookup_new, stats_new = build_ecr_lookup(
+            proj, 2024, 1, schedules_df, silver_dir=_HISTORICAL_2024_SILVER_DIR,
+        )
+        pd.testing.assert_frame_equal(lookup_old, lookup_new)
+        assert stats_old == stats_new
+
+    def test_live_half_ppr_season_now_reads_nonzero_rows(self, tmp_path, schedules_df):
+        # Regression for the bug itself: a season whose Silver file is
+        # honestly labeled scoring="half_ppr" (the live bridge's output)
+        # used to be read as ZERO rows by the old hardcoded ECR_SCORING="ppr"
+        # filter. The default ECR_SCORING_PREFERENCE must now read it.
+        silver_dir = _write_ecr_parquet(
+            tmp_path,
+            2023,
+            [_ecr_row("P_SUN", 5, 7, scoring="half_ppr")],
+        )
+        proj = pd.DataFrame([_wr_row("P_SUN", "TC", 10.0)])
+        lookup, stats = build_ecr_lookup(proj, 2023, 5, schedules_df, silver_dir=silver_dir)
+        assert stats["n_ecr_wr_rows"] == 1
+        assert not lookup.empty
+        assert lookup.set_index("player_id").loc["P_SUN", "ecr_pos_rank"] == 7
+
+    def test_old_hardcoded_ppr_only_would_have_missed_half_ppr_row(self, tmp_path, schedules_df):
+        """Documents exactly the bug being fixed: filtering scoring=="ppr"
+        only (the pre-fix behavior) reads zero rows from a half_ppr-labeled
+        season, while the new default preference list reads it."""
+        silver_dir = _write_ecr_parquet(
+            tmp_path, 2023, [_ecr_row("P_SUN", 5, 7, scoring="half_ppr")]
+        )
+        proj = pd.DataFrame([_wr_row("P_SUN", "TC", 10.0)])
+        lookup_old_style, _ = build_ecr_lookup(
+            proj, 2023, 5, schedules_df, silver_dir=silver_dir, scoring_preference=("ppr",)
+        )
+        assert lookup_old_style.empty
+
+    def test_default_preference_is_ppr_then_half_ppr(self):
+        assert ECR_SCORING_PREFERENCE == ("ppr", "half_ppr")

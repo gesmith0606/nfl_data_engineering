@@ -112,6 +112,11 @@ def _normalise(name: str) -> str:
     name = name.lower().strip()
     # Remove dots used in initials (A.J. → AJ)
     name = name.replace(".", "")
+    # Remove apostrophes (Ja'Marr -> Jamarr, Tre' Harris -> Tre Harris) so a
+    # name typed/scraped with an apostrophe matches an index built from a
+    # source that omits it (or vice versa) -- see
+    # knowledge-vault/concepts/player-name-resolver-dot-stripping-nickname-bug.md.
+    name = name.replace("'", "").replace("’", "")
     # Remove suffixes
     name = _SUFFIX_PATTERN.sub("", name)
     # Collapse internal whitespace
@@ -426,9 +431,17 @@ class PlayerNameResolver:
         if not name or not name.strip():
             return None
 
-        # 1. Apply nickname overrides
+        # 1. Apply nickname overrides.
+        # The map's values are written in a human-readable canonical form
+        # (e.g. "a.j. brown", periods included) but the index keys are
+        # ALWAYS post-_normalise() output -- so any mapped value must be
+        # re-normalised before use as a lookup key. Without this, entries
+        # like "aj brown" -> "a.j. brown" can never match (the dotted
+        # string cannot equal any key in an index where every key has had
+        # its dots stripped) -- see
+        # knowledge-vault/concepts/player-name-resolver-dot-stripping-nickname-bug.md.
         norm = _normalise(name)
-        norm = _NICKNAME_MAP.get(norm, norm)
+        norm = _normalise(_NICKNAME_MAP.get(norm, norm))
 
         # 2. Exact match
         candidates = self._norm_to_entries.get(norm, [])
