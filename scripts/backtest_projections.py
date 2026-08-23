@@ -545,6 +545,9 @@ def run_backtest(
     consensus_anchor_position: str = SLEEPER_ANCHOR_SHIPPED_POSITION,
     consensus_anchor_mode: str = SLEEPER_ANCHOR_SHIPPED_MODE,
     consensus_anchor_weight: float = SLEEPER_ANCHOR_SHIPPED_WEIGHT,
+    consensus_anchor_extra_position: Optional[str] = None,
+    consensus_anchor_extra_mode: str = "blend",
+    consensus_anchor_extra_weight: float = 0.5,
     wind_adjust: bool = False,
     wind_adjust_shrink: float = 0.0539,
 ) -> pd.DataFrame:
@@ -628,6 +631,20 @@ def run_backtest(
         consensus_anchor_weight: Blend weight for
             ``consensus_anchor_mode="blend"`` (grid-tuned on 2022-2024, see
             the gate doc; shipped default 0.5; ignored for ``"near_tie"``).
+        consensus_anchor_extra_position: Optional SECOND, independent
+            Sleeper-anchor slot, applied after the primary
+            ``consensus_anchor_*`` block above (see
+            ``.planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md``). Lets a
+            candidate position (QB/RB/TE) be evaluated together with the
+            primary anchor (typically the shipped WR default) in the same
+            run — needed to regression-prove the primary anchor's rows are
+            untouched by testing a second position. ``None`` (default) is
+            a no-op — existing callers see no behavior change.
+        consensus_anchor_extra_mode: ``"blend"`` (default) or
+            ``"near_tie"`` for the extra slot.
+        consensus_anchor_extra_weight: Blend weight for
+            ``consensus_anchor_extra_mode="blend"`` (default 0.5; ignored
+            for ``"near_tie"``).
         wind_adjust_shrink: Multiplicative shrink for high-wind QB/WR/TE
             rows (default :data:`wind_adjust.HIGH_WIND_SHRINK`).
     """
@@ -1123,6 +1140,35 @@ def run_backtest(
                     weight=consensus_anchor_weight,
                 )
 
+            # Apply an independent SECOND anchor position on top of whichever
+            # primary anchor resolved above (typically the shipped WR
+            # default) — see .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md.
+            # apply_consensus_anchor only ever touches rows at its own
+            # `position` argument (proven in the parent WR gate's guard
+            # checks), so this composes with the primary block above without
+            # cross-contamination. No-op when consensus_anchor_extra_position
+            # is None (default) — existing callers/behavior unchanged.
+            if consensus_anchor_extra_position:
+                extra_lookup, _extra_stats = build_sleeper_lookup(
+                    projections, season, week, consensus_anchor_extra_position
+                )
+                if _extra_stats["n_sleeper_pos_rows"] == 0:
+                    logger.warning(
+                        "Sleeper consensus anchor (extra slot): no Sleeper "
+                        "weekly data for season=%d week=%d position=%s; "
+                        "anchor is a no-op passthrough for this week.",
+                        season,
+                        week,
+                        consensus_anchor_extra_position,
+                    )
+                projections = apply_consensus_anchor(
+                    projections,
+                    extra_lookup,
+                    position=consensus_anchor_extra_position,
+                    mode=consensus_anchor_extra_mode,
+                    weight=consensus_anchor_extra_weight,
+                )
+
             # Apply the high-wind QB/WR/TE bias shrink. Mirrors
             # generate_projections.py ordering — after the WR tiebreak,
             # before ranking-score nudges. Backtest seasons are always in
@@ -1510,8 +1556,36 @@ def main():
             "Disable the default-on Sleeper consensus anchor (WR, blend, "
             "weight=0.5 — SHIPPED .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md) "
             "so the default evaluation path reflects the pre-ship baseline. "
-            "Mirrors generate_projections.py --no-sleeper-anchor."
+            "Mirrors generate_projections.py --no-sleeper-anchor. Also "
+            "disables --consensus-anchor-extra-position (the whole Sleeper-"
+            "anchor family is off)."
         ),
+    )
+    parser.add_argument(
+        "--consensus-anchor-extra-position",
+        choices=list(SUPPORTED_CONSENSUS_ANCHOR_POSITIONS),
+        default=None,
+        help=(
+            "Apply a SECOND, independent Sleeper consensus anchor on top of "
+            "whichever primary anchor resolved above (typically the shipped "
+            "WR default) — lets a candidate position (QB/RB/TE) be "
+            "evaluated together with WR in the same run. See "
+            ".planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md. Default: unset "
+            "(no-op, existing behavior unchanged). Disabled entirely by "
+            "--no-sleeper-anchor."
+        ),
+    )
+    parser.add_argument(
+        "--consensus-anchor-extra-mode",
+        choices=["near_tie", "blend"],
+        default="blend",
+        help="--consensus-anchor-extra-position mechanism: blend (default) or near_tie.",
+    )
+    parser.add_argument(
+        "--consensus-anchor-extra-weight",
+        type=float,
+        default=0.5,
+        help="Blend weight for --consensus-anchor-extra-mode blend (default 0.5; ignored for near_tie).",
     )
     parser.add_argument(
         "--wind-adjust",
@@ -1590,12 +1664,26 @@ def main():
         args.no_sleeper_anchor,
     )
 
+    # --no-sleeper-anchor kills the whole Sleeper-anchor family, including
+    # the extra slot (see .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md).
+    eff_consensus_anchor_extra_position = (
+        args.consensus_anchor_extra_position
+        if eff_consensus_anchor_src
+        else None
+    )
+
     consensus_anchor_label = (
         f" | Consensus Anchor: ON (src={eff_consensus_anchor_src}, "
         f"pos={eff_consensus_anchor_position}, mode={eff_consensus_anchor_mode}, "
         f"weight={eff_consensus_anchor_weight})"
         if eff_consensus_anchor_src
         else " | Consensus Anchor: OFF (--no-sleeper-anchor)"
+    )
+    consensus_anchor_extra_label = (
+        f" | Consensus Anchor Extra: ON (pos={eff_consensus_anchor_extra_position}, "
+        f"mode={args.consensus_anchor_extra_mode}, weight={args.consensus_anchor_extra_weight})"
+        if eff_consensus_anchor_extra_position
+        else ""
     )
     wind_adjust_label = (
         f" | Wind Adjust: ON (shrink={args.wind_adjust_shrink})"
@@ -1604,7 +1692,7 @@ def main():
     )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{ecr_anchor_label}{consensus_anchor_label}{wind_adjust_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{ecr_anchor_label}{consensus_anchor_label}{consensus_anchor_extra_label}{wind_adjust_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1646,6 +1734,9 @@ def main():
         consensus_anchor_position=eff_consensus_anchor_position,
         consensus_anchor_mode=eff_consensus_anchor_mode,
         consensus_anchor_weight=eff_consensus_anchor_weight,
+        consensus_anchor_extra_position=eff_consensus_anchor_extra_position,
+        consensus_anchor_extra_mode=args.consensus_anchor_extra_mode,
+        consensus_anchor_extra_weight=args.consensus_anchor_extra_weight,
         wind_adjust=args.wind_adjust,
         wind_adjust_shrink=args.wind_adjust_shrink,
     )
@@ -1674,10 +1765,15 @@ def main():
         if eff_consensus_anchor_src
         else "_nosleeperanchor"
     )
+    consensus_anchor_extra_tag = (
+        f"_consanchorextra{eff_consensus_anchor_extra_position}{args.consensus_anchor_extra_mode}"
+        if eff_consensus_anchor_extra_position
+        else ""
+    )
     wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{consensus_anchor_tag}{wind_adjust_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{consensus_anchor_tag}{consensus_anchor_extra_tag}{wind_adjust_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
