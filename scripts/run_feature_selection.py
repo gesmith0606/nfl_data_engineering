@@ -92,6 +92,15 @@ def find_optimal_feature_count(
     # Extract early_stopping_rounds for fit() call
     early_stopping_rounds = params.pop("early_stopping_rounds", 50)
 
+    # Params used for the per-fold select_features_for_fold call below. Previously
+    # this was hardcoded to CONSERVATIVE_PARAMS.copy() regardless of the `params`
+    # argument passed in, silently ignoring any override (e.g. random_state) --
+    # reconstructed here from `params` so a seed override actually reaches feature
+    # selection. Default (params=None) reproduces CONSERVATIVE_PARAMS.copy() byte-
+    # for-byte, so existing callers are unaffected (.planning/
+    # ENSEMBLE_SELECTION_REPRODUCIBILITY.md H1).
+    fold_selection_params = {**params, "early_stopping_rounds": early_stopping_rounds}
+
     cv_results: Dict[int, float] = {}
 
     for count in candidate_counts:
@@ -115,7 +124,7 @@ def find_optimal_feature_count(
                 target_col,
                 target_count=count,
                 correlation_threshold=correlation_threshold,
-                params=CONSERVATIVE_PARAMS.copy(),
+                params=fold_selection_params,
             )
 
             selected = result.selected_features
@@ -195,6 +204,7 @@ def save_metadata(
     result: FeatureSelectionResult,
     cutoff_results: Dict[int, float],
     output_dir: Optional[str] = None,
+    seed: Optional[int] = None,
 ) -> str:
     """Save feature selection metadata to JSON.
 
@@ -235,6 +245,7 @@ def save_metadata(
         "n_after_correlation": result.n_after_correlation,
         "n_selected": result.n_selected,
         "fold_seasons": result.fold_seasons,
+        "seed": seed if seed is not None else 42,
         "timestamp": datetime.utcnow().isoformat() + "Z",
     }
 
@@ -351,6 +362,20 @@ def main(argv=None):
             "dedicated evidence dir to avoid colliding with concurrent runs."
         ),
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help=(
+            "Override the random_state/random_seed used throughout the CV-search "
+            "(train_test_split for early-stopping eval, SHAP subsample, and the "
+            "XGBoost models themselves) for both the per-fold cutoff search and "
+            "the final selection. Default (omitted) leaves CONSERVATIVE_PARAMS's "
+            "random_state=42 untouched -- byte-for-byte identical to prior "
+            "behavior. Used to test selection-procedure seed variance -- see "
+            ".planning/ENSEMBLE_SELECTION_REPRODUCIBILITY.md H1."
+        ),
+    )
     args = parser.parse_args(argv)
 
     # Map target name to column
@@ -376,6 +401,14 @@ def main(argv=None):
     all_data = all_data[all_data["season"] < HOLDOUT_SEASON].copy()
     logger.info("Training data: %d games after holdout exclusion", len(all_data))
 
+    # Optional seed override -- default (None) leaves CONSERVATIVE_PARAMS's
+    # random_state=42 untouched, byte-for-byte identical to prior behavior.
+    seed_params = None
+    if args.seed is not None:
+        seed_params = CONSERVATIVE_PARAMS.copy()
+        seed_params["random_state"] = args.seed
+        logger.info("Seed override active: random_state=%d", args.seed)
+
     # Step 1: Find optimal feature count via CV
     logger.info("Starting CV-validated cutoff search with counts: %s", args.counts)
     best_count, cv_results = find_optimal_feature_count(
@@ -384,6 +417,7 @@ def main(argv=None):
         target_col,
         candidate_counts=args.counts,
         correlation_threshold=args.correlation_threshold,
+        params=seed_params,
     )
 
     # Step 2: Run final selection on all training data
@@ -394,10 +428,13 @@ def main(argv=None):
         target_col,
         optimal_count=best_count,
         correlation_threshold=args.correlation_threshold,
+        params=seed_params,
     )
 
     # Step 3: Save metadata
-    metadata_path = save_metadata(result, cv_results, output_dir=args.output_dir)
+    metadata_path = save_metadata(
+        result, cv_results, output_dir=args.output_dir, seed=args.seed
+    )
 
     # Step 4: Update config.py unless dry-run
     if not args.dry_run:
