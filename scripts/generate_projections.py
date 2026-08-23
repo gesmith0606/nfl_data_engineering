@@ -47,6 +47,9 @@ from kicker_analytics import (  # noqa: E402
 from kicker_projection import generate_kicker_projections  # noqa: E402
 from scoring_calculator import list_scoring_formats  # noqa: E402
 from utils import download_latest_parquet  # noqa: E402
+from sleeper_consensus_anchor import (  # noqa: E402
+    SUPPORTED_POSITIONS as SUPPORTED_CONSENSUS_ANCHOR_POSITIONS,
+)
 import config  # noqa: E402
 
 
@@ -496,6 +499,39 @@ def main():
         help="Blend weight for --ecr-anchor-mode blend (default 0.3; ignored for near_tie).",
     )
     parser.add_argument(
+        "--consensus-anchor-src",
+        choices=["sleeper"],
+        default=None,
+        help=(
+            "Weekly mode only: blend/nudge a position's ordering toward "
+            "historical Sleeper weekly consensus projections (a second, "
+            "independent consensus source vs --ecr-anchor's FantasyPros "
+            "ECR). Lever from .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md — "
+            "OPT-IN and provisional until the pre-registered backtest gate "
+            "passes. NOTE: this same Sleeper Bronze data is also our own "
+            "grading benchmark elsewhere in the repo — see the gate doc's "
+            "grading-circularity note before interpreting any live output."
+        ),
+    )
+    parser.add_argument(
+        "--consensus-anchor-position",
+        choices=list(SUPPORTED_CONSENSUS_ANCHOR_POSITIONS),
+        default="WR",
+        help="Position pool to anchor (default WR, the pre-registered primary).",
+    )
+    parser.add_argument(
+        "--consensus-anchor-mode",
+        choices=["near_tie", "blend"],
+        default="near_tie",
+        help="--consensus-anchor-src mechanism: near_tie (default) or blend.",
+    )
+    parser.add_argument(
+        "--consensus-anchor-weight",
+        type=float,
+        default=0.3,
+        help="Blend weight for --consensus-anchor-mode blend (default 0.3; ignored for near_tie).",
+    )
+    parser.add_argument(
         "--wind-adjust",
         action="store_true",
         default=False,
@@ -591,6 +627,11 @@ def main():
             print(
                 "Note: --ecr-anchor has no effect in --preseason mode "
                 "(it needs a weekly ECR snapshot)"
+            )
+        if args.consensus_anchor_src:
+            print(
+                "Note: --consensus-anchor-src has no effect in --preseason "
+                "mode (it needs a weekly Sleeper snapshot)"
             )
     else:
         print(f"Mode: Weekly Projections (Week {args.week})")
@@ -1544,6 +1585,50 @@ def main():
                 f"{ecr_stats['n_thursday_excluded']} Thursday/unresolved-excluded), "
                 f"{ecr_flagged} row(s) nudged; total projected points "
                 f"{before_total:.1f} -> {after_total:.1f}"
+            )
+
+        # --- Historical-Sleeper weekly consensus anchor (opt-in via
+        # --consensus-anchor-src sleeper) ---
+        # Hypothesis from .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md: a
+        # second, independent weekly consensus source (Sleeper's own
+        # historical projections, full population vs ECR's top-60ish),
+        # blended/nudged into the target position's ordering. Applied after
+        # the ECR anchor (mirrors ordering — role/usage/ordering
+        # corrections grouped together, before the wind adjust). PRODUCTION
+        # NOTE: this Sleeper Bronze data is also our own grading benchmark
+        # elsewhere in the repo (weekly_grading_report.py, the website's
+        # consensus comparison) — see the gate doc's grading-circularity
+        # note before drawing any "we beat Sleeper" conclusion from a run
+        # with this flag on.
+        if args.consensus_anchor_src == "sleeper" and not projections.empty:
+            from sleeper_consensus_anchor import (  # noqa: E402
+                apply_consensus_anchor,
+                build_sleeper_lookup,
+            )
+
+            before_total = float(projections["projected_points"].sum())
+            sleeper_lookup, sleeper_stats = build_sleeper_lookup(
+                projections,
+                args.season,
+                args.week,
+                args.consensus_anchor_position,
+            )
+            projections = apply_consensus_anchor(
+                projections,
+                sleeper_lookup,
+                position=args.consensus_anchor_position,
+                mode=args.consensus_anchor_mode,
+                weight=args.consensus_anchor_weight,
+            )
+            after_total = float(projections["projected_points"].sum())
+            sleeper_flagged = int(projections["sleeper_anchor_flag"].sum())
+            print(
+                f"Sleeper consensus anchor ({args.consensus_anchor_position}, "
+                f"{args.consensus_anchor_mode}): {sleeper_stats['n_final_matched']} "
+                f"matched (of {sleeper_stats['n_proj_pos_rows']} "
+                f"{args.consensus_anchor_position} rows), {sleeper_flagged} "
+                f"row(s) nudged; total projected points {before_total:.1f} -> "
+                f"{after_total:.1f}"
             )
 
         # --- High-wind QB/WR/TE bias shrink (opt-in via --wind-adjust) ---

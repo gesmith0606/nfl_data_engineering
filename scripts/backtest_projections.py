@@ -49,6 +49,11 @@ from qb_starter_floor import apply_qb_starter_floor
 from rb_tail_calibration import apply_rb_tail_calibration
 from wr_tiebreak import apply_wr_tiebreak
 from ecr_anchor import apply_ecr_anchor, build_ecr_lookup
+from sleeper_consensus_anchor import (
+    SUPPORTED_POSITIONS as SUPPORTED_CONSENSUS_ANCHOR_POSITIONS,
+    apply_consensus_anchor,
+    build_sleeper_lookup,
+)
 from wind_adjust import apply_wind_adjust
 
 try:
@@ -531,6 +536,10 @@ def run_backtest(
     ecr_anchor: bool = False,
     ecr_anchor_mode: str = "near_tie",
     ecr_anchor_weight: float = 0.3,
+    consensus_anchor_src: Optional[str] = None,
+    consensus_anchor_position: str = "WR",
+    consensus_anchor_mode: str = "near_tie",
+    consensus_anchor_weight: float = 0.3,
     wind_adjust: bool = False,
     wind_adjust_shrink: float = 0.0539,
 ) -> pd.DataFrame:
@@ -594,6 +603,19 @@ def run_backtest(
             — pre-registered gate verdict: HOLD, fit direction doesn't
             replicate on sealed 2025). Mirrors
             ``generate_projections.py --wind-adjust``.
+        consensus_anchor_src: Apply the historical-Sleeper weekly consensus
+            anchor lever (see ``src/sleeper_consensus_anchor.py`` and
+            ``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md``). Currently only
+            ``"sleeper"`` is implemented; ``None``/falsy disables the lever.
+            Mirrors ``generate_projections.py --consensus-anchor-src``.
+        consensus_anchor_position: Position pool to anchor (default
+            ``"WR"``, the pre-registered primary; ``QB``/``RB``/``TE`` are
+            exploratory secondaries).
+        consensus_anchor_mode: ``"blend"`` (mechanism a, rank-blend) or
+            ``"near_tie"`` (mechanism b, default).
+        consensus_anchor_weight: Blend weight for
+            ``consensus_anchor_mode="blend"`` (grid-tuned on 2022-2024, see
+            the gate doc; ignored for ``"near_tie"``).
         wind_adjust_shrink: Multiplicative shrink for high-wind QB/WR/TE
             rows (default :data:`wind_adjust.HIGH_WIND_SHRINK`).
     """
@@ -1060,6 +1082,25 @@ def run_backtest(
                     weight=ecr_anchor_weight,
                 )
 
+            # Apply the historical-Sleeper weekly consensus anchor (opt-in,
+            # independent second consensus source vs the FP-ECR anchor
+            # above). Mirrors generate_projections.py ordering — after the
+            # ECR anchor, before wind adjust. No Thursday-exclusion needed
+            # (Sleeper's historical endpoint verified point-in-time/pre-game
+            # — see .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md gate-0 check)
+            # and no training/fitting step, same rationale as --ecr-anchor.
+            if consensus_anchor_src == "sleeper":
+                sleeper_lookup, _sleeper_stats = build_sleeper_lookup(
+                    projections, season, week, consensus_anchor_position
+                )
+                projections = apply_consensus_anchor(
+                    projections,
+                    sleeper_lookup,
+                    position=consensus_anchor_position,
+                    mode=consensus_anchor_mode,
+                    weight=consensus_anchor_weight,
+                )
+
             # Apply the high-wind QB/WR/TE bias shrink. Mirrors
             # generate_projections.py ordering — after the WR tiebreak,
             # before ranking-score nudges. Backtest seasons are always in
@@ -1406,6 +1447,35 @@ def main():
         help="Blend weight for --ecr-anchor-mode blend (default 0.3; ignored for near_tie).",
     )
     parser.add_argument(
+        "--consensus-anchor-src",
+        choices=["sleeper"],
+        default=None,
+        help=(
+            "Apply the historical-Sleeper weekly consensus anchor lever "
+            "(mirrors generate_projections.py --consensus-anchor-src). "
+            "Evaluates the hypothesis from "
+            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md."
+        ),
+    )
+    parser.add_argument(
+        "--consensus-anchor-position",
+        choices=list(SUPPORTED_CONSENSUS_ANCHOR_POSITIONS),
+        default="WR",
+        help="Position pool to anchor (default WR, the pre-registered primary).",
+    )
+    parser.add_argument(
+        "--consensus-anchor-mode",
+        choices=["near_tie", "blend"],
+        default="near_tie",
+        help="--consensus-anchor-src mechanism: near_tie (default) or blend.",
+    )
+    parser.add_argument(
+        "--consensus-anchor-weight",
+        type=float,
+        default=0.3,
+        help="Blend weight for --consensus-anchor-mode blend (default 0.3; ignored for near_tie).",
+    )
+    parser.add_argument(
         "--wind-adjust",
         action="store_true",
         help=(
@@ -1459,6 +1529,13 @@ def main():
         if args.ecr_anchor
         else ""
     )
+    consensus_anchor_label = (
+        f" | Consensus Anchor: ON (src={args.consensus_anchor_src}, "
+        f"pos={args.consensus_anchor_position}, mode={args.consensus_anchor_mode}, "
+        f"weight={args.consensus_anchor_weight})"
+        if args.consensus_anchor_src
+        else ""
+    )
     wind_adjust_label = (
         f" | Wind Adjust: ON (shrink={args.wind_adjust_shrink})"
         if args.wind_adjust
@@ -1466,7 +1543,7 @@ def main():
     )
     print(
         f"Seasons: {seasons} | Scoring: {args.scoring.upper()} | Mode: {mode}"
-        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{ecr_anchor_label}{wind_adjust_label}"
+        f"{constrain_label}{features_label}{consensus_label}{prior_label}{adp_prior_label}{qb_floor_label}{rb_tail_label}{wr_tiebreak_label}{ecr_anchor_label}{consensus_anchor_label}{wind_adjust_label}"
     )
     if args.ml and not HAS_ML_ROUTER:
         print(
@@ -1504,6 +1581,10 @@ def main():
         ecr_anchor=args.ecr_anchor,
         ecr_anchor_mode=args.ecr_anchor_mode,
         ecr_anchor_weight=args.ecr_anchor_weight,
+        consensus_anchor_src=args.consensus_anchor_src,
+        consensus_anchor_position=args.consensus_anchor_position,
+        consensus_anchor_mode=args.consensus_anchor_mode,
+        consensus_anchor_weight=args.consensus_anchor_weight,
         wind_adjust=args.wind_adjust,
         wind_adjust_shrink=args.wind_adjust_shrink,
     )
@@ -1527,10 +1608,15 @@ def main():
     rb_tail_tag = "_rbtailcalibration" if args.rb_tail_calibration else ""
     wr_tiebreak_tag = "_wrtiebreak" if args.wr_tiebreak else ""
     ecr_anchor_tag = f"_ecranchor{args.ecr_anchor_mode}" if args.ecr_anchor else ""
+    consensus_anchor_tag = (
+        f"_consanchor{args.consensus_anchor_src}{args.consensus_anchor_position}{args.consensus_anchor_mode}"
+        if args.consensus_anchor_src
+        else ""
+    )
     wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{wind_adjust_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{consensus_anchor_tag}{wind_adjust_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")
