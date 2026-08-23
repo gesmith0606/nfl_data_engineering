@@ -292,3 +292,217 @@ confirms no regression).
 - Confound-isolation control script kept outside the repo per the 08-16
   precedent (not an authorized artifact dir): `scratchpad/
   run_control_reselect.py` → `scratchpad/control_reselect_noep/`.
+
+## Addendum (2026-08-22) — Full `run_feature_selection.py` CV-search retrain
+
+Per the 08-21 verdict's own recommendation ("run the full CV-cutoff-search
+procedure with the 27 EP candidates unioned into its pool before promoting"),
+this addendum runs that heavier, production-grade procedure and reports
+whether it beats the shipped model — **verdict: it does not.**
+
+### 0. Machinery changes (additive only, per file-ownership scope)
+
+`scripts/run_feature_selection.py` had no way to include the EP candidate
+pool at all (only `scripts/train_ensemble.py` had `--include-ep-features`).
+Added two additive CLI flags, mirroring existing patterns:
+
+- `--include-ep-features` — threads through to `assemble_multiyear_features`
+  exactly like `train_ensemble.py`'s flag of the same name; default `False`
+  leaves all existing behavior byte-for-byte unchanged.
+- `--output-dir` — lets the CV-search write its `metadata.json` to a
+  dedicated evidence directory instead of the shared default
+  `models/feature_selection/`, avoiding collisions with concurrent agents.
+
+`scripts/train_ensemble.py` gained `--skip-reselect`: when
+`--include-player-features`/`--include-ep-features` is set together with
+`--features-from`, the script previously *always* re-ran the quick
+single-shot `select_features_for_fold` reselection on top of whatever list
+`--features-from` pointed to — exactly the confound this addendum exists to
+remove. `--skip-reselect` bypasses that reselection and trusts the
+`--features-from` list as-is (while still assembling the new feature columns
+into the data so those names resolve). Default behavior for existing
+callers (the 08-16/08-21 quick-reselect gates) is unchanged.
+
+`--dry-run` was used throughout to avoid writing `SELECTED_FEATURES` into
+the shared `src/config.py` (multiple concurrent agents rely on its current
+`None` value; the shipped ensemble already reads its own feature list from
+`models/ensemble/metadata.json` via `--features-from`, not from
+`SELECTED_FEATURES`). `tests/test_ensemble_training.py` +
+`tests/test_feature_selector.py` + `tests/test_feature_engineering.py`:
+91/91 passing after these changes (no regressions).
+
+### 1. Full CV-search run (EP candidates included)
+
+`python scripts/run_feature_selection.py --target spread --include-ep-features
+--dry-run --output-dir models/ensemble_epfeat_full_2026_08_22/feature_selection`
+— walk-forward CV over `VALIDATION_SEASONS` (2019-2024, matching the original
+120-feature selection's scheme exactly, per `29-02-SUMMARY.md`), candidate
+counts [60, 80, 100, 120, 150], correlation threshold 0.90 (all defaults,
+unchanged from the original procedure).
+
+- Candidate pool: 343 (up from the no-EP pool's 316 — the 27 new EP
+  candidates, minus a few already present from other concurrent feature
+  work landing since 08-21).
+- CV MAE by count: 60→10.0850, 80→10.1070, 100→10.0811, **120→10.0756
+  (best)**, 150→10.1411. **Optimal count came out to 120 — identical to the
+  shipped model's own count** (not a coincidence-free result; see the
+  no-EP control below, which came out different).
+- Final selection on all training data (2016-2024): 343 → 231 (correlation
+  filter, 108 dropped) → 120 selected (111 more dropped by rank).
+- **9 of 27 EP candidates survived** (33% hit rate — identical hit rate to
+  both the 08-16 attempt and the 08-21 quick-reselect gate):
+
+| EP feature (selected) | SHAP rank (of 120) |
+|---|---:|
+| `diff_ep_team_fp_over_expected_roll3` | 13 |
+| `diff_ep_team_opportunity_hhi_std` | 15 |
+| `diff_ep_team_exp_fp_total_std` | 18 |
+| `diff_ep_team_td_over_expected_std` | 25 |
+| `diff_ep_team_rush_share_hhi_roll6` | 40 |
+| `diff_ep_team_opportunity_hhi_roll3` | 55 |
+| `diff_ep_team_exp_pass_fp_roll6` | 81 |
+| `diff_ep_team_fp_over_expected_roll6` | 97 |
+| `diff_ep_team_td_over_expected_roll3` | 101 |
+
+Not selected (18 of 27): all `exp_rec_fp` variants (correlation-dropped
+against `exp_pass_fp`), `exp_rush_fp` variants, most `exp_total_tds` raw
+candidates, `rush_share_hhi_roll3`/`_std`, `td_over_expected_roll6` — same
+qualitative pattern (regression-to-expectation and opportunity-concentration
+groups survive; raw expected-volume composites mostly get correlation-
+filtered against denser composites) as both prior gates.
+
+### 2. Ensemble training on the full-procedure selection
+
+`python scripts/train_ensemble.py --include-ep-features --features-from
+models/ensemble_epfeat_full_2026_08_22/feature_selection/metadata.json
+--skip-reselect --ensemble-dir models/ensemble_epfeat_full_2026_08_22` — 120
+features, 2639 games, 28.7s. Artifacts saved to
+`models/ensemble_epfeat_full_2026_08_22/` (spread + total XGB/LGB/CB/Ridge,
+calibrators, `oof_spread.parquet`/`oof_total.parquet`, `metadata.json`,
+`feature_selection/metadata.json`).
+
+### 3. Evaluation — OOF + sealed-2025, full-procedure EP-included vs shipped
+
+Evaluation script kept in scratchpad per the 08-16/08-21 precedent (not an
+authorized artifact dir): joins `oof_spread.parquet`'s `meta_oof_pred`
+against real `spread_line`/`actual_margin` for OOF ATS, and runs
+`predict_ensemble` on freshly assembled sealed-2025 features (with
+`include_ep_features=True`) for the sealed holdout. **Methodology verified
+exact**: re-running this same script against the shipped `models/ensemble/`
+reproduces its recorded numbers bit-for-bit (OOF 52.92% / +16.09u, sealed
+51.66% / -3.73u — identical to `ENSEMBLE_PLAYER_FEATURES_2026_08_16.md`'s
+own shipped-baseline figures), ruling out a data-vintage or methodology
+confound.
+
+| Metric | Shipped (120, original selection) | Full-procedure + EP (120, this run) |
+|---|---:|---:|
+| OOF Spread ATS | 52.92% (n=1557) | **53.89%** |
+| OOF Spread profit | +16.09u | **+44.73u** |
+| Sealed-2025 Spread ATS | 51.66% (n=271 bet) | **48.71%** (n=271 bet) |
+| Sealed-2025 Spread profit | -3.73u | **-19.00u** |
+
+**vs. shipped: OOF improves +0.97pt, but sealed-2025 falls -2.95pt.** OOF
+and sealed disagree in sign — the exact disqualifying condition from this
+doc's own pre-registered decision rule (§ "Gate protocol", carried over from
+the 08-16 HOLD's failure mode).
+
+### 4. No-EP full-procedure control (cheap, run to isolate attribution)
+
+To check whether the sealed-holdout drop is EP-specific or a property of
+re-running the full CV-search procedure itself on today's data/candidate
+pool, ran the identical procedure with `--include-ep-features` omitted
+(kept outside the repo's authorized artifact dirs, per precedent:
+`scratchpad/control_fullprocedure_noep/`):
+
+- Candidate pool 316 (no EP). CV search picked **optimal count = 60** — a
+  *different* count than both the shipped model (120) and the EP-included
+  full-procedure run (120) — the CV-cutoff search is not stably reproducing
+  120 without the EP candidates in the pool, on today's data.
+- OOF ATS 53.89% (n=1557) / profit +44.73u — numerically identical in
+  aggregate to the EP-included run at 4-decimal precision, though only
+  83.5% of individual game picks agree between the two (264/1599 differ;
+  the aggregate tie is coincidental cancellation, verified game-by-game).
+- **Sealed-2025 ATS 46.86%** (n=271 bet) / profit -28.55u — *worse* than
+  the EP-included full-procedure run (48.71%) and far worse than shipped
+  (51.66%).
+
+**Isolated EP effect within the full procedure** (treated − control):
+OOF ≈ +0.00pt (a wash — 53.8857% both), **sealed +1.85pt** (48.71% vs
+46.86%). The EP features' isolated sealed-holdout effect is still
+*positive* here, consistent in direction with both the 08-21 quick-reselect
+isolation (+0.74pt) and, more weakly, the 08-16-style logic — but the
+magnitude of the *procedure-level* problem swamps it: **both full-procedure
+variants underperform shipped's sealed ATS by a wide margin (-2.95pt with
+EP, -4.80pt without)**. Re-running the "more rigorous" CV-search procedure
+on today's data does not reproduce anything close to the shipped model's
+forward performance, with or without EP features — the opposite of what
+the 08-21 doc hoped to confirm.
+
+### 5. Gate check (against the pre-registered decision rule)
+
+- Isolated OOF ATS improves ≥+0.5pt vs control? Not meaningfully — the
+  full-procedure isolated OOF delta is ≈0.00pt (both arms landed at
+  53.8857%), so this bar is not even reached on OOF in the full-procedure
+  frame (contrast with the quick-reselect isolation's +0.51pt).
+  Full-procedure vs *shipped* on OOF is +0.97pt, but that comparison
+  conflates the EP effect with the reselection-procedure's own (large,
+  negative-on-sealed) effect.
+- **OOF and sealed disagree in sign (full-procedure + EP vs. shipped): Yes
+  — the disqualifying condition triggers.** (+0.97pt OOF, -2.95pt sealed.)
+- Does the EP-included full-procedure model beat the shipped model's sealed
+  ATS? **No — 48.71% vs 51.66%, a 2.95pt decline.**
+
+**Verdict: DO-NOT-PROMOTE.** The full `run_feature_selection.py` CV-search
+retrain, run exactly per the 08-21 recommendation with the 27 EP candidates
+unioned into its pool, does **not** beat the shipped model's sealed-2025
+ATS — it falls 2.95pt short, and OOF/sealed disagree in sign, the same
+disqualifying failure mode that killed the 08-16 attempt. The no-EP control
+shows this is **not primarily an EP-feature problem**: the full CV-search
+procedure itself, re-run on today's (larger, more evolved) candidate pool
+and data, produces a sealed-holdout result 4.80pt worse than shipped even
+with *zero* new features. The EP features' own isolated effect remains
+mildly positive on sealed (+1.85pt) and roughly neutral on OOF, consistent
+in direction with the 08-21 isolation test — but they are not the cause of,
+nor a fix for, the larger procedure-reproduction problem this addendum
+surfaces.
+
+`models/ensemble/` (shipped) is confirmed untouched this session (`git
+status --short models/ensemble/` and `git diff --stat models/ensemble/`
+both empty). **Flipping `models/ensemble/` to any variant produced in this
+addendum is explicitly a USER decision, and given the numbers above, the
+recommendation is not to do so.** `models/ensemble_epfeat_full_2026_08_22/`
+(full CV-search selection metadata + trained ensemble artifacts + OOF
+parquet files + `eval_results.json`) is kept on disk as evidence, not
+promoted. The no-EP full-procedure control's artifacts live outside the
+repo's authorized artifact dirs in `scratchpad/control_fullprocedure_noep/`
+per the established precedent (not committed).
+
+A follow-up worth flagging for the user separately from this experiment's
+scope: the finding in §4 that a same-procedure, same-defaults rerun of
+`run_feature_selection.py` today reproduces neither the shipped model's
+feature count nor its sealed performance suggests the CV-cutoff-search
+procedure itself may be more fragile to candidate-pool/data-vintage drift
+than assumed — worth its own investigation independent of the EP-features
+question.
+
+### 6. Tests
+
+`tests/test_ensemble_training.py` + `tests/test_feature_selector.py` +
+`tests/test_feature_engineering.py`: 91/91 passing (no regressions from the
+additive `--include-ep-features`/`--output-dir`/`--skip-reselect` CLI
+flags).
+
+### 7. Files touched (this addendum)
+
+- `scripts/run_feature_selection.py` — `--include-ep-features`,
+  `--output-dir` CLI flags (additive, default-off/default-path preserves
+  existing behavior).
+- `scripts/train_ensemble.py` — `--skip-reselect` CLI flag (additive,
+  default-off preserves existing quick-reselect behavior for prior gates).
+- `models/ensemble_epfeat_full_2026_08_22/` — new evidence dir (full
+  CV-search selection + trained ensemble, not promoted).
+  `models/ensemble/` (shipped) untouched.
+- `.planning/ENSEMBLE_EP_FEATURES_GATE.md` — this addendum.
+- Evaluation + no-EP control scripts/artifacts kept outside authorized
+  artifact dirs per precedent: `scratchpad/eval_epfeat_full.py`,
+  `scratchpad/control_fullprocedure_noep/`.

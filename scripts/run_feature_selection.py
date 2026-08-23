@@ -327,6 +327,30 @@ def main(argv=None):
         action="store_true",
         help="Find optimal count but don't update config.py",
     )
+    parser.add_argument(
+        "--include-ep-features",
+        action="store_true",
+        help=(
+            "Assemble ffopportunity expected-points team-aggregate candidate "
+            "features into the candidate pool before running the CV-cutoff "
+            "search (opt-in; default off leaves the shipped candidate pool "
+            "byte-for-byte unchanged -- see .planning/ENSEMBLE_EP_FEATURES_"
+            "GATE.md). Mirrors scripts/train_ensemble.py's flag of the same "
+            "name, but here the new candidates go through the full "
+            "CV-cutoff-search procedure below rather than a single-shot "
+            "reselection."
+        ),
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default=None,
+        help=(
+            "Directory for metadata.json output (default: "
+            f"{os.path.join(MODEL_DIR, 'feature_selection')}). Use a "
+            "dedicated evidence dir to avoid colliding with concurrent runs."
+        ),
+    )
     args = parser.parse_args(argv)
 
     # Map target name to column
@@ -334,7 +358,9 @@ def main(argv=None):
 
     # Load and prepare data
     logger.info("Loading multi-year features for seasons %s", TRAINING_SEASONS)
-    all_data = assemble_multiyear_features(TRAINING_SEASONS)
+    all_data = assemble_multiyear_features(
+        TRAINING_SEASONS, include_ep_features=args.include_ep_features
+    )
 
     if all_data.empty:
         logger.error(
@@ -371,7 +397,7 @@ def main(argv=None):
     )
 
     # Step 3: Save metadata
-    metadata_path = save_metadata(result, cv_results)
+    metadata_path = save_metadata(result, cv_results, output_dir=args.output_dir)
 
     # Step 4: Update config.py unless dry-run
     if not args.dry_run:

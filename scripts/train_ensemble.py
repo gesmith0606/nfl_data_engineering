@@ -107,6 +107,23 @@ def build_parser() -> argparse.ArgumentParser:
             "at the same target count."
         ),
     )
+    parser.add_argument(
+        "--skip-reselect",
+        action="store_true",
+        help=(
+            "Skip the single-shot reselection step normally triggered by "
+            "--include-player-features/--include-ep-features, and instead "
+            "use the --features-from (or SELECTED_FEATURES/full-pool) list "
+            "exactly as given. Use this when that list already came from a "
+            "full scripts/run_feature_selection.py CV-cutoff-search run over "
+            "a candidate pool that includes the new features -- re-running "
+            "the quick reselect on top would reintroduce the reselection-"
+            "procedure-noise confound documented in .planning/"
+            "ENSEMBLE_EP_FEATURES_GATE.md section 4. Still assembles the "
+            "new feature columns into the data (via the include-*-features "
+            "flags) so the given feature list resolves against real data."
+        ),
+    )
     return parser
 
 
@@ -345,7 +362,7 @@ def main(argv: list = None) -> int:
     # SHAP + correlation selection (mirrors run_final_selection() in
     # scripts/run_feature_selection.py) at the same target count, rather
     # than hand-picking which new features to keep.
-    if args.include_player_features or args.include_ep_features:
+    if (args.include_player_features or args.include_ep_features) and not args.skip_reselect:
         prior_pool = feature_cols
         full_pool = get_feature_columns(all_data)
         candidate_pool = sorted(set(prior_pool) | set(full_pool))
