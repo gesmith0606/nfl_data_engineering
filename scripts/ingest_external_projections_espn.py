@@ -59,6 +59,15 @@ import requests
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
+# src/ itself must also be on sys.path: src/scoring_calculator.py does a bare
+# `from config import SCORING_CONFIGS` (the repo-wide convention -- see
+# generate_projections.py, refresh_adp.py), which ModuleNotFoundErrors if
+# only the project root is on sys.path. Broken since 2026-07-11 (ca819f41
+# added the scoring_calculator import here); continue-on-error in the
+# workflow masked it as a warning instead of a hard failure.
+_SRC_DIR = _PROJECT_ROOT / "src"
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
 
 from src.player_name_resolver import PlayerNameResolver  # noqa: E402
 from src.scoring_calculator import calculate_fantasy_points  # noqa: E402
