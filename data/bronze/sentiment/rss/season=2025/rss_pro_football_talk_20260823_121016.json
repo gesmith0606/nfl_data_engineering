@@ -1,0 +1,502 @@
+{
+  "fetch_run_id": "1b1269ca-d68b-46ed-a0c5-9b399449bb8f",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-23T12:10:16.083847+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-its-still-a-competition-between-andy-dalton-tanner-mckee-for-qb2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-its-still-a-competition-between-andy-dalton-tanner-mckee-for-qb2",
+      "title": "Nick Sirianni: \"It's still a competition\" between Andy Dalton, Tanner McKee for QB2",
+      "body_text": "As the Browns and Raiders work through their starting quarterbacks for Week 1, the Eagles are still trying to figure out their QB2.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T11:49:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Andy Dalton"
+      ],
+      "resolved_player_ids": [
+        "00-0027973"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-on-christian-gonzalez-each-side-is-trying-to-do-whats-right-for-them",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-on-christian-gonzalez-each-side-is-trying-to-do-whats-right-for-them",
+      "title": "Eliot Wolf on Christian Gonzalez: \"Each side is trying to do what's right for them\"",
+      "body_text": "When the Falcons signed running back Bijan Robinson to a new contract, the Lions and running back Jahmyr Gibbs used the Robinson deal as the template for quickly getting their own contract done.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T10:52:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eliot Wolf",
+        "Christian Gonzalez",
+        "Bijan Robinson",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039147",
+        "00-0038542",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-time-for-the-browns-and-deshaun-watson-to-go-their-separate-ways",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-time-for-the-browns-and-deshaun-watson-to-go-their-separate-ways",
+      "title": "It's time for the Browns and Deshaun Watson to go their separate ways",
+      "body_text": "After Saturday's game and press conference, it's impossible for the Browns to play Watson again.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T10:26:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "After Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stetson-bennett-iv-seems-to-be-ready-to-serve-as-matthew-staffords-understudy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stetson-bennett-iv-seems-to-be-ready-to-serve-as-matthew-staffords-understudy",
+      "title": "Stetson Bennett IV seems to be ready to serve as Matthew Stafford's understudy",
+      "body_text": "Two years ago, with Rams backup quarterback Jimmy Garoppolo due to miss the first two games of the regular season because of a PED suspension, the Rams weren't sure Stetson Bennett IV was ready to serve as the understudy to Matthew Stafford.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T09:43:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stetson Bennett IV",
+        "Matthew Stafford",
+        "Jimmy Garoppolo"
+      ],
+      "resolved_player_ids": [
+        "00-0039107",
+        "00-0026498",
+        "00-0031345"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lambs-house-was-burglarized-wile-the-cowboys-were-in-oxnard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lambs-house-was-burglarized-wile-the-cowboys-were-in-oxnard",
+      "title": "CeeDee Lamb's house was burglarized while the Cowboys were in Oxnard",
+      "body_text": "With the Cowboys spending training camp in Oxnard, some homes of the players were left unattended.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T03:12:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Oxnard With"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rookie-qb-behren-morton-fills-in-at-punter-then-throws-game-winning-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rookie-qb-behren-morton-fills-in-at-punter-then-throws-game-winning-td",
+      "title": "Patriots rookie QB Behren Morton fills in at punter, then throws game-winning TD",
+      "body_text": "As a rookie seventh-round draft pick, Patriots quarterback Behren Morton is no lock to make the 53-man roster.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-23T08:54:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Behren Morton"
+      ],
+      "resolved_player_ids": [
+        "00-0041123"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-makes-a-three-play-cameo-for-commanders-at-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-makes-a-three-play-cameo-for-commanders-at-lions",
+      "title": "Jayden Daniels makes a three-play cameo for Commanders at Lions",
+      "body_text": "Commanders quarterback Jayden Daniels made his preseason debut on Saturday.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T18:51:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Lions Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-didnt-appreciate-the-booing-of-deshaun-watson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shedeur-sanders-didnt-appreciate-the-booing-of-deshaun-watson",
+      "title": "Shedeur Sanders didn't appreciate the booing of Deshaun Watson",
+      "body_text": "There was a theory that quarterback Deshaun Watson got his preseason start last week because the game was not being played in Cleveland.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T23:31:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-ed-olivers-absence-is-related-to-an-injury-not-his-personal-tragedy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-ed-olivers-absence-is-related-to-an-injury-not-his-personal-tragedy",
+      "title": "Joe Brady: Ed Oliver's absence is related to an injury, not his personal tragedy",
+      "body_text": "The Bills and defensive tackle Ed Oliver had decided not to announce that Oliver's young son had died in late June.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T08:48:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Brady",
+        "Ed Oliver",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-closes-in-on-his-quarterback-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-closes-in-on-his-quarterback-decision",
+      "title": "Todd Monken closes in on his quarterback decision",
+      "body_text": "Sunday's review of Saturday's game film could lead to a winner.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T08:31:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-jaquinden-jackson-has-full-movement-ct-scan-was-negative",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-jaquinden-jackson-has-full-movement-ct-scan-was-negative",
+      "title": "Eagles RB Ja'Quinden Jackson has full movement, CT scan was negative",
+      "body_text": "Ja'Quinden Jackson's agent offered good news on the Eagles running back's health after a scary incident on the opening kickoff Saturday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-23T02:17:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinden Jackson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/harrison-butker-makes-a-69-yard-fg-on-final-play-of-first-half",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/harrison-butker-makes-a-69-yard-fg-on-final-play-of-first-half",
+      "title": "Harrison Butker makes a 69-yard FG on final play of first half",
+      "body_text": "Chiefs kicker Harrison Butker kicked a 69-yard field goal on the final play of the first half Saturday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-23T01:17:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Harrison Butker"
+      ],
+      "resolved_player_ids": [
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-is-very-very-sad-and-angry-with-how-news-of-ed-olivers-son-passing-emerged",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-is-very-very-sad-and-angry-with-how-news-of-ed-olivers-son-passing-emerged",
+      "title": "Josh Allen is \"very, very sad and angry\" with how news of Ed Oliver's son passing emerged",
+      "body_text": "The news came out on Friday before the Bills or the DL announced the death of Oliver's 2-year-old.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T00:03:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen",
+        "Ed Oliver"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-lb-nephi-sewell-carted-off-with-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-lb-nephi-sewell-carted-off-with-leg-injury",
+      "title": "Bears LB Nephi Sewell carted off with leg injury",
+      "body_text": "Bears linebacker Nephi Sewell was carted off the field during Saturday's preseason game against the Bengals.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-23T00:45:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nephi Sewell"
+      ],
+      "resolved_player_ids": [
+        "00-0037544"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-ot-marcus-bryant-out-with-an-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-ot-marcus-bryant-out-with-an-ankle-injury",
+      "title": "Patriots OT Marcus Bryant out with an ankle injury",
+      "body_text": "Patriots offensive tackle Marcus Bryant was injured on the fourth official play from scrimmage in Saturday night's preseason game against the Eagles.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T23:57:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcus Bryant"
+      ],
+      "resolved_player_ids": [
+        "00-0040226"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-coach-todd-monken-on-te-daequan-wright-entering-the-portal-isnt-this-shit-crazy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-coach-todd-monken-on-te-daequan-wright-entering-the-portal-isnt-this-shit-crazy",
+      "title": "Browns coach Todd Monken on TE Dae'Quan Wright entering the portal: \"Man, isn't this shit crazy?\"",
+      "body_text": "Browns coach Todd Monken has spent much of his career in the college ranks.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T23:43:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Quan Wright"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-jaquinden-jackson-leaves-in-an-ambulance-after-opening-kickoff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-jaquinden-jackson-leaves-in-an-ambulance-after-opening-kickoff",
+      "title": "Eagles RB Ja’Quinden Jackson leaves in an ambulance after opening kickoff",
+      "body_text": "Eagles running back Ja’Quinden Jackson left Gillette Stadium in an ambulance during Saturday night's preseason game.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T23:28:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinden Jackson",
+        "Gillette Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-im-just-looking-forward-to-helping-the-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-im-just-looking-forward-to-helping-the-team",
+      "title": "Anthony Richardson: I'm just looking forward to helping the team",
+      "body_text": "Anthony Richardson's future with the Colts has been debated often since he requested a trade this offseason and assistant General Manager Ed Dodds gave a strong hint about how things are going to play out last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T22:59:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson",
+        "General Manager",
+        "Ed Dodds"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rookie-wr-makai-lemon-remains-out-tonight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rookie-wr-makai-lemon-remains-out-tonight",
+      "title": "Eagles rookie WR Makai Lemon remains out tonight",
+      "body_text": "Rookie wide receiver Makai Lemon is among the Eagles players not suited up for tonight's preseason game against the Patriots, Jeff McLane of the Philadelphia Inquirer reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T22:55:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Makai Lemon",
+        "Philadelphia Inquirer"
+      ],
+      "resolved_player_ids": [
+        "00-0040867"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-cb-jaionte-mcmillan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-cb-jaionte-mcmillan",
+      "title": "Dolphins claim CB Jai'Onte' McMillan",
+      "body_text": "The Dolphins went to the waiver wire to add a cornerback on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T21:53:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-boos-are-a-disrespectful-thing-has-nothing-to-do-with-performance",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-boos-are-a-disrespectful-thing-has-nothing-to-do-with-performance",
+      "title": "Deshaun Watson: Boos are a disrespectful thing, has nothing to do with performance",
+      "body_text": "Watson was booed during his appearance in the third quarter of Saturday's home game.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T21:44:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-place-cb-chigozie-anusiem-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-place-cb-chigozie-anusiem-on-ir",
+      "title": "Raiders place CB Chigozie Anusiem on IR",
+      "body_text": "The Raiders placed cornerback Chigozie Anusiem on season-ending injured reserve Saturday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T21:34:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chigozie Anusiem",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039676"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-end-zone-misses-are-throws-i-have-to-make",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-end-zone-misses-are-throws-i-have-to-make",
+      "title": "J.J. McCarthy: End zone misses are throws I have to make",
+      "body_text": "Vikings quarterback J.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T21:24:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-will-keep-both-will-howard-drew-allar-on-the-53-player-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-will-keep-both-will-howard-drew-allar-on-the-53-player-roster",
+      "title": "Report: Steelers will keep both Will Howard, Drew Allar on the 53-player roster",
+      "body_text": "Mason Rudolph is the second-best quarterback on the Steelers' roster.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T21:22:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Howard",
+        "Drew Allar",
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0040203",
+        "00-0041565",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-cleared-for-all-football-activities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-cleared-for-all-football-activities",
+      "title": "Michael Penix cleared for all football activities",
+      "body_text": "Falcons quarterback Michael Penix has been limited in practice all summer, but that is set to change this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T21:07:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cleveland-fans-boo-deshaun-watson-as-he-struggles-in-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cleveland-fans-boo-deshaun-watson-as-he-struggles-in-return",
+      "title": "Cleveland fans boo Deshaun Watson as he struggles in return",
+      "body_text": "Watson struggled in front of a hostile home crowd.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-22T20:33:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-on-the-reception-hell-get-from-browns-fans-i-dont-care",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-on-the-reception-hell-get-from-browns-fans-i-dont-care",
+      "title": "Deshaun Watson on the reception he'll get from Browns fans: \"I don't care\"",
+      "body_text": "Watson, who is often booed in Cleveland, says it doesn't matter to him what he hears at Saturday's preseason home opener.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-20T08:17:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-acknowledge-recent-passing-of-ed-olivers-young-son",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-acknowledge-recent-passing-of-ed-olivers-young-son",
+      "title": "Bills acknowledge recent passing of Ed Oliver's young son",
+      "body_text": "At a time of increasing online chatter regarding a personal tragedy experienced recently by defensive tackle Ed Oliver, the Bills have issued a statement acknowledging the situation.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-22T18:59:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ed Oliver"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-announce-zay-jones-sterling-shepard-signings-place-k-c-ossai-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-announce-zay-jones-sterling-shepard-signings-place-k-c-ossai-on-ir",
+      "title": "Texans announce Zay Jones, Sterling Shepard signings; place K.C. Ossai on IR",
+      "body_text": "Wide receivers Zay Jones and Sterling Shepard are officially members of the Texans.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T18:53:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Jones",
+        "Sterling Shepard"
+      ],
+      "resolved_player_ids": [
+        "00-0033891",
+        "00-0032385"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-release-cb-nick-mccloud",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-release-cb-nick-mccloud",
+      "title": "Dolphins release CB Nick McCloud",
+      "body_text": "The Dolphins freed up a spot on their 90-man roster ahead of their preseason game against the Giants on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-22T18:45:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    }
+  ]
+}

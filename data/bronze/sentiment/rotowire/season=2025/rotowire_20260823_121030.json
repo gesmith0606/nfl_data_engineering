@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "406a2f91-ea17-477d-bac3-9fa08273e42d",
+  "source": "rotowire",
+  "fetched_at": "2026-08-23T12:10:30.461627+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634545",
+      "url": "https://www.rotowire.com//football/player/baker-mayfield-12619",
+      "permalink": "",
+      "title": "Baker Mayfield: Pair of completions on first two series",
+      "body_text": "Mayfield completed two of four passes for 10 yards with no touchdowns or interceptions in the Buccaneers' 16-15 preseason win over the Chiefs on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-22T08:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl634543",
+      "url": "https://www.rotowire.com//football/player/kenny-gainwell-15222",
+      "permalink": "",
+      "title": "Kenny Gainwell: One carry in team debut",
+      "body_text": "Gainwell rushed once for no gain in the Buccaneers' 16-15 preseason win over the Chiefs on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-22T08:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenny Gainwell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl634541",
+      "url": "https://www.rotowire.com//football/player/bucky-irving-17784",
+      "permalink": "",
+      "title": "Bucky Irving: Logs three carries in preseason debut",
+      "body_text": "Irving rushed three times for 14 yards in the Buccaneers' 16-15 preseason win over the Chiefs on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-22T07:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bucky Irving"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl634540",
+      "url": "https://www.rotowire.com//football/player/kenneth-walker-15909",
+      "permalink": "",
+      "title": "Kenneth Walker: Logs first touches as a Chief",
+      "body_text": "Walker rushed twice for four yards in the Chiefs' 16-15 preseason loss to the Buccaneers on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-22T07:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker",
+        "Chief Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl634538",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Big gain on one catch Saturday",
+      "body_text": "Odunze brought in one of two targets for 18 yards in the Bears' 27-9 preseason loss to the Bengals on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-22T07:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Saturday Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}
