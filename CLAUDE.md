@@ -38,6 +38,7 @@ python scripts/generate_projections.py --week 3 --season 2026 --qb-starter-floor
 python scripts/generate_projections.py --week 3 --season 2026 --rb-tail-calibration     # RB <8pt boost (snap-share-rising) + 14+pt shrink toward position mean (opt-in — HOLD verdict, 79% of gate bar, see RB_TAIL_CALIBRATION_GATE.md)
 python scripts/generate_projections.py --week 3 --season 2026 --wr-tiebreak             # WR near-tie (<=1.5pt) pairs nudged apart per trailing target-share slope (opt-in — HOLD verdict, 16% of gate bar, see WR_TIEBREAK_GATE.md)
 python scripts/generate_projections.py --week 3 --season 2026 --ecr-anchor              # WR ordering blended toward weekly FantasyPros ECR, Thursday-leak excluded (opt-in — HOLD verdict on the shuffle-test criterion despite primary gate clearing 4.4x; no-op vs 2026 live data until a forward ECR source is wired; see WR_ECR_ORDINAL_GATE.md)
+# Sleeper consensus anchor (WR, blend, weight=0.5) is ON by default in weekly mode; --no-sleeper-anchor disables it (SHIPPED 2026-08-22, see SLEEPER_CONSENSUS_ANCHOR_GATE.md)
 python scripts/bronze_season_props_ingestion.py                                          # DK+FanDuel season player futures snapshot incl. rookie milestone ladders (no key needed)
 python scripts/bronze_weekly_props_ingestion.py --days-ahead 8                           # DK+FanDuel weekly player props (pass/rush/rec yds+TDs, receptions, anytime TD), no key needed; --props-blend redundancy/cross-book source, see PROPS_DATA_PLAN.md Phase 2
 python scripts/generate_projections.py --preseason --season 2026 --season-props-blend   # Blend toward season-line implied points (opt-in)
@@ -66,7 +67,7 @@ python scripts/backtest_predictions.py --holdout    # Sealed 2024 holdout compar
 python scripts/ablation_market_features.py          # Market feature ablation on holdout
 
 # Fantasy backtesting & ADP
-python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr
+python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr  # default evaluation path includes the shipped Sleeper WR anchor; --no-sleeper-anchor evaluates the pre-ship baseline
 python scripts/refresh_adp.py --season 2026
 
 # Web API

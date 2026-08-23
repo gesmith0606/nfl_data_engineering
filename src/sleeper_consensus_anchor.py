@@ -86,11 +86,73 @@ EPSILON = 1.5
 #: unchanged from ``wr_tiebreak.NUDGE`` / ``ecr_anchor.NUDGE``.
 NUDGE = 0.5
 
+#: Shipped default configuration for the weekly WR consensus anchor —
+#: SHIP verdict 2026-08-22, user-approved (see
+#: ``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md`` Results section: pooled
+#: tuning primary gate -0.284 vs 0.05 bar, 2025 one-shot 106.4% retained,
+#: guards clean, shuffle-null p=0.0000). DEFAULT-ON in
+#: ``scripts/generate_projections.py`` (weekly mode only) and the default
+#: evaluation path of ``scripts/backtest_projections.py``; opt out via
+#: ``--no-sleeper-anchor``.
+SHIPPED_DEFAULT_SRC = "sleeper"
+SHIPPED_DEFAULT_POSITION = "WR"
+SHIPPED_DEFAULT_MODE = "blend"
+SHIPPED_DEFAULT_WEIGHT = 0.5
+
 #: Sleeper Bronze historical projections were backfilled half-PPR only
 #: (verified: every season/week sampled 2022-2025 carries
 #: ``scoring_format == "half_ppr"``) — matches this repo's grading format
 #: exactly, unlike the FP-ECR archive's PPR-only limitation.
 SLEEPER_SCORING = "half_ppr"
+
+
+def resolve_sleeper_anchor_config(
+    explicit_src: Optional[str],
+    position: str,
+    mode: str,
+    weight: float,
+    no_anchor: bool,
+) -> Tuple[Optional[str], str, str, float]:
+    """Resolve the effective (src, position, mode, weight) for CLI wiring.
+
+    Shared by ``generate_projections.py`` (weekly mode) and
+    ``backtest_projections.py``'s default evaluation path so both scripts
+    apply identical precedence for the shipped default
+    (``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md``, SHIP verdict
+    2026-08-22):
+
+    1. ``no_anchor`` (``--no-sleeper-anchor``) wins — lever disabled
+       (``src=None``), ``position``/``mode``/``weight`` passed through
+       unchanged (unused when disabled).
+    2. An explicit ``explicit_src`` (``--consensus-anchor-src`` passed)
+       wins — the caller's own ``position``/``mode``/``weight`` are used
+       verbatim (opt-in override, e.g. to exercise QB/RB/TE or a
+       different mode/weight).
+    3. Otherwise — the shipped default (``sleeper``, WR, blend,
+       weight=0.5).
+
+    Args:
+        explicit_src: The raw ``--consensus-anchor-src`` CLI value (``None``
+            if the flag was not passed).
+        position: The raw ``--consensus-anchor-position`` CLI value.
+        mode: The raw ``--consensus-anchor-mode`` CLI value.
+        weight: The raw ``--consensus-anchor-weight`` CLI value.
+        no_anchor: The raw ``--no-sleeper-anchor`` CLI flag value.
+
+    Returns:
+        ``(src, position, mode, weight)`` — ``src`` is ``None`` when the
+        lever should not be applied at all.
+    """
+    if no_anchor:
+        return None, position, mode, weight
+    if explicit_src is not None:
+        return explicit_src, position, mode, weight
+    return (
+        SHIPPED_DEFAULT_SRC,
+        SHIPPED_DEFAULT_POSITION,
+        SHIPPED_DEFAULT_MODE,
+        SHIPPED_DEFAULT_WEIGHT,
+    )
 
 _PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 _DEFAULT_BRONZE_DIR = os.path.join(

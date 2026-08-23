@@ -15,11 +15,16 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from sleeper_consensus_anchor import (  # noqa: E402
     EPSILON,
     NUDGE,
+    SHIPPED_DEFAULT_MODE,
+    SHIPPED_DEFAULT_POSITION,
+    SHIPPED_DEFAULT_SRC,
+    SHIPPED_DEFAULT_WEIGHT,
     SUPPORTED_POSITIONS,
     apply_consensus_anchor,
     apply_consensus_anchor_blend,
     apply_consensus_anchor_near_tie,
     build_sleeper_lookup,
+    resolve_sleeper_anchor_config,
 )
 
 
@@ -325,6 +330,54 @@ class TestApplyConsensusAnchorDispatch:
 
     def test_supported_positions_constant(self):
         assert set(SUPPORTED_POSITIONS) == {"QB", "RB", "WR", "TE"}
+
+
+# ---------------------------------------------------------------------------
+# Shipped default (SHIP verdict 2026-08-22, .planning/
+# SLEEPER_CONSENSUS_ANCHOR_GATE.md) — WR, blend, weight=0.5, default-on in
+# generate_projections.py (weekly mode) and backtest_projections.py's
+# default evaluation path.
+# ---------------------------------------------------------------------------
+
+
+class TestShippedDefaultConstants:
+    def test_shipped_default_values(self):
+        assert SHIPPED_DEFAULT_SRC == "sleeper"
+        assert SHIPPED_DEFAULT_POSITION == "WR"
+        assert SHIPPED_DEFAULT_MODE == "blend"
+        assert SHIPPED_DEFAULT_WEIGHT == 0.5
+
+
+class TestResolveSleeperAnchorConfig:
+    """Precedence used identically by generate_projections.py (weekly mode)
+    and backtest_projections.py's default evaluation path — see
+    resolve_sleeper_anchor_config()'s docstring for the 3-way rule."""
+
+    def test_no_anchor_flag_disables_regardless_of_other_args(self):
+        src, pos, mode, weight = resolve_sleeper_anchor_config(
+            "sleeper", "QB", "near_tie", 0.3, no_anchor=True
+        )
+        assert src is None
+        # position/mode/weight pass through unchanged (unused when disabled)
+        assert (pos, mode, weight) == ("QB", "near_tie", 0.3)
+
+    def test_no_explicit_src_falls_back_to_shipped_default(self):
+        src, pos, mode, weight = resolve_sleeper_anchor_config(
+            None, "WR", "near_tie", 0.3, no_anchor=False
+        )
+        assert (src, pos, mode, weight) == ("sleeper", "WR", "blend", 0.5)
+
+    def test_explicit_src_overrides_shipped_default_verbatim(self):
+        src, pos, mode, weight = resolve_sleeper_anchor_config(
+            "sleeper", "QB", "near_tie", 0.7, no_anchor=False
+        )
+        assert (src, pos, mode, weight) == ("sleeper", "QB", "near_tie", 0.7)
+
+    def test_no_anchor_wins_over_explicit_src(self):
+        src, _pos, _mode, _weight = resolve_sleeper_anchor_config(
+            "sleeper", "WR", "blend", 0.5, no_anchor=True
+        )
+        assert src is None
 
 
 # ---------------------------------------------------------------------------

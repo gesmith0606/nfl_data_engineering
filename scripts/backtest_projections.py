@@ -51,8 +51,13 @@ from wr_tiebreak import apply_wr_tiebreak
 from ecr_anchor import apply_ecr_anchor, build_ecr_lookup
 from sleeper_consensus_anchor import (
     SUPPORTED_POSITIONS as SUPPORTED_CONSENSUS_ANCHOR_POSITIONS,
+    SHIPPED_DEFAULT_SRC as SLEEPER_ANCHOR_SHIPPED_SRC,
+    SHIPPED_DEFAULT_POSITION as SLEEPER_ANCHOR_SHIPPED_POSITION,
+    SHIPPED_DEFAULT_MODE as SLEEPER_ANCHOR_SHIPPED_MODE,
+    SHIPPED_DEFAULT_WEIGHT as SLEEPER_ANCHOR_SHIPPED_WEIGHT,
     apply_consensus_anchor,
     build_sleeper_lookup,
+    resolve_sleeper_anchor_config,
 )
 from wind_adjust import apply_wind_adjust
 
@@ -536,10 +541,10 @@ def run_backtest(
     ecr_anchor: bool = False,
     ecr_anchor_mode: str = "near_tie",
     ecr_anchor_weight: float = 0.3,
-    consensus_anchor_src: Optional[str] = None,
-    consensus_anchor_position: str = "WR",
-    consensus_anchor_mode: str = "near_tie",
-    consensus_anchor_weight: float = 0.3,
+    consensus_anchor_src: Optional[str] = SLEEPER_ANCHOR_SHIPPED_SRC,
+    consensus_anchor_position: str = SLEEPER_ANCHOR_SHIPPED_POSITION,
+    consensus_anchor_mode: str = SLEEPER_ANCHOR_SHIPPED_MODE,
+    consensus_anchor_weight: float = SLEEPER_ANCHOR_SHIPPED_WEIGHT,
     wind_adjust: bool = False,
     wind_adjust_shrink: float = 0.0539,
 ) -> pd.DataFrame:
@@ -607,15 +612,22 @@ def run_backtest(
             anchor lever (see ``src/sleeper_consensus_anchor.py`` and
             ``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md``). Currently only
             ``"sleeper"`` is implemented; ``None``/falsy disables the lever.
-            Mirrors ``generate_projections.py --consensus-anchor-src``.
+            SHIPPED DEFAULT-ON as of 2026-08-22 (``"sleeper"``, WR, blend,
+            weight=0.5) — this is the "evaluate the shipped config" default
+            evaluation path; pass ``None`` explicitly (CLI:
+            ``--no-sleeper-anchor``) to backtest against the pre-ship
+            baseline. Mirrors ``generate_projections.py
+            --consensus-anchor-src``. Degrades gracefully (silent
+            passthrough + a logged warning) for any (season, week) with no
+            Sleeper Bronze snapshot.
         consensus_anchor_position: Position pool to anchor (default
-            ``"WR"``, the pre-registered primary; ``QB``/``RB``/``TE`` are
-            exploratory secondaries).
-        consensus_anchor_mode: ``"blend"`` (mechanism a, rank-blend) or
-            ``"near_tie"`` (mechanism b, default).
+            ``"WR"``, the pre-registered primary and shipped default;
+            ``QB``/``RB``/``TE`` are exploratory secondaries).
+        consensus_anchor_mode: ``"blend"`` (mechanism a, rank-blend — the
+            shipped default) or ``"near_tie"`` (mechanism b).
         consensus_anchor_weight: Blend weight for
             ``consensus_anchor_mode="blend"`` (grid-tuned on 2022-2024, see
-            the gate doc; ignored for ``"near_tie"``).
+            the gate doc; shipped default 0.5; ignored for ``"near_tie"``).
         wind_adjust_shrink: Multiplicative shrink for high-wind QB/WR/TE
             rows (default :data:`wind_adjust.HIGH_WIND_SHRINK`).
     """
@@ -1093,6 +1105,16 @@ def run_backtest(
                 sleeper_lookup, _sleeper_stats = build_sleeper_lookup(
                     projections, season, week, consensus_anchor_position
                 )
+                if _sleeper_stats["n_sleeper_pos_rows"] == 0:
+                    logger.warning(
+                        "Sleeper consensus anchor: no Sleeper weekly data "
+                        "for season=%d week=%d position=%s "
+                        "(data/bronze/external_projections/sleeper/); "
+                        "anchor is a no-op passthrough for this week.",
+                        season,
+                        week,
+                        consensus_anchor_position,
+                    )
                 projections = apply_consensus_anchor(
                     projections,
                     sleeper_lookup,
@@ -1454,7 +1476,12 @@ def main():
             "Apply the historical-Sleeper weekly consensus anchor lever "
             "(mirrors generate_projections.py --consensus-anchor-src). "
             "Evaluates the hypothesis from "
-            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md."
+            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md. SHIPPED "
+            "DEFAULT-ON for WR (blend, weight=0.5) in the default "
+            "evaluation path (i.e. when this flag is omitted); passing it "
+            "explicitly overrides the shipped default (e.g. to test "
+            "QB/RB/TE or a different mode/weight). Use --no-sleeper-anchor "
+            "to backtest against the pre-ship baseline instead."
         ),
     )
     parser.add_argument(
@@ -1474,6 +1501,17 @@ def main():
         type=float,
         default=0.3,
         help="Blend weight for --consensus-anchor-mode blend (default 0.3; ignored for near_tie).",
+    )
+    parser.add_argument(
+        "--no-sleeper-anchor",
+        action="store_true",
+        default=False,
+        help=(
+            "Disable the default-on Sleeper consensus anchor (WR, blend, "
+            "weight=0.5 — SHIPPED .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md) "
+            "so the default evaluation path reflects the pre-ship baseline. "
+            "Mirrors generate_projections.py --no-sleeper-anchor."
+        ),
     )
     parser.add_argument(
         "--wind-adjust",
@@ -1529,12 +1567,35 @@ def main():
         if args.ecr_anchor
         else ""
     )
+
+    # --- Sleeper consensus anchor default resolution ---
+    # SHIPPED DEFAULT-ON for WR (blend, weight=0.5) as of 2026-08-22 — the
+    # default evaluation path (no --consensus-anchor-src passed) mirrors
+    # scripts/generate_projections.py's shipped weekly default so backtests
+    # evaluate the shipped config. --no-sleeper-anchor opts out (pre-ship
+    # baseline); an explicit --consensus-anchor-src overrides the shipped
+    # default entirely (e.g. to exercise QB/RB/TE or a different weight).
+    # Precedence lives in sleeper_consensus_anchor.resolve_sleeper_anchor_
+    # config() so this script and generate_projections.py can't drift.
+    (
+        eff_consensus_anchor_src,
+        eff_consensus_anchor_position,
+        eff_consensus_anchor_mode,
+        eff_consensus_anchor_weight,
+    ) = resolve_sleeper_anchor_config(
+        args.consensus_anchor_src,
+        args.consensus_anchor_position,
+        args.consensus_anchor_mode,
+        args.consensus_anchor_weight,
+        args.no_sleeper_anchor,
+    )
+
     consensus_anchor_label = (
-        f" | Consensus Anchor: ON (src={args.consensus_anchor_src}, "
-        f"pos={args.consensus_anchor_position}, mode={args.consensus_anchor_mode}, "
-        f"weight={args.consensus_anchor_weight})"
-        if args.consensus_anchor_src
-        else ""
+        f" | Consensus Anchor: ON (src={eff_consensus_anchor_src}, "
+        f"pos={eff_consensus_anchor_position}, mode={eff_consensus_anchor_mode}, "
+        f"weight={eff_consensus_anchor_weight})"
+        if eff_consensus_anchor_src
+        else " | Consensus Anchor: OFF (--no-sleeper-anchor)"
     )
     wind_adjust_label = (
         f" | Wind Adjust: ON (shrink={args.wind_adjust_shrink})"
@@ -1581,10 +1642,10 @@ def main():
         ecr_anchor=args.ecr_anchor,
         ecr_anchor_mode=args.ecr_anchor_mode,
         ecr_anchor_weight=args.ecr_anchor_weight,
-        consensus_anchor_src=args.consensus_anchor_src,
-        consensus_anchor_position=args.consensus_anchor_position,
-        consensus_anchor_mode=args.consensus_anchor_mode,
-        consensus_anchor_weight=args.consensus_anchor_weight,
+        consensus_anchor_src=eff_consensus_anchor_src,
+        consensus_anchor_position=eff_consensus_anchor_position,
+        consensus_anchor_mode=eff_consensus_anchor_mode,
+        consensus_anchor_weight=eff_consensus_anchor_weight,
         wind_adjust=args.wind_adjust,
         wind_adjust_shrink=args.wind_adjust_shrink,
     )
@@ -1609,9 +1670,9 @@ def main():
     wr_tiebreak_tag = "_wrtiebreak" if args.wr_tiebreak else ""
     ecr_anchor_tag = f"_ecranchor{args.ecr_anchor_mode}" if args.ecr_anchor else ""
     consensus_anchor_tag = (
-        f"_consanchor{args.consensus_anchor_src}{args.consensus_anchor_position}{args.consensus_anchor_mode}"
-        if args.consensus_anchor_src
-        else ""
+        f"_consanchor{eff_consensus_anchor_src}{eff_consensus_anchor_position}{eff_consensus_anchor_mode}"
+        if eff_consensus_anchor_src
+        else "_nosleeperanchor"
     )
     wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
     csv_path = os.path.join(

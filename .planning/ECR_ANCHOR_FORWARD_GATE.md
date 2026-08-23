@@ -1,4 +1,47 @@
-# `--ecr-anchor` 2026 In-Season Forward Gate (2026-08-21, amended 2026-08-22)
+# `--ecr-anchor` 2026 In-Season Forward Gate (2026-08-21, amended 2026-08-22, amended again 2026-08-22)
+
+## 2026-08-22 amendment #2: Sleeper consensus anchor SHIPPED default for WR — this gate's baseline changed
+
+`--consensus-anchor-src sleeper` (mechanism=blend, weight=0.5, WR-only —
+`.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md`) passed its pre-registered gate
+decisively and the user approved promotion the same day this doc's first
+amendment landed. `scripts/generate_projections.py` (weekly mode) and
+`scripts/backtest_projections.py`'s default evaluation path now apply that
+lever to WR **by default** (opt out via `--no-sleeper-anchor`) — this is a
+DIFFERENT, independent consensus source (Sleeper's own historical weekly
+projections) from the one this doc's `--ecr-anchor` lever anchors toward
+(FantasyPros weekly ECR), but it changes what "baseline" means for every
+comparison this forward gate registers:
+
+- **The shadow-mode baseline in §1 is now the Sleeper-anchored config**,
+  not the raw heuristic/ML projection. `generate_projections.py --week N
+  --season 2026` (no extra flags) already includes the Sleeper WR blend —
+  the §1 "Primary comparison" (`baseline` vs `--ecr-anchor`) is therefore
+  now "Sleeper-anchored WR ordering" vs "Sleeper-anchored WR ordering +
+  ECR-anchored WR ordering" (both anchors compose additively per their
+  code-path ordering — ECR anchor runs first, Sleeper anchor runs second,
+  see `generate_projections.py`'s per-week block ordering), not "raw" vs
+  "ECR-anchored" as originally registered on 2026-08-21.
+- **`--ecr-anchor` remains fully opt-in shadow** — nothing in this
+  amendment changes `--ecr-anchor`'s own default (still off) or this gate's
+  verdict rules (§2). The only thing that changed is what "off" now means:
+  "off" = shipped-default Sleeper anchor only; "on" = shipped-default
+  Sleeper anchor + ECR anchor stacked. Anyone running the §1 comparison
+  from this point forward should note in their results which baseline
+  (pre- or post- Sleeper-anchor-ship) they're comparing against, since the
+  two are not the same population/ordering.
+- **No interaction/composition gate has been run** for stacking
+  `--ecr-anchor` on top of the now-default Sleeper anchor — flagged as an
+  explicit open question in
+  `.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md`'s "Recommended follow-up"
+  #3 and repeated here: a future dedicated gate should measure whether the
+  two anchors' composition helps, hurts, or is neutral relative to either
+  one alone, before any recommendation to ship `--ecr-anchor` on top of
+  the shipped Sleeper default.
+- To reproduce the ORIGINAL (pre-Sleeper-anchor-ship) §1 baseline for an
+  apples-to-apples comparison against past forward-gate weeks (if any were
+  already collected under the old baseline), pass `--no-sleeper-anchor`
+  explicitly.
 
 ## 2026-08-22 amendment: live-path completion (blockers #1/#2/#3 below closed)
 
