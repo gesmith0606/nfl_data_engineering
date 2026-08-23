@@ -379,3 +379,126 @@ class TestLoadCaptures:
         archive_dir = tmp_path / "archive"
         os.makedirs(archive_dir / "not-a-date", exist_ok=True)
         assert bridge.load_archive_captures(archive_dir=str(archive_dir)) == []
+
+
+# ---------------------------------------------------------------------------
+# Weekly-position preference (2026-08-22 amendment): a true weekly-position
+# capture, when present for a scrape_date, wins over the draft-board
+# capture for that same date.
+# ---------------------------------------------------------------------------
+
+
+def _weekly_player(name, position, team, pos_rank, ecr=None, sd=None, best=None, worst=None, fp_id=None):
+    return {
+        "player_name": name,
+        "position": position,
+        "team": team,
+        "pos_rank": pos_rank,
+        "ecr": ecr,
+        "sd": sd,
+        "best": best,
+        "worst": worst,
+        "fantasypros_id": fp_id,
+    }
+
+
+class TestWeeklyCaptureToPositionRows:
+    def test_uses_pos_rank_and_dispersion_verbatim(self):
+        players = [
+            _weekly_player("Ja'Marr Chase", "WR", "CIN", 1, ecr=1.3, sd=0.46, best=1, worst=2, fp_id=19788),
+        ]
+        out = bridge.weekly_capture_to_position_rows(players)
+        row = out.iloc[0]
+        assert row["pos_rank"] == 1
+        assert row["ecr"] == 1.3
+        assert row["sd"] == 0.46
+        assert row["fantasypros_id"] == 19788
+
+    def test_drops_non_fantasy_positions(self):
+        players = [
+            _weekly_player("Kicker Guy", "K", "BAL", 1),
+            _weekly_player("Ja'Marr Chase", "WR", "CIN", 1),
+        ]
+        out = bridge.weekly_capture_to_position_rows(players)
+        assert set(out["position"]) == {"WR"}
+
+    def test_empty_input_returns_empty_with_columns(self):
+        out = bridge.weekly_capture_to_position_rows([])
+        assert out.empty
+        assert list(out.columns) == bridge._WEEKLY_ROW_COLS
+
+
+class TestLoadAllCapturesWeeklyPreference:
+    def _write_gz(self, archive_dir, day, source_name, players):
+        day_dir = os.path.join(archive_dir, day)
+        os.makedirs(day_dir, exist_ok=True)
+        envelope = {"source": source_name, "fetched_at": f"{day}T12:00:00+00:00", "players": players}
+        import gzip as _gzip
+        with _gzip.open(os.path.join(day_dir, f"{source_name}_rankings.json.gz"), "wt", encoding="utf-8") as f:
+            f.write(json.dumps(envelope))
+
+    def test_weekly_wins_over_draft_board_same_date(self, tmp_path):
+        archive_dir = str(tmp_path / "archive")
+        self._write_gz(archive_dir, "2026-08-22", "fantasypros", [_player("Draft Board Guy", "WR", "CIN", 1)])
+        self._write_gz(
+            archive_dir, "2026-08-22", "fantasypros_weekly",
+            [_weekly_player("Weekly Guy", "WR", "CIN", 1, ecr=1.3)],
+        )
+        captures = bridge.load_all_captures(archive_dir=archive_dir, live_file=str(tmp_path / "nope.json"))
+        assert len(captures) == 1
+        assert captures[0].kind == "weekly_position"
+        assert captures[0].players[0]["player_name"] == "Weekly Guy"
+
+    def test_draft_board_used_when_no_weekly_capture_for_date(self, tmp_path):
+        archive_dir = str(tmp_path / "archive")
+        self._write_gz(archive_dir, "2026-08-17", "fantasypros", [_player("Draft Board Guy", "WR", "CIN", 1)])
+        captures = bridge.load_all_captures(archive_dir=archive_dir, live_file=str(tmp_path / "nope.json"))
+        assert len(captures) == 1
+        assert captures[0].kind == "draft_board"
+
+    def test_both_present_different_dates_both_kept(self, tmp_path):
+        archive_dir = str(tmp_path / "archive")
+        self._write_gz(archive_dir, "2026-08-17", "fantasypros", [_player("A", "WR", "CIN", 1)])
+        self._write_gz(archive_dir, "2026-08-18", "fantasypros_weekly", [_weekly_player("B", "WR", "CIN", 1)])
+        captures = bridge.load_all_captures(archive_dir=archive_dir, live_file=str(tmp_path / "nope.json"))
+        kinds = {c.scrape_date: c.kind for c in captures}
+        assert kinds[__import__("datetime").date(2026, 8, 17)] == "draft_board"
+        assert kinds[__import__("datetime").date(2026, 8, 18)] == "weekly_position"
+
+
+class TestBuildSilverRowsWeeklySource:
+    def _patch_windows(self, monkeypatch, windows=WINDOWS_2026):
+        monkeypatch.setattr(bridge.fpecr_ingest, "load_schedule_reg_windows", lambda season: windows)
+
+    def test_weekly_capture_populates_dispersion_fields(self, monkeypatch):
+        self._patch_windows(monkeypatch)
+        capture = bridge.Capture(
+            scrape_date=date(2026, 8, 18),
+            players=[_weekly_player("X Y", "WR", "CIN", 3, ecr=5.2, sd=1.1, best=2, worst=9, fp_id=42)],
+            kind="weekly_position",
+        )
+        resolver = _FakeResolver(exact={("X Y", "CIN", "WR"): "00-0000001"})
+        out = bridge.build_silver_rows(capture, resolver, cache={})
+        row = out.iloc[0]
+        assert row["pos_rank"] == 3
+        assert row["ecr"] == 5.2
+        assert row["sd"] == 1.1
+        assert row["best"] == 2
+        assert row["worst"] == 9
+        assert row["fantasypros_id"] == 42
+
+    def test_draft_board_kind_still_nulls_dispersion_fields(self, monkeypatch):
+        """Explicit kind="draft_board" (the default) must be unaffected --
+        no regression to the pre-amendment behavior."""
+        self._patch_windows(monkeypatch)
+        capture = bridge.Capture(
+            scrape_date=date(2026, 8, 18),
+            players=[_player("X Y", "WR", "CIN", 1)],
+            kind="draft_board",
+        )
+        resolver = _FakeResolver(exact={("X Y", "CIN", "WR"): "00-0000001"})
+        out = bridge.build_silver_rows(capture, resolver, cache={})
+        row = out.iloc[0]
+        assert pd.isna(row["ecr"])
+        assert pd.isna(row["sd"])
+        assert pd.isna(row["fantasypros_id"])

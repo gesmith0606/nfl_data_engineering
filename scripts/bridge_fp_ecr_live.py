@@ -15,9 +15,9 @@ rows matching the historical Silver schema column-for-column, so the 2026
 in-season forward gate (``.planning/ECR_ANCHOR_FORWARD_GATE.md``) has
 *something* to read starting week 1.
 
-READ THIS BEFORE TRUSTING THE OUTPUT (2026-08-21 bridge session findings)
+READ THIS BEFORE TRUSTING THE OUTPUT (2026-08-21/22 bridge session findings)
 --------------------------------------------------------------------------
-1. **SOURCE MISMATCH (the big one).** ``refresh_external_rankings.py
+1. **SOURCE MISMATCH -- FIXED 2026-08-22.** ``refresh_external_rankings.py
    ::fetch_fantasypros`` always calls FantasyPros' partners
    ``consensus-rankings.php`` with ``week=0&type=draft`` -- the perpetual
    SEASON-LONG REDRAFT/overall board -- with no code path that switches to a
@@ -25,35 +25,50 @@ READ THIS BEFORE TRUSTING THE OUTPUT (2026-08-21 bridge session findings)
    ``--ecr-anchor`` was gated against came from FantasyPros' *weekly-position*
    pages (``ppr-wr.php`` etc, re-scraped each week, reacting to that week's
    matchups/injuries -- see ``ingest_fp_ecr_history.py``'s own docstring).
-   Our live capture is a much slower-moving, week-agnostic signal. This
-   bridge maps it honestly (below) but a forward gate built on top of it is
-   testing "does anchoring toward FantasyPros' OVERALL draft consensus help
-   WR ordering," which is a materially weaker/different hypothesis than the
-   one ``WR_ECR_ORDINAL_GATE.md`` actually validated on 2022-2024 weekly
-   data. Flagged loudly here and in ``ECR_ANCHOR_FORWARD_GATE.md`` -- not
-   silently assumed equivalent.
-2. **SCHEMA.** Our capture is ``{player_name, position, team, rank,
-   external_rank}`` only (see ``refresh_external_rankings.py::
-   _parse_fp_partners_players`` / ``save_rankings``'s envelope). No
-   per-expert dispersion (``sd``/``best``/``worst`` -> always null), no float
-   ECR average (only an integer overall-board rank -- ``ecr`` is left null
-   rather than faked as a float we don't have), and no FantasyPros numeric
-   player id (``fantasypros_id`` -> always null; the historical ingestion's
-   DynastyProcess id-crosswalk join has nothing to join against here). Id
-   resolution instead goes through ``src.player_name_resolver
-   .PlayerNameResolver`` (fuzzy name match against Bronze rosters/depth
-   charts), reported loudly, hard-failing under 90% WR match (see
+   ``refresh_external_rankings.py::fetch_fantasypros_weekly`` now ALSO
+   captures that true weekly-position product directly (verified live
+   2026-08-22: FantasyPros already serves a provisional week=1 weekly board
+   preseason, ``ranking_type_name == "weekly"``, not a draft-board
+   fallback), written to the sibling ``fantasypros_weekly_rankings.json`` /
+   archive. ``load_all_captures`` below now PREFERS the weekly-position
+   capture over the draft board for any scrape_date where both exist --
+   see "Weekly-position preference" below for how a downstream reader (like
+   ``ecr_anchor.py``) can tell which source fed a given row. The draft
+   board remains the fallback for any date this bridge only ever captured
+   the old way (e.g. everything before 2026-08-22).
+2. **SCHEMA.** The draft-board capture is ``{player_name, position, team,
+   rank, external_rank}`` only (see ``refresh_external_rankings.py::
+   _parse_fp_partners_players`` / ``save_rankings``'s envelope) -- no
+   per-expert dispersion (``sd``/``best``/``worst``), no float ECR average
+   (``ecr``), no FantasyPros numeric player id (``fantasypros_id``); all
+   left null for draft-board-sourced rows, same as before this amendment.
+   The weekly-position capture DOES carry all of these (FantasyPros
+   publishes them directly on its weekly pages) -- see "Weekly-position
+   preference" below. Id resolution for BOTH source kinds goes through
+   ``src.player_name_resolver.PlayerNameResolver`` (fuzzy name match
+   against Bronze rosters/depth charts; the weekly capture's
+   ``fantasypros_id`` has no local crosswalk to join against either),
+   reported loudly, hard-failing under 90% WR match (see
    ``resolve_gsis_ids``).
-3. **SCORING.** The daily cron (``.github/workflows/daily-sentiment.yml``)
-   calls ``refresh_external_rankings.py`` with no ``--scoring`` flag, so it
-   uses that script's own default, ``"half_ppr"``. ``src/ecr_anchor.py``
-   hardcodes ``ECR_SCORING = "ppr"`` (the only weekly-position scoring
-   variant that ever existed in the historical archive). This bridge writes
-   the HONEST scoring label (``"half_ppr"``) for these rows rather than
-   mislabeling them ``"ppr"`` to force a match through that filter -- see
-   ``ECR_ANCHOR_FORWARD_GATE.md`` for the exact consequence (zero rows read
-   by ``build_ecr_lookup`` until that filter is generalized) and why fixing
-   it is out of this script's ownership.
+3. **SCORING -- FIXED 2026-08-22.** The daily cron
+   (``.github/workflows/daily-sentiment.yml``) calls
+   ``refresh_external_rankings.py`` with no ``--scoring`` flag, so it uses
+   that script's own default, ``"half_ppr"``. This bridge writes the
+   HONEST scoring label (``"half_ppr"``) for these rows rather than
+   mislabeling them ``"ppr"``. ``src/ecr_anchor.py`` used to hardcode
+   ``ECR_SCORING = "ppr"`` (the only weekly-position scoring variant that
+   ever existed in the historical archive), which meant ``build_ecr_lookup``
+   read ZERO of these rows -- fixed by generalizing to
+   ``ECR_SCORING_PREFERENCE = ("ppr", "half_ppr")`` (see
+   ``ECR_ANCHOR_FORWARD_GATE.md`` §0.2 amendment); historical (pre-2025,
+   100% ppr) reads are proven byte-identical, live (2026+, 100% half_ppr)
+   reads are no longer silently dropped.
+3b. **Weekly-position preference / row labeling (no schema change).**
+   ``ecr``/``sd``/``best``/``worst`` are non-null exactly when a row came
+   from the true weekly-position capture; they stay null for draft-board
+   rows. A row's ``ecr`` nullness IS the provenance label -- no new column
+   was added to the historical 14-column Silver schema (kept
+   column-for-column identical on purpose, see the schema-match test).
 4. **PRESEASON WEEK MAPPING.** Every capture date so far
    (2026-07-09 .. today) is well before the 2026 week-1 window (kickoff
    2026-09-09) closes, so the reused
@@ -123,6 +138,13 @@ ARCHIVE_DIR = os.path.join(EXTERNAL_DIR, "archive")
 LIVE_FILE = os.path.join(EXTERNAL_DIR, "fantasypros_rankings.json")
 SILVER_OUT_DIR = fpecr_ingest.SILVER_OUT_DIR  # data/silver/fp_ecr -- same root the historical ingestion writes
 
+# The true weekly per-position capture (refresh_external_rankings.py::
+# fetch_fantasypros_weekly) -- a sibling of the draft-board capture, same
+# archive/live-file convention, different source name. See "Weekly-position
+# preference" below.
+WEEKLY_SOURCE_NAME = "fantasypros_weekly"
+WEEKLY_LIVE_FILE = os.path.join(EXTERNAL_DIR, f"{WEEKLY_SOURCE_NAME}_rankings.json")
+
 # Historical Silver schema, column-for-column (reused, not re-declared, so
 # the two scripts can never drift apart on column order/names).
 SILVER_COLUMNS = fpecr_ingest.SILVER_COLUMNS
@@ -160,10 +182,21 @@ MIN_WR_MATCH_RATE = 0.90
 
 @dataclass
 class Capture:
-    """One day's FantasyPros capture: its true scrape date + player rows."""
+    """One day's FantasyPros capture: its true scrape date + player rows.
+
+    ``kind`` distinguishes the two capture products this bridge can read:
+    ``"draft_board"`` (the perpetual overall consensus board -- the only
+    thing this bridge could read before 2026-08-22, see module docstring
+    finding #1) or ``"weekly_position"`` (the true per-position weekly ECR,
+    now preferred when present -- see ``load_all_captures``). Defaults to
+    ``"draft_board"`` so every existing caller/test that constructs a
+    ``Capture`` without specifying ``kind`` keeps behaving exactly as
+    before.
+    """
 
     scrape_date: date
     players: List[Dict]
+    kind: str = "draft_board"
 
 
 def _parse_envelope(raw_text: str) -> Optional[Dict]:
@@ -174,13 +207,24 @@ def _parse_envelope(raw_text: str) -> Optional[Dict]:
     return None  # legacy bare-list caches predate FantasyPros captures we care about
 
 
-def load_archive_captures(archive_dir: str = ARCHIVE_DIR) -> List[Capture]:
+def load_archive_captures(
+    archive_dir: str = ARCHIVE_DIR,
+    source_name: str = LIVE_SOURCE_NAME,
+    kind: str = "draft_board",
+) -> List[Capture]:
     """Load every archived FantasyPros snapshot, scrape_date from the folder name.
 
     The folder name (``YYYY-MM-DD``) is the ground-truth capture date -- it's
     written by ``refresh_external_rankings.archive_rankings_snapshot`` at the
     moment that day's content changed, which is exactly the leakage boundary
     this bridge needs (see module docstring finding #4).
+
+    Args:
+        archive_dir: Root of ``data/external/archive/``.
+        source_name: Cache-file basename prefix to look for under each dated
+            folder (``LIVE_SOURCE_NAME`` for the draft board,
+            ``WEEKLY_SOURCE_NAME`` for the true weekly-position capture).
+        kind: Tag stamped on the returned ``Capture``s (see ``Capture``).
     """
     captures: List[Capture] = []
     if not os.path.isdir(archive_dir):
@@ -190,18 +234,24 @@ def load_archive_captures(archive_dir: str = ARCHIVE_DIR) -> List[Capture]:
             scrape_date = datetime.strptime(day_name, "%Y-%m-%d").date()
         except ValueError:
             continue
-        gz_path = os.path.join(archive_dir, day_name, f"{LIVE_SOURCE_NAME}_rankings.json.gz")
+        gz_path = os.path.join(archive_dir, day_name, f"{source_name}_rankings.json.gz")
         if not os.path.isfile(gz_path):
             continue
         with gzip.open(gz_path, "rt", encoding="utf-8") as f:
             envelope = _parse_envelope(f.read())
         if not envelope:
             continue
-        captures.append(Capture(scrape_date=scrape_date, players=envelope.get("players", [])))
+        captures.append(
+            Capture(scrape_date=scrape_date, players=envelope.get("players", []), kind=kind)
+        )
     return captures
 
 
-def load_live_capture(live_file: str = LIVE_FILE) -> Optional[Capture]:
+def load_live_capture(
+    live_file: str = LIVE_FILE,
+    source_name: str = LIVE_SOURCE_NAME,
+    kind: str = "draft_board",
+) -> Optional[Capture]:
     """Load the current (not-yet-archived) FantasyPros snapshot.
 
     ``save_rankings()`` only rewrites ``fetched_at`` when the content
@@ -213,25 +263,55 @@ def load_live_capture(live_file: str = LIVE_FILE) -> Optional[Capture]:
         return None
     with open(live_file, "r", encoding="utf-8") as f:
         envelope = _parse_envelope(f.read())
-    if not envelope or envelope.get("source") != LIVE_SOURCE_NAME:
+    if not envelope or envelope.get("source") != source_name:
         return None
     fetched_at = envelope.get("fetched_at")
     if not fetched_at:
         return None
     scrape_date = datetime.fromisoformat(fetched_at).date()
-    return Capture(scrape_date=scrape_date, players=envelope.get("players", []))
+    return Capture(scrape_date=scrape_date, players=envelope.get("players", []), kind=kind)
 
 
 def load_all_captures(
     archive_dir: str = ARCHIVE_DIR, live_file: str = LIVE_FILE
 ) -> List[Capture]:
-    """Archive dates plus the live snapshot, deduplicated by scrape_date."""
-    captures = load_archive_captures(archive_dir)
-    seen_dates = {c.scrape_date for c in captures}
-    live = load_live_capture(live_file)
-    if live and live.scrape_date not in seen_dates:
-        captures.append(live)
-    return captures
+    """Draft-board + weekly-position captures, deduplicated by scrape_date.
+
+    Weekly-position preference (2026-08-22 amendment): when BOTH a
+    draft-board and a true weekly-position capture exist for the same
+    scrape_date, the weekly-position one wins -- it's the actual product
+    WR_ECR_ORDINAL_GATE.md's historical archive was built from (see module
+    docstring finding #1), the draft board was always a documented
+    substitute. The weekly capture's sibling files
+    (``fantasypros_weekly_rankings.json`` / archived
+    ``fantasypros_weekly_rankings.json.gz``) are looked for next to the
+    draft-board ones passed in via ``archive_dir``/``live_file``.
+    """
+    draft_captures = load_archive_captures(
+        archive_dir=archive_dir, source_name=LIVE_SOURCE_NAME, kind="draft_board"
+    )
+    draft_seen = {c.scrape_date for c in draft_captures}
+    live_draft = load_live_capture(
+        live_file=live_file, source_name=LIVE_SOURCE_NAME, kind="draft_board"
+    )
+    if live_draft and live_draft.scrape_date not in draft_seen:
+        draft_captures.append(live_draft)
+
+    weekly_captures = load_archive_captures(
+        archive_dir=archive_dir, source_name=WEEKLY_SOURCE_NAME, kind="weekly_position"
+    )
+    weekly_seen = {c.scrape_date for c in weekly_captures}
+    weekly_live_file = os.path.join(os.path.dirname(live_file), f"{WEEKLY_SOURCE_NAME}_rankings.json")
+    live_weekly = load_live_capture(
+        live_file=weekly_live_file, source_name=WEEKLY_SOURCE_NAME, kind="weekly_position"
+    )
+    if live_weekly and live_weekly.scrape_date not in weekly_seen:
+        weekly_captures.append(live_weekly)
+
+    by_date: Dict[date, Capture] = {c.scrape_date: c for c in draft_captures}
+    for c in weekly_captures:
+        by_date[c.scrape_date] = c  # weekly-position wins on overlap
+    return list(by_date.values())
 
 
 # ---------------------------------------------------------------------------
@@ -263,6 +343,49 @@ def capture_to_position_ranked_rows(players: List[Dict]) -> pd.DataFrame:
         return pd.DataFrame(columns=cols)
     df["pos_rank"] = df.groupby("position")["rank"].rank(method="min").astype(int)
     return df[["player_name", "position", "team", "pos_rank"]].reset_index(drop=True)
+
+
+_WEEKLY_ROW_COLS = [
+    "player_name", "position", "team", "pos_rank", "ecr", "sd", "best", "worst", "fantasypros_id",
+]
+
+
+def weekly_capture_to_position_rows(players: List[Dict]) -> pd.DataFrame:
+    """True weekly per-position FantasyPros rows -> Silver-shaped columns.
+
+    Unlike ``capture_to_position_ranked_rows`` (which has to DERIVE
+    within-position rank from the perpetual draft board's overall rank --
+    see module docstring finding #1), these rows already carry
+    FantasyPros' own per-position ``pos_rank`` plus real dispersion stats
+    (``ecr``/``sd``/``best``/``worst``) and a numeric ``fantasypros_id``,
+    sourced from ``refresh_external_rankings.py::fetch_fantasypros_weekly``
+    -- no re-derivation needed.
+    """
+    if not players:
+        return pd.DataFrame(columns=_WEEKLY_ROW_COLS)
+    df = pd.DataFrame(players)
+    if df.empty or "position" not in df.columns:
+        return pd.DataFrame(columns=_WEEKLY_ROW_COLS)
+    df = df[df["position"].isin(FANTASY_POSITIONS)].copy()
+    if df.empty:
+        return pd.DataFrame(columns=_WEEKLY_ROW_COLS)
+    for col in ("ecr", "sd", "best", "worst", "fantasypros_id"):
+        if col not in df.columns:
+            df[col] = pd.NA
+    if "pos_rank" not in df.columns:
+        df["pos_rank"] = pd.NA
+    # Defensive fallback: an unparsable pos_rank (upstream page-format
+    # drift) shouldn't drop the row -- derive from ecr order instead of
+    # silently losing the player. In practice fetch_fantasypros_weekly
+    # already backfills this itself; kept here so this function is correct
+    # standalone too.
+    if df["pos_rank"].isna().any():
+        ecr_numeric = pd.to_numeric(df["ecr"], errors="coerce")
+        derived_rank = ecr_numeric.groupby(df["position"]).rank(method="min")
+        sequential = df.groupby("position").cumcount() + 1
+        df["pos_rank"] = df["pos_rank"].fillna(derived_rank).fillna(sequential)
+    df["pos_rank"] = df["pos_rank"].astype(int)
+    return df[_WEEKLY_ROW_COLS].reset_index(drop=True)
 
 
 # ---------------------------------------------------------------------------
@@ -342,13 +465,35 @@ def _report_match_rate(df: pd.DataFrame, scrape_date: date) -> float:
 # ---------------------------------------------------------------------------
 
 
+def _weekly_or_null(resolved: pd.DataFrame, col: str, dtype: str) -> pd.array:
+    """Pull ``col`` from a weekly-position resolve (if present/populated),
+    else the historical null-column convention (draft-board rows, or a
+    weekly row missing that particular field)."""
+    if col in resolved.columns and resolved[col].notna().any():
+        numeric = pd.to_numeric(resolved[col], errors="coerce")
+        if dtype == "Int64":
+            numeric = numeric.round()
+        return pd.array(numeric, dtype=dtype)
+    return pd.array([pd.NA] * len(resolved), dtype=dtype)
+
+
 def build_silver_rows(capture: Capture, resolver: PlayerNameResolver, cache: Dict) -> pd.DataFrame:
     """One capture -> Silver-schema rows (season/week resolved, gsis_id resolved).
 
     Returns an empty (columns-only) frame if the capture pre-dates any known
     schedule (no REG-week mapping) or has no fantasy-relevant rows.
+
+    Source labeling (no schema change -- see module docstring finding #1
+    amendment): ``ecr``/``sd``/``best``/``worst`` are non-null exactly when
+    this capture came from the true weekly-position source
+    (``capture.kind == "weekly_position"``); they stay null for draft-board
+    rows, same as before this amendment. A row's ``ecr`` nullness is
+    therefore itself the provenance label the forward gate needs.
     """
-    ranked = capture_to_position_ranked_rows(capture.players)
+    if capture.kind == "weekly_position":
+        ranked = weekly_capture_to_position_rows(capture.players)
+    else:
+        ranked = capture_to_position_ranked_rows(capture.players)
     if ranked.empty:
         return pd.DataFrame(columns=SILVER_COLUMNS)
 
@@ -381,14 +526,14 @@ def build_silver_rows(capture: Capture, resolver: PlayerNameResolver, cache: Dic
             "scoring": LIVE_SCORING,
             "position": resolved["position"],
             "player_name": resolved["player_name"],
-            "fantasypros_id": pd.array([pd.NA] * len(resolved), dtype="Int64"),
+            "fantasypros_id": _weekly_or_null(resolved, "fantasypros_id", "Int64"),
             "gsis_id": resolved["gsis_id"],
             "sleeper_id": pd.array([pd.NA] * len(resolved), dtype="Float64"),
-            "ecr": pd.array([pd.NA] * len(resolved), dtype="Float64"),
+            "ecr": _weekly_or_null(resolved, "ecr", "Float64"),
             "pos_rank": resolved["pos_rank"].astype("int32"),
-            "sd": pd.array([pd.NA] * len(resolved), dtype="Float64"),
-            "best": pd.array([pd.NA] * len(resolved), dtype="Int64"),
-            "worst": pd.array([pd.NA] * len(resolved), dtype="Int64"),
+            "sd": _weekly_or_null(resolved, "sd", "Float64"),
+            "best": _weekly_or_null(resolved, "best", "Int64"),
+            "worst": _weekly_or_null(resolved, "worst", "Int64"),
         }
     )
     return out[SILVER_COLUMNS]
@@ -508,8 +653,8 @@ def main() -> int:
     print(f"\nBridged {summary['dates_processed']} capture date(s), {summary['rows_written']} rows written.")
     print(
         "\nNOTE: scoring label is honest 'half_ppr' (see module docstring #3) -- "
-        "src/ecr_anchor.py's hardcoded ECR_SCORING='ppr' filter will read ZERO of "
-        "these rows until that mismatch is resolved. See .planning/ECR_ANCHOR_FORWARD_GATE.md."
+        "src/ecr_anchor.py's ECR_SCORING_PREFERENCE now reads this label (fixed "
+        "2026-08-22). See .planning/ECR_ANCHOR_FORWARD_GATE.md."
     )
     return 0
 
