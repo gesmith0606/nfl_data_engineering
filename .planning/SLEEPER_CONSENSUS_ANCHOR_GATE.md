@@ -250,4 +250,311 @@ synthetic test fixture) will be documented here, dated, BEFORE running the
 
 ## Results
 
-_(appended after pre-registration commit — see below)_
+Baseline and treated backtests generated back-to-back in this session
+(2026-08-22), same data vintage, no reused CSVs, full live CLI runs (not
+post-hoc unless explicitly noted):
+`output/backtest/sleeper_anchor_gate/backtest_half_ppr_consensus_20260822_204344.csv`
+(2022-2024 tuning baseline), 5 blend-weight treated runs + 1 near_tie
+treated run (`--consensus-anchor-src sleeper` variants, same command),
+`...20260822_213216.csv` (2025 one-shot baseline), and one 2025 treated
+run at the tuning-set winner. All `--weeks 1-18 --scoring half_ppr
+--vs-consensus --consensus-source sleeper [--consensus-anchor-src sleeper
+--consensus-anchor-mode ... --consensus-anchor-weight ...]`.
+
+### 1. Coverage / firing rate (BEFORE any result numbers, per pre-registration)
+
+**WR-population Sleeper-match rate**, tuning set and confirmation set:
+
+| Season | WR rows | Sleeper WR rows (raw) | Final matched | Match rate |
+|---|---:|---:|---:|---:|
+| 2022 | 1,545 | 2,315 | 1,522 | **98.5%** |
+| 2023 | 1,621 | 2,363 | 1,608 | **99.2%** |
+| 2024 | 1,560 | 2,354 | 1,537 | **98.5%** |
+| 2025 | 1,879 | 2,384 | 1,772 | **94.3%** |
+
+All four seasons clear the 60% coverage flag by a wide margin — Sleeper's
+full-population archive covers dramatically more of the graded population
+than the FP-ECR archive did (`--ecr-anchor`'s 77.6-86.0%), confirming the
+hypothesis rationale (full population vs top-60ish depth).
+
+**Near-tie (`<=1.5pt` adjacent WR pair) Sleeper-match coverage:**
+
+| Set | Near-tie pairs | Both-members-matched | Rate |
+|---|---:|---:|---:|
+| 2022-2024 pooled | 4,646 | 4,535 | **97.6%** |
+| 2025 | 1,851 | 1,669 | **90.2%** |
+
+**Exploratory secondary positions** (QB/RB/TE), 2022-2024 pooled — also
+far above the 60% flag:
+
+| Position | 2022 | 2023 | 2024 | 2025 |
+|---|---:|---:|---:|---:|
+| QB | 94.4% | 94.8% | 98.1% | 96.3% |
+| RB | 98.5% | 98.6% | 99.4% | 96.1% |
+| TE | 98.7% | 97.0% | 95.9% | 95.1% |
+
+No "population mostly outside coverage" caveat applies anywhere in this
+gate.
+
+### 2. As-of / leak-safety (gate-0 check) — see constraint #2 above for the full write-up
+
+Confirmed via direct data inspection before any coverage/result number was
+computed: 0/30 skill-position players marked `Out` in the 2022 week-5
+injury report appear in that week's Sleeper Bronze payload at all (omitted,
+not projected-at-zero); Dak Prescott (real thumb injury, out weeks 2-6
+2022) is absent from the Sleeper payload for weeks 3-6 specifically and
+reappears with a nonzero projection weeks 7 (23.21 pts) and 8 (21.65 pts) —
+tracking his real-world return exactly. Point-in-time/pre-game snapshot
+behavior confirmed; documented as strong circumstantial evidence, not a
+vendor-documented guarantee (see constraint #2).
+
+### 3. 2022-2024 pooled tuning grid (primary gate)
+
+Baseline WR realized-outcome Accuracy Gap (our ranking alone, graded
+against a rank-slot baseline table built purely from actual points, weeks
+3-17): pooled 2022-2024 = **6.69432** (2022=6.52624, 2023=6.56885,
+2024=6.98730).
+
+| Config | Pooled gap (base→treated) | Δ pooled | Δ 2022 | Δ 2023 | Δ 2024 | WR MAE Δ |
+|---|---|---:|---:|---:|---:|---:|
+| near_tie | 6.69432 → 6.61014 | **-0.08418** | -0.09275 | -0.03577 | -0.12492 | -0.04155 |
+| blend, w=0.1 | 6.69432 → 6.64427 | -0.05005 | -0.04649 | -0.04453 | -0.05914 | -0.02793 |
+| blend, w=0.2 | 6.69432 → 6.58363 | -0.11069 | -0.12891 | -0.08653 | -0.11633 | -0.05840 |
+| blend, w=0.3 | 6.69432 → 6.53247 | -0.16184 | -0.18403 | -0.13845 | -0.16241 | -0.08276 |
+| blend, w=0.4 | 6.69432 → 6.46687 | -0.22744 | -0.26225 | -0.19282 | -0.22681 | -0.11304 |
+| **blend, w=0.5** | 6.69432 → **6.41032** | **-0.28399** | -0.30302 | -0.27558 | -0.27142 | -0.12747 |
+
+**Gate check (primary, tuning)**: required `>=0.05` pooled improvement,
+sign-consistent all three seasons. **blend, w=0.5 wins** — clears the bar
+by **5.7x** (-0.284 vs -0.05 bar), monotonically increasing with weight
+across the entire registered grid, sign-consistent in 2022 (-0.303), 2023
+(-0.276), and 2024 (-0.271) individually. `near_tie` also clears the bar
+on its own (-0.084, 1.7x), dominated by every blend weight `>=0.1`.
+**Mechanism (a), w=0.5 is the tuning-set winner** (same winning
+configuration as `--ecr-anchor`'s gate, independently). Grid still
+monotonically improving at the top of the registered range — noted as a
+caveat below, same as the ECR gate's.
+
+### 4. 2025 one-shot confirmation (winner: blend, w=0.5)
+
+Run once, not iterated:
+
+| | Base | Treated | Δ |
+|---|---:|---:|---:|
+| WR realized-outcome gap, 2025 | 6.37641 | 6.07432 | **-0.30209** |
+
+**Gate check (confirmation)**: required directionally positive with
+`>=50%` of the tuning-set pooled effect (-0.28399) retained. Measured
+**-0.30209 → 106.4% retained** (stronger on the confirmation season than
+on tuning, same pattern `--ecr-anchor` saw with its ECR gate). **PASSES.**
+
+### 5. Guard checks
+
+**WR MAE** (vs actual_points, weeks 3-18; no regression `>0.02` permitted):
+
+| Config | 2022-24 base | 2022-24 treated | Δ | 2025 base | 2025 treated | Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| near_tie | 4.39685 | 4.35529 | -0.04155 | — | — | — |
+| blend, w=0.1-0.4 | 4.39685 | 4.36892→4.28380 | -0.028 to -0.113 | — | — | — |
+| **blend, w=0.5** | 4.39685 | 4.26938 | **-0.12747** | 3.81330 | 3.64200 | **-0.17130** |
+
+WR MAE **improves** (does not regress) in every configuration, both eval
+windows — clears the `<=0.02` regression guard with wide margin.
+
+**Scoping proof**: full row-level merge of baseline vs treated for every
+config — **non-WR rows byte-identical**: confirmed True (max|Δ|=0.0,
+n=6,632 rows 2022-2024; n=2,572 rows 2025). **Unmatched WR rows (no
+Sleeper match) show exactly 0.000 projected-points delta**: confirmed,
+max|Δ|=0.0 across 19-31 unmatched WR rows per config (2022-2024) and 42
+unmatched WR rows (2025) — the scoping-proof invariant holds with zero
+exceptions across all 7 configurations tested.
+
+**Per-season sign consistency**: 2022 (-0.303), 2023 (-0.276), 2024
+(-0.271) all improve for the winning config — no sign flip.
+
+### 6. Convergence report (context only — NOT a gate, per constraint #1)
+
+"Ours' Accuracy Gap − Sleeper's own Accuracy Gap" (both realized-outcome
+based; this is the metric that WOULD be circular if used as the primary
+gate, since it mechanically → 0 as blend weight → 1):
+
+| Set | ours (base) | sleeper | delta_base | ours (treated, w=0.5) | delta_treated |
+|---|---:|---:|---:|---:|---:|
+| 2022-2024 | 6.69420 | 6.30017 | +0.39403 | 6.41019 | **+0.11002** |
+| 2025 | 6.37641 | 5.93964 | +0.43677 | 6.07432 | **+0.13468** |
+
+Mean weekly Spearman rank-agreement between our WR ranking and Sleeper's
+(raw ranking similarity — NOT graded against actuals, purely descriptive):
+
+| Set | base | treated (w=0.5) |
+|---|---:|---:|
+| 2022-2024 | 0.8558 | **0.9627** |
+| 2025 | 0.8785 | **0.9683** |
+
+Exactly the mechanical convergence predicted in constraint #1: as blend
+weight increases, our rank order approaches Sleeper's (Spearman → ~0.96-
+0.97), and the ours-vs-Sleeper gap delta shrinks toward (but does not
+reach) zero. **This delta shrinking is NOT the evidence of improvement in
+this gate** — the primary-gate evidence (Section 3-4) is the raw
+realized-outcome gap for our own ranking, independent of Sleeper's own
+score, and is reported separately for exactly this reason.
+
+### 7. Redesigned shuffle / leak test
+
+Per `knowledge-vault/concepts/shuffle-test-must-match-mechanism-shape.md`,
+a shape-appropriate null was pre-registered for each mechanism (used from
+day one, not retrofitted after seeing a mismatch like `--ecr-anchor` did):
+
+**near_tie (disagreement-gated) — single-shuffle collapse test:**
+
+| | Δ (pooled 2022-24, real backtest population) |
+|---|---:|
+| True signal | -0.09730 |
+| Shuffled signal | +0.02402 |
+| Reduction | **75.3%** — collapses toward 0, as pre-registered |
+
+**blend, w=0.5 (winner) — K=100 shuffled-delta null + one-sided empirical p:**
+
+| | Value |
+|---|---:|
+| True-signal Δ | **-0.28863** |
+| Null mean Δ (K=100 shuffles) | **+0.84359** |
+| Null std | 0.06853 |
+| Null min / max | +0.67127 / +1.02115 |
+| One-sided empirical p (fraction of null ≤ true) | **0.0000** |
+| Required | p < 0.05 |
+| **Result** | **PASS** |
+
+The true effect (-0.289, an improvement) is better than **all 100** null
+draws, none of which came close to the true effect — the null distribution
+sits entirely on the "noise actively hurts" side (mean +0.844, matching
+the `--ecr-anchor` gate's own finding that shuffling a full-reorder blend
+mechanism's signal inverts rather than collapses, since noise at real
+weight actively misorders 2,800+ WR player-weeks rather than merely
+no-opping). Using the mechanism-appropriate null (this redesigned test)
+rather than the mismatched single-shuffle-collapse criterion the
+`--ecr-anchor` gate pre-registered, **this gate's shuffle test PASSES
+decisively** rather than producing the same "strong primary/guard evidence
+but sanity-check design mismatch" HOLD outcome that gate landed on.
+
+Methodological note: the shuffle-null test (both near_tie and blend K=100)
+was computed **post-hoc** on the actuals-merged baseline population (same
+population used for the primary-gate Accuracy Gap metric itself), verified
+internally consistent (identical population/code path for every null draw
+and the true-signal run) — NOT via 100 live-CLI re-runs (intractable at
+~7 min/run). The point-estimate gate numbers (Sections 1, 3, 4, 5) all use
+full live-CLI runs on the exact production population; a direct
+post-hoc-vs-live-CLI equivalence check on the near_tie config found the two
+populations differ by ~15% of WR rows (players present in the live
+per-week projection pool before the actuals-inner-join but absent from the
+graded/actuals-merged CSV) — small enough not to change the primary-gate
+conclusion (confirmed by the near_tie live-CLI run in Section 3 matching
+the same direction/magnitude as this section's post-hoc near_tie read) but
+documented honestly rather than silently assumed byte-identical.
+
+### 8. Exploratory secondaries (QB/RB/TE) — non-blocking, informational only
+
+Same winning configuration (blend, w=0.5) applied post-hoc to QB/RB/TE at
+the SAME 2022-2024 population (same caveat as Section 7 — post-hoc, not a
+live-CLI byte-identical run, sufficient only for a directional read):
+
+| Position | Gap Δ | MAE Δ |
+|---|---:|---:|
+| QB | -0.11493 | -0.09976 |
+| RB | -0.21753 | -0.20254 |
+| TE | -0.14736 | -0.09438 |
+
+All three secondaries show the same directional pattern as WR (gap
+improves, MAE improves, no regression) at the identical weight — a
+promising candidate for a future dedicated gate (full live-CLI tuning +
+one-shot + shuffle test per position, not done here since these were
+pre-registered as exploratory/non-blocking for the WR verdict).
+
+## Verdict: **SHIP-PENDING-USER** (WR primary, mechanism = blend, weight = 0.5)
+
+| Criterion | Required | Measured | Result |
+|---|---|---|---|
+| Coverage (WR, all seasons) | `>=60%` | 94.3-99.2% | **PASS** |
+| Primary (tuning, pooled) | `>=0.05` improvement | -0.284 (5.7x bar) | **PASS** |
+| Primary (per-season sign) | consistent all 3 seasons | -0.303 / -0.276 / -0.271 | **PASS** |
+| Confirmation (2025 one-shot) | `>=50%` retained, same direction | 106.4% retained | **PASS** |
+| Guard: WR MAE | no regression `>0.02` | improves -0.127 / -0.171 | **PASS** |
+| Guard: non-target-position byte-identical | exact | confirmed, all 7 configs | **PASS** |
+| Guard: unmatched rows = 0 delta | exact | confirmed, all 7 configs | **PASS** |
+| Sanity: shape-appropriate shuffle test | near_tie collapses; blend K=100 p<0.05 | 75.3% reduction; p=0.0000 | **PASS** |
+
+Every pre-registered gate clears, including the shuffle-test criterion
+that `--ecr-anchor` (the closest precedent, same winning mechanism/weight)
+missed on a mismatched null design — this gate used the redesigned,
+mechanism-appropriate null from day one and passes cleanly. Per the
+pre-registered verdict rule, this lands as **SHIP-PENDING-USER**:
+`generate_projections.py`/`backtest_projections.py` DEFAULTS are **not**
+changed in this session (changing shipped model behavior 3 weeks before
+the draft is a user decision) — `--consensus-anchor-src sleeper
+--consensus-anchor-mode blend --consensus-anchor-weight 0.5` lands as
+fully-wired, opt-in, evaluable machinery, exactly like every other lever
+in this family.
+
+**Recommended follow-up, not applied in this session**: (1) the QB/RB/TE
+exploratory read (Section 8) is a strong candidate for a full dedicated
+gate (live-CLI tuning + one-shot + shuffle test per position); (2) the
+tuning grid was still monotonically improving at `w=0.5`, the top of the
+registered range — a follow-up gate could pre-register a wider grid (e.g.
+0.1-0.9), same caveat `--ecr-anchor` flagged; (3) combining
+`--ecr-anchor` and `--consensus-anchor-src sleeper` (two independent
+consensus sources) was not tested here and is out of scope for this gate
+— worth a dedicated interaction/composition gate before considering it,
+per the coverage-check doc's per-position/per-lever composition rule.
+
+## Caveats / follow-ups
+
+- **Grid ceiling**: same as `--ecr-anchor` — the true optimal weight may
+  be `>0.5`; not explored here (pre-registration rules out post-hoc grid
+  extension after seeing results).
+- **Shuffle-null population caveat** (Section 7): the K=100 null and the
+  near_tie single-shuffle test were computed post-hoc on the
+  actuals-merged population rather than via repeated live-CLI runs
+  (intractable at scale) — documented, not hidden; the primary/guard gate
+  numbers themselves are all live-CLI-verified.
+- **Intra-week capture-time uncertainty** (constraint #2): the exact
+  pre-game capture time of Sleeper's historical projections endpoint for
+  a backfilled past week is not vendor-documented; the Dak Prescott
+  evidence is strong circumstantial confirmation of point-in-time
+  behavior, not a guarantee.
+- **Lever-family interaction untested**: this gate did not test
+  `--consensus-anchor-src sleeper` stacked with `--ecr-anchor` or
+  `--wr-tiebreak` in the same run (each lever in this family is gated and
+  shipped independently; composition is a separate, not-yet-run
+  question — see Recommended follow-up #3 above).
+
+## Files changed
+
+- `src/sleeper_consensus_anchor.py` (new) — `build_sleeper_lookup()`
+  (`player_id`-only join, no name/team resolution needed),
+  `apply_consensus_anchor_blend()` (mechanism a),
+  `apply_consensus_anchor_near_tie()` (mechanism b, reuses
+  `wr_tiebreak`/`ecr_anchor`'s `EPSILON`/`NUDGE`), `apply_consensus_anchor()`
+  dispatcher — all parameterized by `position` (QB/RB/WR/TE).
+- `scripts/backtest_projections.py` — `--consensus-anchor-src {sleeper}` /
+  `--consensus-anchor-position {QB,RB,WR,TE}` /
+  `--consensus-anchor-mode {near_tie,blend}` / `--consensus-anchor-weight`
+  CLI flags; `run_backtest(consensus_anchor_src=..., ...)`; applied in the
+  per-week loop after the `--ecr-anchor` block, before `--wind-adjust`;
+  output-filename tag.
+- `scripts/generate_projections.py` — same CLI flags (weekly mode only;
+  explicit no-op note in `--preseason`); applied after the `--ecr-anchor`
+  block.
+- `tests/test_sleeper_consensus_anchor.py` (new) — 26 unit tests: lookup
+  coverage stats, scoring-format filter, position scoping, latest-parquet
+  selection, blend math (weight-zero no-op, weight-one full realization,
+  value-multiset conservation, unmatched/other-position passthrough,
+  empty-lookup no-op, position-parameterization for QB), near-tie math
+  (nudge-on-disagreement, no-nudge-on-agreement, epsilon threshold,
+  missing-signal no-fire, non-negative clip, other-position passthrough),
+  dispatcher (unknown-mode error, blend default-weight no-op, default
+  position, supported-positions constant), and the redesigned shuffle-null
+  harness proven on a synthetic fixture (near_tie collapse +
+  blend K=100/one-sided-p). All passing.
+- **Data**: none new — reuses the already-committed
+  `data/bronze/external_projections/sleeper/season={2022..2025}/` (Phase
+  1.1 historical backfill).
