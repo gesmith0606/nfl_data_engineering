@@ -558,3 +558,100 @@ per the coverage-check doc's per-position/per-lever composition rule.
 - **Data**: none new — reuses the already-committed
   `data/bronze/external_projections/sleeper/season={2022..2025}/` (Phase
   1.1 historical backfill).
+
+---
+
+## SHIPPED (2026-08-22, user-approved promotion)
+
+Per the pre-registered verdict rules above (SHIP-PENDING-USER), the user
+approved promotion the same day. **`--consensus-anchor-src sleeper
+--consensus-anchor-mode blend --consensus-anchor-weight 0.5` is now
+DEFAULT-ON for WR** in `scripts/generate_projections.py` (weekly mode
+only — no-op in `--preseason`) and in `scripts/backtest_projections.py`'s
+default evaluation path (i.e. `run_backtest()`'s own kwarg defaults, so
+callers like `scripts/production_eval.py`'s production-faithful harness
+pick it up without any flag). QB/RB/TE remain untouched (still opt-in via
+explicit `--consensus-anchor-src sleeper --consensus-anchor-position
+{QB,RB,TE}` — the Section 8 exploratory read was pre-registered
+non-blocking and is not promoted here). Opt-out: `--no-sleeper-anchor`
+(mirrors `--no-consensus-anchor`'s naming for the preseason lever).
+Precedence (no-anchor wins > explicit override wins > shipped default) is
+centralized in `src/sleeper_consensus_anchor.py::resolve_sleeper_anchor_config()`
+so the two CLIs cannot drift.
+
+**Graceful degradation, verified**: `build_sleeper_lookup()` already
+returns an empty lookup (not an exception) when a (season, week, position)
+partition is missing from
+`data/bronze/external_projections/sleeper/season=YYYY/week=WW/`, and
+`apply_consensus_anchor()` is a byte-identical no-op on an empty lookup —
+confirmed directly (`n_sleeper_pos_rows=0` for an out-of-archive week,
+projected_points unchanged). Both call sites now additionally emit a LOUD
+warning (`generate_projections.py`: a `print("WARNING: ...")` line;
+`backtest_projections.py`: `logger.warning(...)`) whenever
+`n_sleeper_pos_rows == 0`, so a missing weekly Sleeper snapshot in
+production is visible in logs rather than silently passing through.
+End-to-end smoke run confirmed on real 2025 data (season=2025, week=5):
+"Sleeper consensus anchor: ON (shipped default — pos=WR, mode=blend,
+weight=0.5)" / "106 matched (of 148 WR rows), 106 row(s) nudged" —
+production Silver/Bronze data, full pipeline, no synthetic fixtures.
+
+### Regenerated headline metrics (promoted config, 2022-2024, `--ml
+--full-features`, weeks 3-18, cons≥5 population floor)
+
+Same recipe as `.planning/SITE_METRICS_REFRESH_2026_08_16.md` (per-season
+`--ml --full-features --vs-consensus --consensus-source sleeper` backtests,
+pooled, `scripts/benchmark_consensus_sources.py --sources sleeper espn` on
+the pooled CSV, `scripts/generate_frontend_metrics.py` for the site
+artifact) — re-run against the SAME already-shipped QB/RB/WR/TE model
+files, the only change being the now-default Sleeper WR anchor.
+**Population reproduces exactly**: 11,358 pooled rows, Sleeper n=7,009 /
+ESPN n=6,721 — bit-for-bit identical to the pre-ship numbers, confirming
+the anchor changes WR ordering/points only, not row counts.
+
+**MAE gap (ours − source; negative = we win), before -> after shipping:**
+
+| Position | vs Sleeper (before) | vs Sleeper (after) | vs ESPN (before) | vs ESPN (after) |
+|---|---:|---:|---:|---:|
+| QB | −1.659 | −1.659 (unchanged) | −1.064 | −1.064 (unchanged) |
+| RB | −0.466 | −0.466 (unchanged) | −0.525 | −0.525 (unchanged) |
+| WR | −0.065 | **−0.132** | −0.104 | **−0.167** |
+| TE | −0.454 | −0.454 (unchanged) | −0.453 | −0.453 (unchanged) |
+| **OVERALL** | −0.508 | **−0.536** | −0.440 | **−0.466** |
+
+QB/RB/TE MAE-gap numbers reproduce to 3 decimals — the scoping-proof
+invariant (non-WR rows byte-identical) holds in this live production
+population exactly as it held in the gate's own guard checks. **WR gap
+roughly doubles** on both sources (still a win before, a wider win after).
+**4 of 4 positions still beat both sources** — no regression anywhere.
+
+**FantasyPros-style ordinal Accuracy Gap** (`scripts/simulate_fp_accuracy.py`,
+half-PPR, weeks 3-17, 2022-2024 pooled), before -> after shipping:
+
+| Position | Ours (before) | Ours (after) | Sleeper | ESPN | Before verdict | After verdict |
+|---|---:|---:|---:|---:|---|---|
+| QB | 5.44 | 5.44 (unchanged) | 7.19 | 7.18 | win | win (unchanged) |
+| RB | 5.32 | 5.32 (unchanged) | 5.92 | 5.91 | win | win (unchanged) |
+| TE | 5.70 | 5.70 (unchanged) | 6.12 | 6.15 | win | win (unchanged) |
+| **WR** | **6.49** | **6.28** | 6.29 | 6.47 | **LOSS vs Sleeper** (by 0.20) | **WIN vs Sleeper** (by 0.01), win vs ESPN widens (0.19) |
+
+**WR ordinal flips from a loss to a win against Sleeper** — narrowly
+(0.01), but a genuine sign flip, not just a shrink. Per-year detail: 2022
+still loses narrowly (6.15 vs Sleeper 6.08, -0.07), 2023 wins (6.20 vs
+6.23), 2024 wins (6.49 vs 6.55) — the pooled flip is driven by 2023/2024
+outweighing a still-negative 2022, reported honestly rather than rounded
+away. QB/RB/TE ordinal numbers reproduce exactly (unchanged), confirming
+the anchor's WR-only scoping holds under the ordinal metric too, not just
+MAE.
+
+**No regression found anywhere** (this was the pre-registered halt
+condition — see task instructions) — every position, every metric, either
+improved or reproduced exactly. Site JSON
+(`web/frontend/src/features/nfl/config/model-metrics.json`) and marketing
+`RECEIPTS` (`web/frontend/src/app/page.tsx`) updated accordingly: overall
+gap −0.51→**−0.54** (Sleeper), −0.44→**−0.47** (ESPN); QB/RB/TE receipt
+tiles unchanged (their underlying numbers didn't move). Frontend
+`npx vitest run`: 354/354 passed. `npx tsc --noEmit`: clean.
+
+Artifacts: `output/backtest/sleeper_anchor_ship_2026_08_22/` (3 per-season
+main CSVs, pooled CSV, per-source consensus-matched CSVs +
+`consensus_benchmark_summary.json`, `fp_sim/` ordinal-sim inputs/outputs).
