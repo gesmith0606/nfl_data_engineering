@@ -1,4 +1,80 @@
-# `--ecr-anchor` 2026 In-Season Forward Gate (2026-08-21)
+# `--ecr-anchor` 2026 In-Season Forward Gate (2026-08-21, amended 2026-08-22)
+
+## 2026-08-22 amendment: live-path completion (blockers #1/#2/#3 below closed)
+
+Three blockers flagged in §0 below at the end of the 2026-08-21 bridge
+session are now closed. Summary (full detail inline at each numbered
+finding, marked "FIXED 2026-08-22"):
+
+1. **Scoring-label mismatch (§0.2) — FIXED.** `src/ecr_anchor.py`'s
+   hardcoded `ECR_SCORING = "ppr"` is now
+   `ECR_SCORING_PREFERENCE = ("ppr", "half_ppr")`, a set-membership filter.
+   **Historical gating was PPR-only — an archive-only limitation** (the
+   DynastyProcess archive never captured a half-PPR weekly page, see
+   `FP_ECR_HISTORY_COVERAGE.md`), not a modeling choice; every season
+   `<=2024` is 100% `"ppr"` rows, so `isin(("ppr","half_ppr"))` reads
+   exactly the same rows the old `== "ppr"` filter did — proven
+   byte-identical against the real `data/silver/fp_ecr/season=2024/`
+   file in `tests/test_ecr_anchor.py::TestScoringPreferenceRegression`.
+   **Live (2026+) is half_ppr** (the daily cron's un-overridden
+   `refresh_external_rankings.py` default) — that label is now read
+   instead of silently producing zero rows. Verified directly:
+   `_load_ecr_season(2026)` returns 5,098 rows (was 0) after re-bridging
+   (see §0.4 update below for the harness).
+2. **Draft-board vs weekly-ECR gap (§0.1) — TRUE weekly capture added.**
+   `refresh_external_rankings.py` gains `fetch_fantasypros_weekly()`,
+   hitting FantasyPros' public weekly-position pages
+   (`ppr-{rb,wr,te}.php`, `half-point-ppr-{rb,wr,te}.php`, `qb.php`)
+   directly and parsing their embedded `var ecrData = {...}` payload — the
+   actual weekly per-position product the historical archive was built
+   from, not the perpetual overall draft board. **Live finding
+   (2026-08-22, preseason, 18 days before 2026-09-09 kickoff): FantasyPros
+   is already serving a provisional week=1 WEEKLY board on every
+   position/scoring page** (`ranking_type_name: "weekly"`, not `"draft"`),
+   89 QB / 152 RB / 238 WR / 125 TE players, 12 contributing experts,
+   `last_updated` same-day. No 404s, no draft-board fallback needed at any
+   position — the "handle gracefully" preseason-404 contingency plan
+   turned out to be unnecessary today, but the fail-open per-position
+   handling is still in place for if/when that changes. `bridge_fp_ecr_live
+   .py::load_all_captures` now prefers this weekly-position capture over
+   the draft board per scrape_date when both exist. Wired into the SAME
+   daily cron step (`daily-sentiment.yml` step 5b already runs
+   `refresh_external_rankings.py --source all`-equivalent with no
+   `--source` flag) via a new `fantasypros_weekly` entry in the default
+   source list — no workflow file changes needed. Output is a sibling file
+   (`data/external/fantasypros_weekly_rankings.json` + dated archive),
+   the existing `fantasypros_rankings.json` schema/path is untouched.
+3. **PlayerNameResolver bugs (§0.4) — FIXED.** (a) `_NICKNAME_MAP` entries
+   whose mapped value contains punctuation (`"aj brown" -> "a.j. brown"`,
+   `"dj moore"`, `"dj chark"`) were dead because `_normalise()` strips
+   periods from every index key but the raw mapped value was used as the
+   lookup key unnormalised — fixed by re-normalising the mapped value
+   before lookup. (b) `_normalise()` stripped periods but not apostrophes,
+   so `"Tre' Harris"` failed to match an apostrophe-free roster entry
+   `"Tre Harris"` — fixed by stripping both straight (`'`) and curly (`'`)
+   apostrophes. Both fixed test-first
+   (`tests/test_player_name_resolver.py`); full resolver test suite +
+   sentiment-pipeline tests that depend on it (391 tests across
+   `test_ecr_anchor.py`, `test_player_name_resolver.py`,
+   `test_bridge_fp_ecr_live.py`, `test_external_rankings_archive.py`,
+   `test_sentiment_integration.py`, `test_sentiment_processing.py`,
+   `test_team_sentiment.py`, `tests/sentiment/`) pass green after the fix.
+4. **Re-bridged end-to-end 2026-08-22** with all three fixes live: 45
+   capture dates (was 43), 13,012 rows (was 12,126) — the new count
+   includes the first true weekly-position capture (2026-08-23 UTC,
+   598/604 rows resolved). **WR match rate on the weekly-position capture:
+   98.3% (238 WR rows)** — exceeds the pre-registered ≥90% floor
+   comfortably and improves on the draft-board-only bridge's previously
+   reported 96.3-96.4% (109-111 WR rows/day). Positional coverage is also
+   materially better: the weekly WR page alone carries 238 ranked WRs vs.
+   ~110 WR rows/day out of the draft board's fixed 300-player overall cap
+   — the weekly per-position pages simply rank more players at each
+   position than fit in a 300-player cross-position board.
+   `build_ecr_lookup()` confirmed returning nonzero 2026 rows via a direct
+   module-import harness (season=2026, week=1): `n_ecr_wr_rows=5050`,
+   `n_final_matched=200` against a synthetic 200-player WR projection
+   pool built from real 2026 roster team assignments (0 Thursday-excluded,
+   as expected this far before kickoff).
 
 Pre-registered BEFORE week 1 of the 2026 season and BEFORE any shadow-mode
 result exists. This is the "true forward gate" flagged as outstanding in
@@ -42,7 +118,8 @@ not duplicate). Run against the real archive this session:
 
 ### Known gaps (read before reading any future forward-gate result)
 
-1. **Source-product mismatch (the big one).** `refresh_external_rankings
+1. **Source-product mismatch (the big one) — FIXED 2026-08-22, see the
+   amendment at the top of this doc.** `refresh_external_rankings
    .py::fetch_fantasypros` always requests FantasyPros' partners
    `consensus-rankings.php` with `week=0&type=draft` — the perpetual
    season-long **redraft/overall consensus board**, with no code path that
@@ -55,11 +132,16 @@ not duplicate). Run against the real archive this session:
    consensus help WR ordering," not the originally-gated "does anchoring
    toward FantasyPros' weekly expert consensus help."** That's a real,
    weaker version of the hypothesis. Any SHIP-recommend verdict from this
-   forward gate should be read with that substitution in mind. The
-   structural fix (a true weekly-position capture) is outside this
-   session's file ownership (`scripts/refresh_external_rankings.py`) —
-   flagged as a follow-up, not applied.
-2. **Scoring mismatch blocks the wiring today.** Our capture's true scoring
+   forward gate should be read with that substitution in mind. **UPDATE
+   2026-08-22:** a true weekly-position capture
+   (`fetch_fantasypros_weekly`) now exists and is preferred by the bridge
+   whenever present for a scrape_date — see the amendment at the top of
+   this doc for the live finding and match-rate numbers. Dates captured
+   before 2026-08-22 remain draft-board-sourced (the substitution above
+   still applies to THOSE rows specifically); the historical framing in
+   this bullet is left as-written for the record.
+2. **Scoring mismatch blocks the wiring today — FIXED 2026-08-22, see the
+   amendment at the top of this doc.** Our capture's true scoring
    is `half_ppr` (the daily cron's un-overridden default). `src/ecr_anchor
    .py` hardcodes `ECR_SCORING = "ppr"` in `_load_ecr_season()`. The bridge
    writes the honest `scoring="half_ppr"` label rather than mislabeling
@@ -78,36 +160,41 @@ not duplicate). Run against the real archive this session:
    This is flagged loudly rather than silently worked around, per this
    repo's coverage-check discipline
    (`knowledge-vault/concepts/gated-experiment-coverage-check.md`).
-3. **`ecr`/`sd`/`best`/`worst` are null for every 2026 row.** Our capture
-   has no per-expert dispersion and no float consensus average — only an
-   integer overall-board rank. `ecr_anchor.py` only ever reads `pos_rank`
-   from the Silver file (verified by reading `build_ecr_lookup()`'s source
-   — it never touches `ecr`/`sd`/`best`/`worst`), so this has **no
-   functional impact on the lever itself**, only on anyone else who might
-   read those columns expecting real values.
-4. **No `fantasypros_id`.** Our capture carries no FantasyPros numeric
-   player id, so id resolution goes through
-   `src.player_name_resolver.PlayerNameResolver` (fuzzy name match) instead
-   of the historical ingestion's DynastyProcess id-crosswalk join. Two
+3. **`ecr`/`sd`/`best`/`worst` are null for every 2026 row — PARTIALLY
+   ADDRESSED 2026-08-22.** Draft-board-sourced rows still have no
+   per-expert dispersion and no float consensus average (unchanged, still
+   no functional impact on the lever — `ecr_anchor.py` only ever reads
+   `pos_rank`). Weekly-position-sourced rows (2026-08-22+) DO carry real
+   `ecr`/`sd`/`best`/`worst` values now, since FantasyPros publishes them
+   directly on the weekly pages — see the amendment at the top of this
+   doc. A row's `ecr` nullness is therefore also the per-row provenance
+   label distinguishing which source fed it (no schema change was made to
+   carry this — see `bridge_fp_ecr_live.py`'s docstring finding #3b).
+4. **No `fantasypros_id` — PARTIALLY ADDRESSED 2026-08-22.** Draft-board
+   rows still carry no FantasyPros numeric id; weekly-position rows now
+   do (also published directly on the weekly pages), though nothing
+   downstream joins on it yet (id resolution for both source kinds still
+   goes through `PlayerNameResolver`, fuzzy name match — there's still no
+   local DynastyProcess-style id crosswalk to join against). Two
    pre-existing bugs in `src/player_name_resolver.py` were found while
-   diagnosing the ~3.6% WR non-match rate (not fixed here — out of this
-   session's ownership, and shared infra other agents may be touching
-   concurrently):
+   diagnosing the ~3.6% WR non-match rate and are now **FIXED (2026-08-22)**:
    - `_NICKNAME_MAP` has three dead/harmful entries (`"aj brown"`,
      `"dj moore"`, `"dj chark"`) that map a dot-stripped normalized key
      back to a **dotted** string (`"a.j. brown"` etc). Since `_normalise()`
      strips periods from every name (including when the lookup index
      itself was built), the dotted remapped string can never match any
-     index key — these three entries actively break resolution for exactly
-     the players they were meant to help. Explains "A.J. Brown" and
-     "DJ Moore" showing up unresolved despite being present in the index
-     under an unambiguous `(team, position)`.
-   - `_normalise()` strips periods but not apostrophes, so a name like
-     `"Tre' Harris"` normalizes to `"tre' harris"` and fails to match the
+     index key — these three entries actively broke resolution for exactly
+     the players they were meant to help. Fixed by re-normalising the
+     mapped value before using it as a lookup key.
+   - `_normalise()` stripped periods but not apostrophes, so a name like
+     `"Tre' Harris"` normalized to `"tre' harris"` and failed to match the
      index's `"tre harris"` (no apostrophe in the roster source name).
-   Neither bug is severe enough to threaten the ≥90% floor (measured
-   96.3-96.4%), but both are real, reproducible, and worth a follow-up fix
-   in `src/player_name_resolver.py` by whoever owns it next.
+     Fixed by stripping both straight and curly apostrophes.
+   Neither bug was severe enough to threaten the ≥90% floor (measured
+   96.3-96.4% before the fix), but both were real and reproducible.
+   Test-first regressions live in `tests/test_player_name_resolver.py`;
+   full resolver + dependent sentiment-pipeline test suites (391 tests)
+   pass green post-fix.
 5. **Preseason week-mapping decision.** Every capture date bridged so far
    (2026-07-09 through today) sits well before the 2026 week-1 window
    closes (kickoff 2026-09-09, week 1 spans through 2026-09-14). Reusing
@@ -293,24 +380,50 @@ workflow would benefit from a bridge step either).
 
 ## 5. Files
 
-- `scripts/bridge_fp_ecr_live.py` (new) — the bridge; see its module
-  docstring for the full list of schema/scoring/mapping decisions.
-- `tests/test_bridge_fp_ecr_live.py` (new) — 26 tests: position-ranked row
-  derivation, id-resolution fallback tiers + team-code normalization +
-  memoization, week mapping (incl. unmapped/post-season drop), honest
-  null-field mapping, ≥90% WR match-rate fail-loud (below and at the
-  boundary), schema-column-for-column match against the real
-  `data/silver/fp_ecr/season=2024/` historical file, idempotent
-  upsert (replace-not-duplicate, cross-date accumulation, descending
-  scrape_date sort), and archive/live capture loading (folder-name-as-date,
-  live-file dedup against already-archived dates, malformed folder
-  names ignored).
+- `scripts/bridge_fp_ecr_live.py` — the bridge; see its module docstring
+  for the full list of schema/scoring/mapping decisions. Amended
+  2026-08-22 with weekly-position preference (`load_all_captures` now
+  prefers a true weekly-position capture over the draft board per
+  scrape_date; `Capture.kind` + `weekly_capture_to_position_rows`).
+- `tests/test_bridge_fp_ecr_live.py` — 34 tests (was 26; +8 2026-08-22):
+  position-ranked row derivation, id-resolution fallback tiers +
+  team-code normalization + memoization, week mapping (incl.
+  unmapped/post-season drop), honest null-field mapping, ≥90% WR
+  match-rate fail-loud (below and at the boundary), schema-column-for-
+  column match against the real `data/silver/fp_ecr/season=2024/`
+  historical file, idempotent upsert (replace-not-duplicate, cross-date
+  accumulation, descending scrape_date sort), archive/live capture
+  loading (folder-name-as-date, live-file dedup against already-archived
+  dates, malformed folder names ignored), and (new) weekly-position
+  row shaping + weekly-vs-draft-board preference resolution.
+- `scripts/refresh_external_rankings.py` — amended 2026-08-22:
+  `fetch_fantasypros_weekly()` + `_extract_ecr_data_json()` +
+  `_parse_fp_weekly_page()` (new), `save_rankings()` gains an additive
+  `extra` kwarg, `--source fantasypros_weekly` / included in `--source all`.
+- `tests/test_external_rankings_archive.py` — +17 tests (2026-08-22) for
+  the above.
+- `src/ecr_anchor.py` — amended 2026-08-22: `ECR_SCORING_PREFERENCE`
+  replaces the hardcoded `ECR_SCORING="ppr"` filter in `_load_ecr_season`
+  / `build_ecr_lookup` (additive, backward-compatible keyword param).
+- `tests/test_ecr_anchor.py` — +5 tests (2026-08-22),
+  `TestScoringPreferenceRegression`.
+- `src/player_name_resolver.py` — amended 2026-08-22: dead `_NICKNAME_MAP`
+  entries fixed (re-normalise mapped value), apostrophe stripping added
+  to `_normalise()`.
+- `tests/test_player_name_resolver.py` — +9 tests (2026-08-22).
 - `.claude/skills/weekly-pipeline/SKILL.md` — optional "Step 0" pointer to
   run the bridge locally before projections during the forward-gate period
   (no GHA changes — see §4).
 - **Data**: `data/silver/fp_ecr/season=2026/fp_ecr_2026.parquet` (local
-  only, gitignored, not committed) — 12,126 rows across 43 bridged capture
-  dates as of 2026-08-21, all `week=1` (see §0.5).
+  only, gitignored, not committed) — 13,012 rows across 45 bridged capture
+  dates as of 2026-08-22 (was 12,126 rows / 43 dates on 2026-08-21), all
+  `week=1` (see §0.5); the 2026-08-23 date is the first true
+  weekly-position capture (598/604 rows resolved, WR 98.3%).
+  `data/external/fantasypros_weekly_rankings.json` (new; `data/external/`
+  is committed by the daily-sentiment cron, same as the existing
+  `fantasypros_rankings.json` — no new gitignore entry needed) is the
+  live weekly-position cache; dated archive alongside the existing
+  `fantasypros_rankings.json` snapshots.
 
 ## 6. Results
 
