@@ -24,6 +24,7 @@ import gzip
 import json
 import logging
 import os
+import re
 import sys
 import tempfile
 import time
@@ -76,6 +77,38 @@ _FP_PARTNERS_SCORING_MAP = {
     "half_ppr": "HALF",
     "standard": "STD",
 }
+
+# ---------------------------------------------------------------------------
+# FantasyPros weekly per-position rankings page slugs (public, no auth).
+#
+# These are DIFFERENT pages from fetch_fantasypros() above: that function
+# always calls the partners consensus-rankings.php with week=0&type=draft
+# -- the perpetual overall REDRAFT/draft board. These pages
+# (fantasypros.com/nfl/rankings/{slug}.php) are FantasyPros' weekly
+# per-position boards -- the same product WR_ECR_ORDINAL_GATE.md's
+# historical DynastyProcess archive scraped, re-ranked every week from that
+# week's expert consensus. Each page embeds a `var ecrData = {...}` JS
+# object carrying the true per-position rank (`pos_rank`, e.g. "WR1"),
+# dispersion stats (`rank_ave`/`rank_std`/`rank_min`/`rank_max`), and a
+# numeric FantasyPros player id -- richer than the draft-board capture,
+# which has none of that (see ECR_ANCHOR_FORWARD_GATE.md #0.2/#0.4).
+# QB has no scoring split (passing/rushing points don't depend on
+# receptions) -- qb.php is used for every scoring value.
+_FP_WEEKLY_PAGE_SLUGS = {
+    ("QB", "ppr"): "qb",
+    ("QB", "half_ppr"): "qb",
+    ("QB", "standard"): "qb",
+    ("RB", "ppr"): "ppr-rb",
+    ("RB", "half_ppr"): "half-point-ppr-rb",
+    ("RB", "standard"): "rb",
+    ("WR", "ppr"): "ppr-wr",
+    ("WR", "half_ppr"): "half-point-ppr-wr",
+    ("WR", "standard"): "wr",
+    ("TE", "ppr"): "ppr-te",
+    ("TE", "half_ppr"): "half-point-ppr-te",
+    ("TE", "standard"): "te",
+}
+_FP_WEEKLY_POSITIONS = ("QB", "RB", "WR", "TE")
 
 # Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 multi-year draft-accuracy
 # leaderboard. ID verified against partners expert-groups.php (year=2025).
@@ -220,6 +253,163 @@ def fetch_fantasypros(
         )
     logger.info("Parsed %d FantasyPros rankings (public v2)", len(rows))
     return rows[:limit]
+
+
+# ---------------------------------------------------------------------------
+# FantasyPros weekly per-position ECR (true weekly rankings, not the draft board)
+# ---------------------------------------------------------------------------
+def _extract_ecr_data_json(html: str) -> Optional[Dict[str, Any]]:
+    """Pull the `var ecrData = {...};` JS object literal out of a
+    fantasypros.com/nfl/rankings/*.php page and parse it as JSON.
+
+    Uses a brace-balance scan (respecting quoted strings) rather than a
+    regex terminated on the first ``};`` -- safer against player note text
+    that might itself contain that substring. Returns None if the marker
+    isn't found or the extracted text isn't valid JSON (page format changed,
+    or FantasyPros served an error page) -- callers treat that as a normal
+    fail-open miss, not an exception.
+    """
+    marker = "var ecrData = "
+    start = html.find(marker)
+    if start == -1:
+        return None
+    start += len(marker)
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(html)):
+        ch = html[i]
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                try:
+                    return json.loads(html[start : i + 1])
+                except json.JSONDecodeError:
+                    return None
+    return None
+
+
+def _parse_fp_weekly_page(data: Dict[str, Any], position: str, limit: int) -> List[Dict[str, Any]]:
+    """Shape one weekly-position page's `ecrData` payload into ranking rows.
+
+    Carries FantasyPros' own per-position rank/dispersion/id fields through
+    verbatim (``pos_rank``, ``ecr``, ``sd``, ``best``, ``worst``,
+    ``fantasypros_id``) -- these map directly onto the historical Silver
+    schema's columns of the same meaning, unlike the draft-board capture
+    which has to leave them null (see ``bridge_fp_ecr_live.py``).
+    """
+    players_raw = data.get("players", []) or []
+    week_raw = data.get("week")
+    try:
+        week = int(week_raw) if week_raw is not None else None
+    except (TypeError, ValueError):
+        week = None
+
+    rows: List[Dict[str, Any]] = []
+    for p in players_raw[:limit]:
+        name = p.get("player_name") or ""
+        if not name:
+            continue
+        pos_rank_raw = str(p.get("pos_rank") or "")
+        digits = re.sub(r"[^0-9]", "", pos_rank_raw)
+        pos_rank = int(digits) if digits else None
+        try:
+            rank_ecr = int(p.get("rank_ecr"))
+        except (TypeError, ValueError):
+            rank_ecr = None
+        rows.append(
+            {
+                "player_name": name,
+                "position": position,
+                "team": p.get("player_team_id", "") or "",
+                "fantasypros_id": p.get("player_id"),
+                "external_rank": rank_ecr,
+                "pos_rank": pos_rank,
+                "ecr": p.get("rank_ave"),
+                "sd": p.get("rank_std"),
+                "best": p.get("rank_min"),
+                "worst": p.get("rank_max"),
+                "week": week,
+                "ranking_type": data.get("ranking_type_name"),
+            }
+        )
+    # Fallback: a handful of rows with an unparsable pos_rank (page format
+    # drift) shouldn't sink the whole position -- derive from rank_ecr order.
+    if any(r["pos_rank"] is None for r in rows):
+        rows.sort(key=lambda r: (r["external_rank"] is None, r["external_rank"] or 0))
+        for i, r in enumerate(rows, 1):
+            if r["pos_rank"] is None:
+                r["pos_rank"] = i
+    rows.sort(key=lambda r: r["pos_rank"])
+    for i, row in enumerate(rows, 1):
+        row["rank"] = i
+    return rows
+
+
+def fetch_fantasypros_weekly(
+    season: int = 2026, scoring: str = "half_ppr", limit: int = 300
+) -> List[Dict[str, Any]]:
+    """Fetch FantasyPros' TRUE weekly per-position ECR (QB/RB/WR/TE).
+
+    Unlike ``fetch_fantasypros`` (the perpetual overall draft board), this
+    hits the public weekly-position rankings pages directly -- the same
+    product the historical WR_ECR_ORDINAL_GATE.md archive was built from.
+    Preseason/off-cadence behavior: FantasyPros may serve a provisional
+    "week 1" board (``ranking_type_name == "weekly"``) before kickoff, or
+    (rarely) a page with no ``ecrData`` at all if the format changes -- both
+    are handled by skipping that position and logging, never raising.
+    Fail-open per position: one position 404ing/erroring doesn't stop the
+    other three, and an all-positions failure returns ``[]`` (the existing
+    ``main()`` loop already treats an empty return as a normal "no data").
+
+    Returns a flat list across QB/RB/WR/TE, each row also carrying its own
+    ``week`` and ``ranking_type`` (FantasyPros' self-reported values, not
+    derived) so downstream consumers can tell a true "weekly" capture from
+    a preseason "draft"-labeled fallback if FantasyPros ever serves one.
+    """
+    rows: List[Dict[str, Any]] = []
+    for position in _FP_WEEKLY_POSITIONS:
+        slug = _FP_WEEKLY_PAGE_SLUGS.get((position, scoring))
+        if slug is None:
+            continue
+        url = f"https://www.fantasypros.com/nfl/rankings/{slug}.php"
+        try:
+            resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+            resp.raise_for_status()
+        except requests.RequestException as exc:
+            logger.warning(
+                "FantasyPros weekly %s (%s) fetch failed (%s) -- skipping this position",
+                position, scoring, exc,
+            )
+            continue
+        data = _extract_ecr_data_json(resp.text)
+        if not data:
+            logger.warning(
+                "FantasyPros weekly %s (%s): no ecrData found on %s (page format may "
+                "have changed, or the page 404'd/served an error body) -- skipping",
+                position, scoring, url,
+            )
+            continue
+        page_rows = _parse_fp_weekly_page(data, position, limit)
+        logger.info(
+            "FantasyPros weekly %s (%s): %d players, week=%s, type=%s, experts=%s",
+            position, scoring, len(page_rows), data.get("week"),
+            data.get("ranking_type_name"), data.get("total_experts"),
+        )
+        rows.extend(page_rows)
+    return rows
 
 
 # ---------------------------------------------------------------------------
@@ -370,7 +560,9 @@ def fetch_ftn(
 # ---------------------------------------------------------------------------
 # Save
 # ---------------------------------------------------------------------------
-def save_rankings(source: str, data: List[Dict[str, Any]]) -> Tuple[Path, bool]:
+def save_rankings(
+    source: str, data: List[Dict[str, Any]], extra: Optional[Dict[str, Any]] = None
+) -> Tuple[Path, bool]:
     """Save rankings to data/external/<source>_rankings.json.
 
     Writes the canonical envelope format the web service reads (source /
@@ -378,6 +570,14 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Tuple[Path, bool]:
     rather than file mtime. Skips the write when the player content is
     unchanged — the daily workflow commits this directory, and a fetched_at
     -only diff would produce a meaningless commit every day.
+
+    Args:
+        source: Cache file basename prefix (``data/external/<source>_rankings.json``).
+        data: Player rows.
+        extra: Optional additional envelope-level fields (e.g. ``week``,
+            ``scoring``) merged in alongside ``source``/``fetched_at``/
+            ``players``. Ignored by existing readers of the envelope (they
+            only ever look at ``players``), so this is purely additive.
 
     Returns:
         ``(path, changed)`` — ``changed`` is False when the cache content
@@ -404,6 +604,7 @@ def save_rankings(source: str, data: List[Dict[str, Any]]) -> Tuple[Path, bool]:
     envelope = {
         "source": source,
         "fetched_at": datetime.now(timezone.utc).isoformat(),
+        **(extra or {}),
         "players": data,
     }
     # Atomic write: this file is committed to main by the daily workflow, so
@@ -480,7 +681,9 @@ def main() -> int:
     parser.add_argument(
         "--source",
         default="all",
-        choices=["all", "sleeper", "fantasypros", "espn", "draftsharks", "ftn"],
+        choices=[
+            "all", "sleeper", "fantasypros", "fantasypros_weekly", "espn", "draftsharks", "ftn",
+        ],
         help="Which source to refresh (default: all)",
     )
     parser.add_argument(
@@ -496,7 +699,7 @@ def main() -> int:
     print("=" * 60)
 
     sources_to_fetch = (
-        ["sleeper", "fantasypros", "espn", "draftsharks", "ftn"]
+        ["sleeper", "fantasypros", "fantasypros_weekly", "espn", "draftsharks", "ftn"]
         if args.source == "all"
         else [args.source]
     )
@@ -510,6 +713,10 @@ def main() -> int:
                 data = fetch_sleeper(limit=args.limit)
             elif source == "fantasypros":
                 data = fetch_fantasypros(
+                    season=args.season, scoring=args.scoring, limit=args.limit
+                )
+            elif source == "fantasypros_weekly":
+                data = fetch_fantasypros_weekly(
                     season=args.season, scoring=args.scoring, limit=args.limit
                 )
             elif source == "espn":
