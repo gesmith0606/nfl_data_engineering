@@ -56,6 +56,7 @@ python scripts/refresh_adp.py --source yahoo --cdp-url http://127.0.0.1:9333    
 python scripts/draft_value_report.py --league la_liga [--sources espn,ffc --csv]         # VALUES / BUSTS / BREAKOUTS / DEEP SLEEPERS per ADP source + cross-platform mispricing, each with the docs/DRAFT_DOCTRINE.md rule that fired
 python scripts/backtest_draft_flags.py                                                   # Doctrine signal hit rates on 2021-25 (FFC ADP history vs Silver actuals): RB age>=27 + RB dead zone confirmed, TD-share proxy rejected, real xTD gap >= +3 = ceiling cap (beat 3% vs 15%)
 python scripts/draft_sim_study.py --seeds 4                                              # Advisor drafts all 12 slots vs ADP bots, rosters scored by ESPN's OWN projections (non-circular): mean rank 4.3/12, +2.3 pts/wk vs field. Never quote the own-projection version (advisor wins by construction)
+python scripts/draft_history_replay.py 2                                                 # Point-in-time replay 2021-25 scored by ACTUAL results: mean rank 6.42/12 = market-even (lower bound: replay is rookie-blind + unanchored); unfiltered board ranked 9.94 -> the market filter is load-bearing
 python scripts/draft_live.py --platform espn --scoring standard --roster-format espn_default --my-team "The Oracle" --watch --queue   # ESPN LIVE co-pilot: reads the draft-room tab via Chrome DevTools (start Chrome with --remote-debugging-port=9222 --user-data-dir=<separate profile>), recs <1s per pick, --queue fills ESPN's Pick Queue from our board
 
 # Sentiment pipeline

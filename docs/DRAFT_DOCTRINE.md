@@ -91,7 +91,24 @@ from ~0% in rounds 1–3 to 20–28% in rounds 6–11 — upside lives late, saf
 `src/draft_value.py` scores §21 for RBs only, drops the TD-share proxy, and scores the real xTD
 overachiever gap (≥ +3) as a mild bust / ceiling-cap signal.
 
-**Sim study (2026-08-24, `scratchpad simstudy2.py`):** advisor drafted all 12 slots × 4 seeds against
+**Historical replay (2026-08-24, `scripts/draft_history_replay.py`):** the advisor drafted 2021–2025
+with point-in-time info only (heuristic projections from Silver usage Y-2/Y-1 + that season's real
+Sept-1 FFC ADP; opponents = ADP+noise bots), rosters scored by **actual season results**. Three findings:
+1. **Unfiltered board = disaster (mean rank 9.94/12).** 79% of the heuristic pool had no ADP that year;
+   the advisor drafted retirees (Gronkowski, Antonio Brown) and 1-game ghosts (a 309-pt "projection"
+   from a single 2-TD week). *A value engine without a market filter drafts ghosts — the room-universe /
+   consensus filter is load-bearing, not cosmetic.*
+2. **Room-universe filter → market-even: pooled mean rank 6.42/12** (field 6.5), top-3 31% / bottom-3 32%,
+   season range 1.5 (2022) to 10.0 (2025).
+3. **The replay advisor was rookie-blind** (no draft-capital/college inputs passed): 6–9 of each year's ADP
+   top-100 were invisible to it — worth 689–1,171 actual points/season (Najee 2021, Bijan/Gibbs 2023,
+   Jeanty/Hampton 2025) — and the worst replay seasons are the biggest blind-spot years. Production
+   projects rookies and anchors to consensus, so 6.42 is a **lower bound** on the production stack; the
+   anchor itself cannot be replayed historically (2026-only caches) and remains unproven on actuals.
+Net: structure (starters-first, cost of waiting, house rules) alone drafts even with the market by
+actual results; the claimed edge above market rests on projection quality, which varies sharply by year.
+
+**Sim study (2026-08-24, `scripts/draft_sim_study.py`):** advisor drafted all 12 slots × 4 seeds against
 ADP+noise bots; rosters scored by **ESPN's own projections** (out-of-model yardstick): mean starting-lineup
 rank **4.3 of 12** (field 6.5), +2.3 pts/week vs field average, top-3 finish 35%, bottom-3 4%. Scored by our
 own projections the advisor ranks 1st in 47/48 — that number is circular and must never be quoted as evidence.
