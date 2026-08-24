@@ -1,0 +1,591 @@
+{
+  "fetch_run_id": "a53eb807-1c97-49d5-b400-ada827f9c793",
+  "source": "pft",
+  "fetched_at": "2026-08-24T12:14:02.536411+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-emmanuel-henderson-thinking-of-being-a-great-wr-and-all-pro-returner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-emmanuel-henderson-thinking-of-being-a-great-wr-and-all-pro-returner",
+      "permalink": "",
+      "title": "Mike Macdonald wants Emmanuel Henderson thinking of being a great WR and All-Pro returner",
+      "body_text": "Seahawks rookie receiver Emmanuel Henderson was a sixth-round pick, which means he has to compete just to make the roster.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-24T09:51:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Emmanuel Henderson"
+      ],
+      "resolved_player_ids": [
+        "00-0040895"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-on-starting-defense-giving-up-tds-glad-it-happened-in-preseason",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-on-starting-defense-giving-up-tds-glad-it-happened-in-preseason",
+      "permalink": "",
+      "title": "Robert Saleh on starting defense giving up TDs: Glad it happened in preseason",
+      "body_text": "The Titans' starting defense gave up a 36-yard touchdown pass on the first possession and a 69-yard touchdown run on the second possession.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-24T08:11:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Saleh",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-bud-clark-ol-mason-richman-out-for-months-after-being-injured-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-bud-clark-ol-mason-richman-out-for-months-after-being-injured-sunday-night",
+      "permalink": "",
+      "title": "S Bud Clark, OL Mason Richman out for months after being injured Sunday night",
+      "body_text": "The Seahawks have taken three big losses before the season even starts.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T03:47:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Clark",
+        "Mason Richman",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0041463",
+        "00-0040652"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-rb-ashton-jeanty-diagnosed-with-sprained-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-rb-ashton-jeanty-diagnosed-with-sprained-ankle",
+      "permalink": "",
+      "title": "Raiders RB Ashton Jeanty diagnosed with sprained ankle",
+      "body_text": "Raiders running back Ashton Jeanty needed help off the practice field on Sunday after injuring his right leg.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T03:25:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-send-lb-deion-jones-to-49ers-for-rb-zamir-white",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-send-lb-deion-jones-to-49ers-for-rb-zamir-white",
+      "permalink": "",
+      "title": "Saints send LB Deion Jones to 49ers for RB Zamir White",
+      "body_text": "The Saints are trading veteran linebacker Deion Jones to the 49ers in exchange for running back Zamir White, Adam Schefter of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T03:05:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Jones",
+        "Zamir White",
+        "The Saints",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0032388",
+        "00-0038040"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-says-recent-practice-absences-were-planned-as-part-of-load-management",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-says-recent-practice-absences-were-planned-as-part-of-load-management",
+      "permalink": "",
+      "title": "Christian McCaffrey says recent practice absences were planned as part of load management",
+      "body_text": "Christian McCaffrey returned to practice on Sunday, his first time on the field with his teammates since Aug. 8.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T02:13:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-second-round-s-bud-clark-carted-off-with-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-second-round-s-bud-clark-carted-off-with-leg-injury",
+      "permalink": "",
+      "title": "Seahawks second-round S Bud Clark carted off with leg injury",
+      "body_text": "Seahawks rookie safety Bud Clark was carted off with a right leg injury in Sunday night's preseason game against the Titans.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T01:45:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Clark"
+      ],
+      "resolved_player_ids": [
+        "00-0041463"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/could-deshaun-watson-get-a-two-game-audition-for-the-starting-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/could-deshaun-watson-get-a-two-game-audition-for-the-starting-job",
+      "permalink": "",
+      "title": "Could Deshaun Watson get a two-game audition for the starting job?",
+      "body_text": "Browns coach Todd Monken surely knows which quarterback he'll name as the team's starter on Monday.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T23:24:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Could Deshaun",
+        "Todd Monken"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-years-since-selling-commanders-daniel-synder-has-become-invisible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-years-since-selling-commanders-daniel-synder-has-become-invisible",
+      "permalink": "",
+      "title": "Three years since selling Commanders, Daniel Synder has become \"invisible\"",
+      "body_text": "Daniel Snyder is the perfect example of a fundamental truth: The only thing better than being rich and famous is being rich.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T22:55:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Synder",
+        "Daniel Snyder"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-exits-sundays-practice-with-apparent-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-exits-sundays-practice-with-apparent-leg-injury",
+      "permalink": "",
+      "title": "Ashton Jeanty exits Sunday's practice with apparent leg injury",
+      "body_text": "Jeanty went down after diving to make a catch during the day's session.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-23T21:43:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-will-waive-daequan-wright-who-has-agreed-to-play-for-lsu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-will-waive-daequan-wright-who-has-agreed-to-play-for-lsu",
+      "permalink": "",
+      "title": "Browns will waive Dae’Quan Wright, who has agreed to play for LSU",
+      "body_text": "Browns tight end Dae’Quan Wright is poised to do something that once would have been unthinkable: Leave the NFL and go play in the NCAA.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-23T21:08:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quan Wright"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-dt-tommy-akingbesote-waive-cb-devon-marshall",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-sign-dt-tommy-akingbesote-waive-cb-devon-marshall",
+      "permalink": "",
+      "title": "Jaguars sign DT Tommy Akingbesote, waive CB Devon Marshall",
+      "body_text": "The Jaguars have made a pair of roster moves on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-23T20:18:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tommy Akingbesote",
+        "Devon Marshall",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0040022",
+        "00-0041212"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-anticipates-naming-starting-quarterback-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-anticipates-naming-starting-quarterback-on-monday",
+      "permalink": "",
+      "title": "Todd Monken anticipates naming a starting quarterback on Monday",
+      "body_text": "Monken says Saturday's comments from Deshaun Watson won't be a factor.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T19:53:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Monday Monken",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-day-after-signing-with-dolphins-lb-stephen-dix-jr-was-making-defensive-calls-in-a-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-day-after-signing-with-dolphins-lb-stephen-dix-jr-was-making-defensive-calls-in-a-game",
+      "permalink": "",
+      "title": "A day after signing with Dolphins, LB Stephen Dix Jr. was making defensive calls in a game",
+      "body_text": "The preseason is often about figuring out the contours of the roster.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T19:14:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Dix Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-we-wanted-to-accomplish-more-offensively-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-we-wanted-to-accomplish-more-offensively-on-saturday",
+      "permalink": "",
+      "title": "Kellen Moore: We wanted to accomplish more offensively on Saturday",
+      "body_text": "Zach Wilson made a good case for the Saints' backup quarterback job in the team's first preseason game, but his second outing did not go as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-23T18:34:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kellen Moore",
+        "Saturday Zach"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-returns-to-49ers-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-returns-to-49ers-practice",
+      "permalink": "",
+      "title": "Christian McCaffrey returns to 49ers practice",
+      "body_text": "There is more positive news on the injury front for the 49ers.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-23T18:04:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-is-protecting-key-starters-in-preseason-due-to-depth-concerns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-is-protecting-key-starters-in-preseason-due-to-depth-concerns",
+      "permalink": "",
+      "title": "Mike Vrabel is protecting key starters in preseason due to depth concerns",
+      "body_text": "Patriots coach Mike Vrabel has kept quarterback Drake Maye and other key starters out of the first two preseason games.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T17:35:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-place-tyler-biadasz-on-season-ending-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-place-tyler-biadasz-on-season-ending-injured-reserve",
+      "permalink": "",
+      "title": "Chargers place Tyler Biadasz on season-ending injured reserve",
+      "body_text": "Chargers center Tyler Biadasz will not play at all this season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-23T17:31:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Biadasz"
+      ],
+      "resolved_player_ids": [
+        "00-0036376"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-george-kittle-from-pup-list",
+      "permalink": "",
+      "title": "49ers activate George Kittle from PUP list",
+      "body_text": "Kittle, who suffered a torn Achilles tendon in January, is now eligible to practice and may be ready to play in Week One.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-23T17:23:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Week One"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-will-place-de-alex-wright-on-ir-with-achilles-tear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-will-place-de-alex-wright-on-ir-with-achilles-tear",
+      "permalink": "",
+      "title": "Browns place DE Alex Wright on IR with Achilles tear",
+      "body_text": "Cleveland replaces Wright on the roster with veteran Derek Barnett.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T16:55:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alex Wright",
+        "Derek Barnett"
+      ],
+      "resolved_player_ids": [
+        "00-0037251",
+        "00-0033876"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-is-looking-into-the-potential-acquisition-of-players-who-get-a-fifth-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-is-looking-into-the-potential-acquisition-of-players-who-get-a-fifth-year",
+      "permalink": "",
+      "title": "Bill Belichick is looking into the potential acquisition of players who get a fifth year",
+      "body_text": "Some schools, like Notre Dame, aren't exploring the addition of players from the class of 2022 who end up getting a fifth year of eligibility through the court system.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T17:12:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jaquinden-jackson-was-released-from-hospital-traveled-with-eagles-saturday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jaquinden-jackson-was-released-from-hospital-traveled-with-eagles-saturday-night",
+      "permalink": "",
+      "title": "RB Ja’Quinden Jackson was released from hospital, returned home with Eagles Saturday night",
+      "body_text": "The Eagles shared a positive update on running back Ja'Quinden Jackson after a scary moment in Saturday's game against the Patriots.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-23T13:31:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinden Jackson",
+        "Eagles Saturday",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-rb-ahmad-hardy-will-not-play-in-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/missouri-rb-ahmad-hardy-will-not-play-in-season-opener",
+      "permalink": "",
+      "title": "Missouri RB Ahmad Hardy will not play in season opener",
+      "body_text": "Missouri running back Ahmad Hardy will not play in the Tigers' first game of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-23T13:24:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ahmad Hardy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-missed-chance-to-make-a-touchdown-catch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-missed-chance-to-make-a-touchdown-catch",
+      "permalink": "",
+      "title": "Odell Beckham Jr. missed chance to make a touchdown catch",
+      "body_text": "Receiver Odell Beckham Jr. had a chance to step conclusively away from the roster bubble on Saturday.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T12:49:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Receiver Odell"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-has-strong-game-but-cowboys-backup-qb-competition-long-from-over",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-has-strong-game-but-cowboys-backup-qb-competition-long-from-over",
+      "permalink": "",
+      "title": "Joe Milton has strong game, but Cowboys backup QB competition \"long from over\"",
+      "body_text": "The Cowboys know Dak Prescott is their starting quarterback, but they still have a decision to make about who will be the next man up on the depth chart.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-23T12:47:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Milton",
+        "The Cowboys",
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0039398",
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-te-khalil-dinkins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-te-khalil-dinkins",
+      "permalink": "",
+      "title": "49ers sign TE Khalil Dinkins",
+      "body_text": "The 49ers brought tight end Khalil Dinkins back to the roster on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-23T12:37:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Khalil Dinkins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashawn-slater-returns-to-chargers-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashawn-slater-returns-to-chargers-practice",
+      "permalink": "",
+      "title": "Rashawn Slater returns to Chargers practice",
+      "body_text": "The Chargers got a key piece of their offensive line back at practice on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-23T12:32:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashawn Slater",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0037009"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-its-still-a-competition-between-andy-dalton-tanner-mckee-for-qb2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-its-still-a-competition-between-andy-dalton-tanner-mckee-for-qb2",
+      "permalink": "",
+      "title": "Nick Sirianni: \"It's still a competition\" between Andy Dalton, Tanner McKee for QB2",
+      "body_text": "As the Browns and Raiders work through their starting quarterbacks for Week 1, the Eagles are still trying to figure out their QB2.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T11:49:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Sirianni",
+        "Andy Dalton"
+      ],
+      "resolved_player_ids": [
+        "00-0027973"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-on-christian-gonzalez-each-side-is-trying-to-do-whats-right-for-them",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eliot-wolf-on-christian-gonzalez-each-side-is-trying-to-do-whats-right-for-them",
+      "permalink": "",
+      "title": "Eliot Wolf on Christian Gonzalez: \"Each side is trying to do what's right for them\"",
+      "body_text": "When the Falcons signed running back Bijan Robinson to a new contract, the Lions and running back Jahmyr Gibbs used the Robinson deal as the template for quickly getting their own contract done.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T10:52:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eliot Wolf",
+        "Christian Gonzalez",
+        "Bijan Robinson",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039147",
+        "00-0038542",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-time-for-the-browns-and-deshaun-watson-to-go-their-separate-ways",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-time-for-the-browns-and-deshaun-watson-to-go-their-separate-ways",
+      "permalink": "",
+      "title": "It's time for the Browns and Deshaun Watson to go their separate ways",
+      "body_text": "After Saturday's game and press conference, it's impossible for the Browns to play Watson again.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T10:26:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "After Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    }
+  ]
+}

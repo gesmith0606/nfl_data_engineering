@@ -1,0 +1,108 @@
+{
+  "fetch_run_id": "aafb2848-7fb3-4b20-b191-9dc788b8d261",
+  "source": "rotowire",
+  "fetched_at": "2026-08-24T12:13:58.668115+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634625",
+      "url": "https://www.rotowire.com//football/player/cam-ward-16997",
+      "permalink": "",
+      "title": "Cam Ward: Underwhelming preseason continues",
+      "body_text": "Ward completed eight of 12 passes for 69 yards, no touchdowns and no interceptions in Sunday's 19-16 preseason win over the Seahawks. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-23T09:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl634624",
+      "url": "https://www.rotowire.com//football/player/tony-pollard-13590",
+      "permalink": "",
+      "title": "Tony Pollard: Quick 45 scrimmage yards Sunday",
+      "body_text": "Pollard rushed twice for 12 yards and caught his only target for 33 yards in Sunday's 19-16 preseason win over the Seahawks. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-23T08:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard",
+        "Sunday Pollard"
+      ],
+      "resolved_player_ids": [
+        "00-0035261"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl634623",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: Goes without a catch again",
+      "body_text": "Tate didn't catch either of his two targets in Sunday's 19-16 preseason win over the Seahawks. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-23T08:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "00-0041438"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl634622",
+      "url": "https://www.rotowire.com//football/player/ashton-jeanty-18487",
+      "permalink": "",
+      "title": "Ashton Jeanty: Believed to have sprained ankle",
+      "body_text": "Jeanty is believed to have a sprained ankle that \"is not considered a long-term injury,\" Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-23T08:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634617",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: Suiting up against Seahawks",
+      "body_text": "Tate (undisclosed) is in uniform for Sunday's preseason game against the Seahawks. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-23T05:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate",
+        "Seahawks Tate"
+      ],
+      "resolved_player_ids": [
+        "00-0041438"
+      ],
+      "team_hint": "SEA"
+    }
+  ]
+}
