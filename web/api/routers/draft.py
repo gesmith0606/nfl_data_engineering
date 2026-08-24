@@ -20,6 +20,7 @@ from ..models.schemas import (
     AdpPlayer,
     AdpResponse,
     DraftBoardEntry,
+    AdpBoardResponse,
     DraftBoardResponse,
     DraftPickRequest,
     DraftPickResponse,
@@ -54,6 +55,8 @@ from ..models.schemas import (
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 
 from draft_optimizer import (  # noqa: E402
+    OVERVALUED_THRESHOLD,
+    UNDERVALUED_THRESHOLD,
     DraftAdvisor,
     DraftBoard,
     MockDraftSimulator,
@@ -733,6 +736,68 @@ def get_draft_board(
     }
 
     return _board_to_response(new_id, _sessions[new_id])
+
+
+@router.get("/adp-board", response_model=AdpBoardResponse)
+def get_adp_board(
+    scoring: str = Query(
+        "half_ppr",
+        pattern="^(ppr|half_ppr|standard)$",
+        description="Scoring format used for our projections and the ADP file",
+    ),
+    season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
+    adp_source: Optional[str] = Query(
+        "ffc",
+        pattern="^(ffc|espn|sleeper)$",
+        description="Real-ADP source: ffc (default), espn, or sleeper",
+    ),
+    roster_format: str = Query(
+        "standard", description="Roster shape used for VORP replacement levels"
+    ),
+    n_teams: int = Query(12, ge=4, le=20, description="League size for VORP"),
+) -> AdpBoardResponse:
+    """Full pre-draft pool ranked with ADP, our rank, value and VORP — stateless.
+
+    Unlike ``GET /draft/board`` this never creates (or evicts) a draft
+    session, so it is safe to serve from a public landing page.
+    """
+    try:
+        players_df = _load_draft_data(scoring, season, adp_source)
+    except Exception as exc:
+        logger.exception("Failed to load ADP board data")
+        raise HTTPException(
+            status_code=500, detail=f"ADP board generation failed: {exc}"
+        ) from exc
+
+    board = DraftBoard(players_df, roster_format=roster_format, n_teams=n_teams)
+    available = board.available.copy()
+    # ``compute_value_scores`` ranks by raw projected points, which puts a
+    # dozen QBs ahead of every RB/WR and labels Gibbs (ADP 1) "overvalued".
+    # The public ADP page compares the market against the SAME rank the
+    # Rankings page shows (the Gold parquet's canonical ``overall_rank``, a
+    # draft-order rank), so re-derive adp_diff / value_tier from it here.
+    # The draft room keeps the legacy points-rank behavior untouched.
+    if "overall_rank" in available.columns:
+        available["model_rank"] = available["overall_rank"].astype(int)
+        if "adp_rank" in available.columns:
+            available["adp_diff"] = available["adp_rank"] - available["model_rank"]
+            available["value_tier"] = "fair_value"
+            available.loc[
+                available["adp_diff"] >= UNDERVALUED_THRESHOLD, "value_tier"
+            ] = "undervalued"
+            available.loc[
+                available["adp_diff"] <= -OVERVALUED_THRESHOLD, "value_tier"
+            ] = "overvalued"
+    if "model_rank" in available.columns:
+        available = available.sort_values("model_rank", kind="stable")
+    players = [_df_row_to_draft_player(row) for _, row in available.iterrows()]
+    return AdpBoardResponse(
+        players=players,
+        scoring_format=scoring,
+        season=season,
+        adp_source=adp_source,
+        count=len(players),
+    )
 
 
 @router.post("/pick", response_model=DraftPickResponse)

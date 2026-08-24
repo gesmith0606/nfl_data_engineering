@@ -962,6 +962,21 @@ class RosterRisk(BaseModel):
     volatility_index: Optional[float] = None
 
 
+class AdpBoardResponse(BaseModel):
+    """Stateless ADP rankings board (``GET /api/draft/adp-board``).
+
+    Same per-player schema as the draft board's ``players`` list (our
+    model_rank, ADP, adp_diff, VORP, tier) but computed on the full pre-draft
+    pool with NO session created — the public ADP page reads it directly.
+    """
+
+    players: List[DraftPlayer]
+    scoring_format: str
+    season: int
+    adp_source: Optional[str] = None
+    count: int
+
+
 class DraftBoardResponse(BaseModel):
     """Full draft board state.
 

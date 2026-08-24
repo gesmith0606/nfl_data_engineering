@@ -1,5 +1,7 @@
 import type {
+  AdpBoardResponse,
   AdpResponse,
+  AdpSource,
   Alert,
   CurrentWeekResponse,
   DraftBoardResponse,
@@ -594,6 +596,20 @@ export async function advanceMockDraft(body: MockDraftPickRequest): Promise<Mock
 /** Fetch latest ADP data. */
 export async function fetchAdp(): Promise<AdpResponse> {
   return request<AdpResponse>('/api/draft/adp')
+}
+
+/** Stateless ADP rankings board — never creates a draft session. */
+export async function fetchAdpBoard(
+  scoring: ScoringFormat = 'half_ppr',
+  season: number = 2026,
+  adpSource: AdpSource = 'ffc'
+): Promise<AdpBoardResponse> {
+  const params = new URLSearchParams({
+    scoring,
+    season: String(season),
+    adp_source: adpSource
+  })
+  return request<AdpBoardResponse>(`/api/draft/adp-board?${params}`)
 }
 
 /**

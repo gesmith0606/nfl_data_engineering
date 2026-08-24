@@ -182,6 +182,28 @@ function buildColumns(
       cellClassName: 'font-mono text-muted-foreground'
     },
     {
+      key: 'adp',
+      header: <span title='Real average draft position (FFC) — where the market takes him'>ADP</span>,
+      align: 'right',
+      accessor: (p) => formatRank(p.adp_rank ?? null),
+      cellClassName: 'font-mono text-muted-foreground'
+    },
+    {
+      key: 'diff_adp',
+      header: (
+        <span title='ADP − our rank (positive = the market drafts him later than we rank him)'>
+          Δ ADP
+        </span>
+      ),
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_adp ?? null),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_adp ?? null))}>
+          {formatDiff(p.rank_diff_vs_adp ?? null)}
+        </span>
+      )
+    },
+    {
       key: 'sleeper',
       header: sortableHeader(
         'Sleeper',

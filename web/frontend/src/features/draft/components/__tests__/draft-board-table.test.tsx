@@ -154,3 +154,26 @@ describe('DraftBoardTable', () => {
     expect(screen.queryByText(/overlap/)).not.toBeInTheDocument()
   })
 })
+
+
+describe('DraftBoardTable readOnly (ADP page)', () => {
+  it('hides Draft/Taken controls and starts sorted by ADP', () => {
+    render(
+      <DraftBoardTable
+        players={[
+          player({ player_id: 'a', player_name: 'Late Pick', model_rank: 1, adp_rank: 40, adp_diff: 39 }),
+          player({ player_id: 'b', player_name: 'First Overall', model_rank: 2, adp_rank: 1, adp_diff: -1 })
+        ]}
+        positionFilter='ALL'
+        readOnly
+        defaultSort='adp_rank'
+      />
+    )
+    expect(screen.queryByRole('button', { name: 'Draft' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Taken' })).toBeNull()
+    const rows = screen.getAllByRole('row').slice(1) // drop header row
+    expect(rows[0]).toHaveTextContent('First Overall')
+    expect(rows[1]).toHaveTextContent('Late Pick')
+    expect(screen.getByText(/of 2 players/)).toBeInTheDocument()
+  })
+})

@@ -1,8 +1,10 @@
 import { queryOptions } from '@tanstack/react-query';
+import type { AdpSource } from '@/lib/nfl/types';
 import {
   fetchAdp,
   fetchAlerts,
   fetchCurrentWeek,
+  fetchAdpBoard,
   fetchDraftBoard,
   fetchDraftIntel,
   fetchDraftPlatforms,
@@ -58,6 +60,8 @@ export const nflKeys = {
   lineup: (season: number, week: number, team: string) =>
     [...nflKeys.all, 'lineup', { season, week, team }] as const,
   health: () => [...nflKeys.all, 'health'] as const,
+  adpBoard: (scoring: string, season: number, source: string) =>
+    [...nflKeys.all, 'adp-board', { scoring, season, source }] as const,
   draftBoard: (sessionId?: string) => [...nflKeys.all, 'draft-board', sessionId] as const,
   draftRecommendations: (sessionId: string, position?: string) =>
     [...nflKeys.all, 'draft-recs', { sessionId, position }] as const,
@@ -243,6 +247,17 @@ export const sentimentSummaryQueryOptions = (season: number, week: number) =>
     queryKey: [...nflKeys.all, 'sentiment-summary', { season, week }] as const,
     queryFn: () => fetchSentimentSummary(season, week),
     refetchInterval: 5 * 60 * 1000
+  });
+
+export const adpBoardQueryOptions = (
+  scoring: ScoringFormat = 'half_ppr',
+  season: number = 2026,
+  source: AdpSource = 'ffc'
+) =>
+  queryOptions({
+    queryKey: nflKeys.adpBoard(scoring, season, source),
+    queryFn: () => fetchAdpBoard(scoring, season, source),
+    staleTime: 15 * 60 * 1000
   });
 
 export const draftBoardQueryOptions = (

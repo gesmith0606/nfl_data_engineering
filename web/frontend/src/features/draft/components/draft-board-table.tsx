@@ -11,16 +11,23 @@ import { WC_CTA_BUTTON, WC_OUTLINE_BUTTON, WC_INPUT, WC_NUM_HERO } from '../util
 import { StackBadge } from './stack-badge';
 import type { DraftPlayer, Position, SortDirection, StackHint } from '@/lib/nfl/types';
 
+export type DraftBoardSortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp';
+
 interface DraftBoardTableProps {
   players: DraftPlayer[];
   positionFilter: Position;
-  onDraft: (playerId: string, byMe?: boolean) => void;
-  isPicking: boolean;
+  /** Required unless `readOnly` — the ADP page renders the board without pick controls. */
+  onDraft?: (playerId: string, byMe?: boolean) => void;
+  isPicking?: boolean;
   /** Stack/overlap hints keyed by player_name; omitted rows simply render no badge. */
   hintsByPlayerName?: Map<string, StackHint[]>;
+  /** Hide the Draft/Taken controls (public ADP rankings view). */
+  readOnly?: boolean;
+  /** Initial sort column; the draft room keeps `model_rank`, the ADP page starts on `adp_rank`. */
+  defaultSort?: DraftBoardSortKey;
 }
 
-type SortKey = 'model_rank' | 'projected_points' | 'adp_rank' | 'adp_diff' | 'vorp';
+type SortKey = DraftBoardSortKey;
 
 /** A displayed row plus the tier-boundary flag precomputed at sort time — the
  *  BroadcastTable `rowClassName` callback only receives the row, not its
@@ -65,10 +72,12 @@ export function DraftBoardTable({
   players,
   positionFilter,
   onDraft,
-  isPicking,
-  hintsByPlayerName
+  isPicking = false,
+  hintsByPlayerName,
+  readOnly = false,
+  defaultSort = 'model_rank'
 }: DraftBoardTableProps) {
-  const [sortKey, setSortKey] = useState<SortKey>('model_rank');
+  const [sortKey, setSortKey] = useState<SortKey>(defaultSort);
   const [sortDir, setSortDir] = useState<SortDirection>('asc');
   const [search, setSearch] = useState('');
 
@@ -218,7 +227,10 @@ export function DraftBoardTable({
         </div>
       )
     },
-    {
+    ...(readOnly
+      ? []
+      : ([
+          {
       key: 'actions',
       header: '',
       width: 'w-32',
@@ -229,7 +241,7 @@ export function DraftBoardTable({
               variant='outline'
               size='sm'
               className={WC_CTA_BUTTON}
-              onClick={() => onDraft(p.player_id)}
+              onClick={() => onDraft?.(p.player_id)}
               disabled={isPicking}
             >
               Draft
@@ -241,7 +253,7 @@ export function DraftBoardTable({
               size='sm'
               className={WC_OUTLINE_BUTTON}
               title='Mark as drafted by another team'
-              onClick={() => onDraft(p.player_id, false)}
+              onClick={() => onDraft?.(p.player_id, false)}
               disabled={isPicking}
             >
               Taken
@@ -249,7 +261,8 @@ export function DraftBoardTable({
           </PressScale>
         </span>
       )
-    }
+          }
+        ] as BroadcastColumn<DisplayRow>[]))
   ];
 
   return (
@@ -272,7 +285,7 @@ export function DraftBoardTable({
 
       {/* Count */}
       <p className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-        Showing {displayed.length} of {filtered.length} available players
+        Showing {displayed.length} of {filtered.length} {readOnly ? 'players' : 'available players'}
       </p>
 
       {/* Mobile (Phase 62-05 DSGN-04): BroadcastTable's own wrapper pans
