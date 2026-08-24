@@ -209,3 +209,32 @@ def test_adapter_enqueue_passthrough():
     out = EspnAdapter(page=page).enqueue(["Josh Allen", "Trey McBride"])
     assert out == ["queued:Josh Allen", "queued:Trey McBride"]
     assert page.enqueued == ["Josh Allen", "Trey McBride"]
+
+
+@pytest.mark.unit
+def test_live_render_strategy_sections_on_engine():
+    """draft_live's strategy views (cost of waiting, tiers, opponents' needs,
+    market insights) all run on a live engine and land in the JSON render."""
+    import importlib.util
+    import json
+    import os
+
+    spec = importlib.util.spec_from_file_location(
+        "draft_live", os.path.join(os.path.dirname(__file__), "..", "scripts", "draft_live.py")
+    )
+    dl = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(dl)
+    adapter = EspnAdapter(page=_FakePage(), n_teams=12, scoring_format="standard", roster_format="espn_default")
+    adp = _PROJ[["player_name"]].assign(adp_rank=range(1, len(_PROJ) + 1))
+    engine = LiveDraftEngine(adapter, _PROJ, adp_df=adp, my_user_id="George's Great Team")
+    poll = engine.update(adapter.load_state("1507033277"))
+    costs = dl.position_wait_costs(engine)
+    assert costs and {"position", "cost", "next_pick_no"} <= set(costs[0])
+    tiers = dl.tier_alerts(engine)
+    assert tiers and all(t["remaining"] >= 1 for t in tiers)
+    needs = dl.opponent_needs(engine)
+    assert set(needs) <= {"QB", "RB", "WR", "TE"} and all(v >= 0 for v in needs.values())
+    out = json.loads(dl.render(engine, poll, 3, True))
+    assert {"position_wait_costs", "tier_alerts", "opponent_needs_before_my_next_pick", "market_insights"} <= set(out)
+    text = dl.render(engine, poll, 3, False)
+    assert "COST OF WAITING" in text and "TIERS" in text

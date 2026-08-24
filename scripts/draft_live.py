@@ -29,6 +29,7 @@ import json
 import logging
 import os
 import sys
+import threading
 import time
 from typing import List, Optional
 
@@ -241,10 +242,160 @@ def build_manual_state(
 # ---------------------------------------------------------------------------
 
 
+def position_wait_costs(engine: LiveDraftEngine) -> List[dict]:
+    """Per-position cost of waiting: best VORP now minus the expected best VORP
+    at the user's NEXT pick (ADP-survival walk). The draft-strategy view — "what
+    do I lose at each position if I pass this turn" — rather than per player."""
+    if engine.advisor is None or engine.board is None:
+        return []
+    nxt = engine._turn_kwargs().get("next_pick_no")
+    if nxt is None:
+        return []
+    avail = engine._market_believed(engine.board.available)
+    if avail.empty or "vorp" not in avail.columns or "adp_rank" not in avail.columns:
+        return []
+    from src.draft_availability import expected_best_vorp_at_pick
+
+    expected = expected_best_vorp_at_pick(avail, float(nxt))
+    out = []
+    for pos in ("QB", "RB", "WR", "TE"):
+        sub = avail[avail["position"] == pos].dropna(subset=["vorp"])
+        if sub.empty:
+            continue
+        best = sub.sort_values("vorp", ascending=False).iloc[0]
+        exp = expected.get(pos)
+        out.append(
+            {
+                "position": pos,
+                "best_now": str(best.get("player_name", "")),
+                "vorp_now": round(float(best["vorp"]), 1),
+                "expected_next": None if exp is None else round(float(exp), 1),
+                "cost": None if exp is None else round(float(best["vorp"]) - float(exp), 1),
+                "next_pick_no": int(nxt),
+            }
+        )
+    out.sort(key=lambda d: -(d["cost"] if d["cost"] is not None else -1e9))
+    return out
+
+
+def tier_alerts(engine: LiveDraftEngine) -> List[dict]:
+    """Per position: the best available player's tier and how many of that tier
+    remain — "last of tier 2 at RB" is the doctrine's take-him-now trigger (§5)."""
+    if engine.board is None:
+        return []
+    avail = engine._market_believed(engine.board.available)
+    if avail.empty or "projected_season_points" not in avail.columns:
+        return []
+    try:
+        from src.draft_tiers import compute_tiers
+    except ImportError:  # pragma: no cover
+        from draft_tiers import compute_tiers
+    pool = avail[avail["position"].isin(["QB", "RB", "WR", "TE"])].copy()
+    if pool.empty:
+        return []
+    pool["tier"] = compute_tiers(pool)
+    out = []
+    for pos, sub in pool.groupby("position"):
+        sub = sub.dropna(subset=["tier"]).sort_values("projected_season_points", ascending=False)
+        if sub.empty:
+            continue
+        top_tier = int(sub.iloc[0]["tier"])
+        left = int((sub["tier"] == top_tier).sum())
+        names = sub[sub["tier"] == top_tier]["player_name"].head(4).tolist()
+        out.append({"position": str(pos), "tier": top_tier, "remaining": left, "players": names})
+    return sorted(out, key=lambda d: d["remaining"])
+
+
+def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
+    """How many teams picking before my next turn still lack a starter at each
+    position (§18) — a run risk you can see coming."""
+    turn = engine.turn_info()
+    if turn is None or turn.my_next_pick_no is None or engine.board is None or engine.state is None:
+        return {}
+    n = engine.state.n_teams or 12
+    rc = engine.board.roster_config
+    start = turn.on_clock_pick_no + (1 if turn.is_my_turn else 0)
+    slots = {
+        engine._slot_on_clock(p, n, engine.state.draft_type)
+        for p in range(start, turn.my_next_pick_no)
+    } - {engine.my_slot}
+    needs: Dict[str, int] = {}
+    for pos in ("QB", "RB", "WR", "TE"):
+        want = int(rc.get(pos, 0))
+        if want <= 0:
+            continue
+        needs[pos] = sum(
+            1
+            for s in slots
+            if sum(1 for r in engine.rosters.get(s, []) if str(r.get("position", "")).upper() == pos) < want
+        )
+    return needs
+
+
+_MISPRICE_GAP = 15  # model rank vs ADP gap (picks) that counts as mispriced
+_BUST_HORIZON = 36  # busts only matter if the market takes them in the next ~3 rounds
+
+
+def market_insights(engine: LiveDraftEngine, on_clock_pick: Optional[int]) -> dict:
+    """Model-vs-market mispricings still on the board.
+
+    ``values``  — model ranks them >= 15 picks ahead of where the room drafts
+    them (sleepers / falling value: wait, they come to you).
+    ``busts``   — the market drafts them >= 15 picks ahead of the model AND
+    they are about to go (ADP within the next ~3 rounds): don't reach.
+    """
+    if engine.board is None:
+        return {"values": [], "busts": []}
+    avail = engine._market_believed(engine.board.available)
+    need = {"adp_rank", "model_rank", "position", "player_name"}
+    if avail.empty or not need <= set(avail.columns):
+        return {"values": [], "busts": []}
+    df = avail.dropna(subset=["adp_rank"]).copy()
+    df["gap"] = df["adp_rank"] - df["model_rank"]  # + = market later than model
+    # Only positions you can still use: never K/DST (drafted last, by rule),
+    # no QB2 (house rule) / TE2 once the starter is set, and no "ADP 300+"
+    # undrafted-pool artifacts.
+    have = {str(r.get("position", "")).upper() for r in engine.my_full_roster()}
+    rc = engine.board.roster_config
+    skip = {"K", "DST"}
+    for pos in ("QB", "TE"):
+        if pos in have and int(rc.get("SFLEX", 0)) == 0:
+            skip.add(pos)
+    df = df[~df["position"].isin(skip) & (df["adp_rank"] <= 200)]
+    pts = "projected_season_points" if "projected_season_points" in df else "projected_points"
+
+    def _rows(sub):
+        return [
+            {
+                "player_name": r["player_name"],
+                "position": r["position"],
+                "model_rank": int(r["model_rank"]),
+                "adp_rank": int(r["adp_rank"]),
+                "gap": int(r["gap"]),
+                "points": round(float(r.get(pts, float("nan"))), 1),
+                "vorp": r.get("vorp"),
+            }
+            for _, r in sub.iterrows()
+        ]
+
+    values = df[df["gap"] >= _MISPRICE_GAP].sort_values("vorp", ascending=False).head(5)
+    clock = on_clock_pick or 0
+    busts = (
+        df[(df["gap"] <= -_MISPRICE_GAP) & (df["adp_rank"] <= clock + _BUST_HORIZON)]
+        .sort_values("adp_rank")
+        .head(5)
+    )
+    return {"values": _rows(values), "busts": _rows(busts)}
+
+
 def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool) -> str:
     """Render a snapshot of current draft state + advice."""
     turn = poll.turn
     recs, reasoning = engine.recommendations(top_n=top_n)
+    wait_costs = position_wait_costs(engine)
+    insights = market_insights(engine, turn.on_clock_pick_no if turn else None)
+    tiers = tier_alerts(engine)
+    needs_ahead = opponent_needs(engine)
     rec_cols = [
         c
         for c in [
@@ -292,6 +443,10 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 ],
                 "recommendations": rec_records,
                 "reasoning": reasoning,
+                "position_wait_costs": wait_costs,
+                "market_insights": insights,
+                "tier_alerts": tiers,
+                "opponent_needs_before_my_next_pick": needs_ahead,
                 "my_roster": roster_view,
             },
             indent=2,
@@ -314,6 +469,41 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             lines.append(
                 f"Your slot: {turn.my_slot} | your next pick: "
                 f"{turn.my_next_pick_no}"
+            )
+    if wait_costs:
+        nxt = wait_costs[0]["next_pick_no"]
+        lines.append(f"\nCOST OF WAITING to pick {nxt}, by position (take the biggest):")
+        for w in wait_costs:
+            cost = "n/a" if w["cost"] is None else f"{w['cost']:+.0f}"
+            exp = "" if w["expected_next"] is None else f" vs ~{w['expected_next']:.0f} then"
+            lines.append(
+                f"  {w['position']:<3} {cost:>5}   {w['best_now']} now "
+                f"(vorp {w['vorp_now']:.0f}){exp}"
+            )
+    if tiers:
+        lines.append("\nTIERS (top tier left at each position; 'LAST' = take him now or lose the tier):")
+        for t in tiers:
+            flag = "  <<< LAST OF TIER" if t["remaining"] == 1 else ""
+            lines.append(
+                f"  {t['position']:<3} tier {t['tier']}: {t['remaining']} left — "
+                f"{', '.join(t['players'])}{flag}"
+            )
+    if needs_ahead:
+        lines.append(
+            "  teams still needing a starter before my next pick: "
+            + ", ".join(f"{p} {n}" for p, n in needs_ahead.items())
+        )
+    if insights["values"] or insights["busts"]:
+        lines.append("\nMARKET vs MODEL:")
+        for r in insights["values"]:
+            lines.append(
+                f"  VALUE  {r['player_name']:<22} {r['position']:<3} model #{r['model_rank']:<4}"
+                f" ADP {r['adp_rank']:<4} ({r['points']} pts) — room lets him fall {r['gap']} spots"
+            )
+        for r in insights["busts"]:
+            lines.append(
+                f"  BUST   {r['player_name']:<22} {r['position']:<3} model #{r['model_rank']:<4}"
+                f" ADP {r['adp_rank']:<4} ({r['points']} pts) — room reaches {-r['gap']} spots early"
             )
     if poll.key_moments:
         lines.append("\nKEY MOMENTS:")
@@ -1108,7 +1298,8 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Watch loop — re-render only when the pick count advances.
     last_seen = -1
-    queued: set = set()
+    queued: List[str] = []  # our last-pushed queue, in order
+    queue_thread: Optional[threading.Thread] = None
     try:
         while True:
             poll = _poll_once()
@@ -1119,20 +1310,42 @@ def main(argv: Optional[List[str]] = None) -> int:
                 # ESPN --queue: keep the room's Pick Queue topped up with the
                 # advisor's need-aware queue so an autopick on a timeout follows
                 # OUR board (4 picks went to ESPN autopick in the 2026-08-23 mock).
-                if args.queue and hasattr(adapter, "enqueue") and engine.advisor:
+                if args.queue and hasattr(adapter, "set_queue") and engine.advisor:
                     names = [
                         q.get("player_name")
-                        for q in engine.advisor.build_queue(depth=args.queue_depth)
+                        for q in engine.advisor.build_queue(
+                            depth=args.queue_depth, **engine._turn_kwargs()
+                        )
                         if q.get("player_name")
                     ]
-                    new = [n for n in names if n not in queued]
-                    if new:
-                        try:
-                            statuses = adapter.enqueue(new)
-                        except Exception as exc:  # noqa: BLE001 — never kill the loop
-                            statuses = [f"error:{exc}"]
-                        queued.update(new)
-                        print("(pick queue) " + ", ".join(str(s) for s in statuses))
+                    # ESPN drops drafted players from its queue itself. If the
+                    # surviving order is unchanged, only append the new tail;
+                    # otherwise rebuild so the TOP of the queue is right.
+                    avail_names = set(engine.board.available["player_name"])
+                    surviving = [n for n in queued if n in avail_names]
+                    if names[: len(surviving)] == surviving:
+                        new = names[len(surviving):]
+                        job = (adapter.enqueue, new) if new else None
+                    else:
+                        job = (adapter.set_queue, names)
+                    # Never let queue clicking (~1 s per name) delay the next
+                    # render — the 2026-08-23 second mock printed "YOUR PICK"
+                    # after the clock had nearly run out. One worker at a time.
+                    if job and (queue_thread is None or not queue_thread.is_alive()):
+                        queued = list(names)
+
+                        def _push(fn=job[0], arg=job[1]):
+                            try:
+                                statuses = fn(arg)
+                            except Exception as exc:  # noqa: BLE001
+                                statuses = [f"error:{exc}"]
+                            print(
+                                "(pick queue) " + ", ".join(str(s) for s in statuses),
+                                flush=True,
+                            )
+
+                        queue_thread = threading.Thread(target=_push, daemon=True)
+                        queue_thread.start()
                 print("-" * 60, flush=True)
             if state and state.status == "complete":
                 print("Draft complete.")

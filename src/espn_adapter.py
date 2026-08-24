@@ -112,5 +112,9 @@ class EspnAdapter:
         return map_picks_to_projections(picks, projections_df, player_index={})
 
     def enqueue(self, names: Sequence[str]) -> List[str]:
-        """Fill ESPN's Pick Queue with ``names`` (top first); returns statuses."""
+        """Append ``names`` (top first) to ESPN's Pick Queue; returns statuses."""
         return list(self.page.enqueue(list(names)))
+
+    def set_queue(self, names: Sequence[str]) -> List[str]:
+        """Replace ESPN's Pick Queue with ``names`` in order (clear + re-add)."""
+        return list(self.page.set_queue(list(names)))

@@ -596,6 +596,7 @@ class DraftAdvisor:
         picks_taken = self.board.picks_taken()
 
         reasoning_parts = []
+        avail_all = avail  # unfiltered pool — scarcity alerts read the real board
 
         # Starters-first hard rule (2026-08-23 ESPN mock: the soft need-boost let
         # the advisor draft 2 QB / 3 TE / a K in R9 before its first WR in R10).
@@ -623,6 +624,12 @@ class DraftAdvisor:
                 }
                 blocked = {p for p, c in cap.items() if have0.get(p, 0) >= c}
                 blocked |= {"K", "DST"}
+            # House rule (user, 2026-08-23): never roster a 2nd QB in a 1-QB
+            # league — a backup QB never starts; that bench slot is RB/WR depth.
+            if int(rc0.get("SFLEX", 0)) == 0 and have0.get("QB", 0) >= int(
+                rc0.get("QB", 0)
+            ) > 0:
+                blocked.add("QB")
             kd_open = int(needs.get("K", 0)) + int(needs.get("DST", 0))
             force_kd = False
             if my_picks_remaining is not None and kd_open > 0:
@@ -642,7 +649,7 @@ class DraftAdvisor:
                     )
 
         # Positional scarcity alerts
-        scarcity = self._scarcity_alerts(avail)
+        scarcity = self._scarcity_alerts(avail_all)
         reasoning_parts.extend(scarcity)
 
         # Score each available player by VORP — value over replacement, not raw
@@ -685,9 +692,13 @@ class DraftAdvisor:
         # Nudge toward unfilled STARTING slots so the board builds a legal lineup
         # rather than pure best-available. Modest vs VORP's spread (~200) — a
         # tiebreaker that gets you your QB/TE on time, never an override.
+        # An open STARTER slot must outweigh the +/-6 ADP value-tier nudge and
+        # the ~0 opportunity costs of a replacement-level pool — at pick 62 of
+        # the 2026-08-23 mock a bench RB ("undervalued" by ADP) outranked the
+        # WR2 the lineup still needed.
         for pos, count_needed in needs.items():
             if count_needed > 0 and pos in ("QB", "RB", "WR", "TE"):
-                boost = min(count_needed * 8, 16)
+                boost = min(count_needed * 20, 40)
                 avail.loc[avail["position"] == pos, "recommendation_score"] += boost
 
         if enforce_needs and force_kd:
@@ -768,7 +779,7 @@ class DraftAdvisor:
 
         return recs.reset_index(drop=True), reasoning
 
-    def build_queue(self, depth: int = 12) -> List[Dict]:
+    def build_queue(self, depth: int = 12, **turn) -> List[Dict]:
         """Need-aware ranked draft queue via simulate-and-fill.
 
         Repeatedly takes the top recommendation and *tentatively* rosters it so
@@ -788,7 +799,9 @@ class DraftAdvisor:
         queue: List[Dict] = []
         try:
             for _ in range(max(0, depth)):
-                recs, _ = self.recommend(top_n=1)
+                # ``turn`` (next_pick_no / my_picks_remaining) makes the queue
+                # follow cost-of-waiting, exactly like the on-clock recs.
+                recs, _ = self.recommend(top_n=1, **turn)
                 if recs.empty:
                     break
                 row = recs.iloc[0]

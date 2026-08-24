@@ -174,7 +174,7 @@ def main():
     parser.add_argument('--top', type=int, default=500, help='Number of players to include (default: 500)')
     parser.add_argument('--output-dir', default='data', help='Output directory (default: data)')
     parser.add_argument(
-        '--source', choices=['ffc', 'espn', 'sleeper', 'mfl', 'sleeper_rank'], default=_DEFAULT_SOURCE,
+        '--source', choices=['ffc', 'espn', 'sleeper', 'mfl', 'yahoo', 'sleeper_rank'], default=_DEFAULT_SOURCE,
         help=(
             'ADP source: ffc/espn/sleeper/mfl are real ADP '
             '(sleeper = RotoWire composite ADP re-served via the Sleeper '
@@ -189,6 +189,11 @@ def main():
         help='Scoring format for FFC ADP / labeling (default: half_ppr)',
     )
     parser.add_argument('--teams', type=int, default=12, help='League size for FFC ADP (default: 12)')
+    parser.add_argument(
+        '--cdp-url', default='http://127.0.0.1:9222',
+        help='yahoo source only: Chrome DevTools endpoint of a Chrome (started with '
+             '--remote-debugging-port) that has the Yahoo Draft Analysis page open',
+    )
     args = parser.parse_args()
 
     print(f"\nADP Refresh — source={args.source} scoring={args.scoring}")
@@ -212,6 +217,11 @@ def main():
             raw_df = fetch_sleeper_adp(args.scoring, args.season)
         elif args.source == 'mfl':
             raw_df = fetch_mfl_adp(args.season, scoring=args.scoring)
+        elif args.source == 'yahoo':
+            # JS-rendered page: read it from an open Chrome tab (src/yahoo_adp_page.py).
+            from src.yahoo_adp_page import fetch_yahoo_adp_from_chrome
+
+            raw_df = fetch_yahoo_adp_from_chrome(args.cdp_url)
         else:
             raw_df = fetch_espn_adp(args.season)
         adp_df = build_adp_from_real_source(raw_df).head(args.top)

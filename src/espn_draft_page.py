@@ -223,14 +223,32 @@ _ENQUEUE_JS = """
     type(name); await sleep(%d);
     const last = name.split(' ').slice(-1)[0];
     // The players list is a FixedDataTable (divs, not <table>); rows wrap cells.
-    const rows = [...document.querySelectorAll('.fixedDataTableRowLayout_rowWrapper')];
-    const row = rows.find((r) => r.innerText.includes(last));
+    const findRow = () => [...document.querySelectorAll('.fixedDataTableRowWrapper, .fixedDataTableRowLayout_rowWrapper')]
+      .find((r) => r.innerText.includes(last));
+    let row = findRow();
+    if (!row) { await sleep(900); row = findRow(); }  // filter still settling
     const btn = row && [...row.querySelectorAll('button')].find((b) => /queue/i.test(b.innerText));
     if (btn) { btn.click(); await sleep(300); out.push('queued:' + name); }
     else out.push('notfound:' + name);
   }
   type(''); await sleep(300);
   return out;
+})()
+"""
+
+
+# Empties ESPN's Pick Queue: click every REMOVE button in the queue panel until
+# none remain (ESPN re-renders the list after each click).
+_CLEAR_QUEUE_JS = """
+(async () => {
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  let removed = 0;
+  for (let i = 0; i < 40; i++) {
+    const btn = [...document.querySelectorAll('button')].find((b) => /^remove$/i.test(b.innerText.trim()));
+    if (!btn) break;
+    btn.click(); removed++; await sleep(%d);
+  }
+  return removed;
 })()
 """
 
@@ -275,7 +293,9 @@ class ChromeDraftPage:
         import websocket
 
         ws_url = self.find_tab()["webSocketDebuggerUrl"]
-        ws = websocket.create_connection(ws_url, timeout=15)
+        # Chrome 403s DevTools websockets that carry an Origin header unless
+        # launched with --remote-allow-origins; omitting the header is accepted.
+        ws = websocket.create_connection(ws_url, timeout=15, suppress_origin=True)
         try:
             ws.send(
                 json.dumps(
@@ -310,6 +330,20 @@ class ChromeDraftPage:
         """Add ``names`` (in order) to ESPN's Pick Queue via the search box."""
         js = _ENQUEUE_JS % (json.dumps(list(names)), int(settle_ms))
         return list(self.evaluate(js, await_promise=True) or [])
+
+    def clear_queue(self, settle_ms: int = 250) -> int:
+        """Remove every player from ESPN's Pick Queue; returns the count removed."""
+        return int(self.evaluate(_CLEAR_QUEUE_JS % int(settle_ms), await_promise=True) or 0)
+
+    def set_queue(self, names: Sequence[str]) -> List[str]:
+        """Replace ESPN's Pick Queue with ``names`` in this exact order.
+
+        ESPN's queue is insertion-ordered and autopicks from the top, so order
+        IS the safety net — an append-only queue left Josh Allen above the
+        RBs at pick 11 in the 2026-08-23 second mock.
+        """
+        removed = self.clear_queue()
+        return [f"cleared:{removed}"] + self.enqueue(names)
 
 
 __all__ = [

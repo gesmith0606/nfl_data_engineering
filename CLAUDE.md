@@ -52,6 +52,9 @@ python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
 python scripts/draft_assistant.py --league la_liga --simulate                            # League preset: la_liga | feetball | gentlemen | mahomos (config.LEAGUE_PRESETS)
 python scripts/espn_league_import.py --league-id 1493260 --my-team                       # ESPN league/team import (cookies in .env; public leagues need none)
 python scripts/refresh_adp.py --source espn --scoring standard                           # ESPN's own ADP -> data/adp/adp_espn_standard.csv (auto-used by --league la_liga / --platform espn)
+python scripts/refresh_adp.py --source yahoo --cdp-url http://127.0.0.1:9333             # Yahoo ADP read from an open Draft Analysis tab in a --remote-debugging-port Chrome (page is JS-rendered)
+python scripts/draft_value_report.py --league la_liga [--sources espn,ffc --csv]         # VALUES / BUSTS / BREAKOUTS / DEEP SLEEPERS per ADP source + cross-platform mispricing, each with the docs/DRAFT_DOCTRINE.md rule that fired
+python scripts/backtest_draft_flags.py                                                   # Doctrine signal hit rates on 2021-25 (FFC ADP history vs Silver actuals): RB age>=27 and RB dead zone confirmed, TD-share proxy rejected
 python scripts/draft_live.py --platform espn --scoring standard --roster-format espn_default --my-team "The Oracle" --watch --queue   # ESPN LIVE co-pilot: reads the draft-room tab via Chrome DevTools (start Chrome with --remote-debugging-port=9222 --user-data-dir=<separate profile>), recs <1s per pick, --queue fills ESPN's Pick Queue from our board
 
 # Sentiment pipeline
@@ -206,6 +209,11 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
 | `src/espn_adapter.py` | `EspnAdapter` — LIVE via the draft-room page (v8.3): REST stays NO-GO (mDraftDetail empty mid-draft), so picks/clock/owners are parsed from the page text over Chrome DevTools; `enqueue()` fills ESPN's Pick Queue |
 | `src/espn_draft_page.py` | Pure parser of the ESPN draft app's `body.innerText` → `DraftState` (offline-testable) + `ChromeDraftPage` CDP client (`websocket-client`, no Playwright) |
+| `src/draft_value.py` | Draft value engine — VALUE/BUST/BREAKOUT/DEEP-SLEEPER labels with doctrine-rule reasons (VBD-rank vs room ADP, RB age cliff, RB top-5 regression, vacated opportunity, positive TD regression); features from Sleeper registry, Silver usage N-1, UC1 vacancy |
+| `src/yahoo_adp_page.py` | Yahoo ADP parser (Draft Analysis page text over CDP) → shared ADP schema; `refresh_adp.py --source yahoo` |
+| `scripts/draft_value_report.py` | Cross-platform mispricing report (per ADP source + "value on 2+ sources" + platform disagreements) |
+| `scripts/backtest_draft_flags.py` | Doctrine signal back-test on FFC ADP history 2021-25 vs Silver actuals (bust = ≥10 positional spots below ADP) |
+| `docs/DRAFT_DOCTRINE.md` | The draft agent's rulebook: 35 sourced, codable rules + house rules + back-test verdicts; `.claude/agents/draft-agent.md` is the subagent that follows it |
 | `src/espn_league.py` | ESPN league/team import via ESPN_S2+ESPN_SWID cookies (lm-api-reads v3): settings, teams, rosters, post-draft PickEvents — live-draft NO-GO stands |
 | `scripts/espn_league_import.py` | ESPN import CLI — league summary, rosters, `--my-team`, `--draft`, `--out` raw JSON |
 | `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |
