@@ -296,6 +296,24 @@ def label_board(df: pd.DataFrame) -> pd.DataFrame:
     ).astype(int)
     if "is_low_sample_projection" in out.columns:
         bust_score += add(out["is_low_sample_projection"].fillna(False).astype(bool), "§28 low-sample projection").astype(int)
+    # §36 market-faded star (2025 replay lesson: Joe Mixon proj 260 / ADP 136 /
+    # actual 0 — the market prices August news the stat line can't see).
+    # Back-test 2021-25: prior top-12 positional producer with ADP >= 12
+    # positional spots worse -> bust 50% vs 39%, beat 7% (n=14 — low
+    # confidence, scored anyway: it is exactly the injury-blind trap class).
+    # Mid-tier producers (prior 13-24) hard-faded BEAT 24% vs 15% -> info tag.
+    if "adp_rank" in out.columns:
+        adp_pos_rank = adp.groupby(pos).rank(method="first")
+        prior_rank = _num(out, "prior_pos_rank")
+        fade = adp_pos_rank - prior_rank
+        bust_score += add(
+            (prior_rank <= 12) & (fade >= 12),
+            "§36 market-faded star: top-12 producer the market dropped ≥12 spots — the room knows something (bust 50%, beat 7%)",
+        ).astype(int)
+        add(
+            (prior_rank.between(13, 24)) & (fade >= 12),
+            "(info) faded mid-tier producer — market fade often overdone (beat 24% vs 15%)",
+        )
     out["bust_score"] = bust_score
     # Bust = ADP inflation plus at least one more signal, or ≥3 signals total.
     bust = ((gap <= -INFLATION_GAP) & (bust_score >= 2)) | (bust_score >= 3)

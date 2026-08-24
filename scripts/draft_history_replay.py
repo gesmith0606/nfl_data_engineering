@@ -8,21 +8,37 @@ external ranking caches are 2026-only and would leak). ADP = that season's real
 Sept-1 FFC snapshot. Opponents draft by that ADP + noise (the market's average
 drafter). Bust metric parity with backtest_draft_flags.py.
 
-Known replay handicaps vs production (both make this a LOWER bound on the
-production stack): no consensus anchor, and no rookie projections (no
-historical/college inputs passed) — the advisor cannot draft rookies at all
-while the ADP bots do. Result 2026-08-24 (2 seeds): pooled mean rank 6.42/12
-(field 6.5) — even with the market on actual results, season range 1.5 (2022)
-to 10.0 (2025, a strong rookie year). The unfiltered first run (retirees +
-1-game ghosts on the board) ranked 9.94/12 — the room-universe/market filter
-is load-bearing; see docs/DRAFT_DOCTRINE.md §10.
-"""
+With rookie inputs (draft-capital historical_df + season roster_df -> the
+low-sample synthesizer) and alias-fixed name joins, 2026-08-24 (2 seeds):
+pooled mean rank 5.64/12 (field 6.5), top-3 43% / bottom-3 28% — above market
+in 4 of 5 seasons (2021 4.5, 2022 1.7, 2023 3.7, 2024 7.0) and CATASTROPHIC in
+2025 (11.3, −343 pts): the injury-blind heuristic bought market-faded veterans
+(Joe Mixon proj 260 / ADP 136 / actual 0). See the market-fade rule in
+docs/DRAFT_DOCTRINE.md §10. Earlier states: unfiltered ghosts 9.94; filtered
+rookie-blind 6.42."""
 import sys, os, glob, random, collections, warnings; warnings.filterwarnings("ignore")
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT); sys.path.insert(0, os.path.join(ROOT, "src")); os.chdir(ROOT)
 import numpy as np, pandas as pd, logging; logging.disable(logging.CRITICAL)
 from draft_optimizer import compute_value_scores, DraftBoard, DraftAdvisor, MockDraftSimulator, name_key
 from projection_engine import generate_preseason_projections
+
+_HIST = pd.read_parquet(glob.glob(r"data/silver/players/historical/combine_draft_profiles_*.parquet")[-1]) if glob.glob(r"data/silver/players/historical/combine_draft_profiles_*.parquet") else None
+
+def roster_for(season):
+    """Latest bronze roster for the season, shaped for project_low_sample_players."""
+    fs = sorted(glob.glob(f"data/bronze/players/rosters/season={season}/*.parquet"))
+    if not fs: return None
+    r = pd.read_parquet(fs[-1])
+    need = {"player_id","player_name","position","team"}
+    if not need <= set(r.columns): return None
+    r = r[r["position"].isin(["QB","RB","WR","TE"])].copy()
+    if "years_exp" not in r.columns:
+        ey = pd.to_numeric(r.get("entry_year"), errors="coerce")
+        r["years_exp"] = (season - ey).clip(lower=0)
+    for c, d in (("status","ACT"),("depth_chart_position",None),("jersey_number",None)):
+        if c not in r.columns: r[c] = d
+    return r.drop_duplicates(["player_id"])
 
 STATS = ["passing_yards","passing_tds","interceptions","rushing_yards","rushing_tds","carries",
          "receiving_yards","receiving_tds","receptions","targets"]
@@ -56,7 +72,10 @@ for Y in range(2021, 2026):
     adp_path = f"data/adp/history/adp_ffc_half_ppr_{Y}.csv"
     if any(h is None for h in hist) or act is None or not os.path.exists(adp_path): continue
     seasonal = pd.concat(hist, ignore_index=True)
-    proj = generate_preseason_projections(seasonal, scoring_format="half_ppr", target_season=Y)
+    proj = generate_preseason_projections(
+        seasonal, scoring_format="half_ppr", target_season=Y,
+        historical_df=_HIST, roster_df=roster_for(Y),
+    )
     adp = pd.read_csv(adp_path)
     adp["adp_rank"] = adp["adp"].rank(method="first")
     board_df = compute_value_scores(proj, adp[["player_name","adp_rank","stdev"]], roster_format="espn_default", n_teams=12)

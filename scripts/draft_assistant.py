@@ -40,6 +40,7 @@ from draft_optimizer import (
     AuctionDraftBoard,
     MockDraftSimulator,
     compute_value_scores,
+    market_believed,
 )
 import config
 
@@ -226,6 +227,10 @@ def run_simulation(
     enriched = compute_value_scores(
         projections, adp_df, roster_format=roster_format, n_teams=n_teams
     )
+    # Parity with the live engine: hide low-sample projections the market
+    # doesn't rank (ghost class — see market_believed; replay evidence: an
+    # unfiltered board ranked 9.94/12 by actual results vs 6.42 filtered).
+    enriched = market_believed(enriched)
     board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
     advisor = DraftAdvisor(board, scoring_format=scoring_format)
     simulator = MockDraftSimulator(
@@ -302,6 +307,10 @@ def run_auction_session(
     enriched = compute_value_scores(
         projections, adp_df, roster_format=roster_format, n_teams=n_teams
     )
+    # Parity with the live engine: hide low-sample projections the market
+    # doesn't rank (ghost class — see market_believed; replay evidence: an
+    # unfiltered board ranked 9.94/12 by actual results vs 6.42 filtered).
+    enriched = market_believed(enriched)
     board = AuctionDraftBoard(
         enriched, roster_format=roster_format, n_teams=n_teams, budget_per_team=budget
     )
@@ -584,6 +593,10 @@ def run_draft_session(
     enriched = compute_value_scores(
         projections, adp_df, roster_format=roster_format, n_teams=n_teams
     )
+    # Parity with the live engine: hide low-sample projections the market
+    # doesn't rank (ghost class — see market_believed; replay evidence: an
+    # unfiltered board ranked 9.94/12 by actual results vs 6.42 filtered).
+    enriched = market_believed(enriched)
 
     board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
     advisor = DraftAdvisor(board, scoring_format=scoring_format)

@@ -80,6 +80,9 @@ _FIRST_NAME_ALIASES = {
     "steve": "steven",
     "gabe": "gabriel",
     "jake": "jacob",
+    # Stage names ADP feeds use (2021-24 FFC lists "Hollywood Brown"; the
+    # 2021-25 draft replay lost him from every board until this mapping).
+    "hollywood": "marquise",
 }
 
 

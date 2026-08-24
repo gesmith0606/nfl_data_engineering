@@ -396,23 +396,13 @@ class LiveDraftEngine:
     def _market_believed(df: pd.DataFrame) -> pd.DataFrame:
         """Drop low-sample projections the market doesn't rank.
 
-        A vet with 2 career games can carry an inflated model projection
-        (Okwuegbunam 85-rec artifact, MANTIS 2026-07-11). When the frame
-        carries the Gold flags, hide rows that are BOTH low-sample AND absent
-        from external consensus — they stay draftable/mappable, just not
-        surfaced in recommendations, best-available, or value-drop alerts.
+        Delegates to :func:`src.draft_optimizer.market_believed` (shared with
+        the draft assistant CLI) — hidden rows stay draftable/mappable, just
+        not surfaced in recommendations, best-available, or value-drop alerts.
         """
-        if (
-            "is_low_sample_projection" not in df.columns
-            or "consensus_pos_rank" not in df.columns
-            or df.empty
-        ):
-            return df
-        suspect = (
-            df["is_low_sample_projection"].fillna(False).astype(bool)
-            & df["consensus_pos_rank"].isna()
-        )
-        return df[~suspect]
+        from src.draft_optimizer import market_believed
+
+        return market_believed(df)
 
     def _value_drop_moment(self, state: DraftState) -> List[KeyMoment]:
         if self.board is None or self.board.available.empty:

@@ -63,6 +63,16 @@ parts marked **[impl]**.
 34. **Positive TD regression**: WR/TE with ≥ 50 touches and < 5 TDs scored more the next year 66% of the time. *(ESPN 2026 TD regression)*
 35. **Environment**: Vegas implied team total (top-8 offenses), new pass-heavy OC, QB upgrade, pace. **[impl]** `season_prop_implied.attach_market_columns` (DK season futures → `prop_anchor_gap`). *(Sharp Football implied totals)*
 
+## 8b. Market-fade rules (added 2026-08-24 from the historical replay)
+36. **Market-faded star = red flag, not value.** A prior top-12 positional producer whose current ADP
+    sits ≥ 12 positional spots worse is being dropped on *news the stat line can't see* (injury,
+    suspension, role loss). Back-test 2021–25: bust 50% vs 39% base, beat-ADP 7% (n=14 — low
+    confidence, but this is exactly the class that destroyed the 2025 replay: Mixon proj 260 /
+    ADP 136 / actual 0). **[impl]** `draft_value.label_board` §36. The projections cannot see August
+    news — when a "value" comes from a star the market dumped, the market wins the argument.
+37. **Faded mid-tier producer = often real value.** Prior 13–24 positional producers hard-faded by the
+    market beat their ADP 24% vs 15% base — the market overdoes those fades. Info tag, not scored.
+
 ## 9. What the agent must output at every pick
 - **Cost of waiting by position** (best now vs expected at my next pick) — the strategic view. **[impl]** `position_wait_costs()`
 - **Top recommendations** by opportunity cost, respecting house rules. **[impl]**
@@ -100,13 +110,18 @@ Sept-1 FFC ADP; opponents = ADP+noise bots), rosters scored by **actual season r
    consensus filter is load-bearing, not cosmetic.*
 2. **Room-universe filter → market-even: pooled mean rank 6.42/12** (field 6.5), top-3 31% / bottom-3 32%,
    season range 1.5 (2022) to 10.0 (2025).
-3. **The replay advisor was rookie-blind** (no draft-capital/college inputs passed): 6–9 of each year's ADP
-   top-100 were invisible to it — worth 689–1,171 actual points/season (Najee 2021, Bijan/Gibbs 2023,
-   Jeanty/Hampton 2025) — and the worst replay seasons are the biggest blind-spot years. Production
-   projects rookies and anchors to consensus, so 6.42 is a **lower bound** on the production stack; the
-   anchor itself cannot be replayed historically (2026-only caches) and remains unproven on actuals.
-Net: structure (starters-first, cost of waiting, house rules) alone drafts even with the market by
-actual results; the claimed edge above market rests on projection quality, which varies sharply by year.
+3. **Rookie-blind first pass understated the engine.** 6–9 of each year's ADP top-100 (rookies + one
+   nickname join-miss) were invisible — worth 689–1,171 actual points/season. With rookie inputs
+   (draft-capital `historical_df` + season `roster_df` → the low-sample synthesizer) and the
+   Hollywood→Marquise alias fix: **pooled mean rank 5.64/12** (field 6.5), top-3 43% / bottom-3 28% —
+   **above market in 4 of 5 seasons** (2021 4.5 · 2022 1.7 · 2023 3.7 · 2024 7.0).
+4. **2025 collapsed (11.3, −343 pts) and named the third failure class:** the injury-blind heuristic
+   bought market-faded veterans — Mixon (proj 260, ADP 136, actual **0**), post-career-year Daniels,
+   Godwin/Najee/Thielen. That produced rules §36/§37 (market-faded star = red flag; faded mid-tier =
+   often value). The consensus anchor (production-only, unreplayable) also counters this class.
+Net: with the correctable artifacts fixed, the engine drafts **above the ADP market in most seasons by
+actual results**; its residual failure mode is August news the stat lines can't see — which §36 flags
+and the production anchor prices in.
 
 **Sim study (2026-08-24, `scripts/draft_sim_study.py`):** advisor drafted all 12 slots × 4 seeds against
 ADP+noise bots; rosters scored by **ESPN's own projections** (out-of-model yardstick): mean starting-lineup

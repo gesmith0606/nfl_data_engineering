@@ -41,16 +41,59 @@ _NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 
 
 def name_key(name) -> str:
-    """Suffix/punctuation-blind join key: ``"James Cook III"`` == ``"James Cook"``.
+    """Suffix/punctuation/nickname-blind join key: ``"James Cook III"`` ==
+    ``"James Cook"``, ``"Hollywood Brown"`` == ``"Marquise Brown"``.
 
-    ADP feeds carry generational suffixes our projections drop; a raw-name join
-    left Cook/Walker/Etienne with NaN ADP, so the advisor kept recommending
-    drafted players and mock bots never took them (2026-08-23 ESPN mock).
+    ADP feeds carry generational suffixes and stage names our projections
+    drop; a raw-name join left Cook/Walker/Etienne with NaN ADP (2026-08-23
+    ESPN mock) and lost Hollywood Brown from every 2022-24 replay board.
+    Nickname canonicalization reuses the shared alias table.
     """
     import re
 
     cleaned = re.sub(r"[^a-z0-9\s]", "", str(name or "").lower())
-    return " ".join(t for t in cleaned.split() if t not in _NAME_SUFFIXES)
+    tokens = [t for t in cleaned.split() if t not in _NAME_SUFFIXES]
+    if tokens:
+        tokens[0] = _first_name_aliases().get(tokens[0], tokens[0])
+    return " ".join(tokens)
+
+
+def _first_name_aliases() -> Dict[str, str]:
+    """Shared nickname table from sleeper_player_map (empty on import trouble)."""
+    global _ALIASES_CACHE
+    if _ALIASES_CACHE is None:
+        try:
+            from src.sleeper_player_map import _FIRST_NAME_ALIASES as aliases
+        except ImportError:
+            try:
+                from sleeper_player_map import _FIRST_NAME_ALIASES as aliases
+            except ImportError:  # pragma: no cover
+                aliases = {}
+        _ALIASES_CACHE = dict(aliases)
+    return _ALIASES_CACHE
+
+
+_ALIASES_CACHE: Optional[Dict[str, str]] = None
+
+
+def market_believed(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop rows the market does not believe in: low-sample projections with no
+    external consensus rank (the Okwuegbunam 85-rec artifact class). The
+    2021-25 draft replay's unfiltered board — retirees and 1-game ghosts —
+    ranked 9.94/12 by actual results; filtered it ranked 6.42. Frames without
+    the Gold flag columns pass through unchanged.
+    """
+    if (
+        df.empty
+        or "is_low_sample_projection" not in df.columns
+        or "consensus_pos_rank" not in df.columns
+    ):
+        return df
+    suspect = (
+        df["is_low_sample_projection"].fillna(False).astype(bool)
+        & df["consensus_pos_rank"].isna()
+    )
+    return df[~suspect]
 
 # Legacy replacement levels (typical starter counts x 12 teams) — used
 # whenever no roster_format is supplied, preserving historical behavior.

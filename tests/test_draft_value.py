@@ -82,3 +82,32 @@ def test_summarize_returns_all_sections():
     assert set(s) == {"values", "busts", "breakouts", "deep_sleepers"}
     assert "Value Back" in set(s["values"]["player_name"])
     assert "Old Back" in set(s["busts"]["player_name"])
+
+
+@pytest.mark.unit
+def test_market_faded_star_is_flagged_and_midtier_fade_is_info():
+    df = _board()
+    # Positional ADP rank is board-relative, so give the board enough RB/WR
+    # depth for a >= 12-spot fade to exist at all.
+    fillers = []
+    for i in range(30):
+        fillers.append(("Filler RB%d" % i, "RB", 20.0 - i, 10 + i * 6, 25, 4, 5, 1, 0, 150 - i, 40, 30, 5, 0.0))
+        fillers.append(("Filler WR%d" % i, "WR", 18.0 - i, 12 + i * 6, 25, 4, 0, 4, 0, 140 - i, 40, 60, 4, 0.0))
+    extra = pd.DataFrame(fillers, columns=[
+        "player_name", "position", "vorp", "adp_rank", "age", "years_exp", "rushing_tds", "receiving_tds",
+        "passing_tds", "projected_season_points", "prior_pos_rank", "prior_targets", "prior_tds", "vacancy_absorbed_share",
+    ])
+    extra["is_low_sample_projection"] = False
+    df = pd.concat([df, extra], ignore_index=True)
+    df["model_rank"] = df["projected_season_points"].rank(ascending=False, method="first").astype(int)
+    df["position_rank"] = df.groupby("position")["projected_season_points"].rank(ascending=False, method="first").astype(int)
+    # "Old Back": prior RB3 producer, market-dropped behind every filler RB.
+    df.loc[df.player_name == "Old Back", "adp_rank"] = 190
+    df.loc[df.player_name == "Old Back", "prior_pos_rank"] = 3
+    # "Fair WR": prior WR15 producer with the same hard fade -> info only.
+    df.loc[df.player_name == "Fair WR", "prior_pos_rank"] = 15
+    df.loc[df.player_name == "Fair WR", "adp_rank"] = 195
+    out = label_board(df).set_index("player_name")
+    assert "§36" in out.loc["Old Back", "reasons"]
+    assert "(info) faded mid-tier" in out.loc["Fair WR", "reasons"]
+    assert "§36" not in out.loc["Fair WR", "reasons"]

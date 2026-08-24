@@ -161,6 +161,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         f"§22 prior TD share > {int(TD_SHARE_MAX*100)}%": (df["prior_td_share"] > TD_SHARE_MAX, None),
         "§34 WR/TE >=50 tgt & <5 TD prior (positive regression)": (is_wrte & (df["prior_targets"] >= 50) & (df["prior_tds"] < 5), is_wrte),
         f"§22 real xTD: prior TDs >= +{XTD_OVER_GAP} over expected": (df["prior_xtd_gap"] >= XTD_OVER_GAP, None),
+        "§36 market-faded star (prior top-12 pos, ADP >= +12 pos spots)": (
+            (df["prior_pos_rank"] <= 12) & (df["adp_pos_rank"] - df["prior_pos_rank"] >= 12), None),
+        "(§36 info) faded mid-tier producer (prior 13-24, fade >= 12)": (
+            df["prior_pos_rank"].between(13, 24) & (df["adp_pos_rank"] - df["prior_pos_rank"] >= 12), None),
         "§15 RB drafted rounds 3-7 (dead zone, vs other RBs)": (is_rb & df["adp_round"].between(3, 7), is_rb),
         "WR drafted rounds 3-7 (vs other WRs)": ((df["position"] == "WR") & df["adp_round"].between(3, 7), df["position"] == "WR"),
     }
