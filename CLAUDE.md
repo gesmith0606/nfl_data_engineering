@@ -51,6 +51,8 @@ python scripts/train_quantile_models.py --positions qb rb wr te                 
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
 python scripts/draft_assistant.py --league la_liga --simulate                            # League preset: la_liga | feetball | gentlemen | mahomos (config.LEAGUE_PRESETS)
 python scripts/espn_league_import.py --league-id 1493260 --my-team                       # ESPN league/team import (cookies in .env; public leagues need none)
+python scripts/refresh_adp.py --source espn --scoring standard                           # ESPN's own ADP -> data/adp/adp_espn_standard.csv (auto-used by --league la_liga / --platform espn)
+python scripts/draft_live.py --platform espn --scoring standard --roster-format espn_default --my-team "The Oracle" --watch --queue   # ESPN LIVE co-pilot: reads the draft-room tab via Chrome DevTools (start Chrome with --remote-debugging-port=9222 --user-data-dir=<separate profile>), recs <1s per pick, --queue fills ESPN's Pick Queue from our board
 
 # Sentiment pipeline
 python scripts/ingest_sentiment_rss.py --weeks 1-18                                      # Ingest 5 RSS feeds
@@ -193,7 +195,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/ablation_market_features.py` | Ablation CLI — P30 baseline vs market features on holdout |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction, simulation, waiver wire |
-| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0) — polls a live Sleeper draft, snapshot/`--watch`/`--manual`, drives `LiveDraftEngine` |
+| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0; ESPN live v8.3) — polls a live Sleeper/Yahoo/ESPN draft, snapshot/`--watch`/`--manual`/`--queue`, drives `LiveDraftEngine`; recs scored by cost-of-waiting to your next pick |
 | `src/draft_models.py` | Platform-neutral `PickEvent` / `DraftState` (v8.0 live draft) |
 | `src/sleeper_draft.py` | Sleeper draft parsing + active-draft resolution (v8.0) |
 | `src/sleeper_player_map.py` | Sleeper player_id → projection mapping, cached registry (v8.0) |
@@ -202,7 +204,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/yahoo_oauth.py` | Yahoo OAuth2 token manager (stdlib; env creds `YAHOO_CLIENT_ID`/`YAHOO_CLIENT_SECRET`, tokens → `data/yahoo_tokens.json`) |
 | `src/yahoo_draft.py` | Yahoo `draft_results` parsing → neutral models (v8.0 Phase 88) |
 | `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
-| `src/espn_adapter.py` | `EspnAdapter` stub — ESPN has no live API (NO-GO), gated to `--manual` (v8.0 Phase 89) |
+| `src/espn_adapter.py` | `EspnAdapter` — LIVE via the draft-room page (v8.3): REST stays NO-GO (mDraftDetail empty mid-draft), so picks/clock/owners are parsed from the page text over Chrome DevTools; `enqueue()` fills ESPN's Pick Queue |
+| `src/espn_draft_page.py` | Pure parser of the ESPN draft app's `body.innerText` → `DraftState` (offline-testable) + `ChromeDraftPage` CDP client (`websocket-client`, no Playwright) |
 | `src/espn_league.py` | ESPN league/team import via ESPN_S2+ESPN_SWID cookies (lm-api-reads v3): settings, teams, rosters, post-draft PickEvents — live-draft NO-GO stands |
 | `scripts/espn_league_import.py` | ESPN import CLI — league summary, rosters, `--my-team`, `--draft`, `--out` raw JSON |
 | `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |

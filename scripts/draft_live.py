@@ -35,6 +35,10 @@ from typing import List, Optional
 import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+# src/ itself must also be importable: src.projection_engine and friends use
+# bare intra-package imports (``from scoring_calculator import ...``), the
+# repo convention — without this the CLI died at import (2026-08-23 mock).
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from src import sleeper_http  # noqa: E402
 from src.draft_adapter import SleeperAdapter  # noqa: E402
@@ -104,9 +108,37 @@ def load_projections(
     )
 
 
-def load_adp(adp_file: Optional[str]) -> Optional[pd.DataFrame]:
-    """Load ADP from a CSV file (default data/adp_latest.csv) if present."""
-    path = adp_file or os.path.join("data", "adp_latest.csv")
+def default_adp_path(platform: Optional[str], scoring: Optional[str]) -> str:
+    """Room-specific ADP file when one exists, else the legacy pointer.
+
+    ESPN rooms draft off ESPN's own ADP (QBs/TEs go 10-20 picks earlier than
+    on Sleeper/FFC — 2026-08-23 mock), so ``refresh_adp.py --source espn``
+    output wins for ESPN when present.
+    """
+    if platform == "espn":
+        # ESPN ADP is scoring-agnostic (the label is just the refresh flag) —
+        # take the most recently refreshed file.
+        cands = [
+            p
+            for p in (
+                os.path.join("data", "adp", f"adp_{platform}_{scoring or ''}.csv"),
+                os.path.join("data", "adp", f"adp_{platform}_standard.csv"),
+                os.path.join("data", "adp", f"adp_{platform}_half_ppr.csv"),
+            )
+            if os.path.exists(p)
+        ]
+        if cands:
+            return max(cands, key=os.path.getmtime)
+    return os.path.join("data", "adp_latest.csv")
+
+
+def load_adp(
+    adp_file: Optional[str],
+    platform: Optional[str] = None,
+    scoring: Optional[str] = None,
+) -> Optional[pd.DataFrame]:
+    """Load ADP from a CSV file (explicit, else room-specific, else legacy)."""
+    path = adp_file or default_adp_path(platform, scoring)
     if os.path.exists(path):
         return pd.read_csv(path)
     return None
@@ -221,6 +253,8 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             "team",
             "projected_points",
             "vorp",
+            "opportunity_cost",
+            "expected_next_vorp",
             "value_tier",
             "adp_rank",
             "stack_note",
@@ -289,10 +323,15 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
         lines.append(f"\nTOP {len(rec_records)} RECOMMENDATIONS  ({reasoning})")
         for r in rec_records:
             stack = f"  [{r['stack_note']}]" if r.get("stack_note") else ""
+            cost = r.get("opportunity_cost")
+            wait = (
+                f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
+            )
             lines.append(
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
-                f"vorp={r.get('vorp','')}  tier={r.get('value_tier','')}{stack}"
+                f"vorp={r.get('vorp','')}{wait}  adp={r.get('adp_rank','')}  "
+                f"tier={r.get('value_tier','')}{stack}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")
@@ -769,6 +808,18 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--my-slot", type=int, help="Your draft slot (1-indexed)")
     p.add_argument("--my-user-id", help="Your Sleeper user_id (auto-derives slot)")
     p.add_argument(
+        "--my-team",
+        help="ESPN: your team name exactly as shown in the draft room "
+        "(auto-derives your slot; or pass --my-slot)",
+    )
+    p.add_argument(
+        "--cdp-url",
+        default="http://127.0.0.1:9222",
+        help="ESPN: Chrome DevTools endpoint. Start Chrome with "
+        "--remote-debugging-port=9222 --user-data-dir=<separate profile>, "
+        "log into ESPN, open the draft room",
+    )
+    p.add_argument(
         "--league-id",
         help="League id for keeper leagues — pre-marks kept players off the board",
     )
@@ -785,7 +836,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--queue",
         action="store_true",
         help="Live queue mode — continuously emit a need-aware queue to mirror "
-        "into your Sleeper queue (beats reacting on a 120s clock)",
+        "into your Sleeper queue (beats reacting on a 120s clock). ESPN: with "
+        "--watch, pushes the queue into the draft room's Pick Queue directly",
     )
     p.add_argument("--queue-depth", type=int, default=12, help="Queue length")
     p.add_argument("--interval", type=float, default=3.0, help="Poll seconds")
@@ -835,7 +887,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     if projections is None or projections.empty:
         print("ERROR: no projections. Run generate_projections.py --preseason first.")
         return 1
-    adp_df = load_adp(args.adp_file)
+    adp_df = load_adp(args.adp_file, args.platform, args.scoring)
 
     # Manual fallback — no adapter, operator-supplied picks.
     if args.manual:
@@ -855,10 +907,25 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(render(engine, poll, args.top, args.json))
         return 0
 
-    adapter = _ADAPTERS[args.platform]()
+    if args.platform == "espn":
+        # Live via the draft-room page over Chrome DevTools (src/espn_draft_page).
+        adapter = EspnAdapter(
+            n_teams=args.teams,
+            scoring_format=args.scoring,
+            roster_format=args.roster_format,
+            draft_type=args.draft_type,
+            cdp_url=args.cdp_url,
+        )
+        # The committed Gold preseason file is half-PPR; ESPN rooms are often
+        # standard — rescore unless an explicit projections file was given.
+        if not args.projections_file:
+            projections = _rescore_projections(projections, args.scoring)
+    else:
+        adapter = _ADAPTERS[args.platform]()
 
     # Resolve user_id (identifies YOUR keepers) from username if not given.
-    my_user_id = args.my_user_id
+    # ESPN: the team name shown in the draft room plays the user-id role.
+    my_user_id = args.my_user_id or (args.my_team if args.platform == "espn" else None)
     if not my_user_id and args.username and args.platform == "sleeper":
         my_user_id = (
             str(sleeper_http.get_user(args.username).get("user_id") or "") or None
@@ -869,12 +936,15 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Resolve the draft (skipped for a roster report / mock, which only need the league).
     if not draft_id and not args.roster_report and not args.mock:
-        if not args.username:
+        if not args.username and args.platform != "espn":
             print("ERROR: provide --draft-id or --username.")
             return 1
-        res = adapter.resolve_draft(args.username, str(args.season))
+        res = adapter.resolve_draft(args.username or "", str(args.season))
         if not res.get("found"):
-            print(f"No active draft found for '{args.username}' in {args.season}.")
+            who = args.username or f"{args.platform} draft room"
+            print(f"No active draft found for '{who}' in {args.season}.")
+            if res.get("reason"):
+                print(f"  {res['reason']}")
             return 1
         draft_id = res["draft_id"]
         league_id = league_id or res.get("league_id")
@@ -898,7 +968,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
 
     # Live queue mode: own scoring/slot derivation + continuous queue loop.
-    if args.queue:
+    # (ESPN handles --queue inside the watch loop below — it pushes the queue
+    # straight into the draft room's Pick Queue instead of printing it.)
+    if args.queue and args.platform != "espn":
         if not draft_id:
             print("ERROR: --queue needs --draft-id or --username with an active draft.")
             return 1
@@ -1036,6 +1108,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Watch loop — re-render only when the pick count advances.
     last_seen = -1
+    queued: set = set()
     try:
         while True:
             poll = _poll_once()
@@ -1043,6 +1116,23 @@ def main(argv: Optional[List[str]] = None) -> int:
             if state and state.last_pick_no != last_seen:
                 last_seen = state.last_pick_no
                 print(render(engine, poll, args.top, args.json))
+                # ESPN --queue: keep the room's Pick Queue topped up with the
+                # advisor's need-aware queue so an autopick on a timeout follows
+                # OUR board (4 picks went to ESPN autopick in the 2026-08-23 mock).
+                if args.queue and hasattr(adapter, "enqueue") and engine.advisor:
+                    names = [
+                        q.get("player_name")
+                        for q in engine.advisor.build_queue(depth=args.queue_depth)
+                        if q.get("player_name")
+                    ]
+                    new = [n for n in names if n not in queued]
+                    if new:
+                        try:
+                            statuses = adapter.enqueue(new)
+                        except Exception as exc:  # noqa: BLE001 — never kill the loop
+                            statuses = [f"error:{exc}"]
+                        queued.update(new)
+                        print("(pick queue) " + ", ".join(str(s) for s in statuses))
                 print("-" * 60, flush=True)
             if state and state.status == "complete":
                 print("Draft complete.")

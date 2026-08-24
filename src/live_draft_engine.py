@@ -232,13 +232,30 @@ class LiveDraftEngine:
             return pd.DataFrame(), "Draft not started."
         # Over-fetch then apply the market-belief filter so low-sample
         # artifacts never occupy a recommendation slot.
-        recs, reasoning = self.advisor.recommend(top_n=top_n * 2)
+        recs, reasoning = self.advisor.recommend(top_n=top_n * 2, **self._turn_kwargs())
         if not recs.empty:
             recs = self._market_believed(recs).head(top_n)
         if not recs.empty and "player_id" in recs.columns:
             recs = recs.copy()
             recs["stack_note"] = recs["player_id"].map(self.stack_note)
         return recs, reasoning
+
+    def _turn_kwargs(self) -> Dict[str, Any]:
+        """Next-pick + picks-remaining for opportunity-cost scoring (empty if unknown)."""
+        turn = self.turn_info()
+        if turn is None or self.my_slot is None or self.state is None:
+            return {}
+        n = self.state.n_teams or 12
+        start = turn.on_clock_pick_no + (1 if turn.is_my_turn else 0)
+        kwargs: Dict[str, Any] = {"next_pick_no": self._my_next_pick_no(start, n)}
+        total = n * (self.state.rounds or 0)
+        if total:
+            kwargs["my_picks_remaining"] = sum(
+                1
+                for p in range(turn.on_clock_pick_no, total + 1)
+                if self._slot_on_clock(p, n, self.state.draft_type) == self.my_slot
+            )
+        return kwargs
 
     def stack_note(self, player_id: str) -> str:
         """Strongest correlation between a candidate and your current roster.
