@@ -47,6 +47,7 @@ ADP_MAX_PRICED = 200    # ADP beyond this = undrafted-pool artifact, not a price
 STARTABLE_MULT = 2      # breakout/sleeper candidates must rank within 2x the startable range
 POS_TD_REGRESSION_TARGETS = 50  # §34
 POS_TD_REGRESSION_TDS = 5
+XTD_OVER_GAP = 3        # §22: prior TDs this far over expected -> ceiling cap / mild bust
 
 _REGISTRY = os.path.join("data", "bronze", "players", "sleeper_players.json")
 _USAGE_GLOB = os.path.join("data", "silver", "players", "usage", "season={season}", "*.parquet")
@@ -144,6 +145,42 @@ def load_prior_usage(season: int) -> pd.DataFrame:
     return agg.drop(columns=["position"])
 
 
+def load_prior_xtd(season: int) -> pd.DataFrame:
+    """Season ``season - 1`` actual-vs-expected TDs per player (ffopportunity).
+
+    Returns ``player_id, prior_xtd_gap`` (actual − expected, rushing + receiving).
+    Back-test 2021-25: gap ≥ +3 → bust 43% vs 38% AND beat-ADP only 3% vs 13%
+    (a ceiling cap more than a bust call); the underachiever side carries no
+    signal. Empty frame when the season's ffopportunity files are missing.
+    """
+    frames = []
+    for kind, idc, act, exp in (
+        ("rush", "rusher_player_id", "rush_touchdown", "rushing_td_exp"),
+        ("pass", "receiver_player_id", "pass_touchdown", "pass_touchdown_exp"),
+    ):
+        fs = glob.glob(
+            os.path.join(
+                "data", "bronze", "ffopportunity", f"season={season - 1}",
+                f"ep_pbp_{kind}_{season - 1}.parquet",
+            )
+        )
+        if not fs:
+            continue
+        df = pd.read_parquet(fs[0])[[idc, act, exp]].dropna(subset=[idc])
+        df[idc] = df[idc].astype(str)
+        for c in (act, exp):
+            df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0)
+        frames.append(
+            df.groupby(idc).agg(actual=(act, "sum"), expected=(exp, "sum"))
+            .reset_index().rename(columns={idc: "player_id"})
+        )
+    if not frames:
+        return pd.DataFrame(columns=["player_id", "prior_xtd_gap"])
+    g = pd.concat(frames).groupby("player_id")[["actual", "expected"]].sum().reset_index()
+    g["prior_xtd_gap"] = (g["actual"] - g["expected"]).round(1)
+    return g[["player_id", "prior_xtd_gap"]]
+
+
 def load_vacancy(season: int) -> pd.DataFrame:
     """UC1 vacated-opportunity features keyed by ``player_id`` (empty on any failure)."""
     try:
@@ -192,8 +229,12 @@ def attach_features(board: pd.DataFrame, season: int) -> pd.DataFrame:
         vac = load_vacancy(season)
         if not vac.empty:
             df = df.merge(vac, on="player_id", how="left")
+        xtd = load_prior_xtd(season)
+        if not xtd.empty:
+            df = df.merge(xtd, on="player_id", how="left")
     for c in ("prior_games", "prior_targets", "prior_tds", "prior_target_share", "prior_points",
-              "prior_pos_rank", "vacancy_absorbed_share", "net_target_vacancy", "net_carry_vacancy"):
+              "prior_pos_rank", "prior_xtd_gap",
+              "vacancy_absorbed_share", "net_target_vacancy", "net_carry_vacancy"):
         if c not in df.columns:
             df[c] = np.nan
     df["td_share"] = td_share(df)
@@ -244,9 +285,15 @@ def label_board(df: pd.DataFrame) -> pd.DataFrame:
     # rate only for RBs (46% vs 34%); for WR/QB/TE it does not -> RB-only signal.
     bust_score += add((pos == "RB") & (_num(out, "prior_pos_rank") <= 5), "§21 RB top-5 finish last year (repeat ~24%)").astype(int)
     # The crude "TD share of projected points" proxy showed NO bust lift in the
-    # back-test (0.83) — tagged for information only, not scored. A real xTD
-    # (expected-TD) gap is the doctrine's actual §22 signal; not built yet.
+    # back-test (0.83) — tagged for information only, not scored.
     add(_num(out, "td_share") > TD_SHARE_MAX, f"(info) TD-dependent: >{int(TD_SHARE_MAX*100)}% of points from TDs")
+    # Real §22 (xTD, ffopportunity): prior-year TDs >= +3 over expected.
+    # Back-test 2021-25: bust 43% vs 38% (mild) and beat-ADP 3% vs 13% — more a
+    # ceiling cap than a bust call, but it earns a scored point.
+    bust_score += add(
+        _num(out, "prior_xtd_gap") >= XTD_OVER_GAP,
+        "§22 TD overachiever last year (≥ +3 over expected — ceiling capped, beat rate 3%)",
+    ).astype(int)
     if "is_low_sample_projection" in out.columns:
         bust_score += add(out["is_low_sample_projection"].fillna(False).astype(bool), "§28 low-sample projection").astype(int)
     out["bust_score"] = bust_score

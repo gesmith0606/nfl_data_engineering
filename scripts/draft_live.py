@@ -409,6 +409,8 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             "value_tier",
             "adp_rank",
             "stack_note",
+            "position_rank",
+            "consensus_pos_rank",
         ]
         if c in recs.columns
     ]
@@ -513,6 +515,21 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
         lines.append(f"\nTOP {len(rec_records)} RECOMMENDATIONS  ({reasoning})")
         for r in rec_records:
             stack = f"  [{r['stack_note']}]" if r.get("stack_note") else ""
+            # RB consensus guard (doctrine honesty rule): our model tested WORSE
+            # than consensus at RB (2025). When they disagree materially on an
+            # RB, show it and let consensus carry the tiebreak.
+            guard = ""
+            cpr, mpr = r.get("consensus_pos_rank"), r.get("position_rank")
+            if (
+                str(r.get("position")) == "RB"
+                and cpr is not None and mpr is not None
+                and pd.notna(cpr) and pd.notna(mpr)
+                and abs(float(mpr) - float(cpr)) >= 5
+            ):
+                guard = (
+                    f"  [RB GUARD: model RB{int(mpr)} vs consensus RB{int(cpr)}"
+                    " — defer to consensus]"
+                )
             cost = r.get("opportunity_cost")
             wait = (
                 f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
@@ -521,7 +538,7 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
                 f"vorp={r.get('vorp','')}{wait}  adp={r.get('adp_rank','')}  "
-                f"tier={r.get('value_tier','')}{stack}"
+                f"tier={r.get('value_tier','')}{stack}{guard}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")
@@ -1041,6 +1058,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Manual pick by player name (repeatable)",
     )
     p.add_argument(
+        "--keepers-file",
+        help="Keeper league without API keeper support (e.g. Yahoo Feetball): "
+        "text file, one kept player per line; prefix '*' marks YOUR keepers "
+        "(rostered to you), others are removed from the board. '#' comments",
+    )
+    p.add_argument(
         "--mock",
         action="store_true",
         help="Simulated mock draft — opponents auto-pick, stops at your turn",
@@ -1220,7 +1243,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         roster_config=roster_config_from_positions(roster_positions),
     )
 
-    _keepers_loaded = {"done": False}
+    _keepers_loaded = {"done": False, "file_done": False}
 
     def _poll_once() -> PollResult:
         state = (
@@ -1239,6 +1262,24 @@ def main(argv: Optional[List[str]] = None) -> int:
             _keepers_loaded["done"] = True
             if not args.json:
                 print(f"(keeper league: marked {n} rostered players off the board)")
+        # File-based keepers (platforms with no keeper API, e.g. Yahoo).
+        if not _keepers_loaded["file_done"] and args.keepers_file and engine.board is not None:
+            mine, others = [], []
+            with open(args.keepers_file, encoding="utf-8") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    (mine if line.startswith("*") else others).append(line.lstrip("* ").strip())
+            for name in mine:
+                engine.board.draft_by_name(name, by_me=True)
+            removed = engine.board.remove_players(others)
+            _keepers_loaded["file_done"] = True
+            if not args.json:
+                print(
+                    f"(keepers file: {len(mine)} rostered to you, "
+                    f"{removed}/{len(others)} others removed from the board)"
+                )
         return poll
 
     if args.mock:

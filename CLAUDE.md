@@ -54,7 +54,8 @@ python scripts/espn_league_import.py --league-id 1493260 --my-team              
 python scripts/refresh_adp.py --source espn --scoring standard                           # ESPN's own ADP -> data/adp/adp_espn_standard.csv (auto-used by --league la_liga / --platform espn)
 python scripts/refresh_adp.py --source yahoo --cdp-url http://127.0.0.1:9333             # Yahoo ADP read from an open Draft Analysis tab in a --remote-debugging-port Chrome (page is JS-rendered)
 python scripts/draft_value_report.py --league la_liga [--sources espn,ffc --csv]         # VALUES / BUSTS / BREAKOUTS / DEEP SLEEPERS per ADP source + cross-platform mispricing, each with the docs/DRAFT_DOCTRINE.md rule that fired
-python scripts/backtest_draft_flags.py                                                   # Doctrine signal hit rates on 2021-25 (FFC ADP history vs Silver actuals): RB age>=27 and RB dead zone confirmed, TD-share proxy rejected
+python scripts/backtest_draft_flags.py                                                   # Doctrine signal hit rates on 2021-25 (FFC ADP history vs Silver actuals): RB age>=27 + RB dead zone confirmed, TD-share proxy rejected, real xTD gap >= +3 = ceiling cap (beat 3% vs 15%)
+python scripts/draft_sim_study.py --seeds 4                                              # Advisor drafts all 12 slots vs ADP bots, rosters scored by ESPN's OWN projections (non-circular): mean rank 4.3/12, +2.3 pts/wk vs field. Never quote the own-projection version (advisor wins by construction)
 python scripts/draft_live.py --platform espn --scoring standard --roster-format espn_default --my-team "The Oracle" --watch --queue   # ESPN LIVE co-pilot: reads the draft-room tab via Chrome DevTools (start Chrome with --remote-debugging-port=9222 --user-data-dir=<separate profile>), recs <1s per pick, --queue fills ESPN's Pick Queue from our board
 
 # Sentiment pipeline

@@ -35,7 +35,13 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from src.draft_optimizer import name_key  # noqa: E402
-from src.draft_value import RB_AGE_CLIFF, TD_SHARE_MAX, load_registry_features  # noqa: E402
+from src.draft_value import (  # noqa: E402
+    RB_AGE_CLIFF,
+    TD_SHARE_MAX,
+    XTD_OVER_GAP,
+    load_prior_xtd,
+    load_registry_features,
+)
 
 _USAGE = os.path.join("data", "silver", "players", "usage", "season={season}", "*.parquet")
 _ADP = os.path.join("data", "adp", "history", "adp_ffc_half_ppr_{season}.csv")
@@ -91,6 +97,11 @@ def build_season(season: int, max_adp: float) -> Optional[pd.DataFrame]:
         df = df.merge(reg[["_name_key", "position", "age"]], on=["_name_key", "position"], how="left")
     else:
         df["age"] = float("nan")
+    xtd = load_prior_xtd(season)
+    if not xtd.empty and "player_id" in df.columns:
+        df = df.merge(xtd, on="player_id", how="left")
+    if "prior_xtd_gap" not in df.columns:
+        df["prior_xtd_gap"] = float("nan")
     df["season"] = season
     # Unmatched actuals = did not play (or a name we can't join) -> treat as bust only
     # when games are known; drop unjoinable rows to keep the test honest.
@@ -149,6 +160,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         "§21 prior top-5 RB only": (is_rb & (df["prior_pos_rank"] <= 5), is_rb),
         f"§22 prior TD share > {int(TD_SHARE_MAX*100)}%": (df["prior_td_share"] > TD_SHARE_MAX, None),
         "§34 WR/TE >=50 tgt & <5 TD prior (positive regression)": (is_wrte & (df["prior_targets"] >= 50) & (df["prior_tds"] < 5), is_wrte),
+        f"§22 real xTD: prior TDs >= +{XTD_OVER_GAP} over expected": (df["prior_xtd_gap"] >= XTD_OVER_GAP, None),
         "§15 RB drafted rounds 3-7 (dead zone, vs other RBs)": (is_rb & df["adp_round"].between(3, 7), is_rb),
         "WR drafted rounds 3-7 (vs other WRs)": ((df["position"] == "WR") & df["adp_round"].between(3, 7), df["position"] == "WR"),
     }

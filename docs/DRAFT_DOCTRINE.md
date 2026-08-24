@@ -84,9 +84,18 @@ beat-by-10 14%**.
 | §34 WR/TE ≥ 50 tgt & < 5 TD prior | 86 | 38% vs 43% (0.90) | **17% vs 13%** (1.33) | **mild support** (positive regression) |
 | §15 RB drafted rounds 3–7 | 97 | **40% vs 32%** (1.24) | 13% vs 20% | **confirmed** — RB dead zone is real; WR rounds 3–7 show no effect (1.04) |
 
+| §22 real xTD: prior TDs ≥ +3 over expected (ffopportunity) | 60 | 43% vs 38% (1.14) | **3% vs 13%** (0.25) | **ceiling cap**: overachievers almost never beat ADP; mild bust tilt. Underachiever side (≤ −2): no signal (1.02) |
+
 By ADP round (all positions): round 4 is the worst (50% bust); rounds 1–3 ≈ 34–37%; "beat" rates climb
 from ~0% in rounds 1–3 to 20–28% in rounds 6–11 — upside lives late, safety early. Engine consequences:
-`src/draft_value.py` scores §21 for RBs only and no longer scores the TD-share proxy.
+`src/draft_value.py` scores §21 for RBs only, drops the TD-share proxy, and scores the real xTD
+overachiever gap (≥ +3) as a mild bust / ceiling-cap signal.
+
+**Sim study (2026-08-24, `scratchpad simstudy2.py`):** advisor drafted all 12 slots × 4 seeds against
+ADP+noise bots; rosters scored by **ESPN's own projections** (out-of-model yardstick): mean starting-lineup
+rank **4.3 of 12** (field 6.5), +2.3 pts/week vs field average, top-3 finish 35%, bottom-3 4%. Scored by our
+own projections the advisor ranks 1st in 47/48 — that number is circular and must never be quoted as evidence.
+Limitation: opponents are ADP-followers, not sharp humans.
 
 ## Sources
 FantasyPros: Value-Based Drafting (2026), Draft Tiers (2026), How to Draft TEs (2026), Zero-RB (2026), Sleeper ADP vs ECR, Touchdown Regression Report, "24 players experts avoid at ADP" (2026), YPRR explainer · DraftSharks 2026 Tiers, Injury Predictor · FantasyLife: RB Dead Zone 2026, Route Participation · RotoWire late-round QB 2026 · FantasyDraftCoach availability methodology · FantasySixPack/FantasyInFrames ADP values across ESPN/Yahoo/Sleeper/CBS 2026 · FTN Exploiting Sleeper ADP 2026 · Athlon Sports positional runs · Bleacher Nation/SI snake strategy 2026 · Fantasy Football Blueprint: RB age cliff (2026-08-10), rookie RB workload signals (2026-08-03) · Fantasy Index: top-5 RB repeatability (2026) · PFF top-WR repeatability · Fantasy Points xTD · RotoViz breakout age / Dominator Rating · 4for4 production curves by age, sleepers after pick 150 (2026) · RotoBaller vacated targets 2026 · Sharp Football implied team totals · DynastyNerds draft capital · ESPN 2026 TD regression · Yahoo ADP risers/fallers (2026-08-18) · CBS/Yahoo first-round bust rates.
