@@ -466,3 +466,67 @@ explicit step after this kind of gate).
 - **Artifacts**: `output/backtest/sleeper_anchor_qbrbte_gate/` — 2 baseline
   + 6 live-CLI-confirmation backtest CSVs (this session, fresh, not
   reused from the parent gate's now-stale pre-ship files).
+
+## 2026-08-23 amendment: RB/TE promotion attempted, then HALTED — this gate never covered the production engine
+
+**Verdict revision: RB and TE are downgraded from SHIP-PENDING-USER to HOLD.**
+No production default changed; `origin/main` never carried the promotion.
+
+**What happened.** The user approved RB+TE promotion the same day. The
+promotion was implemented (generalized extra-slot resolver
+`resolve_sleeper_anchor_extra_configs()`, RB+TE default set, tests, CLAUDE.md,
+ECR-forward-gate amendment #3 — preserved unpushed on branch
+`halted/rb-te-sleeper-anchor-ship-2026-08-23`, commit `ac36c220`) and the
+headline site metrics were regenerated with the WR ship's recipe
+(`--ml --full-features --vs-consensus`, 2022-2024, weeks 3-18, cons>=5,
+`benchmark_consensus_sources.py` + `simulate_fp_accuracy.py`). That
+regeneration is the WR ship's pre-registered halt check ("no regression
+anywhere") — and it failed.
+
+**Root cause.** Every run this gate's verdict rests on — the two live-CLI
+baselines and all six winning-weight confirmations in
+`output/backtest/sleeper_anchor_qbrbte_gate/` — is named
+`backtest_half_ppr_consensus_…` with **no `_ml_fullfeatures_` tag**: they were
+generated on the heuristic engine (`--vs-consensus --consensus-source sleeper`,
+"no other flags", §Results). Production (`weekly-pipeline.yml`) runs
+`generate_projections.py --ml`; heuristic is only its failure fallback, and the
+site metrics are computed on `--ml --full-features`. The gate therefore measured
+the anchor's effect on the fallback engine. (The parent WR gate ran the same
+way — its promotion simply happened to survive the ML-path regeneration.) This
+is the [[gated-experiment-coverage-check]] failure mode in a new form: the
+lever fired, but on the wrong engine.
+
+**Production-engine numbers** (`--ml --full-features`, artifacts in
+`output/backtest/rb_te_ship_2026_08_23/{before,after,before2025,after2025}/`;
+`before` = shipped WR-only anchor, `after` = WR+RB+TE blend w=0.5; QB and WR
+rows byte-identical in every cell, populations identical — n=7,009 Sleeper /
+6,721 ESPN pooled, 2,439 Sleeper 2025):
+
+| Window | Metric | RB before → after | TE before → after |
+|---|---|---:|---:|
+| 2022-24 tuning | FP ordinal Accuracy Gap (lower=better) | 5.320 → **5.474 (+0.154, worse)** | 5.698 → **5.843 (+0.145, worse)** |
+| 2022-24 tuning | MAE gap vs Sleeper (matched) | −0.466 → **−0.362 (worse)** | −0.454 → **−0.273 (worse)** |
+| 2022-24 tuning | MAE gap vs ESPN (matched) | −0.525 → **−0.452 (worse)** | −0.453 → **−0.275 (worse)** |
+| 2025 one-shot | FP ordinal Accuracy Gap | 6.390 → 6.186 (−0.204, better; flips to beating Sleeper 6.304) | 6.164 → 6.106 (−0.058, better) |
+| 2025 one-shot | MAE gap vs Sleeper (matched) | +0.039 → −0.112 (better) | −0.423 → **−0.240 (worse)** |
+
+Pooled 2022-24 overall MAE gap would have moved −0.537 → −0.485 (Sleeper) and
+−0.466 → −0.422 (ESPN). Per-season ordinal: RB worse in 2022 (5.41→5.65) and
+2023 (5.00→5.30), better in 2024 (5.54→5.47); TE worse in all three. ESPN has
+no usable 2025 silver (ordinal sim returns 17-27, ignored).
+
+**Reading.** On the heuristic engine the anchor pulls weak projections toward
+a better consensus; on the ML engine RB/TE projections are already better
+than Sleeper (MAE gap −0.47/−0.45), so a w=0.5 blend mostly drags them toward
+the worse source — the same mechanism that helped WR (whose ML edge over
+Sleeper was small, −0.065) hurts RB/TE. RB's 2025 improvement is real and
+worth chasing; TE's is marginal. Neither clears the tuning-window primary
+gate on the production engine, which the verdict rules require.
+
+**Follow-up (not done here):** re-run this gate on the `--ml --full-features`
+engine end-to-end, with a fresh weight grid — the optimal weight for an
+already-strong ML projection is plausibly well below 0.5 (RB 2025 says
+there is signal; the tuning window says 0.5 is too much). Rule going
+forward, added to the vault concept note: **a gate's baseline and treated
+runs must be generated on the engine production actually runs** — check the
+artifact filename tag (`_ml_fullfeatures_`) before reading any verdict.
