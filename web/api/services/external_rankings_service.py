@@ -1210,6 +1210,55 @@ _VALID_SORT_KEYS = {
 }
 
 
+def _load_adp_lookup(scoring: str) -> Dict[str, Dict[str, Any]]:
+    """Name-keyed real-ADP lookup for the multi-compare table (FFC, scoring-matched).
+
+    Resolution mirrors ``web.api.routers.draft._load_adp_df``: the exact
+    ``data/adp/adp_ffc_{scoring}.csv``, else the newest ``adp_ffc_*.csv``, else
+    the legacy ``data/adp_latest.csv``. Returns ``{}`` on any failure so the
+    compare table renders without an ADP column rather than 500ing.
+
+    Each value carries ``overall`` (the feed's ADP rank across all positions)
+    and ``positional`` (rank within the player's position by ADP), so the
+    caller can pick whichever matches the active ``rank_basis``.
+    """
+    adp_dir = Path(DATA_DIR) / "adp"
+    candidate: Optional[Path] = None
+    exact = adp_dir / f"adp_ffc_{scoring}.csv"
+    if exact.exists():
+        candidate = exact
+    else:
+        matches = sorted(adp_dir.glob("adp_ffc_*.csv"), key=lambda p: p.stat().st_mtime)
+        if matches:
+            candidate = matches[-1]
+        elif (Path(DATA_DIR) / "adp_latest.csv").exists():
+            candidate = Path(DATA_DIR) / "adp_latest.csv"
+    if candidate is None:
+        return {}
+    try:
+        df = pd.read_csv(candidate)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("ADP lookup unavailable (%s): %s", candidate, exc)
+        return {}
+    if "adp_rank" not in df.columns or "player_name" not in df.columns:
+        return {}
+    df = df.dropna(subset=["adp_rank"]).copy()
+    df["adp_rank"] = df["adp_rank"].astype(float)
+    if "position" in df.columns:
+        df["_pos_rank"] = df.groupby("position")["adp_rank"].rank(method="first")
+    else:
+        df["_pos_rank"] = df["adp_rank"]
+    lookup: Dict[str, Dict[str, Any]] = {}
+    for _, row in df.iterrows():
+        key = _normalize_name(str(row["player_name"]))
+        if key and key not in lookup:
+            lookup[key] = {
+                "overall": float(row["adp_rank"]),
+                "positional": float(row["_pos_rank"]),
+            }
+    return lookup
+
+
 def multi_compare_rankings(
     scoring: str = "half_ppr",
     position: Optional[str] = None,
@@ -1363,6 +1412,7 @@ def multi_compare_rankings(
     # a refetch in the future. The headline `<source>_rank` field is the one
     # that matches the active filter (overall when no position, positional
     # when filtered to a single position).
+    adp_lookup = _load_adp_lookup(scoring)
     for key, entry in merged.items():
         our = our_lookup.get(key)
         entry["our_pos_rank"] = our["our_pos_rank"] if our else None
@@ -1376,6 +1426,21 @@ def multi_compare_rankings(
         else:
             our_active = entry["our_pos_rank"]
         entry["our_rank"] = our_active
+        # Real ADP (FFC) alongside the expert sources — the "market" column.
+        # Same sign convention as the sources: adp - our_rank, positive = the
+        # market drafts the player later than we rank him (a value).
+        adp = adp_lookup.get(key)
+        entry["adp_overall_rank"] = adp["overall"] if adp else None
+        entry["adp_pos_rank"] = adp["positional"] if adp else None
+        adp_active = (
+            entry["adp_overall_rank"] if rank_basis == "overall" else entry["adp_pos_rank"]
+        )
+        entry["adp_rank"] = adp_active
+        entry["rank_diff_vs_adp"] = (
+            float(adp_active) - float(our_active)
+            if our_active is not None and adp_active is not None
+            else None
+        )
 
         for ext_key in requested:
             entry.setdefault(f"{ext_key}_pos_rank", None)

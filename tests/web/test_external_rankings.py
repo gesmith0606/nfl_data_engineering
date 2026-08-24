@@ -1173,3 +1173,83 @@ def test_multi_compare_includes_draftsharks_and_ftn_columns(
     assert alice["ftn_rank"] == 3.0
     assert "rank_diff_vs_draftsharks" in alice
     assert "rank_diff_vs_ftn" in alice
+
+
+
+@pytest.mark.unit
+def test_load_adp_lookup_reads_ffc_csv(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Exact scoring file wins; overall + positional ADP both exposed; no file -> {}."""
+    import pandas as pd
+
+    data_dir = tmp_path / "data"
+    (data_dir / "adp").mkdir(parents=True)
+    monkeypatch.setattr(svc, "DATA_DIR", data_dir)
+    assert svc._load_adp_lookup("half_ppr") == {}
+
+    pd.DataFrame(
+        [
+            {"adp_rank": 1, "player_name": "Alice", "position": "RB"},
+            {"adp_rank": 2, "player_name": "Bob", "position": "WR"},
+            {"adp_rank": 3, "player_name": "Carl Jr.", "position": "RB"},
+        ]
+    ).to_csv(data_dir / "adp" / "adp_ffc_half_ppr.csv", index=False)
+
+    lookup = svc._load_adp_lookup("half_ppr")
+    assert lookup[svc._normalize_name("Alice")] == {"overall": 1.0, "positional": 1.0}
+    assert lookup[svc._normalize_name("Bob")] == {"overall": 2.0, "positional": 1.0}
+    # Second RB by ADP -> RB2 positional, overall 3.
+    assert lookup[svc._normalize_name("Carl Jr.")] == {"overall": 3.0, "positional": 2.0}
+
+
+@pytest.mark.unit
+def test_multi_compare_carries_real_adp_column(
+    tmp_cache_dir: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Each row carries adp_rank matching rank_basis plus rank_diff_vs_adp = adp - ours."""
+    import pandas as pd
+    import requests
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(requests.ConnectionError("x")),
+    )
+    _seed_cache(
+        tmp_cache_dir,
+        "sleeper",
+        [
+            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
+            {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+        ],
+    )
+    our_df = pd.DataFrame(
+        [
+            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 1, "projected_points": 18.0},
+            {"player_name": "Bob", "position": "WR", "team": "DAL", "our_rank": 1, "projected_points": 12.5},
+        ]
+    )
+    monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
+    monkeypatch.setattr(
+        svc,
+        "_load_adp_lookup",
+        lambda scoring: {
+            svc._normalize_name("Alice"): {"overall": 3.0, "positional": 1.0},
+            # Bob has no ADP row at all.
+        },
+    )
+
+    overall = svc.multi_compare_rankings(limit=10)
+    by_name = {p["player_name"]: p for p in overall["players"]}
+    assert by_name["Alice"]["adp_rank"] == 3.0
+    assert by_name["Alice"]["adp_overall_rank"] == 3.0
+    assert by_name["Alice"]["adp_pos_rank"] == 1.0
+    assert by_name["Alice"]["rank_diff_vs_adp"] == 2.0  # 3 - 1
+    assert by_name["Bob"]["adp_rank"] is None
+    assert by_name["Bob"]["rank_diff_vs_adp"] is None
+
+    positional = svc.multi_compare_rankings(limit=10, position="RB")
+    alice = {p["player_name"]: p for p in positional["players"]}["Alice"]
+    assert positional["rank_basis"] == "positional"
+    assert alice["adp_rank"] == 1.0
+    assert alice["rank_diff_vs_adp"] == 0.0

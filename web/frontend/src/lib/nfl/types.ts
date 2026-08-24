@@ -999,6 +999,19 @@ export interface AdpResponse {
   updated_at: string | null
 }
 
+/** Real-ADP source keys accepted by `GET /api/draft/adp-board`. */
+export type AdpSource = 'ffc' | 'sleeper' | 'espn'
+
+/** Stateless ADP board (`GET /api/draft/adp-board`): the full pre-draft pool
+ *  with our rank / ADP / value / VORP, no draft session involved. */
+export interface AdpBoardResponse {
+  players: DraftPlayer[]
+  scoring_format: ScoringFormat
+  season: number
+  adp_source: AdpSource | null
+  count: number
+}
+
 /** Roster format — legacy generic shapes plus the platform-default shapes. */
 export type RosterFormat =
   | 'standard'
@@ -1317,6 +1330,13 @@ export interface MultiCompareRow {
   rank_diff_vs_yahoo: number | null;
   rank_diff_vs_draftsharks: number | null;
   rank_diff_vs_ftn: number | null;
+  // Real ADP (FFC, scoring-matched) — the "market" column. Optional so older
+  // fixtures/responses without it still type-check.
+  adp_rank?: number | null;
+  adp_pos_rank?: number | null;
+  adp_overall_rank?: number | null;
+  /** adp_rank − our_rank (positive = the market drafts him later than we rank him). */
+  rank_diff_vs_adp?: number | null;
 }
 
 export interface MultiCompareResponse {

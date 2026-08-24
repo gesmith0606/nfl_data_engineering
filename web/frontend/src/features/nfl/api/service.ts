@@ -29,6 +29,7 @@ export {
   startMockDraft,
   advanceMockDraft,
   fetchAdp,
+  fetchAdpBoard,
   fetchDraftPlatforms,
   syncPickLog,
   isServiceUnavailable,

@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 const PRIMARY = [
   { label: 'News', href: '/dashboard/news' },
   { label: 'Rankings', href: '/dashboard/rankings' },
+  { label: 'ADP', href: '/dashboard/adp' },
   { label: 'Scores', href: '/dashboard/predictions' },
   { label: 'Matchups', href: '/dashboard/matchups' },
   { label: 'My League', href: '/dashboard/leagues' },

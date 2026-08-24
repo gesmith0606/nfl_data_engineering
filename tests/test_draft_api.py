@@ -1632,3 +1632,58 @@ class TestMockUndo:
     def test_mock_undo_unknown_session_404(self):
         resp = client.post("/api/draft/mock/undo", json={"session_id": "nope"})
         assert resp.status_code == 404
+
+
+# ---------------------------------------------------------------------------
+# Test: GET /api/draft/adp-board (stateless ADP rankings page)
+# ---------------------------------------------------------------------------
+
+
+class TestAdpBoard:
+    """The public ADP page reads a session-less board."""
+
+    def test_returns_players_without_creating_a_session(self):
+        from web.api.routers import draft as draft_module
+
+        draft_module._sessions.clear()
+        resp = client.get(
+            "/api/draft/adp-board",
+            params={"scoring": "half_ppr", "season": 2026, "adp_source": "ffc"},
+        )
+        assert resp.status_code == 200, resp.text
+        body = resp.json()
+        assert body["count"] == len(body["players"]) > 0
+        assert body["scoring_format"] == "half_ppr"
+        assert body["adp_source"] == "ffc"
+        assert "session_id" not in body
+        # The whole point vs /draft/board: looking at ADP must not spawn sessions.
+        assert draft_module._sessions == {}
+        for key in ("player_id", "player_name", "position", "model_rank", "adp_rank", "adp_diff", "vorp"):
+            assert key in body["players"][0]
+
+    def test_rejects_unknown_adp_source(self):
+        resp = client.get("/api/draft/adp-board", params={"adp_source": "yahoo"})
+        assert resp.status_code == 422
+
+    def test_rank_uses_canonical_overall_rank_when_present(self):
+        """Value must be judged against the Rankings page's overall_rank, not the
+        raw-points model_rank (which puts a dozen QBs ahead of every RB)."""
+        from draft_optimizer import compute_value_scores
+
+        def _with_overall_rank(scoring, season, adp_source=None):
+            df = compute_value_scores(_make_mock_projections())
+            # Invert the points order so the two ranks visibly disagree.
+            df["overall_rank"] = df["model_rank"].max() + 1 - df["model_rank"]
+            # ADP exactly equals the canonical rank -> every diff is 0 / fair.
+            df["adp_rank"] = df["overall_rank"].astype(float)
+            return df
+
+        with patch("web.api.routers.draft._load_draft_data", side_effect=_with_overall_rank):
+            resp = client.get("/api/draft/adp-board", params={"scoring": "half_ppr"})
+        assert resp.status_code == 200, resp.text
+        players = resp.json()["players"]
+        assert [p["model_rank"] for p in players] == sorted(p["model_rank"] for p in players)
+        for p in players:
+            assert p["adp_rank"] == float(p["model_rank"])
+            assert p["adp_diff"] == 0.0
+            assert p["value_tier"] == "fair_value"
