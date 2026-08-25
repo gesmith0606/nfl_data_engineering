@@ -51,6 +51,13 @@ python scripts/train_quantile_models.py --positions qb rb wr te                 
 python scripts/draft_assistant.py --scoring half_ppr --teams 12 --my-pick 5
 python scripts/draft_assistant.py --league la_liga --simulate                            # League preset: la_liga | feetball | gentlemen | mahomos (config.LEAGUE_PRESETS)
 python scripts/espn_league_import.py --league-id 1493260 --my-team                       # ESPN league/team import (cookies in .env; public leagues need none)
+python scripts/refresh_adp.py --source espn --scoring standard                           # ESPN's own ADP -> data/adp/adp_espn_standard.csv (auto-used by --league la_liga / --platform espn)
+python scripts/refresh_adp.py --source yahoo --cdp-url http://127.0.0.1:9333             # Yahoo ADP read from an open Draft Analysis tab in a --remote-debugging-port Chrome (page is JS-rendered)
+python scripts/draft_value_report.py --league la_liga [--sources espn,ffc --csv]         # VALUES / BUSTS / BREAKOUTS / DEEP SLEEPERS per ADP source + cross-platform mispricing, each with the docs/DRAFT_DOCTRINE.md rule that fired
+python scripts/backtest_draft_flags.py                                                   # Doctrine signal hit rates on 2021-25 (FFC ADP history vs Silver actuals): RB age>=27 + RB dead zone confirmed, TD-share proxy rejected, real xTD gap >= +3 = ceiling cap (beat 3% vs 15%)
+python scripts/draft_sim_study.py --seeds 4                                              # Advisor drafts all 12 slots vs ADP bots, rosters scored by ESPN's OWN projections (non-circular): mean rank 4.3/12, +2.3 pts/wk vs field. Never quote the own-projection version (advisor wins by construction)
+python scripts/draft_history_replay.py 2 [--sharp] [--anchor]                            # Point-in-time replay 2021-25, ACTUAL results, pooled rank/12: anchored 4.87 (ADP room) / 5.34 (sharp room) vs 5.64/6.30 unanchored -> the consensus anchor is load-bearing for DRAFTING; 2025 = residual news-blind year (NEWS guard covers it live). Unfiltered ghosts 9.94
+python scripts/draft_live.py --platform espn --scoring standard --roster-format espn_default --my-team "The Oracle" --watch --queue   # ESPN LIVE co-pilot: reads the draft-room tab via Chrome DevTools (start Chrome with --remote-debugging-port=9222 --user-data-dir=<separate profile>), recs <1s per pick, --queue fills ESPN's Pick Queue from our board
 
 # Sentiment pipeline
 python scripts/ingest_sentiment_rss.py --weeks 1-18                                      # Ingest 5 RSS feeds
@@ -193,7 +200,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/ablation_market_features.py` | Ablation CLI — P30 baseline vs market features on holdout |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction, simulation, waiver wire |
-| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0) — polls a live Sleeper draft, snapshot/`--watch`/`--manual`, drives `LiveDraftEngine` |
+| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0; ESPN live v8.3) — polls a live Sleeper/Yahoo/ESPN draft, snapshot/`--watch`/`--manual`/`--queue`, drives `LiveDraftEngine`; recs scored by cost-of-waiting to your next pick |
 | `src/draft_models.py` | Platform-neutral `PickEvent` / `DraftState` (v8.0 live draft) |
 | `src/sleeper_draft.py` | Sleeper draft parsing + active-draft resolution (v8.0) |
 | `src/sleeper_player_map.py` | Sleeper player_id → projection mapping, cached registry (v8.0) |
@@ -202,7 +209,13 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/yahoo_oauth.py` | Yahoo OAuth2 token manager (stdlib; env creds `YAHOO_CLIENT_ID`/`YAHOO_CLIENT_SECRET`, tokens → `data/yahoo_tokens.json`) |
 | `src/yahoo_draft.py` | Yahoo `draft_results` parsing → neutral models (v8.0 Phase 88) |
 | `src/yahoo_adapter.py` | `YahooAdapter` (v8.0; conforms to `DraftAdapter`) |
-| `src/espn_adapter.py` | `EspnAdapter` stub — ESPN has no live API (NO-GO), gated to `--manual` (v8.0 Phase 89) |
+| `src/espn_adapter.py` | `EspnAdapter` — LIVE via the draft-room page (v8.3): REST stays NO-GO (mDraftDetail empty mid-draft), so picks/clock/owners are parsed from the page text over Chrome DevTools; `enqueue()` fills ESPN's Pick Queue |
+| `src/espn_draft_page.py` | Pure parser of the ESPN draft app's `body.innerText` → `DraftState` (offline-testable) + `ChromeDraftPage` CDP client (`websocket-client`, no Playwright) |
+| `src/draft_value.py` | Draft value engine — VALUE/BUST/BREAKOUT/DEEP-SLEEPER labels with doctrine-rule reasons (VBD-rank vs room ADP, RB age cliff, RB top-5 regression, vacated opportunity, positive TD regression); features from Sleeper registry, Silver usage N-1, UC1 vacancy |
+| `src/yahoo_adp_page.py` | Yahoo ADP parser (Draft Analysis page text over CDP) → shared ADP schema; `refresh_adp.py --source yahoo` |
+| `scripts/draft_value_report.py` | Cross-platform mispricing report (per ADP source + "value on 2+ sources" + platform disagreements) |
+| `scripts/backtest_draft_flags.py` | Doctrine signal back-test on FFC ADP history 2021-25 vs Silver actuals (bust = ≥10 positional spots below ADP) |
+| `docs/DRAFT_DOCTRINE.md` | The draft agent's rulebook: 35 sourced, codable rules + house rules + back-test verdicts; `.claude/agents/draft-agent.md` is the subagent that follows it |
 | `src/espn_league.py` | ESPN league/team import via ESPN_S2+ESPN_SWID cookies (lm-api-reads v3): settings, teams, rosters, post-draft PickEvents — live-draft NO-GO stands |
 | `scripts/espn_league_import.py` | ESPN import CLI — league summary, rosters, `--my-team`, `--draft`, `--out` raw JSON |
 | `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |

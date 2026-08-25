@@ -627,3 +627,166 @@ def test_simulate_total_vorp_finite_for_all_league_presets():
             f"{preset_key}: total_pts is not finite ({result['total_pts']!r})"
         )
         assert result["draft_grade"] in {"A", "B", "C", "D"}
+
+
+# ---------------------------------------------------------------------------
+# v8.3 — 2026-08-23 ESPN mock post-mortem fixes: suffix-blind ADP join,
+# starters-first hard rule, opportunity-cost scoring, K/DST last.
+# ---------------------------------------------------------------------------
+
+
+def _pool(per_pos=None):
+    """Synthetic projection pool with a monotone points ladder per position."""
+    per_pos = per_pos or {"QB": 40, "RB": 90, "WR": 110, "TE": 40, "K": 25}
+    base = {"QB": 380, "RB": 300, "WR": 240, "TE": 180, "K": 130}
+    step = {"QB": 6, "RB": 4, "WR": 3, "TE": 4, "K": 1}
+    rows = []
+    for pos, n in per_pos.items():
+        for i in range(n):
+            rows.append(
+                {
+                    "player_id": f"{pos}{i}",
+                    "player_name": f"{pos} Player{i}",
+                    "position": pos,
+                    "team": "XX",
+                    "projected_season_points": float(base[pos] - i * step[pos]),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _pool_adp(df):
+    """ADP that follows the model ladder exactly (market agrees with model)."""
+    adp = df[["player_name"]].copy()
+    adp["adp_rank"] = (
+        df["projected_season_points"].rank(ascending=False, method="first").astype(int)
+    )
+    return adp
+
+
+def test_compute_value_scores_joins_adp_across_name_suffixes():
+    proj = pd.DataFrame(
+        {
+            "player_id": ["a", "b", "c"],
+            "player_name": ["James Cook", "Kenneth Walker III", "Marvin Harrison Jr."],
+            "position": ["RB", "RB", "WR"],
+            "projected_season_points": [260.0, 210.0, 180.0],
+        }
+    )
+    adp = pd.DataFrame(
+        {
+            "player_name": ["James Cook III", "Kenneth Walker", "Marvin Harrison"],
+            "adp_rank": [12, 22, 40],
+        }
+    )
+    out = compute_value_scores(proj, adp, roster_format="espn_default", n_teams=12)
+    got = dict(zip(out["player_name"], out["adp_rank"]))
+    assert got == {"James Cook": 12, "Kenneth Walker III": 22, "Marvin Harrison Jr.": 40}
+
+
+def test_draft_by_name_is_suffix_blind():
+    board = DraftBoard(
+        compute_value_scores(_pool(), roster_format="espn_default", n_teams=12),
+        roster_format="espn_default",
+    )
+    board.available.loc[0, "player_name"] = "Travis Etienne"
+    assert board.draft_by_name("Travis Etienne Jr.")["player_name"] == "Travis Etienne"
+
+
+def test_recommend_starters_first_never_offers_qb2_before_wr1():
+    players = compute_value_scores(_pool(), pd.DataFrame(), roster_format="espn_default")
+    board = DraftBoard(players, roster_format="espn_default", n_teams=12)
+    for pid in ("QB0", "RB0", "RB1", "TE0"):
+        board.draft_player(pid, by_me=True)
+    recs, reasoning = DraftAdvisor(board).recommend(top_n=8)
+    assert set(recs["position"]) <= {"WR", "RB"}  # WR×2 + FLEX still open
+    assert "QB" not in set(recs["position"]) and "TE" not in set(recs["position"])
+    assert "starters first" in reasoning
+
+
+def test_recommend_no_kicker_until_final_rounds():
+    players = compute_value_scores(_pool(), pd.DataFrame(), roster_format="espn_default")
+    board = DraftBoard(players, roster_format="espn_default", n_teams=12)
+    for pid in ("QB0", "RB0", "RB1", "WR0", "WR1", "TE0", "WR2"):
+        board.draft_player(pid, by_me=True)  # every skill starter + FLEX filled
+    recs, _ = DraftAdvisor(board).recommend(top_n=8, my_picks_remaining=6)
+    assert "K" not in set(recs["position"])
+    recs, _ = DraftAdvisor(board).recommend(top_n=8, my_picks_remaining=2)
+    assert "K" in set(recs["position"])
+
+
+def test_recommend_opportunity_cost_prefers_the_vanishing_tier():
+    """Equal VORP, but QB0's peers are gone by my next pick while RB0's tier
+    survives — cost of waiting says QB now, RB later."""
+    df = pd.DataFrame(
+        {
+            "player_id": ["QB0", "QB1", "RB0", "RB1", "RB2"],
+            "player_name": ["QB Zero", "QB One", "RB Zero", "RB One", "RB Two"],
+            "position": ["QB", "QB", "RB", "RB", "RB"],
+            "projected_season_points": [300.0, 200.0, 300.0, 299.0, 298.0],
+            # QB1 (the only fallback) goes right after this pick; RB1/RB2 last.
+            "adp_rank": [20, 22, 21, 60, 61],
+        }
+    )
+    players = compute_value_scores(
+        df.drop(columns=["adp_rank"]), df[["player_name", "adp_rank"]], roster_format="standard"
+    )
+    board = DraftBoard(players, roster_format="standard", n_teams=12)
+    with_cost, reasoning = DraftAdvisor(board).recommend(top_n=5, next_pick_no=40)
+    assert with_cost.iloc[0]["player_name"] == "QB Zero"
+    assert "cost of waiting" in reasoning
+    qb = with_cost.set_index("player_name")
+    assert qb.loc["QB Zero", "opportunity_cost"] > qb.loc["RB Zero", "opportunity_cost"]
+
+
+def test_simulate_espn_default_builds_a_legal_lineup_in_order():
+    pool = _pool()
+    players = compute_value_scores(pool, _pool_adp(pool), roster_format="espn_default")
+    board = DraftBoard(players, roster_format="espn_default", n_teams=12)
+    adv = DraftAdvisor(board)
+    sim = MockDraftSimulator(board, user_pick=2, n_teams=12, randomness=2)
+    res = sim.run_full_simulation(adv, rounds=16)
+    mine = [p for p in res["picks"] if p["team"] == "YOU"]
+    by_pos = Counter(p["position"] for p in mine)
+    first_wr = min(p["round"] for p in mine if p["position"] == "WR")
+    assert first_wr <= 5
+    assert len(mine) == 16
+    # K/DST are gated to the final (open K/DST slots + 1) picks: DST has no
+    # projection rows, so the K lands in one of the last three rounds.
+    assert by_pos["K"] == 1 and [p for p in mine if p["position"] == "K"][0]["round"] >= 14
+    assert by_pos["QB"] <= 2 and by_pos["TE"] <= 2
+    # No backup QB/TE before the starting lineup (QB, 2RB, 2WR, TE) is complete.
+    lineup_round = min(
+        r for r in range(1, 17)
+        if Counter(p["position"] for p in mine if p["round"] <= r)
+        >= Counter({"QB": 1, "RB": 2, "WR": 2, "TE": 1})
+    )
+    seen = Counter()
+    for p in mine:
+        if p["position"] in ("QB", "TE") and seen[p["position"]] >= 1:
+            assert p["round"] >= lineup_round
+        seen[p["position"]] += 1
+
+
+def test_sharp_slots_bots_hold_discipline():
+    """Sharp benchmark bots never roster a 2nd QB/TE and leave K/DST for the end."""
+    pool = _pool()
+    players = compute_value_scores(pool, _pool_adp(pool), roster_format="espn_default")
+    board = DraftBoard(players, roster_format="espn_default", n_teams=12)
+    adv = DraftAdvisor(board)
+    sharp = [s for s in range(1, 13) if s != 2]
+    sim = MockDraftSimulator(board, user_pick=2, n_teams=12, randomness=4, sharp_slots=sharp)
+    res = sim.run_full_simulation(adv, rounds=16)
+    by_slot = {}
+    for p in res["picks"]:
+        i = (p["pick"] - 1) % 12
+        rnd = (p["pick"] - 1) // 12 + 1
+        s = 12 - i if rnd % 2 == 0 else i + 1
+        by_slot.setdefault(s, []).append((rnd, p["position"]))
+    for s in sharp:
+        # The synthetic pool can run dry of RB/WR by the final round, forcing a
+        # backup QB on everyone — discipline is only judged before that.
+        pos = Counter(p for r, p in by_slot[s] if r < 16)
+        assert pos["QB"] <= 1 and pos["TE"] <= 1, f"slot {s} broke discipline: {pos}"
+        k_rounds = [r for r, p in by_slot[s] if p == "K"]
+        assert all(r >= 15 for r in k_rounds), f"slot {s} took K early: {k_rounds}"

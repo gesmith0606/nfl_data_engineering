@@ -29,12 +29,17 @@ import json
 import logging
 import os
 import sys
+import threading
 import time
 from typing import List, Optional
 
 import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+# src/ itself must also be importable: src.projection_engine and friends use
+# bare intra-package imports (``from scoring_calculator import ...``), the
+# repo convention — without this the CLI died at import (2026-08-23 mock).
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from src import sleeper_http  # noqa: E402
 from src.draft_adapter import SleeperAdapter  # noqa: E402
@@ -104,9 +109,37 @@ def load_projections(
     )
 
 
-def load_adp(adp_file: Optional[str]) -> Optional[pd.DataFrame]:
-    """Load ADP from a CSV file (default data/adp_latest.csv) if present."""
-    path = adp_file or os.path.join("data", "adp_latest.csv")
+def default_adp_path(platform: Optional[str], scoring: Optional[str]) -> str:
+    """Room-specific ADP file when one exists, else the legacy pointer.
+
+    ESPN rooms draft off ESPN's own ADP (QBs/TEs go 10-20 picks earlier than
+    on Sleeper/FFC — 2026-08-23 mock), so ``refresh_adp.py --source espn``
+    output wins for ESPN when present.
+    """
+    if platform == "espn":
+        # ESPN ADP is scoring-agnostic (the label is just the refresh flag) —
+        # take the most recently refreshed file.
+        cands = [
+            p
+            for p in (
+                os.path.join("data", "adp", f"adp_{platform}_{scoring or ''}.csv"),
+                os.path.join("data", "adp", f"adp_{platform}_standard.csv"),
+                os.path.join("data", "adp", f"adp_{platform}_half_ppr.csv"),
+            )
+            if os.path.exists(p)
+        ]
+        if cands:
+            return max(cands, key=os.path.getmtime)
+    return os.path.join("data", "adp_latest.csv")
+
+
+def load_adp(
+    adp_file: Optional[str],
+    platform: Optional[str] = None,
+    scoring: Optional[str] = None,
+) -> Optional[pd.DataFrame]:
+    """Load ADP from a CSV file (explicit, else room-specific, else legacy)."""
+    path = adp_file or default_adp_path(platform, scoring)
     if os.path.exists(path):
         return pd.read_csv(path)
     return None
@@ -209,10 +242,200 @@ def build_manual_state(
 # ---------------------------------------------------------------------------
 
 
+_NEWS_MAP: Optional[dict] = None
+
+
+def news_status(player_name: str, position: str) -> Optional[str]:
+    """Roster status for a player who is NOT simply Active (lazy-loaded from the
+    latest daily Sleeper snapshot); None when Active/unknown. August news guard."""
+    global _NEWS_MAP
+    if _NEWS_MAP is None:
+        try:
+            from src.draft_optimizer import name_key
+            from src.draft_value import load_roster_status
+
+            from datetime import date
+
+            df = load_roster_status(date.today().year)
+            _NEWS_MAP = {
+                (r["_name_key"], r["position"]): r["roster_status"]
+                for _, r in df.iterrows()
+            }
+        except Exception as exc:  # noqa: BLE001 — never crash, but NEVER silently
+            logging.getLogger(__name__).warning(
+                "NEWS guard DISABLED — roster-status load failed: %s", exc
+            )
+            _NEWS_MAP = {}
+    from src.draft_optimizer import name_key
+
+    return _NEWS_MAP.get((name_key(player_name), str(position).upper()))
+
+
+def position_wait_costs(engine: LiveDraftEngine) -> List[dict]:
+    """Per-position cost of waiting: best VORP now minus the expected best VORP
+    at the user's NEXT pick (ADP-survival walk). The draft-strategy view — "what
+    do I lose at each position if I pass this turn" — rather than per player."""
+    if engine.advisor is None or engine.board is None:
+        return []
+    nxt = engine._turn_kwargs().get("next_pick_no")
+    if nxt is None:
+        return []
+    avail = engine._market_believed(engine.board.available)
+    if avail.empty or "vorp" not in avail.columns or "adp_rank" not in avail.columns:
+        return []
+    from src.draft_availability import expected_best_vorp_at_pick
+
+    expected = expected_best_vorp_at_pick(avail, float(nxt))
+    out = []
+    for pos in ("QB", "RB", "WR", "TE"):
+        sub = avail[avail["position"] == pos].dropna(subset=["vorp"])
+        if sub.empty:
+            continue
+        best = sub.sort_values("vorp", ascending=False).iloc[0]
+        exp = expected.get(pos)
+        out.append(
+            {
+                "position": pos,
+                "best_now": str(best.get("player_name", "")),
+                "vorp_now": round(float(best["vorp"]), 1),
+                "expected_next": None if exp is None else round(float(exp), 1),
+                "cost": None if exp is None else round(float(best["vorp"]) - float(exp), 1),
+                "next_pick_no": int(nxt),
+            }
+        )
+    out.sort(key=lambda d: -(d["cost"] if d["cost"] is not None else -1e9))
+    return out
+
+
+def tier_alerts(engine: LiveDraftEngine) -> List[dict]:
+    """Per position: the best available player's tier and how many of that tier
+    remain — "last of tier 2 at RB" is the doctrine's take-him-now trigger (§5)."""
+    if engine.board is None:
+        return []
+    avail = engine._market_believed(engine.board.available)
+    if avail.empty or "projected_season_points" not in avail.columns:
+        return []
+    try:
+        from src.draft_tiers import compute_tiers
+    except ImportError:  # pragma: no cover
+        from draft_tiers import compute_tiers
+    pool = avail[avail["position"].isin(["QB", "RB", "WR", "TE"])].copy()
+    if pool.empty:
+        return []
+    pool["tier"] = compute_tiers(pool)
+    out = []
+    for pos, sub in pool.groupby("position"):
+        sub = sub.dropna(subset=["tier"]).sort_values("projected_season_points", ascending=False)
+        if sub.empty:
+            continue
+        top_tier = int(sub.iloc[0]["tier"])
+        left = int((sub["tier"] == top_tier).sum())
+        names = sub[sub["tier"] == top_tier]["player_name"].head(4).tolist()
+        out.append({"position": str(pos), "tier": top_tier, "remaining": left, "players": names})
+    return sorted(out, key=lambda d: d["remaining"])
+
+
+def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
+    """How many teams picking before my next turn still lack a starter at each
+    position (§18) — a run risk you can see coming."""
+    turn = engine.turn_info()
+    if turn is None or turn.my_next_pick_no is None or engine.board is None or engine.state is None:
+        return {}
+    n = engine.state.n_teams or 12
+    rc = engine.board.roster_config
+    start = turn.on_clock_pick_no + (1 if turn.is_my_turn else 0)
+    slots = {
+        engine._slot_on_clock(p, n, engine.state.draft_type)
+        for p in range(start, turn.my_next_pick_no)
+    } - {engine.my_slot}
+    needs: Dict[str, int] = {}
+    for pos in ("QB", "RB", "WR", "TE"):
+        want = int(rc.get(pos, 0))
+        if want <= 0:
+            continue
+        needs[pos] = sum(
+            1
+            for s in slots
+            if sum(1 for r in engine.rosters.get(s, []) if str(r.get("position", "")).upper() == pos) < want
+        )
+    return needs
+
+
+_MISPRICE_GAP = 15  # model rank vs ADP gap (picks) that counts as mispriced
+_BUST_HORIZON = 36  # busts only matter if the market takes them in the next ~3 rounds
+
+
+def market_insights(engine: LiveDraftEngine, on_clock_pick: Optional[int]) -> dict:
+    """Model-vs-market mispricings still on the board.
+
+    ``values``  — model ranks them >= 15 picks ahead of where the room drafts
+    them (sleepers / falling value: wait, they come to you).
+    ``busts``   — the market drafts them >= 15 picks ahead of the model AND
+    they are about to go (ADP within the next ~3 rounds): don't reach.
+    """
+    if engine.board is None:
+        return {"values": [], "busts": []}
+    avail = engine._market_believed(engine.board.available)
+    need = {"adp_rank", "model_rank", "position", "player_name"}
+    if avail.empty or not need <= set(avail.columns):
+        return {"values": [], "busts": []}
+    df = avail.dropna(subset=["adp_rank"]).copy()
+    df["gap"] = df["adp_rank"] - df["model_rank"]  # + = market later than model
+    # Only positions you can still use: never K/DST (drafted last, by rule),
+    # no QB2 (house rule) / TE2 once the starter is set, and no "ADP 300+"
+    # undrafted-pool artifacts.
+    have = {str(r.get("position", "")).upper() for r in engine.my_full_roster()}
+    rc = engine.board.roster_config
+    skip = {"K", "DST"}
+    for pos in ("QB", "TE"):
+        if pos in have and int(rc.get("SFLEX", 0)) == 0:
+            skip.add(pos)
+    df = df[~df["position"].isin(skip) & (df["adp_rank"] <= 200)]
+    pts = "projected_season_points" if "projected_season_points" in df else "projected_points"
+
+    def _rows(sub):
+        return [
+            {
+                "player_name": r["player_name"],
+                "position": r["position"],
+                "model_rank": int(r["model_rank"]),
+                "adp_rank": int(r["adp_rank"]),
+                "gap": int(r["gap"]),
+                "points": round(float(r.get(pts, float("nan"))), 1),
+                "vorp": r.get("vorp"),
+            }
+            for _, r in sub.iterrows()
+        ]
+
+    values = df[df["gap"] >= _MISPRICE_GAP].sort_values("vorp", ascending=False).head(5)
+    clock = on_clock_pick or 0
+    busts = (
+        df[(df["gap"] <= -_MISPRICE_GAP) & (df["adp_rank"] <= clock + _BUST_HORIZON)]
+        .sort_values("adp_rank")
+        .head(5)
+    )
+    return {"values": _rows(values), "busts": _rows(busts)}
+
+
 def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool) -> str:
     """Render a snapshot of current draft state + advice."""
     turn = poll.turn
     recs, reasoning = engine.recommendations(top_n=top_n)
+    wait_costs = position_wait_costs(engine)
+    insights = market_insights(engine, turn.on_clock_pick_no if turn else None)
+    tiers = tier_alerts(engine)
+    needs_ahead = opponent_needs(engine)
+    # Parse self-check, computed once so BOTH output modes carry it — a JSON
+    # consumer must not get an internally consistent payload off a stale board
+    # (review finding 7).
+    state = engine.state
+    parse_drift = None
+    if state and turn and state.picks and len(state.picks) != turn.on_clock_pick_no - 1:
+        parse_drift = (
+            f"{len(state.picks)} picks parsed but the clock says pick "
+            f"{turn.on_clock_pick_no} — the platform UI may have changed; "
+            "verify the board against the room before trusting recommendations"
+        )
     rec_cols = [
         c
         for c in [
@@ -221,9 +444,13 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             "team",
             "projected_points",
             "vorp",
+            "opportunity_cost",
+            "expected_next_vorp",
             "value_tier",
             "adp_rank",
             "stack_note",
+            "position_rank",
+            "consensus_pos_rank",
         ]
         if c in recs.columns
     ]
@@ -258,6 +485,11 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 ],
                 "recommendations": rec_records,
                 "reasoning": reasoning,
+                "parse_drift": parse_drift,
+                "position_wait_costs": wait_costs,
+                "market_insights": insights,
+                "tier_alerts": tiers,
+                "opponent_needs_before_my_next_pick": needs_ahead,
                 "my_roster": roster_view,
             },
             indent=2,
@@ -270,6 +502,10 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             f"DRAFT {state.draft_id} [{state.status}] {state.draft_type} "
             f"{state.n_teams}-team {state.scoring_format}"
         )
+        # Parser self-check: picks parsed must trail the clock by exactly one.
+        # A drift means the page layout changed under us — trust nothing silently.
+        if parse_drift:
+            lines.append(f"!! PARSE CHECK: {parse_drift}")
     if turn:
         flag = "  <<< YOUR PICK" if turn.is_my_turn else ""
         lines.append(
@@ -281,6 +517,43 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 f"Your slot: {turn.my_slot} | your next pick: "
                 f"{turn.my_next_pick_no}"
             )
+    if wait_costs:
+        nxt = wait_costs[0]["next_pick_no"]
+        lines.append(f"\nCOST OF WAITING to pick {nxt}, by position (take the biggest):")
+        for w in wait_costs:
+            cost = "n/a" if w["cost"] is None else f"{w['cost']:+.0f}"
+            exp = "" if w["expected_next"] is None else f" vs ~{w['expected_next']:.0f} then"
+            lines.append(
+                f"  {w['position']:<3} {cost:>5}   {w['best_now']} now "
+                f"(vorp {w['vorp_now']:.0f}){exp}"
+            )
+    if tiers:
+        lines.append("\nTIERS (top tier left at each position; 'LAST' = take him now or lose the tier):")
+        for t in tiers:
+            flag = "  <<< LAST OF TIER" if t["remaining"] == 1 else ""
+            lines.append(
+                f"  {t['position']:<3} tier {t['tier']}: {t['remaining']} left — "
+                f"{', '.join(t['players'])}{flag}"
+            )
+    if needs_ahead:
+        lines.append(
+            "  teams still needing a starter before my next pick: "
+            + ", ".join(f"{p} {n}" for p, n in needs_ahead.items())
+        )
+    if insights["values"] or insights["busts"]:
+        lines.append("\nMARKET vs MODEL:")
+        for r in insights["values"]:
+            nw = news_status(r["player_name"], r["position"])
+            tag = f"  [NEWS: {nw}]" if nw else ""
+            lines.append(
+                f"  VALUE  {r['player_name']:<22} {r['position']:<3} model #{r['model_rank']:<4}"
+                f" ADP {r['adp_rank']:<4} ({r['points']} pts) — room lets him fall {r['gap']} spots{tag}"
+            )
+        for r in insights["busts"]:
+            lines.append(
+                f"  BUST   {r['player_name']:<22} {r['position']:<3} model #{r['model_rank']:<4}"
+                f" ADP {r['adp_rank']:<4} ({r['points']} pts) — room reaches {-r['gap']} spots early"
+            )
     if poll.key_moments:
         lines.append("\nKEY MOMENTS:")
         for m in poll.key_moments:
@@ -289,10 +562,32 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
         lines.append(f"\nTOP {len(rec_records)} RECOMMENDATIONS  ({reasoning})")
         for r in rec_records:
             stack = f"  [{r['stack_note']}]" if r.get("stack_note") else ""
+            nw = news_status(str(r.get("player_name", "")), str(r.get("position", "")))
+            news = f"  [NEWS: {nw} — verify before drafting]" if nw else ""
+            # RB consensus guard (doctrine honesty rule): our model tested WORSE
+            # than consensus at RB (2025). When they disagree materially on an
+            # RB, show it and let consensus carry the tiebreak.
+            guard = ""
+            cpr, mpr = r.get("consensus_pos_rank"), r.get("position_rank")
+            if (
+                str(r.get("position")) == "RB"
+                and cpr is not None and mpr is not None
+                and pd.notna(cpr) and pd.notna(mpr)
+                and abs(float(mpr) - float(cpr)) >= 5
+            ):
+                guard = (
+                    f"  [RB GUARD: model RB{int(mpr)} vs consensus RB{int(cpr)}"
+                    " — defer to consensus]"
+                )
+            cost = r.get("opportunity_cost")
+            wait = (
+                f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
+            )
             lines.append(
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
-                f"vorp={r.get('vorp','')}  tier={r.get('value_tier','')}{stack}"
+                f"vorp={r.get('vorp','')}{wait}  adp={r.get('adp_rank','')}  "
+                f"tier={r.get('value_tier','')}{stack}{guard}{news}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")
@@ -769,6 +1064,18 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--my-slot", type=int, help="Your draft slot (1-indexed)")
     p.add_argument("--my-user-id", help="Your Sleeper user_id (auto-derives slot)")
     p.add_argument(
+        "--my-team",
+        help="ESPN: your team name exactly as shown in the draft room "
+        "(auto-derives your slot; or pass --my-slot)",
+    )
+    p.add_argument(
+        "--cdp-url",
+        default="http://127.0.0.1:9222",
+        help="ESPN: Chrome DevTools endpoint. Start Chrome with "
+        "--remote-debugging-port=9222 --user-data-dir=<separate profile>, "
+        "log into ESPN, open the draft room",
+    )
+    p.add_argument(
         "--league-id",
         help="League id for keeper leagues — pre-marks kept players off the board",
     )
@@ -785,7 +1092,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--queue",
         action="store_true",
         help="Live queue mode — continuously emit a need-aware queue to mirror "
-        "into your Sleeper queue (beats reacting on a 120s clock)",
+        "into your Sleeper queue (beats reacting on a 120s clock). ESPN: with "
+        "--watch, pushes the queue into the draft room's Pick Queue directly",
     )
     p.add_argument("--queue-depth", type=int, default=12, help="Queue length")
     p.add_argument("--interval", type=float, default=3.0, help="Poll seconds")
@@ -797,6 +1105,12 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         default=[],
         help="Manual pick by player name (repeatable)",
+    )
+    p.add_argument(
+        "--keepers-file",
+        help="Keeper league without API keeper support (e.g. Yahoo Feetball): "
+        "text file, one kept player per line; prefix '*' marks YOUR keepers "
+        "(rostered to you), others are removed from the board. '#' comments",
     )
     p.add_argument(
         "--mock",
@@ -835,7 +1149,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     if projections is None or projections.empty:
         print("ERROR: no projections. Run generate_projections.py --preseason first.")
         return 1
-    adp_df = load_adp(args.adp_file)
+    adp_df = load_adp(args.adp_file, args.platform, args.scoring)
 
     # Manual fallback — no adapter, operator-supplied picks.
     if args.manual:
@@ -855,10 +1169,25 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(render(engine, poll, args.top, args.json))
         return 0
 
-    adapter = _ADAPTERS[args.platform]()
+    if args.platform == "espn":
+        # Live via the draft-room page over Chrome DevTools (src/espn_draft_page).
+        adapter = EspnAdapter(
+            n_teams=args.teams,
+            scoring_format=args.scoring,
+            roster_format=args.roster_format,
+            draft_type=args.draft_type,
+            cdp_url=args.cdp_url,
+        )
+        # The committed Gold preseason file is half-PPR; ESPN rooms are often
+        # standard — rescore unless an explicit projections file was given.
+        if not args.projections_file:
+            projections = _rescore_projections(projections, args.scoring)
+    else:
+        adapter = _ADAPTERS[args.platform]()
 
     # Resolve user_id (identifies YOUR keepers) from username if not given.
-    my_user_id = args.my_user_id
+    # ESPN: the team name shown in the draft room plays the user-id role.
+    my_user_id = args.my_user_id or (args.my_team if args.platform == "espn" else None)
     if not my_user_id and args.username and args.platform == "sleeper":
         my_user_id = (
             str(sleeper_http.get_user(args.username).get("user_id") or "") or None
@@ -869,12 +1198,15 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Resolve the draft (skipped for a roster report / mock, which only need the league).
     if not draft_id and not args.roster_report and not args.mock:
-        if not args.username:
+        if not args.username and args.platform != "espn":
             print("ERROR: provide --draft-id or --username.")
             return 1
-        res = adapter.resolve_draft(args.username, str(args.season))
+        res = adapter.resolve_draft(args.username or "", str(args.season))
         if not res.get("found"):
-            print(f"No active draft found for '{args.username}' in {args.season}.")
+            who = args.username or f"{args.platform} draft room"
+            print(f"No active draft found for '{who}' in {args.season}.")
+            if res.get("reason"):
+                print(f"  {res['reason']}")
             return 1
         draft_id = res["draft_id"]
         league_id = league_id or res.get("league_id")
@@ -898,7 +1230,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
 
     # Live queue mode: own scoring/slot derivation + continuous queue loop.
-    if args.queue:
+    # (ESPN handles --queue inside the watch loop below — it pushes the queue
+    # straight into the draft room's Pick Queue instead of printing it.)
+    if args.queue and args.platform != "espn":
         if not draft_id:
             print("ERROR: --queue needs --draft-id or --username with an active draft.")
             return 1
@@ -958,7 +1292,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         roster_config=roster_config_from_positions(roster_positions),
     )
 
-    _keepers_loaded = {"done": False}
+    _keepers_loaded = {"done": False, "file_done": False}
 
     def _poll_once() -> PollResult:
         state = (
@@ -977,6 +1311,25 @@ def main(argv: Optional[List[str]] = None) -> int:
             _keepers_loaded["done"] = True
             if not args.json:
                 print(f"(keeper league: marked {n} rostered players off the board)")
+        # File-based keepers (platforms with no keeper API, e.g. Yahoo).
+        if not _keepers_loaded["file_done"] and args.keepers_file and engine.board is not None:
+            mine, others = [], []
+            with open(args.keepers_file, encoding="utf-8") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    (mine if line.startswith("*") else others).append(line.lstrip("* ").strip())
+            ok = sum(1 for name in mine if engine.board.draft_by_name(name, by_me=True))
+            removed = engine.board.remove_players(others)
+            _keepers_loaded["file_done"] = True
+            if not args.json:
+                print(
+                    f"(keepers file: {ok}/{len(mine)} rostered to you, "
+                    f"{removed}/{len(others)} others removed from the board"
+                    + (" — CHECK UNMATCHED NAMES" if ok < len(mine) or removed < len(others) else "")
+                    + ")"
+                )
         return poll
 
     if args.mock:
@@ -1036,13 +1389,77 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Watch loop — re-render only when the pick count advances.
     last_seen = -1
+    queue_state = {"names": []}  # CONFIRMED queue contents (outcome, not intent)
+    queue_thread: Optional[threading.Thread] = None
+    poll_failures = 0
     try:
         while True:
-            poll = _poll_once()
+            # A transient poll failure (Chrome busy, tab re-render, websocket
+            # blip) must not kill the co-pilot mid-draft — retry, loudly, and
+            # only abort after a sustained outage (review finding 8).
+            try:
+                poll = _poll_once()
+                poll_failures = 0
+            except Exception as exc:  # noqa: BLE001
+                poll_failures += 1
+                print(f"poll failed ({poll_failures}/10): {exc} — retrying", flush=True)
+                if poll_failures >= 10:
+                    print("10 consecutive poll failures — giving up.")
+                    return 1
+                time.sleep(args.interval)
+                continue
             state = engine.state
             if state and state.last_pick_no != last_seen:
                 last_seen = state.last_pick_no
                 print(render(engine, poll, args.top, args.json))
+                # ESPN --queue: keep the room's Pick Queue topped up with the
+                # advisor's need-aware queue so an autopick on a timeout follows
+                # OUR board (4 picks went to ESPN autopick in the 2026-08-23 mock).
+                if args.queue and hasattr(adapter, "set_queue") and engine.advisor:
+                    names = [
+                        q.get("player_name")
+                        for q in engine.advisor.build_queue(
+                            depth=args.queue_depth, **engine._turn_kwargs()
+                        )
+                        if q.get("player_name")
+                    ]
+                    # ESPN drops drafted players from its queue itself. If the
+                    # surviving order is unchanged, only append the new tail;
+                    # otherwise rebuild so the TOP of the queue is right.
+                    avail_names = set(engine.board.available["player_name"])
+                    surviving = [n for n in queue_state["names"] if n in avail_names]
+                    if names[: len(surviving)] == surviving:
+                        new = names[len(surviving):]
+                        job = (adapter.enqueue, new) if new else None
+                    else:
+                        job = (adapter.set_queue, names)
+                    # Never let queue clicking (~1 s per name) delay the next
+                    # render — the 2026-08-23 second mock printed "YOUR PICK"
+                    # after the clock had nearly run out. One worker at a time.
+                    # queue_state records OUTCOME, not intent: it is updated from
+                    # the push statuses inside the worker, and cleared on any
+                    # failure so the next cycle is forced down the full rebuild
+                    # path — otherwise a failed push silently corrupts every
+                    # later queue diff (review finding 1, 2026-08-24).
+                    if job and (queue_thread is None or not queue_thread.is_alive()):
+
+                        def _push(fn=job[0], arg=job[1], intended=list(names)):
+                            try:
+                                statuses = [str(s) for s in fn(arg)]
+                            except Exception as exc:  # noqa: BLE001
+                                statuses = [f"error:{exc}"]
+                            clean = all(
+                                s.startswith(("queued:", "cleared:")) for s in statuses
+                            )
+                            queue_state["names"] = intended if clean else []
+                            tag = "" if clean else "  !! push incomplete — full rebuild next cycle"
+                            print(
+                                "(pick queue) " + ", ".join(statuses) + tag,
+                                flush=True,
+                            )
+
+                        queue_thread = threading.Thread(target=_push, daemon=True)
+                        queue_thread.start()
                 print("-" * 60, flush=True)
             if state and state.status == "complete":
                 print("Draft complete.")

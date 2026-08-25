@@ -19,6 +19,11 @@ import random
 
 from config import ROSTER_CONFIGS
 
+try:  # importable both as ``src.draft_optimizer`` and bare ``draft_optimizer``
+    from src.draft_availability import expected_best_vorp_at_pick
+except ImportError:  # pragma: no cover — scripts put src/ itself on sys.path
+    from draft_availability import expected_best_vorp_at_pick
+
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -31,6 +36,64 @@ SFLEX_ELIGIBLE = {"QB", "RB", "WR", "TE"}
 # ADP value threshold: flag as "undervalued" when model rank beats ADP by >= N spots
 UNDERVALUED_THRESHOLD = 15
 OVERVALUED_THRESHOLD = 15
+
+_NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def name_key(name) -> str:
+    """Suffix/punctuation/nickname-blind join key: ``"James Cook III"`` ==
+    ``"James Cook"``, ``"Hollywood Brown"`` == ``"Marquise Brown"``.
+
+    ADP feeds carry generational suffixes and stage names our projections
+    drop; a raw-name join left Cook/Walker/Etienne with NaN ADP (2026-08-23
+    ESPN mock) and lost Hollywood Brown from every 2022-24 replay board.
+    Nickname canonicalization reuses the shared alias table.
+    """
+    import re
+
+    cleaned = re.sub(r"[^a-z0-9\s]", "", str(name or "").lower())
+    tokens = [t for t in cleaned.split() if t not in _NAME_SUFFIXES]
+    if tokens:
+        tokens[0] = _first_name_aliases().get(tokens[0], tokens[0])
+    return " ".join(tokens)
+
+
+def _first_name_aliases() -> Dict[str, str]:
+    """Shared nickname table from sleeper_player_map (empty on import trouble)."""
+    global _ALIASES_CACHE
+    if _ALIASES_CACHE is None:
+        try:
+            from src.sleeper_player_map import _FIRST_NAME_ALIASES as aliases
+        except ImportError:
+            try:
+                from sleeper_player_map import _FIRST_NAME_ALIASES as aliases
+            except ImportError:  # pragma: no cover
+                aliases = {}
+        _ALIASES_CACHE = dict(aliases)
+    return _ALIASES_CACHE
+
+
+_ALIASES_CACHE: Optional[Dict[str, str]] = None
+
+
+def market_believed(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop rows the market does not believe in: low-sample projections with no
+    external consensus rank (the Okwuegbunam 85-rec artifact class). The
+    2021-25 draft replay's unfiltered board — retirees and 1-game ghosts —
+    ranked 9.94/12 by actual results; filtered it ranked 6.42. Frames without
+    the Gold flag columns pass through unchanged.
+    """
+    if (
+        df.empty
+        or "is_low_sample_projection" not in df.columns
+        or "consensus_pos_rank" not in df.columns
+    ):
+        return df
+    suspect = (
+        df["is_low_sample_projection"].fillna(False).astype(bool)
+        & df["consensus_pos_rank"].isna()
+    )
+    return df[~suspect]
 
 # Legacy replacement levels (typical starter counts x 12 teams) — used
 # whenever no roster_format is supplied, preserving historical behavior.
@@ -162,7 +225,19 @@ def compute_value_scores(
         adp_subset = adp_df[merge_cols].copy()
         if has_stdev:
             adp_subset = adp_subset.rename(columns={"stdev": "adp_stdev"})
-        df = df.merge(adp_subset, on=join_col, how="left")
+        if join_col == "player_name":
+            # Join on a suffix-blind key so "James Cook III" (ADP) meets
+            # "James Cook" (projections); keep the first ADP row per key.
+            adp_subset["_name_key"] = adp_subset["player_name"].map(name_key)
+            adp_subset = adp_subset.drop(columns=["player_name"]).drop_duplicates(
+                "_name_key"
+            )
+            df["_name_key"] = df["player_name"].map(name_key)
+            df = df.merge(adp_subset, on="_name_key", how="left").drop(
+                columns=["_name_key"]
+            )
+        else:
+            df = df.merge(adp_subset, on=join_col, how="left")
         df["adp_diff"] = df["adp_rank"] - df["model_rank"]
         df["value_tier"] = "fair_value"
         df.loc[df["adp_diff"] >= UNDERVALUED_THRESHOLD, "value_tier"] = "undervalued"
@@ -412,11 +487,16 @@ class DraftBoard:
         """Draft a player by (partial) name match."""
         if "player_name" not in self.available.columns:
             return {}
-        mask = (
-            self.available["player_name"]
-            .str.lower()
-            .str.contains(name.lower(), na=False)
-        )
+        # Exact suffix-blind match first ("Travis Etienne Jr." == "Travis
+        # Etienne"), then the legacy partial match as a fallback.
+        keys = self.available["player_name"].map(name_key)
+        mask = keys == name_key(name)
+        if not mask.any():
+            mask = (
+                self.available["player_name"]
+                .str.lower()
+                .str.contains(name.lower(), na=False, regex=False)
+            )
         if not mask.any():
             logger.warning(f"Player '{name}' not found")
             return {}
@@ -520,13 +600,22 @@ class DraftAdvisor:
         self,
         top_n: int = 5,
         enforce_needs: bool = True,
+        next_pick_no: Optional[int] = None,
+        my_picks_remaining: Optional[int] = None,
     ) -> Tuple[pd.DataFrame, str]:
         """
         Recommend the best available picks accounting for roster construction.
 
         Args:
             top_n:         Number of recommendations to return.
-            enforce_needs: Weight recommendations toward unfilled roster needs.
+            enforce_needs: Weight recommendations toward unfilled roster needs and
+                           apply the starters-first hard rule.
+            next_pick_no:  The user's NEXT overall pick after this one. When given,
+                           candidates are scored by opportunity cost (value now
+                           minus the best value their position is expected to
+                           still offer at that pick) instead of raw VORP.
+            my_picks_remaining: Picks the user still has including this one;
+                           gates K/DST to the final rounds when known.
 
         Returns:
             (DataFrame of recommended players, reasoning string)
@@ -550,9 +639,60 @@ class DraftAdvisor:
         picks_taken = self.board.picks_taken()
 
         reasoning_parts = []
+        avail_all = avail  # unfiltered pool — scarcity alerts read the real board
+
+        # Starters-first hard rule (2026-08-23 ESPN mock: the soft need-boost let
+        # the advisor draft 2 QB / 3 TE / a K in R9 before its first WR in R10).
+        # While any QB/RB/WR/TE/FLEX starter is open, a position whose starter
+        # (+FLEX for RB/WR) slots are already full is off the board entirely, and
+        # K/DST wait until every skill starter is filled — and, when the number
+        # of remaining picks is known, until the final rounds.
+        if enforce_needs:
+            rc0 = self.board.roster_config
+            have0 = Counter(
+                str(p.get("position", "")).upper() for p in self.board.my_roster
+            )
+            open_skill = sum(
+                int(needs.get(p, 0)) for p in ("QB", "RB", "WR", "TE", "FLEX", "SFLEX")
+            )
+            blocked = set()
+            if open_skill > 0:
+                flex_n = int(rc0.get("FLEX", 0))
+                sflex_n = int(rc0.get("SFLEX", 0))
+                cap = {
+                    "QB": int(rc0.get("QB", 0)) + sflex_n,
+                    "TE": int(rc0.get("TE", 0)) + sflex_n,
+                    "RB": int(rc0.get("RB", 0)) + flex_n + sflex_n,
+                    "WR": int(rc0.get("WR", 0)) + flex_n + sflex_n,
+                }
+                blocked = {p for p, c in cap.items() if have0.get(p, 0) >= c}
+                blocked |= {"K", "DST"}
+            # House rule (user, 2026-08-23): never roster a 2nd QB in a 1-QB
+            # league — a backup QB never starts; that bench slot is RB/WR depth.
+            if int(rc0.get("SFLEX", 0)) == 0 and have0.get("QB", 0) >= int(
+                rc0.get("QB", 0)
+            ) > 0:
+                blocked.add("QB")
+            kd_open = int(needs.get("K", 0)) + int(needs.get("DST", 0))
+            force_kd = False
+            if my_picks_remaining is not None and kd_open > 0:
+                if my_picks_remaining > kd_open + 1:
+                    blocked |= {"K", "DST"}
+                elif my_picks_remaining <= kd_open:
+                    # Only the K/DST picks are left — fill them now, whatever
+                    # VORP says about one more bench RB.
+                    force_kd = True
+            filtered = avail[~avail["position"].isin(blocked)]
+            if not filtered.empty:
+                avail = filtered
+                if blocked & {"QB", "RB", "WR", "TE"}:
+                    reasoning_parts.append(
+                        "starters first: holding "
+                        + "/".join(sorted(blocked & {"QB", "RB", "WR", "TE"}))
+                    )
 
         # Positional scarcity alerts
-        scarcity = self._scarcity_alerts(avail)
+        scarcity = self._scarcity_alerts(avail_all)
         reasoning_parts.extend(scarcity)
 
         # Score each available player by VORP — value over replacement, not raw
@@ -567,13 +707,47 @@ class DraftAdvisor:
         score_col = "vorp" if "vorp" in avail.columns else pts_col
         avail["recommendation_score"] = avail[score_col].fillna(0).astype(float)
 
+        # Opportunity cost (2026-08-23 lesson): score = value now minus the best
+        # value this position is expected to still offer at my NEXT pick, via
+        # the ADP-survival walk in draft_availability. Raw VORP told us to take
+        # a WR whose tier was still 8-deep at the next turn over a QB tier about
+        # to vanish. With no next pick (queue building, manual) this degrades to
+        # plain VORP.
+        avail["expected_next_vorp"] = np.nan
+        avail["opportunity_cost"] = np.nan
+        if (
+            next_pick_no is not None
+            and score_col == "vorp"
+            and "adp_rank" in avail.columns
+        ):
+            expected = expected_best_vorp_at_pick(avail, float(next_pick_no))
+            if expected:
+                avail["expected_next_vorp"] = (
+                    avail["position"].map(expected).astype(float).round(1)
+                )
+                avail["opportunity_cost"] = (
+                    avail["vorp"].fillna(0).astype(float)
+                    - avail["expected_next_vorp"].fillna(0.0)
+                ).round(1)
+                avail["recommendation_score"] = avail["opportunity_cost"]
+                reasoning_parts.append(f"scored by cost of waiting to pick {next_pick_no}")
+
         # Nudge toward unfilled STARTING slots so the board builds a legal lineup
         # rather than pure best-available. Modest vs VORP's spread (~200) — a
         # tiebreaker that gets you your QB/TE on time, never an override.
+        # An open STARTER slot must outweigh the +/-6 ADP value-tier nudge and
+        # the ~0 opportunity costs of a replacement-level pool — at pick 62 of
+        # the 2026-08-23 mock a bench RB ("undervalued" by ADP) outranked the
+        # WR2 the lineup still needed.
         for pos, count_needed in needs.items():
             if count_needed > 0 and pos in ("QB", "RB", "WR", "TE"):
-                boost = min(count_needed * 8, 16)
+                boost = min(count_needed * 20, 40)
                 avail.loc[avail["position"] == pos, "recommendation_score"] += boost
+
+        if enforce_needs and force_kd:
+            open_kd = {p for p in ("K", "DST") if int(needs.get(p, 0)) > 0}
+            avail.loc[avail["position"].isin(open_kd), "recommendation_score"] += 1000
+            reasoning_parts.append("final picks: fill " + "/".join(sorted(open_kd)))
 
         # FLEX slots still open → gently favor flex-eligible (RB/WR/TE).
         flex_need = needs.get("FLEX", 0)
@@ -609,6 +783,12 @@ class DraftAdvisor:
             "DST": int(rc.get("DST", 0)),
         }
         have = Counter(str(p.get("position", "")).upper() for p in self.board.my_roster)
+        # A backup QB/TE (starter already rostered, no superflex) is a bye-week
+        # luxury — bench RB/WR depth starts games. Mild, so a true faller still wins.
+        if sflex_total == 0:
+            for pos in ("QB", "TE"):
+                if have.get(pos, 0) >= base[pos] > 0:
+                    avail.loc[avail["position"] == pos, "recommendation_score"] -= 20
         for pos in ("QB", "RB", "WR", "TE", "K", "DST"):
             over = have.get(pos, 0) - pos_cap[pos]
             if over >= 0:
@@ -620,7 +800,11 @@ class DraftAdvisor:
                 if pos in ("K", "DST"):
                     unit = 1000
                 elif pos in ("QB", "TE"):
-                    unit = 40
+                    # A 3rd QB/TE (1-QB/1-TE leagues) is never startable; in a
+                    # depleted late pool every RB/WR carries deeply negative VORP
+                    # too, so a mild taper still lost to a TE3 (v8.3 sim). Make
+                    # it decisive — bench depth belongs to RB/WR (byes/injuries).
+                    unit = 400
                 else:
                     unit = 25
                 avail.loc[avail["position"] == pos, "recommendation_score"] -= unit * (
@@ -638,7 +822,7 @@ class DraftAdvisor:
 
         return recs.reset_index(drop=True), reasoning
 
-    def build_queue(self, depth: int = 12) -> List[Dict]:
+    def build_queue(self, depth: int = 12, **turn) -> List[Dict]:
         """Need-aware ranked draft queue via simulate-and-fill.
 
         Repeatedly takes the top recommendation and *tentatively* rosters it so
@@ -658,7 +842,9 @@ class DraftAdvisor:
         queue: List[Dict] = []
         try:
             for _ in range(max(0, depth)):
-                recs, _ = self.recommend(top_n=1)
+                # ``turn`` (next_pick_no / my_picks_remaining) makes the queue
+                # follow cost-of-waiting, exactly like the on-clock recs.
+                recs, _ = self.recommend(top_n=1, **turn)
                 if recs.empty:
                     break
                 row = recs.iloc[0]
@@ -1033,6 +1219,7 @@ class MockDraftSimulator:
         randomness: int = 3,
         draft_type: str = "snake",
         behavior: Optional[Dict] = None,
+        sharp_slots: Optional[Sequence[int]] = None,
     ):
         """
         Args:
@@ -1067,6 +1254,10 @@ class MockDraftSimulator:
         self.randomness = max(0, randomness)
         self.draft_type = "linear" if str(draft_type).lower() == "linear" else "snake"
 
+        # Slots drafted by the sharp-human benchmark behavior (tier discipline,
+        # tight ADP tracking, run-immune) instead of the ADP+noise default.
+        self.sharp_slots = set(int(s) for s in (sharp_slots or ()))
+
         self.behavior: Dict[str, float] = {"run_factor": 1.5, "temperature": 3.0}
         if behavior:
             self.behavior.update(behavior)
@@ -1088,6 +1279,19 @@ class MockDraftSimulator:
     # -----------------------------------------------------------------------
     # Internal helpers
     # -----------------------------------------------------------------------
+
+    def _next_user_pick(self, pick_number: int, total_picks: int) -> Optional[int]:
+        """The user's next overall pick strictly after ``pick_number`` (None if done)."""
+        for p in range(pick_number + 1, total_picks + 1):
+            if self._is_user_turn(p):
+                return p
+        return None
+
+    def _user_picks_remaining(self, pick_number: int, total_picks: int) -> int:
+        """User picks from ``pick_number`` (inclusive) to the end of the draft."""
+        return sum(
+            1 for p in range(pick_number, total_picks + 1) if self._is_user_turn(p)
+        )
 
     def _is_user_turn(self, pick_number: int) -> bool:
         """Return True when ``pick_number`` is the user's slot for this draft type.
@@ -1230,6 +1434,26 @@ class MockDraftSimulator:
         # like a real human finally grabbing their kicker/defense.
         rc = self.board.roster_config
         rounds_left = self._total_rounds - round_number
+
+        # Sharp-human benchmark bots (2026-08-24): tier-disciplined drafters —
+        # no backup QB/TE, no early K/DST, tight ADP tracking, immune to runs.
+        # The honest yardstick the advisor must beat, vs ADP+noise bots.
+        sharp = slot in self.sharp_slots
+        if sharp:
+            drop = set()
+            if pos_counts.get("QB", 0) >= 1:
+                drop.add("QB")
+            if pos_counts.get("TE", 0) >= 1:
+                drop.add("TE")
+            if rounds_left > 1:
+                drop.add("K")
+            if rounds_left > 2:
+                drop.add("DST")
+            disciplined = candidates[
+                ~candidates["position"].astype(str).str.upper().isin(drop)
+            ]
+            if not disciplined.empty:
+                candidates = disciplined
         forced_pos: Optional[str] = None
         if rc.get("K", 0) > 0 and pos_counts.get("K", 0) == 0 and rounds_left <= 1:
             forced_pos = "K"
@@ -1250,9 +1474,11 @@ class MockDraftSimulator:
             return None
 
         temperature = max(float(self.behavior.get("temperature", 3.0)), 0.1)
+        if sharp:
+            temperature = 0.8  # sharp drafters track the board tightly
         weights = [float(np.exp(-i / temperature)) for i in range(len(top_candidates))]
 
-        run_pos = self._run_position()
+        run_pos = self._run_position() if not sharp else None
         if run_pos:
             run_factor = float(self.behavior.get("run_factor", 1.5))
             weights = [
@@ -1320,7 +1546,13 @@ class MockDraftSimulator:
             round_number = (pick_number - 1) // self.n_teams + 1
 
             if self._is_user_turn(pick_number):
-                recs, reasoning = advisor.recommend(top_n=5)
+                recs, reasoning = advisor.recommend(
+                    top_n=5,
+                    next_pick_no=self._next_user_pick(pick_number, total_picks),
+                    my_picks_remaining=self._user_picks_remaining(
+                        pick_number, total_picks
+                    ),
+                )
                 if recs.empty:
                     logger.warning(
                         f"Advisor returned no recommendations at pick {pick_number}"

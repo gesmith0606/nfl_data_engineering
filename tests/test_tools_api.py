@@ -56,8 +56,13 @@ def test_ros_fails_open_when_schedule_missing(monkeypatch):
     body = resp.json()
     remaining = body["weeks_remaining"]
     for p in body["players"]:
+        # The server prorates from the UNROUNDED season points and rounds once;
+        # this recomputation starts from the JSON's already-rounded value, so
+        # the two can legitimately differ by one rounding step (0.1) when the
+        # unrounded value sits on a boundary. Exact equality made the test
+        # fail on specific data files (169.6 vs 169.7, 2026-08-24).
         expected = round(p["projected_season_points"] * remaining / 18, 1)
-        assert p["ros_points"] == expected
+        assert p["ros_points"] == pytest.approx(expected, abs=0.11)
 
 
 def test_trade_verdict_consistent():

@@ -40,6 +40,7 @@ from draft_optimizer import (
     AuctionDraftBoard,
     MockDraftSimulator,
     compute_value_scores,
+    market_believed,
 )
 import config
 
@@ -79,6 +80,8 @@ def _display_players(df: pd.DataFrame, cols: list = None, max_rows: int = 20):
             "adp_diff",
             "value_tier",
             "vorp",
+            "opportunity_cost",
+            "expected_next_vorp",
         ]
         cols = [c for c in possible if c in df.columns]
     print(df[cols].head(max_rows).to_string(index=False))
@@ -133,8 +136,20 @@ def _print_auction_roster(board: "AuctionDraftBoard"):
     print(f"  Remaining needs: {needs_str}")
 
 
-def _print_recommendations(advisor: DraftAdvisor, top_n: int = 8):
-    recs, reasoning = advisor.recommend(top_n=top_n)
+def _next_my_pick(pick_number: int, n_teams: int, my_pick: int, total_picks: int):
+    """(next my pick strictly after ``pick_number``, my picks left incl. current)."""
+    def _mine(p: int) -> bool:
+        rnd = (p - 1) // n_teams + 1
+        pos = (p - 1) % n_teams + 1
+        return (pos == my_pick) if rnd % 2 == 1 else (n_teams - pos + 1 == my_pick)
+
+    nxt = next((p for p in range(pick_number + 1, total_picks + 1) if _mine(p)), None)
+    remaining = sum(1 for p in range(pick_number, total_picks + 1) if _mine(p))
+    return nxt, remaining
+
+
+def _print_recommendations(advisor: DraftAdvisor, top_n: int = 8, **turn):
+    recs, reasoning = advisor.recommend(top_n=top_n, **turn)
     _sep()
     print(f"RECOMMENDATIONS: {reasoning}")
     _sep()
@@ -212,6 +227,10 @@ def run_simulation(
     enriched = compute_value_scores(
         projections, adp_df, roster_format=roster_format, n_teams=n_teams
     )
+    # Parity with the live engine: hide low-sample projections the market
+    # doesn't rank (ghost class — see market_believed; replay evidence: an
+    # unfiltered board ranked 9.94/12 by actual results vs 6.42 filtered).
+    enriched = market_believed(enriched)
     board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
     advisor = DraftAdvisor(board, scoring_format=scoring_format)
     simulator = MockDraftSimulator(
@@ -288,6 +307,10 @@ def run_auction_session(
     enriched = compute_value_scores(
         projections, adp_df, roster_format=roster_format, n_teams=n_teams
     )
+    # Parity with the live engine: hide low-sample projections the market
+    # doesn't rank (ghost class — see market_believed; replay evidence: an
+    # unfiltered board ranked 9.94/12 by actual results vs 6.42 filtered).
+    enriched = market_believed(enriched)
     board = AuctionDraftBoard(
         enriched, roster_format=roster_format, n_teams=n_teams, budget_per_team=budget
     )
@@ -570,6 +593,10 @@ def run_draft_session(
     enriched = compute_value_scores(
         projections, adp_df, roster_format=roster_format, n_teams=n_teams
     )
+    # Parity with the live engine: hide low-sample projections the market
+    # doesn't rank (ghost class — see market_believed; replay evidence: an
+    # unfiltered board ranked 9.94/12 by actual results vs 6.42 filtered).
+    enriched = market_believed(enriched)
 
     board = DraftBoard(enriched, roster_format=roster_format, n_teams=n_teams)
     advisor = DraftAdvisor(board, scoring_format=scoring_format)
@@ -626,7 +653,12 @@ Commands:
         )
 
         if is_my_turn:
-            _print_recommendations(advisor, top_n=8)
+            nxt, left = _next_my_pick(
+                pick_number, n_teams, my_pick, n_teams * sum(board.roster_config.values())
+            )
+            _print_recommendations(
+                advisor, top_n=8, next_pick_no=nxt, my_picks_remaining=left
+            )
             print(f"\n>>> {prompt_label} <<<")
 
         try:
@@ -909,6 +941,21 @@ def main():
     args.roster_format = args.roster_format or preset.get("roster") or "standard"
     args.teams = args.teams or preset.get("teams") or 12
     args.my_pick = args.my_pick or preset.get("my_pick") or 1
+    # ESPN rooms draft off ESPN's own ADP (QBs/TEs go 10-20 picks earlier than
+    # on FFC/Sleeper — 2026-08-23 mock): prefer `refresh_adp.py --source espn`
+    # output for ESPN presets when it exists.
+    if not args.adp_file and preset.get("platform") == "espn":
+        cands = [
+            p
+            for p in (
+                os.path.join("data", "adp", f"adp_espn_{args.scoring}.csv"),
+                os.path.join("data", "adp", "adp_espn_standard.csv"),
+                os.path.join("data", "adp", "adp_espn_half_ppr.csv"),
+            )
+            if os.path.exists(p)
+        ]
+        if cands:  # ESPN ADP is scoring-agnostic — newest refresh wins
+            args.adp_file = max(cands, key=os.path.getmtime)
     if args.league:
         print(
             f"League preset '{args.league}' ({preset.get('platform')}): "
