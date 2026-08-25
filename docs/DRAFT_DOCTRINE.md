@@ -114,18 +114,18 @@ Two sources: public league-winner/best-ball studies, and our own 2021–25 study
 - Always name the *reason* (which rule above) — a pick without a rule is a guess.
 
 ## 10. Back-test results — what our own data says (2021–2025)
-`python scripts/backtest_draft_flags.py` — 682 drafted players (FFC ADP ≤ 150, Sept-1 snapshots) scored
-by half-PPR finish; bust = ≥10 positional spots below ADP or ≤ 8 games (§28). Base rates: **bust 38%,
-beat-by-10 14%**.
+`python scripts/backtest_draft_flags.py` — 688 drafted players (FFC ADP ≤ 150, Sept-1 snapshots; players with ZERO season usage
+counted as busts — survivorship fix 2026-08-24) scored by half-PPR finish; bust = ≥10 positional spots
+below ADP or ≤ 8 games (§28). Base rates: **bust 39%, beat-by-10 14%**.
 
 | Rule | Flagged n | Bust rate flagged vs rest | Beat rate flagged vs rest | Verdict |
 |---|---|---|---|---|
-| §20 RB age ≥ 27 | 65 | **45% vs 32%** (lift 1.39) | 8% vs 21% | **confirmed** (age ≥ 28: 49%, lift 1.49) |
+| §20 RB age ≥ 27 | 66 | **46% vs 32%** (lift 1.40) | 8% vs 21% | **confirmed** (age ≥ 28: 50%, lift 1.52) |
 | §21 prior top-5 finish, all positions | 95 | 32% vs 39% (0.81) | 0% vs 16% | **not a bust signal** — priced correctly; they just can't "beat" ADP |
 | §21 prior top-5, RB only | 24 | 46% vs 34% (1.33) | 0% | **keep for RB only** |
 | §22 proxy: prior TD share > 35% | 130 | 32% vs 39% (0.83) | 3% vs 16% | **rejected as a bust proxy** — real §22 needs actual-vs-expected TDs (xTD), not built yet |
 | §34 WR/TE ≥ 50 tgt & < 5 TD prior | 86 | 38% vs 43% (0.90) | **17% vs 13%** (1.33) | **mild support** (positive regression) |
-| §15 RB drafted rounds 3–7 | 97 | **40% vs 32%** (1.24) | 13% vs 20% | **confirmed** — RB dead zone is real; WR rounds 3–7 show no effect (1.04) |
+| §15 RB drafted rounds 3–7 | 98 | **41% vs 33%** (1.25) | 13% vs 20% | **confirmed** — RB dead zone is real; WR rounds 3–7 show no effect |
 
 | §22 real xTD: prior TDs ≥ +3 over expected (ffopportunity) | 60 | 43% vs 38% (1.14) | **3% vs 13%** (0.25) | **ceiling cap**: overachievers almost never beat ADP; mild bust tilt. Underachiever side (≤ −2): no signal (1.02) |
 
@@ -176,9 +176,12 @@ run against both room types, all scored by **actual season results**, pooled 202
 | | ADP room | Sharp room |
 |---|---|---|
 | Unanchored heuristic | 5.64 | 6.30 (par) |
-| **Anchored (production-style)** | **4.87** | **5.34** |
+| **Anchored (production-style)** | **4.85** | **5.34** |
 
-Anchored vs sharp: top-3 40% (expectation 25%), bottom-3 18%; 2024 fixed outright (9.6 → 5.8);
+All four cells re-run 2026-08-24 after the data-correctness review (point-in-time roster snapshot
+fix, (name, position)-keyed scoring joins, 0-for-unmatched accounting printed per season: 1.7–8.8%,
+symmetric across teams) — conclusions unchanged. Anchored vs sharp: top-3 40% (expectation 25%),
+bottom-3 18%; 2024 fixed outright (9.6 → 5.8);
 2025 remains the residual bad year (10.5) — the news-blind class the NEWS guard now covers live but
 which no historical snapshot can credit. **Allowed claim: the anchored stack beats both average and
 disciplined rooms on actual results, above the field in 4 of 5 seasons; its residual failure mode is
