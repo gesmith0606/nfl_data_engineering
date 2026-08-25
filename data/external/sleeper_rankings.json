@@ -1,6 +1,6 @@
 {
   "source": "sleeper",
-  "fetched_at": "2026-08-23T12:10:44.081224+00:00",
+  "fetched_at": "2026-08-24T01:43:53.472491+00:00",
   "players": [
     {
       "player_name": "Bijan Robinson",
@@ -269,7 +269,7 @@
     {
       "player_name": "Todd Gurley",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 27,
       "sleeper_id": "2315",
       "rank": 34
@@ -493,7 +493,7 @@
     {
       "player_name": "Bryce Ford-Wheaton",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 44,
       "sleeper_id": "9499",
       "rank": 62
@@ -781,7 +781,7 @@
     {
       "player_name": "Tom Brady",
       "position": "QB",
-      "team": null,
+      "team": "",
       "external_rank": 74,
       "sleeper_id": "167",
       "rank": 98
@@ -901,7 +901,7 @@
     {
       "player_name": "Antonio Brown",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 89,
       "sleeper_id": "536",
       "rank": 113
@@ -1093,7 +1093,7 @@
     {
       "player_name": "Gus Edwards",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 104,
       "sleeper_id": "5248",
       "rank": 137
@@ -1101,7 +1101,7 @@
     {
       "player_name": "Thomas Odukoya",
       "position": "TE",
-      "team": null,
+      "team": "",
       "external_rank": 104,
       "sleeper_id": "8924",
       "rank": 138
@@ -1165,7 +1165,7 @@
     {
       "player_name": "Ezekiel Elliott",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 111,
       "sleeper_id": "3164",
       "rank": 146
@@ -1237,7 +1237,7 @@
     {
       "player_name": "Rob Gronkowski",
       "position": "TE",
-      "team": null,
+      "team": "",
       "external_rank": 118,
       "sleeper_id": "515",
       "rank": 155
@@ -1261,7 +1261,7 @@
     {
       "player_name": "William Fuller",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 119,
       "sleeper_id": "3157",
       "rank": 158
@@ -1317,7 +1317,7 @@
     {
       "player_name": "Henry Ruggs",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 124,
       "sleeper_id": "6789",
       "rank": 165
@@ -1333,7 +1333,7 @@
     {
       "player_name": "Damien Harris",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 126,
       "sleeper_id": "5890",
       "rank": 167
@@ -1389,7 +1389,7 @@
     {
       "player_name": "Tyler Lockett",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 131,
       "sleeper_id": "2374",
       "rank": 174
@@ -1517,7 +1517,7 @@
     {
       "player_name": "Tyreek Hill",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 145,
       "sleeper_id": "3321",
       "rank": 190
@@ -1581,7 +1581,7 @@
     {
       "player_name": "Brandin Cooks",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 151,
       "sleeper_id": "2197",
       "rank": 198
@@ -1685,7 +1685,7 @@
     {
       "player_name": "Alshon Jeffery",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 161,
       "sleeper_id": "1149",
       "rank": 211
@@ -1717,7 +1717,7 @@
     {
       "player_name": "Adam Thielen",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 163,
       "sleeper_id": "1689",
       "rank": 215
@@ -1773,7 +1773,7 @@
     {
       "player_name": "Dan Bailey",
       "position": "K",
-      "team": null,
+      "team": "",
       "external_rank": 169,
       "sleeper_id": "899",
       "rank": 222
@@ -1949,7 +1949,7 @@
     {
       "player_name": "Justin Tucker",
       "position": "K",
-      "team": null,
+      "team": "",
       "external_rank": 182,
       "sleeper_id": "1264",
       "rank": 244
@@ -1965,7 +1965,7 @@
     {
       "player_name": "Amari Cooper",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 183,
       "sleeper_id": "2309",
       "rank": 246
@@ -1997,7 +1997,7 @@
     {
       "player_name": "Frank Gore",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 187,
       "sleeper_id": "232",
       "rank": 250
@@ -2101,7 +2101,7 @@
     {
       "player_name": "Tyrell Williams",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 198,
       "sleeper_id": "2583",
       "rank": 263
@@ -2133,7 +2133,7 @@
     {
       "player_name": "Chris Carson",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 200,
       "sleeper_id": "4273",
       "rank": 267
@@ -2149,7 +2149,7 @@
     {
       "player_name": "Derek Carr",
       "position": "QB",
-      "team": null,
+      "team": "",
       "external_rank": 201,
       "sleeper_id": "2028",
       "rank": 269
@@ -2157,7 +2157,7 @@
     {
       "player_name": "Mike Davis",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 201,
       "sleeper_id": "2431",
       "rank": 270
@@ -2229,7 +2229,7 @@
     {
       "player_name": "Jonnu Smith",
       "position": "TE",
-      "team": null,
+      "team": "",
       "external_rank": 206,
       "sleeper_id": "4144",
       "rank": 279
@@ -2285,7 +2285,7 @@
     {
       "player_name": "Dontrelle Inman",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 212,
       "sleeper_id": "2291",
       "rank": 286
@@ -2293,7 +2293,7 @@
     {
       "player_name": "Joe Mixon",
       "position": "RB",
-      "team": null,
+      "team": "",
       "external_rank": 212,
       "sleeper_id": "4018",
       "rank": 287
@@ -2309,7 +2309,7 @@
     {
       "player_name": "A.J. Green",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 216,
       "sleeper_id": "830",
       "rank": 289
@@ -2317,7 +2317,7 @@
     {
       "player_name": "Blake Jarwin",
       "position": "TE",
-      "team": null,
+      "team": "",
       "external_rank": 218,
       "sleeper_id": "4571",
       "rank": 290
@@ -2325,7 +2325,7 @@
     {
       "player_name": "Jimmy Garoppolo",
       "position": "QB",
-      "team": null,
+      "team": "",
       "external_rank": 219,
       "sleeper_id": "1837",
       "rank": 291
@@ -2333,7 +2333,7 @@
     {
       "player_name": "Cam Newton",
       "position": "QB",
-      "team": null,
+      "team": "",
       "external_rank": 220,
       "sleeper_id": "954",
       "rank": 292
@@ -2341,7 +2341,7 @@
     {
       "player_name": "Robbie Gould",
       "position": "K",
-      "team": null,
+      "team": "",
       "external_rank": 222,
       "sleeper_id": "49",
       "rank": 293
@@ -2357,7 +2357,7 @@
     {
       "player_name": "Kenny Golladay",
       "position": "WR",
-      "team": null,
+      "team": "",
       "external_rank": 223,
       "sleeper_id": "4131",
       "rank": 295
