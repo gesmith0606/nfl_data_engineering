@@ -261,7 +261,10 @@ def news_status(player_name: str, position: str) -> Optional[str]:
                 (r["_name_key"], r["position"]): r["roster_status"]
                 for _, r in df.iterrows()
             }
-        except Exception:  # noqa: BLE001 — news is a bonus, never a crash
+        except Exception as exc:  # noqa: BLE001 — never crash, but NEVER silently
+            logging.getLogger(__name__).warning(
+                "NEWS guard DISABLED — roster-status load failed: %s", exc
+            )
             _NEWS_MAP = {}
     from src.draft_optimizer import name_key
 
@@ -422,6 +425,17 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
     insights = market_insights(engine, turn.on_clock_pick_no if turn else None)
     tiers = tier_alerts(engine)
     needs_ahead = opponent_needs(engine)
+    # Parse self-check, computed once so BOTH output modes carry it — a JSON
+    # consumer must not get an internally consistent payload off a stale board
+    # (review finding 7).
+    state = engine.state
+    parse_drift = None
+    if state and turn and state.picks and len(state.picks) != turn.on_clock_pick_no - 1:
+        parse_drift = (
+            f"{len(state.picks)} picks parsed but the clock says pick "
+            f"{turn.on_clock_pick_no} — the platform UI may have changed; "
+            "verify the board against the room before trusting recommendations"
+        )
     rec_cols = [
         c
         for c in [
@@ -471,6 +485,7 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 ],
                 "recommendations": rec_records,
                 "reasoning": reasoning,
+                "parse_drift": parse_drift,
                 "position_wait_costs": wait_costs,
                 "market_insights": insights,
                 "tier_alerts": tiers,
@@ -489,12 +504,8 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
         )
         # Parser self-check: picks parsed must trail the clock by exactly one.
         # A drift means the page layout changed under us — trust nothing silently.
-        if turn and state.picks and len(state.picks) != turn.on_clock_pick_no - 1:
-            lines.append(
-                f"!! PARSE CHECK: {len(state.picks)} picks parsed but the clock says "
-                f"pick {turn.on_clock_pick_no} — the platform UI may have changed; "
-                "verify the board against the room before trusting recommendations"
-            )
+        if parse_drift:
+            lines.append(f"!! PARSE CHECK: {parse_drift}")
     if turn:
         flag = "  <<< YOUR PICK" if turn.is_my_turn else ""
         lines.append(
@@ -1309,14 +1320,15 @@ def main(argv: Optional[List[str]] = None) -> int:
                     if not line or line.startswith("#"):
                         continue
                     (mine if line.startswith("*") else others).append(line.lstrip("* ").strip())
-            for name in mine:
-                engine.board.draft_by_name(name, by_me=True)
+            ok = sum(1 for name in mine if engine.board.draft_by_name(name, by_me=True))
             removed = engine.board.remove_players(others)
             _keepers_loaded["file_done"] = True
             if not args.json:
                 print(
-                    f"(keepers file: {len(mine)} rostered to you, "
-                    f"{removed}/{len(others)} others removed from the board)"
+                    f"(keepers file: {ok}/{len(mine)} rostered to you, "
+                    f"{removed}/{len(others)} others removed from the board"
+                    + (" — CHECK UNMATCHED NAMES" if ok < len(mine) or removed < len(others) else "")
+                    + ")"
                 )
         return poll
 
@@ -1377,11 +1389,25 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Watch loop — re-render only when the pick count advances.
     last_seen = -1
-    queued: List[str] = []  # our last-pushed queue, in order
+    queue_state = {"names": []}  # CONFIRMED queue contents (outcome, not intent)
     queue_thread: Optional[threading.Thread] = None
+    poll_failures = 0
     try:
         while True:
-            poll = _poll_once()
+            # A transient poll failure (Chrome busy, tab re-render, websocket
+            # blip) must not kill the co-pilot mid-draft — retry, loudly, and
+            # only abort after a sustained outage (review finding 8).
+            try:
+                poll = _poll_once()
+                poll_failures = 0
+            except Exception as exc:  # noqa: BLE001
+                poll_failures += 1
+                print(f"poll failed ({poll_failures}/10): {exc} — retrying", flush=True)
+                if poll_failures >= 10:
+                    print("10 consecutive poll failures — giving up.")
+                    return 1
+                time.sleep(args.interval)
+                continue
             state = engine.state
             if state and state.last_pick_no != last_seen:
                 last_seen = state.last_pick_no
@@ -1401,7 +1427,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                     # surviving order is unchanged, only append the new tail;
                     # otherwise rebuild so the TOP of the queue is right.
                     avail_names = set(engine.board.available["player_name"])
-                    surviving = [n for n in queued if n in avail_names]
+                    surviving = [n for n in queue_state["names"] if n in avail_names]
                     if names[: len(surviving)] == surviving:
                         new = names[len(surviving):]
                         job = (adapter.enqueue, new) if new else None
@@ -1410,16 +1436,25 @@ def main(argv: Optional[List[str]] = None) -> int:
                     # Never let queue clicking (~1 s per name) delay the next
                     # render — the 2026-08-23 second mock printed "YOUR PICK"
                     # after the clock had nearly run out. One worker at a time.
+                    # queue_state records OUTCOME, not intent: it is updated from
+                    # the push statuses inside the worker, and cleared on any
+                    # failure so the next cycle is forced down the full rebuild
+                    # path — otherwise a failed push silently corrupts every
+                    # later queue diff (review finding 1, 2026-08-24).
                     if job and (queue_thread is None or not queue_thread.is_alive()):
-                        queued = list(names)
 
-                        def _push(fn=job[0], arg=job[1]):
+                        def _push(fn=job[0], arg=job[1], intended=list(names)):
                             try:
-                                statuses = fn(arg)
+                                statuses = [str(s) for s in fn(arg)]
                             except Exception as exc:  # noqa: BLE001
                                 statuses = [f"error:{exc}"]
+                            clean = all(
+                                s.startswith(("queued:", "cleared:")) for s in statuses
+                            )
+                            queue_state["names"] = intended if clean else []
+                            tag = "" if clean else "  !! push incomplete — full rebuild next cycle"
                             print(
-                                "(pick queue) " + ", ".join(str(s) for s in statuses),
+                                "(pick queue) " + ", ".join(statuses) + tag,
                                 flush=True,
                             )
 

@@ -117,12 +117,19 @@ def load_prior_usage(season: int) -> pd.DataFrame:
     """
     files = sorted(glob.glob(_USAGE_GLOB.format(season=season - 1)))
     if not files:
+        logger.warning(
+            "prior-usage for %s unavailable — §20/§21/§34/§36 signals disabled", season - 1
+        )
         return pd.DataFrame(columns=["player_id"])
     df = pd.read_parquet(files[-1])
     if "season_type" in df.columns:
         df = df[df["season_type"] == "REG"]
     need = {"player_id", "position", "fantasy_points", "receptions"}
     if not need <= set(df.columns):
+        logger.warning(
+            "prior-usage %s lacks %s — §20/§21/§34/§36 signals disabled",
+            files[-1], sorted(need - set(df.columns)),
+        )
         return pd.DataFrame(columns=["player_id"])
     df = df.copy()
     df["half_ppr"] = df["fantasy_points"].fillna(0) + 0.5 * df["receptions"].fillna(0)
@@ -175,6 +182,9 @@ def load_prior_xtd(season: int) -> pd.DataFrame:
             .reset_index().rename(columns={idc: "player_id"})
         )
     if not frames:
+        logger.warning(
+            "ffopportunity files for %s unavailable — §22 xTD signal disabled", season - 1
+        )
         return pd.DataFrame(columns=["player_id", "prior_xtd_gap"])
     g = pd.concat(frames).groupby("player_id")[["actual", "expected"]].sum().reset_index()
     g["prior_xtd_gap"] = (g["actual"] - g["expected"]).round(1)
@@ -197,10 +207,18 @@ def load_roster_status(season: int) -> pd.DataFrame:
     """
     fs = sorted(glob.glob(_ROSTER_LIVE_GLOB.format(season=season)))
     if not fs:
+        logger.warning(
+            "roster-status snapshot missing for %s — NEWS guard DISABLED "
+            "(run scripts/refresh_rosters.py)", season
+        )
         return pd.DataFrame(columns=["_name_key", "position", "roster_status"])
     df = pd.read_parquet(fs[-1])
     need = {"player_name", "position", "status"}
     if not need <= set(df.columns):
+        logger.warning(
+            "roster-status snapshot %s lacks %s — NEWS guard DISABLED",
+            fs[-1], sorted(need - set(df.columns)),
+        )
         return pd.DataFrame(columns=["_name_key", "position", "roster_status"])
     df = df.copy()
     df["_name_key"] = df["player_name"].map(name_key)

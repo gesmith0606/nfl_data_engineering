@@ -288,14 +288,22 @@ class ChromeDraftPage:
             "--user-data-dir=<separate profile>, log into ESPN, open the draft room."
         )
 
-    def evaluate(self, expression: str, await_promise: bool = False) -> Any:
-        """Run ``expression`` in the draft tab and return its JSON value."""
+    def evaluate(
+        self, expression: str, await_promise: bool = False, timeout: float = 15.0
+    ) -> Any:
+        """Run ``expression`` in the draft tab and return its JSON value.
+
+        ``timeout`` must exceed the JS runtime: an awaited promise that outlives
+        the websocket timeout keeps running in the browser after Python gives
+        up, leaving page state matching neither the error nor the caller's
+        bookkeeping (review finding, 2026-08-24).
+        """
         import websocket
 
         ws_url = self.find_tab()["webSocketDebuggerUrl"]
         # Chrome 403s DevTools websockets that carry an Origin header unless
         # launched with --remote-allow-origins; omitting the header is accepted.
-        ws = websocket.create_connection(ws_url, timeout=15, suppress_origin=True)
+        ws = websocket.create_connection(ws_url, timeout=timeout, suppress_origin=True)
         try:
             ws.send(
                 json.dumps(
@@ -329,11 +337,17 @@ class ChromeDraftPage:
     def enqueue(self, names: Sequence[str], settle_ms: int = 900) -> List[str]:
         """Add ``names`` (in order) to ESPN's Pick Queue via the search box."""
         js = _ENQUEUE_JS % (json.dumps(list(names)), int(settle_ms))
-        return list(self.evaluate(js, await_promise=True) or [])
+        # ~2.1 s worst case per name (settle + retry + click) + headroom.
+        return list(
+            self.evaluate(js, await_promise=True, timeout=15 + 2.5 * len(names)) or []
+        )
 
     def clear_queue(self, settle_ms: int = 250) -> int:
         """Remove every player from ESPN's Pick Queue; returns the count removed."""
-        return int(self.evaluate(_CLEAR_QUEUE_JS % int(settle_ms), await_promise=True) or 0)
+        return int(
+            self.evaluate(_CLEAR_QUEUE_JS % int(settle_ms), await_promise=True, timeout=30)
+            or 0
+        )
 
     def set_queue(self, names: Sequence[str]) -> List[str]:
         """Replace ESPN's Pick Queue with ``names`` in this exact order.
