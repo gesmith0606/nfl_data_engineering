@@ -1,0 +1,107 @@
+{
+  "fetch_run_id": "586386c6-be4c-4e53-a5e3-7f4fe2b748f4",
+  "source": "rotowire",
+  "fetched_at": "2026-08-25T12:14:28.204321+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634735",
+      "url": "https://www.rotowire.com//football/player/kirk-cousins-8057",
+      "permalink": "",
+      "title": "Kirk Cousins: Listed atop depth chart",
+      "body_text": "Cousins is listed as the Raiders' top quarterback on the unofficial depth chart for Thursday's preseason game versus the 49ers, according to the team's official site. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-24T05:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl634684",
+      "url": "https://www.rotowire.com//football/player/jj-mccarthy-17689",
+      "permalink": "",
+      "title": "J.J. McCarthy: Practices Monday",
+      "body_text": "McCarthy (undisclosed) participated in Monday's practice, Kevin Seifert of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-24T02:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Practices Monday",
+        "Kevin Seifert"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634681",
+      "url": "https://www.rotowire.com//football/player/josh-sweat-12546",
+      "permalink": "",
+      "title": "Josh Sweat: Activated from active/PUP list",
+      "body_text": "Sweat (knee) was activated from the active/PUP list Monday, Darren Urban of the Cardinals' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-24T01:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Sweat",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl634680",
+      "url": "https://www.rotowire.com//football/player/trey-benson-17767",
+      "permalink": "",
+      "title": "Trey Benson: Cut by Cardinals",
+      "body_text": "Benson (knee) was waived/injured by the Cardinals on Monday, Darren Urban of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-24T01:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Benson",
+        "Cardinals Benson",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [
+        "00-0039921"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl634677",
+      "url": "https://www.rotowire.com//football/player/ashton-jeanty-18487",
+      "permalink": "",
+      "title": "Ashton Jeanty: Sits out Monday's practice",
+      "body_text": "Jeanty (ankle) didn't participant in practice Monday, Ryan McFadden of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-24T12:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    }
+  ]
+}

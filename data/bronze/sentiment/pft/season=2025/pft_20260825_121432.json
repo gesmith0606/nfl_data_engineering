@@ -1,0 +1,601 @@
+{
+  "fetch_run_id": "9ddd2f88-58f9-4736-ac20-ca5e8bdcf424",
+  "source": "pft",
+  "fetched_at": "2026-08-25T12:14:32.650520+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-expect-chuba-hubbard-back-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-expect-chuba-hubbard-back-for-week-1",
+      "permalink": "",
+      "title": "Panthers expect Chuba Hubbard back for Week 1",
+      "body_text": "Panthers running back Chuba Hubbard has been sidelined by a hamstring injury for the last couple of weeks, but the team is not concerned about his absence stretching into the regular season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T11:57:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chuba Hubbard"
+      ],
+      "resolved_player_ids": [
+        "00-0036555"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-backup-qb-competition-neck-and-neck-heading-into-preseason-finale",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-backup-qb-competition-neck-and-neck-heading-into-preseason-finale",
+      "permalink": "",
+      "title": "Cowboys backup QB competition \"neck and neck\" heading into preseason finale",
+      "body_text": "The Cowboys aren't ready to settle on a backup quarterback yet.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T11:48:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-sign-lb-boogie-basham",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-to-sign-lb-boogie-basham",
+      "permalink": "",
+      "title": "Commanders to sign LB Boogie Basham",
+      "body_text": "The Commanders are adding a veteran edge rusher to their roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T11:34:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Boogie Basham",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-finds-at-least-24-5-percent-of-nfl-players-who-died-from-2016-to-2021-had-cte",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-finds-at-least-24-5-percent-of-nfl-players-who-died-from-2016-to-2021-had-cte",
+      "permalink": "",
+      "title": "New study finds at least 24.5 percent of NFL players who died from 2016 to 2021 had CTE",
+      "body_text": "The New York Times raises the question of whether OSHA should get involved.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T10:35:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The New",
+        "York Times"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-lsu-chases-nfl-players-sec-speaks-out-against-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-lsu-chases-nfl-players-sec-speaks-out-against-it",
+      "permalink": "",
+      "title": "As LSU chases NFL players, SEC speaks out against it",
+      "body_text": "The current vibe in college football consists of Machiavelli vs. the lingering vestiges of amateurism.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T09:55:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-on-zxavian-harris-going-from-saints-to-lsu-theres-no-regulation-to-anything",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-on-zxavian-harris-going-from-saints-to-lsu-theres-no-regulation-to-anything",
+      "permalink": "",
+      "title": "Kellen Moore on Zxavian Harris going from Saints to LSU: There's no regulation to anything",
+      "body_text": "\"Hopefully there can be some leadership and some regulations developed,\" Moore said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-25T08:37:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kellen Moore",
+        "Zxavian Harris"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-lose-cornerback-and-special-teamer-rejzohn-wright-to-season-ending-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-lose-cornerback-and-special-teamer-rejzohn-wright-to-season-ending-hip-injury",
+      "permalink": "",
+      "title": "Saints lose cornerback and special teamer Rejzohn Wright to season-ending hip injury",
+      "body_text": "Saints cornerback and special teams contributor Rejzohn Wright will miss the entire 2026 season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-25T08:07:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rejzohn Wright"
+      ],
+      "resolved_player_ids": [
+        "00-0038781"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-close-investigation-into-death-of-ed-olivers-young-son",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-close-investigation-into-death-of-ed-olivers-young-son",
+      "permalink": "",
+      "title": "Police close investigation into death of Ed Oliver's young son",
+      "body_text": "On Saturday, the Bills acknowledged that defensive tackle Ed Oliver's young son died earlier this summer, after a report regarding the tragedy had emerged a day earlier.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T03:16:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ed Oliver",
+        "On Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-vows-to-return-to-nfl-pre-eminence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-vows-to-return-to-nfl-pre-eminence",
+      "permalink": "",
+      "title": "Justin Jefferson vows to return to NFL preeminence",
+      "body_text": "There was a time, not all that long ago, that Justin Jefferson was regarded as the best receiver in the NFL, without question.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T01:51:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-york-filed-for-divorce-in-may-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-york-filed-for-divorce-in-may-2026",
+      "permalink": "",
+      "title": "Jed York filed for divorce in May 2026",
+      "body_text": "The private lives of the NFL's ultra-rich and famous are never really all that private.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-24T23:22:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-says-pay-joey-porter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-says-pay-joey-porter",
+      "permalink": "",
+      "title": "Jalen Ramsey says \"pay Joey Porter\"",
+      "body_text": "Steelers defensive back Jalen Ramsey exited the Physically Unable to Perform list and practiced for the first time during 2026 training camp.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-24T23:40:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Ramsey",
+        "Joey Porter",
+        "Physically Unable"
+      ],
+      "resolved_player_ids": [
+        "00-0033055",
+        "00-0039167"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-on-subpoena-when-youre-him-you-get-sued",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-on-subpoena-when-youre-him-you-get-sued",
+      "permalink": "",
+      "title": "Deion Sanders on subpoena: \"When you're 'him,' you get sued\"",
+      "body_text": "Colorado coach Deion Sanders is under subpoena to testify at a trial involving his son, Shilo.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-24T23:52:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-the-riley-moss-rib-injury-is-nothing-serious",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-the-riley-moss-rib-injury-is-nothing-serious",
+      "permalink": "",
+      "title": "Sean Payton: The Riley Moss rib injury is \"nothing serious\"",
+      "body_text": "On Friday night, Broncos cornerback Riley Moss made an early exit with a rib injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-24T23:29:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "The Riley",
+        "On Friday",
+        "Riley Moss"
+      ],
+      "resolved_player_ids": [
+        "00-0038552"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/allen-robinson-announces-retirement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/allen-robinson-announces-retirement",
+      "permalink": "",
+      "title": "Allen Robinson announces retirement",
+      "body_text": "Former NFL wide receiver Allen Robinson II announced his retirement on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T23:28:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Allen Robinson",
+        "Allen Robinson II"
+      ],
+      "resolved_player_ids": [
+        "00-0031428"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-fear-rb-ty-chandler-suffered-serious-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-fear-rb-ty-chandler-suffered-serious-knee-injury",
+      "permalink": "",
+      "title": "Report: Saints fear RB Ty Chandler suffered serious knee injury",
+      "body_text": "The Saints made a trade for Zamir White on Monday and injuries in their offensive backfield appear to be the reason why they made the made.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T23:11:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Chandler",
+        "The Saints",
+        "Zamir White"
+      ],
+      "resolved_player_ids": [
+        "00-0037276",
+        "00-0038040"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-de-viliami-fehoko",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-de-viliami-fehoko",
+      "permalink": "",
+      "title": "49ers sign DE Viliami Fehoko",
+      "body_text": "The 49ers added pass rush help on Monday, signing defensive end Viliami Fehoko, according to the NFL's transaction wire.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T22:33:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Viliami Fehoko"
+      ],
+      "resolved_player_ids": [
+        "00-0038575"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-de-dylan-horton-tore-his-achilles-at-mondays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-de-dylan-horton-tore-his-achilles-at-mondays-practice",
+      "permalink": "",
+      "title": "Texans DE Dylan Horton tore his Achilles at Monday's practice",
+      "body_text": "Texans defensive end Dylan Horton is likely to miss the entire 2026 season after an injury at Monday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T22:26:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dylan Horton"
+      ],
+      "resolved_player_ids": [
+        "00-0039009"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-rb-raheem-blackshear-wr-cedrick-wilson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-rb-raheem-blackshear-wr-cedrick-wilson-on-injured-reserve",
+      "permalink": "",
+      "title": "Lions put RB Raheem Blackshear, WR Cedrick Wilson on injured reserve",
+      "body_text": "The Lions placed a couple of veterans on injured reserve Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T22:16:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Raheem Blackshear",
+        "Cedrick Wilson",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0037429",
+        "00-0034418"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-saints-rookie-zxavian-harris-returns-to-college-commits-to-lsu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-saints-rookie-zxavian-harris-returns-to-college-commits-to-lsu",
+      "permalink": "",
+      "title": "Former Saints rookie Zxavian Harris returns to college, commits to LSU",
+      "body_text": "The Saints waived rookie defensive tackle Zxavian Harris on Aug. 8.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T21:50:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Saints",
+        "Zxavian Harris",
+        "The Saints"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-adds-tony-boselli-to-competition-committee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-adds-tony-boselli-to-competition-committee",
+      "permalink": "",
+      "title": "NFL adds Tony Boselli to competition committee",
+      "body_text": "Jaguars Executive V.P. of Football Operations Tony Boselli is the newest member of the NFL's competition committee.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-24T21:23:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Boselli",
+        "Jaguars Executive V.",
+        "Football Operations"
+      ],
+      "resolved_player_ids": [
+        "00-0001519"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-breece-hall-kenyon-sadiq-on-track-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-breece-hall-kenyon-sadiq-on-track-for-week-1",
+      "permalink": "",
+      "title": "Aaron Glenn: Breece Hall, Kenyon Sadiq on track for Week 1",
+      "body_text": "Jets running back Breece Hall has missed the last week of work with a groin injury, but the team isn't showing much concern about his status for the season opener.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T21:05:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "Breece Hall",
+        "Kenyon Sadiq"
+      ],
+      "resolved_player_ids": [
+        "00-0006034",
+        "00-0038120",
+        "00-0041032"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-will-definitely-play-preseason-finale-sean-mcvay-undecided-on-backup-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ty-simpson-will-definitely-play-preseason-finale-sean-mcvay-undecided-on-backup-qb",
+      "permalink": "",
+      "title": "Ty Simpson will \"definitely\" play preseason finale, Sean McVay undecided on backup QB",
+      "body_text": "The Rams have the reigning MVP at starting quarterback, but their QB2 is still to be determined.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-24T21:02:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0041568"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-activate-josh-sweat-from-active-pup-among-several-moves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-activate-josh-sweat-from-active-pup-among-several-moves",
+      "permalink": "",
+      "title": "Cardinals activate Josh Sweat from active/PUP among several moves",
+      "body_text": "The Cardinals activated pass rusher Josh Sweat from the active/physically unable to perform list on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T21:00:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Sweat",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-kicking-competition-remains-neck-and-neck-between-blake-grupe-and-spencer-shrader",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-kicking-competition-remains-neck-and-neck-between-blake-grupe-and-spencer-shrader",
+      "permalink": "",
+      "title": "Colts' kicking competition remains neck-and-neck between Blake Grupe and Spencer Shrader",
+      "body_text": "Last year the Colts started the season with Spencer Shrader as their kicker and finished the season with Blake Grupe taking Shrader's place after an injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-24T20:59:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Grupe",
+        "Spencer Shrader"
+      ],
+      "resolved_player_ids": [
+        "00-0038905",
+        "00-0039576"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-reasonable-to-assume-malik-nabers-plays-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-reasonable-to-assume-malik-nabers-plays-in-week-1",
+      "permalink": "",
+      "title": "John Harbaugh: \"Reasonable to assume\" Malik Nabers plays in Week 1",
+      "body_text": "Nabers has continued to make progress in his return from a torn ACL.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T20:49:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-no-predictions-on-patrick-mahomes-for-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-no-predictions-on-patrick-mahomes-for-season-opener",
+      "permalink": "",
+      "title": "Andy Reid: No predictions on Patrick Mahomes for season opener",
+      "body_text": "Chiefs quarterback Patrick Mahomes avoided the physically unable to perform list to open training camp and he's been practicing without issue all summer, but head coach Andy Reid stopped short of making any pronouncements about his status for Week 1 on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T20:40:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-still-dealing-with-rib-injury-tbd-if-hell-play-on-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-still-dealing-with-rib-injury-tbd-if-hell-play-on-friday",
+      "permalink": "",
+      "title": "Carson Beck still dealing with rib injury, TBD if he'll play on Friday",
+      "body_text": "Cardinals rookie quarterback Carson Beck is making progress, but has not fully recovered from the rib injury he suffered in the Hall of Fame Game.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-24T20:31:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "Friday Cardinals",
+        "Fame Game"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-ol-jack-conley-p-matt-haack",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-sign-ol-jack-conley-p-matt-haack",
+      "permalink": "",
+      "title": "Patriots sign OL Jack Conley, P Matt Haack",
+      "body_text": "The Patriots signed first-year offensive lineman Jack Conley and veteran punter Matt Haack, the team announced Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-24T20:30:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Conley",
+        "Matt Haack",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0040564",
+        "00-0033400"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-will-remain-out-of-practice-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-will-remain-out-of-practice-this-week",
+      "permalink": "",
+      "title": "Jeremiyah Love will remain out of practice this week",
+      "body_text": "At least one J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-24T20:17:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-de-niles-king",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-de-niles-king",
+      "permalink": "",
+      "title": "Chiefs sign DE Niles King",
+      "body_text": "The Chiefs announced a pair of transactions on Monday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-24T20:16:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Niles King",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}
