@@ -766,3 +766,27 @@ def test_simulate_espn_default_builds_a_legal_lineup_in_order():
         if p["position"] in ("QB", "TE") and seen[p["position"]] >= 1:
             assert p["round"] >= lineup_round
         seen[p["position"]] += 1
+
+
+def test_sharp_slots_bots_hold_discipline():
+    """Sharp benchmark bots never roster a 2nd QB/TE and leave K/DST for the end."""
+    pool = _pool()
+    players = compute_value_scores(pool, _pool_adp(pool), roster_format="espn_default")
+    board = DraftBoard(players, roster_format="espn_default", n_teams=12)
+    adv = DraftAdvisor(board)
+    sharp = [s for s in range(1, 13) if s != 2]
+    sim = MockDraftSimulator(board, user_pick=2, n_teams=12, randomness=4, sharp_slots=sharp)
+    res = sim.run_full_simulation(adv, rounds=16)
+    by_slot = {}
+    for p in res["picks"]:
+        i = (p["pick"] - 1) % 12
+        rnd = (p["pick"] - 1) // 12 + 1
+        s = 12 - i if rnd % 2 == 0 else i + 1
+        by_slot.setdefault(s, []).append((rnd, p["position"]))
+    for s in sharp:
+        # The synthetic pool can run dry of RB/WR by the final round, forcing a
+        # backup QB on everyone — discipline is only judged before that.
+        pos = Counter(p for r, p in by_slot[s] if r < 16)
+        assert pos["QB"] <= 1 and pos["TE"] <= 1, f"slot {s} broke discipline: {pos}"
+        k_rounds = [r for r, p in by_slot[s] if p == "K"]
+        assert all(r >= 15 for r in k_rounds), f"slot {s} took K early: {k_rounds}"

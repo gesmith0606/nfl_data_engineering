@@ -242,6 +242,32 @@ def build_manual_state(
 # ---------------------------------------------------------------------------
 
 
+_NEWS_MAP: Optional[dict] = None
+
+
+def news_status(player_name: str, position: str) -> Optional[str]:
+    """Roster status for a player who is NOT simply Active (lazy-loaded from the
+    latest daily Sleeper snapshot); None when Active/unknown. August news guard."""
+    global _NEWS_MAP
+    if _NEWS_MAP is None:
+        try:
+            from src.draft_optimizer import name_key
+            from src.draft_value import load_roster_status
+
+            from datetime import date
+
+            df = load_roster_status(date.today().year)
+            _NEWS_MAP = {
+                (r["_name_key"], r["position"]): r["roster_status"]
+                for _, r in df.iterrows()
+            }
+        except Exception:  # noqa: BLE001 — news is a bonus, never a crash
+            _NEWS_MAP = {}
+    from src.draft_optimizer import name_key
+
+    return _NEWS_MAP.get((name_key(player_name), str(position).upper()))
+
+
 def position_wait_costs(engine: LiveDraftEngine) -> List[dict]:
     """Per-position cost of waiting: best VORP now minus the expected best VORP
     at the user's NEXT pick (ADP-survival walk). The draft-strategy view — "what
@@ -461,6 +487,14 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             f"DRAFT {state.draft_id} [{state.status}] {state.draft_type} "
             f"{state.n_teams}-team {state.scoring_format}"
         )
+        # Parser self-check: picks parsed must trail the clock by exactly one.
+        # A drift means the page layout changed under us — trust nothing silently.
+        if turn and state.picks and len(state.picks) != turn.on_clock_pick_no - 1:
+            lines.append(
+                f"!! PARSE CHECK: {len(state.picks)} picks parsed but the clock says "
+                f"pick {turn.on_clock_pick_no} — the platform UI may have changed; "
+                "verify the board against the room before trusting recommendations"
+            )
     if turn:
         flag = "  <<< YOUR PICK" if turn.is_my_turn else ""
         lines.append(
@@ -498,9 +532,11 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
     if insights["values"] or insights["busts"]:
         lines.append("\nMARKET vs MODEL:")
         for r in insights["values"]:
+            nw = news_status(r["player_name"], r["position"])
+            tag = f"  [NEWS: {nw}]" if nw else ""
             lines.append(
                 f"  VALUE  {r['player_name']:<22} {r['position']:<3} model #{r['model_rank']:<4}"
-                f" ADP {r['adp_rank']:<4} ({r['points']} pts) — room lets him fall {r['gap']} spots"
+                f" ADP {r['adp_rank']:<4} ({r['points']} pts) — room lets him fall {r['gap']} spots{tag}"
             )
         for r in insights["busts"]:
             lines.append(
@@ -515,6 +551,8 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
         lines.append(f"\nTOP {len(rec_records)} RECOMMENDATIONS  ({reasoning})")
         for r in rec_records:
             stack = f"  [{r['stack_note']}]" if r.get("stack_note") else ""
+            nw = news_status(str(r.get("player_name", "")), str(r.get("position", "")))
+            news = f"  [NEWS: {nw} — verify before drafting]" if nw else ""
             # RB consensus guard (doctrine honesty rule): our model tested WORSE
             # than consensus at RB (2025). When they disagree materially on an
             # RB, show it and let consensus carry the tiebreak.
@@ -538,7 +576,7 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
                 f"vorp={r.get('vorp','')}{wait}  adp={r.get('adp_rank','')}  "
-                f"tier={r.get('value_tier','')}{stack}{guard}"
+                f"tier={r.get('value_tier','')}{stack}{guard}{news}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")

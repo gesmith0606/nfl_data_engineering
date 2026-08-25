@@ -86,6 +86,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     p.add_argument("--seeds", type=int, default=4)
     p.add_argument("--adp-file", default=os.path.join("data", "adp", "adp_espn_standard.csv"))
     p.add_argument("--projections-file")
+    p.add_argument("--sharp", action="store_true", help="Opponents are sharp-human benchmark bots (tier discipline, tight ADP) instead of ADP+noise")
     args = p.parse_args(argv)
 
     proj_path = args.projections_file or (sorted(glob.glob(os.path.join("output", "projections", f"preseason_{args.season}_{args.scoring}_*.csv"))) or [None])[-1]
@@ -110,7 +111,10 @@ def main(argv: Optional[List[str]] = None) -> int:
             np.random.seed(1000 * slot + seed)
             board = DraftBoard(base.copy(), roster_format=args.roster_format, n_teams=n)
             adv = DraftAdvisor(board, scoring_format=args.scoring)
-            sim = MockDraftSimulator(board, user_pick=slot, n_teams=n, randomness=4)
+            sim = MockDraftSimulator(
+                board, user_pick=slot, n_teams=n, randomness=4,
+                sharp_slots=([x for x in range(1, n + 1) if x != slot] if args.sharp else None),
+            )
             res = sim.run_full_simulation(adv, rounds=args.rounds)
             rosters = collections.defaultdict(list)
             for pick in res["picks"]:
@@ -123,7 +127,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             ranks.append(1 + sum(1 for s, v in scores.items() if s != slot and v > my))
             margins.append(my - float(np.mean([v for s, v in scores.items() if s != slot])))
 
-    print(f"sims={len(ranks)} ({n} slots x {args.seeds} seeds) | scored by ESPN projections, drafted by ours")
+    print(f"sims={len(ranks)} ({n} slots x {args.seeds} seeds) | opponents={'SHARP bots' if args.sharp else 'ADP+noise bots'} | scored by ESPN projections")
     print(f"advisor mean rank {np.mean(ranks):.2f} (field {(n + 1) / 2:.1f}) | median {np.median(ranks):.0f} | top-3 {np.mean([r <= 3 for r in ranks]):.0%} | bottom-3 {np.mean([r >= n - 2 for r in ranks]):.0%}")
     print(f"starters-points margin vs field avg: {np.mean(margins):+.0f}/season ({np.mean(margins) / 17:+.1f}/wk)")
     return 0

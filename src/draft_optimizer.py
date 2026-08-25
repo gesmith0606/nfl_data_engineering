@@ -1219,6 +1219,7 @@ class MockDraftSimulator:
         randomness: int = 3,
         draft_type: str = "snake",
         behavior: Optional[Dict] = None,
+        sharp_slots: Optional[Sequence[int]] = None,
     ):
         """
         Args:
@@ -1252,6 +1253,10 @@ class MockDraftSimulator:
         self.n_teams = n_teams
         self.randomness = max(0, randomness)
         self.draft_type = "linear" if str(draft_type).lower() == "linear" else "snake"
+
+        # Slots drafted by the sharp-human benchmark behavior (tier discipline,
+        # tight ADP tracking, run-immune) instead of the ADP+noise default.
+        self.sharp_slots = set(int(s) for s in (sharp_slots or ()))
 
         self.behavior: Dict[str, float] = {"run_factor": 1.5, "temperature": 3.0}
         if behavior:
@@ -1429,6 +1434,26 @@ class MockDraftSimulator:
         # like a real human finally grabbing their kicker/defense.
         rc = self.board.roster_config
         rounds_left = self._total_rounds - round_number
+
+        # Sharp-human benchmark bots (2026-08-24): tier-disciplined drafters —
+        # no backup QB/TE, no early K/DST, tight ADP tracking, immune to runs.
+        # The honest yardstick the advisor must beat, vs ADP+noise bots.
+        sharp = slot in self.sharp_slots
+        if sharp:
+            drop = set()
+            if pos_counts.get("QB", 0) >= 1:
+                drop.add("QB")
+            if pos_counts.get("TE", 0) >= 1:
+                drop.add("TE")
+            if rounds_left > 1:
+                drop.add("K")
+            if rounds_left > 2:
+                drop.add("DST")
+            disciplined = candidates[
+                ~candidates["position"].astype(str).str.upper().isin(drop)
+            ]
+            if not disciplined.empty:
+                candidates = disciplined
         forced_pos: Optional[str] = None
         if rc.get("K", 0) > 0 and pos_counts.get("K", 0) == 0 and rounds_left <= 1:
             forced_pos = "K"
@@ -1449,9 +1474,11 @@ class MockDraftSimulator:
             return None
 
         temperature = max(float(self.behavior.get("temperature", 3.0)), 0.1)
+        if sharp:
+            temperature = 0.8  # sharp drafters track the board tightly
         weights = [float(np.exp(-i / temperature)) for i in range(len(top_candidates))]
 
-        run_pos = self._run_position()
+        run_pos = self._run_position() if not sharp else None
         if run_pos:
             run_factor = float(self.behavior.get("run_factor", 1.5))
             weights = [

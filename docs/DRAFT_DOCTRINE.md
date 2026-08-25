@@ -123,6 +123,26 @@ Net: with the correctable artifacts fixed, the engine drafts **above the ADP mar
 actual results**; its residual failure mode is August news the stat lines can't see — which §36 flags
 and the production anchor prices in.
 
+**Sharp-bot benchmark (2026-08-24):** opponents upgraded from ADP+noise to disciplined drafters
+(tight ADP tracking, no QB2/TE2, late K/DST, run-immune — `MockDraftSimulator(sharp_slots=…)`).
+- Historical replay vs a full sharp field, **actual results**: pooled **6.30/12** — par, not edge.
+  2021–23 clearly above the field (3.6 / 1.9 / 4.8), 2024–25 clearly below (9.6 / 11.6): the advisor
+  beats sharp rooms when its projections are good and loses when they are stale/news-blind — and the
+  bad seasons are the recent ones.
+- `draft_sim_study.py --sharp` (ESPN-scored) gives 10.29/12 — **do not quote it**: sharp bots draft
+  ESPN's own order and the scoreboard is ESPN's numbers, so that test is circular *against* us, the
+  mirror image of scoring ourselves with our own projections. Actuals are the only fair yardstick
+  for the sharp benchmark.
+- Net claim allowed: **clear edge over average/ADP rooms (5.64), par against sharp rooms (6.30)** —
+  by actual results, 2021–25.
+
+**News guard (2026-08-24, unback-testable by construction):** the latest daily Sleeper roster
+snapshot flags players not roster-Active (IR / PUP / Sus / unsigned) — `draft_value.load_roster_status`,
+with a collision guard so a retired name-sake never flags an active player. NEWS-flagged players are
+excluded from value/breakout/sleeper lists, hard-tagged as busts, and tagged on live recs. This is a
+fail-safe (no historical August snapshots exist to score it); it directly covers the Mixon class that
+sank the 2025 replay. The live render also self-checks the page parse (picks parsed vs room clock).
+
 **Sim study (2026-08-24, `scripts/draft_sim_study.py`):** advisor drafted all 12 slots × 4 seeds against
 ADP+noise bots; rosters scored by **ESPN's own projections** (out-of-model yardstick): mean starting-lineup
 rank **4.3 of 12** (field 6.5), +2.3 pts/week vs field average, top-3 finish 35%, bottom-3 4%. Scored by our

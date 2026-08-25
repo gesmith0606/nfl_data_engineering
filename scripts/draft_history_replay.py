@@ -42,7 +42,9 @@ def roster_for(season):
 
 STATS = ["passing_yards","passing_tds","interceptions","rushing_yards","rushing_tds","carries",
          "receiving_yards","receiving_tds","receptions","targets"]
-SEEDS = int(sys.argv[1]) if len(sys.argv) > 1 else 2
+SHARP = "--sharp" in sys.argv
+_args = [a for a in sys.argv[1:] if a != "--sharp"]
+SEEDS = int(_args[0]) if _args else 2
 
 def usage(season):
     fs = sorted(glob.glob(f"data/silver/players/usage/season={season}/*.parquet"))
@@ -91,7 +93,10 @@ for Y in range(2021, 2026):
             random.seed(100*Y+10*slot+seed); np.random.seed(100*Y+10*slot+seed)
             board = DraftBoard(board_df.copy(), roster_format="espn_default", n_teams=12)
             adv = DraftAdvisor(board, scoring_format="half_ppr")
-            sim = MockDraftSimulator(board, user_pick=slot, n_teams=12, randomness=4)
+            sim = MockDraftSimulator(
+                board, user_pick=slot, n_teams=12, randomness=4,
+                sharp_slots=([x for x in range(1, 13) if x != slot] if SHARP else None),
+            )
             res = sim.run_full_simulation(adv, rounds=16)
             rosters = collections.defaultdict(list)
             for p in res["picks"]:

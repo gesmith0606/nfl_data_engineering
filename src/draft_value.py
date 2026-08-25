@@ -181,6 +181,45 @@ def load_prior_xtd(season: int) -> pd.DataFrame:
     return g[["player_id", "prior_xtd_gap"]]
 
 
+_ROSTER_LIVE_GLOB = os.path.join(
+    "data", "bronze", "players", "rosters_live", "season={season}", "*.parquet"
+)
+
+
+def load_roster_status(season: int) -> pd.DataFrame:
+    """CURRENT roster status per player from the latest daily Sleeper snapshot.
+
+    Returns ``_name_key, position, roster_status`` for players NOT simply
+    Active — IR / PUP / Sus / Inactive(unsigned) at draft time is August news
+    the stat lines can't see (the class that put Joe Mixon, proj 260 / actual
+    0, on the 2025 replay rosters). No historical snapshots exist, so this is
+    a fail-safe guard, not a back-tested signal. Empty frame when no snapshot.
+    """
+    fs = sorted(glob.glob(_ROSTER_LIVE_GLOB.format(season=season)))
+    if not fs:
+        return pd.DataFrame(columns=["_name_key", "position", "roster_status"])
+    df = pd.read_parquet(fs[-1])
+    need = {"player_name", "position", "status"}
+    if not need <= set(df.columns):
+        return pd.DataFrame(columns=["_name_key", "position", "roster_status"])
+    df = df.copy()
+    df["_name_key"] = df["player_name"].map(name_key)
+    df["position"] = df["position"].astype(str).str.upper()
+    # Collision guard: the registry keeps long-retired name-sakes as
+    # "Inactive" (a Ray Rice row still exists). Only trust a non-Active status
+    # when NO Active entry shares the (name, position) key — a current player
+    # must never be news-flagged by a retiree with the same name.
+    active = set(
+        map(tuple, df[df["status"].astype(str) == "Active"][["_name_key", "position"]].values)
+    )
+    out = df[df["status"].astype(str) != "Active"]
+    out = out[~out.set_index(["_name_key", "position"]).index.isin(active)]
+    out = out.rename(columns={"status": "roster_status"})
+    return out[["_name_key", "position", "roster_status"]].drop_duplicates(
+        ["_name_key", "position"]
+    )
+
+
 def load_vacancy(season: int) -> pd.DataFrame:
     """UC1 vacated-opportunity features keyed by ``player_id`` (empty on any failure)."""
     try:
@@ -216,6 +255,11 @@ def attach_features(board: pd.DataFrame, season: int) -> pd.DataFrame:
     """Join age/exp, prior-year usage, vacancy and TD share onto a board frame."""
     df = board.copy()
     df["_name_key"] = df["player_name"].map(name_key)
+    status = load_roster_status(season)
+    if not status.empty:
+        df = df.merge(status, on=["_name_key", "position"], how="left")
+    if "roster_status" not in df.columns:
+        df["roster_status"] = None
     reg = load_registry_features(season)
     if not reg.empty:
         df = df.merge(reg.drop(columns=["gsis_id"]), on=["_name_key", "position"], how="left")
@@ -343,6 +387,17 @@ def label_board(df: pd.DataFrame) -> pd.DataFrame:
         (adp > DEEP_SLEEPER_ADP) & (pos_rank <= ceiling) & ~pos.isin(["K", "DST"]),
         "§29 deep sleeper: ADP >100 with a startable model rank",
     )
+
+    # NEWS guard (fail-safe, not back-tested — no historical August roster
+    # snapshots exist): a player who is not roster-Active right now (IR / PUP /
+    # Sus / unsigned) never surfaces as value/breakout/sleeper and carries a
+    # hard bust tag. This is the Mixon class §36 approximates from price alone.
+    if "roster_status" in out.columns:
+        news = out["roster_status"].notna()
+        for i in np.flatnonzero(news.to_numpy()):
+            reasons[i].append(f"(NEWS) roster status: {out['roster_status'].iloc[i]}")
+        bust = bust | news
+        value, breakout, deep = value & ~news, breakout & ~news, deep & ~news
 
     out["flag_value"] = value
     out["flag_bust"] = bust

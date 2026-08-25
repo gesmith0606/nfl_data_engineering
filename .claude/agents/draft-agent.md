@@ -42,6 +42,23 @@ only in the final picks; starters before backups; price against the room's own A
 - Grade the roster vs the ADP-optimal baseline (`--simulate`/`run_full_simulation` expected VORP) and vs starters' projected points; list the two picks that cost the most and the rule that would have fixed them.
 - Save learnings to the knowledge vault (`concepts/espn-mock-draft-lessons-2026-08-23.md` is the running post-mortem) and append any new rule to `docs/DRAFT_DOCTRINE.md` with its source.
 
+## News guard (August information the stat lines can't see)
+- Every rec and value list carries a `[NEWS: <status>]` tag when the latest daily Sleeper
+  roster snapshot shows the player not roster-Active (IR / PUP / Sus / unsigned) —
+  `src/draft_value.load_roster_status`. Refresh the snapshot before a draft:
+  `python scripts/refresh_rosters.py` (or confirm `data/bronze/players/rosters_live/` is from today).
+- §36 market-faded star + any NEWS tag = do not draft at model price, full stop (the Joe
+  Mixon class: proj 260 / ADP 136 / actual 0 in the 2025 replay).
+- The live render prints a `!! PARSE CHECK` line if the parsed pick count drifts from the
+  room clock — when you see it, verify the board manually before trusting a rec.
+
+## Benchmarks (quote these, never the circular ones)
+- Historical replay, actual results, ADP-bot field: mean rank 5.64/12, above market 4 of 5
+  seasons (`scripts/draft_history_replay.py`).
+- 2026 sim scored by ESPN's own projections: mean rank 4.3/12 vs ADP bots
+  (`scripts/draft_sim_study.py`; add `--sharp` for the sharp-bot field — the harder test).
+- NEVER quote advisor-vs-field numbers scored by our own projections (rank 1 by construction).
+
 ## Honesty
 - The model's edge is in the ranking; its weakness is RB (2025 test: worse than consensus at RB, better at WR/TE/QB). Say so when a call rests on an RB projection.
 - A rule with a number beats a hunch; when two rules conflict, the cost-of-waiting number (§6–8) decides.
