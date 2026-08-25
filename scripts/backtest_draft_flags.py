@@ -56,8 +56,10 @@ def season_totals(season: int) -> Optional[pd.DataFrame]:
     if "season_type" in df.columns:
         df = df[df["season_type"] == "REG"]
     df = df[df["position"].isin(POS)].copy()
+    from src.draft_value import _num
+
     df["half_ppr"] = df["fantasy_points"].fillna(0) + 0.5 * df["receptions"].fillna(0)
-    df["tds"] = df.get("rushing_tds", 0).fillna(0) + df.get("receiving_tds", 0).fillna(0) + df.get("passing_tds", 0).fillna(0)
+    df["tds"] = _num(df, "rushing_tds").fillna(0) + _num(df, "receiving_tds").fillna(0) + _num(df, "passing_tds").fillna(0)
     name_col = "player_display_name" if "player_display_name" in df.columns else "player_name"
     tot = (
         df.groupby(["player_id", "position"])
@@ -103,9 +105,15 @@ def build_season(season: int, max_adp: float) -> Optional[pd.DataFrame]:
     if "prior_xtd_gap" not in df.columns:
         df["prior_xtd_gap"] = float("nan")
     df["season"] = season
-    # Unmatched actuals = did not play (or a name we can't join) -> treat as bust only
-    # when games are known; drop unjoinable rows to keep the test honest.
-    df = df.dropna(subset=["pos_rank"])
+    # Survivorship fix (review 2026-08-24): an ADP-priced player with ZERO usage
+    # rows is the most extreme bust (the Mixon class), not a row to drop. Keep
+    # him as games=0/points=0 with a bottom positional finish; report the count.
+    missing = df["pos_rank"].isna()
+    if missing.any():
+        print(f"  ({int(missing.sum())} drafted players with no season usage -> counted as busts, season {season})")
+    df["games"] = df["games"].fillna(0)
+    df["points"] = df["points"].fillna(0.0)
+    df["pos_rank"] = df["pos_rank"].fillna(999).astype(int)
     df["bust"] = (df["pos_rank"] - df["adp_pos_rank"] >= 10) | (df["games"] <= 8)
     df["beat"] = df["adp_pos_rank"] - df["pos_rank"] >= 10
     df["prior_td_share"] = (6 * df["prior_tds"]) / df["prior_points"].replace(0, float("nan"))

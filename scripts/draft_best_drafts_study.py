@@ -21,7 +21,17 @@ frames=[f for s in range(2021,2026) if (f:=bt.build_season(s, 200.0)) is not Non
 df=pd.concat(frames, ignore_index=True)
 df["adp_round"]=((df["adp"]-1)//12+1).astype(int)
 # Expected points at each ADP slot = median actual points of that positional ADP rank across seasons
-exp = df.groupby(["position","adp_pos_rank"])["points"].median().rename("expected_at_slot")
+# Slot expectation smoothed over neighbouring ranks (rolling median +-2) so a
+# single player's own outcome cannot dominate the baseline he is scored
+# against (review 2026-08-24: raw per-slot medians on <=5 seasons are
+# self-referential and compress surplus).
+exp = (
+    df.groupby(["position","adp_pos_rank"])["points"].median().rename("expected_at_slot").reset_index()
+    .sort_values(["position","adp_pos_rank"])
+)
+exp["expected_at_slot"] = (
+    exp.groupby("position")["expected_at_slot"].transform(lambda x: x.rolling(5, center=True, min_periods=1).median())
+)
 df = df.merge(exp, on=["position","adp_pos_rank"], how="left")
 df["surplus"] = df["points"] - df["expected_at_slot"]
 top_fin = {"RB":24,"WR":24,"QB":12,"TE":12}

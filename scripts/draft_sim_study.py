@@ -47,7 +47,7 @@ _KONA = (
 )
 
 
-def fetch_espn_points(year: int, limit: int = 450) -> dict:
+def fetch_espn_points(year: int, limit: int = 700) -> dict:
     """ESPN projected season points by suffix-blind name key (fail-open {})."""
     flt = json.dumps({"players": {"limit": limit, "sortDraftRanks": {"sortPriority": 100, "sortAsc": True, "value": "STANDARD"}}})
     req = urllib.request.Request(_KONA.format(yr=year), headers={"User-Agent": "Mozilla/5.0", "X-Fantasy-Filter": flt})
@@ -105,6 +105,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     logging.disable(logging.CRITICAL)
     n = args.teams
     ranks, margins = [], []
+    match_acc = [0, 0]  # (picks, unmatched->scored 0)
     for slot in range(1, n + 1):
         for seed in range(args.seeds):
             random.seed(1000 * slot + seed)
@@ -121,7 +122,11 @@ def main(argv: Optional[List[str]] = None) -> int:
                 i = (pick["pick"] - 1) % n
                 rnd = (pick["pick"] - 1) // n + 1
                 s = n - i if rnd % 2 == 0 else i + 1
-                rosters[s].append({"pos": pick["position"], "pts": epts.get(name_key(pick["player_name"]), 0.0)})
+                k = name_key(pick["player_name"])
+                match_acc[0] += 1
+                if k not in epts:
+                    match_acc[1] += 1
+                rosters[s].append({"pos": pick["position"], "pts": epts.get(k, 0.0)})
             scores = {s: starters_points(r) for s, r in rosters.items()}
             my = scores.get(slot, 0.0)
             ranks.append(1 + sum(1 for s, v in scores.items() if s != slot and v > my))
@@ -130,6 +135,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     print(f"sims={len(ranks)} ({n} slots x {args.seeds} seeds) | opponents={'SHARP bots' if args.sharp else 'ADP+noise bots'} | scored by ESPN projections")
     print(f"advisor mean rank {np.mean(ranks):.2f} (field {(n + 1) / 2:.1f}) | median {np.median(ranks):.0f} | top-3 {np.mean([r <= 3 for r in ranks]):.0%} | bottom-3 {np.mean([r >= n - 2 for r in ranks]):.0%}")
     print(f"starters-points margin vs field avg: {np.mean(margins):+.0f}/season ({np.mean(margins) / 17:+.1f}/wk)")
+    print(f"picks scored 0-for-unmatched vs ESPN pool: {match_acc[1]}/{match_acc[0]} ({match_acc[1] / max(match_acc[0], 1):.1%})")
     return 0
 
 

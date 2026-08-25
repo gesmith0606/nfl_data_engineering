@@ -101,11 +101,17 @@ def load_registry_features(season: int, path: str = _REGISTRY) -> pd.DataFrame:
                 "position": pos,
                 "age": _age_on(rec.get("birth_date"), season),
                 "years_exp": rec.get("years_exp"),
+                "_active": str(rec.get("status") or "") == "Active",
             }
         )
     df = pd.DataFrame(rows)
-    # Active players first so a name collision resolves to the current one.
-    return df.drop_duplicates(["_name_key", "position"], keep="first")
+    # Active players first so a name collision resolves to the CURRENT one —
+    # enforced by an actual sort, not enumeration order (review 2026-08-24:
+    # a retired name-sake enumerating first gave an active rookie age 27).
+    df = df.sort_values("_active", ascending=False, kind="stable")
+    return df.drop_duplicates(["_name_key", "position"], keep="first").drop(
+        columns=["_active"]
+    )
 
 
 def load_prior_usage(season: int) -> pd.DataFrame:
@@ -287,7 +293,14 @@ def attach_features(board: pd.DataFrame, season: int) -> pd.DataFrame:
     if "player_id" in df.columns:
         prior = load_prior_usage(season)
         if not prior.empty:
-            df = df.merge(prior, on="player_id", how="left")
+            # validate: a multi-position player_id in usage would silently fan
+            # out board rows (none exist today — fail loudly if that changes).
+            df = df.merge(
+                prior.drop_duplicates("player_id"),
+                on="player_id",
+                how="left",
+                validate="m:1",
+            )
         vac = load_vacancy(season)
         if not vac.empty:
             df = df.merge(vac, on="player_id", how="left")

@@ -33,6 +33,11 @@ def roster_for(season):
     need = {"player_id","player_name","position","team"}
     if not need <= set(r.columns): return None
     r = r[r["position"].isin(["QB","RB","WR","TE"])].copy()
+    # Point-in-time legality (review 2026-08-24): the bronze roster is WEEKLY
+    # grain in arbitrary file order — keep each player's EARLIEST week so
+    # status/team approximate the Sept-1 state, not a post-trade/IR row.
+    if "week" in r.columns:
+        r = r.sort_values("week", kind="stable")
     if "years_exp" not in r.columns:
         ey = pd.to_numeric(r.get("entry_year"), errors="coerce")
         r["years_exp"] = (season - ey).clip(lower=0)
@@ -90,7 +95,7 @@ for Y in range(2021, 2026):
         proj = proj.copy(); proj["_k"] = proj.player_name.map(_nk)
         a2 = adp.copy(); a2["_k"] = a2.player_name.map(_nk)
         a2["adp_pos_rank"] = a2.groupby("position")["adp"].rank(method="first")
-        pos_rank = dict(zip(a2._k, a2.adp_pos_rank))
+        pos_rank = {(k, p): v for k, p, v in zip(a2._k, a2.position, a2.adp_pos_rank)}
         for pos, grp in proj.groupby("position"):
             w = float(W.get(pos, 0) or 0)
             if w <= 0:
@@ -99,7 +104,7 @@ for Y in range(2021, 2026):
             if len(curve) < 3:
                 continue
             for i in grp.index:
-                r = pos_rank.get(proj.at[i, "_k"])
+                r = pos_rank.get((proj.at[i, "_k"], proj.at[i, "position"]))
                 pts = proj.at[i, "projected_season_points"]
                 if r is None or not np.isfinite(pts):
                     continue
@@ -112,7 +117,8 @@ for Y in range(2021, 2026):
     # in the 2023 diag) that no real room contains — production suppresses them
     # via the consensus anchor + low-sample market filter, absent here.
     board_df = board_df[board_df["adp_rank"].notna()].reset_index(drop=True)
-    apts = dict(zip(act.player_name.map(name_key), act.actual_half_ppr))
+    apts = {(k, p): v for k, p, v in zip(act.player_name.map(name_key), act.position, act.actual_half_ppr)}
+    unmatched_scored = [0, 0]  # (picks, misses) accounting for 0-for-unmatched
     ranks, margins = [], []
     for slot in range(1,13):
         for seed in range(SEEDS):
@@ -127,7 +133,10 @@ for Y in range(2021, 2026):
             rosters = collections.defaultdict(list)
             for p in res["picks"]:
                 i=(p["pick"]-1)%12; rnd=(p["pick"]-1)//12+1; s = 12-i if rnd%2==0 else i+1
-                rosters[s].append({"pos": p["position"], "pts": float(apts.get(name_key(p["player_name"]), 0.0))})
+                key = (name_key(p["player_name"]), p["position"])
+                unmatched_scored[0] += 1
+                if key not in apts: unmatched_scored[1] += 1
+                rosters[s].append({"pos": p["position"], "pts": float(apts.get(key, 0.0))})
             scores = {s: starters_points(r) for s,r in rosters.items()}
             my = scores.get(slot,0.0)
             ranks.append(1+sum(1 for s,v in scores.items() if s!=slot and v>my))
@@ -136,6 +145,6 @@ for Y in range(2021, 2026):
     rows.append({"season":Y,"sims":len(ranks),"mean_rank":round(np.mean(ranks),2),
                  "top3":round(np.mean([r<=3 for r in ranks]),2),"bottom3":round(np.mean([r>=10 for r in ranks]),2),
                  "margin_pts":round(np.mean(margins),0)})
-    print(rows[-1], flush=True)
+    print(rows[-1], f"| picks scored 0-for-unmatched: {unmatched_scored[1]}/{unmatched_scored[0]} ({unmatched_scored[1]/max(unmatched_scored[0],1):.1%})", flush=True)
 print("\nPOOLED", len(pooled_ranks), "sims | scored by ACTUAL season results")
 print(f"mean rank {np.mean(pooled_ranks):.2f} (field 6.5) | median {np.median(pooled_ranks):.0f} | top-3 {np.mean([r<=3 for r in pooled_ranks]):.0%} | bottom-3 {np.mean([r>=10 for r in pooled_ranks]):.0%}")
