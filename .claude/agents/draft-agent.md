@@ -53,8 +53,9 @@ only in the final picks; starters before backups; price against the room's own A
   room clock — when you see it, verify the board manually before trusting a rec.
 
 ## Benchmarks (quote these, never the circular ones)
-- Historical replay, actual results, ADP-bot field: mean rank 5.64/12, above market 4 of 5
-  seasons (`scripts/draft_history_replay.py`).
+- Historical replay, actual results (`scripts/draft_history_replay.py`), pooled 2021-25 mean
+  rank of 12 — the anchored 2×2: ADP room 4.87 / sharp room **5.34** (anchored, production-style)
+  vs 5.64 / 6.30 unanchored. Beats both room types; 2025 (news-blind year) is the residual.
 - 2026 sim scored by ESPN's own projections: mean rank 4.3/12 vs ADP bots
   (`scripts/draft_sim_study.py`; add `--sharp` for the sharp-bot field — the harder test).
 - NEVER quote advisor-vs-field numbers scored by our own projections (rank 1 by construction).

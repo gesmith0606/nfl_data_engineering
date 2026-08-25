@@ -43,7 +43,8 @@ def roster_for(season):
 STATS = ["passing_yards","passing_tds","interceptions","rushing_yards","rushing_tds","carries",
          "receiving_yards","receiving_tds","receptions","targets"]
 SHARP = "--sharp" in sys.argv
-_args = [a for a in sys.argv[1:] if a != "--sharp"]
+ANCHOR = "--anchor" in sys.argv
+_args = [a for a in sys.argv[1:] if not a.startswith("--")]
 SEEDS = int(_args[0]) if _args else 2
 
 def usage(season):
@@ -80,6 +81,31 @@ for Y in range(2021, 2026):
     )
     adp = pd.read_csv(adp_path)
     adp["adp_rank"] = adp["adp"].rank(method="first")
+    if ANCHOR:
+        # Market anchor, replay-legal: blend model points toward the ADP-implied
+        # points curve (production consensus_anchor math; consensus = the
+        # season's real draft market). Per-position production blend weights.
+        from consensus_anchor import DEFAULT_CONSENSUS_WEIGHTS as W
+        from draft_optimizer import name_key as _nk
+        proj = proj.copy(); proj["_k"] = proj.player_name.map(_nk)
+        a2 = adp.copy(); a2["_k"] = a2.player_name.map(_nk)
+        a2["adp_pos_rank"] = a2.groupby("position")["adp"].rank(method="first")
+        pos_rank = dict(zip(a2._k, a2.adp_pos_rank))
+        for pos, grp in proj.groupby("position"):
+            w = float(W.get(pos, 0) or 0)
+            if w <= 0:
+                continue
+            curve = np.sort(grp["projected_season_points"].dropna().to_numpy())[::-1]
+            if len(curve) < 3:
+                continue
+            for i in grp.index:
+                r = pos_rank.get(proj.at[i, "_k"])
+                pts = proj.at[i, "projected_season_points"]
+                if r is None or not np.isfinite(pts):
+                    continue
+                implied = curve[min(int(r) - 1, len(curve) - 1)]
+                proj.at[i, "projected_season_points"] = (1 - w) * pts + w * implied
+        proj = proj.drop(columns=["_k"])
     board_df = compute_value_scores(proj, adp[["player_name","adp_rank","stdev"]], roster_format="espn_default", n_teams=12)
     # Room-universe filter: only players priced by that season's ADP. Without it
     # the heuristic pool offers retirees and 1-game artifacts (Gronk/AB/Wilkerson

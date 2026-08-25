@@ -134,7 +134,23 @@ and the production anchor prices in.
   mirror image of scoring ourselves with our own projections. Actuals are the only fair yardstick
   for the sharp benchmark.
 - Net claim allowed: **clear edge over average/ADP rooms (5.64), par against sharp rooms (6.30)** —
-  by actual results, 2021–25.
+  by actual results, 2021–25 — *unanchored*. See the anchored 2×2 below, which supersedes this.
+
+**Anchored replay 2×2 (2026-08-24, `draft_history_replay.py [--sharp] --anchor`):** the market anchor
+(production `consensus_anchor` math, consensus = the season's real ADP — replay-legal in every year)
+run against both room types, all scored by **actual season results**, pooled 2021–25 mean rank of 12:
+
+| | ADP room | Sharp room |
+|---|---|---|
+| Unanchored heuristic | 5.64 | 6.30 (par) |
+| **Anchored (production-style)** | **4.87** | **5.34** |
+
+Anchored vs sharp: top-3 40% (expectation 25%), bottom-3 18%; 2024 fixed outright (9.6 → 5.8);
+2025 remains the residual bad year (10.5) — the news-blind class the NEWS guard now covers live but
+which no historical snapshot can credit. **Allowed claim: the anchored stack beats both average and
+disciplined rooms on actual results, above the field in 4 of 5 seasons; its residual failure mode is
+August news, mitigated (not proven) by the NEWS guard.** This is the evidence that the production
+default — anchor ON — is load-bearing for drafting, not just for projection MAE.
 
 **News guard (2026-08-24, unback-testable by construction):** the latest daily Sleeper roster
 snapshot flags players not roster-Active (IR / PUP / Sus / unsigned) — `draft_value.load_roster_status`,
