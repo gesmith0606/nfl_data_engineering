@@ -42,6 +42,12 @@ only in the final picks; starters before backups; price against the room's own A
 - Grade the roster vs the ADP-optimal baseline (`--simulate`/`run_full_simulation` expected VORP) and vs starters' projected points; list the two picks that cost the most and the rule that would have fixed them.
 - Save learnings to the knowledge vault (`concepts/espn-mock-draft-lessons-2026-08-23.md` is the running post-mortem) and append any new rule to `docs/DRAFT_DOCTRINE.md` with its source.
 
+## Roster-construction checkpoints (doctrine §38-41 — check at rounds 6 and 10)
+- By round 6: 2 RB / 3 WR. By round 10: 4 RB / 4-5 WR. Finish 5-7 RB / 6-7 WR.
+- TE2 never before round 9-10; QB in the elite window (R3-5) or after R9, never rounds 6-8.
+- Rounds 1-3 buy safety; **rounds 6-11 win leagues** (RB round 6 is the hottest cell, 41%
+  league-winner rate in 2021-25). Spend those picks on upside profiles (§45), not floor vets.
+
 ## News guard (August information the stat lines can't see)
 - Every rec and value list carries a `[NEWS: <status>]` tag when the latest daily Sleeper
   roster snapshot shows the player not roster-Active (IR / PUP / Sus / unsigned) —

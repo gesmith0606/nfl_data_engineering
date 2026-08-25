@@ -73,6 +73,39 @@ parts marked **[impl]**.
 37. **Faded mid-tier producer = often real value.** Prior 13–24 positional producers hard-faded by the
     market beat their ADP 24% vs 15% base — the market overdoes those fades. Info tag, not scored.
 
+## 8c. Best-drafts research — where winning drafts actually come from (added 2026-08-24)
+Two sources: public league-winner/best-ball studies, and our own 2021–25 study
+(`scripts/draft_best_drafts_study.py`: FFC ADP vs actual half-PPR results, ADP ≤ 200).
+
+38. **Roster-count guardrails** (Underdog Best Ball Mania, all 5 years): by round 6 have 2 RB / 3 WR;
+    by round 10 have 4 RB / 4–5 WR; end with 5–7 RB / 6–7 WR. Zero-RB only works when the team still
+    finishes with 5–7 RBs (advance rate 22–23% vs 16.6% baseline; too few RBs underperforms). *(Underdog
+    Network; Establish The Run)*
+39. **TE timing**: 0–1 TE through round 9 was right every year; never a TE2 before round 9–10; a late TE3
+    dart is plus-EV in best ball. Our surplus map agrees from the other side: elite TE in rounds 1–2 paid
+    +20 pts over slot, TE round 8 cost −43. *(Underdog; our study)*
+40. **QB window**: QB1 by round 14 at the latest; round-4 elite QB paid +17 pts over slot in our data and
+    QBs are 7 of the 25 biggest value picks of 2021–25 (Cousins/Mahomes/Hurts '22, Lamar/Herbert/Daniels
+    '24, Lawrence '25) — but QB round 8 was the worst cell on the board (−61). Take the elite window
+    (R3–5) or wait past R9; never the middle. *(Underdog; our study)*
+41. **League-winners are found in rounds 6–11** (hit rate 15–18% vs ~1–2% rounds 1–3 — note the early
+    rounds are partly definitionally excluded; use surplus-vs-slot there instead). Hottest cells in our
+    data: **RB round 6 (41%)**, RB round 10 (+36 pts/slot), WR rounds 7–9 (25–30%), QB rounds 9–11.
+    Rounds 1–3 are for *not losing* (safety); rounds 6–11 are for *winning*. *(our study)*
+42. **RB capital decay**: top-5-overall RBs have been unprofitable 6 straight years; rounds 1–3 RBs fine;
+    round 4–5 RBs mostly underperform — the dead zone again, from an independent source. *(RotoViz Review 2026)*
+43. **Reaching is a measured tax**: 5+ spots above ADP loses points in aggregate — but the winning
+    high-stakes profile treats ADP as signal, not law, and spends 1–2 late picks on deliberate
+    high-variance swings; extreme-contrarian builds (bottom 5% usage) also lose. *(Underdog; Footballguys NFFC; PlayerProfiler)*
+44. **Stacking**: top high-stakes finishers carry ~3× the QB-WR stack rate of the field, aimed at weeks
+    15–17. **[impl]** `stack_note` already surfaces correlations — weight it up in tournament formats.
+45. **The iconic ADP-beaters' preseason profile** (Nacua, Achane, J. Robinson, Jefferson, A.J. Brown):
+    late/ambiguous role in a committee that resolved early, Day-2+ NFL capital or unheralded rookie,
+    ADP outside starter range, strong underlying efficiency — i.e., §29–31's breakout profile plus a
+    *role-resolution trigger*. Camp/beat news is the trigger the stat line can't see (§36's mirror).
+46. **2026 market note**: the field has pushed RBs up vs recent years — recalibrate to the room's live
+    ADP each season, never a static historical baseline. **[impl]** room-ADP refresh is already mandatory.
+
 ## 9. What the agent must output at every pick
 - **Cost of waiting by position** (best now vs expected at my next pick) — the strategic view. **[impl]** `position_wait_costs()`
 - **Top recommendations** by opportunity cost, respecting house rules. **[impl]**
