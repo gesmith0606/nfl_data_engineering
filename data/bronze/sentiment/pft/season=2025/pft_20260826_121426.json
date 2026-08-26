@@ -1,0 +1,591 @@
+{
+  "fetch_run_id": "6d74d21a-fd23-439e-b812-d7751092ad3c",
+  "source": "pft",
+  "fetched_at": "2026-08-26T12:14:26.957713+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-left-tackle-is-still-a-hot-spot-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-left-tackle-is-still-a-hot-spot-for-us",
+      "permalink": "",
+      "title": "Ben Johnson: Left tackle is still a hot spot for us",
+      "body_text": "The Bears opened training camp without certainty about their starter at left tackle and they have not put it to bed.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-26T11:53:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ben Johnson",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-jed-york-arrest-really-wasnt-a-topic-of-conversation-in-49ers-locker-room",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-jed-york-arrest-really-wasnt-a-topic-of-conversation-in-49ers-locker-room",
+      "permalink": "",
+      "title": "Fred Warner: Jed York arrest really wasn't a topic of conversation in 49ers' locker room",
+      "body_text": "49ers linebacker Fred Warner says the players aren't talking about team owner Jed York's arrest and subsequent no contest plea after he attempted to solicit prostitution.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-26T10:53:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fred Warner",
+        "Jed York"
+      ],
+      "resolved_player_ids": [
+        "00-0034815"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-coach-joey-mcguire-well-definitely-look-at-adding-a-player-cut-by-an-nfl-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-tech-coach-joey-mcguire-well-definitely-look-at-adding-a-player-cut-by-an-nfl-team",
+      "permalink": "",
+      "title": "Texas Tech coach Joey McGuire: We'll definitely look at adding a player cut by an NFL team",
+      "body_text": "\"I know this: I get to keep my job if I win, and so I'm gonna constantly look at how we can be better as a team, and be better roster-wise,\" McGuire said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-26T09:28:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Texas Tech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-bryce-young-is-our-franchise-qb-right-now-contract-is-up-to-front-office",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-bryce-young-is-our-franchise-qb-right-now-contract-is-up-to-front-office",
+      "permalink": "",
+      "title": "Dave Canales: Bryce Young is our franchise QB right now, contract is up to front office",
+      "body_text": "Young is eligible for a second contract but does not yet have one.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-26T08:10:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Canales",
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sell-gear-with-abandoned-name-logo-at-team-store",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sell-gear-with-abandoned-name-logo-at-team-store",
+      "permalink": "",
+      "title": "Commanders sell gear with abandoned name, logo at team store",
+      "body_text": "The Commanders' former name and logo are gone.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-26T01:39:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-trade-og-joshua-ezeudu-to-the-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-trade-og-joshua-ezeudu-to-the-chiefs",
+      "permalink": "",
+      "title": "Giants trade OG Joshua Ezeudu to the Chiefs",
+      "body_text": "The Giants traded offensive guard Joshua Ezeudu to the Chiefs on Tuesday night, Mike Garafolo of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-26T01:11:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joshua Ezeudu",
+        "Chiefs The",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0037807"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-jed-yorks-arrest-has-no-effect-on-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-jed-yorks-arrest-has-no-effect-on-us",
+      "permalink": "",
+      "title": "Kyle Shanahan: Jed York's arrest \"has no effect on us\"",
+      "body_text": "Shanahan insists owners legal issue won't be a distraction.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-26T00:08:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-contract-talks-are-frustrating",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-contract-talks-are-frustrating",
+      "permalink": "",
+      "title": "Christian Gonzalez: Contract talks are \"frustrating\"",
+      "body_text": "As the regular season approaches, the Patriots and cornerback Christian Gonzalez still don't have a new contract in place.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T23:50:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-big-10-block-return-of-nfl-players-to-member-schools",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-big-10-block-return-of-nfl-players-to-member-schools",
+      "permalink": "",
+      "title": "SEC, Big 10 block return of NFL players to member schools",
+      "body_text": "The chaos in college football is only getting more chaotic.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T23:34:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-aaron-donald-undecided-rams-prepping-for-53-player-rosters-with-and-without-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-aaron-donald-undecided-rams-prepping-for-53-player-rosters-with-and-without-him",
+      "permalink": "",
+      "title": "With Aaron Donald undecided, Rams prepping for 53-player rosters with and without him",
+      "body_text": "The Rams open the season in 16 days, and defensive tackle Aaron Donald still has not reached a decision about his return.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T22:57:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "With Aaron",
+        "The Rams",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-carson-wentz-split-second-team-reps-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-carson-wentz-split-second-team-reps-on-tuesday",
+      "permalink": "",
+      "title": "J.J. McCarthy, Carson Wentz split second-team reps on Tuesday",
+      "body_text": "If McCarthy slips to No. 3, he could be gone by Sunday's roster cuts.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T22:45:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Wentz"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daequan-wright-clears-waivers-paving-way-to-join-lsu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daequan-wright-clears-waivers-paving-way-to-join-lsu",
+      "permalink": "",
+      "title": "Dae'Quan Wright clears waivers, paving way to join LSU",
+      "body_text": "Dae'Quan Wright is going back to school.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T22:34:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quan Wright"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-remains-out-of-rams-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-remains-out-of-rams-practice",
+      "permalink": "",
+      "title": "Myles Garrett remains out of Rams' practice",
+      "body_text": "Rams pass rusher Myles Garrett remained out of practice Tuesday, the 12th practice he has missed with minor knee swelling.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T22:14:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-to-sign-de-derek-parish",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-to-sign-de-derek-parish",
+      "permalink": "",
+      "title": "Texans to sign DE Derek Parish",
+      "body_text": "The Texans lost defensive end Dylan Horton to a torn Achilles this week and they made a move to help fill in for him on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T21:33:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derek Parish",
+        "The Texans",
+        "Dylan Horton"
+      ],
+      "resolved_player_ids": [
+        "00-0038638",
+        "00-0039009"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-ot-d-j-humphries-to-a-one-year-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-sign-ot-d-j-humphries-to-a-one-year-deal",
+      "permalink": "",
+      "title": "Commanders sign OT D.J. Humphries to a one-year deal",
+      "body_text": "The Commanders signed offensive tackle D.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T21:25:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-wr-ryan-miller-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-wr-ryan-miller-off-waivers",
+      "permalink": "",
+      "title": "Dolphins claim WR Ryan Miller off waivers",
+      "body_text": "The Dolphins added a wide receiver to the roster on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T21:17:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Miller",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038824"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-place-s-bud-clark-ol-mason-richman-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-place-s-bud-clark-ol-mason-richman-on-ir",
+      "permalink": "",
+      "title": "Seahawks place S Bud Clark, OL Mason Richman on IR",
+      "body_text": "Seahawks head coach Mike Macdonald said on Sunday that safety Bud Clark and offensive lineman Mason Richman would miss extended time after suffering injuries in Seattle's preseason game against the Titans.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T20:54:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Clark",
+        "Mason Richman",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [
+        "00-0041463",
+        "00-0040652"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-lb-damone-clark-on-ir-sign-c-gus-hartwig",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-lb-damone-clark-on-ir-sign-c-gus-hartwig",
+      "permalink": "",
+      "title": "Lions place LB Damone Clark on IR, sign C Gus Hartwig",
+      "body_text": "The Lions placed veteran linebacker Damone Clark on injured reserve on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T20:47:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Damone Clark",
+        "Gus Hartwig",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0037281",
+        "00-0040401"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-laporta-returned-to-practice-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-laporta-returned-to-practice-on-tuesday",
+      "permalink": "",
+      "title": "Sam LaPorta returned to practice on Tuesday",
+      "body_text": "The Lions got one of their key offensive players back on the field on Tuesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-25T20:43:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wr-jeshaun-jones-suspended-three-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wr-jeshaun-jones-suspended-three-games",
+      "permalink": "",
+      "title": "Vikings WR Jeshaun Jones suspended three games",
+      "body_text": "Wide receiver Jeshaun Jones will find out whether he makes the cut to 53 players in Minnesota later this week, but he won't be playing in any of the team's first three games either way.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T20:43:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeshaun Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0039710"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-plans-to-go-out-there-and-be-myself-week-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-plans-to-go-out-there-and-be-myself-week-one",
+      "permalink": "",
+      "title": "Patrick Mahomes plans to \"go out there and be myself\" Week One",
+      "body_text": "Mahomes expects to play against the Broncos in the Monday Night Football opener.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-25T20:40:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Week One",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/under-joe-alias-jed-york-allegedly-contacted-prostitution-ad-multiple-times",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/under-joe-alias-jed-york-allegedly-contacted-prostitution-ad-multiple-times",
+      "permalink": "",
+      "title": "Under \"Joe\" alias, Jed York allegedly contacted prostitution ad multiple times",
+      "body_text": "More details inevitably will emerge regarding 49ers owner Jed York's recent arrest, and lickety-split no-contest plea, in Ohio.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T20:25:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-release-ol-foster-sarell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-release-ol-foster-sarell",
+      "permalink": "",
+      "title": "Commanders release OL Foster Sarell",
+      "body_text": "The Commanders have let go of an offensive lineman.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-25T20:25:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Foster Sarell",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036584"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-confirms-rb-ty-chandler-has-season-ending-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-confirms-rb-ty-chandler-has-season-ending-knee-injury",
+      "permalink": "",
+      "title": "Kellen Moore confirms RB Ty Chandler has season-ending knee injury",
+      "body_text": "Saints running back Ty Chandler will miss the entire season with a knee injury, coach Kellen Moore confirmed Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T20:20:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kellen Moore",
+        "Ty Chandler"
+      ],
+      "resolved_player_ids": [
+        "00-0029234",
+        "00-0037276"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-rt-darnell-wright-left-practice-with-possible-elbow-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-rt-darnell-wright-left-practice-with-possible-elbow-injury",
+      "permalink": "",
+      "title": "Bears RT Darnell Wright left practice with possible elbow injury",
+      "body_text": "Bears right tackle Darnell Wright's health is a concern after his early departure from practice on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T20:15:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darnell Wright"
+      ],
+      "resolved_player_ids": [
+        "00-0038932"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-says-hes-fine-after-hyperextending-his-knee",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-says-hes-fine-after-hyperextending-his-knee",
+      "permalink": "",
+      "title": "Ja'Marr Chase says he's \"fine\" after hyperextending his knee",
+      "body_text": "Bengals wide receiver Ja'Marr Chase gave the team a scare at practice on Tuesday, but it looks like that's all it was.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T20:05:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marr Chase"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-rookie-wr-matthew-henry",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-rookie-wr-matthew-henry",
+      "permalink": "",
+      "title": "Bucs sign rookie WR Matthew Henry",
+      "body_text": "The Buccaneers signed rookie wide receiver Matthew Henry on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T19:57:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Henry",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-dont-view-week-1-as-a-deadline-for-a-christian-gonzalez-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-dont-view-week-1-as-a-deadline-for-a-christian-gonzalez-deal",
+      "permalink": "",
+      "title": "Patriots don't view Week 1 as a deadline for a Christian Gonzalez deal",
+      "body_text": "Cornerback Christian Gonzalez returned to the practice field on Monday, but there hasn't been any sign that a contract extension with the team is imminent.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-25T19:50:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez",
+        "Cornerback Christian"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-agree-to-terms-with-olb-ron-stone-cut-wr-hakeem-butler",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-agree-to-terms-with-olb-ron-stone-cut-wr-hakeem-butler",
+      "permalink": "",
+      "title": "Broncos agree to terms with OLB Ron Stone, cut WR Hakeem Butler",
+      "body_text": "The Broncos agreed to terms with outside linebacker Ron Stone Jr., Parker Gabriel of The Denver Post reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-25T19:39:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ron Stone",
+        "Hakeem Butler",
+        "The Broncos",
+        "Ron Stone Jr",
+        "Parker Gabriel",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0039548",
+        "00-0035529"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-ashton-jeanty-is-on-the-mend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-ashton-jeanty-is-on-the-mend",
+      "permalink": "",
+      "title": "Klint Kubiak: Ashton Jeanty is on the mend",
+      "body_text": "The Raiders HC did not say much about Jeanty's injury after the RB exited Sunday's practice early.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-25T19:31:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "Ashton Jeanty",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}
