@@ -100,6 +100,96 @@ class TestLoadTeamRoster:
         assert resp.fallback_season == 2024
         assert len(resp.roster) >= 1
 
+    def test_live_corrections_join_on_player_name_only_roster(self):
+        """Corrections must apply when the roster lacks full_name (2026 vintage).
+
+        The 2026 seasonal roster parquet carries player_name but not
+        full_name; the original join required full_name and silently
+        dropped every correction (found 2026-08-27).
+        """
+        import pandas as pd
+
+        roster = pd.DataFrame(
+            {
+                "player_name": ["John Mover", "Stay Putson"],
+                "team": ["DEN", "KC"],
+                "position": ["DE", "WR"],
+                "status": ["ACT", "ACT"],
+            }
+        )
+        live = pd.DataFrame(
+            {
+                "name_key": ["john mover"],
+                "player_name": ["John Mover"],
+                "team": ["TEN"],
+                "position": ["DE"],
+                "status": ["Active"],
+                "is_free_agent": [False],
+            }
+        )
+        corrected, n = team_roster_service._apply_live_corrections(roster, live)
+        assert n == 1
+        assert (
+            corrected.loc[corrected["player_name"] == "John Mover", "team"].iloc[0]
+            == "TEN"
+        )
+
+    def test_preseason_forward_walk_serves_newest_roster(self, tmp_path):
+        """Preseason, a last-season request forward-walks to the newest roster.
+
+        Hermetic: temp _ROSTERS_ROOT with 2025 + 2026 partitions built from
+        the real 2024 file, and get_current_week patched to an off-season
+        source. Requesting 2025 must serve the 2026 vintage
+        (fallback_season == 2026); an explicit 2024-style deep-historical
+        request (here: a request 2 seasons back) must NOT be modernized.
+        """
+        import shutil
+
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        for season in (2024, 2025, 2026):
+            dst_dir = tmp_path / f"season={season}"
+            dst_dir.mkdir()
+            shutil.copy(src_file, dst_dir / src_file.name)
+
+        from web.api.models.schemas import CurrentWeekResponse
+
+        offseason = CurrentWeekResponse(season=2025, week=18, source="fallback")
+        with patch.object(team_roster_service, "_ROSTERS_ROOT", tmp_path), patch.object(
+            team_roster_service, "get_current_week", return_value=offseason
+        ):
+            walked = team_roster_service.load_team_roster("BUF", 2025, 18, "defense")
+            historical = team_roster_service.load_team_roster("BUF", 2024, 1, "defense")
+        assert walked.fallback is True
+        assert walked.fallback_season == 2026
+        assert historical.fallback is False
+        assert historical.fallback_season is None
+
+    def test_in_season_disables_forward_walk(self, tmp_path):
+        """Once the schedule says a game week is live, last season stays put."""
+        import shutil
+
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        for season in (2025, 2026):
+            dst_dir = tmp_path / f"season={season}"
+            dst_dir.mkdir()
+            shutil.copy(src_file, dst_dir / src_file.name)
+
+        from web.api.models.schemas import CurrentWeekResponse
+
+        in_season = CurrentWeekResponse(season=2026, week=3, source="schedule")
+        with patch.object(team_roster_service, "_ROSTERS_ROOT", tmp_path), patch.object(
+            team_roster_service, "get_current_week", return_value=in_season
+        ):
+            resp = team_roster_service.load_team_roster("BUF", 2025, 18, "defense")
+        assert resp.fallback is False
+        assert resp.fallback_season is None
+
     def test_unknown_team_raises(self):
         with pytest.raises(ValueError):
             team_roster_service.load_team_roster("ZZZ", 2024, 1, "all")
