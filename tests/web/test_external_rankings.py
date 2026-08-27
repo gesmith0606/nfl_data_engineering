@@ -1282,6 +1282,111 @@ def test_ftn_weekly_probe_skipped_out_of_season(
 
 
 @pytest.mark.unit
+def test_ftn_weekly_probe_skipped_on_season_mismatch(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Mid-season schedule for a DIFFERENT season than requested → no probe.
+
+    The second half of the guard: a caller asking for season=2025 while the
+    schedule says we're inside the 2026 season must not be served 2026
+    weekly ranks under a 2025 label.
+    """
+    from types import SimpleNamespace
+
+    import web.api.services.team_roster_service as trs
+
+    monkeypatch.setattr(
+        trs,
+        "get_current_week",
+        lambda today=None: SimpleNamespace(season=2026, week=3, source="schedule"),
+    )
+
+    seen_urls: List[str] = []
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        seen_urls.append(url)
+        return _FakeResponse({"count": 0, "players": []}, status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="ftn", limit=5, season=2025)
+
+    assert all("type=weekly" not in u for u in seen_urls)
+    assert result["players"] == []
+    assert result["stale"] is True
+
+
+# ---------------------------------------------------------------------------
+# Router-level contract: the /api/rankings endpoints must accept every source
+# the service layer (and the frontend's default query) knows about. The
+# router keeps its own hardcoded validation sets — this suite exists because
+# they silently drifted from the service registries once already (sharps,
+# caught in PR #88 review: the frontend's default multi-compare query 400'd,
+# blanking the whole Compare Sources page).
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+def test_router_validation_sets_cover_service_registries() -> None:
+    from web.api.routers import rankings as rankings_router
+
+    assert svc.VALID_SOURCES <= rankings_router.VALID_SOURCES, (
+        "router VALID_SOURCES is missing service sources: "
+        f"{svc.VALID_SOURCES - rankings_router.VALID_SOURCES}"
+    )
+    assert set(svc._MULTI_SOURCE_KEYS) <= rankings_router._VALID_MULTI_SOURCES, (
+        "router _VALID_MULTI_SOURCES is missing multi-compare sources: "
+        f"{set(svc._MULTI_SOURCE_KEYS) - rankings_router._VALID_MULTI_SOURCES}"
+    )
+    assert svc._VALID_SORT_KEYS <= rankings_router._VALID_SORT_BY, (
+        "router _VALID_SORT_BY is missing sort keys: "
+        f"{svc._VALID_SORT_KEYS - rankings_router._VALID_SORT_BY}"
+    )
+
+
+@pytest.mark.unit
+def test_router_multi_compare_accepts_frontend_default_sources(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The frontend's default sources query must not 400 at the router."""
+    import requests as _requests
+
+    from fastapi.testclient import TestClient
+
+    from web.api.main import app
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(_requests.ConnectionError("x")),
+    )
+    monkeypatch.setattr(svc, "_load_bronze_fantasypros", lambda **kw: None)
+
+    client = TestClient(app)
+    resp = client.get(
+        "/api/rankings/multi-compare",
+        params={"sources": "sleeper,espn,yahoo,draftsharks,ftn,sharps"},
+    )
+    assert resp.status_code == 200, resp.text
+    assert resp.json()["sources"] == [
+        "sleeper",
+        "espn",
+        "yahoo",
+        "draftsharks",
+        "ftn",
+        "sharps",
+    ]
+
+    # Single-source endpoints + the sources listing must know sharps too.
+    resp = client.get("/api/rankings/compare", params={"source": "sharps"})
+    assert resp.status_code == 200, resp.text
+    resp = client.get("/api/rankings/sources")
+    assert "sharps" in {row["source"] for row in resp.json()["sources"]}
+
+
+@pytest.mark.unit
 def test_load_adp_lookup_reads_ffc_csv(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

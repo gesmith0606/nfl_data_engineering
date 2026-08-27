@@ -471,12 +471,14 @@ def _parse_fp_partners_payload(
 ) -> List[Dict[str, Any]]:
     """Shape a FP partners API response into ranking rows.
 
-    Used for both the full ECR consensus (fantasypros source, no filters) and
+    Used for the full ECR consensus (fantasypros source, no filters),
     single-expert boards (ftn source, ``filters=<expert_id>`` — there the
     "consensus" collapses to that expert, so ``rank_ecr`` is their exact
-    rank). An empty ``players`` list is the normal state for an expert who
-    has not yet submitted ranks for the season (typically Jul-Aug) — callers
-    treat [] as a live-fetch miss and fall back.
+    rank), and small expert panels (sharps source,
+    ``filters=<id>:<id>:<id>`` — FP computes the consensus over just those
+    experts; verified live against consensus-rankings.php 2026-08-27). An
+    empty ``players`` list is the normal state for an expert who has not
+    submitted ranks — callers treat [] as a live-fetch miss and fall back.
     """
     players_raw = payload.get("players", []) or []
     rows: List[Dict[str, Any]] = []

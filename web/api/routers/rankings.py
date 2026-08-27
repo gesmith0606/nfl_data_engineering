@@ -20,6 +20,7 @@ VALID_SOURCES = {
     "consensus",
     "draftsharks",
     "ftn",
+    "sharps",
 }
 
 
@@ -125,7 +126,7 @@ def compare_rankings(
     return result
 
 
-_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo", "draftsharks", "ftn"}
+_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo", "draftsharks", "ftn", "sharps"}
 _VALID_SORT_BY = {
     "consensus",
     "ours",
@@ -134,6 +135,7 @@ _VALID_SORT_BY = {
     "yahoo",
     "draftsharks",
     "ftn",
+    "sharps",
 }
 
 
@@ -144,9 +146,10 @@ def multi_compare_rankings(
     limit: int = Query(50, ge=1, le=300, description="Max rows returned"),
     season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
     sources: str = Query(
-        "sleeper,espn,yahoo,draftsharks,ftn",
+        "sleeper,espn,yahoo,draftsharks,ftn,sharps",
         description=(
-            "Comma-separated subset of sleeper / espn / yahoo / draftsharks / ftn"
+            "Comma-separated subset of sleeper / espn / yahoo / draftsharks "
+            "/ ftn / sharps"
         ),
     ),
     sort_by: str = Query(

@@ -552,12 +552,38 @@ def fetch_draftsharks(
 # ---------------------------------------------------------------------------
 # FTN (Jeff Ratcliffe) via FantasyPros partners API
 # ---------------------------------------------------------------------------
+def _in_season_week(season: int) -> Optional[int]:
+    """Current NFL week if today falls inside a real game week of ``season``.
+
+    Mirrors the guard in the web service's ``_fetch_ftn_weekly``: only a
+    schedule-window match for the requested season counts — the
+    out-of-season fallback would otherwise point at last season's week 18.
+    Fail-open (returns None) if the web service stack is unimportable in
+    this environment.
+    """
+    try:
+        repo_root = os.path.join(os.path.dirname(__file__), "..")
+        if repo_root not in sys.path:
+            sys.path.insert(0, repo_root)
+        from web.api.services.team_roster_service import get_current_week
+
+        cur = get_current_week()
+        if cur.source == "schedule" and cur.season == season:
+            return int(cur.week)
+    except Exception as exc:  # noqa: BLE001 — cache refresh must fail open
+        logger.warning("Could not resolve in-season week: %s", exc)
+    return None
+
+
 def fetch_ftn(
     season: int = 2026, scoring: str = "half_ppr", limit: int = 300
 ) -> List[Dict[str, Any]]:
-    """Fetch Jeff Ratcliffe's draft board via the FP partners expert filter.
+    """Fetch Jeff Ratcliffe's board via the FP partners expert filter.
 
-    Empty until he submits ranks for the season (typically Jul-Aug).
+    His 2026 DRAFT board is subscriber-only at ftnfantasy.com, so the draft
+    fetch stays empty; in-season, this falls back to his FP weekly ranks
+    (mirroring the web service) so the committed cache — the website's tier-2
+    fallback when a live fetch blips — stays populated during the season.
     """
     scoring_type = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
     url = (
@@ -569,6 +595,18 @@ def fetch_ftn(
     resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
     resp.raise_for_status()
     rows = _parse_fp_partners_players(resp.json(), limit=limit)
+    if not rows:
+        week = _in_season_week(season)
+        if week is not None:
+            url = (
+                "https://partners.fantasypros.com/api/v1/consensus-rankings.php"
+                f"?sport=NFL&year={season}&week={week}&position=ALL&type=weekly"
+                f"&scoring={scoring_type}&filters={FTN_RATCLIFFE_EXPERT_ID}"
+            )
+            logger.info("FTN draft board empty — weekly probe: %s", url)
+            resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+            resp.raise_for_status()
+            rows = _parse_fp_partners_players(resp.json(), limit=limit)
     logger.info("Parsed %d FTN (Ratcliffe) rankings", len(rows))
     return rows
 
