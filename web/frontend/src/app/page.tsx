@@ -315,7 +315,7 @@ export default function MarketingHome() {
           One table. Ours graded.
         </SectionTitle>
         <SectionSub>
-          Our model’s ranks next to Sleeper, ESPN, Yahoo, Draft Sharks, FTN, and the 2025 accuracy podium — same players,
+          Our model’s ranks next to Sleeper, ESPN, Yahoo, Draft Sharks, FTN, and the 2025 accuracy podium (Sharps) — same players,
           same row, the gaps highlighted so you can see exactly where the consensus disagrees.
         </SectionSub>
         <div className='mt-10 flex flex-wrap justify-center gap-3.5'>
