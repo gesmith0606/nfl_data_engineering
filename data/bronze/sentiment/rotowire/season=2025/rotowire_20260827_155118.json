@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "93a3b57d-6e76-43a7-9586-b81d4321c586",
+  "source": "rotowire",
+  "fetched_at": "2026-08-27T15:51:18.057162+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634929",
+      "url": "https://www.rotowire.com//football/player/leonard-williams-10307",
+      "permalink": "",
+      "title": "Leonard Williams: Inks extension with Seahawks",
+      "body_text": "Williams has agreed to a three-year, $90 million contract extension with the Seahawks, Ian Rapoport of ESPN and NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T08:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Leonard Williams",
+        "Seahawks Williams",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0031933"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl634928",
+      "url": "https://www.rotowire.com//football/player/cedric-tillman-16706",
+      "permalink": "",
+      "title": "Cedric Tillman: Being released by Cleveland",
+      "body_text": "Tillman (undisclosed) is in line to be released by the Browns, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T07:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cedric Tillman",
+        "Cleveland Tillman",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0038979"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "nfl634927",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: To be activated from Active/PUP list",
+      "body_text": "Pierce (ankle) is slated to be activated from the Active/PUP list Thursday, Mike Chappell of Fox 59 News Indianapolis reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T07:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "Mike Chappell",
+        "News Indianapolis"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl634926",
+      "url": "https://www.rotowire.com//football/player/dk-metcalf-13424",
+      "permalink": "",
+      "title": "DK Metcalf: Agrees to restructured contract",
+      "body_text": "Metcalf (undisclosed) has agreed to a restructured contract with the Steelers, Field Yates of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T07:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl634924",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Expected to be full-go Week 1",
+      "body_text": "Kraft (knee) is expected to be \"full go\" for the Packers' Week 1 regular-season opener against the Vikings, Rob Demovsky of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-26T05:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "Rob Demovsky"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

@@ -1,0 +1,477 @@
+{
+  "fetch_run_id": "554a8b93-724c-45c1-a18a-dc60547c55ea",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-27T15:51:03.985485+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-leonard-williams-agree-to-three-year-90-million-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-leonard-williams-agree-to-three-year-90-million-extension",
+      "title": "Seahawks, Leonard Williams agree to three-year, $90 million extension",
+      "body_text": "Williams was previously entering the last year of his contract.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-27T14:56:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Leonard Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0031933"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-to-release-wr-cedric-tillman",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-to-release-wr-cedric-tillman",
+      "title": "Report: Browns to release WR Cedric Tillman",
+      "body_text": "Wide receiver Cedric Tillman's time with the Browns is coming to an end.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-27T14:49:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cedric Tillman"
+      ],
+      "resolved_player_ids": [
+        "00-0038979"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/al-riveron-returns-to-replay-review-role-with-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/al-riveron-returns-to-replay-review-role-with-nfl",
+      "title": "Al Riveron returns to replay-review role with NFL",
+      "body_text": "Al Riveron is back.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-27T14:48:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Al Riveron"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-ditches-the-pro-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-ditches-the-pro-bowl",
+      "title": "NFL ditches the Pro Bowl",
+      "body_text": "The league will instead name and honor an 88-player Pro Bowl team.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-26T21:05:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-activate-alec-pierce-off-pup-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-activate-alec-pierce-off-pup-list",
+      "title": "Colts activate Alec Pierce off PUP list",
+      "body_text": "The Colts are getting a key player back on the field.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-27T14:32:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alec Pierce",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-fine-reimbursement-system-would-have-saved-players-1-7-million-annually-in-recent-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-fine-reimbursement-system-would-have-saved-players-1-7-million-annually-in-recent-years",
+      "title": "New fine reimbursement system would have saved players $1.7 million annually in recent years",
+      "body_text": "For some violations, a 100-percent refund is available.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-27T14:17:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-will-keep-both-will-howard-drew-allar-on-the-53-player-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-will-keep-both-will-howard-drew-allar-on-the-53-player-roster",
+      "title": "Report: Steelers will keep both Will Howard, Drew Allar on the 53-player roster",
+      "body_text": "Mason Rudolph is the second-best quarterback on the Steelers' roster.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-22T21:22:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Howard",
+        "Drew Allar",
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0040203",
+        "00-0041565",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-free-up-18-million-in-cap-space-by-restructuring-dk-metcalfs-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-free-up-18-million-in-cap-space-by-restructuring-dk-metcalfs-contract",
+      "title": "Steelers free up $18 million in cap space by restructuring DK Metcalf's contract",
+      "body_text": "The Steelers were dead last in the NFL in available salary cap space for the 2026 season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-27T14:11:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-wr-tahj-washington",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-wr-tahj-washington",
+      "title": "Eagles sign WR Tahj Washington",
+      "body_text": "The Eagles made a change to their wide receiver group ahead of Sunday's deadline to cut rosters to 90 players.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-27T14:09:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tahj Washington",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039884"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-bars-first-year-players-who-sign-with-college-teams-from-returning-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-bars-first-year-players-who-sign-with-college-teams-from-returning-in-2026",
+      "title": "NFL bars first-year players who sign with college teams from returning in 2026",
+      "body_text": "Former NFL players who return to college will be free agents in 2027.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-26T20:38:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-rb-miles-sanders-was-arrested-for-dui-in-june",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-rb-miles-sanders-was-arrested-for-dui-in-june",
+      "title": "Free agent RB Miles Sanders was arrested for DUI in June",
+      "body_text": "Veteran running back Miles Sanders was arrested in Pennsylvania in June for driving under the influence of alcohol or drugs.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-27T14:01:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Miles Sanders",
+        "June Veteran"
+      ],
+      "resolved_player_ids": [
+        "00-0035243"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-says-illinois-still-has-an-opportunity-to-keep-the-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-says-illinois-still-has-an-opportunity-to-keep-the-bears",
+      "title": "Roger Goodell says Illinois still has an opportunity to keep the Bears",
+      "body_text": "“We want to make sure that Arlington Heights and Illinois have an opportunity, as well as Indiana, to put their best foot forward,\" Goodell said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-27T08:03:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "Arlington Heights"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lane-kiffin-lsu-instigated-fifth-year-lawsuit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lane-kiffin-lsu-instigated-fifth-year-lawsuit",
+      "title": "Report: Lane Kiffin, LSU instigated fifth-year lawsuit",
+      "body_text": "Some NFL teams could, if they wanted, accuse Kiffin and LSU of tortious interference.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-26T14:13:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lane Kiffin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-have-three-sportsbook-partners-no-prediction-market-deals-for-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-have-three-sportsbook-partners-no-prediction-market-deals-for-2026",
+      "title": "NFL will have three sportsbook partners, no prediction market deals for 2026",
+      "body_text": "Look at them yo-yos, that's the way you do it.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-27T13:38:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-jakobi-lane-is-like-odell-beckham-jr-deandre-hopkins-with-his-hands",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-jakobi-lane-is-like-odell-beckham-jr-deandre-hopkins-with-his-hands",
+      "title": "Lamar Jackson: Ja'Kobi Lane is like Odell Beckham Jr., DeAndre Hopkins with his hands",
+      "body_text": "Throughout training camp, reports out of Baltimore have indicated rookie receiver Ja'Kobi Lane could be a significant part of the Ravens' offense in the coming season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-27T13:47:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Kobi Lane",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0031235"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-admits-commanders-had-not-the-best-day-in-joint-practice-with-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-admits-commanders-had-not-the-best-day-in-joint-practice-with-ravens",
+      "title": "Jayden Daniels admits Commanders had \"not the best day\" in joint practice with Ravens",
+      "body_text": "The Commanders and the Ravens had a joint practice today that reporters on the scene described as an ugly performance from the Commanders' offense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-26T19:02:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Ravens The"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-is-looking-into-the-potential-acquisition-of-players-who-get-a-fifth-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-is-looking-into-the-potential-acquisition-of-players-who-get-a-fifth-year",
+      "title": "Bill Belichick is looking into the potential acquisition of players who get a fifth year",
+      "body_text": "Some schools, like Notre Dame, aren't exploring the addition of players from the class of 2022 who end up getting a fifth year of eligibility through the court system.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-23T17:12:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-oc-tommy-rees-well-have-open-dialogue-about-our-qb-choice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-oc-tommy-rees-well-have-open-dialogue-about-our-qb-choice",
+      "title": "Falcons OC Tommy Rees: We'll have open dialogue about our QB choice",
+      "body_text": "The Falcons' quarterback competition fully launched this week with Michael Penix's clearance for all phases of football work and the team will be under a time crunch to make their choice for Week 1.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-26T16:15:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tommy Rees",
+        "The Falcons",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-ive-said-everything-i-needed-to-say-about-my-lsu-jersey-number",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-ive-said-everything-i-needed-to-say-about-my-lsu-jersey-number",
+      "title": "Jayden Daniels: I've said everything I needed to say about my LSU jersey number",
+      "body_text": "Commanders quarterback Jayden Daniels does not want to talk about his battle with LSU about the school not retiring his jersey number.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-27T13:30:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-carson-wentz-split-second-team-reps-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-carson-wentz-split-second-team-reps-on-tuesday",
+      "title": "J.J. McCarthy, Carson Wentz split second-team reps on Tuesday",
+      "body_text": "If McCarthy slips to No. 3, he could be gone by Sunday's roster cuts.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-25T22:45:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Wentz"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-to-start-preseason-finale-michael-penix-jr-wont-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-to-start-preseason-finale-michael-penix-jr-wont-play",
+      "title": "Tua Tagovailoa to start preseason finale, Michael Penix Jr. won't play",
+      "body_text": "With Week 1 quickly approaching, at some point, Falcons head coach Kevin Stefanski will officially name a starting quarterback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-26T17:39:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Michael Penix Jr",
+        "With Week",
+        "Kevin Stefanski"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflpa-announce-greater-emphasis-on-five-player-safety-rules-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-nflpa-announce-greater-emphasis-on-five-player-safety-rules-this-season",
+      "title": "NFL, NFLPA announce \"greater emphasis\" on five player-safety rules this season",
+      "body_text": "The NFL and NFL Players Association released a joint statement on Wednesday concerning player health and safety violations.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-26T20:19:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zadarius-smith-retired-last-season-to-be-with-his-mother-before-she-died",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zadarius-smith-retired-last-season-to-be-with-his-mother-before-she-died",
+      "title": "Za'Darius Smith retired last season to be with his mother before she died",
+      "body_text": "Za'Darius Smith's retirement took the Eagles by surprise last season and the veteran outside linebacker explained the decision in his first press conference since coming out of retirement to join the Falcons.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-26T21:57:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-safety-rule-system-would-have-resulted-in-one-suspension-in-2024-and-one-in-2025",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-safety-rule-system-would-have-resulted-in-one-suspension-in-2024-and-one-in-2025",
+      "title": "New safety-rule system would have resulted in one suspension in 2024 and one in 2025",
+      "body_text": "The NFL and NFL Players Association have agreed to a new system aimed at enhancing player safety.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-27T02:30:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-rookie-patches-inch-nfl-closer-to-jersey-ads",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-rookie-patches-inch-nfl-closer-to-jersey-ads",
+      "title": "New rookie patches inch NFL closer to jersey ads",
+      "body_text": "In recent years, the NFL has added a jersey patch for players making their pro football debuts.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-26T16:24:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-ot-braden-smith-to-miss-time-with-plantar-fascia-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-ot-braden-smith-to-miss-time-with-plantar-fascia-injury",
+      "title": "Texans OT Braden Smith to miss time with plantar fascia injury",
+      "body_text": "The good news is that Texans offensive tackle Braden Smith avoided a season-ending foot injury when he needed to be carted off the field during Wednesday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-27T12:22:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Braden Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0034836"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-cam-skattebo-has-to-direct-infectious-energy-in-a-positive-way",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-cam-skattebo-has-to-direct-infectious-energy-in-a-positive-way",
+      "title": "John Harbaugh: Cam Skattebo has to direct \"infectious\" energy in a positive way",
+      "body_text": "Giants running back Cam Skattebo's playing style has won him a lot of admirers, but Wednesday's practice showed that there can sometimes be too much of a good thing.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-27T12:17:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-hits-in-joint-practice-a-chance-to-wake-up-for-regular-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-hits-in-joint-practice-a-chance-to-wake-up-for-regular-season",
+      "title": "Tucker Kraft: Hits in joint practice a chance to \"wake up\" for regular season",
+      "body_text": "There have been a number of instances when big hits in joint practices touch off fights, but that didn't happen in Green Bay on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-27T12:00:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tucker Kraft",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-seahawks-task-is-simple-keep-winning-and-get-another-super-bowl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-seahawks-task-is-simple-keep-winning-and-get-another-super-bowl",
+      "title": "Vinod Khosla: Seahawks' task is simple, keep winning and get another Super Bowl",
+      "body_text": "Vinod Khosla, who was approved on Wednesday as the next owner of the Seattle Seahawks, says his expectation for the defending champions is more of the same.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-27T09:18:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vinod Khosla",
+        "Super Bowl",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-we-want-the-pro-bowl-to-be-an-honor-without-an-exhibition-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-we-want-the-pro-bowl-to-be-an-honor-without-an-exhibition-game",
+      "title": "Roger Goodell: We want the Pro Bowl to be an honor without an exhibition game",
+      "body_text": "The NFL has had more than 100 Pro Bowlers in recent years because of players who were either too injured or disinterested in participating.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-27T01:48:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "Pro Bowl",
+        "Pro Bowlers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
