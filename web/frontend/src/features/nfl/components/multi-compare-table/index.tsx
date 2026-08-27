@@ -481,7 +481,7 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
           Sorted by{' '}
           <span className='font-medium'>
             {sortBy === 'consensus'
-              ? 'consensus (mean of Sleeper/ESPN/Yahoo/Draft Sharks/FTN)'
+              ? 'consensus (mean of Sleeper/ESPN/Yahoo/Draft Sharks/FTN/Sharps)'
               : sortBy === 'ours'
                 ? 'our rank'
                 : SOURCE_LABEL[sortBy as RankingSource]}

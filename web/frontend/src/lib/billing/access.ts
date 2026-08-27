@@ -52,7 +52,7 @@ export const PREMIUM_SURFACES = {
   'multi-compare': {
     title: 'Multi-Source Compare',
     description:
-      'Our projections side-by-side with ESPN, Sleeper, Yahoo, Draft Sharks, and FTN — with the deltas that matter.'
+      'Our projections side-by-side with ESPN, Sleeper, Yahoo, Draft Sharks, FTN, and the 2025 accuracy podium (Sharps) — with the deltas that matter.'
   },
   projections: {
     title: 'Full Projections',

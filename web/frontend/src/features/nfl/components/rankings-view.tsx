@@ -24,7 +24,7 @@ export function RankingsView({
     <PageContainer
       scrollable={false}
       pageTitle='Season Rankings'
-      pageDescription='Our season-long rankings — and how we compare to ESPN, Sleeper, Yahoo, Draft Sharks, and FTN'
+      pageDescription='Our season-long rankings — and how we compare to ESPN, Sleeper, Yahoo, Draft Sharks, FTN, and the 2025 accuracy podium (Sharps)'
     >
       <FadeIn>
         <Tabs defaultValue='ours' className='w-full'>
