@@ -20,6 +20,7 @@ VALID_SOURCES = {
     "consensus",
     "draftsharks",
     "ftn",
+    "sharps",
 }
 
 
@@ -27,7 +28,7 @@ VALID_SOURCES = {
 def get_external_rankings(
     source: str = Query(
         "sleeper",
-        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn",
+        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn / sharps",
     ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
@@ -41,7 +42,9 @@ def get_external_rankings(
     - **fantasypros**: FantasyPros ECR consensus
     - **espn**: ESPN fantasy rankings
     - **draftsharks**: Draft Sharks board (2024 FP draft-accuracy #1+#2 site)
-    - **ftn**: Jeff Ratcliffe / FTN (#1 multi-year FP draft accuracy)
+    - **ftn**: Jeff Ratcliffe / FTN (#1 multi-year FP draft accuracy; 2026
+      draft board is FTN-subscriber-only, serves his FP weekly ranks in-season)
+    - **sharps**: 2025 FP draft-accuracy podium consensus (Miller/Gianni/Shannep)
     - **consensus**: Hardcoded expert consensus top-50
     """
     if source not in VALID_SOURCES:
@@ -83,7 +86,7 @@ def get_external_rankings(
 def compare_rankings(
     source: str = Query(
         "sleeper",
-        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn",
+        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn / sharps",
     ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
@@ -123,7 +126,7 @@ def compare_rankings(
     return result
 
 
-_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo", "draftsharks", "ftn"}
+_VALID_MULTI_SOURCES = {"sleeper", "espn", "yahoo", "draftsharks", "ftn", "sharps"}
 _VALID_SORT_BY = {
     "consensus",
     "ours",
@@ -132,6 +135,7 @@ _VALID_SORT_BY = {
     "yahoo",
     "draftsharks",
     "ftn",
+    "sharps",
 }
 
 
@@ -142,9 +146,10 @@ def multi_compare_rankings(
     limit: int = Query(50, ge=1, le=300, description="Max rows returned"),
     season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
     sources: str = Query(
-        "sleeper,espn,yahoo,draftsharks,ftn",
+        "sleeper,espn,yahoo,draftsharks,ftn,sharps",
         description=(
-            "Comma-separated subset of sleeper / espn / yahoo / draftsharks / ftn"
+            "Comma-separated subset of sleeper / espn / yahoo / draftsharks "
+            "/ ftn / sharps"
         ),
     ),
     sort_by: str = Query(
@@ -237,8 +242,15 @@ def list_sources() -> dict:
                     ),
                     "ftn": (
                         "Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 "
-                        "multi-year draft-accuracy leaderboard; empty until he "
-                        "submits ranks for the season (typically Jul-Aug)"
+                        "multi-year draft-accuracy leaderboard; his 2026 draft "
+                        "board is subscriber-only at ftnfantasy.com, so this "
+                        "source is empty until the season starts, then serves "
+                        "his FantasyPros weekly ranks"
+                    ),
+                    "sharps": (
+                        "2025 FantasyPros draft-accuracy podium — Seth Miller "
+                        "(#1), Guilherme Gianni (#2), Marc Shannep (#5) — as a "
+                        "3-expert consensus board"
                     ),
                     "consensus": "Hardcoded expert consensus top-50 (always available)",
                 }.get(src, ""),

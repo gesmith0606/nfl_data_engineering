@@ -13,7 +13,7 @@ const COMPARE: MultiCompareResponse = {
   scoring_format: 'half_ppr',
   position_filter: null,
   season: 2026,
-  sources: ['sleeper', 'espn', 'yahoo', 'draftsharks', 'ftn'],
+  sources: ['sleeper', 'espn', 'yahoo', 'draftsharks', 'ftn', 'sharps'],
   sort_by: 'consensus',
   rank_basis: 'overall',
   source_labels: {},
@@ -34,6 +34,7 @@ const COMPARE: MultiCompareResponse = {
       yahoo_rank: 2,
       draftsharks_rank: 1,
       ftn_rank: null,
+      sharps_rank: null,
       our_pos_rank: 1,
       our_overall_rank: 1,
       sleeper_pos_rank: 1,
@@ -46,12 +47,15 @@ const COMPARE: MultiCompareResponse = {
       draftsharks_overall_rank: 1,
       ftn_pos_rank: null,
       ftn_overall_rank: null,
+      sharps_pos_rank: null,
+      sharps_overall_rank: null,
       our_projected_points: 21.4,
       rank_diff_vs_sleeper: 1,
       rank_diff_vs_espn: 2,
       rank_diff_vs_yahoo: 1,
       rank_diff_vs_draftsharks: 0,
-      rank_diff_vs_ftn: null
+      rank_diff_vs_ftn: null,
+      rank_diff_vs_sharps: null
     }
   ]
 };

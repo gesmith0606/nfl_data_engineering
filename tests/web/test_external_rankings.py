@@ -466,13 +466,21 @@ def test_multi_compare_envelope_shape(
     assert required_top.issubset(
         result.keys()
     ), f"missing top-level keys: {required_top - result.keys()}"
-    assert result["sources"] == ["sleeper", "espn", "yahoo", "draftsharks", "ftn"]
+    assert result["sources"] == [
+        "sleeper",
+        "espn",
+        "yahoo",
+        "draftsharks",
+        "ftn",
+        "sharps",
+    ]
     assert set(result["stale"].keys()) == {
         "sleeper",
         "espn",
         "yahoo",
         "draftsharks",
         "ftn",
+        "sharps",
     }
     assert result["sort_by"] == "consensus"
     assert "ours" in result["source_labels"]
@@ -1175,9 +1183,213 @@ def test_multi_compare_includes_draftsharks_and_ftn_columns(
     assert "rank_diff_vs_ftn" in alice
 
 
+# ---------------------------------------------------------------------------
+# sharps (2025 draft-accuracy podium) + FTN in-season weekly fallback
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+def test_sharps_live_fetch_happy_path(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Sharps source hits the FP partners multi-expert filter (podium IDs)."""
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        assert "partners.fantasypros.com" in url
+        assert f"filters={svc.SHARPS_EXPERT_IDS}" in url
+        assert "type=draft" in url
+        return _FakeResponse(_fake_ftn_partners_payload(n=8), status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="sharps", limit=5)
+
+    assert result["source"] == "sharps"
+    assert result["stale"] is False
+    assert len(result["players"]) == 5
+    assert result["players"][0]["player_name"] == "Player 0"
+
 
 @pytest.mark.unit
-def test_load_adp_lookup_reads_ffc_csv(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_ftn_falls_back_to_weekly_in_season(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Empty draft board + in-season schedule week → serves his weekly ranks."""
+    from types import SimpleNamespace
+
+    import web.api.services.team_roster_service as trs
+
+    monkeypatch.setattr(
+        trs,
+        "get_current_week",
+        lambda today=None: SimpleNamespace(season=2026, week=3, source="schedule"),
+    )
+
+    seen_urls: List[str] = []
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        seen_urls.append(url)
+        if "type=draft" in url:
+            return _FakeResponse({"count": 0, "players": []}, status_code=200)
+        assert "type=weekly" in url
+        assert "week=3" in url
+        assert f"filters={svc.FTN_RATCLIFFE_EXPERT_ID}" in url
+        return _FakeResponse(_fake_ftn_partners_payload(n=6), status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="ftn", limit=5)
+
+    assert len(seen_urls) == 2, "draft probe then weekly probe"
+    assert result["source"] == "ftn"
+    assert result["stale"] is False
+    assert len(result["players"]) == 5
+
+
+@pytest.mark.unit
+def test_ftn_weekly_probe_skipped_out_of_season(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Out of season (schedule fallback) the weekly probe must NOT fire —
+    it would serve last season's week-18 ranks under a draft-board label."""
+    from types import SimpleNamespace
+
+    import web.api.services.team_roster_service as trs
+
+    monkeypatch.setattr(
+        trs,
+        "get_current_week",
+        lambda today=None: SimpleNamespace(season=2025, week=18, source="fallback"),
+    )
+
+    seen_urls: List[str] = []
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        seen_urls.append(url)
+        return _FakeResponse({"count": 0, "players": []}, status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="ftn", limit=5)
+
+    assert all("type=weekly" not in u for u in seen_urls)
+    assert result["players"] == []
+    assert result["stale"] is True
+
+
+@pytest.mark.unit
+def test_ftn_weekly_probe_skipped_on_season_mismatch(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Mid-season schedule for a DIFFERENT season than requested → no probe.
+
+    The second half of the guard: a caller asking for season=2025 while the
+    schedule says we're inside the 2026 season must not be served 2026
+    weekly ranks under a 2025 label.
+    """
+    from types import SimpleNamespace
+
+    import web.api.services.team_roster_service as trs
+
+    monkeypatch.setattr(
+        trs,
+        "get_current_week",
+        lambda today=None: SimpleNamespace(season=2026, week=3, source="schedule"),
+    )
+
+    seen_urls: List[str] = []
+
+    def fake_get(url: str, timeout: int = 0, headers: Dict[str, str] | None = None):
+        seen_urls.append(url)
+        return _FakeResponse({"count": 0, "players": []}, status_code=200)
+
+    monkeypatch.setattr(svc.requests, "get", fake_get)
+
+    result = svc.compare_rankings(source="ftn", limit=5, season=2025)
+
+    assert all("type=weekly" not in u for u in seen_urls)
+    assert result["players"] == []
+    assert result["stale"] is True
+
+
+# ---------------------------------------------------------------------------
+# Router-level contract: the /api/rankings endpoints must accept every source
+# the service layer (and the frontend's default query) knows about. The
+# router keeps its own hardcoded validation sets — this suite exists because
+# they silently drifted from the service registries once already (sharps,
+# caught in PR #88 review: the frontend's default multi-compare query 400'd,
+# blanking the whole Compare Sources page).
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+def test_router_validation_sets_cover_service_registries() -> None:
+    from web.api.routers import rankings as rankings_router
+
+    assert svc.VALID_SOURCES <= rankings_router.VALID_SOURCES, (
+        "router VALID_SOURCES is missing service sources: "
+        f"{svc.VALID_SOURCES - rankings_router.VALID_SOURCES}"
+    )
+    assert set(svc._MULTI_SOURCE_KEYS) <= rankings_router._VALID_MULTI_SOURCES, (
+        "router _VALID_MULTI_SOURCES is missing multi-compare sources: "
+        f"{set(svc._MULTI_SOURCE_KEYS) - rankings_router._VALID_MULTI_SOURCES}"
+    )
+    assert svc._VALID_SORT_KEYS <= rankings_router._VALID_SORT_BY, (
+        "router _VALID_SORT_BY is missing sort keys: "
+        f"{svc._VALID_SORT_KEYS - rankings_router._VALID_SORT_BY}"
+    )
+
+
+@pytest.mark.unit
+def test_router_multi_compare_accepts_frontend_default_sources(
+    tmp_cache_dir: Path,
+    empty_projections: None,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The frontend's default sources query must not 400 at the router."""
+    import requests as _requests
+
+    from fastapi.testclient import TestClient
+
+    from web.api.main import app
+
+    monkeypatch.setattr(
+        svc.requests,
+        "get",
+        lambda *a, **kw: (_ for _ in ()).throw(_requests.ConnectionError("x")),
+    )
+    monkeypatch.setattr(svc, "_load_bronze_fantasypros", lambda **kw: None)
+
+    client = TestClient(app)
+    resp = client.get(
+        "/api/rankings/multi-compare",
+        params={"sources": "sleeper,espn,yahoo,draftsharks,ftn,sharps"},
+    )
+    assert resp.status_code == 200, resp.text
+    assert resp.json()["sources"] == [
+        "sleeper",
+        "espn",
+        "yahoo",
+        "draftsharks",
+        "ftn",
+        "sharps",
+    ]
+
+    # Single-source endpoints + the sources listing must know sharps too.
+    resp = client.get("/api/rankings/compare", params={"source": "sharps"})
+    assert resp.status_code == 200, resp.text
+    resp = client.get("/api/rankings/sources")
+    assert "sharps" in {row["source"] for row in resp.json()["sources"]}
+
+
+@pytest.mark.unit
+def test_load_adp_lookup_reads_ffc_csv(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     """Exact scoring file wins; overall + positional ADP both exposed; no file -> {}."""
     import pandas as pd
 
@@ -1198,7 +1410,10 @@ def test_load_adp_lookup_reads_ffc_csv(tmp_path: Path, monkeypatch: pytest.Monke
     assert lookup[svc._normalize_name("Alice")] == {"overall": 1.0, "positional": 1.0}
     assert lookup[svc._normalize_name("Bob")] == {"overall": 2.0, "positional": 1.0}
     # Second RB by ADP -> RB2 positional, overall 3.
-    assert lookup[svc._normalize_name("Carl Jr.")] == {"overall": 3.0, "positional": 2.0}
+    assert lookup[svc._normalize_name("Carl Jr.")] == {
+        "overall": 3.0,
+        "positional": 2.0,
+    }
 
 
 @pytest.mark.unit
@@ -1219,14 +1434,38 @@ def test_multi_compare_carries_real_adp_column(
         tmp_cache_dir,
         "sleeper",
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "external_rank": 1, "rank": 1},
-            {"player_name": "Bob", "position": "WR", "team": "DAL", "external_rank": 2, "rank": 2},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "external_rank": 1,
+                "rank": 1,
+            },
+            {
+                "player_name": "Bob",
+                "position": "WR",
+                "team": "DAL",
+                "external_rank": 2,
+                "rank": 2,
+            },
         ],
     )
     our_df = pd.DataFrame(
         [
-            {"player_name": "Alice", "position": "RB", "team": "KC", "our_rank": 1, "projected_points": 18.0},
-            {"player_name": "Bob", "position": "WR", "team": "DAL", "our_rank": 1, "projected_points": 12.5},
+            {
+                "player_name": "Alice",
+                "position": "RB",
+                "team": "KC",
+                "our_rank": 1,
+                "projected_points": 18.0,
+            },
+            {
+                "player_name": "Bob",
+                "position": "WR",
+                "team": "DAL",
+                "our_rank": 1,
+                "projected_points": 12.5,
+            },
         ]
     )
     monkeypatch.setattr(svc, "_load_our_projections", lambda **kw: our_df)
