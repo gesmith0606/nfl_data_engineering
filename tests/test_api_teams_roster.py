@@ -100,6 +100,170 @@ class TestLoadTeamRoster:
         assert resp.fallback_season == 2024
         assert len(resp.roster) >= 1
 
+    def test_live_corrections_join_on_player_name_only_roster(self):
+        """Corrections must apply when the roster lacks full_name (2026 vintage).
+
+        The 2026 seasonal roster parquet carries player_name but not
+        full_name; the original join required full_name and silently
+        dropped every correction (found 2026-08-27).
+        """
+        import pandas as pd
+
+        roster = pd.DataFrame(
+            {
+                "player_name": ["John Mover", "Stay Putson"],
+                "team": ["DEN", "KC"],
+                "position": ["DE", "WR"],
+                "status": ["ACT", "ACT"],
+            }
+        )
+        live = pd.DataFrame(
+            {
+                "name_key": ["john mover"],
+                "player_name": ["John Mover"],
+                "team": ["TEN"],
+                "position": ["DE"],
+                "status": ["Active"],
+                "is_free_agent": [False],
+            }
+        )
+        corrected, n = team_roster_service._apply_live_corrections(roster, live)
+        assert n == 1
+        assert (
+            corrected.loc[corrected["player_name"] == "John Mover", "team"].iloc[0]
+            == "TEN"
+        )
+
+    def test_preseason_forward_walk_serves_newest_roster(self, tmp_path):
+        """Preseason, a last-season request forward-walks to the newest roster.
+
+        Hermetic: temp _ROSTERS_ROOT with 2025 + 2026 partitions built from
+        the real 2024 file, and get_current_week patched to an off-season
+        source. Requesting (2025, 18) — the preseason proxy slice — must
+        serve the 2026 vintage (fallback_season == 2026). Two exemptions
+        verified: a deep-historical request (2 seasons back) and an
+        adjacent-season request for a NON-final week (2025 w5, i.e. a user
+        explicitly browsing last season's history) keep their vintage.
+        """
+        import shutil
+
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        for season in (2024, 2025, 2026):
+            dst_dir = tmp_path / f"season={season}"
+            dst_dir.mkdir()
+            shutil.copy(src_file, dst_dir / src_file.name)
+
+        from web.api.models.schemas import CurrentWeekResponse
+
+        offseason = CurrentWeekResponse(season=2025, week=18, source="fallback")
+        with patch.object(team_roster_service, "_ROSTERS_ROOT", tmp_path), patch.object(
+            team_roster_service, "get_current_week", return_value=offseason
+        ):
+            walked = team_roster_service.load_team_roster("BUF", 2025, 18, "defense")
+            historical = team_roster_service.load_team_roster("BUF", 2024, 1, "defense")
+            midseason_browse = team_roster_service.load_team_roster(
+                "BUF", 2025, 5, "defense"
+            )
+        assert walked.fallback is True
+        assert walked.fallback_season == 2026
+        assert historical.fallback is False
+        assert historical.fallback_season is None
+        assert midseason_browse.fallback is False
+        assert midseason_browse.fallback_season is None
+
+    def test_corrections_backstop_respects_week_guard(self, tmp_path):
+        """The live-corrections overlay must not modernize weeks 1-17 either.
+
+        Regression for the PR #90 review leak: with no season=2025
+        corrections partition and a season=2026 one present, an explicit
+        (2025, w5) historical browse had current-season corrections
+        overlaid — a player cut in the 2026 offseason silently vanished
+        from his (correct) 2025 roster, with no fallback flag. Player-level
+        assertions on both weeks: w5 keeps him, w18 (the proxy slice,
+        forward-walked) applies the correction.
+        """
+        import shutil
+
+        import pandas as pd
+
+        from web.api.models.schemas import CurrentWeekResponse
+
+        rosters_root = tmp_path / "rosters"
+        live_root = tmp_path / "rosters_live"
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        for season in (2025, 2026):
+            dst_dir = rosters_root / f"season={season}"
+            dst_dir.mkdir(parents=True)
+            shutil.copy(src_file, dst_dir / src_file.name)
+
+        # Pick a real player from the roster file to "cut" in 2026.
+        roster_df = pd.read_parquet(src_file)
+        name_col = "full_name" if "full_name" in roster_df.columns else "player_name"
+        victim = roster_df[
+            (roster_df["team"].astype(str).str.upper() == "BUF")
+            & (roster_df["status"].isin(["ACT"]))
+        ][name_col].iloc[0]
+
+        live_dir = live_root / "season=2026"
+        live_dir.mkdir(parents=True)
+        pd.DataFrame(
+            {
+                "name_key": [str(victim).lower().strip()],
+                "player_name": [victim],
+                "team": ["FA"],
+                "position": ["WR"],
+                "status": ["Inactive"],
+                "is_free_agent": [True],
+            }
+        ).to_parquet(live_dir / "sleeper_rosters_20260827_000000.parquet")
+
+        offseason = CurrentWeekResponse(season=2025, week=18, source="fallback")
+        with patch.object(
+            team_roster_service, "_ROSTERS_ROOT", rosters_root
+        ), patch.object(
+            team_roster_service, "_ROSTERS_LIVE_ROOT", live_root
+        ), patch.object(
+            team_roster_service, "get_current_week", return_value=offseason
+        ):
+            historical = team_roster_service.load_team_roster("BUF", 2025, 5, "all")
+            proxy = team_roster_service.load_team_roster("BUF", 2025, 18, "all")
+
+        historical_names = {p.player_name for p in historical.roster}
+        proxy_names = {p.player_name for p in proxy.roster}
+        assert victim in historical_names, "w5 historical browse lost the player"
+        assert historical.live_source is False
+        assert victim not in proxy_names, "w18 proxy should apply the 2026 cut"
+        assert proxy.live_source is True
+
+    def test_in_season_disables_forward_walk(self, tmp_path):
+        """Once the schedule says a game week is live, last season stays put."""
+        import shutil
+
+        src_dir = (
+            _PROJECT_ROOT / "data" / "bronze" / "players" / "rosters" / "season=2024"
+        )
+        src_file = sorted(src_dir.glob("rosters_*.parquet"))[-1]
+        for season in (2025, 2026):
+            dst_dir = tmp_path / f"season={season}"
+            dst_dir.mkdir()
+            shutil.copy(src_file, dst_dir / src_file.name)
+
+        from web.api.models.schemas import CurrentWeekResponse
+
+        in_season = CurrentWeekResponse(season=2026, week=3, source="schedule")
+        with patch.object(team_roster_service, "_ROSTERS_ROOT", tmp_path), patch.object(
+            team_roster_service, "get_current_week", return_value=in_season
+        ):
+            resp = team_roster_service.load_team_roster("BUF", 2025, 18, "defense")
+        assert resp.fallback is False
+        assert resp.fallback_season is None
+
     def test_unknown_team_raises(self):
         with pytest.raises(ValueError):
             team_roster_service.load_team_roster("ZZZ", 2024, 1, "all")

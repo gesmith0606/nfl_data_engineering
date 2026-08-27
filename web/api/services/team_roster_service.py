@@ -187,6 +187,55 @@ def _load_live_roster_corrections(season: int) -> Optional[pd.DataFrame]:
     return df
 
 
+def _upcoming_season_not_started() -> bool:
+    """True when today is NOT inside a scheduled game week (off/preseason).
+
+    ``get_current_week()`` returns ``source == "schedule"`` only when today
+    falls inside a real game window; every other source means the upcoming
+    season has not started (or we are between seasons). Used to gate the
+    preseason forward-walks so in-season historical queries are never
+    silently modernized. Fails closed (False) on any resolution error —
+    this path previously never touched the schedule parquet and must not
+    become a new way for roster requests to 500.
+    """
+    try:
+        return get_current_week().source != "schedule"
+    except Exception:  # noqa: BLE001 — degrade to no-walk, never raise
+        logger.warning("current-week resolution failed; preseason walk disabled")
+        return False
+
+
+def _load_next_season_corrections_if_preseason(
+    effective_season: int, forward_walk_ok: bool
+) -> Optional[pd.DataFrame]:
+    """Sleeper corrections from the NEXT season's partition, preseason only.
+
+    The daily refresh writes current-truth team assignments under the
+    UPCOMING season's partition once Sleeper rolls its league year (e.g.
+    ``season=2026`` from summer 2026). When the served roster vintage has
+    no corrections partition of its own, those newer corrections are
+    strictly more current than any roster row, so apply them forward —
+    a player traded in March shows on his new team, released players drop
+    off.
+
+    Scoped exactly like the roster forward-walk: ``forward_walk_ok`` is the
+    caller's composite gate (preseason AND the week-18 proxy request) —
+    without the week half, weeks 1-17 of last season kept their base
+    roster but still had current-season teams/drops overlaid, silently
+    modernizing historical browsing with no ``fallback`` flag. Also only
+    fires when ``effective_season + 1`` is the NEWEST corrections
+    partition on disk — a deep-historical roster (e.g. 2020) must never
+    have a mid-history partition (2021) smeared onto it, even if such
+    partitions exist someday.
+    """
+    if not forward_walk_ok:
+        return None
+    live_seasons = _available_seasons(_ROSTERS_LIVE_ROOT)
+    if not live_seasons or effective_season + 1 != max(live_seasons):
+        return None
+    return _load_live_roster_corrections(effective_season + 1)
+
+
 def _apply_live_corrections(
     roster_df: pd.DataFrame, live_df: pd.DataFrame
 ) -> Tuple[pd.DataFrame, int]:
@@ -203,15 +252,25 @@ def _apply_live_corrections(
         roster_df: nfl-data-py-sourced Bronze roster rows.
         live_df: Output of :func:`_load_live_roster_corrections`.
 
+    Known limitation: the join is name-keyed (Sleeper ids don't align
+    with nfl-data-py ids), so two players sharing an exact name receive
+    the same correction row. Accepted trade-off inherited from
+    refresh_rosters.py's name-keyed mapping pipeline.
+
     Returns:
         Tuple ``(corrected_df, correction_count)`` — the number of rows
         whose team or position was actually changed.
     """
-    if "full_name" not in roster_df.columns:
+    # Roster parquet vintages disagree on the name column: older snapshots
+    # carry ``full_name``, 2026+ seasonal snapshots only ``player_name``.
+    # Joining on a missing column silently no-ops every correction (found
+    # 2026-08-27: all 4,133 daily Sleeper corrections were being dropped).
+    name_col = "full_name" if "full_name" in roster_df.columns else "player_name"
+    if name_col not in roster_df.columns:
         return roster_df, 0
 
     df = roster_df.copy()
-    df["_name_key"] = df["full_name"].astype(str).str.lower().str.strip()
+    df["_name_key"] = df[name_col].astype(str).str.lower().str.strip()
 
     live = live_df.copy()
     if "name_key" not in live.columns:
@@ -241,16 +300,15 @@ def _apply_live_corrections(
     correction_count = 0
 
     # Team overrides
-    team_changed_mask = (
-        merged["_live_team"].notna() & (merged["team"] != merged["_live_team"])
+    team_changed_mask = merged["_live_team"].notna() & (
+        merged["team"] != merged["_live_team"]
     )
     correction_count += int(team_changed_mask.sum())
     merged.loc[team_changed_mask, "team"] = merged.loc[team_changed_mask, "_live_team"]
 
     # Position overrides
-    pos_changed_mask = (
-        merged["_live_position"].notna()
-        & (merged["position"] != merged["_live_position"])
+    pos_changed_mask = merged["_live_position"].notna() & (
+        merged["position"] != merged["_live_position"]
     )
     correction_count += int(pos_changed_mask.sum())
     merged.loc[pos_changed_mask, "position"] = merged.loc[
@@ -590,7 +648,10 @@ def _assign_offense_slot_hints(df: pd.DataFrame) -> pd.Series:
 
     # Two Ts become LT/RT (LT = highest snap), two Gs → LG/RG.
     # 2026 roster snapshots use 'OT' where earlier seasons used 'T'.
-    for depth_values, slot_pair in ((("T", "OT"), ["LT", "RT"]), (("G",), ["LG", "RG"])):
+    for depth_values, slot_pair in (
+        (("T", "OT"), ["LT", "RT"]),
+        (("G",), ["LG", "RG"]),
+    ):
         mask = df["depth_chart_position"].isin(depth_values)
         if not mask.any():
             continue
@@ -603,7 +664,9 @@ def _assign_offense_slot_hints(df: pd.DataFrame) -> pd.Series:
 
     # Backfill any OL slot still empty from generic-'OL' depth rows (2026
     # snapshots mark several starters, e.g. rookie tackles, as just 'OL').
-    open_slots = [s for s in ("LT", "RT", "LG", "RG", "C") if s not in set(hints.dropna())]
+    open_slots = [
+        s for s in ("LT", "RT", "LG", "RG", "C") if s not in set(hints.dropna())
+    ]
     if open_slots:
         pool_mask = df["depth_chart_position"].isin(_OL_DEPTH) & hints.isna()
         if pool_mask.any():
@@ -776,7 +839,8 @@ def _row_to_player(
         madden_rating, rating_detail = rating_lookup.rating_for(
             str(row.get("player_name") or ""),
             str(row.get("team") or ""),
-            _nan_to_none(row.get("depth_chart_position")) or str(row.get("position") or ""),
+            _nan_to_none(row.get("depth_chart_position"))
+            or str(row.get("position") or ""),
         )
     return RosterPlayer(
         player_id=str(row.get("player_id") or ""),
@@ -818,6 +882,40 @@ def load_team_roster(
         raise ValueError(f"invalid side: {side!r}")
 
     roster_df, effective_season = _load_rosters(season)
+
+    # Preseason forward-walk (2026-08-27): before the new season's first
+    # game, week resolution still points at LAST season's final populated
+    # week (season N-1, week 18), so roster views served year-old rosters —
+    # every offseason mover on his old team, rookies missing entirely. When
+    # a NEWER season's roster parquet exists (the post-draft nflverse
+    # seasonal snapshot) and that season has not started yet, serve it
+    # instead: preseason, the newest roster is the current-truth picture
+    # the matchup/field views want. Guards, in order:
+    #   - newest == effective + 1: only last season is ever walked; deep-
+    #     historical queries (2024 and older) always keep their vintage.
+    #   - week == _REG_SEASON_MAX_WEEK: the preseason "now" proxy is always
+    #     last season's FINAL week (both get_current_week's fallbacks and
+    #     the frontend's useWeekParams resolve there), so only that week
+    #     walks. Explicitly browsing last season's weeks 1-17 keeps the
+    #     historical roster. (Known, documented sacrifice: explicitly
+    #     browsing last season's week 18 during preseason shows current
+    #     rosters — indistinguishable from the proxy request.)
+    #   - preseason only: once the new season starts, get_current_week()
+    #     resolves via the schedule and the walk is disabled, so in-season
+    #     historical browsing is never silently modernized.
+    newest_season = max(_available_seasons(_ROSTERS_ROOT), default=effective_season)
+    # One composite gate shared by BOTH forward-walks (roster parquet and
+    # the corrections backstop below): preseason, and this request is the
+    # week-18 "now" proxy. Weeks 1-17 must stay historical on every layer —
+    # base roster AND live overlay — or the overlay silently modernizes
+    # (drops/reassigns) players on a roster the walk correctly preserved.
+    proxy_walk_ok = _upcoming_season_not_started() and week == _REG_SEASON_MAX_WEEK
+    if newest_season == effective_season + 1 and proxy_walk_ok:
+        try:
+            roster_df, effective_season = _load_rosters(newest_season)
+        except FileNotFoundError:  # pragma: no cover — dir listed but empty
+            pass
+
     fallback = effective_season != season
     fallback_season = effective_season if fallback else None
 
@@ -827,6 +925,10 @@ def load_team_roster(
     # When no live parquet exists (fresh install, upstream outage), fall
     # back silently to the raw nfl-data-py snapshot.
     live_df = _load_live_roster_corrections(effective_season)
+    if live_df is None:
+        live_df = _load_next_season_corrections_if_preseason(
+            effective_season, forward_walk_ok=proxy_walk_ok
+        )
     live_source = False
     if live_df is not None:
         roster_df, correction_count = _apply_live_corrections(roster_df, live_df)
@@ -900,9 +1002,7 @@ def load_team_roster(
             _add_rating_column(def_df)
             def_hints = _assign_defense_slot_hints(def_df)
             for idx, row in def_df.iterrows():
-                players.append(
-                    _row_to_player(row, def_hints.get(idx), rating_lookup)
-                )
+                players.append(_row_to_player(row, def_hints.get(idx), rating_lookup))
 
     # Stable sort: slotted first, then by depth_chart_position alphabetically, then snap pct desc
     def _sort_key(p: RosterPlayer) -> Tuple[int, str, float]:

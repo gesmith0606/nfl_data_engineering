@@ -1393,7 +1393,8 @@ class MockDraftReportSummary(BaseModel):
     floor_sum: Optional[float] = None
     ceiling_sum: Optional[float] = None
     letter_grade: str = Field(
-        ..., description="Reuses src.draft_optimizer._pick_grade -- single source of truth"
+        ...,
+        description="Reuses src.draft_optimizer._pick_grade -- single source of truth",
     )
     grade_notes: List[str] = Field(default_factory=list)
 
@@ -1512,7 +1513,10 @@ class TeamRosterResponse(BaseModel):
         description=(
             "True when season/week were not supplied and the service resolved them "
             "from the latest schedule/roster parquet. Distinct from ``fallback`` which "
-            "indicates the requested season had no roster data so an older one was used."
+            "indicates a different season's roster was served: an older one when the "
+            "requested season had no roster data (walk-back), or — preseason only — "
+            "the upcoming season's roster in place of last season's final week "
+            "(forward-walk, so the field view shows current teams)."
         ),
     )
     live_source: bool = Field(

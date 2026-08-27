@@ -1275,7 +1275,9 @@ export function MatchupView() {
           defMetrics: selDefenseMetricsData
         };
 
-  // Fallback banner: any API response had to walk back to a prior season.
+  // Fallback banner: any API response served a different season than
+  // requested — walk-back (requested season unpublished) or, preseason,
+  // the roster forward-walk (current rosters served over last season's).
   const anyFallback = Boolean(
     offenseRosterData?.fallback ||
       defenseRosterData?.fallback ||
@@ -1361,12 +1363,15 @@ export function MatchupView() {
         />
       )}
 
-      {/* Fallback banner */}
+      {/* Fallback banner — direction-aware: a forward-walk (fallbackSeason
+       *  NEWER than the selected season) means current rosters are shown
+       *  ahead of kickoff; a walk-back means the selected season has no
+       *  published data yet. */}
       {anyFallback && (
         <div className='rounded-lg border border-[color-mix(in_oklch,var(--warn)_30%,transparent)] bg-[color-mix(in_oklch,var(--warn)_8%,transparent)] px-[var(--space-3)] py-[var(--space-2)] text-[length:var(--fs-xs)] leading-[var(--lh-xs)] text-[var(--warn)]'>
-          Showing data from the most recent available season
-          {fallbackSeason ? ` (${fallbackSeason})` : ''} — current-season data is not yet
-          published.
+          {fallbackSeason && fallbackSeason > resolvedSeason
+            ? `Showing current ${fallbackSeason} rosters ahead of kickoff — last season's stats and context fill in the rest.`
+            : `Showing data from the most recent available season${fallbackSeason ? ` (${fallbackSeason})` : ''} — current-season data is not yet published.`}
         </div>
       )}
 
