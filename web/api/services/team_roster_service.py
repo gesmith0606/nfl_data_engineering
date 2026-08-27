@@ -194,16 +194,19 @@ def _upcoming_season_not_started() -> bool:
     falls inside a real game window; every other source means the upcoming
     season has not started (or we are between seasons). Used to gate the
     preseason forward-walks so in-season historical queries are never
-    silently modernized.
+    silently modernized. Fails closed (False) on any resolution error —
+    this path previously never touched the schedule parquet and must not
+    become a new way for roster requests to 500.
     """
     try:
         return get_current_week().source != "schedule"
-    except FileNotFoundError:
+    except Exception:  # noqa: BLE001 — degrade to no-walk, never raise
+        logger.warning("current-week resolution failed; preseason walk disabled")
         return False
 
 
 def _load_next_season_corrections_if_preseason(
-    effective_season: int,
+    effective_season: int, preseason: bool
 ) -> Optional[pd.DataFrame]:
     """Sleeper corrections from the NEXT season's partition, preseason only.
 
@@ -213,9 +216,18 @@ def _load_next_season_corrections_if_preseason(
     no corrections partition of its own, those newer corrections are
     strictly more current than any roster row, so apply them forward —
     a player traded in March shows on his new team, released players drop
-    off. Same preseason guard as the roster forward-walk.
+    off.
+
+    Scoped like the roster forward-walk: only fires when ``effective_season
+    + 1`` is the NEWEST corrections partition on disk — a deep-historical
+    roster (e.g. 2020) must never have a mid-history partition (2021)
+    smeared onto it, even if such partitions exist someday. ``preseason``
+    is computed once by the caller (same guard as the roster walk).
     """
-    if not _upcoming_season_not_started():
+    if not preseason:
+        return None
+    live_seasons = _available_seasons(_ROSTERS_LIVE_ROOT)
+    if not live_seasons or effective_season + 1 != max(live_seasons):
         return None
     return _load_live_roster_corrections(effective_season + 1)
 
@@ -235,6 +247,11 @@ def _apply_live_corrections(
     Args:
         roster_df: nfl-data-py-sourced Bronze roster rows.
         live_df: Output of :func:`_load_live_roster_corrections`.
+
+    Known limitation: the join is name-keyed (Sleeper ids don't align
+    with nfl-data-py ids), so two players sharing an exact name receive
+    the same correction row. Accepted trade-off inherited from
+    refresh_rosters.py's name-keyed mapping pipeline.
 
     Returns:
         Tuple ``(corrected_df, correction_count)`` — the number of rows
@@ -864,19 +881,31 @@ def load_team_roster(
 
     # Preseason forward-walk (2026-08-27): before the new season's first
     # game, week resolution still points at LAST season's final populated
-    # week, so roster views served year-old rosters — every offseason mover
-    # on his old team, rookies missing entirely. When a NEWER season's
-    # roster parquet exists (the post-draft nflverse seasonal snapshot) and
-    # that season has not started yet, serve it instead: preseason, the
-    # newest roster is the current-truth picture the matchup/field views
-    # want. Once the new season starts, get_current_week() resolves via the
-    # schedule and the guard disables the walk, so in-season historical
-    # browsing is never silently modernized. Restricted to LAST season only
-    # (newest == effective + 1): last season's weeks are the preseason "now"
-    # proxy every defaulted view resolves to, while explicit deep-historical
-    # queries (2024 and older) must keep their own vintage.
+    # week (season N-1, week 18), so roster views served year-old rosters —
+    # every offseason mover on his old team, rookies missing entirely. When
+    # a NEWER season's roster parquet exists (the post-draft nflverse
+    # seasonal snapshot) and that season has not started yet, serve it
+    # instead: preseason, the newest roster is the current-truth picture
+    # the matchup/field views want. Guards, in order:
+    #   - newest == effective + 1: only last season is ever walked; deep-
+    #     historical queries (2024 and older) always keep their vintage.
+    #   - week == _REG_SEASON_MAX_WEEK: the preseason "now" proxy is always
+    #     last season's FINAL week (both get_current_week's fallbacks and
+    #     the frontend's useWeekParams resolve there), so only that week
+    #     walks. Explicitly browsing last season's weeks 1-17 keeps the
+    #     historical roster. (Known, documented sacrifice: explicitly
+    #     browsing last season's week 18 during preseason shows current
+    #     rosters — indistinguishable from the proxy request.)
+    #   - preseason only: once the new season starts, get_current_week()
+    #     resolves via the schedule and the walk is disabled, so in-season
+    #     historical browsing is never silently modernized.
     newest_season = max(_available_seasons(_ROSTERS_ROOT), default=effective_season)
-    if newest_season == effective_season + 1 and _upcoming_season_not_started():
+    preseason = _upcoming_season_not_started()
+    if (
+        newest_season == effective_season + 1
+        and week == _REG_SEASON_MAX_WEEK
+        and preseason
+    ):
         try:
             roster_df, effective_season = _load_rosters(newest_season)
         except FileNotFoundError:  # pragma: no cover — dir listed but empty
@@ -892,7 +921,9 @@ def load_team_roster(
     # back silently to the raw nfl-data-py snapshot.
     live_df = _load_live_roster_corrections(effective_season)
     if live_df is None:
-        live_df = _load_next_season_corrections_if_preseason(effective_season)
+        live_df = _load_next_season_corrections_if_preseason(
+            effective_season, preseason=preseason
+        )
     live_source = False
     if live_df is not None:
         roster_df, correction_count = _apply_live_corrections(roster_df, live_df)

@@ -139,9 +139,11 @@ class TestLoadTeamRoster:
 
         Hermetic: temp _ROSTERS_ROOT with 2025 + 2026 partitions built from
         the real 2024 file, and get_current_week patched to an off-season
-        source. Requesting 2025 must serve the 2026 vintage
-        (fallback_season == 2026); an explicit 2024-style deep-historical
-        request (here: a request 2 seasons back) must NOT be modernized.
+        source. Requesting (2025, 18) — the preseason proxy slice — must
+        serve the 2026 vintage (fallback_season == 2026). Two exemptions
+        verified: a deep-historical request (2 seasons back) and an
+        adjacent-season request for a NON-final week (2025 w5, i.e. a user
+        explicitly browsing last season's history) keep their vintage.
         """
         import shutil
 
