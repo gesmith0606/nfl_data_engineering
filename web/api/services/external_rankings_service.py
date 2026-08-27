@@ -8,8 +8,13 @@ Supported sources:
     FantasyPros draft-accuracy contest, three analysts in the 2022-2024
     multi-year top 10; free HTML endpoint)
   - FTN / Jeff Ratcliffe (#1 on FantasyPros' 2022-2024 multi-year draft-accuracy
-    leaderboard; served via the FantasyPros partners API expert filter — empty
-    until he submits ranks for the season, typically Jul-Aug)
+    leaderboard; served via the FantasyPros partners API expert filter. His 2026
+    DRAFT board went subscriber-only at ftnfantasy.com and is absent from FP,
+    so the draft fetch is empty — the source falls back to his FP weekly ranks
+    once the season starts, which he submitted all through 2025)
+  - sharps (2025 FantasyPros draft-accuracy podium still submitting boards in
+    2026 — Seth Miller #1, Guilherme Gianni #2, Marc Shannep #5 — served as a
+    3-expert consensus via the FP partners multi-expert filter)
   - consensus (average of the original three, skipping sources that returned
     nothing)
 
@@ -89,6 +94,22 @@ FP_PARTNERS_RANKINGS_URL = FP_PARTNERS_CONSENSUS_URL + "&filters={expert_id}"
 # Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 multi-year draft-accuracy
 # leaderboard. ID verified against expert-groups.php (year=2025).
 FTN_RATCLIFFE_EXPERT_ID = 125
+# In-season weekly rankings for a single expert. Ratcliffe stopped submitting
+# DRAFT ranks to FP in 2026 (his board is subscriber-only at ftnfantasy.com)
+# but submitted weekly ranks all through 2025 — when his draft filter comes
+# back empty, the ftn source probes his weekly ranks for the current NFL week.
+FP_PARTNERS_WEEKLY_URL = (
+    "https://partners.fantasypros.com/api/v1/consensus-rankings.php"
+    "?sport=NFL&year={season}&week={week}&position=ALL&type=weekly"
+    "&scoring={scoring_type}&filters={expert_id}"
+)
+# 2025 FantasyPros draft-accuracy podium finishers still submitting draft
+# boards in 2026: Seth Miller (Crossroads Fantasy Football, #1), Guilherme
+# Gianni (Fantasy Futebolista, #2), Marc Shannep (Fantasy Knockout, #5).
+# IDs verified against expert-groups.php (year=2026, type=draft) on
+# 2026-08-27. Jody Smith (#9 in 2025 and the multi-year champ) is not in the
+# 2026 FP pool — his board is already served by the draftsharks source.
+SHARPS_EXPERT_IDS = "2743:4179:1080"
 
 FANTASY_POSITIONS = {"QB", "RB", "WR", "TE", "K"}
 REQUEST_TIMEOUT = 30
@@ -99,6 +120,7 @@ VALID_SOURCES = {
     "consensus",
     "draftsharks",
     "ftn",
+    "sharps",
 }
 
 # User-Agent to avoid basic bot detection. Never includes API keys.
@@ -484,6 +506,40 @@ def _parse_fp_partners_payload(
     return rows
 
 
+def _fetch_ftn_weekly(
+    season: int, scoring_type: str, limit: int
+) -> Optional[List[Dict[str, Any]]]:
+    """Probe Ratcliffe's FP weekly ranks for the current in-season week.
+
+    Only fires when the schedule places today inside an actual game week of
+    the requested season (``get_current_week().source == "schedule"``) — the
+    out-of-season fallback path would otherwise serve last season's week-18
+    ranks under a draft-board label. Returns None out of season, when the
+    week cannot be resolved, or when he has not submitted that week.
+    """
+    try:
+        # Local import: team_roster_service imports pandas-heavy modules and
+        # this service must stay importable without them at module load.
+        from web.api.services.team_roster_service import get_current_week
+
+        current = get_current_week()
+        if current.source != "schedule" or current.season != season:
+            return None
+        url = FP_PARTNERS_WEEKLY_URL.format(
+            season=season,
+            week=current.week,
+            scoring_type=scoring_type,
+            expert_id=FTN_RATCLIFFE_EXPERT_ID,
+        )
+        resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+        resp.raise_for_status()
+        rows = _parse_fp_partners_payload(resp.json(), limit=limit)
+        return rows or None
+    except Exception as exc:  # noqa: BLE001 — mirror _fetch_live: never raise
+        logger.warning("FTN weekly probe failed: %s", exc)
+        return None
+
+
 def _fetch_live(
     source: str,
     season: int = 2026,
@@ -571,6 +627,23 @@ def _fetch_live(
                 season=season,
                 scoring_type=scoring_type,
                 expert_id=FTN_RATCLIFFE_EXPERT_ID,
+            )
+            resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+            resp.raise_for_status()
+            rows = _parse_fp_partners_payload(resp.json(), limit=limit)
+            if rows:
+                return rows
+            # 2026: no FP draft board — probe his in-season weekly ranks.
+            return _fetch_ftn_weekly(
+                season=season, scoring_type=scoring_type, limit=limit
+            )
+
+        if source == "sharps":
+            scoring_type = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
+            url = FP_PARTNERS_RANKINGS_URL.format(
+                season=season,
+                scoring_type=scoring_type,
+                expert_id=SHARPS_EXPERT_IDS,
             )
             resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
             resp.raise_for_status()
@@ -1181,6 +1254,7 @@ _MULTI_SOURCE_KEYS: Tuple[str, ...] = (
     "yahoo",
     "draftsharks",
     "ftn",
+    "sharps",
 )
 _MULTI_SOURCE_INTERNAL: Dict[str, str] = {
     "sleeper": "sleeper",
@@ -1188,6 +1262,7 @@ _MULTI_SOURCE_INTERNAL: Dict[str, str] = {
     "yahoo": "fantasypros",
     "draftsharks": "draftsharks",
     "ftn": "ftn",
+    "sharps": "sharps",
 }
 _MULTI_SOURCE_LABELS: Dict[str, str] = {
     "ours": "Our projections",
@@ -1196,6 +1271,7 @@ _MULTI_SOURCE_LABELS: Dict[str, str] = {
     "yahoo": "Yahoo via FantasyPros consensus",
     "draftsharks": "Draft Sharks board",
     "ftn": "Jeff Ratcliffe (FTN) via FantasyPros",
+    "sharps": "2025 accuracy podium (Miller/Gianni/Shannep) via FantasyPros",
 }
 
 
@@ -1207,6 +1283,7 @@ _VALID_SORT_KEYS = {
     "yahoo",
     "draftsharks",
     "ftn",
+    "sharps",
 }
 
 
@@ -1433,7 +1510,9 @@ def multi_compare_rankings(
         entry["adp_overall_rank"] = adp["overall"] if adp else None
         entry["adp_pos_rank"] = adp["positional"] if adp else None
         adp_active = (
-            entry["adp_overall_rank"] if rank_basis == "overall" else entry["adp_pos_rank"]
+            entry["adp_overall_rank"]
+            if rank_basis == "overall"
+            else entry["adp_pos_rank"]
         )
         entry["adp_rank"] = adp_active
         entry["rank_diff_vs_adp"] = (

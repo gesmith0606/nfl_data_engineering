@@ -32,7 +32,8 @@ const SOURCES: RankingSource[] = [
   'espn',
   'yahoo',
   'draftsharks',
-  'ftn'
+  'ftn',
+  'sharps'
 ];
 
 const SOURCE_LABEL: Record<RankingSource, string> = {
@@ -40,7 +41,8 @@ const SOURCE_LABEL: Record<RankingSource, string> = {
   espn: 'ESPN',
   yahoo: 'Yahoo',
   draftsharks: 'Draft Sharks',
-  ftn: 'FTN'
+  ftn: 'FTN',
+  sharps: 'Sharps'
 };
 
 function formatRank(v: number | null): string {
@@ -68,7 +70,8 @@ function consensusOf(p: MultiCompareRow): number | null {
     p.espn_rank,
     p.yahoo_rank,
     p.draftsharks_rank,
-    p.ftn_rank
+    p.ftn_rank,
+    p.sharps_rank
   ].filter((v): v is number => v !== null && v !== undefined);
   return externalRanks.length > 0
     ? externalRanks.reduce((a, b) => a + b, 0) / externalRanks.length
@@ -262,10 +265,23 @@ function buildColumns(
         'ftn',
         sortBy,
         onSort,
-        `Jeff Ratcliffe (FTN) ${rankBasisLabel} rank (#1 multi-year FantasyPros draft accuracy; empty until his ranks drop, typically Jul-Aug) — click to sort`
+        `Jeff Ratcliffe (FTN) ${rankBasisLabel} rank (#1 multi-year FantasyPros draft accuracy; 2026 draft board is FTN-subscriber-only — fills with his weekly ranks in-season) — click to sort`
       ),
       align: 'right',
       accessor: (p) => formatRank(p.ftn_rank),
+      cellClassName: 'font-mono'
+    },
+    {
+      key: 'sharps',
+      header: sortableHeader(
+        'Sharps',
+        'sharps',
+        sortBy,
+        onSort,
+        `2025 FantasyPros draft-accuracy podium (Seth Miller #1 / Guilherme Gianni #2 / Marc Shannep #5) 3-expert consensus ${rankBasisLabel} rank — click to sort`
+      ),
+      align: 'right',
+      accessor: (p) => formatRank(p.sharps_rank),
       cellClassName: 'font-mono'
     },
     {
@@ -275,7 +291,7 @@ function buildColumns(
         'consensus',
         sortBy,
         onSort,
-        'Mean of Sleeper / ESPN / Yahoo / Draft Sharks / FTN — click to sort'
+        'Mean of Sleeper / ESPN / Yahoo / Draft Sharks / FTN / Sharps — click to sort'
       ),
       align: 'right',
       accessor: (p) => formatRank(consensusOf(p)),
@@ -337,6 +353,17 @@ function buildColumns(
       renderCell: (p) => (
         <span className={cn('font-mono', diffClass(p.rank_diff_vs_ftn))}>
           {formatDiff(p.rank_diff_vs_ftn)}
+        </span>
+      )
+    },
+    {
+      key: 'diff_sharps',
+      header: <span title='Sharps (2025 accuracy podium) rank − our rank'>Δ Shp</span>,
+      align: 'right',
+      accessor: (p) => formatDiff(p.rank_diff_vs_sharps),
+      renderCell: (p) => (
+        <span className={cn('font-mono', diffClass(p.rank_diff_vs_sharps))}>
+          {formatDiff(p.rank_diff_vs_sharps)}
         </span>
       )
     }

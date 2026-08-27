@@ -1293,7 +1293,7 @@ export interface TeamDefenseMetricsResponse {
 // Multi-source rankings comparison (/api/rankings/multi-compare)
 // ---------------------------------------------------------------------------
 
-export type RankingSource = 'sleeper' | 'espn' | 'yahoo' | 'draftsharks' | 'ftn';
+export type RankingSource = 'sleeper' | 'espn' | 'yahoo' | 'draftsharks' | 'ftn' | 'sharps';
 export type RankingSortBy = 'consensus' | 'ours' | RankingSource;
 export type RankBasis = 'overall' | 'positional';
 
@@ -1311,6 +1311,7 @@ export interface MultiCompareRow {
   yahoo_rank: number | null;
   draftsharks_rank: number | null;
   ftn_rank: number | null;
+  sharps_rank: number | null;
   // Both kinds are always exposed so the UI can resort/relabel client-side.
   our_pos_rank: number | null;
   our_overall_rank: number | null;
@@ -1324,12 +1325,15 @@ export interface MultiCompareRow {
   draftsharks_overall_rank: number | null;
   ftn_pos_rank: number | null;
   ftn_overall_rank: number | null;
+  sharps_pos_rank: number | null;
+  sharps_overall_rank: number | null;
   our_projected_points: number | null;
   rank_diff_vs_sleeper: number | null;
   rank_diff_vs_espn: number | null;
   rank_diff_vs_yahoo: number | null;
   rank_diff_vs_draftsharks: number | null;
   rank_diff_vs_ftn: number | null;
+  rank_diff_vs_sharps: number | null;
   // Real ADP (FFC, scoring-matched) — the "market" column. Optional so older
   // fixtures/responses without it still type-check.
   adp_rank?: number | null;

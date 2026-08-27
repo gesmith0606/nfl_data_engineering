@@ -149,14 +149,15 @@ jobs:
 
       # ----------------------------------------------------------------
       # 5b. Refresh external rankings caches (Sleeper / FantasyPros /
-      #     ESPN / Draft Sharks / FTN). Closes DATA_FEEDS.md gap #1
-      #     (2026-07-01): these caches previously only advanced on site
+      #     ESPN / Draft Sharks / FTN / Sharps). Closes DATA_FEEDS.md gap
+      #     #1 (2026-07-01): these caches previously only advanced on site
       #     traffic or a manual CLI run. Fail-open — the website serves
       #     stale caches gracefully, so a fetch blip must not fail the
       #     sentiment cron. save_rankings() skips unchanged content, so
       #     the commit below stays quiet unless rankings actually moved.
-      #     FTN staying empty until Ratcliffe submits (~Jul-Aug) is
-      #     normal and logs as EMPTY, not FAILED.
+      #     FTN staying EMPTY is normal preseason: Ratcliffe's 2026 draft
+      #     board is subscriber-only at ftnfantasy.com; the source serves
+      #     his FP weekly ranks once the season starts.
       # ----------------------------------------------------------------
       - name: Refresh external rankings caches
         run: |

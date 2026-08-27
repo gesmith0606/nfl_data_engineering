@@ -114,6 +114,12 @@ _FP_WEEKLY_POSITIONS = ("QB", "RB", "WR", "TE")
 # leaderboard. ID verified against partners expert-groups.php (year=2025).
 FTN_RATCLIFFE_EXPERT_ID = 125
 
+# 2025 FantasyPros draft-accuracy podium still submitting draft boards in
+# 2026: Seth Miller (Crossroads FF, #1), Guilherme Gianni (Fantasy
+# Futebolista, #2), Marc Shannep (Fantasy Knockout, #5). IDs verified
+# against partners expert-groups.php (year=2026, type=draft) on 2026-08-27.
+SHARPS_EXPERT_IDS = "2743:4179:1080"
+
 
 # ---------------------------------------------------------------------------
 # Sleeper
@@ -301,7 +307,9 @@ def _extract_ecr_data_json(html: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def _parse_fp_weekly_page(data: Dict[str, Any], position: str, limit: int) -> List[Dict[str, Any]]:
+def _parse_fp_weekly_page(
+    data: Dict[str, Any], position: str, limit: int
+) -> List[Dict[str, Any]]:
     """Shape one weekly-position page's `ecrData` payload into ranking rows.
 
     Carries FantasyPros' own per-position rank/dispersion/id fields through
@@ -391,7 +399,9 @@ def fetch_fantasypros_weekly(
         except requests.RequestException as exc:
             logger.warning(
                 "FantasyPros weekly %s (%s) fetch failed (%s) -- skipping this position",
-                position, scoring, exc,
+                position,
+                scoring,
+                exc,
             )
             continue
         data = _extract_ecr_data_json(resp.text)
@@ -399,14 +409,20 @@ def fetch_fantasypros_weekly(
             logger.warning(
                 "FantasyPros weekly %s (%s): no ecrData found on %s (page format may "
                 "have changed, or the page 404'd/served an error body) -- skipping",
-                position, scoring, url,
+                position,
+                scoring,
+                url,
             )
             continue
         page_rows = _parse_fp_weekly_page(data, position, limit)
         logger.info(
             "FantasyPros weekly %s (%s): %d players, week=%s, type=%s, experts=%s",
-            position, scoring, len(page_rows), data.get("week"),
-            data.get("ranking_type_name"), data.get("total_experts"),
+            position,
+            scoring,
+            len(page_rows),
+            data.get("week"),
+            data.get("ranking_type_name"),
+            data.get("total_experts"),
         )
         rows.extend(page_rows)
     return rows
@@ -557,6 +573,24 @@ def fetch_ftn(
     return rows
 
 
+def fetch_sharps(
+    season: int = 2026, scoring: str = "half_ppr", limit: int = 300
+) -> List[Dict[str, Any]]:
+    """Fetch the 2025 draft-accuracy podium consensus via the FP expert filter."""
+    scoring_type = _FP_PARTNERS_SCORING_MAP.get(scoring, "HALF")
+    url = (
+        "https://partners.fantasypros.com/api/v1/consensus-rankings.php"
+        f"?sport=NFL&year={season}&week=0&position=ALL&type=draft"
+        f"&scoring={scoring_type}&filters={SHARPS_EXPERT_IDS}"
+    )
+    logger.info("Fetching sharps (2025 accuracy podium) rankings: %s", url)
+    resp = requests.get(url, timeout=REQUEST_TIMEOUT, headers=_HEADERS)
+    resp.raise_for_status()
+    rows = _parse_fp_partners_players(resp.json(), limit=limit)
+    logger.info("Parsed %d sharps rankings", len(rows))
+    return rows
+
+
 # ---------------------------------------------------------------------------
 # Save
 # ---------------------------------------------------------------------------
@@ -682,7 +716,14 @@ def main() -> int:
         "--source",
         default="all",
         choices=[
-            "all", "sleeper", "fantasypros", "fantasypros_weekly", "espn", "draftsharks", "ftn",
+            "all",
+            "sleeper",
+            "fantasypros",
+            "fantasypros_weekly",
+            "espn",
+            "draftsharks",
+            "ftn",
+            "sharps",
         ],
         help="Which source to refresh (default: all)",
     )
@@ -699,7 +740,15 @@ def main() -> int:
     print("=" * 60)
 
     sources_to_fetch = (
-        ["sleeper", "fantasypros", "fantasypros_weekly", "espn", "draftsharks", "ftn"]
+        [
+            "sleeper",
+            "fantasypros",
+            "fantasypros_weekly",
+            "espn",
+            "draftsharks",
+            "ftn",
+            "sharps",
+        ]
         if args.source == "all"
         else [args.source]
     )
@@ -725,6 +774,10 @@ def main() -> int:
                 data = fetch_draftsharks(scoring=args.scoring, limit=args.limit)
             elif source == "ftn":
                 data = fetch_ftn(
+                    season=args.season, scoring=args.scoring, limit=args.limit
+                )
+            elif source == "sharps":
+                data = fetch_sharps(
                     season=args.season, scoring=args.scoring, limit=args.limit
                 )
             else:

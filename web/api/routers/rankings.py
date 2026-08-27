@@ -27,7 +27,7 @@ VALID_SOURCES = {
 def get_external_rankings(
     source: str = Query(
         "sleeper",
-        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn",
+        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn / sharps",
     ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
@@ -41,7 +41,9 @@ def get_external_rankings(
     - **fantasypros**: FantasyPros ECR consensus
     - **espn**: ESPN fantasy rankings
     - **draftsharks**: Draft Sharks board (2024 FP draft-accuracy #1+#2 site)
-    - **ftn**: Jeff Ratcliffe / FTN (#1 multi-year FP draft accuracy)
+    - **ftn**: Jeff Ratcliffe / FTN (#1 multi-year FP draft accuracy; 2026
+      draft board is FTN-subscriber-only, serves his FP weekly ranks in-season)
+    - **sharps**: 2025 FP draft-accuracy podium consensus (Miller/Gianni/Shannep)
     - **consensus**: Hardcoded expert consensus top-50
     """
     if source not in VALID_SOURCES:
@@ -83,7 +85,7 @@ def get_external_rankings(
 def compare_rankings(
     source: str = Query(
         "sleeper",
-        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn",
+        description="sleeper / fantasypros / espn / consensus / draftsharks / ftn / sharps",
     ),
     scoring: str = Query("half_ppr", description="ppr / half_ppr / standard"),
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
@@ -237,8 +239,15 @@ def list_sources() -> dict:
                     ),
                     "ftn": (
                         "Jeff Ratcliffe (FTN) — #1 on FantasyPros' 2022-2024 "
-                        "multi-year draft-accuracy leaderboard; empty until he "
-                        "submits ranks for the season (typically Jul-Aug)"
+                        "multi-year draft-accuracy leaderboard; his 2026 draft "
+                        "board is subscriber-only at ftnfantasy.com, so this "
+                        "source is empty until the season starts, then serves "
+                        "his FantasyPros weekly ranks"
+                    ),
+                    "sharps": (
+                        "2025 FantasyPros draft-accuracy podium — Seth Miller "
+                        "(#1), Guilherme Gianni (#2), Marc Shannep (#5) — as a "
+                        "3-expert consensus board"
                     ),
                     "consensus": "Hardcoded expert consensus top-50 (always available)",
                 }.get(src, ""),
