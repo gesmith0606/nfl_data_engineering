@@ -206,7 +206,7 @@ def _upcoming_season_not_started() -> bool:
 
 
 def _load_next_season_corrections_if_preseason(
-    effective_season: int, preseason: bool
+    effective_season: int, forward_walk_ok: bool
 ) -> Optional[pd.DataFrame]:
     """Sleeper corrections from the NEXT season's partition, preseason only.
 
@@ -218,13 +218,17 @@ def _load_next_season_corrections_if_preseason(
     a player traded in March shows on his new team, released players drop
     off.
 
-    Scoped like the roster forward-walk: only fires when ``effective_season
-    + 1`` is the NEWEST corrections partition on disk — a deep-historical
-    roster (e.g. 2020) must never have a mid-history partition (2021)
-    smeared onto it, even if such partitions exist someday. ``preseason``
-    is computed once by the caller (same guard as the roster walk).
+    Scoped exactly like the roster forward-walk: ``forward_walk_ok`` is the
+    caller's composite gate (preseason AND the week-18 proxy request) —
+    without the week half, weeks 1-17 of last season kept their base
+    roster but still had current-season teams/drops overlaid, silently
+    modernizing historical browsing with no ``fallback`` flag. Also only
+    fires when ``effective_season + 1`` is the NEWEST corrections
+    partition on disk — a deep-historical roster (e.g. 2020) must never
+    have a mid-history partition (2021) smeared onto it, even if such
+    partitions exist someday.
     """
-    if not preseason:
+    if not forward_walk_ok:
         return None
     live_seasons = _available_seasons(_ROSTERS_LIVE_ROOT)
     if not live_seasons or effective_season + 1 != max(live_seasons):
@@ -900,12 +904,13 @@ def load_team_roster(
     #     resolves via the schedule and the walk is disabled, so in-season
     #     historical browsing is never silently modernized.
     newest_season = max(_available_seasons(_ROSTERS_ROOT), default=effective_season)
-    preseason = _upcoming_season_not_started()
-    if (
-        newest_season == effective_season + 1
-        and week == _REG_SEASON_MAX_WEEK
-        and preseason
-    ):
+    # One composite gate shared by BOTH forward-walks (roster parquet and
+    # the corrections backstop below): preseason, and this request is the
+    # week-18 "now" proxy. Weeks 1-17 must stay historical on every layer —
+    # base roster AND live overlay — or the overlay silently modernizes
+    # (drops/reassigns) players on a roster the walk correctly preserved.
+    proxy_walk_ok = _upcoming_season_not_started() and week == _REG_SEASON_MAX_WEEK
+    if newest_season == effective_season + 1 and proxy_walk_ok:
         try:
             roster_df, effective_season = _load_rosters(newest_season)
         except FileNotFoundError:  # pragma: no cover — dir listed but empty
@@ -922,7 +927,7 @@ def load_team_roster(
     live_df = _load_live_roster_corrections(effective_season)
     if live_df is None:
         live_df = _load_next_season_corrections_if_preseason(
-            effective_season, preseason=preseason
+            effective_season, forward_walk_ok=proxy_walk_ok
         )
     live_source = False
     if live_df is not None:
