@@ -695,6 +695,12 @@ class DraftAdvisor:
         scarcity = self._scarcity_alerts(avail_all)
         reasoning_parts.extend(scarcity)
 
+        # avail may be a boolean-mask slice at this point (eligibility /
+        # starters-first filters above) — take a real copy before the scoring
+        # columns are written, or every assignment below raises
+        # SettingWithCopyWarning.
+        avail = avail.copy()
+
         # Score each available player by VORP — value over replacement, not raw
         # points. Raw points over-value QBs in PPR (a QB's 350 pts dwarf a WR's
         # 300, yet the QB's marginal value over a streamer is tiny). VORP already
