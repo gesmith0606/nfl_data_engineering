@@ -45,13 +45,21 @@ def latest_projections(season: int, scoring: str) -> Optional[str]:
 
 
 def adp_file(source: str, scoring: str) -> Optional[str]:
+    """Newest ADP board for *source*, preferring an exact *scoring* match.
+
+    FFC and Sleeper publish genuinely different PPR and half-PPR boards — on
+    the 2026 files the mean |delta rank| is 10.4 with 61 players a full round
+    apart — so an mtime-only pick silently priced a half-PPR league off the
+    PPR board. ESPN's own ADP is scoring-agnostic (the suffix just records the
+    refresh flag), so it lands on the same board either way.
+    """
+    exact = os.path.join("data", "adp", f"adp_{source}_{scoring}.csv")
+    if os.path.exists(exact):
+        return exact
     cands = [
         p
-        for p in (
-            os.path.join("data", "adp", f"adp_{source}_{scoring}.csv"),
-            *glob.glob(os.path.join("data", "adp", f"adp_{source}_*.csv")),
-        )
-        if os.path.exists(p) and not os.path.basename(p)[:-4].split("_")[-1].isdigit()
+        for p in glob.glob(os.path.join("data", "adp", f"adp_{source}_*.csv"))
+        if not os.path.basename(p)[:-4].split("_")[-1].isdigit()
     ]
     if not cands and source == "ffc" and os.path.exists(os.path.join("data", "adp_latest.csv")):
         return os.path.join("data", "adp_latest.csv")
