@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "1aac0449-7fa5-44be-b352-6b81d4cf5dd7",
+  "source": "rotowire",
+  "fetched_at": "2026-08-28T16:17:02.272602+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl634997",
+      "url": "https://www.rotowire.com//football/player/ty-simpson-19275",
+      "permalink": "",
+      "title": "Ty Simpson: Extended playing time Thursday",
+      "body_text": "Simpson completed 18 of 23 passes for 119 yards with one touchdown and no interceptions while also rushing three times for 10 yards in the Rams' 20-18 preseason win over the Chargers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T10:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ty Simpson",
+        "Thursday Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0041568"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl634996",
+      "url": "https://www.rotowire.com//football/player/justin-herbert-14446",
+      "permalink": "",
+      "title": "Justin Herbert: Stellar in cameo Thursday",
+      "body_text": "Herbert completed two of three passes for 74 yards and a touchdown, rushed once for no gain and lost a fumble in the Chargers' 20-18 preseason loss to the Rams on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T10:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert",
+        "Thursday Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl634982",
+      "url": "https://www.rotowire.com//football/player/kaelon-black-19607",
+      "permalink": "",
+      "title": "Kaelon Black: Averages 7.0 yards per carry",
+      "body_text": "Black rushed four times for 28 yards and failed to bring in his only target in the 49ers' 18-12 preseason win over the Raiders on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T08:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "00-0041052"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl634981",
+      "url": "https://www.rotowire.com//football/player/fernando-mendoza-19281",
+      "permalink": "",
+      "title": "Fernando Mendoza: Still in QB competition",
+      "body_text": "Mendoza remains in the mix for the Raiders' starting quarterback job along with veteran Kirk Cousins, Vinny Bonsignore of the California Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T08:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Kirk Cousins",
+        "Vinny Bonsignore",
+        "California Post"
+      ],
+      "resolved_player_ids": [
+        "00-0041562",
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "nfl634980",
+      "url": "https://www.rotowire.com//football/player/mike-washington-19300",
+      "permalink": "",
+      "title": "Mike Washington: Effective in preseason start",
+      "body_text": "Washington rushed eight times for 49 yards and failed to bring in his only target in the Raiders' 18-12 preseason loss to the 49ers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-27T08:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Washington"
+      ],
+      "resolved_player_ids": [
+        "WAS569019"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
