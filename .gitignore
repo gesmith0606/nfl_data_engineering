@@ -517,3 +517,17 @@ web/frontend/skills-lock.json
 
 # Ephemeral grading reports — CI writes these on the runner and never commits them
 output/grading/
+
+# Claude Code config must be tracked (TD-09 class): the blanket *.json rule
+# above silently ignored .claude/settings.json, so all 13 committed hook
+# scripts were dead on any fresh clone — the file that wires them up never
+# shipped. .claude/package.json ({"type":"commonjs"}) is equally load-bearing:
+# every hook uses require(), so without it they break under an ESM default.
+# GSD's manifest + install-state were ignored for the same reason, which
+# breaks its integrity/migration check on a clone.
+# settings.local.json stays ignored on purpose — personal permissions and
+# per-machine MCP toggles.
+!.claude/settings.json
+!.claude/package.json
+!.claude/gsd-file-manifest.json
+!.claude/gsd-install-state.json
