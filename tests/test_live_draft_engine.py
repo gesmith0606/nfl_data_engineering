@@ -439,3 +439,74 @@ def test_low_sample_unranked_players_hidden_from_surfaces():
     assert "Two Game Vet" in set(engine.board.available["player_name"])
     avail = engine.best_available(top_n=4)
     assert "Two Game Vet" not in set(avail["player_name"])
+
+
+# ---------------------------------------------------------------------------
+# Next-pick lookahead across the snake turn (draft-night regression)
+# ---------------------------------------------------------------------------
+
+
+def _engine_at(my_slot: int, n_teams: int, picks_made: int, rounds: int):
+    """Engine whose state reports *rounds* (0 = platform didn't tell us)."""
+    state = DraftState(
+        draft_id="t",
+        status="drafting",
+        draft_type="snake",
+        season="2026",
+        n_teams=n_teams,
+        rounds=rounds,
+        scoring_format="half_ppr",
+        roster_format="standard",
+        draft_order={},
+        slot_to_roster_id={},
+        picks=tuple(
+            PickEvent(
+                pick_no=i + 1,
+                round=(i // n_teams) + 1,
+                draft_slot=(i % n_teams) + 1,
+                roster_id=None,
+                picked_by="",
+                sleeper_player_id=str(i),
+                first_name="P",
+                last_name=str(i + 1),
+                position="WR",
+                team="FA",
+                is_keeper=False,
+            )
+            for i in range(picks_made)
+        ),
+    )
+    proj = pd.DataFrame(
+        {
+            "player_name": ["A", "B"],
+            "position": ["WR", "RB"],
+            "team": ["FA", "FA"],
+            "projected_points": [10.0, 9.0],
+        }
+    )
+    eng = LiveDraftEngine(adapter=None, projections_df=proj, my_slot=my_slot)
+    eng.state = state
+    return eng
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize("my_slot,expected", [(1, 24), (2, 23), (3, 22), (4, 21)])
+def test_next_pick_found_across_the_turn_when_rounds_unknown(my_slot, expected):
+    """Early slots must still get a next pick when the platform omits rounds.
+
+    A snake slot's next turn is at most 2*n_teams picks away, but the lookahead
+    was capped at one round when ``state.rounds`` was 0 (manual/paste-sync
+    always, ESPN whenever the round header doesn't parse). Slots 1-3 in a
+    12-team league sat beyond that window, so they lost the opportunity-cost
+    scoring that recommendations are ranked by.
+    """
+    eng = _engine_at(my_slot=my_slot, n_teams=12, picks_made=8, rounds=0)
+    assert eng._my_next_pick_no(9, 12) == expected
+
+
+@pytest.mark.unit
+def test_next_pick_matches_when_rounds_known(_=None):
+    """A platform-reported round count must not change the answer."""
+    known = _engine_at(my_slot=1, n_teams=12, picks_made=8, rounds=17)
+    unknown = _engine_at(my_slot=1, n_teams=12, picks_made=8, rounds=0)
+    assert known._my_next_pick_no(9, 12) == unknown._my_next_pick_no(9, 12) == 24

@@ -317,7 +317,13 @@ class LiveDraftEngine:
         if self.my_slot is None or n_teams <= 0:
             return None
         rounds = self.state.rounds if self.state else 0
-        cap = start_pick + (n_teams * max(rounds, 1))
+        # A snake slot's next turn is at most 2*n_teams-1 picks away (slot 1
+        # picks 1 and 2*n_teams). Platforms don't always report a round count —
+        # manual/paste-sync passes rounds=0 and ESPN falls back to 0 when the
+        # round header doesn't parse — and a one-round cap then hid the next
+        # pick for every slot past its turn, so slots 1-3 of a 12-team league
+        # silently lost the opportunity-cost scoring recommendations rank by.
+        cap = start_pick + (n_teams * max(rounds, 2))
         for p in range(start_pick, cap + 1):
             if self._slot_on_clock(p, n_teams, self.state.draft_type) == self.my_slot:
                 return p
