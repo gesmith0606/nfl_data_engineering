@@ -1,0 +1,106 @@
+{
+  "fetch_run_id": "3fcbb155-a9e7-4436-93f6-a7cc2d5384e2",
+  "source": "rotowire",
+  "fetched_at": "2026-08-29T12:22:30.408408+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl635118",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "permalink": "",
+      "title": "Jeremiyah Love: Continues to progress",
+      "body_text": "Love (ankle) did not play in Friday's preseason loss to the Packers, but per Cardinals team reporter Zach Gershman he was able to work out prior to the game. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-28T09:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Zach Gershman"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl635102",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "permalink": "",
+      "title": "Xavier Worthy: One target in preseason debut",
+      "body_text": "Worthy (shoulder) failed to bring in his only target in the Chiefs' 9-9 preseason tie with the Seahawks on Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-28T08:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl635100",
+      "url": "https://www.rotowire.com//football/player/travis-kelce-8783",
+      "permalink": "",
+      "title": "Travis Kelce: One catch in preseason finale",
+      "body_text": "Kelce secured his only target for eight yards in Friday's 9-9 preseason tie with the Seahawks. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-28T08:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl635098",
+      "url": "https://www.rotowire.com//football/player/makai-lemon-19231",
+      "permalink": "",
+      "title": "Makai Lemon: Three catches in preseason debut",
+      "body_text": "Lemon brought in three of five targets for five yards and returned one punt for no gain in the Eagles' 30-13 preseason loss to the Bengals on Friday. He also fumbled once but recovered. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-28T08:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [
+        "00-0040867"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl635075",
+      "url": "https://www.rotowire.com//football/player/brian-robinson-15907",
+      "permalink": "",
+      "title": "Brian Robinson: TD, fumble in preseason finale",
+      "body_text": "Robinson rushed five times for 14 yards and a touchdown, caught his only target for nine yards and lost a fumble in Friday's 17-12 preseason win over the Dolphins. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-28T07:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037746"
+      ],
+      "team_hint": "MIA"
+    }
+  ]
+}

@@ -1,0 +1,474 @@
+{
+  "fetch_run_id": "fa1ee53a-ac0a-4252-a9f1-4a14351f852d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-08-29T12:22:17.972937+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-very-optimistic-about-baker-mayfield-staying-beyond-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jason-licht-very-optimistic-about-baker-mayfield-staying-beyond-2026",
+      "title": "Jason Licht \"very optimistic\" about Baker Mayfield staying beyond 2026",
+      "body_text": "Baker Mayfield said he felt disrespected and undervalued by the contract offers that came from the Buccaneers this offseason, so the quarterback is now set to play out the final year of his current deal.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T12:06:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jason Licht",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-will-have-four-availability-reports-per-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-will-have-four-availability-reports-per-week",
+      "title": "Big Ten will have four \"availability reports\" per week",
+      "body_text": "As sports betting continues to proliferate, college football is taking more steps aimed at minimizing inside information.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T11:32:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Ten"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichicks-second-season-in-college-football-starts-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichicks-second-season-in-college-football-starts-today",
+      "title": "Bill Belichick's second season in college football starts today",
+      "body_text": "Two NFL seasons have transpired without should-be Hall of Fame head coach Bill Belichick, who had spent half of a century in pro football.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T11:14:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-annual-frenzy-of-nfl-transactions-happens-this-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-annual-frenzy-of-nfl-transactions-happens-this-weekend",
+      "title": "The annual frenzy of NFL transactions happens this weekend",
+      "body_text": "Rosters must cut from 90 to 53 by Sunday at 4:00 p.m. ET.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T10:46:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-linebacker-and-special-teamer-marist-liufau-suffers-broken-forearm",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-linebacker-and-special-teamer-marist-liufau-suffers-broken-forearm",
+      "title": "Cowboys linebacker and special teamer Marist Liufau suffers broken forearm",
+      "body_text": "Cowboys outside linebacker and special teams contributor Marist Liufau exited Friday night's preseason finale early, returned with his arm in a cast and sling, and is now expected to get surgery and miss time.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T10:19:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marist Liufau"
+      ],
+      "resolved_player_ids": [
+        "00-0039352"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-loop-is-suddenly-on-shaky-ground-in-baltimore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-loop-is-suddenly-on-shaky-ground-in-baltimore",
+      "title": "Tyler Loop is suddenly on shaky ground in Baltimore",
+      "body_text": "Last year, with the Ravens planning to move on from former All-Pro kicker Justin Tucker (who has completely fallen off the map after his Personal Conduct Policy suspension), they invested a sixth-round pick in his replacement, Tyler Loop.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T10:17:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Loop",
+        "Baltimore Last",
+        "Justin Tucker",
+        "Personal Conduct"
+      ],
+      "resolved_player_ids": [
+        "00-0040074",
+        "00-0029597"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-explains-social-media-defense-of-bo-nix-against-analyst",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-explains-social-media-defense-of-bo-nix-against-analyst",
+      "title": "Sean Payton explains social-media defense of Bo Nix against analyst",
+      "body_text": "Broncos coach Sean Payton used Twitter this week to defend quarterback Bo Nix against a community-noted take from former NFL player and current Fox analyst Geoff Schwartz.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T10:00:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Bo Nix",
+        "Geoff Schwartz"
+      ],
+      "resolved_player_ids": [
+        "00-0039732",
+        "00-0026381"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-seahawks-owner-vinod-khosla-bristles-at-reaction-to-his-steelers-fandom",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-seahawks-owner-vinod-khosla-bristles-at-reaction-to-his-steelers-fandom",
+      "title": "New Seahawks owner Vinod Khosla bristles at reaction to his Steelers fandom",
+      "body_text": "Khosla complains that \"reporters will make every molehill into a mountain.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-28T21:03:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New Seahawks",
+        "Vinod Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-doesnt-rule-out-keeping-four-quarterbacks-on-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-doesnt-rule-out-keeping-four-quarterbacks-on-53-man-roster",
+      "title": "Kevin O'Connell doesn't rule out keeping four quarterbacks on 53-man roster",
+      "body_text": "J.J. McCarthy isn't guaranteed the backup job, or a roster spot.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T09:37:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-i-fully-anticipate-josh-jacobs-being-a-member-of-our-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-i-fully-anticipate-josh-jacobs-being-a-member-of-our-team",
+      "title": "Matt LaFleur: I fully anticipate Josh Jacobs being a member of our team",
+      "body_text": "Jacobs is facing charges of battery and criminal damage to property, and LaFleur said he doesn't know if Jacobs will be on the field Week One.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T07:56:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Week One"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-served-as-packers-play-caller-for-second-half-of-preseason-finale",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-served-as-packers-play-caller-for-second-half-of-preseason-finale",
+      "title": "Jordan Love served as Packers' play caller for second half of preseason finale",
+      "body_text": "Packers third-string quarterback Kyle McCord had an excellent game in the preseason finale, throwing for four touchdown passes and leading a fourth-quarter comeback as the Packers beat the Cardinals 42-38.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T07:35:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-says-it-would-mean-everything-to-make-the-giants-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-says-it-would-mean-everything-to-make-the-giants-roster",
+      "title": "Odell Beckham says it would mean everything to make the Giants' roster",
+      "body_text": "Giants head coach John Harbaugh did not say whether Beckham will make the team after the preseason finale.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T07:18:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-on-being-booed-by-dolphins-fans-it-is-what-it-is",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-on-being-booed-by-dolphins-fans-it-is-what-it-is",
+      "title": "Tua Tagovailoa on being booed by Dolphins fans: \"It is what it is\"",
+      "body_text": "Tua says of Miami, \"I love the city.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T03:27:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanksi-tua-tagovailoa-did-a-nice-job-in-preseason-finale",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanksi-tua-tagovailoa-did-a-nice-job-in-preseason-finale",
+      "title": "Kevin Stefanksi: Tua Tagovailoa \"did a nice job\" in preseason finale",
+      "body_text": "The Falcons still haven't named a starter for their Week 1 game at Pittsburgh, even though Michael Penix Jr. only recently received clearance to participate in team drills after his latest ACL tear.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T03:18:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kevin Stefanksi",
+        "Tua Tagovailoa",
+        "The Falcons",
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/polymarket-withdraws-wager-on-patrick-mahomes-playing-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/polymarket-withdraws-wager-on-patrick-mahomes-playing-in-week-1",
+      "title": "Polymarket withdraws wager on Patrick Mahomes playing in Week 1",
+      "body_text": "At a time when the scrutiny of prediction markets seems to be increasing, Polymarket has withdrawn a wager based on Chiefs quarterback Patrick Mahomes playing in his team's Week 1 game against the Broncos.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T03:03:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-rookie-rb-chip-trayanum-carted-off-after-a-scary-hit-to-end-half",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-rookie-rb-chip-trayanum-carted-off-after-a-scary-hit-to-end-half",
+      "title": "Jets rookie RB Chip Trayanum transported to hospital with neck injury",
+      "body_text": "Jets rookie running back Chip Trayanum was injured on the final play of the first half in Friday night's preseason game against the Giants.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-29T01:39:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chip Trayanum"
+      ],
+      "resolved_player_ids": [
+        "00-0041239"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-pass-rusher-joseph-ossai-leaves-with-foot-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-pass-rusher-joseph-ossai-leaves-with-foot-injury",
+      "title": "Jets pass rusher Joseph Ossai leaves with foot injury",
+      "body_text": "Jets pass rusher Joseph Ossai was seeing his first preseason action Friday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-29T00:36:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joseph Ossai"
+      ],
+      "resolved_player_ids": [
+        "00-0036902"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-qb-bob-lee-dies-at-81",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-qb-bob-lee-dies-at-81",
+      "title": "Former NFL QB Bob Lee dies at 81",
+      "body_text": "Former NFL quarterback Bob Lee died Aug. 17 in San Francisco, the University of Pacific announced in a news release.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-28T23:41:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bob Lee",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-fans-boo-tua-tagovailoa",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-fans-boo-tua-tagovailoa",
+      "title": "Dolphins fans boo Tua Tagovailoa",
+      "body_text": "The Dolphins don't have a big crowd tonight at Hard Rock Stadium, but they made a big noise nonetheless.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-28T23:31:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "The Dolphins",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-wont-play-for-vikings-in-preseason-finale-due-to-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-wont-play-for-vikings-in-preseason-finale-due-to-ankle-injury",
+      "title": "J.J. McCarthy won't play for Vikings in preseason finale, due to ankle injury",
+      "body_text": "To the extent the Vikings still have a competition for the backup quarterback spot behind Kyler Murray, J.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-28T23:09:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-waive-11-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-waive-11-players",
+      "title": "Steelers waive 11 players",
+      "body_text": "The Steelers finished their preseason on Thursday, so they have begun the process of trimming their roster to the mandatory 53-player limit before Sunday's 6 p.m.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-28T21:42:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-open-to-naming-aidan-oconnell-qb2-fernando-mendoza-qb3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-open-to-naming-aidan-oconnell-qb2-fernando-mendoza-qb3",
+      "title": "Klint Kubiak open to naming Aidan O'Connell QB2, Fernando Mendoza QB3",
+      "body_text": "Raiders quarterback Fernando Mendoza might start his rookie season as a third-stringer.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-28T20:44:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0041562"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/federal-appeals-court-rules-that-states-can-regulate-betting-markets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/federal-appeals-court-rules-that-states-can-regulate-betting-markets",
+      "title": "Federal appeals court rules that states can regulate betting markets",
+      "body_text": "The legal odyssey regarding prediction markets vs. gambling continues.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-28T20:41:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-loses-again-in-court-on-effort-to-bar-schools-from-signing-former-nfl-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-loses-again-in-court-on-effort-to-bar-schools-from-signing-former-nfl-players",
+      "title": "SEC loses again in court, on effort to bar schools from signing former NFL players",
+      "body_text": "\"[The NCAA] created this cluster, and now they've got to lay in that bed,\" one of the player's lawyers said.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-28T20:29:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/man-who-posed-as-49ers-player-is-arrested-for-fraud",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/man-who-posed-as-49ers-player-is-arrested-for-fraud",
+      "title": "Man who posed as 49ers player is arrested for fraud",
+      "body_text": "The week began with news of the arrest of the 49ers' owner posing as a man named \"Joe.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-08-28T17:52:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-start-cutting-roster-part-ways-with-15-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-start-cutting-roster-part-ways-with-15-players",
+      "title": "Browns start slashing roster, cut 15 players from active roster",
+      "body_text": "The Browns have started the process of setting their initial 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-28T19:25:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-staley-id-be-a-more-poised-composed-head-coach-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-staley-id-be-a-more-poised-composed-head-coach-now",
+      "title": "Brandon Staley: I'd be a more poised, composed head coach now",
+      "body_text": "Brandon Staley is heading into his second season as the Saints' defensive coordinator, but his previous experience as an NFL head coach has him thinking about what a second chance in that spot might look like.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-28T19:15:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Staley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-will-start-tonight-for-bucs-with-chance-to-secure-no-2-qb-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-will-start-tonight-for-bucs-with-chance-to-secure-no-2-qb-job",
+      "title": "Jalon Daniels will start tonight for Bucs with chance to secure No. 2 QB job",
+      "body_text": "Jalon Daniels will start tonight's preseason finale against Jacksonville and will play the first half and possibly into the third quarter, Rick Stroud of the Tampa Bay Times reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-28T19:07:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalon Daniels",
+        "Rick Stroud",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0041251"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-success-wont-be-measured-in-ws-ls-this-year-its-about-development",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-success-wont-be-measured-in-ws-ls-this-year-its-about-development",
+      "title": "Jeff Hafley: Success won't be measured in Ws, Ls this year, it's about development",
+      "body_text": "The Dolphins have been mired in mediocrity in recent years.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-28T18:47:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeff Hafley",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-wandale-robinson-is-not-believed-to-have-suffered-a-concussion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-wandale-robinson-is-not-believed-to-have-suffered-a-concussion",
+      "title": "Report: Wan'Dale Robinson is not believed to have suffered a concussion",
+      "body_text": "There is some positive news on the injury front for the Titans.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-28T18:16:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dale Robinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    }
+  ]
+}
