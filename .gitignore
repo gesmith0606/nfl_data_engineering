@@ -517,3 +517,12 @@ web/frontend/skills-lock.json
 
 # Ephemeral grading reports — CI writes these on the runner and never commits them
 output/grading/
+
+# TD-08/09/10 pattern: the draft watchlist is READ AT RUNTIME by
+# scripts/draft_targets.py and scripts/draft_live.py, and it is hand-authored
+# knowledge (fades the model cannot see — Sleeper carries no "Suspended"
+# status). Under the blanket data/ ignore it would silently not exist on the
+# Windows machine or any fresh clone, and MY GUY / AVOID tagging would go
+# quietly dead with only an INFO log.
+!data/draft/
+!data/draft/my_guys.txt

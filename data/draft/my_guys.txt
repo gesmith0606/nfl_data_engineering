@@ -1,0 +1,76 @@
+# MY GUYS — 2026 watchlist. One player per line, "#" starts a comment.
+# A leading "-" marks a FADE (renders as AVOID, never MY GUY).
+# Names match suffix-blind, so "Harold Fannin Jr." == "Harold Fannin".
+#
+# Read at runtime by scripts/draft_targets.py and scripts/draft_live.py.
+#
+# HOW THIS LIST WAS BUILT (2026-08-29, half-PPR)
+# Every name below is flagged by the doctrine engine on 2 or 3 of the three
+# independent ADP boards (ESPN / FFC / Sleeper). Cross-source agreement is the
+# bar: one board disagreeing with our model is noise, three is a real market
+# gap. Nothing here comes from a single mock draft.
+#
+# WHAT IS DELIBERATELY NOT HERE
+# "§28 low-sample projection" busts (Mike Washington, Ja'Kobi Lane, Kaelon
+# Black, Cyrus Allen, Tank Dell...). That flag means OUR model has little data
+# on the player, which is our uncertainty, not evidence he is bad. Fading a
+# rookie because we cannot see him is how you miss the rookie.
+#
+# WHAT ONLY YOU CAN ADD
+# The model is news-blind by construction: Sleeper's roster status carries only
+# Active / Inactive / IR / PUP / Practice Squad, with no "Suspended" at all
+# (verified 2026-08-28 — zero NEWS tags fired across an entire draft). Holdouts,
+# legal situations, coach-speak, beat reporting: none of it can reach any
+# number we compute. Add those as fades yourself.
+
+
+# ============================================================================
+# TARGETS
+# ============================================================================
+
+# --- TE: our single sharpest edge -------------------------------------------
+# SIX tight ends flag VALUE on all three boards, which is one systematic
+# disagreement rather than six finds: the market prices TEs below where we do,
+# league-wide. Worth acting on because TE is our best-validated position
+# (-0.43 MAE vs Sleeper consensus, the largest edge we have anywhere). Take ONE
+# of these at his ADP; do not chase the pattern into a second and third TE.
+Colston Loveland   # §10 + §30/§31 years 2-4 w/ vacated opportunity | 3/3 boards
+Tyler Warren       # §10 model >=1 round ahead of ADP | 3/3 boards
+Tucker Kraft       # §10 value, TD-dependent | 3/3 boards
+Harold Fannin Jr.  # §10 + §29 young, model likes more than market | 3/3 boards
+George Kittle      # §10 value at ADP 86 | 3/3 boards
+Sam LaPorta        # §10 + §29 young | 3/3 boards
+
+# --- RB: value where the market has moved on --------------------------------
+Rico Dowdle        # §10 model >=1 round ahead of ADP 83 | 3/3 boards
+J.K. Dobbins       # §10 value at ADP 85 | 3/3 (RB GUARD fires — defer to consensus)
+Cam Skattebo       # §29 young + BREAKOUT on 3/3, VALUE on 2/3 | TD-dependent
+
+# --- WR: TD regression and market fades -------------------------------------
+Zay Flowers        # §36 market-faded star: top-12 producer the market dropped | 3/3
+Garrett Wilson     # §34 positive TD regression (>=50 tgts, <5 TDs last yr) | 3/3
+Tetairoa McMillan  # §27 market ahead of model + §30/§31 years 2-4 | 3/3
+DeVonta Smith      # §34 positive TD regression | 3/3
+Jaxon Smith-Njigba # §30/§31 years 2-4 + vacated opportunity | 3/3
+
+# --- Deep sleepers: vacated opportunity, few rivals (UC1) -------------------
+# Ranked by absorbed share of last year's vacated work, not by projection —
+# VORP cannot separate anyone this late (everyone is below replacement).
+AJ Dillon          # CAR absorbing 48.7% vacated carries — 5 rivals, lottery ticket
+Nate Carter        # ATL 21.8% vacated targets, only 3 rivals — least contested
+
+
+# ============================================================================
+# FADES  (leading "-" = AVOID)
+# ============================================================================
+
+# The back-tested doctrine signal: RB age >= 27 combined with the market
+# pricing him ahead of our model. Confirmed on 2021-25 in backtest_draft_flags.
+- Kenny Gainwell   # §20 age cliff + §27 ADP inflation | 3/3 boards
+- Rachaad White    # §20 age cliff + §27 ADP inflation | 3/3 boards
+- Isiah Pacheco    # §20 age cliff + §27 ADP inflation | 3/3 boards
+- Brian Robinson   # §20 age cliff + §27 ADP inflation | 2/3 boards
+- Jordan Mason     # §20 age cliff + §27 ADP inflation | 2/3 boards
+
+# --- News-based fades (model cannot see these — add your own) ---------------
+- Josh Jacobs      # legal situation, season availability at risk (2026-08-28)

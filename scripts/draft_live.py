@@ -245,6 +245,60 @@ def build_manual_state(
 _NEWS_MAP: Optional[dict] = None
 
 
+
+_TAG_MAP = None
+
+
+def init_value_tags(board) -> int:
+    """Build the pre-draft flag map once, from the co-pilot's own board.
+
+    VALUE / BUST / BREAKOUT / SLEEPER are the doctrine labels from
+    src.draft_value; MY GUY is the hand-maintained watchlist, which is the only
+    place news the model cannot see can live (Sleeper carries no "Suspended"
+    status, so the 2026-08-28 mock had no idea about a pending legal issue).
+
+    Fails open: a live draft must never crash because a label failed to build.
+
+    Args:
+        board: Enriched board (``compute_value_scores`` output).
+
+    Returns:
+        Number of players carrying at least one tag.
+    """
+    global _TAG_MAP
+    try:
+        from datetime import date
+
+        from src.draft_targets import load_my_guys, tag_players
+        from src.draft_value import attach_features, label_board
+
+        labeled = label_board(attach_features(board, date.today().year))
+        _TAG_MAP = tag_players(labeled, load_my_guys())
+    except Exception as exc:  # noqa: BLE001 — never crash a live draft
+        logging.getLogger(__name__).warning(
+            "value tags DISABLED — label build failed: %s", exc
+        )
+        try:
+            from src.draft_targets import load_my_guys, tag_players
+
+            import pandas as _pd
+
+            _TAG_MAP = tag_players(_pd.DataFrame(), load_my_guys())
+        except Exception:  # noqa: BLE001
+            _TAG_MAP = {}
+    return len(_TAG_MAP)
+
+
+def value_tags(player_name: str) -> str:
+    """Rendered pre-draft flags for one player, or '' when untagged."""
+    if not _TAG_MAP:
+        return ""
+    from src.draft_targets import _name_key
+
+    tags = _TAG_MAP.get(_name_key(player_name), [])
+    return f"  [{' / '.join(tags)}]" if tags else ""
+
+
 def news_status(player_name: str, position: str) -> Optional[str]:
     """Roster status for a player who is NOT simply Active (lazy-loaded from the
     latest daily Sleeper snapshot); None when Active/unknown. August news guard."""
@@ -583,11 +637,12 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             wait = (
                 f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
             )
+            tags = value_tags(str(r.get("player_name", "")))
             lines.append(
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
                 f"vorp={r.get('vorp','')}{wait}  adp={r.get('adp_rank','')}  "
-                f"tier={r.get('value_tier','')}{stack}{guard}{news}"
+                f"tier={r.get('value_tier','')}{tags}{stack}{guard}{news}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")
@@ -826,6 +881,7 @@ def run_auto_mock(
     rc = roster_config_from_positions(roster_positions)
     elig = draftable_positions(rc)
     enriched = compute_value_scores(projections, adp_df)
+    init_value_tags(enriched)
     if "position" in enriched.columns:
         enriched = enriched[enriched["position"].isin(elig)].reset_index(drop=True)
     board = DraftBoard(
@@ -1022,6 +1078,8 @@ def run_live_queue(
         my_slot=my_slot,
         roster_config=roster_config,
     )
+
+    init_value_tags(engine.enriched)
     print(
         f"(live queue: {n_teams}-team {draft.get('type', '')} {label}; "
         f"slots {roster_config}; draftable {sorted(elig)})"
@@ -1156,6 +1214,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         engine = LiveDraftEngine(
             _DummyAdapter(), projections, adp_df, my_slot=args.my_slot
         )
+        init_value_tags(engine.enriched)
         state = build_manual_state(
             args.add_pick,
             projections,
@@ -1291,6 +1350,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         my_slot=args.my_slot,
         roster_config=roster_config_from_positions(roster_positions),
     )
+
+    init_value_tags(engine.enriched)
 
     _keepers_loaded = {"done": False, "file_done": False}
 

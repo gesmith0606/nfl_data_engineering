@@ -14,6 +14,7 @@ import pytest
 from src.draft_adapter import DraftAdapter
 from src.espn_adapter import EspnAdapter
 from src.espn_draft_page import (
+    queue_match_spec,
     parse_draft_page,
     slot_for_pick,
     state_from_page,
@@ -238,3 +239,60 @@ def test_live_render_strategy_sections_on_engine():
     assert {"position_wait_costs", "tier_alerts", "opponent_needs_before_my_next_pick", "market_insights"} <= set(out)
     text = dl.render(engine, poll, 3, False)
     assert "COST OF WAITING" in text and "TIERS" in text
+
+
+# ---------------------------------------------------------------------------
+# Queue row matching (2026-08-28 ESPN mock)
+# ---------------------------------------------------------------------------
+
+
+class TestQueueMatchSpec:
+    """ESPN's Pick Queue row matcher.
+
+    The row predicate used to be ``name.split(' ').slice(-1)[0]`` — the last
+    whitespace token. For the 33 suffixed players in the 2026 pool that token
+    is the SUFFIX, so "Brian Thomas Jr." matched any row containing "Jr." and
+    could queue the wrong player silently.
+    """
+
+    def test_suffix_is_never_the_match_token(self):
+        for name in (
+            "Brian Thomas Jr.",
+            "Kenneth Walker III",
+            "Marvin Harrison Jr.",
+            "Oronde Gadsden II",
+            "Deebo Samuel Sr.",
+        ):
+            spec = queue_match_spec(name)
+            assert "jr" not in spec["tokens"]
+            assert "sr" not in spec["tokens"]
+            assert "ii" not in spec["tokens"]
+            assert "iii" not in spec["tokens"]
+
+    def test_requires_both_first_and_last_name(self):
+        spec = queue_match_spec("Brian Thomas Jr.")
+        assert spec["tokens"] == ["brian", "thomas"]
+
+    def test_plain_name_unaffected(self):
+        spec = queue_match_spec("Josh Allen")
+        assert spec["tokens"] == ["josh", "allen"]
+        assert spec["search"] == "Josh Allen"
+
+    def test_search_string_drops_the_suffix(self):
+        # ESPN's filter is literal; "Jr." in the query can zero the result set.
+        assert queue_match_spec("Brian Thomas Jr.")["search"] == "Brian Thomas"
+
+    def test_punctuation_and_case_normalized(self):
+        spec = queue_match_spec("Ja'Marr Chase")
+        assert spec["tokens"] == ["jamarr", "chase"]
+
+    def test_two_suffixed_players_do_not_collide(self):
+        a = queue_match_spec("Brian Thomas Jr.")
+        b = queue_match_spec("Marvin Harrison Jr.")
+        assert a["tokens"] != b["tokens"]
+
+    def test_single_token_name_still_matches(self):
+        assert queue_match_spec("Ogunbowale")["tokens"] == ["ogunbowale"]
+
+    def test_blank_name_yields_no_tokens(self):
+        assert queue_match_spec("")["tokens"] == []
