@@ -103,8 +103,10 @@ def build_team_mapping(players: dict) -> Dict[str, str]:
     return mapping
 
 
-def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
-    """Build a mapping of normalized player name -> {team, position, status}.
+def build_roster_mapping(
+    players: dict,
+) -> Dict[Tuple[str, str], Dict[str, str]]:
+    """Build a mapping of ``(normalized name, position)`` -> {team, position, status}.
 
     Phase 67 / v7.0: released players (``team=null``) are NO LONGER skipped.
     They land in the mapping with ``team='FA'`` so downstream update logic
@@ -117,21 +119,24 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
     team=null/FA is acceptable, missing position is not.
 
     Name-collision handling: Sleeper's player database includes historical
-    and inactive players, producing 36 documented full_name collisions
-    among fantasy positions. When two entries collide, the Active player
-    wins (Pitfall 1 from 60-RESEARCH.md).
+    and inactive players, producing many full_name collisions among fantasy
+    positions. The key is the ``(name, position)`` pair so that distinct
+    players who share a name but play different positions no longer clobber
+    each other — e.g. the veteran RB and the rookie WR both named "Antonio
+    Williams" each get their own entry (2026-08-29 correctness fix). Within a
+    single ``(name, position)`` bucket, genuine same-position homonyms are
+    still resolved by preferring the Active entry, then the teamed entry
+    (Pitfall 1 from 60-RESEARCH.md).
 
     Args:
         players: Raw Sleeper /v1/players/nfl response (player_id -> info dict).
 
     Returns:
-        Dict mapping lowercase full_name to
+        Dict mapping ``(lowercase full_name, position)`` to
         ``{'team': str, 'position': str, 'status': str}``.
         ``team`` is ``'FA'`` for released / free-agent / unsigned players.
     """
-    mapping: Dict[str, Dict[str, str]] = {}
-    fa_count = 0
-    teamed_count = 0
+    mapping: Dict[Tuple[str, str], Dict[str, str]] = {}
 
     for _, info in players.items():
         if not isinstance(info, dict):
@@ -150,10 +155,8 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
         # team assignments in Gold + Bronze.
         if team_raw:
             team = SLEEPER_TO_NFLVERSE_TEAM.get(team_raw, team_raw)
-            teamed_count += 1
         else:
             team = 'FA'
-            fa_count += 1
 
         full_name = info.get('full_name') or ''
         if not full_name:
@@ -164,21 +167,25 @@ def build_roster_mapping(players: dict) -> Dict[str, Dict[str, str]]:
             continue
 
         name_key = full_name.lower().strip()
+        key = (name_key, pos)
 
-        # On collision, prefer Active players (Pitfall 1 from 60-RESEARCH.md).
-        # When both existing and new are non-Active, prefer the teamed one
-        # (avoids clobbering a rostered player with a homonym who is FA).
-        if name_key in mapping:
-            existing_active = mapping[name_key].get('status') == 'Active'
+        # Same name AND same position still collide on this key. Prefer Active
+        # players (Pitfall 1 from 60-RESEARCH.md); when both existing and new
+        # are non-Active, prefer the teamed one (avoids clobbering a rostered
+        # player with a homonym who is FA).
+        if key in mapping:
+            existing_active = mapping[key].get('status') == 'Active'
             new_active = status == 'Active'
-            existing_teamed = mapping[name_key].get('team') != 'FA'
+            existing_teamed = mapping[key].get('team') != 'FA'
             if existing_active and not new_active:
                 continue
             if not new_active and existing_teamed and team == 'FA':
                 continue
 
-        mapping[name_key] = {'team': team, 'position': pos, 'status': status}
+        mapping[key] = {'team': team, 'position': pos, 'status': status}
 
+    teamed_count = sum(1 for v in mapping.values() if v['team'] != 'FA')
+    fa_count = len(mapping) - teamed_count
     logger.info(
         "Built roster mapping: %d teamed, %d FA (total %d)",
         teamed_count,
@@ -248,7 +255,7 @@ def update_teams(
 
 
 def update_rosters(
-    df: pd.DataFrame, roster_mapping: Dict[str, Dict[str, str]]
+    df: pd.DataFrame, roster_mapping: Dict[Tuple[str, str], Dict[str, str]]
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Update recent_team AND position in Gold projections (per D-03, D-05).
 
@@ -261,11 +268,20 @@ def update_rosters(
     propagate to the Gold layer only -- Silver/Bronze retain their original
     nfl-data-py positions for model training stability (D-05).
 
+    Lookup is position-aware (2026-08-29 fix). Each Gold row is matched first
+    on the exact ``(name, position)`` key; this keeps two players who share a
+    name but play different positions (e.g. the RB and rookie WR both named
+    "Antonio Williams") from clobbering each other. When the Gold position
+    disagrees with Sleeper, the match falls back to the sole entry for that
+    name so genuine reclassifications (e.g. Taysom Hill QB->TE) are still
+    corrected; if a name maps to several positions and none match the Gold
+    row, the row is left untouched rather than guessing.
+
     Args:
         df: Gold projections DataFrame with at least player_name, recent_team,
             and position columns.
-        roster_mapping: Output of build_roster_mapping -- lowercase name ->
-            {'team': str, 'position': str, 'status': str}.
+        roster_mapping: Output of build_roster_mapping -- (lowercase name,
+            position) -> {'team': str, 'position': str, 'status': str}.
 
     Returns:
         Tuple of (updated DataFrame, changes DataFrame). The changes DataFrame
@@ -281,15 +297,31 @@ def update_rosters(
     df = df.copy()
     changes = []
 
+    # Index by name for the reclassification fallback: a Gold row whose
+    # position disagrees with Sleeper won't hit the exact (name, position)
+    # key, but if the name maps to exactly one player we can still correct it.
+    by_name: Dict[str, list] = {}
+    for (name_key, _pos), info in roster_mapping.items():
+        by_name.setdefault(name_key, []).append(info)
+
     for idx, row in df.iterrows():
         name_key = str(row['player_name']).lower().strip()
-        mapping = roster_mapping.get(name_key)
+        old_pos = row['position']
+
+        mapping = roster_mapping.get((name_key, old_pos))
         if mapping is None:
-            continue
+            candidates = by_name.get(name_key, [])
+            if len(candidates) == 1:
+                # Sole entry for this name -> a genuine reclassification.
+                mapping = candidates[0]
+            else:
+                # 0 candidates: player unknown to Sleeper. >1 candidates: an
+                # ambiguous same-name homonym at a position we can't match --
+                # leave it untouched rather than reintroduce the clobber bug.
+                continue
 
         old_team = row['recent_team']
         new_team = mapping['team']
-        old_pos = row['position']
         new_pos = mapping['position']
 
         if old_team == new_team and old_pos == new_pos:
@@ -377,7 +409,7 @@ def log_changes(
 
 
 def write_bronze_live_rosters(
-    roster_mapping: Dict[str, Dict[str, str]],
+    roster_mapping: Dict[Tuple[str, str], Dict[str, str]],
     season: int,
     bronze_root: str = 'data/bronze/players/rosters_live',
 ) -> Optional[str]:
@@ -404,7 +436,7 @@ def write_bronze_live_rosters(
         return None
 
     rows = []
-    for name_key, info in roster_mapping.items():
+    for (name_key, _pos), info in roster_mapping.items():
         rows.append({
             'name_key': name_key,
             'player_name': name_key.title(),  # Best-effort reconstruction

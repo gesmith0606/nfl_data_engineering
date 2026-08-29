@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import pandas as pd
 import pytest
@@ -61,11 +61,11 @@ def test_released_player_kept_as_fa_not_skipped() -> None:
     }
     mapping = build_roster_mapping(players)
 
-    assert "released player" in mapping, (
+    assert ("released player", "RB") in mapping, (
         "FA players must appear in the mapping, not be skipped"
     )
-    assert mapping["released player"]["team"] == "FA"
-    assert mapping["active player"]["team"] == "KC"
+    assert mapping[("released player", "RB")]["team"] == "FA"
+    assert mapping[("active player", "WR")]["team"] == "KC"
 
 
 def test_non_fantasy_positions_still_skipped() -> None:
@@ -75,8 +75,8 @@ def test_non_fantasy_positions_still_skipped() -> None:
         "2": _sleeper_entry("QB Pat", team="KC", position="QB"),
     }
     mapping = build_roster_mapping(players)
-    assert "linebacker lou" not in mapping
-    assert "qb pat" in mapping
+    assert ("linebacker lou", "LB") not in mapping
+    assert ("qb pat", "QB") in mapping
 
 
 def test_collision_prefers_active_over_fa() -> None:
@@ -88,7 +88,19 @@ def test_collision_prefers_active_over_fa() -> None:
     }
     mapping = build_roster_mapping(players)
     # Order independence: whichever ran first, active must win.
-    assert mapping["common name"]["team"] == "KC"
+    assert mapping[("common name", "RB")]["team"] == "KC"
+
+
+def test_same_name_different_position_do_not_collide() -> None:
+    """2026-08-29 fix: keying on ``(name, position)`` keeps two players who
+    share a name but play different positions from clobbering each other."""
+    players = {
+        "1": _sleeper_entry("Antonio Williams", team="BUF", position="RB"),
+        "2": _sleeper_entry("Antonio Williams", team="CIN", position="WR"),
+    }
+    mapping = build_roster_mapping(players)
+    assert mapping[("antonio williams", "RB")]["team"] == "BUF"
+    assert mapping[("antonio williams", "WR")]["team"] == "CIN"
 
 
 # ---------------------------------------------------------------------------
@@ -100,9 +112,18 @@ def _proj_df(rows: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["player_name", "recent_team", "position"])
 
 
-def _mapping(entries: Dict[str, Dict[str, str]]) -> Dict[str, Dict[str, str]]:
-    """Build a mapping dict matching build_roster_mapping's shape."""
-    return {k: {**v, "status": v.get("status", "Active")} for k, v in entries.items()}
+def _mapping(
+    entries: Dict[str, Dict[str, str]],
+) -> Dict[Tuple[str, str], Dict[str, str]]:
+    """Build a mapping dict matching build_roster_mapping's shape.
+
+    Keys on ``(lowercase name, position)`` since the 2026-08-29 position-aware
+    fix, so each value must carry a ``position``.
+    """
+    return {
+        (k, v["position"]): {**v, "status": v.get("status", "Active")}
+        for k, v in entries.items()
+    }
 
 
 def test_released_emits_released_change_type() -> None:
@@ -149,6 +170,22 @@ def test_unchanged_player_produces_no_change_row() -> None:
     updated_df, changes = update_rosters(df, mapping)
     assert changes.empty
     assert updated_df.iloc[0]["recent_team"] == "KC"
+
+
+def test_ambiguous_homonym_no_position_match_left_untouched() -> None:
+    """2026-08-29 fix: a Gold row whose position matches no mapping entry AND
+    whose name maps to multiple positions is left untouched — no clobber, no
+    guess. (A sole-entry name still gets the reclassification fallback; see
+    test_position_only_change_emits_reclassified.)"""
+    df = _proj_df([{"player_name": "Antonio Williams", "recent_team": "FA", "position": "TE"}])
+    mapping = {
+        ("antonio williams", "RB"): {"team": "BUF", "position": "RB", "status": "Active"},
+        ("antonio williams", "WR"): {"team": "CIN", "position": "WR", "status": "Active"},
+    }
+    updated_df, changes = update_rosters(df, mapping)
+    assert changes.empty
+    assert updated_df.iloc[0]["recent_team"] == "FA"
+    assert updated_df.iloc[0]["position"] == "TE"
 
 
 # ---------------------------------------------------------------------------

@@ -149,23 +149,24 @@ def test_build_roster_mapping_returns_team_and_position(mock_sleeper_players):
     """Mapping values are dicts with 'team' and 'position'; LAR normalizes to LA."""
     mapping = build_roster_mapping(mock_sleeper_players)
 
-    assert "josh allen" in mapping
-    assert mapping["josh allen"] == {
+    # Keyed on (name, position) since the 2026-08-29 position-aware fix.
+    assert ("josh allen", "QB") in mapping
+    assert mapping[("josh allen", "QB")] == {
         "team": "BUF",
         "position": "QB",
         "status": "Active",
     }
 
-    assert "isiah pacheco" in mapping
-    assert mapping["isiah pacheco"] == {
+    assert ("isiah pacheco", "RB") in mapping
+    assert mapping[("isiah pacheco", "RB")] == {
         "team": "KC",
         "position": "RB",
         "status": "Active",
     }
 
     # LAR -> LA normalization via SLEEPER_TO_NFLVERSE_TEAM
-    assert "puka nacua" in mapping
-    assert mapping["puka nacua"] == {
+    assert ("puka nacua", "WR") in mapping
+    assert mapping[("puka nacua", "WR")] == {
         "team": "LA",
         "position": "WR",
         "status": "Active",
@@ -178,8 +179,8 @@ def test_build_roster_mapping_name_collision(mock_sleeper_players):
 
     # Active QB on BUF must win over inactive OL (which is also filtered by
     # position, but the behavioral guarantee is: Active wins).
-    assert mapping["josh allen"]["position"] == "QB"
-    assert mapping["josh allen"]["team"] == "BUF"
+    assert mapping[("josh allen", "QB")]["position"] == "QB"
+    assert mapping[("josh allen", "QB")]["team"] == "BUF"
 
 
 def test_build_roster_mapping_filters_non_fantasy(mock_sleeper_players):
@@ -197,9 +198,9 @@ def test_build_roster_mapping_filters_non_fantasy(mock_sleeper_players):
 def test_update_rosters_changes_team_and_position(mock_gold_df):
     """update_rosters must change recent_team AND log the change."""
     roster_mapping = {
-        "davante adams": {"team": "LA", "position": "WR"},
-        "deebo samuel": {"team": "SF", "position": "RB"},  # no change in this test
-        "josh allen": {"team": "BUF", "position": "QB"},
+        ("davante adams", "WR"): {"team": "LA", "position": "WR"},
+        ("deebo samuel", "RB"): {"team": "SF", "position": "RB"},  # no change here
+        ("josh allen", "QB"): {"team": "BUF", "position": "QB"},
     }
 
     updated_df, changes_df = update_rosters(mock_gold_df, roster_mapping)
@@ -219,10 +220,12 @@ def test_update_rosters_changes_team_and_position(mock_gold_df):
 def test_update_rosters_changes_position(mock_gold_df):
     """Position mismatches are corrected and old_position/new_position logged."""
     roster_mapping = {
-        "davante adams": {"team": "NYJ", "position": "WR"},  # no change
-        # Force a position change: Gold has RB, Sleeper says WR
-        "deebo samuel": {"team": "SF", "position": "WR"},
-        "josh allen": {"team": "BUF", "position": "QB"},  # no change
+        ("davante adams", "WR"): {"team": "NYJ", "position": "WR"},  # no change
+        # Force a position change: Gold has RB, Sleeper says WR. The Gold RB
+        # row misses the exact (name, RB) key and falls back to this sole
+        # (name, WR) entry — a genuine reclassification.
+        ("deebo samuel", "WR"): {"team": "SF", "position": "WR"},
+        ("josh allen", "QB"): {"team": "BUF", "position": "QB"},  # no change
     }
 
     updated_df, changes_df = update_rosters(mock_gold_df, roster_mapping)
@@ -239,7 +242,7 @@ def test_update_rosters_changes_position(mock_gold_df):
 def test_update_rosters_leaves_unmapped_players_untouched(mock_gold_df):
     """Players absent from roster_mapping must not appear in changes."""
     roster_mapping = {
-        "davante adams": {"team": "NYJ", "position": "WR"},  # no change
+        ("davante adams", "WR"): {"team": "NYJ", "position": "WR"},  # no change
     }
 
     updated_df, changes_df = update_rosters(mock_gold_df, roster_mapping)
@@ -322,7 +325,7 @@ def test_log_changes_appends_rather_than_overwrites(tmp_path):
 def test_position_update(mock_gold_df):
     """DQAL-01: Position updates from Sleeper API propagate to the Gold DataFrame."""
     roster_mapping = {
-        "deebo samuel": {"team": "SF", "position": "WR"},
+        ("deebo samuel", "WR"): {"team": "SF", "position": "WR"},
     }
     updated_df, changes_df = update_rosters(mock_gold_df, roster_mapping)
 
@@ -335,7 +338,7 @@ def test_position_update(mock_gold_df):
 def test_team_update(mock_gold_df):
     """DQAL-02: Team updates from Sleeper API propagate to recent_team."""
     roster_mapping = {
-        "davante adams": {"team": "LA", "position": "WR"},
+        ("davante adams", "WR"): {"team": "LA", "position": "WR"},
     }
     updated_df, changes_df = update_rosters(mock_gold_df, roster_mapping)
 
@@ -351,7 +354,7 @@ def test_name_collision_handling(mock_sleeper_players):
     # id=1 (Active QB, BUF) beats id=4 (Inactive OL). Even though id=4 is
     # already filtered by the non-fantasy-position rule, the Active-wins
     # preference is the backstop for collisions within FANTASY_POSITIONS.
-    assert mapping["josh allen"] == {
+    assert mapping[("josh allen", "QB")] == {
         "team": "BUF",
         "position": "QB",
         "status": "Active",
