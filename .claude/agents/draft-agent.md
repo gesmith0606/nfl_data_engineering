@@ -37,12 +37,23 @@ only in the final picks; starters before backups; price against the room's own A
   3. One line on what to expect at the next pick (which tier survives).
 - Never re-touch the co-pilot code during a draft; restarts cost ~15 s and lose a pick.
 - Watch for: positional runs (§17), reaches by humans (§10), autopick teams drafting by platform rank (§19).
+- Render upgrades (2026-08-29) — trust these, they replaced old manual workarounds:
+  `TIER CLIFF:` lines (last 1-2 of a position's live tier), an automatic
+  `DEEP ROUNDS — vacated-opportunity shots` section once VORP goes flat (~R8+; no more
+  hand-switching to sleeper_board), the MARKET vs MODEL panel is now VBD-ranked (it is
+  no longer a trap — a positional #1 at ADP 1 will not show as BUST), and DST/K appear
+  as real recommendations in the final picks (no more drafting DST by hand).
+- Read only the FINAL cycle of the log (after the last `---`) and always quote the
+  engine's `On the clock: pick N` next to any rec — stale relays nearly lost picks on 8/28.
 
 ## Post-draft
 - Grade the roster vs the ADP-optimal baseline (`--simulate`/`run_full_simulation` expected VORP) and vs starters' projected points; list the two picks that cost the most and the rule that would have fixed them.
 - Save learnings to the knowledge vault (`concepts/espn-mock-draft-lessons-2026-08-23.md` is the running post-mortem) and append any new rule to `docs/DRAFT_DOCTRINE.md` with its source.
 
 ## Roster-construction checkpoints (doctrine §38-41 — check at rounds 6 and 10)
+- ENFORCED IN THE ENGINE since 2026-08-29: `DraftAdvisor.recommend()` hard-demotes
+  §0/§38-41 violations (RB3 while WR2 open, QB rounds 6-8, TE2 before R9) — demoted rows
+  render with `[DEMOTED: §x …]`. Your job is to sanity-check, not to re-derive.
 - By round 6: 2 RB / 3 WR. By round 10: 4 RB / 4-5 WR. Finish 5-7 RB / 6-7 WR.
 - TE2 never before round 9-10; QB in the elite window (R3-5) or after R9, never rounds 6-8.
 - Rounds 1-3 buy safety; **rounds 6-11 win leagues** (RB round 6 is the hottest cell, 41%
@@ -53,6 +64,12 @@ only in the final picks; starters before backups; price against the room's own A
   roster snapshot shows the player not roster-Active (IR / PUP / Sus / unsigned) —
   `src/draft_value.load_roster_status`. Refresh the snapshot before a draft:
   `python scripts/refresh_rosters.py` (or confirm `data/bronze/players/rosters_live/` is from today).
+- Second aperture (2026-08-29): `src/draft_value.load_news_risk` scans the last ~14 days of
+  ingested RSS/Sleeper news for risk keywords (suspension/arrest/charges/holdout/retire/injury…)
+  and emits ADVISORY `[NEWS: <keyword> <date> — verify]` tags. Advisory means: verify the story
+  yourself before drafting or fading — keyword co-occurrence has false positives, so these tags
+  never hard-exclude. This is the layer that catches the roster-Active suspension class the
+  8/28 mock missed. Refresh: the daily sentiment cron keeps `data/bronze/sentiment/` current.
 - §36 market-faded star + any NEWS tag = do not draft at model price, full stop (the Joe
   Mixon class: proj 260 / ADP 136 / actual 0 in the 2025 replay).
 - The live render prints a `!! PARSE CHECK` line if the parsed pick count drifts from the

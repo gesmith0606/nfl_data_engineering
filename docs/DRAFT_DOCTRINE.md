@@ -110,7 +110,9 @@ Two sources: public league-winner/best-ball studies, and our own 2021–25 study
 - **Cost of waiting by position** (best now vs expected at my next pick) — the strategic view. **[impl]** `position_wait_costs()`
 - **Top recommendations** by opportunity cost, respecting house rules. **[impl]**
 - **Values/sleepers still on the board** and **busts the room is about to reach for**. **[impl]** `market_insights()`
-- **Tier-cliff alerts**: "last player of tier N at RB" — *next implementation step* (`compute_tiers` exists; not yet in the live render).
+- **Tier-cliff alerts**: "last player of tier N at RB". **[impl]** `LiveDraftEngine.tier_cliff_alerts()` — tiers frozen from the initial board, `TIER CLIFF:` lines in the live render when ≤2 remain in a position's best live tier.
+- **Deep-round switch**: once the top rec's VORP ≤ 0 (~round 8+), the render auto-appends the UC1 vacated-opportunity shot list. **[impl]** `LiveDraftEngine.deep_round_shots()` (2026-08-29 — the 8/28 mock showed VORP can't separate players down there).
+- **Roster-construction rules (§0 starters-first, §38-41)** are hard demotions inside `DraftAdvisor.recommend()` (2026-08-29), not just prompt guidance — demoted candidates stay visible with a `demotion_rule` reason. DST/K ride an ADP-only path onto the board so the engine can finish a roster itself in the final picks.
 - Always name the *reason* (which rule above) — a pick without a rule is a guess.
 
 ## 10. Back-test results — what our own data says (2021–2025)
