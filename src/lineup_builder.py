@@ -599,6 +599,15 @@ def get_team_lineup_with_projections(
     proj_name_col = "player_name" if "player_name" in proj.columns else "full_name"
     proj_id_col = "player_id" if "player_id" in proj.columns else None
 
+    # A non-empty projections frame may still lack floor/ceiling (or even
+    # points) — e.g. a source that carries only projected_points, or a stale
+    # local parquet from an older schema. Guarantee the value columns exist so
+    # the column selection below degrades to NaN instead of raising KeyError.
+    proj = proj.copy()
+    for _col in ("projected_points", "projected_floor", "projected_ceiling"):
+        if _col not in proj.columns:
+            proj[_col] = np.nan
+
     # Try joining on player_id first, fall back to name+team. We also bring
     # the projection's team along so we can null out any stale-team
     # projection (the player was traded / promoted and the Gold parquet

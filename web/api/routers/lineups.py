@@ -5,6 +5,7 @@
 from datetime import datetime, timezone
 from typing import List, Optional
 
+import pandas as pd
 from fastapi import APIRouter, HTTPException, Query
 
 from ..models.schemas import (
@@ -130,6 +131,11 @@ def get_lineups(
                 limit=100_000,
             )
         except FileNotFoundError:
+            # The data legitimately doesn't exist. Pass an EMPTY frame (not
+            # None) so the builder degrades to null points — None would make
+            # it fall back to a local-disk read, the exact behavior the
+            # 2026-07-02 service-routing fix was meant to avoid.
+            projections_df = pd.DataFrame()
             logger.info(
                 "No projections for season=%d week=%d — lineup served "
                 "without points",
