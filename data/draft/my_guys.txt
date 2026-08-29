@@ -1,0 +1,16 @@
+# MY GUYS — personal watchlist, one player per line, "#" starts a comment.
+# This is the ONLY place knowledge the model cannot have can live: Sleeper's
+# roster status carries no "Suspended", so pending legal/holdout situations are
+# invisible to every projection and flag we compute (2026-08-28 ESPN mock).
+#
+# Names are matched suffix-blind, so "Brian Thomas Jr." == "Brian Thomas".
+# Read by scripts/draft_targets.py and tagged live by scripts/draft_live.py.
+#
+# Add fades here too — a note next to a name you want to see flagged in the
+# room beats trying to remember it on a 90-second clock.
+
+# --- targets ---
+
+# --- fades / avoid (the model cannot see these) ---
+- Josh Jacobs      # legal situation, season availability at risk (2026-08-28)
+Garrett Wilson
