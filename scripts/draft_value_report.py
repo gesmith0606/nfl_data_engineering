@@ -133,6 +133,17 @@ def main(argv: Optional[List[str]] = None) -> int:
                            ("DEEP SLEEPERS — ADP >100 with a startable rank (§29)", "deep_sleepers")):
             print(f"\n{title}")
             print(_fmt(s[key]))
+        # ADVISORY keyword news (draft_value.load_news_risk): risk keywords in
+        # the last ~14 days of ingested feeds. Tag-only — verify before
+        # drafting; §36 (market-faded + NEWS) is the do-not-draft combination.
+        if "news_risk" in lab.columns and lab["news_risk"].notna().any():
+            adv = lab[lab["news_risk"].notna()].sort_values(
+                "adp_rank", na_position="last"
+            )
+            cols = [c for c in ("player_name", "position", "vbd_rank", "adp_rank",
+                                "news_risk", "roster_status") if c in adv.columns]
+            print("\nNEWS ADVISORIES — keyword hits in recent news (verify before drafting; §36)")
+            print(_fmt(adv[cols].head(max(args.top, 12))))
 
     if len(labeled) >= 2:
         merged = None

@@ -12,6 +12,8 @@ draft deterministically, so it is fully unit-testable offline.
 
 from __future__ import annotations
 
+import logging
+import os
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
@@ -33,6 +35,37 @@ _VALUE_DROP_GAP = 12  # elite player sliding this far past their model rank
 _RUN_WINDOW = 4  # look-back window for a positional run
 _RUN_COUNT = 3  # this many of one position within the window → run
 _ROOKIE_DRAFT_MAX_ROUNDS = 5  # <= this many rounds → rookie draft (no ADP moments)
+_TIER_POSITIONS = ("QB", "RB", "WR", "TE")  # positions tiered / deep-round scoped
+_TIER_CLIFF_MAX_LEFT = 2  # alert when <= this many remain in the best live tier
+
+
+def _load_vacated_board(season: int) -> pd.DataFrame:
+    """Load the UC1 vacated-opportunity sleeper board (scripts/sleeper_board.py).
+
+    Reuses ``build_sleeper_board`` — the exact shot list the 2026-08-28 mock
+    proved out — rather than duplicating its computation. scripts/ is not a
+    package, so the module is loaded by file path (the repo's test-side
+    convention for scripts).
+
+    Args:
+        season: Target season for the N-1 -> N vacancy transition.
+
+    Returns:
+        The sleeper-board DataFrame (may be empty). Raises on load failure —
+        the engine's caller handles fail-soft.
+    """
+    import importlib.util
+
+    path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "scripts",
+        "sleeper_board.py",
+    )
+    spec = importlib.util.spec_from_file_location("_uc1_sleeper_board", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    # top=60 leaves headroom: the live filter removes drafted names each cycle.
+    return module.build_sleeper_board(season=season, top=60)
 
 
 @dataclass(frozen=True)
@@ -100,6 +133,13 @@ class LiveDraftEngine:
         self._vorp_by_rank = dict(
             zip(self.enriched.get("model_rank", []), self.enriched.get("vorp", []))
         )
+        # Lazy one-time caches (both must NOT recompute per 2-second poll cycle):
+        # positional tiers from the INITIAL board (tier structure is a property
+        # of the pre-draft pool — recomputing on the shrinking availability
+        # shifts boundaries mid-draft), and the UC1 vacated-opportunity sleeper
+        # board for the deep-round lens. None = not yet built/attempted.
+        self._tier_pool: Optional[pd.DataFrame] = None
+        self._vacated_shots: Optional[pd.DataFrame] = None
         # UC3 correlation edges for stack-aware recommendations. Optional —
         # a missing/broken Gold parquet must never break the draft co-pilot.
         try:
@@ -300,6 +340,229 @@ class LiveDraftEngine:
         if isinstance(avail, pd.DataFrame) and not avail.empty:
             avail = self._market_believed(avail).head(top_n)
         return avail
+
+    # -- deep rounds (UC1 vacated-opportunity shots) ---------------------------
+
+    def is_deep_round(self, recs: Optional[pd.DataFrame]) -> bool:
+        """True when every current recommendation's VORP is <= 0.
+
+        After ~round 8 the whole rec list sits at/below replacement and VORP
+        can no longer separate players (2026-08-28 ESPN mock) — the signal to
+        switch the lens to vacated opportunity.
+
+        Args:
+            recs: The recommendations frame from :meth:`recommendations`.
+
+        Returns:
+            True iff the TOP recommendation's VORP is <= 0 (the primary
+            trigger — the model can no longer separate its first choice from
+            replacement), falling back to "all numeric VORPs <= 0" when the
+            top row's VORP is NaN.
+        """
+        if recs is None or len(recs) == 0 or "vorp" not in getattr(recs, "columns", ()):
+            return False
+        vorp = pd.to_numeric(recs["vorp"], errors="coerce")
+        first = vorp.iloc[0]
+        if pd.notna(first):
+            return float(first) <= 0.0
+        rest = vorp.dropna()
+        return (not rest.empty) and float(rest.max()) <= 0.0
+
+    def deep_round_shots(self, top_n: int = 5) -> List[Dict[str, Any]]:
+        """Top still-available UC1 vacated-opportunity shots for the deep rounds.
+
+        The sleeper board is loaded ONCE lazily (first call — never on the
+        poll hot path until the deep-round condition first fires) and then
+        only filtered by the drafted-name set each cycle. Fail-soft: any load
+        failure logs one warning, caches an empty board, and returns [] —
+        never crashes mid-draft, never retries the failing load every cycle.
+
+        Args:
+            top_n: Maximum number of shots to return.
+
+        Returns:
+            List of dicts with ``player_name``, ``position``, ``team``,
+            ``absorbed_share``, ``rivals``, and a one-line ``reason``
+            (vacated share + rival count), sorted by absorption score.
+        """
+        if self._vacated_shots is None:
+            try:
+                season = (
+                    int(self.state.season) if self.state and self.state.season else 0
+                )
+            except (TypeError, ValueError):
+                season = 0
+            if season <= 0:
+                from datetime import date
+
+                season = date.today().year
+            try:
+                board = _load_vacated_board(season)
+            except Exception as exc:  # noqa: BLE001 — never crash a live draft
+                logging.getLogger(__name__).warning(
+                    "DEEP ROUNDS lens disabled — vacated-opportunity sleeper "
+                    "board unavailable (%s)",
+                    exc,
+                )
+                board = pd.DataFrame()
+            self._vacated_shots = (
+                board if isinstance(board, pd.DataFrame) else pd.DataFrame()
+            )
+        board = self._vacated_shots
+        if board.empty or "player_name" not in board.columns:
+            return []
+
+        from src.draft_optimizer import name_key
+
+        drafted = {
+            name_key(str(r.get("player_name")))
+            for roster in self.rosters.values()
+            for r in roster
+            if r.get("player_name")
+        }
+        shots: List[Dict[str, Any]] = []
+        for _, row in board.iterrows():
+            name = str(row["player_name"])
+            if name_key(name) in drafted:
+                continue
+            share = float(row.get("vacancy_absorbed_share") or 0.0)
+            tgt_vac = float(row.get("net_target_vacancy") or 0.0)
+            carry_vac = float(row.get("net_carry_vacancy") or 0.0)
+            rivals = int(row.get("vacancy_competition_n") or 0)
+            # The story is the vacated share he steps into ("AJ Dillon —
+            # 48.7% of CAR's carries vacated", 2026-08-28 mock), quoted from
+            # the dominant vacancy channel; absorbed_share is the sort score.
+            vac, kind = max((carry_vac, "carries"), (tgt_vac, "targets"))
+            shots.append(
+                {
+                    "player_name": name,
+                    "position": str(row.get("position", "")),
+                    "team": str(row.get("team", "")),
+                    "absorbed_share": round(share, 3),
+                    "rivals": rivals,
+                    "reason": (
+                        f"steps into {vac:.1%} vacated {kind} "
+                        f"(absorbed {share:.1%} so far), "
+                        f"{rivals} rival(s) competing"
+                    ),
+                }
+            )
+            if len(shots) >= top_n:
+                break
+        return shots
+
+    # -- tier cliffs (doctrine §2 / §9) ---------------------------------------
+
+    @staticmethod
+    def _pool_keys(df: pd.DataFrame) -> pd.Series:
+        """Stable join keys between the tier pool and the live availability."""
+        if "player_id" in df.columns and df["player_id"].notna().any():
+            return df["player_id"].astype(str)
+        from src.draft_optimizer import name_key
+
+        return df["player_name"].map(lambda n: name_key(str(n)))
+
+    def _build_tier_pool(self) -> pd.DataFrame:
+        """Positional tiers computed ONCE from the initial (full) board."""
+        empty = pd.DataFrame(
+            columns=["_key", "player_name", "position", "tier", "_pts"]
+        )
+        pool = self._market_believed(self.enriched)
+        if pool.empty or not {"position", "player_name"} <= set(pool.columns):
+            return empty
+        pts_col = (
+            "projected_season_points"
+            if "projected_season_points" in pool.columns
+            else "projected_points"
+        )
+        if pts_col not in pool.columns:
+            return empty
+        pool = pool[pool["position"].isin(_TIER_POSITIONS)].copy()
+        pool = pool[pool[pts_col].notna()]
+        if pool.empty:
+            return empty
+        try:
+            from src.draft_tiers import compute_tiers
+        except ImportError:  # pragma: no cover
+            from draft_tiers import compute_tiers
+
+        pool["tier"] = compute_tiers(pool, points_col=pts_col)
+        pool["_pts"] = pool[pts_col].astype(float)
+        pool["_key"] = self._pool_keys(pool)
+        return pool[["_key", "player_name", "position", "tier", "_pts"]].dropna(
+            subset=["tier"]
+        )
+
+    def tiered_available(self) -> pd.DataFrame:
+        """Initial-board tiers filtered to still-available players.
+
+        The tier structure itself is cached from the first call (see
+        ``_tier_pool``); per poll cycle this is only a set-membership filter.
+
+        Returns:
+            DataFrame with ``player_name``, ``position``, ``tier`` (1 = best)
+            and ``_pts`` columns; empty before the board is built.
+        """
+        if self.board is None:
+            return pd.DataFrame(
+                columns=["_key", "player_name", "position", "tier", "_pts"]
+            )
+        if self._tier_pool is None:
+            self._tier_pool = self._build_tier_pool()
+        pool = self._tier_pool
+        if pool.empty:
+            return pool
+        avail = self.board.available
+        if avail is None or avail.empty:
+            return pool.iloc[0:0]
+        return pool[pool["_key"].isin(set(self._pool_keys(avail)))]
+
+    def tier_cliff_alerts(
+        self, threshold: int = _TIER_CLIFF_MAX_LEFT
+    ) -> List[Dict[str, Any]]:
+        """Positions whose best available tier is nearly gone (doctrine §2/§9).
+
+        "Draft priority is 'last player in a tier at a scarce position', not
+        'next-best rank'" — this is the take-him-now trigger.
+
+        Args:
+            threshold: Alert when <= this many players remain in the current
+                best available tier at a position (default 2).
+
+        Returns:
+            List of dicts sorted most-urgent first: ``position``, ``tier``,
+            ``remaining``, ``players`` (names left in the tier),
+            ``next_player`` (who starts the next tier, or None) and
+            ``drop_pts`` (projected-point drop to that next tier, or None).
+        """
+        live = self.tiered_available()
+        if live.empty:
+            return []
+        alerts: List[Dict[str, Any]] = []
+        for pos, sub in live.groupby("position"):
+            sub = sub.sort_values("_pts", ascending=False)
+            top_tier = int(sub.iloc[0]["tier"])
+            current = sub[sub["tier"] == top_tier]
+            if len(current) > threshold:
+                continue
+            nxt = sub[sub["tier"] > top_tier]
+            next_player = str(nxt.iloc[0]["player_name"]) if not nxt.empty else None
+            drop_pts = (
+                round(float(current["_pts"].min() - nxt.iloc[0]["_pts"]), 1)
+                if not nxt.empty
+                else None
+            )
+            alerts.append(
+                {
+                    "position": str(pos),
+                    "tier": top_tier,
+                    "remaining": int(len(current)),
+                    "players": [str(n) for n in current["player_name"]],
+                    "next_player": next_player,
+                    "drop_pts": drop_pts,
+                }
+            )
+        return sorted(alerts, key=lambda a: a["remaining"])
 
     # -- slot math -----------------------------------------------------------
 

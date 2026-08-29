@@ -125,6 +125,11 @@ def _labels_for(
         tags.append("AVOID")  # a veto: never shown alongside MY GUY
     elif key in my_guys:
         tags.append("MY GUY")
+    # ADVISORY keyword news (draft_value.load_news_risk): "NEWS:suspension" —
+    # verify before drafting, but it never suppresses the other tags.
+    news = row.get("news_risk")
+    if news is not None and not pd.isna(news) and str(news):
+        tags.append(f"NEWS:{str(news).split()[0]}")
     if bool(row.get("flag_bust")):
         tags.append("BUST")
     if bool(row.get("flag_value")):

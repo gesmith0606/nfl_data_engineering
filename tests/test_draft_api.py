@@ -747,7 +747,10 @@ class TestLoadDraftDataStrategyOrder:
 
         mock_cache.assert_called_once()
         mock_fetcher.assert_not_called()
-        assert len(result) == len(cached)
+        # compute_value_scores may append ADP-only K/DST board rows, so the
+        # result can be longer than the input — assert every projected player
+        # survived rather than exact length.
+        assert set(cached["player_id"]).issubset(set(result["player_id"].dropna()))
         assert "vorp" in result.columns
 
     def test_live_fetch_used_when_no_cache(self):
@@ -764,7 +767,10 @@ class TestLoadDraftDataStrategyOrder:
             result = _real_load_draft_data("half_ppr", 2026)
 
         mock_fetcher.assert_called_once()
-        assert len(result) == len(live)
+        # compute_value_scores may append ADP-only K/DST board rows, so the
+        # result can be longer than the input — assert every projected player
+        # survived rather than exact length.
+        assert set(live["player_id"]).issubset(set(result["player_id"].dropna()))
         assert "vorp" in result.columns
 
 

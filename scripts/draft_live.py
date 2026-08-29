@@ -243,6 +243,7 @@ def build_manual_state(
 
 
 _NEWS_MAP: Optional[dict] = None
+_NEWS_RISK_MAP: Optional[dict] = None
 
 
 
@@ -301,8 +302,13 @@ def value_tags(player_name: str) -> str:
 
 def news_status(player_name: str, position: str) -> Optional[str]:
     """Roster status for a player who is NOT simply Active (lazy-loaded from the
-    latest daily Sleeper snapshot); None when Active/unknown. August news guard."""
-    global _NEWS_MAP
+    latest daily Sleeper snapshot); None when Active/unknown. August news guard.
+
+    Falls back to the keyword advisory scan (``load_news_risk`` over the last
+    two weeks of ingested news) when the roster designation says nothing —
+    those tags are advisory ("verify before drafting"), never an exclusion.
+    """
+    global _NEWS_MAP, _NEWS_RISK_MAP
     if _NEWS_MAP is None:
         try:
             from src.draft_optimizer import name_key
@@ -320,9 +326,25 @@ def news_status(player_name: str, position: str) -> Optional[str]:
                 "NEWS guard DISABLED — roster-status load failed: %s", exc
             )
             _NEWS_MAP = {}
+    if _NEWS_RISK_MAP is None:
+        try:
+            from src.draft_value import load_news_risk
+
+            risk = load_news_risk()
+            _NEWS_RISK_MAP = {
+                r["_name_key"]: f"{r['news_keyword']} {r['news_date']} — verify"
+                for _, r in risk.iterrows()
+            }
+        except Exception as exc:  # noqa: BLE001 — advisory layer, fail soft
+            logging.getLogger(__name__).warning(
+                "NEWS keyword advisories disabled — load failed: %s", exc
+            )
+            _NEWS_RISK_MAP = {}
     from src.draft_optimizer import name_key
 
-    return _NEWS_MAP.get((name_key(player_name), str(position).upper()))
+    key = name_key(player_name)
+    hard = _NEWS_MAP.get((key, str(position).upper()))
+    return hard if hard is not None else _NEWS_RISK_MAP.get(key)
 
 
 def position_wait_costs(engine: LiveDraftEngine) -> List[dict]:
@@ -363,25 +385,17 @@ def position_wait_costs(engine: LiveDraftEngine) -> List[dict]:
 
 def tier_alerts(engine: LiveDraftEngine) -> List[dict]:
     """Per position: the best available player's tier and how many of that tier
-    remain — "last of tier 2 at RB" is the doctrine's take-him-now trigger (§5)."""
-    if engine.board is None:
+    remain — "last of tier 2 at RB" is the doctrine's take-him-now trigger (§5).
+
+    Tiers come from the engine's INITIAL-board tier pool (computed once, then
+    only filtered by drafted players per cycle) — stable boundaries all draft,
+    and no per-cycle ``compute_tiers`` cost on the 2-second poll loop."""
+    live = engine.tiered_available()
+    if live.empty:
         return []
-    avail = engine._market_believed(engine.board.available)
-    if avail.empty or "projected_season_points" not in avail.columns:
-        return []
-    try:
-        from src.draft_tiers import compute_tiers
-    except ImportError:  # pragma: no cover
-        from draft_tiers import compute_tiers
-    pool = avail[avail["position"].isin(["QB", "RB", "WR", "TE"])].copy()
-    if pool.empty:
-        return []
-    pool["tier"] = compute_tiers(pool)
     out = []
-    for pos, sub in pool.groupby("position"):
-        sub = sub.dropna(subset=["tier"]).sort_values("projected_season_points", ascending=False)
-        if sub.empty:
-            continue
+    for pos, sub in live.groupby("position"):
+        sub = sub.sort_values("_pts", ascending=False)
         top_tier = int(sub.iloc[0]["tier"])
         left = int((sub["tier"] == top_tier).sum())
         names = sub[sub["tier"] == top_tier]["player_name"].head(4).tolist()
@@ -415,60 +429,25 @@ def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
     return needs
 
 
-_MISPRICE_GAP = 15  # model rank vs ADP gap (picks) that counts as mispriced
-_BUST_HORIZON = 36  # busts only matter if the market takes them in the next ~3 rounds
-
-
 def market_insights(engine: LiveDraftEngine, on_clock_pick: Optional[int]) -> dict:
-    """Model-vs-market mispricings still on the board.
+    """Model-vs-market mispricings still on the board, ranked by VORP.
 
-    ``values``  — model ranks them >= 15 picks ahead of where the room drafts
-    them (sleepers / falling value: wait, they come to you).
-    ``busts``   — the market drafts them >= 15 picks ahead of the model AND
-    they are about to go (ADP within the next ~3 rounds): don't reach.
+    Delegates to ``draft_value.compute_market_insights`` (VBD rank vs room
+    ADP), keeping only the room-specific skip set here: never K/DST (drafted
+    last, by rule), no QB2 (house rule) / TE2 once the starter is set.
     """
     if engine.board is None:
         return {"values": [], "busts": []}
-    avail = engine._market_believed(engine.board.available)
-    need = {"adp_rank", "model_rank", "position", "player_name"}
-    if avail.empty or not need <= set(avail.columns):
-        return {"values": [], "busts": []}
-    df = avail.dropna(subset=["adp_rank"]).copy()
-    df["gap"] = df["adp_rank"] - df["model_rank"]  # + = market later than model
-    # Only positions you can still use: never K/DST (drafted last, by rule),
-    # no QB2 (house rule) / TE2 once the starter is set, and no "ADP 300+"
-    # undrafted-pool artifacts.
+    from src.draft_value import compute_market_insights
+
     have = {str(r.get("position", "")).upper() for r in engine.my_full_roster()}
     rc = engine.board.roster_config
-    skip = {"K", "DST"}
+    skip = set()
     for pos in ("QB", "TE"):
         if pos in have and int(rc.get("SFLEX", 0)) == 0:
             skip.add(pos)
-    df = df[~df["position"].isin(skip) & (df["adp_rank"] <= 200)]
-    pts = "projected_season_points" if "projected_season_points" in df else "projected_points"
-
-    def _rows(sub):
-        return [
-            {
-                "player_name": r["player_name"],
-                "position": r["position"],
-                "model_rank": int(r["model_rank"]),
-                "adp_rank": int(r["adp_rank"]),
-                "gap": int(r["gap"]),
-                "points": round(float(r.get(pts, float("nan"))), 1),
-                "vorp": r.get("vorp"),
-            }
-            for _, r in sub.iterrows()
-        ]
-
-    values = df[df["gap"] >= _MISPRICE_GAP].sort_values("vorp", ascending=False).head(5)
-    clock = on_clock_pick or 0
-    busts = (
-        df[(df["gap"] <= -_MISPRICE_GAP) & (df["adp_rank"] <= clock + _BUST_HORIZON)]
-        .sort_values("adp_rank")
-        .head(5)
-    )
-    return {"values": _rows(values), "busts": _rows(busts)}
+    avail = engine._market_believed(engine.board.available)
+    return compute_market_insights(avail, on_clock_pick, skip_positions=skip)
 
 
 def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool) -> str:
@@ -478,6 +457,10 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
     wait_costs = position_wait_costs(engine)
     insights = market_insights(engine, turn.on_clock_pick_no if turn else None)
     tiers = tier_alerts(engine)
+    cliffs = engine.tier_cliff_alerts()
+    # Deep-round auto-switch: once VORP can no longer separate the recs (all
+    # <= 0, ~round 8+), augment with the UC1 vacated-opportunity shot list.
+    deep_shots = engine.deep_round_shots() if engine.is_deep_round(recs) else []
     needs_ahead = opponent_needs(engine)
     # Parse self-check, computed once so BOTH output modes carry it — a JSON
     # consumer must not get an internally consistent payload off a stale board
@@ -543,6 +526,8 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 "position_wait_costs": wait_costs,
                 "market_insights": insights,
                 "tier_alerts": tiers,
+                "tier_cliffs": cliffs,
+                "deep_round_shots": deep_shots,
                 "opponent_needs_before_my_next_pick": needs_ahead,
                 "my_roster": roster_view,
             },
@@ -589,6 +574,21 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 f"  {t['position']:<3} tier {t['tier']}: {t['remaining']} left — "
                 f"{', '.join(t['players'])}{flag}"
             )
+    for c in cliffs:
+        head = (
+            f"last of {c['position']} tier {c['tier']} — {c['players'][0]}"
+            if c["remaining"] == 1
+            else (
+                f"{c['remaining']} left in {c['position']} tier {c['tier']} — "
+                f"{', '.join(c['players'])}"
+            )
+        )
+        tail = (
+            f" (next tier starts at {c['next_player']}, -{c['drop_pts']:.1f} proj pts)"
+            if c["next_player"] is not None and c["drop_pts"] is not None
+            else " (no tier below at this position)"
+        )
+        lines.append(f"TIER CLIFF: {head}{tail}")
     if needs_ahead:
         lines.append(
             "  teams still needing a starter before my next pick: "
@@ -638,11 +638,25 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                 f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
             )
             tags = value_tags(str(r.get("player_name", "")))
+            dem = str(r.get("demotion_rule", "") or "")
+            demoted = f"  [DEMOTED: {dem}]" if dem else ""
             lines.append(
                 f"  {str(r.get('player_name','')):<24} "
                 f"{str(r.get('position','')):<3} {str(r.get('team','')):<3} "
                 f"vorp={r.get('vorp','')}{wait}  adp={r.get('adp_rank','')}  "
-                f"tier={r.get('value_tier','')}{tags}{stack}{guard}{news}"
+                f"tier={r.get('value_tier','')}{tags}{stack}{guard}{news}{demoted}"
+            )
+    if deep_shots:
+        lines.append(
+            "\nDEEP ROUNDS — vacated-opportunity shots "
+            "(VORP is flat down here; draft absorbed opportunity, UC1):"
+        )
+        for s in deep_shots:
+            nw = news_status(s["player_name"], s["position"])
+            news = f"  [NEWS: {nw} — verify before drafting]" if nw else ""
+            lines.append(
+                f"  {s['player_name']:<24} {s['position']:<3} "
+                f"{str(s['team']):<3} {s['reason']}{news}"
             )
     if roster_view:
         lines.append("\nYOUR ROSTER:")

@@ -37,6 +37,23 @@ SFLEX_ELIGIBLE = {"QB", "RB", "WR", "TE"}
 UNDERVALUED_THRESHOLD = 15
 OVERVALUED_THRESHOLD = 15
 
+# Hard roster-construction demotion (doctrine §0 starters-first + §38-41
+# checkpoints, 2026-08-29): subtracted from recommendation_score so a demoted
+# candidate ranks below every need-filling pick (VORP spread + need boosts
+# stay well inside +/-300) while remaining visible in the recs frame as an
+# annotated alternative (``demotion_rule`` column carries the rule that fired).
+ROSTER_DEMOTION_PENALTY = 800.0
+
+# ADP-only K/DST board rows (no projection -> NaN VORP) score at this floor
+# minus a small room-ADP term: ordered among themselves by room ADP, but
+# never above a skill player outside the final-picks window (house rule §0).
+KD_ADP_ONLY_FLOOR = -2000.0
+
+# Final-picks K/DST fill bonus — must clear |KD_ADP_ONLY_FLOOR| plus every
+# possible skill recommendation_score so "final picks: fill K/DST" always
+# tops the recs when only those picks remain.
+KD_FILL_BONUS = 5000.0
+
 _NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 
 
@@ -74,6 +91,19 @@ def _first_name_aliases() -> Dict[str, str]:
 
 
 _ALIASES_CACHE: Optional[Dict[str, str]] = None
+
+
+def _row_key(row) -> str:
+    """Draftable key for a board row: ``player_id`` when real, else name.
+
+    ADP-only K/DST rows (appended by :func:`compute_value_scores`) carry NaN
+    player_ids; ``str(nan)`` would silently fail every ``draft_player`` call
+    and stall queue building / simulations on the same row forever.
+    """
+    pid = row.get("player_id")
+    if pid is not None and pd.notna(pid) and str(pid):
+        return str(pid)
+    return str(row.get("player_name", ""))
 
 
 def market_believed(df: pd.DataFrame) -> pd.DataFrame:
@@ -242,6 +272,43 @@ def compute_value_scores(
         df["value_tier"] = "fair_value"
         df.loc[df["adp_diff"] >= UNDERVALUED_THRESHOLD, "value_tier"] = "undervalued"
         df.loc[df["adp_diff"] <= -OVERVALUED_THRESHOLD, "value_tier"] = "overvalued"
+
+        # ADP-only K/DST path (2026-08-29): we don't project DST (and K only
+        # with --include-kickers), so the projections-side left join dropped
+        # all 32 DST rows and the engine could say "final picks: fill DST"
+        # while having no DST to recommend. Append the ADP board's rows for
+        # any K/DST position the projection frame lacks entirely: NaN points
+        # and VORP (never fabricated), real room ADP, model_rank at the back
+        # of the board. ``DraftAdvisor.recommend`` ranks them by room ADP and
+        # only surfaces them in the final-picks window.
+        if "position" in adp_df.columns and "position" in df.columns:
+            adp_pos = adp_df["position"].astype(str).str.upper()
+            missing = {"K", "DST"} - set(df["position"].unique())
+            extra = adp_df[adp_pos.isin(missing)] if missing else adp_df.iloc[0:0]
+            if not extra.empty:
+                rows = pd.DataFrame(
+                    {
+                        "player_name": extra["player_name"].astype(str).values,
+                        "position": adp_pos[extra.index].values,
+                        "adp_rank": pd.to_numeric(
+                            extra["adp_rank"], errors="coerce"
+                        ).values,
+                    }
+                )
+                if has_stdev:
+                    rows["adp_stdev"] = pd.to_numeric(
+                        extra["stdev"], errors="coerce"
+                    ).values
+                for team_col in ("team", "recent_team"):
+                    if team_col in df.columns and "team" in extra.columns:
+                        rows[team_col] = extra["team"].values
+                rows[pts_col] = np.nan
+                rows["vorp"] = np.nan
+                rows["adp_diff"] = np.nan
+                rows["value_tier"] = "fair_value"
+                back = int(df["model_rank"].max()) if len(df) else 0
+                rows["model_rank"] = range(back + 1, back + 1 + len(rows))
+                df = pd.concat([df, rows], ignore_index=True)
     else:
         df["adp_rank"] = np.nan
         df["adp_diff"] = np.nan
@@ -738,6 +805,25 @@ class DraftAdvisor:
                 avail["recommendation_score"] = avail["opportunity_cost"]
                 reasoning_parts.append(f"scored by cost of waiting to pick {next_pick_no}")
 
+        # ADP-only K/DST rows (no projection -> NaN vorp, appended by
+        # compute_value_scores): rank them by room ADP among themselves, on a
+        # floor far below every skill player so they can never outrank a
+        # skill pick outside the final-picks window (house rule §0). The
+        # force_kd bonus below lifts them over the floor when that window
+        # opens. Applied after the opportunity-cost overwrite, which would
+        # otherwise reset their NaN-vorp score to 0.
+        if score_col == "vorp" and "adp_rank" in avail.columns:
+            kd_adp_only = (
+                avail["position"].isin(("K", "DST")) & avail["vorp"].isna()
+            )
+            if kd_adp_only.any():
+                adp_term = pd.to_numeric(
+                    avail.loc[kd_adp_only, "adp_rank"], errors="coerce"
+                ).fillna(500.0)
+                avail.loc[kd_adp_only, "recommendation_score"] = (
+                    KD_ADP_ONLY_FLOOR - 0.1 * adp_term
+                )
+
         # Nudge toward unfilled STARTING slots so the board builds a legal lineup
         # rather than pure best-available. Modest vs VORP's spread (~200) — a
         # tiebreaker that gets you your QB/TE on time, never an override.
@@ -752,7 +838,9 @@ class DraftAdvisor:
 
         if enforce_needs and force_kd:
             open_kd = {p for p in ("K", "DST") if int(needs.get(p, 0)) > 0}
-            avail.loc[avail["position"].isin(open_kd), "recommendation_score"] += 1000
+            avail.loc[
+                avail["position"].isin(open_kd), "recommendation_score"
+            ] += KD_FILL_BONUS
             reasoning_parts.append("final picks: fill " + "/".join(sorted(open_kd)))
 
         # FLEX slots still open → gently favor flex-eligible (RB/WR/TE).
@@ -817,6 +905,19 @@ class DraftAdvisor:
                     over + 1
                 )
 
+        # Doctrine roster-construction demotions (§0 starters-first, §38-41
+        # checkpoints): hard — a demoted candidate can never outrank a
+        # need-filling pick — but visible, with the rule that fired attached
+        # in ``demotion_rule`` so the live render can print why.
+        avail["demotion_rule"] = ""
+        if enforce_needs:
+            demo_penalty, demo_rule, demo_applied = (
+                self._roster_construction_demotions(avail)
+            )
+            avail["recommendation_score"] += demo_penalty
+            avail["demotion_rule"] = demo_rule
+            reasoning_parts.extend(demo_applied)
+
         recs = avail.sort_values("recommendation_score", ascending=False).head(top_n)
 
         # Build reasoning string
@@ -827,6 +928,123 @@ class DraftAdvisor:
         reasoning = " | ".join(reasoning_parts)
 
         return recs.reset_index(drop=True), reasoning
+
+    def _roster_construction_demotions(
+        self, avail: pd.DataFrame
+    ) -> Tuple[pd.Series, pd.Series, List[str]]:
+        """Doctrine §0/§38-41 roster-construction demotions for ``recommend``.
+
+        Encodes the checkpoints that previously lived only in agent-prompt
+        prose (and were violated in a live mock — an RB3 recommended while
+        the roster still had fewer than 2 WRs) as hard score demotions with
+        machine-readable reasons:
+
+        - **§0 starters before backups**: while any dedicated QB/RB/WR/TE
+          starting slot is unfilled, a position whose dedicated starters are
+          already full is demoted (FLEX is a wildcard — it can absorb the
+          surplus later; the dedicated slot cannot).
+        - **§40 QB window**: QB demoted in rounds 6-8 of 1-QB leagues (elite
+          window is R3-5, otherwise wait past R9 — R8 was the worst cell on
+          the 2021-25 surplus board, −61 pts/slot).
+        - **§39 TE timing**: a TE2 never before round 9.
+        - **§38 checkpoints**: by R6 2 RB / 3 WR, by R10 4 RB / 4 WR — once
+          the picks remaining before the checkpoint are all needed to hit
+          it, positions that don't close the gap are demoted.
+
+        The round is the user's own pick count + 1 (exact in a snake draft).
+        First matching rule wins per row, so ``demotion_rule`` stays stable.
+
+        Returns:
+            (penalty, rule, applied): score penalty and rule-string Series
+            aligned to ``avail.index``, plus the distinct rules that fired
+            (for the reasoning line).
+        """
+        rc = self.board.roster_config
+        have = Counter(
+            str(p.get("position", "")).upper() for p in self.board.my_roster
+        )
+        sflex = int(rc.get("SFLEX", 0))
+        round_no = self.board.my_pick_count() + 1
+        pos = avail["position"].astype(str).str.upper()
+
+        penalty = pd.Series(0.0, index=avail.index)
+        rule = pd.Series("", index=avail.index, dtype=object)
+        applied: List[str] = []
+
+        def demote(mask: pd.Series, why: str) -> None:
+            mask = mask & (rule == "")
+            if mask.any():
+                penalty.loc[mask] -= ROSTER_DEMOTION_PENALTY
+                rule.loc[mask] = why
+                applied.append(why)
+
+        # §38 active checkpoint, resolved FIRST: its lagging positions are
+        # exempt from the §0 dedicated-slot demotion below — the 3rd WR by
+        # R6 (or 4th RB by R10) is doctrine roster construction, not a
+        # backup, even though the dedicated WR starters are already full.
+        cp_lagging: set = set()
+        cp_reason = ""
+        for cp_round, targets in ((6, {"RB": 2, "WR": 3}), (10, {"RB": 4, "WR": 4})):
+            if round_no > cp_round:
+                continue
+            deficits = {
+                p: max(0, t - have.get(p, 0)) for p, t in targets.items()
+            }
+            total = sum(deficits.values())
+            picks_left = cp_round - round_no + 1
+            if 0 < total and total >= picks_left:
+                cp_lagging = {p for p, d in deficits.items() if d > 0}
+                need_str = "/".join(f"{deficits[p]} {p}" for p in sorted(cp_lagging))
+                cp_reason = (
+                    f"§38 R{cp_round} checkpoint: need {need_str} "
+                    f"in next {picks_left} picks"
+                )
+            break  # only the nearest checkpoint drives urgency
+
+        # §0 starters before backups (dedicated slots only — FLEX resolves
+        # as the wildcard it is).
+        dedicated_need = {
+            p: max(0, int(rc.get(p, 0)) - have.get(p, 0))
+            for p in ("QB", "RB", "WR", "TE")
+        }
+        outstanding = [
+            f"{p}{int(rc.get(p, 0)) - dedicated_need[p] + 1}"
+            for p in ("QB", "RB", "WR", "TE")
+            if dedicated_need[p] > 0
+        ]
+        if outstanding:
+            full = [
+                p
+                for p in ("QB", "RB", "WR", "TE")
+                if int(rc.get(p, 0)) > 0
+                and dedicated_need[p] == 0
+                and p not in cp_lagging
+            ]
+            demote(
+                pos.isin(full),
+                "§0 starters first: " + "/".join(outstanding) + " outstanding",
+            )
+
+        # §40 QB window (1-QB leagues only — 2-QB/superflex rooms price QBs
+        # on a different curve).
+        if sflex == 0 and int(rc.get("QB", 0)) <= 1 and 6 <= round_no <= 8:
+            demote(pos == "QB", "§40 QB window: elite R3-5 or R9+, never R6-8")
+
+        # §39 TE2 never before round 9.
+        te_slots = int(rc.get("TE", 0))
+        if te_slots > 0 and have.get("TE", 0) >= te_slots and round_no < 9:
+            demote(pos == "TE", "§39 TE2 never before R9")
+
+        # §38 roster-count checkpoints — urgency kicks in when the deficit
+        # equals the picks remaining before the checkpoint closes (lagging
+        # set computed above, before §0).
+        if cp_lagging:
+            demote(
+                pos.isin(("QB", "RB", "WR", "TE")) & ~pos.isin(cp_lagging),
+                cp_reason,
+            )
+
+        return penalty, rule, applied
 
     def build_queue(self, depth: int = 12, **turn) -> List[Dict]:
         """Need-aware ranked draft queue via simulate-and-fill.
@@ -863,8 +1081,7 @@ class DraftAdvisor:
                         "vorp": row.get("vorp"),
                     }
                 )
-                key = row.get("player_id") or row.get("player_name")
-                board.draft_player(str(key), by_me=True)
+                board.draft_player(_row_key(row), by_me=True)
         finally:
             board.my_roster = saved_roster
             board.available = saved_available
@@ -1495,8 +1712,8 @@ class MockDraftSimulator:
         idx = random.choices(range(len(top_candidates)), weights=weights, k=1)[0]
         player_row = top_candidates.iloc[idx]
 
-        player_id = player_row.get("player_id", player_row.get("player_name", ""))
-        self.board.draft_player(str(player_id), by_me=False)
+        player_id = _row_key(player_row)
+        self.board.draft_player(player_id, by_me=False)
 
         pos = str(player_row.get("position", "")).upper()
         roster.append(pos)
@@ -1575,8 +1792,8 @@ class MockDraftSimulator:
                     for _, r in recs.iloc[1:].iterrows()
                 ]
                 top_pick = recs.iloc[0]
-                player_id = top_pick.get("player_id", top_pick.get("player_name", ""))
-                player_result = self.board.draft_player(str(player_id), by_me=True)
+                player_id = _row_key(top_pick)
+                player_result = self.board.draft_player(player_id, by_me=True)
                 if not player_result:
                     continue
 
@@ -1625,8 +1842,17 @@ class MockDraftSimulator:
                 )
 
         my_roster = self.board.my_roster
-        total_pts = sum(float(p.get(pts_col, 0) or 0) for p in my_roster)
-        total_vorp = sum(float(p.get("vorp", 0) or 0) for p in my_roster)
+        # NaN-safe: ADP-only K/DST rows carry NaN points/vorp, and NaN is
+        # truthy — ``nan or 0`` stays NaN and would poison the totals (and
+        # the grade) the moment a DST lands on the roster.
+        total_pts = sum(
+            float(p.get(pts_col) or 0)
+            for p in my_roster
+            if pd.notna(p.get(pts_col))
+        )
+        total_vorp = sum(
+            float(p.get("vorp") or 0) for p in my_roster if pd.notna(p.get("vorp"))
+        )
         draft_grade = _pick_grade(total_vorp, expected_vorp)
 
         return {
@@ -1686,6 +1912,9 @@ class MockDraftSimulator:
         for pick_num in user_pick_numbers:
             idx = pick_num - 1
             if idx < len(sorted_pool):
-                expected += float(sorted_pool.iloc[idx].get("vorp", 0) or 0)
+                v = sorted_pool.iloc[idx].get("vorp", 0)
+                # ADP-only K/DST rows carry NaN vorp -- skip, never NaN the
+                # whole baseline (nan is truthy, so ``or 0`` won't catch it).
+                expected += float(v) if pd.notna(v) else 0.0
 
         return expected
