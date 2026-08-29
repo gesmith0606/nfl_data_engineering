@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/></marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#ea580c"/></marker>
+    <style>text{font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;}</style>
+  </defs>
+  <rect width="1200" height="820" fill="#ffffff"/>
+  <text x="40" y="40" font-size="18" font-weight="700" fill="#111827">NFL Data Engineering — Project Architecture</text>
+  <rect x="40" y="60" width="810" height="90" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="6,4"/>
+  <text x="52" y="80" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1">DATA SOURCES</text>
+  <rect x="52" y="88" width="140" height="50" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="122" y="108" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">nfl-data-py</text>
+  <text x="122" y="124" font-size="10" fill="#6b7280" text-anchor="middle">stats · PBP · rosters</text>
+  <rect x="213" y="88" width="140" height="50" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="283" y="108" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Sleeper API</text>
+  <text x="283" y="124" font-size="10" fill="#6b7280" text-anchor="middle">ADP · trending · rosters</text>
+  <rect x="374" y="88" width="140" height="50" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="444" y="108" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">The Odds API</text>
+  <text x="444" y="124" font-size="10" fill="#6b7280" text-anchor="middle">spreads · props</text>
+  <rect x="535" y="88" width="140" height="50" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="605" y="108" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">RSS Feeds ×5</text>
+  <text x="605" y="124" font-size="10" fill="#6b7280" text-anchor="middle">news / sentiment</text>
+  <rect x="696" y="88" width="140" height="50" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="766" y="108" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">CFBD</text>
+  <text x="766" y="124" font-size="10" fill="#6b7280" text-anchor="middle">college priors</text>
+  <line x1="200" y1="150" x2="200" y2="178" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="445" y1="150" x2="445" y2="178" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="690" y1="150" x2="690" y2="178" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <rect x="40" y="182" width="810" height="80" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="52" y="204" font-size="14" font-weight="700" fill="#78350f">Bronze — s3://nfl-raw · data/bronze</text>
+  <text x="52" y="226" font-size="12" fill="#78350f">16 raw data types: PBP (140 cols) · player weekly/seasonal · schedules · injuries · rosters · NGS · PFR · odds · props</text>
+  <text x="52" y="246" font-size="11" fill="#92400e">Parquet · season/week partitions · warn-never-block validation</text>
+  <line x1="445" y1="262" x2="445" y2="290" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <rect x="458" y="266" width="132" height="18" fill="#ffffff" opacity="0.95"/>
+  <text x="464" y="279" font-size="11" fill="#374151">silver transformations</text>
+  <rect x="40" y="294" width="810" height="100" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="52" y="316" font-size="14" font-weight="700" fill="#334155">Silver — s3://nfl-refined · 14 analytic paths</text>
+  <rect x="52" y="328" width="186" height="52" rx="6" fill="#ffffff" stroke="#64748b"/>
+  <text x="145" y="349" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Player</text>
+  <text x="145" y="366" font-size="10" fill="#6b7280" text-anchor="middle">usage · advanced · quality</text>
+  <rect x="250" y="328" width="186" height="52" rx="6" fill="#ffffff" stroke="#64748b"/>
+  <text x="343" y="349" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Team</text>
+  <text x="343" y="366" font-size="10" fill="#6b7280" text-anchor="middle">PBP metrics · SOS · splits</text>
+  <rect x="448" y="328" width="186" height="52" rx="6" fill="#ffffff" stroke="#64748b"/>
+  <text x="541" y="349" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Game</text>
+  <text x="541" y="366" font-size="10" fill="#6b7280" text-anchor="middle">context · referee · playoffs</text>
+  <rect x="646" y="328" width="186" height="52" rx="6" fill="#ffffff" stroke="#64748b"/>
+  <text x="739" y="349" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Market</text>
+  <text x="739" y="366" font-size="10" fill="#6b7280" text-anchor="middle">line movement · CLV</text>
+  <line x1="445" y1="394" x2="445" y2="422" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <rect x="458" y="398" width="160" height="18" fill="#ffffff" opacity="0.95"/>
+  <text x="464" y="411" font-size="11" fill="#374151">feature vectors · 310+ cols</text>
+  <rect x="40" y="426" width="810" height="112" rx="8" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="52" y="448" font-size="14" font-weight="700" fill="#713f12">Gold — s3://nfl-trusted</text>
+  <rect x="52" y="458" width="252" height="68" rx="6" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="178" y="477" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Fantasy Projections</text>
+  <text x="178" y="493" font-size="10" fill="#6b7280" text-anchor="middle">heuristic + ML hybrids · consensus anchor</text>
+  <text x="178" y="507" font-size="10" fill="#6b7280" text-anchor="middle">props blend (opt-in) · floor/ceiling bands</text>
+  <rect x="320" y="458" width="252" height="68" rx="6" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="446" y="477" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Game Predictions</text>
+  <text x="446" y="493" font-size="10" fill="#6b7280" text-anchor="middle">XGB + LGB + CB + Ridge ensemble</text>
+  <text x="446" y="507" font-size="10" fill="#6b7280" text-anchor="middle">calibrated probs · edges vs Vegas · CLV</text>
+  <rect x="588" y="458" width="210" height="68" rx="6" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="693" y="477" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Sentiment</text>
+  <text x="693" y="493" font-size="10" fill="#6b7280" text-anchor="middle">Claude Haiku extraction · signals</text>
+  <text x="693" y="507" font-size="10" fill="#6b7280" text-anchor="middle">multipliers (backtest-gated)</text>
+  <line x1="167" y1="538" x2="167" y2="612" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <rect x="178" y="560" width="96" height="18" fill="#ffffff" opacity="0.95"/>
+  <text x="184" y="573" font-size="11" fill="#374151">latest parquet</text>
+  <line x1="728" y1="538" x2="728" y2="612" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <rect x="40" y="584" width="810" height="112" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="6,4"/>
+  <text x="52" y="604" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1">CONSUMERS</text>
+  <rect x="52" y="612" width="230" height="60" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="167" y="634" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">FastAPI backend</text>
+  <text x="167" y="652" font-size="10" fill="#6b7280" text-anchor="middle">HF Spaces bridge · /api/*</text>
+  <rect x="352" y="612" width="230" height="60" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="467" y="634" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Next.js frontend</text>
+  <text x="467" y="652" font-size="10" fill="#6b7280" text-anchor="middle">Vercel · WC26 theme</text>
+  <rect x="628" y="612" width="200" height="60" rx="6" fill="#ffffff" stroke="#334155"/>
+  <text x="728" y="634" font-size="13" font-weight="600" fill="#111827" text-anchor="middle">Draft tools CLI</text>
+  <text x="728" y="652" font-size="10" fill="#6b7280" text-anchor="middle">draft_assistant · /draft-live</text>
+  <line x1="282" y1="642" x2="350" y2="642" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <rect x="296" y="622" width="38" height="16" fill="#ffffff" opacity="0.95"/>
+  <text x="302" y="634" font-size="11" fill="#374151">JSON</text>
+  <rect x="880" y="60" width="280" height="476" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-dasharray="6,4"/>
+  <text x="892" y="82" font-size="13" font-weight="700" fill="#9a3412">GitHub Actions — automation</text>
+  <rect x="892" y="94" width="256" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="904" y="115" font-size="12" font-weight="600" fill="#111827">weekly-pipeline</text>
+  <text x="904" y="132" font-size="10" fill="#6b7280">Tue 9am UTC · Bronze→Silver→Gold --ml</text>
+  <rect x="892" y="160" width="256" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="904" y="181" font-size="12" font-weight="600" fill="#111827">daily-sentiment</text>
+  <text x="904" y="198" font-size="10" fill="#6b7280">12:41 UTC · news + rankings + archive</text>
+  <rect x="892" y="226" width="256" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="904" y="247" font-size="12" font-weight="600" fill="#111827">odds-capture</text>
+  <text x="904" y="264" font-size="10" fill="#6b7280">2×daily spreads · Sunday props</text>
+  <rect x="892" y="292" width="256" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="904" y="313" font-size="12" font-weight="600" fill="#111827">sunday-refresh</text>
+  <text x="904" y="330" font-size="10" fill="#6b7280">pre-kickoff projection refresh</text>
+  <rect x="892" y="358" width="256" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="904" y="379" font-size="12" font-weight="600" fill="#111827">weekly-external-projections</text>
+  <text x="904" y="396" font-size="10" fill="#6b7280">consensus grading vs Sleeper/FP</text>
+  <rect x="892" y="424" width="256" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="904" y="445" font-size="12" font-weight="600" fill="#111827">deploy-web</text>
+  <text x="904" y="462" font-size="10" fill="#6b7280">main push · sanity gates · CACHE_BUST</text>
+  <line x1="880" y1="222" x2="856" y2="222" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowOrange)"/>
+  <line x1="880" y1="344" x2="856" y2="344" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowOrange)"/>
+  <line x1="880" y1="482" x2="856" y2="482" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowOrange)"/>
+  <path d="M 1020,536 L 1020,640 L 856,640" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowOrange)"/>
+  <rect x="1028" y="580" width="76" height="16" fill="#ffffff" opacity="0.95"/>
+  <text x="1032" y="592" font-size="10" fill="#9a3412">deploy-web</text>
+  <rect x="40" y="720" width="430" height="66" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="52" y="740" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1">LEGEND</text>
+  <line x1="52" y1="756" x2="92" y2="756" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <text x="100" y="760" font-size="11" fill="#374151">data flow (Parquet / JSON)</text>
+  <line x1="52" y1="776" x2="92" y2="776" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowOrange)"/>
+  <text x="100" y="780" font-size="11" fill="#374151">scheduled automation / trigger</text>
+  <text x="256" y="760" font-size="11" fill="#6b7280">S3: us-east-2 · local-first mirror in data/</text>
+  <text x="256" y="780" font-size="11" fill="#6b7280">read rule: download_latest_parquet()</text>
+</svg>
