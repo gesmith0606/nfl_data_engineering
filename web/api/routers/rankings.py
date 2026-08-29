@@ -92,11 +92,20 @@ def compare_rankings(
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
     limit: int = Query(20, ge=1, le=200, description="Max results"),
     season: int = Query(2026, ge=2020, le=2030, description="NFL season"),
+    week: Optional[int] = Query(
+        None,
+        ge=1,
+        le=18,
+        description="NFL week (1-18) for a weekly comparison; omit for season rankings",
+    ),
 ) -> dict:
     """Compare our projections against external rankings side by side.
 
     Returns each player with both external_rank and our_rank, plus rank_diff
     (positive = we rank them higher than the source, negative = lower).
+
+    When ``week`` is given, compares our derived Week-N board against each
+    source's weekly ranking instead of the season/draft board.
     """
     if source not in VALID_SOURCES:
         raise HTTPException(
@@ -122,6 +131,7 @@ def compare_rankings(
         position=position.upper() if position else None,
         limit=limit,
         season=season,
+        week=week,
     )
     return result
 
@@ -158,6 +168,12 @@ def multi_compare_rankings(
             "consensus (mean external rank) / ours / sleeper / espn / yahoo "
             "/ draftsharks / ftn"
         ),
+    ),
+    week: Optional[int] = Query(
+        None,
+        ge=1,
+        le=18,
+        description="NFL week (1-18) for a weekly comparison; omit for season rankings",
     ),
 ) -> dict:
     """Side-by-side ranking table across our projections + 1..N external sources.
@@ -219,6 +235,7 @@ def multi_compare_rankings(
         season=season,
         sources=requested,
         sort_by=sort_by,
+        week=week,
     )
 
 

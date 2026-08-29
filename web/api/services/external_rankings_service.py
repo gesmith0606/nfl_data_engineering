@@ -679,11 +679,109 @@ def _consensus_as_rankings() -> List[Dict[str, Any]]:
 # ---------------------------------------------------------------------------
 # Source resolver (live -> cache -> empty) with staleness metadata
 # ---------------------------------------------------------------------------
+def _load_sleeper_weekly(
+    season: int, week: int, limit: int
+) -> Optional[Tuple[List[Dict[str, Any]], datetime]]:
+    """Sleeper per-week projections (Bronze) as ranking rows, ranked by points."""
+    root = DATA_DIR / "bronze" / "external_projections" / "sleeper"
+    files = list(root.glob(f"season={season}/week={week:02d}/sleeper_*.parquet"))
+    if not files:
+        return None
+    path = max(files, key=lambda p: p.stem.rsplit("_", 2)[-2:])
+    try:
+        df = pd.read_parquet(path)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("Could not read Sleeper weekly %s: %s", path, exc)
+        return None
+    if df.empty or "projected_points" not in df.columns:
+        return None
+    df = df[df["position"].isin(FANTASY_POSITIONS)].copy()
+    df = df.sort_values("projected_points", ascending=False).head(limit)
+    rows: List[Dict[str, Any]] = []
+    for i, (_, r) in enumerate(df.iterrows(), 1):
+        rows.append(
+            {
+                "rank": i,
+                "player_name": str(r.get("player_name", "") or ""),
+                "position": str(r.get("position", "") or ""),
+                "team": str(r.get("team", "") or ""),
+                "external_rank": i,
+            }
+        )
+    if not rows:
+        return None
+    fetched_at: Optional[datetime] = None
+    if "projected_at" in df.columns:
+        try:
+            fetched_at = pd.to_datetime(
+                df["projected_at"].iloc[0], utc=True
+            ).to_pydatetime()
+        except (ValueError, TypeError):
+            fetched_at = None
+    if fetched_at is None:
+        fetched_at = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
+    return rows, fetched_at
+
+
+def _load_fantasypros_weekly(
+    week: int, limit: int
+) -> Optional[Tuple[List[Dict[str, Any]], datetime]]:
+    """FantasyPros weekly ECR (data/external/fantasypros_weekly_rankings.json)."""
+    cached = _load_cache("fantasypros_weekly")
+    if cached is None:
+        return None
+    players, fetched_at = cached
+    wk_rows = [
+        r
+        for r in players
+        if str(r.get("position", "")).upper() in FANTASY_POSITIONS
+        and (r.get("week") is None or int(r.get("week")) == week)
+    ]
+    wk_rows.sort(key=lambda r: float(r.get("external_rank", r.get("rank", 1e9)) or 1e9))
+    rows: List[Dict[str, Any]] = []
+    for i, r in enumerate(wk_rows[:limit], 1):
+        rows.append(
+            {
+                "rank": i,
+                "player_name": str(r.get("player_name", "") or ""),
+                "position": str(r.get("position", "") or ""),
+                "team": str(r.get("team", "") or ""),
+                "external_rank": i,
+            }
+        )
+    return (rows, fetched_at) if rows else None
+
+
+def _resolve_source_weekly(
+    source: str, season: int, week: int, limit: int
+) -> Tuple[List[Dict[str, Any]], bool, Optional[float], str]:
+    """Resolve a source's WEEK-N ranking (parallels :func:`_resolve_source`).
+
+    Only sources that publish weekly ranks pre-kickoff resolve to data:
+    ``fantasypros`` (weekly ECR consensus — also serves the ``yahoo`` column)
+    and ``sleeper`` (per-week projections). Every other source returns an
+    empty, stale envelope so its column renders blank rather than borrowing a
+    season rank into a weekly view.
+    """
+    now = datetime.now(timezone.utc)
+    loaded: Optional[Tuple[List[Dict[str, Any]], datetime]] = None
+    if source == "fantasypros":
+        loaded = _load_fantasypros_weekly(week, limit)
+    elif source == "sleeper":
+        loaded = _load_sleeper_weekly(season, week, limit)
+    if loaded is None or not loaded[0]:
+        return ([], True, None, now.isoformat())
+    rows, fetched_at = loaded
+    age_hours = round(max(0.0, (now - fetched_at).total_seconds()) / 3600.0, 2)
+    return (rows[:limit], True, age_hours, fetched_at.isoformat())
+
+
 def _resolve_source(
     source: str,
     season: int = 2026,
     scoring: str = "half_ppr",
     limit: int = 300,
+    week: Optional[int] = None,
 ) -> Tuple[List[Dict[str, Any]], bool, Optional[float], str]:
     """Resolve rankings for one source using the cache-first fallback chain.
 
@@ -693,7 +791,13 @@ def _resolve_source(
     - ``stale=True, cache_age_hours>=0`` when serving from cache.
     - ``stale=True, cache_age_hours=None, players=[]`` when neither live nor
       cache worked. No exception is raised.
+
+    When ``week`` is given, resolves that source's weekly ranking instead of
+    the season/draft board (see :func:`_resolve_source_weekly`).
     """
+    if week is not None:
+        return _resolve_source_weekly(source, season=season, week=week, limit=limit)
+
     now = datetime.now(timezone.utc)
 
     # Always try live first — short-circuiting on a fresh cache would hide
@@ -979,10 +1083,46 @@ def _latest_parquet(directory: Path, pattern: str = "*.parquet") -> Optional[Pat
     return parquets[-1] if parquets else None
 
 
+def _load_our_week_board(season: int, week: int, scoring: str) -> pd.DataFrame:
+    """Load our derived Week-N board (per-game + matchup tilt) from Gold parquet.
+
+    Produced by ``scripts/generate_week1_board.py``. Exposes the same
+    ``our_rank`` / ``our_overall_rank`` / ``projected_points`` contract as
+    :func:`_load_our_projections` so the comparison engine is week-agnostic:
+
+    - ``our_rank``          <- ``wk1_pos_rank``     (QB1/RB3/... for the week)
+    - ``our_overall_rank``  <- ``wk1_overall_rank`` (VORP-ranked, flat 1..N)
+    - ``projected_points``  <- ``wk1_points``       (per-week points)
+
+    Returns an empty DataFrame when the board is missing (caller falls back to
+    the season board), so a not-yet-generated week degrades gracefully.
+    """
+    week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
+    if not week_dir.exists():
+        return pd.DataFrame()
+    path = _latest_parquet(week_dir, pattern=f"week1_board_{scoring}_derived.parquet")
+    if path is None:
+        return pd.DataFrame()
+    df = pd.read_parquet(path)
+    df = df.rename(
+        columns={k: v for k, v in {"recent_team": "team"}.items() if k in df.columns}
+    )
+    if "wk1_points" not in df.columns:
+        return pd.DataFrame()
+    df["projected_points"] = df["wk1_points"].astype(float)
+    df["our_rank"] = df["wk1_pos_rank"].astype(int)
+    df["our_overall_rank"] = df["wk1_overall_rank"].astype(int)
+    return df
+
+
 def _load_our_projections(
-    season: int = 2026, scoring: str = "half_ppr"
+    season: int = 2026, scoring: str = "half_ppr", week: Optional[int] = None
 ) -> pd.DataFrame:
-    """Load our preseason projections from Gold parquet.
+    """Load our projections from Gold parquet.
+
+    When ``week`` is given, load the derived Week-N board first (per-week
+    points + ranks); fall back to the season board if that board is absent.
+    When ``week`` is None, load the season/preseason board as before.
 
     Tries week=0 first (preseason), then week=1.
 
@@ -996,6 +1136,12 @@ def _load_our_projections(
     If the parquet predates Phase X (no ``position_rank`` field), we fall back
     to deriving ranks from ``projected_points``.
     """
+    if week is not None:
+        week_board = _load_our_week_board(season, week, scoring)
+        if not week_board.empty:
+            return week_board
+        # No derived week board yet — fall through to the season board so the
+        # comparison still renders (our_rank reflects season value).
     # Candidate directories in preference order: weekly slices first, then
     # the preseason vintage (generate_projections.py --preseason writes to
     # projections/preseason/season=YYYY/ — in the offseason that is the only
@@ -1096,6 +1242,7 @@ def compare_rankings(
     position: Optional[str] = None,
     limit: int = 20,
     season: int = 2026,
+    week: Optional[int] = None,
 ) -> Dict[str, Any]:
     """Compare external rankings against our projections.
 
@@ -1116,13 +1263,13 @@ def compare_rankings(
         )
 
     internal_limit = max(limit * 3, 200)
-    if source == "consensus":
+    if source == "consensus" and week is None:
         external, stale, cache_age_hours, last_updated = _resolve_consensus(
             season=season, scoring=scoring, limit=internal_limit
         )
     else:
         external, stale, cache_age_hours, last_updated = _resolve_source(
-            source, season=season, scoring=scoring, limit=internal_limit
+            source, season=season, scoring=scoring, limit=internal_limit, week=week
         )
 
     # Convert overall → positional rank so external_rank is comparable to our
@@ -1142,6 +1289,7 @@ def compare_rankings(
             "source": source,
             "scoring_format": scoring,
             "position_filter": position,
+            "week": week,
             "our_projections_available": False,
             "players": [],
             "stale": stale,
@@ -1150,7 +1298,7 @@ def compare_rankings(
             "compared_at": compared_at,
         }
 
-    our_df = _load_our_projections(season=season, scoring=scoring)
+    our_df = _load_our_projections(season=season, scoring=scoring, week=week)
 
     if our_df.empty:
         players: List[Dict[str, Any]] = []
@@ -1171,6 +1319,7 @@ def compare_rankings(
             "source": source,
             "scoring_format": scoring,
             "position_filter": position,
+            "week": week,
             "our_projections_available": False,
             "players": players,
             "stale": stale,
@@ -1234,6 +1383,7 @@ def compare_rankings(
         "source": source,
         "scoring_format": scoring,
         "position_filter": position,
+        "week": week,
         "our_projections_available": True,
         "players": compared,
         "stale": stale,
@@ -1345,6 +1495,7 @@ def multi_compare_rankings(
     season: int = 2026,
     sources: Optional[Tuple[str, ...]] = None,
     sort_by: str = "consensus",
+    week: Optional[int] = None,
 ) -> Dict[str, Any]:
     """Return a side-by-side ranking table across our projections + N sources.
 
@@ -1391,7 +1542,11 @@ def multi_compare_rankings(
     for ext_key in requested:
         internal_src = _MULTI_SOURCE_INTERNAL[ext_key]
         rows, stale, age_hours, last_updated = _resolve_source(
-            internal_src, season=season, scoring=scoring, limit=internal_limit
+            internal_src,
+            season=season,
+            scoring=scoring,
+            limit=internal_limit,
+            week=week,
         )
         # Always preserve both ranks per row.
         # _to_position_ranks() saves the source's overall rank under
@@ -1447,7 +1602,7 @@ def multi_compare_rankings(
             if not entry.get("team") and r.get("team"):
                 entry["team"] = r.get("team")
 
-    our_df = _load_our_projections(season=season, scoring=scoring)
+    our_df = _load_our_projections(season=season, scoring=scoring, week=week)
     our_available = not our_df.empty
     our_lookup: Dict[str, Dict[str, Any]] = {}
     if our_available:
@@ -1575,6 +1730,7 @@ def multi_compare_rankings(
         "scoring_format": scoring,
         "position_filter": position,
         "season": season,
+        "week": week,
         "sources": list(requested),
         "sort_by": sort_by,
         "rank_basis": rank_basis,  # "overall" | "positional"

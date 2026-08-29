@@ -85,12 +85,13 @@ export const nflKeys = {
     position: string | null,
     sortBy: RankingSortBy,
     sources: RankingSource[],
-    limit: number
+    limit: number,
+    week: number | null
   ) =>
     [
       ...nflKeys.all,
       'multi-compare',
-      { season, scoring, position, sortBy, sources, limit },
+      { season, scoring, position, sortBy, sources, limit, week },
     ] as const,
   games: (season: number, week: number) =>
     [...nflKeys.all, 'games', { season, week }] as const,
@@ -432,6 +433,7 @@ export const multiCompareQueryOptions = (opts: {
   sort_by: RankingSortBy;
   sources: RankingSource[];
   limit: number;
+  week?: number | null;
 }) =>
   queryOptions({
     queryKey: nflKeys.multiCompare(
@@ -440,7 +442,8 @@ export const multiCompareQueryOptions = (opts: {
       opts.position,
       opts.sort_by,
       opts.sources,
-      opts.limit
+      opts.limit,
+      opts.week ?? null
     ),
     queryFn: () =>
       fetchMultiCompareRankings({
@@ -450,6 +453,7 @@ export const multiCompareQueryOptions = (opts: {
         sort_by: opts.sort_by,
         sources: opts.sources,
         limit: opts.limit,
+        week: opts.week ?? null,
       }),
     staleTime: 30 * 60 * 1000 // 30 minutes — external sources cache 24h server-side
   });

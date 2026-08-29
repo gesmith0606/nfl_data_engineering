@@ -1347,6 +1347,8 @@ export interface MultiCompareResponse {
   scoring_format: ScoringFormat;
   position_filter: string | null;
   season: number;
+  /** NFL week (1-18) when this is a weekly comparison; null/absent for season. */
+  week?: number | null;
   sources: RankingSource[];
   sort_by: RankingSortBy;
   rank_basis: RankBasis;
