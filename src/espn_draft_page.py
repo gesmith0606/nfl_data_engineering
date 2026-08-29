@@ -210,26 +210,60 @@ def state_from_page(
 
 # Fills ESPN's Pick Queue: type each name into the players search box, click the
 # row's QUEUE button, then clear the search. Returns a per-name status list.
+
+_QUEUE_NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def queue_match_spec(name: str) -> Dict[str, Any]:
+    """Search string + row-match tokens for one ESPN Pick Queue entry.
+
+    ESPN's players list is a FixedDataTable of divs, so a queued row is found
+    by text. The original predicate used the name's last whitespace token,
+    which for the 33 suffixed players in the 2026 pool ("Brian Thomas Jr.",
+    "Kenneth Walker III") is the SUFFIX — it matched whichever suffixed player
+    the filter happened to show and queued the wrong one silently, or reported
+    notfound. Requiring every non-suffix token instead makes the match specific
+    to the player, and the suffix is dropped from the query because ESPN's
+    filter is literal and "Jr." can zero the result set.
+
+    Args:
+        name: Player name as our board spells it.
+
+    Returns:
+        ``{"search": str, "tokens": list[str]}`` — type ``search`` into the
+        filter, then accept a row whose normalized text contains all ``tokens``.
+    """
+    cleaned = re.sub(r"[^a-z0-9\s]", "", str(name or "").lower())
+    tokens = [t for t in cleaned.split() if t not in _QUEUE_NAME_SUFFIXES]
+    raw = [w for w in str(name or "").split() if re.sub(r"[^a-z0-9]", "", w.lower())
+           not in _QUEUE_NAME_SUFFIXES]
+    return {"search": " ".join(raw), "tokens": tokens}
+
+
 _ENQUEUE_JS = """
 (async () => {
-  const names = %s;
+  const specs = %s;
   const out = [];
   const inp = document.querySelector('input[placeholder*="Player"]');
   if (!inp) return ['error:no search input'];
   const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const type = (v) => { setter.call(inp, v); inp.dispatchEvent(new Event('input', {bubbles: true})); };
-  for (const name of names) {
-    type(name); await sleep(%d);
-    const last = name.split(' ').slice(-1)[0];
+  // Same normalization as queue_match_spec() on the Python side.
+  const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ');
+  for (const spec of specs) {
+    type(spec.search); await sleep(%d);
     // The players list is a FixedDataTable (divs, not <table>); rows wrap cells.
+    // Require EVERY token, so a suffix can never match a different player.
     const findRow = () => [...document.querySelectorAll('.fixedDataTableRowWrapper, .fixedDataTableRowLayout_rowWrapper')]
-      .find((r) => r.innerText.includes(last));
+      .find((r) => { const t = norm(r.innerText); return spec.tokens.every((tok) => t.includes(tok)); });
     let row = findRow();
     if (!row) { await sleep(900); row = findRow(); }  // filter still settling
-    const btn = row && [...row.querySelectorAll('button')].find((b) => /queue/i.test(b.innerText));
-    if (btn) { btn.click(); await sleep(300); out.push('queued:' + name); }
-    else out.push('notfound:' + name);
+    if (!row) { out.push('notfound:' + spec.search); continue; }
+    const btn = [...row.querySelectorAll('button')].find((b) => /queue/i.test(b.innerText));
+    if (btn) { btn.click(); await sleep(300); out.push('queued:' + spec.search); }
+    // Row present but no queue button = ESPN already has him queued/drafted.
+    else out.push('already:' + spec.search);
   }
   type(''); await sleep(300);
   return out;
@@ -336,7 +370,8 @@ class ChromeDraftPage:
 
     def enqueue(self, names: Sequence[str], settle_ms: int = 900) -> List[str]:
         """Add ``names`` (in order) to ESPN's Pick Queue via the search box."""
-        js = _ENQUEUE_JS % (json.dumps(list(names)), int(settle_ms))
+        specs = [queue_match_spec(n) for n in names]
+        js = _ENQUEUE_JS % (json.dumps(specs), int(settle_ms))
         # ~2.1 s worst case per name (settle + retry + click) + headroom.
         return list(
             self.evaluate(js, await_promise=True, timeout=15 + 2.5 * len(names)) or []
@@ -367,4 +402,5 @@ __all__ = [
     "slot_for_pick",
     "state_from_page",
     "ChromeDraftPage",
+    "queue_match_spec",
 ]
