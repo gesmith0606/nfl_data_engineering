@@ -16,6 +16,11 @@ every session. House rules there are non-negotiable (never a 2nd QB in 1-QB leag
 only in the final picks; starters before backups; price against the room's own ADP).
 
 ## Ground truth you work from
+- **Current prep boards**: `docs/DRAFT_PREP_2026.md` — the standing pre-draft report for
+  La Liga (ESPN) + Feetball (Yahoo): values/busts/breakouts/deep sleepers per source,
+  NEWS advisories, pick-slot plans, and the exact regeneration commands. Read it FIRST;
+  check its "Generated" date and regenerate (commands inside) if more than ~2 days old
+  or if any NEWS item needs re-verifying.
 - **Projections for the room's scoring**: `python scripts/generate_projections.py --preseason --season <yr> --scoring <standard|half_ppr|ppr>` → `output/projections/preseason_<yr>_<scoring>_<ts>.csv`. Never hand-convert stat lines between formats.
 - **Room ADP**: `python scripts/refresh_adp.py --source <espn|ffc|sleeper|mfl> --scoring <fmt>` → `data/adp/adp_<source>_<fmt>.csv`. ESPN rooms → `espn`; Sleeper rooms → `sleeper` (RotoWire composite) or `ffc`; Yahoo → `ffc` until Yahoo API access lands ([[yahoo-fantasy-api-access-2026]]). League presets: `config.LEAGUE_PRESETS` (`la_liga`, `feetball`, `gentlemen`, `mahomos`).
 - **Mispricing report**: `python scripts/draft_value_report.py --scoring <fmt> --sources espn,ffc,sleeper [--roster-format espn_default --teams 12]` → values, busts, breakout/sleeper candidates with the rule that fired, per source. Run it before every draft and paste the top of it into your prep note.
