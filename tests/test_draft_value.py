@@ -77,6 +77,36 @@ def test_deep_sleeper_requires_startable_rank_and_priced_adp():
 
 
 @pytest.mark.unit
+def test_deep_sleeper_near_startable_rank_needs_value_gap():
+    """§29 regression (ESPN 2026-08-29): rooms that price every startable-ranked
+    player inside pick 100 must still produce deep sleepers when a
+    near-startable player (within 2x the ceiling) is priced >= 1 round behind
+    the model. Without the gap, a near-startable rank alone must NOT flag."""
+    # 100 fillers (vorp 200..101, ADP 1..100) mimic the ESPN room: every
+    # startable-ranked player is priced inside pick 100.
+    fillers = [
+        ("Top %d" % i, "RB" if i % 2 else "WR", 200.0 - i, i + 1, (i // 2) + 1)
+        for i in range(100)
+    ]
+    rows = fillers + [
+        # Kincaid-shaped: TE13 (past the strict TE ceiling of 12, within 2x),
+        # vbd_rank 101 vs ADP 121 -> gap 20 >= VALUE_GAP -> deep sleeper.
+        ("Near TE", "TE", 95.0, 121, 13),
+        # Same near-startable rank, but priced ~at the model (gap 8) -> no flag.
+        ("Fairly Priced TE", "TE", 94.0, 110, 14),
+        # Past 2x the TE ceiling (25 > 24): never a deep sleeper, whatever the gap.
+        ("Deep Bench TE", "TE", 93.0, 130, 25),
+    ]
+    df = pd.DataFrame(rows, columns=["player_name", "position", "vorp", "adp_rank", "position_rank"])
+    out = label_board(df).set_index("player_name")
+    assert out.loc["Near TE", "vbd_rank"] == 101
+    assert bool(out.loc["Near TE", "flag_deep_sleeper"])
+    assert "§29 deep sleeper" in out.loc["Near TE", "reasons"]
+    assert not bool(out.loc["Fairly Priced TE", "flag_deep_sleeper"])
+    assert not bool(out.loc["Deep Bench TE", "flag_deep_sleeper"])
+
+
+@pytest.mark.unit
 def test_summarize_returns_all_sections():
     s = summarize(label_board(_board()), top=5)
     assert set(s) == {"values", "busts", "breakouts", "deep_sleepers"}

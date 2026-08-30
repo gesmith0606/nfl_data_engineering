@@ -616,9 +616,19 @@ def label_board(df: pd.DataFrame) -> pd.DataFrame:
     startable = (pos_rank <= ceiling * STARTABLE_MULT) & ~pos.isin(["K", "DST"])
     breakout = (breakout_score >= 1) & startable
 
+    # §29's wording is "ADP > 100-150 with a *plausible* top-24 positional
+    # ceiling". The strict startable bar alone structurally returns nothing on
+    # ESPN boards — that room prices every startable-ranked player inside pick
+    # 100 (QBs/TEs go 10-20 picks earlier than FFC/Sleeper) — so a
+    # near-startable rank also qualifies when the model already prices the
+    # player >= 1 round ahead of the room (2026-08-29 La Liga run: Johnston
+    # WR27/ADP 132, Kincaid TE13/121, Harvey RB31/129 all hidden by the bar).
+    near_startable = (pos_rank <= ceiling * STARTABLE_MULT) & (gap >= VALUE_GAP)
     deep = add(
-        (adp > DEEP_SLEEPER_ADP) & (pos_rank <= ceiling) & ~pos.isin(["K", "DST"]),
-        "§29 deep sleeper: ADP >100 with a startable model rank",
+        (adp > DEEP_SLEEPER_ADP)
+        & ((pos_rank <= ceiling) | near_startable)
+        & ~pos.isin(["K", "DST"]),
+        "§29 deep sleeper: ADP >100 with a startable ceiling",
     )
 
     # NEWS guard (fail-safe, not back-tested — no historical August roster
