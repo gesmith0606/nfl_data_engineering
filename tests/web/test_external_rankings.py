@@ -1492,3 +1492,112 @@ def test_multi_compare_carries_real_adp_column(
     assert positional["rank_basis"] == "positional"
     assert alice["adp_rank"] == 1.0
     assert alice["rank_diff_vs_adp"] == 0.0
+
+
+# ---------------------------------------------------------------------------
+# Week-1 comparison (2026-08-29): `week` param compares our per-week board
+# against each source's weekly ranking; sources without weekly data degrade
+# to a stale/empty column rather than borrowing a season rank.
+# ---------------------------------------------------------------------------
+@pytest.mark.unit
+def test_weekly_multi_compare_threads_week(monkeypatch: pytest.MonkeyPatch) -> None:
+    import pandas as pd
+
+    # Our derived Week-1 board (per-week points + ranks contract).
+    def fake_week_board(season: int, week: int, scoring: str) -> pd.DataFrame:
+        return pd.DataFrame(
+            [
+                {
+                    "player_name": "Christian McCaffrey",
+                    "position": "RB",
+                    "team": "SF",
+                    "projected_points": 20.8,
+                    "our_rank": 1,
+                    "our_overall_rank": 1,
+                },
+                {
+                    "player_name": "Jahmyr Gibbs",
+                    "position": "RB",
+                    "team": "DET",
+                    "projected_points": 18.6,
+                    "our_rank": 2,
+                    "our_overall_rank": 3,
+                },
+            ]
+        )
+
+    def fake_fp_weekly(week, limit):
+        rows = [
+            {
+                "rank": 1,
+                "player_name": "Jahmyr Gibbs",
+                "position": "RB",
+                "team": "DET",
+                "external_rank": 1,
+            },
+            {
+                "rank": 2,
+                "player_name": "Christian McCaffrey",
+                "position": "RB",
+                "team": "SF",
+                "external_rank": 2,
+            },
+        ]
+        return rows, datetime.now(timezone.utc)
+
+    def fake_sleeper_weekly(season, week, limit):
+        rows = [
+            {
+                "rank": 1,
+                "player_name": "Christian McCaffrey",
+                "position": "RB",
+                "team": "SF",
+                "external_rank": 1,
+            },
+            {
+                "rank": 2,
+                "player_name": "Jahmyr Gibbs",
+                "position": "RB",
+                "team": "DET",
+                "external_rank": 2,
+            },
+        ]
+        return rows, datetime.now(timezone.utc)
+
+    monkeypatch.setattr(svc, "_load_our_week_board", fake_week_board)
+    monkeypatch.setattr(svc, "_load_fantasypros_weekly", fake_fp_weekly)
+    monkeypatch.setattr(svc, "_load_sleeper_weekly", fake_sleeper_weekly)
+
+    result = svc.multi_compare_rankings(
+        scoring="half_ppr",
+        position="RB",
+        limit=10,
+        season=2026,
+        sources=("sleeper", "yahoo", "espn"),
+        week=1,
+    )
+
+    assert result["week"] == 1
+    assert result["our_projections_available"] is True
+    by_name = {p["player_name"]: p for p in result["players"]}
+    cmc = by_name["Christian McCaffrey"]
+    assert cmc["our_rank"] == 1  # positional rank from the week board
+    assert cmc["our_projected_points"] == 20.8
+    assert cmc["sleeper_rank"] == 1  # Sleeper weekly
+    assert cmc["yahoo_rank"] == 2  # FantasyPros weekly ECR
+    # ESPN publishes no weekly board pre-kickoff -> stale, no rank borrowed.
+    assert cmc["espn_rank"] is None
+    assert result["stale"]["espn"] is True
+
+
+@pytest.mark.unit
+def test_weekly_source_without_data_is_empty_stale(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # draftsharks has no weekly resolver -> empty, stale envelope.
+    players, stale, age, _ = svc._resolve_source(
+        "draftsharks", season=2026, week=1, limit=50
+    )
+    assert players == []
+    assert stale is True
+    assert age is None

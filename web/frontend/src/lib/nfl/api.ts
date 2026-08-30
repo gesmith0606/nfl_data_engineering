@@ -896,6 +896,7 @@ export async function fetchMultiCompareRankings(opts: {
   season?: number;
   sources?: RankingSource[];
   sort_by?: RankingSortBy;
+  week?: number | null;
 }): Promise<MultiCompareResponse> {
   const params = new URLSearchParams();
   if (opts.scoring) params.set('scoring', opts.scoring);
@@ -904,6 +905,7 @@ export async function fetchMultiCompareRankings(opts: {
   if (opts.season) params.set('season', String(opts.season));
   if (opts.sources?.length) params.set('sources', opts.sources.join(','));
   if (opts.sort_by) params.set('sort_by', opts.sort_by);
+  if (opts.week) params.set('week', String(opts.week));
   return request<MultiCompareResponse>(
     `/api/rankings/multi-compare?${params}`
   );

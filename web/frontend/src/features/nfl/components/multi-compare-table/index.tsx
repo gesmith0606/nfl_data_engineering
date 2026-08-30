@@ -393,6 +393,8 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
   const [position, setPosition] = useState<Position>('ALL');
   const [scoring, setScoring] = useState<ScoringFormat>('half_ppr');
   const [sortBy, setSortBy] = useState<RankingSortBy>('consensus');
+  // null = season/draft rankings; 1 = Week 1 (per-week board vs weekly sources).
+  const [week, setWeek] = useState<number | null>(null);
 
   const { data, isLoading, error } = useQuery(
     multiCompareQueryOptions({
@@ -401,7 +403,8 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
       position: position === 'ALL' ? null : position,
       sort_by: sortBy,
       sources: SOURCES,
-      limit: 100
+      limit: 100,
+      week
     })
   );
 
@@ -417,6 +420,21 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
     <div className='space-y-4'>
       <Card>
         <CardContent className='flex flex-wrap items-end gap-4 pt-6'>
+          <div className='space-y-2'>
+            <label htmlFor='timeframe-tabs' className='text-muted-foreground text-xs font-medium'>
+              Timeframe
+            </label>
+            <Tabs
+              value={week === null ? 'season' : 'week1'}
+              onValueChange={(v) => setWeek(v === 'week1' ? 1 : null)}
+            >
+              <TabsList id='timeframe-tabs'>
+                <TabsTrigger value='season'>Season</TabsTrigger>
+                <TabsTrigger value='week1'>Week 1</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
           <div className='space-y-2'>
             <label htmlFor='position-tabs' className='text-muted-foreground text-xs font-medium'>
               Position
@@ -474,6 +492,17 @@ export function MultiCompareTable({ season = 2026 }: MultiCompareTableProps) {
       {/* Caption explaining what the user is looking at */}
       {data && data.players.length > 0 && (
         <p className='text-xs text-muted-foreground px-1'>
+          <span className='font-medium'>
+            {week === null ? 'Season-long' : `Week ${week}`}
+          </span>{' '}
+          rankings.{' '}
+          {week !== null && (
+            <>
+              Our per-week board vs each source&apos;s Week&nbsp;{week} ranks —
+              only Sleeper and Yahoo (FantasyPros weekly ECR) publish weekly
+              ranks before kickoff; others show as stale until they post.{' '}
+            </>
+          )}
           Showing <span className='font-medium'>{rankBasisLabel}</span> ranks
           {position === 'ALL'
             ? ' (1..N across all positions). '
