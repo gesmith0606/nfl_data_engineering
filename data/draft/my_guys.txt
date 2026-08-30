@@ -54,10 +54,14 @@ DeVonta Smith      # §34 positive TD regression | 3/3
 Jaxon Smith-Njigba # §30/§31 years 2-4 + vacated opportunity | 3/3
 
 # --- Deep sleepers: vacated opportunity, few rivals (UC1) -------------------
-# Ranked by absorbed share of last year's vacated work, not by projection —
-# VORP cannot separate anyone this late (everyone is below replacement).
-AJ Dillon          # CAR absorbing 48.7% vacated carries — 5 rivals, lottery ticket
-Nate Carter        # ATL 21.8% vacated targets, only 3 rivals — least contested
+# PULLED 2026-08-29 after a depth-chart check: the UC1 absorption metric never
+# looks at CURRENT depth rank, and both of its top shots are RB4s on the latest
+# charts (Dillon: CAR RB4 behind Hubbard/Brooks/Etienne; Nathan Carter: ATL RB4
+# behind Bijan/Robinson/Goodson). They are contingency stashes, not targets —
+# only relevant if the injuries ahead of them (Hubbard 8/25, Brooks 8/16 NEWS
+# tags) actually clear the depth chart. Do not draft; watch waivers week 1.
+# AJ Dillon        # CAR RB4 — absorption stat was real, role is not
+# Nate Carter      # ATL RB4 — same
 
 
 # ============================================================================
