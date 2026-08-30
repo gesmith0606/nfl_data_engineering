@@ -1,0 +1,602 @@
+{
+  "fetch_run_id": "fb6911e8-3989-4ddf-a524-8ecfc4b9d635",
+  "source": "pft",
+  "fetched_at": "2026-08-30T12:23:04.918434+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-comfortable-with-jacob-saylors-as-lions-no-2-running-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-comfortable-with-jacob-saylors-as-lions-no-2-running-back",
+      "permalink": "",
+      "title": "Dan Campbell \"comfortable\" with Jacob Saylors as Lions' No. 2 running back",
+      "body_text": "The Lions came into the summer with a plan for Isiah Pacheco to be their No. 2 running back behind Jahmyr Gibbs, but Pacheco has dealt with multiple injuries this month and that may lead them in a different direction.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-30T12:03:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Jacob Saylors",
+        "The Lions",
+        "Isiah Pacheco",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0038896",
+        "00-0037197",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-wr-keenan-allen-arrested-for-dwi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-wr-keenan-allen-arrested-for-dwi",
+      "permalink": "",
+      "title": "Colts WR Keenan Allen arrested for DWI",
+      "body_text": "Colts wide receiver Keenan Allen was arrested in Indianapolis early on Sunday morning.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-30T11:51:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keenan Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0030279"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/12-nfl-teams-did-not-play-their-starting-quarterbacks-in-the-preseason",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/12-nfl-teams-did-not-play-their-starting-quarterbacks-in-the-preseason",
+      "permalink": "",
+      "title": "12 NFL teams did not play their starting quarterbacks in the preseason",
+      "body_text": "The growing trend of NFL teams keeping their quarterbacks out of the preseason has reached the point where more than one-third of starting quarterbacks did not take a single snap in this year's preseason.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-30T11:10:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-third-round-pick-zavion-thomas-scores-97-yard-touchdown-on-his-first-nfl-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-third-round-pick-zavion-thomas-scores-97-yard-touchdown-on-his-first-nfl-play",
+      "permalink": "",
+      "title": "Bears third-round pick Zavion Thomas scores 97-yard touchdown on his first NFL play",
+      "body_text": "Thomas made his preseason debut on Saturday and put on a show.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-30T09:58:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zavion Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0041051"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-not-worried-about-his-kicker-after-jake-bates-misses-two-extra-points",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-not-worried-about-his-kicker-after-jake-bates-misses-two-extra-points",
+      "permalink": "",
+      "title": "Dan Campbell not worried about his kicker after Jake Bates misses two extra points",
+      "body_text": "Lions kicker Jake Bates did not finish the preseason strong on Saturday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-30T09:08:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Jake Bates"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0039172"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/unc-g-m-michael-lombardis-lawyer-calls-ongoing-investigation-a-witch-hunt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/unc-g-m-michael-lombardis-lawyer-calls-ongoing-investigation-a-witch-hunt",
+      "permalink": "",
+      "title": "UNC G.M. Michael Lombardi's lawyer calls ongoing investigation a \"witch hunt\"",
+      "body_text": "UNC G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T02:50:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Lombardi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-will-keep-spencer-rattler-despite-trade-interest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-will-keep-spencer-rattler-despite-trade-interest",
+      "permalink": "",
+      "title": "Report: Saints will keep Spencer Rattler despite trade interest",
+      "body_text": "The Saints waived fourth quarterback Hunter Dekkers on Saturday, leaving Spencer Rattler and Zach Wilson behind Tyler Shough.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T02:42:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Spencer Rattler",
+        "The Saints",
+        "Hunter Dekkers",
+        "Zach Wilson",
+        "Tyler Shough"
+      ],
+      "resolved_player_ids": [
+        "00-0039376",
+        "00-0040656",
+        "00-0037013",
+        "00-0040743"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-vaguely-suggests-george-kittle-has-taken-a-step-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-vaguely-suggests-george-kittle-has-taken-a-step-back",
+      "permalink": "",
+      "title": "Kyle Shanahan vaguely suggests George Kittle has \"taken a step back\"",
+      "body_text": "When 49ers tight end George Kittle recently emerged from the active/physically unable to perform list, many assumed it meant he'd be available to play in the Week 1 game against the Rams in Australia.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T02:27:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/college-running-back-micahjo-barnett-dies-after-medical-emergency-on-sideline",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/college-running-back-micahjo-barnett-dies-after-medical-emergency-on-sideline",
+      "permalink": "",
+      "title": "College running back MicahJo Barnett dies after medical emergency on sideline",
+      "body_text": "MicahJo Barnett, a junior running back at William Jewell College in Missouri, died Saturday after experiencing a medical emergency on the sideline during a game, via the Associated Press.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T00:54:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "William Jewell",
+        "Associated Press"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-the-favorite-to-win-backup-qb-job-after-preseason-finale",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-the-favorite-to-win-backup-qb-job-after-preseason-finale",
+      "permalink": "",
+      "title": "Anthony Richardson the favorite to win backup QB job after preseason finale",
+      "body_text": "Anthony Richardson lost his starting job last year.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T00:31:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-continues-wrestling-somewhat-with-fates-of-dillon-gabriel-and-taylen-green",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-continues-wrestling-somewhat-with-fates-of-dillon-gabriel-and-taylen-green",
+      "permalink": "",
+      "title": "Todd Monken continues wrestling \"somewhat\" with fates of Dillon Gabriel and Taylen Green",
+      "body_text": "The Browns know what they'll be doing as to the top two quarterbacks on the depth chart.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T18:18:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Todd Monken",
+        "Dillon Gabriel",
+        "Taylen Green",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040704",
+        "00-0041092"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-annual-frenzy-of-nfl-transactions-happens-this-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-annual-frenzy-of-nfl-transactions-happens-this-weekend",
+      "permalink": "",
+      "title": "The annual frenzy of NFL transactions happens this weekend",
+      "body_text": "Rosters must cut from 90 to 53 by Sunday at 4:00 p.m. ET.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T10:46:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-eight-including-wr-isaiah-hodgins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-eight-including-wr-isaiah-hodgins",
+      "permalink": "",
+      "title": "Giants cut eight, including WR Isaiah Hodgins",
+      "body_text": "The Giants have begun reducing their roster to 53 players.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-29T23:13:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Hodgins",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0036165"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-waive-dt-mazi-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-waive-dt-mazi-smith",
+      "permalink": "",
+      "title": "Report: Jets waive DT Mazi Smith",
+      "body_text": "The Jets are releasing defensive tackle Mazi Smith, Adam Schefter of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-29T22:50:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mazi Smith",
+        "The Jets",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0038545"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-broderick-jones-to-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-broderick-jones-to-cowboys",
+      "permalink": "",
+      "title": "Steelers trade Broderick Jones to Cowboys",
+      "body_text": "After three seasons in Pittsburgh, offensive tackle Broderick Jones will be moving to Dallas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T22:03:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Broderick Jones",
+        "Cowboys After"
+      ],
+      "resolved_player_ids": [
+        "00-0039109"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-trade-rb-corey-kiner-to-patriots-for-a-2028-seventh-round-pick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-trade-rb-corey-kiner-to-patriots-for-a-2028-seventh-round-pick",
+      "permalink": "",
+      "title": "Cardinals trade RB Corey Kiner to Patriots for a 2028 seventh-round pick",
+      "body_text": "The Patriots have added some depth at running back through a trade with the Cardinals.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T17:53:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Corey Kiner",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0040556"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-agree-to-trade-ot-diego-pounds-to-the-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-agree-to-trade-ot-diego-pounds-to-the-chiefs",
+      "permalink": "",
+      "title": "Ravens agree to trade OT Diego Pounds to the Chiefs",
+      "body_text": "The Ravens and Chiefs have agreed to a trade ahead of Sunday's deadline for teams to set their initial 53-man rosters.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T21:43:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Diego Pounds",
+        "Chiefs The"
+      ],
+      "resolved_player_ids": [
+        "00-0040987"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-release-rb-hassan-haskins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-release-rb-hassan-haskins",
+      "permalink": "",
+      "title": "Patriots release RB Hassan Haskins",
+      "body_text": "The Patriots traded for running back Corey Kiner on Saturday and they made space for him by parting ways with another back.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T21:30:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hassan Haskins",
+        "The Patriots",
+        "Corey Kiner"
+      ],
+      "resolved_player_ids": [
+        "00-0037617",
+        "00-0040556"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-release-lb-jamin-davis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-release-lb-jamin-davis",
+      "permalink": "",
+      "title": "Steelers release LB Jamin Davis",
+      "body_text": "Linebacker Jamin Davis did not make it past final cuts with the Steelers.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T21:18:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jamin Davis",
+        "Linebacker Jamin"
+      ],
+      "resolved_player_ids": [
+        "00-0036614"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lbs-tomon-fox-monty-rice-among-first-wave-of-rams-cuts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lbs-tomon-fox-monty-rice-among-first-wave-of-rams-cuts",
+      "permalink": "",
+      "title": "LBs Tomon Fox, Monty Rice among first wave of Rams cuts",
+      "body_text": "A pair of veteran linebackers are among the first players let go by the Rams as they set their initial 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T21:11:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tomon Fox",
+        "Monty Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0037447",
+        "00-0037000"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-waive-seven-players-release-three-others",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-waive-seven-players-release-three-others",
+      "permalink": "",
+      "title": "Falcons waive seven players, release three others",
+      "body_text": "The Falcons have started making moves ahead of Sunday's deadline to cut their roster to 53 players.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T21:02:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-49ers-cut-adrian-martinez-as-kurtis-rourke-wins-no-3-qb-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-49ers-cut-adrian-martinez-as-kurtis-rourke-wins-no-3-qb-job",
+      "permalink": "",
+      "title": "Report: 49ers cut Adrian Martinez as Kurtis Rourke wins No. 3 QB job",
+      "body_text": "The 49ers didn't see much of Curtis Rourke in the preseason as he missed the final two games with fractured ribs.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-29T21:02:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adrian Martinez",
+        "Kurtis Rourke",
+        "Curtis Rourke"
+      ],
+      "resolved_player_ids": [
+        "00-0038658",
+        "00-0040589"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-replace-grass-field-at-new-stadium-before-home-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-will-replace-grass-field-at-new-stadium-before-home-opener",
+      "permalink": "",
+      "title": "Bills will replace grass field at new stadium before home opener",
+      "body_text": "Large divots were a problem during the preseason.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-29T20:48:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-trade-qb-quinn-ewers-to-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-trade-qb-quinn-ewers-to-jaguars",
+      "permalink": "",
+      "title": "Dolphins trade QB Quinn Ewers to Jaguars",
+      "body_text": "Quinn Ewers is on the move.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-29T20:47:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinn Ewers",
+        "Jaguars Quinn"
+      ],
+      "resolved_player_ids": [
+        "00-0040234"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-db-travion-fluellen-to-make-room-for-jonnu-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-db-travion-fluellen-to-make-room-for-jonnu-smith",
+      "permalink": "",
+      "title": "Packers waive DB Travion Fluellen to make room for Jonnu Smith",
+      "body_text": "Free agent tight end Jonnu Smith agreed to a one-year deal with the Packers earlier this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-29T20:38:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travion Fluellen",
+        "Jonnu Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0039959",
+        "00-0033858"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-officially-sign-cb-terrion-arnold",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-officially-sign-cb-terrion-arnold",
+      "permalink": "",
+      "title": "Seahawks officially sign CB Terrion Arnold",
+      "body_text": "The Seahawks have made it official.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-29T20:30:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-announce-13-cuts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-announce-13-cuts",
+      "permalink": "",
+      "title": "Bills announce 13 cuts",
+      "body_text": "The Bills announced their first wave of cuts on Saturday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T20:06:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-waive-2025-sixth-rounder-robert-longerbeam",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-waive-2025-sixth-rounder-robert-longerbeam",
+      "permalink": "",
+      "title": "Ravens waive 2025 sixth-rounder Robert Longerbeam",
+      "body_text": "A 2025 draft pick is among the Ravens' cuts as they move toward a 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T19:55:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Longerbeam"
+      ],
+      "resolved_player_ids": [
+        "00-0040077"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-starts-year-two-1-0-as-north-carolina-beats-tcu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-starts-year-two-1-0-as-north-carolina-beats-tcu",
+      "permalink": "",
+      "title": "Bill Belichick starts Year Two 1-0 as North Carolina beats TCU",
+      "body_text": "Bill Belichick's second season as a college football head coach is off to a better start than his first season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-29T19:36:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick",
+        "Year Two",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-jr-well-have-to-see-throughout-the-weekend-if-he-makes-the-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-odell-beckham-jr-well-have-to-see-throughout-the-weekend-if-he-makes-the-roster",
+      "permalink": "",
+      "title": "John Harbaugh on Odell Beckham Jr.: We'll have to see throughout the weekend if he makes the roster",
+      "body_text": "Harbaugh said Friday night that Beckham has done enough to make an NFL roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-29T19:27:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": null
+    }
+  ]
+}

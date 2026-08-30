@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "63dd8331-01a2-4c33-a735-ec6cd2a9a19d",
+  "source": "rotowire",
+  "fetched_at": "2026-08-30T12:23:00.549088+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl635286",
+      "url": "https://www.rotowire.com//football/player/keenan-allen-8627",
+      "permalink": "",
+      "title": "Keenan Allen: Arrested on DUI charges",
+      "body_text": "Allen was arrested early Sunday morning and charged with DUI, FOX59 reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-30T05:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keenan Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0030279"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl635245",
+      "url": "https://www.rotowire.com//football/player/luther-burden-18548",
+      "permalink": "",
+      "title": "Luther Burden: Runs routes Saturday",
+      "body_text": "Burden (groin) did not suit up for Saturday's preseason victory over the Titans but did run routes pregame, according to Brad Biggs of the Chicago Tribune. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-29T06:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden",
+        "Saturday Burden",
+        "Brad Biggs",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "nfl635243",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: One target to close out preseason",
+      "body_text": "Tate failed to bring in his only target in the Titans' 24-15 preseason loss to the Bears on Saturday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-29T06:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [
+        "00-0041438"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl635219",
+      "url": "https://www.rotowire.com//football/player/kirk-cousins-8057",
+      "permalink": "",
+      "title": "Kirk Cousins: Expected to be named starter",
+      "body_text": "Cousins is expected to be named starting quarterback for the Raiders, Matt Zenitz of CBSSports.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-29T02:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "nfl635208",
+      "url": "https://www.rotowire.com//football/player/quinn-ewers-18505",
+      "permalink": "",
+      "title": "Quinn Ewers: Traded to Jacksonville",
+      "body_text": "The Dolphins traded Ewers to the Jaguars on Saturday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-29T01:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quinn Ewers",
+        "Jacksonville The",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040234"
+      ],
+      "team_hint": "MIA"
+    }
+  ]
+}

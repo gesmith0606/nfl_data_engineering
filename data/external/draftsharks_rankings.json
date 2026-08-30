@@ -1,6 +1,6 @@
 {
   "source": "draftsharks",
-  "fetched_at": "2026-08-29T12:22:49.180058+00:00",
+  "fetched_at": "2026-08-30T12:23:20.240603+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -318,17 +318,17 @@
       "rank": 45
     },
     {
-      "player_name": "Emeka Egbuka",
-      "position": "WR",
-      "team": "TB",
+      "player_name": "Josh Jacobs",
+      "position": "RB",
+      "team": "GB",
       "external_rank": 49,
       "rank": 46
     },
     {
-      "player_name": "Josh Jacobs",
-      "position": "RB",
-      "team": "GB",
-      "external_rank": 50,
+      "player_name": "Emeka Egbuka",
+      "position": "WR",
+      "team": "TB",
+      "external_rank": 51,
       "rank": 47
     },
     {
@@ -745,16 +745,16 @@
       "rank": 106
     },
     {
-      "player_name": "Chuba Hubbard",
-      "position": "RB",
-      "team": "CAR",
-      "external_rank": 127,
-      "rank": 107
-    },
-    {
       "player_name": "Chris Godwin",
       "position": "WR",
       "team": "TB",
+      "external_rank": 126,
+      "rank": 107
+    },
+    {
+      "player_name": "Chuba Hubbard",
+      "position": "RB",
+      "team": "CAR",
       "external_rank": 128,
       "rank": 108
     },
@@ -1119,7 +1119,7 @@
       "player_name": "Evan McPherson",
       "position": "K",
       "team": "CIN",
-      "external_rank": 228,
+      "external_rank": 227,
       "rank": 160
     },
     {
