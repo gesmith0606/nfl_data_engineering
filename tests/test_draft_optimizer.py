@@ -49,6 +49,39 @@ class TestComputeValueScores(unittest.TestCase):
         result = compute_value_scores(proj)
         self.assertIn("vorp", result.columns)
 
+    def test_drops_registry_placeholder_rows(self):
+        # Sleeper-registry artifacts baked into older projection CSVs
+        # (e.g. SLP-5282 "Duplicate Player" WR/CHI) must never reach a board.
+        proj = _make_projections()
+        proj = pd.concat(
+            [
+                proj,
+                pd.DataFrame(
+                    [
+                        {
+                            "player_id": "SLP-5282",
+                            "player_name": "Duplicate Player",
+                            "position": "WR",
+                            "recent_team": "CHI",
+                            "projected_season_points": 45.3,
+                        },
+                        {
+                            "player_id": "SLP-8432",
+                            "player_name": "Player Invalid",
+                            "position": "TE",
+                            "recent_team": "FA",
+                            "projected_season_points": 12.0,
+                        },
+                    ]
+                ),
+            ],
+            ignore_index=True,
+        )
+        result = compute_value_scores(proj)
+        self.assertEqual(len(result), 20)
+        self.assertNotIn("Duplicate Player", set(result["player_name"]))
+        self.assertNotIn("Player Invalid", set(result["player_name"]))
+
     def test_with_adp(self):
         proj = _make_projections()
         adp = pd.DataFrame(

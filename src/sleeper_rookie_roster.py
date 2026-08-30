@@ -53,6 +53,11 @@ from typing import Optional
 import pandas as pd
 import requests
 
+try:  # importable as ``src.sleeper_rookie_roster`` and bare module
+    from src.utils import is_placeholder_name
+except ImportError:  # pragma: no cover
+    from utils import is_placeholder_name
+
 logger = logging.getLogger(__name__)
 
 SLEEPER_PLAYERS_URL = "https://api.sleeper.app/v1/players/nfl"
@@ -233,6 +238,12 @@ def build_sleeper_rookie_supplement(
             last = info.get("last_name", "")
             full_name = f"{first} {last}".strip()
         if not full_name:
+            continue
+
+        # Sleeper registry artifacts ("Duplicate Player", "Player Invalid")
+        # occasionally carry a fantasy position + team + years_exp=0 and would
+        # otherwise enter the projections as real rookies.
+        if is_placeholder_name(full_name):
             continue
 
         name_lower = full_name.lower().strip()

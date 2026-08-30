@@ -41,6 +41,37 @@ class TestConfig(unittest.TestCase):
         self.assertIn("week=1", path)
 
 
+class TestIsPlaceholderName(unittest.TestCase):
+    """Sleeper-registry placeholder detection (utils.is_placeholder_name)."""
+
+    def test_flags_registry_placeholders(self):
+        from utils import is_placeholder_name
+
+        # Real artifact names observed in the Sleeper /v1/players/nfl registry
+        self.assertTrue(is_placeholder_name("Duplicate Player"))
+        self.assertTrue(is_placeholder_name("Player Invalid"))
+        self.assertTrue(is_placeholder_name("TreVeyon Henderson DUPLICATE"))
+        self.assertTrue(is_placeholder_name("Jadyn Ott DUPLICATE"))
+
+    def test_passes_real_players(self):
+        from utils import is_placeholder_name
+
+        for name in (
+            "Justin Jefferson",
+            "Amon-Ra St. Brown",
+            "Kenneth Walker III",
+            "Player 5",  # synthetic test names must not match
+        ):
+            self.assertFalse(is_placeholder_name(name), name)
+
+    def test_null_safe(self):
+        from utils import is_placeholder_name
+
+        self.assertFalse(is_placeholder_name(None))
+        self.assertFalse(is_placeholder_name(""))
+        self.assertFalse(is_placeholder_name(float("nan")))
+
+
 class TestUtils(unittest.TestCase):
     """Test utility functions"""
     

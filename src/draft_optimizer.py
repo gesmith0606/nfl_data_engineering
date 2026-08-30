@@ -19,6 +19,11 @@ import random
 
 from config import ROSTER_CONFIGS
 
+try:  # importable as ``src.draft_optimizer`` and bare module
+    from src.utils import is_placeholder_name
+except ImportError:  # pragma: no cover
+    from utils import is_placeholder_name
+
 try:  # importable both as ``src.draft_optimizer`` and bare ``draft_optimizer``
     from src.draft_availability import expected_best_vorp_at_pick
 except ImportError:  # pragma: no cover — scripts put src/ itself on sys.path
@@ -199,6 +204,13 @@ def compute_value_scores(
         Enriched DataFrame sorted by model_rank.
     """
     df = projections.copy()
+
+    # Sleeper-registry placeholder records ("Duplicate Player", "Player
+    # Invalid") can reach the projections via the rookie supplement — and
+    # older projection CSVs already carry them — so every board built here
+    # drops them regardless of upstream state.
+    if "player_name" in df.columns:
+        df = df[~df["player_name"].map(is_placeholder_name)].copy()
 
     # Normalize positions to uppercase so VORP, needs, saturation, and draftable
     # filtering are robust to lowercase input (e.g. a hand-rolled CSV).

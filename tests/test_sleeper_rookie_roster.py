@@ -158,3 +158,47 @@ def test_fail_open_on_network_error():
     ):
         df = build_sleeper_rookie_supplement(2026, existing_player_ids=set())
     assert df.empty
+
+
+def test_registry_placeholder_records_excluded():
+    """Sleeper registry artifacts must not enter the supplement.
+
+    Entry 5282 in the live registry is literally full_name="Duplicate
+    Player", position=WR, team=CHI, years_exp=0 — it passes every
+    roster-shaped filter and reached the 2026-08-29 draft value report.
+    """
+    payload = {
+        "5282": {
+            "full_name": "Duplicate Player",
+            "first_name": "Duplicate",
+            "last_name": "Player",
+            "position": "WR",
+            "team": "CHI",
+            "years_exp": 0,
+            "status": "Inactive",
+        },
+        "8432": {
+            "full_name": "Player Invalid",
+            "position": "TE",
+            "team": "DAL",
+            "years_exp": 0,
+            "status": "Active",
+        },
+        "12513": {
+            "full_name": "TreVeyon Henderson DUPLICATE",
+            "position": "RB",
+            "team": "NE",
+            "years_exp": 0,
+            "status": "Active",
+        },
+        "1001": {
+            "full_name": "Jeremiyah Love",
+            "position": "RB",
+            "team": "ARI",
+            "years_exp": 0,
+            "status": "Active",
+        },
+    }
+    with patch("sleeper_rookie_roster._fetch_sleeper_players", return_value=payload):
+        df = build_sleeper_rookie_supplement(2026, existing_player_ids=set())
+    assert list(df["player_name"]) == ["Jeremiyah Love"]

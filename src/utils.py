@@ -125,6 +125,30 @@ def normalize_player_name(name: str) -> str:
     return re.sub(r"\s+", " ", n).strip()
 
 
+_PLACEHOLDER_NAME_RE = re.compile(
+    r"\b(duplicate|invalid|placeholder)\b", re.IGNORECASE
+)
+
+
+def is_placeholder_name(name) -> bool:
+    """True for Sleeper-registry placeholder records, not real players.
+
+    Sleeper's ``/v1/players/nfl`` registry carries ~100 literal artifact
+    entries — "Duplicate Player", "Player Invalid", "<Name> DUPLICATE" —
+    some with a fantasy position, a team, and years_exp=0, so they can pass
+    every roster-shaped filter and surface on draft boards (a "Duplicate
+    Player" WR/CHI reached the 2026-08-29 draft value report's BUSTS list).
+    No real NFL player name contains these tokens as standalone words.
+
+    Args:
+        name: Raw player name from any source (None/NaN safe).
+
+    Returns:
+        True when the name is a registry placeholder, False otherwise.
+    """
+    return bool(_PLACEHOLDER_NAME_RE.search(str(name or "")))
+
+
 def validate_s3_path(s3_path: str) -> bool:
     """
     Validate if S3 path exists and is accessible
