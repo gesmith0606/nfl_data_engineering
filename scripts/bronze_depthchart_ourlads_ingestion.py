@@ -136,6 +136,15 @@ SIMPLE_POSITIONS = ("QB", "RB", "FB", "TE")
 
 REQUEST_DELAY_S = 1.0
 
+#: Per-team coverage floors (see :func:`find_suspicious_teams`). Every NFL
+#: team carries at least 3 RBs on the OurLads chart — fewer means slots were
+#: dropped (the pre-2026-08-30 continuation-row overwrite bug produced 1-2 RB
+#: teams for 23/32 teams). The 60%-of-median total check catches a team whose
+#: whole table came back thin (partial render, layout change) even when the
+#: RB row happens to look fine.
+MIN_RB_ROWS = 3
+COVERAGE_FLOOR = 0.6
+
 BRONZE_DEPTHCHART_DIR = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
     "..",
@@ -252,6 +261,14 @@ def parse_offense_rows(html: str) -> Dict[str, List[Dict[str, str]]]:
     ``Pos`` cell is in :data:`OFFENSE_POSITIONS` are kept; empty depth slots
     (unfilled ``Player N`` cells) are skipped.
 
+    CONTINUATION ROWS (bug fixed 2026-08-30): when a team lists more than 5
+    players at one position, OurLads renders a SECOND ``<tr>`` with the same
+    ``Pos`` label holding the overflow players (slots 6+), mostly-empty
+    anchor cells padding the grid. Duplicate position rows are therefore
+    CONCATENATED in document order — overwriting on the second row silently
+    dropped slots 1-5 for 23/32 teams (e.g. Carolina's entire real RB room
+    behind a lone practice-squad back).
+
     Args:
         html: Raw HTML from :func:`fetch_team_page`.
 
@@ -285,7 +302,7 @@ def parse_offense_rows(html: str) -> Dict[str, List[Dict[str, str]]]:
             parsed = parse_player_cell(text)
             if parsed:
                 players.append(parsed)
-        rows_by_pos[pos] = players
+        rows_by_pos.setdefault(pos, []).extend(players)
     return rows_by_pos
 
 
@@ -335,6 +352,54 @@ def build_team_rows(html: str, ourlads_code: str, snapshot_ts: str, season: int)
 
 
 # ---------------------------------------------------------------------------
+# Validate
+# ---------------------------------------------------------------------------
+
+
+def find_suspicious_teams(df: pd.DataFrame) -> Dict[str, List[str]]:
+    """Flag teams whose captured depth chart looks partially dropped.
+
+    Two per-team checks, both tuned to the silent-gap failure mode where a
+    team parses NONZERO rows (so the empty-team fail-hard never fires) but
+    is missing a chunk of its roster:
+
+    - fewer than :data:`MIN_RB_ROWS` RB slots — every real team lists 3+;
+    - total slot count below :data:`COVERAGE_FLOOR` of the snapshot-wide
+      median team total (self-calibrating across offseason/in-season roster
+      size drift).
+
+    Args:
+        df: Combined snapshot rows matching :data:`DEPTHCHART_SCHEMA_COLS`.
+
+    Returns:
+        Dict mapping nflverse team abbreviation to a list of human-readable
+        reasons; empty dict when every team passes (or ``df`` is empty —
+        the zero-row contract in :func:`run_depthchart_capture` owns that).
+    """
+    if df.empty:
+        return {}
+
+    totals = df.groupby("team").size()
+    expected_total = float(totals.median())
+    rb_counts = df[df["position"] == "RB"].groupby("team").size()
+
+    suspicious: Dict[str, List[str]] = {}
+    for team, total in totals.items():
+        reasons: List[str] = []
+        rb_rows = int(rb_counts.get(team, 0))
+        if rb_rows < MIN_RB_ROWS:
+            reasons.append(f"only {rb_rows} RB row(s) (expected >= {MIN_RB_ROWS})")
+        if total < COVERAGE_FLOOR * expected_total:
+            reasons.append(
+                f"{total} total slots < {COVERAGE_FLOOR:.0%} of snapshot median "
+                f"{expected_total:.0f}"
+            )
+        if reasons:
+            suspicious[str(team)] = reasons
+    return suspicious
+
+
+# ---------------------------------------------------------------------------
 # Write
 # ---------------------------------------------------------------------------
 
@@ -380,12 +445,20 @@ def run_depthchart_capture(dry_run: bool = False) -> int:
     — the run just exits 1 so CI/cron surfaces the failure instead of a
     silent partial capture.
 
+    Per-team coverage is also validated (:func:`find_suspicious_teams`):
+    a team with nonzero-but-thin rows (< 3 RB slots, or < 60% of the
+    snapshot-median total) also logs ERROR and exits 1, so a partial
+    per-team gap turns the daily cron's step red instead of shipping
+    silently — the failure mode that hid Carolina's whole RB room behind
+    one practice-squad back for 12 straight snapshots (Aug 2026).
+
     Args:
         dry_run: When True, fetch/parse but do not write Parquet.
 
     Returns:
-        Exit code (0 = all 32 teams parsed nonzero rows; 1 = zero rows
-        overall, or any individual team came back empty).
+        Exit code (0 = all 32 teams parsed nonzero, coverage-plausible
+        rows; 1 = zero rows overall, any individual team came back empty,
+        or any team failed the coverage checks).
     """
     snapshot_ts = datetime.now(timezone.utc).isoformat()
     season = infer_nfl_season(snapshot_ts)
@@ -434,9 +507,21 @@ def run_depthchart_capture(dry_run: bool = False) -> int:
         " — DRY RUN" if dry_run else "",
     )
 
+    suspicious = find_suspicious_teams(df)
+    for team, reasons in sorted(suspicious.items()):
+        logger.error("OurLads %s: suspicious coverage — %s", team, "; ".join(reasons))
+
     if empty_teams:
         logger.error(
             "FAIL: %d/%d teams returned zero rows: %s", len(empty_teams), len(codes), empty_teams
+        )
+        return 1
+    if suspicious:
+        logger.error(
+            "FAIL: %d/%d teams failed coverage validation: %s",
+            len(suspicious),
+            len(codes),
+            sorted(suspicious),
         )
         return 1
     return 0
