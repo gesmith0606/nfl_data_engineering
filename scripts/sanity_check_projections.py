@@ -1027,19 +1027,34 @@ def _check_consensus_cross_check(
             direction = "ours-only" if nm in absent_from_ext else "consensus-only"
             warn_lines.append(f"  {pos} {nm} ({direction})")
 
-        # Point-magnitude check on matched players.
-        merged = our_pos.merge(
-            ext_pos[["_norm", "projected_points"]],
-            on="_norm",
-            suffixes=("_ours", "_ext"),
+        # Point-magnitude check on matched players. Rename both point
+        # columns before merging: pandas suffixes only apply on column
+        # collision, and preseason boards carry ``projected_season_points``
+        # while the external frame carries ``projected_points`` — no
+        # collision, no suffix, KeyError (broke every deploy 2026-08-30
+        # once the first season=2026 external_projections file landed).
+        merged = (
+            our_pos[["_norm", points_col]]
+            .rename(columns={points_col: "_pts_ours"})
+            .merge(
+                ext_pos[["_norm", "projected_points"]].rename(
+                    columns={"projected_points": "_pts_ext"}
+                ),
+                on="_norm",
+            )
         )
+        # External projections are per-game weekly numbers; a preseason
+        # board holds season totals. Compare per-game so the 12-pt
+        # threshold keeps its meaning.
+        per_game_div = 17.0 if points_col == "projected_season_points" else 1.0
         for _, row in merged.iterrows():
-            diff = abs(row[f"{points_col}_ours"] - row["projected_points_ext"])
+            ours_pts = row["_pts_ours"] / per_game_div
+            diff = abs(ours_pts - row["_pts_ext"])
             if diff > _CONSENSUS_CROSS_PTS_THRESHOLD:
                 total_flagged += 1
                 warn_lines.append(
-                    f"  {pos} {row['_norm']}: ours={row[f'{points_col}_ours']:.1f}, "
-                    f"ext={row['projected_points_ext']:.1f}, diff={diff:.1f}"
+                    f"  {pos} {row['_norm']}: ours={ours_pts:.1f}, "
+                    f"ext={row['_pts_ext']:.1f}, diff={diff:.1f}"
                 )
 
     if total_checked == 0:
