@@ -29,7 +29,11 @@ import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from graph_vacated_opportunity import build_vacated_opportunity_data
+from graph_vacated_opportunity import (
+    _read_bronze_parquet,
+    build_vacated_opportunity_data,
+    normalize_depth_chart,
+)
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -38,6 +42,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Ignore trace absorption — a 1% share is noise, not a sleeper story.
 MIN_ABSORBED_SHARE = 0.02
+
+# Depth-chart rank at/behind which a shot is a contingency stash, not a
+# draftable sleeper (the 2026-08-29 board's top two shots were both RB4s).
+DEPTH_CONTINGENCY_RANK = 3
 
 
 def _name_key(name: str) -> str:
@@ -79,6 +87,41 @@ def _load_player_names(season: int) -> pd.DataFrame:
     return df.drop_duplicates(subset=["player_id"])[["player_id", "player_name"]]
 
 
+def _load_depth_ranks(season: int) -> pd.DataFrame:
+    """player_id -> current depth-chart pos_rank from the LATEST snapshot.
+
+    ``normalize_depth_chart`` keeps the earliest snapshot (the preseason
+    baseline the vacancy features need); the board wants today's depth, so
+    the frame is pre-filtered to the latest ``dt`` first. Fail-soft: any
+    failure returns an empty frame and nobody gets demoted.
+
+    Args:
+        season: Target season.
+
+    Returns:
+        DataFrame with columns player_id, depth_pos_rank (may be empty).
+    """
+    empty = pd.DataFrame(columns=["player_id", "depth_pos_rank"])
+    try:
+        dc = _read_bronze_parquet("depth_charts", season)
+        if dc.empty:
+            return empty
+        if "dt" in dc.columns:
+            dc = dc.copy()
+            dc["dt"] = pd.to_datetime(dc["dt"], errors="coerce")
+            dc = dc[dc["dt"] == dc["dt"].max()]
+        norm = normalize_depth_chart(dc)
+        if norm.empty:
+            return empty
+        norm = norm.sort_values("pos_rank").drop_duplicates(subset=["player_id"])
+        return norm.rename(columns={"pos_rank": "depth_pos_rank"})[
+            ["player_id", "depth_pos_rank"]
+        ]
+    except Exception as exc:
+        logger.warning("Depth charts unavailable (%s) — no depth demotion", exc)
+        return empty
+
+
 def build_sleeper_board(
     season: int,
     position: Optional[str] = None,
@@ -96,7 +139,10 @@ def build_sleeper_board(
 
     Returns:
         DataFrame with player, team, position, absorption/vacancy features,
-        and consensus_pos_rank (NaN = unranked by consensus).
+        consensus_pos_rank (NaN = unranked by consensus), depth_pos_rank
+        (NaN = not on a depth chart), and depth_note ("RB4 — contingency
+        only" for players at depth rank >= DEPTH_CONTINGENCY_RANK, who sort
+        below all startable players regardless of absorption).
     """
     feats = build_vacated_opportunity_data(season)
     if feats.empty:
@@ -124,7 +170,27 @@ def build_sleeper_board(
     if not include_ranked:
         board = board[board["consensus_pos_rank"].isna()]
 
-    board = board.sort_values("vacancy_absorbed_share", ascending=False).head(top)
+    depth = _load_depth_ranks(season)
+    if not depth.empty:
+        board = board.merge(depth, on="player_id", how="left")
+    else:
+        board["depth_pos_rank"] = pd.NA
+
+    # An RB4 absorbing vacated share is a handcuff stash, not a draftable
+    # shot — sort contingency-depth players below every startable one no
+    # matter their absorption. Missing depth data demotes nobody.
+    depth_rank = pd.to_numeric(board["depth_pos_rank"], errors="coerce")
+    contingency = (depth_rank >= DEPTH_CONTINGENCY_RANK).fillna(False)
+    board["depth_note"] = ""
+    board.loc[contingency, "depth_note"] = (
+        board.loc[contingency, "position"].astype(str)
+        + depth_rank[contingency].astype(int).astype(str)
+        + " — contingency only"
+    )
+    board["_contingency"] = contingency
+    board = board.sort_values(
+        ["_contingency", "vacancy_absorbed_share"], ascending=[True, False]
+    ).head(top)
     return board[
         [
             "player_name",
@@ -135,6 +201,8 @@ def build_sleeper_board(
             "net_carry_vacancy",
             "vacancy_competition_n",
             "consensus_pos_rank",
+            "depth_pos_rank",
+            "depth_note",
         ]
     ].reset_index(drop=True)
 
@@ -168,19 +236,26 @@ def main() -> None:
     print(
         f"\nUC1 SLEEPER BOARD — {args.season} ({scope}, {view})\n"
         f"{'player':<26}{'team':<5}{'pos':<4}{'absorbed':>9}"
-        f"{'tgt_vac':>9}{'car_vac':>9}{'rivals':>7}{'cons_rank':>10}"
+        f"{'tgt_vac':>9}{'car_vac':>9}{'rivals':>7}{'cons_rank':>10}{'depth':>7}"
     )
-    print("-" * 79)
+    print("-" * 86)
     for _, r in board.iterrows():
         cons = (
             f"{int(r['consensus_pos_rank'])}"
             if pd.notna(r["consensus_pos_rank"])
             else "-"
         )
+        depth = (
+            f"{r['position']}{int(r['depth_pos_rank'])}"
+            if pd.notna(r["depth_pos_rank"])
+            else "-"
+        )
+        note = "  [contingency only]" if r["depth_note"] else ""
         print(
             f"{str(r['player_name'])[:25]:<26}{r['team']:<5}{r['position']:<4}"
             f"{r['vacancy_absorbed_share']:>9.3f}{r['net_target_vacancy']:>9.3f}"
-            f"{r['net_carry_vacancy']:>9.3f}{r['vacancy_competition_n']:>7d}{cons:>10}"
+            f"{r['net_carry_vacancy']:>9.3f}{r['vacancy_competition_n']:>7d}"
+            f"{cons:>10}{depth:>7}{note}"
         )
 
 

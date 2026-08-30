@@ -433,6 +433,9 @@ class LiveDraftEngine:
             # 48.7% of CAR's carries vacated", 2026-08-28 mock), quoted from
             # the dominant vacancy channel; absorbed_share is the sort score.
             vac, kind = max((carry_vac, "carries"), (tgt_vac, "targets"))
+            # Contingency-depth players (RB4s etc.) arrive pre-demoted to the
+            # board's bottom; if one still surfaces, say so out loud.
+            depth_note = str(row.get("depth_note") or "").strip()
             shots.append(
                 {
                     "player_name": name,
@@ -444,6 +447,7 @@ class LiveDraftEngine:
                         f"steps into {vac:.1%} vacated {kind} "
                         f"(absorbed {share:.1%} so far), "
                         f"{rivals} rival(s) competing"
+                        + (f" — {depth_note}" if depth_note else "")
                     ),
                 }
             )

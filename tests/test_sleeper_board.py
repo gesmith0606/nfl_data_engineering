@@ -11,6 +11,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 import sleeper_board
 
+# The autouse fixture patches sleeper_board._load_depth_ranks; keep the real
+# one so the loader's own tests can still exercise it.
+_REAL_LOAD_DEPTH_RANKS = sleeper_board._load_depth_ranks
+
 
 @pytest.fixture
 def fake_features():
@@ -106,6 +110,11 @@ def _patch_io(monkeypatch, fake_features, fake_names, fake_consensus):
     )
     monkeypatch.setattr(sleeper_board, "_load_player_names", lambda s: fake_names)
     monkeypatch.setattr(sleeper_board, "_load_consensus", lambda: fake_consensus)
+    monkeypatch.setattr(
+        sleeper_board,
+        "_load_depth_ranks",
+        lambda s: pd.DataFrame(columns=["player_id", "depth_pos_rank"]),
+    )
 
 
 class TestSleeperBoard:
@@ -145,3 +154,77 @@ class TestSleeperBoard:
     def test_name_key_suffix_handling(self):
         assert sleeper_board._name_key("Kenneth Walker III") == "kenneth walker"
         assert sleeper_board._name_key("Ja'Marr Chase") == "jamarr chase"
+
+
+class TestDepthChartDemotion:
+    """RB4 camp bodies must not outrank startable players (2026-08-29)."""
+
+    @pytest.fixture
+    def fake_depth(self):
+        # RB_STAR has the HIGHER absorption (0.30) but sits RB4;
+        # RB_DEEP absorbs less (0.20) but is the RB2.
+        return pd.DataFrame(
+            [
+                dict(player_id="RB_STAR", depth_pos_rank=4),
+                dict(player_id="RB_DEEP", depth_pos_rank=2),
+            ]
+        )
+
+    def test_high_absorption_rb4_sorts_below_moderate_rb2(
+        self, monkeypatch, fake_depth
+    ):
+        monkeypatch.setattr(sleeper_board, "_load_depth_ranks", lambda s: fake_depth)
+        board = sleeper_board.build_sleeper_board(2026, include_ranked=True)
+        names = board["player_name"].tolist()
+        assert names.index("Deep Sleeper") < names.index("Known Starter")
+
+    def test_contingency_note_annotated(self, monkeypatch, fake_depth):
+        monkeypatch.setattr(sleeper_board, "_load_depth_ranks", lambda s: fake_depth)
+        board = sleeper_board.build_sleeper_board(2026, include_ranked=True)
+        rb4 = board[board["player_name"] == "Known Starter"].iloc[0]
+        assert rb4["depth_note"] == "RB4 — contingency only"
+        rb2 = board[board["player_name"] == "Deep Sleeper"].iloc[0]
+        assert rb2["depth_note"] == ""
+        assert rb2["depth_pos_rank"] == 2
+
+    def test_missing_depth_charts_fail_soft(self):
+        # Autouse fixture patches _load_depth_ranks to empty — nobody is
+        # demoted, ordering stays pure absorption, columns still present.
+        board = sleeper_board.build_sleeper_board(2026, include_ranked=True)
+        vals = board["vacancy_absorbed_share"].tolist()
+        assert vals == sorted(vals, reverse=True)
+        assert board["depth_pos_rank"].isna().all()
+        assert (board["depth_note"] == "").all()
+
+    def test_load_depth_ranks_uses_latest_snapshot(self, monkeypatch):
+        # Two dt snapshots: player promoted RB4 -> RB2 in the later one.
+        raw = pd.DataFrame(
+            [
+                dict(
+                    dt="2026-08-01T00:00:00Z",
+                    team="CAR",
+                    gsis_id="RB_X",
+                    pos_abb="RB",
+                    pos_rank=4,
+                ),
+                dict(
+                    dt="2026-08-25T00:00:00Z",
+                    team="CAR",
+                    gsis_id="RB_X",
+                    pos_abb="RB",
+                    pos_rank=2,
+                ),
+            ]
+        )
+        monkeypatch.setattr(
+            sleeper_board, "_read_bronze_parquet", lambda subdir, season: raw
+        )
+        ranks = _REAL_LOAD_DEPTH_RANKS(2026)
+        assert ranks.set_index("player_id").loc["RB_X", "depth_pos_rank"] == 2
+
+    def test_load_depth_ranks_swallows_reader_errors(self, monkeypatch):
+        def boom(subdir, season):
+            raise OSError("no parquet")
+
+        monkeypatch.setattr(sleeper_board, "_read_bronze_parquet", boom)
+        assert _REAL_LOAD_DEPTH_RANKS(2026).empty
