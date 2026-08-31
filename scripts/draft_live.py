@@ -1541,10 +1541,17 @@ def main(argv: Optional[List[str]] = None) -> int:
                 # refreshed only on a new pick, so it never churns.
                 if not args.no_overlay and getattr(adapter, "page", None) is not None:
                     try:
-                        ov_recs, ov_reason = engine.recommendations(
+                        ov_df, ov_reason = engine.recommendations(
                             top_n=max(args.top, 10)
                         )
-                        nxt = getattr(poll.turn, "next_pick_no", None)
+                        # recommendations() returns a DataFrame; iterating one
+                        # yields COLUMN NAMES, so the overlay must take records.
+                        ov_recs = (
+                            ov_df.to_dict("records")
+                            if hasattr(ov_df, "to_dict")
+                            else list(ov_df)
+                        )
+                        nxt = getattr(poll.turn, "my_next_pick_no", None)
                         espn_overlay.push(
                             adapter.page,
                             "PICK %s - take highest available" % (nxt or "?"),
@@ -1557,8 +1564,11 @@ def main(argv: Optional[List[str]] = None) -> int:
                             ),
                             "board-only - your Pick Queue is untouched",
                         )
-                    except Exception:  # noqa: BLE001 - cosmetic, never break the draft
-                        pass
+                    except Exception as exc:  # noqa: BLE001 - never break the draft
+                        # Cosmetic, so it must not raise — but it must never be
+                        # SILENT either: a swallowed failure here looked exactly
+                        # like "overlay disabled" during the 08-31 La Liga setup.
+                        print(f"overlay push failed: {exc!r}", flush=True)
                 # ESPN --queue: keep the room's Pick Queue topped up with the
                 # advisor's need-aware queue so an autopick on a timeout follows
                 # OUR board (4 picks went to ESPN autopick in the 2026-08-23 mock).
