@@ -378,7 +378,7 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "scoring_format": "half_ppr",
         "roster": "espn_la_liga",
         "teams": 12,
-        "my_pick": None,  # order RANDOMIZED 1hr before draft (ESPN setting verified 2026-08-31) — set once revealed
+        "my_pick": 10,  # revealed 2026-08-31 ~18:40 after the pre-draft randomization
     },
     "feetball": {
         "platform": "yahoo",
