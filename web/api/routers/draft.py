@@ -778,7 +778,12 @@ def get_adp_board(
     # draft-order rank), so re-derive adp_diff / value_tier from it here.
     # The draft room keeps the legacy points-rank behavior untouched.
     if "overall_rank" in available.columns:
-        available["model_rank"] = available["overall_rank"].astype(int)
+        ranked = available["overall_rank"]
+        # ADP-only rows (DST — never projected, no overall_rank) park behind
+        # every ranked player; a bare astype(int) on their NaN 500'd this
+        # route from the moment the DST board path shipped.
+        unranked_fill = int(ranked.max()) + 1 if ranked.notna().any() else 1
+        available["model_rank"] = ranked.fillna(unranked_fill).astype(int)
         if "adp_rank" in available.columns:
             available["adp_diff"] = available["adp_rank"] - available["model_rank"]
             available["value_tier"] = "fair_value"
@@ -788,6 +793,9 @@ def get_adp_board(
             available.loc[
                 available["adp_diff"] <= -OVERVALUED_THRESHOLD, "value_tier"
             ] = "overvalued"
+            # No model opinion on ADP-only rows — no diff, no value label.
+            available.loc[ranked.isna(), "adp_diff"] = float("nan")
+            available.loc[ranked.isna(), "value_tier"] = "fair_value"
     if "model_rank" in available.columns:
         available = available.sort_values("model_rank", kind="stable")
     players = [_df_row_to_draft_player(row) for _, row in available.iterrows()]
