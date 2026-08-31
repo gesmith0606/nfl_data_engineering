@@ -250,7 +250,10 @@ _ENQUEUE_JS = """
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const type = (v) => { setter.call(inp, v); inp.dispatchEvent(new Event('input', {bubbles: true})); };
   // Same normalization as queue_match_spec() on the Python side.
-  const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ');
+  // Must match queue_match_spec(): strip punctuation to NOTHING (not to a
+  // space), else "A.J."->"a j" never contains the token "aj" and every
+  // apostrophe/period/hyphen name (Ja'Marr, De'Von, Amon-Ra) reports notfound.
+  const norm = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ');
   for (const spec of specs) {
     type(spec.search); await sleep(%d);
     // The players list is a FixedDataTable (divs, not <table>); rows wrap cells.
