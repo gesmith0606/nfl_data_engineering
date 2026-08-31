@@ -55,6 +55,7 @@ from src.draft_optimizer import (  # noqa: E402
 )
 from src.espn_adapter import EspnAdapter  # noqa: E402
 from src.league_scoring import score_with_settings, unmodeled_offense_keys  # noqa: E402
+from src import espn_overlay  # noqa: E402
 from src.live_draft_engine import LiveDraftEngine, PollResult  # noqa: E402
 from src.nfl_data_integration import NFLDataFetcher  # noqa: E402
 from src.projection_engine import generate_preseason_projections  # noqa: E402
@@ -246,7 +247,6 @@ _NEWS_MAP: Optional[dict] = None
 _NEWS_RISK_MAP: Optional[dict] = None
 
 
-
 _TAG_MAP = None
 
 
@@ -332,7 +332,10 @@ def news_status(player_name: str, position: str) -> Optional[str]:
 
             risk = load_news_risk()
             _NEWS_RISK_MAP = {
-                r["_name_key"]: f"{r['news_keyword']} {r['news_date']} — verify"
+                # No "— verify" suffix here: both render sites append
+                # "— verify before drafting" themselves (it read as
+                # "— verify — verify before drafting" in the 08-31 mock).
+                r["_name_key"]: f"{r['news_keyword']} {r['news_date']}"
                 for _, r in risk.iterrows()
             }
         except Exception as exc:  # noqa: BLE001 — advisory layer, fail soft
@@ -375,7 +378,9 @@ def position_wait_costs(engine: LiveDraftEngine) -> List[dict]:
                 "best_now": str(best.get("player_name", "")),
                 "vorp_now": round(float(best["vorp"]), 1),
                 "expected_next": None if exp is None else round(float(exp), 1),
-                "cost": None if exp is None else round(float(best["vorp"]) - float(exp), 1),
+                "cost": (
+                    None if exp is None else round(float(best["vorp"]) - float(exp), 1)
+                ),
                 "next_pick_no": int(nxt),
             }
         )
@@ -399,7 +404,14 @@ def tier_alerts(engine: LiveDraftEngine) -> List[dict]:
         top_tier = int(sub.iloc[0]["tier"])
         left = int((sub["tier"] == top_tier).sum())
         names = sub[sub["tier"] == top_tier]["player_name"].head(4).tolist()
-        out.append({"position": str(pos), "tier": top_tier, "remaining": left, "players": names})
+        out.append(
+            {
+                "position": str(pos),
+                "tier": top_tier,
+                "remaining": left,
+                "players": names,
+            }
+        )
     return sorted(out, key=lambda d: d["remaining"])
 
 
@@ -407,7 +419,12 @@ def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
     """How many teams picking before my next turn still lack a starter at each
     position (§18) — a run risk you can see coming."""
     turn = engine.turn_info()
-    if turn is None or turn.my_next_pick_no is None or engine.board is None or engine.state is None:
+    if (
+        turn is None
+        or turn.my_next_pick_no is None
+        or engine.board is None
+        or engine.state is None
+    ):
         return {}
     n = engine.state.n_teams or 12
     rc = engine.board.roster_config
@@ -424,7 +441,12 @@ def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
         needs[pos] = sum(
             1
             for s in slots
-            if sum(1 for r in engine.rosters.get(s, []) if str(r.get("position", "")).upper() == pos) < want
+            if sum(
+                1
+                for r in engine.rosters.get(s, [])
+                if str(r.get("position", "")).upper() == pos
+            )
+            < want
         )
     return needs
 
@@ -558,16 +580,24 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             )
     if wait_costs:
         nxt = wait_costs[0]["next_pick_no"]
-        lines.append(f"\nCOST OF WAITING to pick {nxt}, by position (take the biggest):")
+        lines.append(
+            f"\nCOST OF WAITING to pick {nxt}, by position (take the biggest):"
+        )
         for w in wait_costs:
             cost = "n/a" if w["cost"] is None else f"{w['cost']:+.0f}"
-            exp = "" if w["expected_next"] is None else f" vs ~{w['expected_next']:.0f} then"
+            exp = (
+                ""
+                if w["expected_next"] is None
+                else f" vs ~{w['expected_next']:.0f} then"
+            )
             lines.append(
                 f"  {w['position']:<3} {cost:>5}   {w['best_now']} now "
                 f"(vorp {w['vorp_now']:.0f}){exp}"
             )
     if tiers:
-        lines.append("\nTIERS (top tier left at each position; 'LAST' = take him now or lose the tier):")
+        lines.append(
+            "\nTIERS (top tier left at each position; 'LAST' = take him now or lose the tier):"
+        )
         for t in tiers:
             flag = "  <<< LAST OF TIER" if t["remaining"] == 1 else ""
             lines.append(
@@ -625,8 +655,10 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
             cpr, mpr = r.get("consensus_pos_rank"), r.get("position_rank")
             if (
                 str(r.get("position")) == "RB"
-                and cpr is not None and mpr is not None
-                and pd.notna(cpr) and pd.notna(mpr)
+                and cpr is not None
+                and mpr is not None
+                and pd.notna(cpr)
+                and pd.notna(mpr)
                 and abs(float(mpr) - float(cpr)) >= 5
             ):
                 guard = (
@@ -634,9 +666,7 @@ def render(engine: LiveDraftEngine, poll: PollResult, top_n: int, as_json: bool)
                     " — defer to consensus]"
                 )
             cost = r.get("opportunity_cost")
-            wait = (
-                f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
-            )
+            wait = f"  wait-cost={cost}" if cost is not None and pd.notna(cost) else ""
             tags = value_tags(str(r.get("player_name", "")))
             dem = str(r.get("demotion_rule", "") or "")
             demoted = f"  [DEMOTED: {dem}]" if dem else ""
@@ -1168,6 +1198,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--watch, pushes the queue into the draft room's Pick Queue directly",
     )
     p.add_argument("--queue-depth", type=int, default=12, help="Queue length")
+    p.add_argument(
+        "--no-overlay",
+        action="store_true",
+        help="ESPN: do not paint the ranked board into the draft room page "
+        "(the overlay is on by default and is click-through)",
+    )
     p.add_argument("--interval", type=float, default=3.0, help="Poll seconds")
     p.add_argument("--json", action="store_true", help="Emit JSON snapshots")
     p.add_argument("--manual", action="store_true", help="Manual pick entry (D-09)")
@@ -1387,14 +1423,20 @@ def main(argv: Optional[List[str]] = None) -> int:
             if not args.json:
                 print(f"(keeper league: marked {n} rostered players off the board)")
         # File-based keepers (platforms with no keeper API, e.g. Yahoo).
-        if not _keepers_loaded["file_done"] and args.keepers_file and engine.board is not None:
+        if (
+            not _keepers_loaded["file_done"]
+            and args.keepers_file
+            and engine.board is not None
+        ):
             mine, others = [], []
             with open(args.keepers_file, encoding="utf-8") as fh:
                 for line in fh:
                     line = line.strip()
                     if not line or line.startswith("#"):
                         continue
-                    (mine if line.startswith("*") else others).append(line.lstrip("* ").strip())
+                    (mine if line.startswith("*") else others).append(
+                        line.lstrip("* ").strip()
+                    )
             ok = sum(1 for name in mine if engine.board.draft_by_name(name, by_me=True))
             removed = engine.board.remove_players(others)
             _keepers_loaded["file_done"] = True
@@ -1402,7 +1444,11 @@ def main(argv: Optional[List[str]] = None) -> int:
                 print(
                     f"(keepers file: {ok}/{len(mine)} rostered to you, "
                     f"{removed}/{len(others)} others removed from the board"
-                    + (" — CHECK UNMATCHED NAMES" if ok < len(mine) or removed < len(others) else "")
+                    + (
+                        " — CHECK UNMATCHED NAMES"
+                        if ok < len(mine) or removed < len(others)
+                        else ""
+                    )
                     + ")"
                 )
         return poll
@@ -1464,6 +1510,9 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Watch loop — re-render only when the pick count advances.
     last_seen = -1
+    # Multi-source market notes for the in-room overlay (our rank + each
+    # platform's ADP + news). Loaded once; empty dict degrades to plain notes.
+    market_ctx = {} if args.no_overlay else espn_overlay.load_market_context()
     queue_state = {"names": []}  # CONFIRMED queue contents (outcome, not intent)
     queue_thread: Optional[threading.Thread] = None
     poll_failures = 0
@@ -1487,6 +1536,29 @@ def main(argv: Optional[List[str]] = None) -> int:
             if state and state.last_pick_no != last_seen:
                 last_seen = state.last_pick_no
                 print(render(engine, poll, args.top, args.json))
+                # Paint the ranked board into the draft room itself. The
+                # 2026-08-31 mock lost two picks to terminal->browser relaying;
+                # refreshed only on a new pick, so it never churns.
+                if not args.no_overlay and getattr(adapter, "page", None) is not None:
+                    try:
+                        ov_recs, ov_reason = engine.recommendations(
+                            top_n=max(args.top, 10)
+                        )
+                        nxt = getattr(poll.turn, "next_pick_no", None)
+                        espn_overlay.push(
+                            adapter.page,
+                            "PICK %s - take highest available" % (nxt or "?"),
+                            espn_overlay.rows_from_recs_enriched(
+                                espn_overlay.diversify(
+                                    ov_recs, reasoning=ov_reason, current_pick=nxt
+                                ),
+                                market_ctx,
+                                limit=8,
+                            ),
+                            "board-only - your Pick Queue is untouched",
+                        )
+                    except Exception:  # noqa: BLE001 - cosmetic, never break the draft
+                        pass
                 # ESPN --queue: keep the room's Pick Queue topped up with the
                 # advisor's need-aware queue so an autopick on a timeout follows
                 # OUR board (4 picks went to ESPN autopick in the 2026-08-23 mock).
@@ -1504,7 +1576,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                     avail_names = set(engine.board.available["player_name"])
                     surviving = [n for n in queue_state["names"] if n in avail_names]
                     if names[: len(surviving)] == surviving:
-                        new = names[len(surviving):]
+                        new = names[len(surviving) :]
                         job = (adapter.enqueue, new) if new else None
                     else:
                         job = (adapter.set_queue, names)
@@ -1527,7 +1599,11 @@ def main(argv: Optional[List[str]] = None) -> int:
                                 s.startswith(("queued:", "cleared:")) for s in statuses
                             )
                             queue_state["names"] = intended if clean else []
-                            tag = "" if clean else "  !! push incomplete — full rebuild next cycle"
+                            tag = (
+                                ""
+                                if clean
+                                else "  !! push incomplete — full rebuild next cycle"
+                            )
                             print(
                                 "(pick queue) " + ", ".join(statuses) + tag,
                                 flush=True,
