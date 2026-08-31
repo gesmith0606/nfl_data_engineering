@@ -240,7 +240,7 @@ def queue_match_spec(name: str) -> Dict[str, Any]:
     return {"search": " ".join(raw), "tokens": tokens}
 
 
-_ENQUEUE_JS = """
+_ENQUEUE_JS = r"""
 (async () => {
   const specs = %s;
   const out = [];
