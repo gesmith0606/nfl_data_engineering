@@ -1693,3 +1693,46 @@ class TestAdpBoard:
             assert p["adp_rank"] == float(p["model_rank"])
             assert p["adp_diff"] == 0.0
             assert p["value_tier"] == "fair_value"
+
+    def test_adp_only_dst_rows_with_nan_overall_rank_dont_500(self):
+        """Regression (2026-08-30): the ADP-only DST board path appends rows
+        with no projection and NaN overall_rank; astype(int) on that NaN
+        500'd the whole route in prod."""
+        import numpy as np
+        from draft_optimizer import compute_value_scores
+
+        def _with_dst(scoring, season, adp_source=None):
+            df = compute_value_scores(_make_mock_projections())
+            df["overall_rank"] = df["model_rank"]
+            df["adp_rank"] = df["overall_rank"].astype(float)
+            dst = pd.DataFrame(
+                [
+                    {
+                        "player_id": "DST-SEA",
+                        "player_name": "Seattle Defense",
+                        "position": "DST",
+                        "recent_team": "SEA",
+                        "adp_rank": 81.0,
+                        "overall_rank": np.nan,
+                        "projected_season_points": np.nan,
+                    }
+                ]
+            )
+            return pd.concat([df, dst], ignore_index=True)
+
+        with patch(
+            "web.api.routers.draft._load_draft_data", side_effect=_with_dst
+        ):
+            resp = client.get(
+                "/api/draft/adp-board", params={"scoring": "half_ppr"}
+            )
+        assert resp.status_code == 200, resp.text
+        players = resp.json()["players"]
+        dst_rows = [p for p in players if p["position"] == "DST"]
+        assert len(dst_rows) == 1
+        # Parked behind every ranked player, no fabricated value judgment.
+        assert dst_rows[0]["model_rank"] > max(
+            p["model_rank"] for p in players if p["position"] != "DST"
+        )
+        assert dst_rows[0]["adp_diff"] is None
+        assert dst_rows[0]["value_tier"] == "fair_value"
