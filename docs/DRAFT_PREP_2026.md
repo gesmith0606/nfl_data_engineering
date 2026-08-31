@@ -42,7 +42,18 @@ Highest urgency first:
 
 ---
 
-## LA LIGA — ESPN, 12-team, half-PPR, roster `espn_la_liga`, MY PICK 1.01 (picks 1, 24, 25, 48, 49…)
+## LA LIGA — ESPN, 12-team, half-PPR, roster `espn_la_liga`
+
+> **RULE CHANGES 2026-08-31 (draft day, verified live in ESPN settings):**
+> 1. **NO KICKERS** — K starters 0 / max 0 league-wide. Roster is now 16 spots
+>    (9 starters + 7 BN) → **16-round draft**. Never queue or recommend a K.
+>    `espn_la_liga` in config.py updated to match.
+> 2. **DRAFT ORDER IS RANDOMIZED 1hr before draft** (Aug 31 7:30 PM EDT, 90s/pick).
+>    The old "MY PICK 1.01" assumption is DEAD — slot revealed ~6:30 PM. Prep is
+>    slot-agnostic; set `my_pick` in config.py LEAGUE_PRESETS once revealed.
+> 3. Divisions removed (single 12-team table); playoff seeding tiebreak Total Points For.
+> The 1.01-specific narrative below predates the randomization — reread it as
+> "if I land pick 1" and lean on tiers + cost-of-waiting for any other slot.
 
 **1.01: Jahmyr Gibbs** ⚠️RB — model #1 = ESPN ADP #1. Model and room agree on the entire
 top 5 (Gibbs, Bijan, Chase, Nacua†, CMC — † NEWS tag above), so R1 is landmine-avoidance,

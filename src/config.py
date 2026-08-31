@@ -334,9 +334,8 @@ ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
         "WR": 2,
         "TE": 1,
         "FLEX": 2,
-        "K": 1,
         "DST": 1,
-        "BN": 7,  # 10 starters + 7 BN = 17 rounds
+        "BN": 7,  # 9 starters + 7 BN = 16 rounds (K removed from league 2026-08-31)
     },
     "yahoo_feetball": {
         "QB": 1,
@@ -379,7 +378,7 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "scoring_format": "half_ppr",
         "roster": "espn_la_liga",
         "teams": 12,
-        "my_pick": 1,  # snake order locked 2026-08-04: The Oracle picks 1st
+        "my_pick": None,  # order RANDOMIZED 1hr before draft (ESPN setting verified 2026-08-31) — set once revealed
     },
     "feetball": {
         "platform": "yahoo",
