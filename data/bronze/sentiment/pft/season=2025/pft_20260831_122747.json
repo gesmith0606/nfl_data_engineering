@@ -1,0 +1,599 @@
+{
+  "fetch_run_id": "90c41d79-fb45-460f-850f-9f73136d4fa0",
+  "source": "pft",
+  "fetched_at": "2026-08-31T12:27:47.362268+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-on-christian-gonzalez-i-expect-every-healthy-player-to-play-and-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-on-christian-gonzalez-i-expect-every-healthy-player-to-play-and-practice",
+      "permalink": "",
+      "title": "Mike Vrabel on Christian Gonzalez: I expect every healthy player to play and practice",
+      "body_text": "Christian Gonzalez returned to Patriots practice last week, but the cornerback's lack of a contract extension has led some to wonder if he might be off the field again as the team heads into their Week 1 game against the Seahawks.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T12:19:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-already-super-bowl-favorites-boost-their-odds-to-500-after-adding-aaron-donald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-already-super-bowl-favorites-boost-their-odds-to-500-after-adding-aaron-donald",
+      "permalink": "",
+      "title": "Rams, already Super Bowl favorites, boost their odds to +500 after adding Aaron Donald",
+      "body_text": "The Rams were the clear Super Bowl favorites even before Aaron Donald came out of retirement. Now it's not even close.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-31T11:44:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl",
+        "Aaron Donald",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-my-longtime-speed-trainer-told-me-i-havent-lost-a-step",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-my-longtime-speed-trainer-told-me-i-havent-lost-a-step",
+      "permalink": "",
+      "title": "Aaron Donald: My longtime speed trainer told me I haven't lost a step",
+      "body_text": "Donald says he has stayed in good shape during his two-year retirement and resumed football-specific conditioning this summer.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-31T08:29:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-2024-third-round-pick-bralen-trice-cut-without-ever-playing-in-a-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-2024-third-round-pick-bralen-trice-cut-without-ever-playing-in-a-game",
+      "permalink": "",
+      "title": "Falcons 2024 third-round pick Bralen Trice cut without ever playing in a game",
+      "body_text": "When the Falcons drafted defensive end Bralen Trice in the third round in 2024, they thought he had a bright future.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-31T07:33:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bralen Trice"
+      ],
+      "resolved_player_ids": [
+        "00-0039837"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-schneider-on-terrion-arnold-the-character-didnt-really-fit-with-the-allegations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-schneider-on-terrion-arnold-the-character-didnt-really-fit-with-the-allegations",
+      "permalink": "",
+      "title": "John Schneider on Terrion Arnold: \"The character didn't really fit with the allegations\"",
+      "body_text": "The Seahawks finally signed cornerback Terrion Arnold, more than two weeks after agreeing to a deal with him.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-31T02:54:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Schneider",
+        "Terrion Arnold",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-announce-their-moves-to-get-to-53-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-announce-their-moves-to-get-to-53-players",
+      "permalink": "",
+      "title": "Ravens announce their moves to get to 53 players",
+      "body_text": "The Ravens reached the 53-player limit on Sunday, but their biggest story was who they kept.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-31T01:43:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/p-jk-scott-among-final-chargers-cuts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/p-jk-scott-among-final-chargers-cuts",
+      "permalink": "",
+      "title": "P JK Scott among final Chargers cuts",
+      "body_text": "The Chargers do not have a punter on their initial 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T01:26:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donald-well-see-if-we-think-its-best-to-play-him-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donald-well-see-if-we-think-its-best-to-play-him-in-australia",
+      "permalink": "",
+      "title": "Sean McVay on Aaron Donald: We'll see if we think it’s best to play him in Australia",
+      "body_text": "Now that Aaron Donald is officially back with the Rams, when will he play?",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-31T01:41:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Australia Now"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-do-i-feel-like-i-can-still-be-myself-100-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-do-i-feel-like-i-can-still-be-myself-100-percent",
+      "permalink": "",
+      "title": "Aaron Donald: \"Do I feel like I can still be myself? 100 percent\"",
+      "body_text": "Donald told reporters after his first practice back with the Rams that he's known for about two weeks that he would be returning to the field in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-31T01:22:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-set-initial-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-set-initial-53-man-roster",
+      "permalink": "",
+      "title": "Buccaneers set initial 53-man roster",
+      "body_text": "The biggest news of cutdown day in Tampa was that rookie Jalon Daniels has won the backup quarterback job behind Baker Mayfield.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T01:15:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalon Daniels",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0041251",
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-branch-joins-kerby-joseph-on-pup-list-lions-set-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-branch-joins-kerby-joseph-on-pup-list-lions-set-53-man-roster",
+      "permalink": "",
+      "title": "Brian Branch joins Kerby Joseph on PUP list, Lions set 53-man roster",
+      "body_text": "The Lions will open the season with two safeties on the physically unable to perform list.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T01:06:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Branch",
+        "Kerby Joseph",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039141",
+        "00-0037667"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-put-2026-draft-picks-anez-cooper-and-vj-payne-on-ir-set-initial-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-put-2026-draft-picks-anez-cooper-and-vj-payne-on-ir-set-initial-53-man-roster",
+      "permalink": "",
+      "title": "Jets put 2026 draft picks Anez Cooper and VJ Payne on IR; set initial 53-man roster",
+      "body_text": "The Jets put two of their draft picks on injured reserve while setting their initial 53-man roster on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T00:57:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anez Cooper",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0041097"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-waive-qb-chris-oladokun-release-de-emmanuel-ogbah-while-setting-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-waive-qb-chris-oladokun-release-de-emmanuel-ogbah-while-setting-53-man-roster",
+      "permalink": "",
+      "title": "Chiefs waive QB Chris Oladokun, release DE Emmanuel Ogbah while setting 53-man roster",
+      "body_text": "The Chiefs have three quarterbacks on their initial 53-man roster, but Chris Oladokun is not among them.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T00:30:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Oladokun",
+        "Emmanuel Ogbah",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0037324",
+        "00-0033073"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-schneider-says-seahawks-plan-to-add-trevon-diggs-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-schneider-says-seahawks-plan-to-add-trevon-diggs-to-practice-squad",
+      "permalink": "",
+      "title": "John Schneider says Seahawks plan to add Trevon Diggs to practice squad",
+      "body_text": "The Seahawks cut cornerback Trevon Diggs on Sunday.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T23:56:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Schneider",
+        "Trevon Diggs",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0036361"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-didnt-cut-tony-jefferson-after-all",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-didnt-cut-tony-jefferson-after-all",
+      "permalink": "",
+      "title": "Chargers didn't cut Tony Jefferson after all",
+      "body_text": "Tony Jefferson remains a Charger.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-30T23:39:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0030294"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-takes-part-in-rams-practice-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-takes-part-in-rams-practice-sunday",
+      "permalink": "",
+      "title": "Aaron Donald takes part in Rams practice Sunday",
+      "body_text": "Defensive tackle Aaron Donald returned to the Rams' roster on Sunday and he returned to the field with the team later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-30T23:43:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Sunday Defensive"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-set-their-initial-53-player-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-set-their-initial-53-player-roster",
+      "permalink": "",
+      "title": "Panthers set their initial 53-player roster",
+      "body_text": "The Panthers have set their initial 53-player roster.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T23:43:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-cut-veteran-safety-tony-jefferson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-cut-veteran-safety-tony-jefferson",
+      "permalink": "",
+      "title": "Chargers cut veteran safety Tony Jefferson",
+      "body_text": "UPDATE: The Chargers didn't cut Tony Jefferson after all.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-30T19:27:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Jefferson",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0030294"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-returns-to-practice-myles-garrett-working-on-the-side",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-returns-to-practice-myles-garrett-working-on-the-side",
+      "permalink": "",
+      "title": "Puka Nacua returns to practice, Myles Garrett working on the side",
+      "body_text": "Aaron Donald isn't the only Rams player making a return to practice on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-30T23:33:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Myles Garrett",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0039075",
+        "00-0033868",
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-set-first-53-man-roster-under-hc-klint-kubiak",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-set-first-53-man-roster-under-hc-klint-kubiak",
+      "permalink": "",
+      "title": "Raiders set first 53-man roster under HC Klint Kubiak",
+      "body_text": "The Raiders have officially set their first 53-man roster under head coach Klint Kubiak.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-30T23:26:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Klint Kubiak",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-reach-initial-roster-of-53-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-reach-initial-roster-of-53-players",
+      "permalink": "",
+      "title": "Texans reach initial roster of 53 players",
+      "body_text": "The Texans have their initial 53-player roster.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T23:16:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-cuts-include-rb-jaleel-mclaughlin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-cuts-include-rb-jaleel-mclaughlin",
+      "permalink": "",
+      "title": "Broncos cuts include RB Jaleel McLaughlin",
+      "body_text": "The Broncos' reduction to 53 includes the release of a fourth-year running back who has appeared in 41 games with nine starts.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T23:12:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-move-mykel-williams-to-reserve-pup-and-christian-kirk-to-ir-during-cut-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-move-mykel-williams-to-reserve-pup-and-christian-kirk-to-ir-during-cut-to-53-man-roster",
+      "permalink": "",
+      "title": "49ers move Mykel Williams to reserve/PUP and Christian Kirk to IR during cut to 53-man roster",
+      "body_text": "Defensive end Mykel Williams will not play in at least the first four games of the 49ers' season.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-30T23:05:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mykel Williams",
+        "Christian Kirk"
+      ],
+      "resolved_player_ids": [
+        "00-0040660",
+        "00-0034775"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-place-jordyn-tyson-on-ir-reduce-roster-to-53-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-place-jordyn-tyson-on-ir-reduce-roster-to-53-players",
+      "permalink": "",
+      "title": "Saints place Jordyn Tyson on IR, reduce roster to 53 players",
+      "body_text": "The Saints will officially be without one of their key rookies for at least the season's first four weeks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-30T22:43:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordyn Tyson",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-trading-dl-terah-edwards-to-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-trading-dl-terah-edwards-to-panthers",
+      "permalink": "",
+      "title": "Chargers trading DL TeRah Edwards to Panthers",
+      "body_text": "The Panthers are acquiring a young defensive lineman.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-30T23:02:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Panthers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-cut-roster-to-53-confirm-placement-of-micah-parsons-on-reserve-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-cut-roster-to-53-confirm-placement-of-micah-parsons-on-reserve-pup",
+      "permalink": "",
+      "title": "Packers cut roster to 53, confirm placement of Micah Parsons on reserve/PUP",
+      "body_text": "To get to 53 players on the roster, the Packers continue to keep linebacker Micah Parsons off the roster.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T23:01:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-cut-cb-trevon-diggs-place-rb-zach-charbonnet-on-pup-among-moves-to-53",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-cut-cb-trevon-diggs-place-rb-zach-charbonnet-on-pup-among-moves-to-53",
+      "permalink": "",
+      "title": "Seahawks cut CB Trevon Diggs, place RB Zach Charbonnet on PUP among moves to 53",
+      "body_text": "Cornerback Trevon Diggs' time with the Seahawks did not last long.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T23:00:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trevon Diggs",
+        "Zach Charbonnet",
+        "Cornerback Trevon"
+      ],
+      "resolved_player_ids": [
+        "00-0036361",
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-waive-hendon-hooker-and-will-levis-as-they-drop-to-53-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-waive-hendon-hooker-and-will-levis-as-they-drop-to-53-players",
+      "permalink": "",
+      "title": "Titans waive Hendon Hooker and Will Levis as they drop to 53 players",
+      "body_text": "The Titans confirmed that they waived quarterback Will Levis on Sunday afternoon and they also announced the departure of Hendon Hooker.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-30T22:53:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hendon Hooker",
+        "Will Levis",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0038550",
+        "00-0039152"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-moves-include-activation-of-joey-porter-jr-from-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-moves-include-activation-of-joey-porter-jr-from-pup",
+      "permalink": "",
+      "title": "Steelers' moves include activation of Joey Porter Jr. from PUP",
+      "body_text": "The Steelers' 53-man roster includes a player who spent all of training camp and the preseason on the physically unable to perform list.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-30T22:51:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-cut-roster-down-to-53-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-cut-roster-down-to-53-players",
+      "permalink": "",
+      "title": "Rams cut roster down to 53 players",
+      "body_text": "The Rams have reduced their roster to 53 players in advance of the league’s 6 p.m.",
+      "author": "Myles Simmons",
+      "published_at": "2026-08-30T20:57:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    }
+  ]
+}
