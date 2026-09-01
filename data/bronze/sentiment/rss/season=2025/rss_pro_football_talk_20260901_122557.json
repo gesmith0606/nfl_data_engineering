@@ -1,0 +1,509 @@
+{
+  "fetch_run_id": "f15872a3-dc6f-471e-b0fc-1368ffd96d1a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-01T12:25:57.522280+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-i-have-an-opportunity-to-rewrite-the-last-chapter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-i-have-an-opportunity-to-rewrite-the-last-chapter",
+      "title": "Odell Beckham Jr.: I have an opportunity to rewrite the last chapter",
+      "body_text": "Wide receiver Odell Beckham experienced something new while waiting for the Giants to set their initial 53-man roster for the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T12:08:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Odell Beckham"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-zach-ertz-one-of-the-greatest-tight-ends-but-love-what-we-have",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-zach-ertz-one-of-the-greatest-tight-ends-but-love-what-we-have",
+      "title": "Howie Roseman: Zach Ertz one of the greatest tight ends, but love what we have",
+      "body_text": "Word in early August was that tight end Zach Ertz has been cleared for all football activities after tearing his ACL last December, but the veteran remains a free agent with the start of the regular season a little over a week away.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T11:53:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Howie Roseman",
+        "Zach Ertz"
+      ],
+      "resolved_player_ids": [
+        "00-0030061"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donalds-absence-from-mondays-practice-part-of-the-plan-all-along",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donalds-absence-from-mondays-practice-part-of-the-plan-all-along",
+      "title": "Aaron Donald's absence from Monday's practice \"part of the plan all along\"",
+      "body_text": "Aaron Donald officially came out of retirement and practiced with the Rams on Sunday, but the three-time defensive player of the year was not on the field with the team on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T11:33:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nnamdi-madubuike-doing-more-and-more-but-ravens-uncertain-about-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nnamdi-madubuike-doing-more-and-more-but-ravens-uncertain-about-week-1",
+      "title": "Nnamdi Madubuike doing \"more and more,\" but Ravens uncertain about Week 1",
+      "body_text": "Ravens defensive tackle Nnamdi Madubuike did not go on injured reserve while the team set its initial 53-man roster, which means that the team does not think he will miss the first four games of the season as he continues working his way back from the neck injury that kept him out for most of last year.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T11:41:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nnamdi Madubuike"
+      ],
+      "resolved_player_ids": [
+        "00-0036130"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-2026-rams-have-eleven-captains",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-2026-rams-have-eleven-captains",
+      "title": "The 2026 Rams have eleven captains",
+      "body_text": "For the Rams, it's just as easy to list the players who aren't captains as it is to list those who are.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-01T02:39:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/passports-for-practice-squad-signings-are-a-logistical-challenge-for-49ers-and-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/passports-for-practice-squad-signings-are-a-logistical-challenge-for-49ers-and-rams",
+      "title": "Passports for practice squad signings are a logistical challenge for 49ers and Rams",
+      "body_text": "Every team in the league is in the process of calling players to ask them to join the practice squad, but the Rams and 49ers have another question: \"Do you have a passport?\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-01T09:16:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rams Every"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-plans-to-play-for-as-long-as-he-can",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-plans-to-play-for-as-long-as-he-can",
+      "title": "Joe Burrow plans to play for as long as he can",
+      "body_text": "Joe Burrow turns 30 on December 10.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-31T21:32:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-explores-extreme-measures-against-lsu-including-expulsion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-explores-extreme-measures-against-lsu-including-expulsion",
+      "title": "SEC explores \"extreme measures\" against LSU — including expulsion",
+      "body_text": "The SEC hopes to grab the Tigers by the tail.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-31T20:59:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-aaron-donald-makes-the-rams-better-but-were-pretty-good-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-aaron-donald-makes-the-rams-better-but-were-pretty-good-too",
+      "title": "John Lynch: Aaron Donald makes the Rams better, but we're pretty good, too",
+      "body_text": "The 49ers are preparing to face Donald next week in Australia.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-01T08:56:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Lynch",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0010188",
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-herbert-brother-of-justin-herbert-joins-chargers-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-herbert-brother-of-justin-herbert-joins-chargers-practice-squad",
+      "title": "Patrick Herbert, brother of Justin Herbert, joins Chargers' practice squad",
+      "body_text": "After spending the last year in Jacksonville, Patrick Herbert will join his brother in Los Angeles.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-01T08:00:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Herbert",
+        "Justin Herbert",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0040331",
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-to-add-rb-jaydon-blue-to-their-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-to-add-rb-jaydon-blue-to-their-practice-squad",
+      "title": "Eagles to add RB Jaydon Blue to their practice squad",
+      "body_text": "Running back Jaydon Blue, who the Cowboys waived on Sunday, is signing with the Eagles' practice squad, Adam Schefter of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T02:31:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaydon Blue",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/locker-room-attack-put-tcu-receiver-in-hospital-for-three-days",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/locker-room-attack-put-tcu-receiver-in-hospital-for-three-days",
+      "title": "Locker-room attack put TCU receiver in hospital for three days",
+      "body_text": "Football is premised in many respects on controlled violence.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-01T02:31:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/can-the-rams-get-aaron-donald-ready-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/can-the-rams-get-aaron-donald-ready-for-week-1",
+      "title": "Can the Rams get Aaron Donald ready for Week 1?",
+      "body_text": "Rams defensive tackle Aaron Donald returned to the team on August 30.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-31T14:13:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-expresses-confidence-in-tyler-loop",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-expresses-confidence-in-tyler-loop",
+      "title": "Jesse Minter expresses confidence in Tyler Loop",
+      "body_text": "Ravens kicker Tyler Loop missed field goals of 58 and 51 yards in the preseason finale.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T01:44:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jesse Minter",
+        "Tyler Loop"
+      ],
+      "resolved_player_ids": [
+        "00-0040074"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-lb-josh-woods-to-active-roster-place-lb-jd-bertrand-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-lb-josh-woods-to-active-roster-place-lb-jd-bertrand-on-ir",
+      "title": "Falcons sign LB Josh Woods to active roster, place LB JD Bertrand on IR",
+      "body_text": "The Falcons signed veteran linebacker Josh Woods from their practice squad to their 53-player roster on Monday night, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T01:03:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Woods",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0034801"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-shane-buechele-ol-jedrick-willis-among-bills-practice-squad-signings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-shane-buechele-ol-jedrick-willis-among-bills-practice-squad-signings",
+      "title": "QB Shane Buechele, OL Jedrick Willis among Bills' practice squad signings",
+      "body_text": "The Bills announced their practice squad additions on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T00:23:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shane Buechele",
+        "Jedrick Willis",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0036679"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-im-making-sure-im-ready-to-play-four-quarters",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-im-making-sure-im-ready-to-play-four-quarters",
+      "title": "Malik Nabers: I'm making sure I'm ready to play four quarters",
+      "body_text": "Will Nabers be ready to play against the Cowboys in Week 1?",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T23:58:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers",
+        "Will Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/back-with-the-giants-odell-beckham-jr-hopes-to-get-back-in-13",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/back-with-the-giants-odell-beckham-jr-hopes-to-get-back-in-13",
+      "title": "Back with the Giants, Odell Beckham Jr. hopes to get back in 13",
+      "body_text": "Receiver Odell Beckham Jr. is back with the Giants, for the first time since 2018.",
+      "author": "Mike Florio",
+      "published_at": "2026-08-31T23:52:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Receiver Odell"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broderick-jones-will-compete-for-the-cowboys-right-tackle-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broderick-jones-will-compete-for-the-cowboys-right-tackle-job",
+      "title": "Broderick Jones will compete for the Cowboys' right tackle job",
+      "body_text": "Cowboys head coach Brian Schottenheimer shared the team's plan for the newly acquired Broderick Jones during a Monday press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T22:42:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Broderick Jones",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0039109"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-says-nothing-has-changed-with-brandon-aiyuks-status",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-says-nothing-has-changed-with-brandon-aiyuks-status",
+      "title": "John Lynch says \"nothing has changed\" with Brandon Aiyuk's status",
+      "body_text": "Brandon Aiyuk is out of sight, out of mind for the 49ers.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-31T22:28:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Lynch",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0010188",
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-p-bryce-baringer-on-ir-sign-mitch-wishnowsky-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-p-bryce-baringer-on-ir-sign-mitch-wishnowsky-to-practice-squad",
+      "title": "Patriots put P Bryce Baringer on IR, sign Mitch Wishnowsky to practice squad",
+      "body_text": "The Patriots are set to have a new punter in Week 1.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T22:26:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Baringer",
+        "Mitch Wishnowsky",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0038610",
+        "00-0034941"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-k-jason-sanders-to-their-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-k-jason-sanders-to-their-practice-squad",
+      "title": "Jets sign K Jason Sanders to their practice squad",
+      "body_text": "The Jets released Jason Sanders when they claimed Blake Grupe off of waivers on Monday, but the kicker was back in the organization a short time later.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T22:18:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jason Sanders",
+        "The Jets",
+        "Blake Grupe"
+      ],
+      "resolved_player_ids": [
+        "00-0034794",
+        "00-0038905"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lb-jonathon-cooper-pleads-not-guilty-to-assault-trial-set-for-november",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lb-jonathon-cooper-pleads-not-guilty-to-assault-trial-set-for-november",
+      "title": "Broncos LB Jonathon Cooper pleads not guilty to assault, trial set for November",
+      "body_text": "Broncos linebacker Jonathon Cooper was put on paid leave over the weekend due to his domestic violence arrest this offseason and he was in a Colorado courtroom for a hearing on those charges Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T22:11:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathon Cooper",
+        "November Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-waive-2024-fourth-round-pick-decamerion-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-waive-2024-fourth-round-pick-decamerion-richardson",
+      "title": "Raiders waive 2024 fourth-round pick Decamerion Richardson",
+      "body_text": "Two years after drafting him in the fourth round of the 2024 NFL Draft, the Raiders are saying goodbye to Decamerion Richardson.",
+      "author": "Michael David Smith",
+      "published_at": "2026-08-31T21:59:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Decamerion Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039357"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-hendon-hooker-returns-to-titans-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-hendon-hooker-returns-to-titans-practice-squad",
+      "title": "QB Hendon Hooker returns to Titans practice squad",
+      "body_text": "One of the quarterbacks that the Titans cut on their way to setting a 53-man roster is returning to their practice squad.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T21:57:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Hendon Hooker"
+      ],
+      "resolved_player_ids": [
+        "00-0038550"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-re-sign-p-jk-scott-place-lb-denzel-perryman-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-re-sign-p-jk-scott-place-lb-denzel-perryman-on-ir",
+      "title": "Chargers re-sign P JK Scott, place LB Denzel Perryman on IR",
+      "body_text": "The Chargers terminated the contract of punter JK Scott in a procedural move Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-31T21:56:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Denzel Perryman",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0032103"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-add-qb-easton-stick-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-add-qb-easton-stick-to-the-practice-squad",
+      "title": "Bucs add QB Easton Stick to the practice squad",
+      "body_text": "The Bucs kept only two quarterbacks on their active roster, but added another to the practice squad on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-31T21:28:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Easton Stick",
+        "The Bucs"
+      ],
+      "resolved_player_ids": [
+        "00-0035282"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-george-kittles-passing-everything-didnt-mean-to-say-he-had-a-setback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-george-kittles-passing-everything-didnt-mean-to-say-he-had-a-setback",
+      "title": "Kyle Shanahan: George Kittle's passing everything, didn't mean to say he had a setback",
+      "body_text": "The 49ers remain hopeful that Kittle will play in Week 1 against the Rams.",
+      "author": "Josh Alper",
+      "published_at": "2026-08-31T21:11:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-cut-three-players-to-clear-room-for-three-waiver-claims",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-cut-three-players-to-clear-room-for-three-waiver-claims",
+      "title": "Falcons cut three players to clear room for three waiver claims",
+      "body_text": "The Falcons claimed linebackers Yasir Abdullah and Jared Ivey and offensive lineman Cameron Williams off waivers earlier in the day.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-31T21:09:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Falcons",
+        "Yasir Abdullah",
+        "Jared Ivey",
+        "Cameron Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0038580",
+        "00-0040056",
+        "00-0040687"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-ol-james-hudson-waive-five-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-sign-ol-james-hudson-waive-five-players",
+      "title": "Titans sign OL James Hudson, waive five players",
+      "body_text": "The Titans added five players to their roster on Monday, four of whom were previously reported.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-31T20:47:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Hudson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0036866"
+      ],
+      "team_hint": "TEN"
+    }
+  ]
+}

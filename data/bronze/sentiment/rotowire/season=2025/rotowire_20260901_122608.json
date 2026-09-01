@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "de6b56e5-83ca-4ded-b8ed-7b512b6be9b8",
+  "source": "rotowire",
+  "fetched_at": "2026-09-01T12:26:08.782001+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl635734",
+      "url": "https://www.rotowire.com//football/player/myles-garrett-11914",
+      "permalink": "",
+      "title": "Myles Garrett: Aiming for Week 1 return",
+      "body_text": "Head coach Sean McVay said Monday that Garrett (knee) is making \"really good progress\" in the edge rusher's recovery, with the goal of playing in Week 1 against the 49ers, Lindsey Thiry of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-31T06:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Lindsey Thiry"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl635683",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Working off to side Monday",
+      "body_text": "Nacua (groin) was off to the side for team drills at Monday's practice, Nate Atkins of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-31T04:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Monday Nacua",
+        "Nate Atkins",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl635627",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Non-committal when asked about Week 1",
+      "body_text": "Nabers (knee) was non-committal Monday when asked about playing Week 1 against the Cowboys, Pat Leonard of the New York Daily News reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-31T02:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Pat Leonard",
+        "New York",
+        "Daily News"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl635622",
+      "url": "https://www.rotowire.com//football/player/keaton-mitchell-16810",
+      "permalink": "",
+      "title": "Keaton Mitchell: Working off to side Monday",
+      "body_text": "Mitchell (undisclosed) is not practicing Monday but is working off to the side with a trainer, Kris Rhim of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-31T02:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keaton Mitchell",
+        "Monday Mitchell",
+        "Kris Rhim"
+      ],
+      "resolved_player_ids": [
+        "00-0038454"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl635614",
+      "url": "https://www.rotowire.com//football/player/jacory-croskey-merritt-18811",
+      "permalink": "",
+      "title": "Jacory Croskey-Merritt: Set to practice next week",
+      "body_text": "Croskey-Merritt (lower body) is expected to return to practice next week, John Keim of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-08-31T02:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacory Croskey",
+        "John Keim"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
