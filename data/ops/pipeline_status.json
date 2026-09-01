@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T18:22:04.583572+00:00",
+  "generated_at": "2026-09-01T00:58:31.197726+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-08-31T13:13:52Z",
-        "duration_seconds": 78,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/33395818006",
+        "started_at": "2026-08-31T21:11:25Z",
+        "duration_seconds": 104,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/33440047316",
         "event": "schedule"
       },
       "recent": [
@@ -145,9 +145,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-08-31T18:21:49Z",
+        "started_at": "2026-09-01T00:58:13Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/33424584341",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/33456882022",
         "event": "schedule"
       },
       "recent": [
@@ -172,9 +172,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-08-31T17:42:32Z",
-        "duration_seconds": 303,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/33421028779",
+        "started_at": "2026-08-31T22:45:11Z",
+        "duration_seconds": 318,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/33447651222",
         "event": "push"
       },
       "recent": [
@@ -184,12 +184,12 @@
         "success",
         "success",
         "success",
-        "failure",
-        "failure",
-        "failure",
-        "failure"
+        "success",
+        "success",
+        "success",
+        "success"
       ],
-      "success_rate": 0.6
+      "success_rate": 1.0
     }
   ]
 }
