@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "891f9454-e09a-4ef2-9fbb-4b3fa80a9e82",
+  "source": "rotowire",
+  "fetched_at": "2026-09-02T12:27:00.687622+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl635858",
+      "url": "https://www.rotowire.com//football/player/aaron-donald-9391",
+      "permalink": "",
+      "title": "Aaron Donald: May not debut until Week 2 or 3",
+      "body_text": "Donald is more likely to debut in Week 2 or Week 3 rather than Week 1, according to Dan Graziano of ESPN.com on NFL Live. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-01T01:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Dan Graziano"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl635857",
+      "url": "https://www.rotowire.com//football/player/isiah-pacheco-16104",
+      "permalink": "",
+      "title": "Isiah Pacheco: Moving to injured reserve",
+      "body_text": "The Lions placed Pacheco (back) on injured reserve Tuesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-01T01:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isiah Pacheco",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0037197"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl635854",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: Working through stiffness",
+      "body_text": "Coach Robert Saleh said Tate (undisclosed) missed Tuesday's practice due to some \"stiffness,\" Jim Wyatt of the Titans' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-01T01:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate",
+        "Coach Robert",
+        "Jim Wyatt"
+      ],
+      "resolved_player_ids": [
+        "00-0041438"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "nfl635853",
+      "url": "https://www.rotowire.com//football/player/christian-mccaffrey-11690",
+      "permalink": "",
+      "title": "Christian McCaffrey: Goes through drills Tuesday",
+      "body_text": "McCaffrey (undisclosed) suited up and went through drills at Tuesday's practice, according to Matt Lively of CBS Sports Bay Area. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-01T12:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Lively",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl635851",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Practices Tuesday despite early absence",
+      "body_text": "Nabers (knee) was not spotted at the portion of Tuesday's practice open to the media, but he later took the field in uniform, according to Connor Hughes of SNY.tv. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-01T12:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Practices Tuesday",
+        "Connor Hughes"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,513 @@
+{
+  "fetch_run_id": "0b4bf1bc-aca9-4d0e-91e3-e86456642e0e",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-02T12:26:47.041573+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-lb-jordyn-brooks-we-have-to-have-us-against-the-world-mentality",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-lb-jordyn-brooks-we-have-to-have-us-against-the-world-mentality",
+      "title": "Dolphins LB Jordyn Brooks: We have to have \"us against the world\" mentality",
+      "body_text": "Linebacker Jordyn Brooks is an outlier on the 2026 Dolphins.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-02T12:08:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordyn Brooks",
+        "Linebacker Jordyn"
+      ],
+      "resolved_player_ids": [
+        "00-0036409"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dabo-swinney-on-nfl-players-going-back-to-college-its-embarrassing-we-have-no-rules",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dabo-swinney-on-nfl-players-going-back-to-college-its-embarrassing-we-have-no-rules",
+      "title": "Dabo Swinney on NFL players going back to college: It's embarrassing, we have no rules",
+      "body_text": "Clemson coach Dabo Swinney is preparing to open the season on Saturday against LSU, which has been at the forefront of attempting to get players who were on NFL rosters back into college football.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-02T09:20:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dabo Swinney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-eric-sullivan-on-quinn-ewers-this-is-a-performance-business-and-it-was-not-getting-done",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-eric-sullivan-on-quinn-ewers-this-is-a-performance-business-and-it-was-not-getting-done",
+      "title": "Jon-Eric Sullivan on Quinn Ewers: This is a performance business and it was not getting done",
+      "body_text": "The Dolphins traded Ewers to the Jaguars for a 2028 sixth-round draft pick.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-02T08:02:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Sullivan",
+        "Quinn Ewers",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0040234"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-van-noy-joins-the-vikings-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-van-noy-joins-the-vikings-practice-squad",
+      "title": "Kyle Van Noy joins the Vikings' practice squad",
+      "body_text": "Kyle Van Noy is staying in purple.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T03:17:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Van"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-rookie-db-lorenzo-styles-jr-lands-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-rookie-db-lorenzo-styles-jr-lands-on-ir",
+      "title": "Saints rookie DB Lorenzo Styles Jr. lands on IR",
+      "body_text": "The Saints placed rookie safety Lorenzo Styles Jr. on injured reserve Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T02:08:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lorenzo Styles Jr",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0041089"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-hasnt-watched-much-past-film-from-deshaun-watson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-hasnt-watched-much-past-film-from-deshaun-watson",
+      "title": "Todd Monken hasn't watched much past film from Deshaun Watson",
+      "body_text": "Browns coach Todd Monken had a big decision to make at quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T00:53:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-gutekunst-talks-with-cardinals-about-josh-sweat-never-happened",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-gutekunst-talks-with-cardinals-about-josh-sweat-never-happened",
+      "title": "Brian Gutekunst: Talks with Cardinals about Josh Sweat never happened",
+      "body_text": "The offseason consisted of a rumor that the Cardinals would be trading linebacker Josh Sweat to the Packers.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T00:34:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Gutekunst",
+        "Josh Sweat"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-nfl-players-going-back-to-college-is-ridiculous-but-doesnt-really-impact-our-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-nfl-players-going-back-to-college-is-ridiculous-but-doesnt-really-impact-our-job",
+      "title": "Nick Caserio: NFL players going back to college is \"ridiculous,\" but \"doesn't really impact our job\"",
+      "body_text": "More and more NFL figures are addressing the current chaos in college football.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T00:12:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caserio"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-says-ashton-jeanty-is-in-a-good-spot-but-offers-no-timeline-on-a-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-says-ashton-jeanty-is-in-a-good-spot-but-offers-no-timeline-on-a-return",
+      "title": "John Spytek says Ashton Jeanty is in a \"good spot\" but offers no timeline on a return",
+      "body_text": "The Raiders running back sprained his ankle in an Aug. 23 practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T22:59:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Spytek",
+        "Ashton Jeanty",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-has-no-comment-about-tony-romos-statement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-has-no-comment-about-tony-romos-statement",
+      "title": "CBS has no comment about Tony Romo's statement",
+      "body_text": "On Tuesday, former Cowboys quarterback and CBS broadcaster Tony Romo issued a statement announcing his no-contest plea to OWI charges and expressing his intention to return to CBS, in time.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-01T23:54:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo",
+        "On Tuesday"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-assistant-coach-kippy-brown-dies-at-71",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-assistant-coach-kippy-brown-dies-at-71",
+      "title": "Former NFL assistant coach Kippy Brown dies at 71",
+      "body_text": "Former NFL assistant coach Kippy Brown died this week, Matt Young of the Houston Chronicle reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T23:42:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kippy Brown",
+        "Matt Young",
+        "Houston Chronicle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-tony-romos-bac-was-0-15-percent-nearly-twice-the-legal-limit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-tony-romos-bac-was-0-15-percent-nearly-twice-the-legal-limit",
+      "title": "Report: Tony Romo's BAC was 0.15 percent, nearly twice the legal limit",
+      "body_text": "When former Cowboys quarterback and CBS broadcaster Tony Romo was arrested for OWI in Wisconsin, he initially indicated an unwillingness to submit to breath testing.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-01T22:51:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-receivers-pick-numbers-that-bring-back-good-memories",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-receivers-pick-numbers-that-bring-back-good-memories",
+      "title": "Giants receivers pick numbers that bring back good memories",
+      "body_text": "Jalin Hyatt's decision, voluntary or otherwise, to surrender No. 13 to Odell Beckham Jr. wasn't the only back-to-the-future move when it comes to Giants receiver numbers.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-01T23:33:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalin Hyatt",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0038938",
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-place-ol-brady-christensen-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-place-ol-brady-christensen-on-ir",
+      "title": "Panthers place OL Brady Christensen on IR",
+      "body_text": "The Panthers placed offensive lineman Brady Christensen on injured reserve Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T23:18:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brady Christensen",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036968"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-tank-dell-is-close-but-certain-things-we-have-to-see",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-tank-dell-is-close-but-certain-things-we-have-to-see",
+      "title": "Nick Caserio: Tank Dell is close, but certain things we have to see",
+      "body_text": "The wait for wide receiver Tank Dell to return to the Texans lineup will last at least four more games.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T22:50:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caserio",
+        "Tank Dell"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-claim-cb-kevin-knowles-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-claim-cb-kevin-knowles-off-waivers",
+      "title": "Bucs claim CB Kevin Knowles off waivers",
+      "body_text": "The Buccaneers claimed cornerback Kevin Knowles off waivers on Tuesday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T21:57:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kevin Knowles",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0040089"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-clears-waivers-becomes-a-free-agent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-clears-waivers-becomes-a-free-agent",
+      "title": "Joe Milton clears waivers, becomes a free agent",
+      "body_text": "Joe Milton is a free agent.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-01T21:36:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-claim-cb-decamerion-richardson-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-claim-cb-decamerion-richardson-off-waivers",
+      "title": "Saints claim CB Decamerion Richardson off waivers",
+      "body_text": "The Saints claimed cornerback Decamerion Richardson off waivers, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T21:19:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Decamerion Richardson",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0039357"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-van-noy-visited-with-vikings-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-van-noy-visited-with-vikings-on-tuesday",
+      "title": "Kyle Van Noy visited with Vikings on Tuesday",
+      "body_text": "The Vikings are taking a look at a veteran edge defender who has plenty of familiarity with their defensive coordinator.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-01T21:19:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Van",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-excited-for-the-chance-to-develop-young-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeff-hafley-excited-for-the-chance-to-develop-young-players",
+      "title": "Jeff Hafley excited for the chance to develop young players",
+      "body_text": "The Dolphins are starting over in Hafley's first year as head coach.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T21:00:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeff Hafley",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-cut-qb-mark-gronowski-from-practice-squad-sign-mazi-smith-clelin-ferrell-to-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-cut-qb-mark-gronowski-from-practice-squad-sign-mazi-smith-clelin-ferrell-to-it",
+      "title": "Dolphins cut QB Mark Gronowski from practice squad, sign Mazi Smith, Clelin Ferrell to it",
+      "body_text": "The Dolphins cut quarterback Mark Gronowski from the practice squad on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T21:00:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Gronowski",
+        "Mazi Smith",
+        "Clelin Ferrell",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0041156",
+        "00-0038545",
+        "00-0035692"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stan-kroenke-buys-the-mlbs-l-a-angels",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stan-kroenke-buys-the-mlbs-l-a-angels",
+      "title": "Stan Kroenke buys the MLB's L.A. Angels",
+      "body_text": "Stan Kroenke now has covered all bases when it comes to sports ownership, by buying a team that literally covers bases.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-01T18:30:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stan Kroenke",
+        "Angels Stan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-i-dont-know-if-ill-play-week-one-without-a-new-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-i-dont-know-if-ill-play-week-one-without-a-new-contract",
+      "title": "Joey Porter Jr.: I don't know if I'll play Week One without a new contract",
+      "body_text": "“I don’t know. I would have to talk to the guys upstairs and my agents about that one,\" Porter said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-01T20:46:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Week One"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-qb-kedon-slovis-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-sign-qb-kedon-slovis-to-the-practice-squad",
+      "title": "Packers sign QB Kedon Slovis to the practice squad",
+      "body_text": "The Packers signed quarterback Kedon Slovis to the practice squad, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T20:37:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kedon Slovis",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0039577"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/max-brosmer-will-stick-with-vikings-on-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/max-brosmer-will-stick-with-vikings-on-practice-squad",
+      "title": "Max Brosmer will stick with Vikings on practice squad",
+      "body_text": "As it turns out, Max Brosmer won't be departing the Vikings.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-01T20:29:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Max Brosmer"
+      ],
+      "resolved_player_ids": [
+        "00-0040494"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-isiah-pacheco-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-isiah-pacheco-on-injured-reserve",
+      "title": "Lions put Isiah Pacheco on injured reserve",
+      "body_text": "Lions head coach Dan Campbell said last week that he couldn't say anything \"definitive\" about running back Isiah Pacheco's status for Week 1, but the picture cleared up on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T20:18:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Isiah Pacheco",
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0037197",
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-bring-back-ol-ben-brown-sign-lb-erick-hunter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-bring-back-ol-ben-brown-sign-lb-erick-hunter",
+      "title": "Patriots bring back OL Ben Brown, sign LB Erick Hunter",
+      "body_text": "The Patriots released offensive lineman Ben Brown on Monday, but it was a brief parting of the ways.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T20:09:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Brown",
+        "Erick Hunter",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0037413",
+        "00-0041455"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-want-joe-milton-back-on-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-want-joe-milton-back-on-the-practice-squad",
+      "title": "Cowboys want Joe Milton back on the practice squad",
+      "body_text": "In a bit of a surprise move, the Cowboys waived quarterback Joe Milton on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-01T20:01:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-absolutely-not-bothered-by-fan-backlash-to-deshaun-watson-being-named-qb1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-absolutely-not-bothered-by-fan-backlash-to-deshaun-watson-being-named-qb1",
+      "title": "Todd Monken \"absolutely not\" bothered by fan backlash to Deshaun Watson being named QB1",
+      "body_text": "When Browns quarterback Deshaun Watson played in a preseason game in Cleveland last month, he was heartily booed.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-01T19:53:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Deshaun Watson",
+        "When Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-wr-cedric-tillman-to-their-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sign-wr-cedric-tillman-to-their-practice-squad",
+      "title": "Saints sign WR Cedric Tillman to their practice squad",
+      "body_text": "The Saints won't have first-round pick Jordyn Tyson for at least the first four games of the regular season and they added an option to help fill in for him to their practice squad on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-01T19:20:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cedric Tillman",
+        "The Saints",
+        "Jordyn Tyson"
+      ],
+      "resolved_player_ids": [
+        "00-0038979",
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}
