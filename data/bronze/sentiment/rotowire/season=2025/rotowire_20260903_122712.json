@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "a20161d6-d826-4c13-bd79-a5d19622df61",
+  "source": "rotowire",
+  "fetched_at": "2026-09-03T12:27:12.037959+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636033",
+      "url": "https://www.rotowire.com//football/player/jamarr-chase-15183",
+      "permalink": "",
+      "title": "Ja'Marr Chase: Doesn't practice Wednesday",
+      "body_text": "Chase (knee) was present but not suited up at Wednesday's practice, Gabi Sorrentino of Fox 19 Cincinnati reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-02T03:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marr Chase",
+        "Wednesday Chase",
+        "Gabi Sorrentino"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636032",
+      "url": "https://www.rotowire.com//football/player/tee-higgins-14506",
+      "permalink": "",
+      "title": "Tee Higgins: No practice Wednesday",
+      "body_text": "Higgins (heel) didn't take part in practice Wednesday, Ben Baby of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-02T03:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tee Higgins",
+        "Wednesday Higgins",
+        "Ben Baby"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636030",
+      "url": "https://www.rotowire.com//football/player/kyle-monangai-18520",
+      "permalink": "",
+      "title": "Kyle Monangai: Resumes running",
+      "body_text": "Fellow RB D'Andre Swift said Monangai (knee) \"looked good\" while running Wednesday, Adam Hoge of AllCHGO.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-02T01:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai",
+        "Andre Swift",
+        "Adam Hoge"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636029",
+      "url": "https://www.rotowire.com//football/player/khalil-shakir-15892",
+      "permalink": "",
+      "title": "Khalil Shakir: Optimism regarding Week 1",
+      "body_text": "Per Matt Zenitz of CBSSports.com, \"there's currently optimism\" that Shakir (undisclosed) will be available Week 1 against the Texans on Sunday, Sept. 13 Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-02T01:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Khalil Shakir",
+        "Per Matt"
+      ],
+      "resolved_player_ids": [
+        "00-0037261"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "nfl636026",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Handles individual, team drills Wednesday",
+      "body_text": "Coach John Harbaugh said Nabers (knee) participated in individual and team drills at Wednesday's practice, Connor Hughes of SNY.tv reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-02T12:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Wednesday Coach",
+        "John Harbaugh",
+        "Connor Hughes"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    }
+  ]
+}

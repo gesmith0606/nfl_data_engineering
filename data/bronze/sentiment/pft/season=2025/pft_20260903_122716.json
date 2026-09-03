@@ -1,0 +1,610 @@
+{
+  "fetch_run_id": "f6cebf4a-c0e6-41fb-ad89-ae44a780c66e",
+  "source": "pft",
+  "fetched_at": "2026-09-03T12:27:16.555984+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-gm-eric-decosta-no-indication-how-long-rashod-bateman-investigation-will-take",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-gm-eric-decosta-no-indication-how-long-rashod-bateman-investigation-will-take",
+      "permalink": "",
+      "title": "Ravens GM Eric DeCosta: \"No indication\" how long Rashod Bateman investigation will take",
+      "body_text": "Ravens wide receiver Rashod Bateman was arrested in June after allegedly breaking the windshield and windows of a car with his child and the child's mother inside, but he was not placed on paid leave by the NFL ahead of the cut to 53 players last weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-03T12:05:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashod Bateman"
+      ],
+      "resolved_player_ids": [
+        "00-0036550"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshawn-lloyd-im-ready-for-anything-the-packers-give-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshawn-lloyd-im-ready-for-anything-the-packers-give-me",
+      "permalink": "",
+      "title": "MarShawn Lloyd: I'm ready for anything the Packers give me",
+      "body_text": "The NFL's decision to put running back Josh Jacobs on paid leave has opened a big door for MarShawn Lloyd in Green Bay.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-03T11:52:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-cb-alphonso-smith-jr-dies-at-40",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-cb-alphonso-smith-jr-dies-at-40",
+      "permalink": "",
+      "title": "Former NFL CB Alphonso Smith Jr. dies at 40",
+      "body_text": "Alphonso Smith Jr., a former NFL cornerback and the 37th overall pick in the 2009 draft, has died.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-03T09:54:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alphonso Smith Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0027013"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-de-sam-okuayinonu-not-on-team-flight-to-australia-questionable-with-foot-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-de-sam-okuayinonu-not-on-team-flight-to-australia-questionable-with-foot-injury",
+      "permalink": "",
+      "title": "49ers DE Sam Okuayinonu not on team flight to Australia, questionable with foot injury",
+      "body_text": "The 49ers are on their way to Australia, but defensive end Sam Okuayinonu is not with them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-03T09:18:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Okuayinonu"
+      ],
+      "resolved_player_ids": [
+        "00-0037602"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-on-ravens-new-offense-defenses-arent-prepared-for-whats-in-store",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-on-ravens-new-offense-defenses-arent-prepared-for-whats-in-store",
+      "permalink": "",
+      "title": "Lamar Jackson on Ravens' new offense: Defenses aren't prepared for what's in store",
+      "body_text": "\"I just can't wait to showcase it,\" Jackson said. \"I don't believe a defense is prepared for what's in store for them.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-03T08:09:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-hall-moves-past-training-camp-incident-with-quinshon-judkins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-hall-moves-past-training-camp-incident-with-quinshon-judkins",
+      "permalink": "",
+      "title": "Mike Hall moves past training camp incident with Quinshon Judkins",
+      "body_text": "Browns defensive tackle Mike Hall and running back Quinshon Judkins had a bit of a dust up in training camp, with the incident apparently causing Hall to miss nearly three weeks of practice.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-03T02:21:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Hall",
+        "Quinshon Judkins"
+      ],
+      "resolved_player_ids": [
+        "00-0039895",
+        "00-0040784"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/georgia-a-g-urges-sec-to-take-significant-action-against-lsu-if-it-uses-former-nfl-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/georgia-a-g-urges-sec-to-take-significant-action-against-lsu-if-it-uses-former-nfl-players",
+      "permalink": "",
+      "title": "Georgia A.G. urges SEC to take significant action against LSU, if it uses former NFL players",
+      "body_text": "On Thursday, the legal battle over the SEC's attempt to ban former NFL players returns to court.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-03T01:46:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "On Thursday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-have-movement-in-talks-with-wr-michael-wilson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-have-movement-in-talks-with-wr-michael-wilson",
+      "permalink": "",
+      "title": "Report: Cardinals have \"movement\" in talks with WR Michael Wilson",
+      "body_text": "The Cardinals and the representation for wide receiver Michael Wilson have negotiated a contract extension for awhile.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T01:43:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Wilson",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038559"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-york-49ers-brass-are-making-plans-in-advance-of-potential-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-york-49ers-brass-are-making-plans-in-advance-of-potential-suspension",
+      "permalink": "",
+      "title": "Jed York, 49ers' brass are making plans in advance of potential suspension",
+      "body_text": "With 49ers owner Jed York facing a potential suspension as a result of his recent no-contest plea on charges arising from a recent prostitution arrest in Ohio, the powers-that-be are making plans now in the event York isn't available later.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-03T01:23:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brad-holmes-long-term-plans-for-sam-laporta-brian-branch-havent-changed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brad-holmes-long-term-plans-for-sam-laporta-brian-branch-havent-changed",
+      "permalink": "",
+      "title": "Brad Holmes: Long-term plans for Sam LaPorta, Brian Branch haven't changed",
+      "body_text": "Brian Branch, Jack Campbell, Jahmyr Gibbs and Sam LaPorta are the four remaining members of the Lions' 2023 draft class still in Detroit.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T01:03:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brad Holmes",
+        "Brian Branch",
+        "Jack Campbell",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039141",
+        "00-0039018",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-make-arrest-in-attempted-break-in-at-saquon-barkleys-home",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-make-arrest-in-attempted-break-in-at-saquon-barkleys-home",
+      "permalink": "",
+      "title": "Police make arrest in attempted break-in at Saquon Barkley's home",
+      "body_text": "In July, someone attempted to break in to Eagles running back Saquon Barkley's Philadelphia-area home.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-03T01:02:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "In July"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-is-in-a-four-quarterback-room-for-the-first-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-is-in-a-four-quarterback-room-for-the-first-time",
+      "permalink": "",
+      "title": "Aaron Rodgers is in a four-quarterback room for the first time",
+      "body_text": "The Steelers kept four quarterbacks, declining to expose Will Howard or Drew Allar to the waiver wire.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T23:36:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers",
+        "Will Howard",
+        "Drew Allar"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0040203",
+        "00-0041565"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-optimistic-about-a-deal-for-lamar-jackson-before-march",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-optimistic-about-a-deal-for-lamar-jackson-before-march",
+      "permalink": "",
+      "title": "Eric DeCosta \"optimistic\" about a deal for Lamar Jackson before March",
+      "body_text": "The Ravens quarterback has two seasons left on his deal, with a cap hit of $84.340 million for 2027.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T22:33:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson",
+        "March The"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jonathon-brooks-out-of-practice-with-soreness-but-panthers-unconcerned",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jonathon-brooks-out-of-practice-with-soreness-but-panthers-unconcerned",
+      "permalink": "",
+      "title": "RB Jonathon Brooks out of practice with soreness, but Panthers unconcerned",
+      "body_text": "Panthers running back Jonathon Brooks remained out of practice on Wednesday, but head coach Dave Canales is unconcerned that Brooks' injury will keep him out of the season opener.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T20:50:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Brooks",
+        "Dave Canales"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-gm-nolan-teasley-on-kyle-van-noy-signing-veteran-presence-at-a-premium-position",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-gm-nolan-teasley-on-kyle-van-noy-signing-veteran-presence-at-a-premium-position",
+      "permalink": "",
+      "title": "Vikings GM Nolan Teasley on Kyle Van Noy signing: Veteran presence at a premium position",
+      "body_text": "The Vikings picked up one of the top veteran free agents still on the market this week when they signed linebacker Kyle Van Noy to their practice squad.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-02T22:25:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nolan Teasley",
+        "Kyle Van",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-says-he-felt-great-at-practice-expects-to-play-vs-rams-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-says-he-felt-great-at-practice-expects-to-play-vs-rams-in-australia",
+      "permalink": "",
+      "title": "Nick Bosa says he felt great at practice, expects to play vs. Rams in Australia",
+      "body_text": "\"Today was a great day,\" Bosa said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-02T20:18:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-marlon-humphrey-didnt-have-a-great-year-last-year-will-have-one-this-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-decosta-marlon-humphrey-didnt-have-a-great-year-last-year-will-have-one-this-year",
+      "permalink": "",
+      "title": "Eric DeCosta: Marlon Humphrey didn't have a great year last year, will have one this year",
+      "body_text": "Ravens General Manager Eric DeCosta is expecting a bounce-back year from cornerback Marlon Humphrey.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-02T21:40:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marlon Humphrey",
+        "Ravens General",
+        "Manager Eric"
+      ],
+      "resolved_player_ids": [
+        "00-0033281"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nba-imposes-unprecedented-punishment-on-clippers-for-kawhi-leonard-salary-cap-circumvention",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nba-imposes-unprecedented-punishment-on-clippers-for-kawhi-leonard-salary-cap-circumvention",
+      "permalink": "",
+      "title": "NBA imposes unprecedented punishment on Clippers for Kawhi Leonard salary-cap circumvention",
+      "body_text": "The L.A.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T21:19:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kawhi Leonard"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-qb-joe-milton-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-qb-joe-milton-to-practice-squad",
+      "permalink": "",
+      "title": "Cowboys sign QB Joe Milton to practice squad",
+      "body_text": "The Cowboys wanted Joe Milton back on the practice squad, and on Wednesday, they made that happen.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T21:17:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Milton",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-worthy-when-its-time-to-play-well-be-ready",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/xavier-worthy-when-its-time-to-play-well-be-ready",
+      "permalink": "",
+      "title": "Xavier Worthy: When it's time to play, we'll be ready",
+      "body_text": "Chiefs head coach Andy Reid hasn't set anything in stone regarding quarterback Patrick Mahomes's availability for their Monday night game against the Broncos in Week 1, but all indications are that he'll be in the lineup.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-02T21:03:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy",
+        "Andy Reid",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0039894",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-rudolph-is-happy-myles-garrett-has-left-the-afc-north",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-rudolph-is-happy-myles-garrett-has-left-the-afc-north",
+      "permalink": "",
+      "title": "Mason Rudolph is happy Myles Garrett has left the AFC North",
+      "body_text": "Defensive end Myles Garrett and quarterback Mason Rudolph became forever linked in NFL lore on the night of November 14, 2019, when Garrett ripped away Rudolph's helmet and struck him over the head with it.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T20:39:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mason Rudolph",
+        "Myles Garrett",
+        "North Defensive"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-waive-rb-jabari-small-c-seth-mclaughlin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-waive-rb-jabari-small-c-seth-mclaughlin",
+      "permalink": "",
+      "title": "Lions waive RB Jabari Small, C Seth McLaughlin",
+      "body_text": "The Lions created a pair of openings on their 53-man roster on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-02T20:33:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jabari Small",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039652"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-acknowledges-that-clearly-he-and-a-j-brown-grew-apart",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-acknowledges-that-clearly-he-and-a-j-brown-grew-apart",
+      "permalink": "",
+      "title": "Jalen Hurts acknowledges that \"clearly\" he and A.J. Brown grew apart",
+      "body_text": "Jalen Hurts acknowledged the obvious: He and wide receiver A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T20:25:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-ward-isnt-going-to-fail-hes-special",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-ward-isnt-going-to-fail-hes-special",
+      "permalink": "",
+      "title": "Robert Saleh: Cam Ward isn't going to fail, he's special",
+      "body_text": "The Titans selected quarterback Cam Ward at No. 1 overall last year with the idea that he would become the club’s franchise quarterback.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-02T20:24:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Saleh",
+        "Cam Ward",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-book-looks-at-lane-kiffins-rocky-tenure-with-nick-saban",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-book-looks-at-lane-kiffins-rocky-tenure-with-nick-saban",
+      "permalink": "",
+      "title": "New book looks at Lane Kiffin's rocky tenure with Nick Saban",
+      "body_text": "Nick Saban coached the Dolphins from 2005 through 2006.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T20:21:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lane Kiffin",
+        "Nick Saban"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-john-york-on-jed-yorks-legal-issue-thats-been-resolved",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dr-john-york-on-jed-yorks-legal-issue-thats-been-resolved",
+      "permalink": "",
+      "title": "Dr. John York on Jed York's legal issue: \"That's been resolved\"",
+      "body_text": "Last week, the non-stop NFL news cycle was briefly dominated by the arrest, and prompt no-contest plea, of 49ers owner Jed York on misdemeanor charges arising from a prostitution appointment that turned out to be a sting operation.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T18:20:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John York",
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-returns-to-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-returns-to-practice-wednesday",
+      "permalink": "",
+      "title": "Shemar Stewart returns to practice Wednesday",
+      "body_text": "Bengals defensive end Shemar Stewart returned to practice on Wednesday, ESPN's Ben Baby reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T19:33:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shemar Stewart",
+        "Wednesday Bengals",
+        "Ben Baby"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-work-out-three-kickers-including-justin-tucker",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-work-out-three-kickers-including-justin-tucker",
+      "permalink": "",
+      "title": "Jets work out three kickers, including Justin Tucker",
+      "body_text": "The Jets are desperate for a kicker.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-02T19:17:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Tucker",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0029597"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-the-bottom-line-is-winning-jalen-hurts-and-nick-sirianni-do-that",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/howie-roseman-the-bottom-line-is-winning-jalen-hurts-and-nick-sirianni-do-that",
+      "permalink": "",
+      "title": "Howie Roseman: The bottom line is winning, Jalen Hurts and Nick Sirianni do that",
+      "body_text": "Eagles General Manager Howie Roseman says Philadelphia has a starting quarterback and a head coach who do what they're supposed to do: Win.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-02T19:01:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Howie Roseman",
+        "Jalen Hurts",
+        "Nick Sirianni",
+        "Eagles General",
+        "Manager Howie"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/laquon-treadwell-decides-not-to-give-no-13-to-keenan-allen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/laquon-treadwell-decides-not-to-give-no-13-to-keenan-allen",
+      "permalink": "",
+      "title": "Laquon Treadwell decides not to give No. 13 to Keenan Allen",
+      "body_text": "The No. 13 has been in the news lately, with veteran receivers hoping to wear it with their new teams.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-02T18:40:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Laquon Treadwell",
+        "Keenan Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0032951",
+        "00-0030279"
+      ],
+      "team_hint": null
+    }
+  ]
+}
