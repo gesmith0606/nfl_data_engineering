@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "b070b097-b016-463f-bb11-10a41f31582b",
+  "source": "rotowire",
+  "fetched_at": "2026-09-04T12:26:03.574461+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636216",
+      "url": "https://www.rotowire.com//football/player/dandre-swift-14394",
+      "permalink": "",
+      "title": "D'Andre Swift: Believed to be dealing with cramp",
+      "body_text": "Swift (abdomen) is believed to have left Thursday's practice with \"a cramp,\" Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T05:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636197",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Seemingly avoids serious setback",
+      "body_text": "Odunze \"should be all good\" after leaving Thursday's practice with an apparent right leg injury, Dan Wiederer of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T03:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Dan Wiederer",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636195",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Sustains apparent leg injury",
+      "body_text": "Odunze sustained an apparent right leg injury during Thursday's practice session, Sean Hammond of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T02:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Sean Hammond",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636194",
+      "url": "https://www.rotowire.com//football/player/dandre-swift-14394",
+      "permalink": "",
+      "title": "D'Andre Swift: Leaves practice with injury",
+      "body_text": "Swift left Thursday's practice with an apparent injury and \"appeared to be in significant discomfort,\" Dan Wiederer of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T02:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Dan Wiederer",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636186",
+      "url": "https://www.rotowire.com//football/player/caleb-williams-17695",
+      "permalink": "",
+      "title": "Caleb Williams: Coach talks him up",
+      "body_text": "Coach Ben Johnson lauded Williams' approach Tuesday as the quarterback enters his third NFL campaign, Larry Mayer of the Bears' official site reports. \"He's executing at a much higher clip than he ever has, and I think it's going to continue to grow,\" Johnson said. \"He's going to continue to elevate everyone around him, coaches included.\" Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T12:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Coach Ben",
+        "Larry Mayer"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}

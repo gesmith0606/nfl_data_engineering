@@ -1,0 +1,591 @@
+{
+  "fetch_run_id": "f9dd9a32-ae36-4146-8501-09fafff49c6d",
+  "source": "pft",
+  "fetched_at": "2026-09-04T12:26:07.906357+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dandre-swift-left-thursdays-practice-due-to-a-cramp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dandre-swift-left-thursdays-practice-due-to-a-cramp",
+      "permalink": "",
+      "title": "Report: D'Andre Swift left Thursday's practice due to a cramp",
+      "body_text": "The Bears saw two offensive players leave practice early on Thursday and a report updates the reason why one of them left the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-04T11:55:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-announce-defensive-end-sam-okuayinonu-will-not-play-thursday-vs-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-announce-defensive-end-sam-okuayinonu-will-not-play-thursday-vs-rams",
+      "permalink": "",
+      "title": "49ers announce defensive end Sam Okuayinonu will not play Thursday vs. Rams",
+      "body_text": "Okuayinonu did not travel with the team to Australia and will not play Week One because of a foot injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-04T11:36:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Okuayinonu",
+        "Rams Okuayinonu",
+        "Week One"
+      ],
+      "resolved_player_ids": [
+        "00-0037602"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-jared-goff-is-massively-underrated-reminds-me-of-drew-brees",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-jared-goff-is-massively-underrated-reminds-me-of-drew-brees",
+      "permalink": "",
+      "title": "Dan Campbell: Jared Goff is massively underrated, reminds me of Drew Brees",
+      "body_text": "Lions head coach Dan Campbell was briefly Drew Brees' teammate in New Orleans, and was on the Saints' coaching staff for the last five seasons of Brees' career.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-04T10:52:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Jared Goff",
+        "Drew Brees",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0033106",
+        "00-0020531"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-and-colorado-start-1-0-with-last-second-win-at-georgia-tech",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-and-colorado-start-1-0-with-last-second-win-at-georgia-tech",
+      "permalink": "",
+      "title": "Deion Sanders and Colorado start 1-0 with last-second win at Georgia Tech",
+      "body_text": "Coming off an ugly 3-9 season in 2025, Sanders is off to a strong start in 2026 after a big win in Atlanta.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-04T08:03:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders",
+        "Georgia Tech"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-we-disagree-with-the-courts-decision-expect-our-rules-to-be-followed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-we-disagree-with-the-courts-decision-expect-our-rules-to-be-followed",
+      "permalink": "",
+      "title": "SEC: We disagree with the court's decision, expect our rules to be followed",
+      "body_text": "The SEC confirmed in a statement that it will appeal the injunction allowing two former NFL players to sign with LSU.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-04T02:53:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-plans-immediate-appeal-of-injunction-in-lsu-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-plans-immediate-appeal-of-injunction-in-lsu-case",
+      "permalink": "",
+      "title": "SEC plans immediate appeal of injunction in LSU case",
+      "body_text": "The chaos will be getting even more chaotic.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T02:02:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-gives-hunter-luepke-chicken-for-life-in-exchange-for-no-40",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-gives-hunter-luepke-chicken-for-life-in-exchange-for-no-40",
+      "permalink": "",
+      "title": "Von Miller gives Hunter Luepke \"chicken for life\" in exchange for No. 40",
+      "body_text": "Cowboys outside linebacker Von Miller and his teammate, Hunter Luepke, were playing a game of chicken with the No. 40.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-04T02:01:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Von Miller",
+        "Hunter Luepke"
+      ],
+      "resolved_player_ids": [
+        "00-0027940",
+        "00-0038738"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-responds-to-internal-review-by-the-athletic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-responds-to-internal-review-by-the-athletic",
+      "permalink": "",
+      "title": "Dianna Russini responds to internal review by The Athletic",
+      "body_text": "On Thursday, The Athletic published the long-awaited report of its internal investigation regarding the work of former NFL Insider Dianna Russini.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T01:42:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dianna Russini",
+        "The Athletic",
+        "On Thursday",
+        "Insider Dianna"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/de-azeez-ojulari-ol-evan-neal-wr-ronnie-bell-sign-with-raiders-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/de-azeez-ojulari-ol-evan-neal-wr-ronnie-bell-sign-with-raiders-practice-squad",
+      "permalink": "",
+      "title": "DE Azeez Ojulari, OL Evan Neal, WR Ronnie Bell sign with Raiders' practice squad",
+      "body_text": "The Raiders worked out 16 players on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-04T01:41:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Azeez Ojulari",
+        "Evan Neal",
+        "Ronnie Bell",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0036552",
+        "00-0037612",
+        "00-0038647"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-grants-injunction-allowing-lsu-to-sign-former-nfl-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-grants-injunction-allowing-lsu-to-sign-former-nfl-players",
+      "permalink": "",
+      "title": "Judge grants injunction allowing LSU to sign former NFL players",
+      "body_text": "LSU, SEC continue on a collision course.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T01:23:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-schiano-on-the-hot-seat-after-rutgers-loses-to-29-point-underdog-umass",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-schiano-on-the-hot-seat-after-rutgers-loses-to-29-point-underdog-umass",
+      "permalink": "",
+      "title": "Greg Schiano on the hot seat after Rutgers loses to 29-point underdog UMass",
+      "body_text": "Greg Schiano is officially on the hot seat at Rutgers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-04T01:22:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Greg Schiano"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-create-more-than-19-million-with-restructurings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-create-more-than-19-million-with-restructurings",
+      "permalink": "",
+      "title": "Cowboys create more than $19 million in cap space with restructurings",
+      "body_text": "With the regular season approaching, the Cowboys have maneuvered to create some extra cap space.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T01:15:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-new-ownership-group-has-12-limited-partners",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-new-ownership-group-has-12-limited-partners",
+      "permalink": "",
+      "title": "Seahawks' new ownership group has 12 limited partners",
+      "body_text": "It's fitting that the new owners of the team known for the 12th man have a group of 12 limited partners.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T01:07:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/unc-investigation-turns-attention-to-steve-belichick",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/unc-investigation-turns-attention-to-steve-belichick",
+      "permalink": "",
+      "title": "UNC investigation turns attention to Steve Belichick, others",
+      "body_text": "The probe expands before now-former G.M. Michael Lombardi.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T00:26:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Steve Belichick",
+        "Michael Lombardi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-it-will-be-real-difficult-to-keep-both-george-pickens-and-ceedee-lamb-long-term",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-it-will-be-real-difficult-to-keep-both-george-pickens-and-ceedee-lamb-long-term",
+      "permalink": "",
+      "title": "Stephen Jones: It will be \"real difficult\" to keep both George Pickens and CeeDee Lamb long term",
+      "body_text": "Not even a month ago, Cowboys executive vice president Stephen Jones called it \"realistic\" for the team to think it can keep CeeDee Lamb and George Pickens long term.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-04T00:13:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037551",
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tutu-atwell-on-rams-return-i-feel-like-i-was-never-gone",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tutu-atwell-on-rams-return-i-feel-like-i-was-never-gone",
+      "permalink": "",
+      "title": "Tutu Atwell on Rams return: I feel like I never left",
+      "body_text": "Wide receiver Tutu Atwell moved on from the Rams in free agency this year, so he was taken by surprise when Rams head coach Sean McVay told him that he was heading back to the team last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-03T22:42:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tutu Atwell"
+      ],
+      "resolved_player_ids": [
+        "00-0036849"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-work-out-16-players-including-ol-evan-neal-wr-marquez-valdes-scantling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-work-out-16-players-including-ol-evan-neal-wr-marquez-valdes-scantling",
+      "permalink": "",
+      "title": "Raiders work out 16 players, including OL Evan Neal, WR Marquez Valdes-Scantling",
+      "body_text": "The Raiders worked out 16 players on Thursday, and the group of tryout players included offensive lineman Evan Neal and wide receiver Marquez Valdes-Scantling.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T22:42:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Evan Neal",
+        "Marquez Valdes",
+        "Scantling The"
+      ],
+      "resolved_player_ids": [
+        "00-0037612"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-ol-evan-neal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-ol-evan-neal",
+      "permalink": "",
+      "title": "Giants cut OL Evan Neal",
+      "body_text": "The Giants have released offensive lineman Evan Neal, Art Stapleton of northjersey.com reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T22:06:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Evan Neal",
+        "The Giants",
+        "Art Stapleton"
+      ],
+      "resolved_player_ids": [
+        "00-0037612"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-release-wr-marquez-valdes-scantling",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-release-wr-marquez-valdes-scantling",
+      "permalink": "",
+      "title": "Cowboys release WR Marquez Valdes-Scantling",
+      "body_text": "The Cowboys have released veteran wide receiver Marquez Valdes-Scantling, according to multiple reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-08-30T19:26:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marquez Valdes",
+        "Scantling The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-land-in-melbourne-ahead-of-next-weeks-game-vs-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-land-in-melbourne-ahead-of-next-weeks-game-vs-rams",
+      "permalink": "",
+      "title": "49ers land in Melbourne ahead of next week's game vs. Rams",
+      "body_text": "The 49ers are Down Under, having landed in Australia.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T22:09:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rams The",
+        "Down Under"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-among-the-panthers-captains-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-among-the-panthers-captains-again",
+      "permalink": "",
+      "title": "Bryce Young among the Panthers captains again",
+      "body_text": "Bryce Young was voted a team captain for the fourth consecutive season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T21:54:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawyers-for-mark-sanchez-and-his-victim-say-they-are-nearing-a-resolution-to-civil-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lawyers-for-mark-sanchez-and-his-victim-say-they-are-nearing-a-resolution-to-civil-case",
+      "permalink": "",
+      "title": "Lawyers for Mark Sanchez and his victim say they are nearing a resolution to civil case",
+      "body_text": "Mark Sanchez has agreed to plead guilty to resolve charges that he attacked a man who then stabbed him in self-defense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-03T21:52:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Sanchez"
+      ],
+      "resolved_player_ids": [
+        "00-0026898"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-dandre-swift-left-bears-practice-early",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-dandre-swift-left-bears-practice-early",
+      "permalink": "",
+      "title": "Rome Odunze, D'Andre Swift left Bears practice early",
+      "body_text": "Bears fans will be monitoring the status of two offensive players heading into the team's Week 1 game against the Panthers.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-03T21:27:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Andre Swift"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/north-carolina-g-m-michael-lombardi-resigns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/north-carolina-g-m-michael-lombardi-resigns",
+      "permalink": "",
+      "title": "North Carolina G.M. Michael Lombardi resigns",
+      "body_text": "Michael Lombardi, the longtime advisor to Bill Belichick who was recently placed on leave as North Carolina's general manager, has resigned.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-03T21:12:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "North Carolina",
+        "Michael Lombardi",
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-sanchez-agrees-to-plead-guilty-in-stabbing-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-sanchez-agrees-to-plead-guilty-in-stabbing-case",
+      "permalink": "",
+      "title": "Mark Sanchez agrees to plead guilty in stabbing case",
+      "body_text": "It is unclear what charges the former NFL quarterback and former Fox Sports analyst has agreed to plead guilty to.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T21:08:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Sanchez",
+        "Fox Sports"
+      ],
+      "resolved_player_ids": [
+        "00-0026898"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nnamdi-madubuike-did-team-drills-at-ravens-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nnamdi-madubuike-did-team-drills-at-ravens-practice-thursday",
+      "permalink": "",
+      "title": "Nnamdi Madubuike did team drills at Ravens practice Thursday",
+      "body_text": "Ravens head coach Jesse Minter said earlier this week that he does not see defensive tackle Nnamdi Madubuike \"missing that many games\" as he finishes his comeback from last season's neck injury and a development on Thursday suggests he may not miss any games at all.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-03T20:48:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nnamdi Madubuike",
+        "Thursday Ravens",
+        "Jesse Minter"
+      ],
+      "resolved_player_ids": [
+        "00-0036130"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-takes-mike-vrabels-inactive-comment-in-stride",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kayshon-boutte-takes-mike-vrabels-inactive-comment-in-stride",
+      "permalink": "",
+      "title": "Kayshon Boutte takes Mike Vrabel's \"inactive\" comment in stride",
+      "body_text": "In each of the past two seasons, Kayshon Boutte ranked second in receiving yards among Patriots wideouts and first or tied for first in receiving touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T20:35:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kayshon Boutte",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0038608",
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-demario-davis-minkah-fitzpatrick-are-among-jets-captains-garrett-wilson-is-not",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/geno-smith-demario-davis-minkah-fitzpatrick-are-among-jets-captains-garrett-wilson-is-not",
+      "permalink": "",
+      "title": "Geno Smith, Demario Davis, Minkah Fitzpatrick are among Jets captains; Garrett Wilson is not",
+      "body_text": "The Jets worked to bring in more experienced players after a young roster struggled in 2025 and three of those players were named team captains on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-03T20:34:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Geno Smith",
+        "Demario Davis",
+        "Minkah Fitzpatrick",
+        "Garrett Wilson",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0030565",
+        "00-0029607",
+        "00-0034789",
+        "00-0037740"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-depth-chart-lists-stetson-bennett-as-no-2-qb-ty-simpson-no-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-depth-chart-lists-stetson-bennett-as-no-2-qb-ty-simpson-no-3",
+      "permalink": "",
+      "title": "Rams' depth chart lists Stetson Bennett as No. 2 QB, Ty Simpson No. 3",
+      "body_text": "Ty Simpson was the No. 13 overall pick in the 2026 NFL draft, but he's only the No. 3 quarterback on the Rams.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-03T20:17:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stetson Bennett",
+        "Ty Simpson"
+      ],
+      "resolved_player_ids": [
+        "00-0039107",
+        "00-0041568"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/availability-is-chiefs-og-trey-smiths-first-goal-as-he-tries-to-play-all-17-games-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/availability-is-chiefs-og-trey-smiths-first-goal-as-he-tries-to-play-all-17-games-again",
+      "permalink": "",
+      "title": "Availability is Chiefs OG Trey Smith's first goal as he tries to play all 17 games again",
+      "body_text": "Chiefs right guard Trey Smith started 67 of a possible 68 regular-season games in the first four years of his career.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-03T20:06:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0036660"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}

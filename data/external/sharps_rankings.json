@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-09-02T12:27:22.865265+00:00",
+  "fetched_at": "2026-09-04T12:26:27.311169+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1958,7 +1958,7 @@
     {
       "player_name": "Devin Neal",
       "position": "RB",
-      "team": "NO",
+      "team": "FA",
       "external_rank": 298,
       "rank": 280
     },
