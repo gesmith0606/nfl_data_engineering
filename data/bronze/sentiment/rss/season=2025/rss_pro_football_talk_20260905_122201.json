@@ -1,0 +1,480 @@
+{
+  "fetch_run_id": "057aa8d1-13b2-4195-92cf-0f52d07d5142",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-05T12:22:01.940474+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-didnt-have-to-testify-in-the-shilo-sanders-bankruptcy-trial",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-didnt-have-to-testify-in-the-shilo-sanders-bankruptcy-trial",
+      "title": "Deion Sanders didn't have to testify in the Shilo Sanders bankruptcy trial",
+      "body_text": "Thursday was a good day for Deion Sanders, on two counts.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-05T12:19:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Shilo Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324",
+        "00-0040426"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/miami-hurricanes-linebacker-mohamed-toure-starts-his-eighth-year-of-college-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/miami-hurricanes-linebacker-mohamed-toure-starts-his-eighth-year-of-college-football",
+      "title": "Miami Hurricanes linebacker Mohamed Toure starts his eighth year of college football",
+      "body_text": "As controversy about player eligibility embroils college football, LSU has decided not to play two former NFL players today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-05T09:37:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Miami Hurricanes",
+        "Mohamed Toure"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/redzone-channel-is-no-longer-commercial-free-but-scott-hanson-promises-fewer-commercials",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/redzone-channel-is-no-longer-commercial-free-but-scott-hanson-promises-fewer-commercials",
+      "title": "RedZone Channel is no longer commercial-free, but Scott Hanson promises fewer commercials",
+      "body_text": "For years, host Scott Hanson introduced NFL RedZone Channel by welcoming viewers to \"Seven hours of commercial-free football.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-05T08:20:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Scott Hanson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lsu-blinks-for-now-on-the-issue-of-putting-former-nfl-players-on-the-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lsu-blinks-for-now-on-the-issue-of-putting-former-nfl-players-on-the-roster",
+      "title": "LSU blinks, for now, on the issue of putting former NFL players on the roster",
+      "body_text": "Dae’Quan Wright and Zxavian Harris weren't added to the team by Friday's deadline.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-05T04:31:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quan Wright",
+        "Zxavian Harris"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/yes-college-football-players-are-already-professionals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/yes-college-football-players-are-already-professionals",
+      "title": "Yes, college football players are already professionals",
+      "body_text": "In 1975, Walter Payton ran roughshod against the Steelers in the annual game that pitted a college all-star team against the defending NFL champions.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-05T03:58:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Walter Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tcu-restores-credentials-to-fort-worth-star-telegram",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tcu-restores-credentials-to-fort-worth-star-telegram",
+      "title": "TCU restores credentials to Fort Worth Star-Telegram",
+      "body_text": "It's been a strange week or so when it comes to major football programs removing credentials from reporters.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-05T03:38:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fort Worth"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-have-seven-captains-with-none-from-special-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-have-seven-captains-with-none-from-special-teams",
+      "title": "Eagles have seven captains, with none from special teams",
+      "body_text": "Like last year, the Eagles have five offensive captains.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T23:20:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-getting-shot-in-february-49ers-de-keion-white-is-good-to-go",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-getting-shot-in-february-49ers-de-keion-white-is-good-to-go",
+      "title": "After getting shot in February, 49ers DE Keion White is good to go",
+      "body_text": "The very strange 2026 for the 49ers included the February shooting of defensive end Keion White in a San Francisco bar and nightclub, which reportedly happened after the rapper Lil Baby and White got into an argument when Lil Baby's entourage tried to enter White's private party.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-05T02:50:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keion White",
+        "San Francisco",
+        "Lil Baby"
+      ],
+      "resolved_player_ids": [
+        "00-0039148"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ongoing-unc-investigation-could-take-out-bill-belichick-with-cause",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ongoing-unc-investigation-could-take-out-bill-belichick-with-cause",
+      "title": "Ongoing UNC investigation could take out Bill Belichick, for cause",
+      "body_text": "Question of whether Belichick knew about, and didn't report, certain issues under investigation could bring him down.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-05T00:03:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcdermott-sees-the-bills-getting-to-the-super-bowl-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcdermott-sees-the-bills-getting-to-the-super-bowl-in-2026",
+      "title": "Sean McDermott sees the Bills getting to the Super Bowl in 2026",
+      "body_text": "The Bills fired coach Sean McDermott two days after an overtime loss to the Broncos in the divisional round of the playoffs.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T23:00:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-indiana-players-get-tro-to-return-for-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-indiana-players-get-tro-to-return-for-2026",
+      "title": "Two Indiana players get TRO to return for 2026",
+      "body_text": "Curt Cignetti apparently is an agent of chaos, too.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T22:39:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Two Indiana",
+        "Curt Cignetti"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-aaron-rodgers-plans-to-retire-the-next-step-is-fatherhood",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-aaron-rodgers-plans-to-retire-the-next-step-is-fatherhood",
+      "title": "As Aaron Rodgers plans to retire, the next step is fatherhood",
+      "body_text": "Aaron Rodgers will retire from football after the upcoming season.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T22:03:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "As Aaron",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-49ers-to-sign-de-khalid-kareem-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-49ers-to-sign-de-khalid-kareem-to-active-roster",
+      "title": "Report: 49ers to sign DE Khalid Kareem to active roster",
+      "body_text": "The 49ers are adding some help at defensive end ahead of their season opener in Australia.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-04T21:59:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Khalid Kareem"
+      ],
+      "resolved_player_ids": [
+        "00-0036341"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-wilson-i-wanted-to-stay-in-arizona-to-be-a-centerpiece-of-turnaround",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-wilson-i-wanted-to-stay-in-arizona-to-be-a-centerpiece-of-turnaround",
+      "title": "Michael Wilson: I wanted to stay in Arizona to be a centerpiece of turnaround",
+      "body_text": "Cardinals wide receiver Michael Wilson got his long-awaited contract extension this week, keeping him under contract through the 2029 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-04T21:54:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0038559"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-taylor-rapp-worked-out-for-the-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-taylor-rapp-worked-out-for-the-broncos",
+      "title": "S Taylor Rapp worked out for the Broncos",
+      "body_text": "When safety Taylor Rapp was released by the Broncos in August, the team left the door open for a return.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-04T21:07:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylor Rapp",
+        "Broncos When"
+      ],
+      "resolved_player_ids": [
+        "00-0035663"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-lb-bralen-trice-back-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sign-lb-bralen-trice-back-to-practice-squad",
+      "title": "Falcons sign LB Bralen Trice back to practice squad",
+      "body_text": "The Falcons signed linebacker Bralen Trice to the practice squad, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-04T20:44:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bralen Trice",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0039837"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-i-look-at-stetson-bennett-ty-simpson-as-2a-2b",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-i-look-at-stetson-bennett-ty-simpson-as-2a-2b",
+      "title": "Sean McVay: I look at Stetson Bennett, Ty Simpson as \"2A, 2B\"",
+      "body_text": "The Rams released a depth chart that shows Stetson Bennett as the team's second quarterback and first-round pick Ty Simpson as their third quarterback, but head coach Sean McVay said things are less clear cut than that would make it appear.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-04T20:41:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stetson Bennett",
+        "Ty Simpson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039107",
+        "00-0041568"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-captains-kenny-clark-quinnen-williams-dak-prescott-brandon-aubrey",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-captains-kenny-clark-quinnen-williams-dak-prescott-brandon-aubrey",
+      "title": "Cowboys' captains: Kenny Clark, Quinnen Williams, Dak Prescott, Brandon Aubrey",
+      "body_text": "The Cowboys have two defensive captains this season, and both were acquired by trading Micah Parsons.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-04T19:11:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenny Clark",
+        "Quinnen Williams",
+        "Dak Prescott",
+        "Brandon Aubrey",
+        "The Cowboys",
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0033120",
+        "00-0035718",
+        "00-0033077",
+        "00-0037692",
+        "00-0036932"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobss-first-court-appearance-moves-from-november-17-to-september-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobss-first-court-appearance-moves-from-november-17-to-september-10",
+      "title": "Josh Jacobs's first court appearance moves from November 17 to September 10",
+      "body_text": "Paid leave puts a premium on expediting the prosecuion.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T19:04:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shaq-mason-wont-be-disciplined-after-2025-arrest-remains-a-free-agent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shaq-mason-wont-be-disciplined-after-2025-arrest-remains-a-free-agent",
+      "title": "Shaq Mason won't be disciplined after 2025 arrest, remains a free agent",
+      "body_text": "Shaq Mason is ready to resume his career.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-04T18:58:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shaq Mason"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-clemson-tells-lsu-that-use-of-former-nfl-players-could-breach-game-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-clemson-tells-lsu-that-use-of-former-nfl-players-could-breach-game-contract",
+      "title": "Report: Clemson tells LSU that use of former NFL players could breach game contract",
+      "body_text": "As the SEC and LSU continue to battle over whether the Tigers will use former NFL players in Saturday night's regular-season opener, LSU's opponent has chimed in.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T18:54:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-new-ownership-group-has-12-limited-partners",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-new-ownership-group-has-12-limited-partners",
+      "title": "Seahawks' new ownership group has 12 limited partners",
+      "body_text": "It's fitting that the new owners of the team known for the 12th man have a group of 12 limited partners.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T01:07:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-falcons-still-dont-have-a-starting-quarterback-but-will-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-falcons-still-dont-have-a-starting-quarterback-but-will-soon",
+      "title": "The Falcons still don't have a starting quarterback (but will soon)",
+      "body_text": "With the first game of the season only nine days away, the Falcons still haven't named a starting quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T18:32:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donalds-status-for-week-1-still-tbd-all-players-set-to-travel-to-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donalds-status-for-week-1-still-tbd-all-players-set-to-travel-to-australia",
+      "title": "Aaron Donald's status for Week 1 still TBD, all players set to travel to Australia",
+      "body_text": "At this point, it's still unclear whether or not Aaron Donald will play when the Rams take on the 49ers next week to open the 2026 season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-04T18:21:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/experts-sound-off-on-failed-grass-field-at-new-bills-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/experts-sound-off-on-failed-grass-field-at-new-bills-stadium",
+      "title": "Experts sound off on failed grass field at new Bills stadium",
+      "body_text": "Carl Spackler is having his day.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T17:55:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carl Spackler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-i-cant-live-off-what-i-did-in-2024",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-i-cant-live-off-what-i-did-in-2024",
+      "title": "Jayden Daniels: I can't live off what I did in 2024",
+      "body_text": "The discussion around Commanders quarterback Jayden Daniels this summer has been focused more on his jersey number at LSU than anything having to do with his current play, but that will change next weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-04T17:40:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hall-of-fame-overhauls-voting-process-reducing-panel-from-50-to-28",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hall-of-fame-overhauls-voting-process-reducing-panel-from-50-to-28",
+      "title": "Hall of Fame overhauls voting process, reducing panel from 50 to 28",
+      "body_text": "The Belichick snub has prompted major changes to the rules.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-04T17:24:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-playing-in-nfc-west-means-we-have-to-be-at-our-best-every-moment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-playing-in-nfc-west-means-we-have-to-be-at-our-best-every-moment",
+      "title": "Brock Purdy: Playing in NFC West means we have to be at our best every moment",
+      "body_text": "It doesn't take much effort to come up with an argument for the NFC West being the toughest division in the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-04T16:06:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-says-hes-elated-to-have-joe-milton-on-cowboys-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-says-hes-elated-to-have-joe-milton-on-cowboys-practice-squad",
+      "title": "Brian Schottenheimer says he's \"elated\" to have Joe Milton on Cowboys' practice squad",
+      "body_text": "When the Cowboys waived quarterback Joe Milton, they knew they wanted him back on the practice squad, but they weren't sure if another team would claim him on waivers, or persuade him to join a different practice squad.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-04T15:35:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-christian-gonzalez-situation-hasnt-been-a-distraction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-christian-gonzalez-situation-hasnt-been-a-distraction",
+      "title": "Mike Vrabel: Christian Gonzalez situation hasn't been a distraction",
+      "body_text": "With the season opener rapidly approaching, it's still unclear whether Gonzalez will get a new deal — or if he'll play if he doesn't.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-04T14:33:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0039147"
+      ],
+      "team_hint": null
+    }
+  ]
+}

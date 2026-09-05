@@ -1,0 +1,263 @@
+{
+  "fetch_run_id": "a6edf5c1-0f68-4f29-93db-d4bb085a7447",
+  "source": "sleeper",
+  "fetched_at": "2026-09-05T12:22:10.601303+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 23,
+  "items": [
+    {
+      "sleeper_player_id": "10235",
+      "resolved_player_id": "00-0039021",
+      "player_name": "Roschon Johnson",
+      "team": "CHI",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-03T22:00:11.055000+00:00",
+      "trending_count": 280288,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11834",
+      "resolved_player_id": "00-0039424",
+      "player_name": "Devaughn Vele",
+      "team": "NO",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-09-05T02:45:24.442000+00:00",
+      "trending_count": 61754,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9502",
+      "resolved_player_id": "00-0038977",
+      "player_name": "Tank Dell",
+      "team": "HOU",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-09-04T16:25:23.338000+00:00",
+      "trending_count": 34720,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11581",
+      "resolved_player_id": "00-0039811",
+      "player_name": "MarShawn Lloyd",
+      "team": "GB",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-02T21:35:32.956000+00:00",
+      "trending_count": 32184,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8800",
+      "resolved_player_id": "00-0037563",
+      "player_name": "Malik Davis",
+      "team": "DAL",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-08-30T20:20:56.953000+00:00",
+      "trending_count": 31365,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11237",
+      "resolved_player_id": "00-0038896",
+      "player_name": "Jacob Saylors",
+      "team": "DET",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-08-30T14:05:55.009000+00:00",
+      "trending_count": 29490,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "2505",
+      "resolved_player_id": "00-0031610",
+      "player_name": "Darren Waller",
+      "team": "CAR",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-09-03T02:05:35.607000+00:00",
+      "trending_count": 26775,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13296",
+      "resolved_player_id": "00-0041523",
+      "player_name": "Caleb Douglas",
+      "team": "MIA",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-09-04T15:25:21.176000+00:00",
+      "trending_count": 23880,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "10213",
+      "resolved_player_id": "00-0038563",
+      "player_name": "Tre Tucker",
+      "team": "LV",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-08-28T03:50:56.659000+00:00",
+      "trending_count": 19128,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "5850",
+      "resolved_player_id": "00-0035700",
+      "player_name": "Josh Jacobs",
+      "team": "GB",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-05T04:30:16.444000+00:00",
+      "trending_count": 18070,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13414",
+      "resolved_player_id": "00-0041052",
+      "player_name": "Kaelon Black",
+      "team": "SF",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-04T20:45:22.587000+00:00",
+      "trending_count": 17458,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13311",
+      "resolved_player_id": "00-0041525",
+      "player_name": "Chris Bell",
+      "team": "MIA",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-09-01T23:35:22.667000+00:00",
+      "trending_count": 17388,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12711",
+      "resolved_player_id": "00-0040074",
+      "player_name": "Tyler Loop",
+      "team": "BAL",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-09-01T03:30:13.803000+00:00",
+      "trending_count": 17100,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "5995",
+      "resolved_player_id": "00-0034975",
+      "player_name": "Justice Hill",
+      "team": "BAL",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-03T15:40:05.309000+00:00",
+      "trending_count": 17037,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13264",
+      "resolved_player_id": "00-0040785",
+      "player_name": "Dohnte Meyers",
+      "team": "CIN",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-08-30T17:25:56.008000+00:00",
+      "trending_count": 14976,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11729",
+      "resolved_player_id": "00-0039364",
+      "player_name": "Sione Vaki",
+      "team": "DET",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-08-29T20:50:49.122000+00:00",
+      "trending_count": 14721,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8205",
+      "resolved_player_id": "00-0037197",
+      "player_name": "Isiah Pacheco",
+      "team": "DET",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-02T18:05:31.442000+00:00",
+      "trending_count": 14416,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13411",
+      "resolved_player_id": "00-0041051",
+      "player_name": "Zavion Thomas",
+      "team": "CHI",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-08-30T14:55:55.305000+00:00",
+      "trending_count": 12735,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8161",
+      "resolved_player_id": "00-0038128",
+      "player_name": "Malik Willis",
+      "team": "MIA",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-09-04T17:55:22.068000+00:00",
+      "trending_count": 12502,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13337",
+      "resolved_player_id": "00-0041013",
+      "player_name": "Emmett Johnson",
+      "team": "KC",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-03T02:30:35.507000+00:00",
+      "trending_count": 12294,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11610",
+      "resolved_player_id": "00-0039880",
+      "player_name": "Malik Washington",
+      "team": "MIA",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-09-04T19:20:22.032000+00:00",
+      "trending_count": 11576,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8180",
+      "resolved_player_id": "00-0037291",
+      "player_name": "Jalen Nailor",
+      "team": "LV",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-09-04T19:40:22.308000+00:00",
+      "trending_count": 11439,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9511",
+      "resolved_player_id": "00-0038454",
+      "player_name": "Keaton Mitchell",
+      "team": "LAC",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-09-03T19:55:06.968000+00:00",
+      "trending_count": 11421,
+      "source": "sleeper"
+    }
+  ]
+}

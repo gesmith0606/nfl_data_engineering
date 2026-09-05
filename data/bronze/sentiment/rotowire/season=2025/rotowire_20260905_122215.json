@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "ee127839-3081-4e7b-96c8-2ca416264542",
+  "source": "rotowire",
+  "fetched_at": "2026-09-05T12:22:15.334457+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636267",
+      "url": "https://www.rotowire.com//football/player/josh-jacobs-13582",
+      "permalink": "",
+      "title": "Josh Jacobs: Court date moved up",
+      "body_text": "Jacobs' next court date has been moved up from Nov. 17 to Sept. 10, Michael Gross of Fox 11 Green Bay reports. Jacobs is expected to be represented by his attorney and won't personally appear at the hearing. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-04T11:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Michael Gross",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636216",
+      "url": "https://www.rotowire.com//football/player/dandre-swift-14394",
+      "permalink": "",
+      "title": "D'Andre Swift: Believed to be dealing with cramp",
+      "body_text": "Swift (abdomen) is believed to have left Thursday's practice with \"a cramp,\" Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T05:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636197",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Seemingly avoids serious setback",
+      "body_text": "Odunze \"should be all good\" after leaving Thursday's practice with an apparent right leg injury, Dan Wiederer of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T03:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Dan Wiederer",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636195",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Sustains apparent leg injury",
+      "body_text": "Odunze sustained an apparent right leg injury during Thursday's practice session, Sean Hammond of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T02:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Sean Hammond",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636194",
+      "url": "https://www.rotowire.com//football/player/dandre-swift-14394",
+      "permalink": "",
+      "title": "D'Andre Swift: Leaves practice with injury",
+      "body_text": "Swift left Thursday's practice with an apparent injury and \"appeared to be in significant discomfort,\" Dan Wiederer of the Chicago Tribune reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-03T02:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Dan Wiederer",
+        "Chicago Tribune"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
