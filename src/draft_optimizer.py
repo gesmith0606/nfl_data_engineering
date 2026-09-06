@@ -582,6 +582,38 @@ class DraftBoard:
         player_id = self.available[mask].iloc[0].get("player_id", name)
         return self.draft_player(player_id, by_me=by_me)
 
+    def draft_by_identity(
+        self, name: str, position: str = "", team: str = "", by_me: bool = False
+    ) -> Dict:
+        """Draft by exact suffix-blind full name, gated on position when known.
+
+        The LIVE pick path's fallback for picks that mapped to no projection
+        row (D/ST, obscure rookies, parser fragments). Never a partial match —
+        an unknown "Chris Evans" cannot take "Mike Evans" off the board (the
+        2026-08-31 La Liga phantom-drafted class); a pick that carries a
+        position must agree on it, and ``team`` breaks ties when several rows
+        share name+position. Matches nothing -> removes nothing, and warns
+        naming the pick.
+        """
+        if "player_name" not in self.available.columns:
+            return {}
+        mask = self.available["player_name"].map(name_key) == name_key(name)
+        if position and "position" in self.available.columns:
+            mask &= self.available["position"].astype(str).str.upper() == position.upper()
+        if mask.sum() > 1 and team and "team" in self.available.columns:
+            by_team = mask & (
+                self.available["team"].astype(str).str.upper() == team.upper()
+            )
+            if by_team.any():
+                mask = by_team
+        if not mask.any():
+            logger.warning(
+                f"Pick '{name}' ({position or '?'} {team or '?'}) matched no board "
+                "row — nothing removed"
+            )
+            return {}
+        return self.draft_player(_row_key(self.available[mask].iloc[0]), by_me=by_me)
+
     # -----------------------------------------------------------------------
     # Roster state
     # -----------------------------------------------------------------------

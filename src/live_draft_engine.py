@@ -25,6 +25,7 @@ from src.draft_optimizer import (
     DraftAdvisor,
     DraftBoard,
     _pick_grade,
+    _row_key,
     compute_value_scores,
 )
 
@@ -186,9 +187,20 @@ class LiveDraftEngine:
         moments: List[KeyMoment] = []
         for pick in new_picks:
             m = matched_by_pick.get(pick.pick_no)
-            player_key = (m.get("player_id") if m else None) or pick.full_name
             is_mine = self.my_slot is not None and pick.draft_slot == self.my_slot
-            self.board.draft_player(str(player_key), by_me=is_mine)
+            if m:
+                # _row_key: ADP-only K/DST rows carry NaN player_ids, and
+                # str(nan) matched nothing — drafted kickers/defenses stayed
+                # on the board (found reproducing the 2026-08-31 phantoms).
+                self.board.draft_player(_row_key(m), by_me=is_mine)
+            else:
+                # Unmapped pick: exact suffix-blind name + position, never a
+                # partial or position-blind match — an unknown name must not
+                # take an unrelated player off the board. No match = no removal
+                # (the pick still lands in rosters + PollResult.unmatched).
+                self.board.draft_by_identity(
+                    pick.full_name, pick.position, pick.team, by_me=is_mine
+                )
             self.rosters.setdefault(pick.draft_slot, []).append(
                 m if m else {"player_name": pick.full_name, "position": pick.position}
             )
