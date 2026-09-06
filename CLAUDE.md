@@ -216,6 +216,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/yahoo_adp_page.py` | Yahoo ADP parser (Draft Analysis page text over CDP) → shared ADP schema; `refresh_adp.py --source yahoo` |
 | `scripts/draft_value_report.py` | Cross-platform mispricing report (per ADP source + "value on 2+ sources" + platform disagreements) |
 | `scripts/backtest_draft_flags.py` | Doctrine signal back-test on FFC ADP history 2021-25 vs Silver actuals (bust = ≥10 positional spots below ADP) |
+| `docs/FEETBALL_2026_DRAFT_NIGHT_RUNBOOK.md` | Yahoo Feetball draft-night checklist (Sep 7 2026): pre-flight, the manual-mode co-pilot command with `--pick-order-file` + `--keepers-file`, verified startup lines, house rules |
 | `docs/DRAFT_DOCTRINE.md` | The draft agent's rulebook: 35 sourced, codable rules + house rules + back-test verdicts; `.claude/agents/draft-agent.md` is the subagent that follows it |
 | `src/espn_league.py` | ESPN league/team import via ESPN_S2+ESPN_SWID cookies (lm-api-reads v3): settings, teams, rosters, post-draft PickEvents — live-draft NO-GO stands |
 | `scripts/espn_league_import.py` | ESPN import CLI — league summary, rosters, `--my-team`, `--draft`, `--out` raw JSON |

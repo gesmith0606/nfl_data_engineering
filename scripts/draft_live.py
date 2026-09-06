@@ -1364,7 +1364,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     # Operator-supplied paths are relative to the LAUNCH cwd — resolve them
     # first, then anchor cwd to the repo so src modules that build relative
     # "data/..." paths (draft_targets, draft_value, ...) find their inputs.
-    for attr in ("projections_file", "adp_file", "keepers_file"):
+    for attr in ("projections_file", "adp_file", "keepers_file", "pick_order_file"):
         val = getattr(args, attr, None)
         if val:
             setattr(args, attr, os.path.abspath(val))
