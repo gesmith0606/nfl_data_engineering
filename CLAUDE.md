@@ -200,7 +200,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/ablation_market_features.py` | Ablation CLI — P30 baseline vs market features on holdout |
 | `scripts/generate_projections.py` | Gold CLI — `--week` or `--preseason` |
 | `scripts/draft_assistant.py` | Interactive draft CLI — snake, auction, simulation, waiver wire |
-| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0; ESPN live v8.3) — polls a live Sleeper/Yahoo/ESPN draft, snapshot/`--watch`/`--manual`/`--queue`, drives `LiveDraftEngine`; recs scored by cost-of-waiting to your next pick |
+| `scripts/draft_live.py` | Live draft co-pilot CLI (v8.0; ESPN live v8.3) — polls a live Sleeper/Yahoo/ESPN draft, snapshot/`--watch`/`--manual`/`--queue`, drives `LiveDraftEngine`; recs scored by cost-of-waiting to your next pick. `--pick-order-file` loads an explicit custom order (traded picks + keeper slots, e.g. `data/draft/feetball_2026_pick_order.txt`) so turn detection / next pick / picks remaining ignore snake arithmetic; `--keepers-file` now also applies in `--manual` mode |
+| `src/draft_pick_order.py` | Custom pick-order parser (`R<n>: team, team(K), ...` per round; slot = round-1 position) → `PickSlot` tuple on `DraftState.pick_order`; `apply_pick_order` re-derives platform picks' slot/round from it |
 | `src/draft_models.py` | Platform-neutral `PickEvent` / `DraftState` (v8.0 live draft) |
 | `src/sleeper_draft.py` | Sleeper draft parsing + active-draft resolution (v8.0) |
 | `src/sleeper_player_map.py` | Sleeper player_id → projection mapping, cached registry (v8.0) |

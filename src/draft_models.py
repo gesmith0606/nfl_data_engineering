@@ -37,8 +37,29 @@ class PickEvent:
 
 
 @dataclass(frozen=True)
+class PickSlot:
+    """One slot of an explicit (custom) pick order.
+
+    ``pick_no`` counts EVERY slot including keepers (Yahoo numbering: 4.06 is
+    overall 36); ``draft_slot`` is the owning team's ROUND 1 position; a keeper
+    slot consumes a pick number but is never on the clock live.
+    """
+
+    pick_no: int
+    round: int
+    draft_slot: int
+    is_keeper: bool = False
+
+
+@dataclass(frozen=True)
 class DraftState:
-    """A normalized snapshot of a draft on any platform."""
+    """A normalized snapshot of a draft on any platform.
+
+    ``pick_order`` is empty for plain snake/linear drafts (slot math derives
+    from ``n_teams``/``draft_type``). When set — traded picks, keeper slots,
+    commish-customized order (Feetball 2026) — it is the sole authority on who
+    owns each pick number; see :mod:`src.draft_pick_order`.
+    """
 
     draft_id: str
     status: str
@@ -52,6 +73,7 @@ class DraftState:
     slot_to_roster_id: Dict[str, int]
     picks: Tuple[PickEvent, ...] = field(default_factory=tuple)
     traded_picks: Tuple[Dict[str, Any], ...] = field(default_factory=tuple)
+    pick_order: Tuple[PickSlot, ...] = field(default_factory=tuple)
 
     @property
     def is_active(self) -> bool:

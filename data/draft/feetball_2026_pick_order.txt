@@ -1,0 +1,22 @@
+# Feetball 2026 (Yahoo league 658684) — custom draft order, captured 2026-08-30.
+# Source: docs/FEETBALL_2026_DRAFT_ORDER.md. One round per line, picks in clock
+# order; team labels are matched to the ROUND 1 order (slot = position in R1,
+# so Oracle = 6). "(K)" marks a keeper slot: it consumes a pick number but is
+# not drafted live. Load with: scripts/draft_live.py --pick-order-file <this>.
+R1: Amon Ra, Dude, Nico$uave, One Giant Mess, Murtaugh, Oracle, Achane, Bird Gang, Billiever, Crazy Eddie
+R2: Crazy Eddie, Billiever, Oracle, Achane, Oracle, Murtaugh, One Giant Mess, Billiever, Dude, Amon Ra
+R3: Oracle, Dude, Nico$uave, One Giant Mess, Murtaugh, Oracle, Crazy Eddie, Bird Gang, Billiever, Crazy Eddie
+R4: Crazy Eddie, Billiever, Bird Gang, Oracle, Oracle, Murtaugh(K), One Giant Mess, Nico$uave(K), Dude, Amon Ra(K)
+R5: Amon Ra(K), Dude(K), Nico$uave(K), Billiever, Murtaugh, Oracle, Achane(K), Bird Gang, Billiever, Crazy Eddie
+R6: Crazy Eddie, Billiever, Bird Gang(K), Achane, Oracle, Murtaugh, One Giant Mess, Nico$uave, Dude, Billiever
+R7: Amon Ra(K), Dude(K), Nico$uave, One Giant Mess, Murtaugh, Oracle, Achane(K), Crazy Eddie, Billiever, Crazy Eddie(K)
+R8: Crazy Eddie, Billiever, Bird Gang, One Giant Mess, Oracle, Murtaugh, One Giant Mess(K), Nico$uave, Dude, Amon Ra
+R9: Amon Ra, Dude, Nico$uave, One Giant Mess, Murtaugh(K), Oracle(K=Burden), Achane, Bird Gang, Billiever, Crazy Eddie(K)
+R10: Crazy Eddie(K), Billiever(K), Bird Gang(K), Achane(K), Amon Ra, Murtaugh(K), One Giant Mess, Nico$uave(K), Dude(K), Amon Ra
+R11: Amon Ra, Dude, Nico$uave, One Giant Mess, Murtaugh, Oracle, Achane, Bird Gang, Billiever, Crazy Eddie
+R12: Crazy Eddie, Billiever(K), Bird Gang, Achane, Oracle, Murtaugh, One Giant Mess, Nico$uave, Dude, Amon Ra
+R13: Amon Ra, Dude, Nico$uave, One Giant Mess, Murtaugh, Oracle(K=Loveland), Achane, Bird Gang, Nico$uave, Crazy Eddie
+R14: Crazy Eddie, One Giant Mess, Bird Gang, Achane, Bird Gang, Murtaugh, One Giant Mess, Nico$uave, Dude, Amon Ra
+R15: Amon Ra, Dude, Nico$uave, One Giant Mess, Murtaugh, Oracle, Achane, Bird Gang, Billiever, Crazy Eddie
+R16: Bird Gang, Billiever, Bird Gang, Achane, Oracle, Murtaugh, One Giant Mess, Nico$uave, Dude, Amon Ra
+R17: Amon Ra, Dude, Nico$uave, Achane, Murtaugh, Achane, Achane, Bird Gang, Amon Ra, Achane
