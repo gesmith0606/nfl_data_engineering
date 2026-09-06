@@ -31,9 +31,17 @@ import os
 import sys
 import threading
 import time
+from pathlib import Path
 from typing import List, Optional
 
 import pandas as pd
+
+# Anchor every default data path to the repo, never the launch cwd: started
+# from another directory (2026-08-31 La Liga) the ADP came back NaN and the
+# NEWS guard / age rules were silently off — their loaders build "data/..."
+# paths relative to cwd. main() also chdirs here after resolving user paths.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+_DATA_DIR = str(REPO_ROOT / "data")
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 # src/ itself must also be importable: src.projection_engine and friends use
@@ -123,15 +131,15 @@ def default_adp_path(platform: Optional[str], scoring: Optional[str]) -> str:
         cands = [
             p
             for p in (
-                os.path.join("data", "adp", f"adp_{platform}_{scoring or ''}.csv"),
-                os.path.join("data", "adp", f"adp_{platform}_standard.csv"),
-                os.path.join("data", "adp", f"adp_{platform}_half_ppr.csv"),
+                os.path.join(_DATA_DIR, "adp", f"adp_{platform}_{scoring or ''}.csv"),
+                os.path.join(_DATA_DIR, "adp", f"adp_{platform}_standard.csv"),
+                os.path.join(_DATA_DIR, "adp", f"adp_{platform}_half_ppr.csv"),
             )
             if os.path.exists(p)
         ]
         if cands:
             return max(cands, key=os.path.getmtime)
-    return os.path.join("data", "adp_latest.csv")
+    return os.path.join(_DATA_DIR, "adp_latest.csv")
 
 
 def load_adp(
@@ -1249,6 +1257,20 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Optional[List[str]] = None) -> int:
     args = build_parser().parse_args(argv)
+    # Operator-supplied paths are relative to the LAUNCH cwd — resolve them
+    # first, then anchor cwd to the repo so src modules that build relative
+    # "data/..." paths (draft_targets, draft_value, ...) find their inputs.
+    for attr in ("projections_file", "adp_file", "keepers_file"):
+        val = getattr(args, attr, None)
+        if val:
+            setattr(args, attr, os.path.abspath(val))
+    if Path.cwd().resolve() != REPO_ROOT:
+        # stderr: --json consumers parse stdout.
+        print(
+            f"(cwd -> {REPO_ROOT}: data paths resolve against the repo)",
+            file=sys.stderr,
+        )
+        os.chdir(REPO_ROOT)
     # Quiet the per-pick "You drafted" INFO chatter during keeper preload.
     logging.getLogger("src.draft_optimizer").setLevel(logging.WARNING)
     logging.getLogger("draft_optimizer").setLevel(logging.WARNING)
