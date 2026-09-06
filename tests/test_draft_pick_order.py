@@ -229,6 +229,18 @@ def test_opponent_needs_excludes_keeper_slots(order):
     assert needs["RB"] == len(live_slots)  # nobody has drafted (blank rosters)
 
 
+@pytest.mark.unit
+def test_opponent_needs_on_my_turn_looks_past_this_pick(order):
+    """At my pick 15 the run risk covers picks 16-20 (5 opponents), not an
+    empty range (which read as all zeros exactly when it mattered)."""
+    eng = _engine(order, picks_made=14)
+    eng.update(eng.state)  # builds the board
+    turn = eng.turn_info()
+    assert turn.is_my_turn and turn.on_clock_pick_no == 15
+    needs = draft_live.opponent_needs(eng)
+    assert needs["RB"] == 5
+
+
 # ---------------------------------------------------------------------------
 # Default (no order) behaviour unchanged
 # ---------------------------------------------------------------------------
@@ -410,7 +422,10 @@ def test_apply_keepers_file_marks_board(tmp_path):
     with open(fixture, encoding="utf-8") as fh:
         proj = pd.DataFrame(json.load(fh))
     keepers = tmp_path / "keepers.txt"
-    keepers.write_text("*Ja'Marr Chase\nChristian McCaffrey\n", encoding="utf-8")
+    keepers.write_text(  # inline "# ..." annotations must not join the name
+        "*Ja'Marr Chase   # WR CIN, 9.06\nChristian McCaffrey  # RB SF\n",
+        encoding="utf-8",
+    )
     eng = LiveDraftEngine(
         adapter=draft_live._DummyAdapter(), projections_df=proj, my_slot=1
     )
