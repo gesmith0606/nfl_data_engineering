@@ -1,0 +1,36 @@
+# Feetball 2026 (Yahoo league 658684) — league keepers, captured 2026-08-30 from the
+# Yahoo "2026 draft order" tab (see docs/FEETBALL_2026_DRAFT_ORDER.md).
+# One kept player per line. "*" = The Oracle's keepers (rostered to you);
+# every other line is removed from the draftable board. "#" starts a comment.
+# Names match suffix-blind. Re-verify against the Yahoo league page the day of the draft.
+#
+# Usage: python scripts/draft_live.py --platform yahoo|--manual ... --keepers-file data/draft/feetball_2026_keepers.txt
+
+# --- The Oracle (slot 6) ---
+* Luther Burden III        # WR CHI, 9.06
+* Colston Loveland         # TE CHI, 13.06
+
+# --- Rivals (23) ---
+Chase Brown                # RB CIN, 4.06  Murtaugh & Riggs
+Nico Collins               # WR HOU, 4.08  Nico$uave
+Kyren Williams             # RB LAR, 4.10  Amon Ra the Sun God
+Rashee Rice                # WR KC,  5.01  Amon Ra the Sun God
+Brock Bowers               # TE LV,  5.02  Dude I got a Dell
+Chris Olave                # WR NO,  5.03  Nico$uave
+De'Von Achane              # RB MIA, 5.07  Achane Smokin'
+Jaxon Smith-Njigba         # WR SEA, 6.03  Bird Gang
+Bucky Irving               # RB TB,  7.01  Amon Ra the Sun God
+Javonte Williams           # RB DAL, 7.02  Dude I got a Dell
+Puka Nacua                 # WR LAR, 7.07  Achane Smokin'
+Travis Etienne Jr.         # RB NO,  7.10  Crazy Eddie's
+Drake Maye                 # QB NE,  8.07  One Giant Mess
+Jayden Daniels             # QB WAS, 9.05  Murtaugh & Riggs
+Michael Wilson             # WR ARI, 9.10  Crazy Eddie's
+Darnell Mooney             # WR NYG, 10.01 Crazy Eddie's
+Zach Charbonnet            # RB SEA, 10.02 I'm a Billiever
+Christian Watson           # WR GB,  10.03 Bird Gang
+Quinshon Judkins           # RB CLE, 10.04 Achane Smokin'
+Parker Washington          # WR JAX, 10.06 Murtaugh & Riggs
+Matthew Stafford           # QB LAR, 10.08 Nico$uave
+Caleb Williams             # QB CHI, 10.09 Dude I got a Dell
+Jaxson Dart                # QB NYG, 12.02 I'm a Billiever

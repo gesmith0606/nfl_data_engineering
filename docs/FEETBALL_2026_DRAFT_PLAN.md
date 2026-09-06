@@ -403,3 +403,30 @@ Caleb is NOT draftable: he's kept by **Dude I got a Dell** at 10.09.
   the CHI bye and sink together in bad Bears game scripts. Not a reason to unwind — but
   pencil the CHI bye in as a mandatory WR/TE streaming week, and it slightly raises the
   value of the #115 TE2 dart (§14/§39) the plan otherwise calls a pure luxury.
+
+## 10. Day-before refresh (2026-09-06, ~12:20 ET)
+
+Regenerated everything the plan prices from: projections
+`preseason_2026_half_ppr_20260906_121734` (Gold parquet same stamp), ADP `adp_ffc_half_ppr.csv`
+(**10-team** FFC pull, `--teams 10`) + `adp_sleeper_half_ppr.csv`, value report
+`output/draft_reports/value_report_half_ppr_20260906_121747.csv`. Keepers file for the co-pilot:
+`data/draft/feetball_2026_keepers.txt` (25 names, Burden/Loveland starred).
+
+**Verdict: the plan stands.** Every pick-by-pick target sits within ±2 model ranks of the Aug 30
+board (Amon-Ra vbd 8, Cook 9, Henry 10, Barkley 12, Allen 16, Jeanty 18, Hampton 19, London 20,
+A.J. Brown 21, Nabers 26, Higgins 33, Walker 34). Sleeper ADP still has Allen at 20 — #21 stays a
+genuine coin flip, #26 the Lamar fallback (Lamar Sleeper ADP 34, FFC 58).
+
+Changes:
+- **Jordyn Tyson (WR, NO) — OFF the #106 menu.** Placed on IR (designated to return) on Aug 30 after
+  another right-hamstring flare-up; must miss at least the first four games and the reported
+  outlook is ~two months. The league has 3 IR slots, so he survives only as a **#146-or-later IR
+  stash** if a dart is wanted over DST — never at #106/#115. Lemon moves to the top of the #106
+  menu, Diggs/Meyers behind him.
+- **Ashton Jeanty (RB, LV)** — low right-ankle sprain (Aug 23), back on a side field Sep 1, not
+  on IR, HC "optimistic" for the Sep 13 opener. Keep him as a #13/#15 option but he is the
+  discount branch, not the primary: if Barkley/Hampton/Walker are there, take the healthy one.
+- NEWS-guard hits carried into draft night (verify in the room): Gibbs (injuries 8/30 — minor
+  per the La Liga check), Nacua (suspension 8/28 — REAL, fade), Olave/Hall/Hubbard (injury),
+  Kittle (PUP 8/23 — since activated), Alec Pierce (surgery 8/28), Charbonnet (PUP, keeper anyway).
+- Nothing else moved by more than a round on either ADP source.
