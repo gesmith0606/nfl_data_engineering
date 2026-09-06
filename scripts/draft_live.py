@@ -299,8 +299,9 @@ def _apply_keepers_file(engine: LiveDraftEngine, path: str, as_json: bool) -> No
     mine, others = [], []
     with open(path, encoding="utf-8") as fh:
         for line in fh:
-            line = line.strip()
-            if not line or line.startswith("#"):
+            # Inline "# ..." comments are allowed after the name.
+            line = line.split("#", 1)[0].strip()
+            if not line:
                 continue
             (mine if line.startswith("*") else others).append(line.lstrip("* ").strip())
     ok = sum(1 for name in mine if engine.board.draft_by_name(name, by_me=True))
@@ -508,9 +509,14 @@ def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
         return {}
     rc = engine.board.roster_config
     start = turn.on_clock_pick_no + (1 if turn.is_my_turn else 0)
+    # On my turn ``my_next_pick_no`` IS this pick — look ahead to the one after
+    # it, so the run risk covers the opponents between now and my next turn.
+    end = turn.my_next_pick_no
+    if turn.is_my_turn:
+        end = engine._my_next_pick_no(start, engine.state.n_teams) or start
     slots = {
         engine._slot_at(p)
-        for p in range(start, turn.my_next_pick_no)
+        for p in range(start, end)
         if not engine._is_keeper_slot(p)
     } - {engine.my_slot}
     needs: Dict[str, int] = {}
