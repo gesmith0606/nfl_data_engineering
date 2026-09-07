@@ -508,3 +508,13 @@ queue #41) and JSN (my_guys) are keepers — harmless, the keepers file removes 
   #13/#15 (RB default) stands and the RB-count finish target drops to 4-5, not 5-7.
 - The co-pilot already models FLEX as RB/WR/TE (`FLEX_ELIGIBLE`), so its needs/lineup math
   agrees with the room — no flag change needed.
+
+**OVERRULED by George (2026-09-07): no second TE.** Reasoning: five starting slots are RB/WR
+(2 RB + 3 WR) and Burden/Loveland share the CHI bye — depth at RB/WR covers every week, a TE at
+FLEX covers one slot one week at a time; the McBride +23 also stacks two model assumptions (our
+TE projection AND Loveland as a starter-quality FLEX). So §39 stands as written:
+- **#21 when Allen is gone → Nabers / Higgins** (McBride off the board for us). Lamar at #26.
+- **#55/#66 → RB/WR only** (Henderson/Swift/Tate/Addison/Godwin per §2/§11); Warren/Kraft are
+  not targets. The only TE2 window remains the #115 "free dart" — and only if RB/WR depth is
+  already 5+ RB / 6+ WR incl. Burden.
+- **RB/WR finish target back to 5-7 RB / 6-7 WR** (§38 benchmark); FLEX is planned as RB/WR.
