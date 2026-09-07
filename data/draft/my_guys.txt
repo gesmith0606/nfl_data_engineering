@@ -63,6 +63,20 @@ Jaxon Smith-Njigba # §30/§31 years 2-4 + vacated opportunity | 3/3
 # AJ Dillon        # CAR RB4 — absorption stat was real, role is not
 # Nate Carter      # ATL RB4 — same
 
+# --- FEETBALL Sep 7 (Yahoo, slot 6): take-a-round-early list ----------------
+# George's framing: lots of early capital (7 of the first 35 picks), but the
+# LATE picks decide the roster — after #75 the only bench budget is #106/#115,
+# with 31-pick dead gaps around them. So anyone wanted late is taken a round
+# EARLY at #75/#106 rather than lost in the gap. Rookie model ranks are blanks
+# (positional fallback), so these ride draft capital + role + ADP momentum.
+Josh Allen           # #21 trigger — Yahoo rooms take QBs early; don't wait for #26
+TreVeyon Henderson   # #35 — only clean RB profile in the dead zone; gone before #55
+Brian Thomas Jr.     # #46 — breakout + TD-regression signals; no comparable WR at #66
+Carnell Tate         # #66 — top-5 capital priced as a WR3; won't reach #75
+Quentin Johnston     # #75 — the one deep WR the model likes
+Makai Lemon          # #106 — R1 capital, market rising (Sleeper 88 vs FFC 134)
+De'Zhaun Stribling   # #106 — SF top-3 WR per camp reports, ADP up ~3 rounds in 3 wks
+
 
 # ============================================================================
 # FADES  (leading "-" = AVOID)

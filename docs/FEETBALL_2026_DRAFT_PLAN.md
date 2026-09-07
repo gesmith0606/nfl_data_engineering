@@ -437,3 +437,7 @@ Changes:
   from Week 1. Same profile as Lemon (round-2 capital + landing spot + market moving up). Menu
   at #106 is now Lemon / Stribling (ceiling) ahead of Diggs / Meyers (floor). He will NOT reach
   #115 in this room — if he's the one, #106 is the pick.
+- **Framing for tonight (George, 2026-09-07): the early capital is plentiful, the late picks are
+  the scarce resource.** #106/#115 are the whole bench budget and sit inside 31-pick dead gaps, so
+  the take-a-round-early list (Allen #21, Henderson #35, Thomas Jr. #46, Tate #66, Johnston #75,
+  Lemon/Stribling #106) is now in `data/draft/my_guys.txt` and renders as MY GUY in the co-pilot.
