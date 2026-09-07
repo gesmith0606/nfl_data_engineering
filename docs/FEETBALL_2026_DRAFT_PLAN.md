@@ -441,3 +441,19 @@ Changes:
   the scarce resource.** #106/#115 are the whole bench budget and sit inside 31-pick dead gaps, so
   the take-a-round-early list (Allen #21, Henderson #35, Thomas Jr. #46, Tate #66, Johnston #75,
   Lemon/Stribling #106) is now in `data/draft/my_guys.txt` and renders as MY GUY in the co-pilot.
+- **QB fallback ladder if Allen is gone (2026-09-07).** Read straight off the custom order: the
+  four QB-needy rivals' LIVE picks are Crazy Eddie 27/30/31/50/51/68/71, Bird Gang 28/33/48/73,
+  Achane 54, and **Amon Ra has no live pick between #20 and #80** — if Amon Ra doesn't take a QB
+  at #20, that's one fewer buyer in our whole window. At most 2 QBs can go between our #26 and
+  #46, and at most 3 more between #46 and #75. Ladder:
+  1. Lamar at #26 (model 43; FFC 58 / Sleeper 34 / ESPN 18 — Yahoo rooms take him early).
+  2. If both are gone at #26, stay WR at #26/#34/#35 and take **Jalen Hurts (model 50, FFC 82 /
+     Sleeper 61) or Joe Burrow (59, FFC 55)** at **#46** — the last pick inside the §40 elite
+     window (R3-5, +17). Hurts over Burrow (rushing floor, younger, later ADP). At #46 this
+     outranks Brian Thomas Jr.
+  3. If both are gone by #46: wait to **#75** — Herbert (model 81, FP 70) > Lawrence (82) >
+     Purdy (78, ADP 87-95) > Mahomes (80, ADP 90-109). Flat tier (311-313 pts); take whichever
+     is left, never reach for one at #55/#66. Skip Dak at price (market 65-74, model 101).
+  4. Emergency at #106: Nix (94) or Goff (103, ESPN 124 — will be there). Never a 2nd QB.
+  Note: `--mock --auto` currently ignores the pick order + keepers, so mock QB-survival reads are
+  not trustworthy (task filed); the ladder above is reasoned from ADP + the rivals' pick slots.
