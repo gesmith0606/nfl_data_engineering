@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "29d967e6-2f95-40cb-8e67-622c8524dce2",
+  "source": "rotowire",
+  "fetched_at": "2026-09-07T12:26:18.691373+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636328",
+      "url": "https://www.rotowire.com//football/player/tua-tagovailoa-14465",
+      "permalink": "",
+      "title": "Tua Tagovailoa: Will start Week 1",
+      "body_text": "Tagovailoa will start at quarterback in Sunday's season opener against the Steelers, Tom Pelissero of Netflix reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-07T05:23:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl636326",
+      "url": "https://www.rotowire.com//football/player/christian-mccaffrey-11690",
+      "permalink": "",
+      "title": "Christian McCaffrey: Sitting out early drills Monday",
+      "body_text": "McCaffrey (undisclosed) was not participating in drills in the early portion of the 49ers' practice Monday morning in Australia, Matt Maiocco of NBC Sports Bay Area reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-06T10:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636316",
+      "url": "https://www.rotowire.com//football/player/treveyon-henderson-18517",
+      "permalink": "",
+      "title": "TreVeyon Henderson: Misses Sunday's practice",
+      "body_text": "Henderson (ankle) officially didn't practice Sunday, Doug Kyed of the Boston Herald reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-06T04:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Misses Sunday",
+        "Doug Kyed",
+        "Boston Herald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636315",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: In line to practice Monday",
+      "body_text": "Kittle (Achilles) is slated to practice Monday in Melbourne, Australia, Matt Barrows of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-06T03:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Monday Kittle",
+        "Matt Barrows",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636314",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Expected to play in Australia",
+      "body_text": "Rams head coach Sean McVay said Sunday that Nacua (core) is expected to play Thursday against the 49ers in Melbourne, Australia, Nate Atkins of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-06T02:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Australia Rams",
+        "Nate Atkins",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}

@@ -1,0 +1,567 @@
+{
+  "fetch_run_id": "70884a9c-03a1-42f1-aa39-e0a0d8bfb1dd",
+  "source": "pft",
+  "fetched_at": "2026-09-07T12:26:22.599183+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-pick-tua-tagovailoa-as-their-week-one-starting-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-pick-tua-tagovailoa-as-their-week-one-starting-quarterback",
+      "permalink": "",
+      "title": "Falcons pick Tua Tagovailoa as their Week 1 starting quarterback",
+      "body_text": "Six days before the season opener, the Falcons have finally made their choice.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T12:19:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-2026-nfl-season-predictions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-2026-nfl-season-predictions",
+      "permalink": "",
+      "title": "PFT's 2026 NFL season predictions",
+      "body_text": "A new year means a new slate of eventually inaccurate guesses.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T12:17:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-is-a-captain-for-the-14th-time-as-49ers-choose-same-captains-as-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-williams-is-a-captain-for-the-14th-time-as-49ers-choose-same-captains-as-last-year",
+      "permalink": "",
+      "title": "Trent Williams is a captain for the 14th time as 49ers choose same captains as last year",
+      "body_text": "The 49ers have a stable group of veteran leaders, and as a result they're a rare NFL team that will have all the same captains two years in a row. 49ers head coach Kyle Shanahan confirmed that the players elected the same eight team captains that they elected for the 2025 season: defensive lineman Nick Bosa, fullback Kyle Juszczyk, tight end George Kittle, defensive back Deommodore Lenoir, running back Christian McCaffrey, quarterback Brock Purdy, linebacker Fred Warner and offensive tackle Trent Williams.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T12:05:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trent Williams",
+        "Kyle Shanahan",
+        "Nick Bosa",
+        "Kyle Juszczyk",
+        "George Kittle",
+        "Deommodore Lenoir",
+        "Brock Purdy",
+        "Fred Warner"
+      ],
+      "resolved_player_ids": [
+        "00-0027857",
+        "00-0035717",
+        "00-0029892",
+        "00-0033288",
+        "00-0036563",
+        "00-0037834",
+        "00-0034815"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ole-miss-qb-trinidad-chambliss-passes-for-336-yards-runs-for-60-in-41-38-win-in-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ole-miss-qb-trinidad-chambliss-passes-for-336-yards-runs-for-60-in-41-38-win-in-opener",
+      "permalink": "",
+      "title": "Ole Miss QB Trinidad Chambliss passes for 336 yards, runs for 60 in 41-38 win in opener",
+      "body_text": "Ole Miss quarterback Trinidad Chambliss, who may prove to be among the most polarizing prospects in the 2027 NFL draft, is off to a good start to his final season of college football.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T10:34:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ole Miss",
+        "Trinidad Chambliss"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-a-little-confused-playing-friday-in-australia-which-is-thursday-in-america",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-a-little-confused-playing-friday-in-australia-which-is-thursday-in-america",
+      "permalink": "",
+      "title": "Kyle Shanahan \"a little confused\" playing Friday in Australia, which is Thursday in America",
+      "body_text": "\"I feel like I'm in the future,\" Shanahan said on Sunday. \"I call today Tuesday. No, wait, sorry, I call today Wednesday.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T08:41:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sam-okuayinonu-has-bad-injury-to-his-foot-hopes-to-play-by-end-of-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sam-okuayinonu-has-bad-injury-to-his-foot-hopes-to-play-by-end-of-season",
+      "permalink": "",
+      "title": "49ers' Sam Okuayinonu has \"bad injury\" to his foot, hopes to play by end of season",
+      "body_text": "When 49ers defensive lineman Sam Okuayinonu hurt his foot in the final practice before the team flight to Australia, there was hope that he could make a later flight and still play in the opener.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T08:00:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Okuayinonu"
+      ],
+      "resolved_player_ids": [
+        "00-0037602"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfls-new-three-strike-system-doesnt-apply-until-the-2026-regular-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfls-new-three-strike-system-doesnt-apply-until-the-2026-regular-season",
+      "permalink": "",
+      "title": "NFL's new three-strike system doesn't apply until the 2026 regular season",
+      "body_text": "The NFL and the NFL Players Association have agreed to a new three-strike formula that will trigger automatic suspensions for repeated violations of five specific safety rules: hip-drop tackles, horse-collar tackles, launching, hits on defenseless players, and blindside blocks.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T05:09:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Players Association"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-expects-aaron-donald-to-play-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-expects-aaron-donald-to-play-on-thursday-night",
+      "permalink": "",
+      "title": "Kyle Shanahan expects Aaron Donald to play on Thursday night",
+      "body_text": "Aaron Donald is back.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T04:43:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-expects-49ers-fan-takeover-vs-rams-in-melbourne",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-expects-49ers-fan-takeover-vs-rams-in-melbourne",
+      "permalink": "",
+      "title": "Kyle Shanahan expects 49ers fan takeover vs. Rams in Melbourne",
+      "body_text": "49ers coach Kyle Shanahan has been salty about the Rams' desire to export a home game to Australia, in order to avoid yet another San Francisco-fan takeover of SoFi Stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T02:57:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-confirms-rams-will-fly-tuesday-night-for-thursday-night-game-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-confirms-rams-will-fly-tuesday-night-for-thursday-night-game-in-australia",
+      "permalink": "",
+      "title": "Sean McVay confirms Rams will fly Tuesday night for Thursday night game in Australia",
+      "body_text": "The Rams are dealing with the short straw of a long trip to Australia by making the stay as short as possible.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T02:24:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Australia The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-terrion-arnold-hes-in-the-building-and-learning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-terrion-arnold-hes-in-the-building-and-learning",
+      "permalink": "",
+      "title": "Mike Macdonald on Terrion Arnold: He's in the building and learning",
+      "body_text": "Seahawks cornerback Terrion Arnold starts the 2026 season on paid leave, due to eight felony charges arising from an alleged armed robbery and kidnapping.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T01:34:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-opener-looming-rams-de-myles-garrett-returns-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-opener-looming-rams-de-myles-garrett-returns-to-practice",
+      "permalink": "",
+      "title": "With opener looming, Rams DE Myles Garrett returns to practice",
+      "body_text": "Knee injury had kept 2025 defensive player of the year out for a while.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T01:23:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-fleury-embraces-his-first-opportunity-as-an-offensive-coordinator",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-fleury-embraces-his-first-opportunity-as-an-offensive-coordinator",
+      "permalink": "",
+      "title": "Brian Fleury embraces his first opportunity as an offensive coordinator",
+      "body_text": "Brian Fleury's moment has arrived.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T01:11:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Fleury"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-extend-guard-jon-runyan-jr-by-two-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-extend-guard-jon-runyan-jr-by-two-years",
+      "permalink": "",
+      "title": "Giants extend guard Jon Runyan Jr. by two years",
+      "body_text": "The Giants are using the last Sunday before the start of the 2026 regular season to take care of some internal business.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T00:43:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Runyan Jr",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0036246"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-s-nick-emmanwori-ankle-was-limited-in-practice-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-s-nick-emmanwori-ankle-was-limited-in-practice-on-sunday",
+      "permalink": "",
+      "title": "Seahawks S Nick Emmanwori (ankle) was limited in practice on Sunday",
+      "body_text": "The Seahawks have been saying very little about safety Nick Emmanwori's recovery from offseason ankle surgery that happened in July.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T00:24:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Emmanwori",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040733"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-treveyon-henderson-ankle-misses-practice-three-days-before-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-treveyon-henderson-ankle-misses-practice-three-days-before-week-1",
+      "permalink": "",
+      "title": "RB TreVeyon Henderson (ankle) misses practice, three days before Week 1",
+      "body_text": "Henderson injured ankle nearly two weeks ago.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T00:06:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/western-michigan-michigan-outcome-created-chaos-for-kalshi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/western-michigan-michigan-outcome-created-chaos-for-kalshi",
+      "permalink": "",
+      "title": "Western Michigan-Michigan outcome created chaos for Kalshi",
+      "body_text": "Last night's chaotic outcome to the Western Michigan-Michigan game created true chaos for the prediction markets, which have learned a valuable lesson once taught by Yogi Berra.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T22:00:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Western Michigan",
+        "Kalshi Last",
+        "Yogi Berra"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-qb-jameis-winston-agree-to-two-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-qb-jameis-winston-agree-to-two-year-extension",
+      "permalink": "",
+      "title": "Giants, QB Jameis Winston agree to two-year extension",
+      "body_text": "No. 1 overall pick in 2015 embraces his status as No. 2 on the depth chart.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T21:48:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-harrison-smiths-eleventh-hour-deal-to-return-to-the-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-harrison-smiths-eleventh-hour-deal-to-return-to-the-vikings",
+      "permalink": "",
+      "title": "Inside Harrison Smith's eleventh-hour deal to return to the Vikings",
+      "body_text": "Vikings legend Harrison Smith is back for a fifteenth season in Minnesota.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T19:20:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Inside Harrison",
+        "Vikings Vikings",
+        "Harrison Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0029606"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arizona-state-morgan-state-agreed-to-reduce-fourth-quarter-of-blowout-to-10-minutes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arizona-state-morgan-state-agreed-to-reduce-fourth-quarter-of-blowout-to-10-minutes",
+      "permalink": "",
+      "title": "Arizona State, Morgan State agreed to reduce fourth quarter of blowout to 10 minutes",
+      "body_text": "On the same day that a college football game consisted of one second more than 60 minutes, another college football game had five minutes fewer than the usual amount.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T18:41:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arizona State",
+        "Morgan State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-throws-for-305-yards-and-4-touchdowns-against-overmatched-texas-state",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-throws-for-305-yards-and-4-touchdowns-against-overmatched-texas-state",
+      "permalink": "",
+      "title": "Arch Manning throws for 305 yards and 4 touchdowns against overmatched Texas State",
+      "body_text": "Texas quarterback Arch Manning, the betting favorite to be the first overall pick in the 2027 NFL draft, had an easy start to his season today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-05T22:10:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arch Manning",
+        "Texas State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lsu-fans-had-a-strong-reaction-to-an-image-of-jayden-daniels-on-the-video-board",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lsu-fans-had-a-strong-reaction-to-an-image-of-jayden-daniels-on-the-video-board",
+      "permalink": "",
+      "title": "LSU fans had a strong reaction to an image of Jayden Daniels on the video board",
+      "body_text": "Three years after quarterback Jayden Daniels put together a Heisman-winning season at LSU, the attitude of the fan base has taken a sharp turn.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T17:35:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-new-contract-for-roger-goodell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-new-contract-for-roger-goodell",
+      "permalink": "",
+      "title": "NFL announces new contract for Roger Goodell",
+      "body_text": "Goodell is now signed through March 31, 2031.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T17:20:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-is-using-enhanced-replay-access-this-season-in-friday-games-only",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-is-using-enhanced-replay-access-this-season-in-friday-games-only",
+      "permalink": "",
+      "title": "Big Ten is using enhanced replay access this season, in Friday games only",
+      "body_text": "Last night's controversial finish to the Western Michigan-Michigan game would have been somewhat less controversial if the Big Ten had deployed transparency in the replay process.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T17:05:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Big Ten",
+        "Western Michigan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-wants-to-be-involved-in-resolving-christian-gonzalez-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-wants-to-be-involved-in-resolving-christian-gonzalez-situation",
+      "permalink": "",
+      "title": "Mike Vrabel wants to be involved in resolving Christian Gonzalez situation",
+      "body_text": "In three days, the Patriots face the Seahawks in a rematch of Super Bowl LX.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T16:34:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Christian Gonzalez",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/under-nfl-rules-michigan-wouldnt-have-gotten-a-final-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/under-nfl-rules-michigan-wouldnt-have-gotten-a-final-play",
+      "permalink": "",
+      "title": "Under NFL rules, Michigan wouldn't have gotten a final play",
+      "body_text": "Current college rules set the stage for a controversial one-second hair-splitting.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T15:41:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lane-kiffin-on-his-haltfime-wisecrack-everybody-hates-you-they-cant-hate-you-much-more",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lane-kiffin-on-his-haltfime-wisecrack-everybody-hates-you-they-cant-hate-you-much-more",
+      "permalink": "",
+      "title": "Lane Kiffin on his haltfime wisecrack: \"Everybody hates you. They can't hate you much more.\"",
+      "body_text": "At halftime of Saturday night's 51-10 blowout win over Clemson, when LSU won 31-3, Tigers coach Lane Kiffin capped an on-field interview by saying, \"Imagine if we had pro players.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T15:22:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lane Kiffin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-seahawks-prepare-to-raise-banner-theyre-breaking-in-new-owners",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-seahawks-prepare-to-raise-banner-theyre-breaking-in-new-owners",
+      "permalink": "",
+      "title": "As Seahawks prepare to raise banner, they're breaking in new owners",
+      "body_text": "It's a new day in Seattle.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T14:42:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "As Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-defends-michigan-outcome-with-statement-raw-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-defends-michigan-outcome-with-statement-raw-video",
+      "permalink": "",
+      "title": "Big Ten defends Michigan outcome with statement, raw video",
+      "body_text": "Situation proves the value of real-time transparency.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T13:51:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Big Ten"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michigan-avoids-disaster-via-all-time-controversial-call",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michigan-avoids-disaster-via-all-time-controversial-call",
+      "permalink": "",
+      "title": "Michigan avoids disaster via all-time controversial call",
+      "body_text": "Western Michigan got robbed of an all-time upset, with an all-time replay blunder.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-06T03:30:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Western Michigan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}
