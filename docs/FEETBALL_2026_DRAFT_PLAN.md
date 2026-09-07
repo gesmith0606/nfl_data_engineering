@@ -457,3 +457,39 @@ Changes:
   4. Emergency at #106: Nix (94) or Goff (103, ESPN 124 — will be there). Never a 2nd QB.
   Note: `--mock --auto` currently ignores the pick order + keepers, so mock QB-survival reads are
   not trustworthy (task filed); the ladder above is reasoned from ADP + the rivals' pick slots.
+
+## 11. Adversarial review (2026-09-07, second agent) — adopted / rejected
+
+A red-team agent attacked §1-§10 with the value report, both ADP files and the Sep 3 consensus
+ranks. Verified pivots: the **Jayden Daniels "retiring" NEWS tag is a false positive** (LSU
+jersey-number/NIL dispute — Murtaugh keeps his QB, the ladder's buyer count stands); the
+Sleeper rankings feed is polluted with retired players (Gurley #36, Brady #97 — task filed,
+ignore that source tonight).
+
+**Adopted (changes a pick):**
+- **#13/#15 → RB default, not a "coequal split".** Live RB cliff is steep (Hampton 259 /
+  Walker 235 / Jeanty 261 → Skattebo 221 → flagged names), the WR 196-218 tier is 8 deep and
+  Higgins is ~95% to reach #21. Model net +20-45 pts for RB-double with lower variance.
+  **#13: Barkley or Hampton coequal** (Barkley 29.6 carries the same §20 age flag used to demote
+  Henry — apply the rule both ways); **#15: Hampton > Walker > Jeanty**; if Barkley went at #13,
+  #15 MUST be the young RB. WR2 comes at #21 (Higgins/Nabers) when Allen is gone, or #26.
+- **#35 stays WR; Henderson moves to #46 (primary), Thomas Jr. to #55/#66.** Henderson at #35
+  is 30 spots ahead of consensus (65) and 100%/60% to reach #46; BTJ at #46 is 37 spots early
+  for +4-9 pts over Addison/Godwin/Tate at #66.
+- **#115: Jordan Mason OUT** — he is on our own FADE list (§20+§27). Corum / Diggs /
+  Croskey-Merritt / the Kelce-Goedert dart instead.
+- **#106: expect Stribling, not Lemon.** Lemon ~8% to reach #106 on Sleeper ADP; Stribling
+  75-95% at #106, ~65% at #115. Take Lemon if he's there, otherwise Stribling — no regret.
+- **#155: Jordyn Tyson IR stash instead of a K** (roster is 17 spots, we draft 16 — one is open
+  regardless). DST at #146, Tyson at #155 → IR slot, kicker off waivers before Sep 13. If the
+  Yahoo IR slot won't accept him or the waiver timing looks tight in-app, revert to K.
+- **Second-order fallbacks added:** #21 if Allen/Nabers/Higgins are gone → George Pickens or a
+  fallen Hampton/Walker; #55 if Henderson/Dowdle/Tate are gone → D'Andre Swift (210, mild flag)
+  over any WR under 170; #75 QB tier is safe (Mahomes 97-99%, Lawrence 76-90%, Purdy 60-100%).
+
+**Noted, no change:** Allen at #21 is ~7% available on Sleeper timing / 58% on FFC — keep the
+trigger, never chase (the net vs Nabers+Hurts is only ~+12). Doctrine round-cells are 12-team
+ADP rounds, not our nominal pick rounds — the avoid-by-name conclusions survive. **McBride at
+#21 is a live option (+~23 over the #26 WR) ONLY if Yahoo's FLEX is W/R/T — confirm in the app;
+if it is and Allen is gone at #21, McBride vs Nabers/Higgins is George's call.** Etienne (§5
+queue #41) and JSN (my_guys) are keepers — harmless, the keepers file removes them.
