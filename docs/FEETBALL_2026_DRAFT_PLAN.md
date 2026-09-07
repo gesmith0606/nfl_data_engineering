@@ -493,3 +493,18 @@ ADP rounds, not our nominal pick rounds — the avoid-by-name conclusions surviv
 #21 is a live option (+~23 over the #26 WR) ONLY if Yahoo's FLEX is W/R/T — confirm in the app;
 if it is and Allen is gone at #21, McBride vs Nabers/Higgins is George's call.** Etienne (§5
 queue #41) and JSN (my_guys) are keepers — harmless, the keepers file removes them.
+
+**FLEX confirmed W/R/T (George, 2026-09-07 pre-draft).** Consequences, in priority order:
+- **#21 when Allen is gone: Trey McBride over Nabers/Higgins.** McBride 223 (TE, model #13, ADP
+  26 Sleeper / 41 FFC) into TE, Loveland 186 slides to FLEX ≈ the McConkey-class WR we'd otherwise
+  start there → net ≈ +23 over the #26 WR, at our best-validated position (TE −0.43 MAE vs
+  consensus). If BOTH Allen and McBride are gone at #21 → Nabers/Higgins as before, Lamar #26.
+- **§39 "no TE2" is suspended when the TE outprojects the FLEX alternative.** Tyler Warren
+  (182, ADP 50-71) and Tucker Kraft (181, ADP 66-96) are legitimate FLEX starters, not luxuries:
+  Kraft at #66 is ≈ +22 over Addison at the same pick. Priority at #46 is still Henderson
+  (RB2 is the exposed slot), but at #55/#66 a TE at value beats a flagged RB or a 158-pt WR.
+  Hard cap: **two** TEs total (Loveland + one of McBride/Warren/Kraft) — a third is a bench TE.
+- RB targets unchanged: FLEX-as-TE means only TWO RBs start, so the RB cliff argument for
+  #13/#15 (RB default) stands and the RB-count finish target drops to 4-5, not 5-7.
+- The co-pilot already models FLEX as RB/WR/TE (`FLEX_ELIGIBLE`), so its needs/lineup math
+  agrees with the room — no flag change needed.
