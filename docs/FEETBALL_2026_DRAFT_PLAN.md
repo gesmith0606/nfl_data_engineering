@@ -518,3 +518,21 @@ TE projection AND Loveland as a starter-quality FLEX). So §39 stands as written
   not targets. The only TE2 window remains the #115 "free dart" — and only if RB/WR depth is
   already 5+ RB / 6+ WR incl. Burden.
 - **RB/WR finish target back to 5-7 RB / 6-7 WR** (§38 benchmark); FLEX is planned as RB/WR.
+
+**Scenario: Amon-Ra gone at #6 (2026-09-07).** Take the RB — **CMC over Cook** by the model
+(309 / vorp 117 vs 293 / 101, ADP 4-7 so he's often there) but Cook is the zero-flag safety pick;
+CMC carries §20 age 30.2 + §21 top-5-repeat (~24%) as info flags, NOT a bust flag. Never JT here
+(§22 TD-overachiever bust flag, beat rate 3%). Downstream changes:
+- **#13 flips to WR**: Lamb (247, ADP 11-12) if he fell, else **London (231) > A.J. Brown (228) >
+  Nabers (218)**. Skip Jefferson at ADP 12-13 (model 25, §27 market-ahead flag).
+- **#15 stays RB**: Hampton > Walker > Jeanty (RB2 matters MORE behind a 30-year-old RB1).
+  Barkley only if he fell to #13/#15 and you accept a second age-flag RB.
+- #21 Allen / Nabers-Higgins, #26 WR or Lamar, #34/#35 WR/WR — unchanged. By #35 you sit at
+  2 RB / 3-4 WR (+ Burden) / QB — exactly the §38 checkpoint.
+- **#46/#55 lean RB** (Henderson, then Swift/Dowdle-class) instead of WR: WR depth is already
+  5-6 deep by #35 and CMC's age/injury profile makes RB3/RB4 the real insurance.
+- **Handcuff at #115 (or #106 if it's thin)**: draft the SF RB2 rather than waiver-watching him.
+  Model order Kaelon Black (rookie, ADP 162-188) > Jordan James > Guerendo — verify the SF
+  depth chart in the room; the UC1 watchlist named Guerendo, the 2026 chart may not.
+- Cost vs base plan ≈ −20 pts (WR1 London/AJB 231 instead of ARSB 267, offset by CMC +16 over
+  Cook). Acceptable; do not reach for a WR at #6 to avoid it.
