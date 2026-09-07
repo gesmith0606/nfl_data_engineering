@@ -430,3 +430,10 @@ Changes:
   per the La Liga check), Nacua (suspension 8/28 — REAL, fade), Olave/Hall/Hubbard (injury),
   Kittle (PUP 8/23 — since activated), Alec Pierce (surgery 8/28), Charbonnet (PUP, keeper anyway).
 - Nothing else moved by more than a round on either ADP source.
+- **De'Zhaun Stribling (WR, SF) — ADDED to the #106 menu (2026-09-07, user call, §29 momentum).**
+  Model rank 170 is a blank (low-sample rookie fallback, role "unknown") — ignore it. Market:
+  FantasyPros 120 / ESPN 130 / Sharps 134 / DraftSharks 141 / Sleeper 149 (all Sep 3), PFN 105,
+  ADP rising ~3 rounds in three weeks; camp reports have him in SF's top-3 WRs and 3-wide sets
+  from Week 1. Same profile as Lemon (round-2 capital + landing spot + market moving up). Menu
+  at #106 is now Lemon / Stribling (ceiling) ahead of Diggs / Meyers (floor). He will NOT reach
+  #115 in this room — if he's the one, #106 is the pick.
