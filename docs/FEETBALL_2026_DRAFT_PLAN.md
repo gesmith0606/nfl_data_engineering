@@ -552,3 +552,54 @@ list, Schefter: real chance he plays the whole season; scheduled for Thursday's 
 this only touches the **#14 tell**: Achane Smokin' still leans WR at #14 (3-WR league, Nacua is
 one, two more starters needed, RB is keeper-stacked with Achane + Judkins) — weaker than
 "WR-desperate," but Lamb at #13 / Hampton at #15 stays the right order.
+
+## 12. Room ADP (Yahoo Draft Analysis, read 2026-09-07 ~17:00 ET) — the numbers that matter
+
+Yahoo's own board, last-7-days ADP, then **room-adjusted** = keepers removed and every later
+player shifted by the number of keepers priced above him (24 of 25 keepers sit inside Yahoo's
+top 210; Mooney is deeper). Files: `data/adp/adp_yahoo_half_ppr.csv` (raw),
+`data/adp/adp_yahoo_feetball_half_ppr.csv` (room — the co-pilot's `--adp-file` tonight).
+
+| Player | Yahoo ADP | Room ADP | Our pick | Read |
+|---|---|---|---|---|
+| Kenneth Walker III | 14.7 | ~17 | #13/#15 | gone before #15 more often than not — no longer a #15 name |
+| CeeDee Lamb | 11.4 | 13.4 | #13 | coin flip at #13 |
+| Omarion Hampton | 18.0 | 22.0 | #15 | ~80% there at #15 |
+| Ashton Jeanty | 18.7 | 22.7 | #15 | ~80% there; the discount branch |
+| Drake London | 20.5 | 24.5 | #15/#21 | there at #15, ~60% at #21 |
+| Josh Allen | 21.2 | **26.2** | #21 | **~70% there at #21** — better than the FFC read |
+| A.J. Brown | 23.9 | 29.9 | #15/#21 | there at #15, likely at #21 |
+| Malik Nabers | 30.0 | 37.0 | #21/#26 | likely at #26 |
+| Tee Higgins | 33.8 | 42.8 | #26/#34 | likely at #34 |
+| Lamar Jackson | 39.0 | **49.0** | #26/#34 | Yahoo rooms take him ~R4 — **likely there at #34**; #26 is early |
+| Ladd McConkey | 44.5 | 56.5 | #34/#46 | there at #46 |
+| Joe Burrow | 50.8 | 63.8 | #46 | ~75% there at #46 |
+| Jalen Hurts | 55.5 | **70.5** | #46/#55 | there at #46, ~70% at #55 |
+| TreVeyon Henderson | 68.4 | **87.4** | #55/#66/#75 | there at #66, ~70% at #75 — no need to buy at #46 |
+| Carnell Tate | 82.3 | 102.3 | #75 | there at #75 |
+| Brian Thomas Jr. | 83.8 | 103.8 | #75 | there at #75 |
+| Jordyn Tyson | 104.0 | 127.0 | #115+ | IR-R stash still available late |
+| Stefon Diggs | 106.3 | 129.3 | #106/#115 | there at #106, likely #115 |
+| Quentin Johnston | 107.0 | 130.0 | #106/#115 | there at #106, likely #115 |
+| De'Zhaun Stribling | 108.1 | 131.1 | #106/#115 | same |
+| RJ Harvey | 110.2 | 133.2 | #115 | there |
+| Makai Lemon | 118.8 | 141.8 | #115/#146 | there at #115, maybe #146 |
+| Cameron Dicker (K) | 124.4 | 147 | #155 | K/DST tiers start ~room 110 (Rams) — Patriots DST room 155 |
+
+**What this changes tonight (supersedes the FFC-based timing in §2/§10/§11):**
+1. **QB: Allen is more likely at #21 than we thought (~70%)** — take him. If he's gone,
+   **Lamar is not a #26 must**: his room price is 49, so **WR at #26 and Lamar at #34** is the
+   higher-EV line (accepting ~35% risk he's sniped by Crazy Eddie 27/30/31 or Bird Gang 28/33).
+   If both are gone, Hurts/Burrow are very likely at #46 — the ladder holds.
+2. **#13/#15: Walker is off the #15 list.** Lamb at #13 if there, else Hampton at #13;
+   #15 = Hampton/Jeanty if RB not yet taken, else London/A.J. Brown (both there).
+3. **Henderson does not need #46.** Room price 87 → take him at #55 or #66; #46 is free for
+   the QB (if needed) or the best WR (McConkey/Higgins tier).
+4. **Tate and Thomas Jr. reach #75** in this room — stop treating them as #46/#55/#66 buys;
+   #66 can go to the best RB/WR available, #75 to Tate or BTJ.
+5. **The whole #106 menu survives to #106 and mostly to #115** (room prices 129-142): take the
+   best two of Diggs / Johnston / Stribling / Harvey / Croskey-Merritt at #106 and #115, Lemon
+   is a #115 possibility, Tyson (127) is the #146/#155 IR stash.
+6. Early-capital read: the market values RBs earlier here (Walker 14.7, Henry 16.8, Hampton
+   18, Jeanty 18.7) and WRs later (London 20.5, A.J. Brown 23.9, Nabers 30, Higgins 33.8) —
+   exactly the shape that makes **RB at #13/#15 and WR at #21/#26/#34/#35** the right order.

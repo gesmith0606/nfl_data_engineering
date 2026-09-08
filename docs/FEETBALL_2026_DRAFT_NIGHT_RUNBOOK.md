@@ -17,8 +17,10 @@ draft that this setup is designed to avoid.
    ```bash
    python scripts/refresh_adp.py --source yahoo --scoring half_ppr --cdp-url http://127.0.0.1:9333
    ```
-   Never verified live — if the parser returns nothing, fall back to `data/adp_latest.csv`
-   (10-team FFC, refreshed Sep 6) and mentally shift QB/TE ~10 picks earlier.
+   DONE 2026-09-07 afternoon via the Chrome extension (parser updated for Yahoo's 2026
+   "Basic ADP" layout): `data/adp/adp_yahoo_half_ppr.csv` = raw Yahoo board (210 players,
+   last-7-days ADP) and **`data/adp/adp_yahoo_feetball_half_ppr.csv` = the ROOM board** (25
+   keepers removed, everyone else shifted by the keepers priced above him). Use the room file.
 3. **Audit the Yahoo pre-draft queue / autopick list.** Load the §5 queue (60 names, keepers
    excluded). Then remove **every QB except your one target tier, every K, every DST**, and any
    name already on the fade list. La Liga lesson #3: a leftover queue entry autopicked a 2nd QB.
@@ -43,7 +45,7 @@ python scripts/draft_live.py --manual --teams 10 --my-slot 6 --scoring half_ppr 
   --roster-format yahoo_feetball --season 2026 \
   --pick-order-file data/draft/feetball_2026_pick_order.txt \
   --keepers-file data/draft/feetball_2026_keepers.txt \
-  --adp-file data/adp_latest.csv --top 8 \
+  --adp-file data/adp/adp_yahoo_feetball_half_ppr.csv --top 8 \
   --add-pick "Jahmyr Gibbs" --add-pick "Bijan Robinson" ...
 ```
 

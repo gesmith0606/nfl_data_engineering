@@ -1,0 +1,211 @@
+adp_rank,player_name,position,team,adp,high,low,stdev,times_drafted,source,scoring_format,fetched_at,name_key
+1,Jahmyr Gibbs,RB,DET,1.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jahmyr gibbs
+2,Bijan Robinson,RB,ATL,2.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bijan robinson
+3,Ja'Marr Chase,WR,CIN,3.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jamarr chase
+4,Puka Nacua,WR,LAR,5.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,puka nacua
+5,Jonathan Taylor,RB,IND,6.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jonathan taylor
+6,Christian McCaffrey,RB,SF,6.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,christian mccaffrey
+7,Jaxon Smith-Njigba,WR,SEA,7.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jaxon smithnjigba
+8,Amon-Ra St. Brown,WR,DET,7.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,amonra st brown
+9,James Cook III,RB,BUF,9.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,james cook
+10,Saquon Barkley,RB,PHI,11.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,saquon barkley
+11,CeeDee Lamb,WR,DAL,11.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,ceedee lamb
+12,Justin Jefferson,WR,MIN,13.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,justin jefferson
+13,Kenneth Walker III,RB,KC,14.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kenneth walker
+14,Chase Brown,RB,CIN,15.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,chase brown
+15,De'Von Achane,RB,MIA,15.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,devon achane
+16,Derrick Henry,RB,BAL,16.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,derrick henry
+17,Omarion Hampton,RB,LAC,18.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,omarion hampton
+18,Ashton Jeanty,RB,LV,18.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,ashton jeanty
+19,Drake London,WR,ATL,20.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,drake london
+20,Brock Bowers,TE,LV,20.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,brock bowers
+21,Nico Collins,WR,HOU,21.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,nico collins
+22,Josh Allen,QB,BUF,21.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,joshua allen
+23,George Pickens,WR,DAL,22.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,george pickens
+24,A.J. Brown,WR,NE,23.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,aj brown
+25,Kyren Williams,RB,LAR,27.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kyren williams
+26,Trey McBride,TE,ARI,28.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,trey mcbride
+27,DeVonta Smith,WR,PHI,29.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,devonta smith
+28,Jeremiyah Love,RB,ARI,29.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jeremiyah love
+29,Malik Nabers,WR,NYG,30.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,malik nabers
+30,Chris Olave,WR,NO,30.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,christopher olave
+31,Javonte Williams,RB,DAL,32.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,javonte williams
+32,Tee Higgins,WR,CIN,33.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tee higgins
+33,Breece Hall,RB,NYJ,34.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,breece hall
+34,Zay Flowers,WR,BAL,35.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,zay flowers
+35,Rashee Rice,WR,KC,36.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rashee rice
+36,Lamar Jackson,QB,BAL,39.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,lamar jackson
+37,Jaylen Waddle,WR,DEN,39.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jaylen waddle
+38,Colston Loveland,TE,CHI,39.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,colston loveland
+39,Travis Etienne Jr.,RB,NO,41.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,travis etienne
+40,Tetairoa McMillan,WR,CAR,41.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tetairoa mcmillan
+41,Cam Skattebo,RB,NYG,42.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,cameron skattebo
+42,Ladd McConkey,WR,LAC,44.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,ladd mcconkey
+43,D'Andre Swift,RB,CHI,45.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dandre swift
+44,Emeka Egbuka,WR,TB,46.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,emeka egbuka
+45,Garrett Wilson,WR,NYJ,46.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,garrett wilson
+46,Tyler Warren,TE,IND,46.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyler warren
+47,Drake Maye,QB,NE,48.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,drake maye
+48,Joe Burrow,QB,CIN,50.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,joseph burrow
+49,Bucky Irving,RB,TB,53.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bucky irving
+50,David Montgomery,RB,HOU,53.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,david montgomery
+51,Quinshon Judkins,RB,CLE,54.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,quinshon judkins
+52,Terry McLaurin,WR,WAS,54.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,terry mclaurin
+53,Jalen Hurts,QB,PHI,55.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jalen hurts
+54,Jayden Daniels,QB,WAS,56.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jayden daniels
+55,Luther Burden III,WR,CHI,57.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,luther burden
+56,DJ Moore,WR,BUF,57.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dj moore
+57,Davante Adams,WR,LAR,57.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,davante adams
+58,Josh Jacobs,RB,GB,59.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,joshua jacobs
+59,Tucker Kraft,TE,GB,59.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tucker kraft
+60,Bhayshul Tuten,RB,JAX,61.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bhayshul tuten
+61,Sam LaPorta,TE,DET,63.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,samuel laporta
+62,Jadarian Price,RB,SEA,63.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jadarian price
+63,Jameson Williams,WR,DET,65.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jameson williams
+64,Caleb Williams,QB,CHI,66.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,caleb williams
+65,Rome Odunze,WR,CHI,66.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rome odunze
+66,Christian Watson,WR,GB,67.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,christian watson
+67,TreVeyon Henderson,RB,NE,68.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,treveyon henderson
+68,Justin Herbert,QB,LAC,70.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,justin herbert
+69,Harold Fannin Jr.,TE,CLE,70.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,harold fannin
+70,Mike Evans,WR,SF,70.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,michael evans
+71,Kyle Pitts Sr.,TE,ATL,71.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kyle pitts
+72,Dak Prescott,QB,DAL,73.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dak prescott
+73,Jaylen Warren,RB,PIT,75.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jaylen warren
+74,Parker Washington,WR,JAX,75.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,parker washington
+75,Rhamondre Stevenson,RB,NE,75.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rhamondre stevenson
+76,Marvin Harrison Jr.,WR,ARI,78.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,marvin harrison
+77,George Kittle,TE,SF,81.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,george kittle
+78,Carnell Tate,WR,TEN,82.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,carnell tate
+79,Trevor Lawrence,QB,JAX,82.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,trevor lawrence
+80,Brian Thomas Jr.,WR,JAX,83.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,brian thomas
+81,DK Metcalf,WR,PIT,85.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dk metcalf
+82,Tony Pollard,RB,TEN,86.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,anthony pollard
+83,Rico Dowdle,RB,PIT,86.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rico dowdle
+84,MarShawn Lloyd,RB,GB,87.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,marshawn lloyd
+85,Rams,DST,LAR,87.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rams
+86,Brandon Aubrey,K,DAL,88.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,brandon aubrey
+87,Jonathon Brooks,RB,CAR,90.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jonathon brooks
+88,Chuba Hubbard,RB,CAR,90.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,chuba hubbard
+89,Jaxson Dart,QB,NYG,94.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jaxson dart
+90,J.K. Dobbins,RB,DEN,94.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jk dobbins
+91,Chris Godwin Jr.,WR,TB,94.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,christopher godwin
+92,Travis Kelce,TE,KC,95.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,travis kelce
+93,Texans,DST,HOU,95.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,texans
+94,Dalton Kincaid,TE,BUF,96.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dalton kincaid
+95,Alec Pierce,WR,IND,96.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,alec pierce
+96,Brock Purdy,QB,SF,98.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,brock purdy
+97,Bo Nix,QB,DEN,98.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bo nix
+98,Matthew Stafford,QB,LAR,99.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,matthew stafford
+99,Blake Corum,RB,LAR,99.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,blake corum
+100,Michael Wilson,WR,ARI,100.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,michael wilson
+101,Broncos,DST,DEN,103.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,broncos
+102,Jordyn Tyson,WR,NO,104.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jordyn tyson
+103,Josh Downs,WR,IND,104.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,joshua downs
+104,Dallas Goedert,TE,PHI,104.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dallas goedert
+105,Patrick Mahomes,QB,KC,105.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,patrick mahomes
+106,Jacory Croskey-Merritt,RB,WAS,105.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jacory croskeymerritt
+107,Stefon Diggs,WR,WAS,106.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,stefon diggs
+108,Quentin Johnston,WR,LAC,107.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,quentin johnston
+109,Courtland Sutton,WR,DEN,107.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,courtland sutton
+110,De'Zhaun Stribling,WR,SF,108.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dezhaun stribling
+111,Isaiah Likely,TE,NYG,109.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,isaiah likely
+112,Seahawks,DST,SEA,110.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,seahawks
+113,RJ Harvey,RB,DEN,110.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rj harvey
+114,Jordan Mason,RB,MIN,111.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jordan mason
+115,Kyle Monangai,RB,CHI,111.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kyle monangai
+116,Jared Goff,QB,DET,112.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jared goff
+117,Kyler Murray,QB,MIN,113.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kyler murray
+118,Mark Andrews,TE,BAL,113.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,mark andrews
+119,Jayden Reed,WR,GB,114.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jayden reed
+120,Jordan Addison,WR,MIN,115.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jordan addison
+121,Ricky Pearsall,WR,SF,115.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,ricky pearsall
+122,Aaron Rodgers,QB,PIT,115.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,aaron rodgers
+123,Jake Ferguson,TE,DAL,117.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jacob ferguson
+124,Brian Robinson,RB,ATL,117.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,brian robinson
+125,Fernando Mendoza,QB,LV,117.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,fernando mendoza
+126,Makai Lemon,WR,PHI,118.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,makai lemon
+127,Ka'imi Fairbairn,K,HOU,119.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kaimi fairbairn
+128,Cooper Kupp,WR,SEA,119.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,cooper kupp
+129,Kenny Gainwell,RB,TB,120.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kenneth gainwell
+130,Bryce Young,QB,CAR,121.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bryce young
+131,Juwan Johnson,TE,NO,121.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,juwan johnson
+132,Michael Pittman Jr.,WR,PIT,121.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,michael pittman
+133,Jordan Love,QB,GB,121.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jordan love
+134,Sam Darnold,QB,SEA,122.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,samuel darnold
+135,KC Concepcion,WR,CLE,122.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kc concepcion
+136,Jason Myers,K,SEA,122.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jason myers
+137,Cam Ward,QB,TEN,123.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,cameron ward
+138,David Njoku,TE,LAC,123.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,david njoku
+139,Pat Freiermuth,TE,PIT,123.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,pat freiermuth
+140,Isaac TeSlaa,WR,DET,123.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,isaac teslaa
+141,Mike Washington Jr.,RB,LV,123.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,michael washington
+142,Ray Davis,RB,BUF,123.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,ray davis
+143,Eagles,DST,PHI,124.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,eagles
+144,Cameron Dicker,K,LAC,124.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,cameron dicker
+145,Travis Hunter,WR,JAX,124.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,travis hunter
+146,Aaron Jones Sr.,RB,MIN,124.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,aaron jones
+147,Malik Willis,QB,MIA,124.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,malik willis
+148,Matthew Golden,WR,GB,124.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,matthew golden
+149,Rachaad White,RB,WAS,124.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rachaad white
+150,Isiah Pacheco,RB,DET,124.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,isiah pacheco
+151,AJ Barner,TE,SEA,125.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,aj barner
+152,Dalton Schultz,TE,HOU,125.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,dalton schultz
+153,Keenan Allen,WR,IND,125.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,keenan allen
+154,Baker Mayfield,QB,TB,125.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,baker mayfield
+155,C.J. Stroud,QB,HOU,125.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,cj stroud
+156,Alvin Kamara,RB,NO,125.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,alvin kamara
+157,49ers,DST,SF,125.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,49ers
+158,Terrance Ferguson,TE,LAR,125.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,terrance ferguson
+159,Kayshon Boutte,WR,HOU,125.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kayshon boutte
+160,Bears,DST,CHI,125.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bears
+161,Emmett Johnson,RB,KC,126.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,emmett johnson
+162,Oronde Gadsden,TE,LAC,126.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,oronde gadsden
+163,Chig Okonkwo,TE,WAS,126.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,chig okonkwo
+164,Braelon Allen,RB,NYJ,126.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,braelon allen
+165,Ja'Kobi Lane,WR,BAL,126.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jakobi lane
+166,Giants,DST,NYG,127.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,giants
+167,Deebo Samuel Sr.,WR,SF,127.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,deebo samuel
+168,Daniel Jones,QB,IND,127.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,daniel jones
+169,Jake Elliott,K,PHI,127.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jacob elliott
+170,Hunter Henry,TE,NE,127.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,hunter henry
+171,Nick Folk,K,ATL,127.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,nicholas folk
+172,T.J. Hockenson,TE,MIN,127.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tj hockenson
+173,Tyreek Hill,WR,MIA,127.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyreek hill
+174,Rashid Shaheed,WR,SEA,128.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,rashid shaheed
+175,Tre Tucker,WR,LV,128.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tre tucker
+176,Jalen Nailor,WR,LV,128.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jalen nailor
+177,Jonah Coleman,RB,DEN,128.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jonah coleman
+178,Bills,DST,BUF,128.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,bills
+179,Tank Bigsby,RB,PHI,129.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tank bigsby
+180,Harrison Butker,K,KC,129.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,harrison butker
+181,Xavier Worthy,WR,KC,129.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,xavier worthy
+182,Kaelon Black,RB,SF,129.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kaelon black
+183,Brenton Strange,TE,JAX,129.7,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,brenton strange
+184,Tyler Allgeier,RB,ARI,129.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyler allgeier
+185,Tyler Shough,QB,NO,130.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyler shough
+186,Kenyon Sadiq,TE,NYJ,130.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,kenyon sadiq
+187,Chris Rodriguez Jr.,RB,JAX,130.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,christopher rodriguez
+188,Tyrone Tracy Jr.,RB,NYG,130.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyrone tracy
+189,Trey Smack,K,GB,130.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,trey smack
+190,Wan'Dale Robinson,WR,TEN,130.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,wandale robinson
+191,Woody Marks,RB,HOU,130.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,woody marks
+192,Khalil Shakir,WR,BUF,130.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,khalil shakir
+193,Jakobi Meyers,WR,JAX,130.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jakobi meyers
+194,Greg Dulcich,TE,MIA,130.9,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,greg dulcich
+195,Zach Charbonnet,RB,SEA,131.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,zachary charbonnet
+196,Cam Little,K,JAX,131.0,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,cameron little
+197,Patriots,DST,NE,131.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,patriots
+198,Denzel Boston,WR,CLE,131.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,denzel boston
+199,Keaton Mitchell,RB,LAC,131.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,keaton mitchell
+200,Chiefs,DST,KC,131.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,chiefs
+201,Browns,DST,CLE,131.5,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,browns
+202,Harrison Mevis,K,LAR,131.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,harrison mevis
+203,Tyjae Spears,RB,TEN,132.1,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyjae spears
+204,Romeo Doubs,WR,NE,132.2,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,romeo doubs
+205,Vikings,DST,MIN,132.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,vikings
+206,Tyler Bass,K,BUF,132.4,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,tyler bass
+207,Chris Boswell,K,PIT,132.6,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,christopher boswell
+208,Jayden Higgins,WR,HOU,132.8,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jayden higgins
+209,Jalen Coker,WR,CAR,133.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,jalen coker
+210,Spencer Shrader,K,IND,133.3,,,,,yahoo,half_ppr,2026-09-08T00:15:10.113960+00:00,spencer shrader

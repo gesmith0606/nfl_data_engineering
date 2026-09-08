@@ -34,6 +34,9 @@ from src.sleeper_player_map import normalize_name
 
 _TEAM_POS = re.compile(r"^(?P<team>[A-Za-z]{2,3})\s*-\s*(?P<pos>QB|RB|WR|TE|K|DEF|DST)$")
 _NUMBER = re.compile(r"^\d+(\.\d+)?$")
+_PCT = re.compile(r"^\d+%$")
+_INT = re.compile(r"^\d+$")
+_STATUS_TAG = re.compile(r"^(Q|O|D|P|IR|IR-R|PUP|PUP-R|SUSP|NFI|NA|CEL|COV)$")
 _STATUS = {"Q", "O", "D", "IR", "PUP", "SUSP", "NFI", "NA", "P"}
 
 _YAHOO_URL_FRAGMENT = "fantasysports.yahoo.com/f1/draftanalysis"
@@ -59,10 +62,44 @@ def parse_yahoo_draft_analysis(text: str) -> pd.DataFrame:
         if not name or not m or _NUMBER.match(name):
             i += 1
             continue
-        # First numeric line after the team/pos line is Avg Pick.
+        # Two rendered layouts. Classic: "Avg Pick / Avg Round / % Drafted"
+        # (first numeric line after the team is Avg Pick). 2026 "Basic ADP":
+        # "Player Rank / % Drafted / Preseason ADP / Last-7-days ADP" — the
+        # first numeric line is the RANK, recognised by an integer immediately
+        # followed by a "NN%" line; ADP is then the LAST number of the
+        # numeric run after the percent (in practice the preseason column;
+        # the last-7-days column differs by under a pick).
         k = j + 1
-        while k < len(lines) and k <= j + 3 and not _NUMBER.match(lines[k]):
+        # 2026 layout puts the injury/status tag AFTER the team line too.
+        while k < len(lines) and _STATUS_TAG.match(lines[k]):
             k += 1
+        nxt = [ln for ln in lines[k : k + 6] if ln]  # blank lines dropped
+        if (
+            len(nxt) >= 3
+            and _INT.match(nxt[0])
+            and _PCT.match(nxt[1])
+            and _NUMBER.match(nxt[2])
+        ):
+            run = []
+            for ln in nxt[2:]:
+                if _NUMBER.match(ln):
+                    run.append(ln)
+                else:
+                    break
+            # Advance k to the last number of that run (absolute index).
+            want = len(run)
+            idx = k
+            while idx < len(lines) and not _PCT.match(lines[idx]):
+                idx += 1
+            seen = 0
+            while idx < len(lines) and seen < want:
+                idx += 1
+                if idx < len(lines) and _NUMBER.match(lines[idx]):
+                    seen += 1
+            k = idx if seen == want else j + 1
+        else:
+            while k < len(lines) and k <= j + 3 and not _NUMBER.match(lines[k]):
+                k += 1
         if k < len(lines) and _NUMBER.match(lines[k]):
             pos = m.group("pos").upper()
             rows.append(
