@@ -618,9 +618,9 @@ TE), no K/DST before #146, RB/WR depth over everything after the starters.
 
 | Pick | Primary | Fallbacks | Room read |
 |---|---|---|---|
-| **#6** | Amon-Ra St. Brown (room 7.9) | James Cook (9.3) → CMC (6.1) if he fell → Henry | ARSB ~50% there; Cook ~70% |
+| **#6** | **James Cook (room 9.3) — RB1** (George's call; CMC 6.1 if he fell) | ARSB (7.9) only if you accept RB2 from the #26 dead-zone tier (Hall 38 inj / Skattebo 48 / Swift 51) | Cook ~70% there |
 | **#13** | CeeDee Lamb (13.4) | Hampton (22) / Barkley (11, age flag) | Lamb coin flip; take him over Hampton because #14 (Achane Smokin') is WR-leaning |
-| **#15** | Hampton (22) if RB not yet taken | Jeanty (23) → London (24.5) / A.J. Brown (30) | Walker (17) is gone; Hampton ~80% |
+| **#15** | **Hampton (22) — RB2** | Jeanty (23) → Barkley if he fell → only then London (24.5) / A.J. Brown (30) | Walker (17) is gone; Hampton ~80%. **Two RBs must be in hand by #15** — WR is deep at #21-#35, RB is not |
 | **#21** | **Josh Allen (26)** | Nabers (37) / Higgins (43) / A.J. Brown if he fell | Allen ~70% there — the trigger |
 | **#26** | Best WR: Nabers / Higgins / DeVonta (36) / Flowers (42) / G. Wilson (55) | — | Deep tier; no QB here |
 | **#34** | WR: Higgins / McConkey (56) / Waddle (45) / McLaurin (66) | Lamar (49) only if he fell and you can't resist | Worst RB bust round — no RB |
@@ -642,3 +642,10 @@ Lamb gone at #13 → Hampton #13, A.J. Brown/London #15.
 
 Tells: #14 Achane Smokin' (WR-leaning) · #20 Amon Ra takes a QB or is out until #80 · Crazy
 Eddie 27/30/31 + Bird Gang 28/33 are the only QB buyers between #26 and #46.
+
+**Correction (2026-09-07, George): "Henderson would be my RB2?"** — as first written, §13 with
+ARSB at #6 left one RB through #46 and made Henderson (200 pts) the RB2. Fixed above: **Cook at
+#6 and Hampton/Jeanty at #15 are RB1/RB2**, Lamb sits between them at #13, and Henderson is the
+**RB3** at #55. If you go ARSB at #6 instead, RB2 has to come at #26 from the flagged dead-zone
+tier (Hall/Skattebo/Swift) — that's the price of the WR1, and the room's early-RB pricing says
+don't pay it.
