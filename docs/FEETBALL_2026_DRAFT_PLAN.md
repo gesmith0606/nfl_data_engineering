@@ -610,3 +610,35 @@ and keeps #34 for the Higgins/McConkey WR tier (~+20 over the #46 WR) → net �
 **Higgins + Burrow stack** (Higgins room 43 → #26/#34). Ladder now: **Allen #21 → else WR at
 #26/#34/#35 → Burrow at #46 (~75% there) → Hurts at #46/#55 if Burrow is gone (room 70) →
 Herbert/Lawrence/Purdy/Mahomes at #75.** Lamar only as a "fell to #34 and I can't resist" call.
+
+## 13. FINAL pick-by-pick for tonight (consolidated 2026-09-07 ~17:30 ET — this supersedes §2)
+
+Room prices = keeper-adjusted Yahoo ADP (§12). House rules: one QB, no TE2 (Loveland is the
+TE), no K/DST before #146, RB/WR depth over everything after the starters.
+
+| Pick | Primary | Fallbacks | Room read |
+|---|---|---|---|
+| **#6** | Amon-Ra St. Brown (room 7.9) | James Cook (9.3) → CMC (6.1) if he fell → Henry | ARSB ~50% there; Cook ~70% |
+| **#13** | CeeDee Lamb (13.4) | Hampton (22) / Barkley (11, age flag) | Lamb coin flip; take him over Hampton because #14 (Achane Smokin') is WR-leaning |
+| **#15** | Hampton (22) if RB not yet taken | Jeanty (23) → London (24.5) / A.J. Brown (30) | Walker (17) is gone; Hampton ~80% |
+| **#21** | **Josh Allen (26)** | Nabers (37) / Higgins (43) / A.J. Brown if he fell | Allen ~70% there — the trigger |
+| **#26** | Best WR: Nabers / Higgins / DeVonta (36) / Flowers (42) / G. Wilson (55) | — | Deep tier; no QB here |
+| **#34** | WR: Higgins / McConkey (56) / Waddle (45) / McLaurin (66) | Lamar (49) only if he fell and you can't resist | Worst RB bust round — no RB |
+| **#35** | WR/best available: DJ Moore (68) / Jameson (77) / Odunze (79) | Egbuka (55) | By here: 2 RB / 3 WR (+Burden) / QB if Allen |
+| **#46** | **Burrow (64)** if no Allen; else best WR/RB (McConkey tier, Swift 53) | Hurts (70) | Burrow ~75% there |
+| **#55** | **TreVeyon Henderson (87)** — RB3 | Swift / best RB; Hurts if still QB-less | RB round-6 hot cell |
+| **#66** | Best RB/WR available: Addison (135) / Godwin (114) / Harvey-class RB | Henderson if he lasted | Dead zone closes |
+| **#75** | **Carnell Tate (102) or Brian Thomas Jr. (104)** | Quentin Johnston (130) / RJ Harvey (133) | Both rookies reach here |
+| R9 | *Burden keeper* | | |
+| **#106** | Best two of: Diggs (129) / Johnston (130) / Stribling (131) / Harvey (133) / Croskey-Merritt (128) | Lemon (142) | Whole menu survives |
+| **#115** | The other one, or Corum (RB count) | Lemon / Kelce-Goedert dart only if 5+ RB & 6+ WR | Mason is OUT (fade) |
+| R13 | *Loveland keeper* | | |
+| **#146** | DST: Patriots (155) / Vikings / Seahawks | | K/DST tiers start ~110 (Rams) |
+| **#155** | **Jordyn Tyson IR-R stash (127)** → IR slot, K off waivers before Sep 13 | K (Dicker 147 / Myers / Fairbairn) if the IR slot won't take him | 17th roster spot is open regardless |
+
+Scenario branches: ARSB gone at #6 → Cook (or CMC), then #13 WR (Lamb/London/A.J. Brown), #15 RB,
+#46/#55 lean RB, SF handcuff (Kaelon Black, room ~150) at #115. Allen gone → Burrow #46 line.
+Lamb gone at #13 → Hampton #13, A.J. Brown/London #15.
+
+Tells: #14 Achane Smokin' (WR-leaning) · #20 Amon Ra takes a QB or is out until #80 · Crazy
+Eddie 27/30/31 + Bird Gang 28/33 are the only QB buyers between #26 and #46.
