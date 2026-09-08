@@ -536,3 +536,12 @@ CMC carries §20 age 30.2 + §21 top-5-repeat (~24%) as info flags, NOT a bust f
   depth chart in the room; the UC1 watchlist named Guerendo, the 2026 chart may not.
 - Cost vs base plan ≈ −20 pts (WR1 London/AJB 231 instead of ARSB 267, offset by CMC +16 over
   Cook). Acceptable; do not reach for a WR at #6 to avoid it.
+
+**George's preferred opening (2026-09-07 evening): Cook #6 → Hampton + A.J. Brown at #13/#15.**
+All three are realistic (Cook ADP 9/9, Hampton 22/16, A.J. Brown 17/19 — NE now, Maye's WR1,
+no flags). Only ONE opponent pick sits between #13 and #15 — Achane Smokin' at #14, who kept
+Achane + Judkins and lost Nacua to the suspension, so they lean WR there: **take A.J. Brown at
+#13 and Hampton at #15** unless Achane already took a WR at #7 (then flip). Fallbacks: Cook gone
+→ CMC, else ARSB/Henry; Hampton gone → Walker > Jeanty; A.J. Brown gone → London > Nabers.
+Then the standard line: #21 Allen / Nabers-Higgins, #26 WR or Lamar, #34/#35 WR/WR, #46
+Henderson as RB3.
