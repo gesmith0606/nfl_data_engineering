@@ -1,0 +1,498 @@
+{
+  "fetch_run_id": "4cd88670-0a20-4359-ade9-86997cd87254",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-08T12:26:09.613304+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-pressure-is-a-privilege",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-pressure-is-a-privilege",
+      "title": "C.J. Stroud: Pressure is a privilege",
+      "body_text": "The Texans have gone to the playoffs in each of quarterback C.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-08T12:18:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-latham-gives-opponents-a-warning-about-what-the-titans-offensive-line-wont-allow",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-latham-gives-opponents-a-warning-about-what-the-titans-offensive-line-wont-allow",
+      "title": "JC Latham gives opponents a warning about what the Titans' offensive line won't allow",
+      "body_text": "Titans offensive tackle JC Latham wants opposing teams to know they're not going to get away with any cheap shots on quarterback Cam Ward.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-08T10:17:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-cam-taylor-britt-and-four-other-players-for-preseason-week-3-infractions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-cam-taylor-britt-and-four-other-players-for-preseason-week-3-infractions",
+      "title": "NFL fines Cam Taylor-Britt and four other players for preseason Week 3 infractions",
+      "body_text": "The NFL fines players for illegal hits during the preseason, but for the third and final week of the preseason, those fines were fairly limited.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-08T09:49:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-pick-different-captains-for-each-game-including-sam-darnold-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-pick-different-captains-for-each-game-including-sam-darnold-for-week-1",
+      "title": "Seahawks pick different captains for each game, including Sam Darnold for Week 1",
+      "body_text": "When the Seahawks open the season on Wednesday night against the Patriots, quarterback Sam Darnold will be one of their captains.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-08T07:58:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-patriots-agree-to-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-patriots-agree-to-four-year-extension",
+      "title": "Christian Gonzalez, Patriots agree to four-year extension",
+      "body_text": "Gonzalez has agreed to a deal that will make him the league's highest-paid corner, ending a contract dispute.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-08T05:11:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-in-good-shape-to-play-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-in-good-shape-to-play-season-opener",
+      "title": "George Kittle \"in good shape\" to play season opener",
+      "body_text": "Tight end George Kittle traveled with the 49ers to Australia, which was a sign he would play in Thursday night's season opener.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T03:16:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raheem-morris-confirms-nick-bosa-will-play-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raheem-morris-confirms-nick-bosa-will-play-season-opener",
+      "title": "Raheem Morris confirms Nick Bosa will play season opener",
+      "body_text": "The 49ers defensive end tore his ACL in a Sept. 21 game against the Cardinals and underwent surgery Sept. 26.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T02:13:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Raheem Morris",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-mum-on-plans-for-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-mum-on-plans-for-season-opener",
+      "title": "Aaron Donald mum on plans for season opener",
+      "body_text": "49ers coach Kyle Shanahan expects to see Aaron Donald on Thursday night, but like Rams defensive coordinator Chris Shula earlier Monday, the defensive tackle declined to reveal his plans for the game in Australia.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T00:24:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald",
+        "Kyle Shanahan",
+        "Chris Shula"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-three-teams-have-reached-out-to-darius-slayton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-three-teams-have-reached-out-to-darius-slayton",
+      "title": "Report: Three teams have reached out to Darius Slayton",
+      "body_text": "The Giants released wide receiver Darius Slayton on Monday, making him a free agent.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T23:56:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Slayton",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-i-am-tired-of-watching-the-super-bowl-on-tv",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-i-am-tired-of-watching-the-super-bowl-on-tv",
+      "title": "Derrick Henry: I am tired of watching the Super Bowl on TV",
+      "body_text": "Derrick Henry has played in one AFC Championship Game, a 35-24 loss to the Chiefs in the 2019 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T23:09:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry",
+        "Super Bowl",
+        "Championship Game"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-among-cardinals-team-captains",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-among-cardinals-team-captains",
+      "title": "Jacoby Brissett among Cardinals' team captains",
+      "body_text": "Jacoby Brissett who is in his first season as a starter for the Cardinals, was named one of five captains for the team this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T22:36:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darius-slayton-grateful-for-time-with-giants-excited-to-see-whats-next",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darius-slayton-grateful-for-time-with-giants-excited-to-see-whats-next",
+      "title": "Darius Slayton: Grateful for time with Giants, excited to see what's next",
+      "body_text": "Wide receiver Darius Slayton's long run with the Giants came to an end on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T22:10:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Slayton"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-lb-cedric-gray-injured-in-off-road-vehicle-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-lb-cedric-gray-injured-in-off-road-vehicle-accident",
+      "title": "Titans LB Cedric Gray injured in off-road vehicle accident",
+      "body_text": "Titans linebacker Cedric Gray has entered the NFL's concussion protocol after being injured in an off-field accident over the weekend.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T22:01:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cedric Gray"
+      ],
+      "resolved_player_ids": [
+        "00-0039858"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dc-chris-shula-everythings-day-by-day-with-aaron-donald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dc-chris-shula-everythings-day-by-day-with-aaron-donald",
+      "title": "Rams DC Chris Shula: Everything's day by day with Aaron Donald",
+      "body_text": "The Rams are moving closer to their trip to Australia for their season opener against the 49ers and it remains unclear if defensive tackle Aaron Donald is going to be on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T21:58:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Shula",
+        "Aaron Donald",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-s-nick-emmanwori-remains-limited-s-ty-okada-dnp-again-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-s-nick-emmanwori-remains-limited-s-ty-okada-dnp-again-on-monday",
+      "title": "Seahawks S Nick Emmanwori remains limited, S Ty Okada DNP again on Monday",
+      "body_text": "Seahawks safety Nick Emmanwori remained limited in Monday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T21:40:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Emmanwori",
+        "Ty Okada",
+        "Monday Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0040733",
+        "00-0038765"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-says-he-feels-good-about-jeremiyah-loves-chances-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-says-he-feels-good-about-jeremiyah-loves-chances-for-week-1",
+      "title": "Mike LaFleur says he feels \"good\" about Jeremiyah Love's chances for Week 1",
+      "body_text": "Cardinals running back Jeremiyah Love injured his ankle in an Aug. 13 preseason game against the Raiders.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T21:18:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-to-no-surprise-has-little-to-say-about-expanding-unc-investigation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-to-no-surprise-has-little-to-say-about-expanding-unc-investigation",
+      "title": "Bill Belichick, to no surprise, has little to say about expanding UNC investigation",
+      "body_text": "Despite the team's 1-0 record, a storm has been blowing through the North Carolina football program, with most of it playing out privately.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T21:18:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-darius-slayton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cut-darius-slayton",
+      "title": "Giants cut Darius Slayton",
+      "body_text": "The veteran wide receiver, who signed a three-year, $36 million contract last season, is out.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T21:09:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Slayton"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-return-to-bengals-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-return-to-bengals-practice",
+      "title": "Ja'Marr Chase, Tee Higgins return to Bengals practice",
+      "body_text": "The Bengals didn't show concern about wide receivers Ja'Marr Chase and Tee Higgins missing Week 1 when they missed practice last week and the outlook continues to be good as they move closer to Week 1.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T21:04:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marr Chase",
+        "Tee Higgins",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/newcomer-zaire-franklin-named-a-packers-captain-along-with-four-repeat-captains-from-2025",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/newcomer-zaire-franklin-named-a-packers-captain-along-with-four-repeat-captains-from-2025",
+      "title": "Newcomer Zaire Franklin named a Packers captain, along with four repeat captains from 2025",
+      "body_text": "It didn't take long for new Packers linebacker Zaire Franklin to establish himself as a team leader.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-07T21:02:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Newcomer Zaire",
+        "Zaire Franklin"
+      ],
+      "resolved_player_ids": [
+        "00-0034431"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-barmore-returns-to-patriots-practice-treveyon-henderson-remains-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-barmore-returns-to-patriots-practice-treveyon-henderson-remains-out",
+      "title": "Christian Barmore returns to Patriots practice, TreVeyon Henderson remains out",
+      "body_text": "The Patriots listed three players as out of practice on Sunday and they got one of them back on the field Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T20:27:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Barmore",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0036981"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-hopeful-that-joey-porter-will-play-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-hopeful-that-joey-porter-will-play-week-1",
+      "title": "Mike McCarthy hopeful that Joey Porter will play Week 1",
+      "body_text": "The Steelers do not negotiate contract extensions once the season starts.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-07T20:22:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-lb-joe-bachie-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sign-lb-joe-bachie-to-active-roster",
+      "title": "Lions sign LB Joe Bachie to active roster",
+      "body_text": "The Lions have filled one of the openings on their active roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T20:22:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Bachie",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0035895"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-underwood-is-michigans-qb-right-now-but-his-job-security-isnt-infinite",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-underwood-is-michigans-qb-right-now-but-his-job-security-isnt-infinite",
+      "title": "Bryce Underwood is Michigan's QB \"right now,\" but his job security isn't \"infinite\"",
+      "body_text": "Michigan quarterback Bryce Underwood saved the Wolverines' bacon with a Hail Mary mulligan.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T20:09:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Underwood",
+        "Hail Mary"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-wont-have-full-season-captains-under-mike-mccarthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-wont-have-full-season-captains-under-mike-mccarthy",
+      "title": "Steelers won't have full-season captains under Mike McCarthy",
+      "body_text": "It's currently team captain season, with plenty of NFL franchises unveiling plenty of season-long captains.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T19:53:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-is-expected-to-play-for-the-colts-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-is-expected-to-play-for-the-colts-in-week-1",
+      "title": "Alec Pierce is expected to play for the Colts in Week 1",
+      "body_text": "Colts wide receiver Alec Pierce has been back at practice for a little over a week, but that's been enough time for the team to see what they needed from the wideout.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T19:52:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-lg-tyler-smith-to-have-thumb-surgery-miss-4-6-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-lg-tyler-smith-to-have-thumb-surgery-miss-4-6-weeks",
+      "title": "Cowboys LG Tyler Smith to have thumb surgery, miss 4-6 weeks",
+      "body_text": "The Cowboys are going to be missing a starting offensive lineman for the first chunk of the regular season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T19:30:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Smith",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037243"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoas-return-to-pittsburgh-puts-extra-pressure-on-mike-mccarthys-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoas-return-to-pittsburgh-puts-extra-pressure-on-mike-mccarthys-debut",
+      "title": "Tua Tagovailoa's return to Pittsburgh puts extra pressure on Mike McCarthy's debut",
+      "body_text": "The last time quarterback Tua Tagovailoa started a game in Pittsburgh, it became his last start with the Miami Dolphins.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T19:25:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jovaughn-gwyn-will-start-at-center-for-ravens-in-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jovaughn-gwyn-will-start-at-center-for-ravens-in-week-1",
+      "title": "Jovaughn Gwyn will start at center for Ravens in Week 1",
+      "body_text": "The Ravens have named a starting center for their first game of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-07T19:06:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jovaughn Gwyn",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0038629"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/past-proposals-to-show-tenths-of-a-second-on-nfl-stadium-clocks-have-gone-nowhere",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/past-proposals-to-show-tenths-of-a-second-on-nfl-stadium-clocks-have-gone-nowhere",
+      "title": "Past proposals to show tenths of a second on NFL stadium clocks have gone nowhere",
+      "body_text": "As the football-following world continues to process the implausible outcome of Saturday night's Western Michigan-Michigan game, it makes sense to consider any and all ideas for avoiding a similar outcome — at the college level or in the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T19:04:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Western Michigan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "fetch_run_id": "482186ce-4022-4923-8b87-85dc25463f86",
+  "source": "rotowire",
+  "fetched_at": "2026-09-08T12:26:22.508839+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636384",
+      "url": "https://www.rotowire.com//football/player/christian-gonzalez-16683",
+      "permalink": "",
+      "title": "Christian Gonzalez: Gets massive extension from New England",
+      "body_text": "Gonzalez signed a four-year, $135 million extension, with $102 million guaranteed, with the Patriots on Monday, NFL reporter Jordan Schultz reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-07T10:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez",
+        "New England",
+        "Jordan Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl636382",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Looking increasingly likely to play vs. Rams",
+      "body_text": "Kittle (Achilles) is in full uniform for the 49ers' practice session in Melbourne, Australia on Tuesday (local time), Nick Wagoner of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-07T09:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Rams Kittle",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636381",
+      "url": "https://www.rotowire.com//football/player/christian-mccaffrey-11690",
+      "permalink": "",
+      "title": "Christian McCaffrey: Fully dressed for second practice of week",
+      "body_text": "McCaffrey (undisclosed) is in full uniform for the 49ers' practice session taking place Tuesday afternoon local time in Melbourne, Australia, Nick Wagoner of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-07T09:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636380",
+      "url": "https://www.rotowire.com//football/player/dezhaun-stribling-19330",
+      "permalink": "",
+      "title": "De'Zhaun Stribling: Suited up for practice Monday",
+      "body_text": "Stribling (shoulder) is in full uniform for Monday's practice in Melbourne, Australia, Nick Wagoner of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-07T08:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zhaun Stribling",
+        "Monday Stribling",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636353",
+      "url": "https://www.rotowire.com//football/player/darius-slayton-13522",
+      "permalink": "",
+      "title": "Darius Slayton: Cut loose by Giants",
+      "body_text": "The Giants released Slayton on Monday, Matt Zenitz of CBS Sports reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-07T02:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darius Slayton",
+        "Giants The",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [
+        "00-0035535"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
