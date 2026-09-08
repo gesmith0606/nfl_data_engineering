@@ -545,3 +545,10 @@ Achane + Judkins and lost Nacua to the suspension, so they lean WR there: **take
 → CMC, else ARSB/Henry; Hampton gone → Walker > Jeanty; A.J. Brown gone → London > Nabers.
 Then the standard line: #21 Allen / Nabers-Higgins, #26 WR or Lamar, #34/#35 WR/WR, #46
 Henderson as RB3.
+
+**Correction (2026-09-07, George): Puka Nacua is NOT suspended.** No charges, not on the exempt
+list, Schefter: real chance he plays the whole season; scheduled for Thursday's opener. The
+8/28 NEWS tag was the civil-suit headline (trial date 2028). He is Achane Smokin's keeper, so
+this only touches the **#14 tell**: Achane Smokin' still leans WR at #14 (3-WR league, Nacua is
+one, two more starters needed, RB is keeper-stacked with Achane + Judkins) — weaker than
+"WR-desperate," but Lamb at #13 / Hampton at #15 stays the right order.
