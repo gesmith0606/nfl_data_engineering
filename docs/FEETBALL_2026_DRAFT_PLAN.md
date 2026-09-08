@@ -649,3 +649,44 @@ ARSB at #6 left one RB through #46 and made Henderson (200 pts) the RB2. Fixed a
 **RB3** at #55. If you go ARSB at #6 instead, RB2 has to come at #26 from the flagged dead-zone
 tier (Hall/Skattebo/Swift) — that's the price of the WR1, and the room's early-RB pricing says
 don't pay it.
+
+## 14. RESULT — Feetball 2026 draft (Mon Sep 7, 2026, slot 6)
+
+| Pick | Player | Plan call |
+|---|---|---|
+| 1.06 (#6) | Christian McCaffrey RB | ARSB went 1.5; CMC = model's best available |
+| 2.03 (#13) | A.J. Brown WR | Lamb/Hampton both gone (1.8, 2.2) |
+| 2.05 (#15) | Derrick Henry RB | RB2 by cost-of-waiting (+37 vs +4 WR) |
+| 3.01 (#21) | Ashton Jeanty RB | Allen went 2.8 → Jeanty last of tier (+22) |
+| 3.06 (#26) | Garrett Wilson WR | flat WR tier, breakout tag |
+| 4.04 (#34) | Ladd McConkey WR | |
+| 4.05 (#35) | Jadarian Price RB | SEA lead back (Charbonnet PUP) — model bust tag was a rookie blank |
+| 5.06 (#46) | Emeka Egbuka WR | |
+| 6.05 (#55) | Jalen Hurts QB | Burrow went 6.8; Hurts per the 4-pt-pass-TD read |
+| 7.06 (#66) | Quentin Johnston WR | plan #75 target, a round early |
+| 8.05 (#75) | Brian Thomas Jr. WR | Henderson sniped at 8.1 |
+| 9.06 | *Luther Burden III (keeper)* | |
+| 11.06 (#106) | Jacory Croskey-Merritt RB | |
+| 12.05 (#115) | Kyle Monangai RB | Bears stack w/ Burden + Loveland |
+| 13.06 | *Colston Loveland (keeper)* | |
+| 15.06 (#146) | Eagles DST | |
+| 16.05 (#155) | Cameron Dicker K | Tyson was gone (12.4) |
+
+**Model grade:** starters 2,100 proj pts (QB 332 / RB 309+284 / WR 228+197+189 / TE 186 / FLEX 261
+/ K 114; DST unscored), roster VORP **+358** — vs La Liga's +327 on a 12-team board. Optimal
+lineup: Hurts, CMC, Henry, Brown, G. Wilson, Egbuka (McConkey 186 is a coin flip with Egbuka
+189), Loveland, FLEX Jeanty, Eagles, Dicker. Week 1 FLEX fallback if Jeanty sits: Price.
+
+**Room notes:** Allen went 18 (Billiever, who already kept Dart), Lamar 31, Burrow 58 — QBs went
+~1 round ahead of the room-ADP read; Henderson (room 87) went 71; Stribling (room 131) went 54
+to Achane Smokin'; Tyson (room 127) went 114. RBs went early exactly as the Yahoo board said
+(Walker 10, Hampton 12, Barkley 9, Henry 15).
+
+**Tooling that worked / didn't:** manual-mode co-pilot + pick-order + keepers + room ADP ran
+clean every snapshot (Chrome-extension board screenshots = availability truth); the
+cost-of-waiting call decided #13/#15/#21 correctly. Misses: (1) roster count — the plan said
+"16 drafted, one open slot" but 15 live picks + 2 keepers = 17 = full roster (no post-draft
+open spot, so the Tyson-IR-stash-then-waiver-K idea never worked); (2) rookie bust tags
+(Price, Stribling) are blanks, not reads — camp reports beat the model on both; (3) no Yahoo
+draft-room parser, so picks were fed by hand from screenshots — fine on a 1-minute clock only
+because the board was screenshot-readable. Post-draft: Caleb Williams trade idea (§9) stands.
