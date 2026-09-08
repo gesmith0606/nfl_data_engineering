@@ -603,3 +603,10 @@ top 210; Mooney is deeper). Files: `data/adp/adp_yahoo_half_ppr.csv` (raw),
 6. Early-capital read: the market values RBs earlier here (Walker 14.7, Henry 16.8, Hampton
    18, Jeanty 18.7) and WRs later (London 20.5, A.J. Brown 23.9, Nabers 30, Higgins 33.8) —
    exactly the shape that makes **RB at #13/#15 and WR at #21/#26/#34/#35** the right order.
+
+**QB fallback = Burrow, not Lamar (George, 2026-09-07 pre-draft).** Model: Lamar 339 / Burrow
+327 (−12) but Burrow's room price is 64 vs Lamar's 49, so the Burrow line spends #46 on the QB
+and keeps #34 for the Higgins/McConkey WR tier (~+20 over the #46 WR) → net ≈ +8 AND opens the
+**Higgins + Burrow stack** (Higgins room 43 → #26/#34). Ladder now: **Allen #21 → else WR at
+#26/#34/#35 → Burrow at #46 (~75% there) → Hurts at #46/#55 if Burrow is gone (room 70) →
+Herbert/Lawrence/Purdy/Mahomes at #75.** Lamar only as a "fell to #34 and I can't resist" call.
