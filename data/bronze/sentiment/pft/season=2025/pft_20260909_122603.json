@@ -1,0 +1,601 @@
+{
+  "fetch_run_id": "a11bb8d1-af61-45c8-bb33-808367fdfadc",
+  "source": "pft",
+  "fetched_at": "2026-09-09T12:26:03.925745+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-2026-nfl-season-predictions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-2026-nfl-season-predictions",
+      "permalink": "",
+      "title": "PFT's 2026 NFL season predictions",
+      "body_text": "A new year means a new slate of eventually inaccurate guesses.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-07T12:17:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-1-2026-nfl-power-rankings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-1-2026-nfl-power-rankings",
+      "permalink": "",
+      "title": "PFT's Week 1 2026 NFL power rankings",
+      "body_text": "The defending champs still cling to the top spot, barely.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-08T13:43:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-well-make-the-right-decision-at-kicker-when-it-needs-to-be-done",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-well-make-the-right-decision-at-kicker-when-it-needs-to-be-done",
+      "permalink": "",
+      "title": "Aaron Glenn: We'll make the right decision at kicker when it needs to be done",
+      "body_text": "The Jets are set at most of the key spots in their lineup heading into Sunday's opener against the Titans, but there's one position that's still up in the air.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-09T12:04:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-darnell-mooney-as-starting-wr-next-to-malik-nabers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-darnell-mooney-as-starting-wr-next-to-malik-nabers",
+      "permalink": "",
+      "title": "Giants list Darnell Mooney as starting WR next to Malik Nabers",
+      "body_text": "The Giants released longtime starting wideout Darius Slayton this week and they released a depth chart showing who is now on the first team on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-09T11:03:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Darnell Mooney",
+        "Malik Nabers",
+        "The Giants",
+        "Darius Slayton"
+      ],
+      "resolved_player_ids": [
+        "00-0036309",
+        "00-0039337",
+        "00-0035535"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-hopes-to-play-with-no-reservations-against-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-hopes-to-play-with-no-reservations-against-rams",
+      "permalink": "",
+      "title": "Nick Bosa hopes to play with \"no reservations\" against Rams",
+      "body_text": "The 49ers have already revealed that defensive end Nick Bosa will be playing against the Rams on Thursday, which means the biggest question left about his return to action after last year's torn ACL is how much he'll be on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-09T10:52:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa",
+        "Rams The"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-stops-vikings-from-signing-kenny-dyson-to-practice-squad-after-he-was-waived-injured",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-stops-vikings-from-signing-kenny-dyson-to-practice-squad-after-he-was-waived-injured",
+      "permalink": "",
+      "title": "NFL stops Vikings from signing Kenny Dyson to practice squad after he was waived-injured",
+      "body_text": "At the end of the preseason, the Vikings waived outside linebacker Kenny Dyson with an injury settlement.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-09T10:25:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenny Dyson"
+      ],
+      "resolved_player_ids": [
+        "00-0039494"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-i-thought-aaron-donald-would-play-never-been-more-excited-to-be-wrong",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-i-thought-aaron-donald-would-play-never-been-more-excited-to-be-wrong",
+      "permalink": "",
+      "title": "Kyle Shanahan: I thought Aaron Donald would play, never been more excited to be wrong",
+      "body_text": "\"I was preparing for the worst, and glad we don't have to see him this week,\" Shanahan said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-09T08:41:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-steelers-are-super-bowl-contenders-thats-why-i-came-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-steelers-are-super-bowl-contenders-thats-why-i-came-back",
+      "permalink": "",
+      "title": "Aaron Rodgers: Steelers are Super Bowl contenders, that's why I came back",
+      "body_text": "\"I like the roster as a whole,\" Rodgers said. \"We have good veteran leadership. It's just about going out there and doing it.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-09T08:14:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-owners-intend-to-secure-control-of-mlbs-rockies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-owners-intend-to-secure-control-of-mlbs-rockies",
+      "permalink": "",
+      "title": "Report: Broncos owners intend to secure control of MLB's Rockies",
+      "body_text": "Broncos owners Carrie Walton Penner and Greg Penner currently hold 40 percent of the MLB's Colorado Rockies.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-09T04:56:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rockies Broncos",
+        "Carrie Walton",
+        "Greg Penner",
+        "Colorado Rockies"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-alfred-collins-out-for-season-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-alfred-collins-out-for-season-with-knee-injury",
+      "permalink": "",
+      "title": "49ers DT Alfred Collins out for season with knee injury",
+      "body_text": "49ers defensive tackle Alfred Collins tore his patellar tendon in practice this week, according to coach Kyle Shanahan.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-09T03:07:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alfred Collins",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [
+        "00-0040721"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lsu-finalizes-roster-preventing-the-addition-of-two-former-nfl-players",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lsu-finalizes-roster-preventing-the-addition-of-two-former-nfl-players",
+      "permalink": "",
+      "title": "LSU finalizes roster, preventing the addition of two former NFL players",
+      "body_text": "LSU is apparently throwing in the towel in its fight to add two fifth-year players who signed NFL teams from joining the Tigers football team.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-09T02:21:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-made-an-offer-to-joey-porter-jr-but-sides-arent-close",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-made-an-offer-to-joey-porter-jr-but-sides-arent-close",
+      "permalink": "",
+      "title": "Report: Steelers made an offer to Joey Porter Jr., but sides aren't close",
+      "body_text": "Christian Gonzalez agreed to a four-year, $135 million extension with the Patriots, providing a template for a Porter deal.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-09T01:27:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039167",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-ready-for-start-of-season-despite-lack-of-training-camp-reps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-ready-for-start-of-season-despite-lack-of-training-camp-reps",
+      "permalink": "",
+      "title": "Myles Garrett ready for start of season despite lack of training camp reps",
+      "body_text": "Rams outside linebacker Myles Garrett did not practice Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T23:48:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-george-kittle-limited-participants-in-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-george-kittle-limited-participants-in-practice",
+      "permalink": "",
+      "title": "Nick Bosa, George Kittle limited participants in practice",
+      "body_text": "The 49ers released their first practice report of 2026.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T22:44:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Bosa",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0035717",
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-did-not-practice-before-rams-departure-for-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-did-not-practice-before-rams-departure-for-australia",
+      "permalink": "",
+      "title": "Myles Garrett did not practice before Rams' departure for Australia",
+      "body_text": "Pass rusher Myles Garrett has not practiced much this summer because of knee swelling, and he did not practice Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T23:02:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Australia Pass"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-lt-patrick-paul-maxx-crosby-is-a-hothead-have-to-get-him-off-his-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-lt-patrick-paul-maxx-crosby-is-a-hothead-have-to-get-him-off-his-game",
+      "permalink": "",
+      "title": "Dolphins LT Patrick Paul: Maxx Crosby is a hothead, have to get him off his game",
+      "body_text": "When the Dolphins hosted the Raiders in 2024, Raiders defensive end Maxx Crosby helped set up an early Miami touchdown by drawing an unnecessary roughness penalty for taking a swipe at Dolphins guard Liam Eichenberg.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-08T22:46:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Paul",
+        "Maxx Crosby",
+        "Liam Eichenberg"
+      ],
+      "resolved_player_ids": [
+        "00-0039899",
+        "00-0034973",
+        "00-0037010"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-first-rounder-max-iheanachors-house-was-burglarized-last-month",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-first-rounder-max-iheanachors-house-was-burglarized-last-month",
+      "permalink": "",
+      "title": "Steelers first-rounder Max Iheanachor's house was burglarized last month",
+      "body_text": "Another NFL player's house has been burglarized.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-08T22:17:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Max Iheanachor"
+      ],
+      "resolved_player_ids": [
+        "00-0041482"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-announce-three-year-extension-with-baker-mayfield",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-announce-three-year-extension-with-baker-mayfield",
+      "permalink": "",
+      "title": "Bucs announce three-year extension with Baker Mayfield",
+      "body_text": "The third deal the QB has signed with the Bucs will keep him under contract with the team through the 2029 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T22:15:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-myles-garrett-is-ready-to-go-against-the-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-myles-garrett-is-ready-to-go-against-the-49ers",
+      "permalink": "",
+      "title": "Sean McVay: Myles Garrett is ready to go against the 49ers",
+      "body_text": "Defensive tackle Aaron Donald won't be in the Rams' lineup when they take the field against the 49ers in Melbourne, Australia this week, but defensive end Myles Garrett will be on hand.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-08T22:11:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-2017-john-harbaugh-wanted-colin-kaepernick-in-baltimore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-2017-john-harbaugh-wanted-colin-kaepernick-in-baltimore",
+      "permalink": "",
+      "title": "in 2017, John Harbaugh wanted Colin Kaepernick in Baltimore",
+      "body_text": "With former NFL quarterback Colin Kaepernick on the brink of releasing a new book, he's been talking a little more than usual as part of the promotion.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-08T21:59:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Colin Kaepernick",
+        "Baltimore With"
+      ],
+      "resolved_player_ids": [
+        "00-0027974"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-im-here-for-the-long-haul-im-not-going-anywhere",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-im-here-for-the-long-haul-im-not-going-anywhere",
+      "permalink": "",
+      "title": "Joe Burrow: I'm here for the long haul; I'm not going anywhere",
+      "body_text": "Carson Palmer forced his way out of Cincinnati in 2011, requesting a trade and threatening to retire rather than play for the Bengals again.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T21:35:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Carson Palmer"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0021429"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-depth-chart-lists-fernando-mendoza-as-qb2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-depth-chart-lists-fernando-mendoza-as-qb2",
+      "permalink": "",
+      "title": "Raiders' depth chart lists Fernando Mendoza as QB2",
+      "body_text": "Raiders head coach Klint Kubiak has declined to say whether rookie Fernando Mendoza or Aidan O’Connell will back up starting quarterback Kirk Cousins.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-08T21:25:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Klint Kubiak",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0041562",
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-agrees-to-three-year-extension-with-buccaneers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-agrees-to-three-year-extension-with-buccaneers",
+      "permalink": "",
+      "title": "Baker Mayfield agrees to three-year extension with Buccaneers",
+      "body_text": "Mayfield's deal is reportedly worth $165 million.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-08T21:18:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Buccaneers Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-among-5-commanders-captains",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-among-5-commanders-captains",
+      "permalink": "",
+      "title": "Jayden Daniels among 5 Commanders captains",
+      "body_text": "The number five is important to Jayden Daniels, so perhaps it's appropriate that he's one of five captains on the Commanders this season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-08T21:13:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rule-treveyon-henderson-out-for-wednesday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rule-treveyon-henderson-out-for-wednesday-night",
+      "permalink": "",
+      "title": "Patriots rule TreVeyon Henderson out for Wednesday night",
+      "body_text": "Running back TreVeyon Henderson will not be in the lineup for the Patriots in Seattle on Wednesday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-08T21:02:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cameron-heyward-says-this-season-or-next-will-be-his-last",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cameron-heyward-says-this-season-or-next-will-be-his-last",
+      "permalink": "",
+      "title": "Cameron Heyward says this season or next will be his last",
+      "body_text": "Steelers defensive lineman Cameron Heyward is 37 and entering his 16th season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T21:00:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cameron Heyward"
+      ],
+      "resolved_player_ids": [
+        "00-0027969"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-emmanwori-questionable-ty-okada-out-for-wednesdays-season-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-emmanwori-questionable-ty-okada-out-for-wednesdays-season-opener",
+      "permalink": "",
+      "title": "Nick Emmanwori questionable, Ty Okada out for Wednesday's season opener",
+      "body_text": "The Seahawks will be without one member of their secondary while another may not be able to play in Wednesday's season opener against the Patriots.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-08T20:57:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Emmanwori",
+        "Ty Okada",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0040733",
+        "00-0038765"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-officially-sign-harrison-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-officially-sign-harrison-smith",
+      "permalink": "",
+      "title": "Vikings officially sign Harrison Smith",
+      "body_text": "Safety Harrison Smith agreed to a one-year deal to return to the Vikings over the weekend and he officially rejoined the team on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-08T20:56:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harrison Smith",
+        "Safety Harrison"
+      ],
+      "resolved_player_ids": [
+        "00-0029606"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-list-tyler-allgeier-as-rb1-jeremiyah-love-as-rb2-on-week-1-depth-chart",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-list-tyler-allgeier-as-rb1-jeremiyah-love-as-rb2-on-week-1-depth-chart",
+      "permalink": "",
+      "title": "Cardinals list Tyler Allgeier as RB1, Jeremiyah Love as RB2 on Week 1 depth chart",
+      "body_text": "Cardinals head coach Mike LaFleur said this week that he feels good about running back Jeremiyah Love being in the lineup against the Chargers in Week 1, but it remains to be seen what kind of role the rookie will play coming off of an ankle injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-08T20:40:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Allgeier",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0037263",
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-insists-hes-not-upset-he-isnt-a-team-captain-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-insists-hes-not-upset-he-isnt-a-team-captain-this-season",
+      "permalink": "",
+      "title": "Garrett Wilson insists he's not upset he isn't a team captain this season",
+      "body_text": "The Jets announced their captains for the 2026 season on Friday, and wide receiver Garrett Wilson was not among the six.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-08T20:34:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Garrett Wilson",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": "NYJ"
+    }
+  ]
+}

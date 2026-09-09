@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "6e192bfd-3f5d-4a4f-b9ac-8351bf31a890",
+  "source": "rotowire",
+  "fetched_at": "2026-09-09T12:25:59.619848+00:00",
+  "season": 2025,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636457",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Could see limited Week 1 role",
+      "body_text": "Coach Kyle Shanahan said Tuesday that Kittle (Achilles) could have his workload monitored against the Rams on Thursday, Matt Maiocco of NBC Sports Bay Area reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-08T07:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Coach Kyle",
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl636424",
+      "url": "https://www.rotowire.com//football/player/terrance-ferguson-18497",
+      "permalink": "",
+      "title": "Terrance Ferguson: Sheds injury tag",
+      "body_text": "Ferguson (soreness) was not listed on the injury report the Rams released Tuesday, according to Sarah Barshop of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-08T04:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrance Ferguson",
+        "Sarah Barshop"
+      ],
+      "resolved_player_ids": [
+        "00-0040737"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl636418",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Avoids injury report",
+      "body_text": "Nacua (core) was not listed on the injury report the Rams released Tuesday, according to Sarah Barshop of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-08T04:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Sarah Barshop"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl636414",
+      "url": "https://www.rotowire.com//football/player/dezhaun-stribling-19330",
+      "permalink": "",
+      "title": "De'Zhaun Stribling: Shakes off shoulder issue",
+      "body_text": "Stribling (shoulder) was not listed on the injury report the 49ers released Tuesday, according to Matt Maiocco of NBC Sports Bay Area. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-08T04:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zhaun Stribling",
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636413",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "permalink": "",
+      "title": "Mike Evans: Removed from injured list",
+      "body_text": "Evans (adductor) was not listed on the injury report the 49ers released Tuesday, according to Matt Maiocco of NBC Sports Bay Area. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-08T03:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans",
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
