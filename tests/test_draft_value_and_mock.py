@@ -576,8 +576,24 @@ def _run_preset_simulation(preset_key: str, seed: int = 20260818):
     return result, board
 
 
+def _presets_by_kicker_slots(want_kickers: bool):
+    """League preset keys split on whether their roster shape has a K slot.
+
+    Derived from config rather than hardcoded: leagues change their rules
+    between seasons (espn_la_liga dropped kickers on 2026-08-31), and a
+    stale literal list silently asserts the wrong thing -- or KeyErrors.
+    """
+    keys = []
+    for key, preset in config.LEAGUE_PRESETS.items():
+        roster = config.ROSTER_CONFIGS[preset["roster"]]
+        if bool(roster.get("K", 0)) is want_kickers:
+            keys.append(key)
+    assert keys, f"no league preset with want_kickers={want_kickers}"
+    return keys
+
+
 def test_simulate_no_k_roster_never_drafts_a_kicker():
-    for preset_key in ("gentlemen", "mahomos"):
+    for preset_key in _presets_by_kicker_slots(False):
         result, board = _run_preset_simulation(preset_key)
         my_positions = Counter(
             str(p.get("position", "")).upper() for p in result["my_roster"]
@@ -596,7 +612,7 @@ def test_simulate_no_k_roster_never_drafts_a_kicker():
 
 
 def test_simulate_with_k_roster_drafts_at_most_configured_kickers():
-    for preset_key in ("la_liga", "feetball"):
+    for preset_key in _presets_by_kicker_slots(True):
         result, board = _run_preset_simulation(preset_key)
         k_slots = config.ROSTER_CONFIGS[config.LEAGUE_PRESETS[preset_key]["roster"]][
             "K"
