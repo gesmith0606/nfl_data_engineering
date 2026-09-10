@@ -1,0 +1,505 @@
+{
+  "fetch_run_id": "8f2a57b8-c371-4dfa-99a4-442275e1772b",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-10T12:25:29.979024+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-restructure-dl-tershawn-whartons-contract",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-restructure-dl-tershawn-whartons-contract",
+      "title": "Panthers restructure DL Tershawn Wharton's contract",
+      "body_text": "The Panthers have created some more cap room ahead of Week 1.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T12:10:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tershawn Wharton",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0035890"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/harrison-smith-i-kind-of-knew-id-be-back-the-whole-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/harrison-smith-i-kind-of-knew-id-be-back-the-whole-time",
+      "title": "Harrison Smith: I kind of knew I'd be back the whole time",
+      "body_text": "Vikings fans saluted Harrison Smith's entire career when he walked off the field at the end of Week 18 last season, but thoughts that it was the final time the safety would be on the field were premature.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T11:14:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Harrison Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0029606"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ernest-jones-when-you-think-about-seattle-we-want-you-to-think-about-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ernest-jones-when-you-think-about-seattle-we-want-you-to-think-about-defense",
+      "title": "Ernest Jones: When you think about Seattle, we want you to think about defense",
+      "body_text": "The Seahawks didn't put any points on the board until the fourth quarter on Wednesday night, but waiting to get the scoring started didn't keep them from coming up with a win.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T10:45:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ernest Jones",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0036994"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-nick-bosa-have-no-injury-designations-for-thursdays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittle-nick-bosa-have-no-injury-designations-for-thursdays-game",
+      "title": "George Kittle, Nick Bosa have no injury designations for Thursday's game",
+      "body_text": "The 49ers are set to welcome two of their biggest stars back to the lineup for their first game of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T10:31:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Kittle",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0033288",
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-lock-on-td-pass-to-jaxon-smith-njigba-definitely-never-practiced-that-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-lock-on-td-pass-to-jaxon-smith-njigba-definitely-never-practiced-that-play",
+      "title": "Drew Lock on TD pass to Jaxon Smith-Njigba: Definitely never practiced that play",
+      "body_text": "One of the realities of life as an NFL backup quarterback is that you get fewer opportunities in practice and that means there are some plays that you never get to rehearse ahead of time.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T10:24:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Lock",
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0035704"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-had-122-of-the-seahawks-200-receiving-yards-and-seattles-only-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-had-122-of-the-seahawks-200-receiving-yards-and-seattles-only-td",
+      "title": "Jaxon Smith-Njigba had 122 of the Seahawks' 200 receiving yards, and Seattle's only TD",
+      "body_text": "\"It's not all on me,\" Smith-Njigba said. \"It's a team effort.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-10T09:45:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-you-cant-throw-three-interceptions-drake-maye-knows-that",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-you-cant-throw-three-interceptions-drake-maye-knows-that",
+      "title": "Mike Vrabel: You can't throw three interceptions, Drake Maye knows that",
+      "body_text": "Patriots coach Mike Vrabel pointed to quarterback Drake Maye's turnovers as the difference after losing to the Seahawks.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-10T09:24:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-my-bad-decisions-cost-us-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-my-bad-decisions-cost-us-the-game",
+      "title": "Drake Maye: My bad decisions cost us the game",
+      "body_text": "\"That wasn't how I play football and how I want to represent my game and playing quarterback for the Patriots,\" Maye said after losing to the Seahawks.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-10T08:11:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-1-2026-nfl-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-1-2026-nfl-picks",
+      "title": "PFT's Week 1 2026 NFL picks",
+      "body_text": "My not-for-betting purposes look at all 16 opening-weekend games.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-09T14:27:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickoff-2026-seahawks-beat-patriots-13-10-but-lose-sam-darnold-to-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickoff-2026-seahawks-beat-patriots-13-10-but-lose-sam-darnold-to-hip-injury",
+      "title": "NFL Kickoff 2026: Seahawks beat Patriots 13-10, but lose Sam Darnold to hip injury",
+      "body_text": "Seattle's defense picked off Drake Maye three times, including late in the fourth quarter to clinch the Week 1 victory.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T03:37:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-deshaun-watson-was-cited-for-speeding-on-august-26",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-deshaun-watson-was-cited-for-speeding-on-august-26",
+      "title": "Report: Deshaun Watson was cited for speeding on August 26",
+      "body_text": "The eventful month for Browns quarterback Deshaun Watson included a speeding ticket, two days after he was named the starter.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-10T04:24:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-sam-darnold-did-not-suffer-hip-fracture-more-tests-to-come",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-sam-darnold-did-not-suffer-hip-fracture-more-tests-to-come",
+      "title": "Mike Macdonald: Sam Darnold did not suffer hip fracture, more tests to come",
+      "body_text": "The Seahawks received some positive news on quarterback Sam Darnold, but the extent of his hip injury is still unclear.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T04:04:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Sam Darnold",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-had-no-postgame-update-on-a-j-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-had-no-postgame-update-on-a-j-brown",
+      "title": "Mike Vrabel had no postgame update on A.J. Brown",
+      "body_text": "It's still unclear what kind of injury and recovery Patriots receiver A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T03:46:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-45-yard-td-ties-seahawks-patriots-at-10-10-in-fourth-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-45-yard-td-ties-seahawks-patriots-at-10-10-in-fourth-quarter",
+      "title": "Jaxon Smith-Njigba 45-yard TD ties Seahawks-Patriots at 10-10 in fourth quarter",
+      "body_text": "The reigning AP offensive player of the year just showed why he earned the honor.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T02:50:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-downgraded-to-out-with-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-downgraded-to-out-with-ankle-injury",
+      "title": "A.J. Brown downgraded to out with ankle injury",
+      "body_text": "The Patriots will not have their star receiver for the rest of Wednesday's season opener against the Seahawks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T02:43:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-questionable-to-return-with-an-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-questionable-to-return-with-an-ankle-injury",
+      "title": "A.J. Brown questionable to return with an ankle injury",
+      "body_text": "Patriots receiver A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T02:05:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rule-out-qb-sam-darnolds-return-tonight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rule-out-qb-sam-darnolds-return-tonight",
+      "title": "Seahawks rule out QB Sam Darnold's return tonight",
+      "body_text": "The Seahawks quarterback injured his right hip on the first drive.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T01:44:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickoff-2026-patriots-lead-seahawks-7-0-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickoff-2026-patriots-lead-seahawks-7-0-at-halftime",
+      "title": "NFL Kickoff 2026: Patriots lead Seahawks 7-0 at halftime",
+      "body_text": "The Patriots lead the Seahawks 7-0 at halftime, but Seattle has a bigger concern moving forward.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T01:41:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-estimated-as-a-full-participant-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-estimated-as-a-full-participant-wednesday",
+      "title": "Myles Garrett estimated as a full participant Wednesday",
+      "body_text": "The Rams flew all night, so they did not practice Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T01:28:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-take-7-0-lead-on-drake-maye-2-yard-touchdown-pass",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-take-7-0-lead-on-drake-maye-2-yard-touchdown-pass",
+      "title": "Patriots take 7-0 lead on Drake Maye 2-yard touchdown pass",
+      "body_text": "The Patriots have scored the first touchdown of the 2026 season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T01:12:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-aaron-donald-play-in-week-2-the-word-is-well-see",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-aaron-donald-play-in-week-2-the-word-is-well-see",
+      "title": "Will Aaron Donald play in Week 2? The word is \"we'll see\"",
+      "body_text": "Rams defensive tackle Aaron Donald didn't make the trip to Australia, which obviously means he won't play in the Week 1 game against the 49ers.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-10T01:08:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Aaron",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-is-up-in-the-air-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-is-up-in-the-air-for-sunday",
+      "title": "Joey Porter Jr. is \"up in the air\" for Sunday",
+      "body_text": "With Seahawks cornerback Devon Witherspoon and Patriots cornerback Christian Gonzalez getting their new contracts, another 2023 draft pick at the same position is still waiting for his reward.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-10T00:47:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Sunday With",
+        "Devon Witherspoon",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039167",
+        "00-0039169",
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-heads-to-locker-room-with-apparent-leg-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-heads-to-locker-room-with-apparent-leg-injury",
+      "title": "Sam Darnold heads to locker room with hip injury",
+      "body_text": "Drew Lock has come in to replace Darnold midway through the first quarter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-10T00:42:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold",
+        "Drew Lock"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0035704"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-land-in-melbourne-some-28-hours-before-kickoff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-land-in-melbourne-some-28-hours-before-kickoff",
+      "title": "Rams land in Melbourne some 28 hours before kickoff",
+      "body_text": "The Rams landed in Melbourne at 7 a.m. local time ahead of their season opener against the 49ers.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T00:25:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-olb-jonathan-greenard-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-olb-jonathan-greenard-limited-in-wednesdays-practice",
+      "title": "Eagles OLB Jonathan Greenard limited in Wednesday's practice",
+      "body_text": "Outside linebacker Jonathan Greenard returned to practice on Wednesday, and the Eagles' practice report shows he was limited.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T00:13:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-patriots-inactives-s-nick-emmanwori-will-not-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-patriots-inactives-s-nick-emmanwori-will-not-play",
+      "title": "Seahawks-Patriots inactives: S Nick Emmanwori will not play",
+      "body_text": "Safety Nick Emmanwori will not play the season opener tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-09T23:02:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Emmanwori",
+        "Safety Nick"
+      ],
+      "resolved_player_ids": [
+        "00-0040733"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-james-thompson-returns-to-limited-work-while-nick-bosa-george-kittle-remain-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-james-thompson-returns-to-limited-work-while-nick-bosa-george-kittle-remain-limited",
+      "title": "49ers DT James Thompson returns to limited work, while Nick Bosa, George Kittle remain limited",
+      "body_text": "The 49ers had only one change to their injury report Wednesday: Defensive tackle James Thompson (hamstring) returned to limited work.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-09T22:49:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Thompson",
+        "Nick Bosa",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "THO581952",
+        "00-0035717",
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-greg-newsome-should-feel-how-he-feels-but-we-disagree",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-greg-newsome-should-feel-how-he-feels-but-we-disagree",
+      "title": "George Pickens: Greg Newsome should feel how he feels, but we disagree",
+      "body_text": "Cowboys wide receivers CeeDee Lamb and George Pickens combined for 168 catches, 2,506 yards and 12 touchdowns last season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-09T22:38:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Greg Newsome"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0036996"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-listed-as-full-participant-for-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-listed-as-full-participant-for-raiders",
+      "title": "Ashton Jeanty listed as full participant for Raiders",
+      "body_text": "The Raiders only had two players on their first injury report of the 2026 season, but they were both significant ones.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-09T22:21:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Raiders The"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-list-rt-zach-bako-bewele-lg-aaron-banks-lt-jordan-morgan-as-limited-in-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-list-rt-zach-bako-bewele-lg-aaron-banks-lt-jordan-morgan-as-limited-in-practice",
+      "title": "Packers list RT Zach Bako-Bewele, LG Aaron Banks, LT Jordan Morgan as limited in practice",
+      "body_text": "A pair of starting offensive linemen landed on the Packers' first injury report ahead of Sunday's game in Minnesota.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-09T21:59:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Bako",
+        "Aaron Banks",
+        "Jordan Morgan"
+      ],
+      "resolved_player_ids": [
+        "00-0036551",
+        "00-0039904"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

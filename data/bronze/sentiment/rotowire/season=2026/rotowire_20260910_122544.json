@@ -1,0 +1,109 @@
+{
+  "fetch_run_id": "0b4b89b4-13f4-4114-a9c8-d5658d3ef555",
+  "source": "rotowire",
+  "fetched_at": "2026-09-10T12:25:44.407176+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636666",
+      "url": "https://www.rotowire.com//football/player/romeo-doubs-16027",
+      "permalink": "",
+      "title": "Romeo Doubs: Forgettable team debut in loss",
+      "body_text": "Doubs failed to bring in any of his three targets during the Patriots' 13-10 loss to the Seahawks on Wednesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-09T09:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Romeo Doubs"
+      ],
+      "resolved_player_ids": [
+        "00-0037816"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl636665",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: In clear to play Week 1",
+      "body_text": "Kittle (Achilles) isn't listed on the 49ers' injury report ahead of Thursday's contest against the Rams, Matt Maiocco of NBC Sports Bay Area reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-09T09:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636664",
+      "url": "https://www.rotowire.com//football/player/rhamondre-stevenson-15372",
+      "permalink": "",
+      "title": "Rhamondre Stevenson: Heavy volume in Week 1 loss",
+      "body_text": "Stevenson rushed 18 times for 51 yards and brought in five of six targets for 44 yards in the Patriots' 13-10 loss to the Seahawks on Wednesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-09T09:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rhamondre Stevenson"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl636660",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Efficient in Week 1 win",
+      "body_text": "Price rushed 10 times for 52 yards and brought in both targets for six yards in the Seahawks' 13-10 win over the Patriots on Wednesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-09T09:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price"
+      ],
+      "resolved_player_ids": [
+        "00-0041512"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl636658",
+      "url": "https://www.rotowire.com//football/player/drew-lock-13736",
+      "permalink": "",
+      "title": "Drew Lock: Delivers in emergency duty",
+      "body_text": "Lock took over for Sam Darnold (hip) with 7:29 remaining in the first quarter of Wednesday's 13-10 win over the Patriots and completed 16 of 22 passes for 187 yards with one touchdown and no interceptions while adding two rushes for 13 yards. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-09T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Lock",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0035704",
+        "00-0034869"
+      ],
+      "team_hint": "NE"
+    }
+  ]
+}
