@@ -1,0 +1,491 @@
+{
+  "fetch_run_id": "4c9ef6c3-7bcf-47cd-a9b9-aaf931403306",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-11T12:25:58.913666+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-dc-jonathan-gannon-kyler-murray-can-wreck-games-if-youre-not-coordinated",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-dc-jonathan-gannon-kyler-murray-can-wreck-games-if-youre-not-coordinated",
+      "title": "Packers DC Jonathan Gannon: Kyler Murray can wreck games if you're not coordinated",
+      "body_text": "The Jonathan Gannon-Kyler Murray partnership in Arizona ended with both men moving on after the 2025 season, but they'll be back together for the first game of their new starts.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T12:03:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Gannon",
+        "Kyler Murray",
+        "The Jonathan"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-rarely-succeeds-on-quarterback-sneaks-but-rams-tried-one-anyway",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-rarely-succeeds-on-quarterback-sneaks-but-rams-tried-one-anyway",
+      "title": "Matthew Stafford rarely succeeds on quarterback sneaks, but Rams tried one anyway",
+      "body_text": "With the Rams facing fourth-and-goal at the 1-yard line on Thursday night, Matthew Stafford attempted a quarterback sneak.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-11T11:32:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-felt-the-rams-withered-away-as-game-went-on",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-felt-the-rams-withered-away-as-game-went-on",
+      "title": "Fred Warner felt the Rams \"withered away\" as game went on",
+      "body_text": "The Rams took a 7-3 lead over the 49ers on the first play of the second quarter on Thursday night, but it was not a sign that things were going to go their way for the rest of their time in Melbourne, Australia.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T10:58:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fred Warner",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0034815"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-i-love-calling-plays-for-mike-evans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-i-love-calling-plays-for-mike-evans",
+      "title": "Kyle Shanahan: I love calling plays for Mike Evans",
+      "body_text": "Mike Evans built his career with the Buccaneers on being the guy quarterbacks looked to on third down and in the red zone, and it didn't take long for him to take on the same role with the 49ers.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T10:39:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-this-will-define-us-only-if-we-allow-it-to",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-this-will-define-us-only-if-we-allow-it-to",
+      "title": "Sean McVay: \"This will define us only if we allow it to\"",
+      "body_text": "Something happened on the road to a perfect season for the Rams.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-11T03:57:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-win-or-lose-everyone-would-make-a-big-deal-about-our-travel-schedules",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-win-or-lose-everyone-would-make-a-big-deal-about-our-travel-schedules",
+      "title": "Kyle Shanahan: Win or lose, everyone would make a big deal about our travel schedules",
+      "body_text": "The 49ers and Rams took opposite approaches to the longest road trip in NFL history: The 49ers arrived in Australia a full week early to give themselves time to acclimate.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-11T09:59:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-this-was-the-worst-version-of-myself-that-ive-put-out-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-this-was-the-worst-version-of-myself-that-ive-put-out-there",
+      "title": "Myles Garrett: \"This was the worst version of myself that I've put out there\"",
+      "body_text": "Garrett said he needs to get healthy after missing most of training camp with a knee injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-11T08:41:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-tight-end-jake-tonges-suffers-mcl-injury-kyle-shanahan-says-it-wasnt-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-tight-end-jake-tonges-suffers-mcl-injury-kyle-shanahan-says-it-wasnt-good",
+      "title": "49ers tight end Jake Tonges suffers MCL injury, Kyle Shanahan says \"it wasn't good\"",
+      "body_text": "49ers tight end Jake Tonges left Thursday night's win over the Rams with a knee injury, and coach Kyle Shanahan offered an ominous update after the game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-11T07:56:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Tonges",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [
+        "00-0037112"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-dezhaun-striblings-achilles-is-intact-to-undergo-mri-on-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-dezhaun-striblings-achilles-is-intact-to-undergo-mri-on-ankle",
+      "title": "49ers WR De'Zhaun Stribling's Achilles is intact, to undergo MRI on ankle",
+      "body_text": "The way 49ers wide receiver De'Zhaun Stribling suddenly ended his route and started limping on one leg had everyone thinking the worst.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T04:23:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zhaun Stribling"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-wr-ryan-flournoy-on-one-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-wr-ryan-flournoy-on-one-year-extension",
+      "title": "Cowboys agree to terms with WR Ryan Flournoy on one-year extension",
+      "body_text": "The Cowboys have agreed to terms with wide receiver Ryan Flournoy on a one-year contract extension, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T04:12:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Flournoy",
+        "The Cowboys",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0039410"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-49ers-rams-travel-question-wont-be-fully-resolved-until-week-2-or-beyond",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-49ers-rams-travel-question-wont-be-fully-resolved-until-week-2-or-beyond",
+      "title": "The 49ers-Rams travel question won't be fully resolved until Week 2, or beyond",
+      "body_text": "Based on Thursday night's smothering down under by the 49ers against the Rams, it appears that San Francisco's early-arrival approach worked better than the Rams' strategy of barnstorming.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-11T03:43:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-49ers-dominate-rams-27-7-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-49ers-dominate-rams-27-7-in-australia",
+      "title": "Brock Purdy, 49ers dominate Rams 27-7 in Australia",
+      "body_text": "The 49ers quarterback outplayed Matthew Stafford, completing 25 of 34 passes for 205 yards with three touchdowns and an interception.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T03:33:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy",
+        "Australia The",
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0026498"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/excited-kyler-murray-is-ready-for-his-vikings-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/excited-kyler-murray-is-ready-for-his-vikings-debut",
+      "title": "\"Excited\" Kyler Murray is ready for his Vikings' debut",
+      "body_text": "The first pick in the 2019 draft is getting a fresh start on Sunday, with the team he grew up rooting for.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-11T03:26:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuels-td-catch-has-49ers-up-24-7-in-fourth-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuels-td-catch-has-49ers-up-24-7-in-fourth-quarter",
+      "title": "Deebo Samuel's TD catch has 49ers up 24-7 in fourth quarter",
+      "body_text": "The 49ers have a big lead in the fourth quarter, having dominated the first three plus quarters.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T02:53:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-scores-first-td-as-a-49er-109th-of-his-career",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-scores-first-td-as-a-49er-109th-of-his-career",
+      "title": "Mike Evans scores first TD as a 49er, 109th of his career",
+      "body_text": "Mike Evans scored 108 touchdowns for the Buccaneers.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T02:25:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lead-rams-10-7-at-halftime-in-australia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lead-rams-10-7-at-halftime-in-australia",
+      "title": "49ers lead Rams 10-7 at halftime in Australia",
+      "body_text": "The 49ers have outgained the Rams 208 to 137.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T02:04:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Australia The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dezhaun-stribling-carted-off-ruled-out-with-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dezhaun-stribling-carted-off-ruled-out-with-ankle-injury",
+      "title": "De'Zhaun Stribling carted off, ruled out with ankle injury",
+      "body_text": "49ers rookie wide receiver De'Zhaun Stribling injured his left ankle early in the game.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T01:51:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zhaun Stribling"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-long-ball-to-demarcus-robinson-gives-49ers-the-lead-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-long-ball-to-demarcus-robinson-gives-49ers-the-lead-back",
+      "title": "Brock Purdy long ball to Demarcus Robinson gives 49ers the lead back",
+      "body_text": "Demarcus Robinson was with the Rams in 2023-24.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T01:43:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy",
+        "Demarcus Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0032775"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-mum-on-his-availability-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-mum-on-his-availability-for-sunday",
+      "title": "Jeremiyah Love mum on his availability for Sunday",
+      "body_text": "Jeremiyah Love wants to play.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T01:25:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Sunday Jeremiyah"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyren-williams-gives-rams-a-7-3-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyren-williams-gives-rams-a-7-3-lead",
+      "title": "Kyren Williams gives Rams a 7-3 lead",
+      "body_text": "The Rams had nine plays for 24 yards, one first down and two punts on their first two drives.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T01:21:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyren Williams",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-a-j-brown-is-expected-to-miss-at-least-four-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-a-j-brown-is-expected-to-miss-at-least-four-weeks",
+      "title": "Reports: A.J. Brown is expected to miss at least four weeks",
+      "body_text": "Patriots wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T00:33:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-addresses-darkest-times-in-his-life-fueled-by-drowning-in-alcohol",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-addresses-darkest-times-in-his-life-fueled-by-drowning-in-alcohol",
+      "title": "Puka Nacua addresses \"darkest times\" in his life, fueled by \"drowning\" in alcohol",
+      "body_text": "Nacua opens up about time spent at a holistic rehab facility.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-11T00:14:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-add-dt-daron-payne-to-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-add-dt-daron-payne-to-injury-report",
+      "title": "Commanders add DT Daron Payne to injury report",
+      "body_text": "The Commanders added defensive tackle Daron Payne to their injury report on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T00:01:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daron Payne",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0034333"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-nfl-will-make-announcement-on-jed-york-when-investigation-is-completed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-nfl-will-make-announcement-on-jed-york-when-investigation-is-completed",
+      "title": "Roger Goodell: NFL will make announcement on Jed York when investigation is completed",
+      "body_text": "An appearance by Commissioner Roger Goodell on the Netflix pregame show in advance of 49ers-Rams in Melbourne included a box-checking question about the no-contest plea by 49ers owner Jed York on a pair of misdemeanor charges arising from a prostitution-related arrest last month.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-10T23:53:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roger Goodell",
+        "Jed York",
+        "Commissioner Roger"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-three-year-extension-with-te-brevyn-spann-ford",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-three-year-extension-with-te-brevyn-spann-ford",
+      "title": "Cowboys agree to three-year extension with TE Brevyn Spann-Ford",
+      "body_text": "The Cowboys have agreed to terms with backup tight end Brevyn Spann-Ford on a three-year extension, his agent, Mike McCartney, announced on social media.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T23:45:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brevyn Spann",
+        "Ford The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-49ers-inactives-dt-james-thompson-is-active",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-49ers-inactives-dt-james-thompson-is-active",
+      "title": "Rams-49ers inactives: DT James Thompson will play",
+      "body_text": "49ers tight end George Kittle and pass rusher Nick Bosa had no injury designations, and they indeed will play the season opener.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T23:27:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Thompson",
+        "George Kittle",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "THO581952",
+        "00-0033288",
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rueben-bain-up-to-full-practice-for-bucs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rueben-bain-up-to-full-practice-for-bucs",
+      "title": "Rueben Bain up to full practice for Bucs",
+      "body_text": "Rookie linebacker Rueben Bain is on the right track to make his NFL debut for the Buccaneers on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T23:13:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rueben Bain",
+        "Bucs Rookie"
+      ],
+      "resolved_player_ids": [
+        "00-0041031"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-sweat-returns-to-practice-jeremiyah-love-remains-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-sweat-returns-to-practice-jeremiyah-love-remains-limited",
+      "title": "Josh Sweat returns to practice, Jeremiyah Love remains limited",
+      "body_text": "Both of the biggest injury question marks for the Cardinals were limited participants in Thursday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-10T23:06:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Sweat",
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [
+        "00-0034381",
+        "00-0041027"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-says-his-ankle-feels-really-good-and-is-super-excited-to-play-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-says-his-ankle-feels-really-good-and-is-super-excited-to-play-sunday",
+      "title": "Ashton Jeanty says his ankle feels \"really good\" and is \"super excited\" to play Sunday",
+      "body_text": "Raiders running back Ashton Jeanty expects to play in Sunday's season opener against the Dolphins.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-10T22:27:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Sunday Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-player-leshon-johnson-sentenced-to-five-years-in-prison-for-dog-fighting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-nfl-player-leshon-johnson-sentenced-to-five-years-in-prison-for-dog-fighting",
+      "title": "Former NFL player LeShon Johnson sentenced to five years in prison for dog fighting",
+      "body_text": "Former NFL running back LeShon Johnson has been sentenced to 60 months in federal prison after he was convicted of six felonies related to dog fighting.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-10T22:21:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

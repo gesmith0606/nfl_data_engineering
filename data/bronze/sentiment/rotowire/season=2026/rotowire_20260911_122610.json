@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "150fd02d-bbaa-4d74-9ce7-6e06e83e8c20",
+  "source": "rotowire",
+  "fetched_at": "2026-09-11T12:26:10.760202+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636820",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "permalink": "",
+      "title": "Deebo Samuel: Successful 49ers return in win",
+      "body_text": "Samuel brought in six of seven targets for 48 yards and a touchdown, rushed once for 12 yards and returned two kickoffs for 74 yards during the 49ers' 27-7 Week 1 win over the Rams in Melbourne, Australia. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-10T10:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636819",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Pair of catches in Week 1",
+      "body_text": "Kittle brought in two of five targets for 12 yards during the 49ers' 27-7 Week 1 win over the Rams in Melbourne, Australia. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-10T10:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636818",
+      "url": "https://www.rotowire.com//football/player/blake-corum-17690",
+      "permalink": "",
+      "title": "Blake Corum: Impressive with limited touches",
+      "body_text": "Corum rushed 10 times for 54 yards and wasn't targeted during the Rams' 27-7 Week 1 loss to the 49ers in Melbourne, Australia. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-10T10:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Corum"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636817",
+      "url": "https://www.rotowire.com//football/player/kaelon-black-19607",
+      "permalink": "",
+      "title": "Kaelon Black: Stands out in regular-season debut",
+      "body_text": "Black rushed 14 times for 65 yards and brought in his only target for five yards during the 49ers' 27-7 Week 1 win over the Rams in Melbourne, Australia. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-10T10:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kaelon Black"
+      ],
+      "resolved_player_ids": [
+        "00-0041052"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl636816",
+      "url": "https://www.rotowire.com//football/player/davante-adams-9455",
+      "permalink": "",
+      "title": "Davante Adams: Held in check in Week 1 loss",
+      "body_text": "Adams secured three of six targets for 26 yards during the Rams' 27-7 Week 1 loss to the 49ers in Melbourne, Australia. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-10T09:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
