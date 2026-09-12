@@ -1614,6 +1614,24 @@ def apply_team_constraints(
     return df
 
 
+def prior_season_feature_rows(
+    silver_df: pd.DataFrame, prior_season: int
+) -> pd.DataFrame:
+    """Each player's last regular-season row from *prior_season* (Week 1 seed).
+
+    Playoff rows are excluded so the rolling windows describe the same
+    17-game regime for every player rather than favouring playoff teams.
+    Returns an empty frame when *prior_season* is absent from ``silver_df``.
+    """
+    prior = silver_df[silver_df["season"] == prior_season]
+    if prior.empty:
+        return prior.copy()
+    if "season_type" in prior.columns:
+        reg = prior[prior["season_type"] == "REG"]
+        prior = reg if not reg.empty else prior
+    return prior.sort_values("week").groupby("player_id", sort=False).tail(1).copy()
+
+
 def generate_weekly_projections(
     silver_df: pd.DataFrame,
     opp_rankings: pd.DataFrame,
@@ -1704,6 +1722,23 @@ def generate_weekly_projections(
     target_df = silver_df[
         (silver_df["season"] == season) & (silver_df["week"] == week - 1)
     ].copy()
+
+    if week <= 1 and "season" in silver_df.columns:
+        # Week 1 has no previous week in-season: seed every player's rolling
+        # state from their final regular-season row of the PRIOR season (the
+        # backtester has always done this; production loaded only the current
+        # season and projected 2026 Week 1 from the two games already played —
+        # 47 rookie-baseline rows, 2026-09-12). Requires the caller to include
+        # season-1 rows in silver_df; without them the old fallback applies.
+        seeded = prior_season_feature_rows(silver_df, season - 1)
+        if not seeded.empty:
+            target_df = seeded
+            logger.info(
+                "Week %d: seeded features from %d players' final %d regular-season rows",
+                week,
+                len(seeded),
+                season - 1,
+            )
 
     if target_df.empty:
         # Fallback: use most recent week available
