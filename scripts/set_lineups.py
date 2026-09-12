@@ -46,6 +46,7 @@ from src.lineup_setter import (  # noqa: E402
     ours_by_sleeper_id,
     preseason_to_weekly,
     render,
+    roster_gsis_map,
     score_ours,
     weekly_gold_to_stats,
 )
@@ -53,6 +54,7 @@ from src.sleeper_player_map import load_sleeper_players  # noqa: E402
 
 GOLD = REPO_ROOT / "data" / "gold" / "projections"
 SCHEDULES = REPO_ROOT / "data" / "bronze" / "schedules"
+ROSTERS = REPO_ROOT / "data" / "bronze" / "players" / "rosters"
 
 
 def _latest(pattern: str, exclude: str = "derived") -> Optional[Path]:
@@ -193,7 +195,17 @@ def main(argv: Optional[list] = None) -> int:
     registry = load_sleeper_players()
 
     ours_df, ours_label = load_ours(season, week)
-    ours = ours_by_sleeper_id(score_ours(ours_df, scoring), registry)
+    roster_files = sorted(
+        glob.glob(str(ROSTERS / "season=*" / "**" / "*.parquet"), recursive=True)
+    )
+    rosters = (
+        pd.concat([pd.read_parquet(f) for f in roster_files], ignore_index=True)
+        if roster_files
+        else pd.DataFrame()
+    )
+    ours = ours_by_sleeper_id(
+        score_ours(ours_df, scoring), registry, gsis_map=roster_gsis_map(rosters)
+    )
     sleeper_proj = load_sleeper_projections(season, week)
 
     sched_file = _latest(

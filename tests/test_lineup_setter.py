@@ -18,6 +18,7 @@ from src.lineup_setter import (
     ours_by_sleeper_id,
     preseason_to_weekly,
     render,
+    roster_gsis_map,
     score_ours,
     score_sleeper_stats,
 )
@@ -131,6 +132,32 @@ def test_id_maps_use_gsis_then_name_position():
         }
     )
     assert ours_by_sleeper_id(scored, REGISTRY) == {"1": 12.0, "2": 9.0}
+
+
+def test_roster_crosswalk_maps_abbreviated_weekly_names():
+    rosters = pd.DataFrame(
+        {
+            "season": [2025, 2026, 2026],
+            "player_id": ["00-0000003", "00-0000003", "00-0000099"],
+            "sleeper_id": [3.0, 3.0, 99.0],
+        }
+    )
+    assert roster_gsis_map(rosters) == {"00-0000003": "3", "00-0000099": "99"}
+    scored = pd.DataFrame(
+        {
+            "player_id": ["00-0000003", "00-0000099"],
+            "player_name": ["S.QB", "N.Body"],  # weekly Gold style, no name match
+            "position": ["QB", "RB"],
+            "projected_points": [20.0, 7.0],
+        }
+    )
+    registry_without_gsis = {
+        "3": {"full_name": "Some QB", "position": "QB", "team": "BUF"}
+    }
+    assert ours_by_sleeper_id(scored, registry_without_gsis) == {}
+    assert ours_by_sleeper_id(
+        scored, registry_without_gsis, gsis_map=roster_gsis_map(rosters)
+    ) == {"3": 20.0, "99": 7.0}
 
 
 # --- schedule / slots --------------------------------------------------------
