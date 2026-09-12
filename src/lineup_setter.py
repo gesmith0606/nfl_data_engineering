@@ -169,11 +169,43 @@ def build_id_maps(
     return by_gsis, by_name
 
 
+def roster_gsis_map(rosters: pd.DataFrame) -> Dict[str, str]:
+    """``gsis player_id -> sleeper_id`` from Bronze rosters (later seasons win).
+
+    The Sleeper registry's own ``gsis_id`` is sparse, and weekly Gold names are
+    abbreviated (``C.Brown``), so without this crosswalk most weekly rows would
+    not join (2026 wk1: 3 of 18 Mantis players matched).
+    """
+    if rosters is None or rosters.empty:
+        return {}
+    cols = [c for c in ("player_id", "sleeper_id", "season") if c in rosters.columns]
+    if not {"player_id", "sleeper_id"} <= set(cols):
+        return {}
+    df = rosters[cols].dropna(subset=["player_id", "sleeper_id"])
+    if "season" in df.columns:
+        df = df.sort_values("season")
+    out: Dict[str, str] = {}
+    for gsis, sid in zip(df["player_id"], df["sleeper_id"]):
+        try:
+            out[str(gsis)] = str(int(float(sid)))
+        except (ValueError, TypeError):
+            continue
+    return out
+
+
 def ours_by_sleeper_id(
-    scored: pd.DataFrame, registry: Dict[str, Dict[str, Any]]
+    scored: pd.DataFrame,
+    registry: Dict[str, Dict[str, Any]],
+    gsis_map: Optional[Dict[str, str]] = None,
 ) -> Dict[str, float]:
-    """Map our scored projections onto Sleeper ids (GSIS first, name+position second)."""
+    """Map our scored projections onto Sleeper ids.
+
+    Order: roster crosswalk ``gsis_map`` (Bronze rosters), then the registry's
+    ``gsis_id``, then normalised name + position.
+    """
     by_gsis, by_name = build_id_maps(registry)
+    if gsis_map:
+        by_gsis = {**by_gsis, **gsis_map}
     out: Dict[str, float] = {}
     for row in scored.itertuples(index=False):
         sid = by_gsis.get(str(row.player_id))
