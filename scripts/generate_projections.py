@@ -227,7 +227,9 @@ def attach_floor_ceiling_with_features(
                     )
             feat_lookup = feat_df.drop_duplicates("player_id").set_index("player_id")
             new_cols = [c for c in feat_lookup.columns if c not in projections.columns]
-            floor_ceiling_input = projections.join(feat_lookup[new_cols], on="player_id")
+            floor_ceiling_input = projections.join(
+                feat_lookup[new_cols], on="player_id"
+            )
         else:
             log(
                 "WARN: Could not assemble feature vector for floor/ceiling "
@@ -240,7 +242,9 @@ def attach_floor_ceiling_with_features(
             "quantile-model path will fall back to heuristic multipliers"
         )
 
-    floor_ceiling_input = add_floor_ceiling(floor_ceiling_input, use_conformal=use_conformal)
+    floor_ceiling_input = add_floor_ceiling(
+        floor_ceiling_input, use_conformal=use_conformal
+    )
     projections = projections.copy()
     projections["projected_floor"] = floor_ceiling_input["projected_floor"]
     projections["projected_ceiling"] = floor_ceiling_input["projected_ceiling"]
@@ -1163,6 +1167,46 @@ def main():
         if not silver_df.empty:
             print(f"Loaded {len(silver_df):,} rows from local Silver layer")
 
+        # Week 1 has no in-season history: the engine seeds each player's
+        # rolling state from the PRIOR season's final regular-season row, so
+        # load that season's (committed) Silver usage too. Stale teams on those
+        # rows are overridden from the Sleeper rosters_live snapshot, the same
+        # way the preseason path does, so offseason movers get the right
+        # opponent / bye / Vegas total.
+        if args.week <= 1:
+            prior_df = _read_local_parquet(
+                SILVER_DIR, f"players/usage/season={args.season - 1}/*.parquet"
+            )
+            if prior_df.empty:
+                print(
+                    f"WARN: no prior-season Silver usage for {args.season - 1}; "
+                    "Week 1 will fall back to rookie baselines"
+                )
+            else:
+                from utils import apply_sleeper_team_overrides
+
+                live_roster = _read_local_parquet(
+                    BRONZE_DIR, "players/rosters_live/season=*/*.parquet"
+                )
+                name_col = (
+                    "player_display_name"
+                    if "player_display_name" in prior_df.columns
+                    else "player_name"
+                )
+                prior_df = apply_sleeper_team_overrides(
+                    prior_df,
+                    live_roster,
+                    team_col="recent_team",
+                    name_col=name_col,
+                    position_col="position",
+                    logger=logging.getLogger(__name__),
+                )
+                print(
+                    f"Loaded {len(prior_df):,} prior-season ({args.season - 1}) Silver rows "
+                    "to seed Week 1 rolling features"
+                )
+                silver_df = pd.concat([prior_df, silver_df], ignore_index=True)
+
         # Try S3 if local is empty
         if silver_df.empty and has_aws:
             try:
@@ -1340,6 +1384,11 @@ def main():
                     print(
                         "WARN: assemble_player_features returned empty; SHIP path will use silver_df"
                     )
+                    # An EMPTY frame is not None: the router would index
+                    # feat_source["season"] on it and KeyError (2026 Week 1,
+                    # first live-season --ml run). Hand it None so it really
+                    # does fall back to silver_df as the message promises.
+                    feature_df = None
                 else:
                     qbr_cols = [c for c in feature_df.columns if c.startswith("qbr_")]
                     print(
@@ -1532,7 +1581,10 @@ def main():
                 )
                 crosswalk = build_name_id_crosswalk(rosters_df)
                 mapping = fit_adp_ppg_mapping(
-                    training_seasons, train_weekly_df, crosswalk, scoring_format=args.scoring
+                    training_seasons,
+                    train_weekly_df,
+                    crosswalk,
+                    scoring_format=args.scoring,
                 )
                 adp_current = load_adp_snapshot(
                     args.season, scoring_format=args.scoring, adp_dir=adp_history_dir
@@ -1544,7 +1596,9 @@ def main():
                         "no roster crosswalk available; skipping"
                     )
                 else:
-                    implied_df = compute_adp_implied_ppg(adp_current, mapping, crosswalk)
+                    implied_df = compute_adp_implied_ppg(
+                        adp_current, mapping, crosswalk
+                    )
                     before_total = float(projections["projected_points"].sum())
                     projections = apply_adp_prior(
                         projections,

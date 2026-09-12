@@ -40,6 +40,7 @@ from projection_engine import (
     add_floor_ceiling,
     apply_team_constraints,
     generate_weekly_projections,
+    prior_season_feature_rows,
 )
 from player_model_training import (
     get_stat_type,
@@ -570,12 +571,29 @@ def generate_ml_projections(
             # off-by-one contributed to the v4.1 hybrid over-correction).
             # Live projections of an unplayed week have no week-W row yet —
             # fall back to the latest available row in that case.
-            feat_source = feature_df if feature_df is not None else silver_df
+            feat_source = (
+                feature_df
+                if feature_df is not None and not feature_df.empty
+                else silver_df
+            )
             target_df = feat_source[
                 (feat_source["season"] == season)
                 & (feat_source["week"] == week)
                 & (feat_source["position"] == position)
             ]
+            if target_df.empty and week <= 1:
+                # Week 1 of a new season: same prior-season seed the heuristic
+                # used (each player's final regular-season row), so the
+                # residual model corrects the rows it was actually built on.
+                seeded = prior_season_feature_rows(feat_source, season - 1)
+                target_df = seeded[seeded["position"] == position]
+                if not target_df.empty:
+                    logger.info(
+                        "%s: week 1 residual features seeded from %d final %d rows",
+                        position,
+                        len(target_df),
+                        season - 1,
+                    )
             if target_df.empty:
                 latest = feat_source[
                     (feat_source["season"] == season)
@@ -905,5 +923,3 @@ def _generate_ml_for_position(
         heuristic = heuristic[heuristic["position"] == position].copy()
         heuristic["projection_source"] = "heuristic"
         return heuristic
-
-
