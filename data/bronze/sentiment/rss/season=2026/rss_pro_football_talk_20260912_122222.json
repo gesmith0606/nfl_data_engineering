@@ -1,0 +1,509 @@
+{
+  "fetch_run_id": "79cd0282-4449-4157-9ff3-54724de3acf5",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-12T12:22:22.553464+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-arriving-in-david-montgomery-trade-juice-scruggs-is-lions-starting-center",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-arriving-in-david-montgomery-trade-juice-scruggs-is-lions-starting-center",
+      "title": "After arriving in David Montgomery trade, Juice Scruggs is Lions' starting center",
+      "body_text": "When the Lions traded running back David Montgomery to the Texans in March, Juice Scruggs was viewed as mostly a throw-in along with the fourth-round pick and seventh-round pick Houston had sent to Detroit.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-12T09:31:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Montgomery",
+        "Juice Scruggs"
+      ],
+      "resolved_player_ids": [
+        "00-0035685",
+        "00-0038936"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-sees-bears-practicing-at-a-championship-level-unlike-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-sees-bears-practicing-at-a-championship-level-unlike-last-year",
+      "title": "Ben Johnson sees Bears practicing at a championship level, unlike last year",
+      "body_text": "A year ago, Johnson said his team's practice habits were not yet championship-caliber. He no longer thinks that.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-12T08:46:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-is-one-game-from-tying-the-franchise-record-for-multiple-td-passes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-is-one-game-from-tying-the-franchise-record-for-multiple-td-passes",
+      "title": "Caleb Williams is one game from tying the franchise record for multiple TD passes",
+      "body_text": "The Bears have still never had a quarterback with 4,000 passing yards in a single season.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T03:49:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-send-oc-to-booth-for-first-time-under-nick-sirianni",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-send-oc-to-booth-for-first-time-under-nick-sirianni",
+      "title": "Eagles send OC to booth, for first time under Nick Sirianni",
+      "body_text": "In five years as the Eagles' head coach, Nick Sirianni has had his offensive coordinator on the field with him during the games.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T03:36:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-hopes-to-extend-starting-record-against-joe-burrow-to-4-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-hopes-to-extend-starting-record-against-joe-burrow-to-4-0",
+      "title": "Baker Mayfield hopes to extend starting record against Joe Burrow to 4-0",
+      "body_text": "Sunday's game between the Buccaneers and Bengals has an intriguing subplot.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T02:54:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0034855",
+        "00-0036442"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-convert-cb-isaiah-rodgerss-playing-time-incentives-into-a-signing-bonus",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-convert-cb-isaiah-rodgerss-playing-time-incentives-into-a-signing-bonus",
+      "title": "Vikings convert CB Isaiah Rodgers's playing-time incentives into a signing bonus",
+      "body_text": "Cornerback Isaiah Rodgers had a solid 2025 season for the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T00:51:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Isaiah Rodgers",
+        "Cornerback Isaiah"
+      ],
+      "resolved_player_ids": [
+        "00-0036222"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-initial-grass-field-had-major-deformations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-initial-grass-field-had-major-deformations",
+      "title": "Bills' initial grass field had \"major deformations\"",
+      "body_text": "In six days, the Bills will host the first regular-season game at their new stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T00:37:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-claim-g-atonio-mafi-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-claim-g-atonio-mafi-off-of-waivers",
+      "title": "Titans claim G Atonio Mafi off of waivers",
+      "body_text": "The Titans tweaked their offensive line ahead of Sunday's game against the Jets.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T22:29:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Atonio Mafi",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0038586"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-lb-xavier-thomas-suspended-three-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-lb-xavier-thomas-suspended-three-games",
+      "title": "Free agent LB Xavier Thomas suspended three games",
+      "body_text": "The NFL has suspended free agent linebacker Xavier Thomas for the first three weeks of the season, according to the league's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T21:53:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Xavier Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0039367"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-off-injury-report-set-to-play-week-1-vs-dolphins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-off-injury-report-set-to-play-week-1-vs-dolphins",
+      "title": "Ashton Jeanty off injury report, set to play Week 1 vs. Dolphins",
+      "body_text": "Ashton Jeanty is officially \"on the mend\" no more.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-11T21:00:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Dolphins Ashton"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-hopes-to-improve-1-4-career-record-vs-texans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-hopes-to-improve-1-4-career-record-vs-texans",
+      "title": "Josh Allen hopes to improve 1-4 career record vs. Texans",
+      "body_text": "Bills quarterback Josh Allen has a 96-46 record as a starter in regular-season and postseason games.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-11T20:55:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen",
+        "Texans Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-rb-malik-davis-will-miss-time-with-a-pretty-serious-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-rb-malik-davis-will-miss-time-with-a-pretty-serious-hip-injury",
+      "title": "Cowboys RB Malik Davis will miss time with a \"pretty serious\" hip injury",
+      "body_text": "The Cowboys have ruled out running back Malik Davis for Sunday's season opener, and they are bracing for him to miss significant time.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T20:54:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Davis",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037563"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-list-chris-jones-as-limited-with-a-calf-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-list-chris-jones-as-limited-with-a-calf-injury",
+      "title": "Chiefs list Chris Jones as limited with a calf injury",
+      "body_text": "Defensive lineman Chris Jones was added to the Chiefs' injury report on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T20:54:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0032762"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-release-dl-levi-onwuzurike",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-release-dl-levi-onwuzurike",
+      "title": "Lions release DL Levi Onwuzurike",
+      "body_text": "The Lions dropped a player from their active roster on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T20:41:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Levi Onwuzurike",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0036954"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-rule-out-lb-teddye-buchanan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-rule-out-lb-teddye-buchanan",
+      "title": "Ravens rule out LB Teddye Buchanan",
+      "body_text": "The Ravens officially ruled out two players for Sunday's season opener against the Colts.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T20:39:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Teddye Buchanan",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0040069"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-malik-nabers-as-questionable-to-play-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-malik-nabers-as-questionable-to-play-sunday-night",
+      "title": "Giants list Malik Nabers as questionable to play Sunday night",
+      "body_text": "Wide receiver Malik Nabers was a full participant in practice again on Friday, but the team isn't ready to say anything definitive about his status for Sunday night's game against the Cowboys.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T20:34:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-i-was-optimistic-brock-bowers-would-be-able-to-go-but-hes-not",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-i-was-optimistic-brock-bowers-would-be-able-to-go-but-hes-not",
+      "title": "Klint Kubiak: I was optimistic Brock Bowers would be able to go, but he's not",
+      "body_text": "On Wednesday, a curious situation came up with the Raiders, head coach Klint Kubiak, tight end Brock Bowers, and the media.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-11T20:26:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Brock Bowers",
+        "On Wednesday"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-confirms-fernando-mendoza-is-the-no-2-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-confirms-fernando-mendoza-is-the-no-2-qb",
+      "title": "Klint Kubiak confirms Fernando Mendoza is the No. 2 QB",
+      "body_text": "Raiders head coach Klint Kubiak confirmed rookie Fernando Mendoza will serve as the backup to Kirk Cousins.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T20:23:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Fernando Mendoza",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0041562",
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnson-unable-to-travel-to-nashville-titans-postpone-ring-of-honor-ceremony",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-johnson-unable-to-travel-to-nashville-titans-postpone-ring-of-honor-ceremony",
+      "title": "Chris Johnson unable to travel to Nashville, Titans postpone Ring of Honor ceremony",
+      "body_text": "The Titans' plans to induct Chris Johnson into the Ring of Honor this weekend have been put on hold.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T20:16:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Johnson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035456"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-i-feel-ready-to-go-i-plan-on-playing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-i-feel-ready-to-go-i-plan-on-playing",
+      "title": "Rome Odunze: I feel ready to go; I plan on playing",
+      "body_text": "Bears wide receiver Rome Odunze is listed as questionable to play in the season opener because of a calf injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-11T20:08:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rule-jonathan-greenard-out-for-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rule-jonathan-greenard-out-for-week-1",
+      "title": "Eagles rule Jonathan Greenard out for Week 1",
+      "body_text": "Linebacker Jonathan Greenard said on Thursday that he feels \"close\" to being ready to play after missing all of training camp and the preseason with a pectoral injury, but he's not close enough to be in the lineup this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T20:03:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Greenard",
+        "Linebacker Jonathan"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-on-deshaun-watson-i-really-like-where-hes-at",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-on-deshaun-watson-i-really-like-where-hes-at",
+      "title": "Todd Monken on Deshaun Watson: \"I really like where he's at\"",
+      "body_text": "On Sunday, Deshaun Watson will make his first start in almost two years when the Browns take on the Jaguars.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-11T19:52:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "Deshaun Watson",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-dandre-swift-agree-to-three-year-contract-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-dandre-swift-agree-to-three-year-contract-extension",
+      "title": "Bears, D'Andre Swift agree to three-year contract extension",
+      "body_text": "Bears running back D'Andre Swift will kick off the new season with a new contract.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T19:45:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andre Swift"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-place-second-round-pick-kayden-mcdonald-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-place-second-round-pick-kayden-mcdonald-on-ir",
+      "title": "Texans place second-round pick Kayden McDonald on IR",
+      "body_text": "Texans second-round pick Kayden McDonald won't be making his NFL debut in September.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T19:29:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-doubtful-jamarr-chase-and-tee-higgins-set-to-play-week-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shemar-stewart-doubtful-jamarr-chase-and-tee-higgins-set-to-play-week-1",
+      "title": "Shemar Stewart doubtful, Ja'Marr Chase and Tee Higgins set to play Week 1",
+      "body_text": "The Bengals are unlikely to have defensive end Shemar Stewart for Sunday's season opener against the Buccaneers, but the rest of their 53-man roster is healthy to play — including receivers Ja'Marr Chase and Tee Higgins.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-11T19:26:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shemar Stewart",
+        "Marr Chase",
+        "Tee Higgins",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0040756",
+        "00-0036410"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-malik-davis-carted-off-at-cowboys-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-malik-davis-carted-off-at-cowboys-practice",
+      "title": "RB Malik Davis carted off at Cowboys practice",
+      "body_text": "The Cowboys may need to pivot to a new plan for their offensive backfield ahead of Sunday night's game against the Giants.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T19:22:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Davis",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037563"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-xavier-woods-questionable-for-bears-vs-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rome-odunze-xavier-woods-questionable-for-bears-vs-panthers",
+      "title": "Rome Odunze, Xavier Woods questionable for Bears vs. Panthers",
+      "body_text": "Two Bears starters are questionable for Sunday's opener against the Panthers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-11T19:12:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rome Odunze",
+        "Xavier Woods",
+        "Panthers Two"
+      ],
+      "resolved_player_ids": [
+        "00-0039919",
+        "00-0033579"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-release-bo-melton-but-will-bring-him-back-on-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-release-bo-melton-but-will-bring-him-back-on-practice-squad",
+      "title": "Packers release Bo Melton, but will bring him back on practice squad",
+      "body_text": "The Packers have made a surprising roster move on Friday, but there’s more to it than it initially appears.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-11T19:00:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Melton",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0037091"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nnamdi-madubuike-will-not-play-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nnamdi-madubuike-will-not-play-this-week",
+      "title": "Nnamdi Madubuike will not play this week",
+      "body_text": "Ravens defensive tackle Nnamdi Madubuike's return to game action will have to wait a little bit longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T18:55:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nnamdi Madubuike"
+      ],
+      "resolved_player_ids": [
+        "00-0036130"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-mcmillan-doubtful-for-bucs-but-emeka-egbuka-is-set-to-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-mcmillan-doubtful-for-bucs-but-emeka-egbuka-is-set-to-play",
+      "title": "Jalen McMillan doubtful for Bucs, but Emeka Egbuka is set to play",
+      "body_text": "The Buccaneers will likely be down one wide receiver when they open the regular season against the Bengals on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-11T18:43:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Emeka Egbuka",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0040129"
+      ],
+      "team_hint": "TB"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "5dde5369-782f-480b-9040-ce34099f0a08",
+  "source": "rotowire",
+  "fetched_at": "2026-09-12T12:22:34.517177+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl636939",
+      "url": "https://www.rotowire.com//football/player/malik-davis-15828",
+      "permalink": "",
+      "title": "Malik Davis: Will undergo hip surgery",
+      "body_text": "Davis is slated to have surgery on his injured hip Saturday and is expected to be placed on IR, Todd Archer of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-11T06:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Davis",
+        "Todd Archer"
+      ],
+      "resolved_player_ids": [
+        "00-0037563"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636862",
+      "url": "https://www.rotowire.com//football/player/keaton-mitchell-16810",
+      "permalink": "",
+      "title": "Keaton Mitchell: Cleared from injury report",
+      "body_text": "Mitchell (hamstring) was a full participant in Friday's practice and does not have an injury designation for Sunday's game against the Cardinals. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-11T02:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keaton Mitchell"
+      ],
+      "resolved_player_ids": [
+        "00-0038454"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl636855",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "permalink": "",
+      "title": "Jeremiyah Love: Questionable for Week 1",
+      "body_text": "Love (ankle) is listed as questionable for Sunday's game at the Chargers, Theo Mackie of The Arizona Republic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-11T01:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Theo Mackie",
+        "The Arizona"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl636854",
+      "url": "https://www.rotowire.com//football/player/jakobi-meyers-13517",
+      "permalink": "",
+      "title": "Jakobi Meyers: Cleared to play Sunday",
+      "body_text": "Meyers (thumb) doesn't have an injury designation for Sunday's matchup with Cleveland, Mia O'Brien of ESPN Radio reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-11T01:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jakobi Meyers",
+        "Sunday Meyers"
+      ],
+      "resolved_player_ids": [
+        "00-0034960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636853",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Listed as questionable for Sunday",
+      "body_text": "Nabers (knee) is listed as questionable for Sunday's game against the Cowboys, Dan Salomone of the Giants' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-11T01:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers",
+        "Sunday Nabers",
+        "Dan Salomone"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
