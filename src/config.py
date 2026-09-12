@@ -404,6 +404,18 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "teams": 12,
         "my_pick": None,
     },
+    # Dynasty superflex, TE premium (+1/rec), 6-pt pass TD, 0.5 first downs.
+    # Roster shape and scoring are read live from the Sleeper league by
+    # scripts/set_lineups.py; ``my_user`` is the Sleeper display name.
+    "mantis": {
+        "platform": "sleeper",
+        "league_id": "1378522447686402048",
+        "scoring_format": "ppr",
+        "roster": "superflex",
+        "teams": 10,
+        "my_pick": None,
+        "my_user": "Gforceee",
+    },
 }
 
 # Platform-faithful draft-session defaults (v8.3 draft-tool upgrade).

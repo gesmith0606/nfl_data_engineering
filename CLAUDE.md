@@ -76,6 +76,7 @@ python scripts/ablation_market_features.py          # Market feature ablation on
 # Fantasy backtesting & ADP
 python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr  # default evaluation path includes the shipped Sleeper WR anchor; --no-sleeper-anchor evaluates the pre-ship baseline
 python scripts/refresh_adp.py --season 2026
+python scripts/set_lineups.py --league mantis --week 2                                    # Weekly lineup deltas: ours + Sleeper under league scoring, SWAP only when both agree by 3.0 (see .planning/LINEUP_TOOL_ENHANCEMENT.md)
 
 # Web API
 ./web/run_dev.sh                                   # Run FastAPI dev server
@@ -221,6 +222,8 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/espn_league.py` | ESPN league/team import via ESPN_S2+ESPN_SWID cookies (lm-api-reads v3): settings, teams, rosters, post-draft PickEvents — live-draft NO-GO stands |
 | `scripts/espn_league_import.py` | ESPN import CLI — league summary, rosters, `--my-team`, `--draft`, `--out` raw JSON |
 | `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |
+| `src/lineup_setter.py` | Weekly lineup setter logic (pure): OURS (weekly Gold, or preseason pace when the weekly board is thin) + Sleeper weekly projection, both re-scored under the league's live `scoring_settings`; SWAP only when BOTH sources agree by the threshold, else COIN FLIP / SPLIT; lock/bye/injury flags |
+| `scripts/set_lineups.py` | Weekly lineup CLI — `--league mantis [--week N] [--threshold 3.0]`; Sleeper roster/positions/scoring read live; prints the lineup with both sources and only the deltas vs the lineup currently set (never reads `*_derived` boards) |
 | `src/league_scoring.py` | Re-score projections under a league's custom Sleeper `scoring_settings` (full PPR, TE premium, 6pt pass TD, etc.) (v8.0 Phase 91) |
 | `scripts/sleeper_board.py` | UC1 sleeper board — consensus-unranked players ranked by vacated-opportunity absorption |
 | `scripts/build_correlations.py` | UC3 CLI — rebuild stability-gated correlation edges → data/gold/correlations/ |
