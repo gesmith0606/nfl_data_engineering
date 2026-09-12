@@ -71,94 +71,37 @@ jobs:
       week:   ${{ steps.nfl_week.outputs.week }}
 
     steps:
-      - name: Determine NFL season and week from today's date
+      # The resolver reads the committed schedule parquet (TD-09), so the
+      # job needs the repo. Sparse checkout keeps it to the schedules dir.
+      - name: Checkout schedules
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            scripts/resolve_pipeline_week.py
+            data/bronze/schedules
+          sparse-checkout-cone-mode: false
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install resolver dependencies
+        run: pip install --quiet pandas pyarrow
+
+      # Target = the UPCOMING regular-season week per the schedule (the
+      # Tuesday cron fires after MNF, so the just-played week is complete and
+      # the next one is what we project). The old calendar rule ("Thursday on
+      # or after Sep 5") resolved 2026-09-08 to season 2025 week 18 and never
+      # produced 2026 Week 1 — see scripts/resolve_pipeline_week.py.
+      - name: Determine NFL season and week from the schedule
         id: nfl_week
         env:
           INPUT_SEASON: ${{ inputs.season }}
           INPUT_WEEK:   ${{ inputs.week }}
           # Optional env-level override (set in repo Settings → Variables)
           PIPELINE_WEEK_OVERRIDE: ${{ vars.PIPELINE_WEEK_OVERRIDE }}
-        run: |
-          python3 - <<'PYEOF'
-          import os, datetime
-
-          # ----------------------------------------------------------------
-          # Priority order for season/week:
-          #   1. workflow_dispatch inputs (explicit user override)
-          #   2. PIPELINE_WEEK_OVERRIDE repository variable  e.g. "2024:10"
-          #   3. Auto-computed from today's date
-          # ----------------------------------------------------------------
-
-          input_season = os.environ.get("INPUT_SEASON", "").strip()
-          input_week   = os.environ.get("INPUT_WEEK",   "").strip()
-          override     = os.environ.get("PIPELINE_WEEK_OVERRIDE", "").strip()
-
-          if input_season and input_week:
-              season = int(input_season)
-              week   = int(input_week)
-              print(f"Using workflow_dispatch inputs: season={season} week={week}")
-
-          elif override and ":" in override:
-              season_str, week_str = override.split(":", 1)
-              season = int(season_str.strip())
-              week   = int(week_str.strip())
-              print(f"Using PIPELINE_WEEK_OVERRIDE: season={season} week={week}")
-
-          else:
-              # ----------------------------------------------------------------
-              # Auto-compute NFL week.
-              #
-              # NFL regular season convention:
-              #   - Season year = the calendar year in which the season starts
-              #   - Week 1 begins on the first full Thursday-Sunday of September
-              #     (i.e. the Thursday on or after September 5).
-              #   - Each week is exactly 7 days.
-              #   - Weeks 1-18 cover the regular season (through mid-January).
-              #   - Postseason begins roughly week 19 onward — we cap at 18.
-              #
-              # This logic finds the Thursday that anchors Week 1 for the
-              # current season year and computes elapsed weeks from there.
-              # ----------------------------------------------------------------
-              today  = datetime.date.today()
-              year   = today.year
-
-              def week1_thursday(yr: int) -> datetime.date:
-                  """Return the Thursday on or after September 5 for year yr."""
-                  sep5 = datetime.date(yr, 9, 5)
-                  # weekday(): Monday=0 … Thursday=3 … Sunday=6
-                  days_ahead = (3 - sep5.weekday()) % 7
-                  return sep5 + datetime.timedelta(days=days_ahead)
-
-              # Decide which season year we are currently in.
-              # If we're before the current year's Week 1 Thursday, we're
-              # still in the previous season's postseason (or off-season).
-              anchor = week1_thursday(year)
-              if today < anchor:
-                  # We're in the previous season's post-season / off-season
-                  season = year - 1
-                  anchor = week1_thursday(season)
-              else:
-                  season = year
-
-              days_since_week1 = (today - anchor).days
-              week = (days_since_week1 // 7) + 1
-
-              # Clamp to valid regular-season range (1-18)
-              week = max(1, min(week, 18))
-
-              print(f"Auto-computed: today={today} season={season} week={week}")
-
-          # Write outputs for subsequent jobs via GITHUB_OUTPUT
-          github_output = os.environ.get("GITHUB_OUTPUT", "")
-          if github_output:
-              with open(github_output, "a") as fh:
-                  fh.write(f"season={season}\n")
-                  fh.write(f"week={week}\n")
-          else:
-              # Local test fallback
-              print(f"season={season}")
-              print(f"week={week}")
-          PYEOF
+        run: python scripts/resolve_pipeline_week.py
 
   # --------------------------------------------------------------------------
   # Job 2: run-pipeline

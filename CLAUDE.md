@@ -245,6 +245,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `web/api/config.py` | API configuration, S3 client setup |
 | `docker-compose.yml` | Neo4j 5.x service definition |
 | `.github/workflows/weekly-pipeline.yml` | Tuesday cron; auto-opens GitHub issue on failure |
+| `scripts/resolve_pipeline_week.py` | Weekly-cron target (season, week) = the UPCOMING regular-season week per the committed schedule parquet (replaced the "Thursday on/after Sep 5" calendar rule that resolved 2026-09-08 to 2025 wk18 and never produced 2026 Week 1); dispatch inputs / `PIPELINE_WEEK_OVERRIDE` still win |
 
 ## Configuration
 
