@@ -403,3 +403,290 @@ Caleb is NOT draftable: he's kept by **Dude I got a Dell** at 10.09.
   the CHI bye and sink together in bad Bears game scripts. Not a reason to unwind — but
   pencil the CHI bye in as a mandatory WR/TE streaming week, and it slightly raises the
   value of the #115 TE2 dart (§14/§39) the plan otherwise calls a pure luxury.
+
+## 10. Day-before refresh (2026-09-06, ~12:20 ET)
+
+Regenerated everything the plan prices from: projections
+`preseason_2026_half_ppr_20260906_121734` (Gold parquet same stamp), ADP `adp_ffc_half_ppr.csv`
+(**10-team** FFC pull, `--teams 10`) + `adp_sleeper_half_ppr.csv`, value report
+`output/draft_reports/value_report_half_ppr_20260906_121747.csv`. Keepers file for the co-pilot:
+`data/draft/feetball_2026_keepers.txt` (25 names, Burden/Loveland starred).
+
+**Verdict: the plan stands.** Every pick-by-pick target sits within ±2 model ranks of the Aug 30
+board (Amon-Ra vbd 8, Cook 9, Henry 10, Barkley 12, Allen 16, Jeanty 18, Hampton 19, London 20,
+A.J. Brown 21, Nabers 26, Higgins 33, Walker 34). Sleeper ADP still has Allen at 20 — #21 stays a
+genuine coin flip, #26 the Lamar fallback (Lamar Sleeper ADP 34, FFC 58).
+
+Changes:
+- **Jordyn Tyson (WR, NO) — OFF the #106 menu.** Placed on IR (designated to return) on Aug 30 after
+  another right-hamstring flare-up; must miss at least the first four games and the reported
+  outlook is ~two months. The league has 3 IR slots, so he survives only as a **#146-or-later IR
+  stash** if a dart is wanted over DST — never at #106/#115. Lemon moves to the top of the #106
+  menu, Diggs/Meyers behind him.
+- **Ashton Jeanty (RB, LV)** — low right-ankle sprain (Aug 23), back on a side field Sep 1, not
+  on IR, HC "optimistic" for the Sep 13 opener. Keep him as a #13/#15 option but he is the
+  discount branch, not the primary: if Barkley/Hampton/Walker are there, take the healthy one.
+- NEWS-guard hits carried into draft night (verify in the room): Gibbs (injuries 8/30 — minor
+  per the La Liga check), Nacua (suspension 8/28 — REAL, fade), Olave/Hall/Hubbard (injury),
+  Kittle (PUP 8/23 — since activated), Alec Pierce (surgery 8/28), Charbonnet (PUP, keeper anyway).
+- Nothing else moved by more than a round on either ADP source.
+- **De'Zhaun Stribling (WR, SF) — ADDED to the #106 menu (2026-09-07, user call, §29 momentum).**
+  Model rank 170 is a blank (low-sample rookie fallback, role "unknown") — ignore it. Market:
+  FantasyPros 120 / ESPN 130 / Sharps 134 / DraftSharks 141 / Sleeper 149 (all Sep 3), PFN 105,
+  ADP rising ~3 rounds in three weeks; camp reports have him in SF's top-3 WRs and 3-wide sets
+  from Week 1. Same profile as Lemon (round-2 capital + landing spot + market moving up). Menu
+  at #106 is now Lemon / Stribling (ceiling) ahead of Diggs / Meyers (floor). He will NOT reach
+  #115 in this room — if he's the one, #106 is the pick.
+- **Framing for tonight (George, 2026-09-07): the early capital is plentiful, the late picks are
+  the scarce resource.** #106/#115 are the whole bench budget and sit inside 31-pick dead gaps, so
+  the take-a-round-early list (Allen #21, Henderson #35, Thomas Jr. #46, Tate #66, Johnston #75,
+  Lemon/Stribling #106) is now in `data/draft/my_guys.txt` and renders as MY GUY in the co-pilot.
+- **QB fallback ladder if Allen is gone (2026-09-07).** Read straight off the custom order: the
+  four QB-needy rivals' LIVE picks are Crazy Eddie 27/30/31/50/51/68/71, Bird Gang 28/33/48/73,
+  Achane 54, and **Amon Ra has no live pick between #20 and #80** — if Amon Ra doesn't take a QB
+  at #20, that's one fewer buyer in our whole window. At most 2 QBs can go between our #26 and
+  #46, and at most 3 more between #46 and #75. Ladder:
+  1. Lamar at #26 (model 43; FFC 58 / Sleeper 34 / ESPN 18 — Yahoo rooms take him early).
+  2. If both are gone at #26, stay WR at #26/#34/#35 and take **Jalen Hurts (model 50, FFC 82 /
+     Sleeper 61) or Joe Burrow (59, FFC 55)** at **#46** — the last pick inside the §40 elite
+     window (R3-5, +17). Hurts over Burrow (rushing floor, younger, later ADP). At #46 this
+     outranks Brian Thomas Jr.
+  3. If both are gone by #46: wait to **#75** — Herbert (model 81, FP 70) > Lawrence (82) >
+     Purdy (78, ADP 87-95) > Mahomes (80, ADP 90-109). Flat tier (311-313 pts); take whichever
+     is left, never reach for one at #55/#66. Skip Dak at price (market 65-74, model 101).
+  4. Emergency at #106: Nix (94) or Goff (103, ESPN 124 — will be there). Never a 2nd QB.
+  Note: `--mock --auto` currently ignores the pick order + keepers, so mock QB-survival reads are
+  not trustworthy (task filed); the ladder above is reasoned from ADP + the rivals' pick slots.
+
+## 11. Adversarial review (2026-09-07, second agent) — adopted / rejected
+
+A red-team agent attacked §1-§10 with the value report, both ADP files and the Sep 3 consensus
+ranks. Verified pivots: the **Jayden Daniels "retiring" NEWS tag is a false positive** (LSU
+jersey-number/NIL dispute — Murtaugh keeps his QB, the ladder's buyer count stands); the
+Sleeper rankings feed is polluted with retired players (Gurley #36, Brady #97 — task filed,
+ignore that source tonight).
+
+**Adopted (changes a pick):**
+- **#13/#15 → RB default, not a "coequal split".** Live RB cliff is steep (Hampton 259 /
+  Walker 235 / Jeanty 261 → Skattebo 221 → flagged names), the WR 196-218 tier is 8 deep and
+  Higgins is ~95% to reach #21. Model net +20-45 pts for RB-double with lower variance.
+  **#13: Barkley or Hampton coequal** (Barkley 29.6 carries the same §20 age flag used to demote
+  Henry — apply the rule both ways); **#15: Hampton > Walker > Jeanty**; if Barkley went at #13,
+  #15 MUST be the young RB. WR2 comes at #21 (Higgins/Nabers) when Allen is gone, or #26.
+- **#35 stays WR; Henderson moves to #46 (primary), Thomas Jr. to #55/#66.** Henderson at #35
+  is 30 spots ahead of consensus (65) and 100%/60% to reach #46; BTJ at #46 is 37 spots early
+  for +4-9 pts over Addison/Godwin/Tate at #66.
+- **#115: Jordan Mason OUT** — he is on our own FADE list (§20+§27). Corum / Diggs /
+  Croskey-Merritt / the Kelce-Goedert dart instead.
+- **#106: expect Stribling, not Lemon.** Lemon ~8% to reach #106 on Sleeper ADP; Stribling
+  75-95% at #106, ~65% at #115. Take Lemon if he's there, otherwise Stribling — no regret.
+- **#155: Jordyn Tyson IR stash instead of a K** (roster is 17 spots, we draft 16 — one is open
+  regardless). DST at #146, Tyson at #155 → IR slot, kicker off waivers before Sep 13. If the
+  Yahoo IR slot won't accept him or the waiver timing looks tight in-app, revert to K.
+- **Second-order fallbacks added:** #21 if Allen/Nabers/Higgins are gone → George Pickens or a
+  fallen Hampton/Walker; #55 if Henderson/Dowdle/Tate are gone → D'Andre Swift (210, mild flag)
+  over any WR under 170; #75 QB tier is safe (Mahomes 97-99%, Lawrence 76-90%, Purdy 60-100%).
+
+**Noted, no change:** Allen at #21 is ~7% available on Sleeper timing / 58% on FFC — keep the
+trigger, never chase (the net vs Nabers+Hurts is only ~+12). Doctrine round-cells are 12-team
+ADP rounds, not our nominal pick rounds — the avoid-by-name conclusions survive. **McBride at
+#21 is a live option (+~23 over the #26 WR) ONLY if Yahoo's FLEX is W/R/T — confirm in the app;
+if it is and Allen is gone at #21, McBride vs Nabers/Higgins is George's call.** Etienne (§5
+queue #41) and JSN (my_guys) are keepers — harmless, the keepers file removes them.
+
+**FLEX confirmed W/R/T (George, 2026-09-07 pre-draft).** Consequences, in priority order:
+- **#21 when Allen is gone: Trey McBride over Nabers/Higgins.** McBride 223 (TE, model #13, ADP
+  26 Sleeper / 41 FFC) into TE, Loveland 186 slides to FLEX ≈ the McConkey-class WR we'd otherwise
+  start there → net ≈ +23 over the #26 WR, at our best-validated position (TE −0.43 MAE vs
+  consensus). If BOTH Allen and McBride are gone at #21 → Nabers/Higgins as before, Lamar #26.
+- **§39 "no TE2" is suspended when the TE outprojects the FLEX alternative.** Tyler Warren
+  (182, ADP 50-71) and Tucker Kraft (181, ADP 66-96) are legitimate FLEX starters, not luxuries:
+  Kraft at #66 is ≈ +22 over Addison at the same pick. Priority at #46 is still Henderson
+  (RB2 is the exposed slot), but at #55/#66 a TE at value beats a flagged RB or a 158-pt WR.
+  Hard cap: **two** TEs total (Loveland + one of McBride/Warren/Kraft) — a third is a bench TE.
+- RB targets unchanged: FLEX-as-TE means only TWO RBs start, so the RB cliff argument for
+  #13/#15 (RB default) stands and the RB-count finish target drops to 4-5, not 5-7.
+- The co-pilot already models FLEX as RB/WR/TE (`FLEX_ELIGIBLE`), so its needs/lineup math
+  agrees with the room — no flag change needed.
+
+**OVERRULED by George (2026-09-07): no second TE.** Reasoning: five starting slots are RB/WR
+(2 RB + 3 WR) and Burden/Loveland share the CHI bye — depth at RB/WR covers every week, a TE at
+FLEX covers one slot one week at a time; the McBride +23 also stacks two model assumptions (our
+TE projection AND Loveland as a starter-quality FLEX). So §39 stands as written:
+- **#21 when Allen is gone → Nabers / Higgins** (McBride off the board for us). Lamar at #26.
+- **#55/#66 → RB/WR only** (Henderson/Swift/Tate/Addison/Godwin per §2/§11); Warren/Kraft are
+  not targets. The only TE2 window remains the #115 "free dart" — and only if RB/WR depth is
+  already 5+ RB / 6+ WR incl. Burden.
+- **RB/WR finish target back to 5-7 RB / 6-7 WR** (§38 benchmark); FLEX is planned as RB/WR.
+
+**Scenario: Amon-Ra gone at #6 (2026-09-07).** Take the RB — **CMC over Cook** by the model
+(309 / vorp 117 vs 293 / 101, ADP 4-7 so he's often there) but Cook is the zero-flag safety pick;
+CMC carries §20 age 30.2 + §21 top-5-repeat (~24%) as info flags, NOT a bust flag. Never JT here
+(§22 TD-overachiever bust flag, beat rate 3%). Downstream changes:
+- **#13 flips to WR**: Lamb (247, ADP 11-12) if he fell, else **London (231) > A.J. Brown (228) >
+  Nabers (218)**. Skip Jefferson at ADP 12-13 (model 25, §27 market-ahead flag).
+- **#15 stays RB**: Hampton > Walker > Jeanty (RB2 matters MORE behind a 30-year-old RB1).
+  Barkley only if he fell to #13/#15 and you accept a second age-flag RB.
+- #21 Allen / Nabers-Higgins, #26 WR or Lamar, #34/#35 WR/WR — unchanged. By #35 you sit at
+  2 RB / 3-4 WR (+ Burden) / QB — exactly the §38 checkpoint.
+- **#46/#55 lean RB** (Henderson, then Swift/Dowdle-class) instead of WR: WR depth is already
+  5-6 deep by #35 and CMC's age/injury profile makes RB3/RB4 the real insurance.
+- **Handcuff at #115 (or #106 if it's thin)**: draft the SF RB2 rather than waiver-watching him.
+  Model order Kaelon Black (rookie, ADP 162-188) > Jordan James > Guerendo — verify the SF
+  depth chart in the room; the UC1 watchlist named Guerendo, the 2026 chart may not.
+- Cost vs base plan ≈ −20 pts (WR1 London/AJB 231 instead of ARSB 267, offset by CMC +16 over
+  Cook). Acceptable; do not reach for a WR at #6 to avoid it.
+
+**George's preferred opening (2026-09-07 evening): Cook #6 → Hampton + A.J. Brown at #13/#15.**
+All three are realistic (Cook ADP 9/9, Hampton 22/16, A.J. Brown 17/19 — NE now, Maye's WR1,
+no flags). Only ONE opponent pick sits between #13 and #15 — Achane Smokin' at #14, who kept
+Achane + Judkins and lost Nacua to the suspension, so they lean WR there: **take A.J. Brown at
+#13 and Hampton at #15** unless Achane already took a WR at #7 (then flip). Fallbacks: Cook gone
+→ CMC, else ARSB/Henry; Hampton gone → Walker > Jeanty; A.J. Brown gone → London > Nabers.
+Then the standard line: #21 Allen / Nabers-Higgins, #26 WR or Lamar, #34/#35 WR/WR, #46
+Henderson as RB3.
+
+**Correction (2026-09-07, George): Puka Nacua is NOT suspended.** No charges, not on the exempt
+list, Schefter: real chance he plays the whole season; scheduled for Thursday's opener. The
+8/28 NEWS tag was the civil-suit headline (trial date 2028). He is Achane Smokin's keeper, so
+this only touches the **#14 tell**: Achane Smokin' still leans WR at #14 (3-WR league, Nacua is
+one, two more starters needed, RB is keeper-stacked with Achane + Judkins) — weaker than
+"WR-desperate," but Lamb at #13 / Hampton at #15 stays the right order.
+
+## 12. Room ADP (Yahoo Draft Analysis, read 2026-09-07 ~17:00 ET) — the numbers that matter
+
+Yahoo's own board, last-7-days ADP, then **room-adjusted** = keepers removed and every later
+player shifted by the number of keepers priced above him (24 of 25 keepers sit inside Yahoo's
+top 210; Mooney is deeper). Files: `data/adp/adp_yahoo_half_ppr.csv` (raw),
+`data/adp/adp_yahoo_feetball_half_ppr.csv` (room — the co-pilot's `--adp-file` tonight).
+
+| Player | Yahoo ADP | Room ADP | Our pick | Read |
+|---|---|---|---|---|
+| Kenneth Walker III | 14.7 | ~17 | #13/#15 | gone before #15 more often than not — no longer a #15 name |
+| CeeDee Lamb | 11.4 | 13.4 | #13 | coin flip at #13 |
+| Omarion Hampton | 18.0 | 22.0 | #15 | ~80% there at #15 |
+| Ashton Jeanty | 18.7 | 22.7 | #15 | ~80% there; the discount branch |
+| Drake London | 20.5 | 24.5 | #15/#21 | there at #15, ~60% at #21 |
+| Josh Allen | 21.2 | **26.2** | #21 | **~70% there at #21** — better than the FFC read |
+| A.J. Brown | 23.9 | 29.9 | #15/#21 | there at #15, likely at #21 |
+| Malik Nabers | 30.0 | 37.0 | #21/#26 | likely at #26 |
+| Tee Higgins | 33.8 | 42.8 | #26/#34 | likely at #34 |
+| Lamar Jackson | 39.0 | **49.0** | #26/#34 | Yahoo rooms take him ~R4 — **likely there at #34**; #26 is early |
+| Ladd McConkey | 44.5 | 56.5 | #34/#46 | there at #46 |
+| Joe Burrow | 50.8 | 63.8 | #46 | ~75% there at #46 |
+| Jalen Hurts | 55.5 | **70.5** | #46/#55 | there at #46, ~70% at #55 |
+| TreVeyon Henderson | 68.4 | **87.4** | #55/#66/#75 | there at #66, ~70% at #75 — no need to buy at #46 |
+| Carnell Tate | 82.3 | 102.3 | #75 | there at #75 |
+| Brian Thomas Jr. | 83.8 | 103.8 | #75 | there at #75 |
+| Jordyn Tyson | 104.0 | 127.0 | #115+ | IR-R stash still available late |
+| Stefon Diggs | 106.3 | 129.3 | #106/#115 | there at #106, likely #115 |
+| Quentin Johnston | 107.0 | 130.0 | #106/#115 | there at #106, likely #115 |
+| De'Zhaun Stribling | 108.1 | 131.1 | #106/#115 | same |
+| RJ Harvey | 110.2 | 133.2 | #115 | there |
+| Makai Lemon | 118.8 | 141.8 | #115/#146 | there at #115, maybe #146 |
+| Cameron Dicker (K) | 124.4 | 147 | #155 | K/DST tiers start ~room 110 (Rams) — Patriots DST room 155 |
+
+**What this changes tonight (supersedes the FFC-based timing in §2/§10/§11):**
+1. **QB: Allen is more likely at #21 than we thought (~70%)** — take him. If he's gone,
+   **Lamar is not a #26 must**: his room price is 49, so **WR at #26 and Lamar at #34** is the
+   higher-EV line (accepting ~35% risk he's sniped by Crazy Eddie 27/30/31 or Bird Gang 28/33).
+   If both are gone, Hurts/Burrow are very likely at #46 — the ladder holds.
+2. **#13/#15: Walker is off the #15 list.** Lamb at #13 if there, else Hampton at #13;
+   #15 = Hampton/Jeanty if RB not yet taken, else London/A.J. Brown (both there).
+3. **Henderson does not need #46.** Room price 87 → take him at #55 or #66; #46 is free for
+   the QB (if needed) or the best WR (McConkey/Higgins tier).
+4. **Tate and Thomas Jr. reach #75** in this room — stop treating them as #46/#55/#66 buys;
+   #66 can go to the best RB/WR available, #75 to Tate or BTJ.
+5. **The whole #106 menu survives to #106 and mostly to #115** (room prices 129-142): take the
+   best two of Diggs / Johnston / Stribling / Harvey / Croskey-Merritt at #106 and #115, Lemon
+   is a #115 possibility, Tyson (127) is the #146/#155 IR stash.
+6. Early-capital read: the market values RBs earlier here (Walker 14.7, Henry 16.8, Hampton
+   18, Jeanty 18.7) and WRs later (London 20.5, A.J. Brown 23.9, Nabers 30, Higgins 33.8) —
+   exactly the shape that makes **RB at #13/#15 and WR at #21/#26/#34/#35** the right order.
+
+**QB fallback = Burrow, not Lamar (George, 2026-09-07 pre-draft).** Model: Lamar 339 / Burrow
+327 (−12) but Burrow's room price is 64 vs Lamar's 49, so the Burrow line spends #46 on the QB
+and keeps #34 for the Higgins/McConkey WR tier (~+20 over the #46 WR) → net ≈ +8 AND opens the
+**Higgins + Burrow stack** (Higgins room 43 → #26/#34). Ladder now: **Allen #21 → else WR at
+#26/#34/#35 → Burrow at #46 (~75% there) → Hurts at #46/#55 if Burrow is gone (room 70) →
+Herbert/Lawrence/Purdy/Mahomes at #75.** Lamar only as a "fell to #34 and I can't resist" call.
+
+## 13. FINAL pick-by-pick for tonight (consolidated 2026-09-07 ~17:30 ET — this supersedes §2)
+
+Room prices = keeper-adjusted Yahoo ADP (§12). House rules: one QB, no TE2 (Loveland is the
+TE), no K/DST before #146, RB/WR depth over everything after the starters.
+
+| Pick | Primary | Fallbacks | Room read |
+|---|---|---|---|
+| **#6** | **James Cook (room 9.3) — RB1** (George's call; CMC 6.1 if he fell) | ARSB (7.9) only if you accept RB2 from the #26 dead-zone tier (Hall 38 inj / Skattebo 48 / Swift 51) | Cook ~70% there |
+| **#13** | CeeDee Lamb (13.4) | Hampton (22) / Barkley (11, age flag) | Lamb coin flip; take him over Hampton because #14 (Achane Smokin') is WR-leaning |
+| **#15** | **Hampton (22) — RB2** | Jeanty (23) → Barkley if he fell → only then London (24.5) / A.J. Brown (30) | Walker (17) is gone; Hampton ~80%. **Two RBs must be in hand by #15** — WR is deep at #21-#35, RB is not |
+| **#21** | **Josh Allen (26)** | Nabers (37) / Higgins (43) / A.J. Brown if he fell | Allen ~70% there — the trigger |
+| **#26** | Best WR: Nabers / Higgins / DeVonta (36) / Flowers (42) / G. Wilson (55) | — | Deep tier; no QB here |
+| **#34** | WR: Higgins / McConkey (56) / Waddle (45) / McLaurin (66) | Lamar (49) only if he fell and you can't resist | Worst RB bust round — no RB |
+| **#35** | WR/best available: DJ Moore (68) / Jameson (77) / Odunze (79) | Egbuka (55) | By here: 2 RB / 3 WR (+Burden) / QB if Allen |
+| **#46** | **Burrow (64)** if no Allen; else best WR/RB (McConkey tier, Swift 53) | Hurts (70) | Burrow ~75% there |
+| **#55** | **TreVeyon Henderson (87)** — RB3 | Swift / best RB; Hurts if still QB-less | RB round-6 hot cell |
+| **#66** | Best RB/WR available: Addison (135) / Godwin (114) / Harvey-class RB | Henderson if he lasted | Dead zone closes |
+| **#75** | **Carnell Tate (102) or Brian Thomas Jr. (104)** | Quentin Johnston (130) / RJ Harvey (133) | Both rookies reach here |
+| R9 | *Burden keeper* | | |
+| **#106** | Best two of: Diggs (129) / Johnston (130) / Stribling (131) / Harvey (133) / Croskey-Merritt (128) | Lemon (142) | Whole menu survives |
+| **#115** | The other one, or Corum (RB count) | Lemon / Kelce-Goedert dart only if 5+ RB & 6+ WR | Mason is OUT (fade) |
+| R13 | *Loveland keeper* | | |
+| **#146** | DST: Patriots (155) / Vikings / Seahawks | | K/DST tiers start ~110 (Rams) |
+| **#155** | **Jordyn Tyson IR-R stash (127)** → IR slot, K off waivers before Sep 13 | K (Dicker 147 / Myers / Fairbairn) if the IR slot won't take him | 17th roster spot is open regardless |
+
+Scenario branches: ARSB gone at #6 → Cook (or CMC), then #13 WR (Lamb/London/A.J. Brown), #15 RB,
+#46/#55 lean RB, SF handcuff (Kaelon Black, room ~150) at #115. Allen gone → Burrow #46 line.
+Lamb gone at #13 → Hampton #13, A.J. Brown/London #15.
+
+Tells: #14 Achane Smokin' (WR-leaning) · #20 Amon Ra takes a QB or is out until #80 · Crazy
+Eddie 27/30/31 + Bird Gang 28/33 are the only QB buyers between #26 and #46.
+
+**Correction (2026-09-07, George): "Henderson would be my RB2?"** — as first written, §13 with
+ARSB at #6 left one RB through #46 and made Henderson (200 pts) the RB2. Fixed above: **Cook at
+#6 and Hampton/Jeanty at #15 are RB1/RB2**, Lamb sits between them at #13, and Henderson is the
+**RB3** at #55. If you go ARSB at #6 instead, RB2 has to come at #26 from the flagged dead-zone
+tier (Hall/Skattebo/Swift) — that's the price of the WR1, and the room's early-RB pricing says
+don't pay it.
+
+## 14. RESULT — Feetball 2026 draft (Mon Sep 7, 2026, slot 6)
+
+| Pick | Player | Plan call |
+|---|---|---|
+| 1.06 (#6) | Christian McCaffrey RB | ARSB went 1.5; CMC = model's best available |
+| 2.03 (#13) | A.J. Brown WR | Lamb/Hampton both gone (1.8, 2.2) |
+| 2.05 (#15) | Derrick Henry RB | RB2 by cost-of-waiting (+37 vs +4 WR) |
+| 3.01 (#21) | Ashton Jeanty RB | Allen went 2.8 → Jeanty last of tier (+22) |
+| 3.06 (#26) | Garrett Wilson WR | flat WR tier, breakout tag |
+| 4.04 (#34) | Ladd McConkey WR | |
+| 4.05 (#35) | Jadarian Price RB | SEA lead back (Charbonnet PUP) — model bust tag was a rookie blank |
+| 5.06 (#46) | Emeka Egbuka WR | |
+| 6.05 (#55) | Jalen Hurts QB | Burrow went 6.8; Hurts per the 4-pt-pass-TD read |
+| 7.06 (#66) | Quentin Johnston WR | plan #75 target, a round early |
+| 8.05 (#75) | Brian Thomas Jr. WR | Henderson sniped at 8.1 |
+| 9.06 | *Luther Burden III (keeper)* | |
+| 11.06 (#106) | Jacory Croskey-Merritt RB | |
+| 12.05 (#115) | Kyle Monangai RB | Bears stack w/ Burden + Loveland |
+| 13.06 | *Colston Loveland (keeper)* | |
+| 15.06 (#146) | Eagles DST | |
+| 16.05 (#155) | Cameron Dicker K | Tyson was gone (12.4) |
+
+**Model grade:** starters 2,100 proj pts (QB 332 / RB 309+284 / WR 228+197+189 / TE 186 / FLEX 261
+/ K 114; DST unscored), roster VORP **+358** — vs La Liga's +327 on a 12-team board. Optimal
+lineup: Hurts, CMC, Henry, Brown, G. Wilson, Egbuka (McConkey 186 is a coin flip with Egbuka
+189), Loveland, FLEX Jeanty, Eagles, Dicker. Week 1 FLEX fallback if Jeanty sits: Price.
+
+**Room notes:** Allen went 18 (Billiever, who already kept Dart), Lamar 31, Burrow 58 — QBs went
+~1 round ahead of the room-ADP read; Henderson (room 87) went 71; Stribling (room 131) went 54
+to Achane Smokin'; Tyson (room 127) went 114. RBs went early exactly as the Yahoo board said
+(Walker 10, Hampton 12, Barkley 9, Henry 15).
+
+**Tooling that worked / didn't:** manual-mode co-pilot + pick-order + keepers + room ADP ran
+clean every snapshot (Chrome-extension board screenshots = availability truth); the
+cost-of-waiting call decided #13/#15/#21 correctly. Misses: (1) roster count — the plan said
+"16 drafted, one open slot" but 15 live picks + 2 keepers = 17 = full roster (no post-draft
+open spot, so the Tyson-IR-stash-then-waiver-K idea never worked); (2) rookie bust tags
+(Price, Stribling) are blanks, not reads — camp reports beat the model on both; (3) no Yahoo
+draft-room parser, so picks were fed by hand from screenshots — fine on a 1-minute clock only
+because the board was screenshot-readable. Post-draft: Caleb Williams trade idea (§9) stands.

@@ -25,6 +25,7 @@ from src.draft_optimizer import (
     DraftAdvisor,
     DraftBoard,
     _pick_grade,
+    _row_key,
     compute_value_scores,
 )
 
@@ -186,9 +187,20 @@ class LiveDraftEngine:
         moments: List[KeyMoment] = []
         for pick in new_picks:
             m = matched_by_pick.get(pick.pick_no)
-            player_key = (m.get("player_id") if m else None) or pick.full_name
             is_mine = self.my_slot is not None and pick.draft_slot == self.my_slot
-            self.board.draft_player(str(player_key), by_me=is_mine)
+            if m:
+                # _row_key: ADP-only K/DST rows carry NaN player_ids, and
+                # str(nan) matched nothing — drafted kickers/defenses stayed
+                # on the board (found reproducing the 2026-08-31 phantoms).
+                self.board.draft_player(_row_key(m), by_me=is_mine)
+            else:
+                # Unmapped pick: exact suffix-blind name + position, never a
+                # partial or position-blind match — an unknown name must not
+                # take an unrelated player off the board. No match = no removal
+                # (the pick still lands in rosters + PollResult.unmatched).
+                self.board.draft_by_identity(
+                    pick.full_name, pick.position, pick.team, by_me=is_mine
+                )
             self.rosters.setdefault(pick.draft_slot, []).append(
                 m if m else {"player_name": pick.full_name, "position": pick.position}
             )
@@ -249,8 +261,9 @@ class LiveDraftEngine:
         if self.state is None:
             return None
         n = self.state.n_teams or 12
-        on_clock_pick = self._seen_pick_no + 1
-        on_clock_slot = self._slot_on_clock(on_clock_pick, n, self.state.draft_type)
+        # Keeper slots are pre-consumed (never live), so the clock skips them.
+        on_clock_pick = self._next_live_pick(self._seen_pick_no + 1)
+        on_clock_slot = self._slot_at(on_clock_pick)
         my_next = self._my_next_pick_no(on_clock_pick, n)
         return TurnInfo(
             on_clock_slot=on_clock_slot,
@@ -288,12 +301,13 @@ class LiveDraftEngine:
         n = self.state.n_teams or 12
         start = turn.on_clock_pick_no + (1 if turn.is_my_turn else 0)
         kwargs: Dict[str, Any] = {"next_pick_no": self._my_next_pick_no(start, n)}
-        total = n * (self.state.rounds or 0)
+        order = self.state.pick_order
+        total = len(order) if order else n * (self.state.rounds or 0)
         if total:
             kwargs["my_picks_remaining"] = sum(
                 1
                 for p in range(turn.on_clock_pick_no, total + 1)
-                if self._slot_on_clock(p, n, self.state.draft_type) == self.my_slot
+                if self._slot_at(p) == self.my_slot and not self._is_keeper_slot(p)
             )
         return kwargs
 
@@ -580,8 +594,37 @@ class LiveDraftEngine:
             return n_teams - idx
         return idx + 1
 
+    def _slot_at(self, pick_no: int) -> int:
+        """Slot on the clock at ``pick_no`` — explicit pick order if the state
+        carries one (traded picks / keeper slots), else the snake formula."""
+        order = self.state.pick_order if self.state else ()
+        if order:
+            return order[pick_no - 1].draft_slot if 1 <= pick_no <= len(order) else 0
+        n = self.state.n_teams or 12
+        return self._slot_on_clock(pick_no, n, self.state.draft_type)
+
+    def _is_keeper_slot(self, pick_no: int) -> bool:
+        """True when ``pick_no`` is a pre-consumed keeper slot (never live)."""
+        order = self.state.pick_order if self.state else ()
+        return (
+            bool(order) and 1 <= pick_no <= len(order) and order[pick_no - 1].is_keeper
+        )
+
+    def _next_live_pick(self, start_pick: int) -> int:
+        """First pick number >= ``start_pick`` that is not a keeper slot."""
+        p = start_pick
+        while self._is_keeper_slot(p):
+            p += 1
+        return p
+
     def _my_next_pick_no(self, start_pick: int, n_teams: int) -> Optional[int]:
         if self.my_slot is None or n_teams <= 0:
+            return None
+        order = self.state.pick_order if self.state else ()
+        if order:
+            for p in range(start_pick, len(order) + 1):
+                if self._slot_at(p) == self.my_slot and not self._is_keeper_slot(p):
+                    return p
             return None
         rounds = self.state.rounds if self.state else 0
         # A snake slot's next turn is at most 2*n_teams-1 picks away (slot 1

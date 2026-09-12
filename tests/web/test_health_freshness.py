@@ -7,6 +7,7 @@ from typing import Optional
 
 import pytest
 
+from web.api.routers import health_freshness
 from web.api.routers.health_freshness import (
     FreshDataset,
     FreshnessResponse,
@@ -77,8 +78,13 @@ def test_extract_timestamp_from_filename():
     assert extract_timestamp_from_filename("file_20260632_999999.parquet") is None
 
 
-def test_freshness_no_data(tmp_data_root):
-    """Test freshness response when no data exists."""
+def test_freshness_no_data(tmp_data_root, monkeypatch):
+    """Test freshness response when no data exists (off-season semantics).
+
+    ``is_in_season`` is calendar-driven (Sep 1 - Feb 15), so pin it: from
+    September this test otherwise flips to the in-season expectations below.
+    """
+    monkeypatch.setattr(health_freshness, "is_in_season", lambda: False)
     resp = get_freshness()
 
     assert isinstance(resp, FreshnessResponse)
@@ -91,6 +97,18 @@ def test_freshness_no_data(tmp_data_root):
     assert resp.predictions.stale is False
     assert resp.odds.stale is False
     assert resp.sentiment.stale is False
+
+
+def test_freshness_no_data_in_season(tmp_data_root, monkeypatch):
+    """In-season the same missing datasets ARE stale (blocking thresholds)."""
+    monkeypatch.setattr(health_freshness, "is_in_season", lambda: True)
+    resp = get_freshness()
+
+    assert resp.overall_stale is True
+    assert resp.projections.stale is True
+    assert resp.predictions.stale is True
+    assert resp.odds.stale is True
+    assert resp.sentiment.stale is True
 
 
 def test_freshness_recent_projections(tmp_data_root):

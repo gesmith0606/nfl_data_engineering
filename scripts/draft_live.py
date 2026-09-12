@@ -14,12 +14,22 @@ Modes
                    (repeatable). The D-09 fallback for unsupported platforms
                    (e.g. ESPN) or a mid-draft API break.
 
+``--pick-order-file`` supplies an explicit custom order (traded picks + keeper
+slots; format in :mod:`src.draft_pick_order`). Turn detection, next-pick
+lookahead and picks-remaining then read the order instead of snake arithmetic;
+in manual mode ``--add-pick`` entries fill the LIVE slots in order, so keeper
+picks are never typed. Works with ``--manual``, ``--mock`` and platform states.
+
 Examples
 --------
     python scripts/draft_live.py --username georgesmith --my-slot 5
     python scripts/draft_live.py --draft-id 999000111 --watch
     python scripts/draft_live.py --manual --teams 12 --my-slot 5 \\
         --add-pick "Ja'Marr Chase" --add-pick "Bijan Robinson"
+    python scripts/draft_live.py --manual --my-slot 6 --roster-format yahoo_feetball \\
+        --pick-order-file data/draft/feetball_2026_pick_order.txt \\
+        --keepers-file data/draft/feetball_2026_keepers.txt \\
+        --add-pick "Ja'Marr Chase" ...   # live picks only, in clock order
 """
 
 from __future__ import annotations
@@ -31,9 +41,17 @@ import os
 import sys
 import threading
 import time
+from pathlib import Path
 from typing import List, Optional
 
 import pandas as pd
+
+# Anchor every default data path to the repo, never the launch cwd: started
+# from another directory (2026-08-31 La Liga) the ADP came back NaN and the
+# NEWS guard / age rules were silently off — their loaders build "data/..."
+# paths relative to cwd. main() also chdirs here after resolving user paths.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+_DATA_DIR = str(REPO_ROOT / "data")
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 # src/ itself must also be importable: src.projection_engine and friends use
@@ -44,6 +62,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from src import sleeper_http  # noqa: E402
 from src.draft_adapter import SleeperAdapter  # noqa: E402
 from src.draft_models import DraftState, PickEvent  # noqa: E402
+from src.draft_pick_order import (  # noqa: E402
+    PickOrder,
+    apply_pick_order,
+    load_pick_order,
+)
 from src.draft_optimizer import (  # noqa: E402
     DraftAdvisor,
     DraftBoard,
@@ -123,15 +146,15 @@ def default_adp_path(platform: Optional[str], scoring: Optional[str]) -> str:
         cands = [
             p
             for p in (
-                os.path.join("data", "adp", f"adp_{platform}_{scoring or ''}.csv"),
-                os.path.join("data", "adp", f"adp_{platform}_standard.csv"),
-                os.path.join("data", "adp", f"adp_{platform}_half_ppr.csv"),
+                os.path.join(_DATA_DIR, "adp", f"adp_{platform}_{scoring or ''}.csv"),
+                os.path.join(_DATA_DIR, "adp", f"adp_{platform}_standard.csv"),
+                os.path.join(_DATA_DIR, "adp", f"adp_{platform}_half_ppr.csv"),
             )
             if os.path.exists(p)
         ]
         if cands:
             return max(cands, key=os.path.getmtime)
-    return os.path.join("data", "adp_latest.csv")
+    return os.path.join(_DATA_DIR, "adp_latest.csv")
 
 
 def load_adp(
@@ -185,15 +208,25 @@ def build_manual_state(
     scoring: str,
     roster: str,
     season: str,
+    pick_order: Optional[PickOrder] = None,
 ) -> DraftState:
     """Build a DraftState from operator-typed player names.
 
     Resolves each name against the projection frame for position/team; unknown
-    names still produce a pick (position/team blank) so nothing is lost.
+    names still produce a pick (position/team blank) so nothing is lost. With
+    ``pick_order``, the i-th typed name fills the i-th LIVE slot of the order
+    (keeper slots are skipped — the keepers file owns those players), so the
+    operator types picks exactly as the room's clock runs them.
     """
     proj = projections.copy()
     if "player_name" in proj.columns:
         proj["_norm"] = proj["player_name"].astype(str).str.lower().str.strip()
+    live = pick_order.live_slots if pick_order else ()
+    if live and len(picked_names) > len(live):
+        raise ValueError(
+            f"{len(picked_names)} picks typed but the pick order has only "
+            f"{len(live)} live slots"
+        )
     picks = []
     for i, raw_name in enumerate(picked_names, start=1):
         name = raw_name.strip()
@@ -204,13 +237,23 @@ def build_manual_state(
                 row = match.iloc[0]
                 pos = str(row.get("position", "")).upper()
                 team = str(row.get("team", "")).upper()
-        idx = (i - 1) % n_teams
-        rnd = (i - 1) // n_teams + 1
-        slot = (n_teams - idx) if (draft_type == "snake" and rnd % 2 == 0) else idx + 1
+        if live:
+            pick_no, rnd, slot = (
+                live[i - 1].pick_no,
+                live[i - 1].round,
+                live[i - 1].draft_slot,
+            )
+        else:
+            idx = (i - 1) % n_teams
+            rnd = (i - 1) // n_teams + 1
+            slot = (
+                (n_teams - idx) if (draft_type == "snake" and rnd % 2 == 0) else idx + 1
+            )
+            pick_no = i
         first, _, last = name.partition(" ")
         picks.append(
             PickEvent(
-                pick_no=i,
+                pick_no=pick_no,
                 round=rnd,
                 draft_slot=slot,
                 roster_id=slot,
@@ -228,14 +271,60 @@ def build_manual_state(
         status="drafting",
         draft_type=draft_type,
         season=season,
-        n_teams=n_teams,
-        rounds=0,
+        n_teams=pick_order.n_teams if pick_order else n_teams,
+        rounds=pick_order.rounds if pick_order else 0,
         scoring_format=scoring,
         roster_format=roster,
         draft_order={},
         slot_to_roster_id={},
         picks=tuple(picks),
+        pick_order=pick_order.slots if pick_order else (),
     )
+
+
+def _pick_order_note(order: PickOrder, my_slot: Optional[int]) -> str:
+    """One-line startup summary of a loaded pick order (verify it before the draft)."""
+    note = (
+        f"(pick order: {order.n_teams} teams, {order.rounds} rounds, "
+        f"{len(order.keeper_slots)} keeper slots"
+    )
+    if my_slot:
+        mine = ", ".join(str(p) for p in order.live_picks_for(my_slot))
+        kept = ", ".join(
+            str(s.pick_no) for s in order.keeper_slots if s.draft_slot == my_slot
+        )
+        note += f"; your live picks: {mine or 'none'}"
+        if kept:
+            note += f"; your keeper slots: {kept}"
+    return note + ")"
+
+
+def _apply_keepers_file(engine: LiveDraftEngine, path: str, as_json: bool) -> None:
+    """Mark a keepers file off the board: '*' lines are YOUR keepers (rostered
+    to you), the rest are removed from the pool. Requires a built board."""
+    if engine.board is None:
+        return
+    mine, others = [], []
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            # Inline "# ..." comments are allowed after the name.
+            line = line.split("#", 1)[0].strip()
+            if not line:
+                continue
+            (mine if line.startswith("*") else others).append(line.lstrip("* ").strip())
+    ok = sum(1 for name in mine if engine.board.draft_by_name(name, by_me=True))
+    removed = engine.board.remove_players(others)
+    if not as_json:
+        print(
+            f"(keepers file: {ok}/{len(mine)} rostered to you, "
+            f"{removed}/{len(others)} others removed from the board"
+            + (
+                " — CHECK UNMATCHED NAMES"
+                if ok < len(mine) or removed < len(others)
+                else ""
+            )
+            + ")"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -426,12 +515,17 @@ def opponent_needs(engine: LiveDraftEngine) -> Dict[str, int]:
         or engine.state is None
     ):
         return {}
-    n = engine.state.n_teams or 12
     rc = engine.board.roster_config
     start = turn.on_clock_pick_no + (1 if turn.is_my_turn else 0)
+    # On my turn ``my_next_pick_no`` IS this pick — look ahead to the one after
+    # it, so the run risk covers the opponents between now and my next turn.
+    end = turn.my_next_pick_no
+    if turn.is_my_turn:
+        end = engine._my_next_pick_no(start, engine.state.n_teams) or start
     slots = {
-        engine._slot_on_clock(p, n, engine.state.draft_type)
-        for p in range(start, turn.my_next_pick_no)
+        engine._slot_at(p)
+        for p in range(start, end)
+        if not engine._is_keeper_slot(p)
     } - {engine.my_slot}
     needs: Dict[str, int] = {}
     for pos in ("QB", "RB", "WR", "TE"):
@@ -826,22 +920,32 @@ def run_mock(
     roster_positions,
     top_n: int = 8,
     draft_type: str = "snake",
+    pick_order: Optional[PickOrder] = None,
 ) -> str:
     """Simulate a snake mock: opponents auto-pick by value, stop at the user's turn.
 
     Plays forward consuming ``my_picks`` for the user's slots; at the first user
     slot with no provided pick it stops and shows recommendations. When all the
     user's picks are provided through all rounds, it prints the final roster +
-    optimal lineup.
+    optimal lineup. With ``pick_order`` the clock follows that order's LIVE
+    slots (keeper slots are skipped) instead of snake arithmetic.
     """
     board = engine.board
     log: List[str] = []
     my_iter = iter(my_picks)
-    total = n_teams * rounds
+    if pick_order:
+        clock = [(s.pick_no, s.round, s.draft_slot) for s in pick_order.live_slots]
+    else:
+        clock = [
+            (
+                p,
+                (p - 1) // n_teams + 1,
+                LiveDraftEngine._slot_on_clock(p, n_teams, draft_type),
+            )
+            for p in range(1, n_teams * rounds + 1)
+        ]
 
-    for p in range(1, total + 1):
-        slot = LiveDraftEngine._slot_on_clock(p, n_teams, draft_type)
-        rnd = (p - 1) // n_teams + 1
+    for p, rnd, slot in clock:
         if slot == my_slot:
             nxt = next(my_iter, None)
             if nxt is None:
@@ -1221,6 +1325,14 @@ def build_parser() -> argparse.ArgumentParser:
         "(rostered to you), others are removed from the board. '#' comments",
     )
     p.add_argument(
+        "--pick-order-file",
+        help="Explicit custom pick order (traded picks + keeper slots), e.g. "
+        "data/draft/feetball_2026_pick_order.txt — one 'R<n>: team, team(K), ...' "
+        "line per round, slots numbered by round-1 position. Overrides snake "
+        "arithmetic for turn detection / next pick / picks remaining; in "
+        "--manual mode --add-pick fills live slots only",
+    )
+    p.add_argument(
         "--mock",
         action="store_true",
         help="Simulated mock draft — opponents auto-pick, stops at your turn",
@@ -1249,6 +1361,20 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Optional[List[str]] = None) -> int:
     args = build_parser().parse_args(argv)
+    # Operator-supplied paths are relative to the LAUNCH cwd — resolve them
+    # first, then anchor cwd to the repo so src modules that build relative
+    # "data/..." paths (draft_targets, draft_value, ...) find their inputs.
+    for attr in ("projections_file", "adp_file", "keepers_file", "pick_order_file"):
+        val = getattr(args, attr, None)
+        if val:
+            setattr(args, attr, os.path.abspath(val))
+    if Path.cwd().resolve() != REPO_ROOT:
+        # stderr: --json consumers parse stdout.
+        print(
+            f"(cwd -> {REPO_ROOT}: data paths resolve against the repo)",
+            file=sys.stderr,
+        )
+        os.chdir(REPO_ROOT)
     # Quiet the per-pick "You drafted" INFO chatter during keeper preload.
     logging.getLogger("src.draft_optimizer").setLevel(logging.WARNING)
     logging.getLogger("draft_optimizer").setLevel(logging.WARNING)
@@ -1258,6 +1384,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         print("ERROR: no projections. Run generate_projections.py --preseason first.")
         return 1
     adp_df = load_adp(args.adp_file, args.platform, args.scoring)
+
+    # Explicit custom pick order (traded picks + keeper slots) — applied to
+    # manual, mock and platform states alike; empty = plain snake arithmetic.
+    pick_order = load_pick_order(args.pick_order_file) if args.pick_order_file else None
+    if pick_order and not args.json:
+        print(_pick_order_note(pick_order, args.my_slot))
 
     # Manual fallback — no adapter, operator-supplied picks.
     if args.manual:
@@ -1273,8 +1405,11 @@ def main(argv: Optional[List[str]] = None) -> int:
             args.scoring,
             args.roster_format,
             str(args.season),
+            pick_order=pick_order,
         )
         poll = engine.update(state)
+        if args.keepers_file:
+            _apply_keepers_file(engine, args.keepers_file, args.json)
         print(render(engine, poll, args.top, args.json))
         return 0
 
@@ -1411,6 +1546,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             if draft_id
             else _empty_state(roster_format, args.scoring, str(args.season))
         )
+        if pick_order:
+            state = apply_pick_order(state, pick_order)
         poll = engine.update(state)
         # Keeper preload (once) — mark every league-rostered player off the board.
         if (
@@ -1428,29 +1565,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             and args.keepers_file
             and engine.board is not None
         ):
-            mine, others = [], []
-            with open(args.keepers_file, encoding="utf-8") as fh:
-                for line in fh:
-                    line = line.strip()
-                    if not line or line.startswith("#"):
-                        continue
-                    (mine if line.startswith("*") else others).append(
-                        line.lstrip("* ").strip()
-                    )
-            ok = sum(1 for name in mine if engine.board.draft_by_name(name, by_me=True))
-            removed = engine.board.remove_players(others)
+            _apply_keepers_file(engine, args.keepers_file, args.json)
             _keepers_loaded["file_done"] = True
-            if not args.json:
-                print(
-                    f"(keepers file: {ok}/{len(mine)} rostered to you, "
-                    f"{removed}/{len(others)} others removed from the board"
-                    + (
-                        " — CHECK UNMATCHED NAMES"
-                        if ok < len(mine) or removed < len(others)
-                        else ""
-                    )
-                    + ")"
-                )
         return poll
 
     if args.mock:
@@ -1481,12 +1597,13 @@ def main(argv: Optional[List[str]] = None) -> int:
             run_mock(
                 engine,
                 my_slot,
-                n_teams,
+                pick_order.n_teams if pick_order else n_teams,
                 args.rounds,
                 args.my_pick,
                 roster_format,
                 roster_positions,
                 top_n=args.top,
+                pick_order=pick_order,
             )
         )
         return 0
