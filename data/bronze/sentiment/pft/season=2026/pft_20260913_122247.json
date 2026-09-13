@@ -1,0 +1,593 @@
+{
+  "fetch_run_id": "2bdf31c8-5858-4fc1-9e9d-e0c707cb9036",
+  "source": "pft",
+  "fetched_at": "2026-09-13T12:22:47.251973+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-is-not-expected-to-play-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-is-not-expected-to-play-on-sunday",
+      "permalink": "",
+      "title": "Alvin Kamara is not expected to play on Sunday",
+      "body_text": "The Saints are set to open the 2026 season without running back Alvin Kamara.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-13T12:05:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-porter-jr-is-unlikely-to-play-today-trade-is-possible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-joey-porter-jr-is-unlikely-to-play-today-trade-is-possible",
+      "permalink": "",
+      "title": "Report: Joey Porter Jr. is unlikely to play today, trade is possible",
+      "body_text": "Porter, who is listed as questionable with a back injury, looks like he won't go today against the Falcons.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-13T11:59:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-day-ohio-state-considered-letting-texas-score-but-decided-wed-play-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-day-ohio-state-considered-letting-texas-score-but-decided-wed-play-defense",
+      "permalink": "",
+      "title": "Ryan Day: Ohio State considered letting Texas score, but decided we'd play defense",
+      "body_text": "With 1:23 remaining in the fourth quarter on Saturday night, Ohio State led 23-17, but Texas had first-and-goal at the 1-yard line.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-13T09:35:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Day",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dante-moore-struggles-as-oregon-loses-to-24-point-underdog-oklahoma-state",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dante-moore-struggles-as-oregon-loses-to-24-point-underdog-oklahoma-state",
+      "permalink": "",
+      "title": "Dante Moore struggles as Oregon loses to 24-point underdog Oklahoma State",
+      "body_text": "Oregon quarterback Dante Moore is a potential first overall pick in the 2027 NFL draft, but today he had a rough outing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-12T21:14:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dante Moore",
+        "Oklahoma State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-puts-nightmares-behind-him-as-texas-beats-ohio-state",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-puts-nightmares-behind-him-as-texas-beats-ohio-state",
+      "permalink": "",
+      "title": "Arch Manning puts \"nightmares\" behind him as Texas beats Ohio State",
+      "body_text": "\"I couldn't lose to them again. I had nightmares about that game last year,\" Manning said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-13T08:59:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arch Manning",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-will-be-the-ninth-vikings-starting-qb-since-2023",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-will-be-the-ninth-vikings-starting-qb-since-2023",
+      "permalink": "",
+      "title": "Kyler Murray will be the ninth Vikings' starting QB since 2023",
+      "body_text": "On Sunday, Kyler Murray will make his first start for the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-13T02:45:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/to-no-surprise-the-texans-and-c-j-stroud-will-kick-the-contract-can-to-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/to-no-surprise-the-texans-and-c-j-stroud-will-kick-the-contract-can-to-2027",
+      "permalink": "",
+      "title": "To no surprise, the Texans and C.J. Stroud will kick the contract can to 2027",
+      "body_text": "Nothing says \"football is back\" like the issuance of Sunday Splash!",
+      "author": "Mike Florio",
+      "published_at": "2026-09-13T02:15:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Splash"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/our-opposition-to-the-protect-college-sports-act-prompted-a-phone-call-from-randy-levine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/our-opposition-to-the-protect-college-sports-act-prompted-a-phone-call-from-randy-levine",
+      "permalink": "",
+      "title": "Our opposition to the Protect College Sports Act prompted a phone call from Randy Levine",
+      "body_text": "Earlier today, we posted an item about ESPN's advocacy for the Protect College Sports Act.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-13T01:51:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "Randy Levine"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-parker-washington-jaguars-unlikely-to-come-to-agreement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-parker-washington-jaguars-unlikely-to-come-to-agreement",
+      "permalink": "",
+      "title": "Report: Parker Washington, Jaguars unlikely to come to agreement",
+      "body_text": "The Jaguars and wide receiver Parker Washington are unlikely to reach a contract extension before the start of the season, Cameron Wolfe of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-13T00:40:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Parker Washington",
+        "The Jaguars",
+        "Cameron Wolfe"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-wr-a-j-brown-on-ir-officially-sign-dt-daquan-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-wr-a-j-brown-on-ir-officially-sign-dt-daquan-jones",
+      "permalink": "",
+      "title": "Patriots place WR A.J. Brown on IR, officially sign DT DaQuan Jones",
+      "body_text": "The Patriots made official the signing of veteran defensive tackle DaQuan Jones.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-13T00:12:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jones The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-have-no-injury-designations-for-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-have-no-injury-designations-for-monday-night",
+      "permalink": "",
+      "title": "Broncos have no injury designations for Monday night",
+      "body_text": "The Denver Broncos' shot at an appearance in Super Bowl LX arguably was derailed by an injury to quarterback Bo Nix.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-13T00:01:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Denver",
+        "Super Bowl",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/naacp-takes-issue-with-espns-handling-of-the-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/naacp-takes-issue-with-espns-handling-of-the-protect-college-sports-act",
+      "permalink": "",
+      "title": "NAACP takes issue with ESPN's handling of the Protect College Sports Act",
+      "body_text": "On Saturday, ESPN gave Senator Ted Cruz (R-Texas) a platform to push for the passage of the Protect College Sports Act.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T23:43:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act",
+        "On Saturday",
+        "Senator Ted"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-seals-video-in-josh-jacobs-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/judge-seals-video-in-josh-jacobs-case",
+      "permalink": "",
+      "title": "Judge seals video in Josh Jacobs case",
+      "body_text": "The video of the altercation that resulted in Packers running back Josh Jacobs pleading no contest to multiple misdemeanor charges could complicate his football career, if/when it's ever released.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T23:27:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-wr-dalen-cambre-off-of-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-wr-dalen-cambre-off-of-practice-squad",
+      "permalink": "",
+      "title": "Giants sign WR Dalen Cambre off of practice squad",
+      "body_text": "The Giants have added a pair of wide receivers to the roster for Sunday night's game against the Cowboys.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T20:43:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dalen Cambre",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0040431"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-elevate-kyle-van-noy-deejay-dallas-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-elevate-kyle-van-noy-deejay-dallas-for-sunday",
+      "permalink": "",
+      "title": "Vikings elevate Kyle Van Noy, DeeJay Dallas for Sunday",
+      "body_text": "Kyle Van Noy is set to make his Vikings debut on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T20:38:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Van",
+        "Sunday Kyle",
+        "Van Noy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-place-second-round-pick-eli-stowers-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-place-second-round-pick-eli-stowers-on-ir",
+      "permalink": "",
+      "title": "Eagles place second-round pick Eli Stowers on IR",
+      "body_text": "Eagles second-round pick Eli Stowers won't be making his regular season debut against the Commanders on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T20:29:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eli Stowers"
+      ],
+      "resolved_player_ids": [
+        "00-0041483"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-rush-is-dealing-with-back-spasms-falcons-still-expect-him-to-start-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-rush-is-dealing-with-back-spasms-falcons-still-expect-him-to-start-sunday",
+      "permalink": "",
+      "title": "Cooper Rush is dealing with back spasms, Falcons still expect him to start Sunday",
+      "body_text": "The list of healthy Falcons quarterbacks keeps getting shorter.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T20:16:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cooper Rush",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0033662"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-joey-porter-jr-s-status-unclear-steelers-elevate-cb-doneiko-slaughter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-joey-porter-jr-s-status-unclear-steelers-elevate-cb-doneiko-slaughter",
+      "permalink": "",
+      "title": "With Joey Porter Jr.'s status unclear, Steelers elevate CB Doneiko Slaughter",
+      "body_text": "The Steelers aren't sure if Joey Porter Jr. will play against the Falcons on Sunday, so they have added some more help at cornerback.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T20:10:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "With Joey",
+        "Doneiko Slaughter",
+        "The Steelers",
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040341",
+        "00-0039167"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-put-rb-audric-estime-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-put-rb-audric-estime-on-ir",
+      "permalink": "",
+      "title": "Saints put RB Audric Estime on IR",
+      "body_text": "The Saints announced a few roster moves ahead of Sunday's opener against the Lions.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T19:52:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Audric Estime",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0039373"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-qb-miller-moss-to-practice-squad-elevate-him-for-sundays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-sign-qb-miller-moss-to-practice-squad-elevate-him-for-sundays-game",
+      "permalink": "",
+      "title": "Bears sign QB Miller Moss to practice squad, elevate him for Sunday's game",
+      "body_text": "The Bears listed backup quarterback Tyson Bagent as questionable for Sunday's game against the Panthers with a back injury and it looks like they're expecting him to be inactive.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T19:34:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Miller Moss",
+        "The Bears",
+        "Tyson Bagent"
+      ],
+      "resolved_player_ids": [
+        "00-0038416"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-simmon-is-ruled-out-for-the-chiefs-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-simmon-is-ruled-out-for-the-chiefs-on-monday-night",
+      "permalink": "",
+      "title": "Josh Simmons is ruled out for the Chiefs on Monday night",
+      "body_text": "Undrafted rookie Kahlil Benson will start at left tackle vs. the Broncos.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T19:26:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Simmons",
+        "Kahlil Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0040116",
+        "00-0041019"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-elevate-wr-bo-melton-lb-kristian-welch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-elevate-wr-bo-melton-lb-kristian-welch",
+      "permalink": "",
+      "title": "Packers elevate WR Bo Melton, LB Kristian Welch",
+      "body_text": "Wide receiver Bo Melton lost his spot on the Packers' 53-man roster this week, but he'll be available for Sunday's game against the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-12T19:22:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Melton",
+        "Kristian Welch"
+      ],
+      "resolved_player_ids": [
+        "00-0037091",
+        "00-0036157"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/amon-ra-st-brown-needs-only-33-catches-for-most-ever-through-six-nfl-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/amon-ra-st-brown-needs-only-33-catches-for-most-ever-through-six-nfl-seasons",
+      "permalink": "",
+      "title": "Amon-Ra St. Brown needs only 33 catches for most ever through six NFL seasons",
+      "body_text": "Five years after entering the NFL as a fourth-round pick, Lions receiver Amon-Ra St.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T18:57:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-rb-malik-davis-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-rb-malik-davis-on-injured-reserve",
+      "permalink": "",
+      "title": "Cowboys place RB Malik Davis on injured reserve",
+      "body_text": "As expected, Cowboys running back Malik Davis will miss some time with a hip injury suffered at practice on Friday.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T18:44:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0037563"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-continues-its-not-so-subtle-advocacy-for-the-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-continues-its-not-so-subtle-advocacy-for-the-protect-college-sports-act",
+      "permalink": "",
+      "title": "ESPN continues its not-so-subtle advocacy for the Protect College Sports Act",
+      "body_text": "I said it this week on PFT Live.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T17:44:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Protect College",
+        "Sports Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-michael-mayer-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/inside-the-michael-mayer-deal",
+      "permalink": "",
+      "title": "Inside the Michael Mayer deal",
+      "body_text": "Despite the presence of Brock Bowers, the Raiders have decided to keep tight end Michael Mayer — with an extension just before the first game of his contract year.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-12T16:54:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Mayer",
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039066",
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-downgrade-lb-austin-ajiake-to-out-elevate-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-downgrade-lb-austin-ajiake-to-out-elevate-one",
+      "permalink": "",
+      "title": "Colts downgrade LB Austin Ajiake to out, elevate one",
+      "body_text": "The Colts have made a couple of Saturday moves in advance of Sunday’s matchup against the Ravens.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-12T16:31:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Austin Ajiake",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0039178"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-justin-herbert-will-be-remembered-as-the-greatest-quarterback-ever",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-justin-herbert-will-be-remembered-as-the-greatest-quarterback-ever",
+      "permalink": "",
+      "title": "Jim Harbaugh: Justin Herbert will be remembered as the greatest quarterback ever",
+      "body_text": "Chargers head coach Jim Harbaugh believes he has the best quarterback in NFL history on his roster, even if he hasn't proven it yet.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-12T16:09:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Harbaugh",
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-michael-mayer-agree-to-three-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-michael-mayer-agree-to-three-year-extension",
+      "permalink": "",
+      "title": "Raiders, Michael Mayer agree to three-year extension",
+      "body_text": "The Raiders are locking in tight end Michael Mayer.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-12T15:09:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Mayer",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039066"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-tucker-kraft-agree-to-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-tucker-kraft-agree-to-four-year-extension",
+      "permalink": "",
+      "title": "Packers, Tucker Kraft agree to four-year extension",
+      "body_text": "The two sides have come to an agreement just before the start of the 2026 season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-12T15:01:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

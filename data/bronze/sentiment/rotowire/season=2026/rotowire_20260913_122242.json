@@ -1,0 +1,111 @@
+{
+  "fetch_run_id": "790f7fe1-66e0-43b8-91ce-e3b49e318dab",
+  "source": "rotowire",
+  "fetched_at": "2026-09-13T12:22:42.616016+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637000",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Not expected to play Week 1",
+      "body_text": "Kamara (knee), who is listed as questionable for Sunday's game in Detroit, isn't in line to play in the season opener and is instead slated to make his 2026 debut Week 2 at Baltimore, Nick Underhill of NewOrleans.Football reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Nick Underhill"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636999",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: In line to play Week 1",
+      "body_text": "Odunze (calf), who is listed as questionable for Sunday's game at Carolina, is expected to play, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T03:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636998",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "permalink": "",
+      "title": "Jeremiyah Love: Expected to make NFL debut Sunday",
+      "body_text": "Love (ankle) remains listed as questionable but is expected to play in Sunday's game at the Chargers, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T03:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Sunday Love",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0041027"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "nfl636997",
+      "url": "https://www.rotowire.com//football/player/parker-washington-16690",
+      "permalink": "",
+      "title": "Parker Washington: Unlikely to sign extension soon",
+      "body_text": "Washington is unlikely to agree to a contract extension with Jacksonville before the start of the season, Cameron Wolfe of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-12T04:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Parker Washington",
+        "Cameron Wolfe"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl636996",
+      "url": "https://www.rotowire.com//football/player/lamar-jackson-12561",
+      "permalink": "",
+      "title": "Lamar Jackson: Contract extension talks on hold",
+      "body_text": "Jackson and the Ravens aren't expected to agree on a contract extension before 2027, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-12T04:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    }
+  ]
+}

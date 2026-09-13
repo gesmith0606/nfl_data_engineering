@@ -1,6 +1,6 @@
 {
   "source": "espn",
-  "fetched_at": "2026-09-12T12:22:50.437366+00:00",
+  "fetched_at": "2026-09-13T12:22:59.386743+00:00",
   "players": [
     {
       "rank": 1,
@@ -227,11 +227,11 @@
       "external_rank": 66
     },
     {
-      "rank": 71,
+      "rank": 70,
       "player_name": "Rhamondre Stevenson",
       "position": "RB",
       "team": "17",
-      "external_rank": 71
+      "external_rank": 70
     },
     {
       "rank": 76,
@@ -290,11 +290,11 @@
       "external_rank": 87
     },
     {
-      "rank": 90,
+      "rank": 91,
       "player_name": "Kenny Gainwell",
       "position": "RB",
       "team": "27",
-      "external_rank": 90
+      "external_rank": 91
     },
     {
       "rank": 92,
@@ -479,11 +479,11 @@
       "external_rank": 147
     },
     {
-      "rank": 150,
+      "rank": 151,
       "player_name": "Chris Rodriguez Jr.",
       "position": "RB",
       "team": "30",
-      "external_rank": 150
+      "external_rank": 151
     },
     {
       "rank": 152,
@@ -500,25 +500,25 @@
       "external_rank": 154
     },
     {
-      "rank": 157,
-      "player_name": "Brian Robinson Jr.",
-      "position": "RB",
-      "team": "1",
-      "external_rank": 157
-    },
-    {
-      "rank": 160,
+      "rank": 155,
       "player_name": "Michael Mayer",
       "position": "WR",
       "team": "13",
-      "external_rank": 160
+      "external_rank": 155
     },
     {
-      "rank": 161,
+      "rank": 158,
+      "player_name": "Brian Robinson Jr.",
+      "position": "RB",
+      "team": "1",
+      "external_rank": 158
+    },
+    {
+      "rank": 162,
       "player_name": "Brenton Strange",
       "position": "WR",
       "team": "30",
-      "external_rank": 161
+      "external_rank": 162
     },
     {
       "rank": 163,
@@ -570,11 +570,11 @@
       "external_rank": 174
     },
     {
-      "rank": 176,
+      "rank": 177,
       "player_name": "Braelon Allen",
       "position": "RB",
       "team": "20",
-      "external_rank": 176
+      "external_rank": 177
     },
     {
       "rank": 178,
@@ -591,11 +591,11 @@
       "external_rank": 179
     },
     {
-      "rank": 182,
+      "rank": 181,
       "player_name": "Chris Brooks",
       "position": "RB",
       "team": "9",
-      "external_rank": 182
+      "external_rank": 181
     },
     {
       "rank": 184,
@@ -626,18 +626,18 @@
       "external_rank": 195
     },
     {
-      "rank": 196,
+      "rank": 197,
       "player_name": "Kaleb Johnson",
       "position": "RB",
       "team": "9",
-      "external_rank": 196
+      "external_rank": 197
     },
     {
-      "rank": 197,
+      "rank": 198,
       "player_name": "Tyrone Tracy Jr.",
       "position": "RB",
       "team": "19",
-      "external_rank": 197
+      "external_rank": 198
     },
     {
       "rank": 200,
@@ -654,11 +654,11 @@
       "external_rank": 203
     },
     {
-      "rank": 205,
+      "rank": 206,
       "player_name": "George Holani",
       "position": "RB",
       "team": "26",
-      "external_rank": 205
+      "external_rank": 206
     },
     {
       "rank": 212,
@@ -668,11 +668,11 @@
       "external_rank": 212
     },
     {
-      "rank": 214,
+      "rank": 213,
       "player_name": "Greg Dulcich",
       "position": "WR",
       "team": "15",
-      "external_rank": 214
+      "external_rank": 213
     },
     {
       "rank": 216,
@@ -683,30 +683,30 @@
     },
     {
       "rank": 217,
-      "player_name": "Malik Davis",
-      "position": "RB",
-      "team": "6",
-      "external_rank": 217
-    },
-    {
-      "rank": 218,
       "player_name": "Evan Engram",
       "position": "WR",
       "team": "7",
-      "external_rank": 218
+      "external_rank": 217
     },
     {
-      "rank": 221,
+      "rank": 219,
       "player_name": "James Conner",
       "position": "RB",
       "team": "22",
+      "external_rank": 219
+    },
+    {
+      "rank": 221,
+      "player_name": "Jacob Saylors",
+      "position": "RB",
+      "team": "8",
       "external_rank": 221
     },
     {
       "rank": 222,
-      "player_name": "Jacob Saylors",
-      "position": "RB",
-      "team": "8",
+      "player_name": "Cade Otton",
+      "position": "WR",
+      "team": "27",
       "external_rank": 222
     },
     {
@@ -718,16 +718,16 @@
     },
     {
       "rank": 224,
-      "player_name": "Cade Otton",
+      "player_name": "Oronde Gadsden",
       "position": "WR",
-      "team": "27",
+      "team": "24",
       "external_rank": 224
     },
     {
       "rank": 225,
-      "player_name": "Oronde Gadsden",
-      "position": "WR",
-      "team": "24",
+      "player_name": "Malik Davis",
+      "position": "RB",
+      "team": "6",
       "external_rank": 225
     },
     {
@@ -738,11 +738,11 @@
       "external_rank": 227
     },
     {
-      "rank": 234,
+      "rank": 235,
       "player_name": "Ty Johnson",
       "position": "RB",
       "team": "2",
-      "external_rank": 234
+      "external_rank": 235
     },
     {
       "rank": 237,
@@ -753,16 +753,16 @@
     },
     {
       "rank": 238,
-      "player_name": "Mike Gesicki",
+      "player_name": "Darnell Washington",
       "position": "WR",
-      "team": "4",
+      "team": "23",
       "external_rank": 238
     },
     {
       "rank": 239,
-      "player_name": "Darnell Washington",
+      "player_name": "Mike Gesicki",
       "position": "WR",
-      "team": "23",
+      "team": "4",
       "external_rank": 239
     },
     {
@@ -773,11 +773,18 @@
       "external_rank": 240
     },
     {
-      "rank": 243,
+      "rank": 241,
+      "player_name": "Emari Demercado",
+      "position": "RB",
+      "team": "6",
+      "external_rank": 241
+    },
+    {
+      "rank": 244,
       "player_name": "Jake Tonges",
       "position": "WR",
       "team": "25",
-      "external_rank": 243
+      "external_rank": 244
     },
     {
       "rank": 245,
@@ -787,17 +794,10 @@
       "external_rank": 245
     },
     {
-      "rank": 249,
+      "rank": 250,
       "player_name": "Kaytron Allen",
       "position": "RB",
       "team": "28",
-      "external_rank": 249
-    },
-    {
-      "rank": 250,
-      "player_name": "Emari Demercado",
-      "position": "RB",
-      "team": "6",
       "external_rank": 250
     },
     {
