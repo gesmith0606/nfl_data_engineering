@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "fb20026b-7148-4f98-bee9-673eaafa0834",
+  "source": "rotowire",
+  "fetched_at": "2026-09-14T12:26:48.912016+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637271",
+      "url": "https://www.rotowire.com//football/player/isaiah-likely-16033",
+      "permalink": "",
+      "title": "Isaiah Likely: Scores twice in Week 1 win",
+      "body_text": "Likely caught all eight of his targets for 78 yards and two touchdowns in Sunday's 28-20 win over the Cowboys. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T09:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Likely"
+      ],
+      "resolved_player_ids": [
+        "00-0037838"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl637270",
+      "url": "https://www.rotowire.com//football/player/dak-prescott-11008",
+      "permalink": "",
+      "title": "Dak Prescott: Held to 175 passing yards in loss",
+      "body_text": "Prescott completed 22 of 34 passes for 175 yards, two touchdowns and one interception in Sunday's 28-20 loss to the Giants. He also rushed twice for 14 yards. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T09:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl637267",
+      "url": "https://www.rotowire.com//football/player/jaxson-dart-18574",
+      "permalink": "",
+      "title": "Jaxson Dart: Tosses three TDs in Week 1 win",
+      "body_text": "Dart completed 23 of 29 passes for 230 yards and three touchdowns in Sunday's 28-20 win over the Cowboys. He also rushed 11 times for 54 yards. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T09:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl637266",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Six catches in return",
+      "body_text": "Nabers (knee) caught six of nine targets for 69 yards in Sunday's 28-20 win over the Cowboys. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T09:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl637265",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Opens scoring in Week 1 win",
+      "body_text": "Skattebo rushed 18 times for 81 yards and a touchdown but wasn't targeted in the passing game during Sunday's 28-20 win over the Cowboys. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-13T09:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
