@@ -598,6 +598,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/gold/projections/ 2>/dev/null || true
+          # TD-10: prod (HF Spaces git clone) serves player game logs from this path;
+          # the Tuesday ingest writes it on the runner, so it must ship with Gold.
+          git add data/bronze/players/weekly/ 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new Gold projections to commit"
           else

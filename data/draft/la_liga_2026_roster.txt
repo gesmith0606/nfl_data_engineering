@@ -1,0 +1,13 @@
+# La Liga 2026 (ESPN, The Oracle) — PARTIAL: only the picks recorded in the 2026-08-31 post-mortem.
+# ESPN_S2/SWID in .env are expired (401), so the full 16-man roster could not be pulled.
+# Refresh the cookies and run: python scripts/espn_league_import.py --league-id 1493260 --my-team
+James Cook
+Derrick Henry
+Rashee Rice
+Tee Higgins
+Tyler Warren
+Mike Evans
+Brian Thomas Jr.
+Brock Purdy
+Xavier Worthy
+Jordan Love   # autopicked 2nd QB — house-rule violation, first drop
