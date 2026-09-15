@@ -1,0 +1,492 @@
+{
+  "fetch_run_id": "da0963c2-eb9d-45a8-be2e-6aa77f11b41a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-15T12:24:54.634213+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-confidence-is-great-but-we-have-to-reset-and-get-back-to-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-confidence-is-great-but-we-have-to-reset-and-get-back-to-work",
+      "title": "Mike LaFleur: Confidence is great, but we have to reset and get back to work",
+      "body_text": "The Cardinals pulled off the biggest upset of Week 1, but Monday wasn't a day for reveling in their 26-14 win over the Chargers.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T12:09:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-ticket-prices-increase-while-nfl-decreases-the-number-of-sunday-afternoon-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-ticket-prices-increase-while-nfl-decreases-the-number-of-sunday-afternoon-games",
+      "title": "Sunday Ticket prices increase, while NFL decreases the number of Sunday afternoon games",
+      "body_text": "A quarter-century ago, NFL Sunday Ticket felt like a modern miracle to football fans.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-15T11:31:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-now-second-all-time-in-receiving-yards-for-a-te",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-now-second-all-time-in-receiving-yards-for-a-te",
+      "title": "Travis Kelce now second all-time in receiving yards for a TE",
+      "body_text": "Chiefs tight end Travis Kelce's longest reception last season was 44 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T02:32:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-means-a-lot-that-the-chiefs-trust-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-means-a-lot-that-the-chiefs-trust-me",
+      "title": "Kenneth Walker: Means a lot that the Chiefs trust me",
+      "body_text": "Kenneth Walker played his first game with the Chiefs on Monday night and head coach Andy Reid made it clear right off the bat that the free agent addition is going to be playing a major role in the offense.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T11:02:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-rushing-td-gave-me-confidence-i-could-be-myself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-rushing-td-gave-me-confidence-i-could-be-myself",
+      "title": "Patrick Mahomes: Rushing TD gave me confidence I could be myself",
+      "body_text": "Mahomes also threw two TDs in his return from a torn ACL.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T10:40:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-saw-protection-busts-that-should-not-and-cannot-happen-on-vikings-film",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-saw-protection-busts-that-should-not-and-cannot-happen-on-vikings-film",
+      "title": "Matt LaFleur saw \"protection busts that should not and cannot happen\" on Vikings film",
+      "body_text": "Packers quarterback Jordan Love was pressured relentlessly by the Vikings' defense in Sunday's 39-22 loss, and Matt LaFleur said after watching the film that the pass protection needed to be a lot better.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-15T08:29:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-broncos-loss-starts-with-me-starts-with-our-coaching-staff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-broncos-loss-starts-with-me-starts-with-our-coaching-staff",
+      "title": "Sean Payton: Broncos' loss starts with me, starts with our coaching staff",
+      "body_text": "Payton handed off play calling to offensive coordinator Davis Webb for the Broncos' 31-10 loss to the Chiefs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-15T07:54:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Davis Webb"
+      ],
+      "resolved_player_ids": [
+        "00-0033550"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-couldnt-have-unretired-to-play-for-broncos-in-afc-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-brees-couldnt-have-unretired-to-play-for-broncos-in-afc-championship",
+      "title": "Drew Brees couldn't have unretired to play for Broncos in AFC Championship",
+      "body_text": "Brees remains on the Saints' reserve-retired list, and he couldn't have returned that last in the season.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-15T00:55:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Brees",
+        "Championship Brees"
+      ],
+      "resolved_player_ids": [
+        "00-0020531"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-kenneth-walker-chiefs-run-by-broncos-31-10-in-patrick-mahomes-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-kenneth-walker-chiefs-run-by-broncos-31-10-in-patrick-mahomes-return",
+      "title": "Monday Night Football: Kenneth Walker, Chiefs run by Broncos 31-10 in Patrick Mahomes' return",
+      "body_text": "Walker, who had a career-high 173 rushing yards, had more totals (191) than the Broncos had as a team (176).",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T03:21:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Kenneth Walker",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0038134",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-runs-for-60-yard-td-on-fourth-down",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-runs-for-60-yard-td-on-fourth-down",
+      "title": "Kenneth Walker runs for 60-yard TD on fourth down",
+      "body_text": "The Chiefs needed 1 yard on a fourth-down play at their own 40.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T02:06:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-chiefs-lead-the-broncos-14-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-chiefs-lead-the-broncos-14-7-at-halftime",
+      "title": "Monday Night Football: Chiefs lead the Broncos 14-7 at halftime",
+      "body_text": "Patrick Mahomes isn't completely back from his knee injury, but he has accounted for two touchdowns and the Chiefs lead the Broncos 14-7 at halftime.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T01:49:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/naacp-president-derrick-johnson-will-appear-on-espn-to-discuss-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/naacp-president-derrick-johnson-will-appear-on-espn-to-discuss-protect-college-sports-act",
+      "title": "NAACP president Derrick Johnson will appear on ESPN to discuss Protect College Sports Act",
+      "body_text": "After ESPN gave Senator Ted Cruz (R-Texas) a platform to push for the Protect College Sports Act, with no opposing view offered, the NAACP challenged ESPN to provide its president, Derrick Johnson, with a similar opportunity this weekend, when College GameDay goes to Oxford, Mississippi.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-15T01:29:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Johnson",
+        "Protect College",
+        "Sports Act",
+        "Senator Ted"
+      ],
+      "resolved_player_ids": [
+        "00-0023449"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/landon-dickerson-i-was-a-complete-liability-i-should-not-be-out-there-until-healthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/landon-dickerson-i-was-a-complete-liability-i-should-not-be-out-there-until-healthy",
+      "title": "Landon Dickerson: I was a complete liability; I should not be out there until healthy",
+      "body_text": "The Eagles will place left guard Landon Dickerson on injured reserve with a knee injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T01:20:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Landon Dickerson",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0037002"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-cb-mansoor-delane-questionable-to-return-with-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-cb-mansoor-delane-questionable-to-return-with-shoulder-injury",
+      "title": "Chiefs CB Mansoor Delane questionable to return with shoulder injury",
+      "body_text": "Chiefs rookie cornerback Mansoor Delane intercepted Bo Nix on his third career play.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T00:56:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mansoor Delane",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0041543",
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-throws-td-on-broncos-second-drive-to-forge-a-tie",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-throws-td-on-broncos-second-drive-to-forge-a-tie",
+      "title": "Bo Nix throws TD on Broncos' second drive to forge a tie",
+      "body_text": "Bo Nix didn't get his season off to the best start, throwing an interception that set up the Chiefs at the Denver 46.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T00:47:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mansoor-delanes-int-sets-up-patrick-mahomes-td-run",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mansoor-delanes-int-sets-up-patrick-mahomes-td-run",
+      "title": "Mansoor Delane's INT sets up Patrick Mahomes' TD run",
+      "body_text": "Patrick Mahomes is still Patrick Mahomes.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-15T00:37:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mansoor Delane",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0041543",
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-say-sam-darnolds-very-unique-injury-has-no-firm-timeline",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-say-sam-darnolds-very-unique-injury-has-no-firm-timeline",
+      "title": "Seahawks say Sam Darnold's \"very unique\" injury has \"no firm timeline\"",
+      "body_text": "Seattle offers more transparency than the injury report requires.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-15T00:36:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-put-landon-dickerson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-put-landon-dickerson-on-injured-reserve",
+      "title": "Eagles put Landon Dickerson on injured reserve",
+      "body_text": "Eagles guard Landon Dickerson will miss at least the next four weeks.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-14T23:06:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Landon Dickerson"
+      ],
+      "resolved_player_ids": [
+        "00-0037002"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-no-surprises-among-the-inactives",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-no-surprises-among-the-inactives",
+      "title": "Monday Night Football: No surprises among the Chiefs-Broncos inactives",
+      "body_text": "The Chiefs and Broncos play the final Week 1 game, meeting on Monday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-14T22:59:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-nfl-network-now-simulcast-the-same-monday-night-pregame-show",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-nfl-network-now-simulcast-the-same-monday-night-pregame-show",
+      "title": "ESPN, NFL Network now simulcast the same Monday night pregame show",
+      "body_text": "For years, NFL fans who wanted to watch a Monday Night Football pregame show had their pick of two different options.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-14T22:57:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-noncommittal-on-joey-porters-return-timeline",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-noncommittal-on-joey-porters-return-timeline",
+      "title": "Mike McCarthy noncommittal on Joey Porter's return timeline",
+      "body_text": "Cornerback Joey Porter Jr. didn't play in Sunday's season-opening win over the Falcons, and coach Mike McCarthy was noncommittal on Porter's timeline for a return.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-14T22:13:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter",
+        "Cornerback Joey"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinnen-williams-we-really-need-to-be-critical-to-get-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinnen-williams-we-really-need-to-be-critical-to-get-better",
+      "title": "Quinnen Williams: We really need to be critical to get better",
+      "body_text": "One of the focal points for the Cowboys this offseason was getting better on defense, but their first outing of the year didn't show the kind of improvement they were looking for in Dallas.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-14T22:12:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinnen Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0035718"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshall-faulk-acknowledges-the-reality-of-early-season-crash-test-dummy-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshall-faulk-acknowledges-the-reality-of-early-season-crash-test-dummy-games",
+      "title": "Marshall Faulk acknowledges the reality of early-season \"crash-test dummy\" games",
+      "body_text": "The new age of college football has made one of its time-honored traditions even more glaring — the early-season tuneup games.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-14T22:09:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marshall Faulk"
+      ],
+      "resolved_player_ids": [
+        "00-0005092"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-in-retrospect-i-wish-wed-gotten-guys-more-preseason-reps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-in-retrospect-i-wish-wed-gotten-guys-more-preseason-reps",
+      "title": "Jim Harbaugh: In retrospect, I wish we'd gotten guys more preseason reps",
+      "body_text": "The Chargers had one of the most disappointing debut performances and it left head coach Jim Harbaugh with some second thoughts about how the team prepared for the start of the regular season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-14T21:52:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-42-points-in-broncos-chiefs-the-week-1-scoring-record-will-be-broken",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-42-points-in-broncos-chiefs-the-week-1-scoring-record-will-be-broken",
+      "title": "With 42 points in Broncos-Chiefs, the Week 1 scoring record will be broken",
+      "body_text": "Through 15 games, 750 points have been scored.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-14T21:48:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-waive-cb-johnathan-edwards",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-waive-cb-johnathan-edwards",
+      "title": "Colts waive CB Johnathan Edwards",
+      "body_text": "The Colts waived cornerback Johnathan Edwards on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-14T20:32:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Johnathan Edwards",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0040347"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-hamstring-malik-hooker-arm-will-both-miss-1-2-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-hamstring-malik-hooker-arm-will-both-miss-1-2-weeks",
+      "title": "DeMarvion Overshown (hamstring), Malik Hooker (arm) will both miss 1-2 weeks",
+      "body_text": "Cowboys linebacker DeMarvion Overshown will miss time with a hamstring injury, Brian Schottenheimer said Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-14T21:38:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Hooker",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0033877"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-running-back-isiah-pacheco-had-back-surgery-will-miss-significant-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-running-back-isiah-pacheco-had-back-surgery-will-miss-significant-time",
+      "title": "Lions running back Isiah Pacheco had back surgery, will miss significant time",
+      "body_text": "Lions running back Isiah Pacheco started the season on injured reserve, and he won't be on the field any time soon.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-14T21:33:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Isiah Pacheco"
+      ],
+      "resolved_player_ids": [
+        "00-0037197"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-release-wr-liljordan-humphrey-in-procedural-move",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-release-wr-liljordan-humphrey-in-procedural-move",
+      "title": "Broncos release WR Lil'Jordan Humphrey in procedural move",
+      "body_text": "The Broncos released wide receiver Lil'Jordan Humphrey on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-14T21:21:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Humphrey",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriot-seahawks-opener-averaged-25-1-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriot-seahawks-opener-averaged-25-1-million-viewers",
+      "title": "Patriot-Seahawks opener averaged 25.1 million viewers",
+      "body_text": "Now that football season has returned, so has the season of tracking the sizes of the TV audiences for football games.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-14T21:15:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}

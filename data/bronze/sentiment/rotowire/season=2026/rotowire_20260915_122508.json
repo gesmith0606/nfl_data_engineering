@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "47525ab9-e47e-4367-a3ad-ec875ee36603",
+  "source": "rotowire",
+  "fetched_at": "2026-09-15T12:25:08.278113+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637489",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "permalink": "",
+      "title": "Xavier Worthy: Opens season with three catches",
+      "body_text": "Worthy secured three of six targets for 18 yards in the Chiefs' 31-10 win over the Broncos on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-14T09:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl637488",
+      "url": "https://www.rotowire.com//football/player/travis-kelce-8783",
+      "permalink": "",
+      "title": "Travis Kelce: Game-long catch in Week 1 win",
+      "body_text": "Kelce brought in three of five targets for 71 yards in the Chiefs' 31-10 win over the Broncos on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-14T09:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl637486",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Miserable showing in Week 1 loss",
+      "body_text": "Nix completed 17 of 28 passes for 131 yards with one touchdown and one interception while adding three carries for two yards in the Broncos' 31-10 loss to the Chiefs on Monday night. He also committed three fumbles, losing one and recovering one of the two others that remained with Denver. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-14T09:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl637484",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Three total TDs in season debut",
+      "body_text": "Mahomes completed 15 of 27 passes for 184 yards with two touchdowns and one interception while adding seven rushes for 23 yards and another score in the Chiefs' 31-10 win over the Broncos on Monday night. He also recovered two fumbles. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-14T09:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl637482",
+      "url": "https://www.rotowire.com//football/player/courtland-sutton-12586",
+      "permalink": "",
+      "title": "Courtland Sutton: Limited to two catches in loss",
+      "body_text": "Sutton secured two of five targets for 11 yards in the Broncos' 31-10 loss to the Chiefs on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-14T09:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton"
+      ],
+      "resolved_player_ids": [
+        "00-0034348"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}
