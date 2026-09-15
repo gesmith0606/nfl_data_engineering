@@ -165,6 +165,16 @@ def main(argv: Optional[list] = None) -> int:
     ap.add_argument(
         "--roster-file", type=Path, help="ESPN/Yahoo: my roster, one name per line"
     )
+    ap.add_argument(
+        "--rostered-file",
+        type=Path,
+        help="ESPN/Yahoo: every player rostered in the league (one per line) -> exact FA pool",
+    )
+    ap.add_argument(
+        "--available-file",
+        type=Path,
+        help="ESPN/Yahoo: the site's own available-players list (one per line) -> exact FA pool",
+    )
     ap.add_argument("--top", type=int, default=6, help="free agents shown per position")
     args = ap.parse_args(argv)
 
@@ -206,7 +216,14 @@ def main(argv: Optional[list] = None) -> int:
             )
         mine = sorted(roster_ids_from_file(args.roster_file, by_name))
         rostered = set(mine)
+        if args.rostered_file:
+            rostered |= roster_ids_from_file(args.rostered_file, by_name)
         title = f"{args.league} ({platform}, my roster from {args.roster_file.name})"
+    available: Optional[Set[str]] = (
+        roster_ids_from_file(args.available_file, by_name)
+        if args.available_file
+        else None
+    )
     scoring = scoring_for(preset, league)
 
     ours_df, ours_label = set_lineups.load_ours(season, week)
@@ -267,7 +284,11 @@ def main(argv: Optional[list] = None) -> int:
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
-        return platform == "sleeper" or r["adp"] is None or r["adp"] > draft_size
+        if available is not None:
+            return r["sid"] in available
+        if platform == "sleeper" or args.rostered_file:
+            return True
+        return r["adp"] is None or r["adp"] > draft_size
 
     def line(r: Dict[str, Any], tag: str = "") -> str:
         fa = ""
@@ -284,7 +305,7 @@ def main(argv: Optional[list] = None) -> int:
     print(
         f"OURS = {ours_label}; SLPR = Sleeper week {week}; LAST = week {week - 1} actuals"
     )
-    if platform != "sleeper":
+    if platform != "sleeper" and not (args.rostered_file or args.available_file):
         print(
             f"Other rosters unknown: showing only players drafted beyond pick {draft_size} "
             f"({platform} ADP, Sleeper ADP fallback) — verify availability on the site"
