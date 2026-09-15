@@ -274,8 +274,10 @@ def main(argv: Optional[list] = None) -> int:
         if platform != "sleeper":
             fa = "FA?" if likely_fa(r) else f"adp{r['adp']}"
         return (
-            f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4} ours{fmt(r['ours'])} slpr{fmt(r['slpr'])}"
-            f" blend{fmt(r['blend'])} last{fmt(r['last'])} adds{r['adds']/1000:5.0f}k {fa:7} {r['inj']:4} {r['news']}"
+            f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
+            f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
+            f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
+            f" {r['inj']:4} {r['news']}"
         )
 
     print(f"\n=== {title} — {season} week {week} waivers ===")
@@ -309,8 +311,9 @@ def main(argv: Optional[list] = None) -> int:
     unscored = [
         registry.get(s, {}).get("full_name") or s for s in mine if row(s) is None
     ]
+    missing = ", ".join(map(str, unscored)) or "none"
     print(
-        f"\n-- My roster (weakest first; {len(my_rows)} scored, unscored: {', '.join(map(str, unscored)) or 'none'}) --"
+        f"\n-- My roster (weakest first; {len(my_rows)} scored, unscored: {missing}) --"
     )
     for r in sorted(my_rows, key=lambda r: r["blend"]):
         print(line(r, "START" if r["sid"] in starters else "bench"))
