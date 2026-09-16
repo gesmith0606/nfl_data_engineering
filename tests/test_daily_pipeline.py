@@ -8,8 +8,10 @@ auto-detects NFL season/week.
 from __future__ import annotations
 
 import datetime
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pandas as pd
 import pytest
 
 from scripts.daily_sentiment_pipeline import (
@@ -26,38 +28,84 @@ from scripts.daily_sentiment_pipeline import (
 # ---------------------------------------------------------------------------
 
 
+def _write_schedule(root: Path, season: int, rows: list) -> None:
+    d = root / f"season={season}"
+    d.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
+        {
+            "season": season,
+            "game_type": "REG",
+            "week": [w for w, _ in rows],
+            "gameday": [g for _, g in rows],
+        }
+    ).to_parquet(d / "schedules_20260915_080833.parquet", index=False)
+
+
+@pytest.fixture
+def sched_2026(tmp_path: Path) -> Path:
+    """Real 2026 REG shape: wk1 Sep 9-14 (Wed opener), wk2 Sep 17-21, wk18 Jan 10."""
+    _write_schedule(
+        tmp_path,
+        2026,
+        [
+            (1, "2026-09-09"),
+            (1, "2026-09-13"),
+            (1, "2026-09-14"),
+            (2, "2026-09-17"),
+            (2, "2026-09-20"),
+            (2, "2026-09-21"),
+            (3, "2026-09-24"),
+            (18, "2027-01-10"),
+        ],
+    )
+    return tmp_path
+
+
 class TestDetectNflWeek:
-    """Tests for NFL season/week auto-detection."""
+    """Sentiment partitions must match the weekly pipeline's target week.
 
-    def test_mid_season_returns_valid_week(self) -> None:
-        """Mid-October should return a week in the 4-8 range."""
-        with patch("scripts.daily_sentiment_pipeline.datetime") as mock_dt:
-            mock_dt.date.today.return_value = datetime.date(2025, 10, 15)
-            mock_dt.date.side_effect = lambda *a, **kw: datetime.date(*a, **kw)
-            mock_dt.timedelta = datetime.timedelta
-            season, week = detect_nfl_week()
-            assert season == 2025
-            assert 1 <= week <= 18
+    Regression anchor: on Tue 2026-09-15 the old calendar rule (7-day windows
+    from the Week 1 Thursday) wrote ``season=2026/week=01`` while the weekly
+    pipeline had already published ``week=02`` projections.
+    """
 
-    def test_preseason_returns_prior_season(self) -> None:
-        """July should return the prior season."""
-        with patch("scripts.daily_sentiment_pipeline.datetime") as mock_dt:
-            mock_dt.date.today.return_value = datetime.date(2026, 7, 1)
-            mock_dt.date.side_effect = lambda *a, **kw: datetime.date(*a, **kw)
-            mock_dt.timedelta = datetime.timedelta
-            season, week = detect_nfl_week()
-            # Before September = prior season, but July is after June so
-            # we use current year's anchor which hasn't happened yet
-            assert season == 2025
+    @pytest.mark.parametrize(
+        "today, expected_week",
+        [
+            (datetime.date(2026, 9, 15), 2),  # Tuesday after Week 1 (the bug)
+            (datetime.date(2026, 9, 16), 2),  # Wednesday -- calendar still said 1
+            (datetime.date(2026, 9, 14), 1),  # MNF Monday -> still Week 1
+            (datetime.date(2026, 9, 8), 1),  # Tuesday before kickoff -> Week 1
+            (datetime.date(2026, 7, 1), 1),  # preseason -> Week 1 of new season
+        ],
+    )
+    def test_matches_weekly_pipeline_target_week(
+        self, sched_2026: Path, today: datetime.date, expected_week: int
+    ) -> None:
+        with patch("scripts.resolve_pipeline_week.SCHEDULES_ROOT", sched_2026):
+            assert detect_nfl_week(today) == (2026, expected_week)
 
-    def test_week_clamped_to_18(self) -> None:
-        """Late January should clamp to week 18."""
-        with patch("scripts.daily_sentiment_pipeline.datetime") as mock_dt:
-            mock_dt.date.today.return_value = datetime.date(2026, 1, 25)
-            mock_dt.date.side_effect = lambda *a, **kw: datetime.date(*a, **kw)
-            mock_dt.timedelta = datetime.timedelta
-            season, week = detect_nfl_week()
-            assert week <= 18
+    def test_tuesday_after_week1_agrees_with_resolver(self, sched_2026: Path) -> None:
+        """Byte-for-byte the same (season, week) the weekly cron resolves."""
+        from scripts.resolve_pipeline_week import resolve_target_week
+
+        today = datetime.date(2026, 9, 15)
+        with patch("scripts.resolve_pipeline_week.SCHEDULES_ROOT", sched_2026):
+            season, week, source = resolve_target_week(today)
+            assert source == "schedule"
+            assert detect_nfl_week(today) == (season, week) == (2026, 2)
+
+    def test_season_over_clamps_to_week_18(self, sched_2026: Path) -> None:
+        with patch("scripts.resolve_pipeline_week.SCHEDULES_ROOT", sched_2026):
+            assert detect_nfl_week(datetime.date(2027, 1, 25)) == (2026, 18)
+
+    def test_calendar_fallback_without_schedule(self, tmp_path: Path, caplog) -> None:
+        """No schedule parquet at all -> legacy calendar rule, with a warning."""
+        with patch("scripts.resolve_pipeline_week.SCHEDULES_ROOT", tmp_path):
+            season, week = detect_nfl_week(datetime.date(2025, 10, 15))
+        assert season == 2025
+        assert 1 <= week <= 18
+        assert "calendar" in caplog.text
 
 
 # ---------------------------------------------------------------------------
