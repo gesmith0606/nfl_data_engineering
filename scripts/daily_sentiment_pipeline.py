@@ -113,34 +113,33 @@ class PipelineResult:
 # ---------------------------------------------------------------------------
 
 
-def detect_nfl_week() -> tuple:
-    """Auto-detect current NFL season and week from today's date.
+def detect_nfl_week(today: Optional[datetime.date] = None) -> tuple:
+    """Auto-detect the NFL (season, week) this run should write to.
 
-    The NFL season starts the first Thursday on or after September 5.
-    Each week is 7 days.  Before Week 1 of the current year's season,
-    we treat the date as belonging to the prior season's off-season.
+    Delegates to ``scripts.resolve_pipeline_week.resolve_target_week`` so the
+    sentiment partitions line up with the projection partitions the weekly
+    pipeline publishes: the *upcoming* regular-season week per the committed
+    schedule parquet.  The old 7-day calendar rule rolled over on Thursday, so
+    Tuesday-Wednesday runs (2026-09-15: ``week=01``) landed one week behind the
+    ``week=02`` projections that ``news_service`` and the waiver tooling join on.
+
+    Args:
+        today: Override today's date (for testing only).
 
     Returns:
         Tuple of (season_year, week_number).
     """
-    today = datetime.date.today()
+    from scripts import resolve_pipeline_week as rpw
 
-    def week1_thursday(yr: int) -> datetime.date:
-        """Return the Thursday on or after September 5 for a given year."""
-        sep5 = datetime.date(yr, 9, 5)
-        days_ahead = (3 - sep5.weekday()) % 7
-        return sep5 + datetime.timedelta(days=days_ahead)
-
-    anchor = week1_thursday(today.year)
-    if today < anchor:
-        season = today.year - 1
-        anchor = week1_thursday(season)
-    else:
-        season = today.year
-
-    days_since = (today - anchor).days
-    week = max(1, min((days_since // 7) + 1, 18))
-
+    # Read SCHEDULES_ROOT at call time (not as a bound default) so tests can
+    # point it at a temp schedule parquet.
+    season, week, source = rpw.resolve_target_week(
+        today or datetime.date.today(), root=rpw.SCHEDULES_ROOT
+    )
+    if source == "calendar":
+        msg = "no schedule parquet found -- fell back to the calendar rule"
+        logger.warning(msg)
+        print(f"::warning::{msg}")  # GitHub Actions annotation, like the resolver CLI
     return season, week
 
 
@@ -538,13 +537,13 @@ def _build_parser() -> argparse.ArgumentParser:
         "--season",
         type=int,
         default=None,
-        help="NFL season year (default: auto-detected from calendar).",
+        help="NFL season year (default: auto-detected from the committed schedule (upcoming REG week)).",
     )
     parser.add_argument(
         "--week",
         type=int,
         default=None,
-        help="NFL week number 1-18 (default: auto-detected from calendar).",
+        help="NFL week number 1-18 (default: auto-detected from the committed schedule (upcoming REG week)).",
     )
     parser.add_argument(
         "--dry-run",
