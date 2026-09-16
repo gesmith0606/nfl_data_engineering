@@ -137,7 +137,9 @@ def detect_nfl_week(today: Optional[datetime.date] = None) -> tuple:
         today or datetime.date.today(), root=rpw.SCHEDULES_ROOT
     )
     if source == "calendar":
-        logger.warning("No schedule parquet found -- fell back to the calendar rule")
+        msg = "no schedule parquet found -- fell back to the calendar rule"
+        logger.warning(msg)
+        print(f"::warning::{msg}")  # GitHub Actions annotation, like the resolver CLI
     return season, week
 
 
@@ -535,13 +537,13 @@ def _build_parser() -> argparse.ArgumentParser:
         "--season",
         type=int,
         default=None,
-        help="NFL season year (default: auto-detected from calendar).",
+        help="NFL season year (default: auto-detected from the committed schedule (upcoming REG week)).",
     )
     parser.add_argument(
         "--week",
         type=int,
         default=None,
-        help="NFL week number 1-18 (default: auto-detected from calendar).",
+        help="NFL week number 1-18 (default: auto-detected from the committed schedule (upcoming REG week)).",
     )
     parser.add_argument(
         "--dry-run",

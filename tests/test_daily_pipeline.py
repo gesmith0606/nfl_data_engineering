@@ -91,7 +91,7 @@ class TestDetectNflWeek:
 
         today = datetime.date(2026, 9, 15)
         with patch("scripts.resolve_pipeline_week.SCHEDULES_ROOT", sched_2026):
-            season, week, source = resolve_target_week(today)
+            season, week, source = resolve_target_week(today, root=sched_2026)
             assert source == "schedule"
             assert detect_nfl_week(today) == (season, week) == (2026, 2)
 
