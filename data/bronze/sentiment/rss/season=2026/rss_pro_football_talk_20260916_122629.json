@@ -1,0 +1,496 @@
+{
+  "fetch_run_id": "08d6bd55-3540-464b-b354-cedef688cfe5",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-16T12:26:29.414040+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-no-concerns-about-highmark-stadium-field-for-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-no-concerns-about-highmark-stadium-field-for-thursday-night",
+      "title": "Joe Brady: No concerns about Highmark Stadium field for Thursday night",
+      "body_text": "The condition of the playing field at the new Highmark Stadium became a talking point after the Bills played their first preseason game at the building this summer.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T10:58:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Brady",
+        "Highmark Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-suggests-he-wanted-bears-to-score-60-points-at-carolina",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-suggests-he-wanted-bears-to-score-60-points-at-carolina",
+      "title": "Ben Johnson suggests he wanted Bears to score 60 points at Carolina",
+      "body_text": "The Bears scored 59 points on Sunday at Carolina.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T03:35:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Carolina The"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-leads-the-nfl-in-passing-yards-since-becoming-the-cardinals-starter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-leads-the-nfl-in-passing-yards-since-becoming-the-cardinals-starter",
+      "title": "Jacoby Brissett leads the NFL in passing yards since becoming the Cardinals' starter",
+      "body_text": "Brissett's 277 passing yards on Sunday helped the Cardinals beat the Chargers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-16T08:46:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-apologizes-for-insensitive-comment-about-ai-video-from-saturdays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-apologizes-for-insensitive-comment-about-ai-video-from-saturdays-game",
+      "title": "Arch Manning apologizes for \"insensitive comment\" about AI video from Saturday's game",
+      "body_text": "Saturday was a good day for Texas quarterback Arch Manning.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T03:18:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arch Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victim-in-josh-jacobs-case-files-motion-to-permanently-seal-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victim-in-josh-jacobs-case-files-motion-to-permanently-seal-video",
+      "title": "Victim in Josh Jacobs case files motion to permanently seal video",
+      "body_text": "Latest move could make it harder for NFL to see the video.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T02:39:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-to-sign-wr-marquez-valdes-scantling-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-to-sign-wr-marquez-valdes-scantling-to-practice-squad",
+      "title": "Chargers to sign WR Marquez Valdes-Scantling to practice squad",
+      "body_text": "The Chargers are signing wide receiver Marquez Valdes-Scantling to their practice squad, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-16T02:24:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marquez Valdes",
+        "The Chargers",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-seem-to-be-nervous-about-a-potential-drew-brees-tampering-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-seem-to-be-nervous-about-a-potential-drew-brees-tampering-case",
+      "title": "Broncos seem to be nervous about a potential Drew Brees tampering case",
+      "body_text": "On Monday, Adam Schefter of ESPN reported that the Broncos talked to quarterback Drew Brees about joining the team for the AFC Championship, without acknowledging that Brees's status on the Saints' reserve-retired list made the move impossible.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T02:18:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Brees",
+        "On Monday",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0020531"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/senate-advances-the-protect-college-sports-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/senate-advances-the-protect-college-sports-act",
+      "title": "Senate advances the Protect College Sports Act",
+      "body_text": "ESPN has gotten its apparent wish.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T01:54:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Protect College",
+        "Sports Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-lb-frankie-luvu-has-minor-groin-strain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-lb-frankie-luvu-has-minor-groin-strain",
+      "title": "Commanders LB Frankie Luvu has minor groin strain",
+      "body_text": "Commanders linebacker Frankie Luvu has a minor groin strain, according to multiple reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-16T01:51:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Frankie Luvu"
+      ],
+      "resolved_player_ids": [
+        "00-0034302"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-kenneth-murray-to-join-texans-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-kenneth-murray-to-join-texans-practice-squad",
+      "title": "LB Kenneth Murray to join Texans' practice squad",
+      "body_text": "Linebacker Kenneth Murray has found a job.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-16T01:34:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Murray",
+        "Linebacker Kenneth"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-put-wr-keandre-lambert-smith-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-put-wr-keandre-lambert-smith-on-ir",
+      "title": "Chargers put WR KeAndre Lambert-Smith on IR",
+      "body_text": "Wide receiver KeAndre Lambert-Smith injured his hamstring in Sunday's loss to the Cardinals and he's going to be out of action for at least the next month as a result.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T22:33:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dl-t-j-sanders-misses-practice-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-dl-t-j-sanders-misses-practice-with-an-illness",
+      "title": "Bills DL T.J. Sanders misses practice with an illness",
+      "body_text": "Bills defensive lineman T.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T21:53:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-wr-britain-covey-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-wr-britain-covey-to-53-man-roster",
+      "title": "Eagles sign WR Britain Covey to 53-man roster",
+      "body_text": "The Eagles officially placed guard Landon Dickerson on injured reserve Tuesday and they pulled a player up from the practice squad in a corresponding move.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T21:41:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Britain Covey",
+        "The Eagles",
+        "Landon Dickerson"
+      ],
+      "resolved_player_ids": [
+        "00-0037132",
+        "00-0037002"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cowboys-delivers-25-7-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-cowboys-delivers-25-7-million-viewers",
+      "title": "Giants-Cowboys delivers 25.7 million viewers",
+      "body_text": "The first Sunday of Week 1 ended with the latest installment of the Cowboys-Giants rivalry.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-15T21:13:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mansoor-delane-is-believed-to-have-suffered-short-term-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mansoor-delane-is-believed-to-have-suffered-short-term-shoulder-injury",
+      "title": "Report: Mansoor Delane is believed to have suffered short-term shoulder injury",
+      "body_text": "There is some positive news on the injury front for one of Kansas City’s top rookies.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-15T21:04:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mansoor Delane",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0041543"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-add-cb-d-j-reed-to-injury-report-as-a-limited-participant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-add-cb-d-j-reed-to-injury-report-as-a-limited-participant",
+      "title": "Lions add CB D.J. Reed to injury report as a limited participant",
+      "body_text": "The Lions made one change to their injury report on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T20:55:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-release-k-jake-moody-from-their-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-release-k-jake-moody-from-their-practice-squad",
+      "title": "Ravens release K Jake Moody from their practice squad",
+      "body_text": "Ravens head coach Jesse Minter expressed confidence in kicker Tyler Loop after a shaky preseason, but the team moved to add veteran Jake Moody to their practice squad as another option.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T20:49:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Moody",
+        "Jesse Minter",
+        "Tyler Loop"
+      ],
+      "resolved_player_ids": [
+        "00-0038562",
+        "00-0040074"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-its-special-to-be-part-of-first-game-at-new-bills-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-its-special-to-be-part-of-first-game-at-new-bills-stadium",
+      "title": "Dan Campbell: It's special to be part of first game at new Bills stadium",
+      "body_text": "The Bills will be playing their first regular season game at the new Highmark Stadium on Thursday night and the Lions drew the spot as the guests of honor for opening night.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T20:35:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell",
+        "The Bills",
+        "Highmark Stadium"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-sign-db-jordan-clark-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-sign-db-jordan-clark-to-53-man-roster",
+      "title": "Jets to sign DB Jordan Clark to 53-man roster",
+      "body_text": "The Jets are making a few roster moves on Tuesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-15T20:24:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Clark",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040397"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-lb-tyrel-dodson-to-the-53-man-roster-waive-wr-jimmy-horn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-lb-tyrel-dodson-to-the-53-man-roster-waive-wr-jimmy-horn",
+      "title": "Panthers sign LB Tyrel Dodson to the 53-man roster, waive WR Jimmy Horn",
+      "body_text": "The Panthers are adding a veteran linebacker to their 53-man roster ahead of their Week 2 game against the Falcons.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T20:11:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyrel Dodson",
+        "Jimmy Horn",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0035352",
+        "00-0040218"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-calls-loss-to-chiefs-a-slap-in-the-face",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-calls-loss-to-chiefs-a-slap-in-the-face",
+      "title": "Sean Payton calls loss to Chiefs a \"slap in the face\"",
+      "body_text": "After Monday night's 31-10 loss to the Chiefs, Broncos quarterback Bo Nix called the experience a \"nasty wakeup call.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-09-15T20:08:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "After Monday",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-oc-sean-mannion-well-miss-landon-dickerson-confident-guys-will-step-up",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-oc-sean-mannion-well-miss-landon-dickerson-confident-guys-will-step-up",
+      "title": "Eagles OC Sean Mannion: We'll miss Landon Dickerson, confident guys will step up",
+      "body_text": "The Eagles will be making a change on their offensive line for Week 2.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T20:03:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Mannion",
+        "Landon Dickerson",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0032245",
+        "00-0037002"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-dont-see-lions-making-a-major-trade-but-cap-space-gives-us-options",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-dont-see-lions-making-a-major-trade-but-cap-space-gives-us-options",
+      "title": "Dan Campbell: I don't see Lions making a major trade, but cap space gives us options",
+      "body_text": "Just before the regular season started, the Lions created $35 million in salary cap space by restructuring the contracts of wide receiver Amon-Ra St.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-15T19:56:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-rb-tyler-goodson-off-falcons-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-rb-tyler-goodson-off-falcons-practice-squad",
+      "title": "Cowboys sign RB Tyler Goodson off Falcons practice squad",
+      "body_text": "The Cowboys have added a running back.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-15T19:45:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Goodson",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037120"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-place-rb-dylan-sampson-on-ir-sign-rb-jaleel-mclaughlin-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-place-rb-dylan-sampson-on-ir-sign-rb-jaleel-mclaughlin-to-53-man-roster",
+      "title": "Browns place RB Dylan Sampson on IR, sign RB Jaleel McLaughlin to 53-man roster",
+      "body_text": "The Browns have made a roster move with running back/returner Dylan Sampson.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-15T19:35:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dylan Sampson",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040162"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-add-wr-sterling-shepard-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-add-wr-sterling-shepard-to-practice-squad",
+      "title": "Jets add WR Sterling Shepard to practice squad",
+      "body_text": "The Jets are adding a veteran receiver.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-15T19:17:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sterling Shepard",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0032385"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-s-kyle-louis-out-for-a-few-weeks-with-mcl-sprain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-s-kyle-louis-out-for-a-few-weeks-with-mcl-sprain",
+      "title": "Dolphins S Kyle Louis out for a few weeks with MCL sprain",
+      "body_text": "One of Miami’s rookie defenders will be sidelined for a bit.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-15T18:54:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Louis"
+      ],
+      "resolved_player_ids": [
+        "00-0041527"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-jaguars-in-denver-cam-little-may-break-his-own-field-goal-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-jaguars-in-denver-cam-little-may-break-his-own-field-goal-record",
+      "title": "With Jaguars in Denver, Cam Little may break his own field goal record",
+      "body_text": "Jaguars kicker Cam Little kicked the longest field goal in NFL history, 68 yards, last season in Las Vegas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-15T18:16:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With Jaguars",
+        "Cam Little",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [
+        "00-0039409"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-te-brayden-willis-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-te-brayden-willis-to-active-roster",
+      "title": "49ers sign TE Brayden Willis to active roster",
+      "body_text": "The 49ers filled an open spot on their active roster Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-15T18:07:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brayden Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0038643"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-bans-macklemore-from-performing-at-gillette-stadium-over-hate-speech",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-kraft-bans-macklemore-from-performing-at-gillette-stadium-over-hate-speech",
+      "title": "Robert Kraft bans Macklemore from performing at Gillette Stadium over \"hate speech\"",
+      "body_text": "An unexpected kerfuffle emerged on Monday, between Patriots owner Robert Kraft and Macklemore.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-15T17:43:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Kraft",
+        "Gillette Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    }
+  ]
+}

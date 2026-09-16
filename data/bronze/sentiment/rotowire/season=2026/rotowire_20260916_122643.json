@@ -1,0 +1,107 @@
+{
+  "fetch_run_id": "ea88f7ec-7128-44e9-ae8e-935fc6f88296",
+  "source": "rotowire",
+  "fetched_at": "2026-09-16T12:26:43.585703+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637550",
+      "url": "https://www.rotowire.com//football/player/aaron-donald-9391",
+      "permalink": "",
+      "title": "Aaron Donald: 'Very realistic chance' to play Week 2",
+      "body_text": "Donald has a \"very, very realistic chance\" to play versus the Giants in Week 2, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-15T05:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl637498",
+      "url": "https://www.rotowire.com//football/player/jakobi-lane-19230",
+      "permalink": "",
+      "title": "Ja'Kobi Lane: Expected to undergo wrist surgery",
+      "body_text": "Lane (wrist) is expected to undergo surgery in the coming days, potentially as soon as Wednesday, Matt Zenitz of CBS Sports reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-15T02:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kobi Lane",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637496",
+      "url": "https://www.rotowire.com//football/player/dylan-sampson-18467",
+      "permalink": "",
+      "title": "Dylan Sampson: Lands on injured reserve",
+      "body_text": "Sampson (knee) was placed on injured reserve Tuesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-15T12:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dylan Sampson"
+      ],
+      "resolved_player_ids": [
+        "00-0040162"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637494",
+      "url": "https://www.rotowire.com//football/player/omar-cooper-19314",
+      "permalink": "",
+      "title": "Omar Cooper: Considered week-to-week",
+      "body_text": "Cooper (ankle) is \"week-to-week,\" and the hope is he returns \"within the next four weeks,\" Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-15T07:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0041511"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637493",
+      "url": "https://www.rotowire.com//football/player/sam-darnold-12490",
+      "permalink": "",
+      "title": "Sam Darnold: Could have four-week timeline",
+      "body_text": "Darnold (glute) is \"looking at about a four-week return to play\" but could return \"a little bit sooner than that,\" Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-15T06:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": null
+    }
+  ]
+}
