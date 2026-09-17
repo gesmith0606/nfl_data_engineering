@@ -1,0 +1,597 @@
+{
+  "fetch_run_id": "b6c0b961-7e46-49ce-a037-a7a1feff33a8",
+  "source": "pft",
+  "fetched_at": "2026-09-17T12:25:57.734141+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-i-dont-worry-about-george-pickenss-drops-hell-be-just-fine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-i-dont-worry-about-george-pickenss-drops-hell-be-just-fine",
+      "permalink": "",
+      "title": "Brian Schottenheimer: I don't worry about George Pickens's drops, he'll be just fine",
+      "body_text": "Among the reasons why the Cowboys lost 28-20 to the Giants in Week 1 were a pair of dropped passes by wide receiver George Pickens.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-17T12:12:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-hurt-his-hamstring-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-hurt-his-hamstring-in-wednesdays-practice",
+      "permalink": "",
+      "title": "Nico Collins hurt his hamstring in Wednesday's practice",
+      "body_text": "Texans wide receiver Nico Collins was listed as a limited participant in Wednesday's practice due to a hamstring injury that took place during the session.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-17T11:17:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-preparing-for-mental-war-with-brian-flores-this-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-preparing-for-mental-war-with-brian-flores-this-weekend",
+      "permalink": "",
+      "title": "Caleb Williams preparing for \"mental war\" with Brian Flores this weekend",
+      "body_text": "Bears quarterback Caleb Williams wants the team to score points every time they have the ball and they came close to doing that against the Panthers in Week 1.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-17T11:12:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-knows-he-was-holding-on-patrick-mahomes-touchdown-run",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-knows-he-was-holding-on-patrick-mahomes-touchdown-run",
+      "permalink": "",
+      "title": "Travis Kelce knows he was holding on Patrick Mahomes' touchdown run",
+      "body_text": "Kelce held Denver's Talanoa Hufanga, but the officials didn't see it.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-17T09:03:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Patrick Mahomes",
+        "Talanoa Hufanga"
+      ],
+      "resolved_player_ids": [
+        "00-0030506",
+        "00-0033873",
+        "00-0036564"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-keenan-allens-bac-was-measured-at-0-224-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-keenan-allens-bac-was-measured-at-0-224-percent",
+      "permalink": "",
+      "title": "Report: Keenan Allen's BAC was measured at 0.224 percent",
+      "body_text": "Colts receiver Keenan Allen faces an enhanced misdemeanor charge for DUI, because his blood-alcohol concentration (alcohol concentration equivalent, in Indiana parlance) exceeded 0.15 percent after he was arrested last month.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-17T02:43:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keenan Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0030279"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-new-book-accessory-after-the-fact-is-coming",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-new-book-accessory-after-the-fact-is-coming",
+      "permalink": "",
+      "title": "A new book, Accessory After The Fact, is coming",
+      "body_text": "During the first year of the pandemic, after the draft ended and the NFL basically shut down, I had more free time than I'd had in years.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-17T02:18:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Accessory After",
+        "The Fact"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-will-explore-all-options-regarding-leagues-position-on-daequan-wright-zxavien-harris",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-will-explore-all-options-regarding-leagues-position-on-daequan-wright-zxavien-harris",
+      "permalink": "",
+      "title": "NFLPA will \"explore all options\" regarding league's position on Dae'Quan Wright, Zxavien Harris",
+      "body_text": "After LSU slammed the door on former NFL tryout players Dae'Quan Wright and Zxavien Harris, the NFL re-slammed the door on their potential return to pro football during the 2026 season.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-17T01:35:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quan Wright",
+        "Zxavien Harris"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/manningcast-slumps-to-705-000-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/manningcast-slumps-to-705-000-viewers",
+      "permalink": "",
+      "title": "ManningCast slumps to 705,000 viewers",
+      "body_text": "Few TV shows have a more dramatic disconnect between industry and viewer response than the ManningCast.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-17T01:16:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaas-fbs-oversight-committee-finds-replay-error-marred-western-michigan-michigan-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ncaas-fbs-oversight-committee-finds-replay-error-marred-western-michigan-michigan-game",
+      "permalink": "",
+      "title": "NCAA's FBS Oversight Committee finds replay error marred Western Michigan-Michigan game",
+      "body_text": "Western Michigan got hosed during their season-opening game against Michigan, and everyone knows it.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-17T00:12:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Oversight Committee",
+        "Western Michigan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mansoor-delane-was-a-full-participant-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mansoor-delane-was-a-full-participant-in-wednesdays-practice",
+      "permalink": "",
+      "title": "Mansoor Delane was a full participant in Wednesday's practice",
+      "body_text": "Chiefs rookie corner Mansoor Delane is trending toward playing in the Week 2 matchup against the Colts.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-16T20:55:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mansoor Delane"
+      ],
+      "resolved_player_ids": [
+        "00-0041543"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/leonard-williams-we-all-have-faith-in-drew-lock",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/leonard-williams-we-all-have-faith-in-drew-lock",
+      "permalink": "",
+      "title": "Leonard Williams: \"We all have faith\" in Drew Lock",
+      "body_text": "Seahawks believe in Sam Darnold's replacement.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-17T00:01:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Leonard Williams",
+        "Drew Lock",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0031933",
+        "00-0035704",
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-chiefs-drew-23-2-million-viewers-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-chiefs-drew-23-2-million-viewers-on-monday-night",
+      "permalink": "",
+      "title": "Broncos-Chiefs drew 23.2 million viewers on Monday night",
+      "body_text": "The Monday Night Football opener drew a big audience, with the Chiefs' 31-10 win over the Broncos getting 23.2 million viewers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-17T00:04:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Monday",
+        "Night Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ken-zampese-browns-mucked-it-up-with-baker-mayfield",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ken-zampese-browns-mucked-it-up-with-baker-mayfield",
+      "permalink": "",
+      "title": "Ken Zampese: Browns \"mucked it up\" with Baker Mayfield",
+      "body_text": "Eight years to the day after Baker Mayfield made his debut for the Browns, he'll be facing the Browns in his fourth year as the starting quarterback of the Buccaneers.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T23:41:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ken Zampese",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/macklemore-robert-kraft-make-significant-donations-to-palestinian-relief",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/macklemore-robert-kraft-make-significant-donations-to-palestinian-relief",
+      "permalink": "",
+      "title": "Macklemore, Robert Kraft make significant donations to Palestinian relief",
+      "body_text": "The recent spat between Macklemore and Patriots owner Robert Kraft regarding Macklemore's presence on Ed Sheeran's tour has led to some good.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T23:20:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Kraft",
+        "Ed Sheeran"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carter-cooper-dejean-miss-eagles-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carter-cooper-dejean-miss-eagles-practice-wednesday",
+      "permalink": "",
+      "title": "Jalen Carter, Cooper DeJean miss Eagles practice Wednesday",
+      "body_text": "A pair of Eagles defensive starters did not practice on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T22:47:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hall-of-fame-moves-on-from-19-selectors",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hall-of-fame-moves-on-from-19-selectors",
+      "permalink": "",
+      "title": "Hall of Fame moves on from 19 selectors",
+      "body_text": "Earlier this month, on the Friday before Labor Day weekend, the Pro Football Hall of Fame announced a significant overhaul to the selection process, which was undoubtedly sparked by the inexplicable failure of Bill Belichick to secure enshrinement in his first year of eligibility.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T20:55:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Labor Day",
+        "Pro Football",
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dandre-swift-kyle-monangai-limited-in-bears-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dandre-swift-kyle-monangai-limited-in-bears-practice",
+      "permalink": "",
+      "title": "D'Andre Swift, Kyle Monangai limited in Bears practice",
+      "body_text": "The NFC offensive player of the week was a limited participant in Wednesday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T22:37:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Kyle Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadeveon-clowney-out-of-texans-practice-nico-collins-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadeveon-clowney-out-of-texans-practice-nico-collins-limited",
+      "permalink": "",
+      "title": "Jadeveon Clowney out of Texans practice, Nico Collins limited",
+      "body_text": "The Texans were missing a piece of their defensive line rotation at Wednesday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T22:18:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadeveon Clowney",
+        "Nico Collins",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0031364",
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rj-harvey-marvin-mims-listed-as-out-of-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rj-harvey-marvin-mims-listed-as-out-of-practice-wednesday",
+      "permalink": "",
+      "title": "RJ Harvey, Marvin Mims listed as out of practice Wednesday",
+      "body_text": "The Broncos didn't practice on Wednesday, but they said they would have been missing a couple of offensive players if they had gotten on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T22:06:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Mims",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0038976"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-bears-offense-expects-to-score-on-every-drive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-bears-offense-expects-to-score-on-every-drive",
+      "permalink": "",
+      "title": "Caleb Williams: Bears' offense expects to score on every drive",
+      "body_text": "The Bears scored on nine of their 14 drives on Sunday, with eight touchdowns, one field goal, two punts, one fumble and one turnover on downs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-16T21:59:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-practices-fully-saints-feel-good-about-him-playing-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-practices-fully-saints-feel-good-about-him-playing-this-week",
+      "permalink": "",
+      "title": "Alvin Kamara practices fully, Saints \"feel good\" about him playing this week",
+      "body_text": "Saints running back Alvin Kamara appears to be on track to play against the Ravens in Week 2.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T21:43:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-azeez-al-shaair-again-for-eye-black-message",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-azeez-al-shaair-again-for-eye-black-message",
+      "permalink": "",
+      "title": "NFL fines Azeez Al-Shaair again for eye-black message",
+      "body_text": "The NFL continues to fine Texans linebacker Azeez Al-Shaair for his habit of putting messages on his eye black.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T20:11:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-hendrickson-zay-flowers-ronnie-stanley-among-ravens-out-of-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-hendrickson-zay-flowers-ronnie-stanley-among-ravens-out-of-practice-wednesday",
+      "permalink": "",
+      "title": "Trey Hendrickson, Zay Flowers, Ronnie Stanley among Ravens out of practice Wednesday",
+      "body_text": "The Ravens had six players out of practice on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T20:55:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Hendrickson",
+        "Zay Flowers",
+        "Ronnie Stanley",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0033935",
+        "00-0039064",
+        "00-0032965"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/minkah-fitzpatrick-misses-practice-jets-call-him-week-to-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/minkah-fitzpatrick-misses-practice-jets-call-him-week-to-week",
+      "permalink": "",
+      "title": "Minkah Fitzpatrick misses practice, Jets call him week-to-week",
+      "body_text": "Jets safety Minkah Fitzpatrick did not practice on Monday and his outlook for Sunday's game against the Packers doesn't look too good.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T20:47:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Minkah Fitzpatrick"
+      ],
+      "resolved_player_ids": [
+        "00-0034789"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-rush-says-he-split-reps-with-michael-penix-jr-at-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-rush-says-he-split-reps-with-michael-penix-jr-at-wednesdays-practice",
+      "permalink": "",
+      "title": "Cooper Rush says he split reps with Michael Penix Jr. at Wednesday's practice",
+      "body_text": "Falcons quarterback Cooper Rush revealed an interesting note about Wednesday's practice during his press conference following the session.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-16T20:39:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cooper Rush",
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0033662",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-listed-as-limited-at-steelers-practice-due-to-conditioning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-listed-as-limited-at-steelers-practice-due-to-conditioning",
+      "permalink": "",
+      "title": "Joey Porter Jr. listed as limited at Steelers practice due to conditioning",
+      "body_text": "At a press conference before Wednesday's practice, Steelers head coach Mike McCarthy said that the plan was for cornerback Joey Porter Jr. to try to do more in practice than he did last week.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T20:34:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/league-wont-allow-daequan-wright-or-zxavian-harris-to-sign-with-nfl-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/league-wont-allow-daequan-wright-or-zxavian-harris-to-sign-with-nfl-teams",
+      "permalink": "",
+      "title": "League won't allow Dae'Quan Wright or Zxavian Harris to sign with NFL teams",
+      "body_text": "The two former pro players who received clearance to sign with LSU but then weren't actually used by LSU remain SOL as it relates to the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-16T20:27:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quan Wright",
+        "Zxavian Harris"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-list-s-cole-bishop-rb-ty-johnson-dl-t-j-sanders-as-questionable-for-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-list-s-cole-bishop-rb-ty-johnson-dl-t-j-sanders-as-questionable-for-thursday-night",
+      "permalink": "",
+      "title": "Bills list S Cole Bishop, RB Ty Johnson, DL T.J. Sanders as questionable for Thursday night",
+      "body_text": "The Bills have three players on their final injury report of Week 2.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T20:21:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cole Bishop",
+        "Ty Johnson",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0039872",
+        "00-0035537"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-im-dying-to-be-out-there-some-goals-i-still-have-to-achieve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-im-dying-to-be-out-there-some-goals-i-still-have-to-achieve",
+      "permalink": "",
+      "title": "Michael Penix: I'm dying to be out there, some goals I still have to achieve",
+      "body_text": "The Falcons haven't named a starting quarterback for Sunday's game against the Panthers and Michael Penix didn't do much to suggest that he'll be the choice during his Wednesday press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-16T20:16:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-rt-blake-miller-lg-christian-mahogany-out-for-thursday-vs-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-rt-blake-miller-lg-christian-mahogany-out-for-thursday-vs-bills",
+      "permalink": "",
+      "title": "Lions RT Blake Miller, LG Christian Mahogany out for Thursday vs. Bills",
+      "body_text": "The Lions will not have two of their starting offensive linemen when they play the Bills on Thursday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-16T19:53:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Miller",
+        "Christian Mahogany",
+        "Bills The"
+      ],
+      "resolved_player_ids": [
+        "00-0011237",
+        "00-0039408"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}

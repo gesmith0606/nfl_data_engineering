@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "0e287f77-aeb4-412a-80f7-07578431ba07",
+  "source": "rotowire",
+  "fetched_at": "2026-09-17T12:25:53.967773+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637736",
+      "url": "https://www.rotowire.com//football/player/nico-collins-15200",
+      "permalink": "",
+      "title": "Nico Collins: Injury seemingly not serious",
+      "body_text": "Collins met with doctors after injuring his hamstring at Wednesday's practice, and although the injury does not seem serious his status for Week 2 \"is in jeopardy,\" Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-17T03:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637655",
+      "url": "https://www.rotowire.com//football/player/nico-collins-15200",
+      "permalink": "",
+      "title": "Nico Collins: Slated for tests on hamstring injury",
+      "body_text": "Collins is undergoing tests on a hamstring injury that limited him at Wednesday's practice, Aaron Wilson of KPRC 2 Houston reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-16T04:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637652",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Limited in Wednesday's practice",
+      "body_text": "Kittle (Achilles) was limited in practice Wednesday, Nick Wagoner of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-16T03:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637648",
+      "url": "https://www.rotowire.com//football/player/nico-collins-15200",
+      "permalink": "",
+      "title": "Nico Collins: Limited by hamstring injury",
+      "body_text": "Collins was limited at Wednesday's practice due to a hamstring injury. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-16T03:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637642",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Could play in Week 2",
+      "body_text": "Penix (knee) was listed as a full participant in Wednesday's practice, Daniel Flick of The Atlanta Journal-Constitution reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-16T02:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix",
+        "Daniel Flick",
+        "The Atlanta"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": null
+    }
+  ]
+}
