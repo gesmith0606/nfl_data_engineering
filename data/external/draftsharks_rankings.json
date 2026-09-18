@@ -1,6 +1,6 @@
 {
   "source": "draftsharks",
-  "fetched_at": "2026-09-17T12:26:10.982761+00:00",
+  "fetched_at": "2026-09-18T12:24:59.047967+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -318,23 +318,23 @@
       "rank": 45
     },
     {
-      "player_name": "Mike Evans",
-      "position": "WR",
-      "team": "SF",
-      "external_rank": 47,
-      "rank": 46
-    },
-    {
       "player_name": "Emeka Egbuka",
       "position": "WR",
       "team": "TB",
-      "external_rank": 48,
-      "rank": 47
+      "external_rank": 47,
+      "rank": 46
     },
     {
       "player_name": "A.J. Brown",
       "position": "WR",
       "team": "NE",
+      "external_rank": 48,
+      "rank": 47
+    },
+    {
+      "player_name": "Mike Evans",
+      "position": "WR",
+      "team": "SF",
       "external_rank": 49,
       "rank": 48
     },
@@ -402,16 +402,16 @@
       "rank": 57
     },
     {
-      "player_name": "Cameron Skattebo",
-      "position": "RB",
-      "team": "NYG",
+      "player_name": "Caleb Williams",
+      "position": "QB",
+      "team": "CHI",
       "external_rank": 60,
       "rank": 58
     },
     {
-      "player_name": "Caleb Williams",
-      "position": "QB",
-      "team": "CHI",
+      "player_name": "Cameron Skattebo",
+      "position": "RB",
+      "team": "NYG",
       "external_rank": 61,
       "rank": 59
     },
@@ -430,16 +430,16 @@
       "rank": 61
     },
     {
-      "player_name": "Quinshon Judkins",
-      "position": "RB",
-      "team": "CLE",
+      "player_name": "Joe Burrow",
+      "position": "QB",
+      "team": "CIN",
       "external_rank": 65,
       "rank": 62
     },
     {
-      "player_name": "Joe Burrow",
-      "position": "QB",
-      "team": "CIN",
+      "player_name": "Quinshon Judkins",
+      "position": "RB",
+      "team": "CLE",
       "external_rank": 66,
       "rank": 63
     },
@@ -507,16 +507,16 @@
       "rank": 72
     },
     {
-      "player_name": "Jadarian Price",
-      "position": "RB",
-      "team": "SEA",
+      "player_name": "Dak Prescott",
+      "position": "QB",
+      "team": "DAL",
       "external_rank": 79,
       "rank": 73
     },
     {
-      "player_name": "Dak Prescott",
-      "position": "QB",
-      "team": "DAL",
+      "player_name": "Jadarian Price",
+      "position": "RB",
+      "team": "SEA",
       "external_rank": 80,
       "rank": 74
     },
@@ -542,16 +542,16 @@
       "rank": 77
     },
     {
-      "player_name": "Carnell Tate",
-      "position": "WR",
-      "team": "TEN",
+      "player_name": "George Kittle",
+      "position": "TE",
+      "team": "SF",
       "external_rank": 84,
       "rank": 78
     },
     {
-      "player_name": "George Kittle",
-      "position": "TE",
-      "team": "SF",
+      "player_name": "Carnell Tate",
+      "position": "WR",
+      "team": "TEN",
       "external_rank": 85,
       "rank": 79
     },
@@ -640,29 +640,29 @@
       "rank": 91
     },
     {
-      "player_name": "Blake Corum",
-      "position": "RB",
-      "team": "LAR",
+      "player_name": "Patrick Mahomes",
+      "position": "QB",
+      "team": "KC",
       "external_rank": 99,
       "rank": 92
     },
     {
-      "player_name": "Patrick Mahomes",
-      "position": "QB",
-      "team": "KC",
+      "player_name": "Courtland Sutton",
+      "position": "WR",
+      "team": "DEN",
       "external_rank": 100,
       "rank": 93
     },
     {
-      "player_name": "Bo Nix",
-      "position": "QB",
-      "team": "DEN",
+      "player_name": "Blake Corum",
+      "position": "RB",
+      "team": "LAR",
       "external_rank": 101,
       "rank": 94
     },
     {
-      "player_name": "Courtland Sutton",
-      "position": "WR",
+      "player_name": "Bo Nix",
+      "position": "QB",
       "team": "DEN",
       "external_rank": 102,
       "rank": 95
@@ -1074,16 +1074,16 @@
       "rank": 153
     },
     {
-      "player_name": "Jalen McMillan",
-      "position": "WR",
-      "team": "TB",
+      "player_name": "Alvin Kamara",
+      "position": "RB",
+      "team": "NO",
       "external_rank": 207,
       "rank": 154
     },
     {
-      "player_name": "Alvin Kamara",
-      "position": "RB",
-      "team": "NO",
+      "player_name": "Jalen McMillan",
+      "position": "WR",
+      "team": "TB",
       "external_rank": 209,
       "rank": 155
     },
@@ -1126,21 +1126,21 @@
       "player_name": "Jonah Coleman",
       "position": "RB",
       "team": "DEN",
-      "external_rank": 224,
+      "external_rank": 222,
       "rank": 161
-    },
-    {
-      "player_name": "Eddy Pineiro",
-      "position": "K",
-      "team": "SF",
-      "external_rank": 226,
-      "rank": 162
     },
     {
       "player_name": "Cairo Santos",
       "position": "K",
       "team": "CHI",
-      "external_rank": 227,
+      "external_rank": 226,
+      "rank": 162
+    },
+    {
+      "player_name": "Eddy Pineiro",
+      "position": "K",
+      "team": "SF",
+      "external_rank": 229,
       "rank": 163
     },
     {
@@ -1154,7 +1154,7 @@
       "player_name": "Brian Robinson Jr.",
       "position": "RB",
       "team": "ATL",
-      "external_rank": 235,
+      "external_rank": 233,
       "rank": 165
     },
     {
@@ -1196,7 +1196,7 @@
       "player_name": "Justice Hill",
       "position": "RB",
       "team": "BAL",
-      "external_rank": 246,
+      "external_rank": 245,
       "rank": 171
     },
     {
@@ -1322,7 +1322,7 @@
       "player_name": "Ray Davis",
       "position": "RB",
       "team": "BUF",
-      "external_rank": 284,
+      "external_rank": 281,
       "rank": 189
     },
     {

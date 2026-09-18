@@ -1,0 +1,98 @@
+{
+  "fetch_run_id": "52e02fa6-b2b5-4629-b424-ac9a74527f60",
+  "source": "rotowire",
+  "fetched_at": "2026-09-18T12:24:40.947957+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637863",
+      "url": "https://www.rotowire.com//football/player/jameson-williams-15849",
+      "permalink": "",
+      "title": "Jameson Williams: Retains modest role in loss",
+      "body_text": "Williams brought in two of four targets for 33 yards in the Lions' 41-31 loss to the Bills on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-17T09:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameson Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037240"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl637862",
+      "url": "https://www.rotowire.com//football/player/sam-laporta-17033",
+      "permalink": "",
+      "title": "Sam LaPorta: Scores first TD of '26 in loss",
+      "body_text": "LaPorta brought in six of seven targets for 52 yards and a touchdown in the Lions' 41-31 loss to the Bills on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-17T09:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl637860",
+      "url": "https://www.rotowire.com//football/player/dalton-kincaid-16697",
+      "permalink": "",
+      "title": "Dalton Kincaid: Continues explosive start to season Thursday",
+      "body_text": "Kincaid brought in seven of eight targets for 95 yards and a touchdown in the Bills' 41-31 win over the Lions on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-17T09:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dalton Kincaid",
+        "Thursday Kincaid"
+      ],
+      "resolved_player_ids": [
+        "00-0038933"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl637858",
+      "url": "https://www.rotowire.com//football/player/jared-goff-10729",
+      "permalink": "",
+      "title": "Jared Goff: Racks up production in high-scoring loss",
+      "body_text": "Goff completed 26 of 38 passes for 327 yards with four touchdowns and no interceptions while adding three rushes for seven yards in the Lions' 41-31 loss to the Bills on Thursday. He also committed two fumbles, losing one. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-17T09:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl637855",
+      "url": "https://www.rotowire.com//football/player/amon-ra-st-brown-15332",
+      "permalink": "",
+      "title": "Amon-Ra St. Brown: Stellar numbers in Week 2 loss",
+      "body_text": "St. Brown brought in nine of 13 targets for 142 yards and two touchdowns in the Lions' 41-31 loss to the Bills on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-17T09:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    }
+  ]
+}

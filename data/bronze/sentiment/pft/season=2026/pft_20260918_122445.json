@@ -1,0 +1,570 @@
+{
+  "fetch_run_id": "ada96d74-eef8-42f7-9336-1752eeea969f",
+  "source": "pft",
+  "fetched_at": "2026-09-18T12:24:45.369110+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/makai-lemon-knows-he-has-lots-to-improve-after-minus-5-yards-in-his-first-nfl-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/makai-lemon-knows-he-has-lots-to-improve-after-minus-5-yards-in-his-first-nfl-game",
+      "permalink": "",
+      "title": "Makai Lemon knows he has \"lots to improve\" after minus-5 yards in his first NFL game",
+      "body_text": "Eagles rookie wide receiver Makai Lemon had a box score to forget in the first game of his NFL career: Against the Commanders, Lemon caught three passes for minus-5 yards.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-18T12:06:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [
+        "00-0040867"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dj-moore-day-to-day-with-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dj-moore-day-to-day-with-shoulder-injury",
+      "permalink": "",
+      "title": "Report: DJ Moore day-to-day with shoulder injury",
+      "body_text": "Thursday night was a good night for the Bills on most fronts, but one exception was the shoulder injury that knocked wide receiver DJ Moore out of the game in the second quarter.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T12:00:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-were-not-freaking-out-about-being-0-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-were-not-freaking-out-about-being-0-1",
+      "permalink": "",
+      "title": "Bo Nix: We're not freaking out about being 0-1",
+      "body_text": "The Broncos opened the regular season with a dud against the Chiefs, but they're not making too much of one result as they prepare for Sunday's home opener against the Jaguars.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T11:15:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carter-to-wear-a-cast-on-his-wrist-against-the-titans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carter-to-wear-a-cast-on-his-wrist-against-the-titans",
+      "permalink": "",
+      "title": "Jalen Carter to wear a cast on his wrist against the Titans",
+      "body_text": "Eagles defensive tackle Jalen Carter returned to practice on Thursday with a new look.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T11:05:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Carter",
+        "Titans Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-very-fortunate-to-be-the-qb-to-open-this-stadium",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-very-fortunate-to-be-the-qb-to-open-this-stadium",
+      "permalink": "",
+      "title": "Josh Allen: Very fortunate to be the QB to open this stadium",
+      "body_text": "Josh Allen had a lot of big games in the old Highmark Stadium, but it's hard to top the one he came up with for the first game in the new one.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T10:54:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "Highmark Stadium"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-i-wanted-to-take-the-ball-in-that-environment-and-set-the-tone",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-i-wanted-to-take-the-ball-in-that-environment-and-set-the-tone",
+      "permalink": "",
+      "title": "Joe Brady: I wanted to take the ball in that environment and set the tone",
+      "body_text": "Many teams choose to defer to the second half after winning the coin toss before games, but Bills head coach Joe Brady did not do that on Thursday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T10:43:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-myles-garrett-is-like-wolverine-healing-fast-but-we-wont-rush-him-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-myles-garrett-is-like-wolverine-healing-fast-but-we-wont-rush-him-back",
+      "permalink": "",
+      "title": "Sean McVay: Myles Garrett is like Wolverine, healing fast, but we won't rush him back",
+      "body_text": "\"I'm reluctant to put a timeline on it. We know that he's going to miss those four weeks at a minimum,\" McVay said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-18T09:20:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-its-a-long-season-lions-need-to-get-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-its-a-long-season-lions-need-to-get-better",
+      "permalink": "",
+      "title": "Dan Campbell: It's a long season, Lions need to get better",
+      "body_text": "\"They got after us, and we didn't play good enough, and we didn't coach good enough. That falls on me,\" Campbell said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-18T08:24:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-josh-allen-accounts-for-five-tds-in-bills-41-31-win-over-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-josh-allen-accounts-for-five-tds-in-bills-41-31-win-over-lions",
+      "permalink": "",
+      "title": "Thursday Night Football: Josh Allen accounts for five TDs in Bills' 41-31 win over Lions",
+      "body_text": "The Bills quarterback threw three touchdowns and ran for two.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T03:35:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Josh Allen",
+        "Lions The"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-europe-is-the-most-likely-destination-for-a-franchise",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-europe-is-the-most-likely-destination-for-a-franchise",
+      "permalink": "",
+      "title": "Roger Goodell: Europe is the most likely destination for a franchise",
+      "body_text": "Last month, Commissioner Roger Goodell said he has \"no doubt\" that the NFL will have a team headquartered outside the United States.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T04:15:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Commissioner Roger",
+        "United States"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emmitt-smith-thinks-derrick-henry-can-break-all-time-rushing-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emmitt-smith-thinks-derrick-henry-can-break-all-time-rushing-record",
+      "permalink": "",
+      "title": "Emmitt Smith thinks Derrick Henry can break all-time rushing record",
+      "body_text": "Derrick Henry, at age 32, is playing like he did at age 22.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T03:51:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emmitt Smith",
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0015165",
+        "00-0032764"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-hopes-the-rams-never-play-in-australia-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-hopes-the-rams-never-play-in-australia-again",
+      "permalink": "",
+      "title": "Sean McVay hopes the Rams never play in Australia again",
+      "body_text": "One week ago, the Rams made their debut in Australia.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T03:12:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-will-get-more-reps-moving-forward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-will-get-more-reps-moving-forward",
+      "permalink": "",
+      "title": "Jadarian Price will get more reps moving forward",
+      "body_text": "In his Week 1 debut, running back Jadarian Price was on the field for only 24 snaps — less than half of the Seahawks' total offensive workload.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T03:02:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price"
+      ],
+      "resolved_player_ids": [
+        "00-0041512"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-registers-10th-game-with-2-rushing-2-passing-touchdowns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-registers-10th-game-with-2-rushing-2-passing-touchdowns",
+      "permalink": "",
+      "title": "Josh Allen registers 10th game with 2+ rushing, 2+ passing touchdowns",
+      "body_text": "Steve Young is second on the all-time list, with four.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T02:37:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "Steve Young"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-rule-out-wr-dj-moore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-rule-out-wr-dj-moore",
+      "permalink": "",
+      "title": "Bills rule out WR DJ Moore",
+      "body_text": "Bills wide receiver DJ Moore will not return tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T02:32:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Moore Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-score-on-first-drive-of-second-half-to-close-to-within-27-17",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-score-on-first-drive-of-second-half-to-close-to-within-27-17",
+      "permalink": "",
+      "title": "Lions score on first drive of second half to close to within 27-17",
+      "body_text": "The Lions aren't dead yet.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T02:20:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-josh-allen-bills-running-over-lions-up-27-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-josh-allen-bills-running-over-lions-up-27-10-at-halftime",
+      "permalink": "",
+      "title": "Thursday Night Football: Josh Allen, Bills running over Lions, up 27-10 at halftime",
+      "body_text": "The Bills quarterback has thrown three touchdowns and run for another.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T02:01:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Josh Allen",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-wr-dj-moore-questionable-to-return-after-injuring-shoulder",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-wr-dj-moore-questionable-to-return-after-injuring-shoulder",
+      "permalink": "",
+      "title": "Bills WR DJ Moore questionable to return after injuring shoulder",
+      "body_text": "Moore was injured while diving in the end zone late in the second quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T01:37:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-on-the-board-trail-21-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-on-the-board-trail-21-7",
+      "permalink": "",
+      "title": "Lions on the board, trail 21-7",
+      "body_text": "It took long enough for Detroit to show up.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T01:23:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/korn-ferry-tries-to-keep-key-document-in-brian-flores-case-under-seal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/korn-ferry-tries-to-keep-key-document-in-brian-flores-case-under-seal",
+      "permalink": "",
+      "title": "Korn Ferry tries to keep key document in Brian Flores case under seal",
+      "body_text": "The Brian Flores litigation has uncovered a potentially significant document through a subpoena issued to the Korn Ferry search firm.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T01:15:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Korn Ferry",
+        "Brian Flores",
+        "The Brian"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rout-is-on-in-buffalo-as-bills-take-21-0-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rout-is-on-in-buffalo-as-bills-take-21-0-lead",
+      "permalink": "",
+      "title": "Rout is on in Buffalo as Bills take 21-0 lead",
+      "body_text": "Josh Allen has run for a touchdown and thrown for two on three possessions for the Bills.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T01:10:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-officially-place-myles-garrett-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-officially-place-myles-garrett-on-injured-reserve",
+      "permalink": "",
+      "title": "Rams officially place Myles Garrett on injured reserve",
+      "body_text": "The Rams have made one of their expected roster moves official on Thursday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-17T18:58:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-palmer-scores-his-second-td-of-the-season-on-his-second-catch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-palmer-scores-his-second-td-of-the-season-on-his-second-catch",
+      "permalink": "",
+      "title": "Josh Palmer scores his second TD of the season on his second catch",
+      "body_text": "Josh Palmer has only two catches this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T00:47:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Palmer"
+      ],
+      "resolved_player_ids": [
+        "00-0036988"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hall-of-fame-announces-its-new-group-of-voters",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hall-of-fame-announces-its-new-group-of-voters",
+      "permalink": "",
+      "title": "Hall of Fame announces its new group of voters",
+      "body_text": "The recent overhaul of the Hall of Fame selection process includes a dramatic reduction in the number of voters, from 50 down to 28.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T00:46:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-take-7-0-lead-on-josh-allens-1-yard-run",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-take-7-0-lead-on-josh-allens-1-yard-run",
+      "permalink": "",
+      "title": "Bills take 7-0 lead on Josh Allen's 1-yard run",
+      "body_text": "The Bills started Thursday night's game with a holding penalty on the opening kickoff.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T00:35:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-hopeful-aaron-donald-will-play-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-hopeful-aaron-donald-will-play-this-week",
+      "permalink": "",
+      "title": "Sean McVay \"hopeful\" Aaron Donald will play this week",
+      "body_text": "The Giants expect Rams defensive lineman Aaron Donald to play on Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T00:26:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-bills-dl-ed-oliver-wont-play-after-injuring-hip-in-pregame",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-bills-dl-ed-oliver-wont-play-after-injuring-hip-in-pregame",
+      "permalink": "",
+      "title": "Thursday Night Football: Bills DL Ed Oliver won't play after injuring hip in pregame",
+      "body_text": "Lions cornerback D.J. Reed, who was questionable with a foot injury, is active.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-17T23:02:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Ed Oliver"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-has-another-limited-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-has-another-limited-practice",
+      "permalink": "",
+      "title": "Joe Burrow has another limited practice",
+      "body_text": "Bengals quarterback Joe Burrow's practice status didn't change on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-17T22:47:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-says-hes-going-to-play-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-says-hes-going-to-play-on-sunday",
+      "permalink": "",
+      "title": "Alvin Kamara says he's going to play on Sunday",
+      "body_text": "Saints running back Alvin Kamara plans to make his 2026 debut on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-17T22:38:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Sunday Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-misses-practice-again-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-misses-practice-again-on-thursday",
+      "permalink": "",
+      "title": "Brock Bowers misses practice again on Thursday",
+      "body_text": "The Raiders practiced without tight end Brock Bowers again on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-17T22:27:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}
