@@ -1,0 +1,115 @@
+{
+  "fetch_run_id": "e3167190-debb-41b0-b482-17448828eb90",
+  "source": "rotowire",
+  "fetched_at": "2026-09-19T12:22:58.136288+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl637923",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: DNP due to hip injury",
+      "body_text": "Nacua didn't practice Friday due to a hip injury, Benjamin Royer of The Orange County Register reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-18T03:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Benjamin Royer",
+        "The Orange",
+        "County Register"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637921",
+      "url": "https://www.rotowire.com//football/player/aaron-donald-9391",
+      "permalink": "",
+      "title": "Aaron Donald: Expects to play Monday",
+      "body_text": "Donald told Lindsey Thiry of ESPN.com on Friday, \"That's the plan,\" when asked if he'll play Monday against the Giants. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-18T03:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Monday Donald",
+        "Lindsey Thiry"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl637919",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Cleared for Week 2",
+      "body_text": "Kittle (Achilles) practiced fully Friday and does not have an injury designation for Week 2, according to David Furones of the South Florida Sun Sentinel. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-18T02:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle",
+        "David Furones",
+        "South Florida",
+        "Sun Sentinel"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637912",
+      "url": "https://www.rotowire.com//football/player/brian-thomas-17716",
+      "permalink": "",
+      "title": "Brian Thomas: Cleared for Week 2 action",
+      "body_text": "Thomas (shoulder) doesn't have an injury designation for Sunday's game at Denver, Ryan O'Halloran of the Florida Times-Union reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-18T02:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Thomas",
+        "Florida Times"
+      ],
+      "resolved_player_ids": [
+        "00-0039893"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl637911",
+      "url": "https://www.rotowire.com//football/player/jakobi-meyers-13517",
+      "permalink": "",
+      "title": "Jakobi Meyers: Ready for Week 2",
+      "body_text": "Meyers (thumb) was limited at Friday's practice but doesn't have an injury designation for Week 2 at Denver, Ryan O'Halloran of the Florida Times-Union reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-18T02:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jakobi Meyers",
+        "Florida Times"
+      ],
+      "resolved_player_ids": [
+        "00-0034960"
+      ],
+      "team_hint": null
+    }
+  ]
+}

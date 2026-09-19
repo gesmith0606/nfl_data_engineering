@@ -1,0 +1,593 @@
+{
+  "fetch_run_id": "a76c0bcd-f68a-43ba-8df4-ab1e92db565f",
+  "source": "pft",
+  "fetched_at": "2026-09-19T12:23:02.548895+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-sainristil-says-hell-stay-positive-after-dan-quinn-called-his-play-not-acceptable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-sainristil-says-hell-stay-positive-after-dan-quinn-called-his-play-not-acceptable",
+      "permalink": "",
+      "title": "Mike Sainristil says he'll stay positive after Dan Quinn called his play \"not acceptable\"",
+      "body_text": "Sainristil's coverage breakdown gave up a touchdown pass against the Eagles, and Quinn called him out afterward.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-19T10:31:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Sainristil",
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [
+        "00-0039898"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/potential-victims-of-49ers-imposter-darjean-love-now-exceed-60",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/potential-victims-of-49ers-imposter-darjean-love-now-exceed-60",
+      "permalink": "",
+      "title": "Potential victims of 49ers imposter Daejon Love now exceed 60",
+      "body_text": "Daejon Love's scam worked incredibly well.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T02:39:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daejon Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deforest-buckner-colts-didnt-play-up-to-our-standards-whatsoever",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deforest-buckner-colts-didnt-play-up-to-our-standards-whatsoever",
+      "permalink": "",
+      "title": "DeForest Buckner: Colts didn't play up to our standards, whatsoever",
+      "body_text": "The Colts' defense gave up 304 passing yards and 202 rushing yards in their Week 1 loss to the Ravens, and Colts defensive tackle DeForest Buckner says it was unacceptable.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-19T09:00:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-the-giants-were-better-than-we-thought-they-were",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-the-giants-were-better-than-we-thought-they-were",
+      "permalink": "",
+      "title": "Jerry Jones: The Giants were better than we thought they were",
+      "body_text": "Jones seemingly tries to temper expectations for the 2026 Cowboys.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T03:58:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-de-chop-robinson-in-concussion-protocol-out-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-de-chop-robinson-in-concussion-protocol-out-for-sunday",
+      "permalink": "",
+      "title": "Dolphins DE Chop Robinson in concussion protocol, out for Sunday",
+      "body_text": "Dolphins defensive end Chop Robinson will not play Sunday against the 49ers.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-19T02:02:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chop Robinson",
+        "Sunday Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0039911"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirb-herbstreit-offers-flimsy-defense-for-espns-decision-to-interview-ted-cruz-on-college-gameday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirb-herbstreit-offers-flimsy-defense-for-espns-decision-to-interview-ted-cruz-on-college-gameday",
+      "permalink": "",
+      "title": "Kirb Herbstreit offers flimsy defense for ESPN's decision to interview Ted Cruz on College GameDay",
+      "body_text": "ESPN committed a bizarre broadcasting faux pas last Saturday, by giving Senator Ted Cruz (R-Texas) an extended platform on College GameDay to push for the passage of the so-called Protect College Sports Act (which also could be called the Screw College Players Act or, as Simms suggested, Protect the ESPN and SEC Contract Act).",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T01:45:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirb Herbstreit",
+        "Ted Cruz",
+        "Senator Ted",
+        "Protect College",
+        "Sports Act",
+        "Screw College",
+        "Players Act",
+        "Contract Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/azeez-al-shaair-on-publicizing-hind-rajabs-story-most-of-you-might-know-even-know-who-she-was",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/azeez-al-shaair-on-publicizing-hind-rajabs-story-most-of-you-might-know-even-know-who-she-was",
+      "permalink": "",
+      "title": "Azeez Al-Shaair on publicizing Hind Rajab's story: Most of you might not even know who she was",
+      "body_text": "The NFL fined Texans linebacker Azeez Al-Shaair $11,941 for writing the name \"Hind Rajab\" on his eye-black strips during a Week 1 game against the Bills.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T01:12:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hind Rajab"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-add-wr-puka-nacua-misses-practice-with-a-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-add-wr-puka-nacua-misses-practice-with-a-hip-injury",
+      "permalink": "",
+      "title": "Rams WR Puka Nacua misses practice with a hip injury",
+      "body_text": "The Rams added wide receiver Puka Nacua to the injury report on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-19T00:02:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-k-eddy-pineiro-is-questionable-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-k-eddy-pineiro-is-questionable-with-an-illness",
+      "permalink": "",
+      "title": "49ers K Eddy Piñeiro is questionable with an illness",
+      "body_text": "49ers kicker Eddy Piñeiro is questionable to play against the Dolphins because of an illness. 49ers coach Kyle Shanahan said the team will sign a kicker to the practice squad on Saturday as insurance in case Piñeiro can't play.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-18T23:31:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-plans-to-play-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-plans-to-play-on-monday-night",
+      "permalink": "",
+      "title": "Aaron Donald plans to play on Monday night",
+      "body_text": "The return of the three-time Defensive Player of the Year will come against the Giants.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-18T22:24:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0031388"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-could-lose-seventh-straight-start-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-could-lose-seventh-straight-start-on-sunday",
+      "permalink": "",
+      "title": "Deshaun Watson could lose seventh straight start on Sunday",
+      "body_text": "It's been a long week for Browns quarterback Deshaun Watson.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T21:42:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-have-received-no-serious-trade-inquiries-about-joey-porter-jr",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-have-received-no-serious-trade-inquiries-about-joey-porter-jr",
+      "permalink": "",
+      "title": "Report: Steelers have received no serious trade inquiries about Joey Porter Jr.",
+      "body_text": "As the contract impasse lingers between the Steelers and cornerback Joey Porter Jr., none of the other 31 teams has made a move to try to get him.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T21:07:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-place-paulson-adebo-on-ir-sign-nikko-reed-from-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-place-paulson-adebo-on-ir-sign-nikko-reed-from-chargers",
+      "permalink": "",
+      "title": "Giants place Paulson Adebo on IR, sign Nikko Reed from Chargers",
+      "body_text": "One of the Giants’ defensive backs will be sidelined for at least the next four weeks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-18T21:00:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Paulson Adebo",
+        "Nikko Reed",
+        "Chargers One"
+      ],
+      "resolved_player_ids": [
+        "00-0036937",
+        "00-0040471"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-not-sure-when-sam-darnold-will-be-back-but-im-optimistic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-not-sure-when-sam-darnold-will-be-back-but-im-optimistic",
+      "permalink": "",
+      "title": "Mike Macdonald: Not sure when Sam Darnold will be back, but I'm optimistic",
+      "body_text": "The Seahawks ruled quarterback Sam Darnold out for Week 2 a couple of days ago, but his health was still a topic for head coach Mike Macdonald during Friday's press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T20:57:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Sam Darnold",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-list-ladd-mcconkey-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-list-ladd-mcconkey-as-questionable",
+      "permalink": "",
+      "title": "Chargers list Ladd McConkey as questionable",
+      "body_text": "The Chargers had wide receiver Ladd McConkey on the practice field Friday for the first time this week, but his status for Sunday's game against the Raiders remains up in the air.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T20:40:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-jones-mansoor-delane-listed-as-questionable-to-face-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-jones-mansoor-delane-listed-as-questionable-to-face-colts",
+      "permalink": "",
+      "title": "Chris Jones, Mansoor Delane listed as questionable to face Colts",
+      "body_text": "The Chiefs have a couple of question marks on the defensive side of the ball heading into Sunday's game against the Colts.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T20:25:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Jones",
+        "Mansoor Delane",
+        "Colts The"
+      ],
+      "resolved_player_ids": [
+        "00-0032762",
+        "00-0041543"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-one-of-four-texans-players-ruled-out-for-week-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-one-of-four-texans-players-ruled-out-for-week-2",
+      "permalink": "",
+      "title": "Nico Collins one of four Texans players ruled out for Week 2",
+      "body_text": "If the Texans are going to beat the Bengals on Sunday, they'll have to do it without a few key players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-18T20:10:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-officially-list-joe-burrow-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-officially-list-joe-burrow-as-questionable",
+      "permalink": "",
+      "title": "Bengals officially list Joe Burrow as questionable",
+      "body_text": "Burrow said earlier this week that he will be playing against the Texans on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T20:05:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-greenard-ruled-out-for-eagles-titans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-greenard-ruled-out-for-eagles-titans",
+      "permalink": "",
+      "title": "Jonathan Greenard ruled out for Eagles-Titans",
+      "body_text": "The Eagles will once again be without edge rusher Jonathan Greenard for Sunday’s matchup against the Titans.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-18T20:02:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Greenard",
+        "Titans The"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steeler-rule-joey-porter-jr-out-again-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steeler-rule-joey-porter-jr-out-again-this-week",
+      "permalink": "",
+      "title": "Steeler rule Joey Porter Jr. out again this week",
+      "body_text": "Any hopes that cornerback Joey Porter Jr. would be in the Steelers' lineup for Sunday's game against the Patriots came to an end on Friday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T19:48:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-mcdonald-questionable-for-jets-minkah-fitzpatrick-ruled-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-mcdonald-questionable-for-jets-minkah-fitzpatrick-ruled-out",
+      "permalink": "",
+      "title": "Will McDonald questionable for Jets, Minkah Fitzpatrick ruled out",
+      "body_text": "The Jets will be missing a handful of players as they try to open a season with a 2-0 record for the first time since 2015, but they hope linebacker Will McDonald won't be one of them.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T19:39:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Minkah Fitzpatrick",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0034789"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-if-dj-moore-can-be-out-there-for-week-3-hell-be-out-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-if-dj-moore-can-be-out-there-for-week-3-hell-be-out-there",
+      "permalink": "",
+      "title": "Joe Brady: If DJ Moore can be out there for Week 3, he’ll be out there",
+      "body_text": "After defeating the Lions on Thursday night, the Bills will have a long weekend to rest up and heal before hosting the Chargers in Week 3.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-18T19:37:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-list-zay-flowers-as-doubtful-trey-hendrickson-and-ronnie-stanley-are-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-list-zay-flowers-as-doubtful-trey-hendrickson-and-ronnie-stanley-are-questionable",
+      "permalink": "",
+      "title": "Ravens list Zay Flowers as doubtful; Trey Hendrickson and Ronnie Stanley are questionable",
+      "body_text": "Ravens wide receiver Zay Flowers was back on the practice field Friday, but he's unlikely to be back in their lineup for Sunday's game against the Saints.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T19:22:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Trey Hendrickson",
+        "Ronnie Stanley"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0033935",
+        "00-0032965"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dandre-swift-kyle-monangai-good-to-go-for-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dandre-swift-kyle-monangai-good-to-go-for-bears",
+      "permalink": "",
+      "title": "D'Andre Swift, Kyle Monangai good to go for Bears",
+      "body_text": "The Bears had their top two running backs on the injury report this week, but neither one of them is at risk of missing Sunday's game against the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T19:12:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Kyle Monangai",
+        "Bears The"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-call-brock-bowers-doubtful-to-play-in-week-2",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-call-brock-bowers-doubtful-to-play-in-week-2",
+      "permalink": "",
+      "title": "Raiders call Brock Bowers doubtful to play in Week 2",
+      "body_text": "Tight end Brock Bowers was back at practice for the Raiders on Friday, but it looks like he is going to miss another game.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T18:55:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-are-third-team-ever-to-start-2-0-while-giving-up-more-than-30-points-in-both-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-are-third-team-ever-to-start-2-0-while-giving-up-more-than-30-points-in-both-games",
+      "permalink": "",
+      "title": "Bills are third team ever to start 2-0 while giving up more than 30 points in both games",
+      "body_text": "The Bills have started the season with two wins over two teams that entered the season as favorites to win their divisions.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-18T18:50:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-s-tanner-ingle-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-sign-s-tanner-ingle-to-53-man-roster",
+      "permalink": "",
+      "title": "Rams sign S Tanner Ingle to 53-man roster",
+      "body_text": "The Rams have made a couple of roster moves on Friday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-18T18:47:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tanner Ingle",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0038366"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-will-start-for-the-vikings-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-will-start-for-the-vikings-on-sunday",
+      "permalink": "",
+      "title": "Carson Wentz will start for the Vikings on Sunday",
+      "body_text": "Kyler Murray remains in the concussion protocol.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T18:47:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Wentz",
+        "Sunday Kyler"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frankie-luvu-chig-okonkwo-ruled-out-for-the-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frankie-luvu-chig-okonkwo-ruled-out-for-the-commanders",
+      "permalink": "",
+      "title": "Frankie Luvu, Chig Okonkwo ruled out for the Commanders",
+      "body_text": "The Commanders ruled players out for Week 2 on both sides of the ball on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-18T18:23:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Frankie Luvu",
+        "Chig Okonkwo",
+        "Commanders The"
+      ],
+      "resolved_player_ids": [
+        "00-0034302",
+        "00-0037809"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-hope-to-avoid-historic-losing-streak-0-2-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-hope-to-avoid-historic-losing-streak-0-2-start",
+      "permalink": "",
+      "title": "Packers hope to avoid historic losing streak, 0-2 start",
+      "body_text": "The Packers, like half the league after Week 1, are 0-1.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-18T18:22:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    }
+  ]
+}
