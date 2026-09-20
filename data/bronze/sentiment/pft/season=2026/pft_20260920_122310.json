@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "d1f9f226-f5cf-4d94-bccf-c19fc06fca7b",
+  "source": "pft",
+  "fetched_at": "2026-09-20T12:23:10.365009+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-hendrickson-chris-olave-chase-young-are-expected-to-play-in-ravens-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trey-hendrickson-chris-olave-chase-young-are-expected-to-play-in-ravens-saints",
+      "permalink": "",
+      "title": "Trey Hendrickson, Chris Olave, Chase Young are expected to play in Ravens-Saints",
+      "body_text": "The Ravens will be without wide receiver Zay Flowers for Sunday's game against the Saints, but they are set to have linebacker Trey Hendrickson in the lineup.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-20T11:59:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Hendrickson",
+        "Chris Olave",
+        "Chase Young",
+        "Saints The",
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0033935",
+        "00-0037239",
+        "00-0036321",
+        "00-0039064"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trinidad-chambliss-shows-nfl-talent-in-leading-ole-miss-to-win-over-lsu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trinidad-chambliss-shows-nfl-talent-in-leading-ole-miss-to-win-over-lsu",
+      "permalink": "",
+      "title": "Trinidad Chambliss shows NFL talent in leading Ole Miss to win over LSU",
+      "body_text": "Once a zero-star prospect, Chambliss is currently sixth in the betting odds to go first overall in the 2027 NFL draft.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-20T09:05:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trinidad Chambliss",
+        "Ole Miss"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-colorado-get-thumped-by-northwestern-41-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-colorado-get-thumped-by-northwestern-41-7",
+      "permalink": "",
+      "title": "Deion Sanders, Colorado get thumped by Northwestern, 41-7",
+      "body_text": "Like Bill Belichick, Deion Sanders had led his college team to a somewhat unexpected 2-0 start in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-20T04:24:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders",
+        "Like Bill"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-is-aware-of-potential-issues-with-field-in-brazil-for-ravens-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-is-aware-of-potential-issues-with-field-in-brazil-for-ravens-cowboys",
+      "permalink": "",
+      "title": "NFL is aware of potential issues with field in Brazil for Ravens-Cowboys",
+      "body_text": "The clock is ticking for the Week 3 game.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-20T03:20:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cowboys The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-elevate-josh-johnson-to-active-roster-with-joe-burrow-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-elevate-josh-johnson-to-active-roster-with-joe-burrow-questionable",
+      "permalink": "",
+      "title": "Bengals elevate Josh Johnson to active roster with Joe Burrow questionable",
+      "body_text": "Bengals quarterback Joe Burrow says he plans to play tomorrow against the Texans.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-19T22:37:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Johnson",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0026300",
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-and-north-carolina-blow-big-lead-lose-28-20-at-clemson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-and-north-carolina-blow-big-lead-lose-28-20-at-clemson",
+      "permalink": "",
+      "title": "Bill Belichick and North Carolina blow big lead, lose 28-20 at Clemson",
+      "body_text": "Bill Belichick appeared to be on the verge of his biggest win as North Carolina's head coach today at Clemson, but his team fell apart late in a 28-20 loss.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-19T21:54:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina",
+        "Clemson Bill"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-issues-three-fines-for-player-safety-fouls-that-count-toward-possible-suspensions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-issues-three-fines-for-player-safety-fouls-that-count-toward-possible-suspensions",
+      "permalink": "",
+      "title": "NFL issues three fines for player safety fouls that count toward possible suspensions",
+      "body_text": "The first week of the 2026 season featured three fouls that will count toward possible suspensions.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T21:44:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-no-longer-allow-patriots-to-use-video-board-to-confuse-opposing-kickers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-no-longer-allow-patriots-to-use-video-board-to-confuse-opposing-kickers",
+      "permalink": "",
+      "title": "NFL will no longer allow Patriots to use video board to confuse opposing kickers",
+      "body_text": "The Patriots' longstanding tactic of creating an optical illusion for the road team's kicker has been banned.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-19T21:18:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lukas-van-ness-fined-for-hit-on-carson-wentz-no-fine-for-hit-on-kyler-murray",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lukas-van-ness-fined-for-hit-on-carson-wentz-no-fine-for-hit-on-kyler-murray",
+      "permalink": "",
+      "title": "Lukas Van Ness fined for hit on Carson Wentz, no fine for hit on Kyler Murray",
+      "body_text": "Packers linebacker Lukas Van Ness was involved in the Week 1 play that ended with Vikings quarterback Kyler Murray suffering a concussion, but the only fine for a hit on a quarterback from that game stemmed from a different play.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T21:00:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lukas Van",
+        "Carson Wentz",
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0032950",
+        "00-0035228"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deonte-banks-micah-mcfadden-questionalbe-for-monday-vs-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deonte-banks-micah-mcfadden-questionalbe-for-monday-vs-rams",
+      "permalink": "",
+      "title": "Deonte Banks, Micah McFadden questionable for Monday vs. Rams",
+      "body_text": "The Giants have two players with game statuses for Monday night's game against the Rams.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-19T19:44:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deonte Banks",
+        "Rams The"
+      ],
+      "resolved_player_ids": [
+        "00-0039000"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-te-jake-tonges-fined-for-leg-whip-on-same-play-he-tore-his-mcl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-te-jake-tonges-fined-for-leg-whip-on-same-play-he-tore-his-mcl",
+      "permalink": "",
+      "title": "49ers TE Jake Tonges fined for leg whip on same play he tore his MCL",
+      "body_text": "49ers tight end Jake Tonges's final play of the 2026 season was a painful one in more ways than one.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T20:28:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Tonges"
+      ],
+      "resolved_player_ids": [
+        "00-0037112"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-fined-for-jumping-on-goalpost-after-week-1-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-fined-for-jumping-on-goalpost-after-week-1-td",
+      "permalink": "",
+      "title": "Stefon Diggs fined for jumping on goalpost after Week 1 TD",
+      "body_text": "Commanders wide receiver Stefon Diggs punctuated his first touchdown as a member of the team with a celebration that hurt Washington on the field and hurt Diggs in the wallet.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T20:15:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-downgrade-zay-flowers-to-out-for-sunday-vs-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-downgrade-zay-flowers-to-out-for-sunday-vs-saints",
+      "permalink": "",
+      "title": "Ravens downgrade Zay Flowers to out for Sunday vs. Saints",
+      "body_text": "While Zay Flowers was able to get back on the practice field on Friday, he won’t be playing on Sunday against the Saints.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-19T20:08:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Saints While"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-elevate-te-chris-myarick-with-brock-bowers-listed-as-doubtful",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-elevate-te-chris-myarick-with-brock-bowers-listed-as-doubtful",
+      "permalink": "",
+      "title": "Raiders elevate TE Chris Myarick with Brock Bowers listed as doubtful",
+      "body_text": "The Raiders didn't officially rule Brock Bowers out on Friday, but signs point to the tight end missing his second straight game on Sunday,.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T20:08:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Myarick",
+        "Brock Bowers",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0035345",
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-elevate-linebackers-justin-barron-curtis-robinson-from-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-elevate-linebackers-justin-barron-curtis-robinson-from-practice-squad",
+      "permalink": "",
+      "title": "Cowboys elevate linebackers Justin Barron, Curtis Robinson from practice squad",
+      "body_text": "The Cowboys added a pair of linebackers to their roster for Sunday's game against the Commanders.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T20:00:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Barron",
+        "Curtis Robinson",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0040043",
+        "00-0036728"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-wont-practice-saturday-questionable-for-monday-vs-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-wont-practice-saturday-questionable-for-monday-vs-giants",
+      "permalink": "",
+      "title": "Puka Nacua won't practice Saturday, questionable for Monday vs. Giants",
+      "body_text": "The Rams are already without one of their top defensive players for the next four weeks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-19T19:34:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Giants The"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-chase-young-traveled-to-baltimore-with-the-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-chase-young-traveled-to-baltimore-with-the-saints",
+      "permalink": "",
+      "title": "Chris Olave, Chase Young traveled to Baltimore with the Saints",
+      "body_text": "The Saints listed wide receiver Chris Olave as questionable to play in Sunday's game against the Ravens, so their move to elevate another wideout from the practice squad on Saturday could signal Olave will not play in Baltimore.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T19:31:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Chase Young",
+        "Saints The"
+      ],
+      "resolved_player_ids": [
+        "00-0037239",
+        "00-0036321"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-looks-to-continue-his-home-mastery-of-the-nfc-east",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-looks-to-continue-his-home-mastery-of-the-nfc-east",
+      "permalink": "",
+      "title": "Dak Prescott looks to continue his home mastery of the NFC East",
+      "body_text": "The Cowboys are better at home than they are on the road.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T19:23:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "East The"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-looks-to-become-fourth-steelers-coach-to-start-2-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-looks-to-become-fourth-steelers-coach-to-start-2-0",
+      "permalink": "",
+      "title": "Mike McCarthy looks to become fourth Steelers coach to start 2-0",
+      "body_text": "Last Sunday, coach Mike McCarthy won in his Pittsburgh debut.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T18:57:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Last Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-downgrade-dt-javon-hargrave-to-out-remove-de-lukas-van-ness-from-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-downgrade-dt-javon-hargrave-to-out-remove-de-lukas-van-ness-from-injury-report",
+      "permalink": "",
+      "title": "Packers downgrade DT Javon Hargrave to out, remove DE Lukas Van Ness from injury report",
+      "body_text": "When the Packers face the Jets on Sunday, they won't have defensive tackle Javon Hargrave.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T18:40:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Javon Hargrave",
+        "Lukas Van"
+      ],
+      "resolved_player_ids": [
+        "00-0033109"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/concerns-arise-regarding-brazil-field-where-ravens-cowboys-will-be-played",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/concerns-arise-regarding-brazil-field-where-ravens-cowboys-will-be-played",
+      "permalink": "",
+      "title": "Concerns arise regarding Brazil field where Ravens-Cowboys will be played",
+      "body_text": "In 2018, the NFL moved a game from Mexico to the U.S. Could it happen again?",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T18:19:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/peter-king-expresses-concern-about-changes-to-hall-of-fame-voting-panel",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/peter-king-expresses-concern-about-changes-to-hall-of-fame-voting-panel",
+      "permalink": "",
+      "title": "Peter King expresses concern about changes to Hall of Fame voting panel",
+      "body_text": "Our good friend and former colleague, Peter King, spent 32 years on the Pro Football Hall of Fame's selection committee.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T17:44:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Peter King",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-downgrade-wr-michael-pittman-jr-to-out-with-a-foot-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-downgrade-wr-michael-pittman-jr-to-out-with-a-foot-injury",
+      "permalink": "",
+      "title": "Steelers downgrade WR Michael Pittman Jr. to out, with a foot injury",
+      "body_text": "Pittman caught three passes for 58 yards in his Week 1 Pittsburgh debut.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T17:28:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Pittman Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0036252"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-add-cb-noah-igbinoghene-to-injury-report-list-him-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-add-cb-noah-igbinoghene-to-injury-report-list-him-as-questionable",
+      "permalink": "",
+      "title": "Browns add CB Noah Igbinoghene to injury report, list him as questionable",
+      "body_text": "The Browns added another player to their injury report on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T17:20:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Noah Igbinoghene",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0036287"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-put-rookie-wr-omar-cooper-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-to-put-rookie-wr-omar-cooper-on-ir",
+      "permalink": "",
+      "title": "Jets to put rookie WR Omar Cooper on IR",
+      "body_text": "Jets first-round pick Omar Cooper is set to miss several games with an ankle injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-19T17:08:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper"
+      ],
+      "resolved_player_ids": [
+        "00-0041511"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-least-one-team-has-called-steelers-about-joey-porter-jr",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-least-one-team-has-called-steelers-about-joey-porter-jr",
+      "permalink": "",
+      "title": "At least one team has called Steelers about Joey Porter Jr.",
+      "body_text": "Friday's deep dive from ESPN into the far-simpler-than-it-seems contract issue between the Steelers and cornerback Joey Porter Jr. included a contention that the team has not received any \"serious inquiries\" regarding a trade.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T17:07:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-de-shemar-stewart-will-make-season-debut-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-de-shemar-stewart-will-make-season-debut-on-sunday",
+      "permalink": "",
+      "title": "Bengals DE Shemar Stewart will make season debut on Sunday",
+      "body_text": "Bengals defensive end Shemar Stewart will make his season debut on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-19T16:01:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shemar Stewart",
+        "Sunday Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-sec-whack-lane-kiffin-for-injury-report-shenanigans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-sec-whack-lane-kiffin-for-injury-report-shenanigans",
+      "permalink": "",
+      "title": "Will SEC whack Lane Kiffin for injury-report shenanigans?",
+      "body_text": "The age of bet!",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T14:02:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lane Kiffin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirb-herbstreit-offers-flimsy-defense-for-espns-decision-to-interview-ted-cruz-on-college-gameday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirb-herbstreit-offers-flimsy-defense-for-espns-decision-to-interview-ted-cruz-on-college-gameday",
+      "permalink": "",
+      "title": "Kirk Herbstreit offers flimsy defense for ESPN's decision to interview Ted Cruz on College GameDay",
+      "body_text": "ESPN committed a bizarre broadcasting faux pas last Saturday, by giving Senator Ted Cruz (R-Texas) an extended platform on College GameDay to push for the passage of the so-called Protect College Sports Act (which also could be called the Screw College Players Act or, as Simms suggested, Protect the ESPN and SEC Contract Act).",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T01:45:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Herbstreit",
+        "Ted Cruz",
+        "Senator Ted",
+        "Protect College",
+        "Sports Act",
+        "Screw College",
+        "Players Act",
+        "Contract Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/weird-rule-from-saints-lions-wasnt-mentioned-during-afc-championship",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/weird-rule-from-saints-lions-wasnt-mentioned-during-afc-championship",
+      "permalink": "",
+      "title": "Weird rule from Saints-Lions wasn't mentioned during AFC Championship",
+      "body_text": "That strange rule no one seemed to know about had a major impact on the Week 1 game between the Saints and Lions.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-19T13:38:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Championship That"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    }
+  ]
+}
