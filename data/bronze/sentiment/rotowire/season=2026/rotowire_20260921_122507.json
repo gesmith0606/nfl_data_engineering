@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "de91a3e8-e180-49e1-a661-c4da5b731224",
+  "source": "rotowire",
+  "fetched_at": "2026-09-21T12:25:07.856204+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl638430",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "permalink": "",
+      "title": "Xavier Worthy: Five catches in Week 2 win",
+      "body_text": "Worthy brought in five of seven targets for 25 yards and a touchdown in the Chiefs' 33-30 overtime win over the Colts on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-20T10:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl638429",
+      "url": "https://www.rotowire.com//football/player/travis-kelce-8783",
+      "permalink": "",
+      "title": "Travis Kelce: Signature showing in OT win",
+      "body_text": "Kelce secured nine of 11 targets for 101 yards and one touchdown in the Chiefs' 33-30 overtime win over the Colts on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-20T10:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl638428",
+      "url": "https://www.rotowire.com//football/player/rashee-rice-16963",
+      "permalink": "",
+      "title": "Rashee Rice: Robust yardage total in OT win",
+      "body_text": "Rice brought in four of six targets for 83 yards in the Chiefs' 33-30 overtime win over the Colts on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-20T09:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl638427",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Vintage performance in OT win",
+      "body_text": "Mahomes completed 32 of 47 passes for 382 yards with three touchdowns and no interceptions while rushing twice for 17 yards in the Chiefs' 33-30 overtime win over the Colts on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-20T09:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl638426",
+      "url": "https://www.rotowire.com//football/player/kenneth-walker-15909",
+      "permalink": "",
+      "title": "Kenneth Walker: Thrives with massive workload",
+      "body_text": "Walker rushed 24 times for 117 yards and brought in six of 10 targets for 61 yards in the Chiefs' 33-30 overtime win over the Colts on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-20T09:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}

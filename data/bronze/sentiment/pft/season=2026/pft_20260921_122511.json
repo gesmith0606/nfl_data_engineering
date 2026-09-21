@@ -1,0 +1,613 @@
+{
+  "fetch_run_id": "907763db-9775-4bd3-be99-2e7ab3ff865e",
+  "source": "pft",
+  "fetched_at": "2026-09-21T12:25:11.977752+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-we-have-to-tell-the-truth-we-look-like-trash",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-we-have-to-tell-the-truth-we-look-like-trash",
+      "permalink": "",
+      "title": "Derwin James: We have to tell the truth, we look like trash",
+      "body_text": "The Chargers are 0-2 after losses to the Cardinals and Raiders.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-21T12:23:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derwin James",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-ive-never-seen-a-lb-play-better-than-devin-lloyd-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-ive-never-seen-a-lb-play-better-than-devin-lloyd-on-sunday",
+      "permalink": "",
+      "title": "Dave Canales: I've never seen a LB play better than Devin Lloyd on Sunday",
+      "body_text": "There was a lot for Panthers head coach Dave Canales to like about the way his team played in Sunday's 34-3 win over the Falcons and linebacker Devin Lloyd's performance was at the top of the list.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-21T12:08:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dave Canales",
+        "Devin Lloyd",
+        "Sunday There"
+      ],
+      "resolved_player_ids": [
+        "00-0037244"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-loss-stings-because-were-0-2-not-because-it-was-to-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-loss-stings-because-were-0-2-not-because-it-was-to-browns",
+      "permalink": "",
+      "title": "Baker Mayfield: Loss stings because we're 0-2, not because it was to Browns",
+      "body_text": "After the schedule for the 2026 season was released in the spring, Buccaneers quarterback Baker Mayfield said he had the team's Week 2 game against the Browns circled.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-21T11:24:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Browns After"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-on-taking-ball-in-ot-i-wanted-to-control-the-clock",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-on-taking-ball-in-ot-i-wanted-to-control-the-clock",
+      "permalink": "",
+      "title": "Aaron Glenn on Jets taking the ball in OT: I wanted to control the clock",
+      "body_text": "Jets head coach Aaron Glenn faced questions about a number of his decisions after Sunday's 20-17 overtime loss to the Packers.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-21T11:06:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jurgens-turf-was-just-radiating-heat-in-nashville",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jurgens-turf-was-just-radiating-heat-in-nashville",
+      "permalink": "",
+      "title": "Cam Jurgens: Turf was just radiating heat in Nashville",
+      "body_text": "The heat was on for the Eagles and the Titans during Sunday's game in Nashville.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-21T10:55:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Jurgens",
+        "Nashville The"
+      ],
+      "resolved_player_ids": [
+        "00-0038112"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-played-60-percent-of-jaguars-defensive-snaps-10-percent-of-offensive-snaps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-played-60-percent-of-jaguars-defensive-snaps-10-percent-of-offensive-snaps",
+      "permalink": "",
+      "title": "Travis Hunter played 60 percent of Jaguars' defensive snaps, 10 percent of offensive snaps",
+      "body_text": "Jaguars cornerback and wide receiver Travis Hunter was a part-time player on defense and a bit player on offense in Sunday's loss to the Broncos.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-21T10:48:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-we-showed-we-can-do-everything-offensively",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-we-showed-we-can-do-everything-offensively",
+      "permalink": "",
+      "title": "Patrick Mahomes: We showed we can do everything offensively",
+      "body_text": "The Chiefs cruised to a win in their season opener against the Broncos thanks in large part to running back Kenneth Walker's big night and they moved to 2-0 in a much closer game against the Colts on Sunday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-21T10:42:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "The Chiefs",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-tried-to-take-advantage-when-colts-captain-didnt-know-ot-coin-toss-rule",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-tried-to-take-advantage-when-colts-captain-didnt-know-ot-coin-toss-rule",
+      "permalink": "",
+      "title": "Patrick Mahomes tried to take advantage when Colts' captain didn't know OT coin toss rule",
+      "body_text": "The NFL is in its second year of its current overtime format, but some players still haven't learned the rules.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-21T10:07:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-defends-decisions-to-kick-off-kick-field-goal-in-overtime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-defends-decisions-to-kick-off-kick-field-goal-in-overtime",
+      "permalink": "",
+      "title": "Shane Steichen defends decisions to kick off, kick field goal in overtime",
+      "body_text": "The Colts lost 33-30 in overtime after giving the Chiefs the ball first, then settling for a field goal on their own possession.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-21T08:38:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-on-his-browns-bulleting-board-material-youre-welcome",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-on-his-browns-bulleting-board-material-youre-welcome",
+      "permalink": "",
+      "title": "Mike Tomlin on his Browns bulletin board material: \"You're welcome\"",
+      "body_text": "Last Sunday, former Steelers coach Mike Tomlin channeled former Steelers receiver JuJu Smith Schuster, during Tomlin's first Sunday with NBC.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T00:43:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Tomlin",
+        "Last Sunday",
+        "Smith Schuster"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-patrick-mahomes-throws-for-382-yards-3-tds-in-33-30-ot-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-patrick-mahomes-throws-for-382-yards-3-tds-in-33-30-ot-win",
+      "permalink": "",
+      "title": "Sunday Night Football: Patrick Mahomes throws for 382 yards, 3 TDs in 33-30 OT win",
+      "body_text": "The Chiefs are now 2-0 after the club used every second of regulation and OT to defeat the Colts.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T04:02:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night",
+        "Patrick Mahomes",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alec-pierces-x-rays-negative-will-undergo-more-testing-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-alec-pierces-x-rays-negative-will-undergo-more-testing-on-monday",
+      "permalink": "",
+      "title": "Report: Alec Pierce's X-rays negative, will undergo more testing on Monday",
+      "body_text": "There is a little more information about Colts receiver Alec Pierce after he left Sunday's game with a heel injury.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T02:51:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "Monday There"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-surges-in-mvp-odds-and-caleb-williams-is-off-the-board",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-surges-in-mvp-odds-and-caleb-williams-is-off-the-board",
+      "permalink": "",
+      "title": "Josh Allen surges in MVP odds, and Caleb Williams is off the board",
+      "body_text": "After Week 1, Bills quarterback Josh Allen had his MVP odds move from +600 to +500.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T02:39:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "Caleb Williams",
+        "After Week"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0039918"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-score-on-fourth-down-after-patrick-mahomes-deep-ball-lead-24-20",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-score-on-fourth-down-after-patrick-mahomes-deep-ball-lead-24-20",
+      "permalink": "",
+      "title": "Chiefs score on fourth down after Patrick Mahomes deep ball, lead 24-20",
+      "body_text": "The Chiefs are back in the lead.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T02:19:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-colts-lead-chiefs-20-17-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-colts-lead-chiefs-20-17-at-halftime",
+      "permalink": "",
+      "title": "Sunday Night Football: Colts lead Chiefs 20-17 at halftime",
+      "body_text": "Jonathan Taylor ran in a 24-yard touchdown to give the Colts the lead at the break.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T01:51:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night",
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-intends-to-proceed-with-ravens-cowboys-in-brazil-despite-field-concerns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-intends-to-proceed-with-ravens-cowboys-in-brazil-despite-field-concerns",
+      "permalink": "",
+      "title": "NFL intends to proceed with Ravens-Cowboys in Brazil, despite field concerns",
+      "body_text": "When it comes to the NFL's obsession with expanding pro football's footprint, nothing will get in the way.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T01:53:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-ready-for-three-straight-falcons-prime-time-games-barring-a-week-5-flex",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/get-ready-for-three-straight-falcons-prime-time-games-barring-a-week-5-flex",
+      "permalink": "",
+      "title": "Get ready for three straight Falcons prime-time games (barring a Week 5 flex)",
+      "body_text": "The Falcons aren't ready for prime time.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T01:31:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-downgraded-to-out-with-heel-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-downgraded-to-out-with-heel-injury",
+      "permalink": "",
+      "title": "Alec Pierce downgraded to out with heel injury",
+      "body_text": "There is not good news on Colts receiver Alec Pierce.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T01:24:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/initial-hope-is-that-caleb-williams-has-a-grade-1-hamstring-strain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/initial-hope-is-that-caleb-williams-has-a-grade-1-hamstring-strain",
+      "permalink": "",
+      "title": "Initial hope is that Caleb Williams has a Grade 1 hamstring strain",
+      "body_text": "It looked bad.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T01:16:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-questionable-to-return-with-heel-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-questionable-to-return-with-heel-injury",
+      "permalink": "",
+      "title": "Alec Pierce questionable to return with heel injury",
+      "body_text": "The Colts may have a significant injury issue with one of their best offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T01:10:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-browns-apparently-will-stick-with-deshaun-watson-for-home-opener",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-browns-apparently-will-stick-with-deshaun-watson-for-home-opener",
+      "permalink": "",
+      "title": "The Browns apparently will stick with Deshaun Watson for home opener",
+      "body_text": "Browns quarterback Deshaun Watson didn't throw for 400 yards and five touchdowns, but he likely did enough to earn another start.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T01:03:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Browns",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-loved-anthony-weaver-calling-him-a-poor-mans-josh-allen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-loved-anthony-weaver-calling-him-a-poor-mans-josh-allen",
+      "permalink": "",
+      "title": "Tyler Shough \"loved\" Anthony Weaver calling him a \"poor man's Josh Allen\"",
+      "body_text": "Ravens defensive coordinator Anthony Weaver unintentionally gave Saints quarterback Tyler Shough a new nickname last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-21T01:05:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Shough",
+        "Anthony Weaver",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0040743",
+        "00-0021180",
+        "00-0034857"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-scores-after-kristian-fulton-interception-chiefs-lead-10-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-scores-after-kristian-fulton-interception-chiefs-lead-10-7",
+      "permalink": "",
+      "title": "Travis Kelce scores after Kristian Fulton interception, Chiefs lead 10-7",
+      "body_text": "For the second week in a row, the Chiefs have gotten a first-quarter interception.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T00:50:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Kristian Fulton"
+      ],
+      "resolved_player_ids": [
+        "00-0030506",
+        "00-0036416"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-mike-evans-hip-injury-is-not-serious",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-mike-evans-hip-injury-is-not-serious",
+      "permalink": "",
+      "title": "Kyle Shanahan: Mike Evans' hip injury is not serious",
+      "body_text": "49ers wide receiver Mike Evans left Sunday's game in the second half.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-21T00:44:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-hits-tyler-warren-for-1-yard-td-colts-lead-7-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-hits-tyler-warren-for-1-yard-td-colts-lead-7-0",
+      "permalink": "",
+      "title": "Daniel Jones hits Tyler Warren for 1-yard TD, Colts lead 7-0",
+      "body_text": "For the second week in a row, the Colts have gone right down the field on their opening drive for a touchdown.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T00:35:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones",
+        "Tyler Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0040128"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-commanders-are-bummed-for-jayden-daniels-will-rally-around-marcus-mariota",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-commanders-are-bummed-for-jayden-daniels-will-rally-around-marcus-mariota",
+      "permalink": "",
+      "title": "Dan Quinn: Commanders are bummed for Jayden Daniels, will rally around Marcus Mariota",
+      "body_text": "Daniels suffered a dislocation to his left (non-throwing) elbow.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-21T00:14:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Quinn",
+        "Jayden Daniels",
+        "Marcus Mariota"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0032268"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dallas-turner-beat-te-colston-loveland-for-decisive-sack",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dallas-turner-beat-te-colston-loveland-for-decisive-sack",
+      "permalink": "",
+      "title": "Dallas Turner beat TE Colston Loveland for decisive sack",
+      "body_text": "Vikings defensive end Dallas Turner has blossomed into one of the best pass rushers in the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-20T23:56:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Turner",
+        "Colston Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0039924",
+        "00-0040126"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-throws-four-tds-as-cowboys-beat-commanders-37-20",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-throws-four-tds-as-cowboys-beat-commanders-37-20",
+      "permalink": "",
+      "title": "Dak Prescott throws four TDs as Cowboys beat Commanders 37-20",
+      "body_text": "Prescott passed Tony Romo for the franchise record with his 249th career touchdown pass.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-20T23:47:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0021678"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-chris-jones-mansoor-delane-active-for-chiefs-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-chris-jones-mansoor-delane-active-for-chiefs-colts",
+      "permalink": "",
+      "title": "Sunday Night Football: Chris Jones, Mansoor Delane active for Chiefs-Colts",
+      "body_text": "The Chiefs will officially have two of their best defensive players when they play the Colts on Sunday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-20T23:44:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night",
+        "Chris Jones",
+        "Mansoor Delane",
+        "Colts The"
+      ],
+      "resolved_player_ids": [
+        "00-0032762",
+        "00-0041543"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-throws-three-tds-raiders-start-2-0-with-26-14-victory-over-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-throws-three-tds-raiders-start-2-0-with-26-14-victory-over-chargers",
+      "permalink": "",
+      "title": "Kirk Cousins throws three TDs, Raiders start 2-0 with 26-14 victory over Chargers",
+      "body_text": "Klint Kubiak is the first Raiders coach to start his tenure 2-0 since Bill Callahan in 2002.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-20T23:33:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Chargers Klint",
+        "Bill Callahan"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}
