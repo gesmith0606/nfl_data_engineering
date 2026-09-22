@@ -151,13 +151,11 @@ for t, ps in sorted(vals.items(), key=lambda kv: -lineup(kv[1])[0]):
 
 me = vals[ME]
 my_tot, my_st, my_bn = lineup(me)
-print(f"\nMY STARTERS: " + ", ".join(f"{s}:{x[0]} {x[2]:.0f}" for s, x in my_st))
+print("\nMY STARTERS: " + ", ".join(f"{s}:{x[0]} {x[2]:.0f}" for s, x in my_st))
 print("MY BENCH:    " + ", ".join(f"{x[0]} {x[1]} {x[2]:.0f}" for x in my_bn))
 
 # ---- trade search -----------------------------------------------------------
-print(
-    f"\n===== trades that raise MY starting total (target position {NEED_POS}); partner delta shown ====="
-)
+print(f"\n===== trades that raise MY starting total (target {NEED_POS}) =====")
 found = []
 my_names = [x for x in me]
 for t, ps in vals.items():
