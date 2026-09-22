@@ -1,17 +1,18 @@
-# Feetball 2026 (Yahoo) — my roster as drafted 2026-09-07 (docs/FEETBALL_2026_DRAFT_PLAN.md §14).
-# Update after every add/drop. K/DST are not scored by waiver_wire.py.
+# Feetball 2026 (Yahoo, The Oracle = /f1/658684/10) — read from the team page 2026-09-21.
+# Update after every add/drop. K/DST are not scored by waiver_wire.py. A.J. Brown is in the IR slot.
+Jalen Hurts
 Christian McCaffrey
-A.J. Brown
 Derrick Henry
-Ashton Jeanty
 Garrett Wilson
+Emeka Egbuka
+Luther Burden III
+Colston Loveland
+Ashton Jeanty
 Ladd McConkey
 Jadarian Price
-Emeka Egbuka
-Jalen Hurts
 Quentin Johnston
 Brian Thomas Jr.
-Luther Burden III
 Jacory Croskey-Merritt
 Kyle Monangai
-Colston Loveland
+Devaughn Vele
+A.J. Brown

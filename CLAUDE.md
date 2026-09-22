@@ -77,6 +77,9 @@ python scripts/ablation_market_features.py          # Market feature ablation on
 python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr  # default evaluation path includes the shipped Sleeper WR anchor; --no-sleeper-anchor evaluates the pre-ship baseline
 python scripts/refresh_adp.py --season 2026
 python scripts/set_lineups.py --league mantis --week 2                                    # Weekly lineup deltas: ours + Sleeper under league scoring, SWAP only when both agree by 3.0 (see .planning/LINEUP_TOOL_ENHANCEMENT.md)
+python scripts/waiver_wire.py --league mantis                                              # Tuesday waivers: FAs on OURS + Sleeper proj under league scoring, last-week actuals, trending adds, sentiment flags; ESPN/Yahoo take --roster-file + --rostered-file/--available-file (docs/WEEKLY_WAIVER_RUNBOOK.md)
+python scripts/player_dossier.py data/draft/week3_candidates.txt                           # Per-candidate usage dossier (snap/target/air-yard/carry share, injuries around them, next matchup, trending adds)
+python scripts/trade_scan.py feetball                                                      # ROS value (FantasyPros rank -> our preseason curve), every team's optimal lineup, win-win swaps; trade_eval.py prices a specific package from stdin
 
 # Web API
 ./web/run_dev.sh                                   # Run FastAPI dev server
@@ -224,6 +227,9 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/roster_optimizer.py` | Fantasy optimal-lineup + drop-candidate ranking; preset or exact Sleeper `roster_positions` (v8.0 Phase 90-91) |
 | `src/lineup_setter.py` | Weekly lineup setter logic (pure): OURS (weekly Gold, or preseason pace when the weekly board is thin) + Sleeper weekly projection, both re-scored under the league's live `scoring_settings`; SWAP only when BOTH sources agree by the threshold, else COIN FLIP / SPLIT; lock/bye/injury flags |
 | `scripts/set_lineups.py` | Weekly lineup CLI — `--league mantis [--week N] [--threshold 3.0]`; Sleeper roster/positions/scoring read live; prints the lineup with both sources and only the deltas vs the lineup currently set (never reads `*_derived` boards) |
+| `scripts/waiver_wire.py` | Tuesday waiver report per league preset — two projection sources under the league's scoring, last-week actuals, Sleeper trending adds, Gold sentiment flags; exact FA pools via `--rostered-file` (ESPN) / `--available-file` (Yahoo); see `docs/WEEKLY_WAIVER_RUNBOOK.md` |
+| `scripts/player_dossier.py` | Waiver-candidate dossier from Bronze weekly + snaps + injuries + schedule (usage shares, same-position injuries, next matchup, trending adds) |
+| `scripts/trade_scan.py` / `scripts/trade_eval.py` | Trade scanner: FantasyPros ROS rank mapped to our preseason points curve, greedy optimal lineup per team (`data/draft/<league>_2026_league_rosters.txt`, Mantis live), win-win swap search + stdin package pricing |
 | `src/league_scoring.py` | Re-score projections under a league's custom Sleeper `scoring_settings` (full PPR, TE premium, 6pt pass TD, etc.) (v8.0 Phase 91) |
 | `scripts/sleeper_board.py` | UC1 sleeper board — consensus-unranked players ranked by vacated-opportunity absorption |
 | `scripts/build_correlations.py` | UC3 CLI — rebuild stability-gated correlation edges → data/gold/correlations/ |
