@@ -1,0 +1,517 @@
+{
+  "fetch_run_id": "a3fd4b20-f8a5-4052-829c-ba2acd984119",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-22T12:25:16.513422+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-message-to-team-after-win-is-so-what-now-what",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-message-to-team-after-win-is-so-what-now-what",
+      "title": "Todd Monken: Message to team after win is \"So what, now what?\"",
+      "body_text": "The Browns got their first win of the season in Tampa on Sunday and it was also Todd Monken's first win as an NFL head coach.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T12:19:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-game-wasnt-as-fast-as-i-thought",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-game-wasnt-as-fast-as-i-thought",
+      "title": "Aaron Donald: Game wasn't as fast as I thought",
+      "body_text": "Donald played his first game since 2023 on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T10:29:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-expect-sam-darnold-to-practice-in-some-capacity-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-expect-sam-darnold-to-practice-in-some-capacity-wednesday",
+      "title": "Seahawks expect Sam Darnold to practice \"in some capacity\" Wednesday",
+      "body_text": "Word over the weekend was encouraging about quarterback Sam Darnold's recovery from the glute injury that kept him from playing in Week 2 and head coach Mike Macdonald brought more good news on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T10:57:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold",
+        "Wednesday Word",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-we-leaned-on-davante-adams-monday-and-he-came-through-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-we-leaned-on-davante-adams-monday-and-he-came-through-for-us",
+      "title": "Matthew Stafford: We leaned on Davante Adams Monday and he came through for us",
+      "body_text": "The Rams didn't have Puka Nacua for Monday night's game against the Giants, but the wide receiver's absence didn't wind up holding them back.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T10:49:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Davante Adams",
+        "The Rams",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0031381",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-says-his-low-ankle-sprain-is-nothing-serious",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-says-his-low-ankle-sprain-is-nothing-serious",
+      "title": "Brian Burns says his low ankle sprain is \"nothing serious\"",
+      "body_text": "Burns limped off the field and to the locker room on Monday night but said after the game he would be OK.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-22T08:49:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Burns"
+      ],
+      "resolved_player_ids": [
+        "00-0035713"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-attributes-week-1-loss-to-dumbass-coach-that-makes-travel-plans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-attributes-week-1-loss-to-dumbass-coach-that-makes-travel-plans",
+      "title": "Sean McVay attributes Week 1 loss to \"dumbass coach that makes travel plans\"",
+      "body_text": "After the Rams beat the Giants on Monday night, McVay took the blame for the Week 1 debacle in Australia.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-22T08:07:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-is-believed-to-have-a-sprained-mcl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-is-believed-to-have-a-sprained-mcl",
+      "title": "Jaxson Dart is believed to have a sprained MCL",
+      "body_text": "MRI is coming on Monday.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T03:46:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-rams-roll-giants-28-6-after-jaxson-darts-departure",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-rams-roll-giants-28-6-after-jaxson-darts-departure",
+      "title": "Monday Night Football: Rams roll Giants 28-6 after Jaxson Dart's departure",
+      "body_text": "Matthew Stafford threw four touchdown passes, two to Davante Adams, who had 195 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T03:24:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Jaxson Dart",
+        "Matthew Stafford",
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0040691",
+        "00-0026498",
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-andrew-thomas-injured-in-fourth-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-andrew-thomas-injured-in-fourth-quarter",
+      "title": "Brian Burns, Andrew Thomas injured in fourth quarter",
+      "body_text": "Monday night's game can't end soon enough for the Giants.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T03:11:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Burns",
+        "Andrew Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0035713",
+        "00-0036386"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jaxson-dart-wanted-to-return-to-the-game-despite-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jaxson-dart-wanted-to-return-to-the-game-despite-knee-injury",
+      "title": "Report: Jaxson Dart wanted to return to the game despite knee injury",
+      "body_text": "Giants quarterback Jaxson Dart left Monday night's game early with a knee injury, and he didn't return.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T03:04:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-has-195-yards-two-tds-as-rams-take-21-3-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-has-195-yards-two-tds-as-rams-take-21-3-lead",
+      "title": "Davante Adams has 195 yards, two TDs as Rams take 21-3 lead",
+      "body_text": "Davante Adams is having a career day.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T02:23:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-ruled-out-but-going-to-be-ok",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-ruled-out-but-going-to-be-ok",
+      "title": "Jaxson Dart ruled out but \"going to be OK\"",
+      "body_text": "The Giants quarterback hurt his left knee on the team's first possession of Monday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T02:08:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart",
+        "The Giants",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-matthew-stafford-davante-adams-have-rams-up-14-3-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-matthew-stafford-davante-adams-have-rams-up-14-3-at-halftime",
+      "title": "Monday Night Football: Matthew Stafford, Davante Adams have Rams up 14-3 at halftime",
+      "body_text": "The Rams are playing without wide receiver Puka Nacua and pass rusher Myles Garrett.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T01:52:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Matthew Stafford",
+        "Davante Adams",
+        "The Rams",
+        "Puka Nacua",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0031381",
+        "00-0039075",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/long-time-bills-radio-voice-john-murphy-believes-he-lost-credential-over-criticism-of-joe-brady",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/long-time-bills-radio-voice-john-murphy-believes-he-lost-credential-over-criticism-of-joe-brady",
+      "title": "Long-time Bills radio voice John Murphy believes he lost credential over criticism of Joe Brady",
+      "body_text": "In an age of sports media that features plenty of reporters and analysts who are on the payroll, directly or indirectly, of the teams and/or leagues they cover, some teams and leagues feel emboldened to take action against those who dare to cover them with scrutiny or criticism.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T01:51:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Murphy",
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-moves-to-tie-for-sixth-on-all-time-tds-list-as-rams-take-14-0-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-moves-to-tie-for-sixth-on-all-time-tds-list-as-rams-take-14-0-lead",
+      "title": "Matthew Stafford moves into tie for sixth on all-time TDs list as Rams take 14-0 lead",
+      "body_text": "Rams quarterback Matthew Stafford moved into a tie for sixth on the NFL's all-time passing touchdowns list on Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T01:14:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-returns-to-monday-night-game-on-next-drive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-returns-to-monday-night-game-on-next-drive",
+      "title": "Malik Nabers returns to Monday night game on next drive",
+      "body_text": "Nabers was back on the next drive after suffering shoulder injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T01:22:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darius-slayton-agrees-to-terms-with-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darius-slayton-agrees-to-terms-with-colts",
+      "title": "Darius Slayton agrees to terms with Colts",
+      "body_text": "With receiver Alec Pierce expected to miss at least several weeks after aggravating his surgically repaired heel, the Colts need help at the position.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T01:12:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Slayton",
+        "Colts With",
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0035535",
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-receiver-malik-nabers-suffers-apparent-arm-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-receiver-malik-nabers-suffers-apparent-arm-injury",
+      "title": "Giants receiver Malik Nabers suffers apparent arm injury",
+      "body_text": "Nabers exits in considerable pain.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T01:00:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-gives-rams-7-0-lead-with-his-118th-career-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-gives-rams-7-0-lead-with-his-118th-career-td",
+      "title": "Davante Adams gives Rams 7-0 lead with his 118th career TD",
+      "body_text": "Matthew Stafford doesn't have Puka Nacua, but he does have Davante Adams.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T00:59:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Davante Adams",
+        "Matthew Stafford",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0031381",
+        "00-0026498",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-injures-leg-on-giants-first-possession",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-injures-leg-on-giants-first-possession",
+      "title": "Jaxson Dart injures leg on Giants' first possession",
+      "body_text": "The quarterback was sandwiched between two defenders and remained on the ground holding his left knee.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T00:30:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-aggravated-heel-injury-will-miss-at-least-several-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alec-pierce-aggravated-heel-injury-will-miss-at-least-several-weeks",
+      "title": "Alec Pierce aggravated heel injury, will miss at least several weeks",
+      "body_text": "As the Colts try to turn around a season that has started with two straight losses (and now nine in a row), they'll be missing one of their highest-paid players, for multiple weeks.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T00:41:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-questionable-to-return-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-dart-questionable-to-return-with-knee-injury",
+      "title": "Jaxson Dart questionable to return with knee injury",
+      "body_text": "The Giants quarterback was injured on the team's first possession Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T00:39:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-puka-nacua-is-officially-inactive-with-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-puka-nacua-is-officially-inactive-with-hip-injury",
+      "title": "Monday Night Football: Puka Nacua is officially inactive with hip injury",
+      "body_text": "Aaron Donald may be back, but the Rams will not have one of their best offensive players for Monday night's matchup against the Giants.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T23:00:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Puka Nacua",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-returning-to-philadelphia-will-sign-with-eagles-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-returning-to-philadelphia-will-sign-with-eagles-practice-squad",
+      "title": "Zach Ertz returning to Philadelphia, will sign with Eagles' practice squad",
+      "body_text": "Veteran tight end Zach Ertz is heading back to Philadelphia.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-21T22:54:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Ertz"
+      ],
+      "resolved_player_ids": [
+        "00-0030061"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-will-johnson-has-a-neck-injury-that-could-end-his-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-cb-will-johnson-has-a-neck-injury-that-could-end-his-season",
+      "title": "Cardinals CB Will Johnson has a neck injury that could end his season",
+      "body_text": "Cardinals cornerback Will Johnson's season might be finished.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-21T22:10:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0040751"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cb-cobie-durant-s-p-j-locke-will-miss-a-few-weeks-with-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cb-cobie-durant-s-p-j-locke-will-miss-a-few-weeks-with-injuries",
+      "title": "Cowboys CB Cobie Durant, S P.J. Locke will miss a few weeks with injuries",
+      "body_text": "Cowboys cornerback Cobie Durant and safety P.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-21T21:48:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cobie Durant"
+      ],
+      "resolved_player_ids": [
+        "00-0037839"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-is-week-to-week-with-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-is-week-to-week-with-groin-injury",
+      "title": "Panthers RB Jonathon Brooks is week-to-week with groin injury",
+      "body_text": "Often-injured Panthers running back Jonathon Brooks is injured again.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-21T21:46:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathon Brooks"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dallas-goedert-sprained-his-mcl-will-miss-a-few-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dallas-goedert-sprained-his-mcl-will-miss-a-few-weeks",
+      "title": "Dallas Goedert sprained his MCL, will miss a few weeks",
+      "body_text": "Eagles tight end Dallas Goedert underwent an MRI on his injured right knee on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-21T21:19:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dallas Goedert"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-alec-pierce-still-gathering-info-on-his-heel-unsure-of-availability",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-alec-pierce-still-gathering-info-on-his-heel-unsure-of-availability",
+      "title": "Shane Steichen on Alec Pierce: Still gathering info on his heel, unsure of availability",
+      "body_text": "At this point, it's still unclear how much time Alec Pierce will miss after departing last night's loss to the Chiefs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-21T21:00:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shane Steichen",
+        "Alec Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037664"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-jr-will-start-for-falcons-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-jr-will-start-for-falcons-on-thursday-night",
+      "title": "Michael Penix Jr. will start for Falcons on Thursday night",
+      "body_text": "2024 first-rounder will return from November 2025 ACL tear.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-21T20:45:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}

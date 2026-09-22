@@ -1,0 +1,108 @@
+{
+  "fetch_run_id": "238b680d-9c7c-480b-9ee3-09ddc937038f",
+  "source": "rotowire",
+  "fetched_at": "2026-09-22T12:25:27.976589+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl638616",
+      "url": "https://www.rotowire.com//football/player/isaiah-likely-16033",
+      "permalink": "",
+      "title": "Isaiah Likely: Solid despite Dart injury",
+      "body_text": "Likely secured five of 10 targets for 33 yards in the Giants' 28-6 loss to the Rams on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-21T09:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Likely"
+      ],
+      "resolved_player_ids": [
+        "00-0037838"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl638613",
+      "url": "https://www.rotowire.com//football/player/jameis-winston-10037",
+      "permalink": "",
+      "title": "Jameis Winston: Forgettable effort in emergency duty",
+      "body_text": "Winston replaced Jaxson Dart (knee) with 9:51 remaining in the first quarter of Monday night's 28-6 loss to the Rams and completed 11 of 27 passes for 111 yards with no touchdowns and one interception while rushing twice for one yard. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-21T09:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameis Winston",
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0031503",
+        "00-0040691"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl638610",
+      "url": "https://www.rotowire.com//football/player/matthew-stafford-5971",
+      "permalink": "",
+      "title": "Matthew Stafford: Vintage effort sans Nacua in win",
+      "body_text": "Stafford completed 22 of 31 passes for 327 yards with four touchdowns and one interception and rushed four times for minus-1 yard in the Rams' 28-6 win over the Giants on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-21T08:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl638607",
+      "url": "https://www.rotowire.com//football/player/blake-corum-17690",
+      "permalink": "",
+      "title": "Blake Corum: Even timeshare with Williams",
+      "body_text": "Corum rushed 12 times for 79 yards and brought in his only target for 13 yards in the Rams' 28-6 win over the Giants on Monday night. He also fumbled once but recovered. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-21T08:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Corum",
+        "Williams Corum"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl638606",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Major downturn in Week 2 loss",
+      "body_text": "Nabers brought in one of four targets for one yard in the Giants' 28-6 loss to the Rams on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-21T08:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}
