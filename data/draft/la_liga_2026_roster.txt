@@ -1,0 +1,17 @@
+# La Liga 2026 (ESPN, The Oracle, teamId=1) — read from the ESPN team page 2026-09-15.
+# Update after every add/drop. K/DST are not scored by waiver_wire.py.
+Brock Purdy
+James Cook
+Derrick Henry
+Tee Higgins
+Rashee Rice
+Tyler Warren
+Mike Evans
+J.K. Dobbins
+Brian Thomas Jr.
+Xavier Worthy
+Tyjae Spears
+Keenan Allen
+Braelon Allen
+Jordan Love
+Jaylin Noel
