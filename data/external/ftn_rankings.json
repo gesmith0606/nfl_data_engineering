@@ -1,6 +1,6 @@
 {
   "source": "ftn",
-  "fetched_at": "2026-09-16T12:27:03.935897+00:00",
+  "fetched_at": "2026-09-23T12:26:23.200555+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -2000,7 +2000,7 @@
     {
       "player_name": "Audric Estime",
       "position": "RB",
-      "team": "NO",
+      "team": "FA",
       "external_rank": 305,
       "rank": 286
     },

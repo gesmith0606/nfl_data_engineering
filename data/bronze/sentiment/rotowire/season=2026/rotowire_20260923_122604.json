@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "610fa36d-b20d-467f-96e2-27d22ae10edc",
+  "source": "rotowire",
+  "fetched_at": "2026-09-23T12:26:04.104018+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl638655",
+      "url": "https://www.rotowire.com//football/player/sam-darnold-12490",
+      "permalink": "",
+      "title": "Sam Darnold: Will practice Wednesday",
+      "body_text": "Darnold (glute) will practice Wednesday, according to Ian Rapoport of NFL Network. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-22T04:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "Wednesday Darnold",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl638640",
+      "url": "https://www.rotowire.com//football/player/jayden-reed-16977",
+      "permalink": "",
+      "title": "Jayden Reed: Back in Green Bay, still without timeline",
+      "body_text": "Packers head coach Matt LaFleur said Tuesday that Reed has returned to Green Bay to undergo further testing and consultations with doctors for his neck injury, Ryan Wood of USA Today. The wide receiver remains without a timeline for a return. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-22T03:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Reed",
+        "Green Bay",
+        "Ryan Wood"
+      ],
+      "resolved_player_ids": [
+        "00-0039146"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl638639",
+      "url": "https://www.rotowire.com//football/player/mason-taylor-18535",
+      "permalink": "",
+      "title": "Mason Taylor: Likely out for Week 3",
+      "body_text": "Taylor (thumb) is considered week-to-week and will likely miss Sunday's game against the Lions, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-22T03:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mason Taylor",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040736"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl638637",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Viewed as day-to-day",
+      "body_text": "Dowdle \"checked out relatively OK\" after undergoing testing on his toe injury Tuesday and is considered day-to-day, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-22T02:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl638636",
+      "url": "https://www.rotowire.com//football/player/jayden-reed-16977",
+      "permalink": "",
+      "title": "Jayden Reed: Spectator for practice Tuesday",
+      "body_text": "Reed (neck) was listed as a non-participant for Tuesday's walkthrough practice. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-22T01:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Reed",
+        "Tuesday Reed"
+      ],
+      "resolved_player_ids": [
+        "00-0039146"
+      ],
+      "team_hint": null
+    }
+  ]
+}

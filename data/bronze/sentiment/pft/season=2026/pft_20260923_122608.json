@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "d4d5959e-b342-4c65-8cfa-6c5fc4a42034",
+  "source": "pft",
+  "fetched_at": "2026-09-23T12:26:08.771393+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-needs-surgery-out-at-least-six-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-rb-jonathon-brooks-needs-surgery-out-at-least-six-weeks",
+      "permalink": "",
+      "title": "Panthers RB Jonathon Brooks needs surgery, out at least six weeks",
+      "body_text": "The groin injury suffered by Panthers running back Jonathon Brooks on Sunday was worse than initially believed.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-23T12:00:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Brooks"
+      ],
+      "resolved_player_ids": [
+        "00-0039344"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-being-healthy-was-my-target-i-feel-im-where-i-want-to-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-being-healthy-was-my-target-i-feel-im-where-i-want-to-be",
+      "permalink": "",
+      "title": "Michael Penix: Being healthy was my target, I feel I'm where I want to be",
+      "body_text": "Michael Penix is set to make his first start for the Falcons since last November when the team faces the Packers on Thursday night and the quarterback shared his excitement about that return during a press conference on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-23T10:57:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-says-ravens-werent-good-enough-but-not-complaining-about-lack-of-carries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-says-ravens-werent-good-enough-but-not-complaining-about-lack-of-carries",
+      "permalink": "",
+      "title": "Derrick Henry says Ravens weren't good enough, but not complaining about lack of carries",
+      "body_text": "The Ravens barely used Henry in the second half of their loss to the Saints.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-23T08:37:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Henry",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alleged-victim-of-daejon-love-says-she-reported-him-to-49ers-in-december-2025",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alleged-victim-of-daejon-love-says-she-reported-him-to-49ers-in-december-2025",
+      "permalink": "",
+      "title": "Alleged victim of Daejon Love says she reported him to 49ers in December 2025",
+      "body_text": "The 49ers have said, via information previously provided by an unnamed team source to Kalyn Kahler of ESPN, that they did not know about Daejon Love, who allegedly posed as a player on the team as part of an elaborate scheme, until the FBI contacted the 49ers in August 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-23T03:24:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daejon Love",
+        "Kalyn Kahler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-pushes-back-on-idea-of-an-expansion-team-in-europe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-pushes-back-on-idea-of-an-expansion-team-in-europe",
+      "permalink": "",
+      "title": "Jerry Jones pushes back on idea of an expansion team in Europe",
+      "body_text": "In recent weeks, NFL Commissioner Roger Goodell has commented on multiple occasions regarding his \"no doubt\" belief that the NFL will have multiple teams in other countries — with Europe being the most likely destination.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-23T02:40:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "Commissioner Roger"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-is-expected-to-make-his-season-debut-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-is-expected-to-make-his-season-debut-sunday",
+      "permalink": "",
+      "title": "Brock Bowers is expected to make his season debut Sunday",
+      "body_text": "Raiders tight end Brock Bowers has not played since Dec. 21, 2025.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-23T02:29:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Sunday Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/through-two-weeks-four-starting-quarterbacks-have-been-injured",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/through-two-weeks-four-starting-quarterbacks-have-been-injured",
+      "permalink": "",
+      "title": "Through two weeks, four starting quarterbacks have been injured",
+      "body_text": "The 2023 season featured more than a few serious quarterback injuries.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T18:33:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-owens-simone-biles-had-their-porsche-stolen-in-chicago-by-three-men-in-masks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-owens-simone-biles-had-their-porsche-stolen-in-chicago-by-three-men-in-masks",
+      "permalink": "",
+      "title": "Jonathan Owens, Simone Biles had their Porsche stolen in Chicago by \"three men in masks\"",
+      "body_text": "In March, linebacker Jonathan Owens left the Bears in free agency for the Colts.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-23T00:59:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathan Owens",
+        "Simone Biles",
+        "In March"
+      ],
+      "resolved_player_ids": [
+        "00-0034485"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-cowboys-delivers-27-3-million-in-late-sunday-window",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-cowboys-delivers-27-3-million-in-late-sunday-window",
+      "permalink": "",
+      "title": "Commanders-Cowboys delivers 27.3 million in late Sunday window",
+      "body_text": "A whole lot of people heard Tom Brady say \"oh shit\" and \"piss missile\" on Sunday afternoon.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-23T00:39:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonalds-comments-about-sean-payton-werent-intended-for-public-consumption",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonalds-comments-about-sean-payton-werent-intended-for-public-consumption",
+      "permalink": "",
+      "title": "Mike Macdonald's comments about Sean Payton weren't intended for public consumption",
+      "body_text": "Seahawks coach Mike Macdonald launched his career as a head coach with a win over Sean Payton and the Denver Broncos.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-23T00:09:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Sean Payton",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-chiefs-generated-24-3-million-viewers-on-average",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-chiefs-generated-24-3-million-viewers-on-average",
+      "permalink": "",
+      "title": "Colts-Chiefs generated 24.3 million viewers, on average",
+      "body_text": "Based on the way the respective teams played in Week 1, many expected Sunday night's game between the Colts and Chiefs to be a snoozer.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T23:47:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-sets-guinness-world-record-for-the-highest-fg",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/adam-vinatieri-sets-guinness-world-record-for-the-highest-fg",
+      "permalink": "",
+      "title": "Adam Vinatieri sets Guinness World Record for the highest FG",
+      "body_text": "Adam Vinatieri isn't in the NFL record book for the longest field goal, but he now is the Guinness World Record-holder for the highest field goal.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T23:41:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adam Vinatieri",
+        "Guinness World"
+      ],
+      "resolved_player_ids": [
+        "00-0016919"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-could-re-sign-brandon-allen-as-their-third-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-giants-could-re-sign-brandon-allen-as-their-third-qb",
+      "permalink": "",
+      "title": "Report: Giants could re-sign Brandon Allen as their third QB",
+      "body_text": "With Jaxson Dart's injury worse than expected, Jameis Winston will become the Giants' starting quarterback.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T22:54:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Allen",
+        "With Jaxson",
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0032434",
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-brandin-cooks-to-sign-with-49ers-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-brandin-cooks-to-sign-with-49ers-practice-squad",
+      "permalink": "",
+      "title": "WR Brandin Cooks to sign with 49ers practice squad",
+      "body_text": "The 49ers are adding a veteran wide receiver to their practice squad.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T22:49:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandin Cooks"
+      ],
+      "resolved_player_ids": [
+        "00-0031236"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-te-mason-taylor-week-to-week-with-thumb-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jets-te-mason-taylor-week-to-week-with-thumb-injury",
+      "permalink": "",
+      "title": "Report: Jets TE Mason Taylor week-to-week with thumb injury",
+      "body_text": "The Jets placed three players on injured reserve Tuesday and they may be missing another member of their offense for their Week 3 game in Detroit.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T22:38:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mason Taylor",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0040736"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-reed-back-in-green-bay-too-early-to-tell-if-hell-play-again-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-reed-back-in-green-bay-too-early-to-tell-if-hell-play-again-this-season",
+      "permalink": "",
+      "title": "Jayden Reed back in Green Bay, \"too early\" to tell if he'll play again this season",
+      "body_text": "Packers wide receiver Jayden Reed has returned to Green Bay.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T22:18:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Reed",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0039146"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-add-p-johnny-hekker-rb-jaret-patterson-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-add-p-johnny-hekker-rb-jaret-patterson-to-practice-squad",
+      "permalink": "",
+      "title": "Vikings add P Johnny Hekker, RB Jaret Patterson to practice squad",
+      "body_text": "With punter Brett Thorson set to miss some time with a hamstring injury, the Vikings have added a veteran punter to their practice squad.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-22T22:13:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Hekker",
+        "Jaret Patterson",
+        "Brett Thorson"
+      ],
+      "resolved_player_ids": [
+        "00-0028872",
+        "00-0036755"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rico-dowdle-day-to-day-with-toe-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rico-dowdle-day-to-day-with-toe-injury",
+      "permalink": "",
+      "title": "Report: Rico Dowdle day-to-day with toe injury",
+      "body_text": "Steelers running back Rico Dowdle was able to return to Sunday's loss to the Patriots after being called questionable to return from a toe injury in the first half, but he was ultimately ruled out of the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T22:03:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-hit-from-the-texans-popped-joe-burrows-rib-back-into-place",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-hit-from-the-texans-popped-joe-burrows-rib-back-into-place",
+      "permalink": "",
+      "title": "A hit from the Texans popped Joe Burrow's rib back into place",
+      "body_text": "On Sunday, Bengals quarterback Joe Burrow took five sacks and 10 total hits against the Texans.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-22T21:24:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-recounts-cold-war-with-sean-payton-during-the-2024-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-recounts-cold-war-with-sean-payton-during-the-2024-season",
+      "permalink": "",
+      "title": "Mike Macdonald recounts \"Cold War\" with Sean Payton over cheating suspicions during the 2024 season",
+      "body_text": "The Week 6 game between the Broncos and Seahawks has gained a new subplot.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T21:05:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Cold War",
+        "Sean Payton",
+        "The Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-db-avonte-maddox-on-ir-sign-s-bishop-fitzgerald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-db-avonte-maddox-on-ir-sign-s-bishop-fitzgerald",
+      "permalink": "",
+      "title": "Lions place DB Avonte Maddox on IR, sign S Bishop Fitzgerald",
+      "body_text": "The Lions signed safety Bishop Fitzgerald off the Steelers' practice squad on Tuesday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T20:59:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Avonte Maddox",
+        "Bishop Fitzgerald",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0034377",
+        "00-0040914"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donalds-first-game-back-never-ceases-to-amaze-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-aaron-donalds-first-game-back-never-ceases-to-amaze-me",
+      "permalink": "",
+      "title": "Sean McVay on Aaron Donald's first game back: \"Never ceases to amaze me\"",
+      "body_text": "Rams coach Sean McVay was pleased with how defensive tackle Aaron Donald played on Monday night, in his first game back after being retired for two years.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-22T20:42:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-place-three-players-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-place-three-players-on-injured-reserve",
+      "permalink": "",
+      "title": "Jets place three players on injured reserve",
+      "body_text": "The Jets are placing three players on injured reserve, Rich Cimini of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T20:42:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Jets",
+        "Rich Cimini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/g-aaron-banks-misses-practice-for-packers-ot-anthony-belton-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/g-aaron-banks-misses-practice-for-packers-ot-anthony-belton-limited",
+      "permalink": "",
+      "title": "G Aaron Banks misses practice for Packers, OT Anthony Belton limited",
+      "body_text": "The Packers added another offensive lineman to their injury list on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T20:30:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Banks",
+        "Anthony Belton",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036551",
+        "00-0040726"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-g-mike-onwenu-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-g-mike-onwenu-on-injured-reserve",
+      "permalink": "",
+      "title": "Patriots place G Mike Onwenu on injured reserve",
+      "body_text": "The Patriots moved right guard Mike Onwenu to their injured reserve list on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T20:15:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Onwenu",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0036198"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-to-sign-ls-cal-adomitis-off-dolphins-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-to-sign-ls-cal-adomitis-off-dolphins-practice-squad",
+      "permalink": "",
+      "title": "Report: Saints to sign LS Cal Adomitis off Dolphins practice squad",
+      "body_text": "After losing Scott Daly to the Bears, the Saints are adding another long snapper.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-22T20:11:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cal Adomitis",
+        "Scott Daly"
+      ],
+      "resolved_player_ids": [
+        "00-0037412",
+        "00-0034067"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-putting-two-tight-ends-on-injured-reserve-chargers-sign-hayden-rucci",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-putting-two-tight-ends-on-injured-reserve-chargers-sign-hayden-rucci",
+      "permalink": "",
+      "title": "After putting two tight ends on injured reserve, Chargers sign Hayden Rucci",
+      "body_text": "The Chargers have added a player to their injury-depleted tight end room.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-22T20:10:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hayden Rucci",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0039489"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-returns-to-full-participation-at-falcons-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-returns-to-full-participation-at-falcons-practice",
+      "permalink": "",
+      "title": "Tua Tagovailoa returns to full participation at Falcons practice",
+      "body_text": "Tua Tagovailoa won't be starting for the Falcons on Thursday night, but he could suit up for the first time this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T20:06:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-wr-ihmir-smith-marsette-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-wr-ihmir-smith-marsette-to-practice-squad",
+      "permalink": "",
+      "title": "Panthers sign WR Ihmir Smith-Marsette to practice squad",
+      "body_text": "The Panthers have added an experienced receiver and returner to their practice squad.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-22T19:53:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ihmir Smith",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-place-de-micheal-clemons-on-ir-to-make-room-for-darius-slayton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-place-de-micheal-clemons-on-ir-to-make-room-for-darius-slayton",
+      "permalink": "",
+      "title": "Colts place DE Micheal Clemons on IR to make room for Darius Slayton",
+      "body_text": "The Colts made official the signing of free agent wide receiver Darius Slayton on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-22T19:52:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micheal Clemons",
+        "Darius Slayton",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0038107",
+        "00-0035535"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}
