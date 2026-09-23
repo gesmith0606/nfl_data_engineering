@@ -26,7 +26,7 @@ team_tg = wk.groupby("recent_team").targets.sum()
 team_car = wk.groupby("recent_team").carries.sum()
 team_ay = wk.groupby("recent_team").receiving_air_yards.sum()
 sn = pd.read_parquet(
-    sorted(glob.glob("data/bronze/players/snaps/season=2026/week=1/*.parquet"))[-1]
+    sorted(glob.glob(f"data/bronze/players/snaps/season=2026/week={LAST}/*.parquet"))[-1]
 )
 sn["name"] = sn.player.map(normalize_name)
 dc = pd.read_parquet(
