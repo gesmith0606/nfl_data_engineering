@@ -99,11 +99,11 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # A+ gate constants (ELITE 3.1 — never change without updating CLAUDE.md)
 # ---------------------------------------------------------------------------
-_APLUS_MEAN_CAPTURE_PTS: float = 0.3   # spread line capture gate
-_APLUS_N_PICKS: int = 150              # minimum picks for kill criterion
-_APLUS_N_PICKS_GATE: int = 150         # picks needed for A+ gate verdict
-_APLUS_N_PICKS_INTERIM: int = 100      # interim check threshold
-_SPREAD_KILL_THRESHOLD: float = 0.0    # capture ≤ 0 at n ≥ 150 = no edge
+_APLUS_MEAN_CAPTURE_PTS: float = 0.3  # spread line capture gate
+_APLUS_N_PICKS: int = 150  # minimum picks for kill criterion
+_APLUS_N_PICKS_GATE: int = 150  # picks needed for A+ gate verdict
+_APLUS_N_PICKS_INTERIM: int = 100  # interim check threshold
+_SPREAD_KILL_THRESHOLD: float = 0.0  # capture ≤ 0 at n ≥ 150 = no edge
 
 #: External consensus sources captured by the weekly-external-projections
 #: cron (data/silver/external_projections) — matches _EXTERNAL_SOURCES in
@@ -151,11 +151,17 @@ def _load_gold_projections(
         logger.warning("Gold projections not found: %s", week_dir)
         return pd.DataFrame()
 
-    # Prefer scoring-specific file; fall back to any parquet.
-    scoring_files = sorted(
+    # Prefer scoring-specific file; fall back to any parquet. ``*_derived``
+    # boards (e.g. week1_board_half_ppr_derived.parquet) are display artifacts
+    # without projected_points and sort after projections_*, so they must be
+    # excluded or the grader reads the wrong file (2026 week 1 did).
+    def _published(paths: list) -> list:
+        return sorted(p for p in paths if "derived" not in os.path.basename(p))
+
+    scoring_files = _published(
         globmod.glob(os.path.join(week_dir, f"*{scoring}*.parquet"))
     )
-    all_files = sorted(globmod.glob(os.path.join(week_dir, "*.parquet")))
+    all_files = _published(globmod.glob(os.path.join(week_dir, "*.parquet")))
     files = scoring_files if scoring_files else all_files
 
     if not files:
@@ -226,7 +232,14 @@ def _load_consensus(
     df["week"] = int(week)
     keep = [
         c
-        for c in ["player_id", "player_name", "position", "season", "week", "consensus_proj"]
+        for c in [
+            "player_id",
+            "player_name",
+            "position",
+            "season",
+            "week",
+            "consensus_proj",
+        ]
         if c in df.columns
     ]
     return df[keep]
@@ -267,7 +280,10 @@ def _load_actuals(
         return pd.DataFrame()
 
     # Handle air_yards column rename.
-    if "air_yards" not in weekly_df.columns and "receiving_air_yards" in weekly_df.columns:
+    if (
+        "air_yards" not in weekly_df.columns
+        and "receiving_air_yards" in weekly_df.columns
+    ):
         weekly_df = weekly_df.copy()
         weekly_df["air_yards"] = weekly_df["receiving_air_yards"].fillna(0)
 
@@ -278,9 +294,15 @@ def _load_actuals(
     if week_df.empty:
         return pd.DataFrame()
 
-    week_df = calculate_fantasy_points_df(week_df, scoring_format=scoring, output_col="actual_points")
+    week_df = calculate_fantasy_points_df(
+        week_df, scoring_format=scoring, output_col="actual_points"
+    )
 
-    keep = [c for c in ["player_id", "player_name", "position", "actual_points"] if c in week_df.columns]
+    keep = [
+        c
+        for c in ["player_id", "player_name", "position", "actual_points"]
+        if c in week_df.columns
+    ]
     return week_df[keep]
 
 
@@ -394,21 +416,41 @@ def _join_source_actuals(
     a = actuals_df.copy()
     p["player_id"] = p["player_id"].astype(str).str.strip()
     a["player_id"] = a["player_id"].astype(str).str.strip()
-    a = a.sort_values("actual_points", ascending=False).drop_duplicates(subset=["player_id"], keep="first")
+    a = a.sort_values("actual_points", ascending=False).drop_duplicates(
+        subset=["player_id"], keep="first"
+    )
 
     keep_a = [c for c in ["player_id", "actual_points", "position"] if c in a.columns]
     merged = p.merge(a[keep_a], on="player_id", how="inner", suffixes=("", "_act"))
     if "position_act" in merged.columns:
-        merged["position"] = merged["position_act"].combine_first(merged.get("position"))
+        merged["position"] = merged["position_act"].combine_first(
+            merged.get("position")
+        )
         merged = merged.drop(columns=["position_act"])
 
-    if merged.empty or "position" not in merged.columns or proj_col not in merged.columns:
+    if (
+        merged.empty
+        or "position" not in merged.columns
+        or proj_col not in merged.columns
+    ):
         return pd.DataFrame()
 
     merged = merged.rename(columns={proj_col: "proj_points"})
     merged["season"] = int(season)
     merged["week"] = int(week)
-    keep_cols = [c for c in ["player_id", "player_name", "position", "season", "week", "proj_points", "actual_points"] if c in merged.columns]
+    keep_cols = [
+        c
+        for c in [
+            "player_id",
+            "player_name",
+            "position",
+            "season",
+            "week",
+            "proj_points",
+            "actual_points",
+        ]
+        if c in merged.columns
+    ]
     return merged[keep_cols].dropna(subset=["proj_points", "actual_points", "position"])
 
 
@@ -465,14 +507,18 @@ def _build_ordinal_section(
 
     ours = _join_source_actuals(gold_df, actuals_df, "projected_points", season, week)
     if ours.empty:
-        empty_result["reason"] = "No player-weeks matched between projections and actuals"
+        empty_result["reason"] = (
+            "No player-weeks matched between projections and actuals"
+        )
         return empty_result
 
     frames: Dict[str, pd.DataFrame] = {"ours": ours}
     sources_missing: List[str] = []
     for source_name in _ORDINAL_EXTERNAL_SOURCES:
         cons_df = external_consensus.get(source_name, pd.DataFrame())
-        joined = _join_source_actuals(cons_df, actuals_df, "consensus_proj", season, week)
+        joined = _join_source_actuals(
+            cons_df, actuals_df, "consensus_proj", season, week
+        )
         if joined.empty:
             sources_missing.append(source_name)
             continue
@@ -481,7 +527,9 @@ def _build_ordinal_section(
     if sources_missing:
         logger.warning(
             "Ordinal section: no data for source(s) %s at season=%s week=%s",
-            ", ".join(sources_missing), season, week,
+            ", ".join(sources_missing),
+            season,
+            week,
         )
 
     table = build_ordinal_table(frames)
@@ -538,7 +586,9 @@ def _build_cumulative_ordinal_section(
         if gold_df.empty or actuals_df.empty:
             continue
 
-        ours_w = _join_source_actuals(gold_df, actuals_df, "projected_points", season, w)
+        ours_w = _join_source_actuals(
+            gold_df, actuals_df, "projected_points", season, w
+        )
         if ours_w.empty:
             continue
         accum["ours"].append(ours_w)
@@ -546,15 +596,23 @@ def _build_cumulative_ordinal_section(
 
         for source_name in _ORDINAL_EXTERNAL_SOURCES:
             cons_df = _load_consensus(data_root, season, w, scoring, source=source_name)
-            src_w = _join_source_actuals(cons_df, actuals_df, "consensus_proj", season, w)
+            src_w = _join_source_actuals(
+                cons_df, actuals_df, "consensus_proj", season, w
+            )
             if not src_w.empty:
                 accum[source_name].append(src_w)
 
     if not weeks_with_data:
-        empty_result["reason"] = "No weeks with complete data (projections + actuals) for ordinal tracking"
+        empty_result["reason"] = (
+            "No weeks with complete data (projections + actuals) for ordinal tracking"
+        )
         return empty_result
 
-    frames = {name: pd.concat(parts, ignore_index=True) for name, parts in accum.items() if parts}
+    frames = {
+        name: pd.concat(parts, ignore_index=True)
+        for name, parts in accum.items()
+        if parts
+    }
     table = build_ordinal_table(frames)
 
     return {
@@ -626,9 +684,9 @@ def _build_fantasy_section(
         act_copy = actuals_df.copy()
         gold_copy["player_id"] = gold_copy["player_id"].astype(str).str.strip()
         act_copy["player_id"] = act_copy["player_id"].astype(str).str.strip()
-        act_copy = act_copy.sort_values("actual_points", ascending=False).drop_duplicates(
-            subset=["player_id"], keep="first"
-        )
+        act_copy = act_copy.sort_values(
+            "actual_points", ascending=False
+        ).drop_duplicates(subset=["player_id"], keep="first")
         proj_act = gold_copy.merge(
             act_copy[["player_id", "actual_points", "position"]],
             on="player_id",
@@ -637,14 +695,16 @@ def _build_fantasy_section(
         )
         # Prefer position from actuals (more reliable) but fall back to gold.
         if "position_act" in proj_act.columns:
-            proj_act["position"] = proj_act["position_act"].combine_first(proj_act["position"])
+            proj_act["position"] = proj_act["position_act"].combine_first(
+                proj_act["position"]
+            )
             proj_act = proj_act.drop(columns=["position_act"])
     else:
         # Name-based fallback.
         act_copy = actuals_df.copy()
-        act_copy = act_copy.sort_values("actual_points", ascending=False).drop_duplicates(
-            subset=["player_name"], keep="first"
-        )
+        act_copy = act_copy.sort_values(
+            "actual_points", ascending=False
+        ).drop_duplicates(subset=["player_name"], keep="first")
         proj_act = gold_df.merge(
             act_copy[["player_name", "actual_points", "position"]],
             on="player_name",
@@ -652,11 +712,15 @@ def _build_fantasy_section(
             suffixes=("", "_act"),
         )
         if "position_act" in proj_act.columns:
-            proj_act["position"] = proj_act["position_act"].combine_first(proj_act["position"])
+            proj_act["position"] = proj_act["position_act"].combine_first(
+                proj_act["position"]
+            )
             proj_act = proj_act.drop(columns=["position_act"])
 
     if proj_act.empty:
-        empty_result["reason"] = "No player-weeks matched between projections and actuals"
+        empty_result["reason"] = (
+            "No player-weeks matched between projections and actuals"
+        )
         return empty_result
 
     proj_act["season"] = int(season)
@@ -678,7 +742,9 @@ def _build_fantasy_section(
         # Name fallback.
         proj_act_copy = proj_act.copy()
         cons_copy = consensus_df.copy()
-        proj_act_copy["_name_norm"] = proj_act_copy["player_name"].str.strip().str.lower()
+        proj_act_copy["_name_norm"] = (
+            proj_act_copy["player_name"].str.strip().str.lower()
+        )
         cons_copy["_name_norm"] = cons_copy["player_name"].str.strip().str.lower()
         matched = proj_act_copy.merge(
             cons_copy[["_name_norm", "consensus_proj"]],
@@ -758,7 +824,9 @@ def _build_cumulative_section(
         if gold_df.empty or actuals_df.empty or consensus_df.empty:
             continue
 
-        section = _build_fantasy_section(gold_df, consensus_df, actuals_df, season, w, scoring)
+        section = _build_fantasy_section(
+            gold_df, consensus_df, actuals_df, season, w, scoring
+        )
         if section["status"] != "ok":
             continue
 
@@ -777,16 +845,32 @@ def _build_cumulative_section(
             a = a.sort_values("actual_points", ascending=False).drop_duplicates(
                 subset=["player_id"], keep="first"
             )
-            pa = g.merge(a[["player_id", "actual_points", "position"]], on="player_id", how="inner", suffixes=("", "_act"))
+            pa = g.merge(
+                a[["player_id", "actual_points", "position"]],
+                on="player_id",
+                how="inner",
+                suffixes=("", "_act"),
+            )
             if "position_act" in pa.columns:
-                pa["position"] = pa["position_act"].combine_first(pa.get("position", pa.get("position_act")))
+                pa["position"] = pa["position_act"].combine_first(
+                    pa.get("position", pa.get("position_act"))
+                )
                 pa = pa.drop(columns=["position_act"])
         else:
             a = actuals_df.copy()
-            a = a.sort_values("actual_points", ascending=False).drop_duplicates(subset=["player_name"], keep="first")
-            pa = gold_df.merge(a[["player_name", "actual_points", "position"]], on="player_name", how="inner", suffixes=("", "_act"))
+            a = a.sort_values("actual_points", ascending=False).drop_duplicates(
+                subset=["player_name"], keep="first"
+            )
+            pa = gold_df.merge(
+                a[["player_name", "actual_points", "position"]],
+                on="player_name",
+                how="inner",
+                suffixes=("", "_act"),
+            )
             if "position_act" in pa.columns:
-                pa["position"] = pa["position_act"].combine_first(pa.get("position", pa.get("position_act")))
+                pa["position"] = pa["position_act"].combine_first(
+                    pa.get("position", pa.get("position_act"))
+                )
                 pa = pa.drop(columns=["position_act"])
 
         if pa.empty:
@@ -800,19 +884,25 @@ def _build_cumulative_section(
             c = consensus_df.copy()
             pa_c["player_id"] = pa_c["player_id"].astype(str).str.strip()
             c["player_id"] = c["player_id"].astype(str).str.strip()
-            merged = pa_c.merge(c[["player_id", "consensus_proj"]], on="player_id", how="inner")
+            merged = pa_c.merge(
+                c[["player_id", "consensus_proj"]], on="player_id", how="inner"
+            )
         else:
             pa_c = pa.copy()
             c = consensus_df.copy()
             pa_c["_nm"] = pa_c["player_name"].str.strip().str.lower()
             c["_nm"] = c["player_name"].str.strip().str.lower()
-            merged = pa_c.merge(c[["_nm", "consensus_proj"]], on="_nm", how="inner").drop(columns=["_nm"])
+            merged = pa_c.merge(
+                c[["_nm", "consensus_proj"]], on="_nm", how="inner"
+            ).drop(columns=["_nm"])
 
         if not merged.empty:
             all_frames.append(merged)
 
     if not all_frames:
-        empty_result["reason"] = "No weeks with complete data (projections + consensus + actuals)"
+        empty_result["reason"] = (
+            "No weeks with complete data (projections + consensus + actuals)"
+        )
         return empty_result
 
     combined = pd.concat(all_frames, ignore_index=True)
@@ -907,7 +997,12 @@ def _build_spread_section(
     # Map ATS pick to pick_side: if ats_pick == home_team → "home", else "away".
     if "ats_pick" in joined.columns and "home_team" in joined.columns:
         joined["pick_side"] = joined.apply(
-            lambda r: "home" if str(r.get("ats_pick", "")).strip().upper() == str(r.get("home_team", "")).strip().upper() else "away",
+            lambda r: (
+                "home"
+                if str(r.get("ats_pick", "")).strip().upper()
+                == str(r.get("home_team", "")).strip().upper()
+                else "away"
+            ),
             axis=1,
         )
     else:
@@ -928,8 +1023,12 @@ def _build_spread_section(
     edge_col: Optional[str] = None
     if "spread_edge" in result_df.columns:
         edge_col = "spread_edge"
-    elif "predicted_spread" in result_df.columns and "vegas_spread" in result_df.columns:
-        result_df["_edge"] = (result_df["predicted_spread"] - result_df["vegas_spread"]).abs()
+    elif (
+        "predicted_spread" in result_df.columns and "vegas_spread" in result_df.columns
+    ):
+        result_df["_edge"] = (
+            result_df["predicted_spread"] - result_df["vegas_spread"]
+        ).abs()
         edge_col = "_edge"
 
     summary = compute_line_capture_summary(result_df, edge_col=edge_col)
@@ -1012,7 +1111,11 @@ def _fmt_gap(v: Any) -> str:
         return "N/A"
     fv = float(v)
     sign = f"{fv:+.3f}"
-    return f"{sign} (win)" if fv < -0.01 else (f"{sign} (tie)" if abs(fv) <= 0.01 else sign)
+    return (
+        f"{sign} (win)"
+        if fv < -0.01
+        else (f"{sign} (tie)" if abs(fv) <= 0.01 else sign)
+    )
 
 
 def _render_ordinal_rows(table: List[Dict[str, Any]]) -> List[str]:
@@ -1037,7 +1140,9 @@ def _render_ordinal_rows(table: List[Dict[str, Any]]) -> List[str]:
             continue
         rows_sorted = sorted(
             rows,
-            key=lambda r: source_order.index(r["source"]) if r["source"] in source_order else 99,
+            key=lambda r: (
+                source_order.index(r["source"]) if r["source"] in source_order else 99
+            ),
         )
         for row in rows_sorted:
             label = "Ours" if row["source"] == "ours" else row["source"]
@@ -1127,7 +1232,14 @@ def render_markdown(report: Dict[str, Any]) -> str:
 
         # A+ gate status from last row.
         ctable = cumulative.get("cumulative_table", [])
-        aplus = next((r.get("aplus_gate_fantasy", False) for r in ctable if r.get("pos") == "OVERALL"), False)
+        aplus = next(
+            (
+                r.get("aplus_gate_fantasy", False)
+                for r in ctable
+                if r.get("pos") == "OVERALL"
+            ),
+            False,
+        )
         gate_label = "**ON TRACK**" if aplus else "trailing"
         lines += [f"A+ gate (MAE ≤ Sleeper + rank-corr within 0.01): {gate_label}", ""]
 
@@ -1145,7 +1257,9 @@ def render_markdown(report: Dict[str, Any]) -> str:
             gap = _fmt_gap(row.get("mae_gap"))
             sp = _fmt_float(row.get("our_spearman"), ".3f")
             sp_gap = _fmt_float(row.get("spearman_gap"), "+.3f")
-            lines += [f"| {pos} | {our_mae} | {con_mae} | {gap} | {sp} | {sp_gap} | {n:,} |"]
+            lines += [
+                f"| {pos} | {our_mae} | {con_mae} | {gap} | {sp} | {sp_gap} | {n:,} |"
+            ]
         lines += [""]
 
     # --- Ordinal (FantasyPros-style) Accuracy Gap section, this week ---
@@ -1184,7 +1298,9 @@ def render_markdown(report: Dict[str, Any]) -> str:
             f"| Pos | Source | Accuracy Gap | n |",
             f"|-----|--------|--------------|---|",
         ]
-        lines += _render_ordinal_rows(cumulative_ordinal.get("cumulative_ordinal_table", []))
+        lines += _render_ordinal_rows(
+            cumulative_ordinal.get("cumulative_ordinal_table", [])
+        )
         lines += [""]
 
     # --- Spread line capture section ---
@@ -1272,9 +1388,7 @@ def build_report(
     if data_root is None:
         data_root = os.path.join(_PROJECT_ROOT, "data")
     if snapshot_dir is None:
-        snapshot_dir = os.path.join(
-            data_root, "bronze", "odds_api", "snapshots"
-        )
+        snapshot_dir = os.path.join(data_root, "bronze", "odds_api", "snapshots")
 
     generated_at = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     report: Dict[str, Any] = {
@@ -1288,16 +1402,32 @@ def build_report(
     print(f"Loading data for {season} week {week}…")
 
     gold_df = _load_gold_projections(data_root, season, week, scoring)
-    print(f"  Gold projections: {len(gold_df)} rows" if not gold_df.empty else "  Gold projections: NOT FOUND")
+    print(
+        f"  Gold projections: {len(gold_df)} rows"
+        if not gold_df.empty
+        else "  Gold projections: NOT FOUND"
+    )
 
     consensus_df = _load_consensus(data_root, season, week, scoring)
-    print(f"  Consensus: {len(consensus_df)} rows" if not consensus_df.empty else "  Consensus: NOT FOUND")
+    print(
+        f"  Consensus: {len(consensus_df)} rows"
+        if not consensus_df.empty
+        else "  Consensus: NOT FOUND"
+    )
 
     actuals_df = _load_actuals(data_root, season, week, scoring)
-    print(f"  Actuals: {len(actuals_df)} rows" if not actuals_df.empty else "  Actuals: NOT FOUND")
+    print(
+        f"  Actuals: {len(actuals_df)} rows"
+        if not actuals_df.empty
+        else "  Actuals: NOT FOUND"
+    )
 
     predictions_df = _load_game_predictions(data_root, season, week)
-    print(f"  Game predictions: {len(predictions_df)} rows" if not predictions_df.empty else "  Game predictions: NOT FOUND")
+    print(
+        f"  Game predictions: {len(predictions_df)} rows"
+        if not predictions_df.empty
+        else "  Game predictions: NOT FOUND"
+    )
 
     schedules_df = _load_schedules(data_root, season, week)
 
@@ -1305,7 +1435,11 @@ def build_report(
     for source_name in _ORDINAL_EXTERNAL_SOURCES:
         src_df = _load_consensus(data_root, season, week, scoring, source=source_name)
         external_consensus[source_name] = src_df
-        print(f"  Consensus[{source_name}]: {len(src_df)} rows" if not src_df.empty else f"  Consensus[{source_name}]: NOT FOUND")
+        print(
+            f"  Consensus[{source_name}]: {len(src_df)} rows"
+            if not src_df.empty
+            else f"  Consensus[{source_name}]: NOT FOUND"
+        )
 
     # ---- Section 1: Fantasy consensus gap ----
     print("\nBuilding fantasy consensus-gap section…")
@@ -1324,7 +1458,11 @@ def build_report(
         cumulative_section = _build_cumulative_section(data_root, season, week, scoring)
     except Exception as exc:
         logger.error("Cumulative section failed: %s", exc, exc_info=True)
-        cumulative_section = {"status": "error", "reason": str(exc), "cumulative_table": []}
+        cumulative_section = {
+            "status": "error",
+            "reason": str(exc),
+            "cumulative_table": [],
+        }
     report["cumulative"] = cumulative_section
 
     # ---- Section 3: Spread line capture ----
@@ -1352,10 +1490,16 @@ def build_report(
     # ---- Section 5: Ordinal Accuracy Gap, season-to-date ----
     print("Building cumulative ordinal Accuracy Gap section…")
     try:
-        cumulative_ordinal_section = _build_cumulative_ordinal_section(data_root, season, week, scoring)
+        cumulative_ordinal_section = _build_cumulative_ordinal_section(
+            data_root, season, week, scoring
+        )
     except Exception as exc:
         logger.error("Cumulative ordinal section failed: %s", exc, exc_info=True)
-        cumulative_ordinal_section = {"status": "error", "reason": str(exc), "cumulative_ordinal_table": []}
+        cumulative_ordinal_section = {
+            "status": "error",
+            "reason": str(exc),
+            "cumulative_ordinal_table": [],
+        }
     report["cumulative_ordinal"] = cumulative_ordinal_section
 
     return report
@@ -1366,7 +1510,9 @@ def build_report(
 # ---------------------------------------------------------------------------
 
 
-def write_outputs(report: Dict[str, Any], output_root: str = "output/grading") -> Dict[str, str]:
+def write_outputs(
+    report: Dict[str, Any], output_root: str = "output/grading"
+) -> Dict[str, str]:
     """Write markdown and JSON reports to disk.
 
     Args:
@@ -1449,7 +1595,9 @@ def print_compact_summary(report: Dict[str, Any]) -> None:
             pos = row["pos"]
             g = row.get("mae_gap", float("nan"))
             sp_gap = row.get("spearman_gap", float("nan"))
-            print(f"  {pos}: MAE gap={_fmt_gap(g)}, SpearΔ={_fmt_float(sp_gap, '+.3f')}")
+            print(
+                f"  {pos}: MAE gap={_fmt_gap(g)}, SpearΔ={_fmt_float(sp_gap, '+.3f')}"
+            )
     else:
         print(f"\nCumulative: SKIPPED — {cumulative.get('reason', 'unknown')}")
 
@@ -1471,7 +1619,9 @@ def print_compact_summary(report: Dict[str, Any]) -> None:
             ]
             print(f"  {pos}: {' | '.join(parts)}")
     else:
-        print(f"\nOrdinal Accuracy Gap: SKIPPED — {cumulative_ordinal.get('reason', 'unknown')}")
+        print(
+            f"\nOrdinal Accuracy Gap: SKIPPED — {cumulative_ordinal.get('reason', 'unknown')}"
+        )
 
     # Spread.
     spread = report.get("spread", {})
@@ -1480,7 +1630,9 @@ def print_compact_summary(report: Dict[str, Any]) -> None:
         n = spread.get("n", 0)
         mc = spread.get("mean_capture", float("nan"))
         gate = spread.get("gate_status", "accumulating")
-        print(f"\nSpread line capture: n={n}, mean={_fmt_float(mc, '+.3f')} pts | {gate}")
+        print(
+            f"\nSpread line capture: n={n}, mean={_fmt_float(mc, '+.3f')} pts | {gate}"
+        )
         if spread.get("kill_criterion"):
             print("  *** KILL CRITERION MET — no betting edge ***")
         elif spread.get("aplus_gate"):
@@ -1556,7 +1708,9 @@ def main() -> int:
     output_root = args.output_root or os.path.join(_PROJECT_ROOT, "output", "grading")
 
     print(f"\nELITE Weekly Grading Report")
-    print(f"Season: {args.season} | Week: {args.week} | Scoring: {args.scoring.upper()}")
+    print(
+        f"Season: {args.season} | Week: {args.week} | Scoring: {args.scoring.upper()}"
+    )
     print(f"Data root: {args.data_root or os.path.join(_PROJECT_ROOT, 'data')}")
     print(f"Output root: {output_root}")
     print("=" * 60)
@@ -1578,7 +1732,9 @@ def main() -> int:
 
     # Exit 2 only if Gold projections are truly missing (critical blocker).
     fantasy_status = report.get("fantasy", {}).get("status", "skipped")
-    if fantasy_status == "skipped" and "No Gold projections found" in report.get("fantasy", {}).get("reason", ""):
+    if fantasy_status == "skipped" and "No Gold projections found" in report.get(
+        "fantasy", {}
+    ).get("reason", ""):
         print(
             "\n::warning::weekly_grading_report: No Gold projections found for "
             f"{args.season} w{args.week} — grading incomplete.",

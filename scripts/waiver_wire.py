@@ -34,6 +34,7 @@ from src import config, sleeper_http  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
     build_id_maps,
+    full_name_map,
     ours_by_sleeper_id,
     roster_gsis_map,
     score_ours,
@@ -231,13 +232,25 @@ def main(argv: Optional[list] = None) -> int:
         str(BRONZE / "players" / "rosters" / "season=*" / "**" / "*.parquet"),
         recursive=True,
     )
-    gsis_map = roster_gsis_map(
-        pd.concat([pd.read_parquet(f) for f in roster_files], ignore_index=True)
+    rosters_df = pd.concat(
+        [pd.read_parquet(f) for f in roster_files], ignore_index=True
     )
-    ours = ours_by_sleeper_id(score_ours(ours_df, scoring), registry, gsis_map=gsis_map)
+    gsis_map = roster_gsis_map(rosters_df)
+    weekly_files = sorted(
+        glob.glob(str(BRONZE / "players" / "weekly" / f"season={season}" / "*.parquet"))
+    )
+    names = full_name_map(
+        rosters_df, pd.read_parquet(weekly_files[-1]) if weekly_files else None
+    )
+    ours = ours_by_sleeper_id(
+        score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
+    )
     slpr_raw = set_lineups.load_sleeper_projections(season, week)
     last = ours_by_sleeper_id(
-        last_week_actuals(season, week - 1, scoring), registry, gsis_map=gsis_map
+        last_week_actuals(season, week - 1, scoring),
+        registry,
+        gsis_map=gsis_map,
+        full_names=names,
     )
     adds = {
         str(t["player_id"]): t["count"]

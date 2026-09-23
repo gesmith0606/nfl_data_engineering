@@ -114,6 +114,50 @@ def _build_gsis_map() -> Dict[str, str]:
         return {}
 
 
+def build_full_gsis_map(
+    player_registry: Optional[Dict[str, Any]] = None,
+) -> Dict[str, str]:
+    """Sleeper id -> GSIS id from every source we have, most trusted first.
+
+    1. nflverse ``import_ids`` (via :func:`_build_gsis_map`).
+    2. Bronze rosters' ``sleeper_id`` column (the lineup tool's crosswalk).
+    3. The Sleeper registry's own ``gsis_id`` (sparse, occasionally wrong,
+       so it only fills gaps).
+
+    Args:
+        player_registry: Sleeper ``/players/nfl`` payload, if already fetched.
+
+    Returns:
+        Dict mapping Sleeper player id string to GSIS id string.
+    """
+    mapping = _build_gsis_map()
+    try:
+        import glob as _glob
+
+        import pandas as _pd
+
+        from src.lineup_setter import roster_gsis_map
+
+        files = _glob.glob(
+            str(_PROJECT_ROOT / "data/bronze/players/rosters/season=*/**/*.parquet"),
+            recursive=True,
+        )
+        if files:
+            rosters = _pd.concat(
+                [_pd.read_parquet(f) for f in files], ignore_index=True
+            )
+            for gsis, sid in roster_gsis_map(rosters).items():
+                mapping.setdefault(str(sid), str(gsis))
+    except Exception as exc:  # crosswalk is best-effort
+        logger.warning("Roster sleeper->gsis crosswalk unavailable: %s", exc)
+    for sid, meta in (player_registry or {}).items():
+        gsis = (meta or {}).get("gsis_id") if isinstance(meta, dict) else None
+        if gsis:
+            mapping.setdefault(str(sid), str(gsis).strip())
+    logger.info("Full sleeper->gsis map: %d entries", len(mapping))
+    return mapping
+
+
 # ---------------------------------------------------------------------------
 # Parse / normalise helpers
 # ---------------------------------------------------------------------------
@@ -483,8 +527,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         raw = fetch_sleeper_json(_build_url(args.season, args.week))
 
+    # The live weekly path must resolve GSIS ids too: downstream consumers
+    # (Sleeper consensus anchor, Silver consolidation) join on GSIS
+    # ``player_id``. Without the map every 2026 in-season row carried the raw
+    # Sleeper id and the anchor matched nothing.
     records = _normalise_to_records(
-        raw, args.season, args.week, args.scoring, player_registry
+        raw,
+        args.season,
+        args.week,
+        args.scoring,
+        player_registry,
+        build_full_gsis_map(player_registry),
     )
     _write_bronze(records, args.season, args.week, args.out_root)
     return 0

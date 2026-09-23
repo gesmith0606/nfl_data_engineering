@@ -1809,6 +1809,19 @@ def main():
                 f"row(s) nudged; total projected points {before_total:.1f} -> "
                 f"{after_total:.1f}"
             )
+            # The shipped anchor ran as a silent no-op for 2026 weeks 1-3
+            # (Bronze filed under the wrong folder, raw Sleeper ids). A
+            # GitHub ::warning:: makes a zero/low match rate visible in the
+            # run summary instead of only in the step log.
+            n_pos = sleeper_stats["n_proj_pos_rows"]
+            if n_pos and sleeper_stats["n_final_matched"] < 0.5 * n_pos:
+                print(
+                    f"::warning::Sleeper consensus anchor matched only "
+                    f"{sleeper_stats['n_final_matched']}/{n_pos} "
+                    f"{sleeper_anchor_position} rows "
+                    f"({sleeper_stats['n_sleeper_pos_rows']} Sleeper rows on "
+                    f"disk) — anchor is effectively OFF this run"
+                )
 
         # --- Independent SECOND Sleeper anchor slot (opt-in via
         # --consensus-anchor-extra-position) ---

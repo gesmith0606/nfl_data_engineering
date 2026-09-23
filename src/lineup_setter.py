@@ -193,24 +193,52 @@ def roster_gsis_map(rosters: pd.DataFrame) -> Dict[str, str]:
     return out
 
 
+def full_name_map(*frames: pd.DataFrame) -> Dict[str, str]:
+    """``gsis player_id -> full name`` from Bronze frames (later frames win).
+
+    Accepts Bronze weekly actuals (``player_display_name``) and/or rosters
+    (``player_name``); frames missing both columns are skipped.
+    """
+    out: Dict[str, str] = {}
+    for df in frames:
+        if df is None or df.empty or "player_id" not in df.columns:
+            continue
+        col = next(
+            (c for c in ("player_display_name", "player_name") if c in df.columns),
+            None,
+        )
+        if col is None:
+            continue
+        sub = df[["player_id", col]].dropna()
+        out.update(zip(sub["player_id"].astype(str), sub[col].astype(str)))
+    return out
+
+
 def ours_by_sleeper_id(
     scored: pd.DataFrame,
     registry: Dict[str, Dict[str, Any]],
     gsis_map: Optional[Dict[str, str]] = None,
+    full_names: Optional[Dict[str, str]] = None,
 ) -> Dict[str, float]:
     """Map our scored projections onto Sleeper ids.
 
     Order: roster crosswalk ``gsis_map`` (Bronze rosters), then the registry's
-    ``gsis_id``, then normalised name + position.
+    ``gsis_id``, then normalised name + position — using the player's full
+    name from ``full_names`` (gsis -> full name, e.g. Bronze weekly actuals)
+    when given, since weekly Gold names are abbreviated (``J.Price``). That
+    last step is the only path for new rookies, who have neither a
+    ``sleeper_id`` in Bronze rosters nor a ``gsis_id`` in the registry.
     """
     by_gsis, by_name = build_id_maps(registry)
     if gsis_map:
         by_gsis = {**by_gsis, **gsis_map}
+    full_names = full_names or {}
     out: Dict[str, float] = {}
     for row in scored.itertuples(index=False):
         sid = by_gsis.get(str(row.player_id))
         if sid is None:
-            sid = by_name.get((normalize_name(str(row.player_name)), str(row.position)))
+            name = full_names.get(str(row.player_id)) or str(row.player_name)
+            sid = by_name.get((normalize_name(name), str(row.position)))
         if sid is not None and sid not in out:
             out[sid] = float(row.projected_points)
     return out
