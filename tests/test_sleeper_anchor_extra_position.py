@@ -35,11 +35,14 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 from sleeper_consensus_anchor import (  # noqa: E402
-    SHIPPED_DEFAULT_MODE,
-    SHIPPED_DEFAULT_POSITION,
-    SHIPPED_DEFAULT_WEIGHT,
+    SHIPPED_DEFAULT_CONFIGS,
     apply_consensus_anchor,
 )
+
+# The shipped WR slot (first entry of the shipped default set).
+SHIPPED_DEFAULT_POSITION = SHIPPED_DEFAULT_CONFIGS[0]["position"]
+SHIPPED_DEFAULT_MODE = SHIPPED_DEFAULT_CONFIGS[0]["mode"]
+SHIPPED_DEFAULT_WEIGHT = SHIPPED_DEFAULT_CONFIGS[0]["weight"]
 
 import generate_projections  # noqa: E402
 import backtest_projections  # noqa: E402
@@ -178,8 +181,12 @@ class TestExtraSlotComposability:
 
     def test_extra_slot_scoped_strictly_to_its_own_position(self):
         proj, wr_lookup, qb_lookup = _mixed_pool()
-        out = apply_consensus_anchor(proj, wr_lookup, position="WR", mode="blend", weight=0.5)
-        out = apply_consensus_anchor(out, qb_lookup, position="QB", mode="blend", weight=0.5)
+        out = apply_consensus_anchor(
+            proj, wr_lookup, position="WR", mode="blend", weight=0.5
+        )
+        out = apply_consensus_anchor(
+            out, qb_lookup, position="QB", mode="blend", weight=0.5
+        )
         # Neither call touches rows at a third, unrelated position.
         assert "sleeper_anchor_flag" in out.columns
         is_wr_or_qb = proj["position"].isin(["WR", "QB"])
@@ -191,8 +198,12 @@ class TestExtraSlotComposability:
         the underlying function doesn't forbid it), the second call just
         re-blends on top of the first result -- deterministic, no crash."""
         proj, wr_lookup, _qb_lookup = _mixed_pool()
-        once = apply_consensus_anchor(proj, wr_lookup, position="WR", mode="blend", weight=0.5)
-        twice = apply_consensus_anchor(once, wr_lookup, position="WR", mode="blend", weight=0.5)
+        once = apply_consensus_anchor(
+            proj, wr_lookup, position="WR", mode="blend", weight=0.5
+        )
+        twice = apply_consensus_anchor(
+            once, wr_lookup, position="WR", mode="blend", weight=0.5
+        )
         assert not twice.isna().any().any()
         assert (twice["projected_points"] >= 0).all()
 
@@ -203,12 +214,19 @@ class TestExtraSlotComposability:
 
 
 class TestCLIWiringExists:
-    def test_run_backtest_extra_params_default_to_noop(self):
+    def test_run_backtest_takes_resolved_config_list(self):
+        """The extra slot is folded into the resolved config list by
+        resolve_sleeper_anchor_configs(); run_backtest just applies it."""
         sig = inspect.signature(backtest_projections.run_backtest)
-        assert "consensus_anchor_extra_position" in sig.parameters
-        assert sig.parameters["consensus_anchor_extra_position"].default is None
-        assert sig.parameters["consensus_anchor_extra_mode"].default == "blend"
-        assert sig.parameters["consensus_anchor_extra_weight"].default == 0.5
+        assert "sleeper_anchor_configs" in sig.parameters
+        assert "consensus_anchor_extra_position" not in sig.parameters
+
+    def test_extra_flag_defaults_unchanged_in_both_parsers(self):
+        for module in (generate_projections, backtest_projections):
+            src = inspect.getsource(module)
+            assert '"--consensus-anchor-extra-position"' in src
+            assert '"--consensus-anchor-extra-mode"' in src
+            assert '"--consensus-anchor-extra-weight"' in src
 
     def test_generate_projections_help_lists_extra_flag(self):
         import subprocess

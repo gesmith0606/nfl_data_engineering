@@ -69,7 +69,7 @@ from __future__ import annotations
 
 import glob
 import os
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import pandas as pd
@@ -86,18 +86,32 @@ EPSILON = 1.5
 #: unchanged from ``wr_tiebreak.NUDGE`` / ``ecr_anchor.NUDGE``.
 NUDGE = 0.5
 
-#: Shipped default configuration for the weekly WR consensus anchor —
-#: SHIP verdict 2026-08-22, user-approved (see
-#: ``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md`` Results section: pooled
-#: tuning primary gate -0.284 vs 0.05 bar, 2025 one-shot 106.4% retained,
-#: guards clean, shuffle-null p=0.0000). DEFAULT-ON in
-#: ``scripts/generate_projections.py`` (weekly mode only) and the default
-#: evaluation path of ``scripts/backtest_projections.py``; opt out via
-#: ``--no-sleeper-anchor``.
+#: Shipped default source for the weekly consensus anchor family.
 SHIPPED_DEFAULT_SRC = "sleeper"
-SHIPPED_DEFAULT_POSITION = "WR"
-SHIPPED_DEFAULT_MODE = "blend"
-SHIPPED_DEFAULT_WEIGHT = 0.5
+
+#: Shipped default per-position configs, applied in order, DEFAULT-ON in
+#: ``scripts/generate_projections.py`` (weekly mode only) and the default
+#: evaluation path of ``scripts/backtest_projections.py``; opt out of the
+#: whole family via ``--no-sleeper-anchor``.
+#:
+#: - WR blend w=0.5 — SHIP 2026-08-22, user-approved
+#:   (``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md``: tuning -0.284 vs 0.05
+#:   bar, 2025 one-shot 106.4% retained, shuffle-null p=0.0000).
+#: - RB blend w=0.5 / TE blend w=0.5 — SHIPPED 2026-09-23, user-approved
+#:   (``.planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md`` heuristic-engine gate:
+#:   RB tuning -0.204/4.1x bar, 2025 218% retained; TE -0.145/2.9x, 140%;
+#:   live 2026 wk1-2: blending with Sleeper cut RB MAE 5.56->5.19, TE
+#:   5.18->4.91). Note the gate doc's 2026-08-23 amendment: on the
+#:   ``--ml --full-features`` engine the 2022-24 tuning window got worse
+#:   for both — the user approved on the live-2026 evidence.
+#: - QB is intentionally absent (HOLD: 2025 retention 14.8% < 50% bar);
+#:   opt in only via ``--consensus-anchor-extra-position QB`` or an explicit
+#:   ``--consensus-anchor-src``.
+SHIPPED_DEFAULT_CONFIGS: Tuple[Dict[str, object], ...] = (
+    {"position": "WR", "mode": "blend", "weight": 0.5},
+    {"position": "RB", "mode": "blend", "weight": 0.5},
+    {"position": "TE", "mode": "blend", "weight": 0.5},
+)
 
 #: Sleeper Bronze historical projections were backfilled half-PPR only
 #: (verified: every season/week sampled 2022-2025 carries
@@ -106,30 +120,36 @@ SHIPPED_DEFAULT_WEIGHT = 0.5
 SLEEPER_SCORING = "half_ppr"
 
 
-def resolve_sleeper_anchor_config(
+def resolve_sleeper_anchor_configs(
     explicit_src: Optional[str],
     position: str,
     mode: str,
     weight: float,
     no_anchor: bool,
-) -> Tuple[Optional[str], str, str, float]:
-    """Resolve the effective (src, position, mode, weight) for CLI wiring.
+    extra_position: Optional[str] = None,
+    extra_mode: str = "blend",
+    extra_weight: float = 0.5,
+) -> List[Dict[str, object]]:
+    """Resolve the effective list of per-position anchor configs.
 
     Shared by ``generate_projections.py`` (weekly mode) and
     ``backtest_projections.py``'s default evaluation path so both scripts
-    apply identical precedence for the shipped default
-    (``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md``, SHIP verdict
-    2026-08-22):
+    apply identical precedence:
 
-    1. ``no_anchor`` (``--no-sleeper-anchor``) wins — lever disabled
-       (``src=None``), ``position``/``mode``/``weight`` passed through
-       unchanged (unused when disabled).
+    1. ``no_anchor`` (``--no-sleeper-anchor``) wins — the whole family is
+       disabled (``[]``), including any extra slot.
     2. An explicit ``explicit_src`` (``--consensus-anchor-src`` passed)
-       wins — the caller's own ``position``/``mode``/``weight`` are used
-       verbatim (opt-in override, e.g. to exercise QB/RB/TE or a
-       different mode/weight).
-    3. Otherwise — the shipped default (``sleeper``, WR, blend,
-       weight=0.5).
+       replaces the whole shipped set with the caller's single
+       ``position``/``mode``/``weight`` (e.g. ``--consensus-anchor-src
+       sleeper --consensus-anchor-position WR --consensus-anchor-mode blend
+       --consensus-anchor-weight 0.5`` reproduces the pre-RB/TE WR-only
+       baseline).
+    3. Otherwise — the shipped default set, :data:`SHIPPED_DEFAULT_CONFIGS`
+       (WR, RB, TE; blend w=0.5 each).
+
+    Then, if ``extra_position`` (``--consensus-anchor-extra-position``) is
+    set, it replaces the config already present for that position or is
+    appended (e.g. ``QB`` for an opt-in QB run on top of the defaults).
 
     Args:
         explicit_src: The raw ``--consensus-anchor-src`` CLI value (``None``
@@ -138,21 +158,29 @@ def resolve_sleeper_anchor_config(
         mode: The raw ``--consensus-anchor-mode`` CLI value.
         weight: The raw ``--consensus-anchor-weight`` CLI value.
         no_anchor: The raw ``--no-sleeper-anchor`` CLI flag value.
+        extra_position: The raw ``--consensus-anchor-extra-position`` value.
+        extra_mode: The raw ``--consensus-anchor-extra-mode`` value.
+        extra_weight: The raw ``--consensus-anchor-extra-weight`` value.
 
     Returns:
-        ``(src, position, mode, weight)`` — ``src`` is ``None`` when the
-        lever should not be applied at all.
+        A fresh list of ``{"position", "mode", "weight"}`` dicts, applied in
+        order; empty when the lever should not run at all.
     """
     if no_anchor:
-        return None, position, mode, weight
+        return []
     if explicit_src is not None:
-        return explicit_src, position, mode, weight
-    return (
-        SHIPPED_DEFAULT_SRC,
-        SHIPPED_DEFAULT_POSITION,
-        SHIPPED_DEFAULT_MODE,
-        SHIPPED_DEFAULT_WEIGHT,
-    )
+        configs = [{"position": position, "mode": mode, "weight": weight}]
+    else:
+        configs = [dict(cfg) for cfg in SHIPPED_DEFAULT_CONFIGS]
+    if extra_position:
+        extra = {"position": extra_position, "mode": extra_mode, "weight": extra_weight}
+        positions = [cfg["position"] for cfg in configs]
+        if extra_position in positions:
+            configs[positions.index(extra_position)] = extra
+        else:
+            configs.append(extra)
+    return configs
+
 
 _PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 _DEFAULT_BRONZE_DIR = os.path.join(
@@ -219,7 +247,12 @@ def build_sleeper_lookup(
     stats = {"n_proj_pos_rows": 0, "n_sleeper_pos_rows": 0, "n_final_matched": 0}
     empty = pd.DataFrame(columns=["player_id", "sleeper_pos_rank"])
 
-    if proj_df is None or proj_df.empty or "position" not in proj_df.columns or "player_id" not in proj_df.columns:
+    if (
+        proj_df is None
+        or proj_df.empty
+        or "position" not in proj_df.columns
+        or "player_id" not in proj_df.columns
+    ):
         return empty, stats
     proj_pos = proj_df[proj_df["position"] == position]
     stats["n_proj_pos_rows"] = int(len(proj_pos))
@@ -284,20 +317,26 @@ def apply_consensus_anchor_blend(
     pool = proj.loc[is_pos].copy()
     pool["_our_rank"] = pool[points_col].rank(ascending=False, method="first")
 
-    lookup = lookup_df.drop_duplicates("player_id").set_index("player_id")["sleeper_pos_rank"]
+    lookup = lookup_df.drop_duplicates("player_id").set_index("player_id")[
+        "sleeper_pos_rank"
+    ]
     sleeper_rank = pool["player_id"].astype(str).map(lookup)
     matched = sleeper_rank.notna()
     if matched.sum() < 2:
         return proj
 
     matched_idx = pool.index[matched]
-    blended_rank = (1.0 - weight) * pool.loc[matched_idx, "_our_rank"] + weight * sleeper_rank[matched_idx]
+    blended_rank = (1.0 - weight) * pool.loc[
+        matched_idx, "_our_rank"
+    ] + weight * sleeper_rank[matched_idx]
 
     # Rearrangement-inequality-minimal reassignment (identical technique to
     # ecr_anchor.apply_ecr_anchor_blend): pair the matched subset's own
     # original point values (sorted desc) with the target blended order
     # (sorted asc) position-by-position.
-    original_values = pool.loc[matched_idx, points_col].sort_values(ascending=False).to_numpy()
+    original_values = (
+        pool.loc[matched_idx, points_col].sort_values(ascending=False).to_numpy()
+    )
     target_order_idx = blended_rank.sort_values(ascending=True).index
 
     proj.loc[target_order_idx, points_col] = np.round(original_values, 2)
@@ -338,7 +377,9 @@ def apply_consensus_anchor_near_tie(
     if is_pos.sum() < 2:
         return proj
 
-    lookup = lookup_df.drop_duplicates("player_id").set_index("player_id")["sleeper_pos_rank"]
+    lookup = lookup_df.drop_duplicates("player_id").set_index("player_id")[
+        "sleeper_pos_rank"
+    ]
 
     pos_sorted = proj.loc[is_pos].sort_values(points_col, ascending=False)
     ids = pos_sorted["player_id"].astype(str).to_numpy()
@@ -367,8 +408,10 @@ def apply_consensus_anchor_near_tie(
     if fired:
         fired_idx = list(fired)
         proj.loc[fired_idx, points_col] = (
-            proj.loc[fired_idx, points_col] + deltas.loc[fired_idx]
-        ).clip(lower=0).round(2)
+            (proj.loc[fired_idx, points_col] + deltas.loc[fired_idx])
+            .clip(lower=0)
+            .round(2)
+        )
         proj.loc[fired_idx, "sleeper_anchor_flag"] = True
 
     return proj
@@ -405,6 +448,69 @@ def apply_consensus_anchor(
         )
     if mode == "near_tie":
         return apply_consensus_anchor_near_tie(
-            proj_df, lookup_df, position=position, epsilon=epsilon, nudge=nudge, points_col=points_col
+            proj_df,
+            lookup_df,
+            position=position,
+            epsilon=epsilon,
+            nudge=nudge,
+            points_col=points_col,
         )
-    raise ValueError(f"Unknown consensus_anchor mode: {mode!r} (expected 'blend' or 'near_tie')")
+    raise ValueError(
+        f"Unknown consensus_anchor mode: {mode!r} (expected 'blend' or 'near_tie')"
+    )
+
+
+def apply_sleeper_anchors(
+    proj_df: pd.DataFrame,
+    season: int,
+    week: int,
+    configs: Sequence[Dict[str, object]],
+    bronze_dir: str = _DEFAULT_BRONZE_DIR,
+    points_col: str = "projected_points",
+) -> Tuple[pd.DataFrame, List[Dict[str, object]]]:
+    """Apply every resolved per-position anchor config for one (season, week).
+
+    The shared per-week loop behind ``generate_projections.py`` and
+    ``backtest_projections.py``: one :func:`build_sleeper_lookup` +
+    :func:`apply_consensus_anchor` per config, in order. Each call only
+    touches rows at its own position, so configs compose without
+    cross-contamination; ``sleeper_anchor_flag`` accumulates across them.
+    A missing Sleeper partition is a passthrough (empty lookup).
+
+    Args:
+        proj_df: This week's projections.
+        season: NFL season.
+        week: Projected week.
+        configs: Output of :func:`resolve_sleeper_anchor_configs`. Empty
+            means no-op (``proj_df`` returned unchanged).
+        bronze_dir: Root of ``data/bronze/external_projections/sleeper/``.
+        points_col: Column to reorder.
+
+    Returns:
+        ``(proj, stats)`` — ``stats`` has one dict per config with
+        ``position``, ``mode``, ``weight``, the three
+        :func:`build_sleeper_lookup` counts, and ``n_flagged`` (rows at that
+        position carrying ``sleeper_anchor_flag`` after its call).
+    """
+    proj = proj_df
+    stats: List[Dict[str, object]] = []
+    for cfg in configs:
+        position = str(cfg["position"])
+        lookup, lookup_stats = build_sleeper_lookup(
+            proj, season, week, position, bronze_dir=bronze_dir
+        )
+        proj = apply_consensus_anchor(
+            proj,
+            lookup,
+            position=position,
+            mode=str(cfg["mode"]),
+            weight=float(cfg["weight"]),
+            points_col=points_col,
+        )
+        n_flagged = (
+            int((proj["sleeper_anchor_flag"] & (proj["position"] == position)).sum())
+            if "position" in proj.columns
+            else 0
+        )
+        stats.append({**cfg, **lookup_stats, "n_flagged": n_flagged})
+    return proj, stats

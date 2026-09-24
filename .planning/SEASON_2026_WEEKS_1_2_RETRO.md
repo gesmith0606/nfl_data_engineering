@@ -48,10 +48,15 @@ Harness consensus gap (positive = we lose): wk1 +0.237 (QB -0.30 win), wk2 +0.12
 
 ## Model findings (not changed here — decisions/gates)
 
-- **RB and TE anchors: approve shipping.** Both passed every pre-registered gate
-  (`SLEEPER_ANCHOR_QB_RB_TE_GATE.md`, SHIP-PENDING-USER). Live 2026 confirms the
-  direction: blend beats ours by 0.37 MAE at RB and 0.27 at TE. QB stays unanchored
-  (blend = ours; our QB already beats Sleeper) — matches the QB HOLD.
+- **RB and TE anchors: SHIPPED 2026-09-23 (user-approved)**, default-ON in weekly
+  mode (blend, w=0.5 each) alongside WR (branch `feat/sleeper-anchor-rb-te`).
+  They passed the heuristic-engine gate (`SLEEPER_ANCHOR_QB_RB_TE_GATE.md`). The
+  gate doc's 2026-08-23 amendment had put them on HOLD because the `--ml` 2022-24
+  window got worse. Live 2026 supports shipping anyway: replaying the shipped
+  rank-blend on the published wk1-2 boards gives RB MAE 5.50 -> 5.14 (rho .56 -> .63)
+  and TE 5.26 -> 5.16 (rho .03 -> .12). The wk3 board matches 96% of RB and 90% of
+  TE rows. QB stays unanchored (our QB already beats Sleeper), matching the QB HOLD.
+  Re-gate on the ML engine and watch the grading report through week 10.
 - **Early-season compression.** Week 2 bias -1.27 overall (QB -2.8, TE -1.9, WR -1.4);
   stars most under-projected (WR 12-16 tier -5.2, RB 16+ -2.8). This is what the
   `--early-season-prior` lever (weeks 3-6, HOLD) targets — run it in shadow for

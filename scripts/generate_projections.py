@@ -49,7 +49,8 @@ from scoring_calculator import list_scoring_formats  # noqa: E402
 from utils import download_latest_parquet  # noqa: E402
 from sleeper_consensus_anchor import (  # noqa: E402
     SUPPORTED_POSITIONS as SUPPORTED_CONSENSUS_ANCHOR_POSITIONS,
-    resolve_sleeper_anchor_config,
+    apply_sleeper_anchors,
+    resolve_sleeper_anchor_configs,
 )
 import config  # noqa: E402
 
@@ -511,13 +512,14 @@ def main():
             "Weekly mode only: blend/nudge a position's ordering toward "
             "historical Sleeper weekly consensus projections (a second, "
             "independent consensus source vs --ecr-anchor's FantasyPros "
-            "ECR). SHIPPED DEFAULT-ON for WR (src=sleeper, mode=blend, "
-            "weight=0.5) as of 2026-08-22 — "
-            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md gate passed "
-            "decisively (tuning -0.284 vs 0.05 bar, 2025 one-shot 106%% "
-            "retained, guards clean); disable via --no-sleeper-anchor. "
-            "Passing this flag explicitly overrides the shipped default "
-            "(e.g. to test QB/RB/TE or a different mode/weight). NOTE: "
+            "ECR). SHIPPED DEFAULT-ON for WR (2026-08-22, "
+            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md) and RB+TE "
+            "(2026-09-23, .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md), each "
+            "mode=blend weight=0.5; QB off (HOLD). Disable via "
+            "--no-sleeper-anchor. Passing this flag explicitly REPLACES the "
+            "whole shipped set with the single --consensus-anchor-position/"
+            "-mode/-weight given (e.g. WR blend 0.5 alone reproduces the "
+            "pre-RB/TE baseline). NOTE: "
             "this same Sleeper Bronze data is also our own grading "
             "benchmark elsewhere in the repo — see the gate doc's "
             "grading-circularity note before interpreting any live output."
@@ -547,8 +549,9 @@ def main():
         default=False,
         help=(
             "Weekly mode only: disable the default-on Sleeper consensus "
-            "anchor (WR, blend, weight=0.5 — SHIPPED "
-            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md). Mirrors "
+            "anchor (WR+RB+TE, blend, weight=0.5 each — SHIPPED "
+            ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md + "
+            "SLEEPER_ANCHOR_QB_RB_TE_GATE.md). Mirrors "
             "--no-consensus-anchor's naming convention for the preseason "
             "lever. No effect in --preseason mode (the Sleeper anchor "
             "never applies there). Also disables "
@@ -560,12 +563,13 @@ def main():
         choices=list(SUPPORTED_CONSENSUS_ANCHOR_POSITIONS),
         default=None,
         help=(
-            "Weekly mode only: apply a SECOND, independent Sleeper "
-            "consensus anchor on top of whichever primary anchor resolved "
-            "above (typically the shipped WR default) — lets a candidate "
-            "position (QB/RB/TE) be evaluated together with WR in the same "
-            "run. See .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md. Default: "
-            "unset (no-op). Disabled entirely by --no-sleeper-anchor."
+            "Weekly mode only: add (or, if already anchored, override) one "
+            "position's Sleeper consensus anchor on top of the resolved set "
+            "(the shipped WR+RB+TE defaults or an explicit "
+            "--consensus-anchor-src) — e.g. QB to opt in to the HOLD "
+            "position, or RB with a different weight. See "
+            ".planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md. Default: unset. "
+            "Disabled entirely by --no-sleeper-anchor."
         ),
     )
     parser.add_argument(
@@ -706,52 +710,37 @@ def main():
                 "(season futures only apply to preseason projections)"
             )
         # --- Sleeper consensus anchor default resolution ---
-        # SHIPPED DEFAULT-ON for WR (blend, weight=0.5) as of 2026-08-22 —
-        # .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md gate passed decisively
-        # (user-approved). --no-sleeper-anchor opts out; an explicit
-        # --consensus-anchor-src (with optional --consensus-anchor-position/
-        # -mode/-weight) overrides the shipped default entirely (e.g. to
-        # exercise QB/RB/TE or a different mode/weight). Precedence lives in
-        # sleeper_consensus_anchor.resolve_sleeper_anchor_config() so
+        # SHIPPED DEFAULT-ON for WR (2026-08-22) + RB/TE (2026-09-23), each
+        # blend w=0.5 (user-approved; QB stays off — HOLD). --no-sleeper-
+        # anchor opts out of the whole family; an explicit
+        # --consensus-anchor-src replaces the shipped set with one
+        # position/mode/weight; --consensus-anchor-extra-position adds or
+        # overrides one position on top. Precedence lives in
+        # sleeper_consensus_anchor.resolve_sleeper_anchor_configs() so
         # generate_projections.py and backtest_projections.py can't drift.
-        (
-            sleeper_anchor_src,
-            sleeper_anchor_position,
-            sleeper_anchor_mode,
-            sleeper_anchor_weight,
-        ) = resolve_sleeper_anchor_config(
+        sleeper_anchor_configs = resolve_sleeper_anchor_configs(
             args.consensus_anchor_src,
             args.consensus_anchor_position,
             args.consensus_anchor_mode,
             args.consensus_anchor_weight,
             args.no_sleeper_anchor,
+            extra_position=args.consensus_anchor_extra_position,
+            extra_mode=args.consensus_anchor_extra_mode,
+            extra_weight=args.consensus_anchor_extra_weight,
         )
-        if sleeper_anchor_src is None:
+        if not sleeper_anchor_configs:
             print("Sleeper consensus anchor: OFF (--no-sleeper-anchor)")
-        elif args.consensus_anchor_src is not None:
-            print(
-                f"Sleeper consensus anchor: ON (explicit override — "
-                f"src={sleeper_anchor_src}, pos={sleeper_anchor_position}, "
-                f"mode={sleeper_anchor_mode}, weight={sleeper_anchor_weight})"
-            )
         else:
-            print(
-                f"Sleeper consensus anchor: ON (shipped default — "
-                f"pos={sleeper_anchor_position}, mode={sleeper_anchor_mode}, "
-                f"weight={sleeper_anchor_weight})"
+            origin = (
+                "explicit override"
+                if args.consensus_anchor_src is not None
+                else "shipped default"
             )
-        # --no-sleeper-anchor kills the whole Sleeper-anchor family, incl.
-        # the extra slot (see .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md).
-        sleeper_anchor_extra_position = (
-            args.consensus_anchor_extra_position if sleeper_anchor_src else None
-        )
-        if sleeper_anchor_extra_position:
-            print(
-                f"Sleeper consensus anchor (extra slot): ON (pos="
-                f"{sleeper_anchor_extra_position}, "
-                f"mode={args.consensus_anchor_extra_mode}, "
-                f"weight={args.consensus_anchor_extra_weight})"
+            desc = ", ".join(
+                f"{c['position']} {c['mode']} w={c['weight']}"
+                for c in sleeper_anchor_configs
             )
+            print(f"Sleeper consensus anchor: ON ({origin} — {desc})")
     print("=" * 60)
 
     # -----------------------------------------------------------------------
@@ -1754,8 +1743,8 @@ def main():
             )
 
         # --- Historical-Sleeper weekly consensus anchor (SHIPPED
-        # DEFAULT-ON for WR, blend, weight=0.5 — see the resolution block
-        # above; --no-sleeper-anchor opts out) ---
+        # DEFAULT-ON for WR+RB+TE, blend, weight=0.5 each — see the
+        # resolution block above; --no-sleeper-anchor opts out) ---
         # Hypothesis from .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md: a
         # second, independent weekly consensus source (Sleeper's own
         # historical projections, full population vs ECR's top-60ish),
@@ -1770,110 +1759,46 @@ def main():
         # log line) when Sleeper's weekly Bronze snapshot is unavailable for
         # this (season, week) — build_sleeper_lookup returns an empty lookup
         # rather than raising, and apply_consensus_anchor is a byte-identical
-        # no-op on an empty lookup.
-        if sleeper_anchor_src == "sleeper" and not projections.empty:
-            from sleeper_consensus_anchor import (  # noqa: E402
-                apply_consensus_anchor,
-                build_sleeper_lookup,
-            )
-
+        # no-op on an empty lookup. Each position's call only touches its own
+        # rows, so the configs compose without cross-contamination.
+        if sleeper_anchor_configs and not projections.empty:
             before_total = float(projections["projected_points"].sum())
-            sleeper_lookup, sleeper_stats = build_sleeper_lookup(
-                projections,
-                args.season,
-                args.week,
-                sleeper_anchor_position,
+            projections, sleeper_stats = apply_sleeper_anchors(
+                projections, args.season, args.week, sleeper_anchor_configs
             )
-            if sleeper_stats["n_sleeper_pos_rows"] == 0:
+            for st in sleeper_stats:
+                pos = st["position"]
+                n_pos = st["n_proj_pos_rows"]
+                if st["n_sleeper_pos_rows"] == 0:
+                    print(
+                        "WARNING: Sleeper consensus anchor — no Sleeper weekly "
+                        f"data found for season={args.season} week={args.week} "
+                        f"position={pos} "
+                        "(data/bronze/external_projections/sleeper/); anchor "
+                        "is a no-op passthrough for this position."
+                    )
                 print(
-                    "WARNING: Sleeper consensus anchor — no Sleeper weekly "
-                    f"data found for season={args.season} week={args.week} "
-                    f"position={sleeper_anchor_position} "
-                    "(data/bronze/external_projections/sleeper/); anchor "
-                    "is a no-op passthrough for this run."
+                    f"Sleeper consensus anchor ({pos}, {st['mode']} "
+                    f"w={st['weight']}): {st['n_final_matched']} matched (of "
+                    f"{n_pos} {pos} rows), {st['n_flagged']} row(s) nudged"
                 )
-            projections = apply_consensus_anchor(
-                projections,
-                sleeper_lookup,
-                position=sleeper_anchor_position,
-                mode=sleeper_anchor_mode,
-                weight=sleeper_anchor_weight,
-            )
+                # The shipped anchor ran as a silent no-op for 2026 weeks 1-3
+                # (Bronze filed under the wrong folder, raw Sleeper ids). A
+                # GitHub ::warning:: makes a zero/low match rate visible in
+                # the run summary instead of only in the step log.
+                if n_pos and st["n_final_matched"] < 0.5 * n_pos:
+                    print(
+                        f"::warning::Sleeper consensus anchor matched only "
+                        f"{st['n_final_matched']}/{n_pos} {pos} rows "
+                        f"({st['n_sleeper_pos_rows']} Sleeper rows on disk) — "
+                        f"{pos} anchor is effectively OFF this run"
+                    )
             after_total = float(projections["projected_points"].sum())
-            sleeper_flagged = int(projections["sleeper_anchor_flag"].sum())
             print(
-                f"Sleeper consensus anchor ({sleeper_anchor_position}, "
-                f"{sleeper_anchor_mode}): {sleeper_stats['n_final_matched']} "
-                f"matched (of {sleeper_stats['n_proj_pos_rows']} "
-                f"{sleeper_anchor_position} rows), {sleeper_flagged} "
-                f"row(s) nudged; total projected points {before_total:.1f} -> "
+                "Sleeper consensus anchor: "
+                f"{int(projections['sleeper_anchor_flag'].sum())} total row(s) "
+                f"flagged; total projected points {before_total:.1f} -> "
                 f"{after_total:.1f}"
-            )
-            # The shipped anchor ran as a silent no-op for 2026 weeks 1-3
-            # (Bronze filed under the wrong folder, raw Sleeper ids). A
-            # GitHub ::warning:: makes a zero/low match rate visible in the
-            # run summary instead of only in the step log.
-            n_pos = sleeper_stats["n_proj_pos_rows"]
-            if n_pos and sleeper_stats["n_final_matched"] < 0.5 * n_pos:
-                print(
-                    f"::warning::Sleeper consensus anchor matched only "
-                    f"{sleeper_stats['n_final_matched']}/{n_pos} "
-                    f"{sleeper_anchor_position} rows "
-                    f"({sleeper_stats['n_sleeper_pos_rows']} Sleeper rows on "
-                    f"disk) — anchor is effectively OFF this run"
-                )
-
-        # --- Independent SECOND Sleeper anchor slot (opt-in via
-        # --consensus-anchor-extra-position) ---
-        # Added for .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md: lets a
-        # candidate position (QB/RB/TE) be evaluated together with whichever
-        # primary anchor resolved above (typically the shipped WR default)
-        # in the same run. apply_consensus_anchor only ever touches rows at
-        # its own `position` argument (proven in the parent WR gate's guard
-        # checks), so this composes with the block above without
-        # cross-contamination. No-op when sleeper_anchor_extra_position is
-        # None (default) — existing behavior unchanged.
-        if (
-            sleeper_anchor_extra_position
-            and sleeper_anchor_src == "sleeper"
-            and not projections.empty
-        ):
-            from sleeper_consensus_anchor import (  # noqa: E402
-                apply_consensus_anchor,
-                build_sleeper_lookup,
-            )
-
-            before_total = float(projections["projected_points"].sum())
-            extra_lookup, extra_stats = build_sleeper_lookup(
-                projections,
-                args.season,
-                args.week,
-                sleeper_anchor_extra_position,
-            )
-            if extra_stats["n_sleeper_pos_rows"] == 0:
-                print(
-                    "WARNING: Sleeper consensus anchor (extra slot) — no "
-                    f"Sleeper weekly data found for season={args.season} "
-                    f"week={args.week} position={sleeper_anchor_extra_position} "
-                    "(data/bronze/external_projections/sleeper/); anchor "
-                    "is a no-op passthrough for this run."
-                )
-            projections = apply_consensus_anchor(
-                projections,
-                extra_lookup,
-                position=sleeper_anchor_extra_position,
-                mode=args.consensus_anchor_extra_mode,
-                weight=args.consensus_anchor_extra_weight,
-            )
-            after_total = float(projections["projected_points"].sum())
-            extra_flagged = int(projections["sleeper_anchor_flag"].sum())
-            print(
-                f"Sleeper consensus anchor extra slot ({sleeper_anchor_extra_position}, "
-                f"{args.consensus_anchor_extra_mode}): {extra_stats['n_final_matched']} "
-                f"matched (of {extra_stats['n_proj_pos_rows']} "
-                f"{sleeper_anchor_extra_position} rows); total projected points "
-                f"{before_total:.1f} -> {after_total:.1f} ({extra_flagged} total "
-                "rows flagged across both anchor slots)"
             )
 
         # --- High-wind QB/WR/TE bias shrink (opt-in via --wind-adjust) ---

@@ -38,7 +38,7 @@ python scripts/generate_projections.py --week 3 --season 2026 --qb-starter-floor
 python scripts/generate_projections.py --week 3 --season 2026 --rb-tail-calibration     # RB <8pt boost (snap-share-rising) + 14+pt shrink toward position mean (opt-in — HOLD verdict, 79% of gate bar, see RB_TAIL_CALIBRATION_GATE.md)
 python scripts/generate_projections.py --week 3 --season 2026 --wr-tiebreak             # WR near-tie (<=1.5pt) pairs nudged apart per trailing target-share slope (opt-in — HOLD verdict, 16% of gate bar, see WR_TIEBREAK_GATE.md)
 python scripts/generate_projections.py --week 3 --season 2026 --ecr-anchor              # WR ordering blended toward weekly FantasyPros ECR, Thursday-leak excluded (opt-in — HOLD verdict on the shuffle-test criterion despite primary gate clearing 4.4x; no-op vs 2026 live data until a forward ECR source is wired; see WR_ECR_ORDINAL_GATE.md)
-# Sleeper consensus anchor (WR, blend, weight=0.5) is ON by default in weekly mode; --no-sleeper-anchor disables it (SHIPPED 2026-08-22, see SLEEPER_CONSENSUS_ANCHOR_GATE.md)
+# Sleeper consensus anchor (WR+RB+TE, blend, weight=0.5 each; QB off) is ON by default in weekly mode; --no-sleeper-anchor disables it (WR SHIPPED 2026-08-22, RB+TE SHIPPED 2026-09-23 — see SLEEPER_CONSENSUS_ANCHOR_GATE.md, SLEEPER_ANCHOR_QB_RB_TE_GATE.md)
 python scripts/bronze_season_props_ingestion.py                                          # DK+FanDuel season player futures snapshot incl. rookie milestone ladders (no key needed)
 python scripts/bronze_weekly_props_ingestion.py --days-ahead 8                           # DK+FanDuel weekly player props (pass/rush/rec yds+TDs, receptions, anytime TD), no key needed; --props-blend redundancy/cross-book source, see PROPS_DATA_PLAN.md Phase 2
 python scripts/generate_projections.py --preseason --season 2026 --season-props-blend   # Blend toward season-line implied points (opt-in)
@@ -74,7 +74,7 @@ python scripts/backtest_predictions.py --holdout    # Sealed 2024 holdout compar
 python scripts/ablation_market_features.py          # Market feature ablation on holdout
 
 # Fantasy backtesting & ADP
-python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr  # default evaluation path includes the shipped Sleeper WR anchor; --no-sleeper-anchor evaluates the pre-ship baseline
+python scripts/backtest_projections.py --seasons 2022,2023,2024 --scoring half_ppr  # default evaluation path includes the shipped Sleeper WR+RB+TE anchor; --no-sleeper-anchor evaluates the un-anchored baseline
 python scripts/refresh_adp.py --season 2026
 python scripts/set_lineups.py --league mantis --week 2                                    # Weekly lineup deltas: ours + Sleeper under league scoring, SWAP only when both agree by 3.0 (see .planning/LINEUP_TOOL_ENHANCEMENT.md)
 python scripts/waiver_wire.py --league mantis                                              # Tuesday waivers: FAs on OURS + Sleeper proj under league scoring, last-week actuals, trending adds, sentiment flags; ESPN/Yahoo take --roster-file + --rostered-file/--available-file (docs/WEEKLY_WAIVER_RUNBOOK.md)
