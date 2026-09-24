@@ -470,6 +470,16 @@ def main():
         ),
     )
     parser.add_argument(
+        "--depth-chart-as-of",
+        default=None,
+        help=(
+            "Week 1 only: date/time (UTC, e.g. 2026-09-09) of the OurLads "
+            "depth-chart snapshot that gates the prior-season seed — the latest "
+            "snapshot at or before it is used. Default: latest snapshot. Set it "
+            "when regenerating a past Week 1 so post-kickoff charts don't leak."
+        ),
+    )
+    parser.add_argument(
         "--qb-starter-floor-haircut",
         type=float,
         default=0.8,
@@ -1493,6 +1503,38 @@ def main():
                 weekly_df=strength_weekly if not strength_weekly.empty else None,
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
                 route_df=route_df if not route_df.empty else None,
+            )
+
+        # Week 1 is projected from each player's final prior-season row, which
+        # says nothing about his role now (2026: Fields 18.1 as KC's QB2, a
+        # retired Rivers 13.8). Gate it on the current depth chart: only the
+        # QB1 keeps a seeded starter QB projection, deeper players get the
+        # backup role scale, players on no depth chart are zeroed.
+        if args.week <= 1 and not projections.empty:
+            from seed_depth_gate import apply_week1_seed_depth_gate
+
+            gate_dc = _read_local_parquet(
+                BRONZE_DIR, f"depth_charts/season={args.season}/*.parquet"
+            )
+            projections = apply_week1_seed_depth_gate(
+                projections,
+                gate_dc,
+                week=args.week,
+                as_of=(
+                    pd.Timestamp(args.depth_chart_as_of)
+                    if args.depth_chart_as_of
+                    else None
+                ),
+            )
+            gated = projections["seed_depth_gate"].value_counts().to_dict()
+            print(
+                f"Week-1 seed depth gate: {gated.get('off_depth_chart', 0)} zeroed "
+                f"(on no depth chart), {gated.get('backup_depth', 0)} scaled to "
+                "backup level (deeper than QB1/RB2/WR3/TE2)"
+                if gated
+                else "WARN: Week-1 seed depth gate changed nothing (no usable "
+                f"depth chart for {args.season}?) — seeded backups keep starter "
+                "projections"
             )
 
         # Load injury data and apply adjustments
