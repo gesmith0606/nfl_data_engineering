@@ -400,6 +400,20 @@ shuffle test is not what stops QB).
 | **RB** (w=0.5) | PASS | PASS (-0.204, 4.1x) | PASS | PASS (improves, well within <=0.02) | PASS (217.8%) | PASS | PASS | **SHIP-PENDING-USER** |
 | **TE** (w=0.5) | PASS | PASS (-0.145, 2.9x) | PASS (live-CLI-authoritative; see Section 4 discrepancy note) | PASS (improves, well within <=0.02) | PASS (139.8%) | PASS | PASS | **SHIP-PENDING-USER** |
 
+> **SHIPPED 2026-09-23 (user-approved): RB and TE default-ON in weekly mode**
+> (blend, w=0.5 each, alongside the WR default; QB stays OFF — HOLD).
+> `SHIPPED_DEFAULT_CONFIGS` in `src/sleeper_consensus_anchor.py`, applied by
+> `generate_projections.py` and `backtest_projections.py`'s default path.
+> This overrides the 2026-08-23 amendment below (which downgraded RB/TE to HOLD
+> because the `--ml --full-features` 2022-24 window got worse). The user approved
+> on live 2026 production-engine evidence. Replaying the shipped rank-blend on the
+> published `--ml` wk1-2 boards (n=369, "relevant" = either source >=5, played):
+> RB MAE 5.50 -> 5.14 (Sleeper 5.20), rho 0.562 -> 0.629; TE 5.26 -> 5.16
+> (Sleeper 4.92), rho 0.030 -> 0.120; WR 5.44 -> 5.28; QB untouched. The
+> re-gate on the ML engine (follow-up below) is still open. Watch the weekly
+> grading report through week 10. Revert by dropping RB/TE from
+> `SHIPPED_DEFAULT_CONFIGS`.
+
 **QB HOLDs on a single, clean, disclosed criterion**: the pre-registered
 2025 one-shot confirmation requires `>=50%` of the tuning-set effect to
 retain, and QB retains only 14.8% — most of QB's tuning-set improvement
@@ -471,6 +485,8 @@ explicit step after this kind of gate).
 
 **Verdict revision: RB and TE are downgraded from SHIP-PENDING-USER to HOLD.**
 No production default changed; `origin/main` never carried the promotion.
+*(Superseded 2026-09-23: shipped on user approval from live-2026 evidence. See the
+SHIPPED note under Section 7.)*
 
 **What happened.** The user approved RB+TE promotion the same day. The
 promotion was implemented (generalized extra-slot resolver

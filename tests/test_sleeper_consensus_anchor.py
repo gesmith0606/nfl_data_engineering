@@ -15,16 +15,15 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 from sleeper_consensus_anchor import (  # noqa: E402
     EPSILON,
     NUDGE,
-    SHIPPED_DEFAULT_MODE,
-    SHIPPED_DEFAULT_POSITION,
+    SHIPPED_DEFAULT_CONFIGS,
     SHIPPED_DEFAULT_SRC,
-    SHIPPED_DEFAULT_WEIGHT,
     SUPPORTED_POSITIONS,
     apply_consensus_anchor,
     apply_consensus_anchor_blend,
     apply_consensus_anchor_near_tie,
+    apply_sleeper_anchors,
     build_sleeper_lookup,
-    resolve_sleeper_anchor_config,
+    resolve_sleeper_anchor_configs,
 )
 
 
@@ -124,7 +123,10 @@ class TestBuildSleeperLookup:
             tmp_path,
             2023,
             5,
-            [_sleeper_row("A", 10.0, position="WR"), _sleeper_row("B", 30.0, position="RB")],
+            [
+                _sleeper_row("A", 10.0, position="WR"),
+                _sleeper_row("B", 30.0, position="RB"),
+            ],
         )
         lookup, stats = build_sleeper_lookup(proj, 2023, 5, "WR", bronze_dir=bronze_dir)
         assert stats["n_proj_pos_rows"] == 1
@@ -186,7 +188,9 @@ class TestApplyConsensusAnchorBlend:
 
     def test_weight_zero_is_noop(self):
         proj = self._pool()
-        out = apply_consensus_anchor_blend(proj, self._lookup(), weight=0.0, position="WR")
+        out = apply_consensus_anchor_blend(
+            proj, self._lookup(), weight=0.0, position="WR"
+        )
         pd.testing.assert_series_equal(
             out["projected_points"], proj["projected_points"], check_names=True
         )
@@ -194,7 +198,9 @@ class TestApplyConsensusAnchorBlend:
 
     def test_weight_one_fully_realizes_sleeper_order(self):
         proj = self._pool()
-        out = apply_consensus_anchor_blend(proj, self._lookup(), weight=1.0, position="WR")
+        out = apply_consensus_anchor_blend(
+            proj, self._lookup(), weight=1.0, position="WR"
+        )
         ordered = out.set_index("player_id")["projected_points"]
         assert ordered["B"] == 20.0
         assert ordered["D"] == 18.0
@@ -204,7 +210,9 @@ class TestApplyConsensusAnchorBlend:
 
     def test_value_multiset_conserved(self):
         proj = self._pool()
-        out = apply_consensus_anchor_blend(proj, self._lookup(), weight=0.5, position="WR")
+        out = apply_consensus_anchor_blend(
+            proj, self._lookup(), weight=0.5, position="WR"
+        )
         before = sorted(proj["projected_points"].tolist())
         after = sorted(out["projected_points"].tolist())
         assert before == after
@@ -223,7 +231,10 @@ class TestApplyConsensusAnchorBlend:
             ignore_index=True,
         )
         lookup = pd.concat(
-            [self._lookup(), pd.DataFrame({"player_id": ["RB1"], "sleeper_pos_rank": [1]})],
+            [
+                self._lookup(),
+                pd.DataFrame({"player_id": ["RB1"], "sleeper_pos_rank": [1]}),
+            ],
             ignore_index=True,
         )
         out = apply_consensus_anchor_blend(proj, lookup, weight=1.0, position="WR")
@@ -233,7 +244,10 @@ class TestApplyConsensusAnchorBlend:
     def test_empty_lookup_is_noop(self):
         proj = self._pool()
         out = apply_consensus_anchor_blend(
-            proj, pd.DataFrame(columns=["player_id", "sleeper_pos_rank"]), weight=0.5, position="WR"
+            proj,
+            pd.DataFrame(columns=["player_id", "sleeper_pos_rank"]),
+            weight=0.5,
+            position="WR",
         )
         pd.testing.assert_frame_equal(
             out.drop(columns=["sleeper_anchor_flag"]), proj, check_like=True
@@ -296,7 +310,11 @@ class TestApplyConsensusAnchorNearTie:
 
     def test_other_positions_never_touched(self):
         proj = pd.DataFrame(
-            [_proj_row("HI", 20.0), _proj_row("LOW", 19.0), _proj_row("RB1", 19.5, position="RB")]
+            [
+                _proj_row("HI", 20.0),
+                _proj_row("LOW", 19.0),
+                _proj_row("RB1", 19.5, position="RB"),
+            ]
         )
         lookup = pd.DataFrame(
             {"player_id": ["HI", "LOW", "RB1"], "sleeper_pos_rank": [5, 1, 1]}
@@ -325,7 +343,9 @@ class TestApplyConsensusAnchorDispatch:
     def test_default_position_is_wr(self):
         proj = pd.DataFrame([_proj_row("HI", 20.0), _proj_row("LOW", 19.0)])
         lookup = pd.DataFrame({"player_id": ["HI", "LOW"], "sleeper_pos_rank": [5, 1]})
-        out = apply_consensus_anchor(proj, lookup)  # mode="near_tie", position="WR" defaults
+        out = apply_consensus_anchor(
+            proj, lookup
+        )  # mode="near_tie", position="WR" defaults
         assert out["sleeper_anchor_flag"].all()
 
     def test_supported_positions_constant(self):
@@ -333,51 +353,161 @@ class TestApplyConsensusAnchorDispatch:
 
 
 # ---------------------------------------------------------------------------
-# Shipped default (SHIP verdict 2026-08-22, .planning/
-# SLEEPER_CONSENSUS_ANCHOR_GATE.md) — WR, blend, weight=0.5, default-on in
-# generate_projections.py (weekly mode) and backtest_projections.py's
-# default evaluation path.
+# Shipped defaults — WR (SHIP 2026-08-22, .planning/
+# SLEEPER_CONSENSUS_ANCHOR_GATE.md) + RB/TE (SHIPPED 2026-09-23,
+# user-approved, .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md), each blend
+# w=0.5. QB stays OFF (HOLD). Default-on in generate_projections.py (weekly
+# mode) and backtest_projections.py's default evaluation path.
 # ---------------------------------------------------------------------------
+
+_SHIPPED = [
+    {"position": "WR", "mode": "blend", "weight": 0.5},
+    {"position": "RB", "mode": "blend", "weight": 0.5},
+    {"position": "TE", "mode": "blend", "weight": 0.5},
+]
 
 
 class TestShippedDefaultConstants:
     def test_shipped_default_values(self):
         assert SHIPPED_DEFAULT_SRC == "sleeper"
-        assert SHIPPED_DEFAULT_POSITION == "WR"
-        assert SHIPPED_DEFAULT_MODE == "blend"
-        assert SHIPPED_DEFAULT_WEIGHT == 0.5
+        assert [dict(c) for c in SHIPPED_DEFAULT_CONFIGS] == _SHIPPED
+
+    def test_qb_not_shipped(self):
+        assert "QB" not in {c["position"] for c in SHIPPED_DEFAULT_CONFIGS}
 
 
-class TestResolveSleeperAnchorConfig:
+class TestResolveSleeperAnchorConfigs:
     """Precedence used identically by generate_projections.py (weekly mode)
     and backtest_projections.py's default evaluation path — see
-    resolve_sleeper_anchor_config()'s docstring for the 3-way rule."""
+    resolve_sleeper_anchor_configs()'s docstring."""
 
     def test_no_anchor_flag_disables_regardless_of_other_args(self):
-        src, pos, mode, weight = resolve_sleeper_anchor_config(
-            "sleeper", "QB", "near_tie", 0.3, no_anchor=True
+        cfgs = resolve_sleeper_anchor_configs(
+            "sleeper", "QB", "near_tie", 0.3, no_anchor=True, extra_position="QB"
         )
-        assert src is None
-        # position/mode/weight pass through unchanged (unused when disabled)
-        assert (pos, mode, weight) == ("QB", "near_tie", 0.3)
+        assert cfgs == []
 
-    def test_no_explicit_src_falls_back_to_shipped_default(self):
-        src, pos, mode, weight = resolve_sleeper_anchor_config(
+    def test_no_explicit_src_falls_back_to_shipped_wr_rb_te(self):
+        cfgs = resolve_sleeper_anchor_configs(
             None, "WR", "near_tie", 0.3, no_anchor=False
         )
-        assert (src, pos, mode, weight) == ("sleeper", "WR", "blend", 0.5)
+        assert cfgs == _SHIPPED
 
-    def test_explicit_src_overrides_shipped_default_verbatim(self):
-        src, pos, mode, weight = resolve_sleeper_anchor_config(
+    def test_default_configs_are_copies(self):
+        cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
+        cfgs[0]["weight"] = 0.9
+        assert SHIPPED_DEFAULT_CONFIGS[0]["weight"] == 0.5
+
+    def test_explicit_src_overrides_whole_shipped_set_verbatim(self):
+        cfgs = resolve_sleeper_anchor_configs(
             "sleeper", "QB", "near_tie", 0.7, no_anchor=False
         )
-        assert (src, pos, mode, weight) == ("sleeper", "QB", "near_tie", 0.7)
+        assert cfgs == [{"position": "QB", "mode": "near_tie", "weight": 0.7}]
+
+    def test_explicit_wr_only_reproduces_pre_rb_te_baseline(self):
+        cfgs = resolve_sleeper_anchor_configs("sleeper", "WR", "blend", 0.5, False)
+        assert cfgs == [{"position": "WR", "mode": "blend", "weight": 0.5}]
 
     def test_no_anchor_wins_over_explicit_src(self):
-        src, _pos, _mode, _weight = resolve_sleeper_anchor_config(
-            "sleeper", "WR", "blend", 0.5, no_anchor=True
+        assert resolve_sleeper_anchor_configs("sleeper", "WR", "blend", 0.5, True) == []
+
+    def test_extra_slot_appends_new_position_to_default_set(self):
+        cfgs = resolve_sleeper_anchor_configs(
+            None, "WR", "near_tie", 0.3, False, extra_position="QB", extra_weight=0.4
         )
-        assert src is None
+        assert [c["position"] for c in cfgs] == ["WR", "RB", "TE", "QB"]
+        assert cfgs[-1] == {"position": "QB", "mode": "blend", "weight": 0.4}
+
+    def test_extra_slot_replaces_same_position_default(self):
+        cfgs = resolve_sleeper_anchor_configs(
+            None, "WR", "near_tie", 0.3, False, extra_position="RB", extra_weight=0.25
+        )
+        assert [c["position"] for c in cfgs] == ["WR", "RB", "TE"]
+        assert cfgs[1] == {"position": "RB", "mode": "blend", "weight": 0.25}
+
+    def test_extra_slot_composes_with_explicit_src(self):
+        cfgs = resolve_sleeper_anchor_configs(
+            "sleeper", "WR", "blend", 0.5, False, extra_position="QB"
+        )
+        assert [c["position"] for c in cfgs] == ["WR", "QB"]
+
+
+class TestApplySleeperAnchors:
+    """The per-week apply loop both CLIs share: one build_sleeper_lookup +
+    apply_consensus_anchor per resolved config, flag set on every nudged
+    row at any position, per-position coverage stats returned."""
+
+    def _fixture(self, tmp_path):
+        proj = pd.DataFrame(
+            [
+                _proj_row("W1", 20.0, "WR"),
+                _proj_row("W2", 18.0, "WR"),
+                _proj_row("R1", 17.0, "RB"),
+                _proj_row("R2", 15.0, "RB"),
+                _proj_row("R3", 9.0, "RB"),
+                _proj_row("T1", 10.0, "TE"),
+                _proj_row("T2", 8.0, "TE"),
+                _proj_row("Q1", 25.0, "QB"),
+                _proj_row("Q2", 22.0, "QB"),
+            ]
+        )
+        bronze = _write_sleeper_parquet(
+            tmp_path,
+            2023,
+            5,
+            [
+                _sleeper_row("W1", 10.0, "WR"),
+                _sleeper_row("W2", 20.0, "WR"),
+                _sleeper_row("R1", 8.0, "RB"),
+                _sleeper_row("R2", 18.0, "RB"),
+                _sleeper_row("T1", 5.0, "TE"),
+                _sleeper_row("T2", 12.0, "TE"),
+                _sleeper_row("Q1", 10.0, "QB"),
+                _sleeper_row("Q2", 30.0, "QB"),
+            ],
+        )
+        return proj, bronze
+
+    def test_default_set_nudges_wr_rb_te_not_qb(self, tmp_path):
+        proj, bronze = self._fixture(tmp_path)
+        cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
+        out, _stats = apply_sleeper_anchors(proj, 2023, 5, cfgs, bronze_dir=bronze)
+
+        flagged = set(out.loc[out["sleeper_anchor_flag"], "player_id"])
+        assert flagged == {"W1", "W2", "R1", "R2", "T1", "T2"}
+        qb = out[out["position"] == "QB"]
+        assert qb["projected_points"].tolist() == [25.0, 22.0]
+        assert not qb["sleeper_anchor_flag"].any()
+        # Unmatched RB (R3) untouched.
+        assert out.loc[out["player_id"] == "R3", "projected_points"].item() == 9.0
+
+    def test_stats_per_position(self, tmp_path):
+        proj, bronze = self._fixture(tmp_path)
+        cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
+        _out, stats = apply_sleeper_anchors(proj, 2023, 5, cfgs, bronze_dir=bronze)
+        by_pos = {s["position"]: s for s in stats}
+        assert list(by_pos) == ["WR", "RB", "TE"]
+        assert by_pos["RB"]["n_proj_pos_rows"] == 3
+        assert by_pos["RB"]["n_final_matched"] == 2
+        assert by_pos["RB"]["n_flagged"] == 2
+        assert by_pos["TE"]["n_sleeper_pos_rows"] == 2
+        assert (by_pos["WR"]["mode"], by_pos["WR"]["weight"]) == ("blend", 0.5)
+
+    def test_empty_configs_is_noop(self, tmp_path):
+        proj, bronze = self._fixture(tmp_path)
+        out, stats = apply_sleeper_anchors(proj, 2023, 5, [], bronze_dir=bronze)
+        assert stats == []
+        pd.testing.assert_frame_equal(out, proj)
+
+    def test_missing_bronze_is_passthrough(self, tmp_path):
+        proj, _bronze = self._fixture(tmp_path)
+        cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
+        out, stats = apply_sleeper_anchors(
+            proj, 2023, 5, cfgs, bronze_dir=str(tmp_path / "nowhere")
+        )
+        assert not out["sleeper_anchor_flag"].any()
+        assert out["projected_points"].tolist() == proj["projected_points"].tolist()
+        assert all(s["n_sleeper_pos_rows"] == 0 for s in stats)
 
 
 # ---------------------------------------------------------------------------
@@ -430,7 +560,9 @@ class TestShuffleNullHarness:
         shuffled_lookup = true_lookup.copy()
         shuffled_lookup["sleeper_pos_rank"] = shuffled_ranks
 
-        out_shuffled = apply_consensus_anchor_near_tie(proj, shuffled_lookup, position="WR")
+        out_shuffled = apply_consensus_anchor_near_tie(
+            proj, shuffled_lookup, position="WR"
+        )
         n_fired_shuffled = int(out_shuffled["sleeper_anchor_flag"].sum())
 
         assert n_fired_shuffled < n_fired_true
@@ -455,11 +587,17 @@ class TestShuffleNullHarness:
             realized-outcome Accuracy Gap without needing actual game
             results for a synthetic fixture.
             """
-            out = apply_consensus_anchor_blend(proj, lookup_df, weight=0.5, position="WR")
-            ordered = out.sort_values("projected_points", ascending=False)["player_id"].tolist()
+            out = apply_consensus_anchor_blend(
+                proj, lookup_df, weight=0.5, position="WR"
+            )
+            ordered = out.sort_values("projected_points", ascending=False)[
+                "player_id"
+            ].tolist()
             # True ideal order: every LO ranked above every HI (since LO is
             # always the true-better player in this fixture).
-            true_order = [f"LO{i}" for i in range(n_pairs)] + [f"HI{i}" for i in range(n_pairs)]
+            true_order = [f"LO{i}" for i in range(n_pairs)] + [
+                f"HI{i}" for i in range(n_pairs)
+            ]
             true_rank = {pid: r for r, pid in enumerate(true_order)}
             realized_rank = {pid: r for r, pid in enumerate(ordered)}
             return float(
