@@ -1,0 +1,107 @@
+{
+  "fetch_run_id": "6b5e52b9-cbc3-41f3-9b94-8c37ecb6f0fe",
+  "source": "rotowire",
+  "fetched_at": "2026-09-24T12:26:21.336157+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl638879",
+      "url": "https://www.rotowire.com//football/player/jauan-jennings-14376",
+      "permalink": "",
+      "title": "Jauan Jennings: Back at practice",
+      "body_text": "Jennings (personal) was not listed on the Vikings' injury report Wednesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-23T04:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jauan Jennings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl638863",
+      "url": "https://www.rotowire.com//football/player/sam-darnold-12490",
+      "permalink": "",
+      "title": "Sam Darnold: Officially limited to begin week",
+      "body_text": "Darnold (glute) officially was a limited practice participant Wednesday, John Boyle of the Seahawks' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-23T04:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl638862",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Limited Wednesday",
+      "body_text": "Price (chest) practiced in a limited fashion Wednesday, John Boyle of the Seahawks' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-23T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Limited Wednesday",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl638859",
+      "url": "https://www.rotowire.com//football/player/dj-moore-12477",
+      "permalink": "",
+      "title": "DJ Moore: Feeling great following practice",
+      "body_text": "Moore (shoulder) \"felt great\" after getting in a limited practice Wednesday, Matt Parrino of The Syracuse Post-Standard reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-23T03:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Parrino",
+        "The Syracuse"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl638857",
+      "url": "https://www.rotowire.com//football/player/terrance-ferguson-18497",
+      "permalink": "",
+      "title": "Terrance Ferguson: Tending to ankle issue",
+      "body_text": "Ferguson was limited at Wednesday's walkthrough due to an ankle injury, Nate Atkins of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-23T03:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrance Ferguson",
+        "Nate Atkins",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0040737"
+      ],
+      "team_hint": null
+    }
+  ]
+}
