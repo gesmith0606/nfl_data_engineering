@@ -322,14 +322,19 @@ def count_games_in_lookback(
     proj_season: int,
     proj_week: int,
     weekly_df: pd.DataFrame,
+    fresh_rolling: bool = False,
 ) -> int:
     """Count games played in the rolling-window lookback for a projected week.
 
     The projection for week W uses the Silver feature row from week W-1, whose
-    rolling averages cover weeks 1 through W-2 (shift-1 transform in
-    compute_rolling_averages).  We therefore count *current-season games where
-    the player had meaningful stats in weeks 1 through W-2* — i.e.
-    ``week < proj_week - 1``.
+    stored rolling averages cover weeks 1 through W-2 (shift-1 transform in
+    compute_rolling_averages).  The weekly engine now advances them to cover
+    weeks 1 through W-1 (``fresh_rolling``, default in
+    ``generate_weekly_projections``) and passes ``fresh_rolling=True`` here so
+    the count spans the same window (``week < proj_week``).  Without it we
+    count weeks 1 through W-2 (``week < proj_week - 1``) — the pre-fix
+    window, still used by the residual-training heuristic
+    (``compute_heuristic_baseline``), whose rows are week-W rows.
 
     A "game played" is a row where at least one of the core offensive stats
     (yards, carries, receptions, targets) is > 0.  Players who appeared on
@@ -342,6 +347,9 @@ def count_games_in_lookback(
         proj_season: The season being projected.
         proj_week: The week being projected (1-based).
         weekly_df: Bronze player_weekly DataFrame.
+        fresh_rolling: True when the engine advanced the rolling columns to
+            include the feature row's own game (weeks 1 .. W-1); the count
+            then covers ``week < proj_week`` to match.
 
     Returns:
         Integer count of productive game-weeks in the rolling lookback.
@@ -357,7 +365,8 @@ def count_games_in_lookback(
 
     # Rolling averages cover weeks strictly before the feature row (shift-1).
     # Feature row is week W-1; rolling averages cover weeks 1 .. W-2.
-    lookback_cutoff = proj_week - 1  # weeks STRICTLY less than this
+    # weeks STRICTLY less than the cutoff; fresh_rolling covers 1 .. W-1.
+    lookback_cutoff = proj_week if fresh_rolling else proj_week - 1
     window = player_rows[
         (player_rows["season"] == proj_season)
         & (player_rows["week"] < lookback_cutoff)
@@ -441,6 +450,7 @@ def apply_veteran_prior_blend(
     min_prior_games: int = MIN_PRIOR_GAMES,
     team_change_decay: float = TEAM_CHANGE_DECAY,
     first_week_back_discount: float = FIRST_WEEK_BACK_DISCOUNT,
+    fresh_rolling: bool = False,
 ) -> pd.DataFrame:
     """Blend veteran prior stats into rolling-column values before projection.
 
@@ -475,6 +485,8 @@ def apply_veteran_prior_blend(
         team_change_decay: Lerp weight toward baseline on team change.
         first_week_back_discount: Multiplier on prior when n_games == 0
             (return-from-absence discount).
+        fresh_rolling: Passed to ``count_games_in_lookback`` so the game
+            count covers the same window as the (advanced) rolling columns.
 
     Returns:
         Modified copy of the position-filtered rows with blended rolling
@@ -497,7 +509,9 @@ def apply_veteran_prior_blend(
         current_team = row.get("recent_team", None)
 
         # Count games in lookback
-        n_games = count_games_in_lookback(player_id, proj_season, proj_week, weekly_df)
+        n_games = count_games_in_lookback(
+            player_id, proj_season, proj_week, weekly_df, fresh_rolling=fresh_rolling
+        )
 
         # Get veteran prior stats
         prior_stats = get_player_prior(

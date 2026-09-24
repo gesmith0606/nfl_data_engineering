@@ -19,6 +19,7 @@ import numpy as np
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 import logging
+import re
 
 from scoring_calculator import calculate_fantasy_points_df
 
@@ -1708,6 +1709,110 @@ def prior_season_feature_rows(
     return prior.sort_values("week").groupby("player_id", sort=False).tail(1).copy()
 
 
+_ROLLING_COL_RE = re.compile(r"^(?P<stat>.+)_(?:roll(?P<window>\d+)|std)$")
+
+
+def advance_rolling_features(
+    target_df: pd.DataFrame, silver_df: pd.DataFrame
+) -> pd.DataFrame:
+    """Re-derive rolling columns so they INCLUDE each feature row's own game.
+
+    Silver rolling columns are ``shift(1)``-lagged (the week-k row describes
+    games before k). The weekly engine projects week W from the week W-1 row,
+    so those columns stop at game W-2. This recomputes every
+    ``<stat>_roll<N>`` / ``<stat>_std`` column (stats in ``ROLLING_STAT_COLS``)
+    over the player's same-season rows with ``week <= `` the feature row's
+    week — i.e. the value the shift(1) transform would give a week-W row, with
+    games 1..W-1 and never game W. Rows with no history in ``silver_df``
+    (depth-injected rookies) keep their original values.
+
+    Args:
+        target_df: Feature rows selected for the projected week.
+        silver_df: Silver usage rows with raw per-game stat columns.
+
+    Returns:
+        Copy of ``target_df`` with advanced rolling columns.
+    """
+    from player_analytics import ROLLING_STAT_COLS
+
+    keys = ["player_id", "season"]
+    if (
+        target_df.empty
+        or silver_df.empty
+        or not set(keys + ["week"]).issubset(target_df.columns)
+        or not set(keys + ["week"]).issubset(silver_df.columns)
+    ):
+        return target_df.copy()
+
+    specs = []  # (column, stat, window or None for season-to-date)
+    for col in target_df.columns:
+        m = _ROLLING_COL_RE.match(col)
+        if m and m["stat"] in ROLLING_STAT_COLS and m["stat"] in silver_df.columns:
+            specs.append((col, m["stat"], int(m["window"]) if m["window"] else None))
+    if not specs:
+        return target_df.copy()
+
+    stats = sorted({s for _, s, _ in specs})
+    anchors = (
+        target_df[keys + ["week"]]
+        .dropna(subset=keys)
+        .drop_duplicates(keys)
+        .rename(columns={"week": "_through_week"})
+    )
+    hist = silver_df[keys + ["week"] + stats].merge(anchors, on=keys, how="inner")
+    hist = hist[hist["week"] <= hist["_through_week"]].sort_values(keys + ["week"])
+    if hist.empty:
+        return target_df.copy()
+
+    advanced = {}
+    for window in sorted({w for _, _, w in specs if w is not None}):
+        tail = hist.groupby(keys, sort=False).tail(window)
+        advanced[window] = tail.groupby(keys)[stats].mean()
+    advanced[None] = hist.groupby(keys)[stats].mean()
+
+    out = target_df.copy()
+    idx = pd.MultiIndex.from_frame(out[keys])
+    has_hist = idx.isin(advanced[None].index)
+    for col, stat, window in specs:
+        vals = advanced[window][stat].reindex(idx).to_numpy()
+        out[col] = np.where(has_hist, vals, out[col].to_numpy())
+    return out
+
+
+def bye_return_feature_rows(
+    silver_df: pd.DataFrame, season: int, week: int
+) -> pd.DataFrame:
+    """Latest rows of players whose team did not play in week ``week - 1``.
+
+    The weekly engine selects week W-1 rows, so a player whose team was on
+    bye in W-1 has no feature row and silently drops off the week-W board.
+    This returns each such player's latest in-season row, but only when he
+    played in his team's most recent game — a player who missed that game
+    (injury) stays excluded, exactly as he is when his team did play in W-1.
+
+    Args:
+        silver_df: Silver usage rows (``player_id``, ``season``, ``week``,
+            ``recent_team``).
+        season: Projected season.
+        week: Projected week W.
+
+    Returns:
+        Feature rows (may be empty) with ``week < W - 1``.
+    """
+    need = {"player_id", "season", "week", "recent_team"}
+    if week <= 2 or silver_df.empty or not need.issubset(silver_df.columns):
+        return silver_df.iloc[0:0].copy()
+    cur = silver_df[(silver_df["season"] == season) & (silver_df["week"] <= week - 1)]
+    if cur.empty:
+        return cur.copy()
+    team_last = cur.groupby("recent_team")["week"].max()
+    latest = cur.sort_values("week").groupby("player_id", sort=False).tail(1)
+    played_team_last = (
+        latest["week"].to_numpy() == latest["recent_team"].map(team_last).to_numpy()
+    )
+    return latest[played_team_last & (latest["week"] < week - 1)].copy()
+
+
 def generate_weekly_projections(
     silver_df: pd.DataFrame,
     opp_rankings: pd.DataFrame,
@@ -1721,6 +1826,8 @@ def generate_weekly_projections(
     snap_counts_df: Optional[pd.DataFrame] = None,
     route_df: Optional[pd.DataFrame] = None,
     depth_charts_df: Optional[pd.DataFrame] = None,
+    fresh_rolling: bool = True,
+    include_bye_returns: bool = True,
 ) -> pd.DataFrame:
     """
     Generate weekly projections for all fantasy-relevant positions.
@@ -1792,6 +1899,15 @@ def generate_weekly_projections(
                         in Week 1 adds starter/backup players who have no
                         prior-season row (rookies) to the board. If None,
                         rookies keep the usage-based tier (backward-compatible).
+        fresh_rolling:  Re-derive the feature row's rolling columns so they
+                        include that row's own game (week W uses games 1..W-1).
+                        Default True (SHIPPED 2026-09-23). False reproduces the
+                        pre-fix double lag (the W-1 row's shift(1) columns stop
+                        at game W-2). See ``.planning/WEEKLY_DOUBLE_LAG_GATE.md``.
+        include_bye_returns: If True, also project players whose team was on
+                        bye in W-1 (no W-1 row) from their latest row, provided
+                        they played their team's last game. Default True;
+                        False reproduces the pre-fix board that dropped them.
 
     Returns:
         Combined DataFrame with projections for QB/RB/WR/TE, sorted by
@@ -1832,6 +1948,40 @@ def generate_weekly_projections(
         logger.warning(
             f"Week {week} not found; using week {latest_week} as feature source"
         )
+
+    if include_bye_returns and week > 2:
+        returns = bye_return_feature_rows(silver_df, season, week)
+        if not returns.empty and "player_id" in target_df.columns:
+            returns = returns[~returns["player_id"].isin(target_df["player_id"])]
+            if not returns.empty:
+                target_df = pd.concat([target_df, returns], ignore_index=True)
+                logger.info(
+                    "Week %d: added %d player(s) whose team was on bye in week %d",
+                    week,
+                    len(returns),
+                    week - 1,
+                )
+
+    if fresh_rolling:
+        # The selected rows' rolling columns are shift(1)-lagged and so stop
+        # one game before the row's own game; advance them to include it.
+        before = target_df
+        target_df = advance_rolling_features(target_df, silver_df)
+        roll_cols = [c for c in target_df.columns if c.endswith("_roll3")]
+        if roll_cols:
+            changed = (
+                ~before[roll_cols]
+                .fillna(-1e9)
+                .eq(target_df[roll_cols].fillna(-1e9))
+                .all(axis=1)
+            )
+            logger.info(
+                "Week %d fresh rolling: %d/%d feature rows now include their "
+                "own game (week W uses games 1..W-1)",
+                week,
+                int(changed.sum()),
+                len(target_df),
+            )
 
     depth = depth_chart_roles(depth_charts_df)
     depth_roles = dict(zip(depth["player_id"], depth["depth_role"]))
@@ -1939,6 +2089,7 @@ def generate_weekly_projections(
                         min_prior_games=VETERAN_PRIOR_MIN_GAMES,
                         team_change_decay=VETERAN_PRIOR_TEAM_CHANGE_DECAY,
                         first_week_back_discount=VETERAN_PRIOR_FIRST_WEEK_BACK_DISCOUNT,
+                        fresh_rolling=fresh_rolling,
                     )
                     if not blended_pos.empty:
                         blended_parts.append(blended_pos)
