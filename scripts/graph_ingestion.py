@@ -24,6 +24,7 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from graph_db import GraphDB
+from utils import latest_parquet_per_dir
 
 logging.basicConfig(
     level=logging.INFO,
@@ -60,7 +61,8 @@ def _read_bronze(subdir: str, season: int) -> pd.DataFrame:
         pattern_w = os.path.join(
             BRONZE_DIR, subdir, f"season={season}", "week=*", "*.parquet"
         )
-        files_w = sorted(glob.glob(pattern_w))
+        # Latest snapshot per week partition (re-ingests leave old files).
+        files_w = latest_parquet_per_dir(pattern_w)
         if files_w:
             dfs = [pd.read_parquet(f) for f in files_w]
             return pd.concat(dfs, ignore_index=True)

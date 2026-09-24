@@ -47,7 +47,7 @@ from kicker_analytics import (  # noqa: E402
 )
 from kicker_projection import generate_kicker_projections  # noqa: E402
 from scoring_calculator import list_scoring_formats  # noqa: E402
-from utils import download_latest_parquet  # noqa: E402
+from utils import download_latest_parquet, latest_parquet_per_dir  # noqa: E402
 from sleeper_consensus_anchor import (  # noqa: E402
     SUPPORTED_POSITIONS as SUPPORTED_CONSENSUS_ANCHOR_POSITIONS,
     apply_sleeper_anchors,
@@ -1333,13 +1333,15 @@ def main():
         # Load snap counts for the RB snap-collapse correction (week-
         # partitioned Bronze; prior season included so the trailing snap
         # window spans the season boundary). The engine lags internally —
-        # week-t snaps never influence the week-t signal.
+        # week-t snaps never influence the week-t signal. Latest snapshot per
+        # week partition only: every re-ingest rewrites all weeks, and
+        # reading both snapshots duplicated player-weeks (2026-09-22).
         snap_parts = []
         for s in (args.season - 1, args.season):
             snap_pattern = os.path.join(
                 BRONZE_DIR, f"players/snaps/season={s}/week=*/*.parquet"
             )
-            snap_files = sorted(globmod.glob(snap_pattern))
+            snap_files = latest_parquet_per_dir(snap_pattern)
             if snap_files:
                 snap_parts.append(
                     pd.concat(
