@@ -25,6 +25,7 @@ import datetime as dt
 import glob
 import importlib.util
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
@@ -40,15 +41,18 @@ from src.lineup_setter import (  # noqa: E402
     ET,
     MIN_WEEKLY_ROWS,
     SKILL_POSITIONS,
+    InjuryContext,
     build_rows,
     full_name_map,
     kickoffs_for_week,
     lineup_deltas,
+    official_reports,
     ours_by_sleeper_id,
     preseason_to_weekly,
     render,
     roster_gsis_map,
     score_ours,
+    sleeper_to_gsis,
     weekly_gold_to_stats,
 )
 from src.sleeper_player_map import load_sleeper_players  # noqa: E402
@@ -56,6 +60,12 @@ from src.sleeper_player_map import load_sleeper_players  # noqa: E402
 GOLD = REPO_ROOT / "data" / "gold" / "projections"
 SCHEDULES = REPO_ROOT / "data" / "bronze" / "schedules"
 ROSTERS = REPO_ROOT / "data" / "bronze" / "players" / "rosters"
+INJURIES = REPO_ROOT / "data" / "bronze" / "players" / "injuries"
+SENTIMENT = REPO_ROOT / "data" / "gold" / "sentiment"
+# Injury tags go stale within a day in-season; the registry's default 7-day
+# cache showed DJ Moore "Out" for a week after Sleeper had moved him to Q.
+REGISTRY_MAX_AGE_DAYS = 0.25
+_SNAP_TS = re.compile(r"(\d{8}_\d{6})")
 
 
 def _latest(pattern: str, exclude: str = "derived") -> Optional[Path]:
@@ -107,6 +117,92 @@ def load_ours(season: int, week: int) -> Tuple[pd.DataFrame, str]:
         preseason_to_weekly(pd.read_parquet(pre)),
         f"preseason pace {pre.name} (season/17)",
     )
+
+
+def load_injury_snapshots(season: int) -> pd.DataFrame:
+    """Every Bronze nflverse injuries snapshot for *season*, with ``snapshot_at``.
+
+    Each file is a full season-to-date pull (one practice status per
+    player-week), so the daily snapshots are the only record of how a player's
+    practice week went. Refreshed daily by ``daily-sentiment.yml``.
+    """
+    frames = []
+    for f in sorted(
+        glob.glob(str(INJURIES / f"season={season}" / "injuries_*.parquet"))
+    ):
+        m = _SNAP_TS.search(os.path.basename(f))
+        if not m:
+            continue
+        df = pd.read_parquet(f)
+        frames.append(
+            df.assign(snapshot_at=dt.datetime.strptime(m.group(1), "%Y%m%d_%H%M%S"))
+        )
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+
+def sentiment_flags(season: int, week: int) -> Dict[str, str]:
+    """``gsis player_id -> "ruled_out,questionable"`` from the week's latest Gold
+    sentiment file (falls back to the latest file of any week)."""
+    files = sorted(
+        glob.glob(
+            str(SENTIMENT / f"season={season}" / f"week={week:02d}" / "*.parquet")
+        )
+    ) or sorted(glob.glob(str(SENTIMENT / "season=*" / "week=*" / "*.parquet")))
+    if not files:
+        return {}
+    df = pd.read_parquet(files[-1])
+    flags = [c for c in df.columns if c.startswith("is_")]
+    out: Dict[str, str] = {}
+    for row in df.itertuples(index=False):
+        tags = [c[3:] for c in flags if getattr(row, c)]
+        if tags:
+            out[str(row.player_id)] = ",".join(tags)
+    return out
+
+
+def injury_context(
+    season: int,
+    week: int,
+    registry: Dict[str, Any],
+    gsis_map: Dict[str, str],
+    weekly: pd.DataFrame,
+) -> InjuryContext:
+    """Official report for *week* + who played week-1, for resolve_injury_status."""
+    snaps = load_injury_snapshots(season)
+    reports, teams = official_reports(snaps, week)
+    played_prev = None
+    if (
+        weekly is not None
+        and not weekly.empty
+        and {"week", "player_id"} <= set(weekly.columns)
+    ):
+        if (weekly["week"] == week - 1).any():
+            played_prev = set(
+                weekly.loc[weekly["week"] == week - 1, "player_id"].astype(str)
+            )
+    if snaps.empty:
+        print(f"Injury report: no {season} snapshots in {INJURIES} — Sleeper tags only")
+    else:
+        print(
+            f"Injury report: week {week} official lines for {len(reports)} players "
+            f"({len(teams)} teams); latest snapshot "
+            f"{snaps['snapshot_at'].max():%Y-%m-%d %H:%M}"
+        )
+    return InjuryContext(
+        week=week,
+        reports=reports,
+        teams_reported=teams,
+        played_prev=played_prev,
+        gsis_by_sleeper=sleeper_to_gsis(registry, gsis_map),
+    )
+
+
+def news_by_sleeper(
+    flags_by_gsis: Dict[str, str], registry: Dict[str, Any], gsis_map: Dict[str, str]
+) -> Dict[str, str]:
+    """Re-key gsis sentiment flags onto Sleeper ids."""
+    to_sid = {g: s for s, g in sleeper_to_gsis(registry, gsis_map).items()}
+    return {to_sid[g]: f for g, f in flags_by_gsis.items() if g in to_sid}
 
 
 def load_sleeper_projections(season: int, week: int) -> Dict[str, Dict[str, Any]]:
@@ -193,7 +289,7 @@ def main(argv: Optional[list] = None) -> int:
     roster_positions = league.get("roster_positions") or []
     scoring = league.get("scoring_settings") or {}
     mine = find_my_roster(league_id, username)
-    registry = load_sleeper_players()
+    registry = load_sleeper_players(max_age_days=REGISTRY_MAX_AGE_DAYS)
 
     ours_df, ours_label = load_ours(season, week)
     roster_files = sorted(
@@ -208,11 +304,15 @@ def main(argv: Optional[list] = None) -> int:
         glob.glob(str(REPO_ROOT / "data/bronze/players/weekly/season=*/*.parquet"))
     )
     weekly = pd.read_parquet(weekly_files[-1]) if weekly_files else pd.DataFrame()
+    gsis_map = roster_gsis_map(rosters)
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring),
         registry,
-        gsis_map=roster_gsis_map(rosters),
+        gsis_map=gsis_map,
         full_names=full_name_map(rosters, weekly),
+    )
+    this_season_weekly = (
+        weekly[weekly["season"] == season] if "season" in weekly.columns else weekly
     )
     sleeper_proj = load_sleeper_projections(season, week)
 
@@ -237,6 +337,8 @@ def main(argv: Optional[list] = None) -> int:
         scoring_settings=scoring,
         kickoffs=kickoffs,
         now=dt.datetime.now(tz=ET),
+        injury_ctx=injury_context(season, week, registry, gsis_map, this_season_weekly),
+        news=news_by_sleeper(sentiment_flags(season, week), registry, gsis_map),
     )
     deltas = lineup_deltas(rows, threshold=args.threshold)
     header = (

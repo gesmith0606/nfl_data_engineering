@@ -12,7 +12,10 @@ room ADP rank and an ``FA?`` guess (undrafted by ADP) that you must verify on th
 
 Columns: OURS = our weekly Gold projection, SLPR = Sleeper's weekly projection,
 BLEND = mean of the two, LAST = last week's actual under the same scoring,
-ADDS = Sleeper trending adds (48h, thousands), NEWS = Gold sentiment flags.
+ADDS = Sleeper trending adds (48h, thousands), NEWS = Gold sentiment flags,
+then the injury status: the official NFL report for the week when posted
+(game status + practice trail), else Sleeper's tag labelled with where it came
+from (``from wk2 game, not a wk3 ruling``) and how old Sleeper's news is.
 Drop candidates are the lowest-BLEND bench players (K/DEF are not scored here).
 """
 
@@ -36,6 +39,7 @@ from src.lineup_setter import (  # noqa: E402
     build_id_maps,
     full_name_map,
     ours_by_sleeper_id,
+    resolve_injury_status,
     roster_gsis_map,
     score_ours,
     score_sleeper_stats,
@@ -107,22 +111,6 @@ def last_week_actuals(
     return score_ours(df[[c for c in keep if c in df.columns]].copy(), scoring)
 
 
-def sentiment_flags() -> Dict[str, str]:
-    files = sorted(
-        glob.glob(str(GOLD / "sentiment" / "season=*" / "week=*" / "*.parquet"))
-    )
-    if not files:
-        return {}
-    df = pd.read_parquet(files[-1])
-    flags = [c for c in df.columns if c.startswith("is_")]
-    out: Dict[str, str] = {}
-    for row in df.itertuples(index=False):
-        tags = [c[3:] for c in flags if getattr(row, c)]
-        if tags:
-            out[str(row.player_id)] = ",".join(tags)
-    return out
-
-
 def adp_rank_map(platform: str) -> Dict[str, int]:
     path = REPO_ROOT / "data" / "adp" / ADP_FILES.get(platform, "")
     if not path.is_file():
@@ -191,8 +179,8 @@ def main(argv: Optional[list] = None) -> int:
         season, week = set_lineups._default_week(args.season)
         week = args.week or week
 
-    registry = load_sleeper_players()
-    by_gsis, by_name = build_id_maps(registry)
+    registry = load_sleeper_players(max_age_days=set_lineups.REGISTRY_MAX_AGE_DAYS)
+    _, by_name = build_id_maps(registry)
     league = None
     rostered: Set[str] = set()
     mine: List[str] = []
@@ -239,9 +227,9 @@ def main(argv: Optional[list] = None) -> int:
     weekly_files = sorted(
         glob.glob(str(BRONZE / "players" / "weekly" / f"season={season}" / "*.parquet"))
     )
-    names = full_name_map(
-        rosters_df, pd.read_parquet(weekly_files[-1]) if weekly_files else None
-    )
+    weekly_df = pd.read_parquet(weekly_files[-1]) if weekly_files else pd.DataFrame()
+    names = full_name_map(rosters_df, weekly_df)
+    injury_ctx = set_lineups.injury_context(season, week, registry, gsis_map, weekly_df)
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
@@ -256,9 +244,9 @@ def main(argv: Optional[list] = None) -> int:
         str(t["player_id"]): t["count"]
         for t in (sleeper_http.fetch_sleeper_json(TRENDING_URL) or [])
     }
-    news_by_gsis = sentiment_flags()
-    gsis_to_sid = {**by_gsis, **gsis_map}
-    news = {gsis_to_sid[g]: f for g, f in news_by_gsis.items() if g in gsis_to_sid}
+    news = set_lineups.news_by_sleeper(
+        set_lineups.sentiment_flags(season, week), registry, gsis_map
+    )
     adp = adp_rank_map(platform) if platform != "sleeper" else {}
     draft_size = preset["teams"] * sum(config.ROSTER_CONFIGS[preset["roster"]].values())
 
@@ -291,7 +279,7 @@ def main(argv: Optional[list] = None) -> int:
             "blend": sum(both) / len(both),
             "last": last.get(sid),
             "adds": adds.get(sid, 0),
-            "inj": meta.get("injury_status") or "",
+            "inj": getattr(resolve_injury_status(sid, meta, injury_ctx), "text", ""),
             "news": news.get(sid, ""),
             "adp": adp_rank(sid, meta),
         }
@@ -311,7 +299,7 @@ def main(argv: Optional[list] = None) -> int:
             f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
-            f" {r['inj']:4} {r['news']}"
+            f" {r['news']}{'  ' if r['news'] and r['inj'] else ''}{r['inj']}"
         )
 
     print(f"\n=== {title} — {season} week {week} waivers ===")
