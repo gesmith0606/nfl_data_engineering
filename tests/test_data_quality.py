@@ -401,7 +401,11 @@ def _write_parquet_with_age(
     fake = directory / name
     # Content is irrelevant for freshness checks -- only stat().st_mtime is used.
     fake.write_bytes(b"PAR1")  # arbitrary parquet-like magic bytes
-    target_mtime = time.time() - (age_days * 86400)
+    # +1h margin: backdating by exactly N*86400s sits on the integer-day
+    # boundary, and datetime.now() (read later by check_local_freshness) can
+    # land a microsecond behind time.time() on Windows -> "9 days,
+    # 23:59:59.999999" -> .days == 9. The margin keeps .days == age_days.
+    target_mtime = time.time() - (age_days * 86400 + 3600)
     os.utime(fake, (target_mtime, target_mtime))
 
 
