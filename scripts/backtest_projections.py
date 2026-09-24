@@ -56,6 +56,7 @@ from sleeper_consensus_anchor import (
     resolve_sleeper_anchor_configs,
 )
 from wind_adjust import apply_wind_adjust
+from utils import latest_parquet_per_dir
 
 try:
     from ml_projection_router import generate_ml_projections
@@ -661,11 +662,13 @@ def run_backtest(
             has_lines = {"total_line", "spread_line"}.issubset(schedules_df.columns)
             print(f"  Constraints enabled — Vegas lines available: {has_lines}")
 
-    # Load snap counts across all backtest seasons (week-partitioned Bronze)
+    # Load snap counts across all backtest seasons (week-partitioned Bronze;
+    # latest snapshot per week partition — a re-ingest leaves the old file
+    # beside the new one and reading both duplicates every player-week).
     snap_dfs = []
     for s in sorted(all_seasons):
         snap_pattern = os.path.join(bronze_dir, f"players/snaps/season={s}/week=*/*.parquet")
-        snap_files = sorted(globmod.glob(snap_pattern))
+        snap_files = latest_parquet_per_dir(snap_pattern)
         if snap_files:
             season_snaps = pd.concat(
                 [pd.read_parquet(f) for f in snap_files], ignore_index=True

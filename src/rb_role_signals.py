@@ -63,6 +63,8 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
+from utils import latest_parquet_per_dir
+
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -233,7 +235,10 @@ def _read_snaps(seasons: List[int]) -> pd.DataFrame:
             "week=*",
             "*.parquet",
         )
-        files = sorted(glob.glob(pattern))
+        # One file per week partition: re-ingesting writes a new timestamped
+        # snapshot next to the old one, and concatenating both duplicates
+        # every player-week (2026-09-22 snap-collapse TypeError).
+        files = latest_parquet_per_dir(pattern)
         if not files:
             logger.debug("No snap files for season %d", season)
             continue
@@ -548,6 +553,21 @@ def compute_snap_trend_signals(
                 "snap_share_collapsing",
             ]
         )
+
+    # Grain guard: one row per (team, player, season, week). A duplicated
+    # player-week (e.g. two Bronze snapshots of the same week concatenated by
+    # a loader) makes ``all_weeks[w]`` below return a Series and ``float()``
+    # raise. Keep the last row so the newest snapshot wins.
+    grain = ["team", "player", "season", "week"]
+    n_dup = int(snaps.duplicated(subset=grain).sum())
+    if n_dup:
+        logger.warning(
+            "compute_snap_trend_signals: dropped %d duplicated player-week "
+            "snap row(s) (keeping the last) -- check the loader reads one "
+            "snapshot per week partition",
+            n_dup,
+        )
+        snaps = snaps.drop_duplicates(subset=grain, keep="last")
 
     # Attach player_id if we have a mapping table
     if player_weekly is not None and not player_weekly.empty:

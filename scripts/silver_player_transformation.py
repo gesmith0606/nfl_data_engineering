@@ -27,6 +27,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from config import DEFAULT_SEASON
 from nfl_data_integration import NFLDataFetcher
+from utils import latest_parquet_per_dir
 from player_analytics import (
     compute_usage_metrics,
     compute_opponent_rankings,
@@ -110,7 +111,8 @@ def _read_local_bronze(data_type: str, season: int) -> pd.DataFrame:
     """Read the latest parquet file from local Bronze directory.
 
     For snap_counts, reads from players/snaps/ (week-partitioned) and
-    concatenates all week files for the season.  For other data types,
+    concatenates the latest file of each week partition for the season (a
+    re-ingest leaves the old snapshot beside the new one).  For other data types,
     reads the latest file from players/{data_type}/season={season}/.
     """
     if data_type == 'snap_counts':
@@ -118,7 +120,7 @@ def _read_local_bronze(data_type: str, season: int) -> pd.DataFrame:
         pattern = os.path.join(
             BRONZE_DIR, 'players', 'snaps', f'season={season}', 'week=*', '*.parquet',
         )
-        files = sorted(globmod.glob(pattern))
+        files = latest_parquet_per_dir(pattern)
         if not files:
             return pd.DataFrame()
         return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)

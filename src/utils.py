@@ -17,7 +17,7 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 import pandas as pd
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 # boto3 is an optional dependency at module-import time. Production
 # Railway image runs only the FastAPI surface and doesn't ship boto3 in
@@ -355,6 +355,31 @@ def download_latest_parquet(
     finally:
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
+
+
+def latest_parquet_per_dir(pattern: str) -> List[str]:
+    """Local analogue of ``download_latest_parquet`` for partitioned globs.
+
+    Re-running Bronze ingestion writes a new timestamped file into each
+    partition directory (e.g. ``snaps/season=2026/week=1/``) rather than
+    replacing the old one, so globbing ``week=*/*.parquet`` and concatenating
+    every match double-counts each re-ingested partition. This keeps only the
+    newest file (lexicographically last ``*_YYYYMMDD_HHMMSS`` name) per
+    directory.
+
+    Args:
+        pattern: Glob pattern for Parquet files, e.g.
+            ``".../snaps/season=2026/week=*/*.parquet"``.
+
+    Returns:
+        Sorted list of file paths, at most one per directory.
+    """
+    import glob
+
+    latest: Dict[str, str] = {}
+    for path in sorted(glob.glob(pattern)):
+        latest[os.path.dirname(path)] = path
+    return sorted(latest.values())
 
 
 def get_script_sha(script_path: str) -> Dict[str, Any]:
