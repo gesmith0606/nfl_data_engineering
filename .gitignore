@@ -259,6 +259,12 @@ data/gold/*
 !data/gold/predictions/**
 # Allow parquet files specifically inside data/gold/predictions
 !data/gold/predictions/**/*.parquet
+# Early-season-prior SHADOW boards (2026 weeks 3-6): committed by the
+# weekly cron for live grading (scripts/grade_shadow.py); never served —
+# see .planning/EARLY_SEASON_PRIOR_GATE.md "Shadow run".
+!data/gold/projections_shadow/
+!data/gold/projections_shadow/**
+!data/gold/projections_shadow/**/*.parquet
 # UC3 correlation edges: served by /api/players/{id}/correlations and the
 # lineups stacks block — deployment reads local parquet (TD-09 pattern)
 !data/gold/correlations/

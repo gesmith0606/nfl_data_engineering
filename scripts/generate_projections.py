@@ -15,6 +15,7 @@ import sys
 import os
 import argparse
 import logging
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
@@ -58,6 +59,46 @@ PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 SILVER_DIR = os.path.join(PROJECT_ROOT, "data", "silver")
 BRONZE_DIR = os.path.join(PROJECT_ROOT, "data", "bronze")
 GOLD_DIR = os.path.join(PROJECT_ROOT, "data", "gold")
+
+#: Gold sub-root for SHADOW boards (``--shadow-tag``). Deliberately a sibling
+#: of ``projections/`` -- never inside it -- so no prod reader (web API,
+#: sanity check, check_ml_output, grading) can pick a shadow board up as
+#: "latest". See .planning/EARLY_SEASON_PRIOR_GATE.md "Shadow run".
+SHADOW_GOLD_ROOT = "projections_shadow"
+_SHADOW_TAG_RE = re.compile(r"^[a-z0-9][a-z0-9_]*$")
+
+
+def weekly_projection_key(
+    season: int,
+    week: int,
+    scoring: str,
+    ts: str,
+    shadow_tag: Optional[str] = None,
+) -> str:
+    """Build the Gold key (relative to ``data/gold/``) for a weekly board.
+
+    Args:
+        season: NFL season.
+        week: NFL week (written unpadded, matching every existing reader).
+        scoring: Scoring format (encoded in the filename).
+        ts: ``YYYYMMDD_HHMMSS`` run timestamp.
+        shadow_tag: When set, the board goes to
+            ``projections_shadow/<tag>/season=/week=/`` instead of the prod
+            serving path ``projections/season=/week=/``.
+
+    Returns:
+        Relative key, e.g.
+        ``projections/season=2026/week=3/projections_half_ppr_<ts>.parquet``.
+
+    Raises:
+        ValueError: If ``shadow_tag`` is not a safe lowercase path component.
+    """
+    if shadow_tag is not None and not _SHADOW_TAG_RE.match(shadow_tag):
+        raise ValueError(
+            f"invalid shadow tag {shadow_tag!r}: use lowercase letters, digits, _"
+        )
+    prefix = f"{SHADOW_GOLD_ROOT}/{shadow_tag}" if shadow_tag else "projections"
+    return f"{prefix}/season={season}/week={week}/projections_{scoring}_{ts}.parquet"
 
 
 def _load_implied_totals(
@@ -615,12 +656,31 @@ def main():
             "Phase 61-03 backtest SHIP gate."
         ),
     )
+    parser.add_argument(
+        "--shadow-tag",
+        default=None,
+        help=(
+            "Write a SHADOW weekly board to data/gold/projections_shadow/<tag>/"
+            "season=YYYY/week=W/ instead of the prod serving path, and never "
+            "upload it to S3. Used by the weekly cron to run opt-in levers "
+            "(e.g. --early-season-prior) alongside production without "
+            "publishing them. Weekly mode only."
+        ),
+    )
     args = parser.parse_args()
 
     if not args.preseason and not args.week:
         parser.error(
             "Specify --week N for weekly projections or --preseason for draft projections"
         )
+    if args.shadow_tag is not None:
+        if args.preseason:
+            parser.error("--shadow-tag is weekly-mode only")
+        if not _SHADOW_TAG_RE.match(args.shadow_tag):
+            parser.error(
+                f"--shadow-tag {args.shadow_tag!r} must be lowercase letters, "
+                "digits and underscores"
+            )
 
     creds = {
         "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
@@ -2059,11 +2119,13 @@ def main():
             else:
                 print("WARN: No PBP data available for kicker projections")
 
-        s3_key = (
-            f"projections/season={args.season}/week={args.week}/"
-            f"projections_{args.scoring}_{ts}.parquet"
+        s3_key = weekly_projection_key(
+            args.season, args.week, args.scoring, ts, shadow_tag=args.shadow_tag
         )
-        local_name = f"week{args.week}_{args.season}_{args.scoring}_{ts}.csv"
+        shadow_suffix = f"_shadow_{args.shadow_tag}" if args.shadow_tag else ""
+        local_name = (
+            f"week{args.week}_{args.season}_{args.scoring}_{ts}{shadow_suffix}.csv"
+        )
 
     if projections.empty:
         print("ERROR: No projections generated. Check that data is available.")
@@ -2188,7 +2250,9 @@ def main():
     projections.to_parquet(gold_path, index=False)
     print(f"Saved Gold -> data/gold/{s3_key}")
 
-    if args.output in ("s3", "both") and has_aws:
+    if args.shadow_tag:
+        print("Shadow board: S3 upload skipped (never published)")
+    elif args.output in ("s3", "both") and has_aws:
         try:
             upload_df(projections, gold_bucket, s3_key, creds)
         except Exception as e:
