@@ -1,4 +1,4 @@
-# Feetball 2026 (Yahoo, The Oracle = /f1/658684/10) — read from the team page 2026-09-21.
+# Feetball 2026 (Yahoo, The Oracle = /f1/658684/10) — read from the team page 2026-09-24 (Tucker claimed wk3, Johnston dropped).
 # Update after every add/drop. K/DST are not scored by waiver_wire.py. A.J. Brown is in the IR slot.
 Jalen Hurts
 Christian McCaffrey
@@ -10,7 +10,7 @@ Colston Loveland
 Ashton Jeanty
 Ladd McConkey
 Jadarian Price
-Quentin Johnston
+Tre Tucker
 Brian Thomas Jr.
 Jacory Croskey-Merritt
 Kyle Monangai
