@@ -215,9 +215,12 @@ for a sudden role change.
    shrinkage. Bias is still −0.55 on the heuristic and −0.88 on `--ml`, so
    re-tuning under the fresh lag could gain more.
 4. **Local-run warnings (all in the pre-fix runs too):**
-   - `RB snap-collapse correction failed ... cannot convert the series`
+   - `RB snap-collapse correction failed ... cannot convert the series`.
+     PR #122 fixes this: duplicated week partitions after the snap
+     re-ingest.
    - The 2026 Silver snap join matched only 52% of rows, with a fan-out
-     warning.
+     warning. This probably has the same duplicate-partition root cause.
    - No 2026 route-participation data.
 
-   Worth checking in GHA.
+   All of these warnings appear in both the before and after runs, so the
+   comparisons above are unaffected.
