@@ -74,6 +74,8 @@ class PlayerRow:
     slot: Optional[str] = None  # current starting slot, None if benched
     slot_index: int = 999  # position of that slot in roster_positions (render order)
     notes: List[str] = field(default_factory=list)
+    # Sleeper Out/Doubtful not confirmed by the week's official report.
+    status_unconfirmed: bool = False
 
     @property
     def blend(self) -> float:
@@ -244,6 +246,214 @@ def ours_by_sleeper_id(
     return out
 
 
+def sleeper_to_gsis(
+    registry: Dict[str, Dict[str, Any]], gsis_map: Optional[Dict[str, str]] = None
+) -> Dict[str, str]:
+    """``sleeper_id -> gsis_id``: the registry's own ``gsis_id``, else the
+    inverted Bronze roster crosswalk (``roster_gsis_map``)."""
+    out = {sid: str(g) for g, sid in (gsis_map or {}).items()}
+    for sid, meta in registry.items():
+        if isinstance(meta, dict) and meta.get("gsis_id"):
+            out[str(sid)] = str(meta["gsis_id"])
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Injury status: official report for the upcoming week vs Sleeper's tag
+# ---------------------------------------------------------------------------
+#
+# Sleeper's ``injury_status`` carries the LAST game's ruling until the next one
+# is posted: DJ Moore showed "Out" all of 2026 week 3 prep after leaving the
+# week 2 Thursday game, while the news said day-to-day. The official NFL report
+# (nflverse injuries, one snapshot per daily ingest) is the week-N ruling.
+
+_GAME_STATUS_ABBR = {"Out": "Out", "Doubtful": "D", "Questionable": "Q"}
+_PRACTICE_ABBR = {
+    "did not participate in practice": "DNP",
+    "limited participation in practice": "LP",
+    "full participation in practice": "FP",
+}
+# Sleeper tags that are per-game rulings (and go stale); IR/PUP/Sus are roster
+# designations and stay authoritative.
+_GAME_RULING_TAGS = {"Out", "Doubtful", "Questionable"}
+# Tags that would bench a starter (Sleeper zeroes its projection for these).
+BENCHING_TAGS = {"Out", "Doubtful"}
+
+
+@dataclass(frozen=True)
+class OfficialReport:
+    """One player's line on the official injury report for a week."""
+
+    game_status: Optional[str]  # Out / Doubtful / Questionable, None pre-Friday
+    injury: Optional[str]
+    practice: Tuple[str, ...]  # DNP/LP/FP trail across snapshots, repeats collapsed
+    as_of: Optional[dt.datetime]  # snapshot the latest line came from
+
+
+@dataclass
+class InjuryContext:
+    """Everything :func:`resolve_injury_status` needs besides the registry row.
+
+    ``reports``: gsis -> official line for ``week``; ``teams_reported``: teams
+    (nflverse codes) with any row on that week's report; ``played_prev``: gsis
+    ids with a week ``week - 1`` stat line (None = unknown); ``gsis_by_sleeper``
+    from :func:`sleeper_to_gsis`.
+    """
+
+    week: int
+    reports: Dict[str, OfficialReport] = field(default_factory=dict)
+    teams_reported: set = field(default_factory=set)
+    played_prev: Optional[set] = None
+    gsis_by_sleeper: Dict[str, str] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class InjuryStatus:
+    text: str
+    # A Sleeper Out/Doubtful tag the week's official report does not confirm:
+    # never bench a starter on it (lineup_deltas -> CHECK STATUS).
+    unconfirmed_bench_tag: bool = False
+
+
+def _abbr_practice(val: Any) -> Optional[str]:
+    if val is None or (isinstance(val, float) and pd.isna(val)):
+        return None
+    return _PRACTICE_ABBR.get(str(val).strip().lower(), str(val))
+
+
+def _clean(val: Any) -> Optional[str]:
+    if val is None or (isinstance(val, float) and pd.isna(val)) or val == "":
+        return None
+    return str(val)
+
+
+def official_reports(
+    snapshots: pd.DataFrame, week: int
+) -> Tuple[Dict[str, OfficialReport], set]:
+    """Build the week's official report from nflverse injury snapshots.
+
+    ``snapshots`` is every Bronze injuries file for the season concatenated,
+    with a ``snapshot_at`` column (the file's ingest timestamp). The latest
+    snapshot holding any row for ``week`` is the current report; earlier ones
+    only contribute the practice trail (nflverse keeps one practice status per
+    player-week, so the daily snapshots are what show DNP -> LP -> FP).
+
+    Returns ``(gsis_id -> OfficialReport, teams on that week's report)``.
+    """
+    if snapshots is None or snapshots.empty or "week" not in snapshots.columns:
+        return {}, set()
+    wk = snapshots[snapshots["week"] == week].dropna(subset=["gsis_id"])
+    if wk.empty:
+        return {}, set()
+    latest_at = wk["snapshot_at"].max()
+    latest = wk[wk["snapshot_at"] == latest_at]
+    history = wk.sort_values("snapshot_at")
+    reports: Dict[str, OfficialReport] = {}
+    for row in latest.itertuples(index=False):
+        gsis = str(row.gsis_id)
+        trail: List[str] = []
+        for val in history.loc[history["gsis_id"] == row.gsis_id, "practice_status"]:
+            abbr = _abbr_practice(val)
+            if abbr and (not trail or trail[-1] != abbr):
+                trail.append(abbr)
+        reports[gsis] = OfficialReport(
+            game_status=_clean(getattr(row, "report_status", None)),
+            injury=_clean(getattr(row, "report_primary_injury", None))
+            or _clean(getattr(row, "practice_primary_injury", None)),
+            practice=tuple(trail),
+            as_of=latest_at if isinstance(latest_at, dt.datetime) else None,
+        )
+    return reports, set(latest["team"].dropna().astype(str))
+
+
+def _age(then: dt.datetime, now: dt.datetime) -> str:
+    hours = (now - then).total_seconds() / 3600
+    return f"{hours:.0f}h" if hours < 48 else f"{hours / 24:.0f}d"
+
+
+def resolve_injury_status(
+    sleeper_id: str,
+    meta: Dict[str, Any],
+    ctx: InjuryContext,
+    now: Optional[dt.datetime] = None,
+) -> Optional[InjuryStatus]:
+    """One display string for a player's injury status, official report first.
+
+    * On the week's official report -> ``wk3 Q (Shoulder), practice DNP>LP``;
+      a Sleeper Out/Doubtful the report does not confirm is flagged.
+    * Team's report is out but the player is not on it -> any Sleeper
+      game-ruling tag is stale (``not on BUF wk3 report``).
+    * No report yet -> the Sleeper tag, labelled with where it came from
+      (``from wk2 game, not a wk3 ruling`` when he played last week) and the
+      age of Sleeper's ``news_updated``.
+    """
+    now = now or dt.datetime.now(tz=ET)
+    week = ctx.week
+    tag = _clean(meta.get("injury_status"))
+    body = _clean(meta.get("injury_body_part"))
+    sl_practice = _clean(meta.get("practice_participation"))
+    news_ms = meta.get("news_updated")
+    news_age = None
+    if news_ms:
+        try:
+            news_at = dt.datetime.fromtimestamp(float(news_ms) / 1000, tz=ET)
+            news_age = f"news {_age(news_at, now)} old"
+        except (ValueError, TypeError, OverflowError):
+            news_age = None
+
+    gsis = ctx.gsis_by_sleeper.get(str(sleeper_id))
+    report = ctx.reports.get(gsis) if gsis else None
+    team = str(meta.get("team") or "")
+    team = _TEAM_ALIAS.get(team, team)
+
+    if report is not None:
+        parts = []
+        if report.game_status:
+            status = _GAME_STATUS_ABBR.get(report.game_status, report.game_status)
+            parts.append(
+                f"wk{week} {status}" + (f" ({report.injury})" if report.injury else "")
+            )
+        else:
+            parts.append(
+                f"wk{week} report"
+                + (f" ({report.injury})" if report.injury else "")
+                + ", no game status yet"
+            )
+        if report.practice:
+            parts.append("practice " + ">".join(report.practice))
+        if report.as_of is not None:
+            parts.append(f"report {report.as_of:%m-%d}")
+        confirmed = report.game_status in BENCHING_TAGS
+        unconfirmed = tag in BENCHING_TAGS and not confirmed
+        if unconfirmed:
+            parts.append(f"Sleeper still says {tag}")
+        return InjuryStatus(", ".join(parts), unconfirmed)
+
+    if tag is None:
+        return None
+    label = f"Sleeper: {tag}" + (f" ({body})" if body else "")
+    if tag not in _GAME_RULING_TAGS:  # IR / PUP / Sus: roster designation
+        return InjuryStatus(", ".join(p for p in (label, news_age) if p))
+    if team in ctx.teams_reported:
+        where = f"not on {team} wk{week} report"
+        stale = True
+    elif week > 1 and ctx.played_prev is not None and gsis:
+        stale = gsis in ctx.played_prev
+        where = (
+            f"from wk{week - 1} game, not a wk{week} ruling"
+            if stale
+            else f"did not play wk{week - 1}"
+        )
+    else:
+        where, stale = f"no wk{week} report yet", True
+    parts = [label, where]
+    if sl_practice:
+        parts.append(f"Sleeper practice {sl_practice}")
+    if news_age:
+        parts.append(news_age)
+    return InjuryStatus(", ".join(parts), stale and tag in BENCHING_TAGS)
+
+
 # ---------------------------------------------------------------------------
 # Schedule: kickoff / lock / bye
 # ---------------------------------------------------------------------------
@@ -292,8 +502,15 @@ def build_rows(
     scoring_settings: Dict[str, Any],
     kickoffs: Dict[str, dt.datetime],
     now: Optional[dt.datetime] = None,
+    injury_ctx: Optional[InjuryContext] = None,
+    news: Optional[Dict[str, str]] = None,
 ) -> List[PlayerRow]:
-    """Build one :class:`PlayerRow` per rostered player with both sources + flags."""
+    """Build one :class:`PlayerRow` per rostered player with both sources + flags.
+
+    With ``injury_ctx`` the injury note is :func:`resolve_injury_status`
+    (official report first); without it, Sleeper's raw tag. ``news`` maps
+    sleeper_id -> Gold sentiment flags (e.g. ``ruled_out,questionable``).
+    """
     now = now or dt.datetime.now(tz=ET)
     slot_of = {
         pid: (slot, i)
@@ -334,8 +551,15 @@ def build_rows(
             row.notes.append("BYE")
         if row.locked:
             row.notes.append("LOCKED")
-        if row.injury_status:
+        if injury_ctx is not None:
+            status = resolve_injury_status(pid, meta, injury_ctx, now)
+            if status is not None:
+                row.notes.append(status.text)
+                row.status_unconfirmed = status.unconfirmed_bench_tag
+        elif row.injury_status:
             row.notes.append(str(row.injury_status))
+        if news and news.get(pid):
+            row.notes.append(f"news: {news[pid]}")
         if row.ours is None:
             row.notes.append("no model proj")
         if row.sleeper is None:
@@ -351,7 +575,7 @@ def build_rows(
 
 @dataclass
 class Delta:
-    verdict: str  # SWAP | COIN FLIP | SPLIT
+    verdict: str  # SWAP | CHECK STATUS | COIN FLIP | SPLIT
     slot: str
     out_player: PlayerRow
     in_player: PlayerRow
@@ -361,10 +585,16 @@ class Delta:
     def line(self) -> str:
         m_o = "n/a" if self.margin_ours is None else f"{self.margin_ours:+.1f}"
         m_s = "n/a" if self.margin_sleeper is None else f"{self.margin_sleeper:+.1f}"
-        return (
+        line = (
             f"{self.verdict:9s} {self.slot:6s} start {self.in_player.name} "
             f"over {self.out_player.name}  (ours {m_o}, Sleeper {m_s})"
         )
+        if self.verdict == "CHECK STATUS":
+            line += (
+                f" -- {self.out_player.name}'s Sleeper tag is not this week's "
+                "official ruling; swap only if he is actually out"
+            )
+        return line
 
 
 def _margin(a: Optional[float], b: Optional[float]) -> Optional[float]:
@@ -391,7 +621,7 @@ def _verdict(
     return "SPLIT" if known is not None and known >= threshold else None
 
 
-_RANK = {"SWAP": 2, "COIN FLIP": 1, "SPLIT": 0}
+_RANK = {"SWAP": 2, "CHECK STATUS": 2, "COIN FLIP": 1, "SPLIT": 0}
 
 
 def lineup_deltas(rows: List[PlayerRow], threshold: float = 3.0) -> List[Delta]:
@@ -401,7 +631,10 @@ def lineup_deltas(rows: List[PlayerRow], threshold: float = 3.0) -> List[Delta]:
     :func:`_verdict` for the SWAP / COIN FLIP / SPLIT rule. Candidates are taken
     strongest-first (verdict, then the worse of the two margins) and each player
     appears in at most one delta. Locked and bye bench players are never proposed;
-    a locked starter cannot be swapped out.
+    a locked starter cannot be swapped out. A SWAP that would bench a starter
+    whose Sleeper Out/Doubtful tag the week's official report does not confirm
+    (``status_unconfirmed``) is downgraded to CHECK STATUS: Sleeper zeroes its
+    projection on that tag, so the margin may be nothing but the stale tag.
     """
     starters = [r for r in rows if r.slot and not r.locked]
     bench = [r for r in rows if not r.slot and not r.locked and not r.bye]
@@ -413,6 +646,8 @@ def lineup_deltas(rows: List[PlayerRow], threshold: float = 3.0) -> List[Delta]:
                 continue
             m_o, m_s = _margin(b.ours, s.ours), _margin(b.sleeper, s.sleeper)
             verdict = _verdict(m_o, m_s, threshold)
+            if verdict == "SWAP" and s.status_unconfirmed:
+                verdict = "CHECK STATUS"
             if verdict:
                 worst = min(m for m in (m_o, m_s) if m is not None)
                 candidates.append((_RANK[verdict], worst, s, b, m_o, m_s, verdict))
@@ -474,6 +709,11 @@ def render(
             "DELTAS vs the lineup currently set (rule: SWAP only when BOTH sources agree by the threshold):"
         )
         lines += ["  " + d.line() for d in deltas]
+        if any(d.verdict == "CHECK STATUS" for d in deltas):
+            lines.append(
+                "  (CHECK STATUS: both sources favour the swap, but the starter's "
+                "injury tag is unconfirmed for this week -- read the practice report/news first)"
+            )
     else:
         lines.append("No changes: no bench player beats a starter on both sources.")
     return "\n".join(lines)

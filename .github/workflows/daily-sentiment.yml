@@ -165,6 +165,35 @@ jobs:
             || echo "::warning::External rankings refresh failed — website will serve existing caches"
 
       # ----------------------------------------------------------------
+      # 5c. Official NFL injury report / practice participation (nflverse).
+      #     The Tuesday weekly-pipeline ingest only sees the just-played
+      #     week; the UPCOMING week's report is posted Wed-Sat, so a daily
+      #     snapshot is what lets set_lineups.py / waiver_wire.py show
+      #     "wk3 Q (Shoulder), practice DNP>LP" instead of Sleeper's stale
+      #     last-game tag (DJ Moore showed "Out" all of 2026 week 3 prep).
+      #     Each file is a full season-to-date pull with one practice status
+      #     per player-week, so the snapshot history IS the practice trail.
+      #     A snapshot identical to the previous one is dropped (no daily
+      #     churn in the offseason). Committed per the TD-08/09/10 pattern
+      #     (.gitignore already allowlists data/bronze/players/injuries/).
+      #     Fail-open: an unpublished season or nflverse blip only warns.
+      # ----------------------------------------------------------------
+      - name: Refresh official injury report (nflverse)
+        run: |
+          SEASON=$(date +%Y)
+          python scripts/bronze_ingestion_simple.py --season "$SEASON" --data-type injuries \
+            || echo "::warning::injury report ingest failed for $SEASON — lineup/waiver tools fall back to Sleeper tags"
+          SEASON="$SEASON" python - <<'PY'
+          import glob, os
+          import pandas as pd
+          files = sorted(glob.glob(
+              f"data/bronze/players/injuries/season={os.environ['SEASON']}/injuries_*.parquet"))
+          if len(files) >= 2 and pd.read_parquet(files[-1]).equals(pd.read_parquet(files[-2])):
+              os.remove(files[-1])
+              print(f"Injury report unchanged since {os.path.basename(files[-2])} — snapshot dropped")
+          PY
+
+      # ----------------------------------------------------------------
       # 6. Commit and push new data back to repo
       # Railway auto-deploys from main, so this keeps the website fresh.
       # Adds data/bronze/players/rosters_live/ (phase 67) so the
@@ -181,13 +210,14 @@ jobs:
             data/gold/sentiment/ \
             data/gold/projections/ \
             data/bronze/players/rosters_live/ \
+            data/bronze/players/injuries/ \
             data/external/ \
             2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new data to commit"
           else
             COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
-            git commit -m "data(daily): sentiment + roster + rankings refresh — ${COUNT} files
+            git commit -m "data(daily): sentiment + roster + rankings + injury report refresh — ${COUNT} files
 
           Automated daily pipeline: RSS feeds, Sleeper trending, roster updates,
           external rankings caches."

@@ -9,18 +9,22 @@ import pytest
 
 from src.lineup_setter import (
     ET,
+    InjuryContext,
     PlayerRow,
     build_id_maps,
     build_rows,
     current_slots,
     kickoffs_for_week,
     lineup_deltas,
+    official_reports,
     ours_by_sleeper_id,
     preseason_to_weekly,
     render,
+    resolve_injury_status,
     roster_gsis_map,
     score_ours,
     score_sleeper_stats,
+    sleeper_to_gsis,
 )
 
 MANTIS = {
@@ -329,3 +333,169 @@ def test_render_smoke_lists_lineup_bench_and_deltas():
         and "BN" in out
         and "Starters total: ours 8.0 / Sleeper 9.0" in out
     )
+
+
+# --- injury status: official report vs stale Sleeper tag ----------------------
+
+NOW = dt.datetime(2026, 9, 24, 18, 0, tzinfo=ET)
+MOORE = {
+    "full_name": "DJ Moore",
+    "position": "WR",
+    "team": "BUF",
+    "gsis_id": "00-0034827",
+    "injury_status": "Out",
+    "injury_body_part": "Shoulder",
+    # 2026-09-20 10:20 ET -> 4 days before NOW
+    "news_updated": int(dt.datetime(2026, 9, 20, 10, 20, tzinfo=ET).timestamp() * 1000),
+}
+LP = "Limited Participation in Practice"
+FP = "Full Participation in Practice"
+DNP = "Did Not Participate In Practice"
+
+
+def _snap(rows, at):
+    cols = [
+        "week",
+        "team",
+        "gsis_id",
+        "report_primary_injury",
+        "report_status",
+        "practice_primary_injury",
+        "practice_status",
+    ]
+    return pd.DataFrame(rows, columns=cols).assign(snapshot_at=at)
+
+
+def test_official_reports_uses_latest_snapshot_and_builds_practice_trail():
+    wed = _snap(
+        [
+            [3, "BUF", "00-0034827", None, None, "Shoulder", DNP],
+            [3, "BUF", "00-0000777", None, None, "Knee", DNP],  # off by Friday
+            [2, "MIA", "00-0000555", "Ankle", "Out", "Ankle", DNP],
+        ],
+        dt.datetime(2026, 9, 24, 12, 0),
+    )
+    thu = _snap(
+        [[3, "BUF", "00-0034827", None, None, "Shoulder", LP]],
+        dt.datetime(2026, 9, 25, 12, 0),
+    )
+    fri = _snap(
+        [
+            [3, "BUF", "00-0034827", "Shoulder", "Questionable", "Shoulder", LP],
+            [3, "KC", "00-0000888", None, None, "Hip", FP],
+        ],
+        dt.datetime(2026, 9, 26, 12, 0),
+    )
+    reports, teams = official_reports(pd.concat([wed, thu, fri]), week=3)
+    assert set(reports) == {"00-0034827", "00-0000888"}  # latest snapshot only
+    moore = reports["00-0034827"]
+    assert moore.game_status == "Questionable" and moore.injury == "Shoulder"
+    assert moore.practice == ("DNP", "LP")  # repeats collapsed
+    assert teams == {"BUF", "KC"}
+    assert official_reports(pd.DataFrame(), 3) == ({}, set())
+
+
+def _ctx(reports=None, teams=None, played_prev=None):
+    return InjuryContext(
+        week=3,
+        reports=reports or {},
+        teams_reported=teams or set(),
+        played_prev=played_prev,
+        gsis_by_sleeper={"4983": "00-0034827"},
+    )
+
+
+def test_official_report_preferred_over_sleeper_tag():
+    fri = _snap(
+        [[3, "BUF", "00-0034827", "Shoulder", "Questionable", "Shoulder", LP]],
+        dt.datetime(2026, 9, 26, 12, 0),
+    )
+    st = resolve_injury_status("4983", MOORE, _ctx(*official_reports(fri, 3)), NOW)
+    assert st.text.startswith("wk3 Q (Shoulder)")
+    assert "practice LP" in st.text and "report 09-26" in st.text
+    assert "Sleeper still says Out" in st.text
+    assert st.unconfirmed_bench_tag  # report says Q, Sleeper says Out
+
+
+def test_official_report_without_game_status_yet():
+    wed = _snap(
+        [[3, "BUF", "00-0034827", None, None, "Shoulder", DNP]],
+        dt.datetime(2026, 9, 24, 12, 0),
+    )
+    st = resolve_injury_status("4983", MOORE, _ctx(*official_reports(wed, 3)), NOW)
+    assert "no game status yet" in st.text and "practice DNP" in st.text
+    assert st.unconfirmed_bench_tag
+
+
+def test_official_out_confirms_the_tag():
+    fri = _snap(
+        [[3, "BUF", "00-0034827", "Shoulder", "Out", "Shoulder", DNP]],
+        dt.datetime(2026, 9, 26, 12, 0),
+    )
+    st = resolve_injury_status("4983", MOORE, _ctx(*official_reports(fri, 3)), NOW)
+    assert st.text.startswith("wk3 Out (Shoulder)") and not st.unconfirmed_bench_tag
+
+
+def test_stale_sleeper_out_from_last_weeks_game_is_labelled():
+    st = resolve_injury_status("4983", MOORE, _ctx(played_prev={"00-0034827"}), NOW)
+    assert st.text == (
+        "Sleeper: Out (Shoulder), from wk2 game, not a wk3 ruling, news 4d old"
+    )
+    assert st.unconfirmed_bench_tag
+
+
+def test_sleeper_out_for_player_who_missed_last_week_is_not_stale():
+    st = resolve_injury_status("4983", MOORE, _ctx(played_prev=set()), NOW)
+    assert "did not play wk2" in st.text and not st.unconfirmed_bench_tag
+
+
+def test_team_report_out_but_player_absent_means_tag_is_stale():
+    st = resolve_injury_status("4983", MOORE, _ctx(teams={"BUF"}), NOW)
+    assert "not on BUF wk3 report" in st.text and st.unconfirmed_bench_tag
+
+
+def test_roster_designations_and_healthy_players():
+    ir = {**MOORE, "injury_status": "IR"}
+    st = resolve_injury_status("4983", ir, _ctx(played_prev={"00-0034827"}), NOW)
+    assert st.text.startswith("Sleeper: IR") and not st.unconfirmed_bench_tag
+    healthy = {**MOORE, "injury_status": None}
+    assert resolve_injury_status("4983", healthy, _ctx(), NOW) is None
+
+
+def test_sleeper_to_gsis_prefers_registry_then_roster_crosswalk():
+    reg = {"1": {"gsis_id": "g1"}, "2": {"gsis_id": None}}
+    assert sleeper_to_gsis(reg, {"g2": "2", "gx": "1"}) == {"1": "g1", "2": "g2"}
+
+
+def test_no_swap_on_stale_sleeper_out_tag_check_status_instead():
+    rows = [
+        _row("moore", "WR", 3.0, 0.0, slot="WR", status_unconfirmed=True),
+        _row("b1", "WR", 9.0, 9.0),  # +6 / +9 would be a SWAP
+        _row("s2", "RB", 5.0, 5.0, slot="RB"),
+        _row("b2", "RB", 10.0, 10.0),  # healthy starter -> still SWAP
+    ]
+    d = {x.out_player.sleeper_id: x for x in lineup_deltas(rows, 3.0)}
+    assert d["moore"].verdict == "CHECK STATUS"
+    assert d["s2"].verdict == "SWAP"
+    out = render(rows, list(d.values()), "hdr", "x")
+    assert "CHECK STATUS" in out and "not this week's official ruling" in out
+
+
+def test_build_rows_uses_injury_context_and_news_flags():
+    rows = build_rows(
+        ["4983"],
+        ["4983"],
+        ["WR", "BN"],
+        {"4983": MOORE},
+        {},
+        {},
+        MANTIS,
+        {},
+        NOW,
+        injury_ctx=_ctx(played_prev={"00-0034827"}),
+        news={"4983": "questionable"},
+    )
+    r = rows[0]
+    assert r.status_unconfirmed
+    assert any("not a wk3 ruling" in n for n in r.notes)
+    assert "news: questionable" in r.notes
