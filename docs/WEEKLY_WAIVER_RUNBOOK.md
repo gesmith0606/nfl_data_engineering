@@ -29,7 +29,21 @@ python scripts/waiver_wire.py --league feetball --roster-file data/draft/feetbal
 python scripts/player_dossier.py data/draft/weekN_candidates.txt   # usage / injuries / matchup per candidate
 python scripts/set_lineups.py --league mantis                        # Sleeper lineups (ESPN/Yahoo: compare by hand)
 python scripts/trade_scan.py feetball|la_liga|mantis                 # ROS value, optimal lineups, win-win swaps
+python scripts/stream_dst_k.py --pool data/draft/feetball_2026_dstk_pool.txt   # DEF/K streaming (also la_liga)
 ```
+
+## 3b. Team defense and kicker (La Liga: DEF only; Feetball: DEF + K; Mantis: neither)
+- Pull the pool from each site in Chrome with the site's own week projection:
+  - **ESPN**: `kona_player_info` with `filterSlotIds [16]` (D/ST), `filterStatus FREEAGENT,WAIVERS`,
+    plus my D/ST from `mRoster` -> `data/draft/la_liga_2026_dstk_pool.txt`.
+  - **Yahoo**: Players page `status=A&pos=DEF` and `pos=K` with `stat1=S_PW_<week>`, plus my
+    K/DEF from the team page -> `data/draft/feetball_2026_dstk_pool.txt`.
+  - Format: `MINE|DEF|PHI|8.8`, `MINE|K|Cameron Dicker|8.5`, `DEF|NYG|7.9`, `K|Eddy Pineiro|10.0`.
+- Run `python scripts/stream_dst_k.py --pool data/draft/<league>_2026_dstk_pool.txt`.
+  Sources: SITE projection, Sleeper, and Vegas (opponent implied total for DEF, own implied for K;
+  live odds this week, schedule lines or points-for/against form for the 2-week look-ahead).
+  SWAP only when projection and Vegas both clear the bar; also check byes in the look-ahead.
+- Defenses/kickers usually clear at $0-1 — don't spend real FAAB on them.
 
 ## 4. Bid norms (see vault `fantasy-faab-bid-history-2026`)
 - Mantis ($1000): median winning bid 15, p75 75; QB streamers 40-400. A $1 bid only wins junk.

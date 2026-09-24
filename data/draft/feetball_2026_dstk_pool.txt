@@ -1,0 +1,33 @@
+# Feetball 2026 (Yahoo) DEF/K pool — MINE + available (status=A) with Yahoo's own week-3 projection.
+# Read 2026-09-24 from the Yahoo Players page (pos=DEF / pos=K, stat1=S_PW_3).
+MINE|K|Cameron Dicker|8.46
+MINE|DEF|PHI|8.79
+DEF|GB|8.22
+DEF|NYG|7.94
+DEF|CIN|7.92
+DEF|DET|7.87
+DEF|BUF|7.69
+DEF|NO|7.54
+DEF|LV|7.41
+DEF|JAX|7.36
+DEF|PIT|7.09
+DEF|TB|7.02
+DEF|TEN|6.80
+DEF|IND|6.74
+DEF|ATL|6.71
+DEF|WAS|6.67
+K|Eddy Pineiro|10.00
+K|Tyler Bass|9.90
+K|Tyler Loop|9.64
+K|Blake Grupe|9.33
+K|Daniel Carlson|9.21
+K|Will Reichard|9.11
+K|Trey Smack|9.07
+K|Chase McLaughlin|8.78
+K|Andy Borregales|8.72
+K|Wil Lutz|8.71
+K|Jake Elliott|8.70
+K|Ryan Fitzgerald|8.63
+K|Jason Sanders|8.60
+K|Spencer Shrader|8.59
+K|Matt Gay|8.51

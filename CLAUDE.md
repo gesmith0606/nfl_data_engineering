@@ -81,6 +81,7 @@ python scripts/set_lineups.py --league mantis --week 2                          
 python scripts/waiver_wire.py --league mantis                                              # Tuesday waivers: FAs on OURS + Sleeper proj under league scoring, last-week actuals, trending adds, sentiment flags; ESPN/Yahoo take --roster-file + --rostered-file/--available-file (docs/WEEKLY_WAIVER_RUNBOOK.md)
 python scripts/player_dossier.py data/draft/week3_candidates.txt                           # Per-candidate usage dossier (snap/target/air-yard/carry share, injuries around them, next matchup, trending adds)
 python scripts/trade_scan.py feetball                                                      # ROS value (FantasyPros rank -> our preseason curve), every team's optimal lineup, win-win swaps; trade_eval.py prices a specific package from stdin
+python scripts/stream_dst_k.py --pool data/draft/feetball_2026_dstk_pool.txt              # Weekly DEF/K streaming: site projection + Sleeper + Vegas implied totals (live odds / schedule lines / points-for-against form), 2-source SWAP rule, 3-week look-ahead with byes
 
 # Web API
 ./web/run_dev.sh                                   # Run FastAPI dev server
@@ -231,6 +232,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `scripts/waiver_wire.py` | Tuesday waiver report per league preset — two projection sources under the league's scoring, last-week actuals, Sleeper trending adds, Gold sentiment flags; exact FA pools via `--rostered-file` (ESPN) / `--available-file` (Yahoo); see `docs/WEEKLY_WAIVER_RUNBOOK.md` |
 | `scripts/player_dossier.py` | Waiver-candidate dossier from Bronze weekly + snaps + injuries + schedule (usage shares, same-position injuries, next matchup, trending adds) |
 | `scripts/trade_scan.py` / `scripts/trade_eval.py` | Trade scanner: FantasyPros ROS rank mapped to our preseason points curve, greedy optimal lineup per team (`data/draft/<league>_2026_league_rosters.txt`, Mantis live), win-win swap search + stdin package pricing |
+| `src/streaming.py` / `scripts/stream_dst_k.py` | DEF/K streaming: implied team totals from odds snapshots (median across books) or nflverse schedule lines (home-perspective sign), points-for/against form for unposted weeks, `swap_verdict` two-source rule; pool files `data/draft/<league>_2026_dstk_pool.txt` |
 | `src/league_scoring.py` | Re-score projections under a league's custom Sleeper `scoring_settings` (full PPR, TE premium, 6pt pass TD, etc.) (v8.0 Phase 91) |
 | `scripts/sleeper_board.py` | UC1 sleeper board — consensus-unranked players ranked by vacated-opportunity absorption |
 | `scripts/build_correlations.py` | UC3 CLI — rebuild stability-gated correlation edges → data/gold/correlations/ |
