@@ -128,24 +128,27 @@ def _load_gold_projections(
     season: int,
     week: int,
     scoring: str = "half_ppr",
+    subdir: str = "projections",
 ) -> pd.DataFrame:
     """Load our published Gold projections for (season, week).
 
     Reads the latest parquet from
-    ``data/gold/projections/season=YYYY/week=WW/``.
+    ``data/gold/<subdir>/season=YYYY/week=WW/``.
 
     Args:
         data_root: Root data directory (default: ``data/``).
         season: NFL season year.
         week: NFL week number.
         scoring: Scoring format string (filters by filename convention).
+        subdir: Gold sub-path; ``projections`` (prod, default) or a shadow
+            root such as ``projections_shadow/early_season_prior``.
 
     Returns:
         DataFrame with at least ``player_id``, ``player_name``, ``position``,
         ``projected_points``.  Empty if not found.
     """
     week_dir = os.path.join(
-        data_root, "gold", "projections", f"season={season}", f"week={week}"
+        data_root, "gold", *subdir.split("/"), f"season={season}", f"week={week}"
     )
     if not os.path.isdir(week_dir):
         logger.warning("Gold projections not found: %s", week_dir)

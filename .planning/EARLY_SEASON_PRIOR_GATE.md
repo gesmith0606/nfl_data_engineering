@@ -541,3 +541,71 @@ across every position except QB, across both metrics, across three
 seasons), evaluable opt-in machinery — a good building block for the
 follow-ups already on record (RB/WR/TE-only scoping, role-adjusted prior,
 raising the ~79-80% coverage ceiling) rather than a shipped default today.
+
+---
+
+## Shadow run (2026 weeks 3-6) — protocol registered 2026-09-23
+
+Why: the 2026 weeks 1-2 retro (`SEASON_2026_WEEKS_1_2_RETRO.md`) found
+early-season compression (week 2 bias −1.27; QB −2.8, TE −1.9, WR −1.4).
+Rather than re-litigate the backtest HOLD, the user approved running the
+lever **in shadow** for weeks 3-6 and grading it live. Production is
+unchanged; the flag stays default-OFF.
+
+**Mechanics**
+
+- `generate_projections.py --shadow-tag <tag>` writes the board to
+  `data/gold/projections_shadow/<tag>/season=YYYY/week=W/` (a sibling of the
+  prod serving path `data/gold/projections/`, so no web/API/sanity/grading
+  reader can pick it up) and never uploads to S3.
+- `weekly-pipeline.yml`: after the prod Gold step, a `continue-on-error` step
+  re-runs the exact prod command (same `--ml`/heuristic mode prod ended on,
+  exported as `steps.gold_projections.outputs.mode`) plus
+  `--early-season-prior --shadow-tag early_season_prior`, only when the
+  target week is 3-6. The Gold commit step also `git add`s
+  `data/gold/projections_shadow/` (allowlisted in `.gitignore`).
+- Grading: `scripts/grade_shadow.py --season 2026 --weeks 3 .. W` (run by a
+  fail-open cron step for graded weeks 3-6; report in the grading artifact)
+  grades shadow vs production vs Sleeper vs actuals — MAE, bias, Spearman by
+  position, per week and pooled — on one matched population (QB/RB/WR/TE,
+  in all boards + actuals, any source ≥ 5 pts, Sleeper-matched when Sleeper
+  exists).
+- **Week 3 exception.** The week-3 cron ran 2026-09-22, before this
+  existed. Local regeneration runs on degraded data (no 2026 PBP/graph
+  features locally; hybrid residuals fall back to heuristic; local board
+  total 2,293 vs published 2,483), so it would grade data-state, not the
+  lever. The committed week-3 shadow board is instead the lever applied to
+  the published board (`apply_early_season_prior` is a pure post-routing
+  blend, so this is the exact "production-as-served + lever"
+  counterfactual); provenance in its `shadow_method` column
+  (`transplant_on_published:projections_half_ppr_20260922_092422.parquet`).
+  If the prod week-3 board is regenerated, rebuild the transplant.
+  Weeks 4-6 come from the cron once this lands on `main`.
+
+**Promotion bar (pre-registered; mirrors the original gate on a matched
+population, where Sleeper's MAE cancels out of the gap delta)**
+
+1. Pooled weeks 3-6 overall MAE: shadow − production ≤ **−0.10**.
+2. No position's pooled MAE worsens by > **+0.05**.
+3. All four weeks graded; until then `grade_shadow.py` reports `INTERIM`.
+
+SHIP only if 1-3 all hold → then a separate PR flips the default (or
+narrows to RB/WR/TE if QB is the failing position). Otherwise HOLD and the
+shadow step is removed after week 6. Spearman and bias are reported as
+diagnostics, not gate criteria. Caveat: ~180 relevant players/week → ~700
+pooled player-weeks, so a −0.10 pooled delta is roughly the smallest effect
+this sample can distinguish from noise; the backtest's deconfounded lever
+effect was −0.053, so expect HOLD unless 2026 behaves differently.
+
+**Week-3 preview (lever on the published board, no actuals yet).** 292/359
+rows fire. Mean projected points QB 16.11 → 15.56 (−0.55), RB 7.29 → 7.19,
+TE 4.38 → 4.48, WR 5.54 → 5.58; total 2,483 → 2,465. It shrinks toward 2025
+PPG in both directions, so it does **not** lift stars across the board: QB
+16+ tier −0.84, RB 16+ −0.70, TE 12-16 −1.54 (largest cuts K.Walker −3.5,
+L.Jackson −2.7, J.Herbert −2.5, C.Williams −2.4; largest lifts D.Goedert
++2.8, T.McBride +2.4, R.Rice +2.2, J.Chase +1.9). Rank order barely changes
+(Spearman published~shadow 0.97-0.99 by position). So the retro's
+under-projected-stars pattern is not what this lever corrects. Watch QB bias
+in the shadow grades. Illustrative only, not a gate input: applying the
+week-3 weight to the published weeks 1-2 boards gives a pooled matched MAE
+delta of −0.035 (n=370; QB −0.013, RB −0.072, WR +0.008, TE −0.104).

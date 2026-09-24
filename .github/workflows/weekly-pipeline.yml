@@ -443,9 +443,47 @@ jobs:
               exit "$HEURISTIC_EXIT"
             fi
             echo "Heuristic-only projections written (ML path unavailable this run)"
+            echo "mode=heuristic" >> "$GITHUB_OUTPUT"
           else
             echo "Hybrid ML projections written successfully"
+            echo "mode=ml" >> "$GITHUB_OUTPUT"
           fi
+
+      # ------------------------------------------------------------------
+      # 7a. SHADOW board — early-season prior (2026 weeks 3-6 shadow run)
+      #
+      # Re-runs the exact production command (same --ml/heuristic mode the
+      # prod step ended up on) plus --early-season-prior, writing to
+      # data/gold/projections_shadow/early_season_prior/season=/week=/ via
+      # --shadow-tag. --shadow-tag never uploads to S3 and never touches
+      # data/gold/projections/ (the prod serving path), so the shadow board
+      # is committed for grading but is never served. Only weeks 3-6 (the
+      # lever is a no-op elsewhere). Non-blocking: any failure is a
+      # ::warning::, never a pipeline failure. Protocol + promotion bar:
+      # .planning/EARLY_SEASON_PRIOR_GATE.md "Shadow run (2026 weeks 3-6)".
+      # ------------------------------------------------------------------
+      - name: Gold — SHADOW early-season-prior board (weeks 3-6, not published)
+        id: shadow_early_season_prior
+        if: steps.gold_projections.outcome == 'success'
+        continue-on-error: true
+        env:
+          PROD_MODE: ${{ steps.gold_projections.outputs.mode }}
+        run: |
+          if [ "$WEEK" -lt 3 ] || [ "$WEEK" -gt 6 ]; then
+            echo "Week $WEEK is outside the early-season-prior window (3-6) — no shadow board."
+            exit 0
+          fi
+          ML_FLAG=""
+          if [ "$PROD_MODE" = "ml" ]; then ML_FLAG="--ml"; fi
+          python scripts/generate_projections.py \
+            --season  "$SEASON"   \
+            --week    "$WEEK"     \
+            --scoring half_ppr    \
+            $ML_FLAG              \
+            --early-season-prior  \
+            --shadow-tag early_season_prior \
+            --output  s3 \
+          || echo "::warning::early-season-prior SHADOW board failed for season $SEASON week $WEEK (prod unaffected)"
 
       # ------------------------------------------------------------------
       # 7b. ELITE 3.1 Grading — grade the PREVIOUS week
@@ -474,6 +512,28 @@ jobs:
           || {
             echo "::warning::weekly_grading_report exited non-zero for $SEASON w$GRADE_WEEK — report may be partial."
           }
+
+      # 7c. Grade the early-season-prior SHADOW board for the previous week
+      # (shadow vs production vs Sleeper vs actuals) plus the running pooled
+      # weeks 3-6 table. Fail-open; report lands in output/grading/ and is
+      # uploaded with the grading artifact.
+      - name: Shadow grading — early-season prior (previous week)
+        id: shadow_grading
+        continue-on-error: true
+        run: |
+          GRADE_WEEK=$(( WEEK - 1 ))
+          if [ "$GRADE_WEEK" -lt 3 ] || [ "$GRADE_WEEK" -gt 6 ]; then
+            echo "Graded week $GRADE_WEEK is outside the shadow window (3-6) — skipping."
+            exit 0
+          fi
+          WEEKS=$(seq 3 "$GRADE_WEEK" | tr '\n' ' ')
+          python scripts/grade_shadow.py \
+            --season  "$SEASON" \
+            --weeks   $WEEKS    \
+            --scoring half_ppr  \
+            --shadow-tag early_season_prior \
+            --output-root output/grading \
+          || echo "::warning::grade_shadow exited non-zero for $SEASON weeks $WEEKS"
 
       # ------------------------------------------------------------------
       # 8. Sanity check — validate what THIS run produced: the weekly Gold
@@ -598,6 +658,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/gold/projections/ 2>/dev/null || true
+          # Early-season-prior SHADOW boards (weeks 3-6): committed for live
+          # grading only — a sibling of projections/, so never served.
+          git add data/gold/projections_shadow/ 2>/dev/null || true
           # TD-10: prod (HF Spaces git clone) serves player game logs from this path;
           # the Tuesday ingest writes it on the runner, so it must ship with Gold.
           git add data/bronze/players/weekly/ 2>/dev/null || true
