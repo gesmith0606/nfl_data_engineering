@@ -542,6 +542,8 @@ def run_backtest(
     ] = SLEEPER_ANCHOR_SHIPPED_CONFIGS,
     wind_adjust: bool = False,
     wind_adjust_shrink: float = 0.0539,
+    fresh_rolling: bool = True,
+    include_bye_returns: bool = True,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -598,6 +600,11 @@ def run_backtest(
         ecr_anchor_weight: Blend weight for ``ecr_anchor_mode="blend"``
             (grid-tuned on 2022-2023, see the gate doc; ignored for
             ``"near_tie"``).
+        fresh_rolling: Week W uses games 1..W-1 instead of stopping at W-2
+            (default True, SHIPPED; ``--no-fresh-rolling`` reproduces the
+            pre-fix double lag — see ``.planning/WEEKLY_DOUBLE_LAG_GATE.md``).
+        include_bye_returns: Also project players whose team was on bye in
+            W-1 (default True; ``--no-bye-returns`` restores the old drop).
         wind_adjust: Apply the high-wind QB/WR/TE bias-shrink lever (see
             ``src/wind_adjust.py`` and ``.planning/WIND_LEVER_2026_08_16.md``
             — pre-registered gate verdict: HOLD, fit direction doesn't
@@ -963,6 +970,8 @@ def run_backtest(
                         weekly_df=weekly_df,
                         snap_counts_df=snap_counts_df,
                         route_df=route_df,
+                        fresh_rolling=fresh_rolling,
+                        include_bye_returns=include_bye_returns,
                     )
                 else:
                     projections = generate_weekly_projections(
@@ -977,6 +986,8 @@ def run_backtest(
                         weekly_df=weekly_df,
                         snap_counts_df=snap_counts_df,
                         route_df=route_df,
+                        fresh_rolling=fresh_rolling,
+                        include_bye_returns=include_bye_returns,
                     )
             except Exception as e:
                 print(f"FAIL ({e})")
@@ -1545,6 +1556,27 @@ def main():
         default=0.0539,
         help="Multiplicative shrink for high-wind QB/WR/TE rows (default 0.0539).",
     )
+    parser.add_argument(
+        "--no-fresh-rolling",
+        action="store_true",
+        help=(
+            "Reproduce the pre-2026-09-23 double lag: week W projected from the "
+            "W-1 Silver row's shift(1) rolling columns, which stop at game W-2. "
+            "By default week W uses games 1..W-1 (SHIPPED, see "
+            ".planning/WEEKLY_DOUBLE_LAG_GATE.md). Mirrors "
+            "generate_projections.py --no-fresh-rolling."
+        ),
+    )
+    parser.add_argument(
+        "--no-bye-returns",
+        action="store_true",
+        help=(
+            "Reproduce the pre-2026-09-23 board: drop players whose team was "
+            "on bye in W-1 (no W-1 Silver row). By default they are projected "
+            "from their latest row. Mirrors generate_projections.py "
+            "--no-bye-returns."
+        ),
+    )
     args = parser.parse_args()
 
     seasons = [int(s) for s in args.seasons.split(",")]
@@ -1661,6 +1693,8 @@ def main():
         sleeper_anchor_configs=eff_sleeper_anchor_configs,
         wind_adjust=args.wind_adjust,
         wind_adjust_shrink=args.wind_adjust_shrink,
+        fresh_rolling=not args.no_fresh_rolling,
+        include_bye_returns=not args.no_bye_returns,
     )
 
     if results.empty:
@@ -1690,9 +1724,12 @@ def main():
         else "_nosleeperanchor"
     )
     wind_adjust_tag = "_windadjust" if args.wind_adjust else ""
+    lag_tag = ("_stalerolling" if args.no_fresh_rolling else "") + (
+        "_nobyereturns" if args.no_bye_returns else ""
+    )
     csv_path = os.path.join(
         args.output_dir,
-        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{consensus_anchor_tag}{wind_adjust_tag}_{ts}.csv",
+        f"backtest_{args.scoring}{ml_tag}{constrain_tag}{features_tag}{consensus_tag}{prior_tag}{adp_prior_tag}{qb_floor_tag}{rb_tail_tag}{wr_tiebreak_tag}{ecr_anchor_tag}{consensus_anchor_tag}{wind_adjust_tag}{lag_tag}_{ts}.csv",
     )
     results.to_csv(csv_path, index=False)
     print(f"\nDetailed results saved to: {csv_path}")

@@ -144,7 +144,11 @@ def _vet_rb_row(pid="VET_RB", team="SEA", week=1):
     }
 
 
-def _project(silver, week=2, depth=None):
+def _project(silver, week=2, depth=None, fresh_rolling=False):
+    # fresh_rolling=False: these tests pin the no-history fallback path. With
+    # the shipped default (fresh rolling, WEEKLY_DOUBLE_LAG_GATE.md) a rookie
+    # who played week 1 has real history in week 2 and skips the fallback —
+    # see test_week2_rookie_with_a_game_is_projected_from_it below.
     return generate_weekly_projections(
         silver,
         pd.DataFrame(),
@@ -152,7 +156,16 @@ def _project(silver, week=2, depth=None):
         week=week,
         scoring_format="half_ppr",
         depth_charts_df=depth,
+        fresh_rolling=fresh_rolling,
     ).set_index("player_id")
+
+
+def test_week2_rookie_with_a_game_is_projected_from_it(depth_charts):
+    """Default fresh rolling: the week-1 game is history, not a fallback."""
+    silver = pd.DataFrame([_rookie_rb_row(), _vet_rb_row()])
+    out = _project(silver, depth=depth_charts, fresh_rolling=True)
+    assert not bool(out.loc["ROOKIE_RB", "is_rookie_projection"])
+    assert out.loc["ROOKIE_RB", "proj_carries"] > 0
 
 
 def test_week2_rookie_uses_depth_chart_starter_tier(depth_charts):

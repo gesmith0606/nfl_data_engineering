@@ -57,6 +57,12 @@ Harness consensus gap (positive = we lose): wk1 +0.237 (QB -0.30 win), wk2 +0.12
   and TE 5.26 -> 5.16 (rho .03 -> .12). The wk3 board matches 96% of RB and 90% of
   TE rows. QB stays unanchored (our QB already beats Sleeper), matching the QB HOLD.
   Re-gate on the ML engine and watch the grading report through week 10.
+- **Weekly double lag (FIXED 2026-09-23, `WEEKLY_DOUBLE_LAG_GATE.md`).** Week W was
+  projected from the W-1 Silver row whose shift(1) rolling columns stop at game W-2, so
+  the last game never counted (and week 2 had no in-season history at all); players off
+  a bye were dropped from the board. Fresh rolling + bye returns now default-on:
+  2024-25 `--ml` MAE 4.317 -> 4.284, consensus gap -0.06 -> -0.09; live wk2 MAE
+  5.60 -> 5.34 (Sleeper 5.35), bias -0.93 -> +0.04.
 - **Early-season compression.** Week 2 bias -1.27 overall (QB -2.8, TE -1.9, WR -1.4);
   stars most under-projected (WR 12-16 tier -5.2, RB 16+ -2.8). This is what the
   `--early-season-prior` lever (weeks 3-6, HOLD) targets — run it in shadow for

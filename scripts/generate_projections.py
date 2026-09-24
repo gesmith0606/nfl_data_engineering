@@ -330,6 +330,25 @@ def main():
         help="Use ML router: QB/RB via XGB, WR/TE via hybrid residual correction",
     )
     parser.add_argument(
+        "--no-fresh-rolling",
+        action="store_true",
+        help=(
+            "Weekly mode: reproduce the pre-2026-09-23 double lag (week W "
+            "projected from the W-1 Silver row's shift(1) rolling columns, "
+            "which stop at game W-2). By default week W uses games 1..W-1 "
+            "(SHIPPED, see .planning/WEEKLY_DOUBLE_LAG_GATE.md)."
+        ),
+    )
+    parser.add_argument(
+        "--no-bye-returns",
+        action="store_true",
+        help=(
+            "Weekly mode: reproduce the pre-2026-09-23 board, which dropped "
+            "players whose team was on bye in W-1 (no W-1 Silver row). By "
+            "default they are projected from their latest row."
+        ),
+    )
+    parser.add_argument(
         "--constrain",
         action="store_true",
         help="Apply team-level constraints so player totals align with implied team totals",
@@ -1504,6 +1523,8 @@ def main():
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
                 route_df=route_df if not route_df.empty else None,
                 depth_charts_df=weekly_depth_df if not weekly_depth_df.empty else None,
+                fresh_rolling=not args.no_fresh_rolling,
+                include_bye_returns=not args.no_bye_returns,
             )
         else:
             projections = generate_weekly_projections(
@@ -1523,6 +1544,8 @@ def main():
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
                 route_df=route_df if not route_df.empty else None,
                 depth_charts_df=weekly_depth_df if not weekly_depth_df.empty else None,
+                fresh_rolling=not args.no_fresh_rolling,
+                include_bye_returns=not args.no_bye_returns,
             )
 
         # Week 1 is projected from each player's final prior-season row, which

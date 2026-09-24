@@ -462,6 +462,8 @@ def generate_ml_projections(
     snap_counts_df: Optional[pd.DataFrame] = None,
     route_df: Optional[pd.DataFrame] = None,
     depth_charts_df: Optional[pd.DataFrame] = None,
+    fresh_rolling: bool = True,
+    include_bye_returns: bool = True,
 ) -> pd.DataFrame:
     """Generate projections routing each position to ML or heuristic.
 
@@ -489,6 +491,13 @@ def generate_ml_projections(
             ``assemble_multiyear_player_features()``. When provided,
             HYBRID positions use this richer feature set for residual
             correction instead of the basic silver_df features.
+        fresh_rolling: Forwarded to ``generate_weekly_projections`` (default
+            True) — the heuristic baseline uses games 1..W-1 instead of
+            stopping at W-2. Residual models were trained on week-W rows whose
+            rolling columns already cover 1..W-1, so this aligns the served
+            baseline with training (see ``.planning/WEEKLY_DOUBLE_LAG_GATE.md``).
+        include_bye_returns: Forwarded to ``generate_weekly_projections``
+            (default True).
 
     Returns:
         Combined projections DataFrame sorted by projected_points desc,
@@ -511,6 +520,8 @@ def generate_ml_projections(
             snap_counts_df=snap_counts_df,
             route_df=route_df,
             depth_charts_df=depth_charts_df,
+            fresh_rolling=fresh_rolling,
+            include_bye_returns=include_bye_returns,
         )
         result = add_floor_ceiling(result)
         result["projection_source"] = "heuristic"
@@ -545,6 +556,8 @@ def generate_ml_projections(
             snap_counts_df=snap_counts_df,
             route_df=route_df,
             depth_charts_df=depth_charts_df,
+            fresh_rolling=fresh_rolling,
+            include_bye_returns=include_bye_returns,
         )
         heuristic_all = add_floor_ceiling(heuristic_all)
 
@@ -667,6 +680,8 @@ def generate_ml_projections(
             snap_counts_df=snap_counts_df,
             route_df=route_df,
             depth_charts_df=depth_charts_df,
+            fresh_rolling=fresh_rolling,
+            include_bye_returns=include_bye_returns,
         )
         if ml_result is not None and not ml_result.empty:
             all_projections.append(ml_result)
@@ -731,6 +746,8 @@ def _generate_ml_for_position(
     snap_counts_df: Optional[pd.DataFrame] = None,
     route_df: Optional[pd.DataFrame] = None,
     depth_charts_df: Optional[pd.DataFrame] = None,
+    fresh_rolling: bool = True,
+    include_bye_returns: bool = True,
 ) -> Optional[pd.DataFrame]:
     """Generate ML projections for a single SHIP position.
 
@@ -892,6 +909,8 @@ def _generate_ml_for_position(
                 snap_counts_df=snap_counts_df,
                 route_df=route_df,
                 depth_charts_df=depth_charts_df,
+                fresh_rolling=fresh_rolling,
+                include_bye_returns=include_bye_returns,
             )
             heuristic_all = add_floor_ceiling(heuristic_all)
             fallback_ids = set(fallback_players["player_id"].values)
@@ -925,6 +944,8 @@ def _generate_ml_for_position(
             snap_counts_df=snap_counts_df,
             route_df=route_df,
             depth_charts_df=depth_charts_df,
+            fresh_rolling=fresh_rolling,
+            include_bye_returns=include_bye_returns,
         )
         heuristic = add_floor_ceiling(heuristic)
         heuristic = heuristic[heuristic["position"] == position].copy()
