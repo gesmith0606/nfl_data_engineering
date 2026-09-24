@@ -461,6 +461,7 @@ def generate_ml_projections(
     weekly_df: Optional[pd.DataFrame] = None,
     snap_counts_df: Optional[pd.DataFrame] = None,
     route_df: Optional[pd.DataFrame] = None,
+    depth_charts_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """Generate projections routing each position to ML or heuristic.
 
@@ -509,6 +510,7 @@ def generate_ml_projections(
             weekly_df=weekly_df,
             snap_counts_df=snap_counts_df,
             route_df=route_df,
+            depth_charts_df=depth_charts_df,
         )
         result = add_floor_ceiling(result)
         result["projection_source"] = "heuristic"
@@ -542,6 +544,7 @@ def generate_ml_projections(
             weekly_df=weekly_df,
             snap_counts_df=snap_counts_df,
             route_df=route_df,
+            depth_charts_df=depth_charts_df,
         )
         heuristic_all = add_floor_ceiling(heuristic_all)
 
@@ -663,6 +666,7 @@ def generate_ml_projections(
             weekly_df=weekly_df,
             snap_counts_df=snap_counts_df,
             route_df=route_df,
+            depth_charts_df=depth_charts_df,
         )
         if ml_result is not None and not ml_result.empty:
             all_projections.append(ml_result)
@@ -726,6 +730,7 @@ def _generate_ml_for_position(
     weekly_df: Optional[pd.DataFrame] = None,
     snap_counts_df: Optional[pd.DataFrame] = None,
     route_df: Optional[pd.DataFrame] = None,
+    depth_charts_df: Optional[pd.DataFrame] = None,
 ) -> Optional[pd.DataFrame]:
     """Generate ML projections for a single SHIP position.
 
@@ -886,6 +891,7 @@ def _generate_ml_for_position(
                 weekly_df=weekly_df,
                 snap_counts_df=snap_counts_df,
                 route_df=route_df,
+                depth_charts_df=depth_charts_df,
             )
             heuristic_all = add_floor_ceiling(heuristic_all)
             fallback_ids = set(fallback_players["player_id"].values)
@@ -918,6 +924,7 @@ def _generate_ml_for_position(
             weekly_df=weekly_df,
             snap_counts_df=snap_counts_df,
             route_df=route_df,
+            depth_charts_df=depth_charts_df,
         )
         heuristic = add_floor_ceiling(heuristic)
         heuristic = heuristic[heuristic["position"] == position].copy()
