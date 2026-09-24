@@ -160,6 +160,27 @@ def test_roster_crosswalk_maps_abbreviated_weekly_names():
     ) == {"3": 20.0, "99": 7.0}
 
 
+def test_full_name_fallback_joins_rookies_without_any_id_crosswalk():
+    # 2026 rookies: abbreviated Gold name, no sleeper_id in Bronze rosters,
+    # no gsis_id in the Sleeper registry. Only a gsis -> full-name map
+    # (from Bronze weekly actuals) can join them.
+    scored = pd.DataFrame(
+        {
+            "player_id": ["00-0041512"],
+            "player_name": ["J.Price"],
+            "position": ["RB"],
+            "projected_points": [9.8],
+        }
+    )
+    registry = {
+        "13000": {"full_name": "Jadarian Price", "position": "RB", "team": "SEA"}
+    }
+    assert ours_by_sleeper_id(scored, registry) == {}
+    assert ours_by_sleeper_id(
+        scored, registry, full_names={"00-0041512": "Jadarian Price"}
+    ) == {"13000": 9.8}
+
+
 # --- schedule / slots --------------------------------------------------------
 
 

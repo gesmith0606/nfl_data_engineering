@@ -15,6 +15,7 @@ gaps are now covered: a ``::warning::`` signal per failed ingest source, and
 a pre-commit freshness gate that skips (never fails) the commit when no new
 Bronze files arrived.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -80,7 +81,9 @@ def test_consolidate_job_has_freshness_gate(workflow_doc: dict) -> None:
     step_names = [s.get("name") for s in steps]
     assert "Check for fresh Bronze data" in step_names
 
-    consolidate_step = next(s for s in steps if s.get("name") == "Consolidate to Silver")
+    consolidate_step = next(
+        s for s in steps if s.get("name") == "Consolidate to Silver"
+    )
     commit_step = next(s for s in steps if s.get("name") == "Commit Silver")
 
     assert consolidate_step.get("if") == "steps.freshness.outputs.skip != 'true'"
@@ -92,7 +95,30 @@ def test_freshness_gate_warns_not_fails(workflow_doc: dict) -> None:
     must NOT fail the workflow -- freshness-monitor.yml already watches
     staleness separately."""
     steps = workflow_doc["jobs"]["consolidate"]["steps"]
-    freshness_step = next(s for s in steps if s.get("name") == "Check for fresh Bronze data")
+    freshness_step = next(
+        s for s in steps if s.get("name") == "Check for fresh Bronze data"
+    )
     run_text = freshness_step["run"]
     assert "::warning::" in run_text
     assert "exit 1" not in run_text
+
+
+def test_artifacts_restored_under_their_source_folder(workflow_doc: dict) -> None:
+    """Each ingest artifact is rooted at ``<source>/``'s contents, so merging
+    them straight into ``data/bronze/external_projections/`` dropped the
+    source folder (2026 weeks 1-3 landed at the top level, where the Sleeper
+    consensus anchor and Silver consolidation never look). The download must
+    go to a temp dir and a restore step must copy each artifact back under
+    its source folder (``yahoo`` -> ``yahoo_proxy_fp``)."""
+    steps = workflow_doc["jobs"]["consolidate"]["steps"]
+    download = next(s for s in steps if "download-artifact" in str(s.get("uses", "")))
+    assert download.get("with", {}).get("merge-multiple") is not True
+    assert "data/bronze/external_projections" not in str(download["with"]["path"])
+    restore = next(
+        s for s in steps if s.get("name") == "Restore per-source Bronze folders"
+    )
+    body = restore["run"]
+    assert "yahoo) dest=yahoo_proxy_fp" in body
+    assert "data/bronze/external_projections/$dest" in body
+    names = [s.get("name") for s in steps]
+    assert names.index(restore["name"]) > names.index(download["name"])

@@ -41,6 +41,7 @@ from src.lineup_setter import (  # noqa: E402
     MIN_WEEKLY_ROWS,
     SKILL_POSITIONS,
     build_rows,
+    full_name_map,
     kickoffs_for_week,
     lineup_deltas,
     ours_by_sleeper_id,
@@ -203,8 +204,15 @@ def main(argv: Optional[list] = None) -> int:
         if roster_files
         else pd.DataFrame()
     )
+    weekly_files = sorted(
+        glob.glob(str(REPO_ROOT / "data/bronze/players/weekly/season=*/*.parquet"))
+    )
+    weekly = pd.read_parquet(weekly_files[-1]) if weekly_files else pd.DataFrame()
     ours = ours_by_sleeper_id(
-        score_ours(ours_df, scoring), registry, gsis_map=roster_gsis_map(rosters)
+        score_ours(ours_df, scoring),
+        registry,
+        gsis_map=roster_gsis_map(rosters),
+        full_names=full_name_map(rosters, weekly),
     )
     sleeper_proj = load_sleeper_projections(season, week)
 
