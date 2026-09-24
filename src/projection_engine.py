@@ -705,6 +705,10 @@ _ROLE_SCALE: Dict[str, float] = {
     "unknown": 0.25,
 }
 
+#: Depth-chart ranks that count as a starter per position (base personnel is
+#: 1 QB / 1 RB / 3 WR / 1 TE). The next rank is the backup; deeper = unknown.
+_DEPTH_STARTER_SLOTS: Dict[str, int] = {"QB": 1, "RB": 1, "WR": 3, "TE": 1}
+
 # League-average implied team scoring total (points) used for Vegas multiplier
 _LEAGUE_AVG_IMPLIED_TOTAL: float = 23.0
 
@@ -980,6 +984,71 @@ def _determine_usage_role(row: pd.Series) -> str:
     return "unknown"
 
 
+def depth_chart_roles(depth_charts_df: Optional[pd.DataFrame]) -> pd.DataFrame:
+    """Starter/backup/unknown role per player from the latest depth chart.
+
+    Used by the weekly rookie fallback: ``_determine_usage_role`` reads
+    season-to-date usage, which is NaN on every no-history row (same
+    ``shift(1)`` window as the stat columns), so without this every rookie
+    lands in the 25% "unknown" tier.
+
+    Takes each team's most recent snapshot (``dt``), keeps QB/RB/WR/TE rows
+    with a ``gsis_id``, and maps ``pos_rank`` to a role via
+    ``_DEPTH_STARTER_SLOTS`` (WR1-3 start in base 3-WR personnel).
+
+    Args:
+        depth_charts_df: Bronze depth charts (``team``, ``pos_abb``,
+            ``pos_rank``, ``gsis_id``; optional ``dt``, ``player_name``).
+            Callers doing point-in-time work must pre-filter ``dt``.
+
+    Returns:
+        DataFrame with ``player_id``, ``player_name``, ``position``,
+        ``recent_team``, ``depth_rank``, ``depth_role`` (one row per player,
+        best rank kept). Empty when the input is missing or unusable.
+    """
+    cols = [
+        "player_id",
+        "player_name",
+        "position",
+        "recent_team",
+        "depth_rank",
+        "depth_role",
+    ]
+    needed = {"team", "pos_abb", "pos_rank", "gsis_id"}
+    if depth_charts_df is None or not needed.issubset(depth_charts_df.columns):
+        return pd.DataFrame(columns=cols)
+
+    dc = depth_charts_df[
+        depth_charts_df["pos_abb"].isin(list(_DEPTH_STARTER_SLOTS))
+        & depth_charts_df["gsis_id"].notna()
+    ]
+    if "dt" in dc.columns:
+        dc = dc[dc["dt"] == dc.groupby("team")["dt"].transform("max")]
+    dc = dc.assign(depth_rank=pd.to_numeric(dc["pos_rank"], errors="coerce"))
+    dc = dc.dropna(subset=["depth_rank"]).sort_values("depth_rank")
+    dc = dc.drop_duplicates("gsis_id")
+    if dc.empty:
+        return pd.DataFrame(columns=cols)
+
+    slots = dc["pos_abb"].map(_DEPTH_STARTER_SLOTS)
+    role = np.select(
+        [dc["depth_rank"] <= slots, dc["depth_rank"] <= slots + 1],
+        ["starter", "backup"],
+        default="unknown",
+    )
+    names = dc["player_name"] if "player_name" in dc.columns else dc["gsis_id"]
+    return pd.DataFrame(
+        {
+            "player_id": dc["gsis_id"].astype(str).values,
+            "player_name": names.values,
+            "position": dc["pos_abb"].values,
+            "recent_team": dc["team"].values,
+            "depth_rank": dc["depth_rank"].astype(int).values,
+            "depth_role": role,
+        }
+    )
+
+
 # Per-position Vegas damping exponent (2026-06-12 audit).
 # Measured on 2022-24 matched-consensus eval after the spread sign fix
 # (dbbef92) un-hid the multiplier from backtests (6b0cce6): full-strength
@@ -1059,6 +1128,7 @@ def project_position(
     position: str,
     opp_rankings: pd.DataFrame,
     scoring_format: str = "half_ppr",
+    depth_roles: Optional[Dict[str, str]] = None,
 ) -> pd.DataFrame:
     """
     Generate projections for all players of a given position.
@@ -1074,6 +1144,9 @@ def project_position(
         position:       'QB', 'RB', 'WR', or 'TE'.
         opp_rankings:   Opponent positional rankings from Silver layer.
         scoring_format: Fantasy scoring format.
+        depth_roles:    Optional {player_id: role} from ``depth_chart_roles``.
+                        Sets the baseline tier of no-history rows; players
+                        not listed fall back to ``_determine_usage_role``.
 
     Returns:
         DataFrame with projected stat columns + projected_points +
@@ -1110,8 +1183,11 @@ def project_position(
             rookie_count,
             position,
         )
+        use_depth = bool(depth_roles) and "player_id" in pos_df.columns
         for idx in pos_df.index[all_nan_mask]:
-            role = _determine_usage_role(pos_df.loc[idx])
+            role = (
+                depth_roles.get(str(pos_df.at[idx, "player_id"])) if use_depth else None
+            ) or _determine_usage_role(pos_df.loc[idx])
             baseline_stats = _rookie_baseline(position, role)
             for stat, value in baseline_stats.items():
                 # Write the baseline value into each rolling column so that
@@ -1644,6 +1720,7 @@ def generate_weekly_projections(
     weekly_df: Optional[pd.DataFrame] = None,
     snap_counts_df: Optional[pd.DataFrame] = None,
     route_df: Optional[pd.DataFrame] = None,
+    depth_charts_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """
     Generate weekly projections for all fantasy-relevant positions.
@@ -1709,6 +1786,12 @@ def generate_weekly_projections(
                         (shift-1 within season) by the compute pipeline.  If
                         None or the signal is disabled, the step is silently
                         skipped (backward-compatible).
+        depth_charts_df: Optional Bronze depth charts, already filtered to
+                        snapshots known before the projected week. Sets the
+                        starter/backup tier of no-history (rookie) rows, and
+                        in Week 1 adds starter/backup players who have no
+                        prior-season row (rookies) to the board. If None,
+                        rookies keep the usage-based tier (backward-compatible).
 
     Returns:
         Combined DataFrame with projections for QB/RB/WR/TE, sorted by
@@ -1749,6 +1832,39 @@ def generate_weekly_projections(
         logger.warning(
             f"Week {week} not found; using week {latest_week} as feature source"
         )
+
+    depth = depth_chart_roles(depth_charts_df)
+    depth_roles = dict(zip(depth["player_id"], depth["depth_role"]))
+    if week <= 1 and not depth.empty:
+        # The prior-season seed only carries players with a prior-season row,
+        # so rookies were missing from the 2026 Week 1 board entirely. Add the
+        # depth chart's starters/backups who have no seed row; their rolling
+        # columns stay NaN so they take the depth-tier rookie baseline. They
+        # are projected in a separate pass (``_depth_injected``) so the
+        # cross-sectional usage percentile of seeded players is unchanged.
+        known = set(target_df.get("player_id", pd.Series(dtype=str)).astype(str))
+        new = depth[
+            depth["depth_role"].isin(["starter", "backup"])
+            & ~depth["player_id"].isin(known)
+        ]
+        if not new.empty:
+            full = new["player_name"].astype(str)
+            new = new.assign(
+                player_display_name=full,
+                # Silver's short-name convention ("J.Price")
+                player_name=full.str[0] + "." + full.str.split(" ", n=1).str[-1],
+                season=season,
+                week=0,
+                season_type="REG",
+                _depth_injected=True,
+            ).drop(columns=["depth_rank", "depth_role"])
+            target_df = pd.concat([target_df, new], ignore_index=True)
+            logger.info(
+                "Week %d: added %d depth-chart starter/backup player(s) with no "
+                "prior-season row (rookies)",
+                week,
+                len(new),
+            )
 
     # Stamp the projection week
     target_df["proj_season"] = season
@@ -1874,11 +1990,19 @@ def generate_weekly_projections(
     # 4. Run per-position projections
     # ------------------------------------------------------------------
     all_projections = []
+    injected = (
+        target_df.pop("_depth_injected").eq(True)
+        if "_depth_injected" in target_df.columns
+        else pd.Series(False, index=target_df.index)
+    )
     for position in ["QB", "RB", "WR", "TE"]:
         logger.info(f"Projecting {position}...")
-        pos_proj = project_position(target_df, position, opp_rankings, scoring_format)
-        if not pos_proj.empty:
-            all_projections.append(pos_proj)
+        for part in (target_df[~injected], target_df[injected]):
+            pos_proj = project_position(
+                part, position, opp_rankings, scoring_format, depth_roles
+            )
+            if not pos_proj.empty:
+                all_projections.append(pos_proj)
 
     if not all_projections:
         logger.warning("No projections generated")

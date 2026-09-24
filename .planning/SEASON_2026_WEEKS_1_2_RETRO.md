@@ -65,6 +65,14 @@ Harness consensus gap (positive = we lose): wk1 +0.237 (QB -0.30 win), wk2 +0.12
   of them at 3.1-3.4 (the 25% "unknown" fallback) — Price was SEA's RB1. By week 3
   usage carried them (8-10 pts). The starter/backup depth-chart tiers never engaged;
   investigate the rookie depth-chart join, or let the (now-working) anchor cover rookies.
+  **Root-caused (branch `fix/rookie-weekly-tiers`):** weekly mode had no depth-chart join;
+  `_determine_usage_role` read `snap_pct_std`/`target_share_std`, which share the stat
+  columns' `shift(1)` window and so are NaN on every fallback row -> always "unknown". Week 1:
+  the prior-season seed only carries players with a prior-season row. Fix wires the
+  pre-week depth chart into the tier + injects Week-1 starter/backup rookies. Live wk1+2
+  rookie-fallback set (n=72): MAE 4.01 -> 3.93 (wk1 5.13 -> 4.01, wk2 3.11 -> 3.87); the
+  starter tier over-projects rookie starters (~9.2 vs 6.7 actual) and Sleeper beats both
+  (MAE ~3.0) — a rookie-starter scale or anchoring rookies is the next lever.
 - **Week-1 backup QBs.** The prior-season seed projected ~20 non-starting QBs as starters
   (Fields 18.1, Winston 16.3, a retired Rivers 13.8). Gate the week-1 seed on the current
   depth chart QB1 before next season.

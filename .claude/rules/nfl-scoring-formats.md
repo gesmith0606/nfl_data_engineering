@@ -36,7 +36,7 @@ Never compute scoring math inline — always call the calculator so the scoring 
 
 - `projected_points >= 0` for all skill positions (QB/RB/WR/TE)
 - Bye week players: all stats zeroed, `is_bye_week=True` flag set
-- Rookies without NFL history: positional fallbacks at 100% (starter) / 40% (backup) / 25% (unknown) of tier baseline
+- Rookies without NFL history: positional fallbacks at 100% (starter) / 40% (backup) / 25% (unknown) of tier baseline; weekly tier comes from the latest pre-week depth chart (`depth_chart_roles`: QB1/RB1/WR1-3/TE1 = starter, next rank = backup)
 
 ## Roster Formats
 

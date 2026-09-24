@@ -1417,6 +1417,35 @@ def main():
                         "WARN: No implied totals available; constraints will be skipped"
                     )
 
+        # Depth chart for the rookie fallback tier (starter/backup/unknown) and
+        # Week-1 rookie rows. The committed Bronze file holds every daily
+        # snapshot; keep those taken before the week's first game day so a
+        # regenerated past week never sees a later depth chart.
+        weekly_depth_df = _read_local_parquet(
+            BRONZE_DIR, f"depth_charts/season={args.season}/*.parquet"
+        )
+        if not weekly_depth_df.empty and "dt" in weekly_depth_df.columns:
+            game_days = (
+                pd.to_datetime(
+                    season_sched.loc[season_sched["week"] == args.week, "gameday"],
+                    errors="coerce",
+                )
+                if "gameday" in season_sched.columns
+                else pd.Series(dtype="datetime64[ns]")
+            )
+            if game_days.notna().any():
+                snap_dt = pd.to_datetime(
+                    weekly_depth_df["dt"], utc=True, errors="coerce"
+                ).dt.tz_localize(None)
+                weekly_depth_df = weekly_depth_df[snap_dt < game_days.min()]
+        if weekly_depth_df.empty:
+            print("WARN: No depth chart — rookies keep the usage-based tier")
+        else:
+            print(
+                f"Loaded depth chart snapshot {weekly_depth_df.get('dt', pd.Series(['n/a'])).max()} "
+                "for rookie starter/backup tiers"
+            )
+
         print(f"Running weekly projection model (Week {args.week})...")
         if args.ml:
             from ml_projection_router import generate_ml_projections
@@ -1474,6 +1503,7 @@ def main():
                 weekly_df=strength_weekly if not strength_weekly.empty else None,
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
                 route_df=route_df if not route_df.empty else None,
+                depth_charts_df=weekly_depth_df if not weekly_depth_df.empty else None,
             )
         else:
             projections = generate_weekly_projections(
@@ -1492,6 +1522,7 @@ def main():
                 weekly_df=strength_weekly if not strength_weekly.empty else None,
                 snap_counts_df=(snap_counts_df if not snap_counts_df.empty else None),
                 route_df=route_df if not route_df.empty else None,
+                depth_charts_df=weekly_depth_df if not weekly_depth_df.empty else None,
             )
 
         # Week 1 is projected from each player's final prior-season row, which
