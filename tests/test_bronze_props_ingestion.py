@@ -428,7 +428,11 @@ class TestNormalizeEventPropsEdgeCases:
                         {
                             "key": "player_anytime_td",
                             "outcomes": [
-                                {"name": "Yes", "description": "Player A", "price": -110}
+                                {
+                                    "name": "Yes",
+                                    "description": "Player A",
+                                    "price": -110,
+                                }
                             ],
                         }
                     ],
@@ -439,7 +443,11 @@ class TestNormalizeEventPropsEdgeCases:
                         {
                             "key": "player_anytime_td",
                             "outcomes": [
-                                {"name": "Yes", "description": "Player A", "price": -115}
+                                {
+                                    "name": "Yes",
+                                    "description": "Player A",
+                                    "price": -115,
+                                }
                             ],
                         }
                     ],
@@ -461,7 +469,11 @@ class TestNormalizeEventPropsEdgeCases:
                         {
                             "key": "player_anytime_td",
                             "outcomes": [
-                                {"name": "Yes", "description": "Player A", "price": -110}
+                                {
+                                    "name": "Yes",
+                                    "description": "Player A",
+                                    "price": -110,
+                                }
                             ],
                         },
                         {
@@ -609,6 +621,7 @@ class TestRunPropsCreditGuard:
         self._mock_events_fetch(monkeypatch, events)
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=DEFAULT_MARKETS,
             days_ahead=365,  # wide window so all 12 events pass filter
             max_credits=59,
@@ -647,6 +660,7 @@ class TestRunPropsCreditGuard:
 
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=DEFAULT_MARKETS,
             days_ahead=365,  # wide window — this test is about budget, not time filter
             max_credits=60,
@@ -676,7 +690,7 @@ class TestRunPropsCreditGuard:
             return mock_resp
 
         monkeypatch.setattr("scripts.bronze_props_ingestion.requests.get", fake_get)
-        exit_code = run_props(api_key="test_key", days_ahead=7)
+        exit_code = run_props(api_key="test_key", now=NOW_BEFORE_GAME, days_ahead=7)
         assert exit_code == 0
         # Only the events-list fetch should have been made
         assert get_call_count["n"] == 1
@@ -735,6 +749,7 @@ class TestRunPropsMidRunReserveGuard:
 
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=365,  # wide window — this test is about the reserve guard, not time filter
             max_credits=200,
@@ -760,7 +775,7 @@ class TestRunPropsFailOpen:
                 req_module.ConnectionError("timeout")
             ),
         )
-        exit_code = run_props(api_key="test_key")
+        exit_code = run_props(api_key="test_key", now=NOW_BEFORE_GAME)
         assert exit_code == 0
 
     def test_per_event_http_error_skips_event_continues(self, monkeypatch, tmp_path):
@@ -809,6 +824,7 @@ class TestRunPropsFailOpen:
 
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=365,  # wide window — this test is about HTTP error handling
             max_credits=200,
@@ -848,6 +864,7 @@ class TestRunPropsFailOpen:
 
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=365,  # wide window — this test is about empty bookmakers, not time filter
             max_credits=200,
@@ -885,6 +902,7 @@ class TestRunPropsDryRun:
 
         run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=365,  # wide window — dry_run test, not time filter test
             max_credits=200,
@@ -917,6 +935,7 @@ class TestRunPropsDryRun:
 
         run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=365,  # wide window — dry_run test, not time filter test
             dry_run=True,
@@ -968,6 +987,7 @@ class TestRunPropsRoundTrip:
 
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=365,  # wide window — round-trip test, not time filter test
             max_credits=200,
@@ -999,6 +1019,7 @@ class TestRunPropsRoundTrip:
 
         exit_code = run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_reception_yds"],
             days_ahead=365,  # wide window — round-trip test, not time filter test
             max_credits=200,
@@ -1053,6 +1074,7 @@ class TestRunPropsRoundTrip:
 
         run_props(
             api_key="test_key",
+            now=NOW_BEFORE_GAME,
             markets=["player_anytime_td"],
             days_ahead=300,
             max_credits=500,

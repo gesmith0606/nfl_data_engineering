@@ -937,7 +937,9 @@ def run_draftkings(days_ahead: int, snapshot_ts: str) -> List[dict]:
     return rows
 
 
-def run_fanduel(days_ahead: int, snapshot_ts: str) -> List[dict]:
+def run_fanduel(
+    days_ahead: int, snapshot_ts: str, now: Optional[datetime] = None
+) -> List[dict]:
     """Fetch + normalize FanDuel weekly props for in-window games.
 
     Fail-open: any single event fetch/normalize error is logged and skipped.
@@ -945,6 +947,8 @@ def run_fanduel(days_ahead: int, snapshot_ts: str) -> List[dict]:
     Args:
         days_ahead: Only fetch games commencing within this many days.
         snapshot_ts: UTC ISO-8601 snapshot timestamp string.
+        now: Reference UTC datetime for the window (defaults to the real
+            current time; injected for tests).
 
     Returns:
         Flat row dicts (pre :func:`finish_rows`). Empty list on total
@@ -956,7 +960,7 @@ def run_fanduel(days_ahead: int, snapshot_ts: str) -> List[dict]:
         logger.warning("FanDuel NFL page fetch failed (skipping FanDuel): %s", exc)
         return []
 
-    games = discover_fanduel_game_events(nfl_page_data, days_ahead=days_ahead)
+    games = discover_fanduel_game_events(nfl_page_data, days_ahead=days_ahead, now=now)
     logger.info("FanDuel: %d games in the %d-day window.", len(games), days_ahead)
 
     rows: List[dict] = []
@@ -1004,6 +1008,7 @@ def run_weekly_props(
     dry_run: bool = False,
     skip_draftkings: bool = False,
     skip_fanduel: bool = False,
+    now: Optional[datetime] = None,
 ) -> int:
     """Fetch, normalize, and persist a weekly player-props snapshot.
 
@@ -1018,6 +1023,9 @@ def run_weekly_props(
         dry_run: When True, fetch/normalize but do not write Parquet.
         skip_draftkings: When True, skip the DraftKings capture.
         skip_fanduel: When True, skip the FanDuel capture.
+        now: Reference UTC datetime for the ``days_ahead`` window (defaults
+            to the real current time; injected by tests so fixed-date
+            fixtures don't expire).
 
     Returns:
         Exit code (0 = at least one row captured; 1 = zero rows overall).
@@ -1028,15 +1036,15 @@ def run_weekly_props(
 
     if not skip_draftkings:
         dk_rows = run_draftkings(days_ahead, snapshot_ts)
-        dk_df = finish_rows(dk_rows, days_ahead=days_ahead)
+        dk_df = finish_rows(dk_rows, days_ahead=days_ahead, now=now)
         per_book_counts["draftkings"] = len(dk_df)
         total_paths.extend(write_all(dk_df, "dk", dry_run=dry_run))
     else:
         per_book_counts["draftkings"] = 0
 
     if not skip_fanduel:
-        fd_rows = run_fanduel(days_ahead, snapshot_ts)
-        fd_df = finish_rows(fd_rows, days_ahead=days_ahead)
+        fd_rows = run_fanduel(days_ahead, snapshot_ts, now=now)
+        fd_df = finish_rows(fd_rows, days_ahead=days_ahead, now=now)
         per_book_counts["fanduel"] = len(fd_df)
         total_paths.extend(write_all(fd_df, "fd", dry_run=dry_run))
     else:

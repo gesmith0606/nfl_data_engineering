@@ -707,7 +707,16 @@ class TestRunWeeklyPropsExitCode:
             "scripts.bronze_weekly_props_ingestion.load_schedule_lookup",
             lambda season: schedule_df,
         )
-        assert run_weekly_props(days_ahead=365, dry_run=True) == 0
+        # Pin "now" before the 2026-09-10 fixture kickoff so the window
+        # filter doesn't depend on the real wall clock.
+        assert (
+            run_weekly_props(
+                days_ahead=365,
+                dry_run=True,
+                now=datetime(2026, 8, 16, tzinfo=timezone.utc),
+            )
+            == 0
+        )
 
     def test_skip_flags_short_circuit_book(self, monkeypatch):
         calls = {"dk": 0, "fd": 0}

@@ -588,6 +588,7 @@ def run_props(
     days_ahead: int = 7,
     max_credits: int = 100,
     dry_run: bool = False,
+    now: Optional[datetime] = None,
 ) -> int:
     """Fetch, normalise, and persist a single player-props snapshot.
 
@@ -608,6 +609,9 @@ def run_props(
             per-event calls.
         dry_run: When True, fetch events and estimate credits but do not
             make any per-event props API calls or write Parquet files.
+        now: Reference UTC datetime for the ``days_ahead`` window filter
+            (defaults to the real current time; injected by tests so
+            fixed-date fixtures don't expire).
 
     Returns:
         Exit code (0 = success or graceful skip, 1 = hard error).
@@ -634,7 +638,9 @@ def run_props(
     # ------------------------------------------------------------------
     # 2. Filter to events within the time window
     # ------------------------------------------------------------------
-    events_in_window = filter_events_by_window(all_events, days_ahead=days_ahead)
+    events_in_window = filter_events_by_window(
+        all_events, days_ahead=days_ahead, now=now
+    )
 
     if not events_in_window:
         logger.info(
@@ -703,7 +709,9 @@ def run_props(
             )
         except requests.RequestException as exc:
             sanitized = str(exc).replace(api_key, "***") if api_key else str(exc)
-            logger.warning("Props fetch failed for event %s (skipping): %s", event_id, sanitized)
+            logger.warning(
+                "Props fetch failed for event %s (skipping): %s", event_id, sanitized
+            )
             events_skipped += 1
             continue
 
