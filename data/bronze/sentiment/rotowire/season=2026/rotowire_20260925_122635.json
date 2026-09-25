@@ -1,0 +1,99 @@
+{
+  "fetch_run_id": "40f79b9f-8e97-405d-b8cd-1452f761bc3d",
+  "source": "rotowire",
+  "fetched_at": "2026-09-25T12:26:35.678916+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl639108",
+      "url": "https://www.rotowire.com//football/player/marshawn-lloyd-17795",
+      "permalink": "",
+      "title": "MarShawn Lloyd: Limited to 18 total yards in loss",
+      "body_text": "Lloyd rushed four times for 11 yards and brought in two of three targets for seven yards in the Packers' 35-14 loss to the Falcons on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-24T09:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl639107",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Limited to one catch in win",
+      "body_text": "Pitts secured one of two targets for five yards in the Falcons' 35-14 win over the Packers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-24T09:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl639106",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Modest production with four catches",
+      "body_text": "Kraft secured four of eight targets for 26 yards in the Packers' 35-14 loss to the Falcons on Thursday. He also recovered a fumble. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-24T09:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl639103",
+      "url": "https://www.rotowire.com//football/player/brian-robinson-15907",
+      "permalink": "",
+      "title": "Brian Robinson: Gets into end zone in win",
+      "body_text": "Robinson rushed 10 times for 50 yards and a touchdown and returned two kickoffs for 54 yards in the Falcons' 35-14 win over the Packers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-24T09:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037746"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl639102",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Stellar in season debut",
+      "body_text": "Penix completed 18 of 25 passes for 256 yards with one touchdown and one interception while rushing twice for minus-2 yards in the Falcons' 35-14 win over the Packers on Thursday. He also threw a two-point conversion pass. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-24T09:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

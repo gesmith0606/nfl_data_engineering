@@ -1,0 +1,515 @@
+{
+  "fetch_run_id": "72335c41-7f1a-498e-8cfd-132026b554c8",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-25T12:26:21.715899+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-rb-coach-demarco-murray-its-hard-to-take-kenneth-walker-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-rb-coach-demarco-murray-its-hard-to-take-kenneth-walker-out",
+      "title": "Chiefs RB coach DeMarco Murray: It's hard to take Kenneth Walker out",
+      "body_text": "Chiefs running back Kenneth Walker is off to an impressive start to the season and the team has been giving him plenty of chances to show off his game.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T10:58:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-london-michael-penix-is-the-definition-of-resiliency",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-london-michael-penix-is-the-definition-of-resiliency",
+      "title": "Drake London: Michael Penix is the definition of resiliency",
+      "body_text": "Michael Penix's return to the Falcons starting lineup didn't get off to a great start, but that just turned out to be one more chance for him to show his ability to bounce back from an adverse situation.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T10:34:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake London",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0037238",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-and-drake-london-had-a-historic-night-with-194-yards-each",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-and-drake-london-had-a-historic-night-with-194-yards-each",
+      "title": "Bijan Robinson and Drake London had a historic night, with 194 yards each",
+      "body_text": "Falcons running back Bijan Robinson and wide receiver Drake London ran wild at Lambeau Field on Thursday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-25T09:08:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "Drake London",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [
+        "00-0038542",
+        "00-0037238"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-i-never-wanted-to-leave-philadelphia-glad-to-be-back-to-my-favorite-place",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-ertz-i-never-wanted-to-leave-philadelphia-glad-to-be-back-to-my-favorite-place",
+      "title": "Zach Ertz: I never wanted to leave Philadelphia, glad to be back to my favorite place",
+      "body_text": "Veteran tight end Zach Ertz has returned to Philadelphia for his second stint with the Eagles, and he says he never wanted to leave.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-25T08:53:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Ertz"
+      ],
+      "resolved_player_ids": [
+        "00-0030061"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-disappointing-that-fans-booed-us-at-lambeau-field-wont-help-us-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tucker-kraft-disappointing-that-fans-booed-us-at-lambeau-field-wont-help-us-win",
+      "title": "Tucker Kraft: Disappointing that fans booed us at Lambeau Field, won't help us win",
+      "body_text": "\"It'd be much easier with the 70,000 people behind us rather than opposing us,\" Kraft said of the Packers fans who booed during the 35-14 loss.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-25T08:22:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tucker Kraft",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-on-ugly-loss-to-falcons-it-was-a-butt-whooping",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-on-ugly-loss-to-falcons-it-was-a-butt-whooping",
+      "title": "Matt LaFleur on ugly loss to Falcons: \"It was a butt-whooping\"",
+      "body_text": "The running game was MIA against ATL.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T04:05:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-drake-london-bijan-robinson-run-by-packers-35-14",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-drake-london-bijan-robinson-run-by-packers-35-14",
+      "title": "Thursday Night Football: Drake London, Bijan Robinson run by Packers 35-14",
+      "body_text": "London and Robinson combined for 407 yards and two touchdowns in Michael Penix's return to the lineup.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T03:25:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Drake London",
+        "Bijan Robinson",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0037238",
+        "00-0038542",
+        "00-0039917"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ruling-on-key-sealed-document-in-brian-flores-case-is-also-under-seal-for-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ruling-on-key-sealed-document-in-brian-flores-case-is-also-under-seal-for-now",
+      "title": "Ruling on key sealed document in Brian Flores case is also under seal, for now",
+      "body_text": "The Brian Flores case against the NFL and several teams (Dolphins, Texans, Giants, and Broncos) has recently focused on a document produced by Korn Ferry, in connection with a coaching search the company performed for the Ravens.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T02:35:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Flores",
+        "The Brian",
+        "Korn Ferry"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rolling-taking-a-24-7-lead-on-the-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rolling-taking-a-24-7-lead-on-the-packers",
+      "title": "Falcons rolling, taking a 24-7 lead on the Packers",
+      "body_text": "The Falcons are dominating the Packers at Lambeau Field.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T02:28:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Packers The",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-falcons-lead-packers-17-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-falcons-lead-packers-17-7-at-halftime",
+      "title": "Thursday Night Football: Falcons lead Packers 17-7 at halftime",
+      "body_text": "Michael Penix is back . . . and so are the Falcons.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T01:52:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-thursday-mike-mccarthy-didnt-want-to-say-much-about-joey-porter-jr-s-status",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-thursday-mike-mccarthy-didnt-want-to-say-much-about-joey-porter-jr-s-status",
+      "title": "On Thursday, Mike McCarthy didn't want to say much about Joey Porter Jr.'s status",
+      "body_text": "On Wednesday, Steelers coach Mike McCarthy wasn't asked about cornerback Joey Porter Jr.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T02:14:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "On Thursday",
+        "Joey Porter Jr",
+        "On Wednesday"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinsons-td-has-falcons-tied-7-7-with-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinsons-td-has-falcons-tied-7-7-with-packers",
+      "title": "Bijan Robinson's TD has Falcons tied 7-7 with Packers",
+      "body_text": "The Falcons became only the fourth team since 1978 without a red zone drive through two games.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T00:58:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "Packers The"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-scores-his-fourth-td-of-the-season-giving-green-bay-a-7-0-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-scores-his-fourth-td-of-the-season-giving-green-bay-a-7-0-lead",
+      "title": "Christian Watson scores his fourth TD of the season, giving Green Bay a 7-0 lead",
+      "body_text": "It is Week 3, and Christian Watson already has four touchdown receptions.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T00:50:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Watson",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-remains-out-of-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-remains-out-of-practice-thursday",
+      "title": "Puka Nacua remains out of practice Thursday",
+      "body_text": "Rams wide receiver Puka Nacua sat out practice again Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T00:32:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua",
+        "Thursday Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-tyson-bagent-estimated-as-non-participants-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-tyson-bagent-estimated-as-non-participants-thursday",
+      "title": "Caleb Williams, Tyson Bagent estimated as non-participants Thursday",
+      "body_text": "The Bears did not practice on Thursday, but their practice report does not bode well for their top two quarterbacks.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T23:30:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "Tyson Bagent",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0038416"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-saquon-barkley-limited-in-thursdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-saquon-barkley-limited-in-thursdays-practice",
+      "title": "Eagles RB Saquon Barkley limited in Thursday's practice",
+      "body_text": "Eagles running back Saquon Barkley left Sunday's game against the Titans with a stinger.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T23:19:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-flacco-i-have-no-reason-to-believe-im-getting-traded",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-flacco-i-have-no-reason-to-believe-im-getting-traded",
+      "title": "Joe Flacco: I have no reason to believe I'm getting traded",
+      "body_text": "\"I had no idea I was going to get traded last year, so you never know,\" Flacco added of a potential trade to the Giants.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-24T23:08:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Flacco"
+      ],
+      "resolved_player_ids": [
+        "00-0026158"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rb-tony-pollard-returns-to-limited-work-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rb-tony-pollard-returns-to-limited-work-thursday",
+      "title": "Titans RB Tony Pollard returns to limited work Thursday",
+      "body_text": "Titans running back Tony Pollard (ankle) practiced on Thursday, getting in limited work.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T23:07:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Pollard",
+        "Thursday Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035261"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-falcons-cb-billy-bowman-will-make-his-2026-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-falcons-cb-billy-bowman-will-make-his-2026-debut",
+      "title": "Thursday Night Football: Falcons CB Billy Bowman will make his 2026 debut",
+      "body_text": "Michael Penix isn't the only Falcon making his season debut tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T22:58:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Billy Bowman",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0040156",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/amon-ra-st-brown-says-he-was-fined-nearly-60-000-for-four-smoking-related-celebrations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/amon-ra-st-brown-says-he-was-fined-nearly-60-000-for-four-smoking-related-celebrations",
+      "title": "Amon-Ra St. Brown says he was fined nearly $60,000 for four smoking-related celebrations",
+      "body_text": "The No Fun League has cracked down particularly hard on celebrations this week.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-24T22:49:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "No Fun"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-fined-for-celebrations-the-league-deemed-obscene",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-fined-for-celebrations-the-league-deemed-obscene",
+      "title": "Ja'Marr Chase, Tee Higgins fined for celebrations the league deemed obscene",
+      "body_text": "The NFL is sometimes called the No Fun League.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-24T22:02:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marr Chase",
+        "Tee Higgins",
+        "No Fun"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-young-returns-to-full-participation-in-saints-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-young-returns-to-full-participation-in-saints-practice",
+      "title": "Chase Young returns to full participation in Saints' practice",
+      "body_text": "Saints defensive end Chase Young (calf) returned to full participation at Thursday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T21:57:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chase Young"
+      ],
+      "resolved_player_ids": [
+        "00-0036321"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-rashawn-slater-up-to-full-practices-for-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derwin-james-rashawn-slater-up-to-full-practices-for-chargers",
+      "title": "Derwin James, Rashawn Slater up to full practices for Chargers",
+      "body_text": "A couple of key Chargers players were back to full practice participation on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-24T21:55:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derwin James",
+        "Rashawn Slater"
+      ],
+      "resolved_player_ids": [
+        "00-0034790",
+        "00-0037009"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-remains-limited-on-thursdays-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-remains-limited-on-thursdays-injury-report",
+      "title": "Brock Bowers remains limited on Thursday's injury report",
+      "body_text": "Raiders tight end Brock Bowers remained limited in Thursday's practice as he seeks to return to game action for the first time since Dec. 21.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T21:41:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-ot-trent-brown-returns-to-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-ot-trent-brown-returns-to-practice-thursday",
+      "title": "Texans OT Trent Brown returns to practice Thursday",
+      "body_text": "The Texans had three changes to Thursday's practice report.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-24T21:16:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Brown",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0032071"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-add-wr-adonai-mitchell-to-injury-report-as-a-limited-participant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-add-wr-adonai-mitchell-to-injury-report-as-a-limited-participant",
+      "title": "Jets add WR Adonai Mitchell to injury report as a limited participant",
+      "body_text": "The Jets added a starting wideout to their injury report on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-24T21:07:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adonai Mitchell",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0039890"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-place-jaxson-dart-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-place-jaxson-dart-on-injured-reserve",
+      "title": "Giants place Jaxson Dart on injured reserve",
+      "body_text": "Jaxson Dart's season is over and the Giants officially moved him off of their active roster on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-24T20:53:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-lb-dremont-jones-s-craig-woodson-out-of-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-lb-dremont-jones-s-craig-woodson-out-of-practice-thursday",
+      "title": "Patriots LB Dre'Mont Jones, S Craig Woodson out of practice Thursday",
+      "body_text": "The Patriots remained without a couple of their defensive starters at Thursday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-24T20:40:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mont Jones",
+        "Craig Woodson",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040716"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-rule-out-demarvion-overshown-three-others-who-wont-travel",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-rule-out-demarvion-overshown-three-others-who-wont-travel",
+      "title": "Cowboys rule out DeMarvion Overshown, three others who won't travel",
+      "body_text": "The Cowboys' final injury report of the week isn't due until tomorrow.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-24T20:29:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-andrew-thomas-miss-thursdays-giants-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-burns-andrew-thomas-miss-thursdays-giants-practice",
+      "title": "Brian Burns, Andrew Thomas miss Thursday's Giants practice",
+      "body_text": "Word on Wednesday was that Giants linebacker Brian Burns is likely to miss time with a sprained ankle and Thursday's practice did nothing to suggest otherwise.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-24T20:29:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Burns",
+        "Andrew Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0035713",
+        "00-0036386"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
