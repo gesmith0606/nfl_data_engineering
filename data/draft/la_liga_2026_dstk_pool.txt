@@ -1,0 +1,20 @@
+# La Liga 2026 (ESPN) DEF pool — MINE + free agents/waivers with ESPN's own week-3 projection.
+# Read 2026-09-24 via kona_player_info (filterSlotIds 16). League has no kicker slot.
+MINE|DEF|JAX|4.9
+DEF|DET|6.7
+DEF|NYG|6.6
+DEF|NO|6.6
+DEF|TEN|6.0
+DEF|BUF|5.7
+DEF|TB|5.4
+DEF|LV|5.1
+DEF|GB|4.8
+DEF|WAS|4.6
+DEF|IND|4.5
+DEF|CHI|4.3
+DEF|NYJ|3.8
+DEF|ATL|3.4
+DEF|DAL|3.0
+DEF|LAC|2.6
+DEF|ARI|2.6
+DEF|MIA|2.6
