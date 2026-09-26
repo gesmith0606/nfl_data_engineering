@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "94a1f936-21a9-460c-af23-323798923642",
+  "source": "pft",
+  "fetched_at": "2026-09-26T12:23:25.350346+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-giants-tickets-are-available-for-as-little-as-17",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-giants-tickets-are-available-for-as-little-as-17",
+      "permalink": "",
+      "title": "Titans-Giants tickets are available for as little as $17",
+      "body_text": "Two months ago, the price point for a ticket for a specific event at MetLife Stadium landed as high as $39,704.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-26T12:22:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seven-teams-face-an-0-3-hole-and-only-seven-0-3-teams-have-ever-made-the-playoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seven-teams-face-an-0-3-hole-and-only-seven-0-3-teams-have-ever-made-the-playoffs",
+      "permalink": "",
+      "title": "Seven teams face an 0-3 hole — and only seven 0-3 teams have ever made the playoffs",
+      "body_text": "Eight teams entered Week 3 at 0-2.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-26T03:39:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-daboll-downplays-revenge-as-motivation-for-titans-giants-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-daboll-downplays-revenge-as-motivation-for-titans-giants-game",
+      "permalink": "",
+      "title": "Brian Daboll downplays revenge as motivation for Titans-Giants game",
+      "body_text": "Titans offensive coordinator Brian Daboll will be coaching against the team that fired him when he faces the Giants on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-26T11:01:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Daboll"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-announce-marcus-mariota-will-be-a-team-captain-for-the-rest-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-announce-marcus-mariota-will-be-a-team-captain-for-the-rest-of-the-season",
+      "permalink": "",
+      "title": "Commanders announce Marcus Mariota will be a team captain for the rest of the season",
+      "body_text": "Mariota will start in place of the injured Jayden Daniels on Sunday against the Seahawks.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-26T08:25:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marcus Mariota",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0032268",
+        "00-0039910"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-week-2-stinger-saquon-barkley-vow-to-be-fearless",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-week-2-stinger-saquon-barkley-vow-to-be-fearless",
+      "permalink": "",
+      "title": "After Week 2 stinger, Saquon Barkley vows to be \"fearless\"",
+      "body_text": "Barkley missed much of Sunday's game after injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-26T02:17:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "After Week",
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tim-tebow-pauses-his-relationship-with-life-surge-after-pablo-torre-investigation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tim-tebow-pauses-his-relationship-with-life-surge-after-pablo-torre-investigation",
+      "permalink": "",
+      "title": "Tim Tebow pauses his relationship with Life Surge after Pablo Torre investigation",
+      "body_text": "Pablo Torre is a troublemaker.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-26T02:37:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tim Tebow",
+        "Life Surge",
+        "Pablo Torre"
+      ],
+      "resolved_player_ids": [
+        "00-0027876"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bud-light-leans-in-to-fines-for-beer-celebrations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bud-light-leans-in-to-fines-for-beer-celebrations",
+      "permalink": "",
+      "title": "Bud Light leans in to fines for beer celebrations",
+      "body_text": "The Church Lady has commandeered the league office.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T23:54:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Light",
+        "The Church"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-st-coach-says-eagles-are-violating-intent-of-the-rule-by-using-holder-on-kickoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-st-coach-says-eagles-are-violating-intent-of-the-rule-by-using-holder-on-kickoffs",
+      "permalink": "",
+      "title": "Bears ST coach says Eagles are violating intent of the rule by using holder on kickoffs",
+      "body_text": "Last week, the Eagles used a holder on their kickoffs so that the ball could be placed at an angle that affected the trajectory of the ball and made it harder for the returner to field.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-25T23:37:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-is-having-a-historic-start-to-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-is-having-a-historic-start-to-the-season",
+      "permalink": "",
+      "title": "Josh Allen is having a historic start to the season",
+      "body_text": "Bills quarterback Josh Allen has gotten off to a great start in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T23:28:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-nick-bosas-injury-i-know-hes-bummed-but-hell-be-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-nick-bosas-injury-i-know-hes-bummed-but-hell-be-back",
+      "permalink": "",
+      "title": "Kyle Shanahan on Nick Bosa's injury: I know he's bummed, but he'll be back",
+      "body_text": "49ers head coach Kyle Shanahan confirmed defensive end Nick Bosa will miss multiple weeks after injuring his calf before Thursday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T23:01:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-back-to-full-participation-hollywood-brown-doesnt-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-back-to-full-participation-hollywood-brown-doesnt-practice",
+      "permalink": "",
+      "title": "Saquon Barkley back to full participation, Hollywood Brown doesn't practice",
+      "body_text": "Eagles running back Saquon Barkley said that he expects to be good to go for Monday night's game against the Bears and Friday's injury report shows that he's on track to play.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T22:24:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-is-questionable-with-a-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-is-questionable-with-a-hip-injury",
+      "permalink": "",
+      "title": "49ers WR Mike Evans is questionable with a hip injury",
+      "body_text": "49ers wide receiver Mike Evans returned to practice Friday, but he is questionable to play Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T21:44:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-wr-greg-dortch-to-active-roster-place-db-jordan-hancock-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-sign-wr-greg-dortch-to-active-roster-place-db-jordan-hancock-on-ir",
+      "permalink": "",
+      "title": "Bills sign WR Greg Dortch to active roster, place DB Jordan Hancock on IR",
+      "body_text": "The Bills have signed wide receiver Greg Dortch to the active roster from the practice squad, the team announced Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T21:30:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Greg Dortch",
+        "Jordan Hancock",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0035500",
+        "00-0040192"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rb-tony-pollard-has-no-injury-designation-but-rb-tyjae-spears-is-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rb-tony-pollard-has-no-injury-designation-but-rb-tyjae-spears-is-questionable",
+      "permalink": "",
+      "title": "Titans RB Tony Pollard has no injury designation, but RB Tyjae Spears is questionable",
+      "body_text": "Titans running back Tony Pollard (ankle) had a second consecutive limited practice Friday after missing Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T21:08:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard",
+        "Tyjae Spears"
+      ],
+      "resolved_player_ids": [
+        "00-0035261",
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lt-josh-simmons-out-cb-mansoor-delane-set-to-play-for-chiefs-dolphins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lt-josh-simmons-out-cb-mansoor-delane-set-to-play-for-chiefs-dolphins",
+      "permalink": "",
+      "title": "LT Josh Simmons out, CB Mansoor Delane set to play for Chiefs-Dolphins",
+      "body_text": "The Chiefs are once again set to start undrafted rookie Kahlil Benson at left tackle.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-25T20:52:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Simmons",
+        "Mansoor Delane",
+        "Dolphins The",
+        "Kahlil Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0040116"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-zay-flowers-questionable-ot-ronnie-stanley-out-for-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-zay-flowers-questionable-ot-ronnie-stanley-out-for-ravens",
+      "permalink": "",
+      "title": "WR Zay Flowers questionable, OT Ronnie Stanley out for Ravens",
+      "body_text": "Ravens wide receiver Zay Flowers returned to Friday's practice as a limited participant.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T20:51:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Ronnie Stanley",
+        "Ravens Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0032965"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-k-dobbins-rj-harvey-on-track-to-play-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-k-dobbins-rj-harvey-on-track-to-play-sunday-night",
+      "permalink": "",
+      "title": "J.K. Dobbins, RJ Harvey on track to play Sunday night",
+      "body_text": "The Broncos have good news and bad news at running back on their final injury report ahead of Sunday night's game against the Rams.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T20:42:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-is-set-to-start-for-the-seahawks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-is-set-to-start-for-the-seahawks",
+      "permalink": "",
+      "title": "Sam Darnold is set to start for the Seahawks",
+      "body_text": "Darnold has no injury designation for Sunday's game.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T20:34:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "Seahawks Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dremont-jones-out-craig-woodson-and-eli-raridon-questionable-for-week-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dremont-jones-out-craig-woodson-and-eli-raridon-questionable-for-week-3",
+      "permalink": "",
+      "title": "Dre'Mont Jones out, Craig Woodson and Eli Raridon questionable for Week 3",
+      "body_text": "The Patriots will officially be without one of their key defenders on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-25T20:26:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mont Jones",
+        "Craig Woodson",
+        "Eli Raridon",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0040716"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-list-adonai-mitchell-joseph-ossai-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-list-adonai-mitchell-joseph-ossai-as-questionable",
+      "permalink": "",
+      "title": "Jets list Adonai Mitchell, Joseph Ossai as questionable",
+      "body_text": "The Jets aren't ready to make a call on wide receiver Adonai Mitchell's availability for Sunday's game against the Lions.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T20:21:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Adonai Mitchell",
+        "Joseph Ossai",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0039890",
+        "00-0036902"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-rule-out-jadeveon-clowney-nico-collins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-rule-out-jadeveon-clowney-nico-collins",
+      "permalink": "",
+      "title": "Texans rule out Jadeveon Clowney, Nico Collins",
+      "body_text": "The Texans ruled out five players for Sunday's game against the Colts.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T20:16:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadeveon Clowney",
+        "Nico Collins",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0031364",
+        "00-0036554"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-brian-burns-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-brian-burns-as-questionable",
+      "permalink": "",
+      "title": "Giants list Brian Burns as questionable",
+      "body_text": "Word this week was that Giants linebacker Brian Burns would miss time with the ankle injury he suffered in Week 2, but the Giants have not ruled him out for Sunday's game against the Titans.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T20:11:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Burns"
+      ],
+      "resolved_player_ids": [
+        "00-0035713"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-questionable-after-another-limited-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-questionable-after-another-limited-practice",
+      "permalink": "",
+      "title": "Joey Porter Jr. questionable after another limited practice",
+      "body_text": "Steelers cornerback Joey Porter Jr. hasn't played this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T20:06:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charvarius-ward-questionable-ashton-dulin-out-for-colts-texans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/charvarius-ward-questionable-ashton-dulin-out-for-colts-texans",
+      "permalink": "",
+      "title": "Charvarius Ward questionable, Ashton Dulin out for Colts-Texans",
+      "body_text": "The Colts are listing one of their defensive starters as questionable, but it appears he's trending in the right direction to play on Sunday against the Texans.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-25T20:03:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charvarius Ward",
+        "Ashton Dulin",
+        "Texans The"
+      ],
+      "resolved_player_ids": [
+        "00-0034573",
+        "00-0035021"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-tretter-field-condition-in-brazil-reinforces-nflpa-concerns-about-international-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-tretter-field-condition-in-brazil-reinforces-nflpa-concerns-about-international-games",
+      "permalink": "",
+      "title": "JC Tretter: Field condition in Brazil \"reinforces\" NFLPA concerns about international games",
+      "body_text": "Sunday's game between the Ravens and Cowboys in Brazil will be played on a grass field that likely will not look great on TV.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T19:16:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-tyson-bagent-out-of-practice-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-tyson-bagent-out-of-practice-friday",
+      "permalink": "",
+      "title": "Caleb Williams, Tyson Bagent out of practice Friday",
+      "body_text": "Case Keenum remains on track to be the Bears' starting quarterback against the Eagles on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T19:58:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Tyson Bagent",
+        "Friday Case"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0038416"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-wr-zay-flowers-returns-to-practice-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-wr-zay-flowers-returns-to-practice-friday",
+      "permalink": "",
+      "title": "Ravens WR Zay Flowers returns to practice Friday",
+      "body_text": "Ravens wide receiver Zay Flowers returned to practice Friday, participating in individual drills.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-25T19:42:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Friday Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-cb-tyson-campbell-s-grant-delpit-as-questionable-for-week-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-cb-tyson-campbell-s-grant-delpit-as-questionable-for-week-3",
+      "permalink": "",
+      "title": "Browns list CB Tyson Campbell, S Grant Delpit as questionable for Week 3",
+      "body_text": "The Browns may be without two of their key defensive starters for their 2026 home opener against the Panthers.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-25T19:40:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyson Campbell",
+        "Grant Delpit",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0036974",
+        "00-0036282"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-owners-have-an-absolute-right-to-boo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-owners-have-an-absolute-right-to-boo",
+      "permalink": "",
+      "title": "Packers \"owners\" have an absolute right to boo",
+      "body_text": "While plenty of sports fans mistakenly believe that the purchase of a ticket to a game provides a license to engage in a wide range of antisocial behaviors, the customers of a given home team always have the prerogative to express displeasure with the performances they're witnessing.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-25T19:37:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-is-set-to-play-for-vikings-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-is-set-to-play-for-vikings-sunday",
+      "permalink": "",
+      "title": "Aaron Jones is set to play for Vikings Sunday",
+      "body_text": "Vikings running back Aaron Jones worked his way up to a full practice on Friday and he's set to play against the Buccaneers on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-25T19:28:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Jones",
+        "Vikings Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0033293"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

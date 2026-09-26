@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "ab1f2dde-e9bf-4e32-be77-1009fba22422",
+  "source": "rotowire",
+  "fetched_at": "2026-09-26T12:23:20.348445+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl639207",
+      "url": "https://www.rotowire.com//football/player/drew-lock-13736",
+      "permalink": "",
+      "title": "Drew Lock: Returning to No. 2 role",
+      "body_text": "Lock will return to a backup role for Sunday's game at Washington after coach Mike Macdonald said Friday that Sam Darnold (glute) is \"going to play,\" John Boyle of the Seahawks' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-25T03:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Lock",
+        "Mike Macdonald",
+        "Sam Darnold",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0035704",
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl639198",
+      "url": "https://www.rotowire.com//football/player/dallas-goedert-12860",
+      "permalink": "",
+      "title": "Dallas Goedert: No practice again Friday",
+      "body_text": "Goedert (knee) didn't practice Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-25T03:34:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Goedert",
+        "Friday Goedert"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl639196",
+      "url": "https://www.rotowire.com//football/player/devonta-smith-15406",
+      "permalink": "",
+      "title": "DeVonta Smith: Limited at Friday's practice",
+      "body_text": "Smith (hamstring) practiced in a limited capacity Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-25T03:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl639194",
+      "url": "https://www.rotowire.com//football/player/saquon-barkley-12507",
+      "permalink": "",
+      "title": "Saquon Barkley: Full practice Friday",
+      "body_text": "Barkley (stinger) was a full practice participant Friday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-25T03:23:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Friday Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl639179",
+      "url": "https://www.rotowire.com//football/player/saquon-barkley-12507",
+      "permalink": "",
+      "title": "Saquon Barkley: Will wear protective gear Monday",
+      "body_text": "Barkley (stinger) said Friday that he's \"feeling good\" this week and will wear protective gear around his neck during Monday's contest at Chicago, Dave Zangaro of NBC Sports Philadelphia reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-25T02:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Monday Barkley",
+        "Dave Zangaro",
+        "Sports Philadelphia"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    }
+  ]
+}
