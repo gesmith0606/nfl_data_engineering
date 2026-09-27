@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "6ca43b85-153a-4c65-b47d-ff92489a608e",
+  "source": "rotowire",
+  "fetched_at": "2026-09-27T12:24:39.419998+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl639348",
+      "url": "https://www.rotowire.com//football/player/caleb-williams-17695",
+      "permalink": "",
+      "title": "Caleb Williams: Facing 3-to-4-week recovery",
+      "body_text": "Williams, who is ruled out for Monday's game against the Eagles, has been diagnosed with a Grade 2 hamstring strain, which doctors consider a 3-to-4-week injury, Adam Schefter and Ian Rapoport of ESPN report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T05:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams",
+        "Adam Schefter",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl639347",
+      "url": "https://www.rotowire.com//football/player/tyjae-spears-16941",
+      "permalink": "",
+      "title": "Tyjae Spears: Uncertain about active status",
+      "body_text": "Spears (ankle) will be monitored by the Titans pregame before Sunday's contest at the Giants, but the team is hopeful he'll be able to play, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T05:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyjae Spears",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl639346",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Health concern considered 'short term'",
+      "body_text": "Nacua (hip), who is listed as doubtful for Sunday's game at Denver, has been hampered by a groin injury that has impacted his explosiveness, and while the Rams haven't taken surgery \"entirely off the table,\" the issue is considered \"short term,\" with a return possible sooner rather than later, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T04:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl639345",
+      "url": "https://www.rotowire.com//football/player/michael-pittman-14378",
+      "permalink": "",
+      "title": "Michael Pittman: Slated to play Sunday",
+      "body_text": "Pittman (foot) is expected to play in Sunday's contest against the Bengals, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T04:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Pittman",
+        "Sunday Pittman",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036252"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "nfl639344",
+      "url": "https://www.rotowire.com//football/player/jaylen-warren-15984",
+      "permalink": "",
+      "title": "Jaylen Warren: Likely to play Sunday",
+      "body_text": "Warren (shoulder), who is listed as questionable for Week 3, is expected to play Sunday versus the Bengals, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T04:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Warren",
+        "Sunday Warren",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0037228"
+      ],
+      "team_hint": "CIN"
+    }
+  ]
+}
