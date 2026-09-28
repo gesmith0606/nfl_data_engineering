@@ -17,6 +17,9 @@ then the injury status: the official NFL report for the week when posted
 (game status + practice trail), else Sleeper's tag labelled with where it came
 from (``from wk2 game, not a wk3 ruling``) and how old Sleeper's news is.
 Drop candidates are the lowest-BLEND bench players (K/DEF are not scored here).
+Dynasty presets (``"dynasty": True``, e.g. Mantis) add DYN = FantasyCalc market value
+and AGE, a "dynasty targets" list, and sort my roster by value instead of BLEND.
+Run ``scripts/league_context.py --league <key>`` first (FAAB, bid levels, our churn).
 """
 
 from __future__ import annotations
@@ -33,7 +36,7 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from src import config, sleeper_http  # noqa: E402
+from src import config, league_context, sleeper_http  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
     build_id_maps,
@@ -180,6 +183,8 @@ def main(argv: Optional[list] = None) -> int:
         week = args.week or week
 
     registry = load_sleeper_players(max_age_days=set_lineups.REGISTRY_MAX_AGE_DAYS)
+    # Dynasty presets: FantasyCalc market value + age next to every row ({} otherwise).
+    dyn = league_context.dynasty_values_for_preset(preset, config.ROSTER_CONFIGS)
     _, by_name = build_id_maps(registry)
     league = None
     rostered: Set[str] = set()
@@ -282,6 +287,8 @@ def main(argv: Optional[list] = None) -> int:
             "inj": getattr(resolve_injury_status(sid, meta, injury_ctx), "text", ""),
             "news": news.get(sid, ""),
             "adp": adp_rank(sid, meta),
+            "dyn": (dyn.get(sid) or {}).get("value", 0),
+            "age": meta.get("age"),
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
@@ -299,7 +306,8 @@ def main(argv: Optional[list] = None) -> int:
             f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
-            f" {r['news']}{'  ' if r['news'] and r['inj'] else ''}{r['inj']}"
+            + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
+            + f" {r['news']}{'  ' if r['news'] and r['inj'] else ''}{r['inj']}"
         )
 
     print(f"\n=== {title} — {season} week {week} waivers ===")
@@ -329,15 +337,25 @@ def main(argv: Optional[list] = None) -> int:
         for r in hot:
             print(line(r))
 
+    if dyn:
+        print(
+            "\n-- Dynasty targets: unrostered by market value "
+            "(youth + a path to a role beat one week's points) --"
+        )
+        for r in sorted(fas, key=lambda r: -r["dyn"])[: args.top * 2]:
+            print(line(r))
+
     my_rows = [r for r in (row(s) for s in mine) if r]
     unscored = [
         registry.get(s, {}).get("full_name") or s for s in mine if row(s) is None
     ]
     missing = ", ".join(map(str, unscored)) or "none"
+    weakest = "dynasty value" if dyn else "blend"
     print(
-        f"\n-- My roster (weakest first; {len(my_rows)} scored, unscored: {missing}) --"
+        f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
+        f"unscored: {missing}) --"
     )
-    for r in sorted(my_rows, key=lambda r: r["blend"]):
+    for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):
         print(line(r, "START" if r["sid"] in starters else "bench"))
     return 0
 

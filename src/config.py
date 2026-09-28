@@ -415,6 +415,9 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "teams": 10,
         "my_pick": None,
         "my_user": "Gforceee",
+        # Dynasty: waivers/trades are judged on dynasty market value + age,
+        # not one week's projection (see src/league_context.py).
+        "dynasty": True,
     },
 }
 

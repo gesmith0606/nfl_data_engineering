@@ -11,6 +11,15 @@ The `gentlemen` / `mahomos` presets in `config.py` are NOT George's leagues.
 - If the board is missing: `gh workflow run weekly-pipeline.yml --ref main -f season=2026 -f week=N`.
 - Weekly-mode OURS runs low on stars early in the season — always read the BLEND column.
 
+## 1b. League context before any recommendation
+```bash
+python scripts/league_context.py --league mantis     # FAAB left per team, winning-bid levels, our moves, dynasty values
+python scripts/league_context.py --league la_liga    # ESPN cookies in .env, or --espn-json <saved league JSON>
+```
+Mantis is dynasty: judge claims on dynasty value + age + path to a role (see the
+`weekly-waivers` skill), not one week's projection. By week 3 of 2026 we had spent
+$602 of $1000 (league median $42) on backup-QB/RB streamers — don't repeat it.
+
 ## 2. Refresh the exact free-agent pools (Chrome, logged in — claude-in-chrome)
 - **ESPN**: League Rosters page → all 178 rostered names → `data/draft/la_liga_2026_all_rostered.txt`;
   my team page → `data/draft/la_liga_2026_roster.txt`. (API works from the logged-in tab:
