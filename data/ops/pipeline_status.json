@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T12:31:10.097484+00:00",
+  "generated_at": "2026-09-28T18:23:52.141131+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-09-27T21:11:38Z",
-        "duration_seconds": 82,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36350799105",
+        "started_at": "2026-09-28T13:15:04Z",
+        "duration_seconds": 97,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36427269711",
         "event": "schedule"
       },
       "recent": [
@@ -145,9 +145,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-09-28T12:30:51Z",
+        "started_at": "2026-09-28T18:23:31Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36422310049",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36464851036",
         "event": "schedule"
       },
       "recent": [
@@ -171,14 +171,14 @@
       "purpose": "Sanity gates + HF/Vercel deploy verification",
       "last_run": {
         "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-09-27T14:37:13Z",
-        "duration_seconds": 309,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36326566202",
+        "conclusion": "failure",
+        "started_at": "2026-09-28T14:43:28Z",
+        "duration_seconds": 369,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36438121629",
         "event": "schedule"
       },
       "recent": [
-        "success",
+        "failure",
         "success",
         "success",
         "success",
@@ -189,7 +189,7 @@
         "success",
         "success"
       ],
-      "success_rate": 1.0
+      "success_rate": 0.9
     }
   ]
 }
