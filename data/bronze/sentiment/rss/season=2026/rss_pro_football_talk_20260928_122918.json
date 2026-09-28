@@ -1,0 +1,489 @@
+{
+  "fetch_run_id": "75905a29-a165-4a67-9e6b-740c4fc30d9e",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-28T12:29:18.030193+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-believe-brian-burns-has-torn-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-believe-brian-burns-has-torn-acl",
+      "title": "Giants believe Brian Burns has torn ACL",
+      "body_text": "Burns is expected to miss the rest of the season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-28T12:25:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Burns"
+      ],
+      "resolved_player_ids": [
+        "00-0035713"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-disappointed-but-not-down-after-12-game-winning-streak-comes-to-an-end",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-disappointed-but-not-down-after-12-game-winning-streak-comes-to-an-end",
+      "title": "Seahawks disappointed, but \"not down\" after 12-game winning streak comes to an end",
+      "body_text": "Sunday's loss to the Commanders was Seattle's first since November 16, 2025.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T12:20:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-if-you-dont-think-we-can-turn-it-around-then-get-out-of-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-if-you-dont-think-we-can-turn-it-around-then-get-out-of-here",
+      "title": "Ladd McConkey: If you don't think we can turn it around, then get out of here",
+      "body_text": "If you looked at the box score for Sunday's game in Buffalo without checking the score first, you'd likely pick the Chargers as the team that wound up winning.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T12:09:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-ward-has-to-be-smarter-with-the-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-ward-has-to-be-smarter-with-the-football",
+      "title": "Robert Saleh: Cam Ward has to be smarter with the football",
+      "body_text": "The Titans had the ball inside the Giants' 10-yard-line with 24 seconds left in Sunday's game, but any hopes of a comeback win were dashed when quarterback Cam Ward's final pass left his hand.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T11:57:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Cam Ward",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-i-told-tyler-loop-his-legacy-was-starting-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-i-told-tyler-loop-his-legacy-was-starting-now",
+      "title": "Lamar Jackson: I told Tyler Loop his legacy was starting now",
+      "body_text": "Ravens kicker Tyler Loop's missed field goal at the end of the final regular season game of the 2025 season kept Baltimore out of the playoffs and it was on the mind of many as Sunday's game against the Cowboys in Rio reached its final moments.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T11:09:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Tyler Loop"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0040074"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-i-thought-my-arm-was-moving-forward-on-fourth-quarter-fumble",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-i-thought-my-arm-was-moving-forward-on-fourth-quarter-fumble",
+      "title": "Tyler Shough: I thought my arm was moving forward on fourth quarter fumble",
+      "body_text": "The Saints were upset that they had a fumble recovery taken off the board in their Week 1 loss to the Lions and they weren't any happier about the application of the rules in the fourth quarter of Week 3.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T10:59:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Shough",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-played-6-snaps-had-1-target-and-0-catches",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-played-6-snaps-had-1-target-and-0-catches",
+      "title": "Odell Beckham played 6 snaps, had 1 target and 0 catches",
+      "body_text": "Giants head coach John Harbaugh said he wanted to get wide receiver Odell Beckham Jr. more involved in the offense on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-28T10:42:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham",
+        "John Harbaugh",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0031235"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-didnt-have-much-to-say-after-sunday-nights-loss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-didnt-have-much-to-say-after-sunday-nights-loss",
+      "title": "Sean McVay didn't have much to say after Sunday night's loss",
+      "body_text": "Anyone hoping to hear a detailed breakdown of why the Rams blew a 16-point halftime lead in Sunday night's loss to the Broncos was left disappointed by head coach Sean McVay's postgame press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T10:42:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-we-have-to-find-a-way-to-play-better-earlier",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-we-have-to-find-a-way-to-play-better-earlier",
+      "title": "Sean Payton: We have to find a way to play better earlier",
+      "body_text": "The Broncos were down 16-0 against the Rams at halftime on Sunday night, but they put up 30 points in the final 30 minutes to close out the game with their second straight win.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T10:29:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-have-lost-an-unprecedented-12-consecutive-games-against-the-spread",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-have-lost-an-unprecedented-12-consecutive-games-against-the-spread",
+      "title": "Buccaneers have lost an unprecedented 12 consecutive games against the spread",
+      "body_text": "Betting against the Buccaneers is good business.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-28T09:21:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-says-ive-got-to-be-better-after-nfl-record-33rd-career-pick-six",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-says-ive-got-to-be-better-after-nfl-record-33rd-career-pick-six",
+      "title": "Matthew Stafford says \"I've got to be better\" after NFL-record 33rd career pick six",
+      "body_text": "Talanoa Hufanga intercepted Stafford twice in the Broncos' 30-26 win over the Patriots.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-28T08:30:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Talanoa Hufanga"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0036564"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-broncos-complete-comeback-defeat-rams-30-26",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-broncos-complete-comeback-defeat-rams-30-26",
+      "title": "Sunday Night Football: Broncos complete comeback, defeat Rams 30-26",
+      "body_text": "Los Angeles was in it until the last play, but Denver was able to hang on for the team's second victory of the season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-28T04:13:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-throws-two-td-passes-two-point-conversions-broncos-rams-tied-at-16-16",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-throws-two-td-passes-two-point-conversions-broncos-rams-tied-at-16-16",
+      "title": "Bo Nix throws two TD passes, two-point conversions, Broncos-Rams tied at 16-16",
+      "body_text": "The Broncos were down 16-0 to the Rams at halftime.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-28T02:49:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-rams-lead-broncos-16-0-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-rams-lead-broncos-16-0-at-halftime",
+      "title": "Sunday Night Football: Rams lead Broncos 16-0 at halftime",
+      "body_text": "Los Angeles scored on its last four possessions of the first half for a dominant first 30 minutes.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-28T01:59:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-i-just-wanted-to-finish-the-game-for-the-fans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-i-just-wanted-to-finish-the-game-for-the-fans",
+      "title": "Deshaun Watson: I just wanted to finish the game for the fans",
+      "body_text": "Browns fans booed Deshaun Watson in the second half of a preseason game against the Bills.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-28T01:57:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-becomes-first-to-throw-for-20-000-yards-with-two-nfl-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-becomes-first-to-throw-for-20-000-yards-with-two-nfl-teams",
+      "title": "Matthew Stafford becomes first to throw for 20,000 yards with two NFL teams",
+      "body_text": "Matthew Stafford has reached another milestone in his storied career.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-28T01:36:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-td-pass-gives-rams-early-7-0-lead-over-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-td-pass-gives-rams-early-7-0-lead-over-broncos",
+      "title": "Matthew Stafford TD pass gives Rams early 7-0 lead over Broncos",
+      "body_text": "The Rams have taken an early 7-0 lead over the Broncos, but they are dealing with more injury issues.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-28T00:53:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Broncos The"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-attributes-fumble-to-blood-on-the-ball",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-attributes-fumble-to-blood-on-the-ball",
+      "title": "Drake Maye attributes fumble to blood on the ball",
+      "body_text": "Patriots quarterback Drake Maye had an unusual moment on Sunday, when he cocked his arm to throw and his hand came forward without the ball in it.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-28T01:06:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-expects-jameis-winston-to-remain-qb1-no-matter-who-giants-add-at-the-position",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-expects-jameis-winston-to-remain-qb1-no-matter-who-giants-add-at-the-position",
+      "title": "John Harbaugh expects Jameis Winston to remain QB1 no matter who Giants add at the position",
+      "body_text": "It wasn't pretty — and it was only the winless Titans — but Jameis Winston won his first game as a starter since Dec. 15, 2024, when he was with the Browns.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-28T00:56:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-makes-nfl-history-with-0-catches-for-80-receiving-yards-and-1-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-makes-nfl-history-with-0-catches-for-80-receiving-yards-and-1-td",
+      "title": "Deebo Samuel makes NFL history with 0 catches for 80 receiving yards and 1 TD",
+      "body_text": "San Francisco wide receiver Deebo Samuel had a stat line never before seen in NFL history today: Zero catches, 80 receiving yards and a receiving touchdown.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-28T00:48:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deebo Samuel",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oregon-says-dante-moores-ct-scan-and-mri-were-clean",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oregon-says-dante-moores-ct-scan-and-mri-were-clean",
+      "title": "Oregon says Dante Moore's CT scan and MRI were \"clean\"",
+      "body_text": "Oregon quarterback Dante Moore, one of the top prospects in the 2027 draft, suffered a significant concussion on Saturday night, when he was knocked unconscious after sliding by USC linebacker Desman Stephens II.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-28T00:48:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dante Moore",
+        "Desman Stephens II"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-we-dont-know-nature-of-mike-evans-injury-will-find-out-more-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-we-dont-know-nature-of-mike-evans-injury-will-find-out-more-monday",
+      "title": "Kyle Shanahan: We don't know nature of Mike Evans injury, will find out more Monday",
+      "body_text": "The 49ers improved to 3-0 against the Cardinals on Sunday, but their list of injured players got a little longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T00:30:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Mike Evans",
+        "Monday The"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-throws-3-tds-raiders-move-to-3-0-with-35-27-victory-over-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-throws-3-tds-raiders-move-to-3-0-with-35-27-victory-over-saints",
+      "title": "Kirk Cousins throws 3 TDs, Raiders move to 3-0 with 35-27 victory over Saints",
+      "body_text": "For just the second time since 2002, the Raiders are 3-0.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-28T00:01:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Saints For"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-justin-jefferson-got-close-to-returning-ankle-to-be-evaluated-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-justin-jefferson-got-close-to-returning-ankle-to-be-evaluated-monday",
+      "title": "Kevin O'Connell: Justin Jefferson \"got close\" to returning, ankle to be evaluated Monday",
+      "body_text": "Vikings wide receiver Justin Jefferson left Sunday's game in the first quarter with an ankle injury and did not return before the end of Minnesota's 23-16 win over the Buccaneers.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-28T00:21:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Jefferson",
+        "Monday Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-dislocated-his-thumb-will-have-an-mri",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-dislocated-his-thumb-will-have-an-mri",
+      "title": "Baker Mayfield dislocated his thumb, will have an MRI",
+      "body_text": "Buccaneers quarterback Baker Mayfield had to leave Sunday's loss to the Vikings late in the fourth quarter and medical tests will help determine when he's able to return.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-27T23:50:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-beat-cowboys-34-31-on-final-play-in-brazil",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-beat-cowboys-34-31-on-final-play-in-brazil",
+      "title": "Ravens beat Cowboys 34-31 on final play in Brazil",
+      "body_text": "The Ravens had only 7 seconds when they got the ball back, but one play got Tyler Loop in position for 56-yard FG.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-27T23:59:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brazil The",
+        "Tyler Loop"
+      ],
+      "resolved_player_ids": [
+        "00-0040074"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-beat-bucs-23-16-baker-mayfield-injured-late-in-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-beat-bucs-23-16-baker-mayfield-injured-late-in-game",
+      "title": "Vikings beat Bucs 23-16, Baker Mayfield injured late in game",
+      "body_text": "The Vikings won't be thrilled with how their offense performed in Sunday's 23-16 win over the Buccaneers, but they had plenty to like on defense.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-27T23:32:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-improve-to-3-0-with-hard-fought-win-over-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-improve-to-3-0-with-hard-fought-win-over-cardinals",
+      "title": "49ers improve to 3-0 with hard-fought win over Cardinals",
+      "body_text": "It wasn't as easy as expected, but San Francisco managed to win at home against Arizona.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-27T23:17:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-take-28-24-lead-after-fourth-down-stop-of-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-take-28-24-lead-after-fourth-down-stop-of-ravens",
+      "title": "Cowboys take 28-24 lead after fourth-down stop of Ravens",
+      "body_text": "The Cowboys were dead in the water, thisclose to being down 10 points.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-27T23:13:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ravens The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-marvin-mims-puka-nacua-inactive-for-broncos-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-marvin-mims-puka-nacua-inactive-for-broncos-rams",
+      "title": "Sunday Night Football: Marvin Mims, Puka Nacua inactive for Broncos-Rams",
+      "body_text": "Both the Rams and Broncos will be without a key receiver on Sunday night in Week 3.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-27T23:05:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Marvin Mims",
+        "Puka Nacua",
+        "Rams Both"
+      ],
+      "resolved_player_ids": [
+        "00-0038976",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

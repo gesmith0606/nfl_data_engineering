@@ -1,0 +1,97 @@
+{
+  "fetch_run_id": "8ce63f24-614e-4169-b36a-480a5c64e2f5",
+  "source": "rotowire",
+  "fetched_at": "2026-09-28T12:29:31.995585+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl639662",
+      "url": "https://www.rotowire.com//football/player/courtland-sutton-12586",
+      "permalink": "",
+      "title": "Courtland Sutton: Team-high 46 rec yards in comeback win",
+      "body_text": "Sutton caught three of seven targets for 46 yards in Sunday's 30-26 win over the Rams. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T09:44:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton"
+      ],
+      "resolved_player_ids": [
+        "00-0034348"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl639661",
+      "url": "https://www.rotowire.com//football/player/jk-dobbins-14418",
+      "permalink": "",
+      "title": "J.K. Dobbins: Doesn't do much with 17 carries",
+      "body_text": "Dobbins rushed 17 times for 49 yards while catching one of two targets for four yards in Sunday's 30-26 win over the Rams. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T09:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl639660",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "permalink": "",
+      "title": "RJ Harvey: Seven targets, two carries in Week 3",
+      "body_text": "Harvey (hamstring) rushed twice for six yards while catching six of seven targets for 41 yards in Sunday's 30-26 win over the Rams. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T09:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl639656",
+      "url": "https://www.rotowire.com//football/player/blake-corum-17690",
+      "permalink": "",
+      "title": "Blake Corum: Limited workload during SNF",
+      "body_text": "Corum rushed six times for 15 yards and caught two of four targets for no gain during Sunday night's 30-26 loss to Denver. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T09:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Corum"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl639655",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Three totals TDs in second-half comeback",
+      "body_text": "Nix completed 17 of 34 passes for 186 yards, two touchdowns and one interception in Sunday's 30-26 win over the Rams. He also rushed four times for seven yards and a touchdown in addition to throwing two successful two-point conversions. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-27T09:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}
