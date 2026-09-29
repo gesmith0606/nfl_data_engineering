@@ -1,0 +1,106 @@
+{
+  "fetch_run_id": "08b1b150-e22c-4aa5-a89f-046abfb0a882",
+  "source": "rotowire",
+  "fetched_at": "2026-09-29T12:28:32.110125+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl639804",
+      "url": "https://www.rotowire.com//football/player/kyle-monangai-18520",
+      "permalink": "",
+      "title": "Kyle Monangai: Kept in check during win",
+      "body_text": "Monangai rushed 10 times for 31 yards and wasn't targeted in the Bears' 27-7 win over the Eagles on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-28T09:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl639801",
+      "url": "https://www.rotowire.com//football/player/colston-loveland-18460",
+      "permalink": "",
+      "title": "Colston Loveland: Slight uptick in production Monday",
+      "body_text": "Loveland secured all four targets for 31 yards in the Bears' 27-7 win over the Eagles on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-28T09:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Colston Loveland",
+        "Monday Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl639799",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Three more catches in win",
+      "body_text": "Odunze secured three of six targets for 44 yards in the Bears' 27-7 win over the Eagles on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-28T09:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl639797",
+      "url": "https://www.rotowire.com//football/player/luther-burden-18548",
+      "permalink": "",
+      "title": "Luther Burden: Scores TD on productive night",
+      "body_text": "Burden secured seven of 11 targets for 61 yards and a touchdown while rushing once for seven yards in the Bears' 27-7 win over the Eagles on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-28T09:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl639795",
+      "url": "https://www.rotowire.com//football/player/jalen-hurts-14416",
+      "permalink": "",
+      "title": "Jalen Hurts: Forgettable night in loss",
+      "body_text": "Hurts completed 16 of 25 passes for 153 yards with no touchdowns and one interception while rushing four times for 25 yards and a touchdown in the Eagles' 27-7 loss to the Bears on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-28T08:58:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}
