@@ -138,6 +138,7 @@ def fetch_league(
     views: Optional[List[str]] = None,
     cookies: Optional[Dict[str, str]] = None,
     timeout: int = 30,
+    scoring_period: Optional[int] = None,
 ) -> Dict[str, Any]:
     """Fetch a league payload from ESPN's v3 fantasy API.
 
@@ -148,6 +149,9 @@ def fetch_league(
         cookies:   Auth cookies (default: :func:`cookies_from_env`). Public
                    leagues work with none.
         timeout:   Request timeout in seconds.
+        scoring_period: Optional ``scoringPeriodId`` (week). Required for
+                   ``mTransactions2`` history — without it ESPN returns only
+                   the current period's lineup moves.
 
     Returns:
         Parsed league JSON dict.
@@ -162,6 +166,8 @@ def fetch_league(
         cookies = cookies_from_env()
     url = f"{ESPN_API_BASE}/seasons/{season}/segments/0/leagues/{league_id}"
     params = [("view", v) for v in (views or list(DEFAULT_VIEWS))]
+    if scoring_period is not None:
+        params.append(("scoringPeriodId", str(scoring_period)))
     response = requests.get(
         url,
         params=params,

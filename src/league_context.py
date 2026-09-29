@@ -179,10 +179,22 @@ def espn_context(
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """ESPN lm-api payload (views mSettings, mTeam, mRoster, mTransactions2).
 
-    ESPN player ids map to Sleeper ids through the registry's ``espn_id``.
-    NOTE: the ``transactions`` shape (type/status/items/bidAmount) is written
-    from ESPN's known schema but not yet checked against a live 2026 payload.
+    ESPN player ids map to Sleeper ids through the registry's ``espn_id``;
+    many younger players have none there, so names fall back to ESPN's own
+    (roster entries, or a top-level ``players`` list from the ``players_wl``
+    endpoint). Negative ids are team defenses. ``transactions`` must be
+    gathered per ``scoringPeriodId`` — without it ESPN returns only the
+    current period's lineup moves (verified on the live 2026 league).
     """
+    espn_names: Dict[str, str] = {}
+    for p in payload.get("players") or []:
+        p = p.get("player", p)
+        espn_names[str(p.get("id"))] = p.get("fullName", "")
+    for t in payload.get("teams") or []:
+        for e in (t.get("roster") or {}).get("entries") or []:
+            p = (e.get("playerPoolEntry") or {}).get("player") or {}
+            if p.get("id") is not None:
+                espn_names[str(p["id"])] = p.get("fullName", "")
     budget = ((payload.get("settings") or {}).get("acquisitionSettings") or {}).get(
         "acquisitionBudget"
     ) or 0
@@ -212,7 +224,11 @@ def espn_context(
 
     def label(pid: Any) -> str:
         sid = by_espn.get(str(pid))
-        return _label(registry, sid) if sid else f"espn:{pid}"
+        if sid:
+            return _label(registry, sid)
+        if str(pid).startswith("-"):
+            return f"D/ST {pid}"
+        return espn_names.get(str(pid)) or f"espn:{pid}"
 
     tx = []
     for t in payload.get("transactions") or []:
