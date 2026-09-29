@@ -32,7 +32,6 @@ from src import config, league_context as lc, sleeper_http  # noqa: E402
 from src.sleeper_player_map import load_sleeper_players  # noqa: E402
 
 TX_URL = "https://api.sleeper.app/v1/league/{lid}/transactions/{week}"
-ESPN_VIEWS = ["mSettings", "mTeam", "mRoster", "mTransactions2"]
 
 
 def main(argv: Optional[list] = None) -> int:
@@ -92,8 +91,21 @@ def main(argv: Optional[list] = None) -> int:
         else:
             try:
                 payload = espn_league.fetch_league(
-                    int(lid), args.season, views=ESPN_VIEWS
+                    int(lid), args.season, views=["mSettings", "mTeam", "mRoster"]
                 )
+                # mTransactions2 without a scoringPeriodId returns only the
+                # current period's lineup moves -> gather every week.
+                payload["transactions"] = [
+                    t
+                    for week in range(0, (payload.get("scoringPeriodId") or 18) + 1)
+                    for t in espn_league.fetch_league(
+                        int(lid),
+                        args.season,
+                        views=["mTransactions2"],
+                        scoring_period=week,
+                    ).get("transactions")
+                    or []
+                ]
             except PermissionError as exc:
                 sys.exit(
                     f"{exc}\nOr save the league JSON from a logged-in browser and pass --espn-json."

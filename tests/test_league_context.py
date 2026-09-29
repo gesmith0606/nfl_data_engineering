@@ -246,3 +246,60 @@ def test_dynasty_roster_and_render_smoke() -> None:
     )
     assert "we have spent $602 (rank 1/2)" in text
     assert "<- me" in text and "Best unrostered by dynasty value" in text
+
+
+def test_espn_context_falls_back_to_espn_names_and_dst() -> None:
+    payload = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [{"id": 1, "name": "The Oracle"}],
+        "players": [{"id": 4569559, "fullName": "Devaughn Vele"}],
+        "transactions": [
+            {
+                "status": "EXECUTED",
+                "type": "FREEAGENT",
+                "teamId": 1,
+                "scoringPeriodId": 3,
+                "items": [
+                    {"type": "ADD", "playerId": -16019},
+                    {"type": "DROP", "playerId": -16030},
+                ],
+            },
+            {
+                "status": "EXECUTED",
+                "type": "WAIVER",
+                "teamId": 1,
+                "scoringPeriodId": 2,
+                "bidAmount": 12,
+                "items": [{"type": "ADD", "playerId": 4569559}],
+            },
+        ],
+    }
+    _, tx = lc.espn_context(payload, 1, REGISTRY)
+    assert list(tx["add"]) == ["D/ST -16019", "Devaughn Vele"]
+    assert tx.iloc[0]["drop"] == "D/ST -16030"
+
+
+def test_espn_fetch_league_passes_scoring_period(monkeypatch) -> None:
+    from src import espn_league
+
+    seen = {}
+
+    class Resp:
+        status_code = 200
+
+        def raise_for_status(self) -> None:
+            pass
+
+        def json(self) -> dict:
+            return {}
+
+    def fake_get(url, params, **kwargs):
+        seen["params"] = params
+        return Resp()
+
+    monkeypatch.setattr(espn_league.requests, "get", fake_get)
+    espn_league.fetch_league(
+        1, 2026, views=["mTransactions2"], cookies={}, scoring_period=3
+    )
+    assert ("scoringPeriodId", "3") in seen["params"]
+    assert ("view", "mTransactions2") in seen["params"]
