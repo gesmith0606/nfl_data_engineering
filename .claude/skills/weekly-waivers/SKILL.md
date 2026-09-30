@@ -50,6 +50,17 @@ recommending him.
 BLEND; ESPN typical winning claim $3-4, Yahoo room bids $0-3 ($5 wins non-consensus
 adds). One-source edges are coin flips. George prefers RB/WR depth over a second TE.
 
+## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
+Pool files and trending lists go stale within hours. Right before presenting, check
+each recommended ADD is still unrostered and each DROP is on our roster, on the site:
+- Sleeper: `/league/<id>/rosters` — search `players` + `taxi` + `reserve` of all teams.
+- ESPN: `kona_player_info` with `filterStatus FREEAGENT,WAIVERS` (status = FREEAGENT or
+  WAIVERS) and `mRoster` for our drops; also read `mSettings` roster slot counts before
+  suggesting IR moves (La Liga has 0 IR slots).
+- Yahoo: Players page `status=A` (Roster Status `W (date)` = on waivers) and our team page.
+Show the result as a table (player → live status → source). Anything unverified is
+labelled UNVERIFIED, never presented as available.
+
 ## Step 5 — Output
 Per league: the context line (our FAAB vs the room), then each claim as
 `player — bid — drop — why (role/value/injury context)`, then "don't claim" with the
