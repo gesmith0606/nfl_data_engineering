@@ -1,0 +1,523 @@
+{
+  "fetch_run_id": "7bb8fe2e-d1c0-4bb0-bf1e-b0675075198a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-09-30T12:31:01.650083+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-wr-pat-bryant-i-felt-a-nudge-sold-enough-to-get-the-pass-interference-call",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-wr-pat-bryant-i-felt-a-nudge-sold-enough-to-get-the-pass-interference-call",
+      "title": "Broncos WR Pat Bryant: I felt a nudge, sold enough to get the pass interference call",
+      "body_text": "The accuracy of the pass interference call that set the Broncos up for the winning touchdown over the Rams in last Sunday night's game has been debated around the football world, but what's not in debate is that Broncos wideout Pat Bryant did all he could to ensure a flag was thrown.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T12:16:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Bryant"
+      ],
+      "resolved_player_ids": [
+        "00-0040134"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-we-had-a-decent-offensive-performance-vibes-start-to-flow-with-a-couple",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-we-had-a-decent-offensive-performance-vibes-start-to-flow-with-a-couple",
+      "title": "Aaron Rodgers: We had a decent offensive performance, vibes start to flow with a couple",
+      "body_text": "The Steelers head into Thursday night's game against the Browns coming off their best offensive performance of the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T12:04:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-rousseau-is-first-player-since-1998-with-2-sacks-in-first-three-games-of-a-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-rousseau-is-first-player-since-1998-with-2-sacks-in-first-three-games-of-a-season",
+      "title": "Greg Rousseau is first player since 1998 with 2+ sacks in first three games of a season",
+      "body_text": "While Bills quarterback Josh Allen is the leading candidate to be league MVP, his teammate linebacker Greg Rousseau is making an early case for Defensive Player of the Year.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-30T11:43:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Rousseau",
+        "While Bills",
+        "Josh Allen",
+        "Defensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0036914",
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-rule-out-g-sam-cosmi-s-nick-cross-for-week-4",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-rule-out-g-sam-cosmi-s-nick-cross-for-week-4",
+      "title": "Commanders rule out G Sam Cosmi, S Nick Cross for Week 4",
+      "body_text": "The Commanders went to London on Tuesday night to prepare for Sunday's game against the Colts, but a couple of players did not make the trip.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T11:09:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Cosmi",
+        "Nick Cross",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036618",
+        "00-0037616"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/through-three-games-brock-purdy-still-hasnt-been-sacked",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/through-three-games-brock-purdy-still-hasnt-been-sacked",
+      "title": "Through three games, Brock Purdy still hasn't been sacked",
+      "body_text": "The 49ers are the fourth team since 1990 to allow zero sacks in their first three games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-30T08:42:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-dont-plan-to-add-odell-beckham-jr-to-the-practice-squad-at-this-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-dont-plan-to-add-odell-beckham-jr-to-the-practice-squad-at-this-time",
+      "title": "Giants don't plan to add Odell Beckham Jr. to the practice squad \"at this time\"",
+      "body_text": "The full scope of the moves the Giants made on Tuesday made their point clear.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T04:02:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-the-offseason-giants-werent-interested-in-joe-flacco",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-the-offseason-giants-werent-interested-in-joe-flacco",
+      "title": "In the offseason, Giants weren't interested in Joe Flacco",
+      "body_text": "Quarterback Joe Flacco became a free agent in March.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T02:37:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Flacco",
+        "Quarterback Joe"
+      ],
+      "resolved_player_ids": [
+        "00-0026158"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-dbs-juanyeh-thomas-alex-austin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-dbs-juanyeh-thomas-alex-austin",
+      "title": "Cowboys agree to terms with DBs Juanyeh Thomas, Alex Austin",
+      "body_text": "The Cowboys have been hit hard by injuries in their secondary, which is why they had four defensive backs in town to workout.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T01:00:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Juanyeh Thomas",
+        "Alex Austin",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037578",
+        "00-0038646"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-buck-hopes-troy-aikman-stays-at-espn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-buck-hopes-troy-aikman-stays-at-espn",
+      "title": "Joe Buck hopes Troy Aikman stays at ESPN",
+      "body_text": "Joe Buck recently re-upped with ESPN.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T00:57:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Buck",
+        "Troy Aikman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-remains-the-mvp-favorite-but-brock-purdy-is-lurking",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-remains-the-mvp-favorite-but-brock-purdy-is-lurking",
+      "title": "Josh Allen remains the MVP favorite, but Brock Purdy is lurking",
+      "body_text": "Even with no touchdown passes and a pair of interceptions on Sunday against the Chargers, Bills quarterback Josh Allen remains the clear MVP favorite.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T00:35:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0037834"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/case-keenums-monday-night-performance-shows-importance-of-having-three-quarterbacks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/case-keenums-monday-night-performance-shows-importance-of-having-three-quarterbacks",
+      "title": "Case Keenum's Monday night performance shows importance of having three quarterbacks",
+      "body_text": "Last night, Bears quarterback Case Keenum played in a regular-season game for the first time in 1,009 days.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T00:15:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Case Keenum"
+      ],
+      "resolved_player_ids": [
+        "00-0028986"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-says-he-has-a-broken-wrist",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-says-he-has-a-broken-wrist",
+      "title": "Jalen Ramsey says he has a broken wrist",
+      "body_text": "In advance of Thursday night's game at Cleveland, Steelers defensive back Jalen Ramsey was listed as limited in practice on Monday and Tuesday, with a wrist injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T00:01:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Ramsey"
+      ],
+      "resolved_player_ids": [
+        "00-0033055"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-49ers-to-sign-dante-pettis-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-49ers-to-sign-dante-pettis-to-the-practice-squad",
+      "title": "Report: 49ers to sign Dante Pettis to the practice squad",
+      "body_text": "The 49ers are signing wide receiver Dante Pettis to their practice squad, according to Jordan Schultz of The Schultz Report.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T23:32:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dante Pettis",
+        "Jordan Schultz",
+        "The Schultz"
+      ],
+      "resolved_player_ids": [
+        "00-0034860"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-cowboys-from-brazil-attracts-24-9-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-cowboys-from-brazil-attracts-24-9-million-viewers",
+      "title": "Ravens-Cowboys from Brazil attracts 24.9 million viewers",
+      "body_text": "International football does better on TV when it can be played in windows that traditionally get bigger numbers.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-29T23:28:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-no-9-taken-in-new-york-j-j-mccarthy-switches-to-no-18",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-no-9-taken-in-new-york-j-j-mccarthy-switches-to-no-18",
+      "title": "With No. 9 taken in New York, J.J. McCarthy switches to No. 18",
+      "body_text": "Nine is no more.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-29T23:12:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-qb-brett-rypien-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-qb-brett-rypien-to-the-practice-squad",
+      "title": "Bucs sign QB Brett Rypien to the practice squad",
+      "body_text": "The Buccaneers are signing quarterback Brett Rypien to their practice squad, Rick Stroud of the Tampa Bay Times reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T22:58:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brett Rypien",
+        "The Buccaneers",
+        "Rick Stroud",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0034955"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-rb-dare-ogunbowale-off-raiders-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-sign-rb-dare-ogunbowale-off-raiders-practice-squad",
+      "title": "Texans sign RB Dare Ogunbowale off Raiders' practice squad",
+      "body_text": "The Texans signed running back Dare Ogunbowale off the Raiders' practice squad on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T22:19:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dare Ogunbowale",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0033854"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-zeitler-had-a-visit-with-the-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-zeitler-had-a-visit-with-the-packers",
+      "title": "Kevin Zeitler had a visit with the Packers",
+      "body_text": "The Packers have added a pair of veteran offensive linemen in the past couple of days and they may not be done addressing the area.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-29T22:02:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kevin Zeitler",
+        "Packers The"
+      ],
+      "resolved_player_ids": [
+        "00-0029592"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-put-brian-burns-on-ir-sign-wr-charlie-jones-off-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-put-brian-burns-on-ir-sign-wr-charlie-jones-off-practice-squad",
+      "title": "Giants put Brian Burns on IR, sign WR Charlie Jones off practice squad",
+      "body_text": "The Giants' roster moves on Tuesday included moving linebacker Brian Burns to injured reserve.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-29T21:51:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Burns",
+        "Charlie Jones",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0035713",
+        "00-0038576"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-i-hurt-the-team-in-loss-to-the-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-i-hurt-the-team-in-loss-to-the-ravens",
+      "title": "Brian Schottenheimer: I hurt the team in loss to the Ravens",
+      "body_text": "Cowboys owner Jerry Jones said there was \"no explanation\" for how the team closed out the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-29T21:44:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Ravens Cowboys",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-lb-kyle-van-noy-to-active-roster-place-te-josh-oliver-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-sign-lb-kyle-van-noy-to-active-roster-place-te-josh-oliver-on-ir",
+      "title": "Vikings sign LB Kyle Van Noy to active roster, place TE Josh Oliver on IR",
+      "body_text": "The Vikings signed outside linebacker Kyle Van Noy and quarterback Max Brosmer from their practice squad to their 53-player roster.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T21:37:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Van",
+        "Josh Oliver",
+        "The Vikings",
+        "Max Brosmer"
+      ],
+      "resolved_player_ids": [
+        "00-0035249",
+        "00-0040494"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-g-torricelli-simpkins-to-their-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-sign-g-torricelli-simpkins-to-their-53-man-roster",
+      "title": "Panthers sign G Torricelli Simpkins to their 53-man roster",
+      "body_text": "The Panthers are set to be without guard Damien Lewis for a little bit, so they added some offensive line depth on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-29T21:26:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Torricelli Simpkins",
+        "The Panthers",
+        "Damien Lewis"
+      ],
+      "resolved_player_ids": [
+        "00-0040541",
+        "00-0036417"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-saban-tiptoes-around-obvious-issue-with-capping-player-pay-but-not-coach-pay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-saban-tiptoes-around-obvious-issue-with-capping-player-pay-but-not-coach-pay",
+      "title": "Nick Saban tiptoes around obvious issue with capping player pay but not coach pay",
+      "body_text": "One of the best arguments against the Protect College Sports Act comes from the obvious hypocrisy between placing artificial limits on player compensation and no limits on coach compensation.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-29T21:26:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Saban",
+        "Protect College",
+        "Sports Act"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-i-felt-fine-during-concussion-check-wish-they-could-have-expedited-things",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-i-felt-fine-during-concussion-check-wish-they-could-have-expedited-things",
+      "title": "Jalen Hurts: I felt fine during concussion check, wish they could have expedited things",
+      "body_text": "Eagles quarterback Jalen Hurts had to leave the game for a concussion evaluation after getting hit on the sideline during Monday night's loss to the Bears, and that proved costly for the Eagles: They were in the red zone at the time, but they came away with no points when backup quarterback Andy Dalton threw an interception.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-29T21:15:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts",
+        "Andy Dalton"
+      ],
+      "resolved_player_ids": [
+        "00-0036389",
+        "00-0027973"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-k-jason-sanders-to-the-active-roster-cut-k-blake-grupe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-k-jason-sanders-to-the-active-roster-cut-k-blake-grupe",
+      "title": "Jets sign K Jason Sanders to the active roster, cut K Blake Grupe",
+      "body_text": "The Jets signed kicker Jason Sanders to the active roster, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T21:13:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jason Sanders",
+        "Blake Grupe",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0034794",
+        "00-0038905"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-cody-white-place-wr-jack-bech-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-wr-cody-white-place-wr-jack-bech-on-ir",
+      "title": "Raiders sign WR Cody White, place WR Jack Bech on IR",
+      "body_text": "Raiders receiver Cody White has three receptions this year.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-29T20:50:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cody White",
+        "Jack Bech"
+      ],
+      "resolved_player_ids": [
+        "00-0035891",
+        "00-0040729"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-ilb-shaka-heyward-off-bengals-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-ilb-shaka-heyward-off-bengals-practice-squad",
+      "title": "Dolphins sign ILB Shaka Heyward off Bengals' practice squad",
+      "body_text": "The Dolphins signed inside linebacker Shaka Heyward off the Bengals' practice squad, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T20:26:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shaka Heyward",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038890"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-announce-austin-ekeler-signing-placement-of-leo-chenal-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-announce-austin-ekeler-signing-placement-of-leo-chenal-on-ir",
+      "title": "Commanders announce Austin Ekeler signing, placement of Leo Chenal on IR",
+      "body_text": "The Commanders have made it official with Austin Ekeler.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-29T20:20:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Austin Ekeler",
+        "Leo Chenal",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033699",
+        "00-0037819"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-ol-greg-van-roten-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-ol-greg-van-roten-on-injured-reserve",
+      "title": "Patriots place OL Greg Van Roten on injured reserve",
+      "body_text": "The Patriots placed offensive lineman Greg Van Roten on injured reserve, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-29T20:17:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Van",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-hopeful-s-kamren-kinchens-can-return-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-hopeful-s-kamren-kinchens-can-return-this-week",
+      "title": "Rams hopeful S Kamren Kinchens can return this week",
+      "body_text": "Safety Kamren Kinchens was among the Rams players who missed Sunday night's loss to the Broncos and head coach Sean McVay gave an update on his status on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-29T19:58:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kamren Kinchens",
+        "Safety Kamren"
+      ],
+      "resolved_player_ids": [
+        "00-0039834"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

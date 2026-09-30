@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "9124e180-65c2-445b-aa1e-36cac90ae78b",
+  "source": "rotowire",
+  "fetched_at": "2026-09-30T12:31:14.312903+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl639906",
+      "url": "https://www.rotowire.com//football/player/jayden-daniels-17692",
+      "permalink": "",
+      "title": "Jayden Daniels: Making trip to London",
+      "body_text": "Daniels (elbow) is traveling with the Commanders to London ahead of Sunday's game against the Colts, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-29T06:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "London Daniels",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl639848",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Remains listed as 'DNP'",
+      "body_text": "Dowdle (toe) was estimated as a non-participant on Tuesday's injury report, Nick Farabaugh of PennLive.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-29T04:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle",
+        "Nick Farabaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl639836",
+      "url": "https://www.rotowire.com//football/player/jaylen-waddle-15404",
+      "permalink": "",
+      "title": "Jaylen Waddle: Considered 'fine' after sporting boot",
+      "body_text": "Waddle is believed to be \"fine\" despite being seen wearing a walking boot on his right foot following Sunday's victory over the Rams, Sam Jane of The Denver Post reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-29T04:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Waddle",
+        "Sam Jane",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl639827",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Spectator for Tuesday's practice",
+      "body_text": "Dowdle (toe) was present for Tuesday's practice but was a non-participant, Nick Farabaugh of PennLive.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-29T01:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle",
+        "Nick Farabaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl639816",
+      "url": "https://www.rotowire.com//football/player/jayden-daniels-17692",
+      "permalink": "",
+      "title": "Jayden Daniels: Could need surgery after season",
+      "body_text": "Daniels will avoid a procedure on his dislocated left elbow for the time being, but Adam Schefter of ESPN reports that the quarterback could undergo surgery after the season. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-29T09:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": null
+    }
+  ]
+}
