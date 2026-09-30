@@ -46,7 +46,16 @@ recommending him.
 - Bids: anchor on the room's median/p75 from Step 2 and on rivals' remaining budgets.
   Keep a reserve (~25% of the original budget) for a real starter injury.
 
-**La Liga / Feetball (redraft):** rest-of-season role and this week's two-source
+**Feetball is a KEEPER league.** Before proposing any Feetball drop, read
+`data/draft/feetball_2026_keepers.txt` — our keepers (2026: Luther Burden III, Colston
+Loveland) are never drop candidates, and young players on cheap slots carry keeper
+value. Check the drop against the pickup's projected edge only after that.
+
+**Every league — start from MY roster:** before recommending a claim, ask whether the
+player would actually start or cover a real bye/injury hole on our roster. A trending
+player who ranks below our own bench at his position is a pass, however hot.
+
+**La Liga / Feetball:** rest-of-season role and this week's two-source
 BLEND; ESPN typical winning claim $3-4, Yahoo room bids $0-3 ($5 wins non-consensus
 adds). One-source edges are coin flips. George prefers RB/WR depth over a second TE.
 
