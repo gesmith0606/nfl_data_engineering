@@ -1,0 +1,109 @@
+{
+  "fetch_run_id": "c9059b48-c318-4fe5-a72b-421e650c08ed",
+  "source": "rotowire",
+  "fetched_at": "2026-10-01T12:29:20.614431+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl640130",
+      "url": "https://www.rotowire.com//football/player/joey-porter-16896",
+      "permalink": "",
+      "title": "Joey Porter: Gets moved to Dallas",
+      "body_text": "The Steelers and Cowboys have agreed to terms on a trade to send Porter to Dallas, Tom Pelissero of Netflix reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-30T09:30:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter",
+        "Dallas The",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl640079",
+      "url": "https://www.rotowire.com//football/player/kenyon-sadiq-19279",
+      "permalink": "",
+      "title": "Kenyon Sadiq: Dealing with back issue",
+      "body_text": "Sadiq was limited at Wednesday's practice due to a back injury. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-30T05:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenyon Sadiq"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl640063",
+      "url": "https://www.rotowire.com//football/player/terrance-ferguson-18497",
+      "permalink": "",
+      "title": "Terrance Ferguson: Logs DNP on Wednesday",
+      "body_text": "Ferguson (ankle) officially didn't practice Wednesday, Adam Caplan of SiriusXM NFL Radio reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-30T04:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrance Ferguson",
+        "Wednesday Ferguson",
+        "Adam Caplan"
+      ],
+      "resolved_player_ids": [
+        "00-0040737"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl640060",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Officially limited Wednesday",
+      "body_text": "Nacua (hip) officially was limited at Wednesday's practice, Adam Caplan of SiriusXM NFL Radio reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-30T04:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Wednesday Nacua",
+        "Adam Caplan"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl640050",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Limited by chest issue",
+      "body_text": "Price was limited in practice Wednesday due to a chest injury, Bob Condotta of The Seattle Times reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-09-30T04:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Bob Condotta",
+        "The Seattle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "fetch_run_id": "da4060c1-1389-4aea-9770-921420fa6917",
+  "source": "pft",
+  "fetched_at": "2026-10-01T12:29:25.237603+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bengals-are-the-only-afc-team-trevor-lawrence-has-never-beaten",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-bengals-are-the-only-afc-team-trevor-lawrence-has-never-beaten",
+      "permalink": "",
+      "title": "The Bengals are the only AFC team Trevor Lawrence has never beaten",
+      "body_text": "Jaguars quarterback Trevor Lawrence has faced the Bengals three times in his NFL career and none of those contests has ended with a Jacksonville victory.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-01T11:07:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bengals",
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-aims-to-be-the-thermostat-in-his-first-nfl-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-aims-to-be-the-thermostat-in-his-first-nfl-start",
+      "permalink": "",
+      "title": "Jalon Daniels aims to be \"the thermostat\" in his first NFL start",
+      "body_text": "There were 10 quarterbacks selected in the 2026 draft, but the first rookie quarterback to start a game during the 2026 season will not be part of that group.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-01T10:45:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalon Daniels"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-send-steelers-2027-sixth-round-pick-and-2028-second-round-pick-for-joey-porter-jr",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-send-steelers-2027-sixth-round-pick-and-2028-second-round-pick-for-joey-porter-jr",
+      "permalink": "",
+      "title": "Cowboys send Steelers 2027 sixth-round pick and 2028 second-round pick for Joey Porter Jr.",
+      "body_text": "One of the NFL's best young cornerbacks is heading to Dallas, and Pittsburgh is getting two picks.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-01T08:52:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-joey-porter-jr-to-the-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-trade-joey-porter-jr-to-the-cowboys",
+      "permalink": "",
+      "title": "Steelers trade Joey Porter Jr. to the Cowboys",
+      "body_text": "Contract impasse ends with Porter being sent to a new team.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-01T03:54:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Cowboys Contract"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-0-vikings-are-a-game-away-from-a-dubious-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-0-vikings-are-a-game-away-from-a-dubious-record",
+      "permalink": "",
+      "title": "3-0 Vikings are a game away from a dubious record",
+      "body_text": "The Vikings have scratched and clawed their way to a 3-0 record.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-01T02:53:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-rams-missed-practice-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-rams-missed-practice-on-wednesday",
+      "permalink": "",
+      "title": "Five Rams missed practice on Wednesday",
+      "body_text": "The Rams are banged up in advance of Sunday's key game at the Eagles.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-01T01:38:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Five Rams",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ted-cruz-claims-the-reaction-to-his-appearance-on-college-gameday-was-overwhelming-positive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ted-cruz-claims-the-reaction-to-his-appearance-on-college-gameday-was-overwhelming-positive",
+      "permalink": "",
+      "title": "Ted Cruz claims the reaction to his appearance on College GameDay was \"overwhelmingly positive\"",
+      "body_text": "Earlier this month, ESPN gave Senator Ted Cruz (R-Texas) an extended platform on its marquee college football show, College GameDay.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T23:52:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ted Cruz",
+        "Senator Ted"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-has-seven-consecutive-victories-as-a-starter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-has-seven-consecutive-victories-as-a-starter",
+      "permalink": "",
+      "title": "Kirk Cousins has seven consecutive victories as a starter",
+      "body_text": "Kirk Cousins is still a bridge quarterback for the Raiders, holding down the starting job until No. 1 overall pick Fernando Mendoza is ready.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T01:21:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0041562"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carter-has-a-hairline-fracture-in-his-wrist",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-carter-has-a-hairline-fracture-in-his-wrist",
+      "permalink": "",
+      "title": "Jalen Carter has a hairline fracture in his wrist",
+      "body_text": "Officially, Eagles defensive tackle Jalen Carter fully participated in practice with a wrist injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-01T01:14:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0038386"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-s-julian-love-returns-to-limited-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-s-julian-love-returns-to-limited-practice",
+      "permalink": "",
+      "title": "Seahawks S Julian Love returns to limited practice",
+      "body_text": "Seahawks safety Julian Love returned to practice on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T00:16:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Julian Love"
+      ],
+      "resolved_player_ids": [
+        "00-0034974"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-rashid-shaheeds-limited-production-the-ball-will-find-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-rashid-shaheeds-limited-production-the-ball-will-find-him",
+      "permalink": "",
+      "title": "Mike Macdonald on Rashid Shaheed's limited production: \"The ball will find him\"",
+      "body_text": "In June, Seahawks coach Mike Macdonald said he was \"excited to see\" what receiver Rashid Shaheed would do in the offense, given the benefit of having the full offseason and training camp to prepare for his first full year with the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T23:37:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Rashid Shaheed",
+        "In June"
+      ],
+      "resolved_player_ids": [
+        "00-0037545"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-mims-jaylen-waddle-had-full-participation-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-mims-jaylen-waddle-had-full-participation-wednesday",
+      "permalink": "",
+      "title": "Marvin Mims, Jaylen Waddle had full participation Wednesday",
+      "body_text": "Broncos wide receiver Marvin Mims returned to full participation at Wednesday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T23:08:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Mims",
+        "Jaylen Waddle",
+        "Wednesday Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0038976",
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-to-no-surprise-spoke-to-john-harbaugh-before-j-j-mccarthy-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-to-no-surprise-spoke-to-john-harbaugh-before-j-j-mccarthy-trade",
+      "permalink": "",
+      "title": "Jim Harbaugh, to no surprise, spoke to John Harbaugh before J.J. McCarthy trade",
+      "body_text": "Before the 2024 draft, former Michigan coach Jim Harbaugh had plenty of glowing things to say about former Michigan quarterback J.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T23:14:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Harbaugh",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zack-baun-devonta-smith-miss-practice-for-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zack-baun-devonta-smith-miss-practice-for-eagles",
+      "permalink": "",
+      "title": "Zack Baun, DeVonta Smith miss practice for Eagles",
+      "body_text": "The Eagles were missing several players at Wednesday's practice, including linebacker Zack Baun.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T23:13:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zack Baun",
+        "Eagles The"
+      ],
+      "resolved_player_ids": [
+        "00-0036418"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-misses-practice-with-a-sore-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-misses-practice-with-a-sore-back",
+      "permalink": "",
+      "title": "Aaron Donald misses practice with a sore back",
+      "body_text": "The Rams got wide receiver Puka Nacua back on the practice field Wednesday, but they were missing an important part of their defense.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T22:53:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald",
+        "The Rams",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-i-love-playing-for-mike-vrabel-thats-not-going-to-change",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-i-love-playing-for-mike-vrabel-thats-not-going-to-change",
+      "permalink": "",
+      "title": "Drake Maye: I love playing for Mike Vrabel, that's not going to change",
+      "body_text": "Patriots head coach Mike Vrabel dismissed a report that he has issues with quarterback Drake Maye during a Wednesday press conference by saying that coaching Maye is the reason he's in New England and Maye got his chance to comment on it later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T22:26:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "Mike Vrabel",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851",
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keon-coleman-out-of-practice-for-bills-deone-walker-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keon-coleman-out-of-practice-for-bills-deone-walker-limited",
+      "permalink": "",
+      "title": "Keon Coleman out of practice for Bills, Deone Walker limited",
+      "body_text": "Wide receiver Keon Coleman missed the first Bills practice of the week.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T22:14:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keon Coleman",
+        "Deone Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0039901",
+        "00-0040710"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-practice-without-cbs-shavon-revel-cobie-durant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-practice-without-cbs-shavon-revel-cobie-durant",
+      "permalink": "",
+      "title": "Cowboys practice without CBs Shavon Revel, Cobie Durant",
+      "body_text": "With Nico Collins returning to practice for the Texans, the Cowboys could use cornerback Shavon Revel this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T22:12:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shavon Revel",
+        "Cobie Durant",
+        "With Nico"
+      ],
+      "resolved_player_ids": [
+        "00-0040008",
+        "00-0037839"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-dt-gervon-dexter-agrees-to-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-dt-gervon-dexter-agrees-to-four-year-extension",
+      "permalink": "",
+      "title": "Falcons DT Gervon Dexter agrees to four-year extension",
+      "body_text": "Defensive tackle Gervon Dexter has made a good impression on the Falcons in his first three games as a member of the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T22:07:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gervon Dexter"
+      ],
+      "resolved_player_ids": [
+        "00-0039070"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-jadeveon-clowney-nico-collins-are-limited-practice-participants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-jadeveon-clowney-nico-collins-are-limited-practice-participants",
+      "permalink": "",
+      "title": "Will Anderson, Jadeveon Clowney, Nico Collins are limited practice participants",
+      "body_text": "The Texans have 12 players on their practice report with injuries, and only one of them was a full participant on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T21:55:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Anderson",
+        "Jadeveon Clowney",
+        "Nico Collins",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0039108",
+        "00-0031364",
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-facing-the-titans-will-be-a-crazy-moment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-facing-the-titans-will-be-a-crazy-moment",
+      "permalink": "",
+      "title": "Derrick Henry: Facing the Titans will be \"a crazy moment\"",
+      "body_text": "Ravens running back Derrick Henry will do something he's never done before this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T21:44:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-says-nfl-told-him-pass-interference-should-not-have-been-called-on-josh-wallace",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-says-nfl-told-him-pass-interference-should-not-have-been-called-on-josh-wallace",
+      "permalink": "",
+      "title": "Sean McVay says NFL told him pass interference should not have been called on Josh Wallace",
+      "body_text": "The call negated what appeared to be a game-sealing interception for the Rams and set up the Broncos' game-winning touchdown.",
+      "author": "Michael David Smith",
+      "published_at": "2026-09-30T21:41:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Wallace"
+      ],
+      "resolved_player_ids": [
+        "00-0039772"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-christian-gonzalez-qb-drake-maye-have-shoulder-injuries-but-maye-says-hes-fine",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-christian-gonzalez-qb-drake-maye-have-shoulder-injuries-but-maye-says-hes-fine",
+      "permalink": "",
+      "title": "CB Christian Gonzalez, QB Drake Maye have shoulder injuries, but Maye says he's fine",
+      "body_text": "Patriots cornerback Christian Gonzalez did not practice on Wednesday because of a shoulder injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T21:40:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Gonzalez",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039147",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-godwin-yaya-diaby-among-buccaneers-out-of-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-godwin-yaya-diaby-among-buccaneers-out-of-practice-wednesday",
+      "permalink": "",
+      "title": "Chris Godwin, Yaya Diaby among Buccaneers out of practice Wednesday",
+      "body_text": "The Buccaneers know they won't have quarterback Baker Mayfield against the Packers this Sunday and they were missing a number of other players at practice on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T20:51:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Godwin",
+        "Yaya Diaby",
+        "Wednesday The",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0033921",
+        "00-0039068",
+        "00-0034855"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-is-one-of-10-commanders-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-is-one-of-10-commanders-limited-in-wednesdays-practice",
+      "permalink": "",
+      "title": "Jayden Daniels is one of 10 Commanders limited in Wednesday's practice",
+      "body_text": "Commanders quarterback Jayden Daniels was limited in Wednesday's practice, the injury report confirmed.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T20:20:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-expect-puka-nacua-to-play-in-week-4",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-expect-puka-nacua-to-play-in-week-4",
+      "permalink": "",
+      "title": "Rams expect Puka Nacua to play in Week 4",
+      "body_text": "It looks like wide receiver Puka Nacua will be back in the Rams' lineup this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-09-30T21:00:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-pollard-tyjae-spears-did-not-practice-for-titans-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-pollard-tyjae-spears-did-not-practice-for-titans-on-wednesday",
+      "permalink": "",
+      "title": "Tony Pollard, Tyjae Spears did not practice for Titans on Wednesday",
+      "body_text": "The Titans did not have either of their top two running backs on the field for Wednesday’s practice.",
+      "author": "Myles Simmons",
+      "published_at": "2026-09-30T20:58:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard",
+        "Tyjae Spears",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0035261",
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-releasing-obj-it-just-wasnt-working-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-on-releasing-obj-it-just-wasnt-working-for-us",
+      "permalink": "",
+      "title": "John Harbaugh on releasing OBJ: \"It just wasn't working for us\"",
+      "body_text": "On Tuesday, the Giants released receiver Odell Beckham Jr.",
+      "author": "Mike Florio",
+      "published_at": "2026-09-30T20:06:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "On Tuesday",
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-dbs-juanyeh-thomas-alex-austin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-agree-to-terms-with-dbs-juanyeh-thomas-alex-austin",
+      "permalink": "",
+      "title": "Cowboys agree to terms with DBs Juanyeh Thomas, Alex Austin",
+      "body_text": "The Cowboys have been hit hard by injuries in their secondary, which is why they had four defensive backs in town to workout.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T01:00:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Juanyeh Thomas",
+        "Alex Austin",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037578",
+        "00-0038646"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-s-jalen-thompson-dt-jonathan-bullard-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-s-jalen-thompson-dt-jonathan-bullard-on-ir",
+      "permalink": "",
+      "title": "Cowboys place S Jalen Thompson, DT Jonathan Bullard on IR",
+      "body_text": "The Cowboys placed safety Jalen Thompson and defensive tackle Jonathan Bullard on injured reserve, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-09-30T20:50:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Thompson",
+        "Jonathan Bullard",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0035705",
+        "00-0033093"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}
