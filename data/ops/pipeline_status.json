@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T12:28:59.396460+00:00",
+  "generated_at": "2026-10-02T18:24:12.548050+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-01T22:05:11Z",
-        "duration_seconds": 122,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36932866499",
+        "started_at": "2026-10-02T13:13:15Z",
+        "duration_seconds": 99,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37011546449",
         "event": "schedule"
       },
       "recent": [
@@ -145,9 +145,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-10-02T12:28:41Z",
+        "started_at": "2026-10-02T18:23:51Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37006905879",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37047146459",
         "event": "schedule"
       },
       "recent": [
@@ -171,13 +171,14 @@
       "purpose": "Sanity gates + HF/Vercel deploy verification",
       "last_run": {
         "status": "completed",
-        "conclusion": "failure",
-        "started_at": "2026-10-01T14:42:46Z",
-        "duration_seconds": 858,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/36878493773",
+        "conclusion": "success",
+        "started_at": "2026-10-02T14:42:51Z",
+        "duration_seconds": 328,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37021784854",
         "event": "schedule"
       },
       "recent": [
+        "success",
         "failure",
         "success",
         "success",
@@ -185,7 +186,6 @@
         "failure",
         "failure",
         "failure",
-        "success",
         "success",
         "success"
       ],
