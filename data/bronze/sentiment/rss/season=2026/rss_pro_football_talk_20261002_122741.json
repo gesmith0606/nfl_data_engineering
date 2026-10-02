@@ -1,0 +1,523 @@
+{
+  "fetch_run_id": "f5c19340-9b39-4fff-9db5-2a11c881a512",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-02T12:27:41.356638+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-graham-left-thursdays-game-on-crutches-and-wearing-a-knee-brace",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-graham-left-thursdays-game-on-crutches-and-wearing-a-knee-brace",
+      "title": "Mason Graham left Thursday's game on crutches and wearing a knee brace",
+      "body_text": "One of the only negative developments for the Browns on Thursday night was the left knee injury that knocked defensive tackle Mason Graham out of the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T11:59:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mason Graham"
+      ],
+      "resolved_player_ids": [
+        "00-0040685"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darren-rizzi-special-teams-coaches-want-nfl-to-change-rule-for-holders-on-kickoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darren-rizzi-special-teams-coaches-want-nfl-to-change-rule-for-holders-on-kickoffs",
+      "title": "Darren Rizzi: Special teams coaches want NFL to change rule for holders on kickoffs",
+      "body_text": "Broncos special teams coach Darren Rizzi says his colleagues around the league almost all agree that holders should be allowed on kickoffs only if the wind is blowing the ball off the tee, and not to give the kicking team an advantage by placing the ball at an unusual angle.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-02T11:31:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darren Rizzi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-momentum-shifts-are-part-of-the-nfl-you-have-to-ride-the-waves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-momentum-shifts-are-part-of-the-nfl-you-have-to-ride-the-waves",
+      "title": "Deshaun Watson: Momentum shifts are part of the NFL, you have to ride the waves",
+      "body_text": "When Thursday night's game got to halftime, it looked like the Browns might roll over the Steelers for an easy win.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T10:57:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "When Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-week-1-was-tough-our-guys-trusted-the-process",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-week-1-was-tough-our-guys-trusted-the-process",
+      "title": "Todd Monken: Week 1 was tough, our guys trusted the process",
+      "body_text": "The Browns moved to 3-1 when Steelers quarterback Aaron Rodgers's final, desperate heave was picked off by safety Grant Delpit on Thursday night and head coach Todd Monken reflected on how improbable that record would have felt not so long ago.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T10:39:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "The Browns",
+        "Aaron Rodgers",
+        "Grant Delpit"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0036282"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/denzel-ward-i-hope-aaron-rodgers-keeps-throwing-at-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/denzel-ward-i-hope-aaron-rodgers-keeps-throwing-at-me",
+      "title": "Denzel Ward: I hope Aaron Rodgers keeps throwing at me",
+      "body_text": "Ward intercepted Rodgers on Thursday night in the Browns' 27-24 win.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-02T09:10:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Denzel Ward",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0034856",
+        "00-0023459"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-thinks-the-raiders-are-a-top-5-team-in-the-nfl-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-thinks-the-raiders-are-a-top-5-team-in-the-nfl-right-now",
+      "title": "Tom Brady thinks the Raiders are a Top 5 team in the NFL right now",
+      "body_text": "Raiders minority owner Tom Brady believes the Raiders are one of the five best teams in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-02T08:39:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tom Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-on-exchange-with-aaron-rodgers-i-wish-i-wouldnt-use-those-words",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-on-exchange-with-aaron-rodgers-i-wish-i-wouldnt-use-those-words",
+      "title": "Mike McCarthy on exchange with Aaron Rodgers: \"I wish I wouldn't use those words\"",
+      "body_text": "In the first quarter of Thursday night's game between the Steelers and the Browns, Pittsburgh quarterback Aaron Rodgers became upset.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T04:23:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-deshaun-watson-leads-browns-to-27-24-win-over-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-deshaun-watson-leads-browns-to-27-24-win-over-steelers",
+      "title": "Thursday Night Football: Deshaun Watson leads Browns to 27-24 win over Steelers",
+      "body_text": "Watson drove the Browns 36 yards in seven plays to set up Andre Szmyt's 56-yard field goal with 10 seconds left.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T03:54:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Deshaun Watson",
+        "Steelers Watson",
+        "Andre Szmyt"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0038428"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-second-td-draws-steelers-to-within-21-16",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-second-td-draws-steelers-to-within-21-16",
+      "title": "Aaron Rodgers' second TD draws Steelers to within 21-16",
+      "body_text": "The Steelers had minus-6 yards passing in the third quarter as the Browns had two sacks of Aaron Rodgers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T03:05:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-saban-says-he-was-offered-giants-job-in-1997",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-saban-says-he-was-offered-giants-job-in-1997",
+      "title": "Nick Saban says he was offered Giants job in 1997",
+      "body_text": "Nick Saban's two-year stint as an NFL head coach began in 2005.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T02:55:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Saban"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-is-taking-it-one-day-at-a-time-in-his-return-from-hip-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-is-taking-it-one-day-at-a-time-in-his-return-from-hip-injury",
+      "title": "Puka Nacua is \"taking it one day at a time\" in his return from hip injury",
+      "body_text": "Rams receiver Puka Nacua has missed the last two games with a hip injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T02:16:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-hall-questionable-with-an-ankle-injury-mason-graham-ruled-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-hall-questionable-with-an-ankle-injury-mason-graham-ruled-out",
+      "title": "Mike Hall questionable with an ankle injury; Mason Graham ruled out",
+      "body_text": "Browns defensive tackle Mike Hall, who replaced the injured Mason Graham in the first quarter, left late in the second quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T02:12:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Hall",
+        "Mason Graham"
+      ],
+      "resolved_player_ids": [
+        "00-0039895",
+        "00-0040685"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-deshaun-watson-browns-lead-steelers-21-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-deshaun-watson-browns-lead-steelers-21-10-at-halftime",
+      "title": "Thursday Night Football: Deshaun Watson, Browns lead Steelers 21-10 at halftime",
+      "body_text": "The Browns quarterback is 14-of-17 for 181 yards and a touchdown.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T01:57:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Deshaun Watson",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-de-derrick-harmon-carted-with-foot-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-de-derrick-harmon-carted-with-foot-injury",
+      "title": "Steelers DE Derrick Harmon carted with foot injury",
+      "body_text": "He is questionable to return after leaving in the second quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T01:28:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Harmon"
+      ],
+      "resolved_player_ids": [
+        "00-0040678"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinshon-judkins-gives-browns-14-7-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quinshon-judkins-gives-browns-14-7-lead",
+      "title": "Quinshon Judkins gives Browns 14-7 lead",
+      "body_text": "The Browns have taken a 14-7 lead on the Steelers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T01:20:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinshon Judkins",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040784"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-convert-aaron-rodgers-int-into-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-convert-aaron-rodgers-int-into-td",
+      "title": "Browns convert Aaron Rodgers' INT into TD",
+      "body_text": "Browns defensive end Sam Williams hit Steelers quarterback Aaron Rodgers' arm, forcing an errant throw toward Michael Pittman.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T01:09:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Sam Williams",
+        "Michael Pittman"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0037665",
+        "00-0036252"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-mcdaniels-drake-maye-doesnt-have-an-issue-with-confidence-or-yips",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-mcdaniels-drake-maye-doesnt-have-an-issue-with-confidence-or-yips",
+      "title": "Josh McDaniels: Drake Maye doesn't have an issue with confidence or \"yips\"",
+      "body_text": "The focus of the moment in New England is the stunning regression of quarterback Drake Maye.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T00:48:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-dl-mason-graham-questionable-to-return-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-dl-mason-graham-questionable-to-return-with-knee-injury",
+      "title": "Browns DL Mason Graham questionable to return with knee injury",
+      "body_text": "The second-round player has four sacks this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T00:47:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mason Graham"
+      ],
+      "resolved_player_ids": [
+        "00-0040685"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jadarian-price-did-not-practice-rb-zach-charbonnet-limited-in-his-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-jadarian-price-did-not-practice-rb-zach-charbonnet-limited-in-his-return",
+      "title": "RB Jadarian Price did not practice; RB Zach Charbonnet limited in his return",
+      "body_text": "Seahawks running back Jadarian Price was downgraded to out of practice Thursday, missing the session with a chest injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T00:22:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadarian Price",
+        "Zach Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-remains-out-of-practice-puka-nacua-still-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-remains-out-of-practice-puka-nacua-still-limited",
+      "title": "Aaron Donald remains out of practice; Puka Nacua still limited",
+      "body_text": "The Rams' injury report remained the same as on Wednesday aside from wide receiver Davante Adams returning from a rest day and nose tackle Poona Ford taking a rest day.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T23:09:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald",
+        "Puka Nacua",
+        "The Rams",
+        "Davante Adams",
+        "Poona Ford"
+      ],
+      "resolved_player_ids": [
+        "00-0039075",
+        "00-0031381",
+        "00-0034234"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-steelers-cb-jalen-ramsey-is-active-vs-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-steelers-cb-jalen-ramsey-is-active-vs-browns",
+      "title": "Thursday Night Football: Steelers CB Jalen Ramsey is active vs. Browns",
+      "body_text": "Steelers cornerback Jalen Ramsey is active for Thursday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T22:59:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Jalen Ramsey",
+        "Browns Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0033055"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lt-trent-williams-returns-to-limited-participation-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lt-trent-williams-returns-to-limited-participation-thursday",
+      "title": "49ers LT Trent Williams returns to limited participation Thursday",
+      "body_text": "49ers left tackle Trent Williams returned to practice Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T22:48:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trent Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0027857"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-wr-brandin-cooks-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-sign-wr-brandin-cooks-to-active-roster",
+      "title": "49ers sign WR Brandin Cooks to active roster",
+      "body_text": "The 49ers signed wide receiver Brandin Cooks to the active roster from the practice squad, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T20:46:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandin Cooks"
+      ],
+      "resolved_player_ids": [
+        "00-0031236"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-devonta-smith-lb-zack-baun-remain-out-of-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-devonta-smith-lb-zack-baun-remain-out-of-practice",
+      "title": "WR DeVonta Smith, LB Zack Baun remain out of practice",
+      "body_text": "Eagles linebacker Zack Baun (concussion) and wide receiver DeVonta Smith (hamstring) remained out of Thursday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T22:26:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zack Baun"
+      ],
+      "resolved_player_ids": [
+        "00-0036418"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-s-back-is-feeling-better-and-he-hopes-to-play-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-s-back-is-feeling-better-and-he-hopes-to-play-sunday",
+      "title": "Joey Porter Jr.'s back is \"feeling better,\" and he hopes to play Sunday",
+      "body_text": "The Steelers had ruled out the cornerback for Thursday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T22:11:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Sunday The",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-final-straw-for-steelers-was-joey-porter-jr-s-wednesday-claim-of-back-pain",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-final-straw-for-steelers-was-joey-porter-jr-s-wednesday-claim-of-back-pain",
+      "title": "Report: \"Final straw\" for Steelers was Joey Porter Jr.'s Wednesday claim of back pain",
+      "body_text": "The Steelers thought the dance was over.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-01T21:38:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-im-not-living-in-hope-im-living-in-reality-about-our-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-im-not-living-in-hope-im-living-in-reality-about-our-offense",
+      "title": "Mike McDaniel: I'm not living in hope, I'm living in reality about our offense",
+      "body_text": "Chargers offensive coordinator Mike McDaniel got a vote of confidence from head coach Jim Harbaugh on Wednesday, but he knows that the status quo on offense isn't going to work.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-01T21:16:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-felt-disrespected-and-underappreciated-by-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-felt-disrespected-and-underappreciated-by-steelers",
+      "title": "Joey Porter Jr. felt \"disrespected\" and \"underappreciated\" by Steelers",
+      "body_text": "Cornerback Joey Porter Jr. was at the movies, watching Brad Pitt's Heart of the Beast, on Wednesday night when he received news that the Steelers had traded him to the Cowboys.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-01T21:13:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Steelers Cornerback",
+        "Brad Pitt"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-get-chris-godwin-yaya-diaby-back-at-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-get-chris-godwin-yaya-diaby-back-at-practice",
+      "title": "Bucs get Chris Godwin, Yaya Diaby back at practice",
+      "body_text": "Buccaneers wide receiver Chris Godwin returned to practice on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-01T20:57:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Godwin",
+        "Yaya Diaby"
+      ],
+      "resolved_player_ids": [
+        "00-0033921",
+        "00-0039068"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keon-coleman-returns-to-practice-as-limited-participant-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keon-coleman-returns-to-practice-as-limited-participant-on-thursday",
+      "title": "Keon Coleman returns to practice as limited participant on Thursday",
+      "body_text": "The Bills got one of their key offensive players back on the field on Thursday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-01T20:51:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keon Coleman",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}

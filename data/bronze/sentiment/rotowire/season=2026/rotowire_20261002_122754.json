@@ -1,0 +1,99 @@
+{
+  "fetch_run_id": "791dfaee-2011-446c-818d-cb9e6f11b3d4",
+  "source": "rotowire",
+  "fetched_at": "2026-10-02T12:27:54.850720+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl640274",
+      "url": "https://www.rotowire.com//football/player/kc-concepcion-19242",
+      "permalink": "",
+      "title": "KC Concepcion: Remains productive in Week 4 win",
+      "body_text": "Concepcion secured five of eight targets for 64 yards and returned two punts for 10 yards in the Browns' 27-24 win over the Steelers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-01T10:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl640273",
+      "url": "https://www.rotowire.com//football/player/denzel-boston-19298",
+      "permalink": "",
+      "title": "Denzel Boston: Continues thriving in Week 4 win",
+      "body_text": "Boston brought in four of seven targets for 89 yards in the Browns' 27-24 win over the Steelers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-01T10:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Denzel Boston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl640272",
+      "url": "https://www.rotowire.com//football/player/harold-fannin-18472",
+      "permalink": "",
+      "title": "Harold Fannin: Salvages night with TD",
+      "body_text": "Fannin secured three of five targets for 27 yards and a touchdown in the Browns' 27-24 win over the Steelers on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-01T10:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harold Fannin"
+      ],
+      "resolved_player_ids": [
+        "00-0040663"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl640271",
+      "url": "https://www.rotowire.com//football/player/deshaun-watson-11712",
+      "permalink": "",
+      "title": "Deshaun Watson: Continues ascent with third straight win",
+      "body_text": "Watson completed 24 of 33 passes for 268 yards with one touchdown and one interception while rushing seven times for 22 yards in the Browns' 27-24 win over the Steelers on Thursday. He also committed two fumbles, losing one. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-01T09:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl640270",
+      "url": "https://www.rotowire.com//football/player/aaron-rodgers-4307",
+      "permalink": "",
+      "title": "Aaron Rodgers: Mixed performance in Week 4 loss",
+      "body_text": "Rodgers completed 22 of 40 passes for 299 yards with three touchdowns and two interceptions in the Steelers' 27-24 loss to the Browns on Thursday. He also ran in a game-tying two-point conversion. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-01T09:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
