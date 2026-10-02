@@ -46,9 +46,29 @@ recommending him.
 - Bids: anchor on the room's median/p75 from Step 2 and on rivals' remaining budgets.
   Keep a reserve (~25% of the original budget) for a real starter injury.
 
-**La Liga / Feetball (redraft):** rest-of-season role and this week's two-source
+**Feetball is a KEEPER league.** Before proposing any Feetball drop, read
+`data/draft/feetball_2026_keepers.txt` — our keepers (2026: Luther Burden III, Colston
+Loveland) are never drop candidates, and young players on cheap slots carry keeper
+value. Check the drop against the pickup's projected edge only after that.
+
+**Every league — start from MY roster:** before recommending a claim, ask whether the
+player would actually start or cover a real bye/injury hole on our roster. A trending
+player who ranks below our own bench at his position is a pass, however hot.
+
+**La Liga / Feetball:** rest-of-season role and this week's two-source
 BLEND; ESPN typical winning claim $3-4, Yahoo room bids $0-3 ($5 wins non-consensus
 adds). One-source edges are coin flips. George prefers RB/WR depth over a second TE.
+
+## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
+Pool files and trending lists go stale within hours. Right before presenting, check
+each recommended ADD is still unrostered and each DROP is on our roster, on the site:
+- Sleeper: `/league/<id>/rosters` — search `players` + `taxi` + `reserve` of all teams.
+- ESPN: `kona_player_info` with `filterStatus FREEAGENT,WAIVERS` (status = FREEAGENT or
+  WAIVERS) and `mRoster` for our drops; also read `mSettings` roster slot counts before
+  suggesting IR moves (La Liga has 0 IR slots).
+- Yahoo: Players page `status=A` (Roster Status `W (date)` = on waivers) and our team page.
+Show the result as a table (player → live status → source). Anything unverified is
+labelled UNVERIFIED, never presented as available.
 
 ## Step 5 — Output
 Per league: the context line (our FAAB vs the room), then each claim as
