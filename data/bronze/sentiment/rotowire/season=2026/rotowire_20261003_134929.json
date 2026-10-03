@@ -1,0 +1,117 @@
+{
+  "fetch_run_id": "14155192-f473-422f-9201-b86d0d198637",
+  "source": "rotowire",
+  "fetched_at": "2026-10-03T13:49:29.755353+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl640446",
+      "url": "https://www.rotowire.com//football/player/justin-jefferson-14509",
+      "permalink": "",
+      "title": "Justin Jefferson: Aiming to return Week 5",
+      "body_text": "Jefferson (ankle) has been already been ruled out for Sunday's game against the Dolphins, but the Vikings are hopeful that the superstar wide receiver will return for Week 5 against the Saints, Jeremy Fowler of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-03T06:33:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl640413",
+      "url": "https://www.rotowire.com//football/player/case-keenum-8065",
+      "permalink": "",
+      "title": "Case Keenum: Expected to back up Bagent vs. NYJ",
+      "body_text": "Ian Rapoport of NFL Network reports that Keenum is expected to serve as the backup quarterback to Tyson Bagent against the Jets on Sunday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-02T05:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Case Keenum",
+        "Ian Rapoport",
+        "Tyson Bagent"
+      ],
+      "resolved_player_ids": [
+        "00-0028986",
+        "00-0038416"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl640410",
+      "url": "https://www.rotowire.com//football/player/jacory-croskey-merritt-18811",
+      "permalink": "",
+      "title": "Jacory Croskey-Merritt: In line for larger workload in London",
+      "body_text": "Croskey-Merritt has served as the Commanders' RB1 this season, but his backfield snap count for Week 4 against the Colts figures to be larger due to the absence of Rachaad White (shoulder). Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-02T05:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacory Croskey",
+        "London Croskey",
+        "Rachaad White"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl640395",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Taking on larger role sans Etienne",
+      "body_text": "Kamara figures to serve as the Saints' top running back for as long as Travis Etienne (hamstring) is on injured reserve, starting with Monday's game against the Falcons, John DeShazier of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-02T05:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Etienne Kamara",
+        "Travis Etienne"
+      ],
+      "resolved_player_ids": [
+        "00-0033906",
+        "00-0036973"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl640389",
+      "url": "https://www.rotowire.com//football/player/jordan-addison-16895",
+      "permalink": "",
+      "title": "Jordan Addison: Will be Vikes' top WR for Week 4",
+      "body_text": "Addison will serve as the Vikings' top wide receiver against the Dolphins on Sunday due to the absence of Justin Jefferson (ankle), Craig Peters of the Vikings' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-02T04:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison",
+        "Justin Jefferson",
+        "Craig Peters"
+      ],
+      "resolved_player_ids": [
+        "00-0038994",
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

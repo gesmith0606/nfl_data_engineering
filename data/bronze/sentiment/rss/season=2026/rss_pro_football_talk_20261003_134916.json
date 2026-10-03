@@ -1,0 +1,500 @@
+{
+  "fetch_run_id": "12bd7cd9-dc36-4a63-be0c-3a7ba87478e6",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-03T13:49:16.247706+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-joey-porter-jr-trade-its-important-to-think-big",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-joey-porter-jr-trade-its-important-to-think-big",
+      "title": "Jerry Jones on Joey Porter Jr. trade: \"It's important to think big\"",
+      "body_text": "The Steelers decided to move on from cornerback Joey Porter Jr.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T13:02:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Joey Porter Jr",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-on-travis-hunters-usage-he-cares-about-winning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-on-travis-hunters-usage-he-cares-about-winning",
+      "title": "Liam Coen on Travis Hunter's usage: \"He cares about winning\"",
+      "body_text": "Questions have persisted regarding whether the Jaguars are getting the most out of cornerback/receiver Travis Hunter, the second overall pick in the 2025 draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T04:35:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen",
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dont-have-a-timeline-on-myles-garretts-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dont-have-a-timeline-on-myles-garretts-return",
+      "title": "Rams don't have a timeline on Myles Garrett's return",
+      "body_text": "Despite a report that Rams defensive end Myles Garrett would miss about six weeks with his knee injury, head coach Sean McVay says the team isn't working on a timeline that specific.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-03T11:56:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-vegas-is-a-different-type-of-city-we-have-to-earn-home-field-advantage",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-vegas-is-a-different-type-of-city-we-have-to-earn-home-field-advantage",
+      "title": "Maxx Crosby: Vegas is a different type of city, we have to earn home-field advantage",
+      "body_text": "\"We're new to this city and we have to win. The fans come out, they want to see a winner. We have to earn that,\" Crosby said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-03T10:18:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-i-dont-like-it-that-the-rams-are-1-2-but-we-grow-through-adversity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-i-dont-like-it-that-the-rams-are-1-2-but-we-grow-through-adversity",
+      "title": "Sean McVay: I don't like it that the Rams are 1-2, but we grow through adversity",
+      "body_text": "\"It's a challenge for me: What kind of leader do I want to be for this group?\" McVay said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-03T08:25:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-believes-nfl-could-deconstruct-sunday-ticket-in-next-broadcast-deals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-believes-nfl-could-deconstruct-sunday-ticket-in-next-broadcast-deals",
+      "title": "YouTube believes NFL could \"deconstruct\" Sunday Ticket in next broadcast deals",
+      "body_text": "Come 2030, out-of-market games could be seen without plunking down an extra $400.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T03:53:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quarterbacks-who-didnt-start-in-week-1-are-6-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/quarterbacks-who-didnt-start-in-week-1-are-6-0",
+      "title": "Quarterbacks who didn't start in Week 1 are 6-0",
+      "body_text": "It's the year of the backup quarterback, so far.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T03:22:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-is-0-4-against-nick-sirianni",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-is-0-4-against-nick-sirianni",
+      "title": "Sean McVay is 0-4 against Nick Sirianni",
+      "body_text": "Rams coach Sean McVay has had tremendous success since becoming a head coach in 2017.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T02:12:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-teams-face-an-0-4-start-and-only-one-0-4-team-has-ever-made-the-playoffs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/five-teams-face-an-0-4-start-and-only-one-0-4-team-has-ever-made-the-playoffs",
+      "title": "Five teams face an 0-4 start — and only one 0-4 team has ever made the playoffs",
+      "body_text": "Week 4 is here, and five teams are still looking for their first victory of 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T01:27:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-bears-stadium-in-illinois-could-be-publicly-owned",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-bears-stadium-in-illinois-could-be-publicly-owned",
+      "title": "New Bears stadium in Illinois could be publicly owned",
+      "body_text": "The Bears claim to be focused on building a new stadium in Indiana.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T01:09:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "New Bears",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-on-a-potential-seahawks-move-never-say-never",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vinod-khosla-on-a-potential-seahawks-move-never-say-never",
+      "title": "Vinod Khosla on a potential Seahawks move: \"Never say never\"",
+      "body_text": "New owner keeps saying things that won't make the fan base happy.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T00:44:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vinod Khosla"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-quinn-meinerz-14-926-for-a-celebratory-dice-roll",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-quinn-meinerz-14-926-for-a-celebratory-dice-roll",
+      "title": "NFL fines Quinn Meinerz $14,926 for a celebratory dice roll",
+      "body_text": "Broncos right guard Quinn Meinerz celebrated with Jaylen Waddle after the wide receiver's 2-point conversion on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T22:59:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinn Meinerz",
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0037001",
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-db-chamarri-conner-set-to-make-his-season-debut",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-db-chamarri-conner-set-to-make-his-season-debut",
+      "title": "Chiefs DB Chamarri Conner set to make his season debut",
+      "body_text": "Chiefs defensive back Chamarri Conner is set to make his 2026 debut on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T22:40:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chamarri Conner"
+      ],
+      "resolved_player_ids": [
+        "00-0038982"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keenan-allen-misses-fridays-practice-questionable-to-play-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keenan-allen-misses-fridays-practice-questionable-to-play-sunday",
+      "title": "Keenan Allen misses Friday's practice, questionable to play Sunday",
+      "body_text": "The Colts did not rule out any players for Sunday's game against the Commanders in London, but they do have a pair of wide receivers listed as questionable.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T22:19:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keenan Allen",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0030279"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-is-going-to-try-to-play-through-his-injured-ribs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-is-going-to-try-to-play-through-his-injured-ribs",
+      "title": "Mike Evans is going to try to play through his injured ribs",
+      "body_text": "49ers wide receiver Mike Evans is questionable to play in Sunday's game against the Broncos after a limited practice Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T22:14:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-list-josh-sweat-as-questionable-with-a-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-list-josh-sweat-as-questionable-with-a-groin-injury",
+      "title": "Cardinals list Josh Sweat as questionable with a groin injury",
+      "body_text": "The Cardinals listed a key member of their defense as questionable to play in this Sunday's game against the Giants.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T22:08:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Sweat",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-put-te-terrance-ferguson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-put-te-terrance-ferguson-on-injured-reserve",
+      "title": "Rams put TE Terrance Ferguson on injured reserve",
+      "body_text": "The Rams ruled tight end Terrance Ferguson out for Sunday's game against the Eagles and that won't be the last one that Ferguson misses.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T21:55:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrance Ferguson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0040737"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-list-derwin-james-ladd-mcconkey-trey-lance-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-list-derwin-james-ladd-mcconkey-trey-lance-as-questionable",
+      "title": "Chargers list Derwin James, Ladd McConkey, Trey Lance as questionable",
+      "body_text": "The Chargers have ruled out four players and list five others as questionable.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T21:18:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derwin James",
+        "Trey Lance",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0034790",
+        "00-0037012"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-steelers-initial-asking-price-for-joey-porter-jr-was-a-little-hefty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-steelers-initial-asking-price-for-joey-porter-jr-was-a-little-hefty",
+      "title": "Stephen Jones: Steelers' initial asking price for Joey Porter Jr. was \"a little hefty\"",
+      "body_text": "Cowboys Executive V.P.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-02T21:05:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stephen Jones",
+        "Joey Porter Jr",
+        "Cowboys Executive V."
+      ],
+      "resolved_player_ids": [
+        "00-0037551",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rb-tony-pollard-has-no-game-status-but-rb-tyjae-spears-is-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rb-tony-pollard-has-no-game-status-but-rb-tyjae-spears-is-questionable",
+      "title": "Titans RB Tony Pollard has no game status, but RB Tyjae Spears is questionable",
+      "body_text": "The Titans will have running back Tony Pollard, who had another full practice Friday and does not have an injury designation for Sunday's game against the Ravens.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T20:46:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Pollard",
+        "Tyjae Spears",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035261",
+        "00-0039032"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rb-jadarian-price-will-miss-sundays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rb-jadarian-price-will-miss-sundays-game",
+      "title": "Seahawks RB Jadarian Price will miss Sunday's game",
+      "body_text": "The Seahawks will face the Chargers without rookie running back Jadarian Price.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T20:39:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadarian Price",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-rule-out-azeez-al-shaair-list-jadeveon-clowney-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-rule-out-azeez-al-shaair-list-jadeveon-clowney-as-questionable",
+      "title": "Texans rule out Azeez Al-Shaair, list Jadeveon Clowney as questionable",
+      "body_text": "The Texans won't have linebacker Azeez Al-Shaair for Sunday's game against the Cowboys.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T20:31:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadeveon Clowney",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0031364"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-list-zay-flowers-ronnie-stanley-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-list-zay-flowers-ronnie-stanley-as-questionable",
+      "title": "Ravens list Zay Flowers, Ronnie Stanley as questionable",
+      "body_text": "Ravens head coach Jesse Minter announced that linebacker Trey Hendrickson will miss Sunday's game against the Titans during his Friday press conference and the team's final injury report has now been released.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T20:20:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Flowers",
+        "Ronnie Stanley",
+        "Jesse Minter",
+        "Trey Hendrickson"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0032965",
+        "00-0033935"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-cobie-durant-lb-demarvion-overshown-ruled-out-but-malik-hooker-returns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-cobie-durant-lb-demarvion-overshown-ruled-out-but-malik-hooker-returns",
+      "title": "CB Cobie Durant, LB DeMarvion Overshown ruled out, but Malik Hooker returns",
+      "body_text": "The Cowboys expect cornerback Joey Porter to play on Sunday in Houston.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T20:19:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cobie Durant",
+        "Malik Hooker",
+        "The Cowboys",
+        "Joey Porter"
+      ],
+      "resolved_player_ids": [
+        "00-0037839",
+        "00-0033877",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryan-cook-dalton-risner-listed-as-questionable-for-bengals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryan-cook-dalton-risner-listed-as-questionable-for-bengals",
+      "title": "Bryan Cook, Dalton Risner listed as questionable for Bengals",
+      "body_text": "The Bengals have a handful of players listed as questionable as they try to bounce back from their first loss of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T20:11:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryan Cook",
+        "Dalton Risner",
+        "Bengals The"
+      ],
+      "resolved_player_ids": [
+        "00-0037193",
+        "00-0035702"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-samson-ebukam-lb-divine-deablo-remain-limited-participants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-samson-ebukam-lb-divine-deablo-remain-limited-participants",
+      "title": "Falcons DE Samson Ebukam, LB Divine Deablo remain limited participants",
+      "body_text": "Falcons defensive end Samson Ebukam remained limited in Friday's practice ahead of Monday night's game against the Saints.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-02T20:05:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Samson Ebukam",
+        "Divine Deablo"
+      ],
+      "resolved_player_ids": [
+        "00-0033945",
+        "00-0036990"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-reminds-team-that-conversations-on-officiating-are-confidential",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-reminds-team-that-conversations-on-officiating-are-confidential",
+      "title": "NFL reminds teams that conversations on officiating are \"confidential\"",
+      "body_text": "The NFL routinely communicates with teams regarding concerns arising from calls made and not made in the most recent games.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T19:43:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-tony-romo-undoubtedly-negotiated-a-contract-settlement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cbs-tony-romo-undoubtedly-negotiated-a-contract-settlement",
+      "title": "CBS, Tony Romo undoubtedly negotiated a contract settlement",
+      "body_text": "Friday's announcement that CBS and No. 1 NFL analyst Tony Romo have \"mutually agreed to part ways\" hardly means that the separation was a joint decision.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T19:59:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/yaya-diaby-chris-godwin-set-to-play-for-buccaneers-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/yaya-diaby-chris-godwin-set-to-play-for-buccaneers-on-sunday",
+      "title": "Yaya Diaby, Chris Godwin set to play for Buccaneers on Sunday",
+      "body_text": "The Buccaneers will have linebacker Yaya Diaby and wide receiver Chris Godwin in the lineup as they try for their first win of the season against the Packers on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-02T19:59:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Yaya Diaby",
+        "Chris Godwin",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039068",
+        "00-0033921"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonta-smith-out-for-week-4-vs-rams-with-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonta-smith-out-for-week-4-vs-rams-with-hamstring-injury",
+      "title": "DeVonta Smith out for Week 4 vs. Rams with hamstring injury",
+      "body_text": "The Eagles officially will not have several key players for Sunday’s game against the Rams.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-02T19:58:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    }
+  ]
+}
