@@ -48,6 +48,12 @@ from src.lineup_setter import (  # noqa: E402
     score_sleeper_stats,
 )
 from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
+from src.waiver_verdicts import (  # noqa: E402
+    drop_order,
+    load_keepers,
+    roster_baseline,
+)
+from src.waiver_verdicts import verdict as waiver_verdict  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
     "set_lineups", REPO_ROOT / "scripts" / "set_lineups.py"
@@ -289,6 +295,8 @@ def main(argv: Optional[list] = None) -> int:
             "adp": adp_rank(sid, meta),
             "dyn": (dyn.get(sid) or {}).get("value", 0),
             "age": meta.get("age"),
+            "ir": str(meta.get("injury_status") or "").upper() in ("IR", "PUP", "NFI"),
+            "out": str(meta.get("injury_status") or "").upper() in ("OUT", "DOUBTFUL"),
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
@@ -307,6 +315,7 @@ def main(argv: Optional[list] = None) -> int:
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
             + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
+            + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + f" {r['news']}{'  ' if r['news'] and r['inj'] else ''}{r['inj']}"
         )
 
@@ -320,9 +329,26 @@ def main(argv: Optional[list] = None) -> int:
             f"({platform} ADP, Sleeper ADP fallback) — verify availability on the site"
         )
 
+    # Verdicts are relative to MY roster: a pickup must start or beat the bench.
+    my_rows = [r for r in (row(s) for s in mine) if r]
+    keepers = load_keepers(
+        REPO_ROOT / "data" / "draft" / f"{args.league}_{season}_keepers.txt"
+    )
+    baseline = roster_baseline(
+        my_rows,
+        roster_format=preset.get("roster"),
+        roster_positions=(league or {}).get("roster_positions"),
+        keepers=keepers,
+    )
     fas = [
         r for r in (row(s) for s in registry if s not in rostered) if r and likely_fa(r)
     ]
+    for r in fas:
+        r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
+    print(
+        "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
+        "weakest non-keeper bench at his position), depth (pure add), no help"
+    )
     for pos in ("QB", "RB", "WR", "TE"):
         print(f"\n-- {pos} free agents --")
         for r in sorted((r for r in fas if r["pos"] == pos), key=lambda r: -r["blend"])[
@@ -345,7 +371,6 @@ def main(argv: Optional[list] = None) -> int:
         for r in sorted(fas, key=lambda r: -r["dyn"])[: args.top * 2]:
             print(line(r))
 
-    my_rows = [r for r in (row(s) for s in mine) if r]
     unscored = [
         registry.get(s, {}).get("full_name") or s for s in mine if row(s) is None
     ]
@@ -356,7 +381,22 @@ def main(argv: Optional[list] = None) -> int:
         f"unscored: {missing}) --"
     )
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):
-        print(line(r, "START" if r["sid"] in starters else "bench"))
+        if normalize_name(r["name"]) in keepers:
+            tag = "KEEP"
+        elif r["sid"] in (starters or baseline["starters"]):
+            tag = "START"
+        else:
+            tag = "bench"
+        print(line(r, tag))
+    drops = drop_order(my_rows, baseline, keepers, key="dyn" if dyn else "blend")
+    print(
+        "\n  Drop candidates (bench, keepers excluded, weakest first): "
+        + (", ".join(r["name"] for r in drops[:4]) or "none")
+    )
+    if keepers:
+        print(
+            f"  Keepers protected: {len(keepers)} (from {args.league}_{season}_keepers.txt)"
+        )
     return 0
 
 
