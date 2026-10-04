@@ -20,7 +20,17 @@ Mantis is dynasty: judge claims on dynasty value + age + path to a role (see the
 `weekly-waivers` skill), not one week's projection. By week 3 of 2026 we had spent
 $602 of $1000 (league median $42) on backup-QB/RB streamers — don't repeat it.
 
-## 2. Refresh the exact free-agent pools (Chrome, logged in — claude-in-chrome)
+## 2. Refresh the exact free-agent pools
+**One command** (Chrome started with `--remote-debugging-port=9222 --user-data-dir=<profile>`,
+logged into ESPN + Yahoo, one tab open on each site):
+```bash
+python scripts/refresh_league_pools.py --league all --week N
+```
+Writes every `data/draft/{la_liga,feetball}_2026_*` pool file below plus the gitignored
+`data/external/espn/la_liga_2026_league.json` for `league_context.py --espn-json`.
+Manual fallback (no debug Chrome) — read the sites with claude-in-chrome as below.
+
+### Manual fallback (claude-in-chrome)
 - **ESPN**: League Rosters page → all 178 rostered names → `data/draft/la_liga_2026_all_rostered.txt`;
   my team page → `data/draft/la_liga_2026_roster.txt`. (API works from the logged-in tab:
   `lm-api-reads.fantasy.espn.com/.../leagues/1493260?view=mRoster&view=mTeam`, `kona_player_info`

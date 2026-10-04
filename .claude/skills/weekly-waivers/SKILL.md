@@ -28,8 +28,15 @@ bid, and what we added/dropped recently (do not re-buy a player we just cut, do 
 repeat a churn pattern that already failed).
 
 ## Step 3 — Waiver reports (runbook §2-3)
-Refresh the ESPN/Yahoo pool files in Chrome first, then run `scripts/waiver_wire.py`
-per league (Mantis adds DYN value + AGE columns and a "dynasty targets" list), and
+Refresh the ESPN/Yahoo pool files first — one command, from a debug-port Chrome logged
+into both sites (`chrome --remote-debugging-port=9222 --user-data-dir=<profile>`):
+`python scripts/refresh_league_pools.py --league all --week N` (also writes the ESPN
+league JSON for `league_context.py --league la_liga --espn-json data/external/espn/la_liga_2026_league.json`).
+If no debug Chrome is up, fall back to reading the sites with claude-in-chrome. Then run `scripts/waiver_wire.py`
+per league (Mantis adds DYN value + AGE columns and a "dynasty targets" list; every
+free agent gets a FIT verdict vs MY roster — STARTS / BENCH+ / depth / no help — and
+keepers are tagged KEEP and excluded from drop candidates). Never recommend a "no help"
+player however hot he is. Then
 `scripts/player_dossier.py` on the shortlist (usage, injuries around them, matchup).
 Check WHY a player is trending (starter injured? which injury, how long?) before
 recommending him.
