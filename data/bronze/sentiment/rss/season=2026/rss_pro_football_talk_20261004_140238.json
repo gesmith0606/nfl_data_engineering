@@ -1,0 +1,494 @@
+{
+  "fetch_run_id": "ff325317-a4f8-4a44-81da-8f9a0d387df4",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-04T14:02:38.374045+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-tanner-mckee-will-be-the-eagles-no-2-qb-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-tanner-mckee-will-be-the-eagles-no-2-qb-sunday",
+      "title": "Report: Tanner McKee will be the Eagles' No. 2 QB Sunday",
+      "body_text": "The Eagles are reportedly making a change to their quarterback depth chart for Sunday's game against the Rams.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-04T13:51:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-surely-want-to-plug-hold-in-loophole-but-it-wont-be-easy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-surely-want-to-plug-hold-in-loophole-but-it-wont-be-easy",
+      "title": "NFL will surely want to plug \"hold-in\" loophole, but it won't be easy",
+      "body_text": "When the workers find real power, management can't take it.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-04T13:39:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-fumbles-commanders-score-first-in-london",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-fumbles-commanders-score-first-in-london",
+      "title": "Daniel Jones fumbles, Commanders score first in London",
+      "body_text": "The Commanders took a 3-0 lead just two minutes into the game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-04T13:39:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Jones",
+        "London The"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-dl-derrick-harmon-is-expected-to-miss-multiple-weeks-with-foot-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-dl-derrick-harmon-is-expected-to-miss-multiple-weeks-with-foot-injury",
+      "title": "Steelers DL Derrick Harmon is expected to miss multiple weeks with foot injury",
+      "body_text": "Steelers defensive lineman Derrick Harmon had to be carted off during Thursday night's loss to the Browns and it looks like it will be a little while before he's back on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-04T13:08:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Harmon"
+      ],
+      "resolved_player_ids": [
+        "00-0040678"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lions-sam-laporta-break-off-contract-extension-talks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lions-sam-laporta-break-off-contract-extension-talks",
+      "title": "Report: Lions, Sam LaPorta break off contract extension talks",
+      "body_text": "The chances of tight end Sam LaPorta hitting free agency next year are reportedly looking a little better.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-04T13:01:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-mclaurin-out-for-commanders-in-london-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-mclaurin-out-for-commanders-in-london-sunday",
+      "title": "Terry McLaurin out for Commanders in London Sunday",
+      "body_text": "Commanders quarterback Marcus Mariota will not have wide receiver Terry McLaurin as a target in Sunday's game against the Colts.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-04T12:53:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "London Sunday",
+        "Marcus Mariota"
+      ],
+      "resolved_player_ids": [
+        "00-0032268"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-dream-come-true-to-be-starting-qb-for-the-buccaneers-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-dream-come-true-to-be-starting-qb-for-the-buccaneers-today",
+      "title": "Jalon Daniels: \"Dream come true\" to be starting QB for the Buccaneers today",
+      "body_text": "The undrafted rookie will start today against the Packers with Baker Mayfield out.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-04T09:05:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalon Daniels",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-colorado-lose-third-in-a-row",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-colorado-lose-third-in-a-row",
+      "title": "Deion Sanders, Colorado lose third in a row",
+      "body_text": "After a 2-0 start to the 2026 season, Deion Sanders and the Colorado Buffaloes have lost their third game in a row.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-04T04:17:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Colorado Buffaloes"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiah-smith-im-the-best-player-in-the-country",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiah-smith-im-the-best-player-in-the-country",
+      "title": "Jeremiah Smith: \"I'm the best player in the country\"",
+      "body_text": "After his latest phenomenal performance of the 2026 season, Ohio State receiver Jeremiah Smith stated the obvious.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-04T01:48:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiah Smith",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-and-unc-fall-to-2-2-with-loss-to-notre-dame",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-and-unc-fall-to-2-2-with-loss-to-notre-dame",
+      "title": "Bill Belichick and UNC fall to 2-2 with loss to Notre Dame",
+      "body_text": "Bill Belichick's second season at North Carolina started at 2-0.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-04T01:27:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "Notre Dame",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/yale-qb-dante-reno-has-big-performance-after-his-father-and-former-coach-dies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/yale-qb-dante-reno-has-big-performance-after-his-father-and-former-coach-dies",
+      "title": "Yale QB Dante Reno has big performance after his father (and former coach) dies",
+      "body_text": "Yale quarterback Dante Reno had a performance on Saturday he'll never forget, for many reasons.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-04T01:11:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dante Reno"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyson-bagent-is-expected-to-start-for-the-bears-on-sunday-vs-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyson-bagent-is-expected-to-start-for-the-bears-on-sunday-vs-jets",
+      "title": "Tyson Bagent is expected to start for the Bears on Sunday vs. Jets",
+      "body_text": "Case Keenum will take a seat on the bench, after beating the Eagles on Monday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-04T00:12:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyson Bagent",
+        "Jets Case"
+      ],
+      "resolved_player_ids": [
+        "00-0038416"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-looks-to-extend-mastery-of-raiders-afc-west",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-looks-to-extend-mastery-of-raiders-afc-west",
+      "title": "Patrick Mahomes looks to extend mastery of Raiders, AFC West",
+      "body_text": "When the Chiefs play in Las Vegas on Sunday, Kansas City quarterback Patrick Mahomes will be looking to extend his mastery of the Raiders — and of their division.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T23:49:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "West When",
+        "Las Vegas",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-elevate-zach-ertz-josiah-deguara",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-elevate-zach-ertz-josiah-deguara",
+      "title": "Eagles elevate Zach Ertz, Josiah Deguara",
+      "body_text": "The Eagles added a pair of tight ends to the roster for Sunday's game against the Rams.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T21:58:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Ertz",
+        "Josiah Deguara",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0030061",
+        "00-0036332"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mack-hollins-fined-twice-on-the-same-play-losing-34-441",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mack-hollins-fined-twice-on-the-same-play-losing-34-441",
+      "title": "Mack Hollins fined twice on the same play, losing $34,441",
+      "body_text": "The NFL fined Patriots receiver Mack Hollins $34,441 for his actions on the same play against the Jaguars.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-03T21:34:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mack Hollins"
+      ],
+      "resolved_player_ids": [
+        "00-0033555"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-elevated-qb-easton-stick-from-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-elevated-qb-easton-stick-from-practice-squad",
+      "title": "Bucs elevate QB Easton Stick from practice squad",
+      "body_text": "The Buccaneers elevated linebacker Caden Fordham and quarterback Easton Stick from the practice squad for Sunday's game against the Packers, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-03T21:09:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Easton Stick",
+        "The Buccaneers",
+        "Caden Fordham"
+      ],
+      "resolved_player_ids": [
+        "00-0035282",
+        "00-0041338"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-ot-braxton-jones-lands-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-ot-braxton-jones-lands-on-injured-reserve",
+      "title": "Bears OT Braxton Jones lands on injured reserve",
+      "body_text": "The Bears are going to have a new left tackle for Sunday's game against the Jets and for several other games in the weeks to follow.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T20:51:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Braxton Jones",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0037081"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-elevate-de-matt-judon-for-sundays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-elevate-de-matt-judon-for-sundays-game",
+      "title": "49ers elevate DE Matt Judon for Sunday's game",
+      "body_text": "Veteran defensive end Matt Judon is set for his 49ers debut.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T20:40:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matt Judon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-place-rb-jadarian-price-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-place-rb-jadarian-price-on-ir",
+      "title": "Seahawks place RB Jadarian Price on IR",
+      "body_text": "Seahawks running back Jadarian Price not only will miss Sunday's game but at least the three games after that.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-03T20:36:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jadarian Price"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-was-fined-14-926-for-dice-roll-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-was-fined-14-926-for-dice-roll-too",
+      "title": "Jaylen Waddle was fined $14,926 for dice roll, too",
+      "body_text": "Do as we say, not as we profit from.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T20:31:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-put-jovaughn-gwyn-ethan-pocic-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-put-jovaughn-gwyn-ethan-pocic-on-ir",
+      "title": "Ravens put Jovaughn Gwyn, Ethan Pocic on IR",
+      "body_text": "The Ravens lost centers Jovaughn Gwyn and Ethan Pocic to long-term injuries in last Sunday's win over the Ravens and both players were moved to the injured reserve list on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T20:29:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jovaughn Gwyn",
+        "Ethan Pocic",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0038629",
+        "00-0033901"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-3-featured-three-fines-for-blindside-blocks-two-fines-for-hip-drop-tackles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/week-3-featured-three-fines-for-blindside-blocks-two-fines-for-hip-drop-tackles",
+      "title": "Week 3 featured three fines for blindside blocks, two fines for hip-drop tackles",
+      "body_text": "The NFL's announcement of fines for Week 3 featured six infractions for player safety fouls that qualify toward possible suspensions.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T20:24:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-will-play-for-cowboys-who-elevate-two-dbs-off-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-will-play-for-cowboys-who-elevate-two-dbs-off-practice-squad",
+      "title": "Joey Porter Jr. will play for Cowboys, who elevate two DBs off practice squad",
+      "body_text": "The Cowboys elevated defensive backs Reddy Steward and Juanyeh Thomas from the practice squad to the active roster for Sunday's game against the Texans.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-03T20:16:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Cowboys",
+        "Reddy Steward",
+        "Juanyeh Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0039167",
+        "00-0039465",
+        "00-0037578"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-xavier-legette-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-xavier-legette-on-injured-reserve",
+      "title": "Panthers put Xavier Legette on injured reserve",
+      "body_text": "Panthers wide receiver Xavier Legette missed last week's loss to the Browns with a knee injury and he'll miss several more games as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T20:10:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Xavier Legette"
+      ],
+      "resolved_player_ids": [
+        "00-0039342"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-steelers-initial-asking-price-for-joey-porter-jr-was-a-little-hefty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-steelers-initial-asking-price-for-joey-porter-jr-was-a-little-hefty",
+      "title": "Stephen Jones: Steelers' initial asking price for Joey Porter Jr. was \"a little hefty\"",
+      "body_text": "Cowboys Executive V.P.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-02T21:05:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stephen Jones",
+        "Joey Porter Jr",
+        "Cowboys Executive V."
+      ],
+      "resolved_player_ids": [
+        "00-0037551",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-believes-nfl-could-deconstruct-sunday-ticket-in-next-broadcast-deals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/youtube-believes-nfl-could-deconstruct-sunday-ticket-in-next-broadcast-deals",
+      "title": "YouTube believes NFL could \"deconstruct\" Sunday Ticket in next broadcast deals",
+      "body_text": "Come 2030, out-of-market games could be seen without plunking down an extra $400.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T03:53:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-york-suspended-six-games-fined-500-000",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-york-suspended-six-games-fined-500-000",
+      "title": "Jed York suspended six games, fined $500,000",
+      "body_text": "The NFL has announced its discipline for the 49ers' owner, who violated the personal conduct policy over the summer.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-02T18:13:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-yorks-punishment-highlights-basic-differences-between-player-owner-suspensions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-yorks-punishment-highlights-basic-differences-between-player-owner-suspensions",
+      "title": "Jed York's punishment highlights basic differences between player, owner suspensions",
+      "body_text": "Regardless of whether the NFL would have suspended a player six games for the same Personal Conduct Policy that resulted in a six-game suspension for 49ers owner Jed York, there's a fundamental disparity between the handling of the financial consequences of owner and player suspensions.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-02T19:20:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jed York",
+        "Personal Conduct"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-harris-doesnt-rule-out-a-permanent-return-of-the-spear-to-the-commanders-helmet",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-harris-doesnt-rule-out-a-permanent-return-of-the-spear-to-the-commanders-helmet",
+      "title": "Josh Harris doesn't rule out a permanent return of the spear to the Commanders helmet",
+      "body_text": "The Commanders have an alternate helmet that adds a spear to the W.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-03T20:03:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Harris",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0028845"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-rule-out-kaden-elliss-carl-granderson-for-monday-nights-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-rule-out-kaden-elliss-carl-granderson-for-monday-nights-game",
+      "title": "Saints rule out Kaden Elliss, Carl Granderson for Monday night's game",
+      "body_text": "Linebacker Kaden Elliss moved from the Falcons to the Saints as a free agent this offseason, but he won't be playing against his former team on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-03T19:42:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kaden Elliss",
+        "Carl Granderson",
+        "Linebacker Kaden"
+      ],
+      "resolved_player_ids": [
+        "00-0035316",
+        "00-0035402"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}

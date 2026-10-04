@@ -1,0 +1,99 @@
+{
+  "fetch_run_id": "a6fadd01-8270-4034-9856-428e6f400e99",
+  "source": "rotowire",
+  "fetched_at": "2026-10-04T14:02:51.613618+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl640513",
+      "url": "https://www.rotowire.com//football/player/devonta-smith-15406",
+      "permalink": "",
+      "title": "DeVonta Smith: Could miss multiple games",
+      "body_text": "Smith (hamstring), who has been ruled out for Sunday's game against the Rams, is viewed \"at very best, questionable\" for the Eagles' Week 5 game versus the Jaguars in London, Mike Garafolo of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T06:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl640508",
+      "url": "https://www.rotowire.com//football/player/baker-mayfield-12619",
+      "permalink": "",
+      "title": "Baker Mayfield: Could miss up to six weeks",
+      "body_text": "Mayfield's dislocated right thumb could keep him out anywhere from 3-to-6 weeks, depending on how quickly he's able to resume gripping the football without issue, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T05:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl640500",
+      "url": "https://www.rotowire.com//football/player/terry-mclaurin-13536",
+      "permalink": "",
+      "title": "Terry McLaurin: Sitting out London game",
+      "body_text": "McLaurin (hamstring) is inactive for Sunday's game against the Colts in London. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T05:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "nfl640499",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: No limitations expected in return",
+      "body_text": "Nacua (hip) isn't expected to have limitations on his workload during Sunday's game in Philadelphia, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T04:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl640498",
+      "url": "https://www.rotowire.com//football/player/sam-laporta-17033",
+      "permalink": "",
+      "title": "Sam LaPorta: Breaks off contract negotiations",
+      "body_text": "LaPorta and the Lions have broken off contract talks after several weeks of discussions, and the tight end now is set to be an unrestricted free agent in 2027, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T04:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    }
+  ]
+}
