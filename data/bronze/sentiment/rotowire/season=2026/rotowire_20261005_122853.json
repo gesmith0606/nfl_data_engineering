@@ -1,0 +1,102 @@
+{
+  "fetch_run_id": "15e01755-133a-41fb-a1cf-8dd5ba96bdc5",
+  "source": "rotowire",
+  "fetched_at": "2026-10-05T12:28:53.902679+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl640863",
+      "url": "https://www.rotowire.com//football/player/sam-laporta-17033",
+      "permalink": "",
+      "title": "Sam LaPorta: Season-best numbers in loss",
+      "body_text": "LaPorta brought in eight of 13 targets for 84 yards and a touchdown in the Lions' 32-26 loss to the Panthers on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T09:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl640860",
+      "url": "https://www.rotowire.com//football/player/jameson-williams-15849",
+      "permalink": "",
+      "title": "Jameson Williams: Eclipses century mark in loss",
+      "body_text": "Williams secured six of eight targets for 102 yards in the Lions' 32-26 loss to the Panthers on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T09:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameson Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037240"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl640853",
+      "url": "https://www.rotowire.com//football/player/bryce-young-16807",
+      "permalink": "",
+      "title": "Bryce Young: Tosses two TDs to Tet",
+      "body_text": "Young completed 29 of 41 passes for 329 yards and two touchdowns while rushing three times for three yards in Sunday's 32-26 win over the Lions. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T09:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Young",
+        "Tet Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl640850",
+      "url": "https://www.rotowire.com//football/player/chuba-hubbard-15242",
+      "permalink": "",
+      "title": "Chuba Hubbard: Rushes for 122 yards and two TDs",
+      "body_text": "Hubbard rushed 20 times for 122 yards and two touchdowns while catching one of two targets for seven yards in Sunday's 32-26 win over the Lions. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T09:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chuba Hubbard"
+      ],
+      "resolved_player_ids": [
+        "00-0036555"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl640848",
+      "url": "https://www.rotowire.com//football/player/jared-goff-10729",
+      "permalink": "",
+      "title": "Jared Goff: Massive passing yardage total in loss",
+      "body_text": "Goff completed 32 of 52 passes for 412 yards with one touchdown and no interceptions in the Lions' 32-26 loss to the Panthers on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-04T09:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}

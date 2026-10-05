@@ -1,0 +1,490 @@
+{
+  "fetch_run_id": "ea8853ff-ca29-4ca0-9397-e8a602a7478c",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-05T12:28:44.806373+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-justin-herbert-had-one-of-the-grittiest-performances-ive-seen-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-justin-herbert-had-one-of-the-grittiest-performances-ive-seen-on-sunday",
+      "title": "Jim Harbaugh: Justin Herbert had one of the grittiest performances I've seen on Sunday",
+      "body_text": "The Chargers are 0-4, but the coach has not lost any confidence in his quarterback.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-05T11:14:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh",
+        "Justin Herbert",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-what-can-i-do-next-time-to-capitalize-off-sundays-performance",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-what-can-i-do-next-time-to-capitalize-off-sundays-performance",
+      "title": "CeeDee Lamb: What can I do next time to capitalize off Sunday's performance?",
+      "body_text": "Cowboys wide receiver CeeDee Lamb grew up outside of Houston and he made his first NFL game in the city one to remember.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T11:14:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-broncos-believe-pat-surtain-ii-avoided-long-term-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-broncos-believe-pat-surtain-ii-avoided-long-term-injury",
+      "title": "Reports: Broncos believe Pat Surtain II avoided long-term injury",
+      "body_text": "Broncos cornerback Pat Surtain II had to leave Sunday's 24-14 loss after the kind of non-contact injury that gives rise to thoughts of long-term absences, but early word is positive about Surtain's condition.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T11:01:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Surtain II"
+      ],
+      "resolved_player_ids": [
+        "00-0036874"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-we-have-to-build-off-relieving-performance-against-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-we-have-to-build-off-relieving-performance-against-bills",
+      "title": "Drake Maye: We have to build off \"relieving\" performance against Bills",
+      "body_text": "Patriots quarterback Drake Maye's performance in the first three weeks of the season led to a lot of questions about what was wrong with a player who ended the 2025 season as the runner-up in MVP voting.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T10:54:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "Bills Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-im-not-talking-about-firing-kelvin-sheppard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-im-not-talking-about-firing-kelvin-sheppard",
+      "title": "Dan Campbell: I'm not talking about firing Kelvin Sheppard",
+      "body_text": "The Lions defense was unimpressive in the first three weeks of the 2026 season and things didn't get any better in Sunday night's loss to the Panthers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T10:39:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell",
+        "Kelvin Sheppard",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0028006"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tetairoa-mcmillan-everything-just-clicked-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tetairoa-mcmillan-everything-just-clicked-on-sunday-night",
+      "title": "Tetairoa McMillan: Everything just clicked on Sunday night",
+      "body_text": "Panthers wide receiver Tetairoa McMillan's first Sunday night game was one to remember.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T10:25:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-played-every-snap-on-defense-none-on-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-hunter-played-every-snap-on-defense-none-on-offense",
+      "title": "Travis Hunter played every snap on defense, none on offense",
+      "body_text": "Jaguars coach Liam Coen said Hunter was too important to the defense to risk him getting hurt on offense.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-05T10:00:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Hunter",
+        "Liam Coen"
+      ],
+      "resolved_player_ids": [
+        "00-0040718"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-reviewing-incident-between-vikings-eric-wilson-and-ref-adrian-hill",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-reviewing-incident-between-vikings-eric-wilson-and-ref-adrian-hill",
+      "title": "NFL reviewing incident between Vikings' Eric Wilson and ref Adrian Hill",
+      "body_text": "An odd incident took place during Sunday's Vikings-Dolphins game when referee Adrian Hill got knocked to the ground and then got in the face of Vikings linebacker Eric Wilson.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-05T09:13:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Eric Wilson",
+        "Adrian Hill"
+      ],
+      "resolved_player_ids": [
+        "00-0033336"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-tetairoa-mcmillans-big-night-powers-panthers-to-32-26-victory",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-tetairoa-mcmillans-big-night-powers-panthers-to-32-26-victory",
+      "title": "Sunday Night Football: Tetairoa McMillan's big night powers Panthers to 32-26 victory",
+      "body_text": "McMillan caught 14 passes for 192 yards with two touchdowns against Detroit, as Carolina moved to 2-2 in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-05T03:51:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ability-to-practice-will-determine-jayden-danielss-potential-return-next-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ability-to-practice-will-determine-jayden-danielss-potential-return-next-week",
+      "title": "Ability to practice will determine Jayden Daniels's potential return next week",
+      "body_text": "Commanders quarterback Marcus Mariota is believed to have an MCL sprain.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T03:07:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Marcus Mariota"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0032268"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-mike-mcdaniels-job-is-not-in-jeopardy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-mike-mcdaniels-job-is-not-in-jeopardy",
+      "title": "Jim Harbaugh: Mike McDaniel's job \"is not in jeopardy\"",
+      "body_text": "After the Chargers lost their third game of the season in three weeks, coach Jim Harbaugh gave offensive coordinator Mike McDaniel a vote of confidence.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T02:49:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chuba-hubbards-second-td-gives-panthers-29-19-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chuba-hubbards-second-td-gives-panthers-29-19-lead",
+      "title": "Chuba Hubbard's second TD gives Panthers 29-19 lead",
+      "body_text": "The Panthers punted on their first drive.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-05T02:37:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chuba Hubbard",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036555"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chiefs-are-interested-in-a-tyreek-hill-reunion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-chiefs-are-interested-in-a-tyreek-hill-reunion",
+      "title": "Report: Chiefs are \"very interested\" in a Tyreek Hill reunion",
+      "body_text": "Last year, before then-Dolphins receiver Tyreek Hill suffered a serious knee injury, the Chiefs were interested in trading for him.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T02:27:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyreek Hill"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tetairoa-mcmillans-second-td-catch-gives-panthers-22-16-lead-over-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tetairoa-mcmillans-second-td-catch-gives-panthers-22-16-lead-over-lions",
+      "title": "Tetairoa McMillan's second TD catch gives Panthers 22-16 lead over Lions",
+      "body_text": "Panthers receiver Tetairoa McMillan was limited to just two catches for 17 yards in last week’s loss to Cleveland.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-05T02:22:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lions Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnsons-decision-to-start-case-keenum-was-a-reaction-to-the-media",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnsons-decision-to-start-case-keenum-was-a-reaction-to-the-media",
+      "title": "Ben Johnson's decision to start Case Keenum was a reaction to the media",
+      "body_text": "Bears coach Ben Johnson can't help himself.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T01:58:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Case Keenum"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0028986"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-wr-tyquan-thornton-dislocated-his-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-wr-tyquan-thornton-dislocated-his-ankle",
+      "title": "Chiefs WR Tyquan Thornton dislocated his ankle",
+      "body_text": "Chiefs wide receiver Tyquan Thornton dislocated his left ankle in Sunday's victory over the Raiders, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T02:02:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyquan Thornton",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0038104"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-jameson-williams-deep-catch-allows-lions-to-tie-panthers-16-16-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-jameson-williams-deep-catch-allows-lions-to-tie-panthers-16-16-at-halftime",
+      "title": "Sunday Night Football: Jameson Williams' deep catch allows Lions to tie Panthers 16-16 at halftime",
+      "body_text": "Though Carolina's Bryce Young started hot, Detroit has been able to answer so far in Week 4.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-05T01:59:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Jameson Williams",
+        "Though Carolina",
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0037240",
+        "00-0039150"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-it-was-dumb-that-we-were-underdogs-to-the-cardinals-at-home",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-it-was-dumb-that-we-were-underdogs-to-the-cardinals-at-home",
+      "title": "Cam Skattebo: It was \"dumb\" that we were underdogs to the Cardinals at home",
+      "body_text": "The Giants entered Sunday's game with a chip on their shoulder.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T01:37:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-continue-to-ignore-the-other-ways-to-finish-a-catch-beyond-taking-a-third-step",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-continue-to-ignore-the-other-ways-to-finish-a-catch-beyond-taking-a-third-step",
+      "title": "Officials continue to ignore the other ways to finish a catch, beyond taking a third step",
+      "body_text": "After years of uncertainty as to what is and isn't a catch, the NFL added a wrinkle that streamlines the process.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T01:35:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-take-13-6-lead-with-bryce-youngs-32-yard-td-pass",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-take-13-6-lead-with-bryce-youngs-32-yard-td-pass",
+      "title": "Panthers take 13-6 lead with Bryce Young's 32-yard TD pass",
+      "body_text": "Bryce Young is hot and the Panthers are rolling.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-05T01:23:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-are-third-team-start-4-0-while-not-scoring-a-td-in-multiple-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-are-third-team-start-4-0-while-not-scoring-a-td-in-multiple-games",
+      "title": "Vikings are third team start 4-0 while not scoring a TD in multiple games",
+      "body_text": "The Vikings have essentially co-opted the slogan of the team that beat Minnesota in its most recent Super Bowl appearance, 50 years ago.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T01:15:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Vikings",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chuba-hubbards-15-yard-td-gives-panthers-7-3-lead-over-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chuba-hubbards-15-yard-td-gives-panthers-7-3-lead-over-lions",
+      "title": "Chuba Hubbard's 15-yard TD gives Panthers 7-3 lead over Lions",
+      "body_text": "For the second time this season, Chuba Hubbard has reached the end zone on the ground.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-05T00:58:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chuba Hubbard",
+        "Lions For"
+      ],
+      "resolved_player_ids": [
+        "00-0036555"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-five-0-3-teams-fell-to-0-4",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-five-0-3-teams-fell-to-0-4",
+      "title": "All five 0-3 teams fell to 0-4",
+      "body_text": "Sunday started with five 0-3 teams in the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T00:51:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-calls-it-everything-to-have-a-career-day-in-his-return-to-houston",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-calls-it-everything-to-have-a-career-day-in-his-return-to-houston",
+      "title": "CeeDee Lamb calls it \"everything\" to have a career day in his return to Houston",
+      "body_text": "CeeDee Lamb grew up 24 miles from Reliant Stadium in Richmond, Texas.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T00:45:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Reliant Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dj-moore-shoulder-injury-not-believed-to-be-a-long-term-issue",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dj-moore-shoulder-injury-not-believed-to-be-a-long-term-issue",
+      "title": "Report: DJ Moore shoulder injury not believed to be a long-term issue",
+      "body_text": "Bills wide receiver DJ Moore was forced to leave Sunday's loss to the Patriots due to a shoulder injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T00:40:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-im-heating-up-and-starting-to-get-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-im-heating-up-and-starting-to-get-better",
+      "title": "Jameis Winston: I'm heating up and starting to get better",
+      "body_text": "The Giants made a trade to add quarterback J.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T00:29:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jameis Winston",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-on-lack-of-offensive-balance-my-response-is-throw-it-more",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-on-lack-of-offensive-balance-my-response-is-throw-it-more",
+      "title": "Joe Burrow on lack of offensive balance: My response is \"throw it more\"",
+      "body_text": "Bengals quarterback Joe Burrow dropped back to pass 58 times on unpenalized plays in Sunday's 22-17 loss to the Jaguars, but he isn't looking for more offensive balance in the coming weeks.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T00:13:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-escape-chargers-30-23",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-escape-chargers-30-23",
+      "title": "Seahawks escape Chargers 30-23",
+      "body_text": "The Chargers lost left tackle Rashawn Slater (ankle), right tackle Joe Alt (neck), left guard Trevor Penning (concussion), cornerback Donte Jackson (hamstring) and wide receiver Ladd McConkey (foot) during Sunday's game.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T00:03:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Chargers",
+        "Rashawn Slater",
+        "Joe Alt",
+        "Trevor Penning",
+        "Donte Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0037009",
+        "00-0039897",
+        "00-0037241",
+        "00-0034356"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-runs-for-177-two-tds-chiefs-beat-raiders-30-27",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-runs-for-177-two-tds-chiefs-beat-raiders-30-27",
+      "title": "Kenneth Walker runs for 177, two TDs, Chiefs beat Raiders 30-27",
+      "body_text": "Walker continued his terrific start to the 2026 season with another big performance to help Kansas City improve to 4-0.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-04T23:59:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-monangai-has-a-thumb-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-monangai-has-a-thumb-injury",
+      "title": "Kyle Monangai has a thumb injury",
+      "body_text": "Bears running back Kyle Monangai had a big day in Sunday's 23-12 win over the Jets, but he suffered an injury that the team will be monitoring as they head into Week 5.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-04T23:58:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}
