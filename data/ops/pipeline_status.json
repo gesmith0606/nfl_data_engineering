@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T12:30:27.164693+00:00",
+  "generated_at": "2026-10-05T18:24:40.067989+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-04T21:24:13Z",
-        "duration_seconds": 97,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37235947302",
+        "started_at": "2026-10-05T13:19:51Z",
+        "duration_seconds": 93,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37315951854",
         "event": "schedule"
       },
       "recent": [
@@ -145,9 +145,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-10-05T12:30:11Z",
+        "started_at": "2026-10-05T18:24:10Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37309970304",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37355660628",
         "event": "schedule"
       },
       "recent": [
@@ -172,9 +172,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-04T15:57:19Z",
-        "duration_seconds": 336,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37214943795",
+        "started_at": "2026-10-05T14:44:45Z",
+        "duration_seconds": 342,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/37327185506",
         "event": "schedule"
       },
       "recent": [
@@ -182,14 +182,14 @@
         "success",
         "success",
         "success",
-        "failure",
-        "success",
-        "success",
         "success",
         "failure",
+        "success",
+        "success",
+        "success",
         "failure"
       ],
-      "success_rate": 0.7
+      "success_rate": 0.8
     }
   ]
 }
