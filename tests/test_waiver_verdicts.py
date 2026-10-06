@@ -94,3 +94,10 @@ def test_out_player_does_not_set_the_bench_bar():
     rows = ROSTER + [{**_r("14", "Hurt WR", "WR", 0.0), "out": True}]
     b = roster_baseline(rows, roster_format="yahoo_feetball", keepers=KEEPERS)
     assert b["bench_floor"]["WR"] == 5.6  # BTJ, not the injured 0.0
+
+
+def test_bye_player_is_neither_the_bench_bar_nor_a_drop():
+    rows = ROSTER + [{**_r("15", "Star On Bye", "WR", 0.0), "bye": True}]
+    b = roster_baseline(rows, roster_format="yahoo_feetball", keepers=KEEPERS)
+    assert b["bench_floor"]["WR"] == 5.6
+    assert "Star On Bye" not in [r["name"] for r in drop_order(rows, b, KEEPERS)]
