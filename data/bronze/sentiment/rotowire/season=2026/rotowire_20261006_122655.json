@@ -1,0 +1,103 @@
+{
+  "fetch_run_id": "d0dc8ddf-1ae0-4999-b214-78059319edb0",
+  "source": "rotowire",
+  "fetched_at": "2026-10-06T12:26:55.416298+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl641055",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Uptick in production during big win",
+      "body_text": "Pitts secured all three targets for 47 yards in the Falcons' 45-24 win over the Saints on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-05T09:24:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl641054",
+      "url": "https://www.rotowire.com//football/player/juwan-johnson-14630",
+      "permalink": "",
+      "title": "Juwan Johnson: Stays busy in Week 4 loss",
+      "body_text": "Johnson secured six of eight targets for 59 yards in the Saints' 45-24 loss to the Falcons on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-05T09:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Juwan Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0036040"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl641053",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Two rush TDs in return to lead role",
+      "body_text": "Kamara rushed seven times for 23 yards and two touchdowns and brought in five of seven targets for 35 yards in the Saints' 45-24 loss to the Falcons on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-05T09:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl641048",
+      "url": "https://www.rotowire.com//football/player/brian-robinson-15907",
+      "permalink": "",
+      "title": "Brian Robinson: Racks up three TDs in win",
+      "body_text": "Robinson rushed 14 times for 62 yards and three touchdowns and brought in his sole target for five yards in the Falcons' 45-24 win over the Saints on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-05T09:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037746"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl641044",
+      "url": "https://www.rotowire.com//football/player/michael-penix-17700",
+      "permalink": "",
+      "title": "Michael Penix: Highly efficient in big division win",
+      "body_text": "Penix completed 15 of 20 passes for 223 yards with one touchdown and no interceptions and rushed twice for minus-2 yards in the Falcons' 45-24 win over the Saints on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-05T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}

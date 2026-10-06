@@ -1,0 +1,511 @@
+{
+  "fetch_run_id": "e3be0b0f-9b86-4dbf-891d-c9f9a7c1225d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-06T12:26:42.912907+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-average-nfl-high-40-0-points-with-michael-penix-after-nfl-low-8-0-without-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-average-nfl-high-40-0-points-with-michael-penix-after-nfl-low-8-0-without-him",
+      "title": "Falcons average NFL-high 40.0 points with Michael Penix, after NFL-low 8.0 without him",
+      "body_text": "Falcons safety Jessie Bates wasn't exaggerating when he said they're a different team with Michael Penix.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-06T11:15:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Penix",
+        "Jessie Bates"
+      ],
+      "resolved_player_ids": [
+        "00-0039917",
+        "00-0034675"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-i-put-raiders-problems-running-the-ball-on-myself",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-i-put-raiders-problems-running-the-ball-on-myself",
+      "title": "Klint Kubiak: I put Raiders' problems running the ball on myself",
+      "body_text": "The Raiders opened the season with 130 rushing yards in a win over the Dolphins and that was a welcome development after the team finished dead last in rushing during the 2025 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-06T11:07:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-fans-are-understandably-upset-id-boo-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-fans-are-understandably-upset-id-boo-too",
+      "title": "Tyler Shough: Fans are understandably upset, I'd boo too",
+      "body_text": "Monday night's game in New Orleans started with a tribute to a storybook night in Saints history, but there was no happily ever after once the game got underway.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-06T10:54:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Shough",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jessie-bates-were-a-different-team-with-michael-penix-in-the-lineup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jessie-bates-were-a-different-team-with-michael-penix-in-the-lineup",
+      "title": "Jessie Bates: We're a different team with Michael Penix in the lineup",
+      "body_text": "During the first two weeks of the 2026 season, the Falcons looked like one of the worst teams in the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-06T10:37:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jessie Bates",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0034675",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-not-happy-with-reporter-for-more-insult-than-question-about-justin-herbert",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-not-happy-with-reporter-for-more-insult-than-question-about-justin-herbert",
+      "title": "Jim Harbaugh not happy with reporter for \"more insult than question\" about Justin Herbert",
+      "body_text": "Chargers head coach Jim Harbaugh was not happy with a reporter's line of questioning about quarterback Justin Herbert and the Chargers' inability to build a successful offense around him amid the team's 0-4 start.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-06T09:29:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh",
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-really-disappointing-how-saints-played-on-an-incredible-night-in-new-orleans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-really-disappointing-how-saints-played-on-an-incredible-night-in-new-orleans",
+      "title": "Kellen Moore: Really disappointing how Saints played on an incredible night in New Orleans",
+      "body_text": "On the 20th anniversary of the Saints' return to New Orleans following Hurricane Katrina, it was the Falcons who had a big game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-06T08:41:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kellen Moore",
+        "New Orleans",
+        "Hurricane Katrina"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-falcons-run-over-saints-45-24-to-ruin-new-orleans-celebration",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-falcons-run-over-saints-45-24-to-ruin-new-orleans-celebration",
+      "title": "Monday Night Football: Falcons run over Saints 45-24 to ruin New Orleans' celebration",
+      "body_text": "Bijan Robinson and Brian Robinson combined for 207 rushing yards and five touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T03:32:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "New Orleans",
+        "Bijan Robinson",
+        "Brian Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542",
+        "00-0037746"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-had-been-planning-to-use-rashid-shaheed-at-tailback-since-training-camp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-had-been-planning-to-use-rashid-shaheed-at-tailback-since-training-camp",
+      "title": "Seahawks had been planning to use Rashid Shaheed at tailback since training camp",
+      "body_text": "With the Seahawks thin at running back on Sunday, they deployed receiver Rashid Shaheed in the backfield.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-06T02:46:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashid Shaheed"
+      ],
+      "resolved_player_ids": [
+        "00-0037545"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lt-jake-matthews-ruled-out-as-falcons-take-31-7-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lt-jake-matthews-ruled-out-as-falcons-take-31-7-lead",
+      "title": "LT Jake Matthews ruled out as Falcons take 31-7 lead",
+      "body_text": "Falcons left tackle Jake Matthews will not return tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T02:38:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Matthews"
+      ],
+      "resolved_player_ids": [
+        "00-0031279"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-davenport-will-retire-from-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marcus-davenport-will-retire-from-football",
+      "title": "Marcus Davenport will retire from football",
+      "body_text": "Veteran pass rusher Marcus Davenport didn't request his release from the Bears' practice squad so that he could sign with another team's practice squad.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-06T02:23:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcus Davenport"
+      ],
+      "resolved_player_ids": [
+        "00-0034344"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bijan-robinson-has-falcons-leading-24-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bijan-robinson-has-falcons-leading-24-7-at-halftime",
+      "title": "Monday Night Football: Bijan Robinson has Falcons leading 24-7 at halftime",
+      "body_text": "Robinson has 12 carries for 103 yards and two touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T01:59:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-ol-cam-jurgens-enters-concussion-protocol",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-ol-cam-jurgens-enters-concussion-protocol",
+      "title": "Eagles OL Cam Jurgens enters concussion protocol",
+      "body_text": "Eagles left guard Cam Jurgens self-reported concussion symptoms on Monday and has entered concussion protocol, Mike Garafolo of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T01:41:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Jurgens",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0038112"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-lt-jake-matthews-is-questionable-with-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-lt-jake-matthews-is-questionable-with-groin-injury",
+      "title": "Falcons LT Jake Matthews is questionable with groin injury",
+      "body_text": "Falcons left tackle Jake Matthews made his 199th consecutive start on Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T01:30:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Matthews"
+      ],
+      "resolved_player_ids": [
+        "00-0031279"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-gets-saints-on-the-scoreboard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-gets-saints-on-the-scoreboard",
+      "title": "Alvin Kamara gets Saints on the scoreboard",
+      "body_text": "The Saints needed a touchdown.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T01:20:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alvin Kamara",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinsons-second-td-gives-falcons-14-0-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinsons-second-td-gives-falcons-14-0-lead",
+      "title": "Bijan Robinson's second TD gives Falcons 14-0 lead",
+      "body_text": "Bijan Robinson has a career-high 78 yards in the first quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T01:13:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-eagles-rb-saquon-barkley-is-week-to-week-with-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-eagles-rb-saquon-barkley-is-week-to-week-with-hamstring-injury",
+      "title": "Report: Eagles RB Saquon Barkley is \"week to week\" with hamstring injury",
+      "body_text": "The Eagles have a problem at running back.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-06T01:05:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-zadarius-smith-questionable-to-return-after-being-kneed-in-the-head",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-zadarius-smith-questionable-to-return-after-being-kneed-in-the-head",
+      "title": "Falcons DE Za'Darius Smith questionable to return after being kneed in the head",
+      "body_text": "Falcons defensive end Za'Darius Smith took a knee to the head with 12:57 left in the first quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T00:52:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darius Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-explains-his-reason-for-not-taking-the-bait-from-ben-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-explains-his-reason-for-not-taking-the-bait-from-ben-johnson",
+      "title": "Matt LaFleur explains his reason for not taking the bait from Ben Johnson",
+      "body_text": "Bears coach Ben Johnson has no qualms about making his disdain for the Packers known.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-06T00:50:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-saints-te-noah-fant-is-inactive-falcons-lb-samson-ebukam-will-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-saints-te-noah-fant-is-inactive-falcons-lb-samson-ebukam-will-play",
+      "title": "Monday Night Football: Saints TE Noah Fant is inactive; Falcons LB Samson Ebukam will play",
+      "body_text": "The Saints will not have tight end Noah Fant for Monday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T23:11:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Noah Fant",
+        "Samson Ebukam",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0035644",
+        "00-0033945"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-puts-a-damper-on-saints-celebration-with-59-yard-td-run",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bijan-robinson-puts-a-damper-on-saints-celebration-with-59-yard-td-run",
+      "title": "Bijan Robinson puts a damper on Saints' celebration with 59-yard TD run",
+      "body_text": "The Saints are celebrating the 20th anniversary of their Hurricane Katrina return tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T00:27:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bijan Robinson",
+        "The Saints",
+        "Hurricane Katrina"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-release-dl-marcus-davenport-from-practice-squad-at-his-request",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-release-dl-marcus-davenport-from-practice-squad-at-his-request",
+      "title": "Bears release DL Marcus Davenport from practice squad at his request",
+      "body_text": "The Bears released veteran defensive end Marcus Davenport from the practice squad at his request, according to multiple reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-06T00:06:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marcus Davenport",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0034344"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-lt-rashawn-slater-is-an-ir-candidate-as-he-will-miss-some-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-lt-rashawn-slater-is-an-ir-candidate-as-he-will-miss-some-time",
+      "title": "Chargers LT Rashawn Slater is an IR candidate as he will \"miss some time\"",
+      "body_text": "The Chargers won't have left tackle Rashawn Slater for \"some time,\" coach Jim Harbaugh said Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T23:57:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashawn Slater",
+        "The Chargers",
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0037009"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-rb-joe-mixon-to-join-seahawks-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/free-agent-rb-joe-mixon-to-join-seahawks-practice-squad",
+      "title": "Free agent RB Joe Mixon to join Seahawks' practice squad",
+      "body_text": "The Seahawks are signing running back Joe Mixon to their practice squad.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T22:50:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Mixon",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0033897"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-rams-coaches-will-learn-from-incident-with-eagles-fans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-rams-coaches-will-learn-from-incident-with-eagles-fans",
+      "title": "Sean McVay: Rams coaches will learn from incident with Eagles fans",
+      "body_text": "Some of the Rams assistant coaches did not win gracefully on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T22:37:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-aaron-rodgers-talked-numerous-times-after-thursday-nights-heated-exchange",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-aaron-rodgers-talked-numerous-times-after-thursday-nights-heated-exchange",
+      "title": "Mike McCarthy, Aaron Rodgers talked \"numerous times\" after Thursday night's heated exchange",
+      "body_text": "Week 4 began with Steelers quarterback Aaron Rodgers and coach Mike McCarthy exchanging unpleasantries for all the world to see, and hear.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T22:11:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-cb-maxwell-hairston-says-hes-got-to-be-better-in-every-way",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-cb-maxwell-hairston-says-hes-got-to-be-better-in-every-way",
+      "title": "Bills CB Maxwell Hairston says he's got to be better in every way",
+      "body_text": "The Bills are not benching cornerback Maxwell Hairston, who has struggled this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T22:06:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxwell Hairston",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0040709"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-left-tackle-paris-johnson-out-for-season-with-torn-biceps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-left-tackle-paris-johnson-out-for-season-with-torn-biceps",
+      "title": "Cardinals left tackle Paris Johnson out for season with torn biceps",
+      "body_text": "The Cowboys have lost their starting left tackle for the season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-05T21:57:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Paris Johnson",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0038540"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-ceedee-lamb-thigh-cb-joey-porter-jr-ankle-estimated-as-full-participants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-ceedee-lamb-thigh-cb-joey-porter-jr-ankle-estimated-as-full-participants",
+      "title": "WR CeeDee Lamb (thigh), CB Joey Porter Jr. (ankle) estimated as full participants",
+      "body_text": "The Cowboys did not practice Monday, but they had to release an estimated injury report with Thursday's game against the Bucs looming.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-05T21:53:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-says-coaches-are-managing-the-workload-though-longest-year-of-my-life",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-says-coaches-are-managing-the-workload-though-longest-year-of-my-life",
+      "title": "Jeremiyah Love says coaches are managing the workload though \"longest year of my life\"",
+      "body_text": "For first-year players, a 17-game season means eventually hitting the so-called rookie wall.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-05T21:39:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-more-answers-wednesday-on-saquon-barkleys-status",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-more-answers-wednesday-on-saquon-barkleys-status",
+      "title": "Nick Sirianni: More answers Wednesday on Saquon Barkley's status",
+      "body_text": "Eagles running back Saquon Barkley's status for Week 5's game against the Jaguars in London is up in the air.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-05T21:33:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}
