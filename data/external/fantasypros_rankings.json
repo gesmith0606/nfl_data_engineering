@@ -1,6 +1,6 @@
 {
   "source": "fantasypros",
-  "fetched_at": "2026-10-01T12:29:34.495573+00:00",
+  "fetched_at": "2026-10-07T12:28:58.289507+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -2077,7 +2077,7 @@
     {
       "player_name": "Devin Neal",
       "position": "RB",
-      "team": "MIN",
+      "team": "FA",
       "external_rank": 318,
       "rank": 297
     },
