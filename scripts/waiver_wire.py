@@ -189,6 +189,16 @@ def main(argv: Optional[list] = None) -> int:
         week = args.week or week
 
     registry = load_sleeper_players(max_age_days=set_lineups.REGISTRY_MAX_AGE_DAYS)
+    sched_file = set_lineups._latest(
+        str(set_lineups.SCHEDULES / f"season={season}" / "*.parquet"), exclude="derived"
+    )
+    kickoffs = (
+        set_lineups.kickoffs_for_week(pd.read_parquet(sched_file), week)
+        if sched_file
+        else {}
+    )
+    # Sleeper uses LAR/JAX-style abbreviations; nflverse schedules use LA for the Rams.
+    playing = set(kickoffs) | ({"LAR"} if "LA" in kickoffs else set())
     # Dynasty presets: FantasyCalc market value + age next to every row ({} otherwise).
     dyn = league_context.dynasty_values_for_preset(preset, config.ROSTER_CONFIGS)
     _, by_name = build_id_maps(registry)
@@ -296,7 +306,9 @@ def main(argv: Optional[list] = None) -> int:
             "dyn": (dyn.get(sid) or {}).get("value", 0),
             "age": meta.get("age"),
             "ir": str(meta.get("injury_status") or "").upper() in ("IR", "PUP", "NFI"),
+            # Out/Doubtful: no bar for "weakest bench". Bye: same, and never a drop.
             "out": str(meta.get("injury_status") or "").upper() in ("OUT", "DOUBTFUL"),
+            "bye": bool(kickoffs) and meta.get("team") not in playing,
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:

@@ -65,7 +65,8 @@ def roster_baseline(
         my_rows: dicts with ``sid``, ``name``, ``pos``, ``blend`` and optional
             ``ir`` (True = parked on IR: neither a lineup option nor a drop) and
             ``out`` (Out/Doubtful this week: not a bar for "weakest bench" — a
-            hurt player's 0.0 is not a reason to call every pickup an upgrade).
+            hurt player's 0.0 is not a reason to call every pickup an upgrade),
+            ``bye`` (team idle this week: not a bar, and never a drop candidate).
         roster_format / roster_positions: lineup shape (Sleeper positions win).
         keepers: normalized names that are never drop candidates.
 
@@ -100,7 +101,7 @@ def roster_baseline(
         if r["sid"] in starters or r.get("ir"):
             continue
         bench_positions.add(r["pos"])
-        if r.get("out"):
+        if r.get("out") or r.get("bye"):
             continue
         if normalize_name(r["name"]) in keep:
             continue
@@ -150,6 +151,7 @@ def drop_order(
             for r in my_rows
             if r["sid"] not in baseline["starters"]
             and not r.get("ir")
+            and not r.get("bye")
             and normalize_name(r["name"]) not in keep
         ),
         key=lambda r: r.get(key) or 0,

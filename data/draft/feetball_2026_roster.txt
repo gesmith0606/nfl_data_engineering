@@ -1,18 +1,19 @@
-# Feetball 2026 (Yahoo, The Oracle = /f1/658684/10) — read from the team page 2026-10-02 (Strange claimed wk4, Tucker dropped).
-# Update after every add/drop. K/DST are not scored by waiver_wire.py. A.J. Brown is in the IR slot.
+# feetball 2026 (Yahoo, /f1/658684/10) — read 2026-10-05 by scripts/refresh_league_pools.py.
+# IR slot: Jadarian Price, A.J. Brown
 Jalen Hurts
 Christian McCaffrey
 Derrick Henry
 Garrett Wilson
-Emeka Egbuka
+Ladd McConkey
 Luther Burden III
 Colston Loveland
 Ashton Jeanty
-Ladd McConkey
-Jadarian Price
-Brenton Strange
+Emeka Egbuka
 Brian Thomas Jr.
 Jacory Croskey-Merritt
 Kyle Monangai
 Devaughn Vele
+Brenton Strange
+MarShawn Lloyd
+Jadarian Price
 A.J. Brown

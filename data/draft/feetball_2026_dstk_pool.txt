@@ -1,18 +1,28 @@
-# Feetball 2026 (Yahoo) DEF/K pool — MINE + available (status=A) with Yahoo's own week-4 projection.
-# Read 2026-09-29 from the Yahoo Players page (pos=DEF / pos=K, stat1=S_PW_4). MINE projections not shown on the team page -> blank.
-MINE|K|Cameron Dicker|
-MINE|DEF|PHI|
-DEF|PIT|9.60
-DEF|GB|8.77
-DEF|CHI|8.20
-DEF|BUF|7.97
-DEF|CLE|7.47
-DEF|IND|7.27
-K|Will Reichard|10.40
-K|Tyler Loop|9.82
-K|Tyler Bass|9.56
-K|Eddy Pineiro|9.46
-K|Spencer Shrader|9.35
-K|Daniel Carlson|9.11
-K|Nick Folk|8.99
-K|Wil Lutz|8.78
+# feetball 2026 (Yahoo) DEF/K pool — MINE + available (status=A) with Yahoo's own week-5 projection.
+# Read 2026-10-05 by scripts/refresh_league_pools.py. MINE projections are not on the team page -> blank.
+MINE|K|Tyler Loop|
+MINE|DEF|PIT|
+DEF|CLE|9.2
+DEF|NYJ|9.0
+DEF|CIN|8.3
+DEF|JAX|8.2
+DEF|WAS|7.9
+DEF|NO|7.8
+DEF|DAL|7.6
+DEF|PHI|7.0
+DEF|LV|6.9
+DEF|NE|6.9
+DEF|TEN|6.9
+DEF|ATL|6.8
+DEF|NYG|6.6
+K|Will Reichard|11.0
+K|Spencer Shrader|10.0
+K|Nick Folk|9.6
+K|Chase McLaughlin|9.6
+K|Cairo Santos|9.4
+K|Daniel Carlson|9.4
+K|Eddy Pineiro|9.3
+K|Chad Ryland|9.3
+K|Matt Gay|9.2
+K|Jason Sanders|9.1
+K|Tyler Bass|9.1
