@@ -1,0 +1,108 @@
+{
+  "fetch_run_id": "be4159f8-3d4d-4eba-b269-d6cdb15a4d72",
+  "source": "rotowire",
+  "fetched_at": "2026-10-08T12:28:33.126190+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl641325",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "permalink": "",
+      "title": "Jeremiyah Love: Limited Wednesday",
+      "body_text": "Love (ankle) practiced on a limited basis Wednesday, Bo Brack of GoPHNX.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-07T05:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Limited Wednesday",
+        "Bo Brack"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl641269",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "permalink": "",
+      "title": "Ladd McConkey: No practice Wednesday",
+      "body_text": "McConkey (foot) was a non-participant at Wednesday's practice. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-07T03:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl641262",
+      "url": "https://www.rotowire.com//football/player/dallas-goedert-12860",
+      "permalink": "",
+      "title": "Dallas Goedert: Officially limited Wednesday",
+      "body_text": "Goedert (knee) practiced on a limited basis Wednesday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-07T03:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Goedert",
+        "Wednesday Goedert"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl641257",
+      "url": "https://www.rotowire.com//football/player/justin-jefferson-14509",
+      "permalink": "",
+      "title": "Justin Jefferson: Intends to play Sunday",
+      "body_text": "Jefferson (ankle) said Wednesday that he's aiming to play Sunday at New Orleans, Kevin Seifert of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-07T03:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Sunday Jefferson",
+        "New Orleans",
+        "Kevin Seifert"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl641255",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "permalink": "",
+      "title": "Mike Evans: Limited at Wednesday's practice",
+      "body_text": "Evans (ribs) was listed as a limited participant for Wednesday's practice, Cam Inman of The San Jose Mercury News reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-07T03:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans",
+        "Cam Inman",
+        "The San",
+        "Jose Mercury"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": null
+    }
+  ]
+}

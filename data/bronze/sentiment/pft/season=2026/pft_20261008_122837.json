@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "ded9e886-9c84-4137-aeb3-f9c43cffa9f3",
+  "source": "pft",
+  "fetched_at": "2026-10-08T12:28:37.826220+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lane-johnsons-retirement-could-create-a-cap-mess-for-the-eagles-in-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lane-johnsons-retirement-could-create-a-cap-mess-for-the-eagles-in-2027",
+      "permalink": "",
+      "title": "Lane Johnson's retirement could create a cap mess for the Eagles in 2027",
+      "body_text": "Eagles right tackle Lane Johnson said in August that 2026 will probably be his last year.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-08T01:42:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lane Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0030561"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/through-four-weeks-of-the-season-zero-kickoff-return-touchdowns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/through-four-weeks-of-the-season-zero-kickoff-return-touchdowns",
+      "permalink": "",
+      "title": "Through four weeks of the season, zero kickoff return touchdowns",
+      "body_text": "The NFL may like to call kickoffs \"Dynamic,\" but the most dynamic thing that can happen on a kickoff hasn't happened at all this season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-08T11:17:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-de-mykel-williams-losing-my-mind-with-excitement-for-return-to-lineup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-de-mykel-williams-losing-my-mind-with-excitement-for-return-to-lineup",
+      "permalink": "",
+      "title": "49ers DE Mykel Williams: \"Losing my mind\" with excitement for return to lineup",
+      "body_text": "49ers defensive end Mykel Williams's long path back to the field after last season's torn ACL is close to the finish line.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T10:57:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mykel Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0040660"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-offensive-focus-needs-to-be-on-details-not-who-calls-plays",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-offensive-focus-needs-to-be-on-details-not-who-calls-plays",
+      "permalink": "",
+      "title": "Sean Payton: Offensive focus needs to be on details, not who calls plays",
+      "body_text": "When the Broncos changed offensive playcallers this offseason, it guaranteed a lot of attention would be paid to how the unit fared with offensive coordinator Davis Webb calling the shots instead of head coach Sean Payton.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T10:44:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Davis Webb"
+      ],
+      "resolved_player_ids": [
+        "00-0033550"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-will-move-pieces-around-in-field-goal-protection-after-blocks-two-weeks-in-a-row",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-will-move-pieces-around-in-field-goal-protection-after-blocks-two-weeks-in-a-row",
+      "permalink": "",
+      "title": "Cowboys will \"move pieces around\" in field goal protection after blocks two weeks in a row",
+      "body_text": "Cowboys head coach Brian Schottenheimer says changes are being made after the Cowboys have had field goals blocked in their last two games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-08T08:31:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-joe-mixon-didnt-work-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-joe-mixon-didnt-work-out",
+      "permalink": "",
+      "title": "Mike Macdonald on Joe Mixon: \"Didn't work out\"",
+      "body_text": "The Seahawks, who are thin at running back, brought Joe Mixon to town for a workout on Monday.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-08T02:33:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Joe Mixon",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0033897"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckhams-arrival-could-be-a-message-to-jauan-jennings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckhams-arrival-could-be-a-message-to-jauan-jennings",
+      "permalink": "",
+      "title": "Odell Beckham Jr.'s arrival could be a message to Jauan Jennings",
+      "body_text": "The Vikings didn't sign receiver Odell Beckham Jr. for P.R. purposes.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-08T02:02:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Jauan Jennings",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-limited-in-wednesdays-practice",
+      "permalink": "",
+      "title": "49ers WR Mike Evans limited in Wednesday's practice",
+      "body_text": "49ers wide receiver Mike Evans played through an injury to his ribs, catching five passes for 76 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-08T00:33:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-on-lamar-jackson-a-lot-of-time-between-now-and-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-on-lamar-jackson-a-lot-of-time-between-now-and-sunday",
+      "permalink": "",
+      "title": "Jesse Minter on Lamar Jackson: A lot of time between now and Sunday",
+      "body_text": "Ravens quarterback Lamar Jackson didn't practice on Wednesday because of the ankle injury that has left doubt about whether he'll play against the Falcons this Sunday, but head coach Jesse Minter isn't ruling him out at this point.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T19:15:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jesse Minter",
+        "Lamar Jackson",
+        "Sunday Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0036152"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-i-dont-think-patrick-surtain-ii-pat-bryant-will-land-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-i-dont-think-patrick-surtain-ii-pat-bryant-will-land-on-ir",
+      "permalink": "",
+      "title": "Sean Payton: I \"don't think\" Patrick Surtain II, Pat Bryant will land on IR",
+      "body_text": "Broncos cornerback Patrick Surtain II and cornerback Pat Bryant suffered ankle injuries during Sunday's loss to the 49ers.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-07T23:49:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton",
+        "Patrick Surtain II",
+        "Pat Bryant"
+      ],
+      "resolved_player_ids": [
+        "00-0015915",
+        "00-0040134"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-limited-trey-hendrickson-out-at-ravens-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-limited-trey-hendrickson-out-at-ravens-practice",
+      "permalink": "",
+      "title": "Zay Flowers limited, Trey Hendrickson out at Ravens practice",
+      "body_text": "Reports from the open portion of Ravens practice were that wide receiver Zay Flowers was not on the field, but he wound up getting on the field later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T22:07:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Trey Hendrickson"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0033935"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-limited-in-wednesdays-practice",
+      "permalink": "",
+      "title": "Brock Bowers limited in Wednesday's practice",
+      "body_text": "Tight end Brock Bowers (knee) was limited in Wednesday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-08T00:22:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-is-skeptical-of-the-moon-landing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-is-skeptical-of-the-moon-landing",
+      "permalink": "",
+      "title": "Drake Maye is skeptical of the moon landing",
+      "body_text": "Sunday's win at Buffalo was one small step for Maye, one giant leap for the Patriots.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-08T00:19:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-giants-are-just-not-good-enough-at-generating-explosive-runs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-giants-are-just-not-good-enough-at-generating-explosive-runs",
+      "permalink": "",
+      "title": "John Harbaugh: Giants are \"just not good enough\" at generating explosive runs",
+      "body_text": "The longest run from a Giants running back this season was a 13-yarder by Cam Skattebo.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-07T21:24:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-did-not-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-did-not-practice-wednesday",
+      "permalink": "",
+      "title": "Saquon Barkley, DeVonta Smith did not practice Wednesday",
+      "body_text": "Eagles running back Saquon Barkley did not practice Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-07T23:13:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Wednesday Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-rt-joe-alt-did-not-practice-wednesday-not-expected-to-play-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-rt-joe-alt-did-not-practice-wednesday-not-expected-to-play-sunday",
+      "permalink": "",
+      "title": "Chargers RT Joe Alt did not practice Wednesday, not expected to play Sunday",
+      "body_text": "Right tackle Joe Alt (neck) was one of eight Chargers who didn't practice on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-07T23:00:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Alt",
+        "Sunday Right"
+      ],
+      "resolved_player_ids": [
+        "00-0039897"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-kevin-oconnell-wanted-me-to-be-here",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/odell-beckham-jr-kevin-oconnell-wanted-me-to-be-here",
+      "permalink": "",
+      "title": "Odell Beckham Jr.: Kevin O'Connell wanted me to be here",
+      "body_text": "Vikings coach Kevin O'Connell and new Vikings receiver Odell Beckham Jr. spent time together with the Rams, and they both have a Super Bowl ring from it.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-07T22:56:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-lt-jake-matthews-de-zadarius-smith-did-not-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-lt-jake-matthews-de-zadarius-smith-did-not-practice-wednesday",
+      "permalink": "",
+      "title": "Falcons LT Jake Matthews, DE Za'Darius Smith did not practice Wednesday",
+      "body_text": "Falcons left tackle Jake Matthews made his 199th consecutive start on Monday night, the longest active streak in the NFL.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-07T22:44:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Matthews",
+        "Darius Smith",
+        "Wednesday Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0031279"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-returns-to-practice-jordan-addison-sits-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-returns-to-practice-jordan-addison-sits-out",
+      "permalink": "",
+      "title": "Justin Jefferson returns to practice, Jordan Addison sits out",
+      "body_text": "The Vikings got Justin Jefferson back at practice on Wednesday, but another wideout was missing from the workout.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T22:25:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Jordan Addison",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-laporta-dont-know-if-extension-is-off-the-table-but-theres-a-stalemate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-laporta-dont-know-if-extension-is-off-the-table-but-theres-a-stalemate",
+      "permalink": "",
+      "title": "Sam LaPorta: Don't know if extension is off the table, but there's a stalemate",
+      "body_text": "A contract extension for Lions tight end Sam LaPorta may not be off the table, but it doesn't sound like the two sides are close to an agreement.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T21:51:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-expect-cam-jurgens-to-be-ready-to-play-in-week-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-expect-cam-jurgens-to-be-ready-to-play-in-week-6",
+      "permalink": "",
+      "title": "Ravens expect Cam Jurgens to be ready to play in Week 6",
+      "body_text": "The Ravens traded for center Cam Jurgens on Wednesday, but it doesn't look like his debut for the team will come for another week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T21:41:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Jurgens",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0038112"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-limited-in-practice-with-left-hand-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-limited-in-practice-with-left-hand-injury",
+      "permalink": "",
+      "title": "Tyler Shough limited in practice with left hand injury",
+      "body_text": "Saints quarterback Tyler Shough had his left hand hit in Monday night's loss to the Falcons but played all 74 snaps.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-07T21:22:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Shough"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-dt-jarran-reed-players-hit-penalty-issues-head-on-in-meeting-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-dt-jarran-reed-players-hit-penalty-issues-head-on-in-meeting-this-week",
+      "permalink": "",
+      "title": "Seahawks DT Jarran Reed: Players hit penalty issues \"head on\" in meeting this week",
+      "body_text": "Seahawks head coach Mike Macdonald called the team's seven personal fouls in last Sunday's win over the Chargers \"unacceptable at any level\" and his players didn't wait to go to work on cleaning things up this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T20:53:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jarran Reed",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [
+        "00-0032387"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-wont-comment-on-whether-play-calls-are-coming-in-fast-enough",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-wont-comment-on-whether-play-calls-are-coming-in-fast-enough",
+      "permalink": "",
+      "title": "Aaron Rodgers won't comment on whether play calls are coming in fast enough",
+      "body_text": "After Thursday night's loss in Cleveland, Steelers quarterback Aaron Rodgers wasn't asked about his viral moment with coach Mike McCarthy, sparked by Rodgers's obvious frustration with the time it was taking to communicate the play call to the huddle.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-07T20:40:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "After Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-remains-out-of-practice-for-the-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/breece-hall-remains-out-of-practice-for-the-jets",
+      "permalink": "",
+      "title": "Breece Hall remains out of practice for the Jets",
+      "body_text": "The Jets called running back Breece Hall week-to-week after he suffered a quad injury in their Week 3 loss to the Lions and Wednesday's practice report gave reason to believe his return to action won't come this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T20:37:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall",
+        "Jets The"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-jamel-dean-did-not-practice-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-jamel-dean-did-not-practice-on-wednesday",
+      "permalink": "",
+      "title": "Jalen Ramsey, Jamel Dean did not practice on Wednesday",
+      "body_text": "The Steelers did not have a couple of defensive backs for Wednesday’s practice as they begin to get ready to face the Colts.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-07T20:35:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Ramsey",
+        "Jamel Dean",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0033055",
+        "00-0035699"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-wr-mack-hollins-hopes-to-practice-later-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-wr-mack-hollins-hopes-to-practice-later-this-week",
+      "permalink": "",
+      "title": "Patriots WR Mack Hollins hopes to practice later this week",
+      "body_text": "Patriots wide receiver Mack Hollins did not practice on Wednesday, but he hopes to be back on the practice field later this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-07T20:17:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mack Hollins"
+      ],
+      "resolved_player_ids": [
+        "00-0033555"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-among-six-bengals-out-of-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jamarr-chase-tee-higgins-among-six-bengals-out-of-practice",
+      "permalink": "",
+      "title": "Ja'Marr Chase, Tee Higgins among six Bengals out of practice",
+      "body_text": "The Bengals had six players miss Wednesday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-07T20:30:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marr Chase",
+        "Tee Higgins",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-joint-statement-nfl-and-nflpa-say-drinking-celebrations-will-be-permitted",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-joint-statement-nfl-and-nflpa-say-drinking-celebrations-will-be-permitted",
+      "permalink": "",
+      "title": "In joint statement, NFL and NFLPA say drinking celebrations will be permitted",
+      "body_text": "For \"gray area\" celebrations, NFL will communicate with player before fining him.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-07T20:19:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-malik-nabers-as-out-of-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-malik-nabers-as-out-of-practice",
+      "permalink": "",
+      "title": "Giants list Malik Nabers as out of practice",
+      "body_text": "The first Giants practice of the week was missing a key member of the offense.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-07T20:28:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
