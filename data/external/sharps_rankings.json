@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-10-01T12:29:42.008498+00:00",
+  "fetched_at": "2026-10-09T12:26:16.506671+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1510,7 +1510,7 @@
     {
       "player_name": "Kaytron Allen",
       "position": "RB",
-      "team": "WAS",
+      "team": "FA",
       "external_rank": 230,
       "rank": 216
     },
@@ -1951,7 +1951,7 @@
     {
       "player_name": "Emari Demercado",
       "position": "RB",
-      "team": "DAL",
+      "team": "FA",
       "external_rank": 303,
       "rank": 279
     },

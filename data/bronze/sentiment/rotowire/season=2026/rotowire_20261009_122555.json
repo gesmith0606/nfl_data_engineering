@@ -1,0 +1,103 @@
+{
+  "fetch_run_id": "37e34025-e9cc-435c-be9e-9e1334385efe",
+  "source": "rotowire",
+  "fetched_at": "2026-10-09T12:25:55.894342+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl641497",
+      "url": "https://www.rotowire.com//football/player/jalon-daniels-19292",
+      "permalink": "",
+      "title": "Jalon Daniels: Notable improvement in second start",
+      "body_text": "Daniels completed 19 of 25 passes for 189 yards with one touchdown and no interceptions while rushing seven times for 23 yards in the Buccaneers' 24-16 win over the Cowboys on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-08T09:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalon Daniels"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl641495",
+      "url": "https://www.rotowire.com//football/player/chris-godwin-11718",
+      "permalink": "",
+      "title": "Chris Godwin: Four touches in Week 5 win",
+      "body_text": "Godwin secured all three targets for 37 yards and rushed once for three yards in the Buccaneers' 24-16 win over the Cowboys on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-08T09:06:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Godwin"
+      ],
+      "resolved_player_ids": [
+        "00-0033921"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl641494",
+      "url": "https://www.rotowire.com//football/player/emeka-egbuka-18549",
+      "permalink": "",
+      "title": "Emeka Egbuka: Seven touches, one TD in win",
+      "body_text": "Egbuka secured six of nine targets for 38 yards and rushed once for a 14-yard touchdown in the Buccaneers' 24-16 win over the Cowboys on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-08T09:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emeka Egbuka"
+      ],
+      "resolved_player_ids": [
+        "00-0040129"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl641493",
+      "url": "https://www.rotowire.com//football/player/dak-prescott-11008",
+      "permalink": "",
+      "title": "Dak Prescott: Piles up yards late in Week 5 loss",
+      "body_text": "Prescott completed 24 of 42 passes for 316 yards with a touchdown and two interceptions in the Cowboys' 24-16 loss to the Buccaneers on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-08T08:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "nfl641492",
+      "url": "https://www.rotowire.com//football/player/javonte-williams-15306",
+      "permalink": "",
+      "title": "Javonte Williams: Another TD in Week 5 loss",
+      "body_text": "Williams rushed 12 times for 45 yards and a touchdown and brought in two of three targets for 17 yards in the Cowboys' 24-16 loss to the Buccaneers on Thursday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-08T08:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Javonte Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036997"
+      ],
+      "team_hint": "DAL"
+    }
+  ]
+}

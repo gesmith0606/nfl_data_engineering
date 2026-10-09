@@ -1,0 +1,584 @@
+{
+  "fetch_run_id": "8a09bd9a-fd33-4046-953e-a04d600d6ead",
+  "source": "pft",
+  "fetched_at": "2026-10-09T12:26:00.472628+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dandre-swift-on-fumbles-thats-not-me",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dandre-swift-on-fumbles-thats-not-me",
+      "permalink": "",
+      "title": "D'Andre Swift on fumbles: That's not me",
+      "body_text": "Bears running back D'Andre Swift fumbled four times in his first 33 games with the team, but he's been a little less adept at holding onto the ball in the early stages of this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T10:59:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-fast-start-gave-us-confidence-we-could-win-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalon-daniels-fast-start-gave-us-confidence-we-could-win-the-game",
+      "permalink": "",
+      "title": "Jalon Daniels: Fast start gave us confidence we could win the game",
+      "body_text": "Quarterback Jalon Daniels and the Buccaneers came into Dallas as big underdogs on Thursday night and the first Cowboys possession of the night did little to suggest oddsmakers had it wrong.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T10:49:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalon Daniels",
+        "Quarterback Jalon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-did-not-appreciate-stadium-worker-calling-cowboys-loss-embarrassing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-did-not-appreciate-stadium-worker-calling-cowboys-loss-embarrassing",
+      "permalink": "",
+      "title": "Dak Prescott did not appreciate stadium worker calling Cowboys' loss \"embarrassing\"",
+      "body_text": "\"Feel free to speak your mind. Just speak it. Don't coward away from the reaction that you're going to get,\" Prescott said of his exchange with the worker in the tunnel after the game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-09T10:34:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-jalon-daniels-leads-bucs-over-cowboys-nfl-teams-are-8-4-when-starting-a-backup-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-jalon-daniels-leads-bucs-over-cowboys-nfl-teams-are-8-4-when-starting-a-backup-qb",
+      "permalink": "",
+      "title": "After Jalon Daniels leads Bucs over Cowboys, NFL teams are 8-4 when starting a backup QB",
+      "body_text": "Injuries to starting quarterbacks have not derailed teams this season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-09T09:27:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "After Jalon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-jordan-battle-malik-willis-taps-the-ball-before-he-throws-we-can-key-on-that",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-jordan-battle-malik-willis-taps-the-ball-before-he-throws-we-can-key-on-that",
+      "permalink": "",
+      "title": "Bengals' Jordan Battle: Malik Willis taps the ball before he throws, we can key on that",
+      "body_text": "NFL players and coaches spend many hours studying film of their upcoming opponents to find tendencies that can give them an advantage on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-09T08:28:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Battle",
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0038560",
+        "00-0038128"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-expresses-confidence-in-christian-parker",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-expresses-confidence-in-christian-parker",
+      "permalink": "",
+      "title": "Jerry Jones expresses confidence in Christian Parker",
+      "body_text": "Dan Quinn left as the Cowboys' defense coordinator after the 2023 season to become the Commanders' head coach.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T04:57:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "Christian Parker",
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-was-disqualified-from-a-golf-tournament-on-the-same-day-cbs-announced-his-exit",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-was-disqualified-from-a-golf-tournament-on-the-same-day-cbs-announced-his-exit",
+      "permalink": "",
+      "title": "Tony Romo was disqualified from a golf tournament, on the same day CBS announced his exit",
+      "body_text": "Last Friday was a very strange day for Tony Romo.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T03:31:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Romo",
+        "Last Friday"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-bucs-upset-cowboys-24-16",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-bucs-upset-cowboys-24-16",
+      "permalink": "",
+      "title": "Thursday Night Football: Bucs upset Cowboys 24-16",
+      "body_text": "The Bucs ran for 241 yards, including 165 by Bucky Irving.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T03:26:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "The Bucs",
+        "Bucky Irving"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-trade-rumors-intensify-marvin-harrison-jr-hires-agents",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-trade-rumors-intensify-marvin-harrison-jr-hires-agents",
+      "permalink": "",
+      "title": "As trade rumors intensify, Marvin Harrison Jr. hires agents",
+      "body_text": "Cardinals receiver Marvin Harrison Jr. says he's paying \"no mind\" to intensifying trade rumors.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T03:16:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-close-to-within-24-16-on-george-pickens-td-as-ceedee-lamb-is-questionable-to-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-close-to-within-24-16-on-george-pickens-td-as-ceedee-lamb-is-questionable-to-return",
+      "permalink": "",
+      "title": "Cowboys close to within 24-16 on George Pickens' TD as CeeDee Lamb is questionable to return",
+      "body_text": "The Cowboys are without wide receiver CeeDee Lamb, who is questionable to return with a quad injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T03:04:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-commanders-on-sunday-morning-had-less-than-five-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-commanders-on-sunday-morning-had-less-than-five-million-viewers",
+      "permalink": "",
+      "title": "Colts-Commanders on Sunday morning had less than five million viewers",
+      "body_text": "The European games have created a new NFL viewing window on Sunday mornings.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T02:59:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The European"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-panthers-slips-under-20-million-viewers-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-panthers-slips-under-20-million-viewers-on-sunday-night",
+      "permalink": "",
+      "title": "Lions-Panthers slips under 20 million viewers on Sunday night",
+      "body_text": "The Lions don't seem to be the draw they've become in recent years.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T02:46:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-jr-says-he-is-paying-trade-rumors-no-mind",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-jr-says-he-is-paying-trade-rumors-no-mind",
+      "permalink": "",
+      "title": "Marvin Harrison Jr. says he is paying trade rumors \"no mind\"",
+      "body_text": "The NFL trade deadline is still a month away, but Cardinals wide receiver Marvin Harrison Jr. is one of the NFL players who could find a new home in the coming weeks.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T02:26:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucky-irving-gives-bucs-21-10-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucky-irving-gives-bucs-21-10-lead",
+      "permalink": "",
+      "title": "Bucky Irving gives Bucs 21-10 lead",
+      "body_text": "Bucky Irving has 122 rushing yards, and his second touchdown of the night has given the Buccaneers a 21-10 lead.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T02:19:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bucky Irving"
+      ],
+      "resolved_player_ids": [
+        "00-0039361"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-need-only-two-plays-to-take-the-second-half-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-need-only-two-plays-to-take-the-second-half-lead",
+      "permalink": "",
+      "title": "Bucs need only two plays to take the second-half lead",
+      "body_text": "The Bucs' first possession of Thursday night's game was a 15-play, 73-yard touchdown drive that ate 10:58 off the clock.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T02:02:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bucs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-cowboys-lead-bucs-10-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-cowboys-lead-bucs-10-7-at-halftime",
+      "permalink": "",
+      "title": "Thursday Night Football: Cowboys lead Bucs 10-7 at halftime",
+      "body_text": "The Bucs have outgained the Cowboys 155 to 146 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T01:47:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "The Bucs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-staley-pushes-back-against-troy-aikmans-criticism-its-not-true",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-staley-pushes-back-against-troy-aikmans-criticism-its-not-true",
+      "permalink": "",
+      "title": "Brandon Staley pushes back against Troy Aikman's criticism: It's not true",
+      "body_text": "The ESPN analyst said Monday night: \"Brandon Staley, he just simply doesn't have any answers, and I think he knew it when we talked to him coming in.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T01:10:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Staley",
+        "Troy Aikman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-score-on-first-drive-to-tie-cowboys-7-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-score-on-first-drive-to-tie-cowboys-7-7",
+      "permalink": "",
+      "title": "Bucs score on first drive to tie Cowboys 7-7",
+      "body_text": "The Buccaneers' opening drive was as impressive as the Cowboys'.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T00:53:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-take-7-0-lead-on-opening-drive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-take-7-0-lead-on-opening-drive",
+      "permalink": "",
+      "title": "Cowboys take 7-0 lead on opening drive",
+      "body_text": "The Cowboys have been virtually unstoppable in the red zone this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T00:32:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-did-not-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-did-not-practice-thursday",
+      "permalink": "",
+      "title": "49ers WR Mike Evans did not practice Thursday",
+      "body_text": "49ers wide receiver Mike Evans did not practice on Thursday after being a limited participant a day earlier.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-08T23:13:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-cowboys-lg-tyler-smith-is-active",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-cowboys-lg-tyler-smith-is-active",
+      "permalink": "",
+      "title": "Thursday Night Football: Cowboys LG Tyler Smith is active",
+      "body_text": "Cowboys cornerback Joey Porter Jr. was a late scratch due to an illness.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-08T22:54:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Tyler Smith",
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0037243",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-back-to-full-participation-alvin-kamara-and-chris-olave-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-back-to-full-participation-alvin-kamara-and-chris-olave-limited",
+      "permalink": "",
+      "title": "Tyler Shough back to full participation, Alvin Kamara and Chris Olave limited",
+      "body_text": "Saints quarterback Tyler Shough downplayed his inclusion as a limited participant on Wednesday's injury report and Thursday's update on his participation supported that lack of concern.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T22:52:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Shough",
+        "Alvin Kamara",
+        "Chris Olave"
+      ],
+      "resolved_player_ids": [
+        "00-0040743",
+        "00-0033906",
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-cowboys-cb-joey-porter-jr-rule-out-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-cowboys-cb-joey-porter-jr-rule-out-with-an-illness",
+      "permalink": "",
+      "title": "Thursday Night Football: Cowboys CB Joey Porter Jr. ruled out with an illness",
+      "body_text": "The Cowboys acquired Porter in a trade with the Steelers last week, and he played 25 snaps in his 2026 debut on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-08T22:40:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Joey Porter Jr",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-downgraded-to-limited-practice-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-downgraded-to-limited-practice-on-thursday",
+      "permalink": "",
+      "title": "Ashton Jeanty downgraded to limited practice on Thursday",
+      "body_text": "Raiders running back Ashton Jeanty took a step in the wrong direction on Thursday's injury report.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T22:44:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Thursday Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-chris-brooks-out-of-practice-packers-sign-pierre-strong-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-chris-brooks-out-of-practice-packers-sign-pierre-strong-to-53-man-roster",
+      "permalink": "",
+      "title": "RB Chris Brooks out of practice, Packers sign Pierre Strong to 53-man roster",
+      "body_text": "The Packers were missing a running back at Thursday's practice and they signed another one to the active roster ahead of Sunday's game against the Bears.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T22:39:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Brooks",
+        "Pierre Strong",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038685",
+        "00-0038098"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-drew-kendall-devonta-smith-remain-out-of-eagles-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-drew-kendall-devonta-smith-remain-out-of-eagles-practice",
+      "permalink": "",
+      "title": "Saquon Barkley, Drew Kendall, DeVonta Smith remain out of Eagles practice",
+      "body_text": "The Eagles remained without three offensive starters as they moved closer to this weekend's trip to London to face the Jaguars.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T22:05:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Drew Kendall",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0040587"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-skydance-keeps-growing-the-cbs-nfl-deal-still-hasnt-been-renegotiated",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-skydance-keeps-growing-the-cbs-nfl-deal-still-hasnt-been-renegotiated",
+      "permalink": "",
+      "title": "As Skydance keeps growing, the CBS-NFL deal still hasn't been renegotiated",
+      "body_text": "Given the recent merger of Paramount and Warner Bros.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-08T22:02:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "As Skydance",
+        "Warner Bros"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-calls-for-my-firing-come-with-the-territory",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-calls-for-my-firing-come-with-the-territory",
+      "permalink": "",
+      "title": "Mike McDaniel: Calls for my firing come with the territory",
+      "body_text": "Chargers head coach Jim Harbaugh said this week that offensive coordinator Mike McDaniel's job is not in jeopardy, but the former Dolphins head coach knows that won't necessarily stop people from pleading with Harbaugh to change his mind.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T21:53:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-addison-returns-for-limited-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-addison-returns-for-limited-practice-thursday",
+      "permalink": "",
+      "title": "Jordan Addison returns for limited practice Thursday",
+      "body_text": "The Vikings got wide receiver Jordan Addison on the field for Thursday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-08T21:33:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ernest-jones-iv-meeting-of-defensive-players-is-needed-just-once-per-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ernest-jones-iv-meeting-of-defensive-players-is-needed-just-once-per-season",
+      "permalink": "",
+      "title": "Ernest Jones IV: Meeting of defensive players is needed \"just once\" per season",
+      "body_text": "The Seahawks' defensive players held a meeting this week, after a game on Sunday that included too many penalties.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-08T21:28:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ernest Jones IV",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0036994"
+      ],
+      "team_hint": "SEA"
+    }
+  ]
+}
