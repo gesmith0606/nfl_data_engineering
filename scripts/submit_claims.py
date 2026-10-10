@@ -34,8 +34,10 @@ from __future__ import annotations
 
 import argparse
 import dataclasses
+import json
 import sys
 import time
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple
 
@@ -51,6 +53,59 @@ MY_LEAGUES = ("mantis", "la_liga", "feetball")
 #: Seconds to wait for a filed ESPN claim to show on the read replica (2-5 s lag).
 READ_BACK_WAIT_S = (3, 4, 8)
 OK, FAILED, UNKNOWN = "OK", "FAILED", "UNKNOWN"
+#: Every POST is logged here (machine-local, gitignored) BEFORE it is sent, so a
+#: re-run never files the same add twice even when a site hides pending claims.
+LEDGER = REPO_ROOT / "data" / "draft" / "claims_ledger.jsonl"
+#: A logged add blocks a re-file for this long (one waiver cycle).
+LEDGER_DAYS = 6
+
+
+def ledger_append(league: str, c: wc.CheckedClaim, verdict: str, msg: str = "") -> None:
+    """Record one POST attempt / outcome."""
+    LEDGER.parent.mkdir(parents=True, exist_ok=True)
+    row = {
+        "ts": datetime.now().isoformat(timespec="seconds"),
+        "league": league,
+        "add": c.add.name,
+        "add_id": str(c.add.pid),
+        "drop": c.drop.name if c.drop else None,
+        "bid": c.claim.bid,
+        "verdict": verdict,
+        "msg": msg,
+    }
+    with LEDGER.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(row) + "\n")
+
+
+def ledger_blocks(league: str, add_id: str, now: Optional[datetime] = None) -> str:
+    """Why an add may not be filed again ('' when it may).
+
+    The latest ledger row for ``(league, add_id)`` within :data:`LEDGER_DAYS`
+    blocks unless it is FAILED (the site refused it, nothing was filed). An
+    ATTEMPT with no outcome (crash mid-POST) blocks too.
+    """
+    if not LEDGER.exists():
+        return ""
+    cutoff = (now or datetime.now()) - timedelta(days=LEDGER_DAYS)
+    last = None
+    for line in LEDGER.read_text(encoding="utf-8").splitlines():
+        try:
+            row = json.loads(line)
+            ts = datetime.fromisoformat(row["ts"])
+        except (ValueError, KeyError, TypeError):
+            continue
+        if (
+            row.get("league") == league
+            and row.get("add_id") == str(add_id)
+            and ts >= cutoff
+        ):
+            last = row
+    if last is None or last.get("verdict") == FAILED:
+        return ""
+    return (
+        f"already filed {last['ts']} ({last['verdict']}) per {LEDGER.name} - run "
+        "check_pending_claims.py; delete that ledger line only if it is truly gone"
+    )
 
 
 def _keepers(preset: Mapping[str, Any]) -> Set[str]:
@@ -128,7 +183,13 @@ def check(
                 )
                 extra = wc.yahoo_form_problems(form, c.add, c.drop, f"/f1/{lid}/{team}")
                 checked[i] = dataclasses.replace(c, problems=c.problems + tuple(extra))
-        return checked, {"page": page, "faab_left": s.get("faab_left")}
+        ctx: Dict[str, Any] = {"page": page, "faab_left": s.get("faab_left")}
+        if not s.get("box"):
+            ctx["warning"] = (
+                "Yahoo Transactions box not visible - pending claims unknown; "
+                "only the local claims ledger guards against duplicates"
+            )
+        return checked, ctx
     if platform == "sleeper":
         from src.sleeper_player_map import load_sleeper_players
 
@@ -173,14 +234,18 @@ def submit_one(
             c.claim.bid,
             free_agent=c.add.status == wc.FREE_AGENT,
         )
-        res = ws.espn_submit(ctx["page"], season, lid, body)
+        expect = "FREEAGENT" if c.add.status == wc.FREE_AGENT else "WAIVERS"
+        res = ws.espn_submit(ctx["page"], season, lid, body, expect=expect)
         status = _status(res)
         errors = "; ".join(f"{t}: {m}" for t, m in res.get("errors") or [])
-        detail = (res.get("transaction") or {}).get("status") or errors
+        tx_status = (res.get("transaction") or {}).get("status")
+        detail = tx_status or errors
         if status == 0 or 400 <= status < 500:
             verdict = FAILED  # refused by the browser pre-check or by ESPN
-        else:
-            verdict = OK if 200 <= status < 300 else UNKNOWN
+        elif 200 <= status < 300 and tx_status in ("PENDING", "EXECUTED"):
+            verdict = OK
+        else:  # 2xx without a recognisable transaction is not proof
+            verdict = UNKNOWN
         return verdict, f"HTTP {status} {detail}".strip()
     res = ws.yahoo_form(
         ctx["page"],
@@ -208,6 +273,27 @@ def submit_one(
     return UNKNOWN, msg.strip()
 
 
+def on_our_roster(
+    league: str, season: int, browser: fb.FantasyBrowser, add: wc.Player
+) -> bool:
+    """True when ``add`` (a free-agent add, executed at once) is on our roster."""
+    preset = config.LEAGUE_PRESETS[league]
+    lid, team = str(preset["league_id"]), int(preset["my_team_id"])
+    if preset["platform"] == "espn":
+        s = ws.espn_state(ws.site_page(browser, "espn", lid, team), season, lid, team)
+        return any(
+            int(r[0]) == team and str(r[2]) == str(add.pid) for r in s["rosters"]
+        )
+    s = ws.yahoo_state(
+        ws.site_page(browser, "yahoo", lid, team), lid, team, [wc.search_name(add.name)]
+    )
+    return any(
+        str(p.get("pid")) == str(add.pid) and p.get("ours")
+        for rows in s["search"].values()
+        for p in rows
+    )
+
+
 def read_back(
     leagues: Sequence[str],
     filed: Mapping[str, Sequence[wc.CheckedClaim]],
@@ -217,8 +303,8 @@ def read_back(
     """Print each league's claims as the site shows them.
 
     Returns:
-        True when every filed waiver claim shows as pending. Free-agent adds
-        execute immediately and are not tracked as claims - check the roster.
+        True when every filed waiver claim shows as pending and every
+        free-agent add (executed at once, not a claim) is on our roster.
     """
     print("\n=== Read-back (check_pending_claims) ===")
     all_ok = True
@@ -234,7 +320,7 @@ def read_back(
             time.sleep(wait)
             try:
                 summary, records = ws.read_claims(league, preset, season, browser)
-            except (LookupError, RuntimeError, OSError) as exc:
+            except Exception as exc:  # noqa: BLE001 — claims are already filed
                 summary, records = f"UNAVAILABLE: {exc}", []
                 all_ok = False
             if all(found(c) for c in want):
@@ -243,8 +329,15 @@ def read_back(
         print(wc.render_records(records))
         for c in filed.get(league, ()):
             if c.add.status == wc.FREE_AGENT:
+                try:
+                    seen = on_our_roster(league, season, browser, c.add)
+                except Exception as exc:  # noqa: BLE001 — report, don't crash
+                    print(f"  ROSTER UNREADABLE ({exc})")
+                    seen = False
+                all_ok &= seen
                 print(
-                    f"  FREE AGENT ADD: #{c.claim.priority} {c.add.name} - check roster"
+                    f"  {'ON ROSTER' if seen else 'NOT ON ROSTER'}: free-agent add "
+                    f"#{c.claim.priority} {c.add.name}"
                 )
                 continue
             seen = found(c)
@@ -300,11 +393,23 @@ def _run(args: argparse.Namespace, browser: fb.FantasyBrowser) -> int:
         except (LookupError, RuntimeError, OSError) as exc:
             unreadable.append(f"{league}: could not check - {exc}")
 
+    for league in leagues:
+        if league == "mantis":
+            continue  # never submitted, so never in the ledger
+        for i, c in enumerate(checked.get(league, [])):
+            why = ledger_blocks(league, c.add.pid) if c.ok else ""
+            if why:
+                checked[league][i] = dataclasses.replace(
+                    c, problems=c.problems + (why,)
+                )
+
     print(f"Claims: {args.claims}\n")
     print(wc.render_checked([c for lg in leagues for c in checked.get(lg, [])]))
     for league in leagues:
         if league in ctx:
             print(f"  {league}: FAAB left ${ctx[league].get('faab_left')}")
+            if ctx[league].get("warning"):
+                print(f"  ! {league}: {ctx[league]['warning']}")
     for line in unreadable:
         print(f"  x {line}")
 
@@ -336,10 +441,12 @@ def _run(args: argparse.Namespace, browser: fb.FantasyBrowser) -> int:
     failures = 0
     for i, (league, c) in enumerate(queue):
         tag = f"{league} #{c.claim.priority} {c.add.name}"
+        ledger_append(league, c, "ATTEMPT")
         try:
             verdict, msg = submit_one(league, c, ctx[league], args.season)
         except Exception as exc:  # noqa: BLE001 — unclear outcome: never retry
             verdict, msg = UNKNOWN, str(exc)
+        ledger_append(league, c, verdict, msg)
         if verdict == UNKNOWN:
             print(f"  ?? {tag}: outcome UNKNOWN ({msg})")
             print("  Stopping - not retrying (a retry can file it twice).")

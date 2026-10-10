@@ -58,9 +58,15 @@ class BrowserPage:
             from playwright.sync_api import Error as PlaywrightError
         except ImportError:  # pragma: no cover - playwright is a hard dependency here
             PlaywrightError = Exception  # type: ignore[assignment,misc]
-        self._page.set_default_timeout(timeout * 1000)
+        # set_default_timeout() does not bound evaluate(): race the snippet
+        # against a timer so a hung POST surfaces as an error (UNKNOWN), not a hang.
+        bounded = (
+            f"Promise.race([Promise.resolve({expression}), new Promise((_, rej) => "
+            f"setTimeout(() => rej(new Error('timed out after {timeout:g}s')), "
+            f"{int(timeout * 1000)}))])"
+        )
         try:
-            return self._page.evaluate(expression)
+            return self._page.evaluate(bounded)
         except PlaywrightError as exc:
             raise RuntimeError(f"JS error: {exc}") from exc
 

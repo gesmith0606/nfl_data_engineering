@@ -103,6 +103,19 @@ ESPN_SUBMIT_JS = r"""(async (A) => {
  if (!owners.includes(member.toUpperCase())) {
    return refuse(`the logged-in ESPN account does not own team ${A.body.teamId}`);
  }
+ const add = (A.body.items || []).find(i => i.type === 'ADD');
+ if (!add) return refuse('claim has no ADD item');
+ const filt = {players: {filterIds: {value: [add.playerId]},
+                         filterStatus: {value: ['FREEAGENT', 'WAIVERS']}}};
+ const pr = await fetch(reads.split('?')[0] + `?scoringPeriodId=${A.body.scoringPeriodId}`
+   + '&view=kona_player_info',
+   {credentials: 'include', headers: {'x-fantasy-filter': JSON.stringify(filt)}});
+ if (!pr.ok) return refuse(`could not re-check player ${add.playerId} (HTTP ${pr.status})`);
+ const now = ((await pr.json()).players || []).find(x => x.player.id === add.playerId);
+ if (!now) return refuse(`player ${add.playerId} is no longer available`);
+ if (now.status !== A.expect) {
+   return refuse(`player ${add.playerId} is now ${now.status}, expected ${A.expect}`);
+ }
  const body = Object.assign({}, A.body, {memberId: member});
  const guid = /\{?[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}?/gi;
  const scrub = m => String(m || '').replace(guid, '{id}');
@@ -157,7 +170,7 @@ YAHOO_STATE_JS = r"""(async (A) => {
    }).filter(Boolean);
  }
  return JSON.stringify({faab_left: budget === undefined ? null : Number(budget),
-   pending, search,
+   pending, search, box: !!box,
    logged_in: !!box || /Waiver Budget/.test(txt(team.body))});
 })(__ARGS__)"""
 
@@ -244,13 +257,21 @@ def espn_state(
 
 
 def espn_submit(
-    page: BrowserPage, season: int, league_id: str, body: Mapping[str, Any]
+    page: BrowserPage,
+    season: int,
+    league_id: str,
+    body: Mapping[str, Any],
+    expect: str = "WAIVERS",
 ) -> Dict[str, Any]:
-    """POST one claim; returns ``{status, transaction?, errors?}``. Never retried."""
+    """POST one claim; returns ``{status, transaction?, errors?}``. Never retried.
+
+    ``expect`` is the add's ESPN status (``WAIVERS`` / ``FREEAGENT``) the claim
+    was checked against; the browser refuses (status 0) if it changed since.
+    """
     return run_js(
         page,
         ESPN_SUBMIT_JS,
-        {"season": season, "lid": int(league_id), "body": dict(body)},
+        {"season": season, "lid": int(league_id), "body": dict(body), "expect": expect},
         timeout=30,
     )
 
@@ -337,25 +358,28 @@ def sleeper_state(league_id: str, my_user: str, legs: Sequence[int]) -> Dict[str
         leg: sleeper_http.fetch_sleeper_json(
             SLEEPER_TX_URL.format(lid=league_id, leg=leg)
         )
-        or []
         for leg in legs
     }
+    bad = [leg for leg, t in txns.items() if not isinstance(t, list)]
+    if bad:  # fetch_sleeper_json fails open to {} - never read that as "none"
+        raise LookupError(f"Sleeper transactions unavailable for week(s) {bad}")
     return {
         "league": league,
         "rosters": rosters,
         "owners": owners,
         "my_roster_id": mine[0].get("roster_id"),
         "faab_left": None if budget is None else int(budget) - int(used),
-        "transactions": {
-            leg: t if isinstance(t, list) else [] for leg, t in txns.items()
-        },
+        "transactions": txns,
     }
 
 
 def sleeper_week() -> int:
     """Sleeper's current NFL week (the waiver ``leg``)."""
-    state = sleeper_http.fetch_sleeper_json(SLEEPER_STATE_URL)
-    return int((state or {}).get("leg") or (state or {}).get("week") or 1)
+    state = sleeper_http.fetch_sleeper_json(SLEEPER_STATE_URL) or {}
+    week = state.get("leg") or state.get("week")
+    if not week:
+        raise LookupError("Sleeper NFL state unavailable (no current week)")
+    return int(week)
 
 
 def read_claims(

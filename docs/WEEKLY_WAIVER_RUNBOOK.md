@@ -118,6 +118,10 @@ Notes:
   claims script shows the window; only one run can hold the profile at a time. Cookies, Yahoo's
   form crumb and the ESPN member id stay in the browser; the expired `.env` ESPN cookies are not
   needed.
+- **Claims ledger**: every POST is logged to `data/draft/claims_ledger.jsonl` (gitignored,
+  machine-local) BEFORE it is sent; for 6 days the same add is blocked unless its last row is
+  FAILED, even if the site hides pending claims (Yahoo's pending-claim markup is still
+  uncaptured). Delete a line only after `check_pending_claims.py` shows the claim is gone.
 - **Claim order**: no API to reorder claims was found for ESPN (Yahoo's is on the official API
   we can't use), so claims are filed in priority order - eyeball the order in the ESPN Clubhouse
   / Yahoo team page. Pending bids are not reserved: if bids add up past the FAAB left, a later
