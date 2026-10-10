@@ -1,0 +1,511 @@
+{
+  "fetch_run_id": "e371b5db-d26d-415d-a22f-e8d722851374",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-10T12:24:56.963818+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-will-soon-become-the-sixth-nfl-player-with-5-000-yards-rushing-and-receiving",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-will-soon-become-the-sixth-nfl-player-with-5-000-yards-rushing-and-receiving",
+      "title": "Alvin Kamara will soon become the sixth NFL player with 5,000 yards rushing and receiving",
+      "body_text": "Kamara has 7,324 rushing yards and 4,995 receiving yards in his NFL career.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-10T10:52:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alvin Kamara"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-set-to-move-ahead-of-peyton-manning-on-the-all-time-touchdown-pass-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-set-to-move-ahead-of-peyton-manning-on-the-all-time-touchdown-pass-list",
+      "title": "Aaron Rodgers set to move ahead of Peyton Manning on the all-time touchdown pass list",
+      "body_text": "With his next touchdown pass, Aaron Rodgers will have more than Peyton Manning, counting the playoffs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-10T08:38:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Peyton Manning"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0010346"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/multiple-playoff-teams-have-never-started-0-5",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/multiple-playoff-teams-have-never-started-0-5",
+      "title": "Multiple playoff teams have never started 0-5",
+      "body_text": "One of the five 0-4 teams entering Week 5 (the Buccaneers) has finally gotten its first win of 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-10T02:57:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-s-illness-invites-speculation-that-it-was-contract-related-even-if-it-wasnt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-s-illness-invites-speculation-that-it-was-contract-related-even-if-it-wasnt",
+      "title": "Joey Porter Jr.'s illness invites speculation that it was contract related (even if it wasn't)",
+      "body_text": "Last night's Buccaneers-Cowboys game was preceded by the unexpected news that cornerback Joey Porter Jr. would miss the contest due to a sudden illness.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T23:59:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-vikings-are-first-pair-of-non-playoff-teams-since-2013-to-start-4-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-vikings-are-first-pair-of-non-playoff-teams-since-2013-to-start-4-0",
+      "title": "Chiefs, Vikings are first pair of non-playoff teams since 2013 to start 4-0",
+      "body_text": "The NFL has only three 4-0 teams after four weeks.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T23:30:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/injuries-to-lt-tyler-guyton-wr-ceedee-lamb-are-not-serious",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/injuries-to-lt-tyler-guyton-wr-ceedee-lamb-are-not-serious",
+      "title": "Injuries to LT Tyler Guyton, WR CeeDee Lamb are not serious",
+      "body_text": "The X-rays on Cowboys left tackle Tyler Guyton's back were negative, coach Brian Schottenheimer said Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T23:20:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Guyton",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0039341"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-oc-davis-webb-not-ideal-to-lose-playcalling-role-excited-to-see-how-we-respond",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-oc-davis-webb-not-ideal-to-lose-playcalling-role-excited-to-see-how-we-respond",
+      "title": "Broncos OC Davis Webb: \"Not ideal\" to lose playcalling role, excited to see how we respond",
+      "body_text": "Broncos offensive coordinator Davis Webb's job description underwent a dramatic change this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T22:01:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Davis Webb"
+      ],
+      "resolved_player_ids": [
+        "00-0033550"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-dt-leonard-williams-has-no-injury-designation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-dt-leonard-williams-has-no-injury-designation",
+      "title": "Seahawks DT Leonard Williams has no injury designation",
+      "body_text": "Seahawks defensive tackle Leonard Williams (ankle) has no injury designation.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T21:47:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Leonard Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0031933"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-rule-out-pat-surtain-ii-riley-moss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-rule-out-pat-surtain-ii-riley-moss",
+      "title": "Broncos rule out Pat Surtain II, Riley Moss",
+      "body_text": "The Broncos ruled out both of their starting cornerbacks for Sunday's game against the Chargers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T21:30:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Surtain II",
+        "Riley Moss",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0036874",
+        "00-0038552"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wide-receiver-mike-evans-has-no-injury-designation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wide-receiver-mike-evans-has-no-injury-designation",
+      "title": "49ers wide receiver Mike Evans has no injury designation",
+      "body_text": "49ers wide receiver Mike Evans does not have an injury designation for Sunday's game against the Seahawks.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T21:29:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-alt-derwin-james-among-chargers-ruled-out-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-alt-derwin-james-among-chargers-ruled-out-for-sunday",
+      "title": "Joe Alt, Derwin James among Chargers ruled out for Sunday",
+      "body_text": "The Chargers won't have either of their starting offensive tackles for Sunday's game against the Broncos.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T20:40:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Alt",
+        "Derwin James",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039897",
+        "00-0034790"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-rb-kaytron-allen-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-rb-kaytron-allen-off-waivers",
+      "title": "Dolphins claim RB Kaytron Allen off waivers",
+      "body_text": "The Dolphins have added a running back.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-09T20:40:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kaytron Allen",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-is-questionable-with-back-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-is-questionable-with-back-injury",
+      "title": "Titans WR Carnell Tate is questionable with back injury",
+      "body_text": "The Titans list wide receiver Carnell Tate as questionable for Sunday's game against the Texans.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T20:31:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carnell Tate",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rb-carson-steele-c-jake-majors-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rb-carson-steele-c-jake-majors-to-active-roster",
+      "title": "Eagles sign RB Carson Steele, C Jake Majors to active roster",
+      "body_text": "The Eagles' long injury report led them to make a handful of roster moves on Friday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T20:29:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Steele",
+        "Jake Majors",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039325",
+        "00-0040422"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-out-jalen-hurts-calf-added-to-report-but-will-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-out-jalen-hurts-calf-added-to-report-but-will-play",
+      "title": "Saquon Barkley out, Jalen Hurts (calf) added to report but will play",
+      "body_text": "The Eagles will be shorthanded once again in Week 5, and their quarterback now has an injury issue — though it won’t keep him from playing.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-09T20:22:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Jalen Hurts",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-has-no-injury-designation-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-has-no-injury-designation-for-sunday",
+      "title": "Malik Nabers has no injury designation for Sunday",
+      "body_text": "Giants wide receiver Malik Nabers would like the team to take more shots in his direction in the passing game and he'll be available for them to follow up on that against the Commanders.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T20:20:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers",
+        "Sunday Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-will-have-azeez-al-shaair-will-anderson-jr-jadeveon-clowney",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-will-have-azeez-al-shaair-will-anderson-jr-jadeveon-clowney",
+      "title": "Texans will have Azeez Al-Shaair, Will Anderson Jr., Jadeveon Clowney",
+      "body_text": "The Texans ruled out wide receiver Tank Dell, who is working his way back from a gruesome 2024 knee injury that wiped out his 2025 season.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T20:13:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Anderson Jr",
+        "Jadeveon Clowney",
+        "The Texans",
+        "Tank Dell"
+      ],
+      "resolved_player_ids": [
+        "00-0039108",
+        "00-0031364",
+        "00-0038977"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-marlon-humphrey-questionable-for-ravens-this-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zay-flowers-marlon-humphrey-questionable-for-ravens-this-weekend",
+      "title": "Zay Flowers, Marlon Humphrey questionable for Ravens this weekend",
+      "body_text": "Ravens head coach Jesse Minter shared the headline of the team's Week 5 injury report when he announced that quarterback Lamar Jackson has been ruled out for Sunday night's game against the Ravens.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T20:09:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Flowers",
+        "Marlon Humphrey",
+        "Jesse Minter",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0033281",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-release-dl-ogbo-okoronkwo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-release-dl-ogbo-okoronkwo",
+      "title": "49ers release DL Ogbo Okoronkwo",
+      "body_text": "The 49ers released defensive lineman Ogbo Okoronkwo on Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T19:51:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ogbo Okoronkwo"
+      ],
+      "resolved_player_ids": [
+        "00-0034807"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-to-put-pat-bryant-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-to-put-pat-bryant-on-injured-reserve",
+      "title": "Report: Broncos to put Pat Bryant on injured reserve",
+      "body_text": "Broncos head coach Sean Payton said on Wednesday that he didn't think wide receiver Pat Bryant would be placed on injured reserve, but it appears something has changed about Denver's view of the wideout's ankle injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T19:48:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Bryant",
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [
+        "00-0040134"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-questionable-for-sunday-vs-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-questionable-for-sunday-vs-patriots",
+      "title": "Ashton Jeanty questionable for Sunday vs. Patriots",
+      "body_text": "The Raiders may not have their top running back when they play the Patriots on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-09T19:46:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-list-keenan-allen-darius-slayton-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-list-keenan-allen-darius-slayton-as-questionable",
+      "title": "Colts list Keenan Allen, Darius Slayton as questionable",
+      "body_text": "The Colts hope to have wide receiver Keenan Allen back in the lineup when they face the Steelers on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T19:41:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keenan Allen",
+        "Darius Slayton",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0030279",
+        "00-0035535"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-questionable-after-a-limited-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-questionable-after-a-limited-practice",
+      "title": "Caleb Williams questionable after a limited practice",
+      "body_text": "Bears quarterback Caleb Williams is not expected to play in Sunday's game against the Packers, but he is officially questionable.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-09T19:37:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-saints-on-monday-night-draws-11-9-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-saints-on-monday-night-draws-11-9-million-viewers",
+      "title": "Falcons-Saints on Monday night draws 11.9 million viewers",
+      "body_text": "The Week 3 Monday night game between the Eagles and Bears racked up 22.6 million viewers on the Disney family of networks.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T16:33:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-extraordinarily-extraordinarily-disappointed-by-cowboys-loss-to-buccaneers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-extraordinarily-extraordinarily-disappointed-by-cowboys-loss-to-buccaneers",
+      "title": "Jerry Jones \"Extraordinarily, extraordinarily disappointed\" by Cowboys' loss to Buccaneers",
+      "body_text": "Cowboys owner and General Manager Jerry Jones was stunned to see his team get upset by the previously winless Buccaneers on Thursday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-09T18:44:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "Buccaneers Cowboys",
+        "General Manager"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-k-dobbins-is-in-a-dark-spot-after-rough-start-to-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-k-dobbins-is-in-a-dark-spot-after-rough-start-to-2026",
+      "title": "J.K. Dobbins is in a \"dark spot\" after rough start to 2026",
+      "body_text": "Broncos running back J.K.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T19:14:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-placing-rashawn-slater-on-ir-after-ankle-procedure",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-placing-rashawn-slater-on-ir-after-ankle-procedure",
+      "title": "Chargers placing Rashawn Slater on IR after ankle procedure",
+      "body_text": "One of the Chargers' offensive tackles is now on the mend.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-09T18:59:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashawn Slater"
+      ],
+      "resolved_player_ids": [
+        "00-0037009"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-eagles-to-release-andy-dalton",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-eagles-to-release-andy-dalton",
+      "title": "Report: Eagles to release Andy Dalton",
+      "body_text": "There have been some major changes to the Eagles roster this week and another tweak is reportedly coming.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T18:36:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Dalton"
+      ],
+      "resolved_player_ids": [
+        "00-0027973"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-jordan-addison-questionable-for-sunday-vs-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-jordan-addison-questionable-for-sunday-vs-saints",
+      "title": "Justin Jefferson, Jordan Addison questionable for Sunday vs. Saints",
+      "body_text": "The Vikings may or may not have their top two receivers when they play the Saints on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-09T18:20:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Jefferson",
+        "Jordan Addison",
+        "Saints The"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-set-to-play-alvin-kamara-questionable-for-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-set-to-play-alvin-kamara-questionable-for-saints",
+      "title": "Chris Olave set to play, Alvin Kamara questionable for Saints",
+      "body_text": "The Saints will have wide receiver Chris Olave in the lineup against the Vikings on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-09T18:15:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave",
+        "Alvin Kamara",
+        "Saints The"
+      ],
+      "resolved_player_ids": [
+        "00-0037239",
+        "00-0033906"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

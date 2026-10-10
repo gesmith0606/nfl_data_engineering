@@ -1,0 +1,103 @@
+{
+  "fetch_run_id": "9472a241-baa5-4e4c-b816-edf710eab2bf",
+  "source": "rotowire",
+  "fetched_at": "2026-10-10T12:25:10.603846+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl641643",
+      "url": "https://www.rotowire.com//football/player/terry-mclaurin-13536",
+      "permalink": "",
+      "title": "Terry McLaurin: Seemingly game-time decision for Week 5",
+      "body_text": "McLaurin (hamstring), who is officially questionable for Sunday's game against the Giants, will be a game-time decision, as Jeremy Fowler of ESPN highlighted Friday in a Week 5 injury update on SportsCenter. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-09T05:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl641619",
+      "url": "https://www.rotowire.com//football/player/dj-moore-12477",
+      "permalink": "",
+      "title": "DJ Moore: Remains sidelined Friday",
+      "body_text": "Moore (shoulder) remained a non-participant in Friday's practice for the Bills. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-09T04:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Friday Moore"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl641592",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "permalink": "",
+      "title": "Jeremiyah Love: Set to play Sunday",
+      "body_text": "Love (ankle) doesn't have a designation for Sunday's contest versus the Lions, Theo Mackie of The Arizona Republic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-09T02:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Sunday Love",
+        "Theo Mackie",
+        "The Arizona"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "nfl641590",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "permalink": "",
+      "title": "Mike Evans: Cleared for Week 5",
+      "body_text": "Evans (ribs) does not have an injury designation for Sunday's game against the Seahawks, Nick Wagoner of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-09T02:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl641588",
+      "url": "https://www.rotowire.com//football/player/dallas-goedert-12860",
+      "permalink": "",
+      "title": "Dallas Goedert: Ready to return in Week 5",
+      "body_text": "Goedert (knee) doesn't have a designation for Sunday's game versus the Jaguars in London. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-09T01:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Goedert"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "JAX"
+    }
+  ]
+}
