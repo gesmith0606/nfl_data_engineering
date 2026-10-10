@@ -234,6 +234,86 @@ def test_bye_returns_are_projected_by_default(bye_silver):
 
 
 # ---------------------------------------------------------------------------
+# Injury returns: no W-1 row because the player missed his team's game(s)
+# ---------------------------------------------------------------------------
+
+
+def _depth(rows) -> pd.DataFrame:
+    """Bronze depth chart rows: (gsis_id, team, pos_abb, pos_rank)."""
+    return pd.DataFrame(
+        [
+            {
+                "gsis_id": pid,
+                "player_name": pid,
+                "team": team,
+                "pos_abb": pos,
+                "pos_rank": rank,
+                "dt": "2025-10-06T06:00:00Z",
+            }
+            for pid, team, pos, rank in rows
+        ]
+    )
+
+
+@pytest.fixture
+def injury_silver() -> pd.DataFrame:
+    rows = (
+        _game_rows("SEA_WR", "SEA", 2025, {w: 5.0 for w in range(1, 7)})
+        + _game_rows("HURT_WR", "SEA", 2025, {1: 9.0, 2: 9.0, 3: 9.0, 4: 9.0})
+        + _game_rows("LONG_IR", "SEA", 2025, {1: 9.0})  # missed 5 games
+        + _game_rows("SPOT_QB2", "SEA", 2025, {1: 9.0, 2: 9.0, 3: 9.0})
+        + _game_rows("TRADED", "SEA", 2025, {1: 7.0, 2: 7.0, 3: 7.0, 4: 7.0})
+    )
+    return _silver(rows)
+
+
+INJURY_DEPTH = _depth(
+    [
+        ("SEA_WR", "SEA", "WR", 1),
+        ("HURT_WR", "SEA", "WR", 2),
+        ("LONG_IR", "SEA", "WR", 3),
+        ("SPOT_QB2", "SEA", "WR", 5),  # a backup with no stats, not "injured"
+        ("TRADED", "KC", "WR", 1),
+    ]
+)
+
+
+def test_injury_return_rows_need_a_short_absence_and_a_starting_depth_slot(
+    injury_silver,
+):
+    from projection_engine import injury_return_feature_rows
+
+    rows = injury_return_feature_rows(injury_silver, 2025, 7, INJURY_DEPTH)
+    assert set(rows["player_id"]) == {"HURT_WR"}
+    assert int(rows.iloc[0]["week"]) == 4
+    # No depth chart (the backtests) -> nothing added.
+    assert injury_return_feature_rows(injury_silver, 2025, 7, None).empty
+
+
+def test_injury_returns_are_projected_with_a_depth_chart(injury_silver):
+    on = generate_weekly_projections(
+        injury_silver,
+        pd.DataFrame(),
+        season=2025,
+        week=7,
+        scoring_format="ppr",
+        depth_charts_df=INJURY_DEPTH,
+    )
+    assert "HURT_WR" in set(on["player_id"])
+    assert on.set_index("player_id").loc["HURT_WR", "projected_points"] > 0
+    off = generate_weekly_projections(
+        injury_silver,
+        pd.DataFrame(),
+        season=2025,
+        week=7,
+        scoring_format="ppr",
+        depth_charts_df=INJURY_DEPTH,
+        include_bye_returns=False,
+    )
+    assert "HURT_WR" not in set(off["player_id"])
+
+
+# ---------------------------------------------------------------------------
 # Veteran prior game count follows the rolling window
 # ---------------------------------------------------------------------------
 

@@ -1813,6 +1813,69 @@ def bye_return_feature_rows(
     return latest[played_team_last & (latest["week"] < week - 1)].copy()
 
 
+#: Most consecutive team games a player may have missed and still be projected
+#: from his latest row (longer absences are usually IR / season-ending).
+INJURY_RETURN_MAX_MISSED = 3
+
+
+def injury_return_feature_rows(
+    silver_df: pd.DataFrame,
+    season: int,
+    week: int,
+    depth_charts_df: Optional[pd.DataFrame],
+    max_missed: int = INJURY_RETURN_MAX_MISSED,
+) -> pd.DataFrame:
+    """Latest rows of players returning from a short injury absence.
+
+    A player who missed his team's last game has no week W-1 row and, unlike a
+    bye, was excluded by :func:`bye_return_feature_rows` — so Justin Jefferson
+    (out week 4) and Lamar Jackson vanished from the 2026 week-5 board. This
+    returns each such player's latest in-season row when he missed between 1
+    and ``max_missed`` of his team's games since AND is still a starter on
+    that team's latest depth chart (the "still on the active roster" signal;
+    IR players fall off or sink to deep slots). Whether he plays THIS week is
+    left to ``apply_injury_adjustments`` (Out/IR on the week's report -> 0).
+
+    Args:
+        silver_df: Silver usage rows (``player_id``, ``season``, ``week``,
+            ``recent_team``).
+        season: Projected season.
+        week: Projected week W.
+        depth_charts_df: Bronze depth charts. None/empty disables this (the
+            backtests pass none, so they are unaffected).
+        max_missed: Upper bound on team games missed.
+
+    Returns:
+        Feature rows (may be empty) with ``week < W - 1``.
+    """
+    need = {"player_id", "season", "week", "recent_team"}
+    if (
+        week <= 2
+        or silver_df.empty
+        or depth_charts_df is None
+        or depth_charts_df.empty
+        or not need.issubset(silver_df.columns)
+    ):
+        return silver_df.iloc[0:0].copy()
+    cur = silver_df[(silver_df["season"] == season) & (silver_df["week"] <= week - 1)]
+    if cur.empty:
+        return cur.copy()
+    depth = depth_chart_roles(depth_charts_df)
+    # Starters only: a backup who simply did not touch the ball has no row
+    # either, and would be projected from a spot start (Wentz, 2026 wk 1-2).
+    depth = depth[depth["depth_role"] == "starter"]
+    depth_team = dict(zip(depth["player_id"].astype(str), depth["recent_team"]))
+    team_weeks = cur.groupby("recent_team")["week"].apply(lambda w: sorted(set(w)))
+    latest = cur.sort_values("week").groupby("player_id", sort=False).tail(1)
+    missed = [
+        sum(w > last for w in team_weeks.get(team, []))
+        for team, last in zip(latest["recent_team"], latest["week"])
+    ]
+    same_team = latest["player_id"].astype(str).map(depth_team) == latest["recent_team"]
+    keep = same_team.to_numpy() & np.isin(missed, range(1, max_missed + 1))
+    return latest[keep].copy()
+
+
 def generate_weekly_projections(
     silver_df: pd.DataFrame,
     opp_rankings: pd.DataFrame,
@@ -1906,8 +1969,11 @@ def generate_weekly_projections(
                         at game W-2). See ``.planning/WEEKLY_DOUBLE_LAG_GATE.md``.
         include_bye_returns: If True, also project players whose team was on
                         bye in W-1 (no W-1 row) from their latest row, provided
-                        they played their team's last game. Default True;
-                        False reproduces the pre-fix board that dropped them.
+                        they played their team's last game; and players who
+                        missed 1-3 team games but are still a depth-chart
+                        starter (needs ``depth_charts_df``). Default
+                        True; False reproduces the pre-fix board that dropped
+                        both.
 
     Returns:
         Combined DataFrame with projections for QB/RB/WR/TE, sorted by
@@ -1960,6 +2026,22 @@ def generate_weekly_projections(
                     week,
                     len(returns),
                     week - 1,
+                )
+
+    if include_bye_returns and week > 2:
+        injured = injury_return_feature_rows(silver_df, season, week, depth_charts_df)
+        if not injured.empty and "player_id" in target_df.columns:
+            injured = injured[~injured["player_id"].isin(target_df["player_id"])]
+            if not injured.empty:
+                target_df = pd.concat([target_df, injured], ignore_index=True)
+                logger.info(
+                    "Week %d: added %d player(s) returning from a missed game "
+                    "(still on the depth chart): %s",
+                    week,
+                    len(injured),
+                    ", ".join(
+                        injured.get("player_name", injured["player_id"]).astype(str)
+                    ),
                 )
 
     if fresh_rolling:
