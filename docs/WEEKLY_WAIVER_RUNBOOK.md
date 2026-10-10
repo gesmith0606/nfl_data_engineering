@@ -86,7 +86,7 @@ python scripts/stream_dst_k.py --pool data/draft/feetball_2026_dstk_pool.txt   #
    players with the same name are never guessed between: add `add_id:` / `drop_id:` (the site's
    player id, printed in the error).
 2. Dry run (sends nothing):
-   `python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml --cdp-url http://127.0.0.1:<port>`.
+   `python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml`.
    Every claim is checked live (the weekly-waivers Step 4b rule, automated): the add is on
    waivers, the drop is ours and not a keeper (a configured keepers file that is missing or empty
    blocks the league), the bid fits the FAAB left, no claim for the add is already pending (so a
@@ -110,12 +110,14 @@ python scripts/stream_dst_k.py --pool data/draft/feetball_2026_dstk_pool.txt   #
    trades), Mantis' processed claims.
 
 Notes:
-- **Browser**: ESPN + Yahoo run inside a Chrome profile started with
-  `--remote-debugging-port=<port> --user-data-dir=<profile>` and logged into both (same setup as
-  §2). The everyday Chrome can hold port 9222 with remote debugging switched on from
-  chrome://inspect - that mode has no `/json` endpoints, so start the debug profile on another
-  port (e.g. 9333) and pass `--cdp-url`. Cookies, Yahoo's form crumb and the ESPN member id
-  stay in the browser; the expired `.env` ESPN cookies are not needed.
+- **Browser**: ESPN + Yahoo run headless in a dedicated Playwright profile
+  (`$FANTASY_BROWSER_PROFILE`, default `~/.nfl-fantasy-browser`, outside the repo - never commit
+  or share it; it drives the installed Chrome). Log in once by hand with
+  `python scripts/league_login.py` (visible window; the script never sees a password), and again
+  whenever `python scripts/league_login.py --check` says NOT LOGGED IN. `--headed` on either
+  claims script shows the window; only one run can hold the profile at a time. Cookies, Yahoo's
+  form crumb and the ESPN member id stay in the browser; the expired `.env` ESPN cookies are not
+  needed.
 - **Claim order**: no API to reorder claims was found for ESPN (Yahoo's is on the official API
   we can't use), so claims are filed in priority order - eyeball the order in the ESPN Clubhouse
   / Yahoo team page. Pending bids are not reserved: if bids add up past the FAAB left, a later

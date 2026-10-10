@@ -18,6 +18,7 @@ be committed or shared. Playwright drives the installed Chrome
 
 from __future__ import annotations
 
+import argparse
 import os
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -67,6 +68,9 @@ class BrowserPage:
 class FantasyBrowser:
     """Context manager over the persistent, logged-in browser profile.
 
+    Chrome starts on the first :meth:`page` / :meth:`new_tab`, so a run that
+    only reads Sleeper's public API never launches it.
+
     Args:
         profile: Profile directory (default :data:`DEFAULT_PROFILE`).
         headless: False for the one-time login / troubleshooting.
@@ -80,6 +84,11 @@ class FantasyBrowser:
         self._pages: Dict[str, BrowserPage] = {}
 
     def __enter__(self) -> "FantasyBrowser":
+        return self
+
+    def _launch(self) -> None:
+        if self.context is not None:
+            return
         from playwright.sync_api import sync_playwright
 
         self.profile.mkdir(parents=True, exist_ok=True)
@@ -91,10 +100,13 @@ class FantasyBrowser:
                 headless=self.headless,
                 viewport={"width": 1280, "height": 900},
             )
-        except Exception:
+        except Exception as exc:  # noqa: BLE001 — e.g. profile already open elsewhere
             self._pw.stop()
-            raise
-        return self
+            self._pw = None
+            raise LookupError(
+                f"could not start Chrome on profile {self.profile} ({exc}) - "
+                "is league_login.py (or another run) still holding it open?"
+            ) from exc
 
     def __exit__(self, *exc: Any) -> None:
         try:
@@ -104,13 +116,16 @@ class FantasyBrowser:
             if self._pw is not None:
                 self._pw.stop()
 
-    def page(self, platform: str, league_id: str, team_id: Optional[int] = None) -> BrowserPage:
+    def page(
+        self, platform: str, league_id: str, team_id: Optional[int] = None
+    ) -> BrowserPage:
         """The site's page (opened and loaded once per run).
 
         Raises:
             LookupError: The page could not be loaded.
         """
         if platform not in self._pages:
+            self._launch()
             url = SITE_URLS[platform].format(lid=league_id, team=team_id or "")
             page = self.context.new_page()
             try:
@@ -122,6 +137,25 @@ class FantasyBrowser:
 
     def new_tab(self, url: str) -> Any:
         """Open ``url`` in a new tab (used by the login helper)."""
+        self._launch()
         page = self.context.new_page()
         page.goto(url, wait_until="domcontentloaded", timeout=45_000)
         return page
+
+
+def add_browser_args(ap: argparse.ArgumentParser) -> None:
+    """``--profile`` / ``--headed`` for the scripts that use the profile."""
+    ap.add_argument(
+        "--profile",
+        type=Path,
+        default=DEFAULT_PROFILE,
+        help=f"logged-in browser profile (default {DEFAULT_PROFILE})",
+    )
+    ap.add_argument(
+        "--headed", action="store_true", help="show the browser window (debugging)"
+    )
+
+
+def open_browser(args: argparse.Namespace) -> FantasyBrowser:
+    """The profile named by :func:`add_browser_args`' options."""
+    return FantasyBrowser(args.profile, headless=not args.headed)

@@ -561,7 +561,7 @@ def fake_sites(monkeypatch):
         calls["espn_submit"].append(body)
         return {"status": 200, "transaction": {"id": "new", "status": "PENDING"}}
 
-    def read_claims(league, preset, season, cdp_url=None, registry=None):
+    def read_claims(league, preset, season, browser=None, registry=None):
         calls["read"].append(league)
         records = [
             wc.ClaimRecord(league, "Jake Ferguson", "Keenan Allen", 4, "PENDING")
@@ -686,21 +686,44 @@ def test_check_pending_claims_prints_each_league(fake_sites, monkeypatch, capsys
     assert "UNAVAILABLE: Chrome DevTools not reachable" in capsys.readouterr().out
 
 
-def test_site_page_explains_a_chrome_without_devtools_http(monkeypatch):
-    import requests
+def test_browser_launches_lazily_and_explains_a_held_profile(monkeypatch, tmp_path):
+    from src import fantasy_browser as fb
 
-    class _Resp:
-        status_code = 404
+    class _Chromium:
+        def launch_persistent_context(self, *a, **k):
+            raise RuntimeError("ProcessSingleton: profile in use")
 
-        def json(self):
-            raise ValueError("not json")
+    class _PW:
+        chromium = _Chromium()
+        stopped = False
 
-        def raise_for_status(self):
-            raise requests.HTTPError("404 Client Error: Not Found")
+        def stop(self):
+            _PW.stopped = True
 
-    monkeypatch.setattr(requests, "get", lambda *a, **k: _Resp())
-    with pytest.raises(LookupError, match="--remote-debugging-port=<port>"):
-        ws.site_page("espn", "1493260", 1, "http://127.0.0.1:9222")
+    class _Sync:
+        def start(self):
+            return _PW()
+
+    import playwright.sync_api as pw_api
+
+    monkeypatch.setattr(pw_api, "sync_playwright", lambda: _Sync())
+    with fb.FantasyBrowser(tmp_path / "profile") as browser:
+        assert browser.context is None  # nothing launched until a page is needed
+        with pytest.raises(LookupError, match="still holding it open"):
+            browser.page("espn", "1493260", 1)
+    assert _PW.stopped
+
+
+def test_scripts_take_profile_and_headed_flags(tmp_path):
+    import argparse
+
+    from src import fantasy_browser as fb
+
+    ap = argparse.ArgumentParser()
+    fb.add_browser_args(ap)
+    args = ap.parse_args(["--profile", str(tmp_path), "--headed"])
+    browser = fb.open_browser(args)
+    assert browser.profile == tmp_path and browser.headless is False
 
 
 # ---------------------------------------------------------------------------

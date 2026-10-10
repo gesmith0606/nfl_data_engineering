@@ -26,8 +26,8 @@ Mantis (Sleeper) is checked but never submitted: Sleeper's public API is
 read-only and its Terms (2026-10-06, §11.1) ban scripted access to the private
 API the app uses - enter those claims in the Sleeper app.
 
-ESPN and Yahoo run inside a Chrome started with remote debugging and logged into
-both sites (``chrome --remote-debugging-port=9333 --user-data-dir=<profile>``).
+ESPN and Yahoo run in the dedicated Playwright profile (headless), logged in
+once by hand with ``python scripts/league_login.py``.
 """
 
 from __future__ import annotations
@@ -43,6 +43,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from src import config  # noqa: E402
+from src import fantasy_browser as fb  # noqa: E402
 from src import waiver_claims as wc  # noqa: E402
 from src import waiver_sites as ws  # noqa: E402
 
@@ -67,7 +68,7 @@ def check(
     league: str,
     claims: Sequence[wc.Claim],
     season: int,
-    cdp_url: str,
+    browser: fb.FantasyBrowser,
     allow_free_agent: bool = False,
 ) -> Tuple[List[wc.CheckedClaim], Dict[str, Any]]:
     """Resolve + validate one league's claims against the live site.
@@ -81,7 +82,7 @@ def check(
     keepers = _keepers(preset)
     if platform == "espn":
         team = int(preset["my_team_id"])
-        page = ws.site_page("espn", lid, team, cdp_url)
+        page = ws.site_page(browser, "espn", lid, team)
         s = ws.espn_state(page, season, lid, team)
         index = wc.index_players(wc.espn_players(s["pool"], s["rosters"], team))
         left = int(s["budget"] or 0) - int(s["spent"] or 0)
@@ -102,7 +103,7 @@ def check(
         }
     if platform == "yahoo":
         team = int(preset["my_team_id"])
-        page = ws.site_page("yahoo", lid, team, cdp_url)
+        page = ws.site_page(browser, "yahoo", lid, team)
         names = [c.add for c in claims] + [c.drop for c in claims if c.drop]
         s = ws.yahoo_state(page, lid, team, [wc.search_name(n) for n in names])
         if not s.get("logged_in"):
@@ -211,7 +212,7 @@ def read_back(
     leagues: Sequence[str],
     filed: Mapping[str, Sequence[wc.CheckedClaim]],
     season: int,
-    cdp_url: str,
+    browser: fb.FantasyBrowser,
 ) -> bool:
     """Print each league's claims as the site shows them.
 
@@ -232,7 +233,7 @@ def read_back(
         for wait in READ_BACK_WAIT_S if want else (0,):
             time.sleep(wait)
             try:
-                summary, records = ws.read_claims(league, preset, season, cdp_url)
+                summary, records = ws.read_claims(league, preset, season, browser)
             except (LookupError, RuntimeError, OSError) as exc:
                 summary, records = f"UNAVAILABLE: {exc}", []
                 all_ok = False
@@ -269,8 +270,14 @@ def main(argv: Optional[list] = None) -> int:
         help="also file free-agent adds (they execute immediately, no cancel)",
     )
     ap.add_argument("--season", type=int, default=2026)
-    ap.add_argument("--cdp-url", default=ws.DEFAULT_CDP_URL)
+    fb.add_browser_args(ap)
     args = ap.parse_args(argv)
+    with fb.open_browser(args) as browser:
+        return _run(args, browser)
+
+
+def _run(args: argparse.Namespace, browser: fb.FantasyBrowser) -> int:
+    """Check, then (with ``--submit``) file and read back, in one browser session."""
 
     try:
         claims = wc.load_claims(args.claims, MY_LEAGUES)
@@ -287,7 +294,7 @@ def main(argv: Optional[list] = None) -> int:
                 league,
                 [c for c in claims if c.league == league],
                 args.season,
-                args.cdp_url,
+                browser,
                 args.allow_free_agent,
             )
         except (LookupError, RuntimeError, OSError) as exc:
@@ -320,7 +327,7 @@ def main(argv: Optional[list] = None) -> int:
         print(
             f"\nDRY RUN - nothing submitted. To file the {len(queue)} ESPN/Yahoo "
             "claim(s) above:\n  python scripts/submit_claims.py "
-            f"--claims {args.claims.as_posix()} --cdp-url {args.cdp_url} --submit"
+            f"--claims {args.claims.as_posix()} --submit"
         )
         return 0
 
@@ -339,13 +346,13 @@ def main(argv: Optional[list] = None) -> int:
             for lg, rest in queue[i + 1 :]:
                 print(f"  NOT ATTEMPTED: {lg} #{rest.claim.priority} {rest.add.name}")
             filed.setdefault(league, []).append(c)
-            read_back(auto, filed, args.season, args.cdp_url)
+            read_back(auto, filed, args.season, browser)
             return 2
         failures += verdict == FAILED
         if verdict == OK:
             filed.setdefault(league, []).append(c)
         print(f"  {verdict} {tag}: {msg}")
-    confirmed = read_back(auto, filed, args.season, args.cdp_url)
+    confirmed = read_back(auto, filed, args.season, browser)
     if manual:
         print("\nReminder: Mantis claims above still need entering in the Sleeper app.")
     return 0 if confirmed and not failures else 2
