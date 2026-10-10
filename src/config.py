@@ -379,6 +379,7 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "roster": "espn_la_liga",
         "teams": 12,
         "my_pick": 10,  # revealed 2026-08-31 ~18:40 after the pre-draft randomization
+        "my_team_id": 1,  # ESPN teamId ("The Oracle")
     },
     "feetball": {
         "platform": "yahoo",
@@ -387,6 +388,8 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "roster": "yahoo_feetball",
         "teams": 10,
         "my_pick": None,  # order picked after the Aug 31 keeper deadline
+        "my_team_id": 10,  # Yahoo team id (/f1/658684/10, "The Oracle")
+        "keepers_file": "data/draft/feetball_2026_keepers.txt",
     },
     "gentlemen": {
         "platform": "sleeper",

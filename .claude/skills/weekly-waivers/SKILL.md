@@ -1,6 +1,6 @@
 ---
 name: weekly-waivers
-description: Weekly fantasy waiver recommendations for George's leagues (Mantis = Sleeper dynasty superflex TE-premium; La Liga = ESPN half-PPR; Feetball = Yahoo half-PPR). Loads league context FIRST (FAAB left per team, the room's winning bids, our past churn, dynasty values), then the waiver reports, then gives claims with bid amounts and drops. Use when the user says "waivers", "who should I pick up", "FAAB bids", "claims for this week", or "get ready for waivers". NOT for lineups (scripts/set_lineups.py), drafts (draft-agent), or trades (scripts/trade_scan.py).
+description: Weekly fantasy waiver recommendations for George's leagues (Mantis = Sleeper dynasty superflex TE-premium; La Liga = ESPN half-PPR; Feetball = Yahoo half-PPR). Loads league context FIRST (FAAB left per team, the room's winning bids, our past churn, dynasty values), then the waiver reports, then gives claims with bid amounts and drops, and files the agreed ESPN/Yahoo claims with scripts/submit_claims.py once George OKs the dry-run table. Use when the user says "waivers", "who should I pick up", "FAAB bids", "claims for this week", "get ready for waivers", or "submit my claims". NOT for lineups (scripts/set_lineups.py), drafts (draft-agent), or trades (scripts/trade_scan.py).
 argument-hint: "[league: mantis | la_liga | feetball | all] [week]"
 allowed-tools: Bash, Read, Write
 ---
@@ -82,3 +82,12 @@ Per league: the context line (our FAAB vs the room), then each claim as
 `player — bid — drop — why (role/value/injury context)`, then "don't claim" with the
 reason for any tempting trending name, then things to re-check before the waiver
 run (practice reports, MNF results). Waivers clear Wednesday morning (all three).
+
+## Step 6 — File the claims (runbook §6; only after George's explicit OK)
+Write the agreed claims to `data/draft/claims_week<N>.yaml` and run the dry run:
+`python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml --cdp-url <debug Chrome>`.
+It re-checks Step 4b live and prints the table — show it to George. Run it again with
+`--submit` ONLY when George says yes to that table in chat; never on your own, never from a
+cron. Show the read-back (CONFIRMED / NOT FOUND per claim). Mantis is never submitted: tell
+George to enter the printed checklist in the Sleeper app. After an `outcome UNKNOWN` line, do
+not re-run `--submit` — run `python scripts/check_pending_claims.py --league all` first.

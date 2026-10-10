@@ -1,0 +1,413 @@
+{
+ "scoring_period": 5,
+ "budget": 100,
+ "spent": 20,
+ "min_bid": 0,
+ "team_name": "The Oracle ",
+ "rosters": [
+  [
+   1,
+   "The Oracle",
+   4379399,
+   "James Cook III"
+  ],
+  [
+   1,
+   "The Oracle",
+   3043078,
+   "Derrick Henry"
+  ],
+  [
+   1,
+   "The Oracle",
+   4239993,
+   "Tee Higgins"
+  ],
+  [
+   1,
+   "The Oracle",
+   4428331,
+   "Rashee Rice"
+  ],
+  [
+   1,
+   "The Oracle",
+   4431459,
+   "Tyler Warren"
+  ],
+  [
+   1,
+   "The Oracle",
+   16737,
+   "Mike Evans"
+  ],
+  [
+   1,
+   "The Oracle",
+   4432773,
+   "Brian Thomas Jr."
+  ],
+  [
+   1,
+   "The Oracle",
+   4241985,
+   "J.K. Dobbins"
+  ],
+  [
+   1,
+   "The Oracle",
+   4361741,
+   "Brock Purdy"
+  ],
+  [
+   1,
+   "The Oracle",
+   4683062,
+   "Xavier Worthy"
+  ],
+  [
+   1,
+   "The Oracle",
+   4428557,
+   "Tyjae Spears"
+  ],
+  [
+   1,
+   "The Oracle",
+   15818,
+   "Keenan Allen"
+  ],
+  [
+   1,
+   "The Oracle",
+   4685247,
+   "Braelon Allen"
+  ],
+  [
+   1,
+   "The Oracle",
+   4569559,
+   "Devaughn Vele"
+  ],
+  [
+   1,
+   "The Oracle",
+   4832955,
+   "Emmett Johnson"
+  ],
+  [
+   1,
+   "The Oracle",
+   -16028,
+   "Commanders D/ST"
+  ],
+  [
+   4,
+   "Love, Hurts",
+   3929630,
+   "Saquon Barkley"
+  ],
+  [
+   4,
+   "Love, Hurts",
+   4362238,
+   "Chase Brown"
+  ],
+  [
+   4,
+   "Love, Hurts",
+   4429615,
+   "Zay Flowers"
+  ]
+ ],
+ "pool": [
+  [
+   4242355,
+   "Jake Ferguson",
+   "WAIVERS"
+  ],
+  [
+   4035687,
+   "Michael Pittman Jr.",
+   "WAIVERS"
+  ],
+  [
+   3917315,
+   "Kyler Murray",
+   "FREEAGENT"
+  ],
+  [
+   4426385,
+   "Zach Charbonnet",
+   "FREEAGENT"
+  ],
+  [
+   4870795,
+   "Makai Lemon",
+   "WAIVERS"
+  ],
+  [
+   -16021,
+   "Eagles D/ST",
+   "FREEAGENT"
+  ],
+  [
+   -16025,
+   "49ers D/ST",
+   "FREEAGENT"
+  ],
+  [
+   -16008,
+   "Lions D/ST",
+   "FREEAGENT"
+  ],
+  [
+   -16003,
+   "Bears D/ST",
+   "FREEAGENT"
+  ]
+ ],
+ "transactions": [
+  {
+   "id": "bef17292",
+   "type": "WAIVER",
+   "status": "PENDING",
+   "executionType": "EXECUTE",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": null,
+   "proposedDate": 1791331528847,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16030
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "4a7bc0c0",
+   "type": "WAIVER",
+   "status": "PENDING",
+   "executionType": "EXECUTE",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": null,
+   "proposedDate": 1791339936397,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16028
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "45329b66",
+   "type": "WAIVER",
+   "status": "FAILED_INVALIDPLAYERSOURCE",
+   "executionType": "PROCESS",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": "bef17292",
+   "proposedDate": 1791359139702,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16030
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "cdb36c37",
+   "type": "WAIVER",
+   "status": "EXECUTED",
+   "executionType": "PROCESS",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": "4a7bc0c0",
+   "proposedDate": 1791359139702,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16028
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "6ab7410b",
+   "type": "WAIVER",
+   "status": "FAILED_INVALIDPLAYERSOURCE",
+   "executionType": "PROCESS",
+   "teamId": 16,
+   "bidAmount": 15,
+   "relatedTransactionId": "8d04a6bb",
+   "proposedDate": 1791359139702,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": 4431545
+    },
+    {
+     "type": "DROP",
+     "playerId": 4362478
+    }
+   ]
+  },
+  {
+   "id": "e68ec677",
+   "type": "WAIVER",
+   "status": "EXECUTED",
+   "executionType": "PROCESS",
+   "teamId": 4,
+   "bidAmount": 81,
+   "relatedTransactionId": "26cf9cbb",
+   "proposedDate": 1791359139702,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": 4431545
+    },
+    {
+     "type": "DROP",
+     "playerId": 4688380
+    }
+   ]
+  },
+  {
+   "id": "bef17292",
+   "type": "WAIVER",
+   "status": "PENDING",
+   "executionType": "EXECUTE",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": null,
+   "proposedDate": 1791331528847,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16030
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "4a7bc0c0",
+   "type": "WAIVER",
+   "status": "PENDING",
+   "executionType": "EXECUTE",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": null,
+   "proposedDate": 1791339936397,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16028
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "45329b66",
+   "type": "WAIVER",
+   "status": "FAILED_INVALIDPLAYERSOURCE",
+   "executionType": "PROCESS",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": "bef17292",
+   "proposedDate": 1791359139702,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16030
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  },
+  {
+   "id": "cdb36c37",
+   "type": "WAIVER",
+   "status": "EXECUTED",
+   "executionType": "PROCESS",
+   "teamId": 1,
+   "bidAmount": 0,
+   "relatedTransactionId": "4a7bc0c0",
+   "proposedDate": 1791359139702,
+   "scoringPeriodId": 5,
+   "items": [
+    {
+     "type": "ADD",
+     "playerId": -16028
+    },
+    {
+     "type": "DROP",
+     "playerId": -16003
+    }
+   ]
+  }
+ ],
+ "names": {
+  "4379399": "James Cook III",
+  "3043078": "Derrick Henry",
+  "4239993": "Tee Higgins",
+  "4428331": "Rashee Rice",
+  "4431459": "Tyler Warren",
+  "16737": "Mike Evans",
+  "4432773": "Brian Thomas Jr.",
+  "4241985": "J.K. Dobbins",
+  "4361741": "Brock Purdy",
+  "4683062": "Xavier Worthy",
+  "4428557": "Tyjae Spears",
+  "15818": "Keenan Allen",
+  "4685247": "Braelon Allen",
+  "4569559": "Devaughn Vele",
+  "4832955": "Emmett Johnson",
+  "-16028": "Commanders D/ST",
+  "4242355": "Jake Ferguson",
+  "4035687": "Michael Pittman Jr.",
+  "3917315": "Kyler Murray",
+  "4426385": "Zach Charbonnet",
+  "4870795": "Makai Lemon",
+  "-16021": "Eagles D/ST",
+  "-16025": "49ers D/ST",
+  "-16008": "Lions D/ST",
+  "-16003": "Bears D/ST",
+  "-16030": "Jaguars D/ST",
+  "4431545": "Will Shipley",
+  "4362478": "Emari Demercado",
+  "4688380": "Cam Ward"
+ }
+}

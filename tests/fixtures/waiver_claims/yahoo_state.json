@@ -1,0 +1,61 @@
+{
+ "faab_left": 82,
+ "logged_in": true,
+ "pending": [
+  {
+   "path": "/f1/658684/10/viewtrade",
+   "text": " Pending trade between Crazy Eddie's Everything Goes and The Oracle View Pending Trade"
+  }
+ ],
+ "search": {
+  "Bo Nix": [
+   {
+    "name": "Bo Nix",
+    "pid": "40875",
+    "roster_status": "W (Oct 11)",
+    "ours": false
+   }
+  ],
+  "Cairo Santos": [
+   {
+    "name": "Cairo Santos",
+    "pid": "28227",
+    "roster_status": "The Oracle",
+    "ours": true
+   }
+  ],
+  "Jordan Love": [
+   {
+    "name": "Jordan Love",
+    "pid": "32696",
+    "roster_status": "FA",
+    "ours": false
+   }
+  ],
+  "Luther Burden III": [
+   {
+    "name": "Luther Burden III",
+    "pid": "41824",
+    "roster_status": "The Oracle",
+    "ours": true
+   }
+  ],
+  "Jets": [
+   {
+    "name": "Jets",
+    "pid": "100020",
+    "roster_status": "The Oracle",
+    "ours": true
+   }
+  ],
+  "Saquon Barkley": [
+   {
+    "name": "Saquon Barkley",
+    "pid": "30972",
+    "roster_status": "Josh Jacobs Gently Jabs",
+    "ours": false
+   }
+  ],
+  "Mike Williams": []
+ }
+}

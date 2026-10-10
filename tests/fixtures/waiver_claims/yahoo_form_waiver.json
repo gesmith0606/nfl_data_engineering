@@ -1,0 +1,77 @@
+{
+ "found": true,
+ "action": "/f1/658684/10/addplayer",
+ "drops": [
+  [
+   "32723",
+   "Jalen Hurts"
+  ],
+  [
+   "33965",
+   "Garrett Wilson"
+  ],
+  [
+   "40908",
+   "Ladd McConkey"
+  ],
+  [
+   "41824",
+   "Luther Burden III"
+  ],
+  [
+   "41795",
+   "Colston Loveland"
+  ],
+  [
+   "41804",
+   "Emeka Egbuka"
+  ],
+  [
+   "40883",
+   "Brian Thomas Jr."
+  ],
+  [
+   "42010",
+   "Jacory Croskey-Merritt"
+  ],
+  [
+   "42025",
+   "Kyle Monangai"
+  ],
+  [
+   "41097",
+   "Devaughn Vele"
+  ],
+  [
+   "40078",
+   "Brenton Strange"
+  ],
+  [
+   "40971",
+   "MarShawn Lloyd"
+  ],
+  [
+   "42654",
+   "Jadarian Price"
+  ],
+  [
+   "31883",
+   "A.J. Brown"
+  ],
+  [
+   "28227",
+   "Cairo Santos"
+  ],
+  [
+   "100020",
+   "Jets"
+  ]
+ ],
+ "faab": true,
+ "submits": [
+  [
+   "submit_drop_player",
+   "Create claim to Add this player and drop another player"
+  ]
+ ]
+}
