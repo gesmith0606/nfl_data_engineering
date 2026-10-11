@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "9a5e2618-1c9a-4ddc-a6e6-6965f9b56284",
+  "source": "rotowire",
+  "fetched_at": "2026-10-11T12:26:12.425874+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl641832",
+      "url": "https://www.rotowire.com//football/player/carnell-tate-19268",
+      "permalink": "",
+      "title": "Carnell Tate: Expected to play Sunday",
+      "body_text": "Tate (back), who is listed as questionable for Sunday's game against the Texans, is \"definitely trending\" toward playing, a source tells Jeremy Fowler of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T05:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carnell Tate",
+        "Sunday Tate",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "nfl641829",
+      "url": "https://www.rotowire.com//football/player/jordan-addison-16895",
+      "permalink": "",
+      "title": "Jordan Addison: Pregame workout to determine availability",
+      "body_text": "Addison (hamstring) will work out pregame before the Vikings make a call on his availability for Sunday's contest in New Orleans, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T04:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Addison",
+        "New Orleans",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl641828",
+      "url": "https://www.rotowire.com//football/player/justin-jefferson-14509",
+      "permalink": "",
+      "title": "Justin Jefferson: Listed questionable for Sunday",
+      "body_text": "Jefferson (ankle) will go through a pregame workout before the Vikings make a decision on his availability for Sunday's contest at New Orleans, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T04:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Sunday Jefferson",
+        "New Orleans",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl641827",
+      "url": "https://www.rotowire.com//football/player/zay-flowers-16919",
+      "permalink": "",
+      "title": "Zay Flowers: Expected to play Sunday night",
+      "body_text": "Flowers (foot) is slated to play in Sunday night's game in Atlanta, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T04:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl641826",
+      "url": "https://www.rotowire.com//football/player/keenan-allen-8627",
+      "permalink": "",
+      "title": "Keenan Allen: Expected to suit up Sunday",
+      "body_text": "Allen (groin) is expected to play Sunday against the Steelers, Jeremy Fowler of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T04:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keenan Allen",
+        "Sunday Allen",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0030279"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

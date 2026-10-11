@@ -1,0 +1,495 @@
+{
+  "fetch_run_id": "5b18ad49-064e-41c2-b531-6a324b8ee842",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-11T12:25:59.574584+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiah-smith-is-the-betting-favorite-to-be-the-first-overall-pick-in-the-2027-nfl-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiah-smith-is-the-betting-favorite-to-be-the-first-overall-pick-in-the-2027-nfl-draft",
+      "title": "Jeremiah Smith is the betting favorite to be the first overall pick in the 2027 NFL draft",
+      "body_text": "The Ohio State wide receiver has moved ahead of Arch Manning and is now favored to go first overall.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-11T08:47:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiah Smith",
+        "The Ohio",
+        "Arch Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-is-having-a-rare-debut-run-with-the-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-is-having-a-rare-debut-run-with-the-raiders",
+      "title": "Kirk Cousins is having a rare debut run with the Raiders",
+      "body_text": "Now with his fourth NFL team, quarterback Kirk Cousins has made a significant initial impact in Las Vegas.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T05:02:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Raiders Now",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-takes-12-3-record-vs-bears-into-sundays-showdown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-takes-12-3-record-vs-bears-into-sundays-showdown",
+      "title": "Matt LaFleur takes 12-3 record vs. Bears into Sunday's showdown",
+      "body_text": "Bears coach Ben Johnson has made it clear that he doesn't like the Packers.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T04:47:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-continues-to-perform-among-the-nfls-elite-quarterbacks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trevor-lawrence-continues-to-perform-among-the-nfls-elite-quarterbacks",
+      "title": "Trevor Lawrence continues to perform among the NFL's elite quarterbacks",
+      "body_text": "The hiring of Liam Coen as head coach of the Jaguars has been very good for quarterback Trevor Lawrence.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T04:34:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevor Lawrence",
+        "Liam Coen"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-jr-wasnt-present-for-cardinals-team-meetings-on-saturday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-jr-wasnt-present-for-cardinals-team-meetings-on-saturday-night",
+      "title": "Marvin Harrison Jr. wasn't present for Cardinals team meetings on Saturday night",
+      "body_text": "It's not clear where receiver Marvin Harrison Jr. will be playing as of next week.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T04:05:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-arent-likely-to-return-de-myles-garrett-to-practice-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-arent-likely-to-return-de-myles-garrett-to-practice-this-week",
+      "title": "Rams aren't likely to return Myles Garrett to practice this week",
+      "body_text": "The update that Rams coach Sean McVay promised on Monday to deliver on Thursday regarding defensive end Myles Garrett arrived on Saturday.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T03:05:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-honor-mike-ditka-with-a-moment-of-silence-before-sundays-game-vs-bears",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-will-honor-mike-ditka-with-a-moment-of-silence-before-sundays-game-vs-bears",
+      "title": "Packers will honor Mike Ditka with a moment of silence before Sunday's game vs. Bears",
+      "body_text": "The Packers will host the Bears on Sunday, two days after the passing of legendary coach Mike Ditka.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T02:47:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Ditka",
+        "Bears The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-quinn-meinerz-for-posting-notice-of-drug-test-after-flattening-aaron-donald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-quinn-meinerz-for-posting-notice-of-drug-test-after-flattening-aaron-donald",
+      "title": "NFL fines Quinn Meinerz for posting notice of drug test after flattening Aaron Donald",
+      "body_text": "During the Week 3 win over the Rams, Broncos offensive lineman Quinn Meinerz manhandled L.A. defensive tackle Aaron Donald.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T01:23:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quinn Meinerz",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0037001"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sundays-games-could-become-a-significant-factor-in-the-marvin-harrison-jr-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sundays-games-could-become-a-significant-factor-in-the-marvin-harrison-jr-trade",
+      "title": "Sunday's games could become a significant factor in the Marvin Harrison Jr. trade",
+      "body_text": "One injury could alter everything, as to Harrison's eventual destination.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T00:58:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-franklin-myers-was-fined-only-12-537-for-kneeing-derrick-henry-in-the-stomach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-franklin-myers-was-fined-only-12-537-for-kneeing-derrick-henry-in-the-stomach",
+      "title": "John Franklin-Myers was fined only $12,537 for kneeing Derrick Henry in the stomach",
+      "body_text": "The weekly list of NFL-imposed fines for Week 4 includes Titans defensive lineman John Franklin-Myers.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-11T00:46:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Franklin",
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0034705",
+        "00-0032764"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/legendary-player-coach-mike-ditka-dies-at-86",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/legendary-player-coach-mike-ditka-dies-at-86",
+      "title": "Legendary player, coach Mike Ditka dies at 86",
+      "body_text": "Ditka was a larger-than-life figure, in Chicago and beyond.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T15:58:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Ditka"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-mike-ditka-is-an-icon-whose-impact-will-last-for-generations",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-mike-ditka-is-an-icon-whose-impact-will-last-for-generations",
+      "title": "Bears: Mike Ditka is an \"icon\" whose impact will last \"for generations\"",
+      "body_text": "The man who led the 1985 Bears to a Super Bowl win died on Friday.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T16:52:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Ditka",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyreek-hills-current-civil-trial-complicates-his-effort-to-return-to-nfl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyreek-hills-current-civil-trial-complicates-his-effort-to-return-to-nfl",
+      "title": "Tyreek Hill's current civil trial complicates his effort to return to NFL",
+      "body_text": "On Thursday, Hill admitted to shoving his ex-wife into a wall.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-09T14:22:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyreek Hill",
+        "On Thursday"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-bears-intend-to-build-a-dome-mike-ditka-would-not-approve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-bears-intend-to-build-a-dome-mike-ditka-would-not-approve",
+      "title": "As Bears intend to build a dome, Mike Ditka would not approve",
+      "body_text": "The passing of larger-than-life NFL legend Mike Ditka has sparked a flood of great stories and clips from Ditka's time in football.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-10T14:38:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "As Bears",
+        "Mike Ditka"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-will-be-trading-receiver-marvin-harrison-jr",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-will-be-trading-receiver-marvin-harrison-jr",
+      "title": "Report: Cardinals will be trading receiver Marvin Harrison Jr.",
+      "body_text": "The team hasn't been named; the thinking is it's the Texans.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-10T15:16:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-are-the-likely-destination-for-marvin-harrison-jr",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-are-the-likely-destination-for-marvin-harrison-jr",
+      "title": "Texans are the likely destination for Marvin Harrison Jr.",
+      "body_text": "Negotiations have focused on second-round pick in 2028 vs. second-round pick in 2027.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-10T15:36:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-mannings-two-fourth-quarter-interceptions-doom-texas-in-loss-to-oklahoma",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-mannings-two-fourth-quarter-interceptions-doom-texas-in-loss-to-oklahoma",
+      "title": "Arch Manning's two fourth-quarter interceptions doom Texas in loss to Oklahoma",
+      "body_text": "Texas is No. 1 no more, after a two-interception fourth quarter from quarterback Arch Manning handed Oklahoma a come-from-behind victory in the Red River Rivalry.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-10T23:38:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arch Manning",
+        "Oklahoma Texas",
+        "Red River"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-issues-season-high-10-fines-for-player-safety-fouls-in-week-4",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-issues-season-high-10-fines-for-player-safety-fouls-in-week-4",
+      "title": "NFL issues season-high 10 fines for player safety fouls in Week 4",
+      "body_text": "The NFL's announced Week 4 fines featured a season-high 10 infractions for player safety fouls that qualify toward a possible suspension.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-10T21:57:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cut-matthew-judon-from-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cut-matthew-judon-from-practice-squad",
+      "title": "49ers cut Matthew Judon from practice squad",
+      "body_text": "The 49ers released defensive end Matthew Judon from the practice squad on Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-10T21:39:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Judon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-three-browns-players-including-deshaun-watson-for-smoking-celebration",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-three-browns-players-including-deshaun-watson-for-smoking-celebration",
+      "title": "NFL fines three Browns players, including Deshaun Watson, for smoking celebration",
+      "body_text": "The joint statement from the NFL and NFL Players Association regarding impermissible celebrations makes it clear that players will still be fined for, well, joints.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-10T21:16:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Players Association"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-wr-mack-hollins-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-put-wr-mack-hollins-on-injured-reserve",
+      "title": "Patriots put WR Mack Hollins on injured reserve",
+      "body_text": "The Patriots could get A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-10T21:01:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mack Hollins",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0033555"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-activate-kenneth-grant-from-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-activate-kenneth-grant-from-injured-reserve",
+      "title": "Dolphins activate Kenneth Grant from injured reserve",
+      "body_text": "Dolphins defensive lineman Kenneth Grant is set to make his 2026 debut.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-10T20:55:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Grant"
+      ],
+      "resolved_player_ids": [
+        "00-0040127"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-activate-s-m-j-stewart-dt-kayden-mcdonald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-activate-s-m-j-stewart-dt-kayden-mcdonald",
+      "title": "Texans activate S M.J. Stewart, DT Kayden McDonald",
+      "body_text": "The Texans designated three players for return this week and two of them will be joining the active roster for Sunday's game against the Titans.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-10T20:39:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-dl-mykel-williams-who-will-make-his-2026-debut-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-dl-mykel-williams-who-will-make-his-2026-debut-sunday",
+      "title": "49ers activate DL Mykel Williams, who will make his 2026 debut Sunday",
+      "body_text": "The 49ers activated defensive lineman Mykel Williams from the reserve/physically unable to perform list, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-10T20:34:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mykel Williams",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040660"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-cb-trevon-diggs-to-their-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-cb-trevon-diggs-to-their-active-roster",
+      "title": "Seahawks sign CB Trevon Diggs to their active roster",
+      "body_text": "Cornerback Trevon Diggs made his Seahawks debut last Sunday and he moved up to the active roster on a lasting basis Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-10T20:32:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevon Diggs",
+        "Cornerback Trevon"
+      ],
+      "resolved_player_ids": [
+        "00-0036361"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-put-trey-lance-on-injured-reserve-make-several-other-roster-moves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-put-trey-lance-on-injured-reserve-make-several-other-roster-moves",
+      "title": "Chargers put Trey Lance on injured reserve, make several other roster moves",
+      "body_text": "The Chargers announced a flurry of roster moves ahead of Sunday's game against the Broncos, including quarterback Trey Lance's move to injured reserve.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-10T20:24:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trey Lance",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0037012"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-rg-isaiah-adams-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-rg-isaiah-adams-on-ir",
+      "title": "Cardinals place RG Isaiah Adams on IR",
+      "body_text": "Cardinals left tackle Paris Johnson is out for the season with a torn left biceps.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-10T20:22:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Isaiah Adams",
+        "Paris Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0039808",
+        "00-0038540"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-questionable-ed-oliver-out-for-bills-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-questionable-ed-oliver-out-for-bills-on-monday-night",
+      "title": "DJ Moore questionable, Ed Oliver out for Bills on Monday night",
+      "body_text": "Bills wide receiver DJ Moore was at Saturday's practice in a red non-contact jersey and it remains to be seen if he'll be in the lineup against the Rams on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-10T20:17:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ed Oliver"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-place-lb-yasir-abdullah-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-place-lb-yasir-abdullah-on-ir",
+      "title": "Falcons place LB Yasir Abdullah on IR",
+      "body_text": "The Falcons placed linebacker Yasir Abdullah on injured reserve with a hamstring injury, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-10T20:14:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Yasir Abdullah",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0038580"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-wr-michael-pittman-headed-to-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-wr-michael-pittman-headed-to-ir",
+      "title": "Steelers WR Michael Pittman headed to IR",
+      "body_text": "The Steelers are placing wide receiver Michael Pittman Jr. on injured reserve, Jeremy Fowler of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-10T19:41:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Pittman",
+        "The Steelers",
+        "Michael Pittman Jr",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0036252"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
