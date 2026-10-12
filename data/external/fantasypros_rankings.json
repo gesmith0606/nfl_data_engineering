@@ -1,6 +1,6 @@
 {
   "source": "fantasypros",
-  "fetched_at": "2026-10-10T12:25:23.372540+00:00",
+  "fetched_at": "2026-10-12T12:38:19.669310+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -488,7 +488,7 @@
     {
       "player_name": "Marvin Harrison Jr.",
       "position": "WR",
-      "team": "ARI",
+      "team": "HOU",
       "external_rank": 70,
       "rank": 70
     },

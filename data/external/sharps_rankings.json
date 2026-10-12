@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-10-10T12:25:31.752945+00:00",
+  "fetched_at": "2026-10-12T12:38:27.132025+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -516,7 +516,7 @@
     {
       "player_name": "Marvin Harrison Jr.",
       "position": "WR",
-      "team": "ARI",
+      "team": "HOU",
       "external_rank": 74,
       "rank": 74
     },

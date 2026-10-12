@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "408982b1-28d2-4753-8655-2d44b767fa7b",
+  "source": "rotowire",
+  "fetched_at": "2026-10-12T12:38:06.891090+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642149",
+      "url": "https://www.rotowire.com//football/player/kyle-pitts-15265",
+      "permalink": "",
+      "title": "Kyle Pitts: Scores first TD of season",
+      "body_text": "Pitts caught five of six targets for 42 yards and a touchdown in Sunday's 30-23 overtime loss to the Ravens. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T09:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Pitts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "nfl642148",
+      "url": "https://www.rotowire.com//football/player/mark-andrews-12559",
+      "permalink": "",
+      "title": "Mark Andrews: Costly fumble in OT win",
+      "body_text": "Andrews caught four of six targets for 28 yards and lost a fumble in Sunday's 30-23 overtime win over the Falcons. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T09:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Andrews"
+      ],
+      "resolved_player_ids": [
+        "00-0034753"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl642147",
+      "url": "https://www.rotowire.com//football/player/tua-tagovailoa-14465",
+      "permalink": "",
+      "title": "Tua Tagovailoa: Picked off in OT after Penix injury",
+      "body_text": "Tagovailoa completed two of three passes for 34 yards and an interception in relief of Michael Penix (ribs) in Sunday's 30-23 overtime loss to the Ravens. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T09:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039917"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "nfl642145",
+      "url": "https://www.rotowire.com//football/player/tyler-huntley-14563",
+      "permalink": "",
+      "title": "Tyler Huntley: Three total TDs in comeback OT win",
+      "body_text": "Huntley completed 24 of 32 passes for 201 yards and two touchdowns while rushing six times for 20 yards and a touchdown in Sunday's 30-23 overtime win over the Falcons. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T09:29:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0035993"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "nfl642143",
+      "url": "https://www.rotowire.com//football/player/zay-flowers-16919",
+      "permalink": "",
+      "title": "Zay Flowers: Eight catches from Huntley in OT win",
+      "body_text": "Flowers (foot) caught eight of nine targets for 53 yards and added a 13-yard rush in Sunday's 30-23 overtime win over the Falcons. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-11T09:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "ATL"
+    }
+  ]
+}

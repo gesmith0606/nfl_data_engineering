@@ -1,0 +1,502 @@
+{
+  "fetch_run_id": "c4a5bbe4-6ba1-4b21-b40a-dd08062af171",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-12T12:37:53.538154+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-are-bringing-a-healthy-long-snapper-to-london-for-week-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-are-bringing-a-healthy-long-snapper-to-london-for-week-6",
+      "title": "Jaguars are bringing a healthy long snapper to London for Week 6",
+      "body_text": "Thanks in part to a helping hand from Eagles head coach Nick Sirianni, the Jaguars survived the loss of long snapper Ross Matiscik in Sunday's win but they aren't going to risk having to scramble again in Week 6.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T12:27:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Ross Matiscik"
+      ],
+      "resolved_player_ids": [
+        "00-0035827"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-on-mike-evans-unreal-how-he-shows-up-every-week-and-dominates",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-on-mike-evans-unreal-how-he-shows-up-every-week-and-dominates",
+      "title": "Fred Warner on Mike Evans: Unreal how he shows up every week and dominates",
+      "body_text": "Wide receiver Mike Evans built a reputation for clutch catches and consistent production over 12 years with the Buccaneers and he didn't leave any of those skills behind when he moved on to the 49ers as a free agent this offseason.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T12:08:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fred Warner",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0034815",
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-wards-our-starting-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-cam-wards-our-starting-quarterback",
+      "title": "Robert Saleh: Cam Ward's our starting quarterback",
+      "body_text": "The Titans drove for a field goal to open Sunday's home game against the Texans, but any hope that was a sign of good things to come came crashing down over the rest of the afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T11:53:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Cam Ward",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-has-more-rushing-yards-in-4-games-than-the-seahawks-have-in-5",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-has-more-rushing-yards-in-4-games-than-the-seahawks-have-in-5",
+      "title": "Kenneth Walker has more rushing yards in 4 games than the Seahawks have in 5",
+      "body_text": "The Chiefs had their bye this week, meaning they've only played four games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-12T11:16:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-i-was-thinking-too-much-on-late-drop",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-i-was-thinking-too-much-on-late-drop",
+      "title": "Jaxon Smith-Njigba: I was thinking too much on late drop",
+      "body_text": "Wide receiver Jaxon Smith-Njigba has come through for the Seahawks many times over the past couple of seasons, but he wasn't able to do so late in Sunday's 32-29 loss to the 49ers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T11:03:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-i-try-to-fight-for-extra-yards-it-bit-me-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-i-try-to-fight-for-extra-yards-it-bit-me-on-sunday",
+      "title": "Cam Skattebo: I try to fight for extra yards, it bit me on Sunday",
+      "body_text": "The Giants didn't win on Sunday, but running back Cam Skattebo still let out \"a sigh of relief\" when the clock ran out in overtime against the Commanders in Washington.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T10:50:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-good-to-gain-some-regular-season-experience",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-good-to-gain-some-regular-season-experience",
+      "title": "Fernando Mendoza: Good to gain some regular season experience",
+      "body_text": "The first overall pick of the 2026 draft made his regular season debut on Sunday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T10:30:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0041562"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-admits-ref-blew-call-on-oregons-failed-two-point-conversion-in-17-15-loss-to-ucla",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/big-ten-admits-ref-blew-call-on-oregons-failed-two-point-conversion-in-17-15-loss-to-ucla",
+      "title": "Big Ten admits ref blew call on Oregon's failed two-point conversion in 17-15 loss to UCLA",
+      "body_text": "In Saturday's 17-15 loss to UCLA, Oregon was stopped short on a game-tying two-point conversion attempt with 2:16 left.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-12T10:27:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Big Ten",
+        "In Saturday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-ticket-glitch-keeps-customers-from-watching-all-of-certain-late-afternoon-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-ticket-glitch-keeps-customers-from-watching-all-of-certain-late-afternoon-games",
+      "title": "Sunday Ticket glitch keeps customers from watching all of certain late-afternoon games",
+      "body_text": "It should be an easy fix to ensure that those plunked down $400 will get what they paid for.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T10:24:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-if-we-got-ball-first-in-ot-i-could-have-stayed-in",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-if-we-got-ball-first-in-ot-i-could-have-stayed-in",
+      "title": "Michael Penix: If we got ball first in OT, I could have stayed in",
+      "body_text": "The final play of Sunday night's game saw Falcons backup quarterback Tua Tagovailoa throw an interception to seal the Ravens' 30-23 overtime win while starter Michael Penix watched from the sideline with a rib injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T10:12:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Penix",
+        "Tua Tagovailoa"
+      ],
+      "resolved_player_ids": [
+        "00-0039917",
+        "00-0036212"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-deal-was-most-likely-done-before-sundays-games-started",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-deal-was-most-likely-done-before-sundays-games-started",
+      "title": "Marvin Harrison deal was most likely done before Sunday's games started",
+      "body_text": "On Sunday, the only No. 18 in Arizona was in the stands; receiver Marvin Harrison didn't play — and presumably wasn't even in the building — one day after the mysterious half-report emerged from Adam Schefter and Ian Rapoport of ESPNFL that Harrison would be traded to a team to be named later.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T09:44:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marvin Harrison",
+        "On Sunday",
+        "Adam Schefter",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-5-overtime-games-3-teams-have-chosen-to-kick-2-have-chosen-to-receive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-5-overtime-games-3-teams-have-chosen-to-kick-2-have-chosen-to-receive",
+      "title": "In 5 overtime games, 3 teams have chosen to kick, 2 have chosen to receive",
+      "body_text": "There's no consensus among NFL coaches about whether it's better to kick or receive at the start of overtime.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-12T09:11:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-former-cardinals-employees-sue-team-michael-bidwill-for-racial-discrimination",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/two-former-cardinals-employees-sue-team-michael-bidwill-for-racial-discrimination",
+      "title": "Two former Cardinals employees sue team, Michael Bidwill for racial discrimination",
+      "body_text": "On the same day the Cardinals set the franchise record for consecutive home losses at nine, word has emerged of another lawsuit against the team and owner Michael Bidwill.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T03:38:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Bidwill"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-on-michael-penixs-rib-injury-well-know-more-as-we-get-imaging",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-stefanski-on-michael-penixs-rib-injury-well-know-more-as-we-get-imaging",
+      "title": "Kevin Stefanski on Michael Penix's rib injury: We'll know more as we get imaging",
+      "body_text": "Falcons head coach Kevin Stefanski did not have much of an update on Michael Penix Jr. immediately after Sunday's loss to the Ravens after the quarterback suffered a rib injury late in the fourth quarter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-12T04:24:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kevin Stefanski",
+        "Michael Penix",
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-ravens-come-back-to-beat-falcons-in-ot-30-23",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-ravens-come-back-to-beat-falcons-in-ot-30-23",
+      "title": "Sunday Night Football: Ravens come back to beat Falcons in OT, 30-23",
+      "body_text": "Derrick Henry had 120 yards from scrimmage and a TD in the victory. Michael Penix Jr. had to exit late with a rib injury.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-12T04:04:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Derrick Henry",
+        "Michael Penix Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0032764",
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-replaces-injured-michael-penix-for-overtime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tua-tagovailoa-replaces-injured-michael-penix-for-overtime",
+      "title": "Tua Tagovailoa replaces injured Michael Penix for overtime",
+      "body_text": "Penix has a rib injury.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-12T03:46:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tua Tagovailoa",
+        "Michael Penix"
+      ],
+      "resolved_player_ids": [
+        "00-0036212",
+        "00-0039917"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-ot-meltdown-puts-plenty-of-players-in-an-awkward-spot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-ot-meltdown-puts-plenty-of-players-in-an-awkward-spot",
+      "title": "Commanders' OT meltdown puts plenty of players in an awkward spot",
+      "body_text": "The aftermath of Sunday's overtime disaster from the Commanders will resonate for the remainder of the 2026 season, and perhaps beyond.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T03:09:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/league-office-directed-the-ejection-of-dre-greenlaw",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/league-office-directed-the-ejection-of-dre-greenlaw",
+      "title": "League office directed the ejection of Dre Greenlaw",
+      "body_text": "Sunday's ejection of 49ers linebacker Dre Greenlaw came not at the behest of the officials on the field, but at the direction of the league office.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T02:25:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dre Greenlaw"
+      ],
+      "resolved_player_ids": [
+        "00-0034982"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-18-yard-td-pulls-ravens-closer-falcons-lead-17-15",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-18-yard-td-pulls-ravens-closer-falcons-lead-17-15",
+      "title": "Derrick Henry 18-yard TD pulls Ravens closer, Falcons lead 17-15",
+      "body_text": "Derrick Henry has found the end zone.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-12T02:24:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-is-looking-like-kyler-murray-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-is-looking-like-kyler-murray-again",
+      "title": "Kyler Murray is looking like Kyler Murray again",
+      "body_text": "Through a brief appearance in Week 1 and a pair of starts in Week 3 and Week 4, Vikings quarterback Kyler Murray didn't seem much like Kyler Murray.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T02:13:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-falcons-up-14-9-over-ravens-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-falcons-up-14-9-over-ravens-at-halftime",
+      "title": "Sunday Night Football: Falcons up 14-9 over Ravens at halftime",
+      "body_text": "Kyle Pitts caught his first touchdown of the season in the second quarter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-12T01:52:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Kyle Pitts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javon-hargrave-is-believed-to-have-suffered-a-torn-achilles-tendon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javon-hargrave-is-believed-to-have-suffered-a-torn-achilles-tendon",
+      "title": "Javon Hargrave is believed to have suffered a torn Achilles tendon",
+      "body_text": "Another week, another possible torn Achilles tendon for a member of the Green Bay defense.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T01:21:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Javon Hargrave",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0033109"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-will-campbell-believed-to-have-knee-sprain-is-expected-to-miss-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-will-campbell-believed-to-have-knee-sprain-is-expected-to-miss-time",
+      "title": "Report: Will Campbell believed to have knee sprain, is expected to miss time",
+      "body_text": "Patriots left tackle Will Campbell is dealing with another knee injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T01:10:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0040699"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-had-one-question-for-trevon-diggs-who-are-you",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-had-one-question-for-trevon-diggs-who-are-you",
+      "title": "Mike Evans had one question for Trevon Diggs: Who are you?",
+      "body_text": "49ers wide receiver Mike Evans terrorized the Seahawks with seven catches for 113 yards and a touchdown.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-12T01:07:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans",
+        "Trevon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031408",
+        "00-0036361"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dre-greenlaw-could-be-facing-another-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dre-greenlaw-could-be-facing-another-suspension",
+      "title": "Dre Greenlaw could be facing another suspension",
+      "body_text": "NFL will review Sunday's conduct that resulted in an ejection for further discipline.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T01:00:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dre Greenlaw"
+      ],
+      "resolved_player_ids": [
+        "00-0034982"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-marvin-harrison-jr-situation-wasnt-a-distraction-not-why-we-didnt-play-well",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-marvin-harrison-jr-situation-wasnt-a-distraction-not-why-we-didnt-play-well",
+      "title": "Mike LaFleur: Marvin Harrison Jr. situation wasn't a distraction, not why we didn't play well",
+      "body_text": "Word that the Cardinals were planning to trade wide receiver Marvin Harrison Jr. broke on Saturday morning and word that they had agreed to a deal with the Texans came just as the Cardinals were starting Sunday's game against the Lions.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T00:58:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jessie-bates-scoop-and-score-gives-falcons-7-3-lead-over-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jessie-bates-scoop-and-score-gives-falcons-7-3-lead-over-ravens",
+      "title": "Jessie Bates scoop-and-score gives Falcons 7-3 lead over Ravens",
+      "body_text": "The Ravens looked like they were going to extend their early lead over the Falcons with their second drive of the first quarter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-12T00:47:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jessie Bates",
+        "Ravens The"
+      ],
+      "resolved_player_ids": [
+        "00-0034675"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lb-zaire-franklin-luther-burden-said-hed-make-us-quit-but-he-quit-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lb-zaire-franklin-luther-burden-said-hed-make-us-quit-but-he-quit-sunday",
+      "title": "Packers LB Zaire Franklin: Luther Burden said he'd make us quit, but he quit Sunday",
+      "body_text": "The Packers blew leads late in losses to the Bears in both the regular season and playoffs last season, which would have provided Green Bay with plenty of motivation for Sunday's game at Lambeau Field all by itself.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T00:40:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zaire Franklin",
+        "Luther Burden",
+        "Sunday The",
+        "Green Bay",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [
+        "00-0034431",
+        "00-0040735"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-moves-closer-to-a-return-and-the-bears-need-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-moves-closer-to-a-return-and-the-bears-need-him",
+      "title": "Caleb Williams moves closer to a return — and the Bears need him",
+      "body_text": "The Bears had won two games in a row without quarterback Caleb Williams, who suffered a hamstring injury in a Week 2 loss to the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-12T00:37:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-we-wanted-as-many-yards-as-we-could-get-before-field-goal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-we-wanted-as-many-yards-as-we-could-get-before-field-goal",
+      "title": "John Harbaugh: We wanted as many yards as we could get before field goal",
+      "body_text": "The Commanders' mismanagement of the clock at the end of overtime in Sunday's 27-27 tie with the Giants obscured another coaching decision that backfired earlier in the period.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T00:22:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    }
+  ]
+}
