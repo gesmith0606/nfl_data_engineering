@@ -1,0 +1,252 @@
+{
+  "fetch_run_id": "2744ea36-0baa-40f6-8747-08527070779c",
+  "source": "sleeper",
+  "fetched_at": "2026-10-13T12:29:12.221821+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 22,
+  "items": [
+    {
+      "sleeper_player_id": "8129",
+      "resolved_player_id": "00-0037258",
+      "player_name": "Dameon Pierce",
+      "team": "PHI",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-12T17:15:02.628000+00:00",
+      "trending_count": 808648,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11581",
+      "resolved_player_id": "00-0039811",
+      "player_name": "MarShawn Lloyd",
+      "team": "GB",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-12T16:10:01.990000+00:00",
+      "trending_count": 804573,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9480",
+      "resolved_player_id": "00-0038935",
+      "player_name": "Brenton Strange",
+      "team": "JAX",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-10-12T15:20:28.050000+00:00",
+      "trending_count": 463995,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13150",
+      "resolved_player_id": "00-0040024",
+      "player_name": "Darius Cooper",
+      "team": "PHI",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-13T01:20:07.658000+00:00",
+      "trending_count": 414232,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "3271",
+      "resolved_player_id": "00-0033110",
+      "player_name": "Tyler Higbee",
+      "team": "LAR",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-10-13T10:10:09.742000+00:00",
+      "trending_count": 293247,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11647",
+      "resolved_player_id": "00-0039391",
+      "player_name": "Kimani Vidal",
+      "team": "LAC",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-12T12:55:28.689000+00:00",
+      "trending_count": 219560,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12711",
+      "resolved_player_id": "00-0040074",
+      "player_name": "Tyler Loop",
+      "team": "BAL",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-10-12T17:25:03.290000+00:00",
+      "trending_count": 189030,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "4454",
+      "resolved_player_id": "00-0033307",
+      "player_name": "Kendrick Bourne",
+      "team": "ARI",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-12T20:25:03.343000+00:00",
+      "trending_count": 142596,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11637",
+      "resolved_player_id": "00-0039901",
+      "player_name": "Keon Coleman",
+      "team": "BUF",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-13T09:40:09.435000+00:00",
+      "trending_count": 123363,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "650",
+      "resolved_player_id": "00-0025565",
+      "player_name": "Nick Folk",
+      "team": "ATL",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-10-12T17:25:03.291000+00:00",
+      "trending_count": 108660,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12542",
+      "resolved_player_id": "00-0040563",
+      "player_name": "Efton Chism",
+      "team": "NE",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-12T04:40:23.651000+00:00",
+      "trending_count": 108620,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "96",
+      "resolved_player_id": "00-0023459",
+      "player_name": "Aaron Rodgers",
+      "team": "PIT",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-13T02:50:07.202000+00:00",
+      "trending_count": 108176,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8134",
+      "resolved_player_id": "00-0037261",
+      "player_name": "Khalil Shakir",
+      "team": "BUF",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-13T09:40:09.424000+00:00",
+      "trending_count": 102294,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13274",
+      "resolved_player_id": null,
+      "player_name": "Germie Bernard",
+      "team": "PIT",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-12T21:00:04.015000+00:00",
+      "trending_count": 93525,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12718",
+      "resolved_player_id": "00-0040590",
+      "player_name": "Konata Mumpfield",
+      "team": "LAR",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-09T03:50:49.701000+00:00",
+      "trending_count": 85509,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "4147",
+      "resolved_player_id": "00-0033526",
+      "player_name": "Samaje Perine",
+      "team": "CIN",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-12T21:00:04.001000+00:00",
+      "trending_count": 82448,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11566",
+      "resolved_player_id": "00-0039910",
+      "player_name": "Jayden Daniels",
+      "team": "WAS",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-12T01:45:23.581000+00:00",
+      "trending_count": 81192,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12474",
+      "resolved_player_id": "00-0040583",
+      "player_name": "Woody Marks",
+      "team": "HOU",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-12T16:35:03.604000+00:00",
+      "trending_count": 79558,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11586",
+      "resolved_player_id": "00-0039738",
+      "player_name": "Blake Corum",
+      "team": "LAR",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-13T10:00:09.673000+00:00",
+      "trending_count": 77128,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9758",
+      "resolved_player_id": "00-0039163",
+      "player_name": "C.J. Stroud",
+      "team": "HOU",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-13T01:25:05.134000+00:00",
+      "trending_count": 73717,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12472",
+      "resolved_player_id": "00-0040466",
+      "player_name": "Raheim Sanders",
+      "team": "CLE",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-11T20:30:19.758000+00:00",
+      "trending_count": 69176,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11624",
+      "resolved_player_id": "00-0039894",
+      "player_name": "Xavier Worthy",
+      "team": "KC",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-12T19:50:03.184000+00:00",
+      "trending_count": 63927,
+      "source": "sleeper"
+    }
+  ]
+}

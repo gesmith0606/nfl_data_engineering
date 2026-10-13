@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "78e83f09-22a1-42d3-9c33-b1128c9bcdaa",
+  "source": "pft",
+  "fetched_at": "2026-10-13T12:29:20.363470+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jaguars-ot-anton-harrison-to-have-knee-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jaguars-ot-anton-harrison-to-have-knee-surgery",
+      "permalink": "",
+      "title": "Report: Jaguars OT Anton Harrison to have knee surgery",
+      "body_text": "The Jaguars won't have left tackle Anton Harrison in the lineup against the Texans in Week 6 and it's unclear when he will be back in action.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T12:24:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Anton Harrison",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-we-have-to-look-in-the-mirror-and-say-what-our-identity-will-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-we-have-to-look-in-the-mirror-and-say-what-our-identity-will-be",
+      "permalink": "",
+      "title": "Puka Nacua: We have to look in the mirror and say what our identity will be",
+      "body_text": "The Rams produced a lot of eye-popping numbers on Monday night, including a career-high 17 catches for wide receiver Puka Nacua, but the most important ones weren't positive ones for the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T12:14:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-have-consistently-under-invested-in-special-teams-under-sean-mcvay-and-les-snead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-have-consistently-under-invested-in-special-teams-under-sean-mcvay-and-les-snead",
+      "permalink": "",
+      "title": "Rams have consistently under-invested in special teams under Sean McVay and Les Snead",
+      "body_text": "Another bad special teams performance doomed the Rams on Monday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-13T12:06:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Les Snead"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-trusting-our-guys-to-be-pros-while-staying-west-on-a-short-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-trusting-our-guys-to-be-pros-while-staying-west-on-a-short-week",
+      "permalink": "",
+      "title": "Josh Allen \"trusting our guys to be pros\" while staying West on a short week",
+      "body_text": "The Bills are not traveling home after beating the Rams on Monday night, and that means they need to be totally focused on the job at hand, according to quarterback Josh Allen.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-13T11:28:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-alaric-jackson-punched-bills-bradley-chubb-after-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-alaric-jackson-punched-bills-bradley-chubb-after-game",
+      "permalink": "",
+      "title": "Rams' Alaric Jackson punched Bills' Bradley Chubb after game",
+      "body_text": "Jackson will be facing NFL discipline for approaching Chubb after the game and throwing a punch.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-13T08:56:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alaric Jackson",
+        "Bradley Chubb"
+      ],
+      "resolved_player_ids": [
+        "00-0036603",
+        "00-0034832"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-210-yards-passing-and-121-rushing-josh-allen-had-his-fourth-career-double-triple",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-210-yards-passing-and-121-rushing-josh-allen-had-his-fourth-career-double-triple",
+      "permalink": "",
+      "title": "With 210 yards passing and 121 rushing, Josh Allen had his fourth career double-triple",
+      "body_text": "Allen reached triple-digit yardage in two statistical categories for the fourth time.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-13T10:27:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-field-goal-unit-cost-us-the-game-tonight",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-field-goal-unit-cost-us-the-game-tonight",
+      "permalink": "",
+      "title": "Sean McVay: Field goal unit \"cost us the game tonight\"",
+      "body_text": "The Rams fell to 2-3 on Monday night, due in part to a couple of missed field goals from kicker Harrison Mevis — including a blocked field goal in overtime that, if good, would have won the game.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T04:25:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams",
+        "Harrison Mevis"
+      ],
+      "resolved_player_ids": [
+        "00-0039498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allens-100th-win-is-also-his-first-ever-in-overtime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allens-100th-win-is-also-his-first-ever-in-overtime",
+      "permalink": "",
+      "title": "Josh Allen's 100th win is also his first ever in overtime",
+      "body_text": "On Monday night in L.A., Bills quarterback Josh Allen got his 100th career win.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T04:02:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "On Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-beat-rams-37-34-in-overtime-in-instant-classic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-beat-rams-37-34-in-overtime-in-instant-classic",
+      "permalink": "",
+      "title": "Monday Night Football: Bills beat Rams 37-34 in overtime in instant classic",
+      "body_text": "Bills kicker Tyler Bass made a 45-yard field goal with 1:55 remaining in OT for the win.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T03:58:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Tyler Bass"
+      ],
+      "resolved_player_ids": [
+        "00-0036162"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-coach-jeff-hafley-isnt-considering-benching-qb-malik-willis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-coach-jeff-hafley-isnt-considering-benching-qb-malik-willis",
+      "permalink": "",
+      "title": "Dolphins coach Jeff Hafley isn't considering benching QB Malik Willis",
+      "body_text": "The 0-5 Dolphins enter their bye week searching for answers.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T03:11:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeff Hafley",
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-second-td-ties-it-up-27-27",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-second-td-ties-it-up-27-27",
+      "permalink": "",
+      "title": "Davante Adams' second TD ties it up 27-27",
+      "body_text": "Rams wide receiver Davante Adams loves Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T03:03:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-scores-eighth-rushing-td-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-scores-eighth-rushing-td-of-the-season",
+      "permalink": "",
+      "title": "Josh Allen scores eighth rushing TD of the season",
+      "body_text": "Josh Allen has his eighth rushing touchdown in five games, and the Bills have the lead again.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T02:53:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacuas-touchdown-gives-rams-a-20-19-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacuas-touchdown-gives-rams-a-20-19-lead",
+      "permalink": "",
+      "title": "Puka Nacua's touchdown gives Rams a 20-19 lead",
+      "body_text": "After a defensive battle in the first half, Josh Allen and Matthew Stafford have heated up.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T02:47:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Josh Allen",
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0039075",
+        "00-0034857",
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teams-should-record-and-save-all-headset-communications",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/teams-should-record-and-save-all-headset-communications",
+      "permalink": "",
+      "title": "Teams should record and save all headset communications",
+      "body_text": "When a plane crashes, the \"black box\" preserves all evidence regarding the cockpit conversations.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T02:43:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-will-discuss-making-carson-beck-active-on-game-day",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-will-discuss-making-carson-beck-active-on-game-day",
+      "permalink": "",
+      "title": "Cardinals will discuss making Carson Beck active on game day",
+      "body_text": "The Cardinals are 2-15 with Jacoby Brissett as their quarterback in the past two seasons, with a point differential of minus-194.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T02:39:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "The Cardinals",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0041561",
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-regain-lead-19-14-on-josh-allens-first-td-pass-of-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-regain-lead-19-14-on-josh-allens-first-td-pass-of-night",
+      "permalink": "",
+      "title": "Bills regain lead, 19-14, on Josh Allen's first TD pass of night",
+      "body_text": "The Bills regained the lead with a nine-play, 61-yard drive.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T02:34:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-open-second-half-with-a-touchdown-lead-14-13",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-open-second-half-with-a-touchdown-lead-14-13",
+      "permalink": "",
+      "title": "Rams open second half with a touchdown, lead 14-13",
+      "body_text": "The Rams had not scored on an opening possession of the first half or the second half this season until Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T02:03:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lead-rams-13-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lead-rams-13-7-at-halftime",
+      "permalink": "",
+      "title": "Monday Night Football: Bills lead Rams 13-7 at halftime",
+      "body_text": "Josh Allen was only 4-of-7 for 60 yards with an interception as the Bills gained 128 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T01:45:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-blames-justin-herberts-rough-start-to-desperation-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-blames-justin-herberts-rough-start-to-desperation-time",
+      "permalink": "",
+      "title": "Jim Harbaugh blames Justin Herbert's rough start to \"desperation time\"",
+      "body_text": "A month ago, Jim Harbaugh predicted Justin Herbert will retire as the greatest quarterback ever.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T01:31:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Harbaugh",
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cook-finds-the-end-zone-giving-bills-a-13-7-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cook-finds-the-end-zone-giving-bills-a-13-7-lead",
+      "permalink": "",
+      "title": "James Cook finds the end zone, giving Bills a 13-7 lead",
+      "body_text": "The Bills have had the ball three times.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T01:20:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Cook",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-touchdown-gives-rams-a-7-6-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-touchdown-gives-rams-a-7-6-lead",
+      "permalink": "",
+      "title": "Davante Adams' touchdown gives Rams a 7-6 lead",
+      "body_text": "The last time the Rams played on Monday Night Football — in Week 2 against the Giants — Davante Adams caught eight passes for 195 yards and two touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T01:10:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-cowboys-attracts-16-73-million-viewers-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-cowboys-attracts-16-73-million-viewers-on-thursday-night",
+      "permalink": "",
+      "title": "Bucs-Cowboys attracts 16.73 million viewers on Thursday night",
+      "body_text": "The numbers for Prime Video's Thursday night broadcasts keep going up.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T00:35:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Prime Video"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-jr-passes-physical-so-trade-is-official",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marvin-harrison-jr-passes-physical-so-trade-is-official",
+      "permalink": "",
+      "title": "Marvin Harrison Jr. passes physical, so trade is official",
+      "body_text": "Wide receiver Marvin Harrison Jr. passed his physical on Monday, according to multiple reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-12T22:36:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-dl-dawuane-smoot-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-dl-dawuane-smoot-to-practice-squad",
+      "permalink": "",
+      "title": "Giants to sign DL Dawuane Smoot to practice squad",
+      "body_text": "The Giants are signing veteran defensive lineman Dawuane Smoot to the practice squad, Tom Pelissero of Netflix reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-12T23:21:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dawuane Smoot",
+        "The Giants",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0033907"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-wr-dj-moore-cb-dee-alford-are-inactive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-wr-dj-moore-cb-dee-alford-are-inactive",
+      "permalink": "",
+      "title": "Monday Night Football: Bills WR DJ Moore, CB Dee Alford are inactive",
+      "body_text": "The Bills will not have wide receiver DJ Moore for Monday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-12T23:03:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Dee Alford",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0037034"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-worked-out-juju-smith-schuster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-worked-out-juju-smith-schuster",
+      "permalink": "",
+      "title": "Vikings worked out JuJu Smith-Schuster",
+      "body_text": "The Vikings are continuing to look at veteran wide receivers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-12T21:47:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Schuster The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monti-ossenfort-on-trading-marvin-harrison-jr-these-decisions-are-never-easy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monti-ossenfort-on-trading-marvin-harrison-jr-these-decisions-are-never-easy",
+      "permalink": "",
+      "title": "Monti Ossenfort on Marvin Harrison Jr. trade: These decisions are never easy",
+      "body_text": "At the end of his news conference Sunday, Texans coach DeMeco Ryans confirmed his team acquired wide receiver Marvin Harrison Jr. in a trade with the Cardinals.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-12T22:20:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monti Ossenfort",
+        "Marvin Harrison Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-to-miss-time-with-hamstring-injury-nick-bosa-could-return-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-to-miss-time-with-hamstring-injury-nick-bosa-could-return-this-week",
+      "permalink": "",
+      "title": "Deebo Samuel to miss time with hamstring injury, Nick Bosa could return this week",
+      "body_text": "The 49ers are going to be down another wide receiver in the coming weeks.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T22:14:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035719",
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-rules-dt-zxavian-harris-is-eligible-to-sign-with-teams-as-a-free-agent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-rules-dt-zxavian-harris-is-eligible-to-sign-with-teams-as-a-free-agent",
+      "permalink": "",
+      "title": "NFL rules DT Zxavian Harris is eligible to sign with teams as a free agent",
+      "body_text": "The NFL has reversed course concerning defensive tackle Zxavian Harris's eligibility to play in the NFL.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-12T22:04:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zxavian Harris"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-open-wr-david-sills-21-day-return-to-practice-window",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-open-wr-david-sills-21-day-return-to-practice-window",
+      "permalink": "",
+      "title": "Bucs open WR David Sills 21-day return-to-practice window",
+      "body_text": "When the Buccaneers return to the practice field on Wednesday, they will have wide receiver David Sills.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-12T20:05:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Sills"
+      ],
+      "resolved_player_ids": [
+        "00-0035359"
+      ],
+      "team_hint": "TB"
+    }
+  ]
+}

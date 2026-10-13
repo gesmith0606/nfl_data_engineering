@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "bc822e96-1cd4-402c-8eb4-080bc248ce88",
+  "source": "rotowire",
+  "fetched_at": "2026-10-13T12:29:16.313274+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642298",
+      "url": "https://www.rotowire.com//football/player/blake-corum-17690",
+      "permalink": "",
+      "title": "Blake Corum: Efficient with eight touches",
+      "body_text": "Corum rushed five times for 19 yards and a touchdown and brought in three of four targets for 53 yards in the Rams' 37-34 overtime loss to the Bills on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-12T10:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Corum"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl642297",
+      "url": "https://www.rotowire.com//football/player/davante-adams-9455",
+      "permalink": "",
+      "title": "Davante Adams: Two TDs in OT loss",
+      "body_text": "Adams brought in five of seven targets for 51 yards and two touchdowns in the Rams' 37-34 overtime loss to the Bills on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-12T10:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl642296",
+      "url": "https://www.rotowire.com//football/player/kyren-williams-15807",
+      "permalink": "",
+      "title": "Kyren Williams: Rush TD on inefficient night",
+      "body_text": "Williams rushed 16 times for 49 yards and a touchdown and brought in six of eight targets for 27 yards in the Rams' 37-34 overtime loss to the Bills on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-12T10:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyren Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl642295",
+      "url": "https://www.rotowire.com//football/player/matthew-stafford-5971",
+      "permalink": "",
+      "title": "Matthew Stafford: Massive yardage total in OT loss",
+      "body_text": "Stafford completed 40 of 54 passes for 383 yards with three touchdowns and no interceptions in the Rams' 37-34 overtime loss to the Bills on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-12T09:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl642294",
+      "url": "https://www.rotowire.com//football/player/josh-allen-12483",
+      "permalink": "",
+      "title": "Josh Allen: Late-game heroics in OT win",
+      "body_text": "Allen completed 12 of 19 passes for 210 yards with one touchdown and one interception while adding 10 carries for 121 yards and another score and a two-point conversion pass in the Bills' 37-34 overtime win against the Rams on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-12T09:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}
