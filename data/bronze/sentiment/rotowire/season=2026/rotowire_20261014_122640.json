@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "e56e122c-e948-40fa-8dab-f0ed5cdc2fac",
+  "source": "rotowire",
+  "fetched_at": "2026-10-14T12:26:40.761494+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642363",
+      "url": "https://www.rotowire.com//football/player/myles-garrett-11914",
+      "permalink": "",
+      "title": "Myles Garrett: Not ready to return to practice",
+      "body_text": "Head coach Sean McVay told reporters Tuesday that Garrett (knee) will not return to practice this week and will not play against the Cardinals on Sunday, Cameron DaSilva of USA Today reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-13T06:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl642349",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "permalink": "",
+      "title": "Zach Charbonnet: Estimated as limited again",
+      "body_text": "Charbonnet (knee) was estimated as a limited practice participant Tuesday, Curtis Crabtree of Fox 13 Seattle reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-13T05:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Curtis Crabtree"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642347",
+      "url": "https://www.rotowire.com//football/player/jaxon-smith-njigba-16654",
+      "permalink": "",
+      "title": "Jaxon Smith-Njigba: Listed as limited again",
+      "body_text": "Smith-Njigba (ankle) was listed as a limited participant on Tuesday's estimated practice report, Curtis Crabtree of Fox 13 Seattle reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-13T04:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxon Smith",
+        "Curtis Crabtree"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642309",
+      "url": "https://www.rotowire.com//football/player/jalen-coker-17976",
+      "permalink": "",
+      "title": "Jalen Coker: Takes part in practice Tuesday",
+      "body_text": "Coker (quadriceps) was spotted participating in the Panthers' unofficial practice session Tuesday, Alex Zietlow of The Charlotte Observer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-13T11:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Coker",
+        "Tuesday Coker",
+        "Alex Zietlow",
+        "The Charlotte"
+      ],
+      "resolved_player_ids": [
+        "00-0039491"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "nfl642304",
+      "url": "https://www.rotowire.com//football/player/woody-marks-18449",
+      "permalink": "",
+      "title": "Woody Marks: Lead role awaits sans Montgomery",
+      "body_text": "Marks is expected to handle a lead role out of the backfield during Sunday's game against the Jaguars in London after Texans head coach DeMeco Ryans announced Monday that fellow running back David Montgomery (groin) is viewed as week-to-week, Aaron Wilson of KPRC 2 Houston reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-13T08:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Woody Marks",
+        "Montgomery Marks",
+        "David Montgomery",
+        "Aaron Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0040583",
+        "00-0035685"
+      ],
+      "team_hint": "HOU"
+    }
+  ]
+}

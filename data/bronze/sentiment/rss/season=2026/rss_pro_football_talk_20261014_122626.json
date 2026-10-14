@@ -1,0 +1,516 @@
+{
+  "fetch_run_id": "b3bf91b6-e389-487c-a021-d5537f6d5700",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-14T12:26:26.857134+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-i-can-do-more-to-avoid-delay-of-game-penalties",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-i-can-do-more-to-avoid-delay-of-game-penalties",
+      "title": "Liam Coen: I can do more to avoid delay of game penalties",
+      "body_text": "The Jaguars were able to take advantage of the Eagles' poor clock management to pull out a win at the end of last Sunday's game in London, but their own miscues cost them a chance to take firmer control of the game earlier in the fourth quarter.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T12:15:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-will-soon-be-the-nfls-all-time-leader-in-career-passer-rating",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-will-soon-be-the-nfls-all-time-leader-in-career-passer-rating",
+      "title": "Brock Purdy will soon be the NFL's all-time leader in career passer rating",
+      "body_text": "Brock Purdy will have the highest career passer rating in NFL history, just as soon as he has enough pass attempts to qualify for the record.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-14T10:43:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-james-cooks-ball-security-has-to-improve-or-carries-will-decrease",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-james-cooks-ball-security-has-to-improve-or-carries-will-decrease",
+      "title": "Joe Brady: James Cook's ball security has to improve or carries will decrease",
+      "body_text": "James Cook ran for 111 yards and two touchdowns against the Rams on Monday night, but a negative play almost became his lasting memory of the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T10:53:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Brady",
+        "James Cook"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-odell-beckham-jr-in-minnesota-jauan-jennings-could-be-traded",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-odell-beckham-jr-in-minnesota-jauan-jennings-could-be-traded",
+      "title": "With Odell Beckham Jr. in Minnesota, Jauan Jennings could be traded",
+      "body_text": "The 49ers continue to have injury issues at the receiver position.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T10:29:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With Odell",
+        "Jauan Jennings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-worked-out-matthew-judon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-worked-out-matthew-judon",
+      "title": "Jets worked out Matthew Judon",
+      "body_text": "Matthew Judon is trying to catch on elsewhere after the 49ers cut him from their practice squad this week.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-14T10:13:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Judon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-rosenhaus-still-claims-a-tyreek-hill-deal-could-happen-at-any-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-rosenhaus-still-claims-a-tyreek-hill-deal-could-happen-at-any-time",
+      "title": "Drew Rosenhaus still claims a Tyreek Hill deal \"could happen at any time\"",
+      "body_text": "Rosenhaus comments on Hill's prospects, without addressing the potential impact of the pending NFL investigation.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T09:58:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Rosenhaus",
+        "Tyreek Hill"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-alaric-jackson-he-has-to-consistently-do-a-better-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-alaric-jackson-he-has-to-consistently-do-a-better-job",
+      "title": "Sean McVay on Alaric Jackson: \"He has to consistently do a better job\"",
+      "body_text": "On Monday, Rams left tackle Alaric Jackson sucker punched Bills linebacker Bradley Chubb.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T09:33:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alaric Jackson",
+        "On Monday",
+        "Bradley Chubb"
+      ],
+      "resolved_player_ids": [
+        "00-0036603",
+        "00-0034832"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-pass-protection-shows-why-jahmyr-gibbs-is-different-from-other-backs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-pass-protection-shows-why-jahmyr-gibbs-is-different-from-other-backs",
+      "title": "Dan Campbell says pass protection shows why Jahmyr Gibbs is different from other backs",
+      "body_text": "Gibbs made the key block on a touchdown pass from Jared Goff to Sam LaPorta on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-14T08:24:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell",
+        "Jahmyr Gibbs",
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0039139",
+        "00-0033106"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-playing-good-and-playing-bad-its-a-narrative-and-something-made-up",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-playing-good-and-playing-bad-its-a-narrative-and-something-made-up",
+      "title": "Bo Nix: Playing good and playing bad, it’s a narrative and something made up",
+      "body_text": "Bo Nix dismisses the numbers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T02:42:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-gives-special-teams-coach-bubba-ventrone-vote-of-confidence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-gives-special-teams-coach-bubba-ventrone-vote-of-confidence",
+      "title": "Sean McVay gives special teams coach Bubba Ventrone vote of confidence",
+      "body_text": "The Rams' special teams miscues cost kicker Harrison Mevis his job.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T01:43:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bubba Ventrone",
+        "The Rams",
+        "Harrison Mevis"
+      ],
+      "resolved_player_ids": [
+        "00-0039498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-wishes-hed-taken-two-knees-before-monday-nights-game-winning-field-goal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-wishes-hed-taken-two-knees-before-monday-nights-game-winning-field-goal",
+      "title": "Joe Brady wishes he'd taken two knees before Monday night's game-winning field goal",
+      "body_text": "Week 5 included plenty of examples of how not to best manage the clock in late-game situations.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T02:06:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-agree-to-terms-with-qb-jake-browning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-agree-to-terms-with-qb-jake-browning",
+      "title": "Chargers agree to terms with QB Jake Browning",
+      "body_text": "With Trey Lance on injured reserve with a groin injury, the Chargers needed quarterback help.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T23:19:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Browning",
+        "With Trey"
+      ],
+      "resolved_player_ids": [
+        "00-0035100"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-thrash-upholds-dre-greenlaw-suspension-for-head-butting-incident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-thrash-upholds-dre-greenlaw-suspension-for-head-butting-incident",
+      "title": "James Thrash upholds Dre Greenlaw suspension for head-butting incident",
+      "body_text": "The 49ers won't have linebacker Dre Greenlaw for Monday night's game against the Commanders.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T01:21:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Thrash",
+        "Dre Greenlaw"
+      ],
+      "resolved_player_ids": [
+        "00-0016440",
+        "00-0034982"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-6-2026-nfl-power-rankings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-6-2026-nfl-power-rankings",
+      "title": "PFT's Week 6 2026 NFL power rankings",
+      "body_text": "The Niners hold the top spot.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T13:26:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Niners"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-has-been-monitoring-developments-in-tyreek-hill-case",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-has-been-monitoring-developments-in-tyreek-hill-case",
+      "title": "NFL has been \"monitoring developments\" in Tyreek Hill case",
+      "body_text": "On Tuesday, a jury entered a mixed verdict in the civil lawsuit filed against free-agent receiver Tyreek Hill by his former wife, Keeta Vaccaro.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T01:04:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyreek Hill",
+        "On Tuesday",
+        "Keeta Vaccaro"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-returns-mixed-verdict-in-tyreek-hill-civil-battery-case-awards-500-000-to-ex-wife",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jury-returns-mixed-verdict-in-tyreek-hill-civil-battery-case-awards-500-000-to-ex-wife",
+      "title": "Jury returns mixed verdict in Tyreek Hill civil battery case, awards $500,000 to ex-wife",
+      "body_text": "Hill lost on two counts, won as to the rest.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T00:51:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyreek Hill"
+      ],
+      "resolved_player_ids": [
+        "00-0033040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-official-rams-lt-alaric-jackson-suspended-two-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/its-official-rams-lt-alaric-jackson-suspended-two-games",
+      "title": "It's official: Rams LT Alaric Jackson suspended two games",
+      "body_text": "The NFL has made the two-game suspension of Rams left tackle Alaric Jackson official.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T23:30:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alaric Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036603"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/de-saivion-jones-estimated-as-full-participant-the-only-change-to-the-broncos-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/de-saivion-jones-estimated-as-full-participant-the-only-change-to-the-broncos-report",
+      "title": "DE Sai'vion Jones estimated as full participant, the only change to the Broncos' report",
+      "body_text": "The Broncos had another walkthrough Tuesday as they get ready for their Thursday night gamea against the Seahawks.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T23:00:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-waive-cb-jayden-price-sign-cb-decamerion-richardson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-waive-cb-jayden-price-sign-cb-decamerion-richardson",
+      "title": "Saints waive CB Jayden Price, sign CB Decamerion Richardson",
+      "body_text": "The Saints waived cornerback Jayden Price two days after he fumbled the opening kickoff in the second half against the Vikings.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T22:45:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jayden Price",
+        "Decamerion Richardson",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0039725",
+        "00-0039357"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-smith-njigba-leonard-williams-listed-as-limited-practice-participants-again-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxson-smith-njigba-leonard-williams-listed-as-limited-practice-participants-again-on-tuesday",
+      "title": "Jaxson Smith-Njigba, Leonard Williams listed as limited practice participants again on Tuesday",
+      "body_text": "The Seahawks released another estimated practice report on Tuesday and it didn't feature a change in status for wide receiver Jaxon Smith-Njigba or defensive tackle Leonard Williams.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T22:35:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxson Smith",
+        "Leonard Williams",
+        "Tuesday The",
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0031933"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-de-shemar-turner-from-pup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-de-shemar-turner-from-pup",
+      "title": "Bears activate DE Shemar Turner from PUP",
+      "body_text": "The Bears activated defensive lineman Shemar Turner off the reserve/physically unable to perform list, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T21:19:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shemar Turner",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0040741"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-put-wr-tyquan-thornton-on-ir-sign-lb-cam-jones-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-put-wr-tyquan-thornton-on-ir-sign-lb-cam-jones-to-active-roster",
+      "title": "Chiefs put WR Tyquan Thornton on IR, sign LB Cam Jones to active roster",
+      "body_text": "The Chiefs did not replace Tyquan Thornton on the active roster with another wide receiver.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T22:02:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyquan Thornton",
+        "Cam Jones",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0038104",
+        "00-0038513"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-lb-malik-harrison-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-lb-malik-harrison-to-active-roster",
+      "title": "Giants sign LB Malik Harrison to active roster",
+      "body_text": "The Giants elevated linebacker Malik Harrison from the practice squad three times in the first five weeks of the season and they made a more permanent move with him on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T21:53:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Harrison",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0036280"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-jayden-daniels-probably-cost-dan-quinn-his-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-jayden-daniels-probably-cost-dan-quinn-his-job",
+      "title": "Micah Parsons: \"Jayden Daniels probably cost Dan Quinn his job\"",
+      "body_text": "Packers LB minces no words about QB's role in clock disaster.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-13T20:05:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Micah Parsons",
+        "Jayden Daniels",
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [
+        "00-0036932",
+        "00-0039910"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-owner-gayle-benson-i-wont-accept-this-level-of-play-as-our-standard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-owner-gayle-benson-i-wont-accept-this-level-of-play-as-our-standard",
+      "title": "Saints owner Gayle Benson: I won't accept this level of play as our standard",
+      "body_text": "Seats are starting to heat up in New Orleans.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T21:06:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gayle Benson",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-is-expected-to-suspend-rams-lt-alaric-jackson-two-games-for-postgame-punch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-is-expected-to-suspend-rams-lt-alaric-jackson-two-games-for-postgame-punch",
+      "title": "NFL is expected to suspend Rams LT Alaric Jackson two games for postgame punch",
+      "body_text": "Jackson punched Bills linebacker Bradley Chubb in the face on the field after the Rams' 37-34 overtime loss Monday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-13T21:05:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alaric Jackson",
+        "Bradley Chubb"
+      ],
+      "resolved_player_ids": [
+        "00-0036603",
+        "00-0034832"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-place-raheim-sanders-on-ir-sign-audric-estime-off-vikings-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-place-raheim-sanders-on-ir-sign-audric-estime-off-vikings-practice-squad",
+      "title": "Browns place Raheim Sanders on IR, sign Audric Estime off Vikings practice squad",
+      "body_text": "The Browns have made a couple of moves at running back and on the practice squad.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-13T20:52:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Raheim Sanders",
+        "Audric Estime",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040466",
+        "00-0039373"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-wr-jared-wayne-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-wr-jared-wayne-off-of-waivers",
+      "title": "Dolphins claim WR Jared Wayne off of waivers",
+      "body_text": "The Dolphins are making a change at wide receiver during their bye week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T20:43:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jared Wayne",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038728"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-activate-wr-irv-charles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-activate-wr-irv-charles",
+      "title": "Seahawks activate WR Irv Charles",
+      "body_text": "The Seahawks will have wide receiver Irv Charles available for Thursday night's game against the Broncos.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T20:36:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Irv Charles",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-put-anton-harrison-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-put-anton-harrison-on-injured-reserve",
+      "title": "Jaguars put Anton Harrison on injured reserve",
+      "body_text": "A report on Tuesday morning said Jaguars left tackle Anton Harrison is headed for arthroscopic knee surgery and that his timeline for return won't be known until the operation takes place.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-13T20:26:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anton Harrison"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "JAX"
+    }
+  ]
+}

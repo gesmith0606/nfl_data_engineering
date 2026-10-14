@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-10-12T12:38:27.132025+00:00",
+  "fetched_at": "2026-10-14T12:27:01.175550+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1496,7 +1496,7 @@
     {
       "player_name": "Harrison Mevis",
       "position": "K",
-      "team": "LAR",
+      "team": "FA",
       "external_rank": 228,
       "rank": 214
     },
@@ -1951,7 +1951,7 @@
     {
       "player_name": "Emari Demercado",
       "position": "RB",
-      "team": "FA",
+      "team": "DAL",
       "external_rank": 303,
       "rank": 279
     },
@@ -2021,7 +2021,7 @@
     {
       "player_name": "Audric Estime",
       "position": "RB",
-      "team": "MIN",
+      "team": "CLE",
       "external_rank": 313,
       "rank": 289
     },
