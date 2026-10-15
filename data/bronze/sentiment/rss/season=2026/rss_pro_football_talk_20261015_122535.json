@@ -1,0 +1,523 @@
+{
+  "fetch_run_id": "fda19267-7f1a-44f1-b947-a6466c065b4b",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-15T12:25:35.097561+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-on-injuries-at-wide-receiver-i-have-a-lot-of-trust-in-our-options",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-on-injuries-at-wide-receiver-i-have-a-lot-of-trust-in-our-options",
+      "title": "Aaron Rodgers on injuries at wide receiver: I have a lot of trust in our options",
+      "body_text": "The Steelers are heading into Week 6 short on healthy wide receivers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T12:18:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-loves-lingering-ankle-issue-could-keep-him-out-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-loves-lingering-ankle-issue-could-keep-him-out-sunday",
+      "title": "Jeremiyah Love's lingering ankle issue could keep him out Sunday",
+      "body_text": "Cardinals running back Jeremiyah Love did not practice on Wednesday due to a lingering ankle issue.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T00:55:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Sunday Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-we-cant-let-gayle-bensons-comments-affect-our-daily-process",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-shough-we-cant-let-gayle-bensons-comments-affect-our-daily-process",
+      "title": "Tyler Shough: We can't let Gayle Benson's comments affect our daily process",
+      "body_text": "Saints owner Gayle Benson's decision to publicly air her frustrations about the team's 1-4 start earlier this week drew a lot of attention because of how blunt she was about her disappointment and how rarely she shares her views about the state of the franchise.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T10:20:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Shough",
+        "Gayle Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-doesnt-think-he-has-a-tell-despite-jordan-battle-intercepting-him-twice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-doesnt-think-he-has-a-tell-despite-jordan-battle-intercepting-him-twice",
+      "title": "Malik Willis doesn't think he has a tell despite Jordan Battle intercepting him twice",
+      "body_text": "Bengals safety Jordan Battle said before Sunday's game that he was going to time Willis's passes because of how willis pats the ball before throwing. Then Battle had two interceptions.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-15T09:32:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Willis",
+        "Jordan Battle",
+        "Then Battle"
+      ],
+      "resolved_player_ids": [
+        "00-0038128",
+        "00-0038560"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-are-1-4-but-will-anderson-is-playing-like-a-defensive-player-of-the-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-are-1-4-but-will-anderson-is-playing-like-a-defensive-player-of-the-year",
+      "title": "Texans are 1-4, but Will Anderson is playing like a Defensive Player of the Year",
+      "body_text": "Anderson leads the NFL in sacks and tackles for loss and leads the betting odds for the Defensive Player of the Year Award.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-15T09:02:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Anderson",
+        "Defensive Player",
+        "Year Anderson",
+        "Year Award"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-are-first-team-since-the-merger-not-to-allow-a-40-yard-rusher-in-first-five-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-are-first-team-since-the-merger-not-to-allow-a-40-yard-rusher-in-first-five-games",
+      "title": "Jaguars are first team since the merger not to allow a 40-yard rusher in first five games",
+      "body_text": "Opposing running backs have 83 carries for 210 yards against the Jaguars this season, an average of just 2.5 yards per carry.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-15T08:10:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/al-michaels-wont-complain-if-prime-video-wants-to-move-on",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/al-michaels-wont-complain-if-prime-video-wants-to-move-on",
+      "title": "Al Michaels won't complain if Prime Video wants to move on",
+      "body_text": "The legendary Al Michaels continues to call the biggest of NFL games, four decades after making his debut on Monday Night Football.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-15T03:38:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Al Michaels",
+        "Prime Video",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-wont-say-much-about-very-unique-calf-injury-that-was-disclosed-last-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-wont-say-much-about-very-unique-calf-injury-that-was-disclosed-last-friday",
+      "title": "Jalen Hurts won't say much about \"very unique\" calf injury that was disclosed last Friday",
+      "body_text": "Last week's injury report for the Eagles included a curious designation on Friday.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-15T02:04:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts",
+        "Friday Last"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-treveyon-henderson-will-campbell-all-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-treveyon-henderson-will-campbell-all-limited-in-wednesdays-practice",
+      "title": "A.J. Brown, TreVeyon Henderson, Will Campbell all limited in Wednesday's practice",
+      "body_text": "A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-14T20:55:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0040699"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bradley-chubb-explains-his-side-of-altercation-with-alaric-jackson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bradley-chubb-explains-his-side-of-altercation-with-alaric-jackson",
+      "title": "Bradley Chubb explains his side of altercation with Alaric Jackson",
+      "body_text": "Rams offensive tackle Alaric Jackson had his suspension reduced to one game on appeal Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T01:27:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bradley Chubb",
+        "Alaric Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034832",
+        "00-0036603"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/four-men-arrested-in-shooting-of-49ers-dl-keion-white-in-february",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/four-men-arrested-in-shooting-of-49ers-dl-keion-white-in-february",
+      "title": "Four men arrested in shooting of 49ers DL Keion White in February",
+      "body_text": "Police have arrested four men in connection with the shooting of 49ers defensive lineman Keion White earlier this year, the Associated Press reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T01:09:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Keion White",
+        "February Police",
+        "Associated Press"
+      ],
+      "resolved_player_ids": [
+        "00-0039148"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-lb-nate-landman-was-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-lb-nate-landman-was-limited-in-wednesdays-practice",
+      "title": "Rams LB Nate Landman was limited in Wednesday's practice",
+      "body_text": "The Rams did not practice Wednesday, two days after losing to the Bills in overtime.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T00:44:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nate Landman",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0037587"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-marvin-harrison-jr-trade-was-finalized-on-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-caserio-marvin-harrison-jr-trade-was-finalized-on-friday",
+      "title": "Nick Caserio: Marvin Harrison Jr. trade was finalized on Friday",
+      "body_text": "Deal was done before initial half-reports that failed to name destination.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T23:53:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Caserio",
+        "Marvin Harrison Jr",
+        "Friday Deal"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hearing-officer-derrick-brooks-reduces-alaric-jacksons-suspension-to-one-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/hearing-officer-derrick-brooks-reduces-alaric-jacksons-suspension-to-one-game",
+      "title": "Hearing officer Derrick Brooks reduces Alaric Jackson's suspension to one game",
+      "body_text": "Jackson will miss Sunday's game against the Cardinals.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T23:37:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Brooks",
+        "Alaric Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0001833",
+        "00-0036603"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/8-1-million-watched-eagles-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/8-1-million-watched-eagles-jaguars",
+      "title": "8.1 million watched Eagles-Jaguars",
+      "body_text": "Same city.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T23:13:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaguars Same"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-list-riley-moss-as-questionable-rule-out-pat-surtain-ii-and-talanoa-hufanga",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-list-riley-moss-as-questionable-rule-out-pat-surtain-ii-and-talanoa-hufanga",
+      "title": "Broncos list Riley Moss as questionable; rule out Pat Surtain II and Talanoa Hufanga",
+      "body_text": "The Broncos may have cornerback Riley Moss in the lineup against the Seahawks on Thursday night, but they'll be short a couple of defensive backs even if he does play.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T22:47:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Riley Moss",
+        "Pat Surtain II",
+        "Talanoa Hufanga",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0038552",
+        "00-0036874",
+        "00-0036564"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-list-24-injured-players-including-devonta-smith-saquon-barkley-as-dnp",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-list-24-injured-players-including-devonta-smith-saquon-barkley-as-dnp",
+      "title": "Eagles list 24 injured players, including DeVonta Smith, Saquon Barkley as DNP",
+      "body_text": "The Eagles have 24 players on their injury report.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T22:19:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-wont-activate-zach-charbonnet-for-thursday-nights-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-wont-activate-zach-charbonnet-for-thursday-nights-game",
+      "title": "Seahawks won't activate Zach Charbonnet for Thursday night's game",
+      "body_text": "The Seahawks will remain without running back Zach Charbonnet for Thursday night's game against the Broncos.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T22:12:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Charbonnet",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-wr-tank-dell-a-full-practice-participant-for-first-time-since-2024-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-wr-tank-dell-a-full-practice-participant-for-first-time-since-2024-season",
+      "title": "Texans WR Tank Dell a full practice participant for first time since 2024 season",
+      "body_text": "Texans wide receiver Tank Dell has not played since a horrific knee injury in a Dec. 21, 2024, game against the Chiefs.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T21:59:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tank Dell"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-fully-participated-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-penix-fully-participated-in-wednesdays-practice",
+      "title": "Michael Penix fully participated in Wednesday's practice",
+      "body_text": "Falcons head coach Kevin Stefanski said before Wednesday's practice that quarterback Michael Penix would participate, but that he would \"be limited in some fashion\" due to his injured ribs.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T21:45:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Penix",
+        "Kevin Stefanski"
+      ],
+      "resolved_player_ids": [
+        "00-0039917"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-officially-dnp-s-kyle-hamilton-fully-participated-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-officially-dnp-s-kyle-hamilton-fully-participated-wednesday",
+      "title": "Lamar Jackson officially DNP; S Kyle Hamilton fully participated Wednesday",
+      "body_text": "The Ravens list a whopping 19 players on their practice report for Wednesday, including two players who were resting.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T21:35:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Kyle Hamilton",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0038038"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-joey-porter-jr-limited-wednesday-wr-ceedee-lamb-lt-tyler-guyton-full-participants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cb-joey-porter-jr-limited-wednesday-wr-ceedee-lamb-lt-tyler-guyton-full-participants",
+      "title": "CB Joey Porter Jr. limited Wednesday; WR CeeDee Lamb, LT Tyler Guyton full participants",
+      "body_text": "The Cowboys had a mini-bye after losing to the Buccaneers last Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T21:21:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Tyler Guyton",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167",
+        "00-0039341"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-simmons-officially-limited-in-return-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-simmons-officially-limited-in-return-to-practice",
+      "title": "Josh Simmons officially limited in return to practice",
+      "body_text": "Chiefs left tackle Josh Simmons was officially limited in his return to practice, according to the club's Wednesday injury report.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-14T21:17:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0040116"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-on-gayle-bensons-comments-we-all-want-the-same-thing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-on-gayle-bensons-comments-we-all-want-the-same-thing",
+      "title": "Kellen Moore on Gayle Benson's comments: We all want the same thing",
+      "body_text": "Saints owner Gayle Benson didn't pull any punches in her assessment of the team's start to the season in a speech on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T21:01:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kellen Moore",
+        "Gayle Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-open-te-carter-runyons-21-day-practice-window",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-open-te-carter-runyons-21-day-practice-window",
+      "title": "Raiders open TE Carter Runyon's 21-day practice window",
+      "body_text": "The Raiders designated tight end Carter Runyon to return Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T20:50:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carter Runyon",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040488"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-buck-troy-aikman-reportedly-have-tension-in-what-could-be-last-year-of-their-partnership",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-buck-troy-aikman-reportedly-have-tension-in-what-could-be-last-year-of-their-partnership",
+      "title": "Joe Buck, Troy Aikman reportedly have \"tension\" in what could be last year of their partnership",
+      "body_text": "The next time he \"welcomes you into the broadcast booth\" during a Monday night game, Joe Buck could be looking for backup.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-14T20:46:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Buck",
+        "Troy Aikman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-list-daniel-jones-as-full-practice-participant-with-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-list-daniel-jones-as-full-practice-participant-with-ankle-injury",
+      "title": "Colts list Daniel Jones as full practice participant with ankle injury",
+      "body_text": "Colts quarterback Daniel Jones landed on the team's injury report for the first time this season on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T20:46:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-out-of-steelers-practice-jamel-dean-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-ramsey-out-of-steelers-practice-jamel-dean-limited",
+      "title": "Jalen Ramsey out of Steelers practice, Jamel Dean limited",
+      "body_text": "Cornerbacks Jalen Ramsey and Jamel Dean were both on the Steelers' injury report to open Week 6.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T20:35:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Ramsey",
+        "Jamel Dean",
+        "Cornerbacks Jalen"
+      ],
+      "resolved_player_ids": [
+        "00-0033055",
+        "00-0035699"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-bryce-young-a-full-participant-rt-monroe-freeling-and-rb-aj-dillon-did-not-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-bryce-young-a-full-participant-rt-monroe-freeling-and-rb-aj-dillon-did-not-practice",
+      "title": "QB Bryce Young a full participant; RT Monroe Freeling and RB AJ Dillon did not practice",
+      "body_text": "The Panthers are returning from their off weeks, so they practiced Tuesday instead of Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-14T20:35:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Young",
+        "Monroe Freeling",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-remains-out-of-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-remains-out-of-practice-wednesday",
+      "title": "Lamar Jackson remains out of practice Wednesday",
+      "body_text": "Ravens head coach Jesse Minter called the quarterback day-to-day with an ankle injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-14T19:37:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Wednesday Ravens",
+        "Jesse Minter"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    }
+  ]
+}

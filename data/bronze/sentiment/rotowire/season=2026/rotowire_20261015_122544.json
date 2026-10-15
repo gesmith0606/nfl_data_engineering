@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "a687cffe-f05d-4b64-ad2b-dbec6525def2",
+  "source": "rotowire",
+  "fetched_at": "2026-10-15T12:25:44.606254+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642534",
+      "url": "https://www.rotowire.com//football/player/alec-pierce-16022",
+      "permalink": "",
+      "title": "Alec Pierce: Progressing in recovery",
+      "body_text": "Pierce was spotted without a cast on his left ankle/heel Wednesday, James Boyd of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-14T05:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alec Pierce",
+        "James Boyd",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0037664",
+        "00-0020328"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642503",
+      "url": "https://www.rotowire.com//football/player/ashton-jeanty-18487",
+      "permalink": "",
+      "title": "Ashton Jeanty: Practices fully Wednesday",
+      "body_text": "Jeanty (foot) was listed as a full participant on Wednesday's injury report, Sam Warren of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-14T04:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Wednesday Jeanty",
+        "Sam Warren",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642496",
+      "url": "https://www.rotowire.com//football/player/brock-bowers-17693",
+      "permalink": "",
+      "title": "Brock Bowers: Limited at Wednesday's session",
+      "body_text": "Bowers (knee) was listed as a limited participant on Wednesday's practice report, Anthony Galaviz of The Fresno Bee reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-14T04:42:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Anthony Galaviz",
+        "The Fresno"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642484",
+      "url": "https://www.rotowire.com//football/player/dj-moore-12477",
+      "permalink": "",
+      "title": "DJ Moore: Sits out another practice",
+      "body_text": "Moore (shoulder) was listed as a non-participant on Wednesday's estimated injury report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-14T04:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642464",
+      "url": "https://www.rotowire.com//football/player/kyle-monangai-18520",
+      "permalink": "",
+      "title": "Kyle Monangai: Estimated as DNP on Wednesday",
+      "body_text": "Monangai (thumb/toe) was listed as a non-participant on Wednesday's practice estimate. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-14T03:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai",
+        "Wednesday Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": null
+    }
+  ]
+}
