@@ -1,0 +1,106 @@
+{
+  "fetch_run_id": "896e3ca7-380f-4bad-a2e2-58f9e9c541ae",
+  "source": "rotowire",
+  "fetched_at": "2026-10-16T12:25:52.742918+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642684",
+      "url": "https://www.rotowire.com//football/player/courtland-sutton-12586",
+      "permalink": "",
+      "title": "Courtland Sutton: Remains quiet in OT win",
+      "body_text": "Sutton brought in two of three targets for 19 yards in the Broncos' 17-14 overtime win over the Seahawks on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-15T10:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Courtland Sutton"
+      ],
+      "resolved_player_ids": [
+        "00-0034348"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl642683",
+      "url": "https://www.rotowire.com//football/player/jaylen-waddle-15404",
+      "permalink": "",
+      "title": "Jaylen Waddle: Team-high catch total Thursday",
+      "body_text": "Waddle secured four of seven targets for 24 yards in the Broncos' 17-14 overtime win over the Seahawks on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-15T09:59:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Waddle",
+        "Thursday Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl642682",
+      "url": "https://www.rotowire.com//football/player/bo-nix-16995",
+      "permalink": "",
+      "title": "Bo Nix: Season-low passing yardage in OT win",
+      "body_text": "Nix completed 17 of 27 passes for 107 yards with no touchdowns or interceptions and rushed four times for two yards in the Broncos' 17-14 overtime win over the Seahawks on Thursday. He also recovered a fumble. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-15T09:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl642677",
+      "url": "https://www.rotowire.com//football/player/sam-darnold-12490",
+      "permalink": "",
+      "title": "Sam Darnold: Key errors in OT loss",
+      "body_text": "Darnold completed 27 of 51 passes for 278 yards with no touchdowns and two interceptions and rushed twice for 19 yards in the Seahawks' 17-14 overtime loss to the Broncos on Thursday. He also threw a two-point conversion pass. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-15T09:17:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl642676",
+      "url": "https://www.rotowire.com//football/player/emanuel-wilson-17593",
+      "permalink": "",
+      "title": "Emanuel Wilson: Struggles with efficiency in loss",
+      "body_text": "Wilson rushed 14 times for 52 yards and failed to bring in his only target in the Seahawks' 17-14 overtime loss to the Broncos on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-15T09:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emanuel Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0038797"
+      ],
+      "team_hint": "SEA"
+    }
+  ]
+}

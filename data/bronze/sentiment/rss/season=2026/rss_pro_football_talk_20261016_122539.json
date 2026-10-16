@@ -1,0 +1,503 @@
+{
+  "fetch_run_id": "cf2b31f1-16a9-4f11-a1ed-55a9f6eec434",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-16T12:25:39.272727+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tanner-mckee-im-ready-to-make-the-most-of-huge-opportunity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tanner-mckee-im-ready-to-make-the-most-of-huge-opportunity",
+      "title": "Tanner McKee: I'm ready to make the most of \"huge opportunity\"",
+      "body_text": "Tanner McKee fell to No. 3 on the depth chart ahead of Week 1 this season, but he worked his way back to the No. 2 job in time to be the next man up when the Eagles made a surprising announcement on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T11:14:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-i-dont-know-where-the-disconnect-is-offensively",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-i-dont-know-where-the-disconnect-is-offensively",
+      "title": "Bo Nix: I don't know where the disconnect is offensively",
+      "body_text": "The point of playing football games is to win football games and the Broncos were able to do that against the Seahawks on Thursday night, but the result didn't shield their quarterback Bo Nix from some harsh criticism after the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T10:55:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-won-despite-totaling-just-32-yards-on-their-last-10-possessions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-won-despite-totaling-just-32-yards-on-their-last-10-possessions",
+      "title": "Broncos won despite totaling just 32 yards on their last 10 possessions",
+      "body_text": "The Broncos' offense was stunningly bad for most of Thursday night's game.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-16T09:10:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-unfair-to-our-team-that-i-keep-turning-the-ball-over-i-have-to-be-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-unfair-to-our-team-that-i-keep-turning-the-ball-over-i-have-to-be-better",
+      "title": "Sam Darnold: Unfair to our team that I keep turning the ball over, I have to be better",
+      "body_text": "\"No way to sugarcoat it: That one sucked. Can't turn the ball over,\" Darnold said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-16T08:29:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-fitzpatrick-on-bo-nixs-night-that-right-there-is-garbage",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ryan-fitzpatrick-on-bo-nixs-night-that-right-there-is-garbage",
+      "title": "Ryan Fitzpatrick on Bo Nix's night: \"That right there is garbage\"",
+      "body_text": "Quarterback-turned-analyst repeatedly tees off on Denver QB.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T04:29:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Fitzpatrick",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0023682",
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-report-links-greg-olsen-to-monday-night-football-in-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-report-links-greg-olsen-to-monday-night-football-in-2027",
+      "title": "New report links Greg Olsen to Monday Night Football in 2027",
+      "body_text": "The offseason game of broadcaster roulette will be intriguing, and expensive.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T03:10:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Olsen",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0025418"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-need-to-consider-whether-drew-lock-gives-them-a-better-chance-to-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-need-to-consider-whether-drew-lock-gives-them-a-better-chance-to-win",
+      "title": "Seahawks need to consider whether Drew Lock gives them a better chance to win",
+      "body_text": "The conversation, however it's resolved, needs to be had.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T03:49:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drew Lock"
+      ],
+      "resolved_player_ids": [
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-broncos-beat-seahawks-17-14-in-overtime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-broncos-beat-seahawks-17-14-in-overtime",
+      "title": "Thursday Night Football: Broncos beat Seahawks 17-14 in overtime",
+      "body_text": "Wil Lutz kicked a 53-yard field goal with 4:53 remaining in overtime after Ja'Quan McMillian's pick of Sam Darnold.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T03:45:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Wil Lutz",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0032569",
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-draw-to-within-14-11-of-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-draw-to-within-14-11-of-broncos",
+      "title": "Seahawks draw to within 14-11 of Broncos",
+      "body_text": "The Seahawks have their first touchdown of the night, and Thursday Night Football has a game.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T03:03:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Broncos The",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-it-will-be-selective-about-playing-on-wednesdays",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-it-will-be-selective-about-playing-on-wednesdays",
+      "title": "NFL says it will be \"selective\" about playing on Wednesdays",
+      "body_text": "The NFL has begun scheduling some games on Wednesdays.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T02:52:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Wednesdays The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-continue-to-withhold-the-josh-jacobs-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-continue-to-withhold-the-josh-jacobs-video",
+      "title": "Police continue to withhold the Josh Jacobs video",
+      "body_text": "As Packers running back Josh Jacobs continues to spend the early weeks of the 2026 season on paid leave, the NFL reportedly still hasn't gotten access to the key piece of video generated by the incident that resulted in a no-contest plea to battery.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-15T14:40:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "As Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-s-minkah-fitzpatrick-will-appeal-fine-for-hit-on-kc-concepcion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-s-minkah-fitzpatrick-will-appeal-fine-for-hit-on-kc-concepcion",
+      "title": "Jets S Minkah Fitzpatrick will appeal fine for hit on Browns WR KC Concepcion",
+      "body_text": "Jets safety Minkah Fitzpatrick said he received a fine from the NFL for a hit that concussed Browns wide receiver KC Concepcion on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T02:23:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Minkah Fitzpatrick",
+        "Concepcion Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0034789"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-it-seems-like-espn-is-going-to-go-in-a-different-direction",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-it-seems-like-espn-is-going-to-go-in-a-different-direction",
+      "title": "Troy Aikman: It seems like ESPN is going to go in a different direction",
+      "body_text": "Hall of Fame quarterback and ESPN/ABC Monday Night Football analyst Troy Aikman made some waves on Thursday morning by creating the clear impression that he's planning to leave after his current contract expires, after Super Bowl LXI.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T02:06:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Troy Aikman",
+        "Monday Night",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-broncos-lead-seahawks-14-3-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-broncos-lead-seahawks-14-3-at-halftime",
+      "title": "Thursday Night Football: Broncos lead Seahawks 14-3 at halftime",
+      "body_text": "The Broncos have stymied the Seahawks, limiting them to 91 yards and forcing a fumble.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T01:44:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-run-for-a-second-td-14-3-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-run-for-a-second-td-14-3-lead",
+      "title": "Broncos run for a second TD, 14-3 lead",
+      "body_text": "The Broncos entered Thursday night ranked 30th in total offense, including 25th in rushing.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T01:20:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-take-7-3-lead-over-seahawks-in-second-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-take-7-3-lead-over-seahawks-in-second-quarter",
+      "title": "Broncos take 7-3 lead over Seahawks in second quarter",
+      "body_text": "The Broncos looked more like the Broncos of 2025 on their second drive Thursday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T01:02:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-misses-practice-with-achilles-soreness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-misses-practice-with-achilles-soreness",
+      "title": "49ers WR Mike Evans misses practice with Achilles soreness",
+      "body_text": "49ers wide receiver Mike Evans has played through injured ribs.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T00:51:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-morris-a-member-of-the-patriots-hall-of-fame-died-at-84",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-morris-a-member-of-the-patriots-hall-of-fame-died-at-84",
+      "title": "Jon Morris, a member of the Patriots Hall of Fame, died at 84",
+      "body_text": "Jon Morris, a member of the Patriots Hall of Fame, has died, the team announced Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T00:25:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jon Morris",
+        "Patriots Hall"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-add-s-kam-curl-to-practice-report-with-an-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-add-s-kam-curl-to-practice-report-with-an-ankle-injury",
+      "title": "Rams add S Kam Curl to practice report with an ankle injury",
+      "body_text": "The Rams added safety Kam Curl to the practice report Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T23:43:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kam Curl",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0036349"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-missed-practice-again-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeremiyah-love-missed-practice-again-on-thursday",
+      "title": "Jeremiyah Love missed practice again on Thursday",
+      "body_text": "Cardinals running back Jeremiyah Love's ankle injury continues to create uncertainty about the first-round pick's availability for Sunday's game against the Rams.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T23:41:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Thursday Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-confirms-he-tore-his-hamstring-doesnt-know-his-status-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-confirms-he-tore-his-hamstring-doesnt-know-his-status-for-sunday",
+      "title": "Caleb Williams confirms he tore his hamstring, doesn't know his status for Sunday",
+      "body_text": "Williams has had two full practices this week as he works his way back from the Week 2 injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T23:31:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "Sunday Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cb-joey-porter-jr-has-full-practice-expects-to-have-no-limitations-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cb-joey-porter-jr-has-full-practice-expects-to-have-no-limitations-sunday",
+      "title": "Cowboys CB Joey Porter Jr. has full practice, expects to have no limitations Sunday",
+      "body_text": "Cowboys cornerback Joey Porter Jr. participated fully in Thursday's practice, and he expects to have no limitations for Sunday's game against the Packers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T23:12:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Sunday Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-broncos-cb-riley-moss-is-active",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-broncos-cb-riley-moss-is-active",
+      "title": "Thursday Night Football: Broncos CB Riley Moss is active",
+      "body_text": "The Broncos will have cornerback Riley Moss in the lineup against the Seahawks tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-15T22:53:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Riley Moss",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0038552"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-alt-derwin-james-remain-out-of-practice-for-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-alt-derwin-james-remain-out-of-practice-for-chargers",
+      "title": "Joe Alt, Derwin James remain out of practice for Chargers",
+      "body_text": "The Chargers remained without a few starters at Thursday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T22:25:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Alt",
+        "Derwin James",
+        "Chargers The"
+      ],
+      "resolved_player_ids": [
+        "00-0039897",
+        "00-0034790"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-misses-second-straight-practice-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-misses-second-straight-practice-with-an-illness",
+      "title": "Chris Olave misses second straight practice with an illness",
+      "body_text": "The Saints practiced without wide receiver Chris Olave for the second straight day on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T22:10:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-elevate-s-taylor-rapp-db-sean-fresch-for-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-elevate-s-taylor-rapp-db-sean-fresch-for-thursday-night",
+      "title": "Broncos elevate S Taylor Rapp, DB Sean Fresch for Thursday night",
+      "body_text": "The Broncos are dealing with several injuries in their defensive backfield, so they elevated a couple of players to help round out the secondary ahead of Thursday night's game against the Seahawks.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T22:00:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylor Rapp",
+        "Sean Fresch",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0035663"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonta-smith-listed-as-limited-in-eagles-practice-saquon-barkley-still-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonta-smith-listed-as-limited-in-eagles-practice-saquon-barkley-still-out",
+      "title": "DeVonta Smith listed as limited in Eagles practice, Saquon Barkley still out",
+      "body_text": "The Eagles announced on Thursday that quarterback Jalen Hurts will not play against the Panthers due to a blood clot in his calf, which leaves Tanner McKee in line to make the first non-Week 18 start of his career.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T21:54:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-tank-dell-david-montgomery-jalen-pitre-will-not-travel-to-london-to-play-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-tank-dell-david-montgomery-jalen-pitre-will-not-travel-to-london-to-play-jaguars",
+      "title": "Texans' Tank Dell, David Montgomery, Jalen Pitre will not travel to London to play Jaguars",
+      "body_text": "Three injured Texans will stay home rather than make the trip to London to face the Jaguars on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-15T21:48:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tank Dell",
+        "David Montgomery",
+        "Jalen Pitre",
+        "Jaguars Three"
+      ],
+      "resolved_player_ids": [
+        "00-0038977",
+        "00-0035685",
+        "00-0037246"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-dc-christian-parker-mike-pettine-a-right-hand-man-not-a-save-the-day-hire",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-dc-christian-parker-mike-pettine-a-right-hand-man-not-a-save-the-day-hire",
+      "title": "Cowboys DC Christian Parker: Mike Pettine a \"right-hand man\" not a \"save the day\" hire",
+      "body_text": "The Cowboys hired longtime NFL defensive coordinator and former Browns head coach Mike Pettine as a senior defensive assistant this week and defensive coordinator Christian Parker was asked at a Thursday press conference if Pettine is a \"save the day\" hire after a rough start.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-15T21:46:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Parker",
+        "Mike Pettine",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-his-next-td-catch-davante-adams-will-pass-larry-fitzgerald-on-the-all-time-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-his-next-td-catch-davante-adams-will-pass-larry-fitzgerald-on-the-all-time-list",
+      "title": "With his next TD catch, Davante Adams will pass Larry Fitzgerald on the all-time list",
+      "body_text": "Rams wide receiver Davante Adams has four touchdown catches this season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-15T21:24:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Davante Adams",
+        "Larry Fitzgerald"
+      ],
+      "resolved_player_ids": [
+        "00-0031381",
+        "00-0022921"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}
