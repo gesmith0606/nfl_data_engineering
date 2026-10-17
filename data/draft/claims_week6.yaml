@@ -1,0 +1,7 @@
+# Week 6 (2026-10-17) — agreed with George in chat.
+# Cyrus Allen: Rice (hamstring) Out wk6 + Thornton IR -> expanded KC slot role vs LAC Sun.
+# Drop Spears (Q knee, capped handcuff behind Pollard + Singleton); keep Emmett Johnson
+# (Walker handcuff) and Brian Thomas Jr. (trade-deadline Nov 10 lottery ticket).
+# If Allen is a free agent the add executes immediately at $0 (needs --allow-free-agent).
+claims:
+  - {league: la_liga, add: Cyrus Allen, drop: Tyjae Spears, bid: 1, priority: 1}
