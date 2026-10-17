@@ -1,0 +1,118 @@
+{
+  "fetch_run_id": "e335a833-9ceb-4978-be11-9259b2eb6c89",
+  "source": "rotowire",
+  "fetched_at": "2026-10-17T12:21:28.718111+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642779",
+      "url": "https://www.rotowire.com//football/player/braelon-allen-17702",
+      "permalink": "",
+      "title": "Braelon Allen: Remains RB1 for Week 6",
+      "body_text": "Allen will once again operate as the Jets' primary running back for Sunday's game against the Patriots due to the absence of Breece Hall (quadriceps). Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-16T05:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Braelon Allen",
+        "Breece Hall"
+      ],
+      "resolved_player_ids": [
+        "00-0039794",
+        "00-0038120"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl642775",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "permalink": "",
+      "title": "Xavier Worthy: Operating as Chiefs' WR1",
+      "body_text": "Worthy will be the Chiefs' top wideout against the Chargers on Sunday due to the absence of Rashee Rice (hamstring/knee). Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-16T04:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Worthy",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039894",
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl642771",
+      "url": "https://www.rotowire.com//football/player/dandre-swift-14394",
+      "permalink": "",
+      "title": "D'Andre Swift: Bigger workload sans Monangai",
+      "body_text": "Swift will once again absorb a heavier backfield workload after Kyle Monangai (thumb/toe) was ruled out for Sunday's game against the Falcons, Larry Mayer of the Bears' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-16T04:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "Monangai Swift",
+        "Kyle Monangai",
+        "Larry Mayer"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl642762",
+      "url": "https://www.rotowire.com//football/player/tyler-huntley-14563",
+      "permalink": "",
+      "title": "Tyler Huntley: Starting vs. Cleveland",
+      "body_text": "Huntley will be the Ravens' starting QB against the Browns on Sunday after Lamar Jackson (ankle) was ruled out, Ryan Mink of the Ravens' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-16T04:17:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Huntley",
+        "Cleveland Huntley",
+        "Lamar Jackson",
+        "Ryan Mink"
+      ],
+      "resolved_player_ids": [
+        "00-0035993",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "nfl642753",
+      "url": "https://www.rotowire.com//football/player/tyler-allgeier-15976",
+      "permalink": "",
+      "title": "Tyler Allgeier: Set for lead role in Week 6",
+      "body_text": "Allgeier is poised for a leading role out of the Cardinals backfield Sunday at the Rams with Jeremiyah Love (ankle) sidelined in Week 6, Tyler Drake of ArizonaSports.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-16T04:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Allgeier",
+        "Jeremiyah Love",
+        "Tyler Drake"
+      ],
+      "resolved_player_ids": [
+        "00-0037263"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

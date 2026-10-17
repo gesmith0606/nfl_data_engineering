@@ -1,0 +1,512 @@
+{
+  "fetch_run_id": "15b7e5ed-76a0-41b0-9a6a-b39cd998c9dd",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-17T12:21:15.169291+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-jj-jansen-to-play-his-282nd-game-most-ever-for-a-long-snapper",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-jj-jansen-to-play-his-282nd-game-most-ever-for-a-long-snapper",
+      "title": "Panthers' JJ Jansen to play his 282nd game, most ever for a long snapper",
+      "body_text": "Carolina's JJ Jansen will become the NFL's all-time record holder for games played by a long snapper on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T10:27:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-nose-tackle-khyiris-tonga-is-playing-almost-as-much-offense-as-travis-hunter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-nose-tackle-khyiris-tonga-is-playing-almost-as-much-offense-as-travis-hunter",
+      "title": "Chiefs nose tackle Khyiris Tonga is playing almost as much offense as Travis Hunter",
+      "body_text": "Jaguars cornerback/wide receiver Travis Hunter has been much-hyped for his status as a two-way player, first as a Heisman Trophy winner at Colorado and now in the NFL.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T08:41:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Khyiris Tonga",
+        "Travis Hunter",
+        "Heisman Trophy"
+      ],
+      "resolved_player_ids": [
+        "00-0036909",
+        "00-0040718"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-ceo-burke-nihill-our-organization-believes-in-coach-robert-saleh-gm-mike-borgonzi",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-ceo-burke-nihill-our-organization-believes-in-coach-robert-saleh-gm-mike-borgonzi",
+      "title": "Titans CEO Burke Nihill: Our organization believes in coach Robert Saleh, GM Mike Borgonzi",
+      "body_text": "The Titans have fired a head coach or GM each of the last four years, but they say they're going to be patient with their current coach and GM.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T07:30:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Burke Nihill",
+        "Robert Saleh",
+        "Mike Borgonzi",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/19-8-million-watched-bills-rams-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/19-8-million-watched-bills-rams-on-monday-night",
+      "title": "19.8 million watched Bills-Rams on Monday night",
+      "body_text": "The Monday night instant classic between the Bills and the Rams nevertheless failed to crack the 20 million viewer threshold on the various Disney networks.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T03:01:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Monday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikmans-role-with-the-dolphins-hovers-over-his-broadcasting-future",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikmans-role-with-the-dolphins-hovers-over-his-broadcasting-future",
+      "title": "Troy Aikman's role with the Dolphins hovers over his broadcasting future",
+      "body_text": "Why would any network with options opt for someone who works for one of the NFL's teams?",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T02:24:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Troy Aikman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-remains-on-paid-leave",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnold-remains-on-paid-leave",
+      "title": "Terrion Arnold remains on paid leave",
+      "body_text": "The NFL's decision to reinstate Packers running back Josh Jacobs and Broncos linebacker Jonathon Cooper from the Commissioner Exempt list carried with it a conspicuous omission.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T01:52:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrion Arnold",
+        "Josh Jacobs",
+        "Jonathon Cooper",
+        "Commissioner Exempt"
+      ],
+      "resolved_player_ids": [
+        "00-0039903",
+        "00-0035700",
+        "00-0036952"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-ol-ben-bartch-wr-tom-kennedy-lb-devin-white-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-ol-ben-bartch-wr-tom-kennedy-lb-devin-white-on-injured-reserve",
+      "title": "Lions put OL Ben Bartch, WR Tom Kennedy, LB Devin White on injured reserve",
+      "body_text": "The Lions took care of some roster business during their bye week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T20:31:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Bartch",
+        "Tom Kennedy",
+        "Devin White",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0036272",
+        "00-0035544",
+        "00-0035707"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-on-minkah-fitzpatricks-hit-it-was-a-football-play-it-wasnt-dirty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-on-minkah-fitzpatricks-hit-it-was-a-football-play-it-wasnt-dirty",
+      "title": "KC Concepcion on Minkah Fitzpatrick's hit: It was a football play; it wasn't dirty",
+      "body_text": "Jets safety Minkah Fitzpatrick's hit on KC Concepcion on Sunday knocked out the Browns wide receiver.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T22:05:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Minkah Fitzpatrick"
+      ],
+      "resolved_player_ids": [
+        "00-0034789"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-returns-to-practice-listed-as-questionable-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-olave-returns-to-practice-listed-as-questionable-for-sunday",
+      "title": "Chris Olave returns to practice, listed as questionable for Sunday",
+      "body_text": "Saints wide receiver Chris Olave was back on the practice field Friday, but his status for Sunday's road game against the Giants remains up in the air.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T21:54:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chris Olave",
+        "Sunday Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-wr-dj-moore-dl-ed-oliver-are-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-wr-dj-moore-dl-ed-oliver-are-questionable",
+      "title": "Bills WR DJ Moore, DL Ed Oliver are questionable",
+      "body_text": "The Bills did not rule anyone out for Sunday's game against the Raiders.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T21:49:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ed Oliver",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-says-joey-porter-jr-is-all-in-with-the-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-says-joey-porter-jr-is-all-in-with-the-cowboys",
+      "title": "Stephen Jones says Joey Porter Jr. is \"all-in\" with the Cowboys",
+      "body_text": "Cowboys cornerback Joey Porter Jr. did not play in four games with the Steelers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T21:25:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stephen Jones",
+        "Joey Porter Jr",
+        "Cowboys Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037551",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-mcduffie-kam-curl-questionable-for-rams-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-mcduffie-kam-curl-questionable-for-rams-cardinals",
+      "title": "Trent McDuffie, Kam Curl questionable for Rams-Cardinals",
+      "body_text": "Two of the Rams defensive backs are uncertain to play Sunday's game against the Cardinals.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-16T21:04:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kam Curl",
+        "Cardinals Two"
+      ],
+      "resolved_player_ids": [
+        "00-0036349"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-george-kittle-asked-me-if-were-trying-to-trade-for-khalil-mack",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-lynch-george-kittle-asked-me-if-were-trying-to-trade-for-khalil-mack",
+      "title": "John Lynch: George Kittle asked me if we're trying to trade for Khalil Mack",
+      "body_text": "The trade deadline was a topic of conversation for General Manager John Lynch on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T20:59:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Lynch",
+        "George Kittle",
+        "Khalil Mack",
+        "General Manager"
+      ],
+      "resolved_player_ids": [
+        "00-0010188",
+        "00-0033288",
+        "00-0031040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-add-tyler-warren-to-injury-report-list-him-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-add-tyler-warren-to-injury-report-list-him-as-questionable",
+      "title": "Colts add Tyler Warren to injury report, list him as questionable",
+      "body_text": "The Colts added quarterback Daniel Jones's most frequent target to their injury report on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T20:44:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Warren",
+        "The Colts",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0040128",
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-out-devonta-smith-off-injury-report-and-will-play-vs-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-out-devonta-smith-off-injury-report-and-will-play-vs-panthers",
+      "title": "Saquon Barkley out, DeVonta Smith off injury report and will play vs. Panthers",
+      "body_text": "The Eagles will have their top receiver back for Sunday, but they won't have another one of their top offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-16T20:29:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Panthers The"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-removes-broncos-olb-jonathon-cooper-from-commissioners-exempt-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-removes-broncos-olb-jonathon-cooper-from-commissioners-exempt-list",
+      "title": "NFL removes Broncos OLB Jonathon Cooper from Commissioner's Exempt List",
+      "body_text": "The NFL has announced it has removed Broncos outside linebacker Jonathon Cooper from the Commissioner's Exempt List.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T20:22:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathon Cooper",
+        "Exempt List"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-returns-to-practice-draws-questionable-tag-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/abdul-carter-returns-to-practice-draws-questionable-tag-for-sunday",
+      "title": "Abdul Carter returns to practice, draws questionable tag for Sunday",
+      "body_text": "The Giants got linebacker Abdul Carter back on the practice field on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T20:15:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Abdul Carter",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-officially-rule-out-qb-lamar-jackson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-officially-rule-out-qb-lamar-jackson",
+      "title": "Ravens officially rule out QB Lamar Jackson",
+      "body_text": "The Ravens made it official, ruling out quarterback Lamar Jackson.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T20:08:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-joey-porter-jr-are-questionable-for-the-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-joey-porter-jr-are-questionable-for-the-cowboys",
+      "title": "DeMarvion Overshown, Joey Porter Jr. are questionable for the Cowboys",
+      "body_text": "The Cowboys listed linebacker DeMarvion Overshown as questionable to play against the Packers on Sunday night, but head coach Brian Schottenheimer made him sound closer to doubtful on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T20:07:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Cowboys The",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-treveyon-henderson-will-campbell-all-questionable-for-sunday-vs-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-treveyon-henderson-will-campbell-all-questionable-for-sunday-vs-jets",
+      "title": "A.J. Brown, TreVeyon Henderson, Will Campbell all questionable for Sunday vs. Jets",
+      "body_text": "The Patriots may get A.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-16T20:00:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Campbell",
+        "Jets The"
+      ],
+      "resolved_player_ids": [
+        "00-0040699"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-will-be-removed-from-paid-leave-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-will-be-removed-from-paid-leave-on-monday",
+      "title": "Josh Jacobs will be removed from paid leave on Monday",
+      "body_text": "NFL leaves door open for further discipline.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T20:00:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-list-taylor-moton-as-questionable-monroe-freeling-as-doubtful",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-list-taylor-moton-as-questionable-monroe-freeling-as-doubtful",
+      "title": "Panthers list Taylor Moton as questionable, Monroe Freeling as doubtful",
+      "body_text": "Panthers veteran Taylor Moton returned to practice this week for the first time since developing blood clots in his lungs in June and the offensive tackle could be in the lineup against the Eagles on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T19:53:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylor Moton",
+        "Monroe Freeling"
+      ],
+      "resolved_player_ids": [
+        "00-0033284"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonta-smith-says-his-hamstring-is-good-but-his-availability-is-up-to-the-doctors",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/devonta-smith-says-his-hamstring-is-good-but-his-availability-is-up-to-the-doctors",
+      "title": "DeVonta Smith says his hamstring is \"good,\" but his availability is \"up to the doctors\"",
+      "body_text": "DeVonta Smith is listed with toe and hamstring injuries.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T19:46:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-blough-takes-responsibility-for-clock-debacle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-blough-takes-responsibility-for-clock-debacle",
+      "title": "David Blough takes responsibility for clock debacle",
+      "body_text": "When a soldier is captured by the enemy, he knows to say only three things: Name, rank, and serial number.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-16T19:36:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Blough"
+      ],
+      "resolved_player_ids": [
+        "00-0035040"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dk-metcalf-is-questionable-for-sunday-after-missing-practice-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dk-metcalf-is-questionable-for-sunday-after-missing-practice-with-an-illness",
+      "title": "DK Metcalf is questionable for Sunday after missing practice with an illness",
+      "body_text": "Steelers wide receiver DK Metcalf's status for Sunday's game against the Buccaneers is in some doubt.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T19:33:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-quentin-johnston-off-injury-report-set-to-play-vs-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-quentin-johnston-off-injury-report-set-to-play-vs-chiefs",
+      "title": "Ladd McConkey, Quentin Johnston off injury report, set to play vs. Chiefs",
+      "body_text": "The Chargers will have two key receivers back for Sunday's game against the Chiefs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-16T19:31:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quentin Johnston",
+        "Chiefs The"
+      ],
+      "resolved_player_ids": [
+        "00-0038544"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-add-lb-josiah-trotter-to-injury-report-list-him-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-add-lb-josiah-trotter-to-injury-report-list-him-as-questionable",
+      "title": "Bucs add LB Josiah Trotter to injury report, list him as questionable",
+      "body_text": "The Buccaneers made a late addition to their injury report for Sunday's game against the Steelers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-16T19:25:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josiah Trotter",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-list-lbs-henry-tootoo-wade-woodaz-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-list-lbs-henry-tootoo-wade-woodaz-as-questionable",
+      "title": "Texans list LBs Henry To'oTo'o, Wade Woodaz as questionable",
+      "body_text": "The Texans already ruled out three players who didn't make the trip to London.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T19:14:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Wade Woodaz",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-qb-caleb-williams-questionable-to-play-vs-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-qb-caleb-williams-questionable-to-play-vs-falcons",
+      "title": "Bears QB Caleb Williams questionable to play vs. Falcons",
+      "body_text": "Williams tore his hamstring in a Sept. 20 game, and he has missed the past three games.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-16T19:06:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "Falcons Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-gayle-benson-attends-saints-practice-kellen-moore-says-theyre-all-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-gayle-benson-attends-saints-practice-kellen-moore-says-theyre-all-good",
+      "title": "After Gayle Benson attends Saints practice, Kellen Moore says they're \"all good\"",
+      "body_text": "Saints owner Gayle Benson attended practice today and hugged coach Kellen Moore, says after she said she won't accept the way the team is playing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-16T18:59:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "After Gayle",
+        "Kellen Moore",
+        "Gayle Benson"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}

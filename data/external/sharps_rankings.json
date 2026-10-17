@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-10-14T12:27:01.175550+00:00",
+  "fetched_at": "2026-10-17T12:21:49.293215+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1986,7 +1986,7 @@
     {
       "player_name": "Darius Slayton",
       "position": "WR",
-      "team": "IND",
+      "team": "FA",
       "external_rank": 308,
       "rank": 284
     },
