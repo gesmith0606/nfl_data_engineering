@@ -1,0 +1,495 @@
+{
+  "fetch_run_id": "2d60ee5c-ff3f-4797-a8d1-57cc1a4ebbd0",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-18T12:21:37.841705+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-want-to-play-all-their-home-games-in-jacksonville-when-stadium-re-opens-in-2028",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-want-to-play-all-their-home-games-in-jacksonville-when-stadium-re-opens-in-2028",
+      "title": "Jaguars want to play all their home games in Jacksonville when stadium re-opens in 2028",
+      "body_text": "The Jaguars want to stop giving up a home game to play in London when their stadium renovations are complete for the 2028 season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-18T09:11:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-gets-screwed-twice-on-final-play-at-byu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/notre-dame-gets-screwed-twice-on-final-play-at-byu",
+      "title": "Notre Dame gets screwed, twice, on \"final\" play at BYU",
+      "body_text": "Home cooking is the best cooking.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-18T03:43:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Notre Dame"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-downgrade-lb-demarvion-overshown-to-out-joey-porter-jr-makes-trip-to-green-bay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-downgrade-lb-demarvion-overshown-to-out-joey-porter-jr-makes-trip-to-green-bay",
+      "title": "Cowboys downgrade LB Demarvion Overshown to out; Joey Porter Jr. makes trip to Green Bay",
+      "body_text": "As expected, Cowboys linebacker DeMarvion Overshown will miss Sunday night's game against the Packers at Lambeau Field.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-18T02:09:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Demarvion Overshown",
+        "Joey Porter Jr",
+        "Green Bay",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [
+        "00-0038556",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-nfl-prepares-to-stage-steelers-saints-in-paris-local-unrest-intensifies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-nfl-prepares-to-stage-steelers-saints-in-paris-local-unrest-intensifies",
+      "title": "As NFL prepares to stage Steelers-Saints in Paris, local unrest intensifies",
+      "body_text": "First-ever game in France is scheduled for October 25.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-18T01:42:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aqib-talib-tees-off-on-ryan-fitzpatrick-for-his-comments-about-bo-nix",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aqib-talib-tees-off-on-ryan-fitzpatrick-for-his-comments-about-bo-nix",
+      "title": "Aqib Talib tees off on Ryan Fitzpatrick for his comments about Bo Nix",
+      "body_text": "Four years ago, Aqib Talib and Ryan Fitzpatrick were scheduled to become colleagues on Prime Video's coverage of Thursday Night Football.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-18T01:04:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aqib Talib",
+        "Ryan Fitzpatrick",
+        "Bo Nix",
+        "Prime Video",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0026160",
+        "00-0023682",
+        "00-0039732"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-overcoming-severe-colitis-in-2024-auburns-alex-mcpherson-kicks-game-winner-vs-no-1-georgia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-overcoming-severe-colitis-in-2024-auburns-alex-mcpherson-kicks-game-winner-vs-no-1-georgia",
+      "title": "After overcoming severe colitis in 2024, Auburn's Alex McPherson kicks game-winner vs. No. 1 Georgia",
+      "body_text": "Evan McPherson is in his sixth season as the kicker of the Cincinnati Bengals.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-18T00:26:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Georgia Evan",
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-sarkisian-doesnt-rule-out-benching-arch-manning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-sarkisian-doesnt-rule-out-benching-arch-manning",
+      "title": "Steve Sarkisian doesn't rule out benching Arch Manning",
+      "body_text": "The 2026 season for the University of Texas is quickly imploding.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-18T00:00:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Sarkisian",
+        "Arch Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-set-to-return-for-49ers-mike-evans-listed-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-juszczyk-set-to-return-for-49ers-mike-evans-listed-as-questionable",
+      "title": "Kyle Juszczyk set to return for 49ers, Mike Evans listed as questionable",
+      "body_text": "Fullback Kyle Juszczyk is set to return to the 49ers' lineup on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T23:37:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Juszczyk",
+        "Mike Evans",
+        "Fullback Kyle"
+      ],
+      "resolved_player_ids": [
+        "00-0029892",
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-beats-duke-for-the-first-time-as-north-carolina-wins-in-durham",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-beats-duke-for-the-first-time-as-north-carolina-wins-in-durham",
+      "title": "Bill Belichick beats Duke for the first time, as North Carolina wins in Durham",
+      "body_text": "Bill Belichick has claimed that the first words he ever spoke were \"Beat Duke,\" because his father was an assistant coach at North Carolina.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T23:20:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina",
+        "Durham Bill",
+        "Beat Duke"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-troy-aikman-finish-the-season-with-monday-night-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-troy-aikman-finish-the-season-with-monday-night-football",
+      "title": "Will Troy Aikman finish the season with Monday Night Football?",
+      "body_text": "Because millions care intensely about NFL football, they have similarly strong feelings about the voices that narrate the action on TV.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T22:55:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Will Troy",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bradley-chubb-fined-for-taunting-alaric-jackson-before-jackson-punched-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bradley-chubb-fined-for-taunting-alaric-jackson-before-jackson-punched-him",
+      "title": "Bradley Chubb fined for taunting Alaric Jackson before Jackson punched him",
+      "body_text": "Bills linebacker Bradley Chubb did not retaliate physically after Rams left tackle Alaric Jackson punched him in the aftermath of Buffalo's Week 5 win in Los Angeles, but he did get disciplined by the league for his part in the altercation.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T21:56:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bradley Chubb",
+        "Alaric Jackson",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0034832",
+        "00-0036603"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-caleb-williams-to-start-for-bears-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/reports-caleb-williams-to-start-for-bears-sunday",
+      "title": "Reports: Caleb Williams to start for Bears Sunday",
+      "body_text": "Bears quarterback Caleb Williams was coy about his availability for Sunday's game against the Falcons during a Friday press conference, but he seemed to send a message with a social media post later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T20:47:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "Bears Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rb-jaydon-blue-to-active-roster-with-jalen-hurts-officially-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rb-jaydon-blue-to-active-roster-with-jalen-hurts-officially-on-ir",
+      "title": "Eagles sign RB Jaydon Blue to active roster with Jalen Hurts officially on IR",
+      "body_text": "The Eagles announced the move to place quarterback Jalen Hurts to injured reserve on Saturday afternoon and they also made a move to fill the open space on their 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T20:37:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaydon Blue",
+        "Jalen Hurts",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0040586",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/minkah-fitzpatrick-five-others-fined-for-player-safety-fouls-in-week-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/minkah-fitzpatrick-five-others-fined-for-player-safety-fouls-in-week-6",
+      "title": "Minkah Fitzpatrick, five others fined for player safety fouls in Week 6",
+      "body_text": "The NFL confirmed that Jets safety Minkah Fitzpatrick was fined for his hit on a defenseless KC Concepcion in the Jets' Week 5 win over the Browns and they announced five other players were fined for the player safety fouls that count toward potential suspensions.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T20:27:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Minkah Fitzpatrick"
+      ],
+      "resolved_player_ids": [
+        "00-0034789"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-activate-a-j-brown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-activate-a-j-brown",
+      "title": "Patriots activate A.J. Brown",
+      "body_text": "A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T20:09:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-will-go-on-injured-reserve-miss-at-least-four-games-and-possibly-more",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jalen-hurts-will-go-on-injured-reserve-miss-at-least-four-games-and-possibly-more",
+      "title": "Jalen Hurts will go on injured reserve, miss at least four games and possibly more",
+      "body_text": "Hurts has a blood clot and will not play until Week 11 at the earliest.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T20:08:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-black-box-idea-could-be-adopted-by-some-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-black-box-idea-could-be-adopted-by-some-teams",
+      "title": "The \"black box\" idea could be adopted by some teams",
+      "body_text": "In the aftermath of the Commanders' overtime clock debacle against the Giants, it became impossible to figure out exactly what had happened.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T18:30:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-list-stefon-diggs-eight-others-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-list-stefon-diggs-eight-others-as-questionable",
+      "title": "Commanders list Stefon Diggs, eight others as questionable",
+      "body_text": "The Commanders played without wide receiver Stefon Diggs last Sunday and they'll wait to make a call on his availability for Monday's game against the 49ers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T19:35:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Stefon Diggs",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/grant-delpit-sums-up-difference-between-lamar-jackson-and-tyler-huntley-in-four-words",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/grant-delpit-sums-up-difference-between-lamar-jackson-and-tyler-huntley-in-four-words",
+      "title": "Grant Delpit sums up difference between Lamar Jackson and Tyler Huntley in four words",
+      "body_text": "On Sunday, Ravens quarterback Tyler Huntley will make his 19th career NFL start (including playoffs).",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T19:30:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Grant Delpit",
+        "Lamar Jackson",
+        "Tyler Huntley",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0036282",
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-struggles-and-colin-simmons-is-carted-as-texas-loses-to-florida",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-struggles-and-colin-simmons-is-carted-as-texas-loses-to-florida",
+      "title": "Arch Manning struggles and Colin Simmons is carted as Texas loses to Florida",
+      "body_text": "Formerly No. 1 Texas lost its second straight game on Saturday, and it was a particularly rough day for the Longhorns' two highest-profile 2027 NFL draft prospects.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T19:22:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arch Manning",
+        "Colin Simmons",
+        "Florida Formerly"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-put-roman-wilson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-put-roman-wilson-on-injured-reserve",
+      "title": "Steelers put Roman Wilson on injured reserve",
+      "body_text": "Steelers wide receiver Roman Wilson will be out of the lineup for an extended period of time.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T19:19:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Roman Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0039739"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-believes-the-harrison-mevis-blocked-field-goal-would-have-missed-anyway",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-believes-the-harrison-mevis-blocked-field-goal-would-have-missed-anyway",
+      "title": "Sean McVay believes the Harrison Mevis blocked field goal would have missed anyway",
+      "body_text": "After Monday night's overtime loss to the Bills, Rams coach Sean McVay minced no words — he said the field goal unit lost the game.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T19:03:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Harrison Mevis",
+        "After Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0039498"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-look-to-match-best-six-game-start-in-team-history",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-look-to-match-best-six-game-start-in-team-history",
+      "title": "Jaguars look to match best six-game start in team history",
+      "body_text": "As the Jaguars prepare to play their second straight game in London, they have an opportunity to do something they haven't done in 27 years — start the year 5-1.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T18:07:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-activate-taylor-moton-turk-wharton-trevor-etienne",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-activate-taylor-moton-turk-wharton-trevor-etienne",
+      "title": "Panthers activate Taylor Moton, Turk Wharton, Trevor Etienne",
+      "body_text": "Panthers offensive tackle Taylor Moton is set to make his 2026 debut.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T17:55:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylor Moton",
+        "Turk Wharton",
+        "Trevor Etienne"
+      ],
+      "resolved_player_ids": [
+        "00-0033284",
+        "00-0040644"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-kyler-gordon-sign-nick-mccloud-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-activate-kyler-gordon-sign-nick-mccloud-to-active-roster",
+      "title": "Bears activate Kyler Gordon, sign Nick McCloud to active roster",
+      "body_text": "Bears General Manager Ryan Poles said in September that he didn't know if cornerback Kyler Gordon would play for the Bears again, but it looks like he'll be back in their lineup against the Falcons on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T17:40:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Gordon",
+        "Bears General",
+        "Manager Ryan"
+      ],
+      "resolved_player_ids": [
+        "00-0038111"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-wont-have-jacory-croskey-merritt-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-wont-have-jacory-croskey-merritt-monday-night",
+      "title": "Commanders won't have Jacory Croskey-Merritt Monday night",
+      "body_text": "The Commanders will be without their top running back for Monday night's game against the 49ers.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-17T17:31:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jacory Croskey",
+        "Merritt Monday",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-say-dk-metcalf-will-play-pat-freiermuth-is-questionable-with-calf-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-say-dk-metcalf-will-play-pat-freiermuth-is-questionable-with-calf-injury",
+      "title": "Steelers say DK Metcalf will play, Pat Freiermuth is questionable with calf injury",
+      "body_text": "Steelers wide receiver DK Metcalf is no longer on the injury report for Sunday's game against the Buccaneers, but tight end Pat Freiermuth now is.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-17T16:32:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Freiermuth"
+      ],
+      "resolved_player_ids": [
+        "00-0036894"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/college-football-player-tyler-ulrich-dies-five-days-after-suffering-traumatic-injury-during-a-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/college-football-player-tyler-ulrich-dies-five-days-after-suffering-traumatic-injury-during-a-game",
+      "title": "College football player Tyler Ulrich dies five days after suffering traumatic injury during a game",
+      "body_text": "Tyler Ulrich, a 21-year-old football player at Southern Nazarene University, died Thursday.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T14:29:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Ulrich",
+        "Southern Nazarene"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-dont-plan-to-put-qb-jalen-hurts-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-dont-plan-to-put-qb-jalen-hurts-on-injured-reserve",
+      "title": "Eagles don't plan to put QB Jalen Hurts on injured reserve",
+      "body_text": "Eagles quarterback Jalen Hurts is out indefinitely with a blood clot in his leg.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T13:54:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-afc-nfc-north-teams-could-emerge-from-week-6-above-500",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/all-afc-nfc-north-teams-could-emerge-from-week-6-above-500",
+      "title": "All AFC, NFC North teams could emerge from Week 6 above .500",
+      "body_text": "One of the basic realities of life in the NFL is that each team is assigned to a division with three other teams, permanently.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-17T13:18:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

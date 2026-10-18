@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "bc957ec6-bf48-40f2-a7b5-92ba98718aed",
+  "source": "rotowire",
+  "fetched_at": "2026-10-18T12:21:51.470027+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl642979",
+      "url": "https://www.rotowire.com//football/player/pat-freiermuth-15267",
+      "permalink": "",
+      "title": "Pat Freiermuth: Chance to play in Week 6",
+      "body_text": "The Steelers are \"optimistic\" that Freiermuth (calf) will play Sunday at Tampa Bay, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-18T05:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pat Freiermuth",
+        "The Steelers",
+        "Tampa Bay",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0036894"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl642977",
+      "url": "https://www.rotowire.com//football/player/tyler-shough-17037",
+      "permalink": "",
+      "title": "Tyler Shough: Playing through broken bones in hand",
+      "body_text": "Shough has been playing with two broken bones in his left hand, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-18T05:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Shough",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642976",
+      "url": "https://www.rotowire.com//football/player/kenyon-sadiq-19279",
+      "permalink": "",
+      "title": "Kenyon Sadiq: Slated to suit up in Week 6",
+      "body_text": "Sadiq (concussion) is in line to be available for Sunday's game at New England, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-18T04:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenyon Sadiq",
+        "New England",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl642975",
+      "url": "https://www.rotowire.com//football/player/alvin-kamara-11732",
+      "permalink": "",
+      "title": "Alvin Kamara: Slated to play Sunday",
+      "body_text": "Kamara (back), who is listed as questionable for Sunday's contest at the Giants, is expected to play, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-18T04:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alvin Kamara",
+        "Sunday Kamara",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl642974",
+      "url": "https://www.rotowire.com//football/player/chris-olave-15895",
+      "permalink": "",
+      "title": "Chris Olave: Expected to play Sunday",
+      "body_text": "Olave (illness), who is listed as questionable for Sunday's game at the Giants, is expected to suit up, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-18T04:45:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Olave",
+        "Sunday Olave",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0037239"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
