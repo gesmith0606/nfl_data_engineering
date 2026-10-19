@@ -664,6 +664,10 @@ jobs:
           # TD-10: prod (HF Spaces git clone) serves player game logs from this path;
           # the Tuesday ingest writes it on the runner, so it must ship with Gold.
           git add data/bronze/players/weekly/ 2>/dev/null || true
+          # Snap counts feed player_dossier.py / waiver usage shares; the
+          # .gitignore allowlist existed but nothing staged them, so the
+          # runner's ingest was thrown away every week.
+          git add data/bronze/players/snaps/ 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new Gold projections to commit"
           else

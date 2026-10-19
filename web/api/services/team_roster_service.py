@@ -444,7 +444,8 @@ def get_current_week(today: Optional[date] = None) -> CurrentWeekResponse:
     Strategy:
     1. Try ``today.year`` and ``today.year - 1`` schedule parquets in order.
     2. For each, find any row where ``gameday <= today <= gameday + 6 days`` —
-       that's the current game week (``source="schedule"``).
+       the season is live, and the result is the upcoming week: the earliest
+       REG week whose last game is on/after today (``source="schedule"``).
     3. If no match in any candidate season, load the latest schedule overall and
        return its max (season, week) with ``source="fallback"``.
     4. Raises ``FileNotFoundError`` if no schedule parquet exists anywhere.
@@ -470,10 +471,24 @@ def get_current_week(today: Optional[date] = None) -> CurrentWeekResponse:
         )
         matched = df[mask]
         if not matched.empty:
-            row = matched.iloc[0]
+            # The season is live; report the UPCOMING week — the earliest REG
+            # week whose last game is on/after today — so the site agrees with
+            # scripts/resolve_pipeline_week.py (Tuesday projections, sentiment
+            # partitions). The old "first week in the gameday+6 window" pick
+            # lagged a week from Tuesday through Sunday.
+            reg = df.assign(_gd=gamedays).dropna(subset=["_gd"])
+            if "game_type" in reg.columns:
+                reg = reg[reg["game_type"] == "REG"]
+            week_end = reg.groupby("week")["_gd"].max()
+            pending = week_end[week_end >= today]
+            week = (
+                int(pending.index.min())
+                if not pending.empty
+                else int(matched["week"].max())  # postseason
+            )
             return CurrentWeekResponse(
-                season=int(row["season"]),
-                week=int(row["week"]),
+                season=int(matched.iloc[0]["season"]),
+                week=week,
                 source="schedule",
             )
 

@@ -77,7 +77,7 @@ jobs:
 
       # --------------------------------------------------------------
       # Capture deploy metadata for the rollback window check. The
-      # 5-minute gate in auto-rollback consumes DEPLOY_SHA +
+      # 15-minute gate in auto-rollback consumes DEPLOY_SHA +
       # DEPLOY_TIMESTAMP so stale workflow re-runs cannot revert an
       # unrelated commit. Artifact retention is 1 day (rollback
       # decision must happen long before then).
@@ -340,16 +340,27 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ENABLE_LLM_ENRICHMENT: ${{ vars.ENABLE_LLM_ENRICHMENT || 'false' }}
         run: |
-          python scripts/sanity_check_projections.py \
-            --check-live \
-            --scoring half_ppr \
-            --season 2026
+          # Up to 3 attempts, 90s apart: a transient HF Spaces 502 right after
+          # a deploy must not trip the rollback (2026-09-28 incident).
+          for attempt in 1 2 3; do
+            if python scripts/sanity_check_projections.py \
+                --check-live \
+                --scoring half_ppr \
+                --season 2026; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "::warning::Live gate failed (attempt $attempt/3) — retrying in 90s"
+              sleep 90
+            fi
+          done
+          exit 1
         # Exit code != 0 fails the job, fails the workflow, triggers rollback.
 
   # ------------------------------------------------------------------
   # Auto-rollback (Plan 68-03 SANITY-09):
   # Triggers ONLY when live-gate-blocking fails AND the failing commit
-  # is within 5 minutes of workflow start. Reverts HEAD with
+  # is within 15 minutes of workflow start. Reverts HEAD with
   # `git revert --no-edit` and pushes to main. Vercel auto-redeploys the
   # frontend on that push; the backend (HF Spaces bridge) does NOT
   # rebuild on push (see the deploy-backend job below) — it only picks
@@ -380,7 +391,7 @@ jobs:
         with:
           name: deploy-metadata
 
-      - name: Verify 5-minute rollback window
+      - name: Verify 15-minute rollback window
         id: window_check
         run: |
           source deploy_metadata.env
@@ -388,9 +399,18 @@ jobs:
           ELAPSED=$(( NOW - DEPLOY_TIMESTAMP ))
           echo "DEPLOY_SHA=$DEPLOY_SHA"
           echo "Elapsed since deploy: ${ELAPSED}s"
-          if [ "$ELAPSED" -gt 300 ]; then
+          if [ "$ELAPSED" -gt 900 ]; then  # 15 min: covers the 3-attempt live gate
             echo "ROLLBACK_SKIPPED=true" >> $GITHUB_OUTPUT
-            echo "::warning::Rollback skipped — ${ELAPSED}s since deploy exceeds 5-minute window. Manual review required."
+            echo "::warning::Rollback skipped — ${ELAPSED}s since deploy exceeds 15-minute window. Manual review required."
+            exit 0
+          fi
+          # A data-only commit (bot odds/ops/sentiment snapshots) cannot break
+          # the site's code, and reverting it just discards fresh data — the
+          # 2026-09-28 rollback reverted an odds snapshot after an HF 502.
+          CODE_FILES=$(git diff --name-only HEAD~1 HEAD | grep -v '^data/' || true)
+          if [ -z "$CODE_FILES" ]; then
+            echo "ROLLBACK_SKIPPED=true" >> $GITHUB_OUTPUT
+            echo "::warning::Rollback skipped — $DEPLOY_SHA touches only data/. Live gate failure needs manual review."
             exit 0
           fi
           echo "ROLLBACK_SKIPPED=false" >> $GITHUB_OUTPUT

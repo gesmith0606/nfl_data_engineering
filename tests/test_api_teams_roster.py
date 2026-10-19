@@ -281,10 +281,32 @@ class TestLoadTeamRoster:
 class TestGetCurrentWeek:
     def test_current_week_in_season(self):
         """A date inside the 2025 schedule window resolves to schedule source."""
+        # Wed after Week 1's MNF (2025-09-08) -> upcoming Week 2, matching
+        # scripts/resolve_pipeline_week.py (the old window pick said Week 1).
         resp = team_roster_service.get_current_week(today=date(2025, 9, 10))
         assert resp.source == "schedule"
         assert resp.season == 2025
-        assert resp.week == 1
+        assert resp.week == 2
+
+    def test_current_week_tracks_upcoming_week(self):
+        """Opening night through MNF is Week 1; the Sunday after is Week 2."""
+        cw = team_roster_service.get_current_week
+        assert cw(today=date(2025, 9, 4)).week == 1  # opening Thursday
+        assert cw(today=date(2025, 9, 8)).week == 1  # Week 1 MNF
+        assert cw(today=date(2025, 9, 14)).week == 2  # Week 2 Sunday
+
+    def test_current_week_agrees_with_pipeline_resolver(self):
+        import importlib.util
+        from pathlib import Path
+
+        path = Path(__file__).resolve().parents[1] / "scripts" / "resolve_pipeline_week.py"
+        spec = importlib.util.spec_from_file_location("rpw", path)
+        rpw = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(rpw)
+        for d in (date(2025, 9, 9), date(2025, 10, 19), date(2025, 12, 2)):
+            season, week, _ = rpw.resolve_target_week(d)
+            resp = team_roster_service.get_current_week(today=d)
+            assert (resp.season, resp.week) == (season, week), d
 
     def test_current_week_offseason(self):
         """An offseason date with no current schedule should return a fallback.
