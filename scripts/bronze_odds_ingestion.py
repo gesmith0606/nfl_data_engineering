@@ -21,7 +21,10 @@ from scipy.stats import pearsonr
 
 # Add project root to path so src.* imports work
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+# src/ too: nfl_data_adapter does a bare ``from config import ...``.
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+from src.market_analytics import fill_lines_from_odds_snapshot  # noqa: E402
 from src.nfl_data_adapter import NFLDataAdapter  # noqa: E402
 
 
@@ -605,9 +608,17 @@ def validate_nflverse_coverage(df: pd.DataFrame, season: int) -> None:
     Raises:
         ValueError: If no games found or NaN rate exceeds 5%.
     """
-    total_games = len(df)
-    if total_games == 0:
+    if len(df) == 0:
         raise ValueError(f"No games found for season {season}")
+    # In-season, weeks beyond the latest posted line legitimately have no
+    # lines yet; judge coverage only through that week. A completed season
+    # has lines through the Super Bowl, so this is the whole season.
+    posted_weeks = df.loc[df["opening_spread"].notna(), "week"]
+    if posted_weeks.empty:
+        raise ValueError(f"Season {season}: no spread lines posted")
+    in_season = int(posted_weeks.max()) < int(df["week"].max())
+    df = df[df["week"] <= posted_weeks.max()]
+    total_games = len(df)
     spread_nan_rate = 1 - (df["opening_spread"].notna().sum() / total_games)
     total_nan_rate = 1 - (df["opening_total"].notna().sum() / total_games)
     if spread_nan_rate > 0.05:
@@ -619,7 +630,7 @@ def validate_nflverse_coverage(df: pd.DataFrame, season: int) -> None:
             f"Season {season}: total NaN rate {total_nan_rate:.1%} exceeds 5%"
         )
     playoff_games = df[df["week"] >= 19]
-    if len(playoff_games) < 10:
+    if len(playoff_games) < 10 and not in_season:
         print(
             f"  WARNING: Season {season} has only {len(playoff_games)} "
             f"playoff games (expected >= 10)"
@@ -652,7 +663,8 @@ def derive_odds_from_nflverse(season: int, dry_run: bool = False) -> str:
             f"nflverse bridge only valid for seasons 2022+, got {season}"
         )
     print(f"Deriving odds from nflverse schedules for season {season}...")
-    sched = _load_schedules(season)
+    # Upcoming games' lines from the live odds snapshots until nflverse posts.
+    sched = fill_lines_from_odds_snapshot(_load_schedules(season), season)
     df = pd.DataFrame(
         {
             "game_id": sched["game_id"],

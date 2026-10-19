@@ -571,7 +571,7 @@ class NFLDataAdapter:
         if not seasons:
             return pd.DataFrame()
         nfl = self._import_nfl()
-        return self._safe_call(
+        df = self._safe_call(
             "fetch_pbp",
             nfl.import_pbp_data,
             seasons,
@@ -579,6 +579,29 @@ class NFLDataAdapter:
             downcast=downcast,
             include_participation=include_participation,
         )
+        if df.empty and columns:
+            # nfl_data_py fails the whole season (printing "Data not
+            # available") when ANY requested column is absent — the 2026
+            # nflverse file dropped ``defenders_in_box``. Re-read every column
+            # and keep the curated list, NaN-filling what upstream removed.
+            df = self._safe_call(
+                "fetch_pbp",
+                nfl.import_pbp_data,
+                seasons,
+                columns=None,
+                downcast=downcast,
+                include_participation=include_participation,
+            )
+            if not df.empty:
+                missing = [c for c in columns if c not in df.columns]
+                if missing:
+                    logger.warning(
+                        "fetch_pbp %s: upstream lacks %s — filled with NaN",
+                        seasons,
+                        missing,
+                    )
+                df = df.reindex(columns=list(columns))
+        return df
 
     def fetch_ngs(
         self, seasons: List[int], stat_type: str

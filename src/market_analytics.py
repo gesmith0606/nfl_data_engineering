@@ -11,9 +11,72 @@ Exports:
     reshape_to_per_team(odds_with_features) -> per-team-per-week DataFrame
 """
 
+import glob
+import os
+
 import pandas as pd
 import numpy as np
-from typing import List
+from typing import List, Optional
+
+_ODDS_SNAPSHOT_DIR = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "..", "data", "bronze", "odds_api", "snapshots",
+)
+
+
+def fill_lines_from_odds_snapshot(
+    sched: pd.DataFrame, season: int, snapshot_dir: Optional[str] = None
+) -> pd.DataFrame:
+    """Fill NaN ``spread_line``/``total_line`` of unplayed games from the
+    latest live odds snapshot.
+
+    nflverse posts a week's lines days after the books do, so in-season the
+    week being predicted has no schedule lines — leaving the model's market
+    feature (opening spread) and the Vegas edge empty. The committed Odds API
+    snapshots carry them; this takes the median across books per game. Lines
+    already on the schedule, and games already played, are never touched.
+
+    Sign: snapshot ``home_spread`` is negative when home is favored; nflverse
+    ``spread_line`` is positive when home is favored, so ``spread_line =
+    -median(home_spread)``.
+
+    Args:
+        sched: Schedule rows with home_team, away_team, spread_line, total_line
+            (and ``result`` when available, to skip played games).
+        season: Season whose snapshots to read.
+        snapshot_dir: Override for the snapshot root (tests).
+
+    Returns:
+        Copy of *sched* with missing lines filled where a snapshot has them.
+    """
+    if sched.empty or not {"spread_line", "total_line"} <= set(sched.columns):
+        return sched
+    if not sched[["spread_line", "total_line"]].isna().any().any():
+        return sched
+    root = snapshot_dir or _ODDS_SNAPSHOT_DIR
+    files = sorted(glob.glob(os.path.join(root, f"season={season}", "odds_*.parquet")))
+    if not files:
+        return sched
+    odds = pd.read_parquet(files[-1])
+    need = {"home_team_nfl", "away_team_nfl", "market", "home_spread", "total_points"}
+    if odds.empty or not need <= set(odds.columns):
+        return sched
+    keys = ["home_team_nfl", "away_team_nfl"]
+    spreads = (
+        odds[odds["market"] == "spreads"].groupby(keys)["home_spread"].median().mul(-1)
+    )
+    totals = odds[odds["market"] == "totals"].groupby(keys)["total_points"].median()
+    lines = pd.DataFrame({"_spread": spreads, "_total": totals}).reset_index()
+    lines = lines.rename(
+        columns={"home_team_nfl": "home_team", "away_team_nfl": "away_team"}
+    )
+    out = sched.merge(lines, on=["home_team", "away_team"], how="left")
+    out.index = sched.index
+    unplayed = out["result"].isna() if "result" in out.columns else True
+    for col, src in (("spread_line", "_spread"), ("total_line", "_total")):
+        fill = out[col].isna() & unplayed & out[src].notna()
+        out.loc[fill, col] = out.loc[fill, src]
+    return out.drop(columns=["_spread", "_total"])
 
 # NFL key numbers where point probability spikes
 KEY_SPREAD_NUMBERS = [3, 7, 10]

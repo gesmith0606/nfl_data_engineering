@@ -89,6 +89,26 @@ class TestSingleSeasonProcessing:
         # First positional arg should be [2024] (single-element list)
         assert call_args[0][0] == [2024]
 
+    @patch("src.nfl_data_adapter.NFLDataAdapter._import_nfl")
+    def test_missing_upstream_column_falls_back_to_full_read(self, mock_import_nfl):
+        """A curated column absent upstream (2026: defenders_in_box) must not
+        empty the season — re-read all columns, NaN-fill the missing one."""
+        import pandas as pd
+        from src.nfl_data_adapter import NFLDataAdapter
+
+        full = pd.DataFrame({"epa": [0.5], "week": [1], "extra": [9]})
+        mock_nfl = MagicMock()
+        mock_nfl.import_pbp_data.side_effect = [pd.DataFrame(), full]
+        mock_import_nfl.return_value = mock_nfl
+
+        df = NFLDataAdapter().fetch_pbp(
+            seasons=[2026], columns=["epa", "week", "defenders_in_box"]
+        )
+
+        assert list(df.columns) == ["epa", "week", "defenders_in_box"]
+        assert df["defenders_in_box"].isna().all()
+        assert mock_nfl.import_pbp_data.call_args_list[1].kwargs["columns"] is None
+
 
 # ------------------------------------------------------------------
 # PBP-03: Column subsetting via _build_method_kwargs

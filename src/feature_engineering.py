@@ -13,6 +13,7 @@ Exports:
 
 import glob
 import os
+import re
 from typing import List, Optional
 
 import numpy as np
@@ -25,6 +26,7 @@ from config import (
     SILVER_TEAM_LOCAL_DIRS,
     TEAM_DIVISIONS,
 )
+from market_analytics import fill_lines_from_odds_snapshot
 from team_analytics import apply_team_rolling
 
 # Base directories for local data
@@ -122,7 +124,9 @@ def _read_bronze_schedules(season: int) -> pd.DataFrame:
         keep_cols.append("div_game")
 
     available = [c for c in keep_cols if c in df.columns]
-    return df[available].copy()
+    # In-season the upcoming week has no nflverse lines yet; the live odds
+    # snapshots do (no-op for seasons without snapshots, i.e. pre-2026).
+    return fill_lines_from_odds_snapshot(df[available].copy(), season)
 
 
 def _compute_momentum_features(season: int) -> pd.DataFrame:
@@ -633,6 +637,60 @@ def _compute_ep_team_features(season: int) -> pd.DataFrame:
     return result
 
 
+_ROLLING_SUFFIX = re.compile(r"^(?P<base>.+)_(?:roll(?P<win>\d+)|std|ewm(?P<hl>\d+))$")
+
+
+def _extend_to_upcoming_week(df: pd.DataFrame, base: pd.DataFrame) -> pd.DataFrame:
+    """Add each team's next unplayed game to a Silver team source.
+
+    Silver team tables only hold weeks a team has played, but their rolling
+    columns are ``shift(1)`` lags — the row for week W summarises games before
+    W. So in-season the week being predicted had no row and ~90% of its
+    features were NaN. For each team's earliest *base* (game_context) week
+    beyond its last Silver week, append a row whose rolling columns
+    (``x_roll{N}``, ``x_std``, ``x_ewm{H}``) are recomputed from the raw
+    ``x`` column with the same transforms as ``apply_team_rolling`` — i.e.
+    the values that row will have once Silver is rebuilt after the game.
+    Non-rolling columns stay NaN. A completed season has no such week, so
+    training data is unchanged.
+    """
+    keys = ["team", "season", "week"]
+    if df.empty or not set(keys) <= set(df.columns):
+        return df
+    last = df.groupby(["team", "season"])["week"].max().rename("_last").reset_index()
+    nxt = base[keys].drop_duplicates().merge(last, on=["team", "season"])
+    nxt = nxt[nxt["week"] > nxt["_last"]]
+    nxt = nxt.loc[nxt.groupby(["team", "season"])["week"].idxmin(), keys]
+    if nxt.empty:
+        return df
+
+    ext = pd.concat([df, nxt], ignore_index=True).sort_values(keys)
+    stub = ext.index >= len(df)  # concat gave the appended rows these labels
+    groups = ext.groupby(["team", "season"])
+    filled = {}
+    for col in df.columns:
+        m = _ROLLING_SUFFIX.match(col)
+        if (
+            not m
+            or m["base"] not in df.columns
+            or not pd.api.types.is_numeric_dtype(df[m["base"]])
+        ):
+            continue
+        raw = groups[m["base"]]
+        if m["win"]:
+            w = int(m["win"])
+            vals = raw.transform(lambda s: s.shift(1).rolling(w, min_periods=1).mean())
+        elif m["hl"]:
+            h = int(m["hl"])
+            vals = raw.transform(lambda s: s.shift(1).ewm(halflife=h, min_periods=1).mean())
+        else:
+            vals = raw.transform(lambda s: s.shift(1).expanding().mean())
+        filled[col] = vals[stub]
+    for col, vals in filled.items():
+        ext.loc[stub, col] = vals
+    return ext.reset_index(drop=True)
+
+
 def _assemble_team_features(
     season: int,
     include_player_features: bool = False,
@@ -669,7 +727,7 @@ def _assemble_team_features(
     for name, subdir in SILVER_TEAM_SOURCES.items():
         if name == "game_context":
             continue  # Already loaded as base
-        df = _read_latest_local(subdir, season)
+        df = _extend_to_upcoming_week(_read_latest_local(subdir, season), base)
         if df.empty:
             continue
         base = base.merge(

@@ -350,6 +350,27 @@ jobs:
             --seasons "$PREV_SEASON" "$SEASON" \
             || echo "::warning::compute_graph_features failed for seasons $PREV_SEASON $SEASON — WR/TE graph features will be NaN in --ml path"
 
+      - name: Gold — game predictions (team Silver + odds + ensemble)
+        id: gold_predictions
+        # Until 2026-10-18 no workflow built game predictions, so the site
+        # served 2025 backfills all season (issue #105). Team-level Silver
+        # is rebuilt from the PBP ingested above; lines for the upcoming week
+        # come from the committed live odds snapshots until nflverse posts
+        # them (market_analytics.fill_lines_from_odds_snapshot); the week
+        # being predicted gets rolling features from games already played
+        # (feature_engineering._extend_to_upcoming_week).
+        # Fail-open: a failure here must not block fantasy projections.
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          set -e
+          python scripts/silver_team_transformation.py --seasons "$SEASON"
+          python scripts/silver_game_context_transformation.py --seasons "$SEASON"
+          python scripts/silver_player_quality_transformation.py --seasons "$SEASON"
+          python scripts/bronze_odds_ingestion.py --source nflverse --season "$SEASON"
+          python scripts/silver_market_transformation.py --season "$SEASON"
+          python scripts/generate_predictions.py --ensemble --season "$SEASON" --week "$WEEK"
+
       # ------------------------------------------------------------------
       # 7. Gold projection generation (half_ppr scoring) — HYBRID ML path
       #
@@ -668,6 +689,8 @@ jobs:
           # .gitignore allowlist existed but nothing staged them, so the
           # runner's ingest was thrown away every week.
           git add data/bronze/players/snaps/ 2>/dev/null || true
+          # Game predictions (served by the HF backend from the git clone).
+          git add data/gold/predictions/ 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new Gold projections to commit"
           else
