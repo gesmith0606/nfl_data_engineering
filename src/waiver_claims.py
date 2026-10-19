@@ -787,13 +787,21 @@ def sleeper_claim_records(
 def is_pending_for(record: ClaimRecord, name: str) -> bool:
     """True when ``record`` is a pending claim to add ``name``.
 
-    Yahoo records are parsed best-effort, so the raw text counts too.
+    Yahoo records are parsed best-effort, so the raw text counts too — as
+    whole words ("Mike Williams" must not match "Mike Williamson"), and
+    without nickname aliasing, which only applies to a name's first word.
     """
     if record.status != "PENDING":
         return False
-    return player_key(record.add) == player_key(name) or normalize_name(
-        name
-    ) in normalize_name(record.note)
+    if player_key(record.add) == player_key(name):
+        return True
+
+    def words(text: str) -> str:
+        return " ".join(re.sub(r"[^a-z0-9\s]", "", str(text).lower()).split())
+
+    return bool(
+        re.search(rf"(?<!\w){re.escape(words(name))}(?!\w)", words(record.note))
+    )
 
 
 # ---------------------------------------------------------------------------

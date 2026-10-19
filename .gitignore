@@ -532,3 +532,5 @@ output/grading/
 # quietly dead with only an INFO log.
 !data/draft/
 !data/draft/my_guys.txt
+# machine-local log of filed waiver claims (scripts/submit_claims.py)
+data/draft/claims_ledger.jsonl

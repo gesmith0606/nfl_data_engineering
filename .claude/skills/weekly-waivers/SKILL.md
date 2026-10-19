@@ -85,7 +85,8 @@ run (practice reports, MNF results). Waivers clear Wednesday morning (all three)
 
 ## Step 6 — File the claims (runbook §6; only after George's explicit OK)
 Write the agreed claims to `data/draft/claims_week<N>.yaml` and run the dry run:
-`python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml --cdp-url <debug Chrome>`.
+`python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml` (headless Playwright
+profile; if a league says logged out, George runs `python scripts/league_login.py` himself).
 It re-checks Step 4b live and prints the table — show it to George. Run it again with
 `--submit` ONLY when George says yes to that table in chat; never on your own, never from a
 cron. Show the read-back (CONFIRMED / NOT FOUND per claim). Mantis is never submitted: tell

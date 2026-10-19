@@ -537,7 +537,7 @@ def test_snippets_take_exactly_one_argument_and_form_reader_stops_before_posting
 
 
 @pytest.fixture
-def fake_sites(monkeypatch):
+def fake_sites(monkeypatch, tmp_path):
     calls = {"espn_submit": [], "yahoo_submit": [], "read": []}
     monkeypatch.setattr(ws, "site_page", lambda platform, *a, **k: _FakePage(platform))
     monkeypatch.setattr(ws, "espn_state", lambda *a, **k: ESPN)
@@ -557,11 +557,11 @@ def fake_sites(monkeypatch):
             }
         return _fixture("yahoo_form_waiver.json")
 
-    def espn_submit(page, season, lid, body):
+    def espn_submit(page, season, lid, body, expect="WAIVERS"):
         calls["espn_submit"].append(body)
         return {"status": 200, "transaction": {"id": "new", "status": "PENDING"}}
 
-    def read_claims(league, preset, season, cdp_url=None, registry=None):
+    def read_claims(league, preset, season, browser=None, registry=None):
         calls["read"].append(league)
         records = [
             wc.ClaimRecord(league, "Jake Ferguson", "Keenan Allen", 4, "PENDING")
@@ -584,6 +584,7 @@ def fake_sites(monkeypatch):
     monkeypatch.setattr(ws, "read_claims", read_claims)
     sub = _script("submit_claims")
     monkeypatch.setattr(sub, "READ_BACK_WAIT_S", (0,))
+    monkeypatch.setattr(sub, "LEDGER", tmp_path / "ledger" / "claims_ledger.jsonl")
     return sub, calls
 
 
@@ -686,21 +687,44 @@ def test_check_pending_claims_prints_each_league(fake_sites, monkeypatch, capsys
     assert "UNAVAILABLE: Chrome DevTools not reachable" in capsys.readouterr().out
 
 
-def test_site_page_explains_a_chrome_without_devtools_http(monkeypatch):
-    import requests
+def test_browser_launches_lazily_and_explains_a_held_profile(monkeypatch, tmp_path):
+    from src import fantasy_browser as fb
 
-    class _Resp:
-        status_code = 404
+    class _Chromium:
+        def launch_persistent_context(self, *a, **k):
+            raise RuntimeError("ProcessSingleton: profile in use")
 
-        def json(self):
-            raise ValueError("not json")
+    class _PW:
+        chromium = _Chromium()
+        stopped = False
 
-        def raise_for_status(self):
-            raise requests.HTTPError("404 Client Error: Not Found")
+        def stop(self):
+            _PW.stopped = True
 
-    monkeypatch.setattr(requests, "get", lambda *a, **k: _Resp())
-    with pytest.raises(LookupError, match="--remote-debugging-port=<port>"):
-        ws.site_page("espn", "1493260", 1, "http://127.0.0.1:9222")
+    class _Sync:
+        def start(self):
+            return _PW()
+
+    import playwright.sync_api as pw_api
+
+    monkeypatch.setattr(pw_api, "sync_playwright", lambda: _Sync())
+    with fb.FantasyBrowser(tmp_path / "profile") as browser:
+        assert browser.context is None  # nothing launched until a page is needed
+        with pytest.raises(LookupError, match="still holding it open"):
+            browser.page("espn", "1493260", 1)
+    assert _PW.stopped
+
+
+def test_scripts_take_profile_and_headed_flags(tmp_path):
+    import argparse
+
+    from src import fantasy_browser as fb
+
+    ap = argparse.ArgumentParser()
+    fb.add_browser_args(ap)
+    args = ap.parse_args(["--profile", str(tmp_path), "--headed"])
+    browser = fb.open_browser(args)
+    assert browser.profile == tmp_path and browser.headless is False
 
 
 # ---------------------------------------------------------------------------
@@ -865,3 +889,73 @@ def test_yahoo_form_snippet_rechecks_team_and_claim_before_posting():
     assert js.index("A.expect_claim && !(out.faab") < post
     submit = ws.ESPN_SUBMIT_JS
     assert submit.index("does not own team") < submit.index("method: 'POST'")
+
+
+# ---------------------------------------------------------------------------
+# Silent-failure review follow-ups
+# ---------------------------------------------------------------------------
+
+
+def test_ledger_blocks_a_refile_even_when_the_site_shows_nothing(
+    fake_sites, tmp_path, monkeypatch, capsys
+):
+    sub, calls = fake_sites
+    claims = _claims(tmp_path, VALID)
+    assert sub.main(["--claims", str(claims), "--submit"]) == 0
+    filed = len(calls["espn_submit"]) + len(calls["yahoo_submit"])
+    # the site now hides our pending claims (e.g. Yahoo box missing)
+    monkeypatch.setattr(ws, "read_claims", lambda *a, **k: ("summary", []))
+    assert sub.main(["--claims", str(claims), "--submit"]) == 1
+    assert len(calls["espn_submit"]) + len(calls["yahoo_submit"]) == filed
+    assert "per claims_ledger.jsonl" in capsys.readouterr().out
+
+
+def test_ledger_ignores_failed_and_old_rows(fake_sites, tmp_path):
+    from datetime import datetime, timedelta
+
+    sub, _ = fake_sites
+    sub.LEDGER.parent.mkdir(parents=True)
+    old = (datetime.now() - timedelta(days=10)).isoformat(timespec="seconds")
+    now = datetime.now().isoformat(timespec="seconds")
+    rows = [
+        {"ts": old, "league": "la_liga", "add_id": "1", "verdict": "OK"},
+        {"ts": now, "league": "la_liga", "add_id": "2", "verdict": "FAILED"},
+        {"ts": now, "league": "la_liga", "add_id": "3", "verdict": "ATTEMPT"},
+    ]
+    sub.LEDGER.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    assert sub.ledger_blocks("la_liga", "1") == ""
+    assert sub.ledger_blocks("la_liga", "2") == ""
+    assert "ATTEMPT" in sub.ledger_blocks("la_liga", "3")
+    assert sub.ledger_blocks("feetball", "3") == ""
+
+
+def test_espn_2xx_without_a_pending_transaction_is_unknown(fake_sites, tmp_path):
+    sub, calls = fake_sites
+    ws_submit = ws.espn_submit
+    ws.espn_submit = lambda *a, **k: {"status": 200}
+    try:
+        assert sub.main(["--claims", str(_claims(tmp_path, VALID)), "--submit"]) == 2
+    finally:
+        ws.espn_submit = ws_submit
+
+
+def test_yahoo_note_match_is_word_bounded():
+    rec = wc.ClaimRecord(
+        "feetball", "", "", None, "PENDING", note="Add Mike Williamson $2"
+    )
+    assert not wc.is_pending_for(rec, "Mike Williams")
+    rec = wc.ClaimRecord(
+        "feetball", "", "", None, "PENDING", note="Add Mike Williams $2"
+    )
+    assert wc.is_pending_for(rec, "Mike Williams")
+
+
+def test_sleeper_fetch_errors_raise_instead_of_reading_as_empty(monkeypatch):
+    monkeypatch.setattr(ws.sleeper_http, "fetch_sleeper_json", lambda url: {})
+    with pytest.raises(LookupError, match="Sleeper NFL state unavailable"):
+        ws.sleeper_week()
+
+
+def test_espn_submit_rechecks_waiver_status_before_posting():
+    js = ws.ESPN_SUBMIT_JS
+    assert js.index("now.status !== A.expect") < js.index("method: 'POST'")

@@ -1,13 +1,10 @@
 """Site I/O for waiver claims: live league state, claim submission, read-back.
 
-ESPN and Yahoo are driven through a Chrome started with remote debugging and
-logged into both sites (the ``refresh_league_pools.py`` setup)::
-
-    chrome --remote-debugging-port=9222 --user-data-dir=<separate profile>
-
-Every request is a same-origin ``fetch`` run inside the site's own tab, so
+ESPN and Yahoo are driven through the dedicated Playwright profile in
+:mod:`src.fantasy_browser` (logged in once by hand: ``scripts/league_login.py``).
+Every request is a same-origin ``fetch`` run inside the site's own page, so
 cookies, Yahoo's form crumb and the ESPN member id never leave the browser —
-Python only sees the JSON each snippet returns. A missing tab is opened.
+Python only sees the JSON each snippet returns.
 
 Sleeper is read through its public REST API only (see :mod:`src.waiver_claims`).
 
@@ -18,31 +15,16 @@ retried claim can spend FAAB twice. Callers re-read pending claims instead.
 from __future__ import annotations
 
 import json
-import time
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
 try:
     from src import sleeper_http
     from src import waiver_claims as wc
-    from src.espn_draft_page import ChromeDraftPage
+    from src.fantasy_browser import BrowserPage, FantasyBrowser
 except ImportError:  # pragma: no cover - direct-script import path
     import sleeper_http
     import waiver_claims as wc
-    from espn_draft_page import ChromeDraftPage
-
-DEFAULT_CDP_URL = "http://127.0.0.1:9222"
-
-#: platform -> (tab URL fragment, URL to open when no tab matches).
-SITES = {
-    "espn": (
-        "fantasy.espn.com",
-        "https://fantasy.espn.com/football/team?leagueId={lid}&teamId={team}",
-    ),
-    "yahoo": (
-        "football.fantasysports.yahoo.com",
-        "https://football.fantasysports.yahoo.com/f1/{lid}/{team}",
-    ),
-}
+    from fantasy_browser import BrowserPage, FantasyBrowser
 
 SLEEPER_TX_URL = "https://api.sleeper.app/v1/league/{lid}/transactions/{leg}"
 SLEEPER_STATE_URL = "https://api.sleeper.app/v1/state/nfl"
@@ -121,6 +103,19 @@ ESPN_SUBMIT_JS = r"""(async (A) => {
  if (!owners.includes(member.toUpperCase())) {
    return refuse(`the logged-in ESPN account does not own team ${A.body.teamId}`);
  }
+ const add = (A.body.items || []).find(i => i.type === 'ADD');
+ if (!add) return refuse('claim has no ADD item');
+ const filt = {players: {filterIds: {value: [add.playerId]},
+                         filterStatus: {value: ['FREEAGENT', 'WAIVERS']}}};
+ const pr = await fetch(reads.split('?')[0] + `?scoringPeriodId=${A.body.scoringPeriodId}`
+   + '&view=kona_player_info',
+   {credentials: 'include', headers: {'x-fantasy-filter': JSON.stringify(filt)}});
+ if (!pr.ok) return refuse(`could not re-check player ${add.playerId} (HTTP ${pr.status})`);
+ const now = ((await pr.json()).players || []).find(x => x.player.id === add.playerId);
+ if (!now) return refuse(`player ${add.playerId} is no longer available`);
+ if (now.status !== A.expect) {
+   return refuse(`player ${add.playerId} is now ${now.status}, expected ${A.expect}`);
+ }
  const body = Object.assign({}, A.body, {memberId: member});
  const guid = /\{?[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}?/gi;
  const scrub = m => String(m || '').replace(guid, '{id}');
@@ -175,7 +170,7 @@ YAHOO_STATE_JS = r"""(async (A) => {
    }).filter(Boolean);
  }
  return JSON.stringify({faab_left: budget === undefined ? null : Number(budget),
-   pending, search,
+   pending, search, box: !!box,
    logged_in: !!box || /Waiver Budget/.test(txt(team.body))});
 })(__ARGS__)"""
 
@@ -232,53 +227,18 @@ YAHOO_FORM_JS = r"""(async (A) => {
 
 
 def site_page(
-    platform: str, league_id: str, team_id: int, cdp_url: str = DEFAULT_CDP_URL
-) -> ChromeDraftPage:
-    """The logged-in ESPN/Yahoo tab in the debug Chrome, opening one if absent.
+    browser: FantasyBrowser, platform: str, league_id: str, team_id: int
+) -> BrowserPage:
+    """Our ESPN/Yahoo team page in the logged-in profile (opened once per run).
 
     Raises:
-        LookupError: No DevTools HTTP endpoint at ``cdp_url`` — including an
-            everyday Chrome whose remote debugging was switched on from
-            chrome://inspect, which serves only the browser websocket.
+        LookupError: The page could not be loaded.
     """
-    import requests
-
-    fragment, url = SITES[platform]
-    page = ChromeDraftPage(cdp_url, url_fragment=fragment)
-    try:
-        page.find_tab()
-        return page
-    except LookupError:
-        pass
-    try:
-        resp = requests.get(f"{page.cdp_url}/json/version", timeout=5)
-        resp.raise_for_status()
-        resp.json()["Browser"]
-    except (requests.RequestException, ValueError, KeyError) as exc:
-        raise LookupError(
-            f"no Chrome DevTools endpoint at {page.cdp_url} ({exc}). Start a separate "
-            "Chrome with --remote-debugging-port=<port> --user-data-dir=<profile>, "
-            "log into ESPN + Yahoo there, and pass --cdp-url http://127.0.0.1:<port>"
-        ) from exc
-    try:
-        requests.put(
-            f"{page.cdp_url}/json/new?{url.format(lid=league_id, team=team_id)}",
-            timeout=10,
-        ).raise_for_status()
-    except requests.RequestException as exc:
-        raise LookupError(f"could not open a {fragment} tab: {exc}") from exc
-    for _ in range(40):
-        time.sleep(0.5)
-        try:
-            if page.evaluate("document.readyState") == "complete":
-                return page
-        except (LookupError, RuntimeError):
-            continue
-    raise LookupError(f"opened a {fragment} tab but it never finished loading")
+    return browser.page(platform, league_id, team_id)
 
 
 def run_js(
-    page: ChromeDraftPage, js: str, args: Mapping[str, Any], timeout: float = 60
+    page: BrowserPage, js: str, args: Mapping[str, Any], timeout: float = 60
 ) -> Any:
     """Evaluate a ``__ARGS__`` snippet in ``page`` and parse its JSON result."""
     raw = page.evaluate(
@@ -288,7 +248,7 @@ def run_js(
 
 
 def espn_state(
-    page: ChromeDraftPage, season: int, league_id: str, team_id: int
+    page: BrowserPage, season: int, league_id: str, team_id: int
 ) -> Dict[str, Any]:
     """Settings, rosters, free-agent pool, our waiver transactions, names."""
     return run_js(
@@ -297,19 +257,27 @@ def espn_state(
 
 
 def espn_submit(
-    page: ChromeDraftPage, season: int, league_id: str, body: Mapping[str, Any]
+    page: BrowserPage,
+    season: int,
+    league_id: str,
+    body: Mapping[str, Any],
+    expect: str = "WAIVERS",
 ) -> Dict[str, Any]:
-    """POST one claim; returns ``{status, transaction?, errors?}``. Never retried."""
+    """POST one claim; returns ``{status, transaction?, errors?}``. Never retried.
+
+    ``expect`` is the add's ESPN status (``WAIVERS`` / ``FREEAGENT``) the claim
+    was checked against; the browser refuses (status 0) if it changed since.
+    """
     return run_js(
         page,
         ESPN_SUBMIT_JS,
-        {"season": season, "lid": int(league_id), "body": dict(body)},
+        {"season": season, "lid": int(league_id), "body": dict(body), "expect": expect},
         timeout=30,
     )
 
 
 def yahoo_state(
-    page: ChromeDraftPage, league_id: str, team_id: int, names: Sequence[str]
+    page: BrowserPage, league_id: str, team_id: int, names: Sequence[str]
 ) -> Dict[str, Any]:
     """FAAB left, the Transactions box, and a player search per name."""
     return run_js(
@@ -325,7 +293,7 @@ def yahoo_state(
 
 
 def yahoo_form(
-    page: ChromeDraftPage,
+    page: BrowserPage,
     league_id: str,
     team_id: int,
     apid: str,
@@ -390,32 +358,35 @@ def sleeper_state(league_id: str, my_user: str, legs: Sequence[int]) -> Dict[str
         leg: sleeper_http.fetch_sleeper_json(
             SLEEPER_TX_URL.format(lid=league_id, leg=leg)
         )
-        or []
         for leg in legs
     }
+    bad = [leg for leg, t in txns.items() if not isinstance(t, list)]
+    if bad:  # fetch_sleeper_json fails open to {} - never read that as "none"
+        raise LookupError(f"Sleeper transactions unavailable for week(s) {bad}")
     return {
         "league": league,
         "rosters": rosters,
         "owners": owners,
         "my_roster_id": mine[0].get("roster_id"),
         "faab_left": None if budget is None else int(budget) - int(used),
-        "transactions": {
-            leg: t if isinstance(t, list) else [] for leg, t in txns.items()
-        },
+        "transactions": txns,
     }
 
 
 def sleeper_week() -> int:
     """Sleeper's current NFL week (the waiver ``leg``)."""
-    state = sleeper_http.fetch_sleeper_json(SLEEPER_STATE_URL)
-    return int((state or {}).get("leg") or (state or {}).get("week") or 1)
+    state = sleeper_http.fetch_sleeper_json(SLEEPER_STATE_URL) or {}
+    week = state.get("leg") or state.get("week")
+    if not week:
+        raise LookupError("Sleeper NFL state unavailable (no current week)")
+    return int(week)
 
 
 def read_claims(
     league: str,
     preset: Mapping[str, Any],
     season: int,
-    cdp_url: str = DEFAULT_CDP_URL,
+    browser: FantasyBrowser,
     registry: Optional[Mapping[str, Any]] = None,
 ) -> Tuple[str, List[wc.ClaimRecord]]:
     """Our claims as the site shows them right now: ``(summary line, records)``.
@@ -424,19 +395,19 @@ def read_claims(
     Transactions box. Sleeper: processed claims only (pending ones are private).
 
     Raises:
-        LookupError: The debug Chrome / tab / league is unreachable.
+        LookupError: The site page / league is unreachable.
         RuntimeError: A snippet failed in the page (e.g. logged out).
     """
     platform, lid = preset["platform"], str(preset["league_id"])
     if platform == "espn":
         team = int(preset["my_team_id"])
-        s = espn_state(site_page("espn", lid, team, cdp_url), season, lid, team)
+        s = espn_state(site_page(browser, "espn", lid, team), season, lid, team)
         records = wc.espn_claim_records(s["transactions"], team, s["names"], league)
         left = int(s["budget"] or 0) - int(s["spent"] or 0)
         return f"ESPN period {s['scoring_period']}, FAAB left ${left}", records
     if platform == "yahoo":
         team = int(preset["my_team_id"])
-        s = yahoo_state(site_page("yahoo", lid, team, cdp_url), lid, team, [])
+        s = yahoo_state(site_page(browser, "yahoo", lid, team), lid, team, [])
         if not s.get("logged_in"):
             raise RuntimeError("Yahoo team page has no Transactions box - logged in?")
         return f"Yahoo, FAAB left ${s.get('faab_left')}", wc.yahoo_claim_records(
@@ -463,7 +434,6 @@ def read_claims(
 
 
 __all__: List[str] = [
-    "DEFAULT_CDP_URL",
     "espn_state",
     "espn_submit",
     "read_claims",
