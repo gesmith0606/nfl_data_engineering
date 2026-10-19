@@ -1,0 +1,103 @@
+{
+  "fetch_run_id": "1b36863f-53e9-4d68-af67-0d2edbbf4810",
+  "source": "rotowire",
+  "fetched_at": "2026-10-19T12:26:54.792028+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl643290",
+      "url": "https://www.rotowire.com//football/player/keon-coleman-17732",
+      "permalink": "",
+      "title": "Keon Coleman: Team-high yardage total Sunday",
+      "body_text": "Coleman brought in four of six targets for 59 yards and a touchdown in the Bills' 33-30 win over the Raiders on Sunday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T03:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keon Coleman",
+        "Sunday Coleman"
+      ],
+      "resolved_player_ids": [
+        "00-0039901"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl643289",
+      "url": "https://www.rotowire.com//football/player/khalil-shakir-15892",
+      "permalink": "",
+      "title": "Khalil Shakir: Gets into end zone Sunday",
+      "body_text": "Shakir brought in four of six targets for 34 yards and a touchdown in the Bills' 33-30 win over the Raiders on Sunday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T02:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Khalil Shakir",
+        "Sunday Shakir"
+      ],
+      "resolved_player_ids": [
+        "00-0037261"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl643288",
+      "url": "https://www.rotowire.com//football/player/kirk-cousins-8057",
+      "permalink": "",
+      "title": "Kirk Cousins: Impressive numbers in Week 6 loss",
+      "body_text": "Cousins completed 23 of 41 passes for 313 yards with two touchdowns and one interception in the Raiders' 33-30 loss to the Bills on Sunday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T02:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl643287",
+      "url": "https://www.rotowire.com//football/player/tanner-mckee-16686",
+      "permalink": "",
+      "title": "Tanner McKee: Unremarkable in Week 6 start",
+      "body_text": "McKee completed 26 of 45 passes for 215 yards with a touchdown and no interceptions while adding one carry for no gain in the Eagles' 25-14 loss to the Panthers on Sunday. He also recovered a fumble. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T02:46:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl643286",
+      "url": "https://www.rotowire.com//football/player/dameon-pierce-15875",
+      "permalink": "",
+      "title": "Dameon Pierce: Logs 16 touches in lead role",
+      "body_text": "Pierce rushed 12 times for 35 yards and a touchdown and brought in four of five targets for 15 yards in the Eagles' 25-14 loss to the Panthers on Sunday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T02:41:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dameon Pierce"
+      ],
+      "resolved_player_ids": [
+        "00-0037258"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}

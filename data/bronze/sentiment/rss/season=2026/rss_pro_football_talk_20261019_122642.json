@@ -1,0 +1,491 @@
+{
+  "fetch_run_id": "f70cff2b-dcdd-4688-9480-6ac588bcdd11",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-19T12:26:42.760037+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-on-brian-thomas-not-playing-in-second-half-guys-have-to-make-plays",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-on-brian-thomas-not-playing-in-second-half-guys-have-to-make-plays",
+      "title": "Liam Coen on Brian Thomas not playing in second half: Guys have to make plays",
+      "body_text": "Travis Hunter had his most productive offensive day of the season in London on Sunday and his expanded role at wide receiver came at the expense of Brian Thomas.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T12:18:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen",
+        "Brian Thomas",
+        "Travis Hunter"
+      ],
+      "resolved_player_ids": [
+        "00-0039893",
+        "00-0040718"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-commanders-lose-nfc-east-will-be-first-division-with-zero-wins-in-back-to-back-weeks-since-merger",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/if-commanders-lose-nfc-east-will-be-first-division-with-zero-wins-in-back-to-back-weeks-since-merger",
+      "title": "If Commanders lose, NFC East will be first division with zero wins in back-to-back weeks since merger",
+      "body_text": "Thanks to another rough Sunday around the NFC East, the Commanders could make some history on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T12:02:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "If Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-we-were-lucky-to-win-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-we-were-lucky-to-win-on-sunday",
+      "title": "Mike Vrabel: We were lucky to win on Sunday",
+      "body_text": "Patriots head coach Mike Vrabel opened his postgame press conference on Sunday by saying that his team was \"lucky to win\" against the Jets.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T11:03:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Sunday Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-te-tommy-tremble-i-taunted-cooper-dejean-because-of-his-egregious-hit-on-teammate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-te-tommy-tremble-i-taunted-cooper-dejean-because-of-his-egregious-hit-on-teammate",
+      "title": "Panthers TE Tommy Tremble: I taunted Cooper DeJean because of his \"egregious\" hit on teammate",
+      "body_text": "Panthers tight end Tommy Tremble punctuated his second touchdown of Sunday's 25-14 win over the Eagles by turning toward and pointing at defensive back Cooper DeJean.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T10:45:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tommy Tremble"
+      ],
+      "resolved_player_ids": [
+        "00-0037005"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-id-love-to-put-myself-in-a-better-position-to-execute",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-id-love-to-put-myself-in-a-better-position-to-execute",
+      "title": "Jameis Winston: I'd love to put myself in a better position to execute",
+      "body_text": "Giants quarterback Jameis Winston spent the fourth quarter of Sunday's game watching J.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T10:33:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyren-williams-offensive-inconsistency-probably-because-im-not-out-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyren-williams-offensive-inconsistency-probably-because-im-not-out-there",
+      "title": "Kyren Williams: Offensive inconsistency \"probably because I'm not out there\"",
+      "body_text": "Sunday's 18-16 home loss to the Cardinals dropped the Rams to 2-4 and continued a start that has many people scratching their heads given how high the hopes were for the team heading into the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T10:21:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyren Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/last-time-the-chargers-were-0-6-their-qbs-were-ryan-leaf-moses-moreno-and-jim-harbaugh",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/last-time-the-chargers-were-0-6-their-qbs-were-ryan-leaf-moses-moreno-and-jim-harbaugh",
+      "title": "Last time the Chargers were 0-6, their QBs were Ryan Leaf, Moses Moreno and Jim Harbaugh",
+      "body_text": "The Chargers are 0-6 for the first time since 2000.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-19T09:20:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ryan Leaf",
+        "Moses Moreno",
+        "Jim Harbaugh",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0009715"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-cowboys-effort-and-fight-is-right-but-mistakes-are-killing-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-cowboys-effort-and-fight-is-right-but-mistakes-are-killing-us",
+      "title": "Brian Schottenheimer: Cowboys' effort and fight is right, but mistakes are killing us",
+      "body_text": "The Cowboys fell to 2-4 with Sunday night's loss to the Packers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-19T08:51:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-packers-move-to-4-2-with-23-13-victory-over-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-packers-move-to-4-2-with-23-13-victory-over-cowboys",
+      "title": "Sunday Night Football: Packers move to 4-2 with 23-13 victory over Cowboys",
+      "body_text": "Green Bay has won three games in a row after a strong defensive performance against Dallas on Sunday night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-19T03:53:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Cowboys Green"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tristan-wirfs-cant-blame-bucs-fans-for-not-showing-up-vs-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tristan-wirfs-cant-blame-bucs-fans-for-not-showing-up-vs-steelers",
+      "title": "Tristan Wirfs can't blame Bucs fans for not showing up vs. Steelers",
+      "body_text": "Steelers fans overwhelmed Raymond James Stadium on Sunday, boosting the road team's effort to overcome a 13-0 halftime deficit and a 16-3 fourth-quarter deficit.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T03:12:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tristan Wirfs",
+        "Steelers Steelers",
+        "Raymond James"
+      ],
+      "resolved_player_ids": [
+        "00-0036406"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-wants-to-enjoy-the-win-over-the-ravens-while-he-can",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/todd-monken-wants-to-enjoy-the-win-over-the-ravens-while-he-can",
+      "title": "Todd Monken wants to enjoy the win over the Ravens while he can",
+      "body_text": "In Week 1, the Browns were embarrassed by the Jaguars.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T02:33:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Monken",
+        "In Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javonte-williams-scores-1-yard-td-packers-still-lead-cowboys-17-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javonte-williams-scores-1-yard-td-packers-still-lead-cowboys-17-7",
+      "title": "Javonte Williams scores 1-yard TD, Packers still lead Cowboys 17-7",
+      "body_text": "The Cowboys are on the board.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-19T02:19:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Javonte Williams",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0036997"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-k-blake-grupe-left-sofi-stadium-with-crutches-and-a-brace-on-his-leg",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-k-blake-grupe-left-sofi-stadium-with-crutches-and-a-brace-on-his-leg",
+      "title": "Rams K Blake Grupe left SoFi Stadium with crutches and a brace on his leg",
+      "body_text": "The Rams signed kicker Blake Grupe after Week 5.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T01:59:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Blake Grupe",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0038905"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-jordan-love-td-gives-packers-17-0-halftime-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-jordan-love-td-gives-packers-17-0-halftime-lead",
+      "title": "Sunday Night Football: Jordan Love TD gives Packers 17-0 halftime lead",
+      "body_text": "Jordan Love threw for a touchdown and rushed for one in the first half of Sunday's game against the Cowboys.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-19T01:57:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-ive-got-to-control-my-emotions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-gardner-johnson-ive-got-to-control-my-emotions",
+      "title": "C.J. Gardner-Johnson: \"I've got to control my emotions\"",
+      "body_text": "During Sunday's game against the Raiders in Las Vegas, Bills safety C.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T01:32:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "During Sunday",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-daniel-jones-job-hes-our-starting-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-daniel-jones-job-hes-our-starting-quarterback",
+      "title": "Shane Steichen on Daniel Jones' job: He's our starting quarterback",
+      "body_text": "The Colts signed Daniel Jones to a two-year, $88 million extension in the offseason, even though he was returning from a torn right Achilles.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-19T01:10:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Shane Steichen",
+        "Daniel Jones",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/referee-shawn-smith-umpire-tra-blake-witnessed-c-j-gardner-johnson-spitting-on-an-opponent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/referee-shawn-smith-umpire-tra-blake-witnessed-c-j-gardner-johnson-spitting-on-an-opponent",
+      "title": "Referee Shawn Smith: Umpire Tra Blake witnessed C.J. Gardner-Johnson spitting on an opponent",
+      "body_text": "Bills safety C.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T01:00:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Referee Shawn",
+        "Umpire Tra"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-on-mike-mcdaniel-well-look-at-everything-offense-needs-to-be-addressed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-on-mike-mcdaniel-well-look-at-everything-offense-needs-to-be-addressed",
+      "title": "Jim Harbaugh on Mike McDaniel: We'll look at everything, offense needs to be addressed",
+      "body_text": "McDaniel could be dismissed as offensive coordinator after an 0-6 start.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T00:48:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-touchdown-pass-gives-packers-7-0-lead-over-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-touchdown-pass-gives-packers-7-0-lead-over-cowboys",
+      "title": "Jordan Love touchdown pass gives Packers 7-0 lead over Cowboys",
+      "body_text": "Dallas’ defense still looks porous to start Sunday night’s game against Green Bay.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-19T00:46:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love",
+        "Cowboys Dallas",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-just-let-it-rip-in-his-return-from-hamstring-tear",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-just-let-it-rip-in-his-return-from-hamstring-tear",
+      "title": "Caleb Williams \"just let it rip\" in his return from hamstring tear",
+      "body_text": "Caleb Williams had one question for the media as he made his way into the tunnel toward the visiting locker room.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-19T00:45:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-broncos-g-m-john-beake-dies-at-87",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-broncos-g-m-john-beake-dies-at-87",
+      "title": "Former Broncos G.M. John Beake dies at 87",
+      "body_text": "Former Broncos G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T00:41:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Broncos",
+        "John Beake"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-im-much-better-than-what-i-put-on-display",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-im-much-better-than-what-i-put-on-display",
+      "title": "A.J. Brown: I'm much better than what I put on display",
+      "body_text": "The Patriots were excited to get wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-19T00:34:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-have-a-decision-to-make-about-offensive-coordinator-mike-mcdaniel",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-have-a-decision-to-make-about-offensive-coordinator-mike-mcdaniel",
+      "title": "Chargers have a decision to make about offensive coordinator Mike McDaniel",
+      "body_text": "With no wins in six games and an average of 15.0 points per game, a change could be coming.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T00:14:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-dalton-tells-eagles-no-thanks-will-sign-with-another-team-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-dalton-tells-eagles-no-thanks-will-sign-with-another-team-soon",
+      "title": "Andy Dalton tells Eagles \"no thanks,\" will sign with another team soon",
+      "body_text": "With starting quarterback Jalen Hurts out indefinitely, the Eagles have had to scramble to fill out the depth chart.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-19T00:01:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Dalton",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0027973",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-stay-unbeaten-chargers-stay-winless",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-stay-unbeaten-chargers-stay-winless",
+      "title": "Chiefs stay unbeaten, Chargers stay winless",
+      "body_text": "The Chiefs scored nine points on their first two possessions of Sunday's home game against the Chargers and that would be all they'd need to move their record to 5-0 on the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-18T23:38:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-hold-off-raiders-33-30-to-move-to-5-1",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-hold-off-raiders-33-30-to-move-to-5-1",
+      "title": "Bills hold off Raiders 33-30 to move to 5-1",
+      "body_text": "Bills quarterbcak Josh Allen was 23-of-33 for 255 yards and two touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-18T23:36:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-is-active-for-the-cowboys-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-is-active-for-the-cowboys-on-sunday-night",
+      "title": "Joey Porter Jr. is active for the Cowboys on Sunday night",
+      "body_text": "The Cowboys will have cornerback Joey Porter Jr. in the lineup against the Packers on Sunday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-18T23:17:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-stun-rams-defeat-los-angeles-18-16",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-stun-rams-defeat-los-angeles-18-16",
+      "title": "Cardinals stun Rams, defeat Los Angeles 18-16",
+      "body_text": "A Super Bowl favorite to begin the season, the Rams have now fallen to 2-4 in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-18T23:13:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Los Angeles",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-td-pass-has-raiders-tied-with-bills-23-23",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-td-pass-has-raiders-tied-with-bills-23-23",
+      "title": "Kirk Cousins' TD pass has Raiders tied with Bills 23-23",
+      "body_text": "The Bills were in control until they weren't.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-18T23:07:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-reaches-5-000-career-receiving-yards-puts-saints-up-17-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alvin-kamara-reaches-5-000-career-receiving-yards-puts-saints-up-17-10",
+      "title": "Alvin Kamara reaches 5,000 career receiving yards, puts Saints up 17-10",
+      "body_text": "Saints running back Alvin Kamara reached a career milestone while putting his team in the lead for the first time on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-18T18:54:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alvin Kamara"
+      ],
+      "resolved_player_ids": [
+        "00-0033906"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}
