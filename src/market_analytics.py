@@ -57,11 +57,23 @@ def fill_lines_from_odds_snapshot(
     files = sorted(glob.glob(os.path.join(root, f"season={season}", "odds_*.parquet")))
     if not files:
         return sched
-    odds = pd.read_parquet(files[-1])
-    need = {"home_team_nfl", "away_team_nfl", "market", "home_spread", "total_points"}
+    # Recent snapshots (several per day), so a game-day snapshot holding only
+    # in-progress games doesn't hide the pre-game lines captured earlier.
+    odds = pd.concat([pd.read_parquet(f) for f in files[-30:]], ignore_index=True)
+    need = {
+        "home_team_nfl", "away_team_nfl", "market", "home_spread",
+        "total_points", "snapshot_ts", "commence_time",
+    }
     if odds.empty or not need <= set(odds.columns):
         return sched
-    keys = ["home_team_nfl", "away_team_nfl"]
+    snap = pd.to_datetime(odds["snapshot_ts"], utc=True)
+    kick = pd.to_datetime(odds["commence_time"], utc=True)
+    odds = odds.assign(_snap=snap, _date=kick.dt.tz_convert("America/New_York").dt.date)
+    odds = odds[snap < kick]  # pre-game prices only, never live in-game lines
+    if odds.empty:
+        return sched
+    keys = ["home_team_nfl", "away_team_nfl", "_date"]
+    odds = odds[odds["_snap"] == odds.groupby(keys)["_snap"].transform("max")]
     spreads = (
         odds[odds["market"] == "spreads"].groupby(keys)["home_spread"].median().mul(-1)
     )
@@ -70,7 +82,16 @@ def fill_lines_from_odds_snapshot(
     lines = lines.rename(
         columns={"home_team_nfl": "home_team", "away_team_nfl": "away_team"}
     )
-    out = sched.merge(lines, on=["home_team", "away_team"], how="left")
+    on = ["home_team", "away_team"]
+    left = sched
+    if "gameday" in sched.columns:
+        # Match the game date too, so a home/away pair can never fill the
+        # rivals' other meeting (e.g. a neutral-site game listed flipped).
+        left = sched.assign(_date=pd.to_datetime(sched["gameday"]).dt.date)
+        on.append("_date")
+    else:
+        lines = lines.drop(columns="_date").drop_duplicates(on, keep="last")
+    out = left.merge(lines, on=on, how="left").drop(columns="_date", errors="ignore")
     out.index = sched.index
     unplayed = out["result"].isna() if "result" in out.columns else True
     for col, src in (("spread_line", "_spread"), ("total_line", "_total")):

@@ -123,10 +123,12 @@ def _read_bronze_schedules(season: int) -> pd.DataFrame:
     if "div_game" in df.columns:
         keep_cols.append("div_game")
 
-    available = [c for c in keep_cols if c in df.columns]
     # In-season the upcoming week has no nflverse lines yet; the live odds
     # snapshots do (no-op for seasons without snapshots, i.e. pre-2026).
-    return fill_lines_from_odds_snapshot(df[available].copy(), season)
+    # Filled before subsetting so the date-matched merge can use gameday.
+    df = fill_lines_from_odds_snapshot(df, season)
+    available = [c for c in keep_cols if c in df.columns]
+    return df[available].copy()
 
 
 def _compute_momentum_features(season: int) -> pd.DataFrame:

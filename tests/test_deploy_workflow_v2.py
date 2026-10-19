@@ -118,10 +118,19 @@ def test_auto_rollback_fires_only_on_failure(jobs: dict) -> None:
     assert "failure" in if_expr, f"if missing 'failure' trigger: {if_expr!r}"
 
 
-def test_auto_rollback_has_five_minute_window(jobs: dict) -> None:
+def test_auto_rollback_has_fifteen_minute_window(jobs: dict) -> None:
+    # 15 min (was 5): the live gate now retries 3x, 90s apart (2026-10-18).
     steps_yaml = _dump(jobs["auto-rollback"].get("steps", []))
     assert "ELAPSED" in steps_yaml, "auto-rollback missing elapsed-time calculation"
-    assert "300" in steps_yaml, "auto-rollback missing 5-minute (300s) window guard"
+    assert "900" in steps_yaml, "auto-rollback missing 15-minute (900s) window guard"
+
+
+def test_auto_rollback_skips_data_only_deploys(jobs: dict) -> None:
+    steps_yaml = _dump(jobs["auto-rollback"].get("steps", []))
+    assert "DEPLOY_SHA}~1" in steps_yaml, (
+        "data-only check must diff the deployed commit, not HEAD"
+    )
+    assert "^data/" in steps_yaml
 
 
 def test_auto_rollback_uses_git_revert(jobs: dict) -> None:
