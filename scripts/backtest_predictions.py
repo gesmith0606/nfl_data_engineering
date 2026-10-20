@@ -551,8 +551,7 @@ def run_holdout_comparison(
         except FileNotFoundError:
             xgb_data["predicted_total"] = xgb_data["total_line"]  # fallback
         xgb_results = evaluate_ats(xgb_data)
-        from prediction_backtester import evaluate_ou as _eval_ou
-        xgb_results = _eval_ou(xgb_results)
+        xgb_results = evaluate_ou(xgb_results)
         print(f"  v1.4 XGBoost: {len(xgb_results)} games evaluated")
     except FileNotFoundError as e:
         print(f"WARNING: v1.4 XGBoost model not found: {e}")
@@ -569,7 +568,7 @@ def run_holdout_comparison(
         p30_data["predicted_margin"] = predict_ensemble(p30_input, p30_spread)
         p30_data["predicted_total"] = predict_ensemble(p30_input, p30_total)
         p30_results = evaluate_ats(p30_data)
-        p30_results = _eval_ou(p30_results)
+        p30_results = evaluate_ou(p30_results)
         print(f"  P30 Ensemble: {len(p30_results)} games evaluated")
     except FileNotFoundError as e:
         print(f"WARNING: Phase-30 ensemble not found at {p30_dir}: {e}")
@@ -586,7 +585,7 @@ def run_holdout_comparison(
         p31_data["predicted_margin"] = predict_ensemble(p31_input, p31_spread)
         p31_data["predicted_total"] = predict_ensemble(p31_input, p31_total)
         p31_results = evaluate_ats(p31_data)
-        p31_results = _eval_ou(p31_results)
+        p31_results = evaluate_ou(p31_results)
         print(f"  P31 Full: {len(p31_results)} games evaluated")
     except FileNotFoundError as e:
         print(f"WARNING: Phase-31 ensemble not found at {ensemble_dir}: {e}")

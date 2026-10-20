@@ -17,7 +17,11 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
-from generate_predictions import classify_tier, generate_week_predictions
+from generate_predictions import (
+    classify_tier,
+    classify_tier_prob,
+    generate_week_predictions,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -109,6 +113,26 @@ class TestClassifyTier:
 
     def test_classify_tier_nan(self):
         assert classify_tier(float("nan")) is None
+
+
+class TestClassifyTierProb:
+    """Ensemble path: tier = calibrated probability the picked side wins."""
+
+    def test_thresholds_bracket_breakeven(self):
+        assert classify_tier_prob(0.56) == "high"
+        assert classify_tier_prob(0.53) == "medium"
+        # -110 breakeven is 52.4%: anything at or below it is low.
+        assert classify_tier_prob(0.524) == "low"
+        assert classify_tier_prob(0.50) == "low"
+
+    def test_nan(self):
+        assert classify_tier_prob(float("nan")) is None
+
+    def test_big_edge_without_skill_is_low(self):
+        # The shipped totals calibrator maps a 5-pt edge to ~0.495: a large
+        # raw edge must not be advertised as confidence.
+        assert classify_tier(5.0) == "high"
+        assert classify_tier_prob(0.505) == "low"
 
 
 # ---------------------------------------------------------------------------

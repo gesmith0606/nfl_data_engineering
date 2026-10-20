@@ -84,6 +84,37 @@ def classify_tier(edge_value: float) -> Optional[str]:
     return "low"
 
 
+# Calibrated win probability of the picked side. -110 juice breaks even at
+# 52.4%, so "medium" must clear it and "high" needs real margin.
+PROB_TIER_HIGH = 0.56
+PROB_TIER_MEDIUM = 0.53
+
+
+def classify_tier_prob(pick_prob: float) -> Optional[str]:
+    """Classify by the calibrated probability that the picked side wins.
+
+    Raw edge size is not confidence: on the sealed 2025 season a 3+ point
+    edge hit 53% O/U and 57% ATS, while the leak-free OOF calibrator maps a
+    5-point total edge to a 49.5% over probability (the totals model is
+    near-constant, so big "edges" just mean Vegas posted an extreme line).
+    Tiering on the calibrated probability lets a model without skill fall to
+    "low" instead of advertising high confidence.
+
+    Args:
+        pick_prob: Calibrated probability that the recommended side wins.
+
+    Returns:
+        'high', 'medium', 'low', or None if the probability is NaN.
+    """
+    if pd.isna(pick_prob):
+        return None
+    if pick_prob >= PROB_TIER_HIGH:
+        return "high"
+    if pick_prob >= PROB_TIER_MEDIUM:
+        return "medium"
+    return "low"
+
+
 def _normalize_prediction_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Normalize column names and derive fields for the output schema.
 
@@ -356,6 +387,14 @@ def main(argv: Optional[List[str]] = None) -> int:
             if calibrator is not None:
                 edge_vals = week_df[edge_col].fillna(0.0).values.reshape(-1, 1)
                 week_df[prob_col] = calibrator.predict_proba(edge_vals)[:, 1].round(4)
+                # Tier on the picked side's calibrated probability. Picks
+                # mirror _normalize_prediction_columns: home when spread
+                # edge >= 0, over only when total edge > 0.
+                edge = week_df[edge_col]
+                picks_event = edge >= 0 if edge_col == "spread_edge" else edge > 0
+                pick_prob = week_df[prob_col].where(picks_event, 1 - week_df[prob_col])
+                tier = pick_prob.where(edge.notna()).apply(classify_tier_prob)
+                week_df[edge_col.replace("_edge", "_confidence_tier")] = tier
             else:
                 week_df[prob_col] = float("nan")
 
