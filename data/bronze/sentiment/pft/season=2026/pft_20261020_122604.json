@@ -1,0 +1,569 @@
+{
+  "fetch_run_id": "d4389aa8-bd5c-4e03-b520-d6aa16bec859",
+  "source": "pft",
+  "fetched_at": "2026-10-20T12:26:04.950991+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-two-wins-are-the-two-biggest-upsets-in-the-nfl-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-two-wins-are-the-two-biggest-upsets-in-the-nfl-this-season",
+      "permalink": "",
+      "title": "Cardinals' two wins are the two biggest upsets in the NFL this season",
+      "body_text": "The Cardinals are only 2-4, but their two wins have been big ones.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-20T12:16:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-is-the-nfls-all-time-record-holder-for-highest-career-passer-rating",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-is-the-nfls-all-time-record-holder-for-highest-career-passer-rating",
+      "permalink": "",
+      "title": "Brock Purdy is the NFL's all-time record holder for highest career passer rating",
+      "body_text": "The NFL has a new all-time record holder for highest career passer rating: Brock Purdy.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-20T11:48:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-mclaurin-believed-to-have-season-ending-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terry-mclaurin-believed-to-have-season-ending-knee-injury",
+      "permalink": "",
+      "title": "Terry McLaurin believed to have season-ending knee injury",
+      "body_text": "Commanders wide receiver Terry McLaurin had to be carted off the field with an air cast on his left knee on Monday night and the image didn't do much to conjure up hopes of a quick return to the field this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-20T11:17:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-its-still-wide-open-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-its-still-wide-open-for-us",
+      "permalink": "",
+      "title": "Stefon Diggs: It's still wide open for us",
+      "body_text": "The Commanders fell to 1-4-1 when the clock ran out on Monday night, but wide receiver Stefon Diggs chose to accentuate the positive in the locker room after the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-20T11:07:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-frank-reich-is-doing-a-good-job-as-offensive-coordinator",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-frank-reich-is-doing-a-good-job-as-offensive-coordinator",
+      "permalink": "",
+      "title": "Aaron Glenn: Frank Reich is doing a good job as offensive coordinator",
+      "body_text": "The Jets finished 29th in points scored during Aaron Glenn's first season as their head coach, so it was not a great surprise that they made the choice to fire offensive coordinator Tanner Engstrand at the end of the campaign.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-20T10:53:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "Frank Reich",
+        "The Jets",
+        "Tanner Engstrand"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-eddy-pineiro-has-got-to-make-his-extra-points",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-eddy-pineiro-has-got-to-make-his-extra-points",
+      "permalink": "",
+      "title": "Kyle Shanahan: Eddy Pineiro has got to make his extra points",
+      "body_text": "49ers kicker Eddy Pineiro missed another extra point on Monday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-20T10:45:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Eddy Pineiro"
+      ],
+      "resolved_player_ids": [
+        "00-0034173"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-yorks-suspension-ends-today",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jed-yorks-suspension-ends-today",
+      "permalink": "",
+      "title": "Jed York's suspension ends today",
+      "body_text": "York returns after a six-game ban and $500,000 fine.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T10:35:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-says-bills-wont-be-cutting-c-j-gardner-johnson-after-spitting-incident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-says-bills-wont-be-cutting-c-j-gardner-johnson-after-spitting-incident",
+      "permalink": "",
+      "title": "Joe Brady says Bills won't be cutting C.J. Gardner-Johnson after spitting incident",
+      "body_text": "The two players involved in spitting incidents during games were (and still are) star players.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T10:09:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-kyren-williams-he-was-emotional-after-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-kyren-williams-he-was-emotional-after-the-game",
+      "permalink": "",
+      "title": "Sean McVay on Kyren Williams: \"He was emotional after the game\"",
+      "body_text": "After Sunday's loss to the previously 1-4 Cardinals, Rams running back Kyren Williams had a simple explanation for the team's inconsistency on offense.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T09:52:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyren Williams",
+        "After Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-broncos-in-week-6-draws-16-26-million-on-prime-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-broncos-in-week-6-draws-16-26-million-on-prime-video",
+      "permalink": "",
+      "title": "Seahawks-Broncos in Week 6 draws 16.26 million on Prime Video",
+      "body_text": "Although an unresolved question lingers regarding whether or not the numbers are inflated by anyone who visits Amazon Prime and gets an autoplay video of the game, the official, Nielsen-generated numbers for Prime Video's Thursday Night Football keep improving.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T09:36:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Prime Video",
+        "Amazon Prime",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-mike-evans-injury-is-not-a-long-term-thing-hopeful-he-can-play-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-mike-evans-injury-is-not-a-long-term-thing-hopeful-he-can-play-sunday",
+      "permalink": "",
+      "title": "Kyle Shanahan: Mike Evans injury is not a long-term thing, hopeful he can play Sunday",
+      "body_text": "49ers wide receiver Mike Evans had to leave Monday night's game because he aggravated the Achilles injury he has been dealing with, but coach Kyle Shanahan said after the game that they're optimistic Evans will play on Sunday against the Falcons.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-20T08:53:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-on-viral-clip-i-definitely-knew-it-was-fourth-down",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-on-viral-clip-i-definitely-knew-it-was-fourth-down",
+      "permalink": "",
+      "title": "Dan Quinn on viral clip: \"I definitely knew it was fourth down\"",
+      "body_text": "The first half of Monday night's game included a failed fourth-and-two play by the Commanders from the San Francisco 13.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T04:28:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Quinn",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-has-until-tuesday-to-decide-whether-to-flex-eagles-commanders-out-of-prime-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-has-until-tuesday-to-decide-whether-to-flex-eagles-commanders-out-of-prime-time",
+      "permalink": "",
+      "title": "NFL has until Tuesday to decide whether to flex Eagles-Commanders out of prime time",
+      "body_text": "With the Eagles slipping to 2-4 and the Commanders sliding to 1-4-1, the two teams have a Week 8 prime-time date looming.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T03:49:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/whats-next-for-dan-quinn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/whats-next-for-dan-quinn",
+      "permalink": "",
+      "title": "What's next for Dan Quinn?",
+      "body_text": "At the end of the first half of Monday night's game, with the Commanders down 20-3 and coach Dan Quinn going viral based on a lip-reading clip that was being widely interpreted as him not realizing it was fourth down (after a failed fourth-down play), it looked like Quinn was on track to get fired after the game.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T03:34:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-49ers-hang-on-for-23-17-win-over-commanders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-49ers-hang-on-for-23-17-win-over-commanders",
+      "permalink": "",
+      "title": "Monday Night Football: 49ers hang on for 23-17 win over Commanders",
+      "body_text": "The Commanders had two drives deep into San Francisco territory to win it in the final two minutes.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T03:30:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Commanders The",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-brian-schottenheimer-absolutely-has-full-support-of-ownership",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stephen-jones-brian-schottenheimer-absolutely-has-full-support-of-ownership",
+      "permalink": "",
+      "title": "Stephen Jones: Brian Schottenheimer \"absolutely\" has full support of ownership",
+      "body_text": "The Cowboys have slumped to 2-4.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T03:20:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stephen Jones",
+        "Brian Schottenheimer",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037551"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-second-td-throw-pulls-wasington-within-23-17",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-second-td-throw-pulls-wasington-within-23-17",
+      "permalink": "",
+      "title": "Jayden Daniels' second TD throw pulls Washington within 23-17",
+      "body_text": "The Commanders aren't dead yet.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T02:52:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-is-quetsionable-to-return-after-aggravating-achilles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-is-quetsionable-to-return-after-aggravating-achilles",
+      "permalink": "",
+      "title": "49ers WR Mike Evans is questionable to return after aggravating Achilles",
+      "body_text": "49ers wide receiver Mike Evans has three catches for 94 yards, but his night might be over.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T01:58:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-49ers-lead-20-3-at-halftime-but-mike-evans-leaves-early",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-49ers-lead-20-3-at-halftime-but-mike-evans-leaves-early",
+      "permalink": "",
+      "title": "Monday Night Football: 49ers lead 20-3 at halftime, but Mike Evans leaves early",
+      "body_text": "The 49ers star wide receiver appeared to aggravate his sore Achilles late in the first half.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T01:46:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-to-sign-wr-marquez-valdes-scantling-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-to-sign-wr-marquez-valdes-scantling-to-practice-squad",
+      "permalink": "",
+      "title": "Steelers to sign WR Marquez Valdes-Scantling to practice squad",
+      "body_text": "The Steelers are re-signing veteran wide receiver Marquez Valdes-Scantling, Mike DeFabo of TheAthletic.com reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T01:20:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marquez Valdes",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-wr-terry-mclaurin-carted-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-wr-terry-mclaurin-carted-with-knee-injury",
+      "permalink": "",
+      "title": "Commanders WR Terry McLaurin carted with knee injury",
+      "body_text": "The team has ruled out McLaurin, who was injured in the first quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T01:04:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-on-mike-mcdaniel-were-looking-into-everything",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-on-mike-mcdaniel-were-looking-into-everything",
+      "permalink": "",
+      "title": "Jim Harbaugh on Mike McDaniel: \"We're looking into everything\"",
+      "body_text": "Chargers offensive coordinator Mike McDaniel remains employed, for now.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T00:57:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffreys-td-run-has-49ers-up-13-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffreys-td-run-has-49ers-up-13-3",
+      "permalink": "",
+      "title": "Christian McCaffrey's TD run has 49ers up 13-3",
+      "body_text": "The 49ers have started red hot on offense.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T00:52:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-mustapha-avoids-another-flag-for-hit-on-defenseless-player-but-a-second-fine-is-likely",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-mustapha-avoids-another-flag-for-hit-on-defenseless-player-but-a-second-fine-is-likely",
+      "permalink": "",
+      "title": "Malik Mustapha avoids another flag for hit on defenseless player, but a second fine is likely",
+      "body_text": "For the second straight game, 49ers safety Malik Mustapha has avoided a flag for an illegal hit on a defenseless receiver.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-20T00:43:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Mustapha"
+      ],
+      "resolved_player_ids": [
+        "00-0039360"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ot-morgan-moses-wr-a-j-brown-limited-on-patriots-estimated-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ot-morgan-moses-wr-a-j-brown-limited-on-patriots-estimated-report",
+      "permalink": "",
+      "title": "OT Morgan Moses, WR A.J. Brown limited on Patriots' estimated report",
+      "body_text": "The Patriots did not practice on Monday, but they were required to release an estimated injury report for Thursday night's game against the Bears.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T00:39:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Morgan Moses",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0031330"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittles-td-gives-49ers-a-7-0-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittles-td-gives-49ers-a-7-0-lead",
+      "permalink": "",
+      "title": "George Kittle's TD gives 49ers a 7-0 lead",
+      "body_text": "Well, that was easy.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T00:28:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-off-bears-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-off-bears-injury-report",
+      "permalink": "",
+      "title": "Caleb Williams off Bears' injury report",
+      "body_text": "Bears quarterback Caleb Williams is off the team's injury report.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-20T00:07:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-calls-zach-charbonnets-return-this-week-a-possibility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-calls-zach-charbonnets-return-this-week-a-possibility",
+      "permalink": "",
+      "title": "Mike Macdonald calls Zach Charbonnet's return this week \"a possibility\"",
+      "body_text": "Seahawks running back Zach Charbonnet could make his 2026 debut on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-19T23:35:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Zach Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ravens-re-sign-k-jake-moody-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ravens-re-sign-k-jake-moody-to-practice-squad",
+      "permalink": "",
+      "title": "Report: Ravens re-sign K Jake Moody to practice squad",
+      "body_text": "Jesse Minter did not hide his frustration with Tyler Loop after the kicker missed a 49-yard field goal in the fourth quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-19T23:19:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Moody",
+        "Jesse Minter",
+        "Tyler Loop"
+      ],
+      "resolved_player_ids": [
+        "00-0038562",
+        "00-0040074"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-to-sign-dt-mazi-smith-to-their-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-to-sign-dt-mazi-smith-to-their-practice-squad",
+      "permalink": "",
+      "title": "Packers to sign DT Mazi Smith to their practice squad",
+      "body_text": "The Packers tried out defensive tackle Mazi Smith on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-19T23:06:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mazi Smith",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038545"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

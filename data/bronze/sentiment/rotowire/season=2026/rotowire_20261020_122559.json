@@ -1,0 +1,105 @@
+{
+  "fetch_run_id": "759cb06f-f5de-4001-b011-d67ec3f2e6cd",
+  "source": "rotowire",
+  "fetched_at": "2026-10-20T12:25:59.488612+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl643462",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Receiving TD with expanded role",
+      "body_text": "White rushed seven times for 27 yards and brought in four of five targets for 30 yards and a touchdown in the Commanders' 23-17 loss to the 49ers on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T09:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl643461",
+      "url": "https://www.rotowire.com//football/player/stefon-diggs-10133",
+      "permalink": "",
+      "title": "Stefon Diggs: Scores TD in return from injury",
+      "body_text": "Diggs brought in six of seven targets for 44 yards and a touchdown in the Commanders' 23-17 loss to the 49ers on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T09:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl643460",
+      "url": "https://www.rotowire.com//football/player/jayden-daniels-17692",
+      "permalink": "",
+      "title": "Jayden Daniels: Strong fantasy night in loss",
+      "body_text": "Daniels completed 29 of 40 passes for 300 yards with two touchdowns and no interceptions while adding four rushes for 10 yards in the Commanders' 23-17 loss to the 49ers on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl643459",
+      "url": "https://www.rotowire.com//football/player/george-kittle-11892",
+      "permalink": "",
+      "title": "George Kittle: Back in end zone in Week 6 win",
+      "body_text": "Kittle brought in five of eight targets for 69 yards and a touchdown in the 49ers' 23-17 win over the Commanders on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T08:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl643458",
+      "url": "https://www.rotowire.com//football/player/brock-purdy-15834",
+      "permalink": "",
+      "title": "Brock Purdy: Another efficient effort in win",
+      "body_text": "Purdy completed 21 of 29 passes for 264 yards with one touchdown and no interceptions while adding five rushes for 28 yards in the 49ers' 23-17 win over the Commanders on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-19T08:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
