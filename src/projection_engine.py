@@ -17,7 +17,7 @@ Designed to work entirely from DataFrames — no direct S3 calls here.
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import logging
 import re
 
@@ -2624,6 +2624,108 @@ INJURY_MULTIPLIERS: Dict[str, float] = {
     "PUP": 0.0,
     "Suspension": 0.0,
 }
+
+
+#: Sleeper ``injury_status`` -> the nflverse ``report_status`` vocabulary that
+#: :func:`apply_injury_adjustments` understands.
+_SLEEPER_TO_REPORT_STATUS = {
+    "OUT": "Out",
+    "IR": "Out",
+    "PUP": "Out",
+    "NFI": "Out",
+    "SUS": "Out",
+    "DOUBTFUL": "Doubtful",
+    "QUESTIONABLE": "Questionable",
+}
+
+
+def live_injury_report(
+    registry: Optional[Dict[str, Any]] = None,
+    gsis_by_sleeper: Optional[Dict[str, str]] = None,
+) -> pd.DataFrame:
+    """Current injury designations from the Sleeper registry as a report frame.
+
+    The NFL's official report for week N is not published until the Wednesday
+    of that week, so a Tuesday projection run finds no Bronze rows for its own
+    week. Treating that as "everybody is Active" projects a player who has
+    been out for a month as a full starter — in week 7 of 2026 it put Lamar
+    Jackson (out since week 4) and Tyler Huntley, his replacement, on the
+    board as simultaneous QB1s. Sleeper carries a designation as soon as it is
+    announced, so it is the right source until the official report lands.
+
+    Args:
+        registry: Sleeper player registry; fetched fresh when omitted.
+        gsis_by_sleeper: ``sleeper_id -> gsis_id``; built from the Bronze
+            roster crosswalk when omitted. The registry's own ``gsis_id`` is
+            sparse — 28 of 180 injured skill players carried one in week 7
+            2026 — so without the crosswalk most designations never join.
+
+    Returns:
+        DataFrame with ``gsis_id`` and ``report_status``, empty when no
+        designation resolves to a gsis id.
+    """
+    if registry is None:
+        # sleeper_player_map imports ``src.sleeper_http``, so the repo root has
+        # to be importable even when this module was loaded from ``src/``.
+        import sys
+
+        repo_root = str(Path(__file__).resolve().parent.parent)
+        if repo_root not in sys.path:
+            sys.path.insert(0, repo_root)
+        try:
+            from sleeper_player_map import load_sleeper_players
+
+            # max_age_days=0 always refetches, falling back to cache on
+            # failure: a week-old cached designation is exactly the staleness
+            # to avoid.
+            registry = load_sleeper_players(max_age_days=0)
+        except Exception as exc:  # noqa: BLE001 — never kill a projection run
+            logger.warning("live_injury_report: registry unavailable (%s)", exc)
+            return pd.DataFrame(columns=["gsis_id", "report_status"])
+
+    if gsis_by_sleeper is None:
+        gsis_by_sleeper = _bronze_gsis_by_sleeper(registry or {})
+
+    rows = []
+    for sid, meta in (registry or {}).items():
+        if not isinstance(meta, dict):
+            continue
+        status = _SLEEPER_TO_REPORT_STATUS.get(
+            str(meta.get("injury_status") or "").upper()
+        )
+        if not status:
+            continue
+        gsis = meta.get("gsis_id") or gsis_by_sleeper.get(str(sid))
+        if gsis:
+            rows.append({"gsis_id": str(gsis), "report_status": status})
+    return pd.DataFrame(rows, columns=["gsis_id", "report_status"]).drop_duplicates(
+        subset=["gsis_id"]
+    )
+
+
+def _bronze_gsis_by_sleeper(registry: Dict[str, Any]) -> Dict[str, str]:
+    """``sleeper_id -> gsis_id`` from the Bronze roster crosswalk.
+
+    Returns an empty map rather than raising: a missing crosswalk should cost
+    coverage, not kill the projection run.
+    """
+    try:
+        import glob as _glob
+
+        from lineup_setter import roster_gsis_map, sleeper_to_gsis
+
+        bronze = Path(__file__).resolve().parent.parent / "data" / "bronze"
+        files = _glob.glob(
+            str(bronze / "players" / "rosters" / "season=*" / "**" / "*.parquet"),
+            recursive=True,
+        )
+        if not files:
+            return {}
+        rosters = pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
+        return sleeper_to_gsis(registry, roster_gsis_map(rosters))
+    except Exception as exc:  # noqa: BLE001 — coverage loss, not a failure
+        logger.warning("live_injury_report: gsis crosswalk unavailable (%s)", exc)
+        return {}
 
 
 def apply_injury_adjustments(
