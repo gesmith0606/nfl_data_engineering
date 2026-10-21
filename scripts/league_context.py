@@ -41,6 +41,11 @@ def main(argv: Optional[list] = None) -> int:
     ap.add_argument("--league", required=True, help="LEAGUE_PRESETS key")
     ap.add_argument("--season", type=int, default=2026)
     ap.add_argument(
+        "--espn-browser",
+        action="store_true",
+        help="ESPN: read through the logged-in claims profile instead of .env cookies",
+    )
+    ap.add_argument(
         "--espn-json", type=Path, help="ESPN: saved league JSON instead of cookies"
     )
     ap.add_argument("--espn-team-id", type=int, default=1, help="ESPN: my teamId")
@@ -89,22 +94,38 @@ def main(argv: Optional[list] = None) -> int:
         if args.espn_json:
             payload = json.loads(args.espn_json.read_text(encoding="utf-8"))
         else:
+            # Both transports return the same payload shape, so the
+            # per-scoring-period transaction walk below is written once.
+            if args.espn_browser:
+                from src.fantasy_browser import FantasyBrowser
+                from src import waiver_sites as ws
+
+                browser = FantasyBrowser()
+                page = ws.site_page(browser, "espn", str(lid), args.espn_team_id)
+
+                def fetch(views, scoring_period=None):
+                    return ws.espn_fetch_league(
+                        page, args.season, str(lid), views, scoring_period
+                    )
+
+            else:
+
+                def fetch(views, scoring_period=None):
+                    return espn_league.fetch_league(
+                        int(lid),
+                        args.season,
+                        views=views,
+                        scoring_period=scoring_period,
+                    )
+
             try:
-                payload = espn_league.fetch_league(
-                    int(lid), args.season, views=["mSettings", "mTeam", "mRoster"]
-                )
+                payload = fetch(["mSettings", "mTeam", "mRoster"])
                 # mTransactions2 without a scoringPeriodId returns only the
                 # current period's lineup moves -> gather every week.
                 payload["transactions"] = [
                     t
                     for week in range(0, (payload.get("scoringPeriodId") or 18) + 1)
-                    for t in espn_league.fetch_league(
-                        int(lid),
-                        args.season,
-                        views=["mTransactions2"],
-                        scoring_period=week,
-                    ).get("transactions")
-                    or []
+                    for t in fetch(["mTransactions2"], week).get("transactions") or []
                 ]
             except PermissionError as exc:
                 sys.exit(

@@ -426,7 +426,9 @@ def main(argv: Optional[list] = None) -> int:
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
-        "revert when he returns — check before paying up."
+        "revert when he returns — check before paying up. ADDS counts adds "
+        "across ALL of Sleeper, not this league: price claims off "
+        "league_context.py's winning-bid median/p75, never off ADDS."
     )
     for pos in ("QB", "RB", "WR", "TE"):
         print(f"\n-- {pos} free agents --")
