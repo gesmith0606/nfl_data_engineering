@@ -26,6 +26,8 @@ from __future__ import annotations
 
 import argparse
 import glob
+import subprocess
+import time
 import importlib.util
 import sys
 from pathlib import Path
@@ -144,6 +146,46 @@ def roster_ids_from_file(path: Path, by_name: Dict[Any, str]) -> Set[str]:
         else:
             ids.add(hit)
     return ids
+
+
+def checkout_age_warning(max_age_days: int = 3) -> Optional[str]:
+    """Warn when HEAD is old enough that the board and tooling may be stale.
+
+    The weekly crons commit the upcoming week's board and the day's Bronze
+    snapshots, so a checkout that has not moved in days is reading last
+    week's numbers and may be missing tooling entirely. A 7-week-old checkout
+    once produced two confident wrong answers in one session: that the
+    pipeline had died (the crons were green) and that the claim tools did not
+    exist (they were on origin/main).
+
+    Uses only the local commit date — no fetch, no network.
+
+    Args:
+        max_age_days: Age at which the warning fires.
+
+    Returns:
+        A warning line, or None when the checkout is fresh or not a git repo.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%ct"],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if out.returncode != 0 or not out.stdout.strip():
+            return None
+        age_days = (time.time() - int(out.stdout.strip())) / 86400
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
+    if age_days < max_age_days:
+        return None
+    return (
+        f"WARN: this checkout's last commit is {age_days:.0f} days old — the "
+        "weekly crons commit the board and Bronze snapshots daily. "
+        "`git pull` before trusting these numbers."
+    )
 
 
 def fmt(v: Optional[float]) -> str:
@@ -396,6 +438,9 @@ def main(argv: Optional[list] = None) -> int:
             + f" {r['news']}{'  ' if r['news'] and r['inj'] else ''}{r['inj']}"
         )
 
+    stale = checkout_age_warning()
+    if stale:
+        print(stale)
     print(f"\n=== {title} — {season} week {week} waivers ===")
     print(
         f"OURS = {ours_label}; SLPR = Sleeper week {week}; LAST = week {week - 1} actuals"
