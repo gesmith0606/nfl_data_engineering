@@ -1,0 +1,102 @@
+{
+  "fetch_run_id": "03d888e3-faa0-42cb-9f9b-843380a4e1bd",
+  "source": "rotowire",
+  "fetched_at": "2026-10-21T12:25:24.117156+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl643486",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Remains listed as limited Tuesday",
+      "body_text": "Brown (ankle) was listed as a limited participant on Tuesday's practice report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-20T03:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tuesday Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl643483",
+      "url": "https://www.rotowire.com//football/player/davante-adams-9455",
+      "permalink": "",
+      "title": "Davante Adams: Placed on injured reserve by Rams",
+      "body_text": "Adams (hamstring) was placed on injured reserve Tuesday, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-20T02:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams",
+        "Rams Adams",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl643481",
+      "url": "https://www.rotowire.com//football/player/kyle-monangai-18520",
+      "permalink": "",
+      "title": "Kyle Monangai: Sits out Tuesday's walk-through",
+      "body_text": "Monangai (thumb/toe) was listed as a non-participant in Tuesday's walk-through. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-20T02:20:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl643477",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: On practice field Tuesday",
+      "body_text": "Brown (ankle) was spotted on the practice field Tuesday, according to Mike Reiss of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-20T12:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tuesday Brown",
+        "Mike Reiss"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl643476",
+      "url": "https://www.rotowire.com//football/player/terry-mclaurin-13536",
+      "permalink": "",
+      "title": "Terry McLaurin: Suffers torn patellar tendon",
+      "body_text": "McLaurin tore his left patellar tendon during Monday's loss to the 49ers, according to John Keim of ESPN.com. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-20T12:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Keim"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "source": "fantasypros",
-  "fetched_at": "2026-10-17T12:21:41.895668+00:00",
+  "fetched_at": "2026-10-21T12:25:36.771297+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -1433,7 +1433,7 @@
     {
       "player_name": "Najee Harris",
       "position": "RB",
-      "team": "NYG",
+      "team": "FA",
       "external_rank": 215,
       "rank": 205
     },
@@ -2014,7 +2014,7 @@
     {
       "player_name": "Jaydon Blue",
       "position": "RB",
-      "team": "PHI",
+      "team": "FA",
       "external_rank": 308,
       "rank": 288
     },

@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-10-17T12:21:49.293215+00:00",
+  "fetched_at": "2026-10-21T12:25:44.456066+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1174,7 +1174,7 @@
     {
       "player_name": "Najee Harris",
       "position": "RB",
-      "team": "NYG",
+      "team": "FA",
       "external_rank": 174,
       "rank": 168
     },
