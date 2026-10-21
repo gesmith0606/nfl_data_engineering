@@ -29,7 +29,7 @@ import glob
 import importlib.util
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 import pandas as pd
 
@@ -150,6 +150,54 @@ def fmt(v: Optional[float]) -> str:
     return f"{v:5.1f}" if v is not None else "    -"
 
 
+#: Sleeper ``injury_status`` values that keep a player off the field. A
+#: same-position team-mate carrying one of these is why a waiver candidate's
+#: role may be borrowed rather than earned.
+BLOCKING_STATUSES = frozenset({"OUT", "DOUBTFUL", "IR", "PUP", "NFI", "SUS"})
+
+
+#: Sleeper ``search_rank`` for a player the registry does not rank: treated as
+#: less notable than anyone who is ranked.
+UNRANKED = 10**6
+
+
+def injured_teammates(
+    registry: Dict[str, Any],
+) -> Dict[Tuple[str, str], List[Tuple[int, str]]]:
+    """Map ``(team, position)`` to ``(search_rank, name)`` for players who cannot play.
+
+    Built from the Sleeper registry's live ``injury_status`` rather than the
+    weekly official report, because the official report is empty until
+    Wednesday — exactly when waiver claims are being decided.
+
+    ``search_rank`` rides along so callers can keep only team-mates more
+    notable than the candidate; without that filter every deep reserve on an
+    injured depth chart reads as a reason to discount the candidate.
+
+    Args:
+        registry: Sleeper player registry (``sleeper_player_id -> meta``).
+
+    Returns:
+        ``(team, position) -> [(search_rank, name)]``, best rank first, for
+        skill positions only.
+    """
+    out: Dict[Tuple[str, str], List[Tuple[int, str]]] = {}
+    for meta in registry.values():
+        if not isinstance(meta, dict):
+            continue
+        if str(meta.get("injury_status") or "").upper() not in BLOCKING_STATUSES:
+            continue
+        team, pos = meta.get("team"), meta.get("position")
+        name = meta.get("full_name")
+        if not team or pos not in SKILL_POSITIONS or not name:
+            continue
+        rank = meta.get("search_rank")
+        out.setdefault((str(team), str(pos)), []).append(
+            (int(rank) if isinstance(rank, (int, float)) else UNRANKED, str(name))
+        )
+    return {k: sorted(v) for k, v in out.items()}
+
+
 def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -251,6 +299,7 @@ def main(argv: Optional[list] = None) -> int:
     weekly_df = pd.read_parquet(weekly_files[-1]) if weekly_files else pd.DataFrame()
     names = full_name_map(rosters_df, weekly_df)
     injury_ctx = set_lineups.injury_context(season, week, registry, gsis_map, weekly_df)
+    blocked_map = injured_teammates(registry)
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
@@ -278,6 +327,10 @@ def main(argv: Optional[list] = None) -> int:
             dd = (slpr_raw.get(sid) or {}).get("adp_dd_ppr")
             rank = int(dd) if dd and dd < 1000 else None
         return rank
+
+    def own_rank(meta: Dict[str, Any]) -> int:
+        r = meta.get("search_rank")
+        return int(r) if isinstance(r, (int, float)) else UNRANKED
 
     def row(sid: str) -> Optional[Dict[str, Any]]:
         meta = registry.get(sid) or {}
@@ -309,6 +362,13 @@ def main(argv: Optional[list] = None) -> int:
             # Out/Doubtful: no bar for "weakest bench". Bye: same, and never a drop.
             "out": str(meta.get("injury_status") or "").upper() in ("OUT", "DOUBTFUL"),
             "bye": bool(kickoffs) and meta.get("team") not in playing,
+            # Same-position team-mates who cannot play: the candidate's role
+            # may be on loan from them (see RENTAL in the report legend).
+            "blocked_by": [
+                n
+                for rank, n in blocked_map.get((str(meta.get("team")), pos), [])
+                if n != (meta.get("full_name") or "") and rank < own_rank(meta)
+            ],
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
@@ -328,6 +388,11 @@ def main(argv: Optional[list] = None) -> int:
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
             + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
+            + (
+                f" RENTAL<-{', '.join(r['blocked_by'])[:34]}"
+                if r.get("blocked_by")
+                else ""
+            )
             + f" {r['news']}{'  ' if r['news'] and r['inj'] else ''}{r['inj']}"
         )
 
@@ -359,7 +424,9 @@ def main(argv: Optional[list] = None) -> int:
         r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
-        "weakest non-keeper bench at his position), depth (pure add), no help"
+        "weakest non-keeper bench at his position), depth (pure add), no help. "
+        "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
+        "revert when he returns — check before paying up."
     )
     for pos in ("QB", "RB", "WR", "TE"):
         print(f"\n-- {pos} free agents --")

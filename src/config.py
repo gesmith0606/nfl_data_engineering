@@ -366,6 +366,15 @@ ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
         "FLEX": 3,  # no kicker, no DST
         "BN": 9,  # 9 starters + 9 BN = 18 rounds
     },
+    "sleeper_mantis": {
+        "QB": 1,
+        "RB": 2,
+        "WR": 3,
+        "TE": 1,
+        "FLEX": 2,
+        "SFLEX": 1,  # no kicker, no DST in this league
+        "BN": 8,  # 10 starters + 8 BN = 18 active (5 IR + 3 taxi unmodeled)
+    },
 }
 
 # The user's leagues, one key per league: everything the draft assistant
@@ -414,7 +423,7 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "platform": "sleeper",
         "league_id": "1378522447686402048",
         "scoring_format": "ppr",
-        "roster": "superflex",
+        "roster": "sleeper_mantis",
         "teams": 10,
         "my_pick": None,
         "my_user": "Gforceee",
