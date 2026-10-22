@@ -1,20 +1,15 @@
-# la_liga 2026 (ESPN) DEF pool — MINE + free agents/waivers with ESPN's own week-5 projection.
-# Read 2026-10-05 by scripts/refresh_league_pools.py (kona_player_info filterSlotIds 16).
-MINE|DEF|CHI|5.5
-DEF|PHI|3.8
-DEF|DET|5.2
-DEF|GB|4.2
-DEF|JAX|7.3
-DEF|TB|3.3
-DEF|LAC|4.8
-DEF|LV|4.9
-DEF|CAR|0.0
-DEF|NYG|3.7
-DEF|DAL|6.7
-DEF|WAS|7.4
-DEF|NO|4.7
-DEF|ARI|2.4
-DEF|TEN|4.8
-DEF|IND|5.3
-DEF|ATL|3.3
-DEF|MIA|3.4
+# La Liga W7 D/ST pool — read from ESPN 2026-10-20 (no K slot in this league)
+MINE|DEF|IND|3.7
+DEF|PHI|4.6
+DEF|TB|4.6
+DEF|DET|4.5
+DEF|CAR|6.2
+DEF|CIN|3.2
+DEF|CHI|4.9
+DEF|GB|3
+DEF|DAL|6.2
+DEF|ATL|3
+DEF|NO|3.7
+DEF|TEN|7.2
+DEF|ARI|4.2
+DEF|MIA|4.7

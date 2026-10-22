@@ -35,6 +35,7 @@ from projection_engine import (  # noqa: E402
     generate_weekly_projections,
     generate_preseason_projections,
     apply_injury_adjustments,
+    live_injury_report,
     apply_sentiment_adjustments,
     apply_event_adjustments,
     load_latest_sentiment,
@@ -1613,11 +1614,27 @@ def main():
                 week_inj = injuries_df[
                     pd.to_numeric(injuries_df["week"], errors="coerce") == args.week
                 ]
-                # No rows for the target week → treat everyone as Active
-                # rather than falling back to the full-season file, whose
-                # keep-last semantics would apply STALE statuses (a player
-                # Out in week 5 must not be zeroed for week 7).
-                injuries_df = week_inj
+                # No rows for the target week: do NOT fall back to the
+                # full-season file, whose keep-last semantics would apply
+                # STALE statuses (a player Out in week 5 must not be zeroed
+                # for week 7). Use Sleeper's live designations instead —
+                # treating the gap as "everyone Active" is what let a player
+                # out since week 4 project as a full starter.
+                if week_inj.empty:
+                    live = live_injury_report()
+                    if not live.empty:
+                        print(
+                            f"No official week-{args.week} report yet; using "
+                            f"{len(live):,} live Sleeper designations"
+                        )
+                    else:
+                        print(
+                            f"WARN: no official week-{args.week} report and no "
+                            "live designations — every player treated as Active"
+                        )
+                    injuries_df = live
+                else:
+                    injuries_df = week_inj
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
@@ -2165,6 +2182,31 @@ def main():
             use_conformal=args.conformal_bands,
             log=print,
         )
+
+    # --- injury invariant ------------------------------------------------
+    # Every blend that runs after apply_injury_adjustments (the Sleeper
+    # consensus anchor above, props/prior blends, veteran prior) re-derives
+    # projected_points and will happily resurrect a player the injury step
+    # zeroed. In week 7 2026 that put Tyler Warren, Rashee Rice and Mike
+    # Evans back on the board at ~3 points each while Out, because QB is not
+    # an anchored position and the skill positions are. Re-assert the
+    # invariant once, here, after every stage that can touch the column.
+    if not projections.empty and "injury_multiplier" in projections.columns:
+        sidelined = projections["injury_multiplier"] == 0.0
+        if sidelined.any():
+            point_cols = [
+                c
+                for c in projections.columns
+                if c.startswith("proj_")
+                or c in ("projected_points", "projected_floor", "projected_ceiling")
+            ]
+            resurrected = int((sidelined & (projections["projected_points"] > 0)).sum())
+            projections.loc[sidelined, point_cols] = 0.0
+            if resurrected:
+                print(
+                    f"Injury invariant: re-zeroed {resurrected} sidelined "
+                    "player(s) revived by a later blend"
+                )
 
     # Apply ranking scores (ordering nudges from graph features). This step
     # adds a 'ranking_score' column used ONLY for position_rank / overall_rank

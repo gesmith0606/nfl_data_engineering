@@ -32,6 +32,16 @@ SLEEPER_STATE_URL = "https://api.sleeper.app/v1/state/nfl"
 # Each snippet is an async IIFE over one JSON argument (``__ARGS__``) that
 # returns a JSON string. Keep them free of secrets in their return values.
 
+ESPN_FETCH_JS = r"""(async (A) => {
+ const base = 'https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/'
+   + A.season + '/segments/0/leagues/' + A.lid;
+ const q = A.views.map(v => 'view=' + encodeURIComponent(v)).join('&')
+   + (A.scoring_period === null ? '' : '&scoringPeriodId=' + A.scoring_period);
+ const r = await fetch(base + '?' + q, {credentials: 'include'});
+ if (!r.ok) throw new Error(`ESPN HTTP ${r.status} for ${A.views.join()} (logged in?)`);
+ return JSON.stringify(await r.json());
+})(__ARGS__)"""
+
 ESPN_STATE_JS = r"""(async (A) => {
  const api = 'https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/'
    + A.season;
@@ -256,6 +266,43 @@ def espn_state(
     )
 
 
+def espn_fetch_league(
+    page: BrowserPage,
+    season: int,
+    league_id: str,
+    views: Sequence[str],
+    scoring_period: Optional[int] = None,
+) -> Dict[str, Any]:
+    """One ESPN league read through the logged-in profile.
+
+    The same payload ``espn_league.fetch_league`` returns from ESPN_S2/SWID
+    cookies, fetched same-origin instead — so league context works from the
+    claims profile without a second set of credentials in ``.env``.
+
+    Args:
+        page: A page in the claims profile (``site_page(..., "espn", ...)``).
+        season: Season year.
+        league_id: Numeric ESPN league id.
+        views: ESPN ``view`` names, e.g. ``["mSettings", "mTeam"]``.
+        scoring_period: ``scoringPeriodId`` to scope the read to. Required for
+            ``mTransactions2``, which otherwise returns only the current
+            period's lineup moves.
+
+    Returns:
+        The decoded league payload.
+    """
+    return run_js(
+        page,
+        ESPN_FETCH_JS,
+        {
+            "season": int(season),
+            "lid": int(league_id),
+            "views": list(views),
+            "scoring_period": scoring_period,
+        },
+    )
+
+
 def espn_submit(
     page: BrowserPage,
     season: int,
@@ -434,6 +481,7 @@ def read_claims(
 
 
 __all__: List[str] = [
+    "espn_fetch_league",
     "espn_state",
     "espn_submit",
     "read_claims",
