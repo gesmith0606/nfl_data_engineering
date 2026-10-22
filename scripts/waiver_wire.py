@@ -148,6 +148,75 @@ def roster_ids_from_file(path: Path, by_name: Dict[Any, str]) -> Set[str]:
     return ids
 
 
+#: One league's completed waiver/free-agent moves, keyed by Sleeper player id.
+PlayerMoves = Dict[str, List[Dict[str, Any]]]
+
+
+def league_player_moves(league_id: str, through_leg: int) -> PlayerMoves:
+    """What this league has already paid for each player, from its own log.
+
+    A room's median winning bid is the price of a *contested* player. Pricing
+    a specific claim off it overpays for anyone the room does not want: in
+    week 7 2026 Jalon Daniels had been bought for $1, cut the week he won the
+    starting job, and left unrostered through three 13-point starts — the
+    league had already priced him, and the median said $12.
+
+    Args:
+        league_id: Numeric Sleeper league id.
+        through_leg: Highest leg (week) to read, inclusive.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]`` oldest first, where
+        ``kind`` is ``"add"`` or ``"drop"``. Legs that fail to load are
+        skipped: a thin history is better than no report.
+    """
+    out: PlayerMoves = {}
+    for leg in range(1, max(1, through_leg) + 1):
+        try:
+            rows = sleeper_http.fetch_sleeper_json(
+                f"https://api.sleeper.app/v1/league/{league_id}/transactions/{leg}"
+            )
+        except Exception:  # noqa: BLE001 — a missing leg is not a failure
+            continue
+        for t in rows or []:
+            if not isinstance(t, dict) or t.get("status") != "complete":
+                continue
+            bid = (t.get("settings") or {}).get("waiver_bid")
+            for kind in ("add", "drop"):
+                for pid in (t.get(f"{kind}s") or {}) or {}:
+                    out.setdefault(str(pid), []).append(
+                        {"leg": leg, "bid": bid, "kind": kind}
+                    )
+    for moves in out.values():
+        moves.sort(key=lambda m: m["leg"])
+    return out
+
+
+def demand_note(moves: Optional[List[Dict[str, Any]]], current_leg: int) -> str:
+    """One-glance summary of what this room has paid for a player, and when.
+
+    Args:
+        moves: This player's moves from :func:`league_player_moves`.
+        current_leg: The leg the report is for.
+
+    Returns:
+        ``"unclaimed"`` when the room has never rostered him, else the last
+        price paid plus how long he has sat free since being cut.
+    """
+    if not moves:
+        return "unclaimed"
+    last = moves[-1]
+    if last["kind"] == "add":
+        paid = f"${last['bid']}" if last["bid"] else "free"
+        return f"held {paid} wk{last['leg']}"
+    paid = next(
+        (f"${m['bid']}" for m in reversed(moves) if m["kind"] == "add" and m["bid"]),
+        "free",
+    )
+    free_for = max(0, current_leg - last["leg"])
+    return f"cut wk{last['leg']} (was {paid}), free {free_for}wk"
+
+
 def checkout_age_warning(max_age_days: int = 3) -> Optional[str]:
     """Warn when HEAD is old enough that the board and tooling may be stale.
 
@@ -342,6 +411,14 @@ def main(argv: Optional[list] = None) -> int:
     names = full_name_map(rosters_df, weekly_df)
     injury_ctx = set_lineups.injury_context(season, week, registry, gsis_map, weekly_df)
     blocked_map = injured_teammates(registry)
+    # What this room has already paid for each player. Sleeper only: ESPN and
+    # Yahoo transaction logs need the claims browser, which this report does
+    # not open (league_context.py --espn-browser has them).
+    moves = (
+        league_player_moves(str(preset["league_id"]), week)
+        if platform == "sleeper"
+        else {}
+    )
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
@@ -406,6 +483,9 @@ def main(argv: Optional[list] = None) -> int:
             "bye": bool(kickoffs) and meta.get("team") not in playing,
             # Same-position team-mates who cannot play: the candidate's role
             # may be on loan from them (see RENTAL in the report legend).
+            # What the room has paid for him before: price a claim off this,
+            # not the league-wide median (see demand_note).
+            "demand": demand_note(moves.get(sid), week) if moves else "",
             "blocked_by": [
                 n
                 for rank, n in blocked_map.get((str(meta.get("team")), pos), [])
@@ -430,6 +510,7 @@ def main(argv: Optional[list] = None) -> int:
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
             + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
+            + (f" [{r['demand']}]" if r.get("demand") else "")
             + (
                 f" RENTAL<-{', '.join(r['blocked_by'])[:34]}"
                 if r.get("blocked_by")
@@ -472,8 +553,10 @@ def main(argv: Optional[list] = None) -> int:
         "weakest non-keeper bench at his position), depth (pure add), no help. "
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
         "revert when he returns — check before paying up. ADDS counts adds "
-        "across ALL of Sleeper, not this league: price claims off "
-        "league_context.py's winning-bid median/p75, never off ADDS."
+        "across ALL of Sleeper, not this league — never price a claim off it. "
+        "[brackets] = what THIS room has paid for him (unclaimed / held $N / "
+        "cut wkN, free Nwk): that is the first bid anchor, and "
+        "league_context.py's median/p75 only the fallback."
     )
     for pos in ("QB", "RB", "WR", "TE"):
         print(f"\n-- {pos} free agents --")
