@@ -2,12 +2,13 @@
 CLI default-wiring tests for the shipped Sleeper consensus anchor family:
 WR (.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md — SHIP 2026-08-22) plus RB and
 TE (.planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md — SHIPPED 2026-09-23,
-user-approved), each ``blend`` w=0.5. QB stays OFF (HOLD).
+user-approved) and QB (.planning/SEASON_2026_MIDSEASON_RETRO.md — SHIPPED
+2026-10-21, user-approved on live-2026 evidence), each ``blend`` w=0.5.
 
 Covers the surfaces the ship touched:
 
 1. ``scripts/generate_projections.py`` — weekly mode default-ON for
-   WR+RB+TE; ``--no-sleeper-anchor`` opt-out.
+   WR+RB+TE+QB; ``--no-sleeper-anchor`` opt-out.
 2. ``scripts/backtest_projections.py`` — ``run_backtest()``'s own default
    evaluation path mirrors the shipped config (per repo convention:
    backtests evaluate the shipped config); ``--no-sleeper-anchor`` opt-out.
@@ -53,7 +54,7 @@ class TestBacktestRunBacktestDefaults:
     """run_backtest()'s own kwarg defaults ARE the "default evaluation
     path" — an un-flagged `run_backtest(seasons=...)` call (e.g. from
     scripts/production_eval.py's production-faithful harness) must reflect
-    production: WR+RB+TE blend w=0.5."""
+    production: WR+RB+TE+QB blend w=0.5."""
 
     def test_defaults_match_shipped_config(self):
         sig = inspect.signature(backtest_projections.run_backtest)
@@ -62,6 +63,7 @@ class TestBacktestRunBacktestDefaults:
             {"position": "WR", "mode": "blend", "weight": 0.5},
             {"position": "RB", "mode": "blend", "weight": 0.5},
             {"position": "TE", "mode": "blend", "weight": 0.5},
+            {"position": "QB", "mode": "blend", "weight": 0.5},
         ]
         assert [dict(c) for c in default] == [dict(c) for c in SHIPPED_DEFAULT_CONFIGS]
 
