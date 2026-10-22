@@ -1,0 +1,166 @@
+{
+  "season": 2024,
+  "week": 10,
+  "scoring": "half_ppr",
+  "generated_at": "2026-06-12T17:33:42Z",
+  "fantasy": {
+    "status": "ok",
+    "reason": "",
+    "week_table": [
+      {
+        "pos": "QB",
+        "n": 24,
+        "our_mae": 14.625,
+        "con_mae": 8.015,
+        "mae_gap": 6.609999999999999,
+        "our_spearman": null,
+        "con_spearman": 0.37043478260869556,
+        "spearman_gap": null,
+        "our_topn": 0.3333333333333333,
+        "con_topn": 0.5833333333333334
+      },
+      {
+        "pos": "RB",
+        "n": 32,
+        "our_mae": 5.175625,
+        "con_mae": 4.8446875,
+        "mae_gap": 0.3309375000000001,
+        "our_spearman": 0.26941769943630844,
+        "con_spearman": 0.39728665907801963,
+        "spearman_gap": -0.1278689596417112,
+        "our_topn": 0.875,
+        "con_topn": 0.9166666666666666
+      },
+      {
+        "pos": "WR",
+        "n": 51,
+        "our_mae": 4.700588235294117,
+        "con_mae": 4.60156862745098,
+        "mae_gap": 0.0990196078431369,
+        "our_spearman": 0.3752631737660024,
+        "con_spearman": 0.34474488073085807,
+        "spearman_gap": 0.030518293035144306,
+        "our_topn": 0.6666666666666666,
+        "con_topn": 0.625
+      },
+      {
+        "pos": "TE",
+        "n": 20,
+        "our_mae": 4.608,
+        "con_mae": 3.1420000000000003,
+        "mae_gap": 1.4659999999999993,
+        "our_spearman": -0.03099025352166371,
+        "con_spearman": 0.3614461930323682,
+        "spearman_gap": -0.3924364465540319,
+        "our_topn": 0.5,
+        "con_topn": 0.75
+      },
+      {
+        "pos": "OVERALL",
+        "n": 127,
+        "our_mae": 6.681181102362205,
+        "con_mae": 5.078031496062993,
+        "mae_gap": 1.6031496062992128,
+        "our_spearman": null,
+        "con_spearman": null,
+        "spearman_gap": null,
+        "our_topn": null,
+        "con_topn": null
+      }
+    ],
+    "n_matched": 202,
+    "n_after_filter": 127,
+    "match_rate": 0.9853658536585366,
+    "scoring": "half_ppr"
+  },
+  "cumulative": {
+    "status": "ok",
+    "reason": "",
+    "cumulative_table": [
+      {
+        "pos": "QB",
+        "n": 24,
+        "our_mae": 14.625,
+        "con_mae": 8.015,
+        "mae_gap": 6.609999999999999,
+        "our_spearman": null,
+        "con_spearman": 0.37043478260869556,
+        "spearman_gap": null,
+        "our_topn": 0.3333333333333333,
+        "con_topn": 0.5833333333333334,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2024
+      },
+      {
+        "pos": "RB",
+        "n": 32,
+        "our_mae": 5.175625,
+        "con_mae": 4.8446875,
+        "mae_gap": 0.3309375000000001,
+        "our_spearman": 0.26941769943630844,
+        "con_spearman": 0.39728665907801963,
+        "spearman_gap": -0.1278689596417112,
+        "our_topn": 0.875,
+        "con_topn": 0.9166666666666666,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2024
+      },
+      {
+        "pos": "WR",
+        "n": 51,
+        "our_mae": 4.700588235294117,
+        "con_mae": 4.60156862745098,
+        "mae_gap": 0.0990196078431369,
+        "our_spearman": 0.3752631737660024,
+        "con_spearman": 0.34474488073085807,
+        "spearman_gap": 0.030518293035144306,
+        "our_topn": 0.6666666666666666,
+        "con_topn": 0.625,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2024
+      },
+      {
+        "pos": "TE",
+        "n": 20,
+        "our_mae": 4.608,
+        "con_mae": 3.1420000000000003,
+        "mae_gap": 1.4659999999999993,
+        "our_spearman": -0.03099025352166371,
+        "con_spearman": 0.3614461930323682,
+        "spearman_gap": -0.3924364465540319,
+        "our_topn": 0.5,
+        "con_topn": 0.75,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2024
+      },
+      {
+        "pos": "OVERALL",
+        "n": 127,
+        "our_mae": 6.681181102362205,
+        "con_mae": 5.078031496062993,
+        "mae_gap": 1.6031496062992128,
+        "our_spearman": null,
+        "con_spearman": null,
+        "spearman_gap": null,
+        "our_topn": null,
+        "con_topn": null,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2024
+      }
+    ],
+    "weeks_loaded": 1
+  },
+  "spread": {
+    "status": "skipped",
+    "reason": "No odds-API snapshots found (ODDS_API_KEY not yet set or season not captured).  Line-capture grading deferred to 2026 w1.",
+    "n": 0,
+    "mean_capture": null,
+    "tier_breakdown": [],
+    "gate_status": "insufficient_data"
+  }
+}

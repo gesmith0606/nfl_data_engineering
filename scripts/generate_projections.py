@@ -632,6 +632,23 @@ def main():
         ),
     )
     parser.add_argument(
+        "--no-band-calibration",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: disable the default-on empirical floor/ceiling "
+            "band calibration (SHIPPED 2026-10-21, "
+            ".planning/MODEL_ASSESSMENT_2026_10_21.md). The published band "
+            "covered only 29.8%% of actual outcomes against its ~80%% design "
+            "target (QB 60.9/RB 32.9/WR 24.8/TE 20.9) because the fallback "
+            "band is multiplicative and symmetric while fantasy residuals "
+            "scale with the projection and skew upward. Refits per-position "
+            "residual quantiles from THIS season's completed weeks only "
+            "(leak-free); walk-forward coverage 30.6%% -> 83.2%%. Falls back "
+            "to the existing band for weeks with too little history."
+        ),
+    )
+    parser.add_argument(
         "--no-dispersion-shrink",
         action="store_true",
         default=False,
@@ -2258,6 +2275,50 @@ def main():
             use_conformal=args.conformal_bands,
             log=print,
         )
+
+    # --- Empirical floor/ceiling band calibration (default-ON weekly) ----
+    # .planning/MODEL_ASSESSMENT_2026_10_21.md: the band we published covered
+    # 29.8% of outcomes against an ~80% target, because the fallback band is
+    # multiplicative and symmetric (a 4-pt TE got +/-1.4 when its real spread
+    # is -5.3/+6.5) while fantasy residuals both scale with the projection and
+    # skew upward off a hard zero. Refits per-position residual-quantile lines
+    # from THIS season's completed weeks only, so it is leak-free and needs no
+    # pre-trained model. Runs AFTER the point estimate is final (the shrink
+    # above) and after any upstream band attach, so it overwrites the crude
+    # band; and BEFORE the injury invariant below, so a sidelined player's
+    # band is re-zeroed with his projection.
+    if not args.preseason and not args.no_band_calibration:
+        from band_calibration import (  # noqa: E402
+            apply_calibrated_bands,
+            fit_band_offsets,
+            load_completed_player_weeks,
+        )
+
+        _band_hist = load_completed_player_weeks(
+            args.season, args.week, os.path.join(PROJECT_ROOT, "data"), args.scoring
+        )
+        _band_offsets = fit_band_offsets(_band_hist)
+        if not _band_offsets:
+            print(
+                "Band calibration: no fitted positions "
+                f"({len(_band_hist)} completed player-week(s) available) — "
+                "keeping the existing floor/ceiling band"
+            )
+        else:
+            projections, _band_stats = apply_calibrated_bands(
+                projections, _band_offsets
+            )
+            for st in _band_stats:
+                print(
+                    f"Band calibration ({st['position']}): {st['n_rows']} row(s), "
+                    f"mean width {st['mean_width_before']} -> "
+                    f"{st['mean_width_after']}"
+                )
+            print(
+                "Band calibration: fitted from "
+                f"{len(_band_hist)} completed player-week(s) of season "
+                f"{args.season} (weeks < {args.week})"
+            )
 
     # --- injury invariant ------------------------------------------------
     # Every blend that runs after apply_injury_adjustments (the Sleeper
