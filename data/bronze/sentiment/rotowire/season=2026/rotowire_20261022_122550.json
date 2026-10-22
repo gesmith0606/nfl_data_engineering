@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "91346f2e-38f6-46c8-a186-37bb7fd403ea",
+  "source": "rotowire",
+  "fetched_at": "2026-10-22T12:25:50.695632+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl643648",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "permalink": "",
+      "title": "Mike Evans: Officially DNP on Wednesday",
+      "body_text": "Evans (ribs/Achilles) officially didn't practice Wednesday, Harrison Rich of the San Francisco Chronicle reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-21T04:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans",
+        "Wednesday Evans",
+        "Harrison Rich",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl643647",
+      "url": "https://www.rotowire.com//football/player/brock-bowers-17693",
+      "permalink": "",
+      "title": "Brock Bowers: Logs limited practice Wednesday",
+      "body_text": "Bowers (hamstring/calf) was a limited participant in Wednesday's practice, Around The NFL reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-21T04:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Wednesday Bowers",
+        "Around The"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl643642",
+      "url": "https://www.rotowire.com//football/player/jaylen-waddle-15404",
+      "permalink": "",
+      "title": "Jaylen Waddle: Tending to chest injury",
+      "body_text": "Waddle was limited at Wednesday's practice due to a chest injury, Aric DiLalla of the Broncos' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-21T04:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl643634",
+      "url": "https://www.rotowire.com//football/player/travis-kelce-8783",
+      "permalink": "",
+      "title": "Travis Kelce: Limited Wednesday",
+      "body_text": "Kelce (ankle) was a limited practice participant Wednesday, Matt Derrick of ChiefsDigest.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-21T04:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Kelce",
+        "Limited Wednesday",
+        "Matt Derrick"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl643632",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "permalink": "",
+      "title": "Zach Charbonnet: Logs full practice Wednesday",
+      "body_text": "Charbonnet (knee) was a full participant at Wednesday's practice, Corbin K. Smith of EmeraldCitySpectrum.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-21T04:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Wednesday Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": null
+    }
+  ]
+}

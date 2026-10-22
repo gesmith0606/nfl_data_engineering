@@ -1,0 +1,573 @@
+{
+  "fetch_run_id": "25077b01-b662-42ac-869b-7bcd22c8d470",
+  "source": "pft",
+  "fetched_at": "2026-10-22T12:25:55.071291+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sauce-gardner-says-current-calf-injury-isnt-as-bad-as-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sauce-gardner-says-current-calf-injury-isnt-as-bad-as-last-year",
+      "permalink": "",
+      "title": "Sauce Gardner says current calf injury isn't as bad as last year",
+      "body_text": "A calf injury kept Colts cornerback Sauce Gardner off the field for much of the seven-game losing streak that ended the 2025 season, so his appearance on Wednesday's injury report with another calf injury conjures up some bad memories.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-22T12:08:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sauce Gardner"
+      ],
+      "resolved_player_ids": [
+        "00-0037190"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jurgens-being-traded-while-in-concussion-protocol-is-wild-but-excited-to-be-a-raven",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jurgens-being-traded-while-in-concussion-protocol-is-wild-but-excited-to-be-a-raven",
+      "permalink": "",
+      "title": "Cam Jurgens: Being traded while in concussion protocol is wild, but excited to be a Raven",
+      "body_text": "The Ravens listed Cam Jurgens as a full participant in practice on Wednesday, which suggests that the center will be making his debut for the team when they face the Bengals on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-22T11:31:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Jurgens",
+        "Raven The"
+      ],
+      "resolved_player_ids": [
+        "00-0038112"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jeudy-frustrating-not-to-be-involved-as-much-but-i-just-stay-focused",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jeudy-frustrating-not-to-be-involved-as-much-but-i-just-stay-focused",
+      "permalink": "",
+      "title": "Jerry Jeudy: Frustrating not to be involved as much, but I just stay focused",
+      "body_text": "Jerry Jeudy spent a lot of time as the top attraction in the Browns' wide receiving corps over the last two years, but his role has changed in 2026.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-22T11:22:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jeudy"
+      ],
+      "resolved_player_ids": [
+        "00-0036407"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-yahya-black-says-he-weighs-370-in-micd-up-talk-with-340-pound-tristan-wirfs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-yahya-black-says-he-weighs-370-in-micd-up-talk-with-340-pound-tristan-wirfs",
+      "permalink": "",
+      "title": "Steelers' Yahya Black says he weighs 370 in mic'd up talk with 340-pound Tristan Wirfs",
+      "body_text": "Buccaneers offensive tackle Tristan Wirfs doesn't often come across people bigger than him, but he did on Sunday, when he played against Steelers defensive tackle Yahya Black.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-22T11:16:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Yahya Black",
+        "Tristan Wirfs"
+      ],
+      "resolved_player_ids": [
+        "00-0040188",
+        "00-0036406"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-business-partners-arent-pulling-punches-as-to-the-handling-of-jalen-hurts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-business-partners-arent-pulling-punches-as-to-the-handling-of-jalen-hurts",
+      "permalink": "",
+      "title": "NFL business partners aren't pulling punches as to the handling of Jalen Hurts",
+      "body_text": "The Eagles' handling of quarterback Jalen Hurts and his blood clot in Week 5 has sparked plenty of criticism of both the team and the league, which has been in lockstep with the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-22T10:39:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-on-jed-york-suspension-we-saw-a-violation-and-we-dealt-with-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-on-jed-york-suspension-we-saw-a-violation-and-we-dealt-with-it",
+      "permalink": "",
+      "title": "Roger Goodell on Jed York suspension: \"We saw a violation and we dealt with it\"",
+      "body_text": "49ers owner Jed York attended the league meeting this week upon the conclusion of his six-game suspension.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-22T10:19:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-are-raising-all-season-ticket-prices-for-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-are-raising-all-season-ticket-prices-for-2027",
+      "permalink": "",
+      "title": "Dolphins are raising all season ticket prices for 2027",
+      "body_text": "For the 0-5 Dolphins, who have yet to take the lead in any game this season, the phrase \"better luck next year\" already applies.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-22T09:47:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-hopes-fans-see-injuries-for-more-than-just-the-impact-on-fantasy-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-hopes-fans-see-injuries-for-more-than-just-the-impact-on-fantasy-teams",
+      "permalink": "",
+      "title": "Matthew Stafford hopes fans see injuries for more than just the impact on fantasy teams",
+      "body_text": "\"Everybody sees these and they're on their fantasy team or whatever,\" Stafford said. \"We're like, 'That guy's worked his ass off for eight months to get this opportunity.'\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-22T07:55:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-latham-on-incident-with-jordan-elliott-it-was-just-an-unfortunate-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jc-latham-on-incident-with-jordan-elliott-it-was-just-an-unfortunate-situation",
+      "permalink": "",
+      "title": "JC Latham on incident with Jordan Elliott: It was just an unfortunate situation",
+      "body_text": "The Titans released defensive lineman Jordan Elliott on Tuesday after an incident at the team facility.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T02:51:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Elliott",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0036266"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-their-sofi-stadium-incident-troy-aikmans-position-to-joe-buck-was-you-f-ked-me-over",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-their-sofi-stadium-incident-troy-aikmans-position-to-joe-buck-was-you-f-ked-me-over",
+      "permalink": "",
+      "title": "In their SoFi Stadium incident, Troy Aikman's position to Joe Buck was: \"You f—ked me over!\"",
+      "body_text": "New report adds details to the tension in the MNF booth.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-22T01:37:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Troy Aikman",
+        "Joe Buck"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-has-a-stadium-issue-in-st-louis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ufl-has-a-stadium-issue-in-st-louis",
+      "permalink": "",
+      "title": "UFL has a stadium issue in St. Louis for 2027",
+      "body_text": "St.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-22T02:02:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-49ers-attracts-17-9-million-viewers-for-monday-night-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-49ers-attracts-17-9-million-viewers-for-monday-night-football",
+      "permalink": "",
+      "title": "Commanders-49ers attracts 17.9 million viewers for Monday Night Football",
+      "body_text": "Only 315,000 watched the McAfee alt cast.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-22T00:41:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Football Only"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-two-years-rehabbing-tank-dell-overwhelmed-anxious-and-excited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-two-years-rehabbing-tank-dell-overwhelmed-anxious-and-excited",
+      "permalink": "",
+      "title": "After two years rehabbing, Tank Dell overwhelmed, anxious and excited to play again",
+      "body_text": "Texans wide receiver Tank Dell has not played a game since Dec. 21, 2024, when he tore multiple ligaments and dislocated his kneecap in a game against the Chiefs.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T01:36:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tank Dell"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-mike-vrabel-aaron-glenn-nick-sirianni-250-000-each-for-conduct-toward-officials",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-mike-vrabel-aaron-glenn-nick-sirianni-250-000-each-for-conduct-toward-officials",
+      "permalink": "",
+      "title": "NFL fines Mike Vrabel, Aaron Glenn, Nick Sirianni $250,000 each for conduct toward officials",
+      "body_text": "Fines are currently being held in abeyance, and could be repealed.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-21T23:10:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Vrabel",
+        "Aaron Glenn",
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0006034"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-could-embrace-replay-review-transparency-by-the-end-of-the-current-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-could-embrace-replay-review-transparency-by-the-end-of-the-current-season",
+      "permalink": "",
+      "title": "NFL could embrace replay review transparency by the end of the current season",
+      "body_text": "Transparency apparently is coming, thanks to the UFL, the ACC, and the Big Ten.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-22T00:13:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Big Ten"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-remains-out-of-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-remains-out-of-practice",
+      "permalink": "",
+      "title": "Cardinals RB Jeremiyah Love remains out of practice",
+      "body_text": "Cardinals running back Jeremiyah Love is improving, Mike LaFleur said.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T00:11:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-im-just-trying-to-play-ball-learn-from-this-mistake-and-move-forward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-im-just-trying-to-play-ball-learn-from-this-mistake-and-move-forward",
+      "permalink": "",
+      "title": "Josh Jacobs: I'm just trying to play ball, learn from this mistake and move forward",
+      "body_text": "The Packers running back returned to the team this week after missing six games on the Commissioner's Exempt List.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T23:01:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "The Packers",
+        "Exempt List"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/senator-lisa-blunt-rochester-seeks-answers-from-roger-goodell-regarding-the-jalen-hurts-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/senator-lisa-blunt-rochester-seeks-answers-from-roger-goodell-regarding-the-jalen-hurts-situation",
+      "permalink": "",
+      "title": "Senator Lisa Blunt Rochester seeks answers from Roger Goodell regarding the Jalen Hurts situation",
+      "body_text": "The NFL and the Eagles hope to run out the clock as to the Jalen Hurts situation, in the hopes that the media and fans will turn their attention to the next story that grabs our collective attention.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-21T23:38:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Senator Lisa",
+        "Blunt Rochester",
+        "Roger Goodell",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathon-cooper-nobodys-perfect-but-no-excuses-i-do-hold-myself-accountable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathon-cooper-nobodys-perfect-but-no-excuses-i-do-hold-myself-accountable",
+      "permalink": "",
+      "title": "Jonathon Cooper: Nobody's perfect, but no excuses; I do hold myself accountable",
+      "body_text": "Broncos outside linebacker Jonathon Cooper returned to practice Wednesday after spending the first six weeks on the Commissioner's Exempt List.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T23:23:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonathon Cooper",
+        "Exempt List"
+      ],
+      "resolved_player_ids": [
+        "00-0036952"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-nfl-is-comfortable-with-steve-tisch-participating-in-league-team-activities",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/roger-goodell-nfl-is-comfortable-with-steve-tisch-participating-in-league-team-activities",
+      "permalink": "",
+      "title": "Roger Goodell: NFL is \"comfortable\" with Steve Tisch participating in league, team activities",
+      "body_text": "Steve Tisch supposedly has given up his ownership interest in the Giants.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-21T20:06:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Roger Goodell",
+        "Steve Tisch"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-packers-generates-24-656-million-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-packers-generates-24-656-million-on-sunday-night",
+      "permalink": "",
+      "title": "Cowboys-Packers generates 24.656 million on Sunday night",
+      "body_text": "The latest installment of the Cowboys-Packers did not yield an exciting game.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-21T20:36:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-on-feeling-more-ready-to-start-experience-does-wonders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-on-feeling-more-ready-to-start-experience-does-wonders",
+      "permalink": "",
+      "title": "J.J. McCarthy on feeling more ready to start: Experience does wonders",
+      "body_text": "McCarthy will make his first start for the Giants this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-21T22:38:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-will-have-a-cleanup-procedure-on-his-hamstring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/davante-adams-will-have-a-cleanup-procedure-on-his-hamstring",
+      "permalink": "",
+      "title": "Davante Adams will have a \"cleanup\" procedure on his hamstring",
+      "body_text": "Rams wide receiver Davante Adams was placed on injured reserve this week and his path back to the field will include a visit to the operating room.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-21T22:13:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-cowboys-db-broncos-scout-cornell-green-dies-at-86",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-cowboys-db-broncos-scout-cornell-green-dies-at-86",
+      "permalink": "",
+      "title": "Former Cowboys DB, Broncos scout Cornell Green dies at 86",
+      "body_text": "The Cowboys announced that former defensive back Cornell Green died Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T21:08:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Former Cowboys",
+        "Cornell Green",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0018613"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-on-losing-his-starting-job-i-understand-where-i-am-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jameis-winston-on-losing-his-starting-job-i-understand-where-i-am-now",
+      "permalink": "",
+      "title": "Jameis Winston on losing his starting job: I understand where I am now",
+      "body_text": "The Giants benched Jameis Winston just 23 days after trading with the Vikings for J.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T20:40:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jameis Winston",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seven-texans-sit-out-wednesdays-practice-with-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seven-texans-sit-out-wednesdays-practice-with-injuries",
+      "permalink": "",
+      "title": "Seven Texans sit out Wednesday's practice with injuries",
+      "body_text": "Seven key Texans players did not practice Wednesday as they began preparations for Sunday's game against the Giants.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T21:51:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Seven Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-list-baker-mayfield-as-full-participant-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-list-baker-mayfield-as-full-participant-on-wednesday",
+      "permalink": "",
+      "title": "Bucs list Baker Mayfield as full participant on Wednesday",
+      "body_text": "While Bucs head coach Todd Bowles lightly implied Baker Mayfield split reps with Jalon Daniels in Wednesday's practice, it turns out Mayfield was able to take all of his usual reps.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-21T19:48:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Wednesday While",
+        "Todd Bowles",
+        "Jalon Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kendal-daniels-practicing-today-three-days-after-being-taken-off-the-field-on-a-stretcher",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kendal-daniels-practicing-today-three-days-after-being-taken-off-the-field-on-a-stretcher",
+      "permalink": "",
+      "title": "Kendal Daniels practicing today, three days after being taken off the field on a stretcher",
+      "body_text": "Falcons rookie linebacker Kendal Daniels was stretchered off the field on Sunday with what looked like a serious neck injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-21T19:06:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kendal Daniels"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-claim-ot-albert-reese-off-waivers-from-the-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-claim-ot-albert-reese-off-waivers-from-the-panthers",
+      "permalink": "",
+      "title": "Cardinals claim OT Albert Reese off waivers from the Panthers",
+      "body_text": "The Cardinals claimed offensive tackle Albert Reese off waivers on Wednesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T21:36:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Albert Reese",
+        "Panthers The"
+      ],
+      "resolved_player_ids": [
+        "00-0041138"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-listed-as-full-participant-with-right-thumb-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-listed-as-full-participant-with-right-thumb-injury",
+      "permalink": "",
+      "title": "Malik Willis listed as full participant with right thumb injury",
+      "body_text": "Dolphins quarterback Malik Willis was not spotted throwing last week during the team's off week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-21T21:28:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    }
+  ]
+}
