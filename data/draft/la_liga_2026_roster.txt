@@ -1,5 +1,3 @@
-# la_liga 2026 (ESPN, teamId=1) — read 2026-10-05 by scripts/refresh_league_pools.py.
-# K/DST are not scored by waiver_wire.py.
 James Cook III
 Derrick Henry
 Tee Higgins
@@ -15,3 +13,4 @@ Keenan Allen
 Braelon Allen
 Devaughn Vele
 Emmett Johnson
+Colts D/ST

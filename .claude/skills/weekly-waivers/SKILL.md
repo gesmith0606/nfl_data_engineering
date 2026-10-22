@@ -8,19 +8,30 @@ allowed-tools: Bash, Read, Write
 Recommend waiver claims the way a sharp league-mate would: from the league outward,
 not from one week's projections. Full checklist: `docs/WEEKLY_WAIVER_RUNBOOK.md`.
 
+## Gate — no recommendation before the tools have run
+Do not name a player, a bid or a drop until `league_context.py` AND `waiver_wire.py`
+have run for that league in this session. Not a preference: on 2026-10-20 an hour of
+hand-rolled analysis produced a bid sized off a Sleeper-wide add count, a TE compared
+on PPR actuals against a half-PPR league, and a QB recommended two days before his
+starter was due back — all three of which the two commands answer directly. If a
+command fails, say so and fix it; do not substitute your own read of the raw data.
+
 ## Arguments
 `$ARGUMENTS` — `[league] [week]`. Default league `all`; default week = the upcoming
 week, but on Monday (before MNF) pass the NEXT week explicitly — the resolver still
 says the current week until MNF kicks off.
 
 ## Step 1 — Data is current (runbook §1)
-`git pull`. The Tuesday cron commits the upcoming week's Gold board and last week's
-Bronze actuals. Missing -> `gh workflow run weekly-pipeline.yml --ref main -f season=2026 -f week=N`.
+`git pull` — always, first, before reading anything. The Tuesday cron commits the
+upcoming week's Gold board and last week's Bronze actuals, so a checkout that has not
+moved in days is reading stale numbers and may be missing tooling outright (a 7-week-old
+one on 2026-10-20 produced "the pipeline is dead" and "we never built claim automation",
+both false). `waiver_wire.py` prints a warning when HEAD is 3+ days old; believe it. Missing -> `gh workflow run weekly-pipeline.yml --ref main -f season=2026 -f week=N`.
 
 ## Step 2 — League context BEFORE any recommendation
 ```bash
 python scripts/league_context.py --league mantis
-python scripts/league_context.py --league la_liga   # ESPN cookies, or --espn-json <saved league JSON>
+python scripts/league_context.py --league la_liga --espn-browser   # or ESPN cookies / --espn-json
 ```
 Feetball (Yahoo) has no API: read the Transactions page + each team's FAAB in Chrome.
 Note from the output: our FAAB left vs every rival's, the room's median/p75 winning
@@ -33,7 +44,13 @@ into both sites (`chrome --remote-debugging-port=9222 --user-data-dir=<profile>`
 `python scripts/refresh_league_pools.py --league all --week N` (also writes the ESPN
 league JSON for `league_context.py --league la_liga --espn-json data/external/espn/la_liga_2026_league.json`).
 If no debug Chrome is up, fall back to reading the sites with claude-in-chrome. Then run `scripts/waiver_wire.py`
-per league (Mantis adds DYN value + AGE columns and a "dynasty targets" list; every
+per league. **For a `"dynasty": True` preset (Mantis), read the "dynasty targets"
+section FIRST and treat the weekly blend as secondary** — that list is sorted by market
+value, which is the axis the league is actually played on. Reading past it to the
+weekly table produced a 2026-10-21 recommendation of the lowest-value asset on the
+board (Roschon Johnson, dyn 539, role borrowed from an injured team-mate) over a
+23-year-old starting QB at dyn 1271 in a superflex league. Mantis adds DYN + AGE
+columns and that list; every
 free agent gets a FIT verdict vs MY roster — STARTS / BENCH+ / depth / no help — and
 keepers are tagged KEEP and excluded from drop candidates). Never recommend a "no help"
 player however hot he is. Then
@@ -50,8 +67,16 @@ recommending him.
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
 - Drop order = lowest dynasty value with no role (old backups first).
-- Bids: anchor on the room's median/p75 from Step 2 and on rivals' remaining budgets.
-  Keep a reserve (~25% of the original budget) for a real starter injury.
+- **Bids — price the player, not the room.** Read his `[demand]` bracket in the
+  waiver report FIRST: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
+  That is what these managers have actually paid for *him*. The room's median/p75 from
+  Step 2 is the price of a CONTESTED player and is only the fallback when he has no
+  history. On 2026-10-21 Jalon Daniels read `cut wk4 (was $1), free 3wk` after three
+  straight 13-point starts while the room median said $12 — three bids that session
+  were sized off the median and all three were too high. A player sitting free while
+  producing is information: ask what the other managers know before paying a premium.
+  Then sanity-check against rivals' remaining budgets, and keep a reserve (~25% of the
+  original budget) for a real starter injury.
 
 **Feetball is a KEEPER league.** Before proposing any Feetball drop, read
 `data/draft/feetball_2026_keepers.txt` — our keepers (2026: Luther Burden III, Colston

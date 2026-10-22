@@ -65,9 +65,27 @@ python scripts/stream_dst_k.py --pool data/draft/feetball_2026_dstk_pool.txt   #
 - Defenses/kickers usually clear at $0-1 — don't spend real FAAB on them.
 
 ## 4. Bid norms (see vault `fantasy-faab-bid-history-2026`)
-- Mantis ($1000): median winning bid 15, p75 75; QB streamers 40-400. A $1 bid only wins junk.
-- La Liga ($100): typical winning claim $3-4; two teams empty their budget each year.
+
+**Price the player before the room.** `waiver_wire.py` prints a `[demand]` bracket per
+free agent — `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`. That is what
+these managers have paid for *him*, and it is the first anchor. The medians below
+describe a CONTESTED player and apply only when he has no history. 2026-10-21: Jalon
+Daniels read `cut wk4 (was $1), free 3wk` after three straight 13-point starts while
+the Mantis median said $12; $1 won him. A player sitting free while producing is
+information — ask what the other nine managers know before paying a premium.
+
+Measured from each league's own transaction log (`league_context.py`), through week 7
+of 2026 — re-measure rather than trusting these:
+
+- Mantis ($1000, n=49): median winning bid **$12**, p75 **$55**, max $450. The max is
+  real (a $450 RB claim in wk3), so the tail is fat; the middle is not.
+- La Liga ($100, n=39): median **$4**, p75 **$10**, max $81. Two teams empty their
+  budget each year — by week 7 2026 both were already at $0 and could not bid at all.
 - Feetball ($100): the room bids $0-3. $5 wins anything that is not a consensus hot add.
+
+Remaining budget is not the same as willingness to spend: in La Liga the three teams
+with full budgets through week 7 had spent $0, $0 and $1 all season. Read the
+transaction counts, not just the money left.
 
 ## 5. Waiver clear times
 - Sleeper Mantis: Wednesday morning; unclaimed players become instant free agents afterwards.
