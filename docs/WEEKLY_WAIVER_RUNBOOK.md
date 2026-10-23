@@ -87,6 +87,26 @@ Remaining budget is not the same as willingness to spend: in La Liga the three t
 with full budgets through week 7 had spent $0, $0 and $1 all season. Read the
 transaction counts, not just the money left.
 
+### Verdict: do NOT escalate for dynasty value (HOLD, 2026-10-22)
+
+Tested on all 51 real Mantis winning bids. The seven bids over $100 went to
+young high-value assets (median dyn 1197, age 24 vs 915/26 below $100), which
+looks like a rule — but correlation between bid and dynasty value is only
+**+0.20** on n=50, and escalating on it made the backtest worse at every
+threshold tried:
+
+| variant | median error | mean error |
+|---|---|---|
+| baseline (shipped) | **$6** | **$46.8** |
+| dyn p75, 3x median | $14 | $47.5 |
+| dyn p75, 6x median | $14 | $51.1 |
+| dyn p60, 4x median | $42 | $55.1 |
+| dyn p50, 4x median | $43 | $56.8 |
+
+Seven outliers are not a pattern. The tail is not predictable from what we
+have, so the report surfaces the room's historical max as context ("but this
+room has gone as high as $450") and leaves the override to you.
+
 ## 5. Waiver clear times
 - Sleeper Mantis: Wednesday morning; unclaimed players become instant free agents afterwards.
 - ESPN La Liga and Yahoo Feetball: Wednesday ~3am ET.

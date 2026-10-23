@@ -379,6 +379,7 @@ def suggest_bid(
     room_median: int,
     my_faab: int,
     current_leg: int,
+    room_max: int = 0,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -393,6 +394,14 @@ def suggest_bid(
        (Omar Cooper, bid $22, needed $10).
     3. **The room's median**, only as the floor-setter when he has no history.
 
+    What it deliberately does NOT model is the tail. Backtested on 51 real
+    Mantis bids, escalating young high-dynasty-value players toward the room's
+    big-ticket range made things worse at every threshold tried (median error
+    $6 -> $14-43, mean $46.8 -> $47.5-56.8; correlation between bid and
+    dynasty value is only +0.20 on n=50). Seven outliers are not a pattern.
+    Instead ``room_max`` surfaces what this room HAS paid, as context for a
+    deliberate override rather than a prediction dressed up as one.
+
     Args:
         moves: This player's history from :func:`league_player_moves`.
         rival_bids: Median winning bid of each credible rival (thin at the
@@ -400,6 +409,7 @@ def suggest_bid(
         room_median: The league's median winning bid.
         my_faab: My remaining budget.
         current_leg: The week being priced.
+        room_max: The largest winning bid this room has made all season.
 
     Returns:
         ``(bid, reason)``. Never above a quarter of ``my_faab``.
@@ -429,9 +439,11 @@ def suggest_bid(
     beat = top + max(1, top // 5)
     if cut_and_free >= 2 and last_paid and beat > last_paid * 3:
         beat = max(last_paid * 2, room_median)
-    return min(max(1, int(beat)), cap), (
-        f"{len(rival_bids)} rival(s) thin here; their top median bid is ${top}"
-    )
+    reason = f"{len(rival_bids)} rival(s) thin here; their top median bid is ${top}"
+    bid = min(max(1, int(beat)), cap)
+    if room_max and room_max >= bid * 4:
+        reason += f" — but this room has gone as high as ${room_max}"
+    return bid, reason
 
 
 def nfl_week_for_date(stamp: str, season: int) -> Optional[int]:
@@ -468,6 +480,24 @@ def nfl_week_for_date(stamp: str, season: int) -> Optional[int]:
         return int(earlier.index[-1]) if len(earlier) else 1
     except Exception:  # noqa: BLE001 — an unmapped date just loses one row
         return None
+
+
+def yahoo_transactions_text(league_id: str, pages: int = 4) -> str:
+    """Transactions page text through the logged-in claims profile.
+
+    Returns an empty string on any failure, so a Yahoo login that has lapsed
+    costs the demand column rather than the whole report.
+    """
+    try:
+        from src import waiver_sites as ws
+        from src.fantasy_browser import FantasyBrowser
+
+        browser = FantasyBrowser()
+        page = ws.site_page(browser, "yahoo", str(league_id), 0)
+        return ws.yahoo_transactions(page, str(league_id), pages)
+    except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
+        print(f"WARN: Yahoo transactions unavailable ({exc})")
+        return ""
 
 
 def moves_from_yahoo(text: str, by_name: Mapping[Any, str], season: int) -> PlayerMoves:
@@ -732,6 +762,12 @@ def main(argv: Optional[list] = None) -> int:
         "column and bid model (Yahoo's API has no read scope)",
     )
     ap.add_argument(
+        "--yahoo-browser",
+        action="store_true",
+        help="Yahoo: read the league Transactions page through the logged-in "
+        "claims profile instead of --transactions-file",
+    )
+    ap.add_argument(
         "--espn-browser",
         action="store_true",
         help="ESPN: add the demand column by reading the league's transaction log "
@@ -836,6 +872,7 @@ def main(argv: Optional[list] = None) -> int:
     bid_stats: Dict[str, Dict[str, Any]] = {}
     rivals_by_pos: Dict[str, List[int]] = {}
     room_median = 0
+    room_max = 0
     my_faab = 0
     if platform == "sleeper":
         tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
@@ -851,6 +888,7 @@ def main(argv: Optional[list] = None) -> int:
             b for st in bid_stats.values() for b in [st["median"]] * st["n"]
         )
         room_median = all_bids[len(all_bids) // 2] if all_bids else 0
+        room_max = max((st["max"] for st in bid_stats.values()), default=0)
         rivals_by_pos: Dict[str, List[int]] = {}
         for r in all_rosters:
             rid = str(r.get("roster_id"))
@@ -874,6 +912,10 @@ def main(argv: Optional[list] = None) -> int:
             week,
             registry,
             by_name,
+        )
+    elif platform == "yahoo" and args.yahoo_browser:
+        moves = moves_from_yahoo(
+            yahoo_transactions_text(str(preset["league_id"])), by_name, season
         )
     elif platform == "yahoo" and args.transactions_file:
         moves = moves_from_yahoo(
@@ -955,6 +997,7 @@ def main(argv: Optional[list] = None) -> int:
                     room_median,
                     my_faab,
                     week,
+                    room_max,
                 )
                 if moves and my_faab
                 else None

@@ -132,3 +132,30 @@ def test_a_recently_cut_player_is_not_chased_to_the_moon():
 def test_a_bid_is_never_zero():
     bid, _ = suggest_bid(None, [], room_median=0, my_faab=100, current_leg=7)
     assert bid >= 1
+
+
+# --- the tail: context, not prediction --------------------------------------
+
+
+def test_room_max_is_surfaced_when_it_dwarfs_the_suggestion():
+    """Escalating toward the tail made the backtest worse, so say it instead."""
+    bid, why = suggest_bid(
+        None, [10], room_median=12, my_faab=1000, current_leg=7, room_max=450
+    )
+    assert bid == 12
+    assert "gone as high as $450" in why
+
+
+def test_room_max_is_silent_when_the_bid_is_already_in_range():
+    _bid, why = suggest_bid(
+        None, [100], room_median=12, my_faab=1000, current_leg=7, room_max=200
+    )
+    assert "as high as" not in why
+
+
+def test_room_max_never_changes_the_number():
+    plain, _ = suggest_bid(None, [10], room_median=12, my_faab=1000, current_leg=7)
+    noted, _ = suggest_bid(
+        None, [10], room_median=12, my_faab=1000, current_leg=7, room_max=450
+    )
+    assert plain == noted
