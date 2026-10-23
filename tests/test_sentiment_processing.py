@@ -186,7 +186,9 @@ class TestClaudeExtractorParsing(unittest.TestCase):
             },
         ]
         extractor = self._make_extractor_with_mock_client(payload)
-        doc = _make_doc(title="KC backfield update", body="Kelce and Pacheco are healthy.")
+        doc = _make_doc(
+            title="KC backfield update", body="Kelce and Pacheco are healthy."
+        )
         signals = extractor.extract(doc)
 
         self.assertEqual(len(signals), 2)
@@ -490,9 +492,7 @@ class TestEventFlagOrLogic(unittest.TestCase):
     def _make_aggregator(self) -> WeeklyAggregator:
         return WeeklyAggregator()
 
-    def _agg_records(
-        self, records: List[Dict], ref_time: datetime
-    ) -> Dict:
+    def _agg_records(self, records: List[Dict], ref_time: datetime) -> Dict:
         agg = self._make_aggregator()
         player_agg = agg._aggregate_player_signals(records, ref_time)
         return player_agg
@@ -671,7 +671,14 @@ class TestWeeklyAggregation(unittest.TestCase):
         self, tmp_dir: Path, records: List[Dict], season: int = 2026, week: int = 1
     ) -> None:
         """Write a Silver signal file to a temp directory."""
-        sig_dir = tmp_dir / "silver" / "sentiment" / "signals" / f"season={season}" / f"week={week:02d}"
+        sig_dir = (
+            tmp_dir
+            / "silver"
+            / "sentiment"
+            / "signals"
+            / f"season={season}"
+            / f"week={week:02d}"
+        )
         sig_dir.mkdir(parents=True, exist_ok=True)
         envelope = {
             "batch_id": "test",
@@ -680,7 +687,9 @@ class TestWeeklyAggregation(unittest.TestCase):
             "signal_count": len(records),
             "records": records,
         }
-        (sig_dir / "signals_test.json").write_text(json.dumps(envelope), encoding="utf-8")
+        (sig_dir / "signals_test.json").write_text(
+            json.dumps(envelope), encoding="utf-8"
+        )
 
     def test_aggregate_single_player(self):
         """Aggregation returns one row per player."""
@@ -692,9 +701,12 @@ class TestWeeklyAggregation(unittest.TestCase):
             agg = WeeklyAggregator()
             # Patch the module-level path constants to use our temp dir
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig_signals_dir = weekly_mod._SILVER_SIGNALS_DIR
             orig_gold_dir = weekly_mod._GOLD_SENTIMENT_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             weekly_mod._GOLD_SENTIMENT_DIR = tmp_path / "gold" / "sentiment"
             try:
                 df = agg.aggregate(
@@ -732,8 +744,11 @@ class TestWeeklyAggregation(unittest.TestCase):
 
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -759,8 +774,11 @@ class TestWeeklyAggregation(unittest.TestCase):
 
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -779,8 +797,11 @@ class TestWeeklyAggregation(unittest.TestCase):
             tmp_path = Path(tmp)
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -809,8 +830,11 @@ class TestWeeklyAggregation(unittest.TestCase):
 
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -839,8 +863,11 @@ class TestWeeklyAggregation(unittest.TestCase):
 
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -864,8 +891,11 @@ class TestWeeklyAggregation(unittest.TestCase):
 
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -895,8 +925,11 @@ class TestWeeklyAggregation(unittest.TestCase):
 
             agg = WeeklyAggregator()
             import src.sentiment.aggregation.weekly as weekly_mod
+
             orig = weekly_mod._SILVER_SIGNALS_DIR
-            weekly_mod._SILVER_SIGNALS_DIR = tmp_path / "silver" / "sentiment" / "signals"
+            weekly_mod._SILVER_SIGNALS_DIR = (
+                tmp_path / "silver" / "sentiment" / "signals"
+            )
             try:
                 df = agg.aggregate(
                     season=2026, week=1, dry_run=True, reference_time=self._now()
@@ -922,7 +955,9 @@ class TestPipelineProcessedIdTracking(unittest.TestCase):
         self, tmp_dir: Path, items: List[Dict], source: str = "rss", season: int = 2026
     ) -> None:
         """Write a Bronze JSON file to a temp directory."""
-        bronze_dir = tmp_dir / "data" / "bronze" / "sentiment" / source / f"season={season}"
+        bronze_dir = (
+            tmp_dir / "data" / "bronze" / "sentiment" / source / f"season={season}"
+        )
         bronze_dir.mkdir(parents=True, exist_ok=True)
         envelope = {
             "fetch_run_id": "test-run",
@@ -1049,3 +1084,41 @@ class TestPipelineProcessedIdTracking(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_a_degraded_step_annotates_the_actions_run_without_failing_it(capsys):
+    """Three dead RSS feeds survived months of green crons as an INFO line.
+
+    The pipeline exits 0 whenever any step worked, which is deliberate — one
+    flaky publisher must not stop the day's news. So degradation has to be
+    visible some other way: a GitHub Actions warning annotation, which shows
+    at the top of the run page and leaves the exit code alone.
+    """
+    import importlib.util
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "dsp_annotate", root / "scripts" / "daily_sentiment_pipeline.py"
+    )
+    dsp = importlib.util.module_from_spec(spec)
+    sys.modules["dsp_annotate"] = dsp
+    spec.loader.exec_module(dsp)
+
+    result = dsp.PipelineResult()
+    result.steps.append(
+        dsp.StepResult(name="RSS Ingestion", success=False, detail="exit code 1")
+    )
+    result.steps.append(dsp.StepResult(name="Gold Aggregation", detail="completed"))
+    dsp._print_summary(result)
+    out = capsys.readouterr().out
+    assert "::warning title=Sentiment step degraded::RSS Ingestion" in out
+    assert "exit code 1" in out
+    # One working step still means a green cron.
+    assert result.any_success is True
+
+    healthy = dsp.PipelineResult()
+    healthy.steps.append(dsp.StepResult(name="RSS Ingestion", detail="completed"))
+    dsp._print_summary(healthy)
+    assert "::warning" not in capsys.readouterr().out

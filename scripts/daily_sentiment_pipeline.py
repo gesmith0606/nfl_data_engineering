@@ -735,6 +735,20 @@ def _print_summary(result: PipelineResult) -> None:
         total,
     )
 
+    # The cron exits 0 whenever ANY step worked, which is deliberate -- one
+    # flaky publisher should not stop the day's news. But a failed step was
+    # only an INFO line inside a 60-line summary, so a degraded run was
+    # indistinguishable from a healthy one on the Actions run page. That is
+    # how three dead RSS feeds survived months of green runs. Annotations
+    # show at the top of the run without changing the exit code.
+    for step in result.steps:
+        if not step.success:
+            print(
+                f"::warning title=Sentiment step degraded::{step.name}: "
+                f"{step.detail or step.error or 'failed'}",
+                flush=True,
+            )
+
 
 def main(argv: Optional[List[str]] = None) -> int:
     """Entry point for the daily sentiment pipeline.
