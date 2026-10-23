@@ -16,6 +16,7 @@ from pathlib import Path
 
 import pytest
 
+from src import config
 from src import waiver_claims as wc
 from src import waiver_sites as ws
 
@@ -959,3 +960,158 @@ def test_sleeper_fetch_errors_raise_instead_of_reading_as_empty(monkeypatch):
 def test_espn_submit_rechecks_waiver_status_before_posting():
     js = ws.ESPN_SUBMIT_JS
     assert js.index("now.status !== A.expect") < js.index("method: 'POST'")
+
+
+def test_only_our_leagues_can_be_advised_on():
+    """A preset kept as a roster-shape example is never mistaken for ours."""
+    assert config.our_league("mantis")["my_user"] == "Gforceee"
+    for key, preset in config.LEAGUE_PRESETS.items():
+        if preset.get("owned") is False:
+            with pytest.raises(ValueError, match="NOT one of our leagues"):
+                config.our_league(key)
+        else:
+            assert config.our_league(key) is preset
+    with pytest.raises(KeyError, match="Unknown league"):
+        config.our_league("no_such_league")
+
+
+def test_advice_scripts_refuse_a_league_that_is_not_ours():
+    """The guard is wired into every tool that advises on a roster."""
+    for script in ("waiver_wire", "set_lineups", "league_context"):
+        src = (REPO / "scripts" / f"{script}.py").read_text(encoding="utf-8")
+        assert "config.our_league(args.league)" in src, script
+
+
+def _emit(tmp_path, **kw):
+    """Run the report's claims writer with a small synthetic board."""
+    ww = _waiver_wire()
+    fas = [
+        {
+            "name": "Dalton Schultz",
+            "verdict": "STARTS",
+            "blend": 12.0,
+            "bid": (4, "no rival is both thin here and able to spend"),
+            "bye": False,
+        },
+        {
+            "name": "Cooper Kupp",
+            "verdict": "BENCH+",
+            "blend": 9.0,
+            "bid": (1, "we cut him"),
+            "bye": False,
+        },
+        {
+            "name": "On Bye",
+            "verdict": "STARTS",
+            "blend": 20.0,
+            "bid": (9, "x"),
+            "bye": True,
+        },
+        {"name": "No Help", "verdict": "no help", "blend": 1.0, "bid": (1, "x")},
+    ]
+    drops = [{"name": "Kenny Gainwell"}, {"name": "Jalon Daniels"}]
+    path = tmp_path / "claims.yaml"
+    note = ww.emit_claims(
+        path, kw.get("league", "mantis"), 7, fas, drops, kw.get("open_active", 0), True
+    )
+    return path, note
+
+
+def _waiver_wire():
+    spec = importlib.util.spec_from_file_location(
+        "ww_emit", REPO / "scripts" / "waiver_wire.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_emitted_claims_carry_the_reports_own_bids_and_load_back(tmp_path):
+    """A hand-typed bid is the one number that never came from the pipeline."""
+    path, note = _emit(tmp_path)
+    assert "wrote 2 claims" in note
+    claims = wc.load_claims(path, config.LEAGUE_PRESETS)
+    assert [(c.add, c.bid, c.drop) for c in claims] == [
+        ("Dalton Schultz", 4, "Kenny Gainwell"),
+        ("Cooper Kupp", 1, "Jalon Daniels"),
+    ]
+    body = path.read_text(encoding="utf-8")
+    assert "no rival is both thin here" in body  # the model's reason travels with it
+    assert "On Bye" not in body and "No Help" not in body
+
+
+def test_an_open_slot_means_the_first_claim_needs_no_drop(tmp_path):
+    path, _ = _emit(tmp_path, open_active=1)
+    claims = wc.load_claims(path, config.LEAGUE_PRESETS)
+    assert claims[0].drop is None
+    assert claims[1].drop == "Kenny Gainwell"
+
+
+def test_emit_never_overwrites_an_existing_claims_file(tmp_path):
+    path = tmp_path / "claims.yaml"
+    path.write_text("claims: []\n", encoding="utf-8")
+    ww = _waiver_wire()
+    note = ww.emit_claims(path, "mantis", 7, [], [], 0, True)
+    assert "left untouched" in note
+    assert path.read_text(encoding="utf-8") == "claims: []\n"
+
+
+def test_bid_reason_does_not_claim_a_rival_check_that_never_ran():
+    """Only Sleeper exposes every rival's roster AND budget.
+
+    On ESPN and Yahoo an empty rival list means we never looked, not that
+    nobody can outbid us — and the emitted claim carried that reason into
+    George's hands as justification.
+    """
+    ww = _waiver_wire()
+    sleeper_bid, sleeper_why = ww.suggest_bid(None, [], 8, 100, 7, rivals_modelled=True)
+    site_bid, site_why = ww.suggest_bid(None, [], 8, 100, 7, rivals_modelled=False)
+    assert sleeper_bid == site_bid == 1  # room_median // 5, the backtested floor
+    assert sleeper_why == "no rival is both thin here and able to spend"
+    assert "no rival model on this platform" in site_why
+    assert "able to spend" not in site_why
+
+
+def test_espn_faab_comes_from_the_payload_already_fetched():
+    """`bid` is gated on `moves and my_faab`, and my_faab was Sleeper-only."""
+    ww = _waiver_wire()
+    payload = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [
+            {"id": 1, "transactionCounter": {"acquisitionBudgetSpent": 42}},
+            {"id": 2, "transactionCounter": {"acquisitionBudgetSpent": 90}},
+        ],
+    }
+    assert ww._espn_faab_left(payload, 1) == 58
+    assert ww._espn_faab_left(payload, 2) == 10
+    assert ww._espn_faab_left(payload, 99) == 100  # unknown team: nothing spent
+    # Unknown budget must stay 0 so suggest_bid is left switched off rather
+    # than pricing against a number we invented.
+    assert ww._espn_faab_left({"settings": {}, "teams": []}, 1) == 0
+
+
+def test_every_site_read_shares_one_browser():
+    """Playwright's sync API cannot nest, so a second browser masks the truth.
+
+    `--yahoo-browser` could never work: yahoo_live_pools opened a browser, then
+    the demand history opened another and died with "Sync API inside the
+    asyncio loop" — which looked like a code bug and hid the real cause (a
+    lapsed Yahoo login). Only the shared accessor may construct one.
+    """
+    src = (REPO / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+    code = [ln for ln in src.splitlines() if not ln.lstrip().startswith(("#", "#:"))]
+    builds = [ln for ln in code if "FantasyBrowser()" in ln]
+    assert builds == ["        _BROWSER = FantasyBrowser()"], builds
+    assert src.count("ws.site_page(shared_browser()") == 3, "espn + yahoo x2"
+
+    ww = _waiver_wire()
+    assert ww._BROWSER is None, "created lazily — a local run must not open one"
+
+
+def test_yahoo_reads_return_transactions_and_faab_together():
+    """Wiring one without the other leaves every bid blank (as ESPN briefly was)."""
+    ww = _waiver_wire()
+    text, faab = ww.yahoo_transactions_text("658684", 10)
+    # No login in the test environment, so this is the degraded path: both
+    # halves must come back empty together rather than one silently missing.
+    assert text == "" and faab == 0

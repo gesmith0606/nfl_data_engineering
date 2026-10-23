@@ -61,8 +61,7 @@ try:
     import feedparser  # type: ignore
 except ImportError:
     print(
-        "ERROR: feedparser is not installed.  "
-        "Run: pip install feedparser",
+        "ERROR: feedparser is not installed.  " "Run: pip install feedparser",
         file=sys.stderr,
     )
     sys.exit(1)
@@ -94,14 +93,38 @@ _NAME_PATTERN = re.compile(
 # NFL team abbreviations and their common long-form names — used as team-hint
 # context when a team name appears close to a player name in text.
 _TEAM_MENTIONS: Dict[str, str] = {
-    "Chiefs": "KC", "Bills": "BUF", "Eagles": "PHI", "Cowboys": "DAL",
-    "Patriots": "NE", "Packers": "GB", "Bears": "CHI", "Lions": "DET",
-    "Vikings": "MIN", "49ers": "SF", "Rams": "LA", "Seahawks": "SEA",
-    "Cardinals": "ARI", "Saints": "NO", "Buccaneers": "TB", "Falcons": "ATL",
-    "Panthers": "CAR", "Steelers": "PIT", "Ravens": "BAL", "Browns": "CLE",
-    "Bengals": "CIN", "Broncos": "DEN", "Raiders": "LV", "Chargers": "LAC",
-    "Dolphins": "MIA", "Jets": "NYJ", "Giants": "NYG", "Commanders": "WAS",
-    "Colts": "IND", "Texans": "HOU", "Jaguars": "JAX", "Titans": "TEN",
+    "Chiefs": "KC",
+    "Bills": "BUF",
+    "Eagles": "PHI",
+    "Cowboys": "DAL",
+    "Patriots": "NE",
+    "Packers": "GB",
+    "Bears": "CHI",
+    "Lions": "DET",
+    "Vikings": "MIN",
+    "49ers": "SF",
+    "Rams": "LA",
+    "Seahawks": "SEA",
+    "Cardinals": "ARI",
+    "Saints": "NO",
+    "Buccaneers": "TB",
+    "Falcons": "ATL",
+    "Panthers": "CAR",
+    "Steelers": "PIT",
+    "Ravens": "BAL",
+    "Browns": "CLE",
+    "Bengals": "CIN",
+    "Broncos": "DEN",
+    "Raiders": "LV",
+    "Chargers": "LAC",
+    "Dolphins": "MIA",
+    "Jets": "NYJ",
+    "Giants": "NYG",
+    "Commanders": "WAS",
+    "Colts": "IND",
+    "Texans": "HOU",
+    "Jaguars": "JAX",
+    "Titans": "TEN",
 }
 
 
@@ -403,6 +426,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     total_items = 0
     total_resolved = 0
     files_written: List[Path] = []
+    dead: List[str] = []
 
     for feed_key, feed_url in feeds.items():
         items, fetched, resolved = _fetch_feed(
@@ -410,6 +434,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         )
         total_items += fetched
         total_resolved += resolved
+        if not fetched:
+            dead.append(feed_key)
 
         if args.dry_run:
             logger.info(
@@ -433,6 +459,21 @@ def main(argv: Optional[List[str]] = None) -> int:
         total_resolved,
         len(files_written),
     )
+    # A feed that returns nothing is indistinguishable from a quiet news day,
+    # and this script used to return 0 either way: three of five feeds had been
+    # dead for months (404/301) while the daily cron stayed green. Name them.
+    if dead:
+        logger.error(
+            "DEAD FEEDS (%d of %d): %s — fix the URL in config.SENTIMENT_CONFIG"
+            "['rss_feeds'] or drop the entry; news coverage is degraded until "
+            "then",
+            len(dead),
+            len(feeds),
+            ", ".join(dead),
+        )
+        # Non-zero only when MOST of them are gone: one flaky publisher should
+        # not fail a cron that still collected four sources' worth of news.
+        return 1 if len(dead) * 2 > len(feeds) else 0
     return 0
 
 

@@ -1,0 +1,805 @@
+{
+  "fetch_run_id": "669b522b-fb51-4b73-8a1e-ff83a8d3473a",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-10-23T12:54:10.790918+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "e189de55-1768-4364-8fb6-3f248b75776b",
+      "url": "https://sports.yahoo.com/fantasy/live/nfl-injury-tracker-week-7-latest-news-fantasy-implications-as-saquon-barkley-hamstring-lamar-jackson-ankle-return-to-practice-puka-nacua-calf-limited-123900681.html",
+      "title": "NFL injury tracker Week 7: Latest news, fantasy implications as Saquon Barkley (hamstring), Lamar Jackson (ankle) return to practice; Puka Nacua (calf) limited",
+      "body_text": "Here's everything you need to know injury-wise for Week 7 of the NFL season.",
+      "author": "Sean Leahy",
+      "published_at": "2026-10-19T17:05:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Lamar Jackson",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0034796",
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "876583d9-f731-33bd-a295-632bfd78d05c",
+      "url": "https://sports.yahoo.com/articles/could-washington-gm-adam-peters-123000076.html",
+      "title": "Could Washington GM Adam Peters try to build around Jayden Daniels at the trade deadline? - Daily Slop",
+      "body_text": "2 games behind 1st place Giants and with the league’s 2nd-easiest remaining schedule, could Washington become buyers at the trade deadline?",
+      "author": "",
+      "published_at": "2026-10-23T12:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Could Washington",
+        "Adam Peters",
+        "Jayden Daniels",
+        "Daily Slop"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "d87e8948-114c-3b89-a805-6a30687aca54",
+      "url": "https://sports.yahoo.com/articles/lions-vs-packers-preview-prediction-123000324.html",
+      "title": "Lions vs. Packers preview, prediction: On Paper",
+      "body_text": "A preview, prediction and statistical breakdown for Detroit Lions vs. Green Bay Packers.",
+      "author": "",
+      "published_at": "2026-10-23T12:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "On Paper",
+        "Detroit Lions",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "ea1ca30b-9263-3cbb-9f99-a88d6e21ab3e",
+      "url": "https://sports.yahoo.com/articles/report-jaguars-ot-anton-harrison-122837910.html",
+      "title": "Report: Jaguars OT Anton Harrison out for year with a torn ACL",
+      "body_text": "When Jaguars left tackle Anton Harrison was placed on injured reserve earlier this month, word was that the results of knee surgery would determine how long he'll be out.",
+      "author": "",
+      "published_at": "2026-10-23T12:28:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Anton Harrison",
+        "When Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "77f36f16-8531-3ad9-ba7f-42f7e1c91ced",
+      "url": "https://sports.yahoo.com/articles/five-plays-syracuse-fourth-quarter-122000629.html",
+      "title": "Five Plays: Syracuse Fourth Quarter",
+      "body_text": "Louisville survived a trip to Syracuse to get a solid road win in the ACC. Below are some of the key plays in the fourth quarter, with some thoughts from me. Louisville turned up the pressure in the second half with blitzes like this one, where Kaleb Beasley comes from the slot. They were able […]",
+      "author": "",
+      "published_at": "2026-10-23T12:20:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Five Plays",
+        "Syracuse Fourth",
+        "Quarter Louisville",
+        "Kaleb Beasley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "32ee2776-e721-381b-b4f2-95c7f34db75e",
+      "url": "https://sports.yahoo.com/articles/jaguars-lt-anton-harrison-reportedly-121633734.html",
+      "title": "Jaguars LT Anton Harrison Reportedly Out For The Year",
+      "body_text": "Recent reports confirm the worst-case scenario Jaguars LT Anton Harrison. The 2026 season is over for the fourth year OT",
+      "author": "",
+      "published_at": "2026-10-23T12:16:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Anton Harrison",
+        "Reportedly Out",
+        "For The",
+        "Year Recent"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "d1a3538f-fc81-3f1d-ae3e-785234369b51",
+      "url": "https://sports.yahoo.com/articles/bills-news-good-bad-ugly-120955801.html",
+      "title": "Bills news: The good, the bad and the ugly at the bye week.",
+      "body_text": "Josh Allen and the offense have been elite through six weeks. The defense has been a problem, especially on third down.",
+      "author": "",
+      "published_at": "2026-10-23T12:09:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "adf339ad-18e0-3753-8afc-6f09235bdd52",
+      "url": "https://sports.yahoo.com/articles/fleur-links-players-grateful-extra-120713466.html",
+      "title": "Fleur-de-Links: Players grateful for extra time in Paris",
+      "body_text": "Here are today's Saints news links",
+      "author": "",
+      "published_at": "2026-10-23T12:07:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Paris Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "4be4e51b-1cba-3b49-beda-a26e67add41f",
+      "url": "https://sports.yahoo.com/articles/bills-trade-deadline-candidate-eagles-120036559.html",
+      "title": "Bills trade deadline candidate: Eagles cornerback Tariq Woolen",
+      "body_text": "The fourth installment in the series examining possible Bills trade targets before the deadline",
+      "author": "",
+      "published_at": "2026-10-23T12:00:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tariq Woolen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "26c6ad7e-356b-3fda-ad79-5bf5cd191e6c",
+      "url": "https://sports.yahoo.com/articles/bears-send-message-nfl-win-120000844.html",
+      "title": "Bears send a message to the NFL with the win over Patriots",
+      "body_text": "The Bears picked up a key win over the Patriots on Thursday, and @jacobinfante24 shares his notes from the game.",
+      "author": "",
+      "published_at": "2026-10-23T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patriots The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "4e2cf330-f553-30c3-a6dc-d537793dd63a",
+      "url": "https://sports.yahoo.com/articles/6-nfl-trades-want-see-120000962.html",
+      "title": "6 NFL trades we want to see at the deadline, including a Bears blockbuster",
+      "body_text": "Trade targets with connective tissue to certain teams.",
+      "author": "",
+      "published_at": "2026-10-23T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "638f5d28-14ef-3ad6-94e0-a6b75de5ebea",
+      "url": "https://sports.yahoo.com/articles/stampede-blue-reacts-results-week-120000738.html",
+      "title": "Stampede Blue Reacts results (Week 7): Colts fans show signs of optimism after Ballard firing",
+      "body_text": "The latest SB Nation Reacts survey suggests Colts fans may not be ready to give up on the 2026 season just yet.",
+      "author": "",
+      "published_at": "2026-10-23T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Stampede Blue",
+        "Nation Reacts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "940f3258-de50-3958-bbce-cc227c7803d5",
+      "url": "https://sports.yahoo.com/articles/scouting-enemy-arizona-cardinals-120000069.html",
+      "title": "Scouting the Enemy: Arizona Cardinals",
+      "body_text": "The Denver Broncos battle the Arizona Cardinals on Sunday. Here is a deeper look at their Week 7 opponent.",
+      "author": "",
+      "published_at": "2026-10-23T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "The Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "943dd6b6-b87b-3c87-9c4b-c7b855234a6c",
+      "url": "https://sports.yahoo.com/articles/missed-tackles-tell-story-patriots-120000828.html",
+      "title": "Missed tackles tell the story of the Patriots’ loss to the Bears",
+      "body_text": "New England missed 16 tackles in Thursday’s loss",
+      "author": "",
+      "published_at": "2026-10-23T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "ed00292a-3917-3152-b036-69d744dfa094",
+      "url": "https://sports.yahoo.com/articles/carolina-panthers-2026-fan-mailbag-114740740.html",
+      "title": "Carolina Panthers 2026 fan mailbag: Injury woes, scoring points, safety room, and more!",
+      "body_text": "Answering all your questions in this week’s fan mailbag!",
+      "author": "",
+      "published_at": "2026-10-23T11:47:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carolina Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "a934f43d-2f52-34aa-8229-866ea7594002",
+      "url": "https://sports.yahoo.com/articles/next-two-weeks-determine-shane-113300994.html",
+      "title": "The next two weeks will determine Shane Steichen’s future with the Colts",
+      "body_text": "The Colts coach is in trouble if he doesn’t produce some quick wins.",
+      "author": "",
+      "published_at": "2026-10-23T11:33:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Shane Steichen",
+        "Colts The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "5205af9e-37cc-353b-9fec-7c37186e2cc4",
+      "url": "https://sports.yahoo.com/articles/dolphins-news-pending-free-agents-113000564.html",
+      "title": "Dolphins news: Pending free agents, Jets preview, and trade rumors",
+      "body_text": "A collection of Miami Dolphins news from around the web, including a look at the Dolphins upcoming free agents, trade rumors, and previewing the Jets game.",
+      "author": "",
+      "published_at": "2026-10-23T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "4c63ff62-4c3f-3f46-b5a5-9185195d4aeb",
+      "url": "https://sports.yahoo.com/articles/browns-trade-rb-jonathan-taylor-111741571.html",
+      "title": "Should the Browns work out a trade for RB Jonathan Taylor? Let’s explore",
+      "body_text": "Cleveland Browns running game has not been good. Could NFL trade deadline rumors involving Jonathan Taylor fix that?",
+      "author": "",
+      "published_at": "2026-10-23T11:17:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "07dc22b0-7b2f-340e-bba4-1fbc7c8fafab",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-chance-win-110000531.html",
+      "title": "Tennessee Titans news: A chance at a win streak",
+      "body_text": "The Tennessee Titans are making a run for another victory in Week 7.",
+      "author": "",
+      "published_at": "2026-10-23T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "15862053-069e-3974-bfec-7e7fa6fe52f1",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-reminder-very-110000825.html",
+      "title": "New York Jets News: Reminder About a Very Bright Future",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-10-23T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Reminder About",
+        "Very Bright",
+        "Future Your"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "cf0b745d-bbf6-31e8-bd87-a04c35ae15a0",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-brian-schottenheimer-feeling-110000544.html",
+      "title": "Cowboys news: Brian Schottenheimer is feeling the pressure",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-10-23T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "f5b5d9d6-7ce9-3b69-a3ff-25440eb01b31",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-george-karlaftis-leading-110000577.html",
+      "title": "Chiefs News: George Karlaftis is leading the Chiefs’ defense",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-10-23T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "George Karlaftis"
+      ],
+      "resolved_player_ids": [
+        "00-0037192"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "7b8a33bf-77dd-3fd9-b26f-f94396246322",
+      "url": "https://sports.yahoo.com/articles/mike-macdonald-kenneth-walker-playing-104415722.html",
+      "title": "Mike Macdonald: Kenneth Walker is playing at the highest level in the league right now",
+      "body_text": "Seahawks head coach Mike Macdonald knows how good a running back he'll be facing when he coaches against the Chiefs on Sunday night.",
+      "author": "",
+      "published_at": "2026-10-23T10:44:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "401a41f7-4293-3ce1-b335-59d4da3c1f79",
+      "url": "https://sports.yahoo.com/articles/lions-vs-packers-preview-3-103000753.html",
+      "title": "Lions vs. Packers preview: 3 key matchups",
+      "body_text": "Our Detroit Lions vs. Green Bay Packers preview identifies three key matchups.",
+      "author": "",
+      "published_at": "2026-10-23T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Our Detroit",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "769e52a8-c47c-3141-843b-8a65aad9a45f",
+      "url": "https://sports.yahoo.com/articles/bills-t-win-week-teams-103000191.html",
+      "title": "The Bills can’t win this week, but the right teams can lose",
+      "body_text": "The Bills are on their bye, but a few losses around the AFC could make their week off even better",
+      "author": "",
+      "published_at": "2026-10-23T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "ea6f31bf-4339-3991-b00e-32d7d5843a18",
+      "url": "https://sports.yahoo.com/articles/dj-turner-tabbed-nfl-most-103000168.html",
+      "title": "DJ Turner tabbed NFL’s most underrated player",
+      "body_text": "Cincinnati has a star at the cornerback position.",
+      "author": "",
+      "published_at": "2026-10-23T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "636e7f2d-c2c8-34f8-8bcf-69a6dc7b6882",
+      "url": "https://sports.yahoo.com/articles/trey-hendrickson-trying-downplay-first-101500474.html",
+      "title": "Trey Hendrickson trying to downplay his first game vs. the Bengals",
+      "body_text": "This is a major storyline going into Sunday’s game.",
+      "author": "",
+      "published_at": "2026-10-23T10:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Trey Hendrickson",
+        "Bengals This"
+      ],
+      "resolved_player_ids": [
+        "00-0033935"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "f33b8553-81aa-3ce2-a729-320a7bc97fee",
+      "url": "https://sports.yahoo.com/articles/dk-metcalf-prime-chance-spark-100620790.html",
+      "title": "DK Metcalf has prime chance to spark Steelers offense in Paris vs. Saints",
+      "body_text": "The Steelers got off to a slow start in Week 6 against Tampa Bay but played well early in their last international game against the Vikings in 2025.",
+      "author": "",
+      "published_at": "2026-10-23T10:06:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saints The",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "a98064d9-164a-3997-bfe6-e891693e38d7",
+      "url": "https://sports.yahoo.com/articles/10-things-learned-patriots-vs-100459159.html",
+      "title": "10 things we learned from Patriots vs. Bears",
+      "body_text": "What we learned from the Patriots’ Week 7 loss to the Bears.",
+      "author": "",
+      "published_at": "2026-10-23T10:04:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears What"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "442b5cbc-e609-3030-98b9-9bd843692cc3",
+      "url": "https://sports.yahoo.com/articles/giants-news-dc-dennard-wilson-100000435.html",
+      "title": "Giants news: DC Dennard Wilson calls out defense, Giants double-digit underdogs, more",
+      "body_text": "New York Giants headlines for Thursday",
+      "author": "",
+      "published_at": "2026-10-23T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dennard Wilson",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "9d86fc5e-117f-3567-8ea1-cb1005d90fff",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-rough-news-100000831.html",
+      "title": "Cleveland Browns news: Some rough news on the injury front",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the October 23 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-10-23T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "af46dc3c-2719-36b2-86c2-bf3abb42b14d",
+      "url": "https://sports.yahoo.com/articles/bear-den-williams-lead-bears-100000245.html",
+      "title": "The Bear’s Den: Williams lead Bears to win over New England Patriots",
+      "body_text": "In a game billed as a duel between Chicago Bears QB Caleb Williams and New England Patriots QB Drake Maye, Williams won!",
+      "author": "",
+      "published_at": "2026-10-23T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "New England",
+        "Chicago Bears",
+        "Caleb Williams",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "f94c59ff-67d5-307c-8bd9-80ba35f5bbb5",
+      "url": "https://sports.yahoo.com/articles/jessie-bates-moved-ahead-nfl-100000533.html",
+      "title": "Will Jessie Bates be moved ahead of NFL Trade Deadline?",
+      "body_text": "Could an old face be just what the doctor ordered?",
+      "author": "",
+      "published_at": "2026-10-23T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Will Jessie",
+        "Trade Deadline"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "276426a6-a126-38a6-93e6-a054ac97f69d",
+      "url": "https://sports.yahoo.com/articles/ben-johnson-originally-called-punt-094227101.html",
+      "title": "Ben Johnson originally called a punt, but Cairo Santos asked to try a 58-yard field goal",
+      "body_text": "After Bears head coach Ben Johnson initially called for a punt late in Thursday night's win over the Patriots, Bears kicker Cairo Santos convinced his coaches to let him try the 58-yard field goal that sealed the win.",
+      "author": "",
+      "published_at": "2026-10-23T09:42:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ben Johnson",
+        "Cairo Santos",
+        "After Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0031203"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "16d8d690-df82-37d5-99ac-03b5e750bdd3",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-romello-height-special-090900387.html",
+      "title": "Golden Nuggets: Romello Height is in a special club",
+      "body_text": "Your daily San Francisco 49ers news for Friday, October 23rd, 2026",
+      "author": "",
+      "published_at": "2026-10-23T09:09:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Romello Height",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "4ad70f7e-09ac-33e4-a2ec-379e9d2ba99c",
+      "url": "https://sports.yahoo.com/articles/nfl-tells-teams-uncalled-hip-090055836.html",
+      "title": "NFL tells teams that uncalled hip-drop tackle on Aaron Rodgers was clear example of penalty",
+      "body_text": "In Week 4, Browns defensive lineman Adin Huntington committed a textbook example of a hip-drop tackle on Steelers quarterback Aaron Rodgers.",
+      "author": "",
+      "published_at": "2026-10-23T09:00:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "In Week",
+        "Adin Huntington"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0040255"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "0eb71518-341d-32eb-b84c-2574f7d2c733",
+      "url": "https://sports.yahoo.com/articles/6-winners-losers-patriots-loss-090000643.html",
+      "title": "6 winners and losers from Patriots’ loss to the Bears",
+      "body_text": "Drake Maye, Hunter Henry, and other noteworthy players from Week 7.",
+      "author": "",
+      "published_at": "2026-10-23T09:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears Drake",
+        "Hunter Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0033090"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "e7f8beba-312b-33b7-86e8-a293ea0d3d9b",
+      "url": "https://sports.yahoo.com/articles/mike-vrabels-clock-management-included-085035059.html",
+      "title": "Mike Vrabel's clock management included an intentional offside penalty",
+      "body_text": "Vrabel has a long history of having his players commit penalties intentionally to manage the clock to his team's advantage.",
+      "author": "",
+      "published_at": "2026-10-23T08:50:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "3152b4a0-5f89-3176-9c2b-b674c97d113f",
+      "url": "https://sports.yahoo.com/articles/eagles-practice-squad-rookie-played-070000583.html",
+      "title": "The Eagles' practice squad rookie who played 48 unexpected snaps in NFL debut",
+      "body_text": "From the practice squad to 48 snaps, James-Newby stayed ready for his first NFL opportunity.",
+      "author": "",
+      "published_at": "2026-10-23T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4639f502-ed2e-35b1-b87b-89c937c4a01f",
+      "url": "https://sports.yahoo.com/articles/mentality-saquon-barkley-using-lead-070000319.html",
+      "title": "The mentality Saquon Barkley is using to lead as he returns to field",
+      "body_text": "Saquon Barkley was back on the practice field Thursday and is taking his leadership role seriously in a wild season.",
+      "author": "",
+      "published_at": "2026-10-23T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "afae1120-ebf5-3069-8795-6faed98b3a8c",
+      "url": "https://sports.yahoo.com/articles/tanner-mckee-learning-think-starter-070000004.html",
+      "title": "How Tanner McKee is learning to think like a starter instead of a backup",
+      "body_text": "Tanner McKee will make his second start on Monday Night Football when the Eagles host the Cowboys.",
+      "author": "",
+      "published_at": "2026-10-23T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "How Tanner",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "eb709df7-b234-3e74-b64e-4b91278a9051",
+      "url": "https://sports.yahoo.com/articles/eagles-cowboys-matchups-watch-week-070000321.html",
+      "title": "Eagles-Cowboys matchups to watch in Week 7",
+      "body_text": "Here are some key matchups to watch as the Eagles host the Cowboys in Week 7 on Monday Night Football.",
+      "author": "",
+      "published_at": "2026-10-23T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f6d384da-0809-373f-a58a-67f29ff4fec6",
+      "url": "https://sports.yahoo.com/articles/drops-mar-otherwise-productive-night-065830310.html",
+      "title": "Drops mar otherwise productive night for Colston Loveland",
+      "body_text": "Despite a pair of bad drops, Colston Loveland still finished with 69 yards and a score in a Week 7 win over New England.",
+      "author": "",
+      "published_at": "2026-10-23T06:58:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Colston Loveland",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "9e19d032-cc04-4640-93d1-800bf14f5c6c",
+      "url": "https://sports.yahoo.com/nfl/article/theyre-young-superstars-caleb-williams-drake-maye-deliver-fireworks-but-bears-qb-does-just-enough-to-top-patriots-064400148.html",
+      "title": "'They're young superstars': Caleb Williams, Drake Maye deliver fireworks but Bears QB does just enough to top Patriots",
+      "body_text": "The off-script playmaking of Williams and Maye makes them two of the top offensive creators in the sport. It was the premier attraction.",
+      "author": "Andy Backstrom",
+      "published_at": "2026-10-23T06:44:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "Drake Maye",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "0adc127d-32bd-32b0-ba1a-f9c9676ea35f",
+      "url": "https://sports.yahoo.com/articles/sixty-nine-yards-rome-odunze-064036351.html",
+      "title": "Sixty-nine yards for Rome Odunze on Thursday night",
+      "body_text": "Rome Odunze finished Week 7 with 69 yards on four catches, including a critical reception in the fourth quarter of Chicago's win over the Patriots.",
+      "author": "",
+      "published_at": "2026-10-23T06:40:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "d364248e-5f11-3974-ada8-9745dba503ed",
+      "url": "https://sports.yahoo.com/articles/gutsy-field-goal-decision-bails-052904349.html",
+      "title": "Gutsy field goal decision bails out Caleb Williams’ mistake as Bears beat Patriots in ‘TNF’ thriller",
+      "body_text": "A 58-yard field goal from Cairo Santos bailed out Caleb Williams late in the Bears' 30-24 win over the Patriots on Thursday night at Soldier Field.",
+      "author": "",
+      "published_at": "2026-10-23T05:29:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "Cairo Santos",
+        "Soldier Field"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0031203"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "b1299d59-4173-38ea-a51f-817992e5a4dd",
+      "url": "https://sports.yahoo.com/articles/patriots-try-unconventional-game-tactic-043329485.html",
+      "title": "Patriots try unconventional late-game tactic in loss to Bears",
+      "body_text": "The plan did not yield the desired results, but it was at least creative.",
+      "author": "",
+      "published_at": "2026-10-23T04:33:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "e0b48597-401d-3f39-8dc3-c6608c838d88",
+      "url": "https://sports.yahoo.com/articles/nfl-week-7-instant-analysis-041759464.html",
+      "title": "Instant analysis from Patriots’ loss to Bears",
+      "body_text": "Observations from Thursday night at Soldier Field.",
+      "author": "",
+      "published_at": "2026-10-23T04:17:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears Observations",
+        "Soldier Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "e3c6f4d2-d6e7-3100-bdad-31b12ef7ce7c",
+      "url": "https://sports.yahoo.com/articles/cole-kmet-exits-week-7-040730964.html",
+      "title": "Cole Kmet exits Week 7 game against New England",
+      "body_text": "Chicago Bears TE Cole Kmet unable to return against Patriots after injuring knee",
+      "author": "",
+      "published_at": "2026-10-23T04:07:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cole Kmet",
+        "New England",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0036290"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "e2d458c4-16f7-3a78-8aa1-079a3f8cdc54",
+      "url": "https://sports.yahoo.com/articles/5-moments-defined-patriots-loss-035900636.html",
+      "title": "5 moments that defined the Patriots’ loss to the Bears",
+      "body_text": "Relive the crucial moments from the Patriots’ loss in Week 7.",
+      "author": "",
+      "published_at": "2026-10-23T03:59:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears Relive"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    }
+  ]
+}

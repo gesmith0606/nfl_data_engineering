@@ -16,6 +16,13 @@ on PPR actuals against a half-PPR league, and a QB recommended two days before h
 starter was due back — all three of which the two commands answer directly. If a
 command fails, say so and fix it; do not substitute your own read of the raw data.
 
+## Our leagues are Mantis, La Liga and Feetball — and only those
+`gentlemen` and `mahomos` are in `LEAGUE_PRESETS` as 3-FLEX roster-shape examples for
+the draft tools; they belong to a stranger whose Sleeper name resembles George's. The
+tools refuse them (`owned: False` -> `config.our_league` raises), which is how it was
+caught on 2026-10-23 after a session's advice had already been written for one of them.
+Never reach past that refusal to read a league directly.
+
 ## Arguments
 `$ARGUMENTS` — `[league] [week]`. Default league `all`; default week = the upcoming
 week, but on Monday (before MNF) pass the NEXT week explicitly — the resolver still
@@ -92,12 +99,17 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 **Mantis (dynasty) — value over points:**
 - Rank claims by dynasty value + age + a real path to a role. A short-term fill-in
   for a starter with a 1-3 week injury is a rental: $0-5 or skip.
-- Never drop a young (≤24) player with a role path for a one-week streamer.
+- Never drop a young (≤24) player with a role path for a one-week streamer. **Gated**
+  (`young-drop`): a drop candidate ≤24 whom the market is still adding fails the report
+  in Mantis and Feetball. A young player nobody is adding stays droppable.
 - Stream a QB only when Lamar/Dak/the QB3 cannot cover a week (byes, injuries).
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
 - Drop order = lowest dynasty value with no role (old backups first).
-- **Check the "Roster mechanics" block before naming a drop.** It prints open active
+- **Check the "Roster mechanics" block before naming a drop.** It prints open active On ESPN and Yahoo that block is
+  **partial by design** — active slots come from the roster shape and the names in the
+  roster file, while `IR accepts: unknown on <platform>` means confirm on the site in
+  Step 4b. Only Sleeper reads live settings, so only Mantis gets real IR/taxi rules.
   slots, IR/taxi use, which `injury_status` values this league's IR actually accepts,
   and any IR-eligible player sitting on your bench. A free IR slot is not usable by an
   "Out" player unless `reserve_allow_out` is set — Mantis 2026 does not set it — and a
@@ -131,6 +143,16 @@ player who ranks below our own bench at his position is a pass, however hot.
 **La Liga / Feetball:** rest-of-season role and this week's two-source
 BLEND; ESPN typical winning claim $3-4, Yahoo room bids $0-3 ($5 wins non-consensus
 adds). One-source edges are coin flips. George prefers RB/WR depth over a second TE.
+
+Anyone in the **current** lineup is off the drop list, not just the optimizer's picks —
+gated as `start-drop`. The report prints `-- Sanity -- N critical, N warnings` **always**,
+clean or not: if you cannot see that line you are looking at filtered output, not a pass.
+
+The header states `NEWS = Gold sentiment, N flags for week W`. **`N` is small by design**
+(24 in week 7, league-wide), so most rows carry no NEWS and that is normal. `N = 0` is not:
+the extractor fails open to keyword rules while its cron still reports success, so zero
+flags means *unknown*, and the gate warns (`news-source`). Say so rather than implying the
+week was quiet.
 
 ## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
 Pool files and trending lists go stale within hours. Right before presenting, check
@@ -168,6 +190,19 @@ Write the agreed claims to `data/draft/claims_week<N>.yaml` and run the dry run:
 `python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml` (headless Playwright
 profile; if a league says logged out, George runs `python scripts/league_login.py` himself).
 It re-checks Step 4b live and prints the table — show it to George. Run it again with
+**Build the claims file with `--emit-claims`, do not type it.** On ESPN and Yahoo this needs
+`--espn-browser` / `--yahoo-browser` too: the computed `BID $N` is gated on the demand history
+AND our remaining FAAB, and without the flag both are absent, so the emitter writes nothing and
+says which flag is missing. There is **no rival model on those platforms** (only Sleeper exposes
+every rival's roster and budget), so their bids are a room-median floor and the reason says so —
+check who else needs the spot yourself before raising one. `python scripts/waiver_wire.py
+--league <L> --week N --emit-claims data/draft/claims_week<N>.yaml` writes the STARTS/BENCH+
+rows with the report's own computed `BID $N`, the next name off its drop list, and the reason
+the model gave, and it refuses to overwrite an existing file. A hand-typed bid is the one
+number in this pipeline that never came out of the pipeline, which is why it was the thing
+most often wrong. Edit the file freely — but state a reason whenever you move a bid off the
+computed one.
+
 `--submit` ONLY when George says yes to that table in chat; never on your own, never from a
 cron. Show the read-back (CONFIRMED / NOT FOUND per claim). Mantis is never submitted: tell
 George to enter the printed checklist in the Sleeper app. After an `outcome UNKNOWN` line, do

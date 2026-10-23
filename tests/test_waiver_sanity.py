@@ -8,7 +8,14 @@ that fails loudly instead. The tests prove each one actually fires.
 
 from __future__ import annotations
 
-from src.waiver_sanity import CRITICAL, WARN, check_report, parse_rows, summarise
+from src.waiver_sanity import (
+    CRITICAL,
+    WARN,
+    check_report,
+    parse_roster,
+    parse_rows,
+    summarise,
+)
 
 HEADER = (
     "=== LEAGUE — me — 2026 week 7 waivers ===\n"
@@ -207,3 +214,136 @@ def test_a_minimum_bid_on_a_no_help_player_is_allowed_in_redraft():
     assert not any(
         x.check == "no-help-priced" for x in check_report(_report(rows), dynasty=False)
     )
+
+
+def _roster(lines, drops):
+    """A "My roster" block plus the drop-candidate line that follows it."""
+    return (
+        "\n-- My roster (weakest dynasty value first) --\n"
+        + "".join(lines)
+        + f"\n  Drop candidates (bench, keepers excluded, weakest first): {drops}\n"
+    )
+
+
+def _mine(tag, name, pos, team, tail):
+    return f"  {tag:6}{name:24} {pos:3}{team:4} {tail}\n"
+
+
+YOUNG = _mine("bench", "Jaylen Wright", "RB", "MIN", "adds   41k  dyn  820 age 23")
+OLD = _mine("bench", "Mike Gesicki", "TE", "CIN", "adds    1k  dyn  310 age 30")
+QUIET_YOUNG = _mine("bench", "Pat Bryant", "WR", "DEN", "adds    0k  dyn 1263 age 23")
+STARTED = _mine("START", "DeMario Douglas", "WR", "NE", "adds    0k  dyn 1088 age 25")
+FA = _row("Jahan Dotson", "WR", "ATL", "BENCH+ BID $7 [unclaimed] age 26")
+
+
+def test_young_riser_is_not_a_drop_candidate_where_players_are_kept():
+    """Skill Step 4: never drop a young player with a role path."""
+    text = _report([FA]) + _roster([YOUNG, OLD], "Mike Gesicki, Jaylen Wright")
+    for keeps in ({"dynasty": True}, {"keeper": True}):
+        found = [f for f in check_report(text, **keeps) if f.check == "young-drop"]
+        assert len(found) == 1 and "Jaylen Wright" in found[0].detail
+        assert found[0].level == CRITICAL
+    # A redraft league has no reason to protect him.
+    assert not [f for f in check_report(text) if f.check == "young-drop"]
+
+
+def test_young_player_nobody_is_adding_stays_droppable():
+    """The role path is the signal — otherwise this fires every single week."""
+    text = _report([FA]) + _roster([QUIET_YOUNG, OLD], "Pat Bryant, Mike Gesicki")
+    assert not [f for f in check_report(text, dynasty=True) if f.check == "young-drop"]
+
+
+def test_a_player_we_are_starting_is_never_a_drop_candidate():
+    """The tag and the drop list used different starter sets (week 7, Douglas)."""
+    text = _report([FA]) + _roster([STARTED, OLD], "Mike Gesicki, DeMario Douglas")
+    for kw in ({}, {"dynasty": True}):
+        found = [f for f in check_report(text, **kw) if f.check == "start-drop"]
+        assert len(found) == 1 and "DeMario Douglas" in found[0].detail
+        assert found[0].level == CRITICAL
+
+
+def test_a_clean_drop_list_raises_nothing():
+    text = _report([FA]) + _roster([OLD, QUIET_YOUNG], "Mike Gesicki, Pat Bryant")
+    assert not [
+        f
+        for f in check_report(text, dynasty=True)
+        if f.check in ("young-drop", "start-drop")
+    ]
+
+
+def test_no_drop_candidates_line_means_no_drop_findings():
+    text = _report([FA]) + _roster([OLD], "none")
+    assert not [
+        f
+        for f in check_report(text, dynasty=True)
+        if f.check in ("young-drop", "start-drop")
+    ]
+
+
+NEWS_LINE = "NEWS = Gold sentiment, 13 flags for week 7\n"
+
+
+def test_a_week_with_no_sentiment_flags_is_a_warning_not_a_silence():
+    """The extractor no-ops to keyword rules while its cron still reports success."""
+    rows = [_row("Jahan Dotson", "WR", "ATL", "BENCH+ BID $7 [unclaimed] age 26")]
+    silent = _report(
+        rows, header=HEADER + "NEWS = Gold sentiment, 0 flags for week 7\n"
+    )
+    found = [f for f in check_report(silent) if f.check == "news-source"]
+    assert len(found) == 1 and found[0].level == WARN
+    assert "fails open" in found[0].detail
+
+    missing = _report(rows)
+    assert [f.check for f in check_report(missing) if f.check == "news-source"]
+
+    present = _report(rows, header=HEADER + NEWS_LINE)
+    assert not [f for f in check_report(present) if f.check == "news-source"]
+
+
+def test_espn_yahoo_line_format_still_yields_age_and_adds():
+    """Those reports insert an `adp` column between adds and age (week 7, live)."""
+    line = (
+        "  bench Emeka Egbuka             WR TB   ours  7.7 slpr  8.7 "
+        "blend  8.2 last 14.3 adds   99k adp32   age 24 wk7 report"
+    )
+    (r,) = parse_roster(line)
+    assert (r.tag, r.pos, r.age, r.adds) == ("bench", "WR", 24, 99)
+
+
+def test_partial_slot_accounting_satisfies_the_mechanics_checks():
+    """ESPN/Yahoo cannot know IR rules, so they say so rather than printing nothing.
+
+    Omitting the block entirely made both mechanics warnings fire every single
+    week on those two leagues, which is a check that is really a platform note.
+    """
+    partial = (
+        "-- Roster mechanics --\n"
+        "  active 9/9 (0 open — a claim needs a drop when 0) | roster 15/16\n"
+        "  IR accepts: unknown on espn — confirm on the site before using an "
+        "IR slot (Step 4b)\n"
+    )
+    text = _report(
+        [_row("Jahan Dotson", "WR", "ATL", "BENCH+ BID $7 [unclaimed] age 26")],
+        header=HEADER + NEWS_LINE,
+        mechanics=partial,
+    )
+    assert not [
+        f for f in check_report(text) if f.check in ("roster-mechanics", "ir-rules")
+    ]
+
+
+def test_every_configured_rss_feed_has_a_distinct_live_looking_url():
+    """Three of five feeds were 404/301 for months while the cron stayed green.
+
+    This does not hit the network -- it pins the shape that let the rot hide:
+    a feed list is only useful if each entry is a distinct host we still
+    believe in, and `ingest_sentiment_rss.py` is what proves liveness (it now
+    names dead feeds and exits non-zero when most of them are gone).
+    """
+    from src.config import SENTIMENT_CONFIG
+
+    feeds = SENTIMENT_CONFIG["rss_feeds"]
+    assert len(feeds) >= 4, "news coverage should not rest on two publishers"
+    hosts = {url.split("/")[2] for url in feeds.values()}
+    assert len(hosts) == len(feeds), f"duplicate publisher among {sorted(feeds)}"
+    assert "www.nfl.com" not in hosts, "nfl.com no longer publishes RSS (404/301)"

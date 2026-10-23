@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import builtins
 import glob
+import re
 import subprocess
 import time
 import importlib.util
@@ -53,6 +54,8 @@ from src.lineup_setter import (  # noqa: E402
 from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
 from src.waiver_verdicts import (  # noqa: E402
     NO_HELP,
+    STARTS,
+    BENCH_UP,
     drop_order,
     load_keepers,
     roster_baseline,
@@ -239,6 +242,24 @@ def team_bid_stats(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Dict[str, Any
     return out
 
 
+#: One browser per run. Playwright's sync API cannot nest, so a second
+#: FantasyBrowser() while the first is live raises "Sync API inside the
+#: asyncio loop" -- which is exactly what happened on Yahoo: yahoo_live_pools
+#: opened one, and the demand history then could never load. Every site read
+#: here goes through this.
+_BROWSER: Any = None
+
+
+def shared_browser() -> Any:
+    """The run's single FantasyBrowser, created on first use."""
+    global _BROWSER
+    if _BROWSER is None:
+        from src.fantasy_browser import FantasyBrowser
+
+        _BROWSER = FantasyBrowser()
+    return _BROWSER
+
+
 def espn_player_moves(
     league_id: str,
     season: int,
@@ -246,7 +267,7 @@ def espn_player_moves(
     through_period: int,
     registry: Mapping[str, Any],
     by_name: Mapping[Any, str],
-) -> PlayerMoves:
+) -> Tuple[PlayerMoves, int]:
     """The same demand history as :func:`league_player_moves`, for an ESPN league.
 
     ESPN ids are as sparse in the Sleeper registry as gsis ids (210 of 841
@@ -267,14 +288,13 @@ def espn_player_moves(
         by_name: ``(normalised_name, position) -> sleeper_id`` from this report.
 
     Returns:
-        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+        ``(sleeper_player_id -> [{"leg", "bid", "kind"}] oldest first,
+        our remaining FAAB)``. ``({}, 0)`` on any failure.
     """
     try:
         from src import waiver_sites as ws
-        from src.fantasy_browser import FantasyBrowser
 
-        browser = FantasyBrowser()
-        page = ws.site_page(browser, "espn", str(league_id), team_id)
+        page = ws.site_page(shared_browser(), "espn", str(league_id), team_id)
         payload = ws.espn_fetch_league(
             page, season, str(league_id), ["mSettings", "mTeam", "mRoster"]
         )
@@ -287,11 +307,39 @@ def espn_player_moves(
             or []
         ]
         _teams, tx = league_context.espn_context(payload, team_id, registry)
+        # mSettings + mTeam are already in this payload, so our remaining FAAB
+        # costs no second page. It matters because `bid` is gated on
+        # `moves and my_faab`, and my_faab was only ever filled in the Sleeper
+        # branch -- the computed bid silently never ran on the two leagues we
+        # can actually file claims in.
+        faab = _espn_faab_left(payload, team_id)
     except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
         print(f"WARN: ESPN demand history unavailable ({exc})")
-        return {}
+        return {}, 0
 
-    return moves_from_tx(tx, by_name)
+    return moves_from_tx(tx, by_name), faab
+
+
+def _espn_faab_left(payload: Mapping[str, Any], team_id: int) -> int:
+    """Our remaining FAAB from an ESPN league payload, 0 when unknown.
+
+    0 leaves :func:`suggest_bid` switched off rather than pricing against a
+    budget we invented.
+    """
+    budget = ((payload.get("settings") or {}).get("acquisitionSettings") or {}).get(
+        "acquisitionBudget"
+    )
+    if budget is None:
+        return 0
+    spent = next(
+        (
+            (t.get("transactionCounter") or {}).get("acquisitionBudgetSpent") or 0
+            for t in payload.get("teams") or []
+            if int(t.get("id") or -1) == int(team_id)
+        ),
+        0,
+    )
+    return max(0, int(budget) - int(spent))
 
 
 def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves:
@@ -383,6 +431,7 @@ def suggest_bid(
     current_leg: int,
     room_max: int = 0,
     my_roster_id: Optional[str] = None,
+    rivals_modelled: bool = True,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -452,8 +501,15 @@ def suggest_bid(
         # lower floor halves wasted FAAB ($96 -> $46 across 51 claims, median
         # overbid $6 -> $3) and costs one extra claim lost. Overpaying was the
         # failure mode worth fixing.
+        # Only Sleeper gives us every rival's roster AND budget, so only
+        # there does an empty rival list MEAN nobody can outbid us. On ESPN
+        # and Yahoo it means we never looked, and saying otherwise put a
+        # claim in George's hands justified by an analysis that never ran.
         return min(max(1, room_median // 5), cap), (
             "no rival is both thin here and able to spend"
+            if rivals_modelled
+            else f"room median ${room_median} floor; no rival model on this "
+            "platform, so check who else needs the spot"
         )
 
     top = max(rival_bids)
@@ -503,22 +559,34 @@ def nfl_week_for_date(stamp: str, season: int) -> Optional[int]:
         return None
 
 
-def yahoo_transactions_text(league_id: str, pages: int = 4) -> str:
-    """Transactions page text through the logged-in claims profile.
+def yahoo_transactions_text(
+    league_id: str, team_id: int = 0, pages: int = 4
+) -> Tuple[str, int]:
+    """Transactions page text and our remaining FAAB, from one page session.
 
-    Returns an empty string on any failure, so a Yahoo login that has lapsed
-    costs the demand column rather than the whole report.
+    Both come off the same logged-in page because the bid is gated on the
+    demand history AND the budget: wiring only one of them (as ESPN briefly
+    was) leaves every bid blank while the report looks complete. Opening a
+    second browser is not an option -- Playwright's sync API cannot nest.
+
+    Returns ``("", 0)`` on any failure, so a lapsed Yahoo login costs the
+    demand column rather than the whole report.
     """
     try:
         from src import waiver_sites as ws
-        from src.fantasy_browser import FantasyBrowser
 
-        browser = FantasyBrowser()
-        page = ws.site_page(browser, "yahoo", str(league_id), 0)
-        return ws.yahoo_transactions(page, str(league_id), pages)
+        page = ws.site_page(shared_browser(), "yahoo", str(league_id), team_id)
+        text = ws.yahoo_transactions(page, str(league_id), pages)
+        faab = 0
+        try:
+            state = ws.yahoo_state(page, str(league_id), team_id, [])
+            faab = max(0, int(state.get("faab_left") or 0))
+        except Exception as exc:  # noqa: BLE001 — bids blank, report stands
+            print(f"WARN: Yahoo FAAB unavailable ({exc}) — bids will be blank")
+        return text, faab
     except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
         print(f"WARN: Yahoo transactions unavailable ({exc})")
-        return ""
+        return "", 0
 
 
 def moves_from_yahoo(text: str, by_name: Mapping[Any, str], season: int) -> PlayerMoves:
@@ -788,11 +856,9 @@ def yahoo_live_pools(
     """
     try:
         from src import waiver_sites as ws
-        from src.fantasy_browser import FantasyBrowser
         from src.yahoo_transactions_page import parse_yahoo_player_names
 
-        browser = FantasyBrowser()
-        page = ws.site_page(browser, "yahoo", str(league_id), team_id)
+        page = ws.site_page(shared_browser(), "yahoo", str(league_id), team_id)
         raw = ws.yahoo_rosters(
             page, str(league_id), team_id, range(1, int(teams) + 1), pages
         )
@@ -804,6 +870,93 @@ def yahoo_live_pools(
     except Exception as exc:  # noqa: BLE001 — fall back to the files
         print(f"WARN: Yahoo live pools unavailable ({exc})")
         return {"mine": [], "rostered": [], "available": []}
+
+
+def emit_claims(
+    path: Path,
+    league: str,
+    week: int,
+    fas: Sequence[Dict[str, Any]],
+    drops: Sequence[Mapping[str, Any]],
+    open_active: int,
+    manual: bool,
+    limit: int = 3,
+) -> str:
+    """Write a claims file for submit_claims.py from the report's own numbers.
+
+    The bids in a hand-typed claims file are the one number in this whole
+    pipeline that never came from the pipeline, which is why they were the
+    thing most often wrong. Here each one is the computed ``BID $N``, each
+    drop is the next name off the report's drop list, and the reason the
+    model gave is written beside it. Review and edit it -- but now the
+    starting point is the tool's, not a guess.
+
+    Args:
+        path: Where to write. An existing file is never overwritten.
+        league: Preset key, written into every row.
+        week: The week being claimed, for the header.
+        fas: Scored free agents; only STARTS/BENCH+ with a bid are offered.
+        drops: The report's drop candidates, weakest first.
+        open_active: Open active slots -- the first N claims need no drop.
+        manual: True when the platform cannot be filed by script (Sleeper).
+        limit: How many claims to offer.
+
+    Returns:
+        A line for the report saying what happened.
+    """
+    if path.exists():
+        return f"  --emit-claims: {path} already exists, left untouched"
+    worth_claiming = [
+        r for r in fas if r.get("verdict") in (STARTS, BENCH_UP) and not r.get("bye")
+    ]
+    picks = sorted(
+        (r for r in worth_claiming if r.get("bid")), key=lambda r: -r["blend"]
+    )[:limit]
+    if not picks:
+        # Two very different situations used to share one message. On ESPN and
+        # Yahoo the demand history -- and so the computed bid -- only exists
+        # with --espn-browser / --yahoo-browser, so this said "nothing rated
+        # STARTS or BENCH+" while the report listed several. Guessing a bid
+        # here would defeat the whole point of generating the file, so name
+        # the flag instead.
+        if worth_claiming:
+            return (
+                f"  --emit-claims: {len(worth_claiming)} players rated "
+                "STARTS/BENCH+ but none has a computed BID — re-run with "
+                "--espn-browser / --yahoo-browser so the demand history "
+                "loads, or write the file by hand and say why each bid"
+            )
+        return "  --emit-claims: nothing rated STARTS or BENCH+ to claim"
+    spare, used, lines = open_active, 0, []
+    for i, r in enumerate(picks, start=1):
+        bid, why = r["bid"]
+        if spare > 0:
+            # An open slot costs no player, so the drop list does not advance.
+            drop, spare = None, spare - 1
+        elif used < len(drops):
+            drop, used = drops[used]["name"], used + 1
+        else:
+            # No slot and no droppable player left: say so rather than
+            # emitting a claim the site would reject.
+            lines.append(f"  # {r['name']} ${bid} — no drop left to pair him with")
+            continue
+        lines.append(
+            f"  - {{league: {league}, add: {r['name']}, "
+            + (f"drop: {drop}, " if drop else "")
+            + f"bid: {bid}, priority: {i}}}"
+            + f"  # {r['verdict']}, {why}"
+        )
+    header = [
+        f"# Week {week} {league} claims — generated by scripts/waiver_wire.py.",
+        "# Every bid is the report's computed BID $N and every drop comes off its",
+        "# drop list. Edit freely, but state a reason when you move a bid.",
+    ]
+    if manual:
+        header.append(
+            "# Sleeper cannot be filed by script (ToS): enter these in the app."
+        )
+    path.write_text("\n".join(header + ["claims:"] + lines) + "\n", encoding="utf-8")
+    return f"  --emit-claims: wrote {len(lines)} claims to {path}"
 
 
 def main(argv: Optional[list] = None) -> int:
@@ -853,13 +1006,19 @@ def main(argv: Optional[list] = None) -> int:
         help="ESPN/Yahoo: the site's own available-players list (one per line) -> exact FA pool",
     )
     ap.add_argument("--top", type=int, default=6, help="free agents shown per position")
+    ap.add_argument(
+        "--emit-claims",
+        type=Path,
+        metavar="PATH",
+        help="write a claims file for submit_claims.py using the report's own "
+        "computed bids and drop list (never overwrites an existing file)",
+    )
     args = ap.parse_args(argv)
 
-    preset = config.LEAGUE_PRESETS.get(args.league)
-    if preset is None:
-        sys.exit(
-            f"Unknown league '{args.league}'. Presets: {sorted(config.LEAGUE_PRESETS)}"
-        )
+    try:
+        preset = config.our_league(args.league)
+    except (KeyError, ValueError) as exc:
+        sys.exit(exc.args[0])
     platform = preset.get("platform")
     if args.season and args.week:
         season, week = args.season, args.week
@@ -945,7 +1104,22 @@ def main(argv: Optional[list] = None) -> int:
             title = (
                 f"{args.league} ({platform}, my roster from {args.roster_file.name})"
             )
-        mechanics = []
+        # ESPN/Yahoo expose no settings feed here, so the slot accounting is
+        # partial: active slots come from the roster shape and the names we
+        # read, while IR/taxi rules need the site. Say which half is missing
+        # instead of printing nothing -- the skill tells us to read this block
+        # before naming a drop, and a report that omits it entirely makes that
+        # rule unfollowable while the gate warned about it every single week.
+        shape = config.ROSTER_CONFIGS[preset["roster"]]
+        active_slots = sum(v for k, v in shape.items() if k != "BN")
+        mechanics = [
+            f"  active {min(len(mine), active_slots)}/{active_slots}"
+            f" ({max(0, active_slots - len(mine))} open"
+            f" — a claim needs a drop when 0) | roster {len(mine)}"
+            f"/{sum(shape.values())} from {args.roster_file.name}",
+            f"  IR accepts: unknown on {platform} — confirm on the site before "
+            "using an IR slot (Step 4b)",
+        ]
     available: Optional[Set[str]] = (
         roster_ids_from_file(args.available_file, by_name)
         if args.available_file
@@ -1013,7 +1187,7 @@ def main(argv: Optional[list] = None) -> int:
                 if thin_at(r, registry, pos, need.get(pos, 0)):
                     rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
-        moves = espn_player_moves(
+        moves, my_faab = espn_player_moves(
             str(preset["league_id"]),
             season,
             int(preset.get("my_team_id") or 1),
@@ -1022,15 +1196,32 @@ def main(argv: Optional[list] = None) -> int:
             by_name,
         )
     elif platform == "yahoo" and args.yahoo_browser:
-        moves = moves_from_yahoo(
-            yahoo_transactions_text(str(preset["league_id"])), by_name, season
+        tx_text, my_faab = yahoo_transactions_text(
+            str(preset["league_id"]), int(preset.get("my_team_id") or 0)
         )
+        moves = moves_from_yahoo(tx_text, by_name, season)
     elif platform == "yahoo" and args.transactions_file:
         moves = moves_from_yahoo(
             args.transactions_file.read_text(encoding="utf-8"), by_name, season
         )
     else:
         moves = {}
+
+    # Sleeper derives these from every team's transaction log; on ESPN and
+    # Yahoo the same winning bids are already in `moves`, so the median and
+    # the ceiling cost nothing extra. Without them every bid collapsed to the
+    # $1 floor while the report looked confident about it.
+    if platform != "sleeper" and moves:
+        paid = sorted(
+            int(m["bid"])
+            for ms in moves.values()
+            for m in ms
+            if m.get("kind") == "add" and m.get("bid")
+        )
+        if paid:
+            room_median = paid[len(paid) // 2]
+            room_max = paid[-1]
+
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
@@ -1045,9 +1236,8 @@ def main(argv: Optional[list] = None) -> int:
         str(t["player_id"]): t["count"]
         for t in (sleeper_http.fetch_sleeper_json(TRENDING_URL) or [])
     }
-    news = set_lineups.news_by_sleeper(
-        set_lineups.sentiment_flags(season, week), registry, gsis_map
-    )
+    news_flags = set_lineups.sentiment_flags(season, week)
+    news = set_lineups.news_by_sleeper(news_flags, registry, gsis_map)
     adp = adp_rank_map(platform) if platform != "sleeper" else {}
     draft_size = preset["teams"] * sum(config.ROSTER_CONFIGS[preset["roster"]].values())
 
@@ -1109,6 +1299,7 @@ def main(argv: Optional[list] = None) -> int:
                     week,
                     room_max,
                     my_roster_id,
+                    rivals_modelled=platform == "sleeper",
                 )
                 if moves and my_faab
                 else None
@@ -1143,7 +1334,10 @@ def main(argv: Optional[list] = None) -> int:
             f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
-            + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
+            + (f" dyn{r['dyn']:5d}" if dyn else "")
+            # Age prints everywhere, not just dynasty: the gate's young-drop
+            # check reads it, and Feetball is a keeper league too.
+            + f" age{r['age'] or '-':>3}"
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
             + (f" [{r['demand']}]" if r.get("demand") else "")
@@ -1176,6 +1370,11 @@ def main(argv: Optional[list] = None) -> int:
     print(
         f"OURS = {ours_label}; SLPR = Sleeper week {week}; LAST = week {week - 1} actuals"
     )
+    # Stated, not implied. A row with no NEWS is indistinguishable from a
+    # sentiment pipeline that produced nothing — and that pipeline fails OPEN
+    # (the LLM layer no-ops to rule extraction while the cron stays green),
+    # so "no news" has to be a number you can see and the gate can read.
+    print(f"NEWS = Gold sentiment, {len(news_flags)} flags for week {week}")
     if platform != "sleeper" and not (args.rostered_file or args.available_file):
         print(
             f"Other rosters unknown: showing only players drafted beyond pick {draft_size} "
@@ -1253,15 +1452,26 @@ def main(argv: Optional[list] = None) -> int:
         + f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
         f"unscored: {missing}) --"
     )
+    # Whoever we have actually started this week AND whoever the optimizer
+    # would start are both off the drop list. The two sets differ, and using
+    # only the optimizer's left DeMario Douglas tagged START and named a drop
+    # candidate in the same week-7 report: dropping a man in the current
+    # lineup is a lineup decision, not a waiver one.
+    started = set(starters) | set(baseline["starters"])
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):
         if normalize_name(r["name"]) in keepers:
             tag = "KEEP"
-        elif r["sid"] in (starters or baseline["starters"]):
+        elif r["sid"] in started:
             tag = "START"
         else:
             tag = "bench"
         print(line(r, tag))
-    drops = drop_order(my_rows, baseline, keepers, key="dyn" if dyn else "blend")
+    drops = drop_order(
+        my_rows,
+        {**baseline, "starters": started},
+        keepers,
+        key="dyn" if dyn else "blend",
+    )
     print(
         "\n  Drop candidates (bench, keepers excluded, weakest first): "
         + (", ".join(r["name"] for r in drops[:4]) or "none")
@@ -1269,6 +1479,23 @@ def main(argv: Optional[list] = None) -> int:
     if keepers:
         print(
             f"  Keepers protected: {len(keepers)} (from {args.league}_{season}_keepers.txt)"
+        )
+
+    if args.emit_claims:
+        # The open-slot count lives in the mechanics block the report just
+        # printed; read it back rather than recomputing the slot arithmetic
+        # a second way, which is how the tag and the drop list diverged.
+        slots = re.search(r"\((?P<open>\d+) open", "\n".join(mechanics))
+        print(
+            emit_claims(
+                args.emit_claims,
+                args.league,
+                week,
+                fas,
+                drops,
+                int(slots.group("open")) if slots else 0,
+                manual=platform == "sleeper",
+            )
         )
 
     if args.no_gate:
@@ -1281,12 +1508,18 @@ def main(argv: Optional[list] = None) -> int:
         faab_left=my_faab or None,
         room_max_bid=room_max or None,
         dynasty=bool(preset.get("dynasty")),
+        keeper=bool(keepers),
     )
     verdict = summarise(findings)
-    if findings:
-        print("\n-- Sanity --")
-        for f in findings:
-            print(f"  [{f.level}] {f.check}: {f.detail}")
+    # Printed even when clean: an absent block used to be indistinguishable
+    # from a gate that never ran, which is the same silence that let three
+    # CRITICALs through once a filter had trimmed the output.
+    print(
+        f"\n-- Sanity -- {verdict['critical']} critical, "
+        f"{verdict['warnings']} warnings"
+    )
+    for f in findings:
+        print(f"  [{f.level}] {f.check}: {f.detail}")
     if not verdict["passed"]:
         print(
             f"\n  SANITY FAIL: {verdict['critical']} critical — "

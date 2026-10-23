@@ -1,0 +1,513 @@
+{
+  "fetch_run_id": "669b522b-fb51-4b73-8a1e-ff83a8d3473a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-23T12:54:09.991916+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jaguars-ot-anton-harrison-out-for-year-with-a-torn-acl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jaguars-ot-anton-harrison-out-for-year-with-a-torn-acl",
+      "title": "Report: Jaguars OT Anton Harrison out for year with a torn ACL",
+      "body_text": "When Jaguars left tackle Anton Harrison was placed on injured reserve earlier this month, word was that the results of knee surgery would determine how long he'll be out.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T12:28:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anton Harrison",
+        "When Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-dont-expect-t-j-watts-calf-injury-to-affect-sunday-availability",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-dont-expect-t-j-watts-calf-injury-to-affect-sunday-availability",
+      "title": "Steelers don't expect T.J. Watt's calf injury to affect Sunday availability",
+      "body_text": "Steelers linebacker T.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T12:06:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-is-proud-of-ex-titan-cairo-santos-despite-losing-to-him-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-is-proud-of-ex-titan-cairo-santos-despite-losing-to-him-on-thursday-night",
+      "title": "Mike Vrabel is proud of ex-Titan Cairo Santos, despite losing to him on Thursday night",
+      "body_text": "In 2019, Cairo Santos was the Titans' kicker and Mike Vrabel was their head coach.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T11:55:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Titan Cairo",
+        "Cairo Santos"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0031203"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-kenneth-walker-is-playing-at-the-highest-level-in-the-league-right-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-kenneth-walker-is-playing-at-the-highest-level-in-the-league-right-now",
+      "title": "Mike Macdonald: Kenneth Walker is playing at the highest level in the league right now",
+      "body_text": "Seahawks head coach Mike Macdonald knows how good a running back he'll be facing when he coaches against the Chiefs on Sunday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T10:44:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-originally-called-a-punt-but-cairo-santos-asked-to-try-a-58-yard-field-goal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-originally-called-a-punt-but-cairo-santos-asked-to-try-a-58-yard-field-goal",
+      "title": "Ben Johnson originally called a punt, but Cairo Santos asked to try a 58-yard field goal",
+      "body_text": "After Bears head coach Ben Johnson initially called for a punt late in Thursday night's win over the Patriots, Bears kicker Cairo Santos convinced his coaches to let him try the 58-yard field goal that sealed the win.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T09:42:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Cairo Santos",
+        "After Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0031203"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-tells-teams-that-uncalled-hip-drop-tackle-on-aaron-rodgers-was-clear-example-of-penalty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-tells-teams-that-uncalled-hip-drop-tackle-on-aaron-rodgers-was-clear-example-of-penalty",
+      "title": "NFL tells teams that uncalled hip-drop tackle on Aaron Rodgers was clear example of penalty",
+      "body_text": "In Week 4, Browns defensive lineman Adin Huntington committed a textbook example of a hip-drop tackle on Steelers quarterback Aaron Rodgers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T09:00:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "In Week",
+        "Adin Huntington"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0040255"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabels-clock-management-included-an-intentional-offside-penalty",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabels-clock-management-included-an-intentional-offside-penalty",
+      "title": "Mike Vrabel's clock management included an intentional offside penalty",
+      "body_text": "Vrabel has a long history of having his players commit penalties intentionally to manage the clock to his team's advantage.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T08:50:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-cole-kmets-knee-injury-doesnt-look-good",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-cole-kmets-knee-injury-doesnt-look-good",
+      "title": "Ben Johnson: Cole Kmet's knee injury doesn't look good",
+      "body_text": "Caleb Williams said after the game, \"I don't have the words to describe what Cole is to me, to this team, to this organization.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T06:49:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Cole Kmet",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0036290",
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshall-faulk-discloses-parkinsons-disease-diagnosis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marshall-faulk-discloses-parkinsons-disease-diagnosis",
+      "title": "Faulk discloses Parkinson's disease diagnosis",
+      "body_text": "Hall of Fame running back and Southern University coach Marshall Faulk has disclosed that he has Parkinson's disease.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-23T00:21:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Southern University",
+        "Marshall Faulk"
+      ],
+      "resolved_player_ids": [
+        "00-0005092"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-te-cole-kmet-carted-off-with-a-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-te-cole-kmet-carted-off-with-a-knee-injury",
+      "title": "Bears TE Kmet carted off with a knee injury",
+      "body_text": "The Bears quickly ruled him out.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T03:10:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-george-pickens-needs-to-understand-he-impacts-us-in-the-run-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-george-pickens-needs-to-understand-he-impacts-us-in-the-run-game",
+      "title": "Brian Schottenheimer: George Pickens \"needs to understand he impacts us in the run game\"",
+      "body_text": "Cowboys receiver George Pickens was rewarded for a stellar contract year by being kept from getting a fair market deal.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-23T04:04:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-multiple-teams-have-trade-interest-in-jonathan-taylor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-multiple-teams-have-trade-interest-in-jonathan-taylor",
+      "title": "Report: Multiple teams have trade interest in Jonathan Taylor",
+      "body_text": "It is unclear whether the Colts will be sellers at the trade deadline.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T01:28:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-bears-fend-off-patriots-30-24",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-bears-fend-off-patriots-30-24",
+      "title": "Thursday Night Football: Bears fend off Patriots 30-24",
+      "body_text": "Caleb Williams was 22-of-33 for 308 yards and two touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T03:31:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marlon-humphrey-complains-about-slander-of-qb-lamar-jackson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marlon-humphrey-complains-about-slander-of-qb-lamar-jackson",
+      "title": "Marlon Humphrey complains about \"slander\" of Lamar Jackson",
+      "body_text": "Ravens cornerback Marlon Humphrey isn't happy with the manner in which Ravens quarterback Lamar Jackson is treated.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-23T03:13:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marlon Humphrey",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0033281",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-db-malik-muhammad-doubtful-to-return-with-toe-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-db-malik-muhammad-doubtful-to-return-with-toe-injury",
+      "title": "Bears DB Malik Muhammad doubtful to return with toe injury",
+      "body_text": "Bears rookie defensive back Malik Muhammad is doubtful to return tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T02:49:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Muhammad"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-mayes-second-td-makes-it-a-one-score-game-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-mayes-second-td-makes-it-a-one-score-game-again",
+      "title": "Drake Maye's second TD makes it a one-score game again",
+      "body_text": "Drake Maye's 30-yard touchdown pass to rookie tight end Eli Raridon has the Patriots back within one score of the Bears.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T02:26:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "Eli Raridon"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-respond-to-disasterous-end-of-first-half-with-td-drive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-respond-to-disasterous-end-of-first-half-with-td-drive",
+      "title": "Bears respond to disastrous end of first half with TD drive",
+      "body_text": "Bears coach Ben Johnson didn't want to talk about how the first half ended.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T02:11:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-luther-burden-bears-lead-patriots-20-14-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-luther-burden-bears-lead-patriots-20-14-at-halftime",
+      "title": "Thursday Night Football: Luther Burden, Bears lead Patriots 20-14 at halftime",
+      "body_text": "The Bears wide receiver has four catches for 130 yards and a touchdown.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T01:51:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Luther Burden",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-mayes-touchdown-run-has-patriots-on-the-scoreboard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-mayes-touchdown-run-has-patriots-on-the-scoreboard",
+      "title": "Drake Maye's touchdown run has Patriots on the scoreboard",
+      "body_text": "The Patriots had two punts and turned it over on downs on their three first-quarter possessions.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T01:09:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Drake Maye",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-lead-patriots-10-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-lead-patriots-10-0",
+      "title": "Bears lead Patriots 10-0",
+      "body_text": "D'Andre Swift took a hit on his knee on a third-down play for no gain on the Bears' second possession.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T00:57:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andre Swift"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tonight-is-mike-vrabels-first-career-game-at-soldier-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tonight-is-mike-vrabels-first-career-game-at-soldier-field",
+      "title": "Tonight is Mike Vrabel's first career game at Soldier Field",
+      "body_text": "Mike Vrabel is in his 27th season as a player or coach in the NFL.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T00:31:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Soldier Field"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-remains-out-of-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-remains-out-of-practice",
+      "title": "49ers WR Mike Evans remains out of practice",
+      "body_text": "49ers wide receiver Mike Evans remained out of practice Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T00:01:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wr-justin-jefferson-a-full-participant-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wr-justin-jefferson-a-full-participant-thursday",
+      "title": "Vikings WR Justin Jefferson a full participant Thursday",
+      "body_text": "Vikings wide receiver Justin Jefferson was a full participant in Thursday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T23:44:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Jefferson",
+        "Thursday Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-te-brock-bowers-returns-to-full-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-te-brock-bowers-returns-to-full-practice",
+      "title": "Raiders TE Brock Bowers returns to full practice",
+      "body_text": "Raiders tight end Brock Bowers returned to full participation at Thursday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T23:33:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-limited-in-thursdays-practice-with-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-limited-in-thursdays-practice-with-shoulder-injury",
+      "title": "George Pickens limited in Thursday's practice with shoulder injury",
+      "body_text": "Cowboys wide receiver George Pickens popped up on the injury report for the first time this season.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T20:47:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-azeez-al-shaair-te-dalton-schultz-ot-trent-brown-return-to-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-azeez-al-shaair-te-dalton-schultz-ot-trent-brown-return-to-practice-thursday",
+      "title": "LB Azeez Al-Shaair, TE Dalton Schultz, OT Trent Brown return to practice Thursday",
+      "body_text": "The Texans had seven players out of practice on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T23:14:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dalton Schultz",
+        "Trent Brown",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0034383",
+        "00-0032071"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-limited-in-return-to-eagles-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-limited-in-return-to-eagles-practice",
+      "title": "Saquon Barkley limited in return to Eagles practice",
+      "body_text": "Barkley has missed the last two games with an ankle injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-22T22:56:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-patriots-cb-christian-gonzalez-is-active",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-patriots-cb-christian-gonzalez-is-active",
+      "title": "Thursday Night Football: Patriots CB Christian Gonzalez is active",
+      "body_text": "The Patriots will have cornerback Christian Gonzalez for Thursday Night Football.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-22T23:05:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Thursday Night",
+        "Christian Gonzalez",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-leaves-practice-early-with-calf-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-leaves-practice-early-with-calf-injury",
+      "title": "Puka Nacua leaves practice early with calf injury",
+      "body_text": "The Rams' injury issues are mounting.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-22T22:37:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-say-christian-gonzalez-is-questionable-tonight-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-say-christian-gonzalez-is-questionable-tonight-with-an-illness",
+      "title": "Patriots say Christian Gonzalez is questionable tonight with an illness",
+      "body_text": "New England's star cornerback might not play tonight in Chicago.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-22T22:20:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Gonzalez",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    }
+  ]
+}
