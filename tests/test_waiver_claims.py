@@ -980,3 +980,77 @@ def test_advice_scripts_refuse_a_league_that_is_not_ours():
     for script in ("waiver_wire", "set_lineups", "league_context"):
         src = (REPO / "scripts" / f"{script}.py").read_text(encoding="utf-8")
         assert "config.our_league(args.league)" in src, script
+
+
+def _emit(tmp_path, **kw):
+    """Run the report's claims writer with a small synthetic board."""
+    ww = _waiver_wire()
+    fas = [
+        {
+            "name": "Dalton Schultz",
+            "verdict": "STARTS",
+            "blend": 12.0,
+            "bid": (4, "no rival is both thin here and able to spend"),
+            "bye": False,
+        },
+        {
+            "name": "Cooper Kupp",
+            "verdict": "BENCH+",
+            "blend": 9.0,
+            "bid": (1, "we cut him"),
+            "bye": False,
+        },
+        {
+            "name": "On Bye",
+            "verdict": "STARTS",
+            "blend": 20.0,
+            "bid": (9, "x"),
+            "bye": True,
+        },
+        {"name": "No Help", "verdict": "no help", "blend": 1.0, "bid": (1, "x")},
+    ]
+    drops = [{"name": "Kenny Gainwell"}, {"name": "Jalon Daniels"}]
+    path = tmp_path / "claims.yaml"
+    note = ww.emit_claims(
+        path, kw.get("league", "mantis"), 7, fas, drops, kw.get("open_active", 0), True
+    )
+    return path, note
+
+
+def _waiver_wire():
+    spec = importlib.util.spec_from_file_location(
+        "ww_emit", REPO / "scripts" / "waiver_wire.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_emitted_claims_carry_the_reports_own_bids_and_load_back(tmp_path):
+    """A hand-typed bid is the one number that never came from the pipeline."""
+    path, note = _emit(tmp_path)
+    assert "wrote 2 claims" in note
+    claims = wc.load_claims(path, config.LEAGUE_PRESETS)
+    assert [(c.add, c.bid, c.drop) for c in claims] == [
+        ("Dalton Schultz", 4, "Kenny Gainwell"),
+        ("Cooper Kupp", 1, "Jalon Daniels"),
+    ]
+    body = path.read_text(encoding="utf-8")
+    assert "no rival is both thin here" in body  # the model's reason travels with it
+    assert "On Bye" not in body and "No Help" not in body
+
+
+def test_an_open_slot_means_the_first_claim_needs_no_drop(tmp_path):
+    path, _ = _emit(tmp_path, open_active=1)
+    claims = wc.load_claims(path, config.LEAGUE_PRESETS)
+    assert claims[0].drop is None
+    assert claims[1].drop == "Kenny Gainwell"
+
+
+def test_emit_never_overwrites_an_existing_claims_file(tmp_path):
+    path = tmp_path / "claims.yaml"
+    path.write_text("claims: []\n", encoding="utf-8")
+    ww = _waiver_wire()
+    note = ww.emit_claims(path, "mantis", 7, [], [], 0, True)
+    assert "left untouched" in note
+    assert path.read_text(encoding="utf-8") == "claims: []\n"

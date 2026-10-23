@@ -238,7 +238,19 @@ mistake that reached the user this season rather than the pipeline:
 - ESPN La Liga and Yahoo Feetball: Wednesday ~3am ET.
 
 ## 6. File the claims (one confirmed command)
-1. Write the final claims to `data/draft/claims_week<N>.yaml`:
+1. **Generate** the claims file rather than typing it — one command per league:
+   ```bash
+   python scripts/waiver_wire.py --league mantis --week N --emit-claims data/draft/claims_week<N>.yaml
+   ```
+   It writes the STARTS/BENCH+ rows with the report's own computed `BID $N`, the next name off
+   its drop list, and the reason the model gave, skipping bye players and anything rated no
+   help; an open active slot produces a claim with no `drop`. It never overwrites an existing
+   file, so the second league's run needs its own path (then paste the rows together).
+   A hand-typed bid is the one number here that never came out of the pipeline, which is why
+   it was the thing most often wrong. Edit freely afterwards — but state a reason whenever you
+   move a bid off the computed one.
+
+1. The shape it writes, for editing by hand:
    ```yaml
    claims:
      - {league: la_liga,  add: Jaguars D/ST, drop: Bears D/ST, bid: 1, priority: 1}

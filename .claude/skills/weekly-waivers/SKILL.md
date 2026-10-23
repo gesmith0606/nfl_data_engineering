@@ -187,6 +187,14 @@ Write the agreed claims to `data/draft/claims_week<N>.yaml` and run the dry run:
 `python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml` (headless Playwright
 profile; if a league says logged out, George runs `python scripts/league_login.py` himself).
 It re-checks Step 4b live and prints the table — show it to George. Run it again with
+**Build the claims file with `--emit-claims`, do not type it.** `python scripts/waiver_wire.py
+--league <L> --week N --emit-claims data/draft/claims_week<N>.yaml` writes the STARTS/BENCH+
+rows with the report's own computed `BID $N`, the next name off its drop list, and the reason
+the model gave, and it refuses to overwrite an existing file. A hand-typed bid is the one
+number in this pipeline that never came out of the pipeline, which is why it was the thing
+most often wrong. Edit the file freely — but state a reason whenever you move a bid off the
+computed one.
+
 `--submit` ONLY when George says yes to that table in chat; never on your own, never from a
 cron. Show the read-back (CONFIRMED / NOT FOUND per claim). Mantis is never submitted: tell
 George to enter the printed checklist in the Sleeper app. After an `outcome UNKNOWN` line, do
