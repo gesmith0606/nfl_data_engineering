@@ -64,12 +64,8 @@ _PROCESSED_IDS_FILE = (
 )
 # New sinks introduced by Plan 71-04 (Task 2). Tests monkeypatch these
 # alongside ``_SILVER_SIGNALS_DIR`` for hermetic tmp-tree runs.
-_UNRESOLVED_DIR = (
-    _PROJECT_ROOT / "data" / "silver" / "sentiment" / "unresolved_names"
-)
-_NON_PLAYER_DIR = (
-    _PROJECT_ROOT / "data" / "silver" / "sentiment" / "non_player_pending"
-)
+_UNRESOLVED_DIR = _PROJECT_ROOT / "data" / "silver" / "sentiment" / "unresolved_names"
+_NON_PLAYER_DIR = _PROJECT_ROOT / "data" / "silver" / "sentiment" / "non_player_pending"
 # Plan 72-03 Task 1 — new Silver sink for hybrid attribution per CONTEXT D-02.
 # Non-player items routed by ``_route_non_player_items`` whose ``subject_type``
 # is in ``_NEWS_CHANNEL_SUBJECT_TYPES`` land here; the team aggregator merges
@@ -92,9 +88,7 @@ _NEWS_CHANNEL_SUBJECT_TYPES = frozenset({"coach", "team", "reporter"})
 # env values outside this set fall through to ``auto`` with an INFO log
 # (CONTEXT.md T-71-04-01 mitigation: tampering with the env yields the safe
 # default rather than an exception).
-_VALID_MODES = frozenset(
-    {"auto", "rule", "claude", _EXTRACTOR_NAME_CLAUDE_PRIMARY}
-)
+_VALID_MODES = frozenset({"auto", "rule", "claude", _EXTRACTOR_NAME_CLAUDE_PRIMARY})
 
 
 # ---------------------------------------------------------------------------
@@ -165,6 +159,11 @@ class PipelineResult:
 # ---------------------------------------------------------------------------
 
 
+#: ``PlayerSignal.extractor`` -> the class that produced it. Keeps
+#: ``model_version`` honest when a per-doc fallback changes the answer.
+_MODEL_VERSION = {"rule": "RuleExtractor", "claude": "ClaudeExtractor"}
+
+
 class SentimentPipeline:
     """End-to-end Bronze → Silver sentiment extraction pipeline.
 
@@ -233,9 +232,7 @@ class SentimentPipeline:
         # Resolve the effective mode before building the extractor so the
         # env-precedence logic is consolidated in one place.
         effective_mode = self._resolve_extractor_mode(extractor_mode)
-        self._is_claude_primary = (
-            effective_mode == _EXTRACTOR_NAME_CLAUDE_PRIMARY
-        )
+        self._is_claude_primary = effective_mode == _EXTRACTOR_NAME_CLAUDE_PRIMARY
 
         if extractor is not None:
             self._extractor = extractor
@@ -371,9 +368,7 @@ class SentimentPipeline:
     # Roster provider (Plan 71-04)
     # ------------------------------------------------------------------
 
-    def _roster_provider_factory(
-        self, season: int
-    ) -> Callable[[], List[str]]:
+    def _roster_provider_factory(self, season: int) -> Callable[[], List[str]]:
         """Build a lazy callable that loads active roster names for a season.
 
         Reads the most recent parquet under
@@ -431,9 +426,7 @@ class SentimentPipeline:
                         "returning []."
                     )
                     return []
-                return sorted(
-                    df[col].dropna().astype(str).unique().tolist()
-                )[:1500]
+                return sorted(df[col].dropna().astype(str).unique().tolist())[:1500]
             except Exception as exc:  # noqa: BLE001 — fail-open
                 logger.warning(
                     "roster_provider: failed to load rosters (%s); returning [].",
@@ -606,7 +599,16 @@ class SentimentPipeline:
             },
             "published_at": doc.get("published_at"),
             "extracted_at": datetime.now(timezone.utc).isoformat(),
-            "model_version": type(self._extractor).__name__,
+            # What actually produced this signal, not what was configured to.
+            # These two fields used to disagree on 78 of 102 week-7 records:
+            # the Claude extractor was configured, every call fell back to
+            # keyword rules, and `extractor` said "rule" while
+            # `model_version` still claimed ClaudeExtractor. A provenance
+            # field that records intent rather than outcome is worse than
+            # none -- it made a dead LLM layer look live.
+            "model_version": _MODEL_VERSION.get(
+                signal.extractor, type(self._extractor).__name__
+            ),
             "raw_excerpt": signal.raw_excerpt,
             # Plan 71-01 additive top-level keys. ``extractor`` defaults
             # to "rule" via PlayerSignal, so existing rule-based runs
@@ -720,9 +722,7 @@ class SentimentPipeline:
             "records": records,
         }
         output_path.write_text(json.dumps(envelope, indent=2), encoding="utf-8")
-        logger.info(
-            "Wrote %d %s records → %s", len(records), prefix, output_path
-        )
+        logger.info("Wrote %d %s records → %s", len(records), prefix, output_path)
         return output_path
 
     # ------------------------------------------------------------------
@@ -827,9 +827,7 @@ class SentimentPipeline:
             # year. Rebind it here with the actual season argument so
             # backfill runs for past seasons resolve player names against
             # the correct roster year instead of always the current one.
-            self._extractor.roster_provider = self._roster_provider_factory(
-                season
-            )
+            self._extractor.roster_provider = self._roster_provider_factory(season)
 
         logger.info(
             "SentimentPipeline: starting season=%d week=%s batch=%s "
@@ -849,9 +847,7 @@ class SentimentPipeline:
                 bronze_files, season, week, batch_id, result, dry_run
             )
         else:
-            all_records = self._run_legacy_loop(
-                bronze_files, season, week, result
-            )
+            all_records = self._run_legacy_loop(bronze_files, season, week, result)
             unresolved_records = []
 
         logger.info(
@@ -896,9 +892,7 @@ class SentimentPipeline:
         # extractor wrote one record per call).
         if self._is_claude_primary and week is not None:
             try:
-                result.cost_usd_total = self._cost_log.running_total_usd(
-                    season, week
-                )
+                result.cost_usd_total = self._cost_log.running_total_usd(season, week)
             except Exception as exc:  # noqa: BLE001 — never crash on accounting
                 logger.warning(
                     "SentimentPipeline: cost_log.running_total_usd failed (%s)",
@@ -1036,12 +1030,10 @@ class SentimentPipeline:
             batch_docs = [doc for doc, _src in batch]
 
             try:
-                by_doc_id, non_player_items = (
-                    self._extractor.extract_batch_primary(
-                        batch_docs,
-                        season=int(season),
-                        week=int(week or 0),
-                    )
+                by_doc_id, non_player_items = self._extractor.extract_batch_primary(
+                    batch_docs,
+                    season=int(season),
+                    week=int(week or 0),
                 )
             except Exception as exc:  # noqa: BLE001 — D-02 soft fallback
                 logger.error(
@@ -1052,9 +1044,7 @@ class SentimentPipeline:
                 )
                 result.claude_failed_count += len(batch)
                 for doc, src in batch:
-                    fallback_records = self._fallback_per_doc(
-                        doc, src, season, week
-                    )
+                    fallback_records = self._fallback_per_doc(doc, src, season, week)
                     all_records.extend(fallback_records)
                     result.signal_count += len(fallback_records)
                     result.processed_count += 1
@@ -1064,9 +1054,7 @@ class SentimentPipeline:
             # Successful batch — merge per-doc signals + non-player items.
             for doc, src in batch:
                 external_id = self._get_doc_id(doc)
-                signals = by_doc_id.get(
-                    str(doc.get("external_id", "")), []
-                )
+                signals = by_doc_id.get(str(doc.get("external_id", "")), [])
                 # Resolve names + build records.
                 doc_records = self._build_records_for_signals(
                     doc, signals, season, week, src, result, unresolved_records
@@ -1085,8 +1073,8 @@ class SentimentPipeline:
             # here would silently drop earlier batches' counts (Test 7
             # ``test_routing_counters_accumulate_across_batches`` locks
             # this contract — see threat T-72-03-06).
-            rollup_items, news_items, leftover_items = (
-                self._route_non_player_items(non_player_items)
+            rollup_items, news_items, leftover_items = self._route_non_player_items(
+                non_player_items
             )
             result.non_player_routed_count += len(rollup_items)
             result.non_player_news_count += len(news_items)
@@ -1229,8 +1217,7 @@ class SentimentPipeline:
                 result.unresolved_player_count += 1
                 unresolved_records.append(
                     {
-                        "doc_id": doc.get("external_id")
-                        or doc.get("id", ""),
+                        "doc_id": doc.get("external_id") or doc.get("id", ""),
                         "player_name": signal.player_name,
                         "team_abbr": signal.team_abbr,
                         "category": signal.category,

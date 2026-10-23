@@ -384,6 +384,20 @@ def _run_extraction(season: int, week: int, dry_run: bool, verbose: bool) -> Ste
             logger.error("SENTINEL: %s", sentinel_msg)
             print(f"::warning title=LLM extraction silently down::{sentinel_msg}")
             step.detail += " [SENTINEL: all Claude calls failed]"
+        elif not getattr(result, "is_claude_primary", False) and _processed:
+            # The sentinel above only speaks when Claude was ASKED for. Running
+            # rule-only is the zero-cost default, but it is also a degraded
+            # news layer -- keyword matching on capitalised names, which is
+            # why 28 of 102 week-7 signals were coaches, reporters and a
+            # stadium. Nothing said so, and a whole audit read the thin
+            # coverage as "a quiet news week".
+            logger.warning(
+                "Extraction ran RULE-ONLY on %d docs: keyword matching, no "
+                "language understanding. Set ENABLE_LLM_ENRICHMENT=true with "
+                "a funded ANTHROPIC_API_KEY for comprehension-grade signal.",
+                _processed,
+            )
+            step.detail += " [rule-only: keyword-grade signal]"
     except Exception as exc:
         step.success = False
         step.error = str(exc)

@@ -1150,3 +1150,30 @@ def test_the_null_player_skip_line_names_what_it_skipped(caplog):
     assert "skipped 2 records" in msg
     assert "Dan Quinn" in msg and "Soldier Field" in msg
     assert "not resolution failures" in msg
+
+
+def test_model_version_records_what_ran_not_what_was_configured():
+    """78 of 102 week-7 records claimed ClaudeExtractor while running rules.
+
+    The Claude extractor was configured, every call fell back to keyword
+    rules, `extractor` said "rule", and `model_version` still said
+    ClaudeExtractor. A provenance field that records intent rather than
+    outcome is worse than none: it made a dead LLM layer look live, and that
+    is what hid the sentiment gap through the whole audit.
+    """
+    from src.sentiment.processing.pipeline import _MODEL_VERSION
+
+    assert _MODEL_VERSION["rule"] == "RuleExtractor"
+    assert _MODEL_VERSION["claude"] == "ClaudeExtractor"
+
+    src = (
+        Path(__file__).resolve().parent.parent
+        / "src"
+        / "sentiment"
+        / "processing"
+        / "pipeline.py"
+    ).read_text(encoding="utf-8")
+    # The record must key off the SIGNAL's extractor, never the configured one.
+    assert '"model_version": _MODEL_VERSION.get(' in src
+    assert "signal.extractor, type(self._extractor).__name__" in src
+    assert '"model_version": type(self._extractor).__name__,' not in src
