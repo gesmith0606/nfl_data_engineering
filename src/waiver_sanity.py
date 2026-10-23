@@ -59,6 +59,11 @@ class Row:
         return "ENDING<-" in self.tail
 
     @property
+    def cut_by_us(self) -> bool:
+        """The room's log says we were the ones who dropped him."""
+        return "by US" in self.tail
+
+    @property
     def verdict(self) -> str:
         for v in ("STARTS", "BENCH+", "no help", "depth"):
             if v in self.tail:
@@ -98,6 +103,7 @@ def check_report(
     max_board_age_h: int = 36,
     faab_left: Optional[int] = None,
     room_max_bid: Optional[int] = None,
+    dynasty: bool = False,
 ) -> List[Finding]:
     """Run every invariant over a rendered waiver report.
 
@@ -107,6 +113,8 @@ def check_report(
         max_board_age_h: How stale the Gold board may be before it is a warning.
         faab_left: Remaining budget, to bound any suggested bid.
         room_max_bid: The largest bid this room has ever made.
+        dynasty: True for a dynasty league, where a "no help" verdict is
+            advisory — an asset buy is supposed to read that way this week.
 
     Returns:
         Findings, most severe first. Empty means the report is safe to act on.
@@ -163,6 +171,31 @@ def check_report(
                         CRITICAL,
                         "room-max",
                         f"{r.name} bid ${r.bid} tops the room record ${room_max_bid}",
+                    )
+                )
+
+    # 4b. "do not re-buy a player we just cut" (skill, Step 2). We already
+    # decided he was not worth a roster spot.
+    for r in rows:
+        if r.cut_by_us and (r.bid or 0) > 1:
+            out.append(
+                Finding(
+                    CRITICAL,
+                    "re-buy",
+                    f"{r.name} bid ${r.bid} but WE cut him",
+                )
+            )
+
+    # 4c. "In a REDRAFT league never recommend a no help player" (skill,
+    # Step 3). In dynasty the verdict is advisory, so this is redraft only.
+    if not dynasty:
+        for r in rows:
+            if r.verdict == "no help" and (r.bid or 0) > 1:
+                out.append(
+                    Finding(
+                        CRITICAL,
+                        "no-help-priced",
+                        f"{r.name} bid ${r.bid} while rated no help",
                     )
                 )
 

@@ -202,9 +202,9 @@ def league_player_moves(
         bid = (t.get("settings") or {}).get("waiver_bid")
         leg = int(t.get("_leg") or 0)
         for kind in ("add", "drop"):
-            for pid in (t.get(f"{kind}s") or {}) or {}:
+            for pid, rid in ((t.get(f"{kind}s") or {}) or {}).items():
                 out.setdefault(str(pid), []).append(
-                    {"leg": leg, "bid": bid, "kind": kind}
+                    {"leg": leg, "bid": bid, "kind": kind, "by": str(rid)}
                 )
     for moves in out.values():
         moves.sort(key=lambda m: m["leg"])
@@ -381,6 +381,7 @@ def suggest_bid(
     my_faab: int,
     current_leg: int,
     room_max: int = 0,
+    my_roster_id: Optional[str] = None,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -417,8 +418,22 @@ def suggest_bid(
     """
     cap = max(1, my_faab // 4)
     cut_and_free = 0
+    cut_by_us = False
     if moves and moves[-1]["kind"] == "drop":
         cut_and_free = max(0, current_leg - moves[-1]["leg"])
+        cut_by_us = bool(my_roster_id) and str(moves[-1].get("by") or "") == str(
+            my_roster_id
+        )
+
+    # "do not re-buy a player we just cut" (skill, Step 2). We already decided
+    # he was not worth a roster spot; paying real money to undo that is the
+    # churn the runbook warns about. Week 7 2026 the model wanted $55 for Drew
+    # Lock, whom we had cut for $55 three weeks earlier.
+    if cut_by_us:
+        return 1, (
+            f"WE cut him in wk{moves[-1]['leg']} — re-buy at the minimum or not"
+            " at all"
+        )
     last_paid = next(
         (m["bid"] for m in reversed(moves or []) if m["kind"] == "add" and m["bid"]),
         None,
@@ -554,7 +569,11 @@ def moves_from_yahoo(text: str, by_name: Mapping[Any, str], season: int) -> Play
     return out
 
 
-def demand_note(moves: Optional[List[Dict[str, Any]]], current_leg: int) -> str:
+def demand_note(
+    moves: Optional[List[Dict[str, Any]]],
+    current_leg: int,
+    my_roster_id: Optional[str] = None,
+) -> str:
     """One-glance summary of what this room has paid for a player, and when.
 
     Args:
@@ -576,7 +595,14 @@ def demand_note(moves: Optional[List[Dict[str, Any]]], current_leg: int) -> str:
         "free",
     )
     free_for = max(0, current_leg - last["leg"])
-    return f"cut wk{last['leg']} (was {paid}), free {free_for}wk"
+    # "do not re-buy a player we just cut" is a rule in the skill; it is only
+    # checkable if the report says who did the cutting.
+    whose = (
+        " by US"
+        if my_roster_id and str(last.get("by") or "") == str(my_roster_id)
+        else ""
+    )
+    return f"cut wk{last['leg']}{whose} (was {paid}), free {free_for}wk"
 
 
 def checkout_age_warning(max_age_days: int = 3) -> Optional[str]:
@@ -891,11 +917,13 @@ def main(argv: Optional[list] = None) -> int:
     room_median = 0
     room_max = 0
     my_faab = 0
+    my_roster_id: Optional[str] = None
     if platform == "sleeper":
         tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
         bid_stats = team_bid_stats(tx_rows)
         moves = league_player_moves(str(preset["league_id"]), week, tx_rows)
         my_rid = str(my.get("roster_id"))
+        my_roster_id = my_rid
         budget_total = int((league.get("settings") or {}).get("waiver_budget") or 0)
         my_faab = budget_total - int(
             (my.get("settings") or {}).get("waiver_budget_used") or 0
@@ -1006,7 +1034,9 @@ def main(argv: Optional[list] = None) -> int:
             # may be on loan from them (see RENTAL in the report legend).
             # What the room has paid for him before: price a claim off this,
             # not the league-wide median (see demand_note).
-            "demand": demand_note(moves.get(sid), week) if moves else "",
+            "demand": (
+                demand_note(moves.get(sid), week, my_roster_id) if moves else ""
+            ),
             "bid": (
                 suggest_bid(
                     moves.get(sid),
@@ -1015,6 +1045,7 @@ def main(argv: Optional[list] = None) -> int:
                     my_faab,
                     week,
                     room_max,
+                    my_roster_id,
                 )
                 if moves and my_faab
                 else None
@@ -1179,6 +1210,7 @@ def main(argv: Optional[list] = None) -> int:
         bye_teams=sorted(set(all_teams) - set(playing)) if kickoffs else (),
         faab_left=my_faab or None,
         room_max_bid=room_max or None,
+        dynasty=bool(preset.get("dynasty")),
     )
     verdict = summarise(findings)
     if findings:
