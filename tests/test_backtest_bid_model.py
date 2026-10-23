@@ -56,3 +56,22 @@ def test_score_of_nothing_is_zeroed_not_an_error():
 
 def test_within_5_counts_the_boundary():
     assert score([5, 6])["within_5"] == 50.0
+
+
+# --- drift detection ---------------------------------------------------------
+
+
+def test_run_signature_accepts_a_median_error_bound():
+    """The bound is what turns a one-off measurement into a standing check."""
+    import inspect
+
+    params = inspect.signature(backtest.run).parameters
+    assert "max_median_error" in params
+    assert params["max_median_error"].default == 0
+
+
+def test_cli_exposes_the_bound():
+    import inspect
+
+    src = inspect.getsource(backtest.main)
+    assert "--max-median-error" in src

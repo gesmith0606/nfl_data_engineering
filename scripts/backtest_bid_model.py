@@ -69,7 +69,7 @@ def score(errors: Sequence[float]) -> Dict[str, float]:
     }
 
 
-def run(league_key: str, through_week: int) -> int:
+def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
     preset = LEAGUE_PRESETS[league_key]
     if preset.get("platform") != "sleeper":
         sys.exit(f"{league_key} is on {preset.get('platform')}: Sleeper leagues only")
@@ -112,8 +112,22 @@ def run(league_key: str, through_week: int) -> int:
             f"  {name:10}{s['n']:5d}{s['median']:11.0f}${s['mean']:10.1f}"
             f"{s['within_5']:10.0f}%"
         )
-    best = min(score(model)["median"], score(median_rule)["median"])
-    return 0 if score(model)["median"] <= best else 1
+    model_median = score(model)["median"]
+    rivals = min(score(median_rule)["median"], score(minimum_rule)["median"])
+    if model_median > rivals:
+        print(
+            f"\n  FAIL: model median ${model_median:.0f} is worse than the best "
+            f"naive rule (${rivals:.0f})"
+        )
+        return 1
+    if max_median_error and model_median > max_median_error:
+        print(
+            f"\n  FAIL: model median ${model_median:.0f} exceeds the "
+            f"--max-median-error bound of ${max_median_error}"
+        )
+        return 1
+    print(f"\n  PASS: model median ${model_median:.0f} beats both naive rules")
+    return 0
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -122,8 +136,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     ap.add_argument("--league", default="mantis", help="LEAGUE_PRESETS key (Sleeper)")
     ap.add_argument("--through-week", type=int, default=7)
+    ap.add_argument(
+        "--max-median-error",
+        type=int,
+        default=0,
+        help="fail when the model's median absolute error exceeds this, so "
+        "drift is caught by a check rather than by a bad claim",
+    )
     args = ap.parse_args(argv)
-    return run(args.league, args.through_week)
+    return run(args.league, args.through_week, args.max_median_error)
 
 
 if __name__ == "__main__":
