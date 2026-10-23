@@ -102,8 +102,16 @@ or a retrain.
    - Translates `projected_floor`/`projected_ceiling` by the same delta, so
      the band keeps its WIDTH (and the conformal coverage property) and still
      brackets the point estimate.
-3. **Raise the TE anchor weight 0.5 -> 0.75.** Not shipped. TE blend sweep
-   w3-6: w=0.5 5.06, w=0.75 5.01, w=1.0 4.98 vs our 5.19.
+3. **Raise the TE anchor weight 0.5 -> 0.75 — REJECTED 2026-10-22.** The
+   sweep quoted in the first version of this doc (w=0.5 5.06, w=0.75 5.01,
+   w=1.0 4.98 vs 5.19) was **invalid**: it point-blended on top of published
+   boards that already carried the shipped TE rank-blend at 0.5, so it
+   measured a second, different transform stacked on the first — not a change
+   to the shipped weight. Re-measured properly by changing the weight through
+   the CLI and re-running the backtest: matched TE MAE **4.75 at w=0.5 vs
+   4.80 at w=0.75** (hit rate 0.542 -> 0.563, rho 0.227 -> 0.231). Slightly
+   worse on MAE, slightly better on ordering, all noise at n=102. No case to
+   ship.
 4. **Fix the anchor coverage erosion** (finding 3) — restores a lever already
    approved and paid for, pure engineering, no gate needed.
 5. **`--early-season-prior` graded live: SHIP for QB/WR/TE, not RB.** The

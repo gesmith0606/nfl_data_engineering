@@ -195,7 +195,9 @@ Combined MAE: 5.440 -> 5.364, gap to Sleeper +0.169 -> +0.093.
    `--check-predictions` to the sanity gate.
 3. **Fix the anchor coverage erosion** — restores a lever already paid for.
 4. **Decide the graph programme.** On this evidence, park it.
-5. TE anchor weight 0.5 -> 0.75 (-0.18 TE MAE, measured, unshipped).
+5. ~~TE anchor weight 0.5 -> 0.75~~ **REJECTED 2026-10-22.** The -0.18 figure
+   came from a sweep that double-applied the anchor; measured properly it is
+   4.75 -> 4.80 matched MAE (hit rate 0.542 -> 0.563). A wash, not a win.
 6. `--early-season-prior`: live verdict is ship for QB/WR/TE, not RB
    (-0.053 overall); its window is weeks 3-6, so it is next-season value.
 7. Bye-week zeroing, the units-bug sanity check, and `projection_source`
