@@ -25,6 +25,7 @@ Run ``scripts/league_context.py --league <key>`` first (FAAB, bid levels, our ch
 from __future__ import annotations
 
 import argparse
+import builtins
 import glob
 import subprocess
 import time
@@ -766,6 +767,11 @@ def main(argv: Optional[list] = None) -> int:
         "column and bid model (Yahoo's API has no read scope)",
     )
     ap.add_argument(
+        "--no-gate",
+        action="store_true",
+        help="skip the self-check at the end of the report (it exits 1 on CRITICAL)",
+    )
+    ap.add_argument(
         "--yahoo-browser",
         action="store_true",
         help="Yahoo: read the league Transactions page through the logged-in "
@@ -813,6 +819,13 @@ def main(argv: Optional[list] = None) -> int:
     )
     # Sleeper uses LAR/JAX-style abbreviations; nflverse schedules use LA for the Rams.
     playing = set(kickoffs) | ({"LAR"} if "LA" in kickoffs else set())
+    all_teams: Set[str] = set()
+    if sched_file:
+        _sched = pd.read_parquet(sched_file)
+        all_teams = {
+            "LAR" if t == "LA" else str(t)
+            for t in set(_sched["home_team"]) | set(_sched["away_team"])
+        }
     # Dynasty presets: FantasyCalc market value + age next to every row ({} otherwise).
     dyn = league_context.dynasty_values_for_preset(preset, config.ROSTER_CONFIGS)
     _, by_name = build_id_maps(registry)
@@ -1052,6 +1065,19 @@ def main(argv: Optional[list] = None) -> int:
     stale = checkout_age_warning()
     if stale:
         print(stale)
+    # Everything from here is both printed and kept, so the report can check
+    # itself at the end. A gate you have to remember to run is a gate that
+    # gets skipped — that is how an hour of hand-rolled analysis happened.
+    transcript: List[str] = []
+    # builtins.print, not the bare name: defining ``print`` below makes it a
+    # local throughout main(), so the bare name would be unbound here.
+    _stdout_print = builtins.print
+
+    def print(*parts: Any, **kw: Any) -> None:  # noqa: A001 — local shadow
+        line = " ".join(str(p) for p in parts)
+        transcript.append(line)
+        _stdout_print(line, **kw)
+
     print(f"\n=== {title} — {season} week {week} waivers ===")
     print(
         f"OURS = {ours_label}; SLPR = Sleeper week {week}; LAST = week {week - 1} actuals"
@@ -1143,6 +1169,28 @@ def main(argv: Optional[list] = None) -> int:
         print(
             f"  Keepers protected: {len(keepers)} (from {args.league}_{season}_keepers.txt)"
         )
+
+    if args.no_gate:
+        return 0
+    from src.waiver_sanity import check_report, summarise
+
+    findings = check_report(
+        "\n".join(transcript),
+        bye_teams=sorted(set(all_teams) - set(playing)) if kickoffs else (),
+        faab_left=my_faab or None,
+        room_max_bid=room_max or None,
+    )
+    verdict = summarise(findings)
+    if findings:
+        print("\n-- Sanity --")
+        for f in findings:
+            print(f"  [{f.level}] {f.check}: {f.detail}")
+    if not verdict["passed"]:
+        print(
+            f"\n  SANITY FAIL: {verdict['critical']} critical — "
+            "fix the cause before acting on this report"
+        )
+        return 1
     return 0
 
 

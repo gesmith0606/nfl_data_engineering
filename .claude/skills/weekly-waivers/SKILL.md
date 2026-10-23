@@ -140,6 +140,9 @@ Show the result as a table (player → live status → source). Anything unverif
 labelled UNVERIFIED, never presented as available.
 
 ## Step 4b — Gate the advice before you present it
+`waiver_wire.py` now runs this check itself at the end of every report and exits 1 on
+any CRITICAL, so there is nothing to remember. Run it standalone when you want the
+verdict without the board, or add `--no-gate` to suppress it:
 ```bash
 python scripts/sanity_check_waivers.py --league <league> --week N
 ```
