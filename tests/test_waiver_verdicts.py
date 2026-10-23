@@ -207,3 +207,34 @@ def test_the_no_rival_floor_divisor_is_per_room_and_measured():
         "Mantis's sweep curve is flat between // 3 and // 5 ($6 vs $7 at "
         "n=51), so it keeps the default rather than chasing noise"
     )
+
+
+def test_the_young_drop_cutoff_is_now_backed_by_a_production_test():
+    """Validated the right way round: value is a proxy for future production.
+
+    Across 2022-24 a <=24 player whose weeks 5-8 snap share rose 10pp over
+    weeks 1-4 went on to a median 5.16 PPG the FOLLOWING season, against 4.20
+    for an older player with the same rising role — +0.96, consistent in sign
+    all three years (n=97 vs 116). The earlier "unvalidated by design" verdict
+    was reached by looking only for dynasty market-value history, which does
+    not exist; the rule's own claim was testable on seasons already held.
+    """
+    import importlib.util
+
+    src = (REPO_ROOT / "src" / "waiver_verdicts.py").read_text(encoding="utf-8")
+    assert "VALIDATED" in src and "+0.96 PPG" in src
+    assert "Unvalidated by design" not in src
+
+    spec = importlib.util.spec_from_file_location(
+        "vyd", REPO_ROOT / "scripts" / "validate_young_drop.py"
+    )
+    vyd = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(vyd)
+    # The script must still print BOTH caveats, or the verdict overstates.
+    body = (REPO_ROOT / "scripts" / "validate_young_drop.py").read_text(
+        encoding="utf-8"
+    )
+    assert "WRONG MECHANISM" in body, "the misleading sweep must stay visible"
+    assert "MARKET-VALUE confirmation is still pending" in body
+    # And it must key off the shipped cutoff, not a hardcoded 24.
+    assert "YOUNG_AGE" in body and "<= {YOUNG_AGE}" in body

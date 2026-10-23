@@ -104,10 +104,12 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
   `young-drop` stays as the backstop if anything routes around it. A young player nobody
   is adding stays droppable, or this would protect every rookie forever.
 - **Which rules are measured, and which are preferences.** Measured: the bid model (median
-  error $7 vs 51 real bids), the RENTAL tag (-10.5pp snap share, n=46/34). A *preference*:
-  `young-drop`'s <=24 cutoff — `scripts/validate_young_drop.py` shows the obvious test is the
-  wrong mechanism for a dynasty rule, and the right one needs value history that only started
-  on 2026-10-23. Don't present it as evidence-backed, and don't "refute" it with a points sweep.
+  error $7 vs 51 real bids), the RENTAL tag (-10.5pp snap share, n=46/34). Also measured:
+  `young-drop`'s <=24 cutoff — **VALIDATED +0.96 PPG** (`validate_young_drop.py`): across
+  2022-24, a <=24 player whose snap share rose 10pp went on to a median 5.16 PPG the FOLLOWING
+  season vs 4.20 for an older riser, consistent in sign all three years (n=97 vs 116). Don't
+  "refute" it with a points-after-the-drop sweep — that is the wrong mechanism and its sign
+  flips across adjacent cutoffs.
 - **ENDING has two independent sources**, either sufficient: the week's news flag, and the
   blocker's own **DNP->LP->FP practice trail** from the official report. The second exists
   because the first is keyword-grade — and week 7 proved they catch different players:
