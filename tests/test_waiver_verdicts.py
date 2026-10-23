@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from src.waiver_verdicts import (
     BENCH_UP,
     DEPTH,
@@ -156,3 +158,20 @@ def test_a_role_the_news_says_is_ending_is_never_priced_up():
     assert ending == 1
     assert "role is ending" in why_ending
     assert why_ending != why_normal
+
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def test_a_depth_add_is_capped_by_value_not_by_what_it_takes_to_win():
+    """The bid model prices CONTEST; it has no idea what a player is worth to us.
+
+    Wiring the ESPN rival model immediately produced $14 — a quarter of our
+    FAAB, the hard cap — on 20 players rated `depth`. With no rival model that
+    flaw was invisible, because every site bid fell to the floor anyway.
+    """
+    src = (REPO_ROOT / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+    assert 'elif r.get("bid") and r["verdict"] == DEPTH:' in src
+    assert "depth only — capped at the" in src
+    # The cap must be the same floor the no-rival branch uses, not a new number.
+    assert "floor = max(1, room_median // 5)" in src

@@ -211,9 +211,12 @@ It re-checks Step 4b live and prints the table — show it to George. Run it aga
 **Build the claims file with `--emit-claims`, do not type it.** On ESPN and Yahoo this needs
 `--espn-browser` / `--yahoo-browser` too: the computed `BID $N` is gated on the demand history
 AND our remaining FAAB, and without the flag both are absent, so the emitter writes nothing and
-says which flag is missing. There is **no rival model on those platforms** (only Sleeper exposes
-every rival's roster and budget), so their bids are a room-median floor and the reason says so —
-check who else needs the spot yourself before raising one. `python scripts/waiver_wire.py
+says which flag is missing. ESPN now has the **same rival model as Sleeper** — its payload carries every team's
+roster, injury statuses and FAAB spent, so "thin here, holding money, and a proven bidder" is
+answerable there too (`espn_rivals`). Yahoo still has none and says so in the reason.
+A `depth` verdict caps the bid at the room-median floor regardless of contest: the model prices
+what it takes to WIN a player, not what he is worth to us, and wiring ESPN's rivals immediately
+produced $14 — a quarter of the FAAB — on 20 depth players. `python scripts/waiver_wire.py
 --league <L> --week N --emit-claims data/draft/claims_week<N>.yaml` writes the STARTS/BENCH+
 rows with the report's own computed `BID $N`, the next name off its drop list, and the reason
 the model gave, and it refuses to overwrite an existing file. A hand-typed bid is the one

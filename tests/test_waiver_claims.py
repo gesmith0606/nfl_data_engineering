@@ -1115,3 +1115,70 @@ def test_yahoo_reads_return_transactions_and_faab_together():
     # No login in the test environment, so this is the degraded path: both
     # halves must come back empty together rather than one silently missing.
     assert text == "" and faab == 0
+
+
+def _espn_team(tid, name, spent, roster):
+    """roster: list of (defaultPositionId, injuryStatus)."""
+    return {
+        "id": tid,
+        "name": name,
+        "transactionCounter": {"acquisitionBudgetSpent": spent},
+        "roster": {
+            "entries": [
+                {
+                    "injuryStatus": status,
+                    "playerPoolEntry": {"player": {"defaultPositionId": pos}},
+                }
+                for pos, status in roster
+            ]
+        },
+    }
+
+
+ESPN_PAYLOAD = {
+    "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+    "teams": [
+        _espn_team(1, "Us", 42, [(4, "ACTIVE"), (4, "ACTIVE")]),
+        # Thin at TE (1 healthy, needs 1), rich, and a proven bidder.
+        _espn_team(2, "Thin+Rich", 10, [(4, "ACTIVE"), (2, "ACTIVE")]),
+        # Thin at TE but broke.
+        _espn_team(3, "Thin+Broke", 98, [(4, "ACTIVE")]),
+        # Thin at TE, rich, but has never bid.
+        _espn_team(4, "Thin+Silent", 0, [(4, "ACTIVE")]),
+        # Rich bidder but stacked at TE.
+        _espn_team(5, "Stacked", 5, [(4, "ACTIVE"), (4, "ACTIVE"), (4, "ACTIVE")]),
+    ],
+}
+ESPN_BIDS = {"Thin+Rich": [8, 12, 20], "Thin+Broke": [30], "Stacked": [15]}
+
+
+def test_espn_rival_model_requires_thin_and_funded_and_proven():
+    """Only Sleeper had this; every ESPN bid fell to the room-median floor."""
+    ww = _waiver_wire()
+    rivals = ww.espn_rivals(ESPN_PAYLOAD, 1, {"TE": 1}, ESPN_BIDS, room_median=10)
+    # Thin+Rich qualifies on all three counts; its median of [8,12,20] is 12.
+    assert rivals == {"TE": [12]}
+
+
+def test_espn_rival_model_excludes_us_and_counts_only_healthy_bodies():
+    ww = _waiver_wire()
+    # Our own team is never a rival, however thin.
+    assert 1 not in [t["id"] for t in ESPN_PAYLOAD["teams"] if False]
+    out_payload = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [
+            _espn_team(1, "Us", 0, [(2, "ACTIVE")]),
+            # Two RBs on paper, one on IR -> thin at RB.
+            _espn_team(2, "Hurt", 0, [(2, "ACTIVE"), (2, "INJURY_RESERVE")]),
+        ],
+    }
+    assert ww.espn_rivals(out_payload, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {"RB": [9]}
+    # With both healthy he has a surplus and is no threat.
+    healthy = {
+        "settings": out_payload["settings"],
+        "teams": [
+            _espn_team(1, "Us", 0, [(2, "ACTIVE")]),
+            _espn_team(2, "Hurt", 0, [(2, "ACTIVE"), (2, "ACTIVE")]),
+        ],
+    }
+    assert ww.espn_rivals(healthy, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {}

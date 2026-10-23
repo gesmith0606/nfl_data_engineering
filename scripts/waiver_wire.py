@@ -56,6 +56,7 @@ from src.waiver_verdicts import (  # noqa: E402
     NO_HELP,
     STARTS,
     BENCH_UP,
+    DEPTH,
     drop_order,
     load_keepers,
     roster_baseline,
@@ -267,7 +268,7 @@ def espn_player_moves(
     through_period: int,
     registry: Mapping[str, Any],
     by_name: Mapping[Any, str],
-) -> Tuple[PlayerMoves, int]:
+) -> Tuple[PlayerMoves, int, Mapping[str, Any], "pd.DataFrame"]:
     """The same demand history as :func:`league_player_moves`, for an ESPN league.
 
     ESPN ids are as sparse in the Sleeper registry as gsis ids (210 of 841
@@ -288,8 +289,10 @@ def espn_player_moves(
         by_name: ``(normalised_name, position) -> sleeper_id`` from this report.
 
     Returns:
-        ``(sleeper_player_id -> [{"leg", "bid", "kind"}] oldest first,
-        our remaining FAAB)``. ``({}, 0)`` on any failure.
+        ``(sleeper_player_id -> [{"leg", "bid", "kind"}] oldest first, our
+        remaining FAAB, the raw league payload, the transaction frame)``. The
+        last two let the caller build the rival model without a second fetch.
+        ``({}, 0, {}, empty frame)`` on any failure.
     """
     try:
         from src import waiver_sites as ws
@@ -315,9 +318,9 @@ def espn_player_moves(
         faab = _espn_faab_left(payload, team_id)
     except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
         print(f"WARN: ESPN demand history unavailable ({exc})")
-        return {}, 0
+        return {}, 0, {}, pd.DataFrame()
 
-    return moves_from_tx(tx, by_name), faab
+    return moves_from_tx(tx, by_name), faab, payload, tx
 
 
 def _espn_faab_left(payload: Mapping[str, Any], team_id: int) -> int:
@@ -340,6 +343,82 @@ def _espn_faab_left(payload: Mapping[str, Any], team_id: int) -> int:
         0,
     )
     return max(0, int(budget) - int(spent))
+
+
+#: ESPN ``defaultPositionId`` -> our position codes. Only the skill spots
+#: matter; everything else is irrelevant to a rival-thinness test.
+_ESPN_POS = {1: "QB", 2: "RB", 3: "WR", 4: "TE", 5: "K", 16: "DEF"}
+
+#: ESPN ``injuryStatus`` values that mean the player cannot be counted as
+#: usable depth this week. Mirrors BLOCKING_STATUSES on the Sleeper side.
+_ESPN_BLOCKED = frozenset(
+    {"OUT", "DOUBTFUL", "INJURY_RESERVE", "SUSPENSION", "NON_FOOTBALL_INJURY"}
+)
+
+
+def espn_rivals(
+    payload: Mapping[str, Any],
+    my_team_id: int,
+    need: Mapping[str, int],
+    bids_by_team: Mapping[str, List[int]],
+    room_median: int,
+) -> Dict[str, List[int]]:
+    """Which ESPN rivals are thin at each position AND able to outbid us.
+
+    The Sleeper branch has had this since the bid model shipped; ESPN had
+    nothing, so every site-league bid fell to the room-median floor with a
+    reason admitting no rival had been looked at. ESPN's own payload carries
+    every team's roster, injury statuses and FAAB spent, so the same test is
+    available -- it was simply never wired.
+
+    "Credible" means the same three things it means on Sleeper: short of
+    usable bodies at the position, holding at least the room's median bid,
+    and having actually spent before (a team that never bids is not a threat
+    however rich).
+
+    Args:
+        payload: ESPN league JSON with ``mSettings``, ``mTeam``, ``mRoster``.
+        my_team_id: Our ESPN ``teamId``, excluded from the rivals.
+        need: Required starters per position, from ``starters_required``.
+        bids_by_team: ``team name -> winning bids``, keyed the way
+            ``league_context.espn_context`` labels its transaction rows.
+        room_median: The league's median winning bid.
+
+    Returns:
+        ``position -> [each credible rival's median bid]``.
+    """
+    budget = int(
+        ((payload.get("settings") or {}).get("acquisitionSettings") or {}).get(
+            "acquisitionBudget"
+        )
+        or 0
+    )
+    out: Dict[str, List[int]] = {}
+    for team in payload.get("teams") or []:
+        if int(team.get("id") or -1) == int(my_team_id):
+            continue
+        bids = sorted(bids_by_team.get(str(team.get("name") or "")) or [])
+        if not bids:
+            continue
+        spent = int(
+            (team.get("transactionCounter") or {}).get("acquisitionBudgetSpent") or 0
+        )
+        if budget and budget - spent < room_median:
+            continue
+        healthy: Dict[str, int] = {}
+        for entry in (team.get("roster") or {}).get("entries") or []:
+            player = (entry.get("playerPoolEntry") or {}).get("player") or {}
+            pos = _ESPN_POS.get(int(player.get("defaultPositionId") or 0))
+            status = str(
+                entry.get("injuryStatus") or player.get("injuryStatus") or ""
+            ).upper()
+            if pos and status not in _ESPN_BLOCKED:
+                healthy[pos] = healthy.get(pos, 0) + 1
+        median = bids[len(bids) // 2]
+        for pos, required in need.items():
+            if healthy.get(pos, 0) <= required:
+                out.setdefault(pos, []).append(median)
+    return out
 
 
 def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves:
@@ -1162,6 +1241,8 @@ def main(argv: Optional[list] = None) -> int:
     my_faab = 0
     my_roster_id: Optional[str] = None
     live_available: Optional[Set[str]] = None
+    espn_payload: Optional[Mapping[str, Any]] = None
+    espn_tx = pd.DataFrame()
     my_roster_id: Optional[str] = None
     if platform == "sleeper":
         tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
@@ -1195,7 +1276,7 @@ def main(argv: Optional[list] = None) -> int:
                 if thin_at(r, registry, pos, need.get(pos, 0)):
                     rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
-        moves, my_faab = espn_player_moves(
+        moves, my_faab, espn_payload, espn_tx = espn_player_moves(
             str(preset["league_id"]),
             season,
             int(preset.get("my_team_id") or 1),
@@ -1229,6 +1310,29 @@ def main(argv: Optional[list] = None) -> int:
         if paid:
             room_median = paid[len(paid) // 2]
             room_max = paid[-1]
+        # ESPN can answer "who else is thin here and able to spend" from the
+        # payload we already hold; only Sleeper could before, so every ESPN
+        # bid fell to the room-median floor with a reason that admitted no
+        # rival had been looked at.
+        if platform == "espn" and espn_payload is not None and not espn_tx.empty:
+            bids_by_team: Dict[str, List[int]] = {}
+            for row in espn_tx.itertuples(index=False):
+                bid = getattr(row, "bid", None)
+                if bid and not pd.isna(bid):
+                    bids_by_team.setdefault(str(row.team), []).append(int(bid))
+            rivals_by_pos = espn_rivals(
+                espn_payload,
+                int(preset.get("my_team_id") or 1),
+                starters_required(
+                    [
+                        slot
+                        for slot, n in config.ROSTER_CONFIGS[preset["roster"]].items()
+                        for _ in range(n)
+                    ]
+                ),
+                bids_by_team,
+                room_median,
+            )
 
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
@@ -1422,6 +1526,21 @@ def main(argv: Optional[list] = None) -> int:
         # supposed to read "no help" this week — so the bid stands.
         if r.get("bid") and r["verdict"] == NO_HELP and not dynasty_league:
             r["bid"] = (1, "rated no help — minimum or nothing")
+        # The bid model prices CONTEST -- what it takes to beat the room. It
+        # has no idea what the player is worth TO US. With no rival model that
+        # was invisible, because every site-league bid fell to the floor
+        # anyway; wiring rivals for ESPN immediately produced $14 (a quarter
+        # of our FAAB, the hard cap) on players rated `depth`. A pure add is
+        # not worth a quarter of the budget however contested it is, so the
+        # verdict caps the contest price.
+        elif r.get("bid") and r["verdict"] == DEPTH:
+            floor = max(1, room_median // 5)
+            if r["bid"][0] > floor:
+                r["bid"] = (
+                    floor,
+                    f"depth only — capped at the ${floor} floor, not the "
+                    f"${r['bid'][0]} it would take to win him",
+                )
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
