@@ -114,9 +114,26 @@ declining a $450 claim is not a $443 error, and that is the whole of the ~$47 me
 Across a whole season the advice wins 20 of 51 contested claims for **$46 of wasted
 FAAB in total**, and the 31 it loses went for a median of $50. That is a deliberate
 posture, not an error rate. The one soft spot worth watching: 9 of those losses went
-for $20 or less, so there is a cheap band where the model is a little too frugal —
-raising the floor to recover them costs more waste than it is worth (see the sweep
-below). Note that
+for $20 or less, so there is a cheap band where the model is a little too frugal.
+
+### Verdict: do NOT bump the unclaimed floor to chase them (HOLD, 2026-10-22)
+
+Swept a targeted bump — raise the floor only for players with no history in this room,
+leaving players we cut at $1:
+
+| unclaimed floor | wins | FAAB wasted | losses | of those, <=$20 |
+|---|---|---|---|---|
+| **$4 (shipped)** | **20** | **$46** | **31** | **9** |
+| $8 | 21 | $106 | 30 | 8 |
+| $12 | 25 | $174 | 26 | 4 |
+| $16 | 26 | $254 | 25 | 3 |
+| $20 | 27 | $341 | 24 | 2 |
+| $25 | 29 | $457 | 22 | 2 |
+
+Every marginal win costs **$26-42 in extra waste** — for players the room itself
+priced at $20 or less. At a $12 floor you would spend $128 more to acquire roughly
+$60-100 of player. The cheap band is real and not worth closing; leave the floor
+where it is unless the room's prices change. Note that
 bidding $1 every time is a strong baseline in this room — the model has to earn its
 place against that, not against the median rule.
 
