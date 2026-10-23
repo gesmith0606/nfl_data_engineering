@@ -1152,6 +1152,16 @@ def main(argv: Optional[list] = None) -> int:
         "--roster-file", type=Path, help="ESPN/Yahoo: my roster, one name per line"
     )
     ap.add_argument(
+        "--faab",
+        type=int,
+        metavar="N",
+        help="our remaining FAAB, when the site cannot be read live. The "
+        "computed bid is gated on the demand history AND the budget, and "
+        "Yahoo's login is behind bot detection — but --transactions-file "
+        "already supplies the history login-free, so one typed number is all "
+        "that stands between a pasted Yahoo board and a priced one",
+    )
+    ap.add_argument(
         "--transactions-file",
         type=Path,
         help="Yahoo: the league Transactions page saved as text, for the demand "
@@ -1387,6 +1397,12 @@ def main(argv: Optional[list] = None) -> int:
         )
     else:
         moves = {}
+
+    # An explicit --faab is the operator telling us a number the site would
+    # not. It wins: they can read their own budget off the page, and the
+    # alternative is no bid at all.
+    if args.faab is not None:
+        my_faab = max(0, int(args.faab))
 
     # Sleeper derives these from every team's transaction log; on ESPN and
     # Yahoo the same winning bids are already in `moves`, so the median and

@@ -248,7 +248,7 @@ mistake that reached the user this season rather than the pipeline:
    file, so the second league's run needs its own path (then paste the rows together).
    On ESPN and Yahoo add `--espn-browser` / `--yahoo-browser`: the computed bid needs the
    demand history AND our remaining FAAB, both of which only the logged-in site read supplies.
-   Without the flag the emitter writes nothing and names the flag. Those two platforms have no
+   Without the flag the emitter writes nothing and names the flag. On Yahoo, where the login is bot-blocked, pass `--transactions-file` (the Transactions page pasted as text) plus `--faab N` instead: that needs no login at all. Those two platforms have no
    rival model (only Sleeper exposes every rival's roster and budget), so their bids are a
    room-median floor and the reason says so — check who else needs the spot yourself.
    A hand-typed bid is the one number here that never came out of the pipeline, which is why

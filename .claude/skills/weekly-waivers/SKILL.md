@@ -250,7 +250,19 @@ It re-checks Step 4b live and prints the table — show it to George. Run it aga
 **Build the claims file with `--emit-claims`, do not type it.** On ESPN and Yahoo this needs
 `--espn-browser` / `--yahoo-browser` too: the computed `BID $N` is gated on the demand history
 AND our remaining FAAB, and without the flag both are absent, so the emitter writes nothing and
-says which flag is missing. ESPN now has the **same rival model as Sleeper** — its payload carries every team's
+says which flag is missing. **Feetball needs no Yahoo login to get priced bids.** The computed bid is gated on the demand
+history AND our budget; `--transactions-file` (the Transactions page pasted as text) supplies
+the first, and `--faab N` supplies the second from the number George reads off his own page:
+```bash
+python scripts/waiver_wire.py --league feetball --week N \
+  --roster-file data/draft/feetball_2026_roster.txt \
+  --available-file data/draft/feetball_2026_available.txt \
+  --transactions-file <pasted.txt> --faab 42
+```
+The login (`league_login.py`) is still the nicer path and would add the rival model, but it is
+behind bot detection and is George's hands only — this route is not blocked on anything.
+
+ESPN now has the **same rival model as Sleeper** — its payload carries every team's
 roster, injury statuses and FAAB spent, so "thin here, holding money, and a proven bidder" is
 answerable there too (`espn_rivals`). Yahoo still has none and says so in the reason.
 A `depth` verdict caps the bid at the room-median floor regardless of contest: the model prices

@@ -1257,3 +1257,27 @@ def test_returning_is_read_from_the_practice_trail_not_only_the_news():
     assert ww.returning_from_practice("unknown", ctx) is False
     assert ww.returning_from_practice(None, ctx) is False
     assert ww.returning_from_practice("s1", None) is False
+
+
+def test_an_explicit_faab_unblocks_pricing_without_a_login():
+    """The bid is gated on history AND budget; Yahoo's login is bot-blocked.
+
+    `--transactions-file` already supplies the demand history login-free, so
+    one typed number was all that stood between a pasted Yahoo board and a
+    priced one. Verified live on ESPN, where both halves are readable: at
+    --faab 58 the cap is $14 (58//4) and the top bid clamps there; at 200 a
+    contested bid rises to $24.
+    """
+    src = (REPO / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+    # The flag must win over whatever the platform branch managed to read.
+    assert "if args.faab is not None:" in src
+    assert "my_faab = max(0, int(args.faab))" in src
+    # And it must be applied BEFORE the rows (and therefore the bids) are built.
+    assert src.index("my_faab = max(0, int(args.faab))") < src.index(
+        "if moves and my_faab"
+    ), "an override applied after the bids would do nothing"
+
+    ww = _waiver_wire()
+    # The cap is a quarter of the budget, which is what the override moves.
+    assert ww.suggest_bid(None, [40], 10, 58, 7)[0] == 14
+    assert ww.suggest_bid(None, [40], 10, 200, 7)[0] == 48
