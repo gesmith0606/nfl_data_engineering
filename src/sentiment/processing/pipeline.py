@@ -29,12 +29,15 @@ Plan 71-04 extensions:
 
 from __future__ import annotations
 
+import glob
+
 import json
 import logging
 import os
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
@@ -134,6 +137,7 @@ class PipelineResult:
     # Plan 71-01 additive fields (safe defaults — zero-like / empty).
     claude_failed_count: int = 0
     unresolved_player_count: int = 0
+    stale_doc_count: int = 0
     non_player_count: int = 0
     non_player_items: List[Dict[str, Any]] = field(default_factory=list)
     is_claude_primary: bool = False
@@ -157,6 +161,82 @@ class PipelineResult:
 # ---------------------------------------------------------------------------
 # Pipeline
 # ---------------------------------------------------------------------------
+
+
+#: How far either side of a week's own games a document may be published and
+#: still be filed under that week. Covers the Tuesday-to-Tuesday waiver cycle
+#: either side of the slate, plus slack for sloppy publisher timestamps.
+_WEEK_WINDOW_DAYS = 10
+
+
+@lru_cache(maxsize=8)
+def _week_dates(season: int) -> Dict[int, Tuple[date, date]]:
+    """``week -> (first gameday, last gameday)`` from the committed schedule.
+
+    An arithmetic guess is not good enough: "September 1 + 7 days a week" put
+    week 7 of 2026 at October 13 when its games actually ran October 22-26,
+    nine days out, which is most of a week's worth of news misfiled. The
+    schedule parquet is committed (TD-09) precisely so this is knowable.
+
+    Returns an empty map if the schedule is missing, which makes the staleness
+    guard fail open rather than drop every document.
+    """
+    try:
+        import pandas as pd
+
+        files = sorted(
+            glob.glob(
+                str(
+                    _PROJECT_ROOT
+                    / "data"
+                    / "bronze"
+                    / "schedules"
+                    / f"season={season}"
+                    / "**"
+                    / "*.parquet"
+                ),
+                recursive=True,
+            )
+        )
+        if not files:
+            return {}
+        df = pd.read_parquet(files[-1])
+        df = df[df["game_type"] == "REG"]
+        out: Dict[int, Tuple[date, date]] = {}
+        for wk, grp in df.groupby("week"):
+            days = sorted(str(g)[:10] for g in grp["gameday"] if g)
+            if days:
+                out[int(wk)] = (
+                    datetime.strptime(days[0], "%Y-%m-%d").date(),
+                    datetime.strptime(days[-1], "%Y-%m-%d").date(),
+                )
+        return out
+    except Exception:  # noqa: BLE001 — fail open, never drop every doc
+        return {}
+
+
+def _too_old_for_week(doc, season, week):
+    """Is this document published too far from ``week`` to belong to it?
+
+    Returns False when the week is unknown, the date is unparseable, or the
+    schedule is unavailable: the pipeline fails open, because dropping a
+    document on a bad timestamp would lose real signal to fix a backfill
+    problem.
+    """
+    if week is None:
+        return False
+    raw = str(doc.get("published_at") or "")[:10]
+    try:
+        published = datetime.strptime(raw, "%Y-%m-%d").date()
+    except ValueError:
+        return False
+    span = _week_dates(season).get(int(week))
+    if span is None:
+        return False
+    first, last = span
+    return published < first - timedelta(
+        days=_WEEK_WINDOW_DAYS
+    ) or published > last + timedelta(days=_WEEK_WINDOW_DAYS)
 
 
 #: ``PlayerSignal.extractor`` -> the class that produced it. Keeps
@@ -754,11 +834,15 @@ class SentimentPipeline:
         records: List[Dict[str, Any]] = []
         for signal in signals:
             player_id = self.resolver.resolve(signal.player_name)
-            if player_id is None:
+            if player_id is None and signal.player_name:
+                # Same rule as _records_for_doc: an unresolvable person-name is
+                # extractor noise, not signal. Team-level subjects carry no
+                # player_name and are kept.
                 logger.debug(
-                    "Could not resolve player '%s' — signal included without ID",
+                    "Dropped unresolvable subject '%s' — not an NFL player",
                     signal.player_name,
                 )
+                continue
             record = self._build_silver_record(
                 doc=doc,
                 signal=signal,
@@ -945,6 +1029,14 @@ class SentimentPipeline:
                     logger.debug("Skipping already-processed doc: %s", doc_id)
                     continue
 
+                if _too_old_for_week(doc, season, week):
+                    # See the rule-path loop below: signals are stamped with
+                    # the REQUESTED week, so a backfill files old news under
+                    # the current one. Both loops need the guard.
+                    result.stale_doc_count += 1
+                    self._processed_ids.add(doc_id)
+                    continue
+
                 try:
                     records = self._process_doc(doc, season, week, source)
                     all_records.extend(records)
@@ -1007,6 +1099,16 @@ class SentimentPipeline:
                 doc_id = self._get_doc_id(doc)
                 if doc_id in self._processed_ids:
                     result.skipped_count += 1
+                    continue
+                if _too_old_for_week(doc, season, week):
+                    # Every signal is stamped with the REQUESTED week, not the
+                    # week the article belongs to, so a full reprocess files
+                    # months of old news under the current week. Clearing
+                    # processed_ids once put 141 June-September docs into week
+                    # 7 and tripled its apparent coverage with stale signal.
+                    # Normal incremental runs never hit this; a backfill or a
+                    # cache reset hits it every time, silently.
+                    result.stale_doc_count += 1
                     continue
                 unprocessed.append((doc, source))
 
@@ -1226,6 +1328,17 @@ class SentimentPipeline:
                         "extractor": signal.extractor,
                     }
                 )
+                # Persisted to the unresolved-names sink above, and NOT emitted
+                # as a signal. A capitalised pair that resolves to no NFL
+                # player is not a player signal: week 7 carried 28 of these
+                # out of 102 -- Dan Quinn and Mike Vrabel (coaches), Ian
+                # Rapoport and Matt Derrick (reporters), Soldier Field, "Super
+                # Bowl", "Kansas City's". The aggregator always skipped them,
+                # so Gold is unchanged; what goes away is a count that read
+                # like lost signal and a quarter of the LLM tokens spent on
+                # enriching stadium names. Team-level subjects (no
+                # player_name, team_abbr set) are legitimate and still kept.
+                continue
             record = self._build_silver_record(
                 doc=doc,
                 signal=signal,

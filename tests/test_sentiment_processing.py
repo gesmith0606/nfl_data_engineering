@@ -1177,3 +1177,55 @@ def test_model_version_records_what_ran_not_what_was_configured():
     assert '"model_version": _MODEL_VERSION.get(' in src
     assert "signal.extractor, type(self._extractor).__name__" in src
     assert '"model_version": type(self._extractor).__name__,' not in src
+
+
+def test_a_backfill_cannot_file_old_news_under_the_current_week():
+    """Signals are stamped with the REQUESTED week, not the article's own.
+
+    Clearing processed_ids once put 141 June-September documents into week 7
+    and tripled its apparent coverage (30 -> 200 players) with stale signal.
+    Normal incremental runs never hit this; a backfill or a cache reset hits
+    it every time, silently.
+    """
+    from src.sentiment.processing.pipeline import _too_old_for_week, _week_dates
+
+    weeks = _week_dates(2026)
+    assert weeks.get(7) is not None, "the committed schedule should be readable"
+    first, last = weeks[7]
+    assert (first.month, last.month) == (10, 10), f"week 7 ran {first}..{last}"
+
+    stale = {"published_at": "2026-06-30"}
+    fresh = {"published_at": str(first)}
+    assert _too_old_for_week(stale, 2026, 7) is True
+    assert _too_old_for_week(fresh, 2026, 7) is False
+
+    # Fails OPEN: an unknown week, an unparseable date or a missing schedule
+    # must never drop a document — that would lose real signal to fix a
+    # backfill problem.
+    assert _too_old_for_week(stale, 2026, None) is False
+    assert _too_old_for_week({"published_at": "not-a-date"}, 2026, 7) is False
+    assert _too_old_for_week(stale, 1999, 7) is False
+
+
+def test_the_week_window_comes_from_the_schedule_not_arithmetic():
+    """ "Sep 1 + 7 days a week" put week 7 at Oct 13; it really ran Oct 22-26."""
+    from src.sentiment.processing.pipeline import _week_dates
+
+    weeks = _week_dates(2026)
+    assert len(weeks) >= 17, "all regular-season weeks should be present"
+    # Nine days of drift is most of a week's news misfiled.
+    assert weeks[7][0].day >= 20
+
+
+def test_an_unresolvable_person_name_is_not_emitted_as_a_signal():
+    """28 of 102 week-7 signals were coaches, reporters and Soldier Field."""
+    src = (
+        Path(__file__).resolve().parent.parent
+        / "src"
+        / "sentiment"
+        / "processing"
+        / "pipeline.py"
+    ).read_text(encoding="utf-8")
+    # Both resolve sites must drop a named subject that resolves to nobody.
+    assert src.count("if player_id is None and signal.player_name:") == 2
+    assert "not an NFL player" in src
