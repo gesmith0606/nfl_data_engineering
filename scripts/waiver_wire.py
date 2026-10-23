@@ -52,6 +52,7 @@ from src.lineup_setter import (  # noqa: E402
 )
 from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
 from src.waiver_verdicts import (  # noqa: E402
+    NO_HELP,
     drop_order,
     load_keepers,
     roster_baseline,
@@ -773,6 +774,38 @@ def roster_mechanics(
     return lines
 
 
+def yahoo_live_pools(
+    league_id: str, team_id: int, teams: int, pages: int = 4
+) -> Dict[str, List[str]]:
+    """My roster, the league's rostered set and the free-agent pool, from Yahoo.
+
+    Yahoo's API has no read scope, so this league used to need three
+    hand-saved files while Sleeper and ESPN read themselves. Returns empty
+    lists on any failure so the report degrades to the files rather than dying.
+
+    Returns:
+        ``{"mine", "rostered", "available"}`` of player names.
+    """
+    try:
+        from src import waiver_sites as ws
+        from src.fantasy_browser import FantasyBrowser
+        from src.yahoo_transactions_page import parse_yahoo_player_names
+
+        browser = FantasyBrowser()
+        page = ws.site_page(browser, "yahoo", str(league_id), team_id)
+        raw = ws.yahoo_rosters(
+            page, str(league_id), team_id, range(1, int(teams) + 1), pages
+        )
+        return {
+            "mine": parse_yahoo_player_names(raw.get("mine", "")),
+            "rostered": parse_yahoo_player_names(raw.get("league", "")),
+            "available": parse_yahoo_player_names(raw.get("available", "")),
+        }
+    except Exception as exc:  # noqa: BLE001 — fall back to the files
+        print(f"WARN: Yahoo live pools unavailable ({exc})")
+        return {"mine": [], "rostered": [], "available": []}
+
+
 def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -875,20 +908,48 @@ def main(argv: Optional[list] = None) -> int:
         starters = {str(p) for p in (my.get("starters") or [])}
         title = f"{league.get('name')} — {username}"
     else:
-        if not args.roster_file:
-            sys.exit(
-                f"{args.league} is on {platform}: pass --roster-file with your roster"
+        live = (
+            yahoo_live_pools(
+                str(preset["league_id"]),
+                int(preset.get("my_team_id") or 1),
+                int(preset.get("teams") or 10),
             )
-        mine = sorted(roster_ids_from_file(args.roster_file, by_name))
-        rostered = set(mine)
-        if args.rostered_file:
-            rostered |= roster_ids_from_file(args.rostered_file, by_name)
+            if platform == "yahoo" and args.yahoo_browser
+            else None
+        )
+        if live and live["mine"]:
+            to_id = {n: sid for (n, _p), sid in by_name.items()}
+
+            def ids(names: Sequence[str]) -> Set[str]:
+                return {
+                    to_id[normalize_name(n)]
+                    for n in names
+                    if normalize_name(n) in to_id
+                }
+
+            mine = sorted(ids(live["mine"]))
+            rostered = ids(live["rostered"]) | set(mine)
+            live_available = ids(live["available"])
+            title = f"{args.league} ({platform}, read live from the league site)"
+        elif not args.roster_file:
+            sys.exit(
+                f"{args.league} is on {platform}: pass --roster-file with your "
+                "roster, or --yahoo-browser to read it live"
+            )
+        else:
+            mine = sorted(roster_ids_from_file(args.roster_file, by_name))
+            rostered = set(mine)
+            if args.rostered_file:
+                rostered |= roster_ids_from_file(args.rostered_file, by_name)
+            live_available = None
+            title = (
+                f"{args.league} ({platform}, my roster from {args.roster_file.name})"
+            )
         mechanics = []
-        title = f"{args.league} ({platform}, my roster from {args.roster_file.name})"
     available: Optional[Set[str]] = (
         roster_ids_from_file(args.available_file, by_name)
         if args.available_file
-        else None
+        else (live_available if platform != "sleeper" else None)
     )
     scoring = scoring_for(preset, league)
 
@@ -917,6 +978,8 @@ def main(argv: Optional[list] = None) -> int:
     room_median = 0
     room_max = 0
     my_faab = 0
+    my_roster_id: Optional[str] = None
+    live_available: Optional[Set[str]] = None
     my_roster_id: Optional[str] = None
     if platform == "sleeper":
         tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
@@ -1133,8 +1196,15 @@ def main(argv: Optional[list] = None) -> int:
     fas = [
         r for r in (row(s) for s in registry if s not in rostered) if r and likely_fa(r)
     ]
+    dynasty_league = bool(preset.get("dynasty"))
     for r in fas:
         r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
+        # A price on a player the report says does not help is incoherent: in
+        # a redraft league "no help" is a refusal, so the only honest number
+        # is the minimum. In dynasty the verdict is advisory — an asset buy is
+        # supposed to read "no help" this week — so the bid stands.
+        if r.get("bid") and r["verdict"] == NO_HELP and not dynasty_league:
+            r["bid"] = (1, "rated no help — minimum or nothing")
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "

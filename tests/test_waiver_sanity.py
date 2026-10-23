@@ -199,3 +199,11 @@ def test_a_starter_verdict_is_never_a_no_help_violation():
     assert not any(
         x.check == "no-help-priced" for x in check_report(_report(rows), dynasty=False)
     )
+
+
+def test_a_minimum_bid_on_a_no_help_player_is_allowed_in_redraft():
+    """The model prices every unclaimed player; $1 is the honest refusal."""
+    rows = [_row("Depth Guy", "TE", "PIT", "no help BID $1 [unclaimed]")]
+    assert not any(
+        x.check == "no-help-priced" for x in check_report(_report(rows), dynasty=False)
+    )
