@@ -98,7 +98,9 @@ against two baselines.
   minimum      51         10$      47.9        43%
 ```
 
-Read the median and the hit rate; the mean is outliers (see below). Note that
+It fails (exit 1) when the model loses to either naive rule, and
+`--max-median-error N` adds a bound so drift is caught by a check rather than by a
+bad claim. Read the median and the hit rate; the mean is outliers (see below). Note that
 bidding $1 every time is a strong baseline in this room — the model has to earn its
 place against that, not against the median rule.
 
@@ -125,6 +127,12 @@ Two more hypotheses were tested the same day and also rejected:
 | dynasty value | +0.20 (n=50) |
 | week of season | +0.05 (n=51) |
 | bidder's prior spend | -0.09 (n=51) |
+| last week's fantasy points | -0.01 (n=51) |
+
+That last one is the most telling. The seven bids over $100 went to players
+whose **median prior-week score was 4.7 — identical to the players who went
+for under $100**. They were not breakout chases; they were speculative buys.
+A classifier on a big recent game reaches 13% precision at best.
 
 Nothing we record predicts a $450 bid, because it depends on how badly one
 manager wants one player. The report surfaces the room's historical max as
