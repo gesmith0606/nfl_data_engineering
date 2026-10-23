@@ -52,11 +52,30 @@ board (Roschon Johnson, dyn 539, role borrowed from an injured team-mate) over a
 23-year-old starting QB at dyn 1271 in a superflex league. Mantis adds DYN + AGE
 columns and that list; every
 free agent gets a FIT verdict vs MY roster — STARTS / BENCH+ / depth / no help — and
-keepers are tagged KEEP and excluded from drop candidates). Never recommend a "no help"
-player however hot he is. Then
+keepers are tagged KEEP and excluded from drop candidates). In a REDRAFT league
+(La Liga, Feetball) never recommend a "no help" player however hot he is — FIT is a
+weekly verdict. In a DYNASTY league it is advisory only: an asset buy is supposed to
+read "no help" this week (2026-10-21, Jalon Daniels: `no help`, dyn 1271, age 23, the
+correct Mantis add). Also read the RENTAL/ENDING tag before the points — `ENDING<-NAME`
+means the week's news says that team-mate is returning, so the role is going away now.
+Then
 `scripts/player_dossier.py` on the shortlist (usage, injuries around them, matchup).
 Check WHY a player is trending (starter injured? which injury, how long?) before
 recommending him.
+
+## Step 3b — Every slot the league actually has
+Read `roster_positions` from the report's "Roster mechanics" block and cover EVERY slot,
+not just the skill positions. Mantis and Mahomo's have no K and no DEF; La Liga has a
+D/ST but no K; Feetball has both. On 2026-10-20 La Liga's D/ST was streamed and
+Feetball's K and DEF were forgotten entirely until George asked.
+
+```bash
+python scripts/stream_dst_k.py --pool data/draft/<league>_2026_dstk_pool.txt --week N
+```
+Refresh the pool file from the league site first (one line per DEF/K with the site's own
+projection — format in the script's docstring). The report gives SITE + Sleeper + the
+Vegas implied total, flags SWAP/KEEP on a two-source rule, and looks three weeks ahead
+for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 
 ## Step 4 — Decide
 **Mantis (dynasty) — value over points:**
@@ -67,6 +86,12 @@ recommending him.
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
 - Drop order = lowest dynasty value with no role (old backups first).
+- **Check the "Roster mechanics" block before naming a drop.** It prints open active
+  slots, IR/taxi use, which `injury_status` values this league's IR actually accepts,
+  and any IR-eligible player sitting on your bench. A free IR slot is not usable by an
+  "Out" player unless `reserve_allow_out` is set — Mantis 2026 does not set it — and a
+  bench player who *is* eligible frees an active slot for free. Both were got wrong on
+  2026-10-20.
 - **Bids — price the player, not the room.** Read his `[demand]` bracket in the
   waiver report FIRST: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
   That is what these managers have actually paid for *him*. The room's median/p75 from

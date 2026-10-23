@@ -23,6 +23,18 @@ sys.path.insert(0, ".")
 import pandas as pd  # noqa: E402
 from src.sleeper_player_map import normalize_name, load_sleeper_players  # noqa: E402
 
+_USAGE = (
+    "usage: trade_scan.py <league>\n"
+    "\n"
+    "  league is a LEAGUE_PRESETS key: mantis | la_liga | feetball | gentlemen\n"
+    "  Example: python scripts/trade_scan.py feetball\n"
+)
+if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+    # argparse would be heavier than this script needs, but crashing on
+    # --help with a traceback is not a usage message.
+    sys.exit(_USAGE)
+
+
 LEAGUE = sys.argv[1]
 DRAFT = "data/draft"
 SLOTS = {

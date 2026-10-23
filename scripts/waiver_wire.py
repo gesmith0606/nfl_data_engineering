@@ -31,7 +31,7 @@ import time
 import importlib.util
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Set, Tuple
 
 import pandas as pd
 
@@ -274,7 +274,7 @@ UNRANKED = 10**6
 
 def injured_teammates(
     registry: Dict[str, Any],
-) -> Dict[Tuple[str, str], List[Tuple[int, str]]]:
+) -> Dict[Tuple[str, str], List[Tuple[int, str, str]]]:
     """Map ``(team, position)`` to ``(search_rank, name)`` for players who cannot play.
 
     Built from the Sleeper registry's live ``injury_status`` rather than the
@@ -289,11 +289,13 @@ def injured_teammates(
         registry: Sleeper player registry (``sleeper_player_id -> meta``).
 
     Returns:
-        ``(team, position) -> [(search_rank, name)]``, best rank first, for
-        skill positions only.
+        ``(team, position) -> [(search_rank, name, sleeper_id)]``, best rank
+        first, for skill positions only. The id lets callers join the week's
+        sentiment flags onto the team-mate — "he is out" and "he is due back
+        Sunday" are opposite signals for the player filling in.
     """
     out: Dict[Tuple[str, str], List[Tuple[int, str]]] = {}
-    for meta in registry.values():
+    for sid, meta in registry.items():
         if not isinstance(meta, dict):
             continue
         if str(meta.get("injury_status") or "").upper() not in BLOCKING_STATUSES:
@@ -304,9 +306,83 @@ def injured_teammates(
             continue
         rank = meta.get("search_rank")
         out.setdefault((str(team), str(pos)), []).append(
-            (int(rank) if isinstance(rank, (int, float)) else UNRANKED, str(name))
+            (
+                int(rank) if isinstance(rank, (int, float)) else UNRANKED,
+                str(name),
+                str(sid),
+            )
         )
     return {k: sorted(v) for k, v in out.items()}
+
+
+#: Sleeper ``reserve_allow_*`` setting -> the ``injury_status`` it permits in an
+#: IR slot. A slot that is free is not a slot you may use: Mantis 2026 runs
+#: ``reserve_allow_out = 0``, so a player merely "Out" cannot be stashed there.
+RESERVE_ALLOWS = {
+    "reserve_allow_out": "Out",
+    "reserve_allow_doubtful": "Doubtful",
+    "reserve_allow_sus": "Sus",
+    "reserve_allow_na": "NA",
+    "reserve_allow_cov": "COV",
+    "reserve_allow_dnr": "DNR",
+}
+
+
+def roster_mechanics(
+    league: Mapping[str, Any],
+    my_roster: Mapping[str, Any],
+    registry: Mapping[str, Any],
+) -> List[str]:
+    """Slot accounting a claim depends on: open spots, IR rules, who can be stashed.
+
+    Every claim is really two questions — is he worth it, and where does he go.
+    The second one went wrong twice in one session: a player was recommended
+    for an IR slot the league does not allow him in, and a bench player who
+    *was* IR-eligible sat unnoticed while the roster read as full.
+
+    Args:
+        league: Sleeper league object (``roster_positions``, ``settings``).
+        my_roster: My roster object (``players``, ``reserve``, ``taxi``).
+        registry: Sleeper player registry, for names and injury status.
+
+    Returns:
+        Printable lines; empty when the league object is unusable.
+    """
+    positions = league.get("roster_positions") or []
+    if not positions:
+        return []
+    settings = league.get("settings") or {}
+    players = [str(p) for p in (my_roster.get("players") or [])]
+    reserve = {str(p) for p in (my_roster.get("reserve") or [])}
+    taxi = {str(p) for p in (my_roster.get("taxi") or [])}
+    active = [p for p in players if p not in reserve and p not in taxi]
+
+    ir_slots = int(settings.get("reserve_slots") or 0)
+    taxi_slots = int(settings.get("taxi_slots") or 0)
+    allowed = ["IR"] + [
+        label for key, label in RESERVE_ALLOWS.items() if settings.get(key)
+    ]
+
+    open_active = len(positions) - len(active)
+    lines = [
+        f"  active {len(active)}/{len(positions)}"
+        f" ({open_active} open — a claim needs a drop when 0)"
+        f" | IR {len(reserve)}/{ir_slots} | taxi {len(taxi)}/{taxi_slots}"
+    ]
+    if ir_slots:
+        lines.append(f"  IR accepts: {', '.join(allowed)}")
+        if ir_slots > len(reserve):
+            stashable = sorted(
+                (registry.get(p) or {}).get("full_name") or p
+                for p in active
+                if str((registry.get(p) or {}).get("injury_status") or "").upper()
+                in {a.upper() for a in allowed}
+            )
+            lines.append(
+                "  IR-eligible on your bench (move to free an active slot): "
+                + (", ".join(stashable) if stashable else "none")
+            )
+    return lines
 
 
 def main(argv: Optional[list] = None) -> int:
@@ -373,6 +449,7 @@ def main(argv: Optional[list] = None) -> int:
         for r in sleeper_http.get_league_rosters(str(preset["league_id"])):
             rostered.update(str(p) for p in (r.get("players") or []))
         my = set_lineups.find_my_roster(str(preset["league_id"]), username)
+        mechanics = roster_mechanics(league, my, registry)
         mine = [
             str(p) for p in (my.get("players") or []) if p not in (my.get("taxi") or [])
         ]
@@ -387,6 +464,7 @@ def main(argv: Optional[list] = None) -> int:
         rostered = set(mine)
         if args.rostered_file:
             rostered |= roster_ids_from_file(args.rostered_file, by_name)
+        mechanics = []
         title = f"{args.league} ({platform}, my roster from {args.roster_file.name})"
     available: Optional[Set[str]] = (
         roster_ids_from_file(args.available_file, by_name)
@@ -487,10 +565,18 @@ def main(argv: Optional[list] = None) -> int:
             # not the league-wide median (see demand_note).
             "demand": demand_note(moves.get(sid), week) if moves else "",
             "blocked_by": [
-                n
-                for rank, n in blocked_map.get((str(meta.get("team")), pos), [])
+                f"{n}({news[bsid]})" if news.get(bsid) else n
+                for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
                 if n != (meta.get("full_name") or "") and rank < own_rank(meta)
             ],
+            # A team-mate the week's news says is RETURNING ends the rental:
+            # the candidate is about to lose the role, not grow into it.
+            "blocked_returning": any(
+                "returning" in (news.get(bsid) or "")
+                or "activated" in (news.get(bsid) or "")
+                for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
+                if n != (meta.get("full_name") or "") and rank < own_rank(meta)
+            ),
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
@@ -512,7 +598,8 @@ def main(argv: Optional[list] = None) -> int:
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + (f" [{r['demand']}]" if r.get("demand") else "")
             + (
-                f" RENTAL<-{', '.join(r['blocked_by'])[:34]}"
+                f" {'ENDING' if r.get('blocked_returning') else 'RENTAL'}"
+                f"<-{', '.join(r['blocked_by'])[:44]}"
                 if r.get("blocked_by")
                 else ""
             )
@@ -552,7 +639,9 @@ def main(argv: Optional[list] = None) -> int:
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
-        "revert when he returns — check before paying up. ADDS counts adds "
+        "revert when he returns — check before paying up; ENDING<- means the "
+        "week's news says that team-mate is RETURNING, so the role is going "
+        "away now, not later. ADDS counts adds "
         "across ALL of Sleeper, not this league — never price a claim off it. "
         "[brackets] = what THIS room has paid for him (unclaimed / held $N / "
         "cut wkN, free Nwk): that is the first bid anchor, and "
@@ -586,7 +675,12 @@ def main(argv: Optional[list] = None) -> int:
     missing = ", ".join(map(str, unscored)) or "none"
     weakest = "dynasty value" if dyn else "blend"
     print(
-        f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
+        (
+            "\n-- Roster mechanics --\n" + "\n".join(mechanics) + "\n"
+            if mechanics
+            else ""
+        )
+        + f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
         f"unscored: {missing}) --"
     )
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):

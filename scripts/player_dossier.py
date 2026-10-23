@@ -16,6 +16,18 @@ sys.path.insert(0, ".")
 from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
 from src import sleeper_http  # noqa: E402
 
+_USAGE = (
+    "usage: player_dossier.py <names-file>\n"
+    "\n"
+    "  The names file has '## SECTION' headers, then one player name per line.\n"
+    "  Example: python scripts/player_dossier.py data/draft/week7_candidates.txt\n"
+)
+if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+    # argparse would be heavier than this script needs, but crashing on
+    # --help with a traceback is not a usage message.
+    sys.exit(_USAGE)
+
+
 wk = pd.read_parquet(
     sorted(glob.glob("data/bronze/players/weekly/season=2026/*.parquet"))[-1]
 )
@@ -26,7 +38,9 @@ team_tg = wk.groupby("recent_team").targets.sum()
 team_car = wk.groupby("recent_team").carries.sum()
 team_ay = wk.groupby("recent_team").receiving_air_yards.sum()
 sn = pd.read_parquet(
-    sorted(glob.glob(f"data/bronze/players/snaps/season=2026/week={LAST}/*.parquet"))[-1]
+    sorted(glob.glob(f"data/bronze/players/snaps/season=2026/week={LAST}/*.parquet"))[
+        -1
+    ]
 )
 sn["name"] = sn.player.map(normalize_name)
 dc = pd.read_parquet(
