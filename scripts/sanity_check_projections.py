@@ -123,6 +123,30 @@ CONSENSUS_TOP_50: List[Tuple[int, str, str, str]] = [
 # ---------------------------------------------------------------------------
 # Name normalization for fuzzy matching
 # ---------------------------------------------------------------------------
+def _abbrev_key(name: str) -> str:
+    """Collapse a name to "<first initial> <surname>" for matching.
+
+    Our weekly Gold boards store abbreviated names ("D.Maye") while the
+    consensus feeds carry full names ("Drake Maye"), so :func:`_normalize_name`
+    can never match them. That made the weekly star check emit a
+    "WEEKLY STAR MISSING" warning for essentially every star, every week —
+    verified false on the 2026 w7 board, where D.Maye, L.Jackson, B.Purdy,
+    P.Nacua and J.Smith-Njigba were all present and correctly ranked. A check
+    that always fires hides the real signal, which is a star we genuinely
+    dropped.
+
+    Returns an empty string when no usable key can be built, so callers can
+    skip rather than match everything to everything.
+    """
+    n = _normalize_name(name).replace(".", " ").strip()
+    if not n:
+        return ""
+    parts = [p for p in n.split() if p]
+    if len(parts) < 2:
+        return ""
+    return f"{parts[0][0]} {parts[-1]}"
+
+
 def _normalize_name(name: str) -> str:
     """Normalize player name for comparison (lowercase, strip suffixes)."""
     n = name.lower().strip()
@@ -3324,9 +3348,7 @@ def run_weekly_projection_check(
         skill_positions = {"QB", "RB", "WR", "TE"}
         pos_col = "position" if "position" in df.columns else None
         if pos_col:
-            neg_skill = df[
-                df[pos_col].isin(skill_positions) & (df[pts_col] < 0)
-            ]
+            neg_skill = df[df[pos_col].isin(skill_positions) & (df[pts_col] < 0)]
         else:
             neg_skill = df[df[pts_col] < 0]
 
@@ -3498,9 +3520,7 @@ def _check_weekly_star_rank_sanity(
             f"WEEKLY STAR-RANK SKIPPED: Silver external_projections/season={ext_season}/ "
             "exists but contains no week partitions."
         )
-        print(
-            f"  [SKIP] Star-rank check (no week partitions for season={ext_season})"
-        )
+        print(f"  [SKIP] Star-rank check (no week partitions for season={ext_season})")
         return criticals, warnings
 
     # Pick the requested week's partition when it exists; otherwise use latest.
@@ -3548,9 +3568,7 @@ def _check_weekly_star_rank_sanity(
 
     # Build normalized name lookup in our weekly file.
     if pts_col not in weekly_df.columns or "position" not in weekly_df.columns:
-        warnings.append(
-            "WEEKLY STAR-RANK SKIPPED: weekly df missing required columns."
-        )
+        warnings.append("WEEKLY STAR-RANK SKIPPED: weekly df missing required columns.")
         return criticals, warnings
 
     weekly = weekly_df.copy()
@@ -3577,9 +3595,16 @@ def _check_weekly_star_rank_sanity(
         top_consensus = ext_pos.nlargest(_WEEKLY_CONSENSUS_TOP_N, "projected_points")
         n_checked += len(top_consensus)
 
+        # Abbreviation-tolerant fallback key (see _abbrev_key).
+        our_pos["_abbrev"] = our_pos["player_name"].apply(_abbrev_key)
+
         for _, cons_row in top_consensus.iterrows():
             norm = cons_row["_norm"]
             our_rows = our_pos[our_pos["_norm"] == norm]
+            if our_rows.empty:
+                cons_abbrev = _abbrev_key(cons_row["player_name"])
+                if cons_abbrev:
+                    our_rows = our_pos[our_pos["_abbrev"] == cons_abbrev]
             if our_rows.empty:
                 # Player not in our weekly file — may be injured or bye week.
                 # This is a WARNING not CRITICAL since weekly files

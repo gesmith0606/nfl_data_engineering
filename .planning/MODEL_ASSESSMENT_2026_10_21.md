@@ -143,30 +143,48 @@ graph features were computed**, so this is not (only) the graph gap. The WR/TE
 Ridge hybrid is a headline v4.1/v4.3 ship and it is silently degrading to the
 heuristic. Not diagnosed further here; it needs its own session.
 
-Related: `projection_source` is `hybrid` on every row of every board, so the
-column cannot distinguish which path actually produced a projection. It is
-useless for exactly the question it exists to answer.
+Related: `projection_source` is `hybrid` on every row of every board. That is
+in fact *accurate* about the route taken — the router promotes all four
+positions to hybrid — but it says nothing about whether the correction
+actually applied, which is why the WR secondary-blend fallback stayed
+invisible for two months. **FIXED 2026-10-23**: `apply_residual_correction`
+now stamps `residual_correction_applied`, recording the outcome rather than
+the intent. Both fallback returns are stamped False.
 
 ## Finding 5 — smaller defects
 
-- **Anchor coverage erosion**: the shipped Sleeper anchor matched 93% -> 91%
-  -> 86% -> **79%** of eligible WR/RB/TE rows over w3-6 (w7: 81%). The guard
-  only warns below 50%, so a load-bearing lever quietly stopped firing on one
-  row in five. Not fixed.
-- **Bye-week rows carry non-zero projections**: 31 rows at 0.8-1.74 pts,
-  present with all levers off, contradicting the documented "bye week -> all
-  stats zeroed" invariant. The injury invariant covers `injury_multiplier == 0`
-  but not bye rows. Not fixed.
+- ~~**Anchor coverage erosion**~~ **NOT A DEFECT — corrected 2026-10-23.**
+  Raw coverage did fall 93% -> 79% over w3-6, but that is Sleeper's published
+  slate shrinking (401 skill rows in w3 to 337 by w6) while our board holds
+  ~340. Coverage over rows projected >= 5 pts held at ~**99%**: just 15
+  unmatched startables across five weeks, and every one was verified **absent
+  from Sleeper's feed** that week, not mis-joined. The real defect was the
+  guard's denominator. Fixed: startable-pool coverage is now reported and
+  warned on below 90%. See `ANCHOR_COVERAGE_2026_10_23.md`. The claim above
+  that "a load-bearing lever quietly stopped firing on one row in five" was
+  wrong.
+- **Bye-week rows carry non-zero projections** — **FIXED 2026-10-23.** The
+  injury invariant covered `injury_multiplier == 0` but not bye rows (a player
+  on bye is Active, just not playing). A bye invariant now runs alongside it,
+  after every blend that can revive a row, and zeroes the band as well as the
+  points. Live w7: 16 bye rows re-zeroed, all 51 now at 0.00.
 - **Abbreviated-name collisions are real**: the w6 board carries two distinct
   `J.Daniels` QBs (00-0039910 at 25.22, 00-0041251 at 20.16), plus
   `K.Johnson`, `K.Williams`, `M.Evans` and `T.Johnson` pairs across positions.
   Distinct `player_id`s, so no duplicate-row bug — but the lineup/waiver tools
   join on names in places, and a backup projected at 20.16 is also a symptom
-  of the depth-chart gating gap.
-- **A team-level sanity check fires on every team every week**: "projected
-  70.3 fantasy pts exceeds 110% of implied total 21.5". It compares a team's
-  *summed fantasy points* against its *implied game score* — different units,
-  so the check can never pass. A check that always fires is not a check.
+  of the depth-chart gating gap. Relatedly **FIXED 2026-10-23**: the weekly
+  sanity checker's "WEEKLY STAR MISSING" warnings were a name-format mismatch
+  (consensus "Drake Maye" vs our board's "D.Maye"), firing for every star
+  every week. An abbreviation-tolerant fallback key takes w7 from 11 warnings
+  to **0** while keeping distinct players distinct.
+- **A team-level sanity check fires on every team every week** —
+  **FIXED 2026-10-23.** It compared a team's *summed fantasy points* against
+  its *implied game score*. `projection_engine._IMPLIED_TO_FANTASY_MULT`
+  (half-PPR 3.36) already held the calibrated conversion; the check simply
+  never applied it. Now converts the implied total into a fantasy budget
+  first, and takes `scoring_format`. Live w7 warnings: **32 -> 0**, while a
+  genuinely inflated team still trips it.
 - **`ranking_score` pre-injury leak**: the w6 board had Lamar Jackson at
   `projected_points` 0.00 and `ranking_score` 18.53 (rank 13 among QBs).
   Already fixed upstream by 248e0c81, which placed the injury invariant before

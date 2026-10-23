@@ -1308,6 +1308,15 @@ def load_residual_model(
     return model, meta
 
 
+#: Provenance column stamped by :func:`apply_residual_correction`. True only
+#: when a correction was actually added to the heuristic. The router's
+#: ``projection_source`` records which ROUTE was taken ("hybrid"), not whether
+#: the correction ran — so when the residual path fell back, every board row
+#: still read "hybrid" and the WR secondary-blend bug stayed invisible for two
+#: months. This column is the outcome, not the intent.
+RESIDUAL_APPLIED_COL: str = "residual_correction_applied"
+
+
 def apply_residual_correction(
     heuristic_projections: pd.DataFrame,
     player_features: pd.DataFrame,
@@ -1358,7 +1367,7 @@ def apply_residual_correction(
         model_obj, meta = load_residual_model(position, model_dir)
     except FileNotFoundError:
         logger.warning("No residual model for %s; returning heuristic as-is", position)
-        return heuristic_projections
+        return _stamp_residual_applied(heuristic_projections, False)
 
     model_type = meta.get("model_type", "ridge")
     features = meta.get("features", [])
@@ -1435,7 +1444,7 @@ def apply_residual_correction(
         logger.warning(
             "No matching features for %s residual model; returning heuristic", position
         )
-        return heuristic_projections
+        return _stamp_residual_applied(heuristic_projections, False)
 
     logger.info(
         "%s (%s): %d/%d features available after graph enrichment; %d will be imputed",
@@ -1533,6 +1542,7 @@ def apply_residual_correction(
     # Apply correction (floor at 0)
     corrected = merged["projected_points"].values + corrections
     result["projected_points"] = np.clip(corrected, 0.0, None).round(2)
+    result = _stamp_residual_applied(result, True)
 
     logger.info(
         "%s residual correction (%s): %d players, mean correction=%.2f%s",
@@ -1617,6 +1627,17 @@ def apply_residual_correction(
         )
 
     return result
+
+
+def _stamp_residual_applied(df: pd.DataFrame, applied: bool) -> pd.DataFrame:
+    """Return a copy of ``df`` carrying :data:`RESIDUAL_APPLIED_COL`.
+
+    Copies rather than mutating because the fallback paths hand back the
+    caller's own ``heuristic_projections`` frame.
+    """
+    out = df.copy()
+    out[RESIDUAL_APPLIED_COL] = bool(applied)
+    return out
 
 
 def _secondary_blend_is_usable(
