@@ -1142,7 +1142,10 @@ def main(argv: Optional[list] = None) -> int:
             f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
-            + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
+            + (f" dyn{r['dyn']:5d}" if dyn else "")
+            # Age prints everywhere, not just dynasty: the gate's young-drop
+            # check reads it, and Feetball is a keeper league too.
+            + f" age{r['age'] or '-':>3}"
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
             + (f" [{r['demand']}]" if r.get("demand") else "")
@@ -1252,15 +1255,26 @@ def main(argv: Optional[list] = None) -> int:
         + f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
         f"unscored: {missing}) --"
     )
+    # Whoever we have actually started this week AND whoever the optimizer
+    # would start are both off the drop list. The two sets differ, and using
+    # only the optimizer's left DeMario Douglas tagged START and named a drop
+    # candidate in the same week-7 report: dropping a man in the current
+    # lineup is a lineup decision, not a waiver one.
+    started = set(starters) | set(baseline["starters"])
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):
         if normalize_name(r["name"]) in keepers:
             tag = "KEEP"
-        elif r["sid"] in (starters or baseline["starters"]):
+        elif r["sid"] in started:
             tag = "START"
         else:
             tag = "bench"
         print(line(r, tag))
-    drops = drop_order(my_rows, baseline, keepers, key="dyn" if dyn else "blend")
+    drops = drop_order(
+        my_rows,
+        {**baseline, "starters": started},
+        keepers,
+        key="dyn" if dyn else "blend",
+    )
     print(
         "\n  Drop candidates (bench, keepers excluded, weakest first): "
         + (", ".join(r["name"] for r in drops[:4]) or "none")
@@ -1280,12 +1294,18 @@ def main(argv: Optional[list] = None) -> int:
         faab_left=my_faab or None,
         room_max_bid=room_max or None,
         dynasty=bool(preset.get("dynasty")),
+        keeper=bool(keepers),
     )
     verdict = summarise(findings)
-    if findings:
-        print("\n-- Sanity --")
-        for f in findings:
-            print(f"  [{f.level}] {f.check}: {f.detail}")
+    # Printed even when clean: an absent block used to be indistinguishable
+    # from a gate that never ran, which is the same silence that let three
+    # CRITICALs through once a filter had trimmed the output.
+    print(
+        f"\n-- Sanity -- {verdict['critical']} critical, "
+        f"{verdict['warnings']} warnings"
+    )
+    for f in findings:
+        print(f"  [{f.level}] {f.check}: {f.detail}")
     if not verdict["passed"]:
         print(
             f"\n  SANITY FAIL: {verdict['critical']} critical — "

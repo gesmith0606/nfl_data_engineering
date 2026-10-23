@@ -25,6 +25,14 @@ BOARD_AGE_RE = re.compile(
     r"projections_\w+?_\d{8}_\d{6}\.parquet \((?P<age>\d+)h old\)"
 )
 SLOTS_RE = re.compile(r"active (?P<used>\d+)/(?P<cap>\d+) \((?P<open>\d+) open", re.M)
+AGE_RE = re.compile(r"\bage\s*(?P<age>\d+)\b")
+ADDS_RE = re.compile(r"\badds\s*(?P<adds>-?\d+)k")
+#: ``  bench  Name  WR ATL  ...`` — a line from the "My roster" block.
+ROSTER_RE = re.compile(
+    r"^\s{2}(?P<tag>KEEP|START|bench)\s+(?P<name>.+?)\s{2,}"
+    r"(?P<pos>QB|RB|WR|TE|K|DEF)\s(?P<team>[A-Z]{2,3})\s+(?P<tail>.*)$"
+)
+DROPS_RE = re.compile(r"Drop candidates \([^)]*\):\s*(?P<names>.+?)\s*$", re.M)
 IR_ACCEPTS_RE = re.compile(r"IR accepts: (?P<accepts>.+)$", re.M)
 
 CRITICAL = "CRITICAL"
@@ -48,6 +56,18 @@ class Row:
     pos: str
     team: str
     tail: str
+    tag: str = ""
+
+    @property
+    def age(self) -> Optional[int]:
+        m = AGE_RE.search(self.tail)
+        return int(m.group("age")) if m else None
+
+    @property
+    def adds(self) -> Optional[int]:
+        """Trending adds in thousands — the market's read on his role."""
+        m = ADDS_RE.search(self.tail)
+        return int(m.group("adds")) if m else None
 
     @property
     def bid(self) -> Optional[int]:
@@ -97,6 +117,29 @@ def parse_rows(text: str) -> List[Row]:
     return rows
 
 
+def parse_roster(text: str) -> List[Row]:
+    """Our own players as the "My roster" block rendered them."""
+    return [
+        Row(
+            m.group("name").strip(),
+            m.group("pos"),
+            m.group("team"),
+            m.group("tail"),
+            m.group("tag"),
+        )
+        for m in (ROSTER_RE.match(line) for line in text.splitlines())
+        if m
+    ]
+
+
+def named_drops(text: str) -> List[str]:
+    """The names on the report's drop-candidate line."""
+    m = DROPS_RE.search(text)
+    if not m or m.group("names").strip() == "none":
+        return []
+    return [n.strip() for n in m.group("names").split(",") if n.strip()]
+
+
 def check_report(
     text: str,
     bye_teams: Sequence[str] = (),
@@ -104,6 +147,7 @@ def check_report(
     faab_left: Optional[int] = None,
     room_max_bid: Optional[int] = None,
     dynasty: bool = False,
+    keeper: bool = False,
 ) -> List[Finding]:
     """Run every invariant over a rendered waiver report.
 
@@ -115,6 +159,8 @@ def check_report(
         room_max_bid: The largest bid this room has ever made.
         dynasty: True for a dynasty league, where a "no help" verdict is
             advisory — an asset buy is supposed to read that way this week.
+        keeper: True when the league keeps players between seasons, so a young
+            riser on our bench is an asset rather than a roster slot.
 
     Returns:
         Findings, most severe first. Empty means the report is safe to act on.
@@ -198,6 +244,41 @@ def check_report(
                         f"{r.name} bid ${r.bid} while rated no help",
                     )
                 )
+
+    # Our own roster lines, for the two drop-list checks below.
+    roster_by_name = {r.name: r for r in parse_roster(text)}
+
+    # 4d. "Never drop a young (<=24) player with a role path for a one-week
+    # streamer" (skill, Step 4) and "young players on cheap slots carry keeper
+    # value" (Feetball). Nothing read the drop line at all until now; the role
+    # path is read off trending adds, so a 23-year-old nobody is buying stays
+    # droppable and this check does not fire every week.
+    if dynasty or keeper:
+        for name in named_drops(text):
+            r = roster_by_name.get(name)
+            if r and (r.age or 99) <= 24 and (r.adds or 0) >= 5:
+                out.append(
+                    Finding(
+                        CRITICAL,
+                        "young-drop",
+                        f"{name} is {r.age} with {r.adds}k adds but named a "
+                        "drop candidate in a league that keeps players",
+                    )
+                )
+
+    # 4e. A player we are starting is not a drop candidate. The report used
+    # two different starter sets for the tag and the drop list, so one week-7
+    # line read START and appeared under "Drop candidates" at once.
+    for name in named_drops(text):
+        r = roster_by_name.get(name)
+        if r and r.tag == "START":
+            out.append(
+                Finding(
+                    CRITICAL,
+                    "start-drop",
+                    f"{name} is tagged START but named a drop candidate",
+                )
+            )
 
     # 5. A stale board is what made four starters project as healthy.
     m = BOARD_AGE_RE.search(text)

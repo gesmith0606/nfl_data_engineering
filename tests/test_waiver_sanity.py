@@ -207,3 +207,67 @@ def test_a_minimum_bid_on_a_no_help_player_is_allowed_in_redraft():
     assert not any(
         x.check == "no-help-priced" for x in check_report(_report(rows), dynasty=False)
     )
+
+
+def _roster(lines, drops):
+    """A "My roster" block plus the drop-candidate line that follows it."""
+    return (
+        "\n-- My roster (weakest dynasty value first) --\n"
+        + "".join(lines)
+        + f"\n  Drop candidates (bench, keepers excluded, weakest first): {drops}\n"
+    )
+
+
+def _mine(tag, name, pos, team, tail):
+    return f"  {tag:6}{name:24} {pos:3}{team:4} {tail}\n"
+
+
+YOUNG = _mine("bench", "Jaylen Wright", "RB", "MIN", "adds   41k  dyn  820 age 23")
+OLD = _mine("bench", "Mike Gesicki", "TE", "CIN", "adds    1k  dyn  310 age 30")
+QUIET_YOUNG = _mine("bench", "Pat Bryant", "WR", "DEN", "adds    0k  dyn 1263 age 23")
+STARTED = _mine("START", "DeMario Douglas", "WR", "NE", "adds    0k  dyn 1088 age 25")
+FA = _row("Jahan Dotson", "WR", "ATL", "BENCH+ BID $7 [unclaimed] age 26")
+
+
+def test_young_riser_is_not_a_drop_candidate_where_players_are_kept():
+    """Skill Step 4: never drop a young player with a role path."""
+    text = _report([FA]) + _roster([YOUNG, OLD], "Mike Gesicki, Jaylen Wright")
+    for keeps in ({"dynasty": True}, {"keeper": True}):
+        found = [f for f in check_report(text, **keeps) if f.check == "young-drop"]
+        assert len(found) == 1 and "Jaylen Wright" in found[0].detail
+        assert found[0].level == CRITICAL
+    # A redraft league has no reason to protect him.
+    assert not [f for f in check_report(text) if f.check == "young-drop"]
+
+
+def test_young_player_nobody_is_adding_stays_droppable():
+    """The role path is the signal — otherwise this fires every single week."""
+    text = _report([FA]) + _roster([QUIET_YOUNG, OLD], "Pat Bryant, Mike Gesicki")
+    assert not [f for f in check_report(text, dynasty=True) if f.check == "young-drop"]
+
+
+def test_a_player_we_are_starting_is_never_a_drop_candidate():
+    """The tag and the drop list used different starter sets (week 7, Douglas)."""
+    text = _report([FA]) + _roster([STARTED, OLD], "Mike Gesicki, DeMario Douglas")
+    for kw in ({}, {"dynasty": True}):
+        found = [f for f in check_report(text, **kw) if f.check == "start-drop"]
+        assert len(found) == 1 and "DeMario Douglas" in found[0].detail
+        assert found[0].level == CRITICAL
+
+
+def test_a_clean_drop_list_raises_nothing():
+    text = _report([FA]) + _roster([OLD, QUIET_YOUNG], "Mike Gesicki, Pat Bryant")
+    assert not [
+        f
+        for f in check_report(text, dynasty=True)
+        if f.check in ("young-drop", "start-drop")
+    ]
+
+
+def test_no_drop_candidates_line_means_no_drop_findings():
+    text = _report([FA]) + _roster([OLD], "none")
+    assert not [
+        f
+        for f in check_report(text, dynasty=True)
+        if f.check in ("young-drop", "start-drop")
+    ]

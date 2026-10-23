@@ -99,7 +99,9 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 **Mantis (dynasty) — value over points:**
 - Rank claims by dynasty value + age + a real path to a role. A short-term fill-in
   for a starter with a 1-3 week injury is a rental: $0-5 or skip.
-- Never drop a young (≤24) player with a role path for a one-week streamer.
+- Never drop a young (≤24) player with a role path for a one-week streamer. **Gated**
+  (`young-drop`): a drop candidate ≤24 whom the market is still adding fails the report
+  in Mantis and Feetball. A young player nobody is adding stays droppable.
 - Stream a QB only when Lamar/Dak/the QB3 cannot cover a week (byes, injuries).
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
@@ -138,6 +140,10 @@ player who ranks below our own bench at his position is a pass, however hot.
 **La Liga / Feetball:** rest-of-season role and this week's two-source
 BLEND; ESPN typical winning claim $3-4, Yahoo room bids $0-3 ($5 wins non-consensus
 adds). One-source edges are coin flips. George prefers RB/WR depth over a second TE.
+
+Anyone in the **current** lineup is off the drop list, not just the optimizer's picks —
+gated as `start-drop`. The report prints `-- Sanity -- N critical, N warnings` **always**,
+clean or not: if you cannot see that line you are looking at filtered output, not a pass.
 
 ## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
 Pool files and trending lists go stale within hours. Right before presenting, check
