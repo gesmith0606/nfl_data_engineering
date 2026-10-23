@@ -1,0 +1,97 @@
+{
+  "fetch_run_id": "23a779b5-2f71-46da-8d99-6df694a48cf9",
+  "source": "rotowire",
+  "fetched_at": "2026-10-23T12:24:47.096246+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl643901",
+      "url": "https://www.rotowire.com//football/player/treveyon-henderson-18517",
+      "permalink": "",
+      "title": "TreVeyon Henderson: Minimal role in Week 7 loss",
+      "body_text": "Henderson rushed three times for nine yards and secured both targets for 14 yards in the Patriots' 30-24 loss to the Bears on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-22T10:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl643900",
+      "url": "https://www.rotowire.com//football/player/hunter-henry-10735",
+      "permalink": "",
+      "title": "Hunter Henry: Busy night in Week 7 loss",
+      "body_text": "Henry secured all seven targets for 71 yards in the Patriots' 30-24 loss to the Bears on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-22T09:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hunter Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0033090"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl643898",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Outproduced by Burden again",
+      "body_text": "Odunze brought in four of five targets for 69 yards in the Bears' 30-24 win over the Patriots on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-22T09:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl643897",
+      "url": "https://www.rotowire.com//football/player/colston-loveland-18460",
+      "permalink": "",
+      "title": "Colston Loveland: Continues producing in Week 7 win",
+      "body_text": "Loveland secured seven of 12 targets for 69 yards and a touchdown during the Bears' 30-24 win over the Patriots on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-22T09:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Colston Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "nfl643895",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "permalink": "",
+      "title": "A.J. Brown: Slight improvement in Week 7 loss",
+      "body_text": "Brown brought in three of six targets for 48 yards in the Patriots' 30-24 loss to the Bears on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-22T09:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    }
+  ]
+}

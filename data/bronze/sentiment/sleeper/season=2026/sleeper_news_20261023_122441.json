@@ -1,0 +1,263 @@
+{
+  "fetch_run_id": "e63e123a-c72d-49d3-973d-39150cac4709",
+  "source": "sleeper",
+  "fetched_at": "2026-10-23T12:24:41.990465+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 23,
+  "items": [
+    {
+      "sleeper_player_id": "10235",
+      "resolved_player_id": "00-0039021",
+      "player_name": "Roschon Johnson",
+      "team": "CHI",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-22T15:05:10.492000+00:00",
+      "trending_count": 858800,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12718",
+      "resolved_player_id": "00-0040590",
+      "player_name": "Konata Mumpfield",
+      "team": "LAR",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-21T01:10:47.729000+00:00",
+      "trending_count": 697671,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "6650",
+      "resolved_player_id": "00-0035358",
+      "player_name": "Chase McLaughlin",
+      "team": "TB",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-10-20T02:00:34.331000+00:00",
+      "trending_count": 382424,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "3271",
+      "resolved_player_id": "00-0033110",
+      "player_name": "Tyler Higbee",
+      "team": "LAR",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-10-20T00:15:33.206000+00:00",
+      "trending_count": 358479,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11539",
+      "resolved_player_id": "00-0039172",
+      "player_name": "Jake Bates",
+      "team": "DET",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-10-12T16:25:02.598000+00:00",
+      "trending_count": 272840,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9482",
+      "resolved_player_id": "00-0039066",
+      "player_name": "Michael Mayer",
+      "team": "LV",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-10-20T01:25:32.946000+00:00",
+      "trending_count": 268218,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13424",
+      "resolved_player_id": null,
+      "player_name": "Seth McGowan",
+      "team": "IND",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-21T01:00:47.698000+00:00",
+      "trending_count": 232000,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8122",
+      "resolved_player_id": null,
+      "player_name": "Zonovan Knight",
+      "team": "ARI",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-19T14:45:07.621000+00:00",
+      "trending_count": 216932,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9758",
+      "resolved_player_id": "00-0039163",
+      "player_name": "C.J. Stroud",
+      "team": "HOU",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-18T21:31:00.246000+00:00",
+      "trending_count": 196154,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "1433",
+      "resolved_player_id": "00-0029822",
+      "player_name": "Brandon McManus",
+      "team": "LAR",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-10-20T21:45:47.763000+00:00",
+      "trending_count": 176832,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "5849",
+      "resolved_player_id": "00-0035228",
+      "player_name": "Kyler Murray",
+      "team": "MIN",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-20T02:30:33.424000+00:00",
+      "trending_count": 170832,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8132",
+      "resolved_player_id": "00-0037263",
+      "player_name": "Tyler Allgeier",
+      "team": "ARI",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-10-19T12:15:07.639000+00:00",
+      "trending_count": 157275,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13276",
+      "resolved_player_id": null,
+      "player_name": "Omar Cooper Jr.",
+      "team": "NYJ",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-19T20:45:10.189000+00:00",
+      "trending_count": 151880,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "8135",
+      "resolved_player_id": "00-0037742",
+      "player_name": "Treylon Burks",
+      "team": "WAS",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-20T23:15:46.413000+00:00",
+      "trending_count": 137095,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11610",
+      "resolved_player_id": "00-0039880",
+      "player_name": "Malik Washington",
+      "team": "MIA",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-20T14:55:38.596000+00:00",
+      "trending_count": 133800,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11783",
+      "resolved_player_id": "00-0039410",
+      "player_name": "Ryan Flournoy",
+      "team": "DAL",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-20T05:30:34.648000+00:00",
+      "trending_count": 115848,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11563",
+      "resolved_player_id": "00-0039732",
+      "player_name": "Bo Nix",
+      "team": "DEN",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-21T17:45:53.576000+00:00",
+      "trending_count": 114894,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "10213",
+      "resolved_player_id": "00-0038563",
+      "player_name": "Tre Tucker",
+      "team": "LV",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-19T18:00:09.264000+00:00",
+      "trending_count": 110820,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9756",
+      "resolved_player_id": "00-0038994",
+      "player_name": "Jordan Addison",
+      "team": "MIN",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-22T03:40:55.250000+00:00",
+      "trending_count": 102420,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "9230",
+      "resolved_player_id": "00-0038400",
+      "player_name": "Tanner McKee",
+      "team": "PHI",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-20T14:50:38.316000+00:00",
+      "trending_count": 98128,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "2197",
+      "resolved_player_id": "00-0031236",
+      "player_name": "Brandin Cooks",
+      "team": "SF",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-21T13:25:51.910000+00:00",
+      "trending_count": 94760,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "96",
+      "resolved_player_id": "00-0023459",
+      "player_name": "Aaron Rodgers",
+      "team": "PIT",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-10-20T14:25:38.279000+00:00",
+      "trending_count": 91608,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "5045",
+      "resolved_player_id": "00-0034348",
+      "player_name": "Courtland Sutton",
+      "team": "DEN",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-10-21T17:25:53.651000+00:00",
+      "trending_count": 86256,
+      "source": "sleeper"
+    }
+  ]
+}
