@@ -159,6 +159,14 @@ the extractor fails open to keyword rules while its cron still reports success, 
 flags means *unknown*, and the gate warns (`news-source`). Say so rather than implying the
 week was quiet.
 
+**Know whether this process is actually working.** `python scripts/backtest_claim_outcomes.py
+--league mantis` scores every add-minus-drop in the room over the weeks after the move and
+compares our median gain against our leaguemates'. As of week 6 2026 the verdict is **BEHIND
+THE ROOM**: our median claim gained **+1.6pt vs the room's +6.3pt**, at $4.3/pt against their
+$3.8 (n=7, directional). Our mean looks great (+20.2pt) only because of one Brissett at
++84.7pt — quote the median. The worst value was **$300 on Adonai Mitchell for -2.9pt**.
+Re-run it before claiming the tooling is good, not just internally consistent.
+
 ## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
 Pool files and trending lists go stale within hours. Right before presenting, check
 each recommended ADD is still unrostered and each DROP is on our roster, on the site:
