@@ -128,6 +128,58 @@ def last_week_actuals(
     return score_ours(df[[c for c in keep if c in df.columns]].copy(), scoring)
 
 
+def snap_trend(
+    season: int, week: int, by_name: Mapping[Any, str]
+) -> Dict[str, Tuple[int, int]]:
+    """``sleeper_id -> (latest snap %, change vs the week before)``.
+
+    The one question the report could not answer was the one George asked
+    first -- "isn't he a backup?". Projections and trending adds both say a
+    player is interesting; neither says he is on the field. A rising snap
+    share is the difference between a role and a rumour, and it is also the
+    signal the young-drop rule leans on.
+
+    Reads the committed Bronze snap counts, which key on ``player`` (a name,
+    not an id) and carry ``offense_pct`` -- not ``snap_pct``. Returns ``{}``
+    when the files are absent so the column simply does not render.
+    """
+    out: Dict[str, Tuple[int, int]] = {}
+    pct: Dict[int, Dict[str, float]] = {}
+    for wk in (week - 1, week - 2):
+        if wk < 1:
+            continue
+        files = sorted(
+            glob.glob(
+                str(
+                    BRONZE
+                    / "players"
+                    / "snaps"
+                    / f"season={season}"
+                    / f"week={wk}"
+                    / "*.parquet"
+                )
+            )
+        )
+        if not files:
+            continue
+        df = pd.read_parquet(files[-1])
+        if "offense_pct" not in df.columns or "player" not in df.columns:
+            continue
+        pct[wk] = {
+            normalize_name(str(n)): float(v)
+            for n, v in zip(df["player"], df["offense_pct"])
+            if pd.notna(v)
+        }
+    latest = pct.get(week - 1) or {}
+    prior = pct.get(week - 2) or {}
+    for (norm, _pos), sid in by_name.items():
+        if norm in latest:
+            now = round(latest[norm] * 100)
+            was = round(prior.get(norm, latest[norm]) * 100)
+            out[sid] = (now, now - was)
+    return out
+
+
 def adp_rank_map(platform: str) -> Dict[str, int]:
     path = REPO_ROOT / "data" / "adp" / ADP_FILES.get(platform, "")
     if not path.is_file():
@@ -1351,6 +1403,7 @@ def main(argv: Optional[list] = None) -> int:
     }
     news_flags = set_lineups.sentiment_flags(season, week)
     news = set_lineups.news_by_sleeper(news_flags, registry, gsis_map)
+    snaps = snap_trend(season, week, by_name)
     adp = adp_rank_map(platform) if platform != "sleeper" else {}
     draft_size = preset["teams"] * sum(config.ROSTER_CONFIGS[preset["roster"]].values())
 
@@ -1407,6 +1460,10 @@ def main(argv: Optional[list] = None) -> int:
             "adp": adp_rank(sid, meta),
             "dyn": (dyn.get(sid) or {}).get("value", 0),
             "age": meta.get("age"),
+            # Is he actually on the field, and is that rising? Projections and
+            # trending adds both say a player is interesting; neither says he
+            # plays. "isn't he a backup?" was the first correction of all.
+            "snap": snaps.get(sid),
             "ir": str(meta.get("injury_status") or "").upper() in ("IR", "PUP", "NFI"),
             # Out/Doubtful: no bar for "weakest bench". Bye: same, and never a drop.
             "out": str(meta.get("injury_status") or "").upper() in ("OUT", "DOUBTFUL"),
@@ -1458,6 +1515,11 @@ def main(argv: Optional[list] = None) -> int:
             f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
+            + (
+                f" snap{r['snap'][0]:3}%{r['snap'][1]:+3d}"
+                if r.get("snap")
+                else " snap   -   "
+            )
             + (f" dyn{r['dyn']:5d}" if dyn else "")
             # Age prints everywhere, not just dynasty: the gate's young-drop
             # check reads it, and Feetball is a keeper league too.
@@ -1546,6 +1608,10 @@ def main(argv: Optional[list] = None) -> int:
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
+        "SNAP = his offensive snap share last week and the change from the week "
+        "before: ADDS is what the market believes, SNAP is whether he plays. "
+        "When they disagree, believe SNAP — Roschon Johnson read 1,355k adds "
+        "on a flat 40% share in week 7. "
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
         "revert when he returns — check before paying up; ENDING<- means the "
         "week's news says that team-mate is RETURNING, so the role is going "

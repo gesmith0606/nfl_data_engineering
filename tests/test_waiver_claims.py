@@ -1194,3 +1194,31 @@ def test_espn_rival_model_excludes_us_and_counts_only_healthy_bodies():
         ],
     }
     assert ww.espn_rivals(healthy, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {}
+
+
+def test_snap_trend_reads_the_bronze_column_names_that_actually_exist(tmp_path):
+    """Bronze snaps key on `player` (a NAME) and carry `offense_pct`, not `snap_pct`.
+
+    Getting either wrong yields an empty map and a column that silently never
+    renders — the schema gotcha is documented in CLAUDE.md precisely because
+    it has bitten before.
+    """
+    import pandas as pd
+
+    ww = _waiver_wire()
+    base = tmp_path / "players" / "snaps" / "season=2026"
+    for wk, pct in ((5, 0.40), (6, 0.72)):
+        d = base / f"week={wk}"
+        d.mkdir(parents=True)
+        pd.DataFrame([{"player": "Roschon Johnson", "offense_pct": pct}]).to_parquet(
+            d / "snaps.parquet"
+        )
+
+    ww.BRONZE = tmp_path
+    by_name = {("roschon johnson", "RB"): "7591"}
+    out = ww.snap_trend(2026, 7, by_name)
+    # Week 7 compares week 6 against week 5: 72% and a +32 move.
+    assert out == {"7591": (72, 32)}
+
+    # A missing season renders no column rather than raising.
+    assert ww.snap_trend(1999, 7, by_name) == {}

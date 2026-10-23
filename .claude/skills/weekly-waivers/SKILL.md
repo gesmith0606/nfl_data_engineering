@@ -149,6 +149,12 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 Loveland) are never drop candidates, and young players on cheap slots carry keeper
 value. Check the drop against the pickup's projected edge only after that.
 
+**ADDS is belief; SNAP is fact.** Every row now carries last week's offensive snap share and
+its change (`snap 40% +1`). A big `adds` number on a flat or falling share is hype, not a role —
+week 7 had Roschon Johnson at **1,355k adds on a flat 40%** and Dalton Schultz at **40% (-12)**
+behind a quad DNP. This is the column that answers "isn't he a backup?", which was the very
+first correction this skill ever needed. Where they disagree, believe SNAP.
+
 **Every league — start from MY roster:** before recommending a claim, ask whether the
 player would actually start or cover a real bye/injury hole on our roster. A trending
 player who ranks below our own bench at his position is a pass, however hot.
