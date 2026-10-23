@@ -63,9 +63,12 @@ Then
 Check WHY a player is trending (starter injured? which injury, how long?) before
 recommending him.
 
-Pass `--espn-browser` on an ESPN league to get the `[demand]` column there too — it
-reads that league's own transaction log through the claims profile. Yahoo has no
-reader yet, so Feetball claims still have only the room-level median to go on.
+Pass `--espn-browser` on an ESPN league to get the `[demand]` column and `BID $N`
+there too — it reads that league's own transaction log through the claims profile.
+Yahoo's API is approval-gated, so for Feetball save the league Transactions page
+(`/f1/<league>/transactions`, `body.innerText`) and pass `--transactions-file`; page
+through "Next 25" first if you want more than the recent window. All three leagues
+now price claims off their own history.
 
 ## Step 3b — Every slot the league actually has
 Read `roster_positions` from the report's "Roster mechanics" block and cover EVERY slot,

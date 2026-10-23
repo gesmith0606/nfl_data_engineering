@@ -434,6 +434,91 @@ def suggest_bid(
     )
 
 
+def nfl_week_for_date(stamp: str, season: int) -> Optional[int]:
+    """Map a Yahoo transaction date (``Oct 21, 4:52 am``) to its NFL week.
+
+    A move belongs to the week it was made in, which is the latest week whose
+    games had already started on or before that date. Yahoo prints no year, so
+    the season is supplied and a January date is read as the following
+    calendar year.
+
+    Returns:
+        The week, or None when the schedule is unavailable or unparseable.
+    """
+    try:
+        import datetime as _dt
+        import glob as _glob
+
+        files = sorted(
+            _glob.glob(
+                str(BRONZE / "schedules" / f"season={season}" / "**" / "*.parquet"),
+                recursive=True,
+            )
+        )
+        if not files:
+            return None
+        sched = pd.read_parquet(files[-1])
+        sched["gameday"] = pd.to_datetime(sched["gameday"])
+        starts = sched.groupby("week")["gameday"].min().sort_index()
+        month_day = stamp.split(",")[0].strip()
+        parsed = _dt.datetime.strptime(month_day, "%b %d")
+        year = season + 1 if parsed.month < 3 else season
+        when = pd.Timestamp(year=year, month=parsed.month, day=parsed.day)
+        earlier = starts[starts <= when]
+        return int(earlier.index[-1]) if len(earlier) else 1
+    except Exception:  # noqa: BLE001 — an unmapped date just loses one row
+        return None
+
+
+def moves_from_yahoo(text: str, by_name: Mapping[Any, str], season: int) -> PlayerMoves:
+    """Demand history for a Yahoo league, from its Transactions page text.
+
+    Yahoo's API is approval-gated (401 for read scope, no write scope for new
+    apps), so the page is the only source. Without it Feetball had nothing but
+    the league-wide median to price a claim on.
+
+    Args:
+        text: ``body.innerText`` of ``/f1/<league>/transactions``.
+        by_name: ``(normalised_name, position) -> sleeper_id``.
+        season: Season year, to resolve Yahoo's year-less dates.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+    """
+    from src.yahoo_transactions_page import parse_yahoo_transactions
+
+    sid_for = {n: sid for (n, _pos), sid in by_name.items()}
+    out: PlayerMoves = {}
+    staged: Dict[str, List[Tuple[int, int, Dict[str, Any]]]] = {}
+    for idx, rec in enumerate(parse_yahoo_transactions(text)):
+        leg = nfl_week_for_date(rec["when"], season)
+        if leg is None:
+            continue
+        for kind in ("add", "drop"):
+            who = rec.get(kind)
+            if not who:
+                continue
+            sid = sid_for.get(normalize_name(who["name"]))
+            if sid:
+                staged.setdefault(sid, []).append(
+                    (
+                        leg,
+                        idx,
+                        {
+                            "leg": leg,
+                            "bid": rec["bid"] if kind == "add" else None,
+                            "kind": kind,
+                        },
+                    )
+                )
+    # The page lists newest first, and several moves share one leg, so page
+    # position is the only tiebreak that keeps "added then cut" in that order.
+    for sid, rows in staged.items():
+        rows.sort(key=lambda r: (r[0], -r[1]))
+        out[sid] = [r[2] for r in rows]
+    return out
+
+
 def demand_note(moves: Optional[List[Dict[str, Any]]], current_leg: int) -> str:
     """One-glance summary of what this room has paid for a player, and when.
 
@@ -641,6 +726,12 @@ def main(argv: Optional[list] = None) -> int:
         "--roster-file", type=Path, help="ESPN/Yahoo: my roster, one name per line"
     )
     ap.add_argument(
+        "--transactions-file",
+        type=Path,
+        help="Yahoo: the league Transactions page saved as text, for the demand "
+        "column and bid model (Yahoo's API has no read scope)",
+    )
+    ap.add_argument(
         "--espn-browser",
         action="store_true",
         help="ESPN: add the demand column by reading the league's transaction log "
@@ -783,6 +874,10 @@ def main(argv: Optional[list] = None) -> int:
             week,
             registry,
             by_name,
+        )
+    elif platform == "yahoo" and args.transactions_file:
+        moves = moves_from_yahoo(
+            args.transactions_file.read_text(encoding="utf-8"), by_name, season
         )
     else:
         moves = {}
