@@ -52,11 +52,37 @@ board (Roschon Johnson, dyn 539, role borrowed from an injured team-mate) over a
 23-year-old starting QB at dyn 1271 in a superflex league. Mantis adds DYN + AGE
 columns and that list; every
 free agent gets a FIT verdict vs MY roster — STARTS / BENCH+ / depth / no help — and
-keepers are tagged KEEP and excluded from drop candidates). Never recommend a "no help"
-player however hot he is. Then
+keepers are tagged KEEP and excluded from drop candidates). In a REDRAFT league
+(La Liga, Feetball) never recommend a "no help" player however hot he is — FIT is a
+weekly verdict. In a DYNASTY league it is advisory only: an asset buy is supposed to
+read "no help" this week (2026-10-21, Jalon Daniels: `no help`, dyn 1271, age 23, the
+correct Mantis add). Also read the RENTAL/ENDING tag before the points — `ENDING<-NAME`
+means the week's news says that team-mate is returning, so the role is going away now.
+Then
 `scripts/player_dossier.py` on the shortlist (usage, injuries around them, matchup).
 Check WHY a player is trending (starter injured? which injury, how long?) before
 recommending him.
+
+Pass `--espn-browser` on an ESPN league to get the `[demand]` column and `BID $N`
+there too — it reads that league's own transaction log through the claims profile.
+Yahoo's API is approval-gated, so for Feetball save the league Transactions page
+(`/f1/<league>/transactions`, `body.innerText`) and pass `--transactions-file`; page
+through "Next 25" first if you want more than the recent window. All three leagues
+now price claims off their own history.
+
+## Step 3b — Every slot the league actually has
+Read `roster_positions` from the report's "Roster mechanics" block and cover EVERY slot,
+not just the skill positions. Mantis and Mahomo's have no K and no DEF; La Liga has a
+D/ST but no K; Feetball has both. On 2026-10-20 La Liga's D/ST was streamed and
+Feetball's K and DEF were forgotten entirely until George asked.
+
+```bash
+python scripts/stream_dst_k.py --pool data/draft/<league>_2026_dstk_pool.txt --week N
+```
+Refresh the pool file from the league site first (one line per DEF/K with the site's own
+projection — format in the script's docstring). The report gives SITE + Sleeper + the
+Vegas implied total, flags SWAP/KEEP on a two-source rule, and looks three weeks ahead
+for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 
 ## Step 4 — Decide
 **Mantis (dynasty) — value over points:**
@@ -67,8 +93,19 @@ recommending him.
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
 - Drop order = lowest dynasty value with no role (old backups first).
-- **Bids — price the player, not the room.** Read his `[demand]` bracket in the
-  waiver report FIRST: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
+- **Check the "Roster mechanics" block before naming a drop.** It prints open active
+  slots, IR/taxi use, which `injury_status` values this league's IR actually accepts,
+  and any IR-eligible player sitting on your bench. A free IR slot is not usable by an
+  "Out" player unless `reserve_allow_out` is set — Mantis 2026 does not set it — and a
+  bench player who *is* eligible frees an active slot for free. Both were got wrong on
+  2026-10-20.
+- **Bids — use the report's `BID $N`.** It is computed from the three things that
+  actually set a price, in this order: what this room paid for HIM, which rivals are
+  thin at his position AND have both money and a bidding record, and only then the
+  room's median. Backtested on 51 real Mantis winning bids its median absolute error
+  is $6 against the median rule's $22. Deviate only with a reason you can state, and
+  note it caps at a quarter of your remaining budget by design.
+  Behind it, read his `[demand]` bracket: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
   That is what these managers have actually paid for *him*. The room's median/p75 from
   Step 2 is the price of a CONTESTED player and is only the fallback when he has no
   history. On 2026-10-21 Jalon Daniels read `cut wk4 (was $1), free 3wk` after three

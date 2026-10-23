@@ -266,6 +266,46 @@ def espn_state(
     )
 
 
+YAHOO_TRANSACTIONS_JS = r"""(async (A) => {
+ const out = [];
+ for (let i = 0; i < A.pages; i++) {
+   const u = `https://football.fantasysports.yahoo.com/f1/${A.lid}/transactions`
+     + `?transactionsFilter=all&count=${i * 25}`;
+   const r = await fetch(u, {credentials: 'include'});
+   if (!r.ok) throw new Error(`Yahoo HTTP ${r.status} for transactions (logged in?)`);
+   const doc = new DOMParser().parseFromString(await r.text(), 'text/html');
+   const body = doc.body ? doc.body.innerText : '';
+   if (!body.trim()) break;
+   out.push(body);
+ }
+ return JSON.stringify(out.join('\n'));
+})(__ARGS__)"""
+
+
+def yahoo_transactions(page: BrowserPage, league_id: str, pages: int = 4) -> str:
+    """The league's Transactions page text, ``pages`` windows of 25 deep.
+
+    Yahoo's Fantasy API is approval-gated, so the page is the only source of
+    what this room has paid for a player. Fetched same-origin from a logged-in
+    tab, exactly like the ESPN reads, so no cookies leave the browser.
+
+    Args:
+        page: A page in a profile logged into Yahoo.
+        league_id: Numeric Yahoo league id.
+        pages: How many 25-row windows to walk back.
+
+    Returns:
+        The concatenated ``innerText``, for
+        :func:`src.yahoo_transactions_page.parse_yahoo_transactions`.
+    """
+    return run_js(
+        page,
+        YAHOO_TRANSACTIONS_JS,
+        {"lid": str(league_id), "pages": int(pages)},
+        timeout=30 + 10 * pages,
+    )
+
+
 def espn_fetch_league(
     page: BrowserPage,
     season: int,
@@ -482,6 +522,7 @@ def read_claims(
 
 __all__: List[str] = [
     "espn_fetch_league",
+    "yahoo_transactions",
     "espn_state",
     "espn_submit",
     "read_claims",

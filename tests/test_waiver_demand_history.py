@@ -105,3 +105,57 @@ def test_cut_this_week_is_not_negative_weeks_free():
         {"leg": 7, "bid": None, "kind": "drop"},
     ]
     assert demand_note(moves, 7).endswith("free 0wk")
+
+
+# --- ESPN: the same column, re-keyed from a league_context transaction frame ---
+
+
+def _by_name(pairs):
+    return {(waiver_wire.normalize_name(n), pos): sid for n, pos, sid in pairs}
+
+
+def test_tx_frame_rekeys_onto_sleeper_ids():
+    import pandas as pd
+
+    tx = pd.DataFrame(
+        [
+            {"week": 3, "add": "Tyler Allgeier", "drop": "", "bid": 40},
+            {"week": 5, "add": "", "drop": "Tyler Allgeier", "bid": None},
+        ]
+    )
+    out = waiver_wire.moves_from_tx(tx, _by_name([("Tyler Allgeier", "RB", "777")]))
+    assert out["777"] == [
+        {"leg": 3, "bid": 40, "kind": "add"},
+        {"leg": 5, "bid": None, "kind": "drop"},
+    ]
+    assert demand_note(out["777"], 7) == "cut wk5 (was $40), free 2wk"
+
+
+def test_unresolvable_espn_labels_are_dropped():
+    import pandas as pd
+
+    tx = pd.DataFrame([{"week": 4, "add": "espn:4431545", "drop": "", "bid": 12}])
+    assert waiver_wire.moves_from_tx(tx, _by_name([("Real Player", "WR", "1")])) == {}
+
+
+def test_blank_add_and_drop_are_skipped():
+    import pandas as pd
+
+    tx = pd.DataFrame([{"week": 4, "add": "", "drop": None, "bid": 1}])
+    assert waiver_wire.moves_from_tx(tx, _by_name([("X", "WR", "1")])) == {}
+
+
+def test_float_and_nan_bids_are_normalised():
+    """A pandas column with any blank bid is float, so 40 arrives as 40.0."""
+    import pandas as pd
+
+    tx = pd.DataFrame(
+        [
+            {"week": 2, "add": "Some Guy", "drop": "", "bid": 40},
+            {"week": 6, "add": "", "drop": "Some Guy", "bid": None},
+        ]
+    )
+    out = waiver_wire.moves_from_tx(tx, _by_name([("Some Guy", "RB", "9")]))
+    assert out["9"][0]["bid"] == 40
+    assert out["9"][1]["bid"] is None
+    assert demand_note(out["9"], 7) == "cut wk6 (was $40), free 1wk"

@@ -2728,6 +2728,41 @@ def _bronze_gsis_by_sleeper(registry: Dict[str, Any]) -> Dict[str, str]:
         return {}
 
 
+def merge_injury_sources(
+    official: pd.DataFrame, live: pd.DataFrame
+) -> Tuple[pd.DataFrame, int, int]:
+    """Combine the week's official report with live Sleeper designations.
+
+    The official report is authoritative but slow. On the Wednesday of week 7
+    2026 it carried 271 rows and graded **13** players, mostly defenders,
+    while Sleeper already had 502 designations including four starters who
+    were Out — using the report alone that day applied zero adjustments. An
+    official verdict wins for that player; Sleeper fills in everyone the
+    report has not graded yet.
+
+    Args:
+        official: Bronze injury rows for the week. Only rows with a
+            ``report_status`` count as graded.
+        live: Frame from :func:`live_injury_report`.
+
+    Returns:
+        ``(merged, n_official, n_live)``.
+    """
+    graded = (
+        official[official["report_status"].notna()]
+        if official is not None
+        and not official.empty
+        and "report_status" in official.columns
+        else official
+    )
+    graded = graded if graded is not None else pd.DataFrame()
+    if live is None or live.empty or "gsis_id" not in getattr(graded, "columns", []):
+        return (graded if not graded.empty else live), len(graded), 0
+    unofficial = live[~live["gsis_id"].isin(set(graded["gsis_id"]))]
+    merged = pd.concat([graded, unofficial], ignore_index=True, sort=False)
+    return merged, len(graded), len(unofficial)
+
+
 def apply_injury_adjustments(
     projections_df: pd.DataFrame,
     injuries_df: pd.DataFrame,

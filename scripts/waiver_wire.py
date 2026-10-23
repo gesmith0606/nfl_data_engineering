@@ -31,7 +31,7 @@ import time
 import importlib.util
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple
 
 import pandas as pd
 
@@ -152,7 +152,31 @@ def roster_ids_from_file(path: Path, by_name: Dict[Any, str]) -> Set[str]:
 PlayerMoves = Dict[str, List[Dict[str, Any]]]
 
 
-def league_player_moves(league_id: str, through_leg: int) -> PlayerMoves:
+def fetch_league_transactions(league_id: str, through_leg: int) -> List[Dict[str, Any]]:
+    """Every completed transaction in the league, legs 1..``through_leg``.
+
+    Legs that fail to load are skipped: a thin history still prices most
+    claims, and a waiver report that dies on one bad HTTP call is useless.
+    """
+    rows: List[Dict[str, Any]] = []
+    for leg in range(1, max(1, through_leg) + 1):
+        try:
+            got = sleeper_http.fetch_sleeper_json(
+                f"https://api.sleeper.app/v1/league/{league_id}/transactions/{leg}"
+            )
+        except Exception:  # noqa: BLE001 — a missing leg is not a failure
+            continue
+        for t in got or []:
+            if isinstance(t, dict) and t.get("status") == "complete":
+                t = dict(t)
+                t["_leg"] = leg
+                rows.append(t)
+    return rows
+
+
+def league_player_moves(
+    league_id: str, through_leg: int, rows: Optional[List[Dict[str, Any]]] = None
+) -> PlayerMoves:
     """What this league has already paid for each player, from its own log.
 
     A room's median winning bid is the price of a *contested* player. Pricing
@@ -164,31 +188,364 @@ def league_player_moves(league_id: str, through_leg: int) -> PlayerMoves:
     Args:
         league_id: Numeric Sleeper league id.
         through_leg: Highest leg (week) to read, inclusive.
+        rows: Pre-fetched transactions, to avoid a second walk.
 
     Returns:
         ``sleeper_player_id -> [{"leg", "bid", "kind"}]`` oldest first, where
-        ``kind`` is ``"add"`` or ``"drop"``. Legs that fail to load are
-        skipped: a thin history is better than no report.
+        ``kind`` is ``"add"`` or ``"drop"``.
     """
+    if rows is None:
+        rows = fetch_league_transactions(league_id, through_leg)
     out: PlayerMoves = {}
-    for leg in range(1, max(1, through_leg) + 1):
-        try:
-            rows = sleeper_http.fetch_sleeper_json(
-                f"https://api.sleeper.app/v1/league/{league_id}/transactions/{leg}"
-            )
-        except Exception:  # noqa: BLE001 — a missing leg is not a failure
-            continue
-        for t in rows or []:
-            if not isinstance(t, dict) or t.get("status") != "complete":
-                continue
-            bid = (t.get("settings") or {}).get("waiver_bid")
-            for kind in ("add", "drop"):
-                for pid in (t.get(f"{kind}s") or {}) or {}:
-                    out.setdefault(str(pid), []).append(
-                        {"leg": leg, "bid": bid, "kind": kind}
-                    )
+    for t in rows:
+        bid = (t.get("settings") or {}).get("waiver_bid")
+        leg = int(t.get("_leg") or 0)
+        for kind in ("add", "drop"):
+            for pid in (t.get(f"{kind}s") or {}) or {}:
+                out.setdefault(str(pid), []).append(
+                    {"leg": leg, "bid": bid, "kind": kind}
+                )
     for moves in out.values():
         moves.sort(key=lambda m: m["leg"])
+    return out
+
+
+def team_bid_stats(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    """``roster_id -> {n, median, max}`` of that team's winning bids.
+
+    Remaining budget is not willingness to spend. In La Liga through week 7
+    2026 the three teams with the fullest budgets had spent $0, $0 and $1 all
+    season — treating them as threats is what turned a $10 claim into a $22
+    one. A rival's own bid history is the better read.
+    """
+    by_team: Dict[str, List[int]] = {}
+    for t in rows:
+        bid = (t.get("settings") or {}).get("waiver_bid")
+        if not bid:
+            continue
+        for rid in t.get("roster_ids") or []:
+            if (t.get("adds") or {}) and rid in set((t.get("adds") or {}).values()):
+                by_team.setdefault(str(rid), []).append(int(bid))
+    out: Dict[str, Dict[str, Any]] = {}
+    for rid, bids in by_team.items():
+        bids.sort()
+        out[rid] = {
+            "n": len(bids),
+            "median": bids[len(bids) // 2],
+            "max": bids[-1],
+        }
+    return out
+
+
+def espn_player_moves(
+    league_id: str,
+    season: int,
+    team_id: int,
+    through_period: int,
+    registry: Mapping[str, Any],
+    by_name: Mapping[Any, str],
+) -> PlayerMoves:
+    """The same demand history as :func:`league_player_moves`, for an ESPN league.
+
+    ESPN ids are as sparse in the Sleeper registry as gsis ids (210 of 841
+    active skill players carry one), so this goes through
+    ``league_context.espn_context``, which already falls back to ESPN's own
+    names, and re-keys those names onto Sleeper ids.
+
+    Reads through the logged-in claims profile, so it needs no ESPN cookies.
+    Returns an empty map on any failure: the demand column is an aid, and the
+    report is still worth printing without it.
+
+    Args:
+        league_id: Numeric ESPN league id.
+        season: Season year.
+        team_id: My ESPN team id.
+        through_period: Highest ``scoringPeriodId`` to walk, inclusive.
+        registry: Sleeper player registry.
+        by_name: ``(normalised_name, position) -> sleeper_id`` from this report.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+    """
+    try:
+        from src import waiver_sites as ws
+        from src.fantasy_browser import FantasyBrowser
+
+        browser = FantasyBrowser()
+        page = ws.site_page(browser, "espn", str(league_id), team_id)
+        payload = ws.espn_fetch_league(
+            page, season, str(league_id), ["mSettings", "mTeam", "mRoster"]
+        )
+        payload["transactions"] = [
+            t
+            for wk in range(0, through_period + 1)
+            for t in ws.espn_fetch_league(
+                page, season, str(league_id), ["mTransactions2"], wk
+            ).get("transactions")
+            or []
+        ]
+        _teams, tx = league_context.espn_context(payload, team_id, registry)
+    except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
+        print(f"WARN: ESPN demand history unavailable ({exc})")
+        return {}
+
+    return moves_from_tx(tx, by_name)
+
+
+def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves:
+    """Re-key a league_context transaction frame onto Sleeper player ids.
+
+    ``espn_context`` labels each move with a player name (falling back to
+    ``espn:<id>`` when it cannot resolve one), so matching happens on the
+    normalised name rather than an id. Unresolvable labels are dropped — a
+    partial history still prices most claims.
+
+    Args:
+        tx: Frame with ``week``, ``add``, ``drop`` and ``bid`` columns.
+        by_name: ``(normalised_name, position) -> sleeper_id``.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+    """
+
+    def clean_bid(v: Any) -> Optional[int]:
+        """A pandas column with any blank bid becomes float, so 40 arrives as
+        40.0 and a blank as NaN. Neither belongs in "(was $40.0)"."""
+        try:
+            if v is None or v != v:  # NaN
+                return None
+            return int(round(float(v)))
+        except (TypeError, ValueError):
+            return None
+
+    sid_for = {n: sid for (n, _pos), sid in by_name.items()}
+    out: PlayerMoves = {}
+    for row in tx.itertuples(index=False):
+        for kind, label in (("add", row.add), ("drop", row.drop)):
+            sid = sid_for.get(normalize_name(str(label or "")))
+            if sid:
+                out.setdefault(sid, []).append(
+                    {"leg": int(row.week), "bid": clean_bid(row.bid), "kind": kind}
+                )
+    for moves in out.values():
+        moves.sort(key=lambda m: m["leg"])
+    return out
+
+
+def starters_required(roster_positions: Sequence[str]) -> Dict[str, int]:
+    """Dedicated starting slots per skill position (FLEX slots excluded).
+
+    A team with exactly its required starters at a position is thin there:
+    one injury and it is in the market. Surplus is what makes a team a
+    non-bidder.
+    """
+    need: Dict[str, int] = {p: 0 for p in SKILL_POSITIONS}
+    for slot in roster_positions:
+        if slot in need:
+            need[slot] += 1
+    return need
+
+
+def thin_at(
+    roster: Mapping[str, Any],
+    registry: Mapping[str, Any],
+    position: str,
+    required: int,
+) -> bool:
+    """Does this team lack a usable surplus at ``position``?
+
+    Counts rostered players at the position who are not on IR/taxi and not
+    carrying a blocking injury status.
+    """
+    reserve = {str(p) for p in (roster.get("reserve") or [])}
+    taxi = {str(p) for p in (roster.get("taxi") or [])}
+    healthy = 0
+    for pid in roster.get("players") or []:
+        sid = str(pid)
+        if sid in reserve or sid in taxi:
+            continue
+        meta = registry.get(sid) or {}
+        if meta.get("position") != position:
+            continue
+        if str(meta.get("injury_status") or "").upper() in BLOCKING_STATUSES:
+            continue
+        healthy += 1
+    return healthy <= required
+
+
+def suggest_bid(
+    moves: Optional[List[Dict[str, Any]]],
+    rival_bids: Sequence[int],
+    room_median: int,
+    my_faab: int,
+    current_leg: int,
+    room_max: int = 0,
+) -> Tuple[int, str]:
+    """A number to bid, and the one sentence that justifies it.
+
+    Three inputs in priority order, which is the order three bids were got
+    wrong in one session:
+
+    1. **What this room paid for HIM.** A player it bought for $1 and cut is
+       worth $1 (Jalon Daniels, bid $8, won at $1).
+    2. **Who can actually outbid you** — rivals thin at his position who have
+       both money and a history of spending it. Remaining budget alone is not
+       willingness: La Liga's three fullest budgets had spent $0, $0 and $1
+       (Omar Cooper, bid $22, needed $10).
+    3. **The room's median**, only as the floor-setter when he has no history.
+
+    What it deliberately does NOT model is the tail. Backtested on 51 real
+    Mantis bids, escalating young high-dynasty-value players toward the room's
+    big-ticket range made things worse at every threshold tried (median error
+    $6 -> $14-43, mean $46.8 -> $47.5-56.8; correlation between bid and
+    dynasty value is only +0.20 on n=50). Seven outliers are not a pattern.
+    Instead ``room_max`` surfaces what this room HAS paid, as context for a
+    deliberate override rather than a prediction dressed up as one.
+
+    Args:
+        moves: This player's history from :func:`league_player_moves`.
+        rival_bids: Median winning bid of each credible rival (thin at the
+            position, with budget and a bidding record).
+        room_median: The league's median winning bid.
+        my_faab: My remaining budget.
+        current_leg: The week being priced.
+        room_max: The largest winning bid this room has made all season.
+
+    Returns:
+        ``(bid, reason)``. Never above a quarter of ``my_faab``.
+    """
+    cap = max(1, my_faab // 4)
+    cut_and_free = 0
+    if moves and moves[-1]["kind"] == "drop":
+        cut_and_free = max(0, current_leg - moves[-1]["leg"])
+    last_paid = next(
+        (m["bid"] for m in reversed(moves or []) if m["kind"] == "add" and m["bid"]),
+        None,
+    )
+
+    if not rival_bids:
+        if cut_and_free >= 1:
+            bid = max(1, int(last_paid or 1))
+            return min(bid, cap), (
+                f"this room cut him {cut_and_free}wk ago"
+                f"{f' after paying ${last_paid}' if last_paid else ''}"
+                " and nobody who needs the spot can outbid you"
+            )
+        return min(max(1, room_median // 3), cap), (
+            "no rival is both thin here and able to spend"
+        )
+
+    top = max(rival_bids)
+    beat = top + max(1, top // 5)
+    if cut_and_free >= 2 and last_paid and beat > last_paid * 3:
+        beat = max(last_paid * 2, room_median)
+    reason = f"{len(rival_bids)} rival(s) thin here; their top median bid is ${top}"
+    bid = min(max(1, int(beat)), cap)
+    if room_max and room_max >= bid * 4:
+        reason += f" — but this room has gone as high as ${room_max}"
+    return bid, reason
+
+
+def nfl_week_for_date(stamp: str, season: int) -> Optional[int]:
+    """Map a Yahoo transaction date (``Oct 21, 4:52 am``) to its NFL week.
+
+    A move belongs to the week it was made in, which is the latest week whose
+    games had already started on or before that date. Yahoo prints no year, so
+    the season is supplied and a January date is read as the following
+    calendar year.
+
+    Returns:
+        The week, or None when the schedule is unavailable or unparseable.
+    """
+    try:
+        import datetime as _dt
+        import glob as _glob
+
+        files = sorted(
+            _glob.glob(
+                str(BRONZE / "schedules" / f"season={season}" / "**" / "*.parquet"),
+                recursive=True,
+            )
+        )
+        if not files:
+            return None
+        sched = pd.read_parquet(files[-1])
+        sched["gameday"] = pd.to_datetime(sched["gameday"])
+        starts = sched.groupby("week")["gameday"].min().sort_index()
+        month_day = stamp.split(",")[0].strip()
+        parsed = _dt.datetime.strptime(month_day, "%b %d")
+        year = season + 1 if parsed.month < 3 else season
+        when = pd.Timestamp(year=year, month=parsed.month, day=parsed.day)
+        earlier = starts[starts <= when]
+        return int(earlier.index[-1]) if len(earlier) else 1
+    except Exception:  # noqa: BLE001 — an unmapped date just loses one row
+        return None
+
+
+def yahoo_transactions_text(league_id: str, pages: int = 4) -> str:
+    """Transactions page text through the logged-in claims profile.
+
+    Returns an empty string on any failure, so a Yahoo login that has lapsed
+    costs the demand column rather than the whole report.
+    """
+    try:
+        from src import waiver_sites as ws
+        from src.fantasy_browser import FantasyBrowser
+
+        browser = FantasyBrowser()
+        page = ws.site_page(browser, "yahoo", str(league_id), 0)
+        return ws.yahoo_transactions(page, str(league_id), pages)
+    except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
+        print(f"WARN: Yahoo transactions unavailable ({exc})")
+        return ""
+
+
+def moves_from_yahoo(text: str, by_name: Mapping[Any, str], season: int) -> PlayerMoves:
+    """Demand history for a Yahoo league, from its Transactions page text.
+
+    Yahoo's API is approval-gated (401 for read scope, no write scope for new
+    apps), so the page is the only source. Without it Feetball had nothing but
+    the league-wide median to price a claim on.
+
+    Args:
+        text: ``body.innerText`` of ``/f1/<league>/transactions``.
+        by_name: ``(normalised_name, position) -> sleeper_id``.
+        season: Season year, to resolve Yahoo's year-less dates.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+    """
+    from src.yahoo_transactions_page import parse_yahoo_transactions
+
+    sid_for = {n: sid for (n, _pos), sid in by_name.items()}
+    out: PlayerMoves = {}
+    staged: Dict[str, List[Tuple[int, int, Dict[str, Any]]]] = {}
+    for idx, rec in enumerate(parse_yahoo_transactions(text)):
+        leg = nfl_week_for_date(rec["when"], season)
+        if leg is None:
+            continue
+        for kind in ("add", "drop"):
+            who = rec.get(kind)
+            if not who:
+                continue
+            sid = sid_for.get(normalize_name(who["name"]))
+            if sid:
+                staged.setdefault(sid, []).append(
+                    (
+                        leg,
+                        idx,
+                        {
+                            "leg": leg,
+                            "bid": rec["bid"] if kind == "add" else None,
+                            "kind": kind,
+                        },
+                    )
+                )
+    # The page lists newest first, and several moves share one leg, so page
+    # position is the only tiebreak that keeps "added then cut" in that order.
+    for sid, rows in staged.items():
+        rows.sort(key=lambda r: (r[0], -r[1]))
+        out[sid] = [r[2] for r in rows]
     return out
 
 
@@ -274,7 +631,7 @@ UNRANKED = 10**6
 
 def injured_teammates(
     registry: Dict[str, Any],
-) -> Dict[Tuple[str, str], List[Tuple[int, str]]]:
+) -> Dict[Tuple[str, str], List[Tuple[int, str, str]]]:
     """Map ``(team, position)`` to ``(search_rank, name)`` for players who cannot play.
 
     Built from the Sleeper registry's live ``injury_status`` rather than the
@@ -289,11 +646,13 @@ def injured_teammates(
         registry: Sleeper player registry (``sleeper_player_id -> meta``).
 
     Returns:
-        ``(team, position) -> [(search_rank, name)]``, best rank first, for
-        skill positions only.
+        ``(team, position) -> [(search_rank, name, sleeper_id)]``, best rank
+        first, for skill positions only. The id lets callers join the week's
+        sentiment flags onto the team-mate — "he is out" and "he is due back
+        Sunday" are opposite signals for the player filling in.
     """
     out: Dict[Tuple[str, str], List[Tuple[int, str]]] = {}
-    for meta in registry.values():
+    for sid, meta in registry.items():
         if not isinstance(meta, dict):
             continue
         if str(meta.get("injury_status") or "").upper() not in BLOCKING_STATUSES:
@@ -304,9 +663,83 @@ def injured_teammates(
             continue
         rank = meta.get("search_rank")
         out.setdefault((str(team), str(pos)), []).append(
-            (int(rank) if isinstance(rank, (int, float)) else UNRANKED, str(name))
+            (
+                int(rank) if isinstance(rank, (int, float)) else UNRANKED,
+                str(name),
+                str(sid),
+            )
         )
     return {k: sorted(v) for k, v in out.items()}
+
+
+#: Sleeper ``reserve_allow_*`` setting -> the ``injury_status`` it permits in an
+#: IR slot. A slot that is free is not a slot you may use: Mantis 2026 runs
+#: ``reserve_allow_out = 0``, so a player merely "Out" cannot be stashed there.
+RESERVE_ALLOWS = {
+    "reserve_allow_out": "Out",
+    "reserve_allow_doubtful": "Doubtful",
+    "reserve_allow_sus": "Sus",
+    "reserve_allow_na": "NA",
+    "reserve_allow_cov": "COV",
+    "reserve_allow_dnr": "DNR",
+}
+
+
+def roster_mechanics(
+    league: Mapping[str, Any],
+    my_roster: Mapping[str, Any],
+    registry: Mapping[str, Any],
+) -> List[str]:
+    """Slot accounting a claim depends on: open spots, IR rules, who can be stashed.
+
+    Every claim is really two questions — is he worth it, and where does he go.
+    The second one went wrong twice in one session: a player was recommended
+    for an IR slot the league does not allow him in, and a bench player who
+    *was* IR-eligible sat unnoticed while the roster read as full.
+
+    Args:
+        league: Sleeper league object (``roster_positions``, ``settings``).
+        my_roster: My roster object (``players``, ``reserve``, ``taxi``).
+        registry: Sleeper player registry, for names and injury status.
+
+    Returns:
+        Printable lines; empty when the league object is unusable.
+    """
+    positions = league.get("roster_positions") or []
+    if not positions:
+        return []
+    settings = league.get("settings") or {}
+    players = [str(p) for p in (my_roster.get("players") or [])]
+    reserve = {str(p) for p in (my_roster.get("reserve") or [])}
+    taxi = {str(p) for p in (my_roster.get("taxi") or [])}
+    active = [p for p in players if p not in reserve and p not in taxi]
+
+    ir_slots = int(settings.get("reserve_slots") or 0)
+    taxi_slots = int(settings.get("taxi_slots") or 0)
+    allowed = ["IR"] + [
+        label for key, label in RESERVE_ALLOWS.items() if settings.get(key)
+    ]
+
+    open_active = len(positions) - len(active)
+    lines = [
+        f"  active {len(active)}/{len(positions)}"
+        f" ({open_active} open — a claim needs a drop when 0)"
+        f" | IR {len(reserve)}/{ir_slots} | taxi {len(taxi)}/{taxi_slots}"
+    ]
+    if ir_slots:
+        lines.append(f"  IR accepts: {', '.join(allowed)}")
+        if ir_slots > len(reserve):
+            stashable = sorted(
+                (registry.get(p) or {}).get("full_name") or p
+                for p in active
+                if str((registry.get(p) or {}).get("injury_status") or "").upper()
+                in {a.upper() for a in allowed}
+            )
+            lines.append(
+                "  IR-eligible on your bench (move to free an active slot): "
+                + (", ".join(stashable) if stashable else "none")
+            )
+    return lines
 
 
 def main(argv: Optional[list] = None) -> int:
@@ -321,6 +754,24 @@ def main(argv: Optional[list] = None) -> int:
     )
     ap.add_argument(
         "--roster-file", type=Path, help="ESPN/Yahoo: my roster, one name per line"
+    )
+    ap.add_argument(
+        "--transactions-file",
+        type=Path,
+        help="Yahoo: the league Transactions page saved as text, for the demand "
+        "column and bid model (Yahoo's API has no read scope)",
+    )
+    ap.add_argument(
+        "--yahoo-browser",
+        action="store_true",
+        help="Yahoo: read the league Transactions page through the logged-in "
+        "claims profile instead of --transactions-file",
+    )
+    ap.add_argument(
+        "--espn-browser",
+        action="store_true",
+        help="ESPN: add the demand column by reading the league's transaction log "
+        "through the logged-in claims profile (scripts/league_login.py)",
     )
     ap.add_argument(
         "--rostered-file",
@@ -370,9 +821,11 @@ def main(argv: Optional[list] = None) -> int:
         if not league:
             sys.exit("Sleeper league unavailable")
         username = args.user or preset.get("my_user") or "georgesmith"
-        for r in sleeper_http.get_league_rosters(str(preset["league_id"])):
+        all_rosters = sleeper_http.get_league_rosters(str(preset["league_id"]))
+        for r in all_rosters:
             rostered.update(str(p) for p in (r.get("players") or []))
         my = set_lineups.find_my_roster(str(preset["league_id"]), username)
+        mechanics = roster_mechanics(league, my, registry)
         mine = [
             str(p) for p in (my.get("players") or []) if p not in (my.get("taxi") or [])
         ]
@@ -387,6 +840,7 @@ def main(argv: Optional[list] = None) -> int:
         rostered = set(mine)
         if args.rostered_file:
             rostered |= roster_ids_from_file(args.rostered_file, by_name)
+        mechanics = []
         title = f"{args.league} ({platform}, my roster from {args.roster_file.name})"
     available: Optional[Set[str]] = (
         roster_ids_from_file(args.available_file, by_name)
@@ -414,11 +868,61 @@ def main(argv: Optional[list] = None) -> int:
     # What this room has already paid for each player. Sleeper only: ESPN and
     # Yahoo transaction logs need the claims browser, which this report does
     # not open (league_context.py --espn-browser has them).
-    moves = (
-        league_player_moves(str(preset["league_id"]), week)
-        if platform == "sleeper"
-        else {}
-    )
+    tx_rows: List[Dict[str, Any]] = []
+    bid_stats: Dict[str, Dict[str, Any]] = {}
+    rivals_by_pos: Dict[str, List[int]] = {}
+    room_median = 0
+    room_max = 0
+    my_faab = 0
+    if platform == "sleeper":
+        tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
+        bid_stats = team_bid_stats(tx_rows)
+        moves = league_player_moves(str(preset["league_id"]), week, tx_rows)
+        my_rid = str(my.get("roster_id"))
+        budget_total = int((league.get("settings") or {}).get("waiver_budget") or 0)
+        my_faab = budget_total - int(
+            (my.get("settings") or {}).get("waiver_budget_used") or 0
+        )
+        need = starters_required(league.get("roster_positions") or [])
+        all_bids = sorted(
+            b for st in bid_stats.values() for b in [st["median"]] * st["n"]
+        )
+        room_median = all_bids[len(all_bids) // 2] if all_bids else 0
+        room_max = max((st["max"] for st in bid_stats.values()), default=0)
+        rivals_by_pos: Dict[str, List[int]] = {}
+        for r in all_rosters:
+            rid = str(r.get("roster_id"))
+            if rid == my_rid:
+                continue
+            st = bid_stats.get(rid)
+            left = budget_total - int(
+                (r.get("settings") or {}).get("waiver_budget_used") or 0
+            )
+            # Credible = thin at the spot, has money, and has shown he spends.
+            if not st or left < room_median:
+                continue
+            for pos in SKILL_POSITIONS:
+                if thin_at(r, registry, pos, need.get(pos, 0)):
+                    rivals_by_pos.setdefault(pos, []).append(st["median"])
+    elif platform == "espn" and args.espn_browser:
+        moves = espn_player_moves(
+            str(preset["league_id"]),
+            season,
+            int(preset.get("my_team_id") or 1),
+            week,
+            registry,
+            by_name,
+        )
+    elif platform == "yahoo" and args.yahoo_browser:
+        moves = moves_from_yahoo(
+            yahoo_transactions_text(str(preset["league_id"])), by_name, season
+        )
+    elif platform == "yahoo" and args.transactions_file:
+        moves = moves_from_yahoo(
+            args.transactions_file.read_text(encoding="utf-8"), by_name, season
+        )
+    else:
+        moves = {}
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
@@ -486,11 +990,31 @@ def main(argv: Optional[list] = None) -> int:
             # What the room has paid for him before: price a claim off this,
             # not the league-wide median (see demand_note).
             "demand": demand_note(moves.get(sid), week) if moves else "",
+            "bid": (
+                suggest_bid(
+                    moves.get(sid),
+                    rivals_by_pos.get(pos, []),
+                    room_median,
+                    my_faab,
+                    week,
+                    room_max,
+                )
+                if moves and my_faab
+                else None
+            ),
             "blocked_by": [
-                n
-                for rank, n in blocked_map.get((str(meta.get("team")), pos), [])
+                f"{n}({news[bsid]})" if news.get(bsid) else n
+                for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
                 if n != (meta.get("full_name") or "") and rank < own_rank(meta)
             ],
+            # A team-mate the week's news says is RETURNING ends the rental:
+            # the candidate is about to lose the role, not grow into it.
+            "blocked_returning": any(
+                "returning" in (news.get(bsid) or "")
+                or "activated" in (news.get(bsid) or "")
+                for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
+                if n != (meta.get("full_name") or "") and rank < own_rank(meta)
+            ),
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
@@ -510,9 +1034,11 @@ def main(argv: Optional[list] = None) -> int:
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
             + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
+            + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
             + (f" [{r['demand']}]" if r.get("demand") else "")
             + (
-                f" RENTAL<-{', '.join(r['blocked_by'])[:34]}"
+                f" {'ENDING' if r.get('blocked_returning') else 'RENTAL'}"
+                f"<-{', '.join(r['blocked_by'])[:44]}"
                 if r.get("blocked_by")
                 else ""
             )
@@ -552,7 +1078,9 @@ def main(argv: Optional[list] = None) -> int:
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
-        "revert when he returns — check before paying up. ADDS counts adds "
+        "revert when he returns — check before paying up; ENDING<- means the "
+        "week's news says that team-mate is RETURNING, so the role is going "
+        "away now, not later. ADDS counts adds "
         "across ALL of Sleeper, not this league — never price a claim off it. "
         "[brackets] = what THIS room has paid for him (unclaimed / held $N / "
         "cut wkN, free Nwk): that is the first bid anchor, and "
@@ -586,7 +1114,12 @@ def main(argv: Optional[list] = None) -> int:
     missing = ", ".join(map(str, unscored)) or "none"
     weakest = "dynasty value" if dyn else "blend"
     print(
-        f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
+        (
+            "\n-- Roster mechanics --\n" + "\n".join(mechanics) + "\n"
+            if mechanics
+            else ""
+        )
+        + f"\n-- My roster (weakest {weakest} first; {len(my_rows)} scored, "
         f"unscored: {missing}) --"
     )
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):

@@ -60,15 +60,15 @@ def test_non_skill_positions_ignored():
     assert not any(pos == "G" for _team, pos in m)
 
 
-def test_entries_carry_rank_and_sort_best_first():
+def test_entries_carry_rank_name_and_id_sorted_best_first():
     m = injured_teammates(REGISTRY)
-    assert m[("BAL", "QB")] == [(10, "Lamar Jackson")]
-    assert m[("TB", "QB")] == [(75, "Baker Mayfield")]
+    assert m[("BAL", "QB")] == [(10, "Lamar Jackson", "1")]
+    assert m[("TB", "QB")] == [(75, "Baker Mayfield", "5")]
 
 
 def test_unranked_injured_player_sorts_last():
     m = injured_teammates(REGISTRY)
-    assert m[("LV", "TE")] == [(UNRANKED, "Unranked Backup")]
+    assert m[("LV", "TE")] == [(UNRANKED, "Unranked Backup", "9")]
 
 
 def _blocked_for(registry, candidate_name):
@@ -79,7 +79,7 @@ def _blocked_for(registry, candidate_name):
     own = int(own) if isinstance(own, (int, float)) else UNRANKED
     return [
         n
-        for rank, n in m.get((meta["team"], meta["position"]), [])
+        for rank, n, _sid in m.get((meta["team"], meta["position"]), [])
         if n != meta["full_name"] and rank < own
     ]
 
@@ -104,3 +104,54 @@ def test_candidate_never_flags_himself():
 def test_empty_registry_is_safe():
     assert injured_teammates({}) == {}
     assert injured_teammates({"x": None, "y": "junk"}) == {}
+
+
+# --- team-mate news: "he is out" and "he is due back" are opposite signals ---
+
+
+def _blocked_detail(registry, candidate_name, news):
+    """Mirror what scripts/waiver_wire.py builds for blocked_by / blocked_returning."""
+    m = injured_teammates(registry)
+    meta = next(v for v in registry.values() if v["full_name"] == candidate_name)
+    own = meta.get("search_rank")
+    own = int(own) if isinstance(own, (int, float)) else UNRANKED
+    mates = [
+        (n, sid)
+        for rank, n, sid in m.get((meta["team"], meta["position"]), [])
+        if n != meta["full_name"] and rank < own
+    ]
+    labels = [f"{n}({news[sid]})" if news.get(sid) else n for n, sid in mates]
+    ending = any(
+        "returning" in (news.get(sid) or "") or "activated" in (news.get(sid) or "")
+        for _n, sid in mates
+    )
+    return labels, ending
+
+
+def test_teammate_news_is_shown_on_the_tag():
+    labels, _ = _blocked_detail(REGISTRY, "Jalon Daniels", {"5": "returning"})
+    assert labels == ["Baker Mayfield(returning)"]
+
+
+def test_returning_teammate_ends_the_rental():
+    """The Daniels case: Baker due back, so the role is going away now."""
+    _, ending = _blocked_detail(REGISTRY, "Jalon Daniels", {"5": "returning"})
+    assert ending is True
+
+
+def test_activated_counts_the_same_as_returning():
+    _, ending = _blocked_detail(REGISTRY, "Jalon Daniels", {"5": "activated,signed"})
+    assert ending is True
+
+
+def test_still_out_teammate_stays_a_plain_rental():
+    """Monangai-style: hurt with no return signal, so the role holds a while."""
+    labels, ending = _blocked_detail(REGISTRY, "Jalon Daniels", {"5": "ruled_out"})
+    assert labels == ["Baker Mayfield(ruled_out)"]
+    assert ending is False
+
+
+def test_no_news_leaves_the_tag_bare():
+    labels, ending = _blocked_detail(REGISTRY, "Tyler Huntley", {})
+    assert labels == ["Lamar Jackson"]
+    assert ending is False
