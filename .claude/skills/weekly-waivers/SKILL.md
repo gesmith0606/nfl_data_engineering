@@ -169,11 +169,14 @@ week was quiet.
 
 **Know whether this process is actually working.** `python scripts/backtest_claim_outcomes.py
 --league mantis|la_liga` scores every add-minus-drop in the room over the weeks after the move and
-compares our median gain against our leaguemates'. As of week 6 2026 the verdict is **BEHIND
-THE ROOM**: our median claim gained **+1.6pt vs the room's +6.3pt**, at $4.3/pt against their
-$3.8 (n=7, directional). Our mean looks great (+20.2pt) only because of one Brissett at
-+84.7pt — quote the median. The worst value was **$300 on Adonai Mitchell for -2.9pt**.
-Re-run it before claiming the tooling is good, not just internally consistent.
+compares our median gain against our leaguemates'. **Quote the pooled number** (`--pool`), not one
+league: our own claim count per season is tiny, so a single season is directional at best.
+Pooled across redraft (La Liga 2024/2025/2026, n=13 ours vs 88 room) the verdict is **BEATING
+THE ROOM** — median +23.0pt vs +16.0pt, 69% vs 57% win rate, and **half the FAAB per point**
+($0.2 vs $0.4). Mantis alone reads BEHIND (+1.6 vs +6.3), but it is dynasty and six weeks in,
+where points over the following weeks is an incomplete measure of an asset buy — the script
+says so and leaves dynasty out of the pool rather than averaging two different questions.
+Always quote the median: our Mantis mean (+20.2pt) is one Brissett at +84.7pt.
 
 ## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
 Pool files and trending lists go stale within hours. Right before presenting, check

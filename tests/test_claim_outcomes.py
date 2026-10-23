@@ -210,3 +210,44 @@ def test_a_null_espn_bid_becomes_zero_not_nan():
     rows = co.espn_claim_rows(tx, {("a b", "WR"): "1", ("c d", "RB"): "2"})
     assert rows and rows[0]["bid"] == 0
     assert isinstance(rows[0]["bid"], int)
+
+
+def test_dynasty_claims_are_flagged_as_an_incomplete_measure():
+    """A dynasty claim buys future value; points over 3 weeks cannot see it.
+
+    Mantis 2026 reads BEHIND THE ROOM on this measure while La Liga 2024 and
+    2025 read BEATING. Treating those as comparable is the same error as
+    testing the young-drop rule on three weeks of points.
+    """
+    co = _mod()
+    ours = [{"gain": 1.0, "bid": 10, "leg": i} for i in range(3)]
+    room = [{"gain": 6.0, "bid": 10, "leg": i} for i in range(3)]
+    redraft = "\n".join(co.verdict(ours, room))
+    dynasty = "\n".join(co.verdict(ours, room, dynasty=True))
+    assert "DYNASTY" not in redraft
+    assert "INCOMPLETE outcome" in dynasty
+    assert "asset buy" in dynasty
+
+
+def test_pooling_excludes_dynasty_so_two_questions_are_not_averaged():
+    """Our own claim count per season is tiny; pooling is the only route to n.
+
+    But a dynasty room answers a different question, so it is reported and
+    then left out of the pooled figure.
+    """
+    co = _mod()
+    from src import config
+
+    assert len(co.POOL) >= 3, "pooling needs several (league, season) sets"
+    leagues = {league for league, _s, _w in co.POOL}
+    assert leagues <= set(config.LEAGUE_PRESETS), "every pooled league must exist"
+    # Every pooled league must be one of ours, never a roster-shape example.
+    for league in leagues:
+        assert config.LEAGUE_PRESETS[league].get("owned") is not False, league
+    # At least one dynasty and one redraft, or the exclusion is untested.
+    dyn = {league for league in leagues if config.LEAGUE_PRESETS[league].get("dynasty")}
+    assert dyn and leagues - dyn, f"pool should mix dynasty and redraft: {leagues}"
+
+    src = (REPO / "scripts" / "backtest_claim_outcomes.py").read_text(encoding="utf-8")
+    assert "if not dyn:" in src, "dynasty rooms must be excluded from the pool"
+    assert "pooled REDRAFT only" in src
