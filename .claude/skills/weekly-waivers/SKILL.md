@@ -106,7 +106,10 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
 - Drop order = lowest dynasty value with no role (old backups first).
-- **Check the "Roster mechanics" block before naming a drop.** It prints open active
+- **Check the "Roster mechanics" block before naming a drop.** It prints open active On ESPN and Yahoo that block is
+  **partial by design** — active slots come from the roster shape and the names in the
+  roster file, while `IR accepts: unknown on <platform>` means confirm on the site in
+  Step 4b. Only Sleeper reads live settings, so only Mantis gets real IR/taxi rules.
   slots, IR/taxi use, which `injury_status` values this league's IR actually accepts,
   and any IR-eligible player sitting on your bench. A free IR slot is not usable by an
   "Out" player unless `reserve_allow_out` is set — Mantis 2026 does not set it — and a

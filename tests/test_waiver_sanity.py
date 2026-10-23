@@ -8,7 +8,14 @@ that fails loudly instead. The tests prove each one actually fires.
 
 from __future__ import annotations
 
-from src.waiver_sanity import CRITICAL, WARN, check_report, parse_rows, summarise
+from src.waiver_sanity import (
+    CRITICAL,
+    WARN,
+    check_report,
+    parse_roster,
+    parse_rows,
+    summarise,
+)
 
 HEADER = (
     "=== LEAGUE — me — 2026 week 7 waivers ===\n"
@@ -291,3 +298,35 @@ def test_a_week_with_no_sentiment_flags_is_a_warning_not_a_silence():
 
     present = _report(rows, header=HEADER + NEWS_LINE)
     assert not [f for f in check_report(present) if f.check == "news-source"]
+
+
+def test_espn_yahoo_line_format_still_yields_age_and_adds():
+    """Those reports insert an `adp` column between adds and age (week 7, live)."""
+    line = (
+        "  bench Emeka Egbuka             WR TB   ours  7.7 slpr  8.7 "
+        "blend  8.2 last 14.3 adds   99k adp32   age 24 wk7 report"
+    )
+    (r,) = parse_roster(line)
+    assert (r.tag, r.pos, r.age, r.adds) == ("bench", "WR", 24, 99)
+
+
+def test_partial_slot_accounting_satisfies_the_mechanics_checks():
+    """ESPN/Yahoo cannot know IR rules, so they say so rather than printing nothing.
+
+    Omitting the block entirely made both mechanics warnings fire every single
+    week on those two leagues, which is a check that is really a platform note.
+    """
+    partial = (
+        "-- Roster mechanics --\n"
+        "  active 9/9 (0 open — a claim needs a drop when 0) | roster 15/16\n"
+        "  IR accepts: unknown on espn — confirm on the site before using an "
+        "IR slot (Step 4b)\n"
+    )
+    text = _report(
+        [_row("Jahan Dotson", "WR", "ATL", "BENCH+ BID $7 [unclaimed] age 26")],
+        header=HEADER + NEWS_LINE,
+        mechanics=partial,
+    )
+    assert not [
+        f for f in check_report(text) if f.check in ("roster-mechanics", "ir-rules")
+    ]

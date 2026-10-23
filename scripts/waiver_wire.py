@@ -1032,7 +1032,22 @@ def main(argv: Optional[list] = None) -> int:
             title = (
                 f"{args.league} ({platform}, my roster from {args.roster_file.name})"
             )
-        mechanics = []
+        # ESPN/Yahoo expose no settings feed here, so the slot accounting is
+        # partial: active slots come from the roster shape and the names we
+        # read, while IR/taxi rules need the site. Say which half is missing
+        # instead of printing nothing -- the skill tells us to read this block
+        # before naming a drop, and a report that omits it entirely makes that
+        # rule unfollowable while the gate warned about it every single week.
+        shape = config.ROSTER_CONFIGS[preset["roster"]]
+        active_slots = sum(v for k, v in shape.items() if k != "BN")
+        mechanics = [
+            f"  active {min(len(mine), active_slots)}/{active_slots}"
+            f" ({max(0, active_slots - len(mine))} open"
+            f" — a claim needs a drop when 0) | roster {len(mine)}"
+            f"/{sum(shape.values())} from {args.roster_file.name}",
+            f"  IR accepts: unknown on {platform} — confirm on the site before "
+            "using an IR slot (Step 4b)",
+        ]
     available: Optional[Set[str]] = (
         roster_ids_from_file(args.available_file, by_name)
         if args.available_file
