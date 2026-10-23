@@ -85,6 +85,8 @@ class TestBuildSleeperLookup:
             "n_proj_pos_rows": 3,
             "n_sleeper_pos_rows": 3,
             "n_final_matched": 3,
+            "n_startable_pos_rows": 3,
+            "n_startable_matched": 3,
         }
         ranks = lookup.set_index("player_id")["sleeper_pos_rank"]
         assert ranks["B"] == 1

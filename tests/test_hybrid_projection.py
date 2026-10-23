@@ -387,7 +387,8 @@ class TestTrainAndSaveResidualModelsProvenance:
                 pfe, "assemble_multiyear_player_features", return_value=all_data
             ),
             mock.patch.object(
-                pfe, "get_player_feature_columns",
+                pfe,
+                "get_player_feature_columns",
                 return_value=["feature_1", "feature_2"],
             ),
             mock.patch.object(
@@ -396,9 +397,7 @@ class TestTrainAndSaveResidualModelsProvenance:
             mock.patch.object(
                 ue, "compute_production_heuristic", return_value=heuristic
             ),
-            mock.patch.object(
-                ue, "compute_actual_fantasy_points", return_value=actual
-            ),
+            mock.patch.object(ue, "compute_actual_fantasy_points", return_value=actual),
         ):
             hp.train_and_save_residual_models(
                 positions=["QB"],
@@ -539,7 +538,17 @@ class TestApplyResidualCorrection:
             "WR",
             model_dir="/tmp/nonexistent_dir",
         )
-        pd.testing.assert_frame_equal(result, sample_heuristic_projections)
+        # 2026-10-23: the fallback now stamps RESIDUAL_APPLIED_COL so the
+        # board can distinguish 'corrected' from 'fell back'. The
+        # projections themselves must still be untouched.
+        from hybrid_projection import RESIDUAL_APPLIED_COL
+
+        assert RESIDUAL_APPLIED_COL in result.columns
+        assert not result[RESIDUAL_APPLIED_COL].any()
+        pd.testing.assert_frame_equal(
+            result.drop(columns=[RESIDUAL_APPLIED_COL]),
+            sample_heuristic_projections,
+        )
 
     def test_handles_missing_features_gracefully(self, sample_heuristic_projections):
         """Model handles features DataFrame with none of the expected columns."""
@@ -558,7 +567,17 @@ class TestApplyResidualCorrection:
             sample_heuristic_projections, no_match_features, "WR", model_dir
         )
         # Should return heuristic unchanged (no features matched)
-        pd.testing.assert_frame_equal(result, sample_heuristic_projections)
+        # 2026-10-23: the fallback now stamps RESIDUAL_APPLIED_COL so the
+        # board can distinguish 'corrected' from 'fell back'. The
+        # projections themselves must still be untouched.
+        from hybrid_projection import RESIDUAL_APPLIED_COL
+
+        assert RESIDUAL_APPLIED_COL in result.columns
+        assert not result[RESIDUAL_APPLIED_COL].any()
+        pd.testing.assert_frame_equal(
+            result.drop(columns=[RESIDUAL_APPLIED_COL]),
+            sample_heuristic_projections,
+        )
 
 
 class TestApplyResidualCorrectionBlend:
@@ -569,7 +588,9 @@ class TestApplyResidualCorrectionBlend:
     """
 
     @staticmethod
-    def _make_ridge_model_dir(tmp_dir, position, features, constant_pred, extra_meta=None):
+    def _make_ridge_model_dir(
+        tmp_dir, position, features, constant_pred, extra_meta=None
+    ):
         import joblib
         from sklearn.linear_model import Ridge
         from sklearn.pipeline import Pipeline
@@ -758,7 +779,10 @@ class TestRouterHybridIntegration:
         verdicts = _load_ship_gate(model_dir)
         for pos in ("QB", "RB"):
             meta_path = os.path.join(
-                os.path.dirname(__file__), "..", "models", "residual",
+                os.path.dirname(__file__),
+                "..",
+                "models",
+                "residual",
                 f"{pos.lower()}_residual_meta.json",
             )
             if os.path.exists(meta_path):
@@ -784,9 +808,7 @@ class TestRouterHybridIntegration:
             # stamp predates the veteran prior blend in the inference
             # baseline and is known-broken (TE -0.38 -> +0.15 swing).
             expected_wr = (
-                "HYBRID"
-                if wr_meta.get("heuristic_version") == "v4.2+blend"
-                else "SKIP"
+                "HYBRID" if wr_meta.get("heuristic_version") == "v4.2+blend" else "SKIP"
             )
             assert verdicts.get("WR") == expected_wr
 
@@ -802,9 +824,7 @@ class TestRouterHybridIntegration:
                 te_meta = json.load(fh)
             # Only the blend-consistent retrain may activate HYBRID.
             expected = (
-                "HYBRID"
-                if te_meta.get("heuristic_version") == "v4.2+blend"
-                else "SKIP"
+                "HYBRID" if te_meta.get("heuristic_version") == "v4.2+blend" else "SKIP"
             )
             assert verdicts.get("TE") == expected
 
@@ -906,7 +926,10 @@ class TestComputeHeuristicBaselineVeteranBlend:
         With a strong prior (60 yds, 5 rec/game in 2022) the blended
         baseline should be meaningfully higher than the raw rolling columns.
         """
-        from projection_engine import compute_heuristic_baseline, USE_VETERAN_PRIOR_BLEND
+        from projection_engine import (
+            compute_heuristic_baseline,
+            USE_VETERAN_PRIOR_BLEND,
+        )
 
         if not USE_VETERAN_PRIOR_BLEND:
             pytest.skip("USE_VETERAN_PRIOR_BLEND is disabled globally")
@@ -914,9 +937,7 @@ class TestComputeHeuristicBaselineVeteranBlend:
         pos_df = self._make_te_row_veteran_ramp()
         weekly_df = self._make_weekly_df_with_prior()
 
-        pts_no_blend = compute_heuristic_baseline(
-            pos_df, "TE", pd.DataFrame()
-        ).iloc[0]
+        pts_no_blend = compute_heuristic_baseline(pos_df, "TE", pd.DataFrame()).iloc[0]
         pts_with_blend = compute_heuristic_baseline(
             pos_df, "TE", pd.DataFrame(), weekly_df=weekly_df
         ).iloc[0]
@@ -940,9 +961,9 @@ class TestComputeHeuristicBaselineVeteranBlend:
             pos_df, "TE", pd.DataFrame(), weekly_df=None
         ).iloc[0]
 
-        assert pts_default == pytest.approx(pts_explicit_none, abs=1e-6), (
-            "weekly_df=None should produce same result as default (no weekly_df)"
-        )
+        assert pts_default == pytest.approx(
+            pts_explicit_none, abs=1e-6
+        ), "weekly_df=None should produce same result as default (no weekly_df)"
 
     def test_blend_version_stamp_in_meta(self, tmp_path):
         """When Bronze weekly data is present, train_and_save_residual_models

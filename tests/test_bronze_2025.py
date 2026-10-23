@@ -19,7 +19,16 @@ BRONZE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "bronze")
 # Bronze subset (schedules/rosters/sentiment/madden — see .gitignore
 # allowlists); PBP is never committed, so its presence is the canary for a
 # full local lake. Skip the whole audit in environments without one.
-_FULL_LAKE_PRESENT = os.path.isdir(os.path.join(BRONZE_DIR, "pbp"))
+#
+# The canary checks for PBP *content*, not just the directory. An empty
+# data/bronze/pbp/ — which a partial ingest leaves behind, or moving a season
+# aside for a local experiment — used to satisfy os.path.isdir and flip all 11
+# tests from skipped to failing on data that was not there. That reads as a
+# regression in whatever you were working on, which is a costly way to learn
+# that a guard tested for a container rather than its contents.
+_FULL_LAKE_PRESENT = bool(
+    glob.glob(os.path.join(BRONZE_DIR, "pbp", "season=*", "*.parquet"))
+)
 
 pytestmark = pytest.mark.skipif(
     not _FULL_LAKE_PRESENT,

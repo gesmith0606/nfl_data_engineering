@@ -79,7 +79,9 @@ def print_ats_report(results: pd.DataFrame, label: str = "Overall") -> None:
     print(f"\n{'=' * 60}")
     print(f"ATS RESULTS -- {label} ({n_games} games)")
     print(f"{'=' * 60}")
-    print(f"  Record:       {profit_stats['wins']}-{profit_stats['losses']}-{profit_stats['pushes']} (W-L-P)")
+    print(
+        f"  Record:       {profit_stats['wins']}-{profit_stats['losses']}-{profit_stats['pushes']} (W-L-P)"
+    )
     print(f"  ATS Accuracy: {accuracy:.1%}")
     print(f"  Break-even:   {BREAK_EVEN_PCT:.2%} (-110 vig)")
     print(f"  Profit:       {profit_stats['profit']:+.2f} units (flat $100 bets)")
@@ -102,7 +104,9 @@ def print_ou_report(results: pd.DataFrame, label: str = "Overall") -> None:
     print(f"\n{'=' * 60}")
     print(f"O/U RESULTS -- {label} ({n_games} games)")
     print(f"{'=' * 60}")
-    print(f"  Record:       {profit_stats['wins']}-{profit_stats['losses']}-{profit_stats['pushes']} (W-L-P)")
+    print(
+        f"  Record:       {profit_stats['wins']}-{profit_stats['losses']}-{profit_stats['pushes']} (W-L-P)"
+    )
     print(f"  O/U Accuracy: {accuracy:.1%}")
     print(f"  Break-even:   {BREAK_EVEN_PCT:.2%} (-110 vig)")
     print(f"  Profit:       {profit_stats['profit']:+.2f} units (flat $100 bets)")
@@ -122,7 +126,9 @@ def print_per_season_breakdown(results: pd.DataFrame, target: str) -> None:
         correct_col, push_col, label = "ou_correct", "push_ou", "O/U"
 
     print(f"\n  Per-Season {label} Breakdown:")
-    print(f"  {'Season':<8} {'Games':>6} {'W':>4} {'L':>4} {'P':>4} {'Acc':>8} {'Profit':>10} {'ROI':>8}")
+    print(
+        f"  {'Season':<8} {'Games':>6} {'W':>4} {'L':>4} {'P':>4} {'Acc':>8} {'Profit':>10} {'ROI':>8}"
+    )
     print(f"  {'-' * 56}")
 
     for season in sorted(results["season"].unique()):
@@ -160,7 +166,9 @@ def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
     # By Confidence Tier
     tier_df = compute_clv_by_tier(clv_df)
     print(f"\n  By Confidence Tier:")
-    print(f"  {'Tier':<10} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}")
+    print(
+        f"  {'Tier':<10} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}"
+    )
     print(f"  {'-' * 55}")
     for _, row in tier_df.iterrows():
         print(
@@ -172,7 +180,9 @@ def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
     # By Season
     season_df = compute_clv_by_season(clv_df)
     print(f"\n  By Season:")
-    print(f"  {'Season':<8} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}")
+    print(
+        f"  {'Season':<8} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}"
+    )
     print(f"  {'-' * 55}")
     for _, row in season_df.iterrows():
         print(
@@ -181,6 +191,64 @@ def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
             f"{row['pct_beating_close']:>13.1%}"
         )
     print(f"{'=' * 60}")
+
+
+#: Columns that must carry a real value for a game to be scorable.
+_SETTLED_COLS = ("actual_margin", "actual_total")
+
+
+def drop_unsettled_games(df, label=""):
+    """Drop games that have not been played yet.
+
+    ``assemble_multiyear_features`` returns every row of the schedule,
+    including fixtures with no result. Nothing downstream checked for that,
+    and the comparisons are written as ``actual_total > total_line`` — on a
+    NaN actual that evaluates to ``False`` rather than raising or
+    propagating, so an unplayed game is silently scored as an "Under"
+    outcome that the model usually "wins".
+
+    For completed historical seasons (this harness's only prior use) every
+    row is settled and the omission is invisible. Run it on an in-progress
+    season and it fabricates a triumph: 2026 through week 6 assembled 272
+    rows of which only **93** were played, and the 179 unplayed fixtures
+    turned a real sample into a reported 206-66 record, 75.7% O/U accuracy
+    and +44.6% ROI. Break-even is 52.38%.
+
+    That failure mode is worse than a crash, because the output is plausible
+    enough to act on. See .planning/PREDICTION_BACKTEST_PHANTOM_GAMES.md.
+
+    Args:
+        df: Assembled game frame.
+        label: Optional context for the printed note.
+
+    Returns:
+        Copy of ``df`` containing only settled games.
+    """
+    present = [c for c in _SETTLED_COLS if c in df.columns]
+    if not present:
+        return df
+    settled = df[present].notna().all(axis=1)
+    n_dropped = int((~settled).sum())
+    if n_dropped:
+        suffix = f" ({label})" if label else ""
+        print(
+            f"  Dropped {n_dropped} unplayed game(s){suffix}; "
+            f"{int(settled.sum())} settled game(s) remain"
+        )
+    return df[settled].copy()
+
+
+def _assemble_settled(seasons, label=""):
+    """``assemble_multiyear_features`` + the played-game filter.
+
+    Every backtest path in this module must score settled games only. Five
+    separate call sites assembled their own frame and none filtered, so
+    funnelling them through one function is what stops the omission
+    recurring — patching call sites individually is how it was missed in the
+    first place (``--ensemble`` runs through :func:`run_comparison_backtest`,
+    not :func:`run_ensemble_backtest`).
+    """
+    return drop_unsettled_games(assemble_multiyear_features(seasons), label)
 
 
 def run_backtest(
@@ -197,7 +265,7 @@ def run_backtest(
     """
     # Assemble features
     print("Assembling game features...")
-    all_data = assemble_multiyear_features(seasons)
+    all_data = _assemble_settled(seasons, "backtest")
     if all_data.empty:
         print("ERROR: No game data assembled. Check Silver/Bronze data.")
         return
@@ -223,7 +291,9 @@ def run_backtest(
             model, metadata = load_model(tgt, model_dir=model_dir)
         except FileNotFoundError as e:
             print(f"ERROR: {e}")
-            print(f"  Train the {tgt} model first: python scripts/train_models.py --target {tgt}")
+            print(
+                f"  Train the {tgt} model first: python scripts/train_models.py --target {tgt}"
+            )
             continue
 
         # Predict
@@ -235,7 +305,9 @@ def run_backtest(
         available = [c for c in model_features if c in all_data.columns]
         if len(available) < len(model_features):
             missing = set(model_features) - set(available)
-            print(f"  WARNING: {len(missing)} features missing from data: {sorted(missing)[:5]}...")
+            print(
+                f"  WARNING: {len(missing)} features missing from data: {sorted(missing)[:5]}..."
+            )
 
         all_data[pred_col] = model.predict(all_data[available])
 
@@ -256,7 +328,9 @@ def run_backtest(
         label = "ATS" if tgt == "spread" else "O/U"
         print(f"\n  PER-SEASON BREAKDOWN")
         print(f"  {'=' * 60}")
-        print(f"  {'Season':<8} {'Games':>6} {label + ' Acc':>8} {'Profit':>10} {'ROI':>8}")
+        print(
+            f"  {'Season':<8} {'Games':>6} {label + ' Acc':>8} {'Profit':>10} {'ROI':>8}"
+        )
         print(f"  {'-' * 46}")
         for _, row in per_season_df.iterrows():
             print(
@@ -278,21 +352,29 @@ def run_backtest(
                         f"\n  WARNING: Season {int(row['season'])} shows "
                         f"{row['ats_accuracy']:.1%} {label} accuracy (> 58% threshold)."
                     )
-                    print("  Investigate potential data leakage before trusting results.")
+                    print(
+                        "  Investigate potential data leakage before trusting results."
+                    )
 
         # Sealed holdout section (spread only, when 2024 data present)
         if tgt == "spread" and HOLDOUT_SEASON in results["season"].values:
-            holdout_result = evaluate_holdout(results, metadata, holdout_season=HOLDOUT_SEASON)
+            holdout_result = evaluate_holdout(
+                results, metadata, holdout_season=HOLDOUT_SEASON
+            )
             ps = holdout_result["profit_stats"]
             print(f"\n{'=' * 60}")
-            print(f"SEALED HOLDOUT -- {HOLDOUT_SEASON} Season ({holdout_result['n_games']} games)")
+            print(
+                f"SEALED HOLDOUT -- {HOLDOUT_SEASON} Season ({holdout_result['n_games']} games)"
+            )
             print(f"{'=' * 60}")
             print(f"  ATS Accuracy: {holdout_result['ats_accuracy']:.1%}")
             print(f"  Record:       {ps['wins']}-{ps['losses']}-{ps['pushes']} (W-L-P)")
             print(f"  Profit:       {ps['profit']:+.2f} units")
             print(f"  ROI:          {ps['roi']:+.2f}%")
-            print(f"\n  NOTE: Model trained on {min(metadata.get('training_seasons', []))}–"
-                  f"{max(metadata.get('training_seasons', []))} only. {HOLDOUT_SEASON} data was NEVER")
+            print(
+                f"\n  NOTE: Model trained on {min(metadata.get('training_seasons', []))}–"
+                f"{max(metadata.get('training_seasons', []))} only. {HOLDOUT_SEASON} data was NEVER"
+            )
             print(f"  seen during training or hyperparameter tuning.")
             print(f"{'=' * 60}")
 
@@ -324,7 +406,7 @@ def run_ensemble_backtest(
 
     # Assemble features
     print("Assembling game features...")
-    all_data = assemble_multiyear_features(seasons)
+    all_data = _assemble_settled(seasons, "backtest")
     if all_data.empty:
         print("ERROR: No game data assembled. Check Silver/Bronze data.")
         return {}
@@ -388,7 +470,7 @@ def run_comparison_backtest(
     """
     # Assemble features once
     print("Assembling game features...")
-    all_data = assemble_multiyear_features(seasons)
+    all_data = _assemble_settled(seasons, "backtest")
     if all_data.empty:
         print("ERROR: No game data assembled. Check Silver/Bronze data.")
         return
@@ -441,16 +523,24 @@ def run_comparison_backtest(
 
             non_push = xgb_results[~xgb_results[push_col]]
             xgb_accuracy = non_push[correct_col].mean() if len(non_push) > 0 else 0.0
-            xgb_profit = compute_profit(xgb_results, correct_col=correct_col, push_col=push_col)
+            xgb_profit = compute_profit(
+                xgb_results, correct_col=correct_col, push_col=push_col
+            )
             xgb_stats = {"accuracy": xgb_accuracy, "profit": xgb_profit}
 
             # Print single-model report
             if tgt == "spread":
-                print_ats_report(xgb_results, f"Single XGBoost ({len(xgb_results)} games)")
+                print_ats_report(
+                    xgb_results, f"Single XGBoost ({len(xgb_results)} games)"
+                )
             else:
-                print_ou_report(xgb_results, f"Single XGBoost ({len(xgb_results)} games)")
+                print_ou_report(
+                    xgb_results, f"Single XGBoost ({len(xgb_results)} games)"
+                )
         except FileNotFoundError:
-            print(f"  WARNING: No single XGBoost {tgt} model found. Skipping comparison.")
+            print(
+                f"  WARNING: No single XGBoost {tgt} model found. Skipping comparison."
+            )
 
         # --- Ensemble ---
         models = spread_models if tgt == "spread" else total_models
@@ -464,7 +554,9 @@ def run_comparison_backtest(
 
         non_push = ens_results[~ens_results[push_col]]
         ens_accuracy = non_push[correct_col].mean() if len(non_push) > 0 else 0.0
-        ens_profit = compute_profit(ens_results, correct_col=correct_col, push_col=push_col)
+        ens_profit = compute_profit(
+            ens_results, correct_col=correct_col, push_col=push_col
+        )
 
         # Print ensemble report
         if tgt == "spread":
@@ -486,13 +578,25 @@ def run_comparison_backtest(
             delta_profit = ens_profit["profit"] - xgb_p["profit"]
             delta_roi = ens_profit["roi"] - xgb_p["roi"]
 
-            print(f"  {label + ' Accuracy':<20} {xgb_acc:>9.1%} {ens_accuracy:>9.1%} {delta_acc:>+9.1%}")
-            print(f"  {label + ' Profit':<20} {xgb_p['profit']:>+10.2f} {ens_profit['profit']:>+10.2f} {delta_profit:>+10.2f}")
-            print(f"  {label + ' ROI':<20} {xgb_p['roi']:>+9.1f}% {ens_profit['roi']:>+9.1f}% {delta_roi:>+9.1f}%")
+            print(
+                f"  {label + ' Accuracy':<20} {xgb_acc:>9.1%} {ens_accuracy:>9.1%} {delta_acc:>+9.1%}"
+            )
+            print(
+                f"  {label + ' Profit':<20} {xgb_p['profit']:>+10.2f} {ens_profit['profit']:>+10.2f} {delta_profit:>+10.2f}"
+            )
+            print(
+                f"  {label + ' ROI':<20} {xgb_p['roi']:>+9.1f}% {ens_profit['roi']:>+9.1f}% {delta_roi:>+9.1f}%"
+            )
         else:
-            print(f"  {label + ' Accuracy':<20} {'N/A':>10} {ens_accuracy:>9.1%} {'N/A':>10}")
-            print(f"  {label + ' Profit':<20} {'N/A':>10} {ens_profit['profit']:>+10.2f} {'N/A':>10}")
-            print(f"  {label + ' ROI':<20} {'N/A':>10} {ens_profit['roi']:>+9.1f}% {'N/A':>10}")
+            print(
+                f"  {label + ' Accuracy':<20} {'N/A':>10} {ens_accuracy:>9.1%} {'N/A':>10}"
+            )
+            print(
+                f"  {label + ' Profit':<20} {'N/A':>10} {ens_profit['profit']:>+10.2f} {'N/A':>10}"
+            )
+            print(
+                f"  {label + ' ROI':<20} {'N/A':>10} {ens_profit['roi']:>+9.1f}% {'N/A':>10}"
+            )
 
         print(f"  {'=' * 52}")
 
@@ -520,7 +624,7 @@ def run_holdout_comparison(
 
     # Assemble features for holdout evaluation
     print("Assembling game features for holdout comparison...")
-    all_data = assemble_multiyear_features(PREDICTION_SEASONS)
+    all_data = _assemble_settled(PREDICTION_SEASONS, "holdout")
     if all_data.empty:
         print("ERROR: No game data assembled. Check Silver/Bronze data.")
         return
@@ -603,10 +707,14 @@ def run_holdout_comparison(
     if p30_results.empty:
         p30_results = p31_results.copy()
     if p31_results.empty:
-        p31_results = p30_results.copy() if not p30_results.empty else xgb_results.copy()
+        p31_results = (
+            p30_results.copy() if not p30_results.empty else xgb_results.copy()
+        )
 
     comparison = print_holdout_comparison(
-        xgb_results, p30_results, p31_results,
+        xgb_results,
+        p30_results,
+        p31_results,
         holdout_season=HOLDOUT_SEASON,
     )
 
@@ -614,7 +722,9 @@ def run_holdout_comparison(
     if not p31_results.empty:
         holdout_data = p31_results[p31_results["season"] == HOLDOUT_SEASON]
         if not holdout_data.empty:
-            print_clv_report(holdout_data, f"P31 Ensemble CLV -- {HOLDOUT_SEASON} Holdout")
+            print_clv_report(
+                holdout_data, f"P31 Ensemble CLV -- {HOLDOUT_SEASON} Holdout"
+            )
 
     return comparison
 
@@ -710,6 +820,7 @@ def run_clv_true_backtest(
             python scripts/backtest_predictions.py --ensemble --clv-true --seasons 2026
     """
     import sys as _sys
+
     _sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
     from odds_snapshot_loader import load_open_close_lines
@@ -732,6 +843,7 @@ def run_clv_true_backtest(
     print("\nLoading ensemble models...")
     try:
         from ensemble_training import load_ensemble, predict_ensemble
+
         spread_models, _total_models, metadata = load_ensemble(ensemble_dir)
     except FileNotFoundError as exc:
         print(f"ERROR: {exc}")
@@ -740,8 +852,9 @@ def run_clv_true_backtest(
 
     # Assemble game features.
     from feature_engineering import assemble_multiyear_features
+
     print("Assembling game features...")
-    all_data = assemble_multiyear_features(seasons)
+    all_data = _assemble_settled(seasons, "backtest")
     if all_data.empty:
         print("ERROR: No game data assembled.")
         return
@@ -764,7 +877,9 @@ def run_clv_true_backtest(
     # re-made against the open line below — true CLV requires picking at
     # the open, not the close.
     all_data["pick_side"] = "away"
-    all_data.loc[all_data["predicted_margin"] > all_data["spread_line"], "pick_side"] = "home"
+    all_data.loc[
+        all_data["predicted_margin"] > all_data["spread_line"], "pick_side"
+    ] = "home"
 
     # Build a model-edge column for tier breakdown.
     all_data["model_edge"] = (
@@ -806,7 +921,9 @@ def run_clv_true_backtest(
         return
 
     joined = all_data.merge(
-        snap_combined[["home_team_nfl", "away_team_nfl", "season", "open_spread", "close_spread"]],
+        snap_combined[
+            ["home_team_nfl", "away_team_nfl", "season", "open_spread", "close_spread"]
+        ],
         on=["home_team_nfl", "away_team_nfl", "season"],
         how="left",
     )
@@ -828,8 +945,7 @@ def run_clv_true_backtest(
     # was actually made on — is recorded separately for capture analysis.
     joined["open_edge"] = float("nan")
     joined.loc[has_open, "open_edge"] = (
-        joined.loc[has_open, "predicted_margin"]
-        + joined.loc[has_open, "open_spread"]
+        joined.loc[has_open, "predicted_margin"] + joined.loc[has_open, "open_spread"]
     ).abs()
 
     n_total = len(joined)
@@ -843,8 +959,7 @@ def run_clv_true_backtest(
 
     if n_with_open == 0:
         print(
-            "\n  No open-proxy lines available.  "
-            "Start capturing before 2026 week 1."
+            "\n  No open-proxy lines available.  " "Start capturing before 2026 week 1."
         )
         print_line_capture_report({"n": 0}, label="All Seasons")
         return
@@ -972,7 +1087,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     try:
         if args.clv_true:
             if not args.ensemble:
-                print("ERROR: --clv-true requires --ensemble (ensemble models provide pick direction).")
+                print(
+                    "ERROR: --clv-true requires --ensemble (ensemble models provide pick direction)."
+                )
                 return 1
             run_clv_true_backtest(
                 seasons=args.seasons,

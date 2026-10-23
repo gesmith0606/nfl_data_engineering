@@ -43,7 +43,13 @@ def model_dir_with_qb(tmp_path, ship_gate_report):
     # Create QB model directory with stub files
     qb_dir = tmp_path / "qb"
     qb_dir.mkdir()
-    for stat in ["passing_yards", "passing_tds", "interceptions", "rushing_yards", "rushing_tds"]:
+    for stat in [
+        "passing_yards",
+        "passing_tds",
+        "interceptions",
+        "rushing_yards",
+        "rushing_tds",
+    ]:
         (qb_dir / f"{stat}.json").write_text("{}")
 
     # Create feature selection directory
@@ -72,22 +78,24 @@ def sample_silver_df():
         ("WR", "MIA", "wr1", "Tyreek Hill"),
         ("TE", "KC", "te1", "Travis Kelce"),
     ]:
-        rows.append({
-            "player_id": pid,
-            "player_name": name,
-            "position": pos,
-            "recent_team": team,
-            "season": 2025,
-            "week": 4,
-            "passing_yards_roll3": 280.0 if pos == "QB" else np.nan,
-            "passing_yards_roll6": 270.0 if pos == "QB" else np.nan,
-            "rushing_yards_roll3": 50.0 if pos in ("QB", "RB") else np.nan,
-            "rushing_yards_roll6": 45.0 if pos in ("QB", "RB") else np.nan,
-            "receiving_yards_roll3": 80.0 if pos in ("WR", "TE") else np.nan,
-            "receiving_yards_roll6": 75.0 if pos in ("WR", "TE") else np.nan,
-            "snap_pct": 0.85,
-            "games_played": 6,
-        })
+        rows.append(
+            {
+                "player_id": pid,
+                "player_name": name,
+                "position": pos,
+                "recent_team": team,
+                "season": 2025,
+                "week": 4,
+                "passing_yards_roll3": 280.0 if pos == "QB" else np.nan,
+                "passing_yards_roll6": 270.0 if pos == "QB" else np.nan,
+                "rushing_yards_roll3": 50.0 if pos in ("QB", "RB") else np.nan,
+                "rushing_yards_roll6": 45.0 if pos in ("QB", "RB") else np.nan,
+                "receiving_yards_roll3": 80.0 if pos in ("WR", "TE") else np.nan,
+                "receiving_yards_roll6": 75.0 if pos in ("WR", "TE") else np.nan,
+                "snap_pct": 0.85,
+                "games_played": 6,
+            }
+        )
     return pd.DataFrame(rows)
 
 
@@ -143,40 +151,46 @@ class TestIsFallbackPlayer:
         """Rookie with all-NaN rolling features triggers fallback."""
         from ml_projection_router import _is_fallback_player
 
-        row = pd.Series({
-            "player_id": "rookie1",
-            "passing_yards_roll3": np.nan,
-            "passing_yards_roll6": np.nan,
-            "rushing_yards_roll3": np.nan,
-            "rushing_yards_roll6": np.nan,
-            "games_played": 0,
-        })
+        row = pd.Series(
+            {
+                "player_id": "rookie1",
+                "passing_yards_roll3": np.nan,
+                "passing_yards_roll6": np.nan,
+                "rushing_yards_roll3": np.nan,
+                "rushing_yards_roll6": np.nan,
+                "games_played": 0,
+            }
+        )
         assert _is_fallback_player(row) is True
 
     def test_true_for_fewer_than_3_games(self):
         """Player with fewer than 3 games played triggers fallback."""
         from ml_projection_router import _is_fallback_player
 
-        row = pd.Series({
-            "player_id": "newguy",
-            "passing_yards_roll3": 200.0,
-            "passing_yards_roll6": 190.0,
-            "games_played": 2,
-        })
+        row = pd.Series(
+            {
+                "player_id": "newguy",
+                "passing_yards_roll3": 200.0,
+                "passing_yards_roll6": 190.0,
+                "games_played": 2,
+            }
+        )
         assert _is_fallback_player(row) is True
 
     def test_false_for_veteran_with_data(self):
         """Player with 5+ games and valid rolling features is not fallback."""
         from ml_projection_router import _is_fallback_player
 
-        row = pd.Series({
-            "player_id": "vet1",
-            "passing_yards_roll3": 280.0,
-            "passing_yards_roll6": 270.0,
-            "rushing_yards_roll3": 50.0,
-            "rushing_yards_roll6": 45.0,
-            "games_played": 8,
-        })
+        row = pd.Series(
+            {
+                "player_id": "vet1",
+                "passing_yards_roll3": 280.0,
+                "passing_yards_roll6": 270.0,
+                "rushing_yards_roll3": 50.0,
+                "rushing_yards_roll6": 45.0,
+                "games_played": 8,
+            }
+        )
         assert _is_fallback_player(row) is False
 
 
@@ -192,23 +206,30 @@ class TestGenerateMlProjections:
     @patch("ml_projection_router.load_player_model")
     @patch("ml_projection_router.generate_weekly_projections")
     def test_routes_qb_to_ml_and_others_to_heuristic(
-        self, mock_heuristic, mock_load_model, mock_predict,
-        sample_silver_df, sample_opp_rankings, model_dir_with_qb,
+        self,
+        mock_heuristic,
+        mock_load_model,
+        mock_predict,
+        sample_silver_df,
+        sample_opp_rankings,
+        model_dir_with_qb,
     ):
         """QB routed to ML, RB/WR/TE to heuristic; projection_source tagged."""
         from ml_projection_router import generate_ml_projections
 
         # Mock heuristic output for non-QB positions
-        heuristic_df = pd.DataFrame({
-            "player_id": ["rb1", "wr1", "te1"],
-            "player_name": ["McCaffrey", "Hill", "Kelce"],
-            "position": ["RB", "WR", "TE"],
-            "recent_team": ["SF", "MIA", "KC"],
-            "projected_points": [15.0, 14.0, 10.0],
-            "projected_floor": [9.0, 8.5, 6.0],
-            "projected_ceiling": [21.0, 19.5, 14.0],
-            "position_rank": [1, 1, 1],
-        })
+        heuristic_df = pd.DataFrame(
+            {
+                "player_id": ["rb1", "wr1", "te1"],
+                "player_name": ["McCaffrey", "Hill", "Kelce"],
+                "position": ["RB", "WR", "TE"],
+                "recent_team": ["SF", "MIA", "KC"],
+                "projected_points": [15.0, 14.0, 10.0],
+                "projected_floor": [9.0, 8.5, 6.0],
+                "projected_ceiling": [21.0, 19.5, 14.0],
+                "position_rank": [1, 1, 1],
+            }
+        )
         mock_heuristic.return_value = heuristic_df
 
         # Mock model loading -- return a MagicMock for each stat
@@ -219,9 +240,18 @@ class TestGenerateMlProjections:
         # Mock predict_player_stats to return pred_ columns
         def fake_predict(model_dict, player_data, position, feat_cols):
             result = player_data.copy()
-            for stat in ["passing_yards", "passing_tds", "interceptions", "rushing_yards", "rushing_tds"]:
-                result[f"pred_{stat}"] = [250.0, 240.0] if "yards" in stat else [1.5, 1.3]
+            for stat in [
+                "passing_yards",
+                "passing_tds",
+                "interceptions",
+                "rushing_yards",
+                "rushing_tds",
+            ]:
+                result[f"pred_{stat}"] = (
+                    [250.0, 240.0] if "yards" in stat else [1.5, 1.3]
+                )
             return result
+
         mock_predict.side_effect = fake_predict
 
         result = generate_ml_projections(
@@ -241,21 +271,27 @@ class TestGenerateMlProjections:
 
     @patch("ml_projection_router.generate_weekly_projections")
     def test_output_columns_match_heuristic_plus_source(
-        self, mock_heuristic, sample_silver_df, sample_opp_rankings, model_dir_with_qb,
+        self,
+        mock_heuristic,
+        sample_silver_df,
+        sample_opp_rankings,
+        model_dir_with_qb,
     ):
         """Output has identical columns to heuristic output plus projection_source."""
         from ml_projection_router import generate_ml_projections
 
-        heuristic_df = pd.DataFrame({
-            "player_id": ["rb1", "wr1", "te1", "qb1", "qb2"],
-            "player_name": ["McCaffrey", "Hill", "Kelce", "Mahomes", "Allen"],
-            "position": ["RB", "WR", "TE", "QB", "QB"],
-            "recent_team": ["SF", "MIA", "KC", "KC", "BUF"],
-            "projected_points": [15.0, 14.0, 10.0, 22.0, 20.0],
-            "projected_floor": [9.0, 8.5, 6.0, 12.0, 11.0],
-            "projected_ceiling": [21.0, 19.5, 14.0, 32.0, 29.0],
-            "position_rank": [1, 1, 1, 1, 2],
-        })
+        heuristic_df = pd.DataFrame(
+            {
+                "player_id": ["rb1", "wr1", "te1", "qb1", "qb2"],
+                "player_name": ["McCaffrey", "Hill", "Kelce", "Mahomes", "Allen"],
+                "position": ["RB", "WR", "TE", "QB", "QB"],
+                "recent_team": ["SF", "MIA", "KC", "KC", "BUF"],
+                "projected_points": [15.0, 14.0, 10.0, 22.0, 20.0],
+                "projected_floor": [9.0, 8.5, 6.0, 12.0, 11.0],
+                "projected_ceiling": [21.0, 19.5, 14.0, 32.0, 29.0],
+                "position_rank": [1, 1, 1, 1, 2],
+            }
+        )
         mock_heuristic.return_value = heuristic_df
 
         result = generate_ml_projections(
@@ -275,21 +311,27 @@ class TestGenerateMlProjections:
 
     @patch("ml_projection_router.generate_weekly_projections")
     def test_no_ship_gate_falls_back_to_full_heuristic(
-        self, mock_heuristic, sample_silver_df, sample_opp_rankings, empty_model_dir,
+        self,
+        mock_heuristic,
+        sample_silver_df,
+        sample_opp_rankings,
+        empty_model_dir,
     ):
         """When ship gate report is missing, all positions use heuristic."""
         from ml_projection_router import generate_ml_projections
 
-        heuristic_df = pd.DataFrame({
-            "player_id": ["qb1", "rb1"],
-            "player_name": ["Mahomes", "McCaffrey"],
-            "position": ["QB", "RB"],
-            "recent_team": ["KC", "SF"],
-            "projected_points": [22.0, 15.0],
-            "projected_floor": [12.0, 9.0],
-            "projected_ceiling": [32.0, 21.0],
-            "position_rank": [1, 1],
-        })
+        heuristic_df = pd.DataFrame(
+            {
+                "player_id": ["qb1", "rb1"],
+                "player_name": ["Mahomes", "McCaffrey"],
+                "position": ["QB", "RB"],
+                "recent_team": ["KC", "SF"],
+                "projected_points": [22.0, 15.0],
+                "projected_floor": [12.0, 9.0],
+                "projected_ceiling": [32.0, 21.0],
+                "position_rank": [1, 1],
+            }
+        )
         mock_heuristic.return_value = heuristic_df
 
         result = generate_ml_projections(
@@ -313,26 +355,44 @@ class TestCheckTeamTotalCoherence:
     """Tests for check_team_total_coherence function."""
 
     def test_warns_when_exceeding_threshold(self):
-        """Teams exceeding 110% of implied total produce warning strings."""
-        from ml_projection_router import check_team_total_coherence
+        """Teams exceeding 110% of their fantasy BUDGET produce warnings.
 
-        projections = pd.DataFrame({
-            "recent_team": ["KC", "KC", "KC"],
-            "projected_points": [15.0, 15.0, 10.0],  # sum=40 vs implied 25 -> 160%
-        })
+        Updated 2026-10-23: this test previously compared a 40-pt team sum
+        against a 25-pt implied total and called it "160%" — encoding the unit
+        bug it was meant to guard. An implied total is a real NFL score; the
+        team's fantasy budget is implied * _IMPLIED_TO_FANTASY_MULT (3.36 for
+        half-PPR), so 25 implied means an ~84-pt budget and 40 is ordinary.
+        """
+        from ml_projection_router import check_team_total_coherence
+        from projection_engine import _IMPLIED_TO_FANTASY_MULT
+
+        budget = 25.0 * _IMPLIED_TO_FANTASY_MULT["half_ppr"]  # ~84 pts
+        over = budget * 1.25
+        projections = pd.DataFrame(
+            {
+                "recent_team": ["KC", "KC", "KC"],
+                "projected_points": [over / 3] * 3,
+            }
+        )
         implied = {"KC": 25.0}
         warnings = check_team_total_coherence(projections, implied, threshold=1.10)
         assert len(warnings) == 1
         assert "KC" in warnings[0]
 
     def test_empty_when_within_threshold(self):
-        """No warnings when all teams are within 110% threshold."""
+        """No warnings for a team inside its budget — including a realistic
+        sum that the pre-fix check would have flagged."""
         from ml_projection_router import check_team_total_coherence
+        from projection_engine import _IMPLIED_TO_FANTASY_MULT
 
-        projections = pd.DataFrame({
-            "recent_team": ["KC", "KC"],
-            "projected_points": [12.0, 10.0],  # sum=22 vs implied 25 -> 88%
-        })
+        budget = 25.0 * _IMPLIED_TO_FANTASY_MULT["half_ppr"]
+        within = budget * 0.95
+        projections = pd.DataFrame(
+            {
+                "recent_team": ["KC", "KC"],
+                "projected_points": [within / 2] * 2,
+            }
+        )
         implied = {"KC": 25.0}
         warnings = check_team_total_coherence(projections, implied, threshold=1.10)
         assert len(warnings) == 0
@@ -354,6 +414,7 @@ class TestComputeMapieIntervals:
             pytest.skip("MAPIE not installed")
 
         from sklearn.linear_model import LinearRegression
+
         model = LinearRegression()
         np.random.seed(42)
         X_train = np.random.rand(100, 3)
@@ -416,7 +477,7 @@ class TestDraftCapitalBoost:
         """Undrafted player (NaN) returns 1.0."""
         from projection_engine import draft_capital_boost
 
-        assert draft_capital_boost(float('nan'), "WR") == 1.0
+        assert draft_capital_boost(float("nan"), "WR") == 1.0
 
     def test_late_pick_gets_no_boost(self):
         """Pick 100 (beyond pick 64) returns 1.0."""
