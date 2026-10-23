@@ -1229,3 +1229,32 @@ def test_an_unresolvable_person_name_is_not_emitted_as_a_signal():
     # Both resolve sites must drop a named subject that resolves to nobody.
     assert src.count("if player_id is None and signal.player_name:") == 2
     assert "not an NFL player" in src
+
+
+def test_a_withdrawn_source_is_reported_not_silently_retried():
+    """Reddit answered 403 for a year while the cron reported success daily.
+
+    r/fantasyfootball, r/nfl and r/DynastyFF all refuse unauthenticated
+    reads; the last capture was 2025. The ingester logged six errors and
+    returned 0 every run, which is the same pattern that let three dead RSS
+    feeds survive months — and three futile requests a day train a reader to
+    skim error lines.
+    """
+    import importlib.util
+    import sys as _sys
+
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "dsp_reddit", root / "scripts" / "daily_sentiment_pipeline.py"
+    )
+    dsp = importlib.util.module_from_spec(spec)
+    _sys.modules["dsp_reddit"] = dsp
+    spec.loader.exec_module(dsp)
+
+    assert dsp.REDDIT_AVAILABLE is False
+    step = dsp._run_reddit_ingestion(2026, True, False)
+    # Nothing broke, so it is not a failure — but the detail says it is gone,
+    # so a deliberately dropped source cannot be mistaken for a healthy one.
+    assert step.success is True
+    assert "DISABLED" in step.detail and "403" in step.detail
+    assert step.elapsed_sec < 1.0, "must not make the three doomed requests"

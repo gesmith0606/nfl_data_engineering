@@ -180,8 +180,20 @@ def _run_rss_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
     return step
 
 
+#: Reddit withdrew unauthenticated JSON access: r/fantasyfootball, r/nfl and
+#: r/DynastyFF all answer 403 Blocked. The last capture was in 2025 (11 files,
+#: none since), while the ingester logged six errors and returned 0 every day,
+#: so the cron stayed green over a source that no longer exists. Three futile
+#: requests a day also train a reader to skim error lines, which is how the
+#: three dead RSS feeds survived months.
+#:
+#: Disabled rather than left erroring. To revive it, route through the Arctic
+#: Shift archive (no login, no key) instead of reddit.com, and flip this flag.
+REDDIT_AVAILABLE = False
+
+
 def _run_reddit_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
-    """Ingest posts from Reddit.
+    """Ingest posts from Reddit, or report that the source is gone.
 
     Args:
         season: NFL season year.
@@ -193,6 +205,12 @@ def _run_reddit_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResu
     """
     step = StepResult(name="Reddit Ingestion")
     t0 = time.monotonic()
+    if not REDDIT_AVAILABLE:
+        # Reported, not silently skipped: a source we deliberately dropped and
+        # a source that broke this morning must not look the same.
+        step.detail = "DISABLED — reddit.com returns 403 to unauthenticated reads"
+        step.elapsed_sec = time.monotonic() - t0
+        return step
     try:
         from scripts.ingest_sentiment_reddit import main as reddit_main
 

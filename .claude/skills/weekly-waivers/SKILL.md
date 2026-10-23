@@ -161,6 +161,12 @@ Anyone in the **current** lineup is off the drop list, not just the optimizer's 
 gated as `start-drop`. The report prints `-- Sanity -- N critical, N warnings` **always**,
 clean or not: if you cannot see that line you are looking at filtered output, not a pass.
 
+**Four live news sources**, audited 2026-10-23: `rss` (5 feeds), `pft`, `sleeper`, `rotowire`
+— ~149 articles a run. **Reddit is gone** (403 to unauthenticated reads since 2024) and is now
+explicitly DISABLED rather than erroring daily; revive it via the Arctic Shift archive if ever
+wanted. Extraction is **keyword rules, not comprehension** — `ENABLE_LLM_ENRICHMENT` with a
+funded `ANTHROPIC_API_KEY` is the single biggest upgrade left to this skill.
+
 The header states `NEWS = Gold sentiment, N flags for week W`. **`N` is small by design**
 (24 in week 7, league-wide), so most rows carry no NEWS and that is normal. `N = 0` is not:
 the extractor fails open to keyword rules while its cron still reports success, so zero
