@@ -139,6 +139,17 @@ each recommended ADD is still unrostered and each DROP is on our roster, on the 
 Show the result as a table (player → live status → source). Anything unverified is
 labelled UNVERIFIED, never presented as available.
 
+## Step 4b — Gate the advice before you present it
+```bash
+python scripts/sanity_check_waivers.py --league <league> --week N
+```
+Exits 1 on any CRITICAL. Each check is a correction that had to be made by hand this
+season: nothing on a bye recommended, no real money on a role the news says is ENDING,
+no bid over a quarter of the budget or above the room's own record, every bid backed by
+`[demand]` history, a fresh board, roster mechanics present. **If it fails, fix the
+cause — do not present the report with a note.** Gold projections have been gated since
+v7.0; this is the same idea for advice.
+
 ## Step 5 — Output
 Per league: the context line (our FAAB vs the room), then each claim as
 `player — bid — drop — why (role/value/injury context)`, then "don't claim" with the

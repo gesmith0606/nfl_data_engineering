@@ -147,6 +147,22 @@ worth fixing. Caveat on the "claims lost" column: the backtest prices every
 historical add with no credible-rival information, so it measures the floor's
 behaviour, not the full model — live, the rivals term raises the bid.
 
+## 4b. Sanity gate
+
+`python scripts/sanity_check_waivers.py --league <league>` runs the report and asserts
+the invariants in `src/waiver_sanity.py`, exiting 1 on any CRITICAL. Every check is a
+mistake that reached the user this season rather than the pipeline:
+
+| check | the correction it encodes |
+|---|---|
+| `bye` | a player on bye rated STARTS/BENCH+ |
+| `ending-role` | real money on a role whose starter is returning (Daniels, $8) |
+| `faab-cap` | a bid over a quarter of the budget (Miller, $55 of $392) |
+| `room-max` | a bid above anything this room has ever paid |
+| `no-demand` | pricing with no `[demand]` history — the median-guessing failure |
+| `board-age` | a stale board with four starters projecting healthy |
+| `roster-mechanics` | a drop named without knowing the slot or IR rules |
+
 ## 5. Waiver clear times
 - Sleeper Mantis: Wednesday morning; unclaimed players become instant free agents afterwards.
 - ESPN La Liga and Yahoo Feetball: Wednesday ~3am ET.
