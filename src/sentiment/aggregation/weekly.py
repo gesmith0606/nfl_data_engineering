@@ -136,7 +136,9 @@ def compute_staleness_weight(
         if pub_time.tzinfo is None:
             pub_time = pub_time.replace(tzinfo=timezone.utc)
     except (ValueError, TypeError):
-        logger.debug("Could not parse published_at '%s', using weight 1.0", published_at)
+        logger.debug(
+            "Could not parse published_at '%s', using weight 1.0", published_at
+        )
         return 1.0
 
     age_hours = (reference_time - pub_time).total_seconds() / 3600.0
@@ -241,7 +243,9 @@ class WeeklyAggregator:
 
             all_records.extend(r for r in records if isinstance(r, dict))
 
-        logger.debug("Loaded %d Silver records from %d files", len(all_records), len(files))
+        logger.debug(
+            "Loaded %d Silver records from %d files", len(all_records), len(files)
+        )
         return all_records
 
     # ------------------------------------------------------------------
@@ -282,8 +286,27 @@ class WeeklyAggregator:
         # reset already happened at the top of aggregate()).
         self.last_null_player_count = null_count
         if null_count > 0:
+            # The count alone reads like lost signal and is not: on week 7 all
+            # 28 skipped names were coaches, reporters, a stadium and sentence
+            # fragments the rule extractor picked up as capitalised entities,
+            # and NONE of them resolved to a player. Naming a few of them makes
+            # the line self-explaining, so nobody mistakes the safety net
+            # working for a resolver that is failing. (I made exactly that
+            # mistake reading this line before checking what it had skipped.)
+            skipped_names = sorted(
+                {
+                    str(r.get("player_name") or "?").strip()
+                    for r in records
+                    if not r.get("player_id")
+                }
+            )
             logger.info(
-                "WeeklyAggregator: skipped %d records with player_id=null", null_count
+                "WeeklyAggregator: skipped %d records with player_id=null "
+                "(not rostered players — e.g. %s). These are extractor "
+                "false positives, not resolution failures; a real player's "
+                "name here would mean the registry is stale.",
+                null_count,
+                ", ".join(skipped_names[:5]),
             )
 
         result: Dict[str, Dict[str, Any]] = {}
@@ -406,7 +429,12 @@ class WeeklyAggregator:
             sentiment_multiplier = sentiment_to_multiplier(sentiment_score_avg)
 
         # Source breakdown
-        source_counts: Dict[str, int] = {"rss": 0, "sleeper": 0, "official": 0, "twitter": 0}
+        source_counts: Dict[str, int] = {
+            "rss": 0,
+            "sleeper": 0,
+            "official": 0,
+            "twitter": 0,
+        }
         for rec in records:
             src = str(rec.get("source", "")).lower()
             for key in source_counts:
@@ -416,14 +444,14 @@ class WeeklyAggregator:
 
         # Latest signal timestamp
         timestamps = [
-            rec.get("published_at")
-            for rec in records
-            if rec.get("published_at")
+            rec.get("published_at") for rec in records if rec.get("published_at")
         ]
         latest_signal_at = max(timestamps) if timestamps else None
 
         # Player name: use most common occurrence
-        names = [rec.get("player_name", "") for rec in records if rec.get("player_name")]
+        names = [
+            rec.get("player_name", "") for rec in records if rec.get("player_name")
+        ]
         player_name = max(set(names), key=names.count) if names else ""
 
         staleness_hours = None
@@ -497,9 +525,7 @@ class WeeklyAggregator:
 
         output_path = output_dir / f"sentiment_multipliers_{ts}.parquet"
         df.to_parquet(output_path, index=False)
-        logger.info(
-            "Wrote Gold sentiment Parquet (%d rows) → %s", len(df), output_path
-        )
+        logger.info("Wrote Gold sentiment Parquet (%d rows) → %s", len(df), output_path)
         return output_path
 
     # ------------------------------------------------------------------
@@ -551,7 +577,9 @@ class WeeklyAggregator:
 
         records = self._load_silver_records(silver_files)
         if not records:
-            logger.warning("No signal records loaded for season=%d week=%d", season, week)
+            logger.warning(
+                "No signal records loaded for season=%d week=%d", season, week
+            )
             return pd.DataFrame()
 
         player_aggregates = self._aggregate_player_signals(records, reference_time)

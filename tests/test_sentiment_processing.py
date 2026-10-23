@@ -1122,3 +1122,31 @@ def test_a_degraded_step_annotates_the_actions_run_without_failing_it(capsys):
     healthy.steps.append(dsp.StepResult(name="RSS Ingestion", detail="completed"))
     dsp._print_summary(healthy)
     assert "::warning" not in capsys.readouterr().out
+
+
+def test_the_null_player_skip_line_names_what_it_skipped(caplog):
+    """A bare count read as lost signal; it is the safety net working.
+
+    Week 7's 28 skipped names were coaches, reporters, a stadium and sentence
+    fragments the rule extractor picked up as capitalised entities — the
+    resolver matched none of them. I misread the bare count as "name
+    resolution drops half the usable docs" before checking what it had
+    dropped, so the line now says so itself.
+    """
+    import logging
+
+    from src.sentiment.aggregation.weekly import WeeklyAggregator
+
+    records = [
+        {"player_id": "00-001", "player_name": "Puka Nacua", "sentiment_score": 0.5},
+        {"player_id": None, "player_name": "Dan Quinn", "sentiment_score": 0.1},
+        {"player_id": "", "player_name": "Soldier Field", "sentiment_score": 0.1},
+    ]
+    with caplog.at_level(logging.INFO, logger="src.sentiment.aggregation.weekly"):
+        out = WeeklyAggregator()._aggregate_player_signals(records, None)
+
+    assert set(out) == {"00-001"}, "only the resolved player is aggregated"
+    (msg,) = [m for m in caplog.messages if "player_id=null" in m]
+    assert "skipped 2 records" in msg
+    assert "Dan Quinn" in msg and "Soldier Field" in msg
+    assert "not resolution failures" in msg
