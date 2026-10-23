@@ -400,6 +400,7 @@ def check_team_total_coherence(
     projections: pd.DataFrame,
     implied_totals: Optional[Dict[str, float]],
     threshold: float = 1.10,
+    scoring_format: str = "half_ppr",
 ) -> List[str]:
     """Check if projected fantasy points exceed implied team totals.
 
@@ -428,15 +429,30 @@ def check_team_total_coherence(
     warnings: List[str] = []
     team_sums = projections.groupby("recent_team")["projected_points"].sum()
 
+    # An implied total is a team's expected real NFL SCORE (~14-30 pts); a
+    # team's summed QB+RB+WR+TE fantasy points is a different quantity
+    # entirely (~50-90). Comparing them directly made this check fire for
+    # every team, every week — 32 warnings a run that nobody could act on.
+    # projection_engine already carries the empirically calibrated conversion
+    # (2025: per-team seasonal fantasy points / games / avg implied total), so
+    # convert the implied total into an expected fantasy budget first.
+    from projection_engine import _IMPLIED_TO_FANTASY_MULT  # noqa: E402
+
+    mult = _IMPLIED_TO_FANTASY_MULT.get(
+        scoring_format, _IMPLIED_TO_FANTASY_MULT["half_ppr"]
+    )
+
     for team, implied in implied_totals.items():
         if team in team_sums.index:
             total = team_sums[team]
-            limit = implied * threshold
+            budget = implied * mult
+            limit = budget * threshold
             if total > limit:
                 warnings.append(
                     f"Team {team}: projected {total:.1f} fantasy pts exceeds "
-                    f"{threshold:.0%} of implied total {implied:.1f} "
-                    f"(limit {limit:.1f})"
+                    f"{threshold:.0%} of its {budget:.1f}-pt fantasy budget "
+                    f"(implied total {implied:.1f} x {mult:.2f}, limit "
+                    f"{limit:.1f})"
                 )
 
     return warnings

@@ -217,6 +217,20 @@ def apply_calibrated_bands(
         if col not in proj.columns:
             proj[col] = np.nan
 
+    # Invariant: a zero-point projection cannot carry a live band. These rows
+    # are skipped by the calibration itself (it only adjusts rows above the
+    # startable floor), so without this pass they keep whatever band was
+    # attached upstream. The 2026 w7 board had two such rows — K.Nwangwu
+    # 0.0 pts with a 0.65-1.53 band, K.Wetjen 0.0 with 0.31-0.69 — because the
+    # anchor's rank reassignment can hand a live player a 0-point value while
+    # its band is left behind. Bye-week and injury-zeroed rows reach this the
+    # same way.
+    zeroed = proj[points_col] <= 0
+    if zeroed.any():
+        for col in (floor_col, ceiling_col):
+            if col in proj.columns:
+                proj.loc[zeroed, col] = 0.0
+
     for pos, (a_lo, b_lo, a_hi, b_hi) in offsets.items():
         mask = (proj["position"] == pos) & (proj[points_col] > 0)
         if not mask.any():

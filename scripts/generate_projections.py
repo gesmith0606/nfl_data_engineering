@@ -56,6 +56,11 @@ from sleeper_consensus_anchor import (  # noqa: E402
     resolve_sleeper_anchor_configs,
 )
 from dispersion_shrink import SHRINK_FACTOR as DISPERSION_SHRINK_FACTOR  # noqa: E402
+
+#: Minimum share of a position's STARTABLE rows (projected >= 5 pts) that the
+#: Sleeper anchor must match before the run warns. Raw all-rows coverage is
+#: not a useful alert threshold — see the comment at the guard itself.
+STARTABLE_COVERAGE_MIN: float = 0.90
 import config  # noqa: E402
 
 
@@ -2012,6 +2017,31 @@ def main():
                         f"({st['n_sleeper_pos_rows']} Sleeper rows on disk) — "
                         f"{pos} anchor is effectively OFF this run"
                     )
+                # Raw coverage is a weak signal: Sleeper's published slate
+                # shrinks through the season while our board does not, so raw
+                # coverage decayed 93% -> 79% over 2026 w3-6 with no defect on
+                # our side (every unmatched startable was simply absent from
+                # Sleeper's feed). Coverage over the rows that can change a
+                # lineup is the number worth alerting on — it held ~99%, so a
+                # real regression shows here long before the 50% floor above
+                # trips. See .planning/ANCHOR_COVERAGE_2026_10_23.md.
+                n_start = st.get("n_startable_pos_rows", 0)
+                n_start_matched = st.get("n_startable_matched", 0)
+                if n_start:
+                    start_cov = n_start_matched / n_start
+                    print(
+                        f"Sleeper consensus anchor ({pos}): startable "
+                        f"coverage {n_start_matched}/{n_start} "
+                        f"({start_cov:.0%})"
+                    )
+                    if start_cov < STARTABLE_COVERAGE_MIN:
+                        print(
+                            f"::warning::Sleeper consensus anchor covered only "
+                            f"{start_cov:.0%} of {pos} rows projected >= 5 pts "
+                            f"({n_start_matched}/{n_start}) — below the "
+                            f"{STARTABLE_COVERAGE_MIN:.0%} floor, so the "
+                            f"{pos} anchor is missing players that matter"
+                        )
             after_total = float(projections["projected_points"].sum())
             print(
                 "Sleeper consensus anchor: "
@@ -2323,6 +2353,30 @@ def main():
     # Evans back on the board at ~3 points each while Out, because QB is not
     # an anchored position and the skill positions are. Re-assert the
     # invariant once, here, after every stage that can touch the column.
+    # Bye-week rows belong to the same invariant. They are not covered by
+    # injury_multiplier (a player on bye is Active, just not playing), so
+    # 31 of them carried 0.8-1.74 projected points on the 2026 w7 board —
+    # contradicting the documented "bye week -> all stats zeroed" rule. The
+    # leak is the same class: any blend that re-derives projected_points
+    # after the bye zeroing can revive them, and the anchors' rank
+    # reassignment hands them a live player's value outright.
+    if not projections.empty and "is_bye_week" in projections.columns:
+        on_bye = projections["is_bye_week"].fillna(False).astype(bool)
+        if on_bye.any():
+            bye_cols = [
+                c
+                for c in projections.columns
+                if c.startswith("proj_")
+                or c in ("projected_points", "projected_floor", "projected_ceiling")
+            ]
+            revived_bye = int((on_bye & (projections["projected_points"] > 0)).sum())
+            projections.loc[on_bye, bye_cols] = 0.0
+            if revived_bye:
+                print(
+                    f"Bye invariant: re-zeroed {revived_bye} bye-week "
+                    "player(s) carrying points from a later blend"
+                )
+
     if not projections.empty and "injury_multiplier" in projections.columns:
         sidelined = projections["injury_multiplier"] == 0.0
         if sidelined.any():

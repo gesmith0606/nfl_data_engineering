@@ -89,6 +89,17 @@ NUDGE = 0.5
 #: Shipped default source for the weekly consensus anchor family.
 SHIPPED_DEFAULT_SRC = "sleeper"
 
+#: Projected-points cut defining the "startable" pool for coverage reporting.
+#: Raw coverage over EVERY row of a position is not a useful health signal:
+#: Sleeper's published slate shrinks through the season (2026: 401 skill rows
+#: in w3 down to 337 by w6) while our board stays ~340 rows, so raw coverage
+#: decayed 93% -> 79% with no defect on our side. Measured over the rows that
+#: can actually change a lineup, coverage held at ~99% across 2026 w3-7 (15
+#: unmatched rows >= 5 pts out of ~1,700), and every one of those was a player
+#: Sleeper simply did not publish that week — verified absent from their feed,
+#: not an id-mapping failure. See .planning/ANCHOR_COVERAGE_2026_10_23.md.
+STARTABLE_PTS: float = 5.0
+
 #: Shipped default per-position configs, applied in order, DEFAULT-ON in
 #: ``scripts/generate_projections.py`` (weekly mode only) and the default
 #: evaluation path of ``scripts/backtest_projections.py``; opt out of the
@@ -260,9 +271,18 @@ def build_sleeper_lookup(
         ``stats`` has ``n_proj_pos_rows`` (denominator — rows at
         ``position`` in ``proj_df`` this week), ``n_sleeper_pos_rows`` (raw
         Sleeper rows at ``position`` this week), ``n_final_matched`` (rows
-        whose ``player_id`` also appears in ``proj_df``).
+        whose ``player_id`` also appears in ``proj_df``), plus
+        ``n_startable_pos_rows`` / ``n_startable_matched`` — the same pair
+        restricted to rows projected >= :data:`STARTABLE_PTS`, which is the
+        pair worth alerting on (see that constant).
     """
-    stats = {"n_proj_pos_rows": 0, "n_sleeper_pos_rows": 0, "n_final_matched": 0}
+    stats = {
+        "n_proj_pos_rows": 0,
+        "n_sleeper_pos_rows": 0,
+        "n_final_matched": 0,
+        "n_startable_pos_rows": 0,
+        "n_startable_matched": 0,
+    }
     empty = pd.DataFrame(columns=["player_id", "sleeper_pos_rank"])
 
     if (
@@ -274,6 +294,11 @@ def build_sleeper_lookup(
         return empty, stats
     proj_pos = proj_df[proj_df["position"] == position]
     stats["n_proj_pos_rows"] = int(len(proj_pos))
+    startable_ids: set = set()
+    if "projected_points" in proj_pos.columns:
+        startable = proj_pos[proj_pos["projected_points"] >= STARTABLE_PTS]
+        startable_ids = set(startable["player_id"].astype(str))
+        stats["n_startable_pos_rows"] = int(len(startable))
     if proj_pos.empty:
         return empty, stats
 
@@ -291,6 +316,10 @@ def build_sleeper_lookup(
     proj_ids = set(proj_pos["player_id"].astype(str))
     matched = sleeper_week[sleeper_week["player_id"].isin(proj_ids)]
     stats["n_final_matched"] = int(len(matched))
+    if startable_ids:
+        stats["n_startable_matched"] = int(
+            sleeper_week["player_id"].isin(startable_ids).sum()
+        )
     if matched.empty:
         return empty, stats
 
