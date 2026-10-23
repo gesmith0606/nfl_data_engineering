@@ -56,6 +56,10 @@ from sleeper_consensus_anchor import (
     resolve_sleeper_anchor_configs,
 )
 from wind_adjust import apply_wind_adjust
+from dispersion_shrink import (
+    SHRINK_FACTOR as DISPERSION_SHRINK_FACTOR,
+    apply_dispersion_shrink,
+)
 from utils import latest_parquet_per_dir
 
 try:
@@ -545,6 +549,8 @@ def run_backtest(
     wind_adjust_shrink: float = 0.0539,
     fresh_rolling: bool = True,
     include_bye_returns: bool = True,
+    no_dispersion_shrink: bool = False,
+    dispersion_shrink_k: float = DISPERSION_SHRINK_FACTOR,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -617,7 +623,7 @@ def run_backtest(
             ``sleeper_consensus_anchor.apply_sleeper_anchors`` (see
             ``.planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md`` and
             ``.planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md``). Default = the
-            shipped set (WR+RB+TE, blend, weight=0.5 each) — this is the
+            shipped set (WR+RB+TE+QB, blend, weight=0.5 each) — this is the
             "evaluate the shipped config" default evaluation path. Pass
             ``None``/``[]`` (CLI: ``--no-sleeper-anchor``) for the
             un-anchored baseline. The CLI builds the list with
@@ -627,6 +633,14 @@ def run_backtest(
             position) with no Sleeper Bronze snapshot.
         wind_adjust_shrink: Multiplicative shrink for high-wind QB/WR/TE
             rows (default :data:`wind_adjust.HIGH_WIND_SHRINK`).
+        no_dispersion_shrink: Disable the default-ON per-position dispersion
+            shrinkage (CLI: ``--no-dispersion-shrink``) for the
+            un-calibrated baseline. Default-ON mirrors production, per the
+            "evaluate the shipped config" convention — see
+            ``.planning/SEASON_2026_MIDSEASON_RETRO.md``.
+        dispersion_shrink_k: Shrink factor toward each position's
+            startable-pool mean (default
+            :data:`dispersion_shrink.SHRINK_FACTOR`; 1.0 is a no-op).
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -1138,6 +1152,18 @@ def run_backtest(
                     shrink=wind_adjust_shrink,
                 )
 
+            # Per-position dispersion shrinkage (default-ON, mirrors
+            # production). generate_projections.py runs this LAST among the
+            # stages that touch projected_points, so it runs last here too —
+            # after both anchors and the wind adjust, before the
+            # ordering-only ranking-score step. Leak-free: the centre comes
+            # from this same week's batch, no actuals and no consensus.
+            # .planning/SEASON_2026_MIDSEASON_RETRO.md.
+            if not no_dispersion_shrink:
+                projections, _shrink_stats = apply_dispersion_shrink(
+                    projections, k=dispersion_shrink_k
+                )
+
             # Apply ranking score nudges (additive, capped at ±1.5 pts).
             # ranking_score is used for position ordering only; projected_points
             # is unchanged so the backtest MAE numbers remain correct.
@@ -1476,7 +1502,7 @@ def main():
             "(mirrors generate_projections.py --consensus-anchor-src). "
             "Evaluates the hypothesis from "
             ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md. SHIPPED "
-            "DEFAULT-ON for WR+RB+TE (blend, weight=0.5 each) in the "
+            "DEFAULT-ON for WR+RB+TE+QB (blend, weight=0.5 each) in the "
             "default evaluation path (i.e. when this flag is omitted); "
             "passing it explicitly REPLACES the shipped set with the single "
             "--consensus-anchor-position/-mode/-weight given (WR blend 0.5 "
@@ -1503,11 +1529,32 @@ def main():
         help="Blend weight for --consensus-anchor-mode blend (default 0.3; ignored for near_tie).",
     )
     parser.add_argument(
+        "--no-dispersion-shrink",
+        action="store_true",
+        default=False,
+        help=(
+            "Disable the default-on per-position dispersion shrinkage "
+            "(SHIPPED 2026-10-21, "
+            ".planning/SEASON_2026_MIDSEASON_RETRO.md) for the "
+            "un-calibrated baseline. Default-ON mirrors production so a "
+            "backtest evaluates the shipped config."
+        ),
+    )
+    parser.add_argument(
+        "--dispersion-shrink-k",
+        type=float,
+        default=DISPERSION_SHRINK_FACTOR,
+        help=(
+            "Shrink factor toward each position's startable-pool mean "
+            "(default 0.8; 1.0 is an explicit no-op)."
+        ),
+    )
+    parser.add_argument(
         "--no-sleeper-anchor",
         action="store_true",
         default=False,
         help=(
-            "Disable the default-on Sleeper consensus anchor (WR+RB+TE, "
+            "Disable the default-on Sleeper consensus anchor (WR+RB+TE+QB, "
             "blend, weight=0.5 each — SHIPPED "
             ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md + "
             "SLEEPER_ANCHOR_QB_RB_TE_GATE.md) so the default evaluation path "
@@ -1524,7 +1571,7 @@ def main():
         help=(
             "Add (or, if already anchored, override) one position's Sleeper "
             "consensus anchor on top of the resolved set (the shipped "
-            "WR+RB+TE defaults or an explicit --consensus-anchor-src) — e.g. "
+            "WR+RB+TE+QB defaults or an explicit --consensus-anchor-src) — e.g. "
             "QB to opt in to the HOLD position, or RB with a different "
             "weight. See .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md. Default: "
             "unset. Disabled entirely by --no-sleeper-anchor."
@@ -1698,6 +1745,8 @@ def main():
         wind_adjust_shrink=args.wind_adjust_shrink,
         fresh_rolling=not args.no_fresh_rolling,
         include_bye_returns=not args.no_bye_returns,
+        no_dispersion_shrink=args.no_dispersion_shrink,
+        dispersion_shrink_k=args.dispersion_shrink_k,
     )
 
     if results.empty:

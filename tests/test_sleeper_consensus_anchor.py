@@ -355,15 +355,18 @@ class TestApplyConsensusAnchorDispatch:
 # ---------------------------------------------------------------------------
 # Shipped defaults — WR (SHIP 2026-08-22, .planning/
 # SLEEPER_CONSENSUS_ANCHOR_GATE.md) + RB/TE (SHIPPED 2026-09-23,
-# user-approved, .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md), each blend
-# w=0.5. QB stays OFF (HOLD). Default-on in generate_projections.py (weekly
-# mode) and backtest_projections.py's default evaluation path.
+# user-approved, .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md) + QB (SHIPPED
+# 2026-10-21, user-approved, .planning/SEASON_2026_MIDSEASON_RETRO.md: live
+# 2026 w3-6 QB MAE 5.91 vs Sleeper 5.28, rho 0.207 vs 0.434), each blend
+# w=0.5. Default-on in generate_projections.py (weekly mode) and
+# backtest_projections.py's default evaluation path.
 # ---------------------------------------------------------------------------
 
 _SHIPPED = [
     {"position": "WR", "mode": "blend", "weight": 0.5},
     {"position": "RB", "mode": "blend", "weight": 0.5},
     {"position": "TE", "mode": "blend", "weight": 0.5},
+    {"position": "QB", "mode": "blend", "weight": 0.5},
 ]
 
 
@@ -372,8 +375,18 @@ class TestShippedDefaultConstants:
         assert SHIPPED_DEFAULT_SRC == "sleeper"
         assert [dict(c) for c in SHIPPED_DEFAULT_CONFIGS] == _SHIPPED
 
-    def test_qb_not_shipped(self):
-        assert "QB" not in {c["position"] for c in SHIPPED_DEFAULT_CONFIGS}
+    def test_qb_shipped_2026_10_21(self):
+        """QB joined the shipped set on live-2026 evidence (it had been the
+        one HOLD position). Blend at w=0.5, not the sweep's argmin w=1.0 —
+        half our own signal is kept deliberately."""
+        qb = [c for c in SHIPPED_DEFAULT_CONFIGS if c["position"] == "QB"]
+        assert len(qb) == 1
+        assert qb[0] == {"position": "QB", "mode": "blend", "weight": 0.5}
+
+    def test_every_supported_position_is_shipped(self):
+        assert {c["position"] for c in SHIPPED_DEFAULT_CONFIGS} == set(
+            SUPPORTED_POSITIONS
+        )
 
 
 class TestResolveSleeperAnchorConfigs:
@@ -387,7 +400,7 @@ class TestResolveSleeperAnchorConfigs:
         )
         assert cfgs == []
 
-    def test_no_explicit_src_falls_back_to_shipped_wr_rb_te(self):
+    def test_no_explicit_src_falls_back_to_shipped_set(self):
         cfgs = resolve_sleeper_anchor_configs(
             None, "WR", "near_tie", 0.3, no_anchor=False
         )
@@ -411,18 +424,23 @@ class TestResolveSleeperAnchorConfigs:
     def test_no_anchor_wins_over_explicit_src(self):
         assert resolve_sleeper_anchor_configs("sleeper", "WR", "blend", 0.5, True) == []
 
-    def test_extra_slot_appends_new_position_to_default_set(self):
+    def test_extra_slot_overrides_shipped_qb_in_place(self):
+        """Since 2026-10-21 every supported position is shipped, so the extra
+        slot can only override in place — never grow the set. The append
+        branch is still reachable via an explicit --consensus-anchor-src and
+        is covered by test_extra_slot_composes_with_explicit_src."""
         cfgs = resolve_sleeper_anchor_configs(
             None, "WR", "near_tie", 0.3, False, extra_position="QB", extra_weight=0.4
         )
         assert [c["position"] for c in cfgs] == ["WR", "RB", "TE", "QB"]
         assert cfgs[-1] == {"position": "QB", "mode": "blend", "weight": 0.4}
+        assert len(cfgs) == len(SHIPPED_DEFAULT_CONFIGS)
 
     def test_extra_slot_replaces_same_position_default(self):
         cfgs = resolve_sleeper_anchor_configs(
             None, "WR", "near_tie", 0.3, False, extra_position="RB", extra_weight=0.25
         )
-        assert [c["position"] for c in cfgs] == ["WR", "RB", "TE"]
+        assert [c["position"] for c in cfgs] == ["WR", "RB", "TE", "QB"]
         assert cfgs[1] == {"position": "RB", "mode": "blend", "weight": 0.25}
 
     def test_extra_slot_composes_with_explicit_src(self):
@@ -468,25 +486,66 @@ class TestApplySleeperAnchors:
         )
         return proj, bronze
 
-    def test_default_set_nudges_wr_rb_te_not_qb(self, tmp_path):
+    def test_default_set_nudges_all_four_skill_positions(self, tmp_path):
+        """QB joined the shipped set 2026-10-21, so the default run now
+        nudges every skill position (.planning/SEASON_2026_MIDSEASON_RETRO.md)."""
         proj, bronze = self._fixture(tmp_path)
         cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
         out, _stats = apply_sleeper_anchors(proj, 2023, 5, cfgs, bronze_dir=bronze)
 
         flagged = set(out.loc[out["sleeper_anchor_flag"], "player_id"])
-        assert flagged == {"W1", "W2", "R1", "R2", "T1", "T2"}
+        assert flagged == {"W1", "W2", "R1", "R2", "T1", "T2", "Q1", "Q2"}
+        # The mechanism is a RANK-blend with minimal reassignment, not a
+        # point-wise blend: our own point values are permuted among the
+        # pool, so the multiset is conserved. With only two QB rows whose
+        # blended ranks tie (ours 1,2 vs Sleeper 2,1 -> 1.5, 1.5) the
+        # minimal reassignment is the identity.
         qb = out[out["position"] == "QB"]
-        assert qb["projected_points"].tolist() == [25.0, 22.0]
-        assert not qb["sleeper_anchor_flag"].any()
-        # Unmatched RB (R3) untouched.
+        assert sorted(qb["projected_points"]) == [22.0, 25.0]
+        assert qb["sleeper_anchor_flag"].all()
+        # Unmatched RB (R3, absent from the Sleeper lookup) untouched.
         assert out.loc[out["player_id"] == "R3", "projected_points"].item() == 9.0
+
+    def test_qb_rank_blend_reassigns_values_when_ranks_cross(self, tmp_path):
+        """Non-vacuity guard for the shipped QB anchor: with a pool where the
+        blended ranks genuinely cross, our point values must change hands
+        (and only change hands — the multiset is conserved)."""
+        proj = pd.DataFrame(
+            [
+                _proj_row("Q1", 25.0, "QB"),
+                _proj_row("Q2", 20.0, "QB"),
+                _proj_row("Q3", 15.0, "QB"),
+            ]
+        )
+        # Sleeper's order is Q2 > Q3 > Q1 (ranks 1, 2, 3) against our
+        # Q1 > Q2 > Q3, so at w=0.5 the blended ranks are Q1 2.0, Q2 1.5,
+        # Q3 2.5 — an asymmetric disagreement that does NOT tie, so the
+        # minimal reassignment hands our top value to Q2.
+        bronze = _write_sleeper_parquet(
+            tmp_path,
+            2023,
+            5,
+            [
+                _sleeper_row("Q1", 5.0, "QB"),
+                _sleeper_row("Q2", 30.0, "QB"),
+                _sleeper_row("Q3", 20.0, "QB"),
+            ],
+        )
+        cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
+        out, _stats = apply_sleeper_anchors(proj, 2023, 5, cfgs, bronze_dir=bronze)
+
+        qb = out[out["position"] == "QB"].set_index("player_id")
+        assert sorted(qb["projected_points"]) == [15.0, 20.0, 25.0]
+        assert qb.loc["Q2", "projected_points"] == 25.0
+        assert qb.loc["Q1", "projected_points"] == 20.0
+        assert qb.loc["Q3", "projected_points"] == 15.0
 
     def test_stats_per_position(self, tmp_path):
         proj, bronze = self._fixture(tmp_path)
         cfgs = resolve_sleeper_anchor_configs(None, "WR", "near_tie", 0.3, False)
         _out, stats = apply_sleeper_anchors(proj, 2023, 5, cfgs, bronze_dir=bronze)
         by_pos = {s["position"]: s for s in stats}
-        assert list(by_pos) == ["WR", "RB", "TE"]
+        assert list(by_pos) == ["WR", "RB", "TE", "QB"]
         assert by_pos["RB"]["n_proj_pos_rows"] == 3
         assert by_pos["RB"]["n_final_matched"] == 2
         assert by_pos["RB"]["n_flagged"] == 2

@@ -1,0 +1,182 @@
+{
+  "season": 2026,
+  "week": 1,
+  "scoring": "half_ppr",
+  "generated_at": "2026-10-21T23:37:50Z",
+  "fantasy": {
+    "status": "ok",
+    "reason": "",
+    "week_table": [
+      {
+        "pos": "QB",
+        "n": 30,
+        "our_mae": 6.832333333333333,
+        "con_mae": 7.1323333333333325,
+        "mae_gap": -0.2999999999999998,
+        "our_spearman": 0.32910548211306134,
+        "con_spearman": 0.4187340108233918,
+        "spearman_gap": -0.08962852871033045,
+        "our_topn": 0.5833333333333334,
+        "con_topn": 0.5
+      },
+      {
+        "pos": "RB",
+        "n": 42,
+        "our_mae": 7.344285714285713,
+        "con_mae": 6.55904761904762,
+        "mae_gap": 0.7852380952380935,
+        "our_spearman": 0.4680092420818264,
+        "con_spearman": 0.6257141745651571,
+        "spearman_gap": -0.15770493248333067,
+        "our_topn": 0.75,
+        "con_topn": 0.7916666666666666
+      },
+      {
+        "pos": "WR",
+        "n": 67,
+        "our_mae": 5.6179104477611945,
+        "con_mae": 5.459104477611939,
+        "mae_gap": 0.15880597014925524,
+        "our_spearman": 0.26985141351196246,
+        "con_spearman": 0.34503234106304015,
+        "spearman_gap": -0.07518092755107769,
+        "our_topn": 0.4583333333333333,
+        "con_topn": 0.5833333333333334
+      },
+      {
+        "pos": "TE",
+        "n": 27,
+        "our_mae": 5.662962962962963,
+        "con_mae": 5.487777777777778,
+        "mae_gap": 0.17518518518518533,
+        "our_spearman": -0.045801528852702285,
+        "con_spearman": -0.03603053603079246,
+        "spearman_gap": -0.009770992821909824,
+        "our_topn": 0.5833333333333334,
+        "con_topn": 0.5
+      },
+      {
+        "pos": "OVERALL",
+        "n": 166,
+        "our_mae": 6.281506024096386,
+        "con_mae": 6.0444578313253015,
+        "mae_gap": 0.23704819277108413,
+        "our_spearman": null,
+        "con_spearman": null,
+        "spearman_gap": null,
+        "our_topn": null,
+        "con_topn": null
+      }
+    ],
+    "n_matched": 275,
+    "n_after_filter": 166,
+    "match_rate": 0.8986928104575164,
+    "scoring": "half_ppr"
+  },
+  "cumulative": {
+    "status": "skipped",
+    "reason": "No weeks with complete data (projections + consensus + actuals)",
+    "cumulative_table": [],
+    "weeks_loaded": 0
+  },
+  "spread": {
+    "status": "skipped",
+    "reason": "No Gold game predictions found",
+    "n": 0,
+    "mean_capture": null,
+    "tier_breakdown": [],
+    "gate_status": "insufficient_data"
+  },
+  "ordinal": {
+    "status": "ok",
+    "reason": "",
+    "week_table": [
+      {
+        "position": "QB",
+        "source": "ours",
+        "accuracy_gap": 8.2456,
+        "n": 25
+      },
+      {
+        "position": "QB",
+        "source": "sleeper",
+        "accuracy_gap": 8.23076923076923,
+        "n": 26
+      },
+      {
+        "position": "QB",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 9.024444444444445,
+        "n": 36
+      },
+      {
+        "position": "RB",
+        "source": "ours",
+        "accuracy_gap": 7.806,
+        "n": 50
+      },
+      {
+        "position": "RB",
+        "source": "sleeper",
+        "accuracy_gap": 6.956521739130435,
+        "n": 46
+      },
+      {
+        "position": "RB",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 13.696428571428571,
+        "n": 84
+      },
+      {
+        "position": "TE",
+        "source": "ours",
+        "accuracy_gap": 8.656521739130435,
+        "n": 23
+      },
+      {
+        "position": "TE",
+        "source": "sleeper",
+        "accuracy_gap": 8.543478260869565,
+        "n": 23
+      },
+      {
+        "position": "TE",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 8.413513513513514,
+        "n": 74
+      },
+      {
+        "position": "WR",
+        "source": "ours",
+        "accuracy_gap": 7.3428571428571425,
+        "n": 70
+      },
+      {
+        "position": "WR",
+        "source": "sleeper",
+        "accuracy_gap": 6.9681159420289855,
+        "n": 69
+      },
+      {
+        "position": "WR",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 12.254362416107382,
+        "n": 149
+      }
+    ],
+    "sources_present": [
+      "ours",
+      "sleeper",
+      "yahoo_proxy_fp"
+    ],
+    "sources_missing": [
+      "espn"
+    ]
+  },
+  "cumulative_ordinal": {
+    "status": "skipped",
+    "reason": "No weeks with complete data (projections + actuals) for ordinal tracking",
+    "cumulative_ordinal_table": [],
+    "weeks_loaded": 0
+  }
+}

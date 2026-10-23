@@ -691,6 +691,24 @@ jobs:
           git add data/bronze/players/snaps/ 2>/dev/null || true
           # Game predictions (served by the HF backend from the git clone).
           git add data/gold/predictions/ 2>/dev/null || true
+          # Silver graph features. The silver_graph step above computes these
+          # every run and nothing staged them, so every runner recomputed
+          # 2026 features and threw them away: data/silver/graph_features/
+          # stopped at season=2025 (a manual 2026-08-16 backfill). Two
+          # production consumers were silently inert all season as a result —
+          # ranking_score's graph nudge merges on exact (player_id, season,
+          # week) and matched nothing, and the WR/TE residual models fell
+          # back to the heuristic on NaN graph columns. Same class of bug as
+          # TD-08/09/10, but the casualty is model INPUTS, not an API
+          # response, so it failed silently. The .gitignore allowlist
+          # (!data/silver/graph_features/**) already existed.
+          git add data/silver/graph_features/ 2>/dev/null || true
+          # ELITE grading reports. These were gitignored, so the grading step
+          # above produced them into a CI artifact that nobody reads and the
+          # cumulative season-to-date table was rebuilt from nothing every
+          # week. Tracking them is what makes a regression visible in week 3
+          # instead of week 7.
+          git add output/grading/ 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new Gold projections to commit"
           else

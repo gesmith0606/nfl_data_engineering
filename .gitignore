@@ -522,7 +522,13 @@ web/frontend/skills-lock.json
 
 
 # Ephemeral grading reports — CI writes these on the runner and never commits them
-output/grading/
+# output/grading/ is deliberately TRACKED (2026-10-21). It used to be
+# ignored, so the Tuesday cron's ELITE grading reports only ever existed
+# as CI artifacts and nothing was tracked week to week — which is why the
+# 2026 QB regression (visible in week 3) was not noticed until week 7.
+# See .planning/SEASON_2026_MIDSEASON_RETRO.md.
+!output/grading/
+!output/grading/**
 
 # TD-08/09/10 pattern: the draft watchlist is READ AT RUNTIME by
 # scripts/draft_targets.py and scripts/draft_live.py, and it is hand-authored

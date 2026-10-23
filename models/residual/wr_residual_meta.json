@@ -71,6 +71,5 @@
   ],
   "graph_features_added": 0,
   "correction_clip_abs": 18.80800000000003,
-  "blend_secondary_dir": "models/residual_wr_secondary",
-  "blend_weight": 0.4
+  "blend_disabled_2026_10_22": "WR secondary blend removed: models/residual_wr_secondary/ ships wr_residual.joblib but its meta JSON was never committed, so load_residual_model returned {} and the secondary call fell back to the raw heuristic. The blend then computed 0.6*primary + 0.4*heuristic on every WR row since 2026-08-16 \u2014 i.e. the WR_GAP_FIX_2026_08_16 blend never actually ran as designed. Measured on 2026 w3-6: the buggy dilution scored WR MAE 3.88 / matched 5.13 / hit 0.542, primary-only 3.92 / 5.15 / 0.552, a correctly reconstructed blend 3.96 / 5.12 / 0.552 \u2014 all within noise at n=237-488. Primary-only chosen because it is the only configuration whose provenance is verifiable. See .planning/WR_SECONDARY_BLEND_2026_10_22.md."
 }

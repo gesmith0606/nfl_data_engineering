@@ -1,0 +1,331 @@
+{
+  "season": 2026,
+  "week": 3,
+  "scoring": "half_ppr",
+  "generated_at": "2026-10-21T23:37:52Z",
+  "fantasy": {
+    "status": "ok",
+    "reason": "",
+    "week_table": [
+      {
+        "pos": "QB",
+        "n": 28,
+        "our_mae": 5.5625,
+        "con_mae": 5.593571428571429,
+        "mae_gap": -0.03107142857142886,
+        "our_spearman": 0.03393541324575808,
+        "con_spearman": 0.11716397920522302,
+        "spearman_gap": -0.08322856595946494,
+        "our_topn": 0.25,
+        "con_topn": 0.4166666666666667
+      },
+      {
+        "pos": "RB",
+        "n": 48,
+        "our_mae": 5.1312500000000005,
+        "con_mae": 4.957916666666667,
+        "mae_gap": 0.17333333333333378,
+        "our_spearman": 0.5286326881803769,
+        "con_spearman": 0.5300312120285714,
+        "spearman_gap": -0.0013985238481944995,
+        "our_topn": 0.6666666666666666,
+        "con_topn": 0.6666666666666666
+      },
+      {
+        "pos": "WR",
+        "n": 68,
+        "our_mae": 4.664558823529411,
+        "con_mae": 4.801470588235294,
+        "mae_gap": -0.13691176470588307,
+        "our_spearman": 0.33885946261672045,
+        "con_spearman": 0.3246320666856295,
+        "spearman_gap": 0.014227395931090958,
+        "our_topn": 0.5833333333333334,
+        "con_topn": 0.5416666666666666
+      },
+      {
+        "pos": "TE",
+        "n": 24,
+        "our_mae": 5.451250000000001,
+        "con_mae": 5.117916666666667,
+        "mae_gap": 0.3333333333333339,
+        "our_spearman": 0.25570776860194966,
+        "con_spearman": 0.15307675943518076,
+        "spearman_gap": 0.1026310091667689,
+        "our_topn": 0.5,
+        "con_topn": 0.5
+      },
+      {
+        "pos": "OVERALL",
+        "n": 168,
+        "our_mae": 5.059940476190476,
+        "con_mae": 5.0233928571428565,
+        "mae_gap": 0.03654761904761905,
+        "our_spearman": null,
+        "con_spearman": null,
+        "spearman_gap": null,
+        "our_topn": null,
+        "con_topn": null
+      }
+    ],
+    "n_matched": 286,
+    "n_after_filter": 168,
+    "match_rate": 0.9629629629629629,
+    "scoring": "half_ppr"
+  },
+  "cumulative": {
+    "status": "ok",
+    "reason": "",
+    "cumulative_table": [
+      {
+        "pos": "QB",
+        "n": 28,
+        "our_mae": 5.5625,
+        "con_mae": 5.593571428571429,
+        "mae_gap": -0.03107142857142886,
+        "our_spearman": 0.03393541324575808,
+        "con_spearman": 0.11716397920522302,
+        "spearman_gap": -0.08322856595946494,
+        "our_topn": 0.25,
+        "con_topn": 0.4166666666666667,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2026
+      },
+      {
+        "pos": "RB",
+        "n": 48,
+        "our_mae": 5.1312500000000005,
+        "con_mae": 4.957916666666667,
+        "mae_gap": 0.17333333333333378,
+        "our_spearman": 0.5286326881803769,
+        "con_spearman": 0.5300312120285714,
+        "spearman_gap": -0.0013985238481944995,
+        "our_topn": 0.6666666666666666,
+        "con_topn": 0.6666666666666666,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2026
+      },
+      {
+        "pos": "WR",
+        "n": 68,
+        "our_mae": 4.664558823529411,
+        "con_mae": 4.801470588235294,
+        "mae_gap": -0.13691176470588307,
+        "our_spearman": 0.33885946261672045,
+        "con_spearman": 0.3246320666856295,
+        "spearman_gap": 0.014227395931090958,
+        "our_topn": 0.5833333333333334,
+        "con_topn": 0.5416666666666666,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2026
+      },
+      {
+        "pos": "TE",
+        "n": 24,
+        "our_mae": 5.451250000000001,
+        "con_mae": 5.117916666666667,
+        "mae_gap": 0.3333333333333339,
+        "our_spearman": 0.25570776860194966,
+        "con_spearman": 0.15307675943518076,
+        "spearman_gap": 0.1026310091667689,
+        "our_topn": 0.5,
+        "con_topn": 0.5,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2026
+      },
+      {
+        "pos": "OVERALL",
+        "n": 168,
+        "our_mae": 5.059940476190476,
+        "con_mae": 5.0233928571428565,
+        "mae_gap": 0.03654761904761905,
+        "our_spearman": null,
+        "con_spearman": null,
+        "spearman_gap": null,
+        "our_topn": null,
+        "con_topn": null,
+        "weeks_completed": 1,
+        "aplus_gate_fantasy": false,
+        "season": 2026
+      }
+    ],
+    "weeks_loaded": 1
+  },
+  "spread": {
+    "status": "skipped",
+    "reason": "No Gold game predictions found",
+    "n": 0,
+    "mean_capture": null,
+    "tier_breakdown": [],
+    "gate_status": "insufficient_data"
+  },
+  "ordinal": {
+    "status": "ok",
+    "reason": "",
+    "week_table": [
+      {
+        "position": "QB",
+        "source": "ours",
+        "accuracy_gap": 7.2584,
+        "n": 25
+      },
+      {
+        "position": "QB",
+        "source": "sleeper",
+        "accuracy_gap": 7.676153846153847,
+        "n": 26
+      },
+      {
+        "position": "QB",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 6.448666666666667,
+        "n": 30
+      },
+      {
+        "position": "RB",
+        "source": "ours",
+        "accuracy_gap": 5.528,
+        "n": 50
+      },
+      {
+        "position": "RB",
+        "source": "sleeper",
+        "accuracy_gap": 5.06,
+        "n": 50
+      },
+      {
+        "position": "RB",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 10.233734939759035,
+        "n": 83
+      },
+      {
+        "position": "TE",
+        "source": "ours",
+        "accuracy_gap": 10.447826086956523,
+        "n": 23
+      },
+      {
+        "position": "TE",
+        "source": "sleeper",
+        "accuracy_gap": 8.704166666666667,
+        "n": 24
+      },
+      {
+        "position": "TE",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 8.154545454545454,
+        "n": 77
+      },
+      {
+        "position": "WR",
+        "source": "ours",
+        "accuracy_gap": 6.275714285714286,
+        "n": 70
+      },
+      {
+        "position": "WR",
+        "source": "sleeper",
+        "accuracy_gap": 6.1571428571428575,
+        "n": 70
+      },
+      {
+        "position": "WR",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 11.813802816901408,
+        "n": 142
+      }
+    ],
+    "sources_present": [
+      "ours",
+      "sleeper",
+      "yahoo_proxy_fp"
+    ],
+    "sources_missing": [
+      "espn"
+    ]
+  },
+  "cumulative_ordinal": {
+    "status": "ok",
+    "reason": "",
+    "cumulative_ordinal_table": [
+      {
+        "position": "QB",
+        "source": "ours",
+        "accuracy_gap": 7.2584,
+        "n": 25
+      },
+      {
+        "position": "QB",
+        "source": "sleeper",
+        "accuracy_gap": 7.676153846153847,
+        "n": 26
+      },
+      {
+        "position": "QB",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 6.448666666666667,
+        "n": 30
+      },
+      {
+        "position": "RB",
+        "source": "ours",
+        "accuracy_gap": 5.528,
+        "n": 50
+      },
+      {
+        "position": "RB",
+        "source": "sleeper",
+        "accuracy_gap": 5.06,
+        "n": 50
+      },
+      {
+        "position": "RB",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 10.233734939759035,
+        "n": 83
+      },
+      {
+        "position": "TE",
+        "source": "ours",
+        "accuracy_gap": 10.447826086956523,
+        "n": 23
+      },
+      {
+        "position": "TE",
+        "source": "sleeper",
+        "accuracy_gap": 8.704166666666667,
+        "n": 24
+      },
+      {
+        "position": "TE",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 8.154545454545454,
+        "n": 77
+      },
+      {
+        "position": "WR",
+        "source": "ours",
+        "accuracy_gap": 6.275714285714286,
+        "n": 70
+      },
+      {
+        "position": "WR",
+        "source": "sleeper",
+        "accuracy_gap": 6.1571428571428575,
+        "n": 70
+      },
+      {
+        "position": "WR",
+        "source": "yahoo_proxy_fp",
+        "accuracy_gap": 11.813802816901408,
+        "n": 142
+      }
+    ],
+    "weeks_loaded": 1
+  }
+}

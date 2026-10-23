@@ -104,13 +104,31 @@ SHIPPED_DEFAULT_SRC = "sleeper"
 #:   5.18->4.91). Note the gate doc's 2026-08-23 amendment: on the
 #:   ``--ml --full-features`` engine the 2022-24 tuning window got worse
 #:   for both — the user approved on the live-2026 evidence.
-#: - QB is intentionally absent (HOLD: 2025 retention 14.8% < 50% bar);
-#:   opt in only via ``--consensus-anchor-extra-position QB`` or an explicit
-#:   ``--consensus-anchor-src``.
+#: - QB blend w=0.5 — SHIPPED 2026-10-21, user-approved
+#:   (``.planning/SEASON_2026_MIDSEASON_RETRO.md``). QB had been the one
+#:   position held back (2025 retention 14.8% < 50% bar, and through 2025 our
+#:   QB BEAT Sleeper by -0.39 MAE, so there was nothing to anchor to). Live
+#:   2026 reversed that completely: over w3-6 (n=113, cons>=5, half-PPR) our
+#:   QB MAE was 5.91 vs Sleeper's 5.28 (+0.630, our worst position) with rank
+#:   correlation 0.207 vs 0.434. We over-project 61% of QB rows and miss by
+#:   >10 pts on 13% of them (Sleeper 8%); within-week QB sd is 3.81 vs 2.78.
+#:   Replaying THIS mechanism (the rank-blend below, not a point-wise blend)
+#:   at w=0.5 over the published w3-6 boards: QB MAE 5.908 -> 5.711, QB rho
+#:   0.207 -> 0.350, pooled MAE 5.440 -> 5.405. The headline gain is the
+#:   ORDERING (rho), which is what start/sit decisions turn on; the MAE gain
+#:   is modest because a rank-blend permutes our own point values rather
+#:   than pulling them toward Sleeper's. The weight sweep is monotone to
+#:   w=1.0 (QB MAE 5.444 / rho 0.433, i.e. adopting Sleeper's QB ordering
+#:   outright), so w=0.5 deliberately keeps half our own signal pending a
+#:   real QB-model fix rather than being the argmin -- there is more on the
+#:   table here if the user wants it. Shipped on live
+#:   evidence against a historical HOLD, exactly as RB+TE were on
+#:   2026-09-23. Caveat: n=113 over 4 weeks; re-grade weekly.
 SHIPPED_DEFAULT_CONFIGS: Tuple[Dict[str, object], ...] = (
     {"position": "WR", "mode": "blend", "weight": 0.5},
     {"position": "RB", "mode": "blend", "weight": 0.5},
     {"position": "TE", "mode": "blend", "weight": 0.5},
+    {"position": "QB", "mode": "blend", "weight": 0.5},
 )
 
 #: Sleeper Bronze historical projections were backfilled half-PPR only

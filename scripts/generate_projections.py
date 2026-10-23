@@ -54,6 +54,7 @@ from sleeper_consensus_anchor import (  # noqa: E402
     apply_sleeper_anchors,
     resolve_sleeper_anchor_configs,
 )
+from dispersion_shrink import SHRINK_FACTOR as DISPERSION_SHRINK_FACTOR  # noqa: E402
 import config  # noqa: E402
 
 
@@ -586,7 +587,8 @@ def main():
             "ECR). SHIPPED DEFAULT-ON for WR (2026-08-22, "
             ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md) and RB+TE "
             "(2026-09-23, .planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md), each "
-            "mode=blend weight=0.5; QB off (HOLD). Disable via "
+            "mode=blend weight=0.5, plus QB (SHIPPED 2026-10-21, "
+            ".planning/SEASON_2026_MIDSEASON_RETRO.md). Disable via "
             "--no-sleeper-anchor. Passing this flag explicitly REPLACES the "
             "whole shipped set with the single --consensus-anchor-position/"
             "-mode/-weight given (e.g. WR blend 0.5 alone reproduces the "
@@ -620,7 +622,7 @@ def main():
         default=False,
         help=(
             "Weekly mode only: disable the default-on Sleeper consensus "
-            "anchor (WR+RB+TE, blend, weight=0.5 each — SHIPPED "
+            "anchor (WR+RB+TE+QB, blend, weight=0.5 each — SHIPPED "
             ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md + "
             "SLEEPER_ANCHOR_QB_RB_TE_GATE.md). Mirrors "
             "--no-consensus-anchor's naming convention for the preseason "
@@ -630,13 +632,60 @@ def main():
         ),
     )
     parser.add_argument(
+        "--no-band-calibration",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: disable the default-on empirical floor/ceiling "
+            "band calibration (SHIPPED 2026-10-21, "
+            ".planning/MODEL_ASSESSMENT_2026_10_21.md). The published band "
+            "covered only 29.8%% of actual outcomes against its ~80%% design "
+            "target (QB 60.9/RB 32.9/WR 24.8/TE 20.9) because the fallback "
+            "band is multiplicative and symmetric while fantasy residuals "
+            "scale with the projection and skew upward. Refits per-position "
+            "residual quantiles from THIS season's completed weeks only "
+            "(leak-free); walk-forward coverage 30.6%% -> 83.2%%. Falls back "
+            "to the existing band for weeks with too little history."
+        ),
+    )
+    parser.add_argument(
+        "--no-dispersion-shrink",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: disable the default-on per-position "
+            "dispersion shrinkage (SHIPPED 2026-10-21, "
+            ".planning/SEASON_2026_MIDSEASON_RETRO.md). The lever pulls each "
+            "position's rows toward that position's own startable-pool mean "
+            f"at k={DISPERSION_SHRINK_FACTOR}, correcting the 2026 w1-6 "
+            "over-dispersion (our top tiers over-projected by +2 to +4 pts "
+            "while the bottom under-projected). Replayed on w3-6: MAE "
+            "5.440 -> 5.390 alone, 5.364 with the QB anchor. Applies to "
+            "the >=5pt startable pool only. Monotone "
+            "within a position, so rank ordering is untouched. No effect in "
+            "--preseason mode."
+        ),
+    )
+    parser.add_argument(
+        "--dispersion-shrink-k",
+        type=float,
+        default=DISPERSION_SHRINK_FACTOR,
+        help=(
+            "Shrink factor for the dispersion lever: adjusted = centre + k * "
+            f"(projected - centre). Default {DISPERSION_SHRINK_FACTOR} "
+            "(1.0 is an explicit no-op; must be in (0, 1]). The per-week "
+            "fitted optimum over 2026 w3-6 was a stable 0.65-0.75, so the "
+            "shipped default is deliberately conservative."
+        ),
+    )
+    parser.add_argument(
         "--consensus-anchor-extra-position",
         choices=list(SUPPORTED_CONSENSUS_ANCHOR_POSITIONS),
         default=None,
         help=(
             "Weekly mode only: add (or, if already anchored, override) one "
             "position's Sleeper consensus anchor on top of the resolved set "
-            "(the shipped WR+RB+TE defaults or an explicit "
+            "(the shipped WR+RB+TE+QB defaults or an explicit "
             "--consensus-anchor-src) — e.g. QB to opt in to the HOLD "
             "position, or RB with a different weight. See "
             ".planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md. Default: unset. "
@@ -1918,7 +1967,7 @@ def main():
             )
 
         # --- Historical-Sleeper weekly consensus anchor (SHIPPED
-        # DEFAULT-ON for WR+RB+TE, blend, weight=0.5 each — see the
+        # DEFAULT-ON for WR+RB+TE+QB, blend, weight=0.5 each — see the
         # resolution block above; --no-sleeper-anchor opts out) ---
         # Hypothesis from .planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md: a
         # second, independent weekly consensus source (Sleeper's own
@@ -2171,6 +2220,50 @@ def main():
         print("ERROR: No projections generated. Check that data is available.")
         return 1
 
+    # --- Per-position dispersion shrinkage (default-ON in weekly mode) ---
+    # .planning/SEASON_2026_MIDSEASON_RETRO.md: through 2026 w1-6 the board
+    # was over-dispersed — our own top tiers over-projected (QB 20+ +3.55,
+    # WR 16-20 +4.28, TE 12-16 +4.01, RB 12-16 +2.16) while every position's
+    # sub-8 tier under-projected, with within-week QB sd 3.81 vs Sleeper's
+    # 2.78. Replayed on the published w3-6 boards (k fixed as a prior, MAE
+    # vs ACTUALS): 5.440 -> 5.390 alone, 5.364 with the QB anchor, closing
+    # 45% of the consensus gap; a walk-forward pass agrees. Confined to the
+    # >=5pt startable pool so the deep bench is not inflated (see
+    # dispersion_shrink.MIN_SHRINK_PTS). Runs LAST among the stages that
+    # touch projected_points —
+    # exactly the order validated in the retro — and immediately before the
+    # injury invariant below, so a sidelined or bye row can never be shrunk
+    # back onto the board. Monotone within a position, so position_rank is
+    # unchanged by construction; this fixes magnitudes, not ordering.
+    if not args.preseason and not args.no_dispersion_shrink:
+        from dispersion_shrink import apply_dispersion_shrink  # noqa: E402
+
+        before_total = float(projections["projected_points"].sum())
+        projections, shrink_stats = apply_dispersion_shrink(
+            projections, k=args.dispersion_shrink_k
+        )
+        for st in shrink_stats:
+            print(
+                f"Dispersion shrink ({st['position']}, k={st['k']}): "
+                f"{st['n_rows']} row(s) pulled toward centre {st['centre']} "
+                f"(mean of {st['n_centre_rows']} startable rows); sd "
+                f"{st['sd_before']} -> {st['sd_after']}, mean |delta| "
+                f"{st['mean_abs_change']}"
+            )
+        if shrink_stats:
+            after_total = float(projections["projected_points"].sum())
+            print(
+                "Dispersion shrink: "
+                f"{int(projections['dispersion_shrink_flag'].sum())} total "
+                "row(s) calibrated; total projected points "
+                f"{before_total:.1f} -> {after_total:.1f}"
+            )
+        elif args.dispersion_shrink_k != 1.0:
+            print(
+                "::warning::Dispersion shrink produced no per-position "
+                "centres (too few startable rows?) — lever was a no-op"
+            )
+
     # Add floor/ceiling after all adjustments (ML router handles this internally).
     # Preseason mode uses projected_season_points (full-season totals), not
     # projected_points (weekly), so floor/ceiling is not applicable there.
@@ -2182,6 +2275,50 @@ def main():
             use_conformal=args.conformal_bands,
             log=print,
         )
+
+    # --- Empirical floor/ceiling band calibration (default-ON weekly) ----
+    # .planning/MODEL_ASSESSMENT_2026_10_21.md: the band we published covered
+    # 29.8% of outcomes against an ~80% target, because the fallback band is
+    # multiplicative and symmetric (a 4-pt TE got +/-1.4 when its real spread
+    # is -5.3/+6.5) while fantasy residuals both scale with the projection and
+    # skew upward off a hard zero. Refits per-position residual-quantile lines
+    # from THIS season's completed weeks only, so it is leak-free and needs no
+    # pre-trained model. Runs AFTER the point estimate is final (the shrink
+    # above) and after any upstream band attach, so it overwrites the crude
+    # band; and BEFORE the injury invariant below, so a sidelined player's
+    # band is re-zeroed with his projection.
+    if not args.preseason and not args.no_band_calibration:
+        from band_calibration import (  # noqa: E402
+            apply_calibrated_bands,
+            fit_band_offsets,
+            load_completed_player_weeks,
+        )
+
+        _band_hist = load_completed_player_weeks(
+            args.season, args.week, os.path.join(PROJECT_ROOT, "data"), args.scoring
+        )
+        _band_offsets = fit_band_offsets(_band_hist)
+        if not _band_offsets:
+            print(
+                "Band calibration: no fitted positions "
+                f"({len(_band_hist)} completed player-week(s) available) — "
+                "keeping the existing floor/ceiling band"
+            )
+        else:
+            projections, _band_stats = apply_calibrated_bands(
+                projections, _band_offsets
+            )
+            for st in _band_stats:
+                print(
+                    f"Band calibration ({st['position']}): {st['n_rows']} row(s), "
+                    f"mean width {st['mean_width_before']} -> "
+                    f"{st['mean_width_after']}"
+                )
+            print(
+                "Band calibration: fitted from "
+                f"{len(_band_hist)} completed player-week(s) of season "
+                f"{args.season} (weeks < {args.week})"
+            )
 
     # --- injury invariant ------------------------------------------------
     # Every blend that runs after apply_injury_adjustments (the Sleeper
