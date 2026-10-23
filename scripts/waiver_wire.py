@@ -128,6 +128,45 @@ def last_week_actuals(
     return score_ours(df[[c for c in keep if c in df.columns]].copy(), scoring)
 
 
+#: A practice trail that ENDS in full or limited participation after a DNP is
+#: a player on his way back. Structured, published by the team, and available
+#: every week -- unlike the news keyword "returning", which is produced by
+#: pattern-matching article text and is only as good as the extractor.
+_RECOVERING_TRAIL = ("LP", "FP")
+
+
+def returning_from_practice(sleeper_id: Optional[str], ctx: Any) -> bool:
+    """Is this player trending back INTO the lineup, per the official report?
+
+    The ENDING tag -- "the role you are buying is about to vanish" -- used to
+    rest entirely on a news flag. That flag comes from keyword extraction,
+    which this session found to be running on rules while claiming to be
+    Claude, so the most consequential signal on the board had the weakest
+    provenance behind it.
+
+    The same conclusion is available from structured data the report already
+    loads: nflverse publishes a DNP/LP/FP practice status per day, collapsed
+    into a trail. A trail that starts at DNP and ends at LP or FP is a player
+    returning, stated by his own team. No API key, no language model.
+
+    Returns False when there is no report line, which keeps the news path as
+    the fallback rather than replacing it.
+    """
+    if not sleeper_id or ctx is None:
+        return False
+    gsis = (getattr(ctx, "gsis_by_sleeper", None) or {}).get(str(sleeper_id))
+    if not gsis:
+        return False
+    report = (getattr(ctx, "reports", None) or {}).get(str(gsis))
+    trail = tuple(getattr(report, "practice", ()) or ())
+    if len(trail) < 2 or trail[-1] not in _RECOVERING_TRAIL:
+        return False
+    # Improving, not merely present: DNP -> LP -> FP counts, FP -> FP does not,
+    # and LP -> DNP is going the wrong way.
+    order = {"DNP": 0, "LP": 1, "FP": 2}
+    return order.get(trail[-1], 0) > order.get(trail[0], 0)
+
+
 def snap_trend(
     season: int, week: int, by_name: Mapping[Any, str]
 ) -> Dict[str, Tuple[int, int]]:
@@ -1440,9 +1479,14 @@ def main(argv: Optional[list] = None) -> int:
             for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
             if n != (meta.get("full_name") or "") and rank < own_rank(meta)
         ]
+        # Two independent sources, either sufficient: the week's news flag
+        # (keyword-grade) and the blocker's own practice trail (structured,
+        # published by his team). The second exists precisely because the
+        # first's provenance is weak.
         role_ending = any(
             "returning" in (news.get(bsid) or "")
             or "activated" in (news.get(bsid) or "")
+            or returning_from_practice(bsid, injury_ctx)
             for _rank, _n, bsid in blocked
         )
         return {
@@ -1615,7 +1659,10 @@ def main(argv: Optional[list] = None) -> int:
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
         "revert when he returns — check before paying up; ENDING<- means the "
         "week's news says that team-mate is RETURNING, so the role is going "
-        "away now, not later. ADDS counts adds "
+        "away now, not later — from the week's news flag OR his own "
+        "practice trail (DNP->LP->FP), either sufficient, because the news "
+        "flag is keyword-grade and the trail is published by his team. "
+        "ADDS counts adds "
         "across ALL of Sleeper, not this league — never price a claim off it. "
         "[brackets] = what THIS room has paid for him (unclaimed / held $N / "
         "cut wkN, free Nwk): that is the first bid anchor, and "

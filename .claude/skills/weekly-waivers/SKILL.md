@@ -108,6 +108,12 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
   `young-drop`'s <=24 cutoff — `scripts/validate_young_drop.py` shows the obvious test is the
   wrong mechanism for a dynasty rule, and the right one needs value history that only started
   on 2026-10-23. Don't present it as evidence-backed, and don't "refute" it with a points sweep.
+- **ENDING has two independent sources**, either sufficient: the week's news flag, and the
+  blocker's own **DNP->LP->FP practice trail** from the official report. The second exists
+  because the first is keyword-grade — and week 7 proved they catch different players:
+  Charbonnet had the flag with a flat `('FP',)` trail, Beaux Collins had `('LP','FP')` and no
+  flag at all, so Jahan Dotson's role ending was invisible until the trail was read. A single
+  `FP` is NOT a return — he never left.
 - A role the week's news says is **ENDING is priced at $1 by `suggest_bid` itself**, above
   every other pricing rule — you are not buying the usage you are looking at. `ending-role`
   remains the backstop. (Live week 7: George Holani was bid $4 behind

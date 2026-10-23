@@ -1222,3 +1222,38 @@ def test_snap_trend_reads_the_bronze_column_names_that_actually_exist(tmp_path):
 
     # A missing season renders no column rather than raising.
     assert ww.snap_trend(1999, 7, by_name) == {}
+
+
+def test_returning_is_read_from_the_practice_trail_not_only_the_news():
+    """ENDING rested entirely on a keyword flag — the weakest provenance here.
+
+    Week 7 proved the two sources complementary: Zach Charbonnet had the news
+    flag but a flat ('FP',) trail, while Beaux Collins had ('LP','FP') and NO
+    news flag at all — so Jahan Dotson's role ending was invisible until the
+    trail was read.
+    """
+    ww = _waiver_wire()
+
+    class Ctx:
+        gsis_by_sleeper = {"s1": "g1", "s2": "g2", "s3": "g3"}
+
+        class _R:
+            def __init__(self, practice):
+                self.practice = practice
+
+        reports = {
+            "g1": _R(("LP", "FP")),  # Collins: coming back
+            "g2": _R(("FP",)),  # Charbonnet: never left
+            "g3": _R(("LP", "DNP")),  # going the wrong way
+        }
+
+    ctx = Ctx()
+    assert ww.returning_from_practice("s1", ctx) is True
+    # A single full practice is not a return — he was never out.
+    assert ww.returning_from_practice("s2", ctx) is False
+    # Deteriorating must never read as returning.
+    assert ww.returning_from_practice("s3", ctx) is False
+    # No report line, no id, no context: fall back to the news path.
+    assert ww.returning_from_practice("unknown", ctx) is False
+    assert ww.returning_from_practice(None, ctx) is False
+    assert ww.returning_from_practice("s1", None) is False
