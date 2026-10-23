@@ -17,7 +17,13 @@ Two outcomes, and the distinction is the whole point:
   week-6 2026 Mantis data the sign flipped across adjacent age cutoffs
   (+2.7, -4.9, -3.5, +2.9, +3.4 pts/wk), which is noise at n=34, and a naive
   reading of the <=24 row would have "refuted" a rule it cannot speak to.
-* **Market value months later** -- the right mechanism, and not yet possible:
+* **Market value months later** -- the right mechanism, and not yet possible.
+  There is no historical source to shortcut the wait, which was checked rather
+  than assumed on 2026-10-23: FantasyCalc serves only ``/values/current``,
+  DynastyProcess's ``values-players.csv`` is a single snapshot (one distinct
+  ``scrape_date``) and its ``db_values.csv.gz`` archive 404s, unlike the
+  ``db_fpecr.csv.gz`` the ECR ingester uses. So the only route is our own
+  archive, and the wait is real:
   FantasyCalc serves only ``/values/current``. ``league_context`` now archives
   one compact snapshot per ISO week, so this becomes answerable once a few
   months of history exist. Until then the rule stands on George's instruction,
