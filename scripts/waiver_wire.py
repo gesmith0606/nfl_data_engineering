@@ -242,6 +242,24 @@ def team_bid_stats(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Dict[str, Any
     return out
 
 
+#: One browser per run. Playwright's sync API cannot nest, so a second
+#: FantasyBrowser() while the first is live raises "Sync API inside the
+#: asyncio loop" -- which is exactly what happened on Yahoo: yahoo_live_pools
+#: opened one, and the demand history then could never load. Every site read
+#: here goes through this.
+_BROWSER: Any = None
+
+
+def shared_browser() -> Any:
+    """The run's single FantasyBrowser, created on first use."""
+    global _BROWSER
+    if _BROWSER is None:
+        from src.fantasy_browser import FantasyBrowser
+
+        _BROWSER = FantasyBrowser()
+    return _BROWSER
+
+
 def espn_player_moves(
     league_id: str,
     season: int,
@@ -275,10 +293,8 @@ def espn_player_moves(
     """
     try:
         from src import waiver_sites as ws
-        from src.fantasy_browser import FantasyBrowser
 
-        browser = FantasyBrowser()
-        page = ws.site_page(browser, "espn", str(league_id), team_id)
+        page = ws.site_page(shared_browser(), "espn", str(league_id), team_id)
         payload = ws.espn_fetch_league(
             page, season, str(league_id), ["mSettings", "mTeam", "mRoster"]
         )
@@ -543,22 +559,34 @@ def nfl_week_for_date(stamp: str, season: int) -> Optional[int]:
         return None
 
 
-def yahoo_transactions_text(league_id: str, pages: int = 4) -> str:
-    """Transactions page text through the logged-in claims profile.
+def yahoo_transactions_text(
+    league_id: str, team_id: int = 0, pages: int = 4
+) -> Tuple[str, int]:
+    """Transactions page text and our remaining FAAB, from one page session.
 
-    Returns an empty string on any failure, so a Yahoo login that has lapsed
-    costs the demand column rather than the whole report.
+    Both come off the same logged-in page because the bid is gated on the
+    demand history AND the budget: wiring only one of them (as ESPN briefly
+    was) leaves every bid blank while the report looks complete. Opening a
+    second browser is not an option -- Playwright's sync API cannot nest.
+
+    Returns ``("", 0)`` on any failure, so a lapsed Yahoo login costs the
+    demand column rather than the whole report.
     """
     try:
         from src import waiver_sites as ws
-        from src.fantasy_browser import FantasyBrowser
 
-        browser = FantasyBrowser()
-        page = ws.site_page(browser, "yahoo", str(league_id), 0)
-        return ws.yahoo_transactions(page, str(league_id), pages)
+        page = ws.site_page(shared_browser(), "yahoo", str(league_id), team_id)
+        text = ws.yahoo_transactions(page, str(league_id), pages)
+        faab = 0
+        try:
+            state = ws.yahoo_state(page, str(league_id), team_id, [])
+            faab = max(0, int(state.get("faab_left") or 0))
+        except Exception as exc:  # noqa: BLE001 — bids blank, report stands
+            print(f"WARN: Yahoo FAAB unavailable ({exc}) — bids will be blank")
+        return text, faab
     except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
         print(f"WARN: Yahoo transactions unavailable ({exc})")
-        return ""
+        return "", 0
 
 
 def moves_from_yahoo(text: str, by_name: Mapping[Any, str], season: int) -> PlayerMoves:
@@ -828,11 +856,9 @@ def yahoo_live_pools(
     """
     try:
         from src import waiver_sites as ws
-        from src.fantasy_browser import FantasyBrowser
         from src.yahoo_transactions_page import parse_yahoo_player_names
 
-        browser = FantasyBrowser()
-        page = ws.site_page(browser, "yahoo", str(league_id), team_id)
+        page = ws.site_page(shared_browser(), "yahoo", str(league_id), team_id)
         raw = ws.yahoo_rosters(
             page, str(league_id), team_id, range(1, int(teams) + 1), pages
         )
@@ -1170,9 +1196,10 @@ def main(argv: Optional[list] = None) -> int:
             by_name,
         )
     elif platform == "yahoo" and args.yahoo_browser:
-        moves = moves_from_yahoo(
-            yahoo_transactions_text(str(preset["league_id"])), by_name, season
+        tx_text, my_faab = yahoo_transactions_text(
+            str(preset["league_id"]), int(preset.get("my_team_id") or 0)
         )
+        moves = moves_from_yahoo(tx_text, by_name, season)
     elif platform == "yahoo" and args.transactions_file:
         moves = moves_from_yahoo(
             args.transactions_file.read_text(encoding="utf-8"), by_name, season

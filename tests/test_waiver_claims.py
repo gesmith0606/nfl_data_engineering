@@ -1088,3 +1088,30 @@ def test_espn_faab_comes_from_the_payload_already_fetched():
     # Unknown budget must stay 0 so suggest_bid is left switched off rather
     # than pricing against a number we invented.
     assert ww._espn_faab_left({"settings": {}, "teams": []}, 1) == 0
+
+
+def test_every_site_read_shares_one_browser():
+    """Playwright's sync API cannot nest, so a second browser masks the truth.
+
+    `--yahoo-browser` could never work: yahoo_live_pools opened a browser, then
+    the demand history opened another and died with "Sync API inside the
+    asyncio loop" — which looked like a code bug and hid the real cause (a
+    lapsed Yahoo login). Only the shared accessor may construct one.
+    """
+    src = (REPO / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+    code = [ln for ln in src.splitlines() if not ln.lstrip().startswith(("#", "#:"))]
+    builds = [ln for ln in code if "FantasyBrowser()" in ln]
+    assert builds == ["        _BROWSER = FantasyBrowser()"], builds
+    assert src.count("ws.site_page(shared_browser()") == 3, "espn + yahoo x2"
+
+    ww = _waiver_wire()
+    assert ww._BROWSER is None, "created lazily — a local run must not open one"
+
+
+def test_yahoo_reads_return_transactions_and_faab_together():
+    """Wiring one without the other leaves every bid blank (as ESPN briefly was)."""
+    ww = _waiver_wire()
+    text, faab = ww.yahoo_transactions_text("658684", 10)
+    # No login in the test environment, so this is the degraded path: both
+    # halves must come back empty together rather than one silently missing.
+    assert text == "" and faab == 0
