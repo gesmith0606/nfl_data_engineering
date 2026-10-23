@@ -15,10 +15,16 @@ Baselines it reports alongside the model:
   a single session.
 * ``minimum``   — bid $1 every time.
 
-Median absolute error is the number to read. Mean is dominated by a handful
-of outliers that no signal in this repo predicts — see "the tail" in
-docs/WEEKLY_WAIVER_RUNBOOK.md §4, where three separate hypotheses (dynasty
-value, week, budget depletion) were each tested and rejected.
+Read the DECISION view first. Absolute error measures distance to the
+winning price, which conflates "we misjudged him" with "we correctly refused
+to overpay" — declining a $450 claim is not a $443 error. The decision view
+splits the same replay into claims the model would have won (and by how much
+it overpaid) and claims it would have lost (and what they went for).
+
+Median absolute error is the better of the two error numbers; the mean is
+dominated by outliers no signal in this repo predicts — see "the tail" in
+docs/WEEKLY_WAIVER_RUNBOOK.md §4, where four separate hypotheses were each
+tested and rejected across two leagues.
 
 Sleeper leagues only: ESPN and Yahoo transaction logs need a logged-in
 browser, which a backtest should not depend on.
@@ -87,6 +93,8 @@ def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
         )
 
     model: List[float] = []
+    overpaid: List[float] = []
+    lost_prices: List[float] = []
     median_rule: List[float] = []
     minimum_rule: List[float] = []
     for leg, pid, won in actual:
@@ -96,6 +104,10 @@ def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
         model.append(abs(suggested - won))
         median_rule.append(abs(room_median - won))
         minimum_rule.append(abs(1 - won))
+        if suggested >= won:
+            overpaid.append(suggested - won)
+        else:
+            lost_prices.append(won)
 
     print(
         f"=== {league_key}: {len(actual)} winning bids through week {through_week} ==="
@@ -112,6 +124,25 @@ def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
             f"  {name:10}{s['n']:5d}{s['median']:11.0f}${s['mean']:10.1f}"
             f"{s['within_5']:10.0f}%"
         )
+    print("\n  -- decision view: what the advice would actually have cost --")
+    if overpaid:
+        print(
+            f"  wins   {len(overpaid):3}  median overpay ${statistics.median(overpaid):.0f}"
+            f"  total FAAB wasted ${sum(overpaid):.0f}"
+        )
+    else:
+        print("  wins     0")
+    if lost_prices:
+        dear = sum(1 for p in lost_prices if p >= 100)
+        cheap = sum(1 for p in lost_prices if p <= 20)
+        print(
+            f"  losses {len(lost_prices):3}  median winning price "
+            f"${statistics.median(lost_prices):.0f}  ({dear} went for $100+, "
+            f"{cheap} for $20 or less)"
+        )
+    else:
+        print("  losses   0")
+
     model_median = score(model)["median"]
     rivals = min(score(median_rule)["median"], score(minimum_rule)["median"])
     if model_median > rivals:
