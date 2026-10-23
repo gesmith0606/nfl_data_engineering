@@ -100,7 +100,23 @@ against two baselines.
 
 It fails (exit 1) when the model loses to either naive rule, and
 `--max-median-error N` adds a bound so drift is caught by a check rather than by a
-bad claim. Read the median and the hit rate; the mean is outliers (see below). Note that
+bad claim.
+
+**Read the decision view first.** Absolute error measures distance to the winning
+price, which conflates "we misjudged him" with "we correctly refused to overpay" —
+declining a $450 claim is not a $443 error, and that is the whole of the ~$47 mean.
+
+```
+  wins    20  median overpay $3  total FAAB wasted $46
+  losses  31  median winning price $50  (7 went for $100+, 9 for $20 or less)
+```
+
+Across a whole season the advice wins 20 of 51 contested claims for **$46 of wasted
+FAAB in total**, and the 31 it loses went for a median of $50. That is a deliberate
+posture, not an error rate. The one soft spot worth watching: 9 of those losses went
+for $20 or less, so there is a cheap band where the model is a little too frugal —
+raising the floor to recover them costs more waste than it is worth (see the sweep
+below). Note that
 bidding $1 every time is a strong baseline in this room — the model has to earn its
 place against that, not against the median rule.
 

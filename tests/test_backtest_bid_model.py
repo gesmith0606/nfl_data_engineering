@@ -75,3 +75,29 @@ def test_cli_exposes_the_bound():
 
     src = inspect.getsource(backtest.main)
     assert "--max-median-error" in src
+
+
+# --- the decision view -------------------------------------------------------
+
+
+def test_the_decision_view_is_reported_before_the_verdict():
+    """Absolute error conflates misjudging a player with refusing to overpay."""
+    import inspect
+
+    src = inspect.getsource(backtest.run)
+    assert "decision view" in src
+    assert "overpaid" in src and "lost_prices" in src
+    assert src.index("decision view") < src.index("model_median =")
+
+
+def test_a_win_is_counted_by_overpay_and_a_loss_by_its_price():
+    import inspect
+
+    src = inspect.getsource(backtest.run)
+    assert "if suggested >= won:" in src
+    assert "overpaid.append(suggested - won)" in src
+    assert "lost_prices.append(won)" in src
+
+
+def test_the_docstring_tells_you_to_read_the_decision_view_first():
+    assert "Read the DECISION view first" in backtest.__doc__
