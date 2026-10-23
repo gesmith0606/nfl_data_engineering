@@ -54,11 +54,10 @@ def main(argv: Optional[list] = None) -> int:
     )
     args = ap.parse_args(argv)
 
-    preset = config.LEAGUE_PRESETS.get(args.league)
-    if preset is None:
-        sys.exit(
-            f"Unknown league '{args.league}'. Presets: {sorted(config.LEAGUE_PRESETS)}"
-        )
+    try:
+        preset = config.our_league(args.league)
+    except (KeyError, ValueError) as exc:
+        sys.exit(exc.args[0])
     platform, lid = preset.get("platform"), str(preset["league_id"])
     registry = load_sleeper_players(max_age_days=1)
     my_ids, rostered, tags, team_values = [], set(), {}, None

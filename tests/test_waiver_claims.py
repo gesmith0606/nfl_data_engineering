@@ -16,6 +16,7 @@ from pathlib import Path
 
 import pytest
 
+from src import config
 from src import waiver_claims as wc
 from src import waiver_sites as ws
 
@@ -959,3 +960,23 @@ def test_sleeper_fetch_errors_raise_instead_of_reading_as_empty(monkeypatch):
 def test_espn_submit_rechecks_waiver_status_before_posting():
     js = ws.ESPN_SUBMIT_JS
     assert js.index("now.status !== A.expect") < js.index("method: 'POST'")
+
+
+def test_only_our_leagues_can_be_advised_on():
+    """A preset kept as a roster-shape example is never mistaken for ours."""
+    assert config.our_league("mantis")["my_user"] == "Gforceee"
+    for key, preset in config.LEAGUE_PRESETS.items():
+        if preset.get("owned") is False:
+            with pytest.raises(ValueError, match="NOT one of our leagues"):
+                config.our_league(key)
+        else:
+            assert config.our_league(key) is preset
+    with pytest.raises(KeyError, match="Unknown league"):
+        config.our_league("no_such_league")
+
+
+def test_advice_scripts_refuse_a_league_that_is_not_ours():
+    """The guard is wired into every tool that advises on a roster."""
+    for script in ("waiver_wire", "set_lineups", "league_context"):
+        src = (REPO / "scripts" / f"{script}.py").read_text(encoding="utf-8")
+        assert "config.our_league(args.league)" in src, script

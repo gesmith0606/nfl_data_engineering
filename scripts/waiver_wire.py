@@ -855,11 +855,10 @@ def main(argv: Optional[list] = None) -> int:
     ap.add_argument("--top", type=int, default=6, help="free agents shown per position")
     args = ap.parse_args(argv)
 
-    preset = config.LEAGUE_PRESETS.get(args.league)
-    if preset is None:
-        sys.exit(
-            f"Unknown league '{args.league}'. Presets: {sorted(config.LEAGUE_PRESETS)}"
-        )
+    try:
+        preset = config.our_league(args.league)
+    except (KeyError, ValueError) as exc:
+        sys.exit(exc.args[0])
     platform = preset.get("platform")
     if args.season and args.week:
         season, week = args.season, args.week

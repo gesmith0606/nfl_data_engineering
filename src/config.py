@@ -400,6 +400,11 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "my_team_id": 10,  # Yahoo team id (/f1/658684/10, "The Oracle")
         "keepers_file": "data/draft/feetball_2026_keepers.txt",
     },
+    # NOT OURS. Both belong to the Sleeper account ``georgesmith``; George's
+    # only Sleeper team is Mantis (``Gforceee``), confirmed 2026-10-23. They
+    # are kept as shaped examples of 3-FLEX rosters for the draft tools, and
+    # ``owned: False`` makes every consumer say so out loud — a whole session's
+    # waiver advice was once produced for Mahomo's before anyone noticed.
     "gentlemen": {
         "platform": "sleeper",
         "league_id": "1389709869531017216",
@@ -407,6 +412,7 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "roster": "sleeper_gentlemen",
         "teams": 12,
         "my_pick": None,
+        "owned": False,
     },
     "mahomos": {
         "platform": "sleeper",
@@ -415,6 +421,7 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "roster": "sleeper_mahomos",
         "teams": 12,
         "my_pick": None,
+        "owned": False,
     },
     # Dynasty superflex, TE premium (+1/rec), 6-pt pass TD, 0.5 first downs.
     # Roster shape and scoring are read live from the Sleeper league by
@@ -432,6 +439,31 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "dynasty": True,
     },
 }
+
+
+def our_league(key: str) -> Dict[str, Any]:
+    """The ``LEAGUE_PRESETS`` entry for ``key``, if it is one of our leagues.
+
+    Every tool that takes a ``--league`` and then advises on a roster
+    resolves it through here, so a preset kept only as a roster-shape example
+    (``owned`` False) can never be mistaken for a team of ours. The claim CLIs
+    reach the same end by listing our leagues as their argparse choices.
+
+    Raises:
+        KeyError: no preset by that name.
+        ValueError: the preset exists but belongs to someone else.
+    """
+    preset = LEAGUE_PRESETS.get(key)
+    if preset is None:
+        raise KeyError(f"Unknown league '{key}'. Presets: {sorted(LEAGUE_PRESETS)}")
+    if preset.get("owned") is False:
+        raise ValueError(
+            f"'{key}' is NOT one of our leagues \u2014 it belongs to another "
+            "account and is kept only as a roster-shape example for the "
+            "draft tools. Anything said about it is about a stranger's team."
+        )
+    return preset
+
 
 # Platform-faithful draft-session defaults (v8.3 draft-tool upgrade).
 # ``adp_source`` names a key the /draft/adp endpoint and refresh_adp.py

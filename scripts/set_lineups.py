@@ -263,11 +263,10 @@ def main(argv: Optional[list] = None) -> int:
     )
     args = ap.parse_args(argv)
 
-    preset = config.LEAGUE_PRESETS.get(args.league)
-    if preset is None:
-        sys.exit(
-            f"Unknown league '{args.league}'. Presets: {sorted(config.LEAGUE_PRESETS)}"
-        )
+    try:
+        preset = config.our_league(args.league)
+    except (KeyError, ValueError) as exc:
+        sys.exit(exc.args[0])
     if preset.get("platform") != "sleeper":
         sys.exit(
             f"{args.league} is on {preset.get('platform')}: only Sleeper rosters are supported yet."
