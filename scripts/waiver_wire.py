@@ -249,7 +249,7 @@ def espn_player_moves(
     through_period: int,
     registry: Mapping[str, Any],
     by_name: Mapping[Any, str],
-) -> PlayerMoves:
+) -> Tuple[PlayerMoves, int]:
     """The same demand history as :func:`league_player_moves`, for an ESPN league.
 
     ESPN ids are as sparse in the Sleeper registry as gsis ids (210 of 841
@@ -270,7 +270,8 @@ def espn_player_moves(
         by_name: ``(normalised_name, position) -> sleeper_id`` from this report.
 
     Returns:
-        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+        ``(sleeper_player_id -> [{"leg", "bid", "kind"}] oldest first,
+        our remaining FAAB)``. ``({}, 0)`` on any failure.
     """
     try:
         from src import waiver_sites as ws
@@ -290,11 +291,39 @@ def espn_player_moves(
             or []
         ]
         _teams, tx = league_context.espn_context(payload, team_id, registry)
+        # mSettings + mTeam are already in this payload, so our remaining FAAB
+        # costs no second page. It matters because `bid` is gated on
+        # `moves and my_faab`, and my_faab was only ever filled in the Sleeper
+        # branch -- the computed bid silently never ran on the two leagues we
+        # can actually file claims in.
+        faab = _espn_faab_left(payload, team_id)
     except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
         print(f"WARN: ESPN demand history unavailable ({exc})")
-        return {}
+        return {}, 0
 
-    return moves_from_tx(tx, by_name)
+    return moves_from_tx(tx, by_name), faab
+
+
+def _espn_faab_left(payload: Mapping[str, Any], team_id: int) -> int:
+    """Our remaining FAAB from an ESPN league payload, 0 when unknown.
+
+    0 leaves :func:`suggest_bid` switched off rather than pricing against a
+    budget we invented.
+    """
+    budget = ((payload.get("settings") or {}).get("acquisitionSettings") or {}).get(
+        "acquisitionBudget"
+    )
+    if budget is None:
+        return 0
+    spent = next(
+        (
+            (t.get("transactionCounter") or {}).get("acquisitionBudgetSpent") or 0
+            for t in payload.get("teams") or []
+            if int(t.get("id") or -1) == int(team_id)
+        ),
+        0,
+    )
+    return max(0, int(budget) - int(spent))
 
 
 def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves:
@@ -386,6 +415,7 @@ def suggest_bid(
     current_leg: int,
     room_max: int = 0,
     my_roster_id: Optional[str] = None,
+    rivals_modelled: bool = True,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -455,8 +485,15 @@ def suggest_bid(
         # lower floor halves wasted FAAB ($96 -> $46 across 51 claims, median
         # overbid $6 -> $3) and costs one extra claim lost. Overpaying was the
         # failure mode worth fixing.
+        # Only Sleeper gives us every rival's roster AND budget, so only
+        # there does an empty rival list MEAN nobody can outbid us. On ESPN
+        # and Yahoo it means we never looked, and saying otherwise put a
+        # claim in George's hands justified by an analysis that never ran.
         return min(max(1, room_median // 5), cap), (
             "no rival is both thin here and able to spend"
+            if rivals_modelled
+            else f"room median ${room_median} floor; no rival model on this "
+            "platform, so check who else needs the spot"
         )
 
     top = max(rival_bids)
@@ -843,17 +880,26 @@ def emit_claims(
     """
     if path.exists():
         return f"  --emit-claims: {path} already exists, left untouched"
+    worth_claiming = [
+        r for r in fas if r.get("verdict") in (STARTS, BENCH_UP) and not r.get("bye")
+    ]
     picks = sorted(
-        (
-            r
-            for r in fas
-            if r.get("verdict") in (STARTS, BENCH_UP)
-            and r.get("bid")
-            and not r.get("bye")
-        ),
-        key=lambda r: -r["blend"],
+        (r for r in worth_claiming if r.get("bid")), key=lambda r: -r["blend"]
     )[:limit]
     if not picks:
+        # Two very different situations used to share one message. On ESPN and
+        # Yahoo the demand history -- and so the computed bid -- only exists
+        # with --espn-browser / --yahoo-browser, so this said "nothing rated
+        # STARTS or BENCH+" while the report listed several. Guessing a bid
+        # here would defeat the whole point of generating the file, so name
+        # the flag instead.
+        if worth_claiming:
+            return (
+                f"  --emit-claims: {len(worth_claiming)} players rated "
+                "STARTS/BENCH+ but none has a computed BID — re-run with "
+                "--espn-browser / --yahoo-browser so the demand history "
+                "loads, or write the file by hand and say why each bid"
+            )
         return "  --emit-claims: nothing rated STARTS or BENCH+ to claim"
     spare, used, lines = open_active, 0, []
     for i, r in enumerate(picks, start=1):
@@ -1115,7 +1161,7 @@ def main(argv: Optional[list] = None) -> int:
                 if thin_at(r, registry, pos, need.get(pos, 0)):
                     rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
-        moves = espn_player_moves(
+        moves, my_faab = espn_player_moves(
             str(preset["league_id"]),
             season,
             int(preset.get("my_team_id") or 1),
@@ -1133,6 +1179,22 @@ def main(argv: Optional[list] = None) -> int:
         )
     else:
         moves = {}
+
+    # Sleeper derives these from every team's transaction log; on ESPN and
+    # Yahoo the same winning bids are already in `moves`, so the median and
+    # the ceiling cost nothing extra. Without them every bid collapsed to the
+    # $1 floor while the report looked confident about it.
+    if platform != "sleeper" and moves:
+        paid = sorted(
+            int(m["bid"])
+            for ms in moves.values()
+            for m in ms
+            if m.get("kind") == "add" and m.get("bid")
+        )
+        if paid:
+            room_median = paid[len(paid) // 2]
+            room_max = paid[-1]
+
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
@@ -1210,6 +1272,7 @@ def main(argv: Optional[list] = None) -> int:
                     week,
                     room_max,
                     my_roster_id,
+                    rivals_modelled=platform == "sleeper",
                 )
                 if moves and my_faab
                 else None

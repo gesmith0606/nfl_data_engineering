@@ -1054,3 +1054,37 @@ def test_emit_never_overwrites_an_existing_claims_file(tmp_path):
     note = ww.emit_claims(path, "mantis", 7, [], [], 0, True)
     assert "left untouched" in note
     assert path.read_text(encoding="utf-8") == "claims: []\n"
+
+
+def test_bid_reason_does_not_claim_a_rival_check_that_never_ran():
+    """Only Sleeper exposes every rival's roster AND budget.
+
+    On ESPN and Yahoo an empty rival list means we never looked, not that
+    nobody can outbid us — and the emitted claim carried that reason into
+    George's hands as justification.
+    """
+    ww = _waiver_wire()
+    sleeper_bid, sleeper_why = ww.suggest_bid(None, [], 8, 100, 7, rivals_modelled=True)
+    site_bid, site_why = ww.suggest_bid(None, [], 8, 100, 7, rivals_modelled=False)
+    assert sleeper_bid == site_bid == 1  # room_median // 5, the backtested floor
+    assert sleeper_why == "no rival is both thin here and able to spend"
+    assert "no rival model on this platform" in site_why
+    assert "able to spend" not in site_why
+
+
+def test_espn_faab_comes_from_the_payload_already_fetched():
+    """`bid` is gated on `moves and my_faab`, and my_faab was Sleeper-only."""
+    ww = _waiver_wire()
+    payload = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [
+            {"id": 1, "transactionCounter": {"acquisitionBudgetSpent": 42}},
+            {"id": 2, "transactionCounter": {"acquisitionBudgetSpent": 90}},
+        ],
+    }
+    assert ww._espn_faab_left(payload, 1) == 58
+    assert ww._espn_faab_left(payload, 2) == 10
+    assert ww._espn_faab_left(payload, 99) == 100  # unknown team: nothing spent
+    # Unknown budget must stay 0 so suggest_bid is left switched off rather
+    # than pricing against a number we invented.
+    assert ww._espn_faab_left({"settings": {}, "teams": []}, 1) == 0

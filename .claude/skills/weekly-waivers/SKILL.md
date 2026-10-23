@@ -190,7 +190,12 @@ Write the agreed claims to `data/draft/claims_week<N>.yaml` and run the dry run:
 `python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml` (headless Playwright
 profile; if a league says logged out, George runs `python scripts/league_login.py` himself).
 It re-checks Step 4b live and prints the table — show it to George. Run it again with
-**Build the claims file with `--emit-claims`, do not type it.** `python scripts/waiver_wire.py
+**Build the claims file with `--emit-claims`, do not type it.** On ESPN and Yahoo this needs
+`--espn-browser` / `--yahoo-browser` too: the computed `BID $N` is gated on the demand history
+AND our remaining FAAB, and without the flag both are absent, so the emitter writes nothing and
+says which flag is missing. There is **no rival model on those platforms** (only Sleeper exposes
+every rival's roster and budget), so their bids are a room-median floor and the reason says so —
+check who else needs the spot yourself before raising one. `python scripts/waiver_wire.py
 --league <L> --week N --emit-claims data/draft/claims_week<N>.yaml` writes the STARTS/BENCH+
 rows with the report's own computed `BID $N`, the next name off its drop list, and the reason
 the model gave, and it refuses to overwrite an existing file. A hand-typed bid is the one
