@@ -37,7 +37,7 @@ import importlib.util
 import statistics
 import sys
 from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Sequence, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -75,18 +75,66 @@ def score(errors: Sequence[float]) -> Dict[str, float]:
     }
 
 
-def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
-    preset = LEAGUE_PRESETS[league_key]
-    if preset.get("platform") != "sleeper":
-        sys.exit(f"{league_key} is on {preset.get('platform')}: Sleeper leagues only")
-    league_id = str(preset["league_id"])
-    rows = waiver_wire.fetch_league_transactions(league_id, through_week)
-    stats = waiver_wire.team_bid_stats(rows)
-    spread = sorted(b for st in stats.values() for b in [st["median"]] * st["n"])
-    room_median = spread[len(spread) // 2] if spread else 0
-    budget = 1000
+def espn_actuals(
+    league_key: str, preset: Mapping[str, Any], season: int, through_week: int
+) -> Tuple[List[Tuple[int, str, int]], Dict[str, List[Dict[str, Any]]], int]:
+    """ESPN's winning bids and per-player history, through the claims profile.
 
-    actual = winning_adds(rows)
+    The model was only ever measured against Mantis -- one room, 51 bids, one
+    set of spending habits. A price model validated in a single market is a
+    price model with an unknown generalisation, so this adds the second room
+    we can actually read.
+    """
+    registry = waiver_wire.load_sleeper_players(max_age_days=7)
+    # moves_from_tx matches ESPN's own player NAMES onto Sleeper ids, so the
+    # name map is not optional -- passing {} silently yields no history at all.
+    _by_gsis, by_name = waiver_wire.build_id_maps(registry)
+    moves, _faab, _payload, _tx = waiver_wire.espn_player_moves(
+        str(preset["league_id"]),
+        season,
+        int(preset.get("my_team_id") or 1),
+        through_week,
+        registry,
+        by_name,
+    )
+    actual: List[Tuple[int, str, int]] = []
+    for sid, history in moves.items():
+        for m in history:
+            if m.get("kind") == "add" and m.get("bid"):
+                actual.append((int(m["leg"]), str(sid), int(m["bid"])))
+    paid = sorted(b for _l, _p, b in actual)
+    room_median = paid[len(paid) // 2] if paid else 0
+    return sorted(actual), moves, room_median
+
+
+def run(
+    league_key: str,
+    through_week: int,
+    max_median_error: int = 0,
+    season: int = 2026,
+) -> int:
+    preset = LEAGUE_PRESETS[league_key]
+    platform = preset.get("platform")
+    if platform not in ("sleeper", "espn"):
+        sys.exit(
+            f"{league_key} is on {platform}: Sleeper reads its log over the "
+            "public API and ESPN through the claims profile; Yahoo's needs a "
+            "login that is not in place."
+        )
+    league_id = str(preset["league_id"])
+    budget = 1000
+    espn_moves: Dict[str, List[Dict[str, Any]]] = {}
+    if platform == "espn":
+        actual, espn_moves, room_median = espn_actuals(
+            league_key, preset, season, through_week
+        )
+        rows: List[dict] = []
+    else:
+        rows = waiver_wire.fetch_league_transactions(league_id, through_week)
+        stats = waiver_wire.team_bid_stats(rows)
+        spread = sorted(b for st in stats.values() for b in [st["median"]] * st["n"])
+        room_median = spread[len(spread) // 2] if spread else 0
+        actual = winning_adds(rows)
     if not actual:
         sys.exit(
             f"No paid waiver adds found in {league_key} through week {through_week}"
@@ -98,9 +146,25 @@ def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
     median_rule: List[float] = []
     minimum_rule: List[float] = []
     for leg, pid, won in actual:
-        prior = [t for t in rows if int(t.get("_leg") or 0) < leg]
-        history = waiver_wire.league_player_moves(league_id, leg - 1, prior).get(pid)
-        suggested, _why = waiver_wire.suggest_bid(history, [], room_median, budget, leg)
+        if platform == "espn":
+            # Only what was knowable BEFORE this claim, or the model is
+            # scored against the answer it is trying to predict.
+            history = [
+                m for m in espn_moves.get(pid, []) if int(m["leg"]) < leg
+            ] or None
+        else:
+            prior = [t for t in rows if int(t.get("_leg") or 0) < leg]
+            history = waiver_wire.league_player_moves(league_id, leg - 1, prior).get(
+                pid
+            )
+        suggested, _why = waiver_wire.suggest_bid(
+            history,
+            [],
+            room_median,
+            budget,
+            leg,
+            floor_divisor=int(preset.get("bid_floor_divisor") or 5),
+        )
         model.append(abs(suggested - won))
         median_rule.append(abs(room_median - won))
         minimum_rule.append(abs(1 - won))
@@ -143,6 +207,41 @@ def run(league_key: str, through_week: int, max_median_error: int = 0) -> int:
     else:
         print("  losses   0")
 
+    # Why the model wins or loses in THIS room. The no-rival floor is
+    # room_median // FLOOR_DIVISOR, swept to 5 against 51 Mantis bids where
+    # the median winning bid is $50 and the budget $1000. In a $100 room whose
+    # median is $8 that floor is $1, so every historyless player is bid at the
+    # minimum and lost. One room cannot tune a divisor for all rooms.
+    configured = int(preset.get("bid_floor_divisor") or 5)
+    print("\n  -- floor divisor sweep (the no-rival branch's only free knob) --")
+    best, best_err = None, None
+    for div in (1, 2, 3, 5, 8):
+        errs = []
+        for leg, pid, won in actual:
+            if platform == "espn":
+                hist = [
+                    m for m in espn_moves.get(pid, []) if int(m["leg"]) < leg
+                ] or None
+            else:
+                prior = [t for t in rows if int(t.get("_leg") or 0) < leg]
+                hist = waiver_wire.league_player_moves(league_id, leg - 1, prior).get(
+                    pid
+                )
+            bid, _ = waiver_wire.suggest_bid(
+                hist, [], room_median, budget, leg, floor_divisor=div
+            )
+            errs.append(abs(bid - won))
+        med = statistics.median(errs)
+        flag = " <- configured for this room" if div == configured else ""
+        print(f"  // {div:<3} median err ${med:5.0f}{flag}")
+        if best_err is None or med < best_err:
+            best, best_err = div, med
+    if best != configured:
+        print(
+            f"  -> this room wants // {best} (${best_err:.0f}), not its configured"
+            f" // {configured} — set bid_floor_divisor in LEAGUE_PRESETS"
+        )
+
     model_median = score(model)["median"]
     rivals = min(score(median_rule)["median"], score(minimum_rule)["median"])
     if model_median > rivals:
@@ -165,7 +264,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    ap.add_argument("--league", default="mantis", help="LEAGUE_PRESETS key (Sleeper)")
+    ap.add_argument(
+        "--league",
+        default="mantis",
+        help="LEAGUE_PRESETS key (Sleeper via API, ESPN via the claims profile)",
+    )
+    ap.add_argument("--season", type=int, default=2026)
     ap.add_argument("--through-week", type=int, default=7)
     ap.add_argument(
         "--max-median-error",
@@ -175,7 +279,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "drift is caught by a check rather than by a bad claim",
     )
     args = ap.parse_args(argv)
-    return run(args.league, args.through_week, args.max_median_error)
+    return run(args.league, args.through_week, args.max_median_error, args.season)
 
 
 if __name__ == "__main__":

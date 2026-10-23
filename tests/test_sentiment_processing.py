@@ -1150,3 +1150,111 @@ def test_the_null_player_skip_line_names_what_it_skipped(caplog):
     assert "skipped 2 records" in msg
     assert "Dan Quinn" in msg and "Soldier Field" in msg
     assert "not resolution failures" in msg
+
+
+def test_model_version_records_what_ran_not_what_was_configured():
+    """78 of 102 week-7 records claimed ClaudeExtractor while running rules.
+
+    The Claude extractor was configured, every call fell back to keyword
+    rules, `extractor` said "rule", and `model_version` still said
+    ClaudeExtractor. A provenance field that records intent rather than
+    outcome is worse than none: it made a dead LLM layer look live, and that
+    is what hid the sentiment gap through the whole audit.
+    """
+    from src.sentiment.processing.pipeline import _MODEL_VERSION
+
+    assert _MODEL_VERSION["rule"] == "RuleExtractor"
+    assert _MODEL_VERSION["claude"] == "ClaudeExtractor"
+
+    src = (
+        Path(__file__).resolve().parent.parent
+        / "src"
+        / "sentiment"
+        / "processing"
+        / "pipeline.py"
+    ).read_text(encoding="utf-8")
+    # The record must key off the SIGNAL's extractor, never the configured one.
+    assert '"model_version": _MODEL_VERSION.get(' in src
+    assert "signal.extractor, type(self._extractor).__name__" in src
+    assert '"model_version": type(self._extractor).__name__,' not in src
+
+
+def test_a_backfill_cannot_file_old_news_under_the_current_week():
+    """Signals are stamped with the REQUESTED week, not the article's own.
+
+    Clearing processed_ids once put 141 June-September documents into week 7
+    and tripled its apparent coverage (30 -> 200 players) with stale signal.
+    Normal incremental runs never hit this; a backfill or a cache reset hits
+    it every time, silently.
+    """
+    from src.sentiment.processing.pipeline import _too_old_for_week, _week_dates
+
+    weeks = _week_dates(2026)
+    assert weeks.get(7) is not None, "the committed schedule should be readable"
+    first, last = weeks[7]
+    assert (first.month, last.month) == (10, 10), f"week 7 ran {first}..{last}"
+
+    stale = {"published_at": "2026-06-30"}
+    fresh = {"published_at": str(first)}
+    assert _too_old_for_week(stale, 2026, 7) is True
+    assert _too_old_for_week(fresh, 2026, 7) is False
+
+    # Fails OPEN: an unknown week, an unparseable date or a missing schedule
+    # must never drop a document — that would lose real signal to fix a
+    # backfill problem.
+    assert _too_old_for_week(stale, 2026, None) is False
+    assert _too_old_for_week({"published_at": "not-a-date"}, 2026, 7) is False
+    assert _too_old_for_week(stale, 1999, 7) is False
+
+
+def test_the_week_window_comes_from_the_schedule_not_arithmetic():
+    """ "Sep 1 + 7 days a week" put week 7 at Oct 13; it really ran Oct 22-26."""
+    from src.sentiment.processing.pipeline import _week_dates
+
+    weeks = _week_dates(2026)
+    assert len(weeks) >= 17, "all regular-season weeks should be present"
+    # Nine days of drift is most of a week's news misfiled.
+    assert weeks[7][0].day >= 20
+
+
+def test_an_unresolvable_person_name_is_not_emitted_as_a_signal():
+    """28 of 102 week-7 signals were coaches, reporters and Soldier Field."""
+    src = (
+        Path(__file__).resolve().parent.parent
+        / "src"
+        / "sentiment"
+        / "processing"
+        / "pipeline.py"
+    ).read_text(encoding="utf-8")
+    # Both resolve sites must drop a named subject that resolves to nobody.
+    assert src.count("if player_id is None and signal.player_name:") == 2
+    assert "not an NFL player" in src
+
+
+def test_a_withdrawn_source_is_reported_not_silently_retried():
+    """Reddit answered 403 for a year while the cron reported success daily.
+
+    r/fantasyfootball, r/nfl and r/DynastyFF all refuse unauthenticated
+    reads; the last capture was 2025. The ingester logged six errors and
+    returned 0 every run, which is the same pattern that let three dead RSS
+    feeds survive months — and three futile requests a day train a reader to
+    skim error lines.
+    """
+    import importlib.util
+    import sys as _sys
+
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "dsp_reddit", root / "scripts" / "daily_sentiment_pipeline.py"
+    )
+    dsp = importlib.util.module_from_spec(spec)
+    _sys.modules["dsp_reddit"] = dsp
+    spec.loader.exec_module(dsp)
+
+    assert dsp.REDDIT_AVAILABLE is False
+    step = dsp._run_reddit_ingestion(2026, True, False)
+    # Nothing broke, so it is not a failure — but the detail says it is gone,
+    # so a deliberately dropped source cannot be mistaken for a healthy one.
+    assert step.success is True
+    assert "DISABLED" in step.detail and "403" in step.detail
+    assert step.elapsed_sec < 1.0, "must not make the three doomed requests"

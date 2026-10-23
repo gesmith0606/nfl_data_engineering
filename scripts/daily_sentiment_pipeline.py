@@ -180,8 +180,20 @@ def _run_rss_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
     return step
 
 
+#: Reddit withdrew unauthenticated JSON access: r/fantasyfootball, r/nfl and
+#: r/DynastyFF all answer 403 Blocked. The last capture was in 2025 (11 files,
+#: none since), while the ingester logged six errors and returned 0 every day,
+#: so the cron stayed green over a source that no longer exists. Three futile
+#: requests a day also train a reader to skim error lines, which is how the
+#: three dead RSS feeds survived months.
+#:
+#: Disabled rather than left erroring. To revive it, route through the Arctic
+#: Shift archive (no login, no key) instead of reddit.com, and flip this flag.
+REDDIT_AVAILABLE = False
+
+
 def _run_reddit_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResult:
-    """Ingest posts from Reddit.
+    """Ingest posts from Reddit, or report that the source is gone.
 
     Args:
         season: NFL season year.
@@ -193,6 +205,12 @@ def _run_reddit_ingestion(season: int, dry_run: bool, verbose: bool) -> StepResu
     """
     step = StepResult(name="Reddit Ingestion")
     t0 = time.monotonic()
+    if not REDDIT_AVAILABLE:
+        # Reported, not silently skipped: a source we deliberately dropped and
+        # a source that broke this morning must not look the same.
+        step.detail = "DISABLED — reddit.com returns 403 to unauthenticated reads"
+        step.elapsed_sec = time.monotonic() - t0
+        return step
     try:
         from scripts.ingest_sentiment_reddit import main as reddit_main
 
@@ -384,6 +402,20 @@ def _run_extraction(season: int, week: int, dry_run: bool, verbose: bool) -> Ste
             logger.error("SENTINEL: %s", sentinel_msg)
             print(f"::warning title=LLM extraction silently down::{sentinel_msg}")
             step.detail += " [SENTINEL: all Claude calls failed]"
+        elif not getattr(result, "is_claude_primary", False) and _processed:
+            # The sentinel above only speaks when Claude was ASKED for. Running
+            # rule-only is the zero-cost default, but it is also a degraded
+            # news layer -- keyword matching on capitalised names, which is
+            # why 28 of 102 week-7 signals were coaches, reporters and a
+            # stadium. Nothing said so, and a whole audit read the thin
+            # coverage as "a quiet news week".
+            logger.warning(
+                "Extraction ran RULE-ONLY on %d docs: keyword matching, no "
+                "language understanding. Set ENABLE_LLM_ENRICHMENT=true with "
+                "a funded ANTHROPIC_API_KEY for comprehension-grade signal.",
+                _processed,
+            )
+            step.detail += " [rule-only: keyword-grade signal]"
     except Exception as exc:
         step.success = False
         step.error = str(exc)

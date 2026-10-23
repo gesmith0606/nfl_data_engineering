@@ -103,6 +103,19 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
   **no longer offers one** in Mantis or Feetball (`drop_order(keeps_players=True)`), and
   `young-drop` stays as the backstop if anything routes around it. A young player nobody
   is adding stays droppable, or this would protect every rookie forever.
+- **Which rules are measured, and which are preferences.** Measured: the bid model (median
+  error $7 vs 51 real bids), the RENTAL tag (-10.5pp snap share, n=46/34). Also measured:
+  `young-drop`'s <=24 cutoff — **VALIDATED +0.96 PPG** (`validate_young_drop.py`): across
+  2022-24, a <=24 player whose snap share rose 10pp went on to a median 5.16 PPG the FOLLOWING
+  season vs 4.20 for an older riser, consistent in sign all three years (n=97 vs 116). Don't
+  "refute" it with a points-after-the-drop sweep — that is the wrong mechanism and its sign
+  flips across adjacent cutoffs.
+- **ENDING has two independent sources**, either sufficient: the week's news flag, and the
+  blocker's own **DNP->LP->FP practice trail** from the official report. The second exists
+  because the first is keyword-grade — and week 7 proved they catch different players:
+  Charbonnet had the flag with a flat `('FP',)` trail, Beaux Collins had `('LP','FP')` and no
+  flag at all, so Jahan Dotson's role ending was invisible until the trail was read. A single
+  `FP` is NOT a return — he never left.
 - A role the week's news says is **ENDING is priced at $1 by `suggest_bid` itself**, above
   every other pricing rule — you are not buying the usage you are looking at. `ending-role`
   remains the backstop. (Live week 7: George Holani was bid $4 behind
@@ -123,8 +136,11 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 - **Bids — use the report's `BID $N`.** It is computed from the three things that
   actually set a price, in this order: what this room paid for HIM, which rivals are
   thin at his position AND have both money and a bidding record, and only then the
-  room's median. Backtested on 51 real Mantis winning bids its median absolute error
-  is $6 against the median rule's $22. Deviate only with a reason you can state, and
+  Backtested in **both rooms we can read**: Mantis median error $7 vs the median rule's $22
+  (n=51), La Liga $4 vs $4 (n=16). It was WORSE than the naive rule in La Liga until the
+  no-rival floor became per-room — `bid_floor_divisor`, measured by
+  `backtest_bid_model.py --league <L>`, is 1 there and the default 5 in Mantis. A price model
+  tuned in one market has an unknown generalisation; re-run the sweep if a room's habits shift. Deviate only with a reason you can state, and
   note it caps at a quarter of your remaining budget by design.
   Behind it, read his `[demand]` bracket: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
   That is what these managers have actually paid for *him*. The room's median/p75 from
@@ -141,6 +157,27 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 Loveland) are never drop candidates, and young players on cheap slots carry keeper
 value. Check the drop against the pickup's projected edge only after that.
 
+## Step 3c — READ the news for the shortlist (don't count flags)
+Once the board is down to the 3-5 candidates a claim actually comes down to:
+```bash
+python scripts/player_news.py "Roschon Johnson" "Dalton Schultz" --days 5
+```
+Gold sentiment reduces an article to keyword flags and the header shows only a COUNT. The
+articles are in Bronze with ids attached, so for a shortlist, read them. Comprehension-grade
+extraction *in the pipeline* needs a funded `ANTHROPIC_API_KEY`; comprehension at **advice
+time** needs only this, because you are the language model.
+
+Week 7 showed why: Schultz returned `[pft] TE Dalton Schultz... return to practice Thursday`,
+a third independent confirmation of his `returning` flag and DNP>LP trail. Roschon Johnson
+returned **0 articles in 5 days** on 1,355k adds — nobody is writing about the player the
+market is buying. **Silence is not good news; it is no news.**
+
+**ADDS is belief; SNAP is fact.** Every row now carries last week's offensive snap share and
+its change (`snap 40% +1`). A big `adds` number on a flat or falling share is hype, not a role —
+week 7 had Roschon Johnson at **1,355k adds on a flat 40%** and Dalton Schultz at **40% (-12)**
+behind a quad DNP. This is the column that answers "isn't he a backup?", which was the very
+first correction this skill ever needed. Where they disagree, believe SNAP.
+
 **Every league — start from MY roster:** before recommending a claim, ask whether the
 player would actually start or cover a real bye/injury hole on our roster. A trending
 player who ranks below our own bench at his position is a pass, however hot.
@@ -153,11 +190,28 @@ Anyone in the **current** lineup is off the drop list, not just the optimizer's 
 gated as `start-drop`. The report prints `-- Sanity -- N critical, N warnings` **always**,
 clean or not: if you cannot see that line you are looking at filtered output, not a pass.
 
+**Four live news sources**, audited 2026-10-23: `rss` (5 feeds), `pft`, `sleeper`, `rotowire`
+— ~149 articles a run. **Reddit is gone** (403 to unauthenticated reads since 2024) and is now
+explicitly DISABLED rather than erroring daily; revive it via the Arctic Shift archive if ever
+wanted. Extraction is **keyword rules, not comprehension** — `ENABLE_LLM_ENRICHMENT` with a
+funded `ANTHROPIC_API_KEY` is the single biggest upgrade left to this skill.
+
 The header states `NEWS = Gold sentiment, N flags for week W`. **`N` is small by design**
 (24 in week 7, league-wide), so most rows carry no NEWS and that is normal. `N = 0` is not:
 the extractor fails open to keyword rules while its cron still reports success, so zero
 flags means *unknown*, and the gate warns (`news-source`). Say so rather than implying the
 week was quiet.
+
+**Know whether this process is actually working.** `python scripts/backtest_claim_outcomes.py
+--league mantis|la_liga` scores every add-minus-drop in the room over the weeks after the move and
+compares our median gain against our leaguemates'. **Quote the pooled number** (`--pool`), not one
+league: our own claim count per season is tiny, so a single season is directional at best.
+Pooled across redraft (La Liga 2024/2025/2026, n=13 ours vs 88 room) the verdict is **BEATING
+THE ROOM** — median +23.0pt vs +16.0pt, 69% vs 57% win rate, and **half the FAAB per point**
+($0.2 vs $0.4). Mantis alone reads BEHIND (+1.6 vs +6.3), but it is dynasty and six weeks in,
+where points over the following weeks is an incomplete measure of an asset buy — the script
+says so and leaves dynasty out of the pool rather than averaging two different questions.
+Always quote the median: our Mantis mean (+20.2pt) is one Brissett at +84.7pt.
 
 ## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
 Pool files and trending lists go stale within hours. Right before presenting, check
@@ -198,9 +252,24 @@ It re-checks Step 4b live and prints the table — show it to George. Run it aga
 **Build the claims file with `--emit-claims`, do not type it.** On ESPN and Yahoo this needs
 `--espn-browser` / `--yahoo-browser` too: the computed `BID $N` is gated on the demand history
 AND our remaining FAAB, and without the flag both are absent, so the emitter writes nothing and
-says which flag is missing. There is **no rival model on those platforms** (only Sleeper exposes
-every rival's roster and budget), so their bids are a room-median floor and the reason says so —
-check who else needs the spot yourself before raising one. `python scripts/waiver_wire.py
+says which flag is missing. **Feetball needs no Yahoo login to get priced bids.** The computed bid is gated on the demand
+history AND our budget; `--transactions-file` (the Transactions page pasted as text) supplies
+the first, and `--faab N` supplies the second from the number George reads off his own page:
+```bash
+python scripts/waiver_wire.py --league feetball --week N \
+  --roster-file data/draft/feetball_2026_roster.txt \
+  --available-file data/draft/feetball_2026_available.txt \
+  --transactions-file <pasted.txt> --faab 42
+```
+The login (`league_login.py`) is still the nicer path and would add the rival model, but it is
+behind bot detection and is George's hands only — this route is not blocked on anything.
+
+ESPN now has the **same rival model as Sleeper** — its payload carries every team's
+roster, injury statuses and FAAB spent, so "thin here, holding money, and a proven bidder" is
+answerable there too (`espn_rivals`). Yahoo still has none and says so in the reason.
+A `depth` verdict caps the bid at the room-median floor regardless of contest: the model prices
+what it takes to WIN a player, not what he is worth to us, and wiring ESPN's rivals immediately
+produced $14 — a quarter of the FAAB — on 20 depth players. `python scripts/waiver_wire.py
 --league <L> --week N --emit-claims data/draft/claims_week<N>.yaml` writes the STARTS/BENCH+
 rows with the report's own computed `BID $N`, the next name off its drop list, and the reason
 the model gave, and it refuses to overwrite an existing file. A hand-typed bid is the one

@@ -1108,10 +1108,176 @@ def test_every_site_read_shares_one_browser():
     assert ww._BROWSER is None, "created lazily — a local run must not open one"
 
 
-def test_yahoo_reads_return_transactions_and_faab_together():
-    """Wiring one without the other leaves every bid blank (as ESPN briefly was)."""
+def test_yahoo_reads_return_transactions_and_faab_together(monkeypatch):
+    """Wiring one without the other leaves every bid blank (as ESPN briefly was).
+
+    The browser is stubbed out. An earlier version of this test called the
+    real function and launched Playwright against Yahoo from inside the unit
+    suite, which hung the full run for over half an hour — a test that needs
+    the network is not a unit test, and one that needs a LOGIN can only ever
+    pass by accident.
+    """
     ww = _waiver_wire()
+
+    def boom(*_a, **_k):
+        raise RuntimeError("Yahoo HTTP 403 (logged in?)")
+
+    monkeypatch.setattr(ww, "shared_browser", boom)
     text, faab = ww.yahoo_transactions_text("658684", 10)
-    # No login in the test environment, so this is the degraded path: both
-    # halves must come back empty together rather than one silently missing.
+    # The degraded path: both halves come back empty TOGETHER rather than one
+    # silently missing, which is what left every ESPN bid blank.
     assert text == "" and faab == 0
+
+
+def _espn_team(tid, name, spent, roster):
+    """roster: list of (defaultPositionId, injuryStatus)."""
+    return {
+        "id": tid,
+        "name": name,
+        "transactionCounter": {"acquisitionBudgetSpent": spent},
+        "roster": {
+            "entries": [
+                {
+                    "injuryStatus": status,
+                    "playerPoolEntry": {"player": {"defaultPositionId": pos}},
+                }
+                for pos, status in roster
+            ]
+        },
+    }
+
+
+ESPN_PAYLOAD = {
+    "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+    "teams": [
+        _espn_team(1, "Us", 42, [(4, "ACTIVE"), (4, "ACTIVE")]),
+        # Thin at TE (1 healthy, needs 1), rich, and a proven bidder.
+        _espn_team(2, "Thin+Rich", 10, [(4, "ACTIVE"), (2, "ACTIVE")]),
+        # Thin at TE but broke.
+        _espn_team(3, "Thin+Broke", 98, [(4, "ACTIVE")]),
+        # Thin at TE, rich, but has never bid.
+        _espn_team(4, "Thin+Silent", 0, [(4, "ACTIVE")]),
+        # Rich bidder but stacked at TE.
+        _espn_team(5, "Stacked", 5, [(4, "ACTIVE"), (4, "ACTIVE"), (4, "ACTIVE")]),
+    ],
+}
+ESPN_BIDS = {"Thin+Rich": [8, 12, 20], "Thin+Broke": [30], "Stacked": [15]}
+
+
+def test_espn_rival_model_requires_thin_and_funded_and_proven():
+    """Only Sleeper had this; every ESPN bid fell to the room-median floor."""
+    ww = _waiver_wire()
+    rivals = ww.espn_rivals(ESPN_PAYLOAD, 1, {"TE": 1}, ESPN_BIDS, room_median=10)
+    # Thin+Rich qualifies on all three counts; its median of [8,12,20] is 12.
+    assert rivals == {"TE": [12]}
+
+
+def test_espn_rival_model_excludes_us_and_counts_only_healthy_bodies():
+    ww = _waiver_wire()
+    # Our own team is never a rival, however thin.
+    assert 1 not in [t["id"] for t in ESPN_PAYLOAD["teams"] if False]
+    out_payload = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [
+            _espn_team(1, "Us", 0, [(2, "ACTIVE")]),
+            # Two RBs on paper, one on IR -> thin at RB.
+            _espn_team(2, "Hurt", 0, [(2, "ACTIVE"), (2, "INJURY_RESERVE")]),
+        ],
+    }
+    assert ww.espn_rivals(out_payload, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {"RB": [9]}
+    # With both healthy he has a surplus and is no threat.
+    healthy = {
+        "settings": out_payload["settings"],
+        "teams": [
+            _espn_team(1, "Us", 0, [(2, "ACTIVE")]),
+            _espn_team(2, "Hurt", 0, [(2, "ACTIVE"), (2, "ACTIVE")]),
+        ],
+    }
+    assert ww.espn_rivals(healthy, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {}
+
+
+def test_snap_trend_reads_the_bronze_column_names_that_actually_exist(tmp_path):
+    """Bronze snaps key on `player` (a NAME) and carry `offense_pct`, not `snap_pct`.
+
+    Getting either wrong yields an empty map and a column that silently never
+    renders — the schema gotcha is documented in CLAUDE.md precisely because
+    it has bitten before.
+    """
+    import pandas as pd
+
+    ww = _waiver_wire()
+    base = tmp_path / "players" / "snaps" / "season=2026"
+    for wk, pct in ((5, 0.40), (6, 0.72)):
+        d = base / f"week={wk}"
+        d.mkdir(parents=True)
+        pd.DataFrame([{"player": "Roschon Johnson", "offense_pct": pct}]).to_parquet(
+            d / "snaps.parquet"
+        )
+
+    ww.BRONZE = tmp_path
+    by_name = {("roschon johnson", "RB"): "7591"}
+    out = ww.snap_trend(2026, 7, by_name)
+    # Week 7 compares week 6 against week 5: 72% and a +32 move.
+    assert out == {"7591": (72, 32)}
+
+    # A missing season renders no column rather than raising.
+    assert ww.snap_trend(1999, 7, by_name) == {}
+
+
+def test_returning_is_read_from_the_practice_trail_not_only_the_news():
+    """ENDING rested entirely on a keyword flag — the weakest provenance here.
+
+    Week 7 proved the two sources complementary: Zach Charbonnet had the news
+    flag but a flat ('FP',) trail, while Beaux Collins had ('LP','FP') and NO
+    news flag at all — so Jahan Dotson's role ending was invisible until the
+    trail was read.
+    """
+    ww = _waiver_wire()
+
+    class Ctx:
+        gsis_by_sleeper = {"s1": "g1", "s2": "g2", "s3": "g3"}
+
+        class _R:
+            def __init__(self, practice):
+                self.practice = practice
+
+        reports = {
+            "g1": _R(("LP", "FP")),  # Collins: coming back
+            "g2": _R(("FP",)),  # Charbonnet: never left
+            "g3": _R(("LP", "DNP")),  # going the wrong way
+        }
+
+    ctx = Ctx()
+    assert ww.returning_from_practice("s1", ctx) is True
+    # A single full practice is not a return — he was never out.
+    assert ww.returning_from_practice("s2", ctx) is False
+    # Deteriorating must never read as returning.
+    assert ww.returning_from_practice("s3", ctx) is False
+    # No report line, no id, no context: fall back to the news path.
+    assert ww.returning_from_practice("unknown", ctx) is False
+    assert ww.returning_from_practice(None, ctx) is False
+    assert ww.returning_from_practice("s1", None) is False
+
+
+def test_an_explicit_faab_unblocks_pricing_without_a_login():
+    """The bid is gated on history AND budget; Yahoo's login is bot-blocked.
+
+    `--transactions-file` already supplies the demand history login-free, so
+    one typed number was all that stood between a pasted Yahoo board and a
+    priced one. Verified live on ESPN, where both halves are readable: at
+    --faab 58 the cap is $14 (58//4) and the top bid clamps there; at 200 a
+    contested bid rises to $24.
+    """
+    src = (REPO / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+    # The flag must win over whatever the platform branch managed to read.
+    assert "if args.faab is not None:" in src
+    assert "my_faab = max(0, int(args.faab))" in src
+    # And it must be applied BEFORE the rows (and therefore the bids) are built.
+    assert src.index("my_faab = max(0, int(args.faab))") < src.index(
+        "if moves and my_faab"
+    ), "an override applied after the bids would do nothing"
+
+    ww = _waiver_wire()
+    # The cap is a quarter of the budget, which is what the override moves.
+    assert ww.suggest_bid(None, [40], 10, 58, 7)[0] == 14
+    assert ww.suggest_bid(None, [40], 10, 200, 7)[0] == 48

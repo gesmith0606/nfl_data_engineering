@@ -56,6 +56,7 @@ from src.waiver_verdicts import (  # noqa: E402
     NO_HELP,
     STARTS,
     BENCH_UP,
+    DEPTH,
     drop_order,
     load_keepers,
     roster_baseline,
@@ -125,6 +126,97 @@ def last_week_actuals(
         df = df.rename(columns={"player_display_name": "player_name"})
     keep = ["player_id", "player_name", "position", "recent_team"] + list(_ACTUAL_COLS)
     return score_ours(df[[c for c in keep if c in df.columns]].copy(), scoring)
+
+
+#: A practice trail that ENDS in full or limited participation after a DNP is
+#: a player on his way back. Structured, published by the team, and available
+#: every week -- unlike the news keyword "returning", which is produced by
+#: pattern-matching article text and is only as good as the extractor.
+_RECOVERING_TRAIL = ("LP", "FP")
+
+
+def returning_from_practice(sleeper_id: Optional[str], ctx: Any) -> bool:
+    """Is this player trending back INTO the lineup, per the official report?
+
+    The ENDING tag -- "the role you are buying is about to vanish" -- used to
+    rest entirely on a news flag. That flag comes from keyword extraction,
+    which this session found to be running on rules while claiming to be
+    Claude, so the most consequential signal on the board had the weakest
+    provenance behind it.
+
+    The same conclusion is available from structured data the report already
+    loads: nflverse publishes a DNP/LP/FP practice status per day, collapsed
+    into a trail. A trail that starts at DNP and ends at LP or FP is a player
+    returning, stated by his own team. No API key, no language model.
+
+    Returns False when there is no report line, which keeps the news path as
+    the fallback rather than replacing it.
+    """
+    if not sleeper_id or ctx is None:
+        return False
+    gsis = (getattr(ctx, "gsis_by_sleeper", None) or {}).get(str(sleeper_id))
+    if not gsis:
+        return False
+    report = (getattr(ctx, "reports", None) or {}).get(str(gsis))
+    trail = tuple(getattr(report, "practice", ()) or ())
+    if len(trail) < 2 or trail[-1] not in _RECOVERING_TRAIL:
+        return False
+    # Improving, not merely present: DNP -> LP -> FP counts, FP -> FP does not,
+    # and LP -> DNP is going the wrong way.
+    order = {"DNP": 0, "LP": 1, "FP": 2}
+    return order.get(trail[-1], 0) > order.get(trail[0], 0)
+
+
+def snap_trend(
+    season: int, week: int, by_name: Mapping[Any, str]
+) -> Dict[str, Tuple[int, int]]:
+    """``sleeper_id -> (latest snap %, change vs the week before)``.
+
+    The one question the report could not answer was the one George asked
+    first -- "isn't he a backup?". Projections and trending adds both say a
+    player is interesting; neither says he is on the field. A rising snap
+    share is the difference between a role and a rumour, and it is also the
+    signal the young-drop rule leans on.
+
+    Reads the committed Bronze snap counts, which key on ``player`` (a name,
+    not an id) and carry ``offense_pct`` -- not ``snap_pct``. Returns ``{}``
+    when the files are absent so the column simply does not render.
+    """
+    out: Dict[str, Tuple[int, int]] = {}
+    pct: Dict[int, Dict[str, float]] = {}
+    for wk in (week - 1, week - 2):
+        if wk < 1:
+            continue
+        files = sorted(
+            glob.glob(
+                str(
+                    BRONZE
+                    / "players"
+                    / "snaps"
+                    / f"season={season}"
+                    / f"week={wk}"
+                    / "*.parquet"
+                )
+            )
+        )
+        if not files:
+            continue
+        df = pd.read_parquet(files[-1])
+        if "offense_pct" not in df.columns or "player" not in df.columns:
+            continue
+        pct[wk] = {
+            normalize_name(str(n)): float(v)
+            for n, v in zip(df["player"], df["offense_pct"])
+            if pd.notna(v)
+        }
+    latest = pct.get(week - 1) or {}
+    prior = pct.get(week - 2) or {}
+    for (norm, _pos), sid in by_name.items():
+        if norm in latest:
+            now = round(latest[norm] * 100)
+            was = round(prior.get(norm, latest[norm]) * 100)
+            out[sid] = (now, now - was)
+    return out
 
 
 def adp_rank_map(platform: str) -> Dict[str, int]:
@@ -267,7 +359,7 @@ def espn_player_moves(
     through_period: int,
     registry: Mapping[str, Any],
     by_name: Mapping[Any, str],
-) -> Tuple[PlayerMoves, int]:
+) -> Tuple[PlayerMoves, int, Mapping[str, Any], "pd.DataFrame"]:
     """The same demand history as :func:`league_player_moves`, for an ESPN league.
 
     ESPN ids are as sparse in the Sleeper registry as gsis ids (210 of 841
@@ -288,8 +380,10 @@ def espn_player_moves(
         by_name: ``(normalised_name, position) -> sleeper_id`` from this report.
 
     Returns:
-        ``(sleeper_player_id -> [{"leg", "bid", "kind"}] oldest first,
-        our remaining FAAB)``. ``({}, 0)`` on any failure.
+        ``(sleeper_player_id -> [{"leg", "bid", "kind"}] oldest first, our
+        remaining FAAB, the raw league payload, the transaction frame)``. The
+        last two let the caller build the rival model without a second fetch.
+        ``({}, 0, {}, empty frame)`` on any failure.
     """
     try:
         from src import waiver_sites as ws
@@ -315,9 +409,9 @@ def espn_player_moves(
         faab = _espn_faab_left(payload, team_id)
     except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
         print(f"WARN: ESPN demand history unavailable ({exc})")
-        return {}, 0
+        return {}, 0, {}, pd.DataFrame()
 
-    return moves_from_tx(tx, by_name), faab
+    return moves_from_tx(tx, by_name), faab, payload, tx
 
 
 def _espn_faab_left(payload: Mapping[str, Any], team_id: int) -> int:
@@ -340,6 +434,82 @@ def _espn_faab_left(payload: Mapping[str, Any], team_id: int) -> int:
         0,
     )
     return max(0, int(budget) - int(spent))
+
+
+#: ESPN ``defaultPositionId`` -> our position codes. Only the skill spots
+#: matter; everything else is irrelevant to a rival-thinness test.
+_ESPN_POS = {1: "QB", 2: "RB", 3: "WR", 4: "TE", 5: "K", 16: "DEF"}
+
+#: ESPN ``injuryStatus`` values that mean the player cannot be counted as
+#: usable depth this week. Mirrors BLOCKING_STATUSES on the Sleeper side.
+_ESPN_BLOCKED = frozenset(
+    {"OUT", "DOUBTFUL", "INJURY_RESERVE", "SUSPENSION", "NON_FOOTBALL_INJURY"}
+)
+
+
+def espn_rivals(
+    payload: Mapping[str, Any],
+    my_team_id: int,
+    need: Mapping[str, int],
+    bids_by_team: Mapping[str, List[int]],
+    room_median: int,
+) -> Dict[str, List[int]]:
+    """Which ESPN rivals are thin at each position AND able to outbid us.
+
+    The Sleeper branch has had this since the bid model shipped; ESPN had
+    nothing, so every site-league bid fell to the room-median floor with a
+    reason admitting no rival had been looked at. ESPN's own payload carries
+    every team's roster, injury statuses and FAAB spent, so the same test is
+    available -- it was simply never wired.
+
+    "Credible" means the same three things it means on Sleeper: short of
+    usable bodies at the position, holding at least the room's median bid,
+    and having actually spent before (a team that never bids is not a threat
+    however rich).
+
+    Args:
+        payload: ESPN league JSON with ``mSettings``, ``mTeam``, ``mRoster``.
+        my_team_id: Our ESPN ``teamId``, excluded from the rivals.
+        need: Required starters per position, from ``starters_required``.
+        bids_by_team: ``team name -> winning bids``, keyed the way
+            ``league_context.espn_context`` labels its transaction rows.
+        room_median: The league's median winning bid.
+
+    Returns:
+        ``position -> [each credible rival's median bid]``.
+    """
+    budget = int(
+        ((payload.get("settings") or {}).get("acquisitionSettings") or {}).get(
+            "acquisitionBudget"
+        )
+        or 0
+    )
+    out: Dict[str, List[int]] = {}
+    for team in payload.get("teams") or []:
+        if int(team.get("id") or -1) == int(my_team_id):
+            continue
+        bids = sorted(bids_by_team.get(str(team.get("name") or "")) or [])
+        if not bids:
+            continue
+        spent = int(
+            (team.get("transactionCounter") or {}).get("acquisitionBudgetSpent") or 0
+        )
+        if budget and budget - spent < room_median:
+            continue
+        healthy: Dict[str, int] = {}
+        for entry in (team.get("roster") or {}).get("entries") or []:
+            player = (entry.get("playerPoolEntry") or {}).get("player") or {}
+            pos = _ESPN_POS.get(int(player.get("defaultPositionId") or 0))
+            status = str(
+                entry.get("injuryStatus") or player.get("injuryStatus") or ""
+            ).upper()
+            if pos and status not in _ESPN_BLOCKED:
+                healthy[pos] = healthy.get(pos, 0) + 1
+        median = bids[len(bids) // 2]
+        for pos, required in need.items():
+            if healthy.get(pos, 0) <= required:
+                out.setdefault(pos, []).append(median)
+    return out
 
 
 def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves:
@@ -433,6 +603,7 @@ def suggest_bid(
     my_roster_id: Optional[str] = None,
     rivals_modelled: bool = True,
     role_ending: bool = False,
+    floor_divisor: int = 5,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -513,7 +684,7 @@ def suggest_bid(
         # there does an empty rival list MEAN nobody can outbid us. On ESPN
         # and Yahoo it means we never looked, and saying otherwise put a
         # claim in George's hands justified by an analysis that never ran.
-        return min(max(1, room_median // 5), cap), (
+        return min(max(1, room_median // floor_divisor), cap), (
             "no rival is both thin here and able to spend"
             if rivals_modelled
             else f"room median ${room_median} floor; no rival model on this "
@@ -981,6 +1152,16 @@ def main(argv: Optional[list] = None) -> int:
         "--roster-file", type=Path, help="ESPN/Yahoo: my roster, one name per line"
     )
     ap.add_argument(
+        "--faab",
+        type=int,
+        metavar="N",
+        help="our remaining FAAB, when the site cannot be read live. The "
+        "computed bid is gated on the demand history AND the budget, and "
+        "Yahoo's login is behind bot detection — but --transactions-file "
+        "already supplies the history login-free, so one typed number is all "
+        "that stands between a pasted Yahoo board and a priced one",
+    )
+    ap.add_argument(
         "--transactions-file",
         type=Path,
         help="Yahoo: the league Transactions page saved as text, for the demand "
@@ -1162,6 +1343,8 @@ def main(argv: Optional[list] = None) -> int:
     my_faab = 0
     my_roster_id: Optional[str] = None
     live_available: Optional[Set[str]] = None
+    espn_payload: Optional[Mapping[str, Any]] = None
+    espn_tx = pd.DataFrame()
     my_roster_id: Optional[str] = None
     if platform == "sleeper":
         tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
@@ -1195,7 +1378,7 @@ def main(argv: Optional[list] = None) -> int:
                 if thin_at(r, registry, pos, need.get(pos, 0)):
                     rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
-        moves, my_faab = espn_player_moves(
+        moves, my_faab, espn_payload, espn_tx = espn_player_moves(
             str(preset["league_id"]),
             season,
             int(preset.get("my_team_id") or 1),
@@ -1215,6 +1398,12 @@ def main(argv: Optional[list] = None) -> int:
     else:
         moves = {}
 
+    # An explicit --faab is the operator telling us a number the site would
+    # not. It wins: they can read their own budget off the page, and the
+    # alternative is no bid at all.
+    if args.faab is not None:
+        my_faab = max(0, int(args.faab))
+
     # Sleeper derives these from every team's transaction log; on ESPN and
     # Yahoo the same winning bids are already in `moves`, so the median and
     # the ceiling cost nothing extra. Without them every bid collapsed to the
@@ -1229,6 +1418,29 @@ def main(argv: Optional[list] = None) -> int:
         if paid:
             room_median = paid[len(paid) // 2]
             room_max = paid[-1]
+        # ESPN can answer "who else is thin here and able to spend" from the
+        # payload we already hold; only Sleeper could before, so every ESPN
+        # bid fell to the room-median floor with a reason that admitted no
+        # rival had been looked at.
+        if platform == "espn" and espn_payload is not None and not espn_tx.empty:
+            bids_by_team: Dict[str, List[int]] = {}
+            for row in espn_tx.itertuples(index=False):
+                bid = getattr(row, "bid", None)
+                if bid and not pd.isna(bid):
+                    bids_by_team.setdefault(str(row.team), []).append(int(bid))
+            rivals_by_pos = espn_rivals(
+                espn_payload,
+                int(preset.get("my_team_id") or 1),
+                starters_required(
+                    [
+                        slot
+                        for slot, n in config.ROSTER_CONFIGS[preset["roster"]].items()
+                        for _ in range(n)
+                    ]
+                ),
+                bids_by_team,
+                room_median,
+            )
 
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
@@ -1246,6 +1458,7 @@ def main(argv: Optional[list] = None) -> int:
     }
     news_flags = set_lineups.sentiment_flags(season, week)
     news = set_lineups.news_by_sleeper(news_flags, registry, gsis_map)
+    snaps = snap_trend(season, week, by_name)
     adp = adp_rank_map(platform) if platform != "sleeper" else {}
     draft_size = preset["teams"] * sum(config.ROSTER_CONFIGS[preset["roster"]].values())
 
@@ -1282,9 +1495,14 @@ def main(argv: Optional[list] = None) -> int:
             for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
             if n != (meta.get("full_name") or "") and rank < own_rank(meta)
         ]
+        # Two independent sources, either sufficient: the week's news flag
+        # (keyword-grade) and the blocker's own practice trail (structured,
+        # published by his team). The second exists precisely because the
+        # first's provenance is weak.
         role_ending = any(
             "returning" in (news.get(bsid) or "")
             or "activated" in (news.get(bsid) or "")
+            or returning_from_practice(bsid, injury_ctx)
             for _rank, _n, bsid in blocked
         )
         return {
@@ -1302,6 +1520,10 @@ def main(argv: Optional[list] = None) -> int:
             "adp": adp_rank(sid, meta),
             "dyn": (dyn.get(sid) or {}).get("value", 0),
             "age": meta.get("age"),
+            # Is he actually on the field, and is that rising? Projections and
+            # trending adds both say a player is interesting; neither says he
+            # plays. "isn't he a backup?" was the first correction of all.
+            "snap": snaps.get(sid),
             "ir": str(meta.get("injury_status") or "").upper() in ("IR", "PUP", "NFI"),
             # Out/Doubtful: no bar for "weakest bench". Bye: same, and never a drop.
             "out": str(meta.get("injury_status") or "").upper() in ("OUT", "DOUBTFUL"),
@@ -1324,6 +1546,7 @@ def main(argv: Optional[list] = None) -> int:
                     my_roster_id,
                     rivals_modelled=platform == "sleeper",
                     role_ending=role_ending,
+                    floor_divisor=int(preset.get("bid_floor_divisor") or 5),
                 )
                 if moves and my_faab
                 else None
@@ -1352,6 +1575,11 @@ def main(argv: Optional[list] = None) -> int:
             f"  {tag:6}{r['name'][:24]:24} {r['pos']:3}{r['team']:4}"
             f" ours{fmt(r['ours'])} slpr{fmt(r['slpr'])} blend{fmt(r['blend'])}"
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
+            + (
+                f" snap{r['snap'][0]:3}%{r['snap'][1]:+3d}"
+                if r.get("snap")
+                else " snap   -   "
+            )
             + (f" dyn{r['dyn']:5d}" if dyn else "")
             # Age prints everywhere, not just dynasty: the gate's young-drop
             # check reads it, and Feetball is a keeper league too.
@@ -1422,13 +1650,35 @@ def main(argv: Optional[list] = None) -> int:
         # supposed to read "no help" this week — so the bid stands.
         if r.get("bid") and r["verdict"] == NO_HELP and not dynasty_league:
             r["bid"] = (1, "rated no help — minimum or nothing")
+        # The bid model prices CONTEST -- what it takes to beat the room. It
+        # has no idea what the player is worth TO US. With no rival model that
+        # was invisible, because every site-league bid fell to the floor
+        # anyway; wiring rivals for ESPN immediately produced $14 (a quarter
+        # of our FAAB, the hard cap) on players rated `depth`. A pure add is
+        # not worth a quarter of the budget however contested it is, so the
+        # verdict caps the contest price.
+        elif r.get("bid") and r["verdict"] == DEPTH:
+            floor = max(1, room_median // 5)
+            if r["bid"][0] > floor:
+                r["bid"] = (
+                    floor,
+                    f"depth only — capped at the ${floor} floor, not the "
+                    f"${r['bid'][0]} it would take to win him",
+                )
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
+        "SNAP = his offensive snap share last week and the change from the week "
+        "before: ADDS is what the market believes, SNAP is whether he plays. "
+        "When they disagree, believe SNAP — Roschon Johnson read 1,355k adds "
+        "on a flat 40% share in week 7. "
         "RENTAL<-NAME = a same-position team-mate cannot play, so the role may "
         "revert when he returns — check before paying up; ENDING<- means the "
         "week's news says that team-mate is RETURNING, so the role is going "
-        "away now, not later. ADDS counts adds "
+        "away now, not later — from the week's news flag OR his own "
+        "practice trail (DNP->LP->FP), either sufficient, because the news "
+        "flag is keyword-grade and the trail is published by his team. "
+        "ADDS counts adds "
         "across ALL of Sleeper, not this league — never price a claim off it. "
         "[brackets] = what THIS room has paid for him (unclaimed / held $N / "
         "cut wkN, free Nwk): that is the first bid anchor, and "

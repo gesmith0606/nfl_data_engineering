@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from src.waiver_verdicts import (
     BENCH_UP,
     DEPTH,
@@ -156,3 +158,83 @@ def test_a_role_the_news_says_is_ending_is_never_priced_up():
     assert ending == 1
     assert "role is ending" in why_ending
     assert why_ending != why_normal
+
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def test_a_depth_add_is_capped_by_value_not_by_what_it_takes_to_win():
+    """The bid model prices CONTEST; it has no idea what a player is worth to us.
+
+    Wiring the ESPN rival model immediately produced $14 — a quarter of our
+    FAAB, the hard cap — on 20 players rated `depth`. With no rival model that
+    flaw was invisible, because every site bid fell to the floor anyway.
+    """
+    src = (REPO_ROOT / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+    assert 'elif r.get("bid") and r["verdict"] == DEPTH:' in src
+    assert "depth only — capped at the" in src
+    # The cap must be the same floor the no-rival branch uses, not a new number.
+    assert "floor = max(1, room_median // 5)" in src
+
+
+def test_the_no_rival_floor_divisor_is_per_room_and_measured():
+    """A price model tuned in one market has an unknown generalisation.
+
+    The // 5 floor was swept against 51 Mantis bids ($1000 budget, $50 median
+    winning bid). In La Liga ($100 budget, $8 median) that floor is $1, so
+    every historyless player was bid at the minimum and lost: median error $6
+    against the median rule's $4, i.e. the model was WORSE than the naive rule
+    in the second room we measured. At // 1 it is $4 and passes.
+    """
+    import importlib.util
+
+    from src import config
+
+    spec = importlib.util.spec_from_file_location(
+        "ww_floor", REPO_ROOT / "scripts" / "waiver_wire.py"
+    )
+    ww = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ww)
+
+    # No history, no rivals -> the floor branch, which the divisor controls.
+    assert ww.suggest_bid(None, [], 8, 100, 7, floor_divisor=5)[0] == 1
+    assert ww.suggest_bid(None, [], 8, 100, 7, floor_divisor=1)[0] == 8
+    # Default stays the Mantis-validated value for any unmeasured room.
+    assert ww.suggest_bid(None, [], 50, 1000, 7)[0] == 10
+
+    assert config.LEAGUE_PRESETS["la_liga"]["bid_floor_divisor"] == 1
+    assert "bid_floor_divisor" not in config.LEAGUE_PRESETS["mantis"], (
+        "Mantis's sweep curve is flat between // 3 and // 5 ($6 vs $7 at "
+        "n=51), so it keeps the default rather than chasing noise"
+    )
+
+
+def test_the_young_drop_cutoff_is_now_backed_by_a_production_test():
+    """Validated the right way round: value is a proxy for future production.
+
+    Across 2022-24 a <=24 player whose weeks 5-8 snap share rose 10pp over
+    weeks 1-4 went on to a median 5.16 PPG the FOLLOWING season, against 4.20
+    for an older player with the same rising role — +0.96, consistent in sign
+    all three years (n=97 vs 116). The earlier "unvalidated by design" verdict
+    was reached by looking only for dynasty market-value history, which does
+    not exist; the rule's own claim was testable on seasons already held.
+    """
+    import importlib.util
+
+    src = (REPO_ROOT / "src" / "waiver_verdicts.py").read_text(encoding="utf-8")
+    assert "VALIDATED" in src and "+0.96 PPG" in src
+    assert "Unvalidated by design" not in src
+
+    spec = importlib.util.spec_from_file_location(
+        "vyd", REPO_ROOT / "scripts" / "validate_young_drop.py"
+    )
+    vyd = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(vyd)
+    # The script must still print BOTH caveats, or the verdict overstates.
+    body = (REPO_ROOT / "scripts" / "validate_young_drop.py").read_text(
+        encoding="utf-8"
+    )
+    assert "WRONG MECHANISM" in body, "the misleading sweep must stay visible"
+    assert "MARKET-VALUE confirmation is still pending" in body
+    # And it must key off the shipped cutoff, not a hardcoded 24.
+    assert "YOUNG_AGE" in body and "<= {YOUNG_AGE}" in body
