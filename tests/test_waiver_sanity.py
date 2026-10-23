@@ -271,3 +271,23 @@ def test_no_drop_candidates_line_means_no_drop_findings():
         for f in check_report(text, dynasty=True)
         if f.check in ("young-drop", "start-drop")
     ]
+
+
+NEWS_LINE = "NEWS = Gold sentiment, 13 flags for week 7\n"
+
+
+def test_a_week_with_no_sentiment_flags_is_a_warning_not_a_silence():
+    """The extractor no-ops to keyword rules while its cron still reports success."""
+    rows = [_row("Jahan Dotson", "WR", "ATL", "BENCH+ BID $7 [unclaimed] age 26")]
+    silent = _report(
+        rows, header=HEADER + "NEWS = Gold sentiment, 0 flags for week 7\n"
+    )
+    found = [f for f in check_report(silent) if f.check == "news-source"]
+    assert len(found) == 1 and found[0].level == WARN
+    assert "fails open" in found[0].detail
+
+    missing = _report(rows)
+    assert [f.check for f in check_report(missing) if f.check == "news-source"]
+
+    present = _report(rows, header=HEADER + NEWS_LINE)
+    assert not [f for f in check_report(present) if f.check == "news-source"]

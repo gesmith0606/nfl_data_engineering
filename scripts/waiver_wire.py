@@ -1044,9 +1044,8 @@ def main(argv: Optional[list] = None) -> int:
         str(t["player_id"]): t["count"]
         for t in (sleeper_http.fetch_sleeper_json(TRENDING_URL) or [])
     }
-    news = set_lineups.news_by_sleeper(
-        set_lineups.sentiment_flags(season, week), registry, gsis_map
-    )
+    news_flags = set_lineups.sentiment_flags(season, week)
+    news = set_lineups.news_by_sleeper(news_flags, registry, gsis_map)
     adp = adp_rank_map(platform) if platform != "sleeper" else {}
     draft_size = preset["teams"] * sum(config.ROSTER_CONFIGS[preset["roster"]].values())
 
@@ -1178,6 +1177,11 @@ def main(argv: Optional[list] = None) -> int:
     print(
         f"OURS = {ours_label}; SLPR = Sleeper week {week}; LAST = week {week - 1} actuals"
     )
+    # Stated, not implied. A row with no NEWS is indistinguishable from a
+    # sentiment pipeline that produced nothing — and that pipeline fails OPEN
+    # (the LLM layer no-ops to rule extraction while the cron stays green),
+    # so "no news" has to be a number you can see and the gate can read.
+    print(f"NEWS = Gold sentiment, {len(news_flags)} flags for week {week}")
     if platform != "sleeper" and not (args.rostered_file or args.available_file):
         print(
             f"Other rosters unknown: showing only players drafted beyond pick {draft_size} "

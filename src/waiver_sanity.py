@@ -34,6 +34,7 @@ ROSTER_RE = re.compile(
 )
 DROPS_RE = re.compile(r"Drop candidates \([^)]*\):\s*(?P<names>.+?)\s*$", re.M)
 IR_ACCEPTS_RE = re.compile(r"IR accepts: (?P<accepts>.+)$", re.M)
+NEWS_RE = re.compile(r"NEWS = Gold sentiment, (?P<flags>\d+) flags for week")
 
 CRITICAL = "CRITICAL"
 WARN = "WARN"
@@ -279,6 +280,25 @@ def check_report(
                     f"{name} is tagged START but named a drop candidate",
                 )
             )
+
+    # 4f. The sentiment pipeline fails open — the LLM extractor no-ops to rule
+    # keywords while the daily cron still reports success — so a week with no
+    # news at all looks exactly like a week nobody wrote about. The user has
+    # asked for news to be part of this twice; silence is not an answer.
+    m = NEWS_RE.search(text)
+    if m is None:
+        out.append(
+            Finding(WARN, "news-source", "no NEWS provenance line in the report")
+        )
+    elif int(m.group("flags")) == 0:
+        out.append(
+            Finding(
+                WARN,
+                "news-source",
+                "Gold sentiment produced 0 flags this week — the pipeline "
+                "fails open, so treat this as unknown, not as quiet news",
+            )
+        )
 
     # 5. A stale board is what made four starters project as healthy.
     m = BOARD_AGE_RE.search(text)

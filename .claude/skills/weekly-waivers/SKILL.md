@@ -145,6 +145,12 @@ Anyone in the **current** lineup is off the drop list, not just the optimizer's 
 gated as `start-drop`. The report prints `-- Sanity -- N critical, N warnings` **always**,
 clean or not: if you cannot see that line you are looking at filtered output, not a pass.
 
+The header states `NEWS = Gold sentiment, N flags for week W`. **`N` is small by design**
+(13 in week 7, league-wide), so most rows carry no NEWS and that is normal. `N = 0` is not:
+the extractor fails open to keyword rules while its cron still reports success, so zero
+flags means *unknown*, and the gate warns (`news-source`). Say so rather than implying the
+week was quiet.
+
 ## Step 4b — Confirm every claim and drop LIVE (mandatory, never skip)
 Pool files and trending lists go stale within hours. Right before presenting, check
 each recommended ADD is still unrostered and each DROP is on our roster, on the site:
