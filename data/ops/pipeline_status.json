@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T18:21:01.770207+00:00",
+  "generated_at": "2026-10-23T00:46:43.696475+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-22T13:13:13Z",
-        "duration_seconds": 91,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/39784923967",
+        "started_at": "2026-10-22T22:05:02Z",
+        "duration_seconds": 150,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/39862279282",
         "event": "schedule"
       },
       "recent": [
@@ -143,15 +143,15 @@
       "schedule": "Every 6 hours",
       "purpose": "Data staleness probe (builds this dashboard)",
       "last_run": {
-        "status": "queued",
+        "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-10-22T18:20:42Z",
+        "started_at": "2026-10-23T00:46:26Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/39830488151",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/39880105085",
         "event": "schedule"
       },
       "recent": [
-        "queued",
+        "in_progress",
         "success",
         "success",
         "success",
