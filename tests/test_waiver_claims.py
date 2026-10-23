@@ -1108,12 +1108,24 @@ def test_every_site_read_shares_one_browser():
     assert ww._BROWSER is None, "created lazily — a local run must not open one"
 
 
-def test_yahoo_reads_return_transactions_and_faab_together():
-    """Wiring one without the other leaves every bid blank (as ESPN briefly was)."""
+def test_yahoo_reads_return_transactions_and_faab_together(monkeypatch):
+    """Wiring one without the other leaves every bid blank (as ESPN briefly was).
+
+    The browser is stubbed out. An earlier version of this test called the
+    real function and launched Playwright against Yahoo from inside the unit
+    suite, which hung the full run for over half an hour — a test that needs
+    the network is not a unit test, and one that needs a LOGIN can only ever
+    pass by accident.
+    """
     ww = _waiver_wire()
+
+    def boom(*_a, **_k):
+        raise RuntimeError("Yahoo HTTP 403 (logged in?)")
+
+    monkeypatch.setattr(ww, "shared_browser", boom)
     text, faab = ww.yahoo_transactions_text("658684", 10)
-    # No login in the test environment, so this is the degraded path: both
-    # halves must come back empty together rather than one silently missing.
+    # The degraded path: both halves come back empty TOGETHER rather than one
+    # silently missing, which is what left every ESPN bid blank.
     assert text == "" and faab == 0
 
 
