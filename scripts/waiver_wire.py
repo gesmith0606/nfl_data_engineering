@@ -192,6 +192,101 @@ def league_player_moves(league_id: str, through_leg: int) -> PlayerMoves:
     return out
 
 
+def espn_player_moves(
+    league_id: str,
+    season: int,
+    team_id: int,
+    through_period: int,
+    registry: Mapping[str, Any],
+    by_name: Mapping[Any, str],
+) -> PlayerMoves:
+    """The same demand history as :func:`league_player_moves`, for an ESPN league.
+
+    ESPN ids are as sparse in the Sleeper registry as gsis ids (210 of 841
+    active skill players carry one), so this goes through
+    ``league_context.espn_context``, which already falls back to ESPN's own
+    names, and re-keys those names onto Sleeper ids.
+
+    Reads through the logged-in claims profile, so it needs no ESPN cookies.
+    Returns an empty map on any failure: the demand column is an aid, and the
+    report is still worth printing without it.
+
+    Args:
+        league_id: Numeric ESPN league id.
+        season: Season year.
+        team_id: My ESPN team id.
+        through_period: Highest ``scoringPeriodId`` to walk, inclusive.
+        registry: Sleeper player registry.
+        by_name: ``(normalised_name, position) -> sleeper_id`` from this report.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+    """
+    try:
+        from src import waiver_sites as ws
+        from src.fantasy_browser import FantasyBrowser
+
+        browser = FantasyBrowser()
+        page = ws.site_page(browser, "espn", str(league_id), team_id)
+        payload = ws.espn_fetch_league(
+            page, season, str(league_id), ["mSettings", "mTeam", "mRoster"]
+        )
+        payload["transactions"] = [
+            t
+            for wk in range(0, through_period + 1)
+            for t in ws.espn_fetch_league(
+                page, season, str(league_id), ["mTransactions2"], wk
+            ).get("transactions")
+            or []
+        ]
+        _teams, tx = league_context.espn_context(payload, team_id, registry)
+    except Exception as exc:  # noqa: BLE001 — the column is an aid, not a gate
+        print(f"WARN: ESPN demand history unavailable ({exc})")
+        return {}
+
+    return moves_from_tx(tx, by_name)
+
+
+def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves:
+    """Re-key a league_context transaction frame onto Sleeper player ids.
+
+    ``espn_context`` labels each move with a player name (falling back to
+    ``espn:<id>`` when it cannot resolve one), so matching happens on the
+    normalised name rather than an id. Unresolvable labels are dropped — a
+    partial history still prices most claims.
+
+    Args:
+        tx: Frame with ``week``, ``add``, ``drop`` and ``bid`` columns.
+        by_name: ``(normalised_name, position) -> sleeper_id``.
+
+    Returns:
+        ``sleeper_player_id -> [{"leg", "bid", "kind"}]``, oldest first.
+    """
+
+    def clean_bid(v: Any) -> Optional[int]:
+        """A pandas column with any blank bid becomes float, so 40 arrives as
+        40.0 and a blank as NaN. Neither belongs in "(was $40.0)"."""
+        try:
+            if v is None or v != v:  # NaN
+                return None
+            return int(round(float(v)))
+        except (TypeError, ValueError):
+            return None
+
+    sid_for = {n: sid for (n, _pos), sid in by_name.items()}
+    out: PlayerMoves = {}
+    for row in tx.itertuples(index=False):
+        for kind, label in (("add", row.add), ("drop", row.drop)):
+            sid = sid_for.get(normalize_name(str(label or "")))
+            if sid:
+                out.setdefault(sid, []).append(
+                    {"leg": int(row.week), "bid": clean_bid(row.bid), "kind": kind}
+                )
+    for moves in out.values():
+        moves.sort(key=lambda m: m["leg"])
+    return out
+
+
 def demand_note(moves: Optional[List[Dict[str, Any]]], current_leg: int) -> str:
     """One-glance summary of what this room has paid for a player, and when.
 
@@ -399,6 +494,12 @@ def main(argv: Optional[list] = None) -> int:
         "--roster-file", type=Path, help="ESPN/Yahoo: my roster, one name per line"
     )
     ap.add_argument(
+        "--espn-browser",
+        action="store_true",
+        help="ESPN: add the demand column by reading the league's transaction log "
+        "through the logged-in claims profile (scripts/league_login.py)",
+    )
+    ap.add_argument(
         "--rostered-file",
         type=Path,
         help="ESPN/Yahoo: every player rostered in the league (one per line) -> exact FA pool",
@@ -492,11 +593,19 @@ def main(argv: Optional[list] = None) -> int:
     # What this room has already paid for each player. Sleeper only: ESPN and
     # Yahoo transaction logs need the claims browser, which this report does
     # not open (league_context.py --espn-browser has them).
-    moves = (
-        league_player_moves(str(preset["league_id"]), week)
-        if platform == "sleeper"
-        else {}
-    )
+    if platform == "sleeper":
+        moves = league_player_moves(str(preset["league_id"]), week)
+    elif platform == "espn" and args.espn_browser:
+        moves = espn_player_moves(
+            str(preset["league_id"]),
+            season,
+            int(preset.get("my_team_id") or 1),
+            week,
+            registry,
+            by_name,
+        )
+    else:
+        moves = {}
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )

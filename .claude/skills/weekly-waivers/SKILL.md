@@ -63,6 +63,10 @@ Then
 Check WHY a player is trending (starter injured? which injury, how long?) before
 recommending him.
 
+Pass `--espn-browser` on an ESPN league to get the `[demand]` column there too — it
+reads that league's own transaction log through the claims profile. Yahoo has no
+reader yet, so Feetball claims still have only the room-level median to go on.
+
 ## Step 3b — Every slot the league actually has
 Read `roster_positions` from the report's "Roster mechanics" block and cover EVERY slot,
 not just the skill positions. Mantis and Mahomo's have no K and no DEF; La Liga has a

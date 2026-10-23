@@ -36,6 +36,7 @@ from projection_engine import (  # noqa: E402
     generate_preseason_projections,
     apply_injury_adjustments,
     live_injury_report,
+    merge_injury_sources,
     apply_sentiment_adjustments,
     apply_event_adjustments,
     load_latest_sentiment,
@@ -1620,21 +1621,15 @@ def main():
                 # for week 7). Use Sleeper's live designations instead —
                 # treating the gap as "everyone Active" is what let a player
                 # out since week 4 project as a full starter.
-                if week_inj.empty:
-                    live = live_injury_report()
-                    if not live.empty:
-                        print(
-                            f"No official week-{args.week} report yet; using "
-                            f"{len(live):,} live Sleeper designations"
-                        )
-                    else:
-                        print(
-                            f"WARN: no official week-{args.week} report and no "
-                            "live designations — every player treated as Active"
-                        )
-                    injuries_df = live
-                else:
-                    injuries_df = week_inj
+                # The official report is authoritative but SLOW; merge it
+                # over the live designations rather than replacing them.
+                injuries_df, n_official, n_live = merge_injury_sources(
+                    week_inj, live_injury_report()
+                )
+                print(
+                    f"Injury sources: {n_official:,} official week-{args.week} "
+                    f"verdicts + {n_live:,} live Sleeper designations"
+                )
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")

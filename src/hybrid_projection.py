@@ -1165,12 +1165,14 @@ def train_and_save_residual_models(
                 "lgb_params": RESIDUAL_LGB_PARAMS,
                 "correction_clip_abs": correction_clip_abs,
             }
-            meta["provenance"] = build_provenance({
-                "silver_players_usage": "silver/players/usage",
-                "silver_players_advanced": "silver/players/advanced",
-                "bronze_players_snaps": "bronze/players/snaps",
-                "bronze_players_injuries": "bronze/players/injuries",
-            })
+            meta["provenance"] = build_provenance(
+                {
+                    "silver_players_usage": "silver/players/usage",
+                    "silver_players_advanced": "silver/players/advanced",
+                    "bronze_players_snaps": "bronze/players/snaps",
+                    "bronze_players_injuries": "bronze/players/injuries",
+                }
+            )
             with open(meta_path, "w") as f:
                 json.dump(meta, f, indent=2)
 
@@ -1222,12 +1224,14 @@ def train_and_save_residual_models(
                 "graph_features_added": graph_features_added,
                 "correction_clip_abs": correction_clip_abs,
             }
-            meta["provenance"] = build_provenance({
-                "silver_players_usage": "silver/players/usage",
-                "silver_players_advanced": "silver/players/advanced",
-                "bronze_players_snaps": "bronze/players/snaps",
-                "bronze_players_injuries": "bronze/players/injuries",
-            })
+            meta["provenance"] = build_provenance(
+                {
+                    "silver_players_usage": "silver/players/usage",
+                    "silver_players_advanced": "silver/players/advanced",
+                    "bronze_players_snaps": "bronze/players/snaps",
+                    "bronze_players_injuries": "bronze/players/injuries",
+                }
+            )
             with open(meta_path, "w") as f:
                 json.dump(meta, f, indent=2)
 
@@ -1563,12 +1567,47 @@ def apply_residual_correction(
     blend_dir = meta.get("blend_secondary_dir")
     blend_weight = meta.get("blend_weight")
     if blend_dir and blend_weight:
+        # A fallback inside the blend is NOT a valid secondary prediction.
+        # apply_residual_correction returns the untouched heuristic when it
+        # cannot run (no model, or no matching features), and blending that in
+        # silently reverts `blend_weight` of every row back to the
+        # UNCORRECTED heuristic instead of blending two corrected models.
+        #
+        # That is exactly what shipped: models/residual_wr_secondary/ holds
+        # wr_residual.joblib but its meta JSON was never committed, so
+        # load_residual_model returned {} (a missing meta is tolerated),
+        # features was [], and every WR projection came out as
+        # 0.6*corrected + 0.4*raw heuristic — the WR Ridge hybrid running at
+        # 60% strength since 2026-08-16, announced in the logs as a
+        # successful blend. See .planning/WR_SECONDARY_BLEND_2026_10_22.md.
+        #
+        # Validate the secondary is actually usable before trusting it, and
+        # fall back to the primary alone (loudly) when it is not.
+        usable, reason = _secondary_blend_is_usable(
+            position, blend_dir, player_features
+        )
+        if not usable:
+            logger.warning(
+                "::warning::%s: secondary blend at %s is NOT usable (%s) — "
+                "using the primary correction alone. Blending an unusable "
+                "secondary would have reverted %.0f%% of every row to the "
+                "uncorrected heuristic.",
+                position,
+                blend_dir,
+                reason,
+                blend_weight * 100,
+            )
+            return result
+
         secondary_result = apply_residual_correction(
             heuristic_projections, player_features, position, model_dir=blend_dir
         )
         primary_pts = result["projected_points"]
         secondary_pts = secondary_result["projected_points"].reindex(primary_pts.index)
-        blended = primary_pts * (1 - blend_weight) + secondary_pts.fillna(primary_pts) * blend_weight
+        blended = (
+            primary_pts * (1 - blend_weight)
+            + secondary_pts.fillna(primary_pts) * blend_weight
+        )
         result["projected_points"] = blended.round(2)
         logger.info(
             "%s: blended with secondary model %s at weight=%.2f",
@@ -1578,3 +1617,49 @@ def apply_residual_correction(
         )
 
     return result
+
+
+def _secondary_blend_is_usable(
+    position: str,
+    blend_dir: str,
+    player_features: pd.DataFrame,
+) -> Tuple[bool, str]:
+    """Can the secondary residual model actually produce a correction?
+
+    Mirrors the checks ``apply_residual_correction`` itself applies, so the
+    caller can distinguish "the secondary corrected these rows" from "the
+    secondary fell back to the heuristic" — a distinction the return value
+    alone cannot carry.
+
+    Args:
+        position: Position code.
+        blend_dir: Directory holding the secondary model.
+        player_features: The feature frame the secondary would be given.
+
+    Returns:
+        ``(usable, reason)``; ``reason`` is empty when usable.
+    """
+    try:
+        _model, sec_meta = load_residual_model(position, blend_dir)
+    except FileNotFoundError:
+        return False, "no model artifact"
+
+    sec_features = sec_meta.get("features", [])
+    if not sec_features:
+        return False, "metadata missing or carries no feature list"
+
+    # The primary path enriches with graph features when the meta asks for it;
+    # treat a graph-feature name as satisfiable on the same terms.
+    if player_features is None or player_features.empty:
+        return False, "no player features supplied"
+
+    graph_ok = bool(sec_meta.get("graph_features_added", 0))
+    satisfiable = [
+        f
+        for f in sec_features
+        if f in player_features.columns or (graph_ok and f in GRAPH_FEATURE_SET)
+    ]
+    if not satisfiable:
+        return False, f"none of its {len(sec_features)} features are available"
+
+    return True, ""

@@ -86,3 +86,63 @@ def test_output_feeds_apply_injury_adjustments():
     assert by_name.loc["Healthy Guy", "projected_points"] == 12.0
     # A Questionable player is discounted, not zeroed.
     assert 0.0 < by_name.loc["Q Guy", "injury_multiplier"] <= 1.0
+
+
+# --- merging the slow official report with the fast live one ---
+
+from projection_engine import merge_injury_sources  # noqa: E402
+
+
+def _official(rows):
+    return pd.DataFrame(rows, columns=["gsis_id", "report_status", "full_name"])
+
+
+def test_official_verdict_wins_for_that_player():
+    official = _official([("00-0034796", "Questionable", "Lamar")])
+    live = pd.DataFrame(
+        [{"gsis_id": "00-0034796", "report_status": "Out"}],
+    )
+    merged, n_off, n_live = merge_injury_sources(official, live)
+    assert (n_off, n_live) == (1, 0)
+    assert merged.set_index("gsis_id").loc["00-0034796", "report_status"] == (
+        "Questionable"
+    )
+
+
+def test_live_fills_in_players_the_report_has_not_graded():
+    """Week 7 2026: 13 graded of 271 rows, 494 filled from Sleeper."""
+    official = _official(
+        [("00-0000001", "Out", "Graded Guy"), ("00-0000002", None, "Ungraded Guy")]
+    )
+    live = pd.DataFrame(
+        [
+            {"gsis_id": "00-0000002", "report_status": "Out"},
+            {"gsis_id": "00-0000003", "report_status": "Questionable"},
+        ]
+    )
+    merged, n_off, n_live = merge_injury_sources(official, live)
+    assert (n_off, n_live) == (1, 2)
+    assert set(merged["gsis_id"]) == {"00-0000001", "00-0000002", "00-0000003"}
+
+
+def test_ungraded_official_rows_never_mask_a_live_designation():
+    """A practice-only row with report_status None must not win."""
+    official = _official([("00-0000002", None, "Practice Only")])
+    live = pd.DataFrame([{"gsis_id": "00-0000002", "report_status": "Out"}])
+    merged, _n_off, n_live = merge_injury_sources(official, live)
+    assert n_live == 1
+    assert merged.set_index("gsis_id").loc["00-0000002", "report_status"] == "Out"
+
+
+def test_no_live_source_falls_back_to_the_report():
+    official = _official([("00-0000001", "Out", "Graded Guy")])
+    merged, n_off, n_live = merge_injury_sources(official, pd.DataFrame())
+    assert (n_off, n_live) == (1, 0)
+    assert len(merged) == 1
+
+
+def test_no_official_rows_leaves_the_live_frame():
+    live = pd.DataFrame([{"gsis_id": "00-0000003", "report_status": "Out"}])
+    merged, n_off, _ = merge_injury_sources(pd.DataFrame(), live)
+    assert n_off == 0
+    assert len(merged) == 1
