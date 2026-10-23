@@ -1,4 +1,4 @@
-"""Pure parser for Yahoo's league Transactions page.
+"""Pure parsers for Yahoo's league pages (transactions, rosters, player list).
 
 Yahoo's Fantasy API is approval-gated and returns ``401
 additional_authorization_required`` for read scope, and new apps cannot get
@@ -112,3 +112,63 @@ def _close(pending: List[str], when: str) -> Optional[Dict[str, Any]]:
         "team": fantasy_team,
         "when": when,
     }
+
+
+#: Yahoo glues annotations and a status onto the name in ``innerText``:
+#: ``Ladd McConkeyQVideo ForecastPlayer Note``.
+_ANNOTATIONS = (
+    "Video Forecast",
+    "New Player Note",
+    "Player Note",
+    "No new player Notes",
+)
+#: Status tokens Yahoo appends directly to a surname.
+_STATUS_SUFFIXES = ("IR-R", "IR", "SUSP", "NA", "PUP", "Q", "O", "D", "P")
+#: ``Tm - POS`` on the line after the name.
+TEAM_POS_RE = re.compile(r"^(?P<team>[A-Za-z]{2,3})\s*-\s*(?P<pos>QB|RB|WR|TE|K|DEF)$")
+
+
+def clean_player_name(raw: str) -> str:
+    """Strip Yahoo's glued-on annotations and status from a name.
+
+    ``"Ladd McConkeyQVideo ForecastPlayer Note"`` -> ``"Ladd McConkey"``.
+    """
+    name = raw.strip()
+    for note in _ANNOTATIONS:
+        name = name.replace(note, "")
+    name = name.strip()
+    for suffix in _STATUS_SUFFIXES:
+        if name.endswith(suffix) and len(name) > len(suffix) + 1:
+            trimmed = name[: -len(suffix)].rstrip()
+            # Only a glued status, never a real last letter: the character
+            # before it must end a word (lower-case or '.').
+            if trimmed and (trimmed[-1].islower() or trimmed[-1] == "."):
+                name = trimmed
+                break
+    return name.strip()
+
+
+def parse_yahoo_player_names(text: str) -> List[str]:
+    """Player names from a Yahoo roster or player-list page.
+
+    Every row renders the name on one line and ``Tm - POS`` on the next, which
+    is the only stable anchor in ``innerText``. Yahoo's API has no read scope,
+    so this is how a Yahoo league gets the live roster and free-agent pool the
+    Sleeper and ESPN paths read directly.
+
+    Args:
+        text: ``document.body.innerText`` of a roster or players page.
+
+    Returns:
+        Names in page order, de-duplicated, annotations and status stripped.
+    """
+    lines = [ln.strip() for ln in text.splitlines()]
+    seen: Dict[str, None] = {}
+    for i, line in enumerate(lines):
+        if i == 0 or not TEAM_POS_RE.match(line):
+            continue
+        prev = next((lines[j] for j in range(i - 1, -1, -1) if lines[j]), "")
+        name = clean_player_name(prev)
+        if name and not TEAM_POS_RE.match(name):
+            seen.setdefault(name, None)
+    return list(seen)

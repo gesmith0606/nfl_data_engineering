@@ -282,6 +282,62 @@ YAHOO_TRANSACTIONS_JS = r"""(async (A) => {
 })(__ARGS__)"""
 
 
+YAHOO_ROSTERS_JS = r"""(async (A) => {
+ const text = async (u) => {
+   const r = await fetch(u, {credentials: 'include'});
+   if (!r.ok) throw new Error(`Yahoo HTTP ${r.status} for ${u.split('?')[0]}`);
+   const d = new DOMParser().parseFromString(await r.text(), 'text/html');
+   return d.body ? d.body.innerText : '';
+ };
+ const base = `https://football.fantasysports.yahoo.com/f1/${A.lid}`;
+ const mine = await text(`${base}/${A.team}`);
+ const league = [];
+ for (const t of A.teams) league.push(await text(`${base}/${t}`));
+ const avail = [];
+ for (let i = 0; i < A.pages; i++) {
+   avail.push(await text(
+     `${base}/players?status=A&pos=O&sort=AR&count=${i * 25}`));
+ }
+ return JSON.stringify({mine, league: league.join('\n'), available: avail.join('\n')});
+})(__ARGS__)"""
+
+
+def yahoo_rosters(
+    page: BrowserPage,
+    league_id: str,
+    team_id: int,
+    team_ids: Sequence[int] = (),
+    pages: int = 4,
+) -> Dict[str, str]:
+    """My roster, every team's roster, and the free-agent pool, as page text.
+
+    Yahoo has no read scope on its API, so waiver_wire previously needed
+    hand-saved files for this league while Sleeper and ESPN read themselves.
+    All three pages are fetched same-origin from a logged-in tab.
+
+    Args:
+        page: A page in a profile logged into Yahoo.
+        league_id: Numeric Yahoo league id.
+        team_id: My team id.
+        team_ids: Every team id, for the exact rostered set.
+        pages: How many 25-row windows of the player list to walk.
+
+    Returns:
+        ``{"mine", "league", "available"}`` of raw ``innerText``.
+    """
+    return run_js(
+        page,
+        YAHOO_ROSTERS_JS,
+        {
+            "lid": str(league_id),
+            "team": int(team_id),
+            "teams": [int(t) for t in team_ids],
+            "pages": int(pages),
+        },
+        timeout=60 + 10 * (len(team_ids) + pages),
+    )
+
+
 def yahoo_transactions(page: BrowserPage, league_id: str, pages: int = 4) -> str:
     """The league's Transactions page text, ``pages`` windows of 25 deep.
 
@@ -522,6 +578,7 @@ def read_claims(
 
 __all__: List[str] = [
     "espn_fetch_league",
+    "yahoo_rosters",
     "yahoo_transactions",
     "espn_state",
     "espn_submit",
