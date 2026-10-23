@@ -432,6 +432,7 @@ def suggest_bid(
     room_max: int = 0,
     my_roster_id: Optional[str] = None,
     rivals_modelled: bool = True,
+    role_ending: bool = False,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -479,6 +480,13 @@ def suggest_bid(
     # he was not worth a roster spot; paying real money to undo that is the
     # churn the runbook warns about. Week 7 2026 the model wanted $55 for Drew
     # Lock, whom we had cut for $55 three weeks earlier.
+    # A role the week's news says is ending is worth the minimum or nothing,
+    # whatever the history says. This sits above every other rule because it
+    # is the one thing that makes the rest of them irrelevant: you are not
+    # buying the usage you are looking at.
+    if role_ending:
+        return 1, "his starter is returning — the role is ending, minimum or skip"
+
     if cut_by_us:
         return 1, (
             f"WE cut him in wk{moves[-1]['leg']} — re-buy at the minimum or not"
@@ -1264,6 +1272,21 @@ def main(argv: Optional[list] = None) -> int:
         both = [v for v in (o, s) if v is not None]
         if not both:
             return None
+        # Hoisted above the dict: the bid has to SEE the ending-role signal.
+        # It used to be computed as a sibling key, so suggest_bid priced a
+        # vanishing role at full value and the gate caught it afterwards --
+        # the gate compensating for the producer, which is the weaker half
+        # of "make the right thing the only path, then fail loudly".
+        blocked = [
+            (rank, n, bsid)
+            for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
+            if n != (meta.get("full_name") or "") and rank < own_rank(meta)
+        ]
+        role_ending = any(
+            "returning" in (news.get(bsid) or "")
+            or "activated" in (news.get(bsid) or "")
+            for _rank, _n, bsid in blocked
+        )
         return {
             "sid": sid,
             "name": meta.get("full_name") or sid,
@@ -1300,23 +1323,18 @@ def main(argv: Optional[list] = None) -> int:
                     room_max,
                     my_roster_id,
                     rivals_modelled=platform == "sleeper",
+                    role_ending=role_ending,
                 )
                 if moves and my_faab
                 else None
             ),
             "blocked_by": [
                 f"{n}({news[bsid]})" if news.get(bsid) else n
-                for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
-                if n != (meta.get("full_name") or "") and rank < own_rank(meta)
+                for _rank, n, bsid in blocked
             ],
             # A team-mate the week's news says is RETURNING ends the rental:
             # the candidate is about to lose the role, not grow into it.
-            "blocked_returning": any(
-                "returning" in (news.get(bsid) or "")
-                or "activated" in (news.get(bsid) or "")
-                for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
-                if n != (meta.get("full_name") or "") and rank < own_rank(meta)
-            ),
+            "blocked_returning": role_ending,
         }
 
     def likely_fa(r: Dict[str, Any]) -> bool:
@@ -1471,6 +1489,7 @@ def main(argv: Optional[list] = None) -> int:
         {**baseline, "starters": started},
         keepers,
         key="dyn" if dyn else "blend",
+        keeps_players=dynasty_league or bool(keepers),
     )
     print(
         "\n  Drop candidates (bench, keepers excluded, weakest first): "

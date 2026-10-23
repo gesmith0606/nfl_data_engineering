@@ -101,3 +101,58 @@ def test_bye_player_is_neither_the_bench_bar_nor_a_drop():
     b = roster_baseline(rows, roster_format="yahoo_feetball", keepers=KEEPERS)
     assert b["bench_floor"]["WR"] == 5.6
     assert "Star On Bye" not in [r["name"] for r in drop_order(rows, b, KEEPERS)]
+
+
+def test_a_young_riser_is_not_offered_as_a_drop_where_players_are_kept():
+    """The gate flagged this; the list should not have suggested it.
+
+    Live week-7 Mantis named Adonai Mitchell (24, 61k adds) a drop candidate
+    and the `young-drop` invariant failed the report. Correct, but the weaker
+    half of "make the right thing the only path, then fail loudly" — so the
+    list stops offering him and the gate stays as the backstop.
+    """
+    rows = [
+        {
+            "sid": "young",
+            "name": "Adonai Mitchell",
+            "age": 24,
+            "adds": 61000,
+            "dyn": 1242,
+        },
+        {"sid": "old", "name": "Jacoby Brissett", "age": 33, "adds": 0, "dyn": 1566},
+        {"sid": "quiet", "name": "Pat Bryant", "age": 23, "adds": 0, "dyn": 1263},
+    ]
+    baseline = {"starters": set()}
+
+    kept = [
+        r["name"] for r in drop_order(rows, baseline, key="dyn", keeps_players=True)
+    ]
+    assert "Adonai Mitchell" not in kept
+    # A young player nobody is adding is still droppable, or this protects
+    # every rookie on the bench forever.
+    assert kept == ["Pat Bryant", "Jacoby Brissett"]
+
+    # Redraft has no reason to protect him.
+    redraft = [r["name"] for r in drop_order(rows, baseline, key="dyn")]
+    assert "Adonai Mitchell" in redraft
+
+
+def test_a_role_the_news_says_is_ending_is_never_priced_up():
+    """Live week-7: George Holani was bid $4 behind Charbonnet(returning)."""
+    import importlib.util
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "ww_bid", root / "scripts" / "waiver_wire.py"
+    )
+    ww = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ww)
+
+    held = [{"leg": 2, "bid": 40, "kind": "add", "by": "9"}]
+    normal, why_normal = ww.suggest_bid(held, [30], 12, 400, 7)
+    ending, why_ending = ww.suggest_bid(held, [30], 12, 400, 7, role_ending=True)
+    assert normal > 1, "a contested role still prices up"
+    assert ending == 1
+    assert "role is ending" in why_ending
+    assert why_ending != why_normal
