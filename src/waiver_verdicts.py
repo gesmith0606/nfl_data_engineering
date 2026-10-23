@@ -137,14 +137,48 @@ def verdict(
     return BENCH_UP if blend >= floor + margin else NO_HELP
 
 
+#: A player this young with the market buying him is an asset in a league
+#: that keeps players, not the weakest name on the bench. Mirrors the
+#: ``young-drop`` invariant in src/waiver_sanity.py -- the gate flags one of
+#: these, but it should not have to, so the list stops offering them.
+YOUNG_AGE = 24
+RISING_ADDS = 5_000
+
+
 def drop_order(
     my_rows: Sequence[Mapping[str, Any]],
     baseline: Mapping[str, Any],
     keepers: Iterable[str] = (),
     key: str = "blend",
+    keeps_players: bool = False,
 ) -> List[Mapping[str, Any]]:
-    """Bench players eligible to drop, weakest first — starters and keepers excluded."""
+    """Bench players eligible to drop, weakest first.
+
+    Starters, keepers, IR and bye players are excluded. In a league that
+    keeps players between seasons (``keeps_players``), so is a young riser:
+    the skill has said "never drop a young (<=24) player with a role path"
+    since before the gate existed, and offering him anyway left the gate to
+    catch what the list should not have suggested.
+
+    Args:
+        my_rows: Our scored roster rows.
+        baseline: Roster baseline, for ``starters``.
+        keepers: ``normalize_name`` keys never offered as drops.
+        key: Sort field — ``dyn`` in dynasty, ``blend`` otherwise.
+        keeps_players: True for dynasty and keeper leagues.
+
+    Returns:
+        Droppable rows, weakest first.
+    """
     keep = set(keepers)
+
+    def young_riser(r: Mapping[str, Any]) -> bool:
+        return (
+            keeps_players
+            and (r.get("age") or 99) <= YOUNG_AGE
+            and (r.get("adds") or 0) >= RISING_ADDS
+        )
+
     return sorted(
         (
             r
@@ -153,6 +187,7 @@ def drop_order(
             and not r.get("ir")
             and not r.get("bye")
             and normalize_name(r["name"]) not in keep
+            and not young_riser(r)
         ),
         key=lambda r: r.get(key) or 0,
     )

@@ -99,9 +99,14 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 **Mantis (dynasty) — value over points:**
 - Rank claims by dynasty value + age + a real path to a role. A short-term fill-in
   for a starter with a 1-3 week injury is a rental: $0-5 or skip.
-- Never drop a young (≤24) player with a role path for a one-week streamer. **Gated**
-  (`young-drop`): a drop candidate ≤24 whom the market is still adding fails the report
-  in Mantis and Feetball. A young player nobody is adding stays droppable.
+- Never drop a young (≤24) player with a role path for a one-week streamer. The drop list
+  **no longer offers one** in Mantis or Feetball (`drop_order(keeps_players=True)`), and
+  `young-drop` stays as the backstop if anything routes around it. A young player nobody
+  is adding stays droppable, or this would protect every rookie forever.
+- A role the week's news says is **ENDING is priced at $1 by `suggest_bid` itself**, above
+  every other pricing rule — you are not buying the usage you are looking at. `ending-role`
+  remains the backstop. (Live week 7: George Holani was bid $4 behind
+  `Charbonnet(returning)`; the gate caught it, which means the price model should have.)
 - Stream a QB only when Lamar/Dak/the QB3 cannot cover a week (byes, injuries).
 - Use the 3 taxi slots for rookies/2nd-years; swap out the lowest-value, falling-trend
   taxi player.
