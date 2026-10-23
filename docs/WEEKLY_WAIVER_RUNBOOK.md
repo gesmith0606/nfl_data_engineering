@@ -87,6 +87,21 @@ Remaining budget is not the same as willingness to spend: in La Liga the three t
 with full budgets through week 7 had spent $0, $0 and $1 all season. Read the
 transaction counts, not just the money left.
 
+Re-measure with `python scripts/backtest_bid_model.py --league mantis`. It replays
+every paid waiver add, pricing each from only what was knowable before that week,
+against two baselines.
+
+```
+  rule          n  median err   mean err  within $5
+  model        51          7$      47.3        45%
+  median       51         22$      47.6         4%
+  minimum      51         10$      47.9        43%
+```
+
+Read the median and the hit rate; the mean is outliers (see below). Note that
+bidding $1 every time is a strong baseline in this room — the model has to earn its
+place against that, not against the median rule.
+
 ### Verdict: do NOT escalate for dynasty value (HOLD, 2026-10-22)
 
 Tested on all 51 real Mantis winning bids. The seven bids over $100 went to
@@ -103,9 +118,34 @@ threshold tried:
 | dyn p60, 4x median | $42 | $55.1 |
 | dyn p50, 4x median | $43 | $56.8 |
 
-Seven outliers are not a pattern. The tail is not predictable from what we
-have, so the report surfaces the room's historical max as context ("but this
-room has gone as high as $450") and leaves the override to you.
+Two more hypotheses were tested the same day and also rejected:
+
+| hypothesis | correlation with winning bid |
+|---|---|
+| dynasty value | +0.20 (n=50) |
+| week of season | +0.05 (n=51) |
+| bidder's prior spend | -0.09 (n=51) |
+
+Nothing we record predicts a $450 bid, because it depends on how badly one
+manager wants one player. The report surfaces the room's historical max as
+context ("but this room has gone as high as $450") and leaves the override to
+you.
+
+### What DID move the needle: the no-rival floor (2026-10-22)
+
+Swept against the same 51 bids. A player with no history and no credible rival
+used to be priced at a third of the room median; a fifth is better:
+
+| floor | median err | wasted FAAB | claims lost |
+|---|---|---|---|
+| room median | $22 | — | — |
+| /3 (was) | $6 | $96 over 17 claims | 30 |
+| **/5 (now)** | $7 | **$46 over 16 claims** | 31 |
+
+Half the waste for one more lost claim, and overpaying was the failure mode
+worth fixing. Caveat on the "claims lost" column: the backtest prices every
+historical add with no credible-rival information, so it measures the floor's
+behaviour, not the full model — live, the rivals term raises the bid.
 
 ## 5. Waiver clear times
 - Sleeper Mantis: Wednesday morning; unclaimed players become instant free agents afterwards.

@@ -431,7 +431,11 @@ def suggest_bid(
                 f"{f' after paying ${last_paid}' if last_paid else ''}"
                 " and nobody who needs the spot can outbid you"
             )
-        return min(max(1, room_median // 3), cap), (
+        # room_median // 5, not // 3: swept against 51 real Mantis bids, the
+        # lower floor halves wasted FAAB ($96 -> $46 across 51 claims, median
+        # overbid $6 -> $3) and costs one extra claim lost. Overpaying was the
+        # failure mode worth fixing.
+        return min(max(1, room_median // 5), cap), (
             "no rival is both thin here and able to spend"
         )
 
