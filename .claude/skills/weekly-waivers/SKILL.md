@@ -8,6 +8,17 @@ allowed-tools: Bash, Read, Write
 Recommend waiver claims the way a sharp league-mate would: from the league outward,
 not from one week's projections. Full checklist: `docs/WEEKLY_WAIVER_RUNBOOK.md`.
 
+## Is this skill still any good? Run the audit, don't take my word
+```bash
+python scripts/audit_waiver_skill.py          # 19 falsifiable checks, exit 1 on any failure
+python scripts/audit_waiver_skill.py --offline # the 8 that need no league data
+```
+Every check is a claim plus the command that settles it, across guards, pricing, coverage,
+sentiment, parity, outcomes and rule provenance. **100/100 as of 2026-10-23** — and if a rule
+regresses the number drops by itself, which is the point. An earlier 72->100 score for this
+skill was a judgement call on a rubric written by the agent doing the work: a claim with no way
+to be wrong, i.e. the exact thing every invariant here exists to prevent.
+
 ## Gate — no recommendation before the tools have run
 Do not name a player, a bid or a drop until `league_context.py` AND `waiver_wire.py`
 have run for that league in this session. Not a preference: on 2026-10-20 an hour of

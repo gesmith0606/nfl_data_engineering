@@ -87,6 +87,7 @@ python scripts/submit_claims.py --claims data/draft/claims_week6.yaml           
 python scripts/check_pending_claims.py --league all                                       # Read-only: ESPN pending claims + period outcomes, Yahoo Transactions box, Mantis processed claims
 python scripts/player_dossier.py data/draft/week3_candidates.txt                           # Per-candidate usage dossier (snap/target/air-yard/carry share, injuries around them, next matchup, trending adds)
 python scripts/player_news.py "Roschon Johnson" --days 5                                  # Raw Bronze articles for a shortlist: read the news instead of counting Gold keyword flags
+python scripts/audit_waiver_skill.py                                                      # Waiver skill health: 19 falsifiable checks (guards/pricing/coverage/sentiment/parity/outcomes/provenance), exit 1 on failure
 python scripts/trade_scan.py feetball                                                      # ROS value (FantasyPros rank -> our preseason curve), every team's optimal lineup, win-win swaps; trade_eval.py prices a specific package from stdin
 python scripts/stream_dst_k.py --pool data/draft/feetball_2026_dstk_pool.txt              # Weekly DEF/K streaming: site projection + Sleeper + Vegas implied totals (live odds / schedule lines / points-for-against form), 2-source SWAP rule, 3-week look-ahead with byes
 
