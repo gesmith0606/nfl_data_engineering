@@ -160,6 +160,28 @@ worth fixing. Caveat on the "claims lost" column: the backtest prices every
 historical add with no credible-rival information, so it measures the floor's
 behaviour, not the full model — live, the rivals term raises the bid.
 
+## 4a. Is the RENTAL/ENDING tag real? (VALIDATED, 2026-10-22)
+
+The tag shipped on reasoning. `python scripts/validate_rental_tag.py` tests its actual
+claim against the season's record: reconstruct every RENTAL situation from the official
+injury report, split by whether the blocker was still Out the next week, and compare
+what happened to the fill-in.
+
+2026 weeks 1-5, fill-ins with a real week-W role (>=20% snaps):
+
+| outcome | blocker RETURNED (n=46) | blocker STAYED OUT (n=34) |
+|---|---|---|
+| median snap-share change | **-10.5pp** | **-0.8pp** |
+| lost >=10pp of snaps | 52% | 32% |
+| median points change | +0.0 | -0.9 |
+
+**Read the snap-share row, not the points row.** The tag asserts the role reverts, and
+it does — about ten percentage points of snap share, against roughly flat when the
+blocker stays out. Points barely separate the groups because scoring depends on far
+more than usage; a tag that predicts the role is doing its job even when next week's
+points are a coin flip. Re-run it when the season ends to confirm it holds on a full
+sample.
+
 ## 4b. Sanity gate
 
 `python scripts/sanity_check_waivers.py --league <league>` runs the report and asserts

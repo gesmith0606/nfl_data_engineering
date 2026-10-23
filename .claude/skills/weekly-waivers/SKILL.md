@@ -58,6 +58,10 @@ weekly verdict. In a DYNASTY league it is advisory only: an asset buy is suppose
 read "no help" this week (2026-10-21, Jalon Daniels: `no help`, dyn 1271, age 23, the
 correct Mantis add). Also read the RENTAL/ENDING tag before the points — `ENDING<-NAME`
 means the week's news says that team-mate is returning, so the role is going away now.
+That is measured, not asserted: a returning blocker costs the fill-in a median **10
+percentage points of snap share** against roughly flat when he stays out (n=46 vs 34,
+2026 wks 1-5). It barely moves next-week POINTS, so treat it as a role signal, not a
+scoring one — re-check with `scripts/validate_rental_tag.py`.
 Then
 `scripts/player_dossier.py` on the shortlist (usage, injuries around them, matchup).
 Check WHY a player is trending (starter injured? which injury, how long?) before
