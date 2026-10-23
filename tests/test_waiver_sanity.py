@@ -330,3 +330,20 @@ def test_partial_slot_accounting_satisfies_the_mechanics_checks():
     assert not [
         f for f in check_report(text) if f.check in ("roster-mechanics", "ir-rules")
     ]
+
+
+def test_every_configured_rss_feed_has_a_distinct_live_looking_url():
+    """Three of five feeds were 404/301 for months while the cron stayed green.
+
+    This does not hit the network -- it pins the shape that let the rot hide:
+    a feed list is only useful if each entry is a distinct host we still
+    believe in, and `ingest_sentiment_rss.py` is what proves liveness (it now
+    names dead feeds and exits non-zero when most of them are gone).
+    """
+    from src.config import SENTIMENT_CONFIG
+
+    feeds = SENTIMENT_CONFIG["rss_feeds"]
+    assert len(feeds) >= 4, "news coverage should not rest on two publishers"
+    hosts = {url.split("/")[2] for url in feeds.values()}
+    assert len(hosts) == len(feeds), f"duplicate publisher among {sorted(feeds)}"
+    assert "www.nfl.com" not in hosts, "nfl.com no longer publishes RSS (404/301)"

@@ -62,7 +62,7 @@ python scripts/draft_history_replay.py 2 [--sharp] [--anchor]                   
 python scripts/draft_live.py --platform espn --scoring standard --roster-format espn_default --my-team "The Oracle" --watch --queue   # ESPN LIVE co-pilot: reads the draft-room tab via Chrome DevTools (start Chrome with --remote-debugging-port=9222 --user-data-dir=<separate profile>), recs <1s per pick, --queue fills ESPN's Pick Queue from our board
 
 # Sentiment pipeline
-python scripts/ingest_sentiment_rss.py --weeks 1-18                                      # Ingest 5 RSS feeds
+python scripts/ingest_sentiment_rss.py --weeks 1-18                                      # Ingest 5 RSS feeds (names dead ones, exits 1 when most are dead)
 python scripts/ingest_sentiment_sleeper.py --weeks 1-18                                  # Ingest Sleeper trending players
 python scripts/process_sentiment.py --seasons 2024 2025 --weeks 1-18                     # Process Bronze→Silver→Gold
 

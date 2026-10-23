@@ -993,12 +993,18 @@ PLAYER_LABEL_COLUMNS = [
 # local_bronze_path: Local mirror of the S3 nfl-raw/sentiment/ prefix.
 # =============================================================================
 SENTIMENT_CONFIG: Dict[str, Any] = {
+    # Probed live 2026-10-23: nfl_news (301 to an unparseable body), rotoworld
+    # (404, NBC retired the brand) and fantasypros (404) had all been dead for
+    # months while the ingest still logged "Ingestion complete" and returned 0
+    # -- two of five feeds were actually producing. nfl.com no longer publishes
+    # an RSS feed at all, so it is replaced rather than repaired. Re-probe with
+    # ``python scripts/ingest_sentiment_rss.py --dry-run`` after any edit here.
     "rss_feeds": {
         "espn_news": "https://www.espn.com/espn/rss/nfl/news",
-        "nfl_news": "https://www.nfl.com/rss/rsslanding",
-        "rotoworld": "https://www.nbcsports.com/rotoworld/rss/nfl-player-news",
         "pro_football_talk": "https://profootballtalk.nbcsports.com/feed/",
-        "fantasypros": "https://www.fantasypros.com/nfl/rss/player-news.php",
+        "yahoo_nfl": "https://sports.yahoo.com/nfl/rss.xml",
+        "cbs_nfl": "https://www.cbssports.com/rss/headlines/nfl/",
+        "rotowire": "https://www.rotowire.com/rss/news.php?sport=NFL",
     },
     # Hours after publication before a signal is considered too stale to use
     "staleness_hours": 72,

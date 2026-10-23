@@ -149,7 +149,7 @@ gated as `start-drop`. The report prints `-- Sanity -- N critical, N warnings` *
 clean or not: if you cannot see that line you are looking at filtered output, not a pass.
 
 The header states `NEWS = Gold sentiment, N flags for week W`. **`N` is small by design**
-(13 in week 7, league-wide), so most rows carry no NEWS and that is normal. `N = 0` is not:
+(24 in week 7, league-wide), so most rows carry no NEWS and that is normal. `N = 0` is not:
 the extractor fails open to keyword rules while its cron still reports success, so zero
 flags means *unknown*, and the gate warns (`news-source`). Say so rather than implying the
 week was quiet.
