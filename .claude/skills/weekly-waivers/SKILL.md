@@ -149,6 +149,21 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 Loveland) are never drop candidates, and young players on cheap slots carry keeper
 value. Check the drop against the pickup's projected edge only after that.
 
+## Step 3c — READ the news for the shortlist (don't count flags)
+Once the board is down to the 3-5 candidates a claim actually comes down to:
+```bash
+python scripts/player_news.py "Roschon Johnson" "Dalton Schultz" --days 5
+```
+Gold sentiment reduces an article to keyword flags and the header shows only a COUNT. The
+articles are in Bronze with ids attached, so for a shortlist, read them. Comprehension-grade
+extraction *in the pipeline* needs a funded `ANTHROPIC_API_KEY`; comprehension at **advice
+time** needs only this, because you are the language model.
+
+Week 7 showed why: Schultz returned `[pft] TE Dalton Schultz... return to practice Thursday`,
+a third independent confirmation of his `returning` flag and DNP>LP trail. Roschon Johnson
+returned **0 articles in 5 days** on 1,355k adds — nobody is writing about the player the
+market is buying. **Silence is not good news; it is no news.**
+
 **ADDS is belief; SNAP is fact.** Every row now carries last week's offensive snap share and
 its change (`snap 40% +1`). A big `adds` number on a flat or falling share is hype, not a role —
 week 7 had Roschon Johnson at **1,355k adds on a flat 40%** and Dalton Schultz at **40% (-12)**
