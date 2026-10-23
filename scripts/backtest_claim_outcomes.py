@@ -36,6 +36,7 @@ from src import config, sleeper_http  # noqa: E402
 from src.lineup_setter import ours_by_sleeper_id, roster_gsis_map  # noqa: E402
 from src.sleeper_player_map import load_sleeper_players  # noqa: E402
 from scripts import set_lineups  # noqa: E402
+import scripts.waiver_wire as waiver_wire  # noqa: E402
 from scripts.waiver_wire import last_week_actuals, scoring_for  # noqa: E402
 
 
@@ -111,6 +112,45 @@ def claim_rows(
                     "kind": t.get("type"),
                 }
             )
+    return sorted(rows, key=lambda r: r["leg"])
+
+
+def espn_claim_rows(
+    tx: "pd.DataFrame", by_name: Mapping[Any, str]
+) -> List[Dict[str, Any]]:
+    """Add-with-drop pairs from an ESPN transaction frame, keyed to Sleeper ids.
+
+    ESPN labels each row with the team NAME and the players by their own
+    names (``espn:<id>`` when it cannot resolve one), so both sides go through
+    the same normalised-name map the demand history uses. A pair where either
+    side is unresolvable is dropped: scoring it would need points for a player
+    we cannot identify.
+    """
+    from src.sleeper_player_map import normalize_name
+
+    def sid_for(label: Any) -> Optional[str]:
+        name = str(label or "").split("(")[0].strip()
+        if not name or name.startswith("espn:") or name.startswith("D/ST"):
+            return None
+        norm = normalize_name(name)
+        return next((v for (n, _pos), v in by_name.items() if n == norm), None)
+
+    rows: List[Dict[str, Any]] = []
+    for r in tx.itertuples(index=False):
+        add, drop = sid_for(getattr(r, "add", None)), sid_for(getattr(r, "drop", None))
+        if not add or not drop:
+            continue
+        bid = getattr(r, "bid", 0)
+        rows.append(
+            {
+                "leg": int(getattr(r, "week", 0) or 0),
+                "roster_id": "US" if bool(getattr(r, "is_me", False)) else str(r.team),
+                "add": add,
+                "drop": drop,
+                "bid": 0 if bid is None or pd.isna(bid) else int(bid),
+                "kind": str(getattr(r, "type", "")),
+            }
+        )
     return sorted(rows, key=lambda r: r["leg"])
 
 
@@ -221,53 +261,74 @@ def main(argv: Optional[list] = None) -> int:
         preset = config.our_league(args.league)
     except (KeyError, ValueError) as exc:
         sys.exit(exc.args[0])
-    if preset.get("platform") != "sleeper":
+    platform = preset.get("platform")
+    if platform not in ("sleeper", "espn"):
         sys.exit(
-            f"{args.league} is on {preset.get('platform')}: only Sleeper exposes "
-            "every team's transaction log, which is what makes the room "
-            "comparison possible."
+            f"{args.league} is on {platform}: Sleeper reads every team's log "
+            "over the public API and ESPN through the claims profile, which is "
+            "what makes the room comparison possible. Yahoo's needs a login "
+            "that is not in place."
         )
 
     lid = str(preset["league_id"])
-    league = sleeper_http.get_league(lid)
-    if not league:
+    league = sleeper_http.get_league(lid) if platform == "sleeper" else {}
+    if platform == "sleeper" and not league:
         sys.exit(f"Sleeper league {lid} unavailable")
     _season, live_week = set_lineups._default_week(args.season)
     through = args.through_week or max(1, live_week - 1)
 
-    scoring = scoring_for(preset, league)
+    scoring = scoring_for(preset, league or None)
     registry = load_sleeper_players(max_age_days=7)
     gsis_map = roster_gsis_map(bronze_rosters())
 
-    txns = [
-        t
-        for w in range(0, through + 1)
-        for t in (
-            sleeper_http.fetch_sleeper_json(
-                f"https://api.sleeper.app/v1/league/{lid}/transactions/{w}"
-            )
-            or []
+    if platform == "espn":
+        _g, by_name = waiver_wire.build_id_maps(registry)
+        _m, _f, _p, tx = waiver_wire.espn_player_moves(
+            lid,
+            args.season,
+            int(preset.get("my_team_id") or 1),
+            through,
+            registry,
+            by_name,
         )
-    ]
-    rows = claim_rows(txns, through)
+        rows = [r for r in espn_claim_rows(tx, by_name) if r["leg"] <= through]
+        title = f"{args.league} (espn)"
+        mine = "US"
+    else:
+        txns = [
+            t
+            for w in range(0, through + 1)
+            for t in (
+                sleeper_http.fetch_sleeper_json(
+                    f"https://api.sleeper.app/v1/league/{lid}/transactions/{w}"
+                )
+                or []
+            )
+        ]
+        rows = claim_rows(txns, through)
+        title = str(league.get("name"))
     points = weekly_points(
         args.season, range(1, through + 1), scoring, registry, gsis_map
     )
     scored = score_claims(rows, points, through, args.min_weeks)
 
-    users = {
-        u["user_id"]: u.get("display_name") for u in sleeper_http.get_league_users(lid)
-    }
-    mine = next(
-        (
-            str(r.get("roster_id"))
-            for r in sleeper_http.get_league_rosters(lid)
-            if users.get(r.get("owner_id")) == preset.get("my_user")
-        ),
-        None,
-    )
+    if platform == "espn":
+        users: Dict[str, Any] = {}
+    else:
+        users = {
+            u["user_id"]: u.get("display_name")
+            for u in sleeper_http.get_league_users(lid)
+        }
+        mine = next(
+            (
+                str(r.get("roster_id"))
+                for r in sleeper_http.get_league_rosters(lid)
+                if users.get(r.get("owner_id")) == preset.get("my_user")
+            ),
+            None,
+        )
 
-    print(f"\n=== {league.get('name')} — claim outcomes through week {through} ===")
+    print(f"\n=== {title} — claim outcomes through week {through} ===")
     print(
         f"Add minus drop, {args.min_weeks}+ weeks of football after the move, "
         f"scored under this league's own settings.\n"

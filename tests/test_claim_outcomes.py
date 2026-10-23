@@ -136,3 +136,77 @@ def test_too_few_claims_refuses_to_render_a_verdict():
     co = _mod()
     thin = [{"gain": 5.0, "bid": 1, "leg": 1}]
     assert "too few" in "\n".join(co.verdict(thin, thin))
+
+
+def test_espn_rows_pair_adds_with_drops_and_refuse_the_unidentifiable():
+    """ESPN labels players by its own names, and some it cannot resolve at all.
+
+    A pair where either side is `espn:<id>` or a D/ST cannot be scored —
+    there are no weekly points for a player we cannot identify — so it is
+    dropped rather than counted as a zero, which would read as a neutral
+    claim instead of an unmeasured one.
+    """
+    import pandas as pd
+
+    co = _mod()
+    by_name = {("jordan love", "QB"): "4034", ("devaughn vele", "WR"): "9999"}
+    tx = pd.DataFrame(
+        [
+            {
+                "week": 2,
+                "type": "waiver",
+                "team": "The Oracle",
+                "is_me": True,
+                "add": "Devaughn Vele (WR,28)",
+                "drop": "Jordan Love (QB,27)",
+                "bid": 12,
+            },
+            {
+                "week": 3,
+                "type": "waiver",
+                "team": "Rivals",
+                "is_me": False,
+                "add": "Jordan Love",
+                "drop": "espn:4832955",
+                "bid": 2,
+            },
+            {
+                "week": 4,
+                "type": "free_agent",
+                "team": "Rivals",
+                "is_me": False,
+                "add": "Devaughn Vele",
+                "drop": "D/ST -16014",
+                "bid": None,
+            },
+        ]
+    )
+    rows = co.espn_claim_rows(tx, by_name)
+    assert len(rows) == 1, "only the fully resolvable pair is scorable"
+    (r,) = rows
+    assert (r["leg"], r["add"], r["drop"], r["bid"]) == (2, "9999", "4034", 12)
+    # Ours is labelled distinctly so the room comparison can split on it.
+    assert r["roster_id"] == "US"
+
+
+def test_a_null_espn_bid_becomes_zero_not_nan():
+    """A free-agent add has no bid; NaN would poison every FAAB total."""
+    import pandas as pd
+
+    co = _mod()
+    tx = pd.DataFrame(
+        [
+            {
+                "week": 4,
+                "type": "free_agent",
+                "team": "Us",
+                "is_me": True,
+                "add": "A B",
+                "drop": "C D",
+                "bid": None,
+            }
+        ]
+    )
+    rows = co.espn_claim_rows(tx, {("a b", "WR"): "1", ("c d", "RB"): "2"})
+    assert rows and rows[0]["bid"] == 0
+    assert isinstance(rows[0]["bid"], int)
