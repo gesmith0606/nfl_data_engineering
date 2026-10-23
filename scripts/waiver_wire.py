@@ -512,6 +512,7 @@ def suggest_bid(
     my_roster_id: Optional[str] = None,
     rivals_modelled: bool = True,
     role_ending: bool = False,
+    floor_divisor: int = 5,
 ) -> Tuple[int, str]:
     """A number to bid, and the one sentence that justifies it.
 
@@ -592,7 +593,7 @@ def suggest_bid(
         # there does an empty rival list MEAN nobody can outbid us. On ESPN
         # and Yahoo it means we never looked, and saying otherwise put a
         # claim in George's hands justified by an analysis that never ran.
-        return min(max(1, room_median // 5), cap), (
+        return min(max(1, room_median // floor_divisor), cap), (
             "no rival is both thin here and able to spend"
             if rivals_modelled
             else f"room median ${room_median} floor; no rival model on this "
@@ -1428,6 +1429,7 @@ def main(argv: Optional[list] = None) -> int:
                     my_roster_id,
                     rivals_modelled=platform == "sleeper",
                     role_ending=role_ending,
+                    floor_divisor=int(preset.get("bid_floor_divisor") or 5),
                 )
                 if moves and my_faab
                 else None

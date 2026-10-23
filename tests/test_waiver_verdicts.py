@@ -175,3 +175,35 @@ def test_a_depth_add_is_capped_by_value_not_by_what_it_takes_to_win():
     assert "depth only — capped at the" in src
     # The cap must be the same floor the no-rival branch uses, not a new number.
     assert "floor = max(1, room_median // 5)" in src
+
+
+def test_the_no_rival_floor_divisor_is_per_room_and_measured():
+    """A price model tuned in one market has an unknown generalisation.
+
+    The // 5 floor was swept against 51 Mantis bids ($1000 budget, $50 median
+    winning bid). In La Liga ($100 budget, $8 median) that floor is $1, so
+    every historyless player was bid at the minimum and lost: median error $6
+    against the median rule's $4, i.e. the model was WORSE than the naive rule
+    in the second room we measured. At // 1 it is $4 and passes.
+    """
+    import importlib.util
+
+    from src import config
+
+    spec = importlib.util.spec_from_file_location(
+        "ww_floor", REPO_ROOT / "scripts" / "waiver_wire.py"
+    )
+    ww = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ww)
+
+    # No history, no rivals -> the floor branch, which the divisor controls.
+    assert ww.suggest_bid(None, [], 8, 100, 7, floor_divisor=5)[0] == 1
+    assert ww.suggest_bid(None, [], 8, 100, 7, floor_divisor=1)[0] == 8
+    # Default stays the Mantis-validated value for any unmeasured room.
+    assert ww.suggest_bid(None, [], 50, 1000, 7)[0] == 10
+
+    assert config.LEAGUE_PRESETS["la_liga"]["bid_floor_divisor"] == 1
+    assert "bid_floor_divisor" not in config.LEAGUE_PRESETS["mantis"], (
+        "Mantis's sweep curve is flat between // 3 and // 5 ($6 vs $7 at "
+        "n=51), so it keeps the default rather than chasing noise"
+    )

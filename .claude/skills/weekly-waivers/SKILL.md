@@ -128,8 +128,11 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
 - **Bids — use the report's `BID $N`.** It is computed from the three things that
   actually set a price, in this order: what this room paid for HIM, which rivals are
   thin at his position AND have both money and a bidding record, and only then the
-  room's median. Backtested on 51 real Mantis winning bids its median absolute error
-  is $6 against the median rule's $22. Deviate only with a reason you can state, and
+  Backtested in **both rooms we can read**: Mantis median error $7 vs the median rule's $22
+  (n=51), La Liga $4 vs $4 (n=16). It was WORSE than the naive rule in La Liga until the
+  no-rival floor became per-room — `bid_floor_divisor`, measured by
+  `backtest_bid_model.py --league <L>`, is 1 there and the default 5 in Mantis. A price model
+  tuned in one market has an unknown generalisation; re-run the sweep if a room's habits shift. Deviate only with a reason you can state, and
   note it caps at a quarter of your remaining budget by design.
   Behind it, read his `[demand]` bracket: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
   That is what these managers have actually paid for *him*. The room's median/p75 from

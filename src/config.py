@@ -386,6 +386,9 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "league_id": "1493260",
         "scoring_format": "half_ppr",
         "roster": "espn_la_liga",
+        # $100 budget, median winning bid $8: a historyless player should be
+        # bid AT the median, not a fifth of it (16 bids, wk1-7 2026).
+        "bid_floor_divisor": 1,
         "teams": 12,
         "my_pick": 10,  # revealed 2026-08-31 ~18:40 after the pre-draft randomization
         "my_team_id": 1,  # ESPN teamId ("The Oracle")
@@ -423,6 +426,14 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
         "my_pick": None,
         "owned": False,
     },
+    # ``bid_floor_divisor``: the no-rival branch bids room_median // this.
+    # MEASURED per room by scripts/backtest_bid_model.py, because one room
+    # cannot tune it for all of them -- La Liga's $100 budget and $8 median
+    # winning bid want // 1 (median err $4 vs $6 at the old // 5), while
+    # Mantis's $1000 budget and $50 median want a flatter curve around // 3-5
+    # ($6 vs $7, inside the noise at n=51, so it keeps the default). Re-run
+    # the sweep when a room's spending habits change.
+    #
     # Dynasty superflex, TE premium (+1/rec), 6-pt pass TD, 0.5 first downs.
     # Roster shape and scoring are read live from the Sleeper league by
     # scripts/set_lineups.py; ``my_user`` is the Sleeper display name.
