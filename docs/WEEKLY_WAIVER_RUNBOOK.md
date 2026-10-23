@@ -134,6 +134,11 @@ whose **median prior-week score was 4.7 — identical to the players who went
 for under $100**. They were not breakout chases; they were speculative buys.
 A classifier on a big recent game reaches 13% precision at best.
 
+Replicated in a second league: Mahomo's gives the same correlation (-0.02,
+n=15), and its priciest adds also scored *less* the prior week than the cheap
+ones (7.4 vs 9.5). Two independent rooms, same answer — the tail is not a
+measurement problem we can solve with the data in this repo.
+
 Nothing we record predicts a $450 bid, because it depends on how badly one
 manager wants one player. The report surfaces the room's historical max as
 context ("but this room has gone as high as $450") and leaves the override to
