@@ -19,6 +19,7 @@ platform joins through it).
 
 from __future__ import annotations
 
+import datetime
 import json
 import logging
 import time
@@ -45,6 +46,47 @@ TX_COLS = ["week", "type", "team", "is_me", "add", "drop", "bid"]
 # ---------------------------------------------------------------------------
 # Dynasty values
 # ---------------------------------------------------------------------------
+
+
+def _archive_values(
+    rows: Sequence[Mapping[str, Any]], cache: Path, cache_dir: Path
+) -> None:
+    """Keep one compact weekly snapshot, so value CHANGE becomes measurable.
+
+    FantasyCalc serves only ``/values/current`` and the live cache is
+    overwritten daily, so a dynasty rule like "never drop a young player with
+    a role path" has had no outcome to be tested against. The right measure is
+    the player's market value months later, not his points over the next three
+    weeks -- testing it on points is the wrong mechanism, and on week-6 2026
+    data it produced a sign that flipped across adjacent age cutoffs, which is
+    noise, not a finding.
+
+    Four fields per player instead of the full payload (351 KB -> ~25 KB) and
+    one file per ISO week, not per day: dynasty values do not move meaningfully
+    overnight, and the rule is about months. Failure is ignored -- an archive
+    must never break a league-context read.
+    """
+    try:
+        history = cache_dir / "history"
+        history.mkdir(parents=True, exist_ok=True)
+        year, week, _ = datetime.date.today().isocalendar()
+        dated = history / f"{cache.stem}_{year}-W{week:02d}.json"
+        if dated.exists():
+            return
+        slim = [
+            {
+                "sleeper_id": str(p.get("sleeperId") or ""),
+                "value": r.get("value"),
+                "age": p.get("maybeAge"),
+                "position": p.get("position"),
+            }
+            for r in rows
+            for p in [r.get("player") or {}]
+            if p.get("sleeperId")
+        ]
+        dated.write_text(json.dumps(slim), encoding="utf-8")
+    except OSError as exc:  # noqa: BLE001 — never block the caller
+        logger.debug("FantasyCalc archive skipped (%s)", exc)
 
 
 def parse_fantasycalc(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Dict[str, Any]]:
@@ -86,6 +128,7 @@ def fetch_dynasty_values(
         rows = resp.json()
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_text(json.dumps(rows), encoding="utf-8")
+        _archive_values(rows, cache, cache_dir)
         return parse_fantasycalc(rows)
     except (requests.RequestException, ValueError) as exc:
         if cache.exists():

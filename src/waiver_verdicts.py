@@ -141,6 +141,15 @@ def verdict(
 #: that keeps players, not the weakest name on the bench. Mirrors the
 #: ``young-drop`` invariant in src/waiver_sanity.py -- the gate flags one of
 #: these, but it should not have to, so the list stops offering them.
+#:
+#: **Unvalidated by design.** Unlike the bid model (median error $7 against 51
+#: real bids) and the RENTAL tag (-10.5pp snap share), this cutoff is George's
+#: instruction, not a measurement. The obvious test -- points after the drop --
+#: is the WRONG mechanism for a dynasty rule and on week-6 2026 data gave a sign
+#: that flipped across adjacent cutoffs. The right one, market value months
+#: later, needs value history that only began accumulating 2026-10-23.
+#: ``scripts/validate_young_drop.py`` states exactly that, and becomes
+#: conclusive once ~8 weekly snapshots exist.
 YOUNG_AGE = 24
 RISING_ADDS = 5_000
 

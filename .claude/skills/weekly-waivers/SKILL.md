@@ -103,6 +103,11 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
   **no longer offers one** in Mantis or Feetball (`drop_order(keeps_players=True)`), and
   `young-drop` stays as the backstop if anything routes around it. A young player nobody
   is adding stays droppable, or this would protect every rookie forever.
+- **Which rules are measured, and which are preferences.** Measured: the bid model (median
+  error $7 vs 51 real bids), the RENTAL tag (-10.5pp snap share, n=46/34). A *preference*:
+  `young-drop`'s <=24 cutoff — `scripts/validate_young_drop.py` shows the obvious test is the
+  wrong mechanism for a dynasty rule, and the right one needs value history that only started
+  on 2026-10-23. Don't present it as evidence-backed, and don't "refute" it with a points sweep.
 - A role the week's news says is **ENDING is priced at $1 by `suggest_bid` itself**, above
   every other pricing rule — you are not buying the usage you are looking at. `ending-role`
   remains the backstop. (Live week 7: George Holani was bid $4 behind

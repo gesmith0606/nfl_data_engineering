@@ -324,6 +324,17 @@ data/gold/*
 !data/bronze/sentiment/
 !data/bronze/sentiment/**
 !data/bronze/sentiment/**/*.json
+# Dynasty value history: one compact snapshot per ISO week (~28 KB, 1.5 MB/yr).
+# FantasyCalc serves only /values/current, so value CHANGE is only measurable
+# if these accumulate -- and per TD-08/09/10 an un-allowlisted data path exists
+# on one laptop and nowhere else, which is the same as not collecting it.
+# Directories must be re-included too -- git does not descend into an
+# ignored dir, so the rule below would never match. The live cache
+# (fantasycalc/values_*.json, 351 KB, rewritten daily) stays ignored
+# because only the history glob re-includes .json files.
+!data/external/fantasycalc/
+!data/external/fantasycalc/history/
+!data/external/fantasycalc/history/**/*.json
 # Player rosters: commit Bronze parquet so PlayerNameResolver works on the
 # GHA runner during daily-sentiment.yml (v7.1 fix for Phase 69 blocker).
 # Railway Dockerfile already bundles these; this adds them to git too.
