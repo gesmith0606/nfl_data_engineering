@@ -1,0 +1,450 @@
+{
+  "fetch_run_id": "669b522b-fb51-4b73-8a1e-ff83a8d3473a",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-10-23T12:54:09.704879+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 28,
+  "items": [
+    {
+      "external_id": "US-EN-50254157",
+      "url": "https://www.espn.com/nfl/story/_/id/50254157/bears-patriots-thursday-night-football-luther-burden",
+      "title": "Caleb Williams, Bears find just enough to hold off Pats",
+      "body_text": "The Bears never trailed, but they never seemed comfortable with the lead.",
+      "author": "Courtney Cronin and Mike Reiss",
+      "published_at": "2026-10-23T13:24:29+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Caleb Williams",
+        "Pats The"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "US-EN-50256507",
+      "url": "https://www.espn.com/nfl/story/_/id/50256507/steelers-rodgers-backs-nfl-paris-game-recent-unrest",
+      "title": "Steelers' Rodgers backs NFL on holding Paris game despite recent unrest",
+      "body_text": "Steelers quarterback Aaron Rodgers on Friday expressed confidence in the NFL to make security decisions around staging a game in Paris amid recent civil unrest in the city.",
+      "author": null,
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-50256842",
+      "url": "https://www.espn.com/nfl/story/_/id/50256842/sources-jaguars-lt-anton-harrison-season-torn-acl",
+      "title": "Sources: Jags LT Harrison out for season after surgery reveals torn ACL",
+      "body_text": "Jaguars left tackle Anton Harrison will miss the rest of the season because of a torn ACL in his right knee, league sources told NFL Network's Ian Rapoport.",
+      "author": "Michael Dirocco",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Anton Harrison",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0038934"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "US-EN-50253673",
+      "url": "https://www.espn.com/nfl/story/_/id/50253673/marshall-faulk-hall-famer-southern-coach-parkinsons",
+      "title": "Faulk, Hall of Famer and Southern coach, reveals Parkinson's diagnosis",
+      "body_text": "Marshall Faulk said that in discussing his illness in a podcast appearance Wednesday, \"I want to help as many people as I can.\"",
+      "author": "Alex Scarborough",
+      "published_at": "2026-10-23T13:39:18+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Marshall Faulk"
+      ],
+      "resolved_player_ids": [
+        "00-0005092"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50255748",
+      "url": "https://www.espn.com/nfl/story/_/id/50255748/chicago-bears-cairo-santos-58-yard-field-goal-patriots",
+      "title": "Bears' Santos redeems 'annoying' miss with game-sealing FG vs. Pats",
+      "body_text": "Bears kicker Cairo Santos walked away from Thursday's win over the Patriots a savior despite being haunted by a fourth-quarter miss.",
+      "author": "Courtney Cronin",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Pats Bears",
+        "Cairo Santos"
+      ],
+      "resolved_player_ids": [
+        "00-0031203"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-50252129",
+      "url": "https://www.espn.com/nfl/story/_/id/50252129/ravens-humphrey-calls-slander-qb-lamar-jackson",
+      "title": "Ravens CB Humphrey displeased with 'slander' against QB Jackson",
+      "body_text": "Ravens cornerback Marlon Humphrey voiced his displeasure over what he called \"slander\" against quarterback Lamar Jackson.",
+      "author": "Jamison Hensley",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jackson Ravens",
+        "Marlon Humphrey",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0033281",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "US-EN-50252035",
+      "url": "https://www.espn.com/nfl/story/_/id/50252035/barring-setbacks-mayfield-expects-start-buccaneers",
+      "title": "Barring setbacks, Bucs QB Mayfield expected to start vs. Panthers",
+      "body_text": "Baker Mayfield expects to return from a thumb injury, barring any setbacks, and play when the Buccaneers face the Panthers on Sunday.",
+      "author": "Jenna Laine",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Panthers Baker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "US-EN-50252934",
+      "url": "https://www.espn.com/nfl/story/_/id/50252934/rams-wr-puka-nacua-leaves-practice-calf-injury",
+      "title": "Rams WR Puka Nacua suffers calf injury, leaves practice",
+      "body_text": "Los Angeles Rams wide receiver Puka Nacua left Thursday's practice with a calf injury, a team spokesperson said.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Puka Nacua",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-50254858",
+      "url": "https://www.espn.com/nfl/story/_/id/50254858/bears-te-cole-kmet-exits-late-vs-patriots-knee-injury",
+      "title": "Kmet injures knee, carted off late in Bears' win",
+      "body_text": "Bears tight end Cole Kmet exited Thursday night's game against the Patriots on a cart after injuring his right knee in the fourth quarter.",
+      "author": "Courtney Cronin",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Cole Kmet"
+      ],
+      "resolved_player_ids": [
+        "00-0036290"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "US-EN-50253588",
+      "url": "https://www.espn.com/nfl/story/_/id/50253588/chicago-bears-mike-ditka-tribute-game",
+      "title": "🐻 Bears pay homage to Mike Ditka",
+      "body_text": "The Bears played their first home game Thursday since Mike Ditka's death Oct. 9.",
+      "author": "Courtney Cronin",
+      "published_at": "2026-10-23T12:46:58+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Mike Ditka",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "US-EN-50229521",
+      "url": "https://www.espn.com/nfl/story/_/id/50229521/week-7-picks-predictions-schedule-fantasy-odds-2026",
+      "title": "Our guide to every NFL Week 7 game: Matchup previews, predictions, picks and nuggets",
+      "body_text": "Cowboys at Eagles? Bengals at Ravens? The Steelers and Saints in Paris? There are 13 more games in Week 7, and we have picks, predictions and more for all of them.",
+      "author": "NFL Nation, Pamela Maldonado, Eric Moody and Seth Walder",
+      "published_at": "2026-10-23T13:02:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-50250196",
+      "url": "https://www.espn.com/nfl/story/_/id/50250196/quarterback-bo-nix-struggles-broncos-long-term-questions",
+      "title": "What's wrong with Bo Nix? Looking at the Broncos QB's struggles",
+      "body_text": "The Broncos are winning, but Nix is dealing with the roughest stretch of his career.",
+      "author": "Jeff Legwold",
+      "published_at": "2026-10-23T13:02:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "US-EN-50233140",
+      "url": "https://www.espn.com/nfl/story/_/id/50233140/seattle-seahawks-kansas-city-chiefs-kenneth-walker",
+      "title": "'Bro, he's different': Why Seattle let Kenneth Walker III leave, and Kansas City couldn't be happier",
+      "body_text": "While the Seahawks' run game is struggling, the Super Bowl MVP is on a historic pace for the Chiefs this season.",
+      "author": "Nate Taylor and Brady Henderson",
+      "published_at": "2026-10-23T13:11:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Seattle",
+        "Kenneth Walker III",
+        "Kansas City",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "US-EN-50249407",
+      "url": "https://www.espn.com/nfl/story/_/id/50249407/marvin-harrison-jr-cardinals-texans",
+      "title": "Inside Marvin Harrison Jr.s' exit from the Cardinals",
+      "body_text": "Harrison never reached his potential in Arizona, but all sides are hoping for a fresh start moving forward.",
+      "author": "Josh Weinfuss",
+      "published_at": "2026-10-23T13:11:31+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Inside Marvin",
+        "Cardinals Harrison"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "US-EN-50250199",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/50250199/fantasy-football-start-sit-decisions-week-7",
+      "title": "One WR to trade for and one to trade away: Fantasy NFL notes for Week 7",
+      "body_text": "Faced with some tough start/sit decisions ahead of Week 7? Adam Rank has you covered at every position.",
+      "author": "Adam Rank",
+      "published_at": "2026-10-23T13:50:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Adam Rank"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50249570",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/50249570/fantasy-football-start-sit-sleepers-breakouts-week-7",
+      "title": "Aaron Rodgers a top-12 QB? Cam Skattebo bounces back? Don't be surprised!",
+      "body_text": "Don't be surprised if Aaron Rodgers' strong play continues and Cam Skattebo bounces back in Week 7.",
+      "author": "Eric Karabell",
+      "published_at": "2026-10-23T13:50:41+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50238049",
+      "url": "https://www.espn.com/nfl/story/_/id/50238049/trade-deadline-2026-barnwell-offers-pitches-barkley-thomas",
+      "title": "Barnwell pitches 11 pre-deadline NFL trades: Which teams should deal for Barkley, BTJ and Mack?",
+      "body_text": "Saquon Barkley joining a contender? Brian Thomas Jr. headed out west? Khalil Mack and Donte Jackson boosting a defense? Let's build 11 win-win trades.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-10-22T16:12:46+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Brian Thomas Jr",
+        "Khalil Mack",
+        "Donte Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0039893",
+        "00-0031040",
+        "00-0034356"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50240486",
+      "url": "https://www.espn.com/nfl/story/_/id/50240486/nfl-week-7-uniforms",
+      "title": "NFL Week 7 uniforms: Texans' battle red, Lions' all-black top alternate heavy slate",
+      "body_text": "Here's a look at what each NFL team is wearing in Week 7, led by alternate looks from Houston, Detroit and Dallas.",
+      "author": "Anthony Gharib",
+      "published_at": "2026-10-23T02:07:32+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "US-EN-50229467",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/50229467/2027-nfl-mock-draft-yates-top-10-picks-predictions-qbs",
+      "title": "Projecting the top 10 picks of next year's NFL draft: Why Yates has three quarterbacks going early",
+      "body_text": "We're two months into the college football season, and Field Yates is projecting which prospects could go in the top 10 picks of the 2027 NFL draft -- including three QBs.",
+      "author": "Field Yates",
+      "published_at": "2026-10-21T23:13:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Why Yates",
+        "Field Yates"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49881131",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/49881131/2027-nfl-draft-risers-questions-college-football-prospects",
+      "title": "Draft risers, notes off Saturday's games: Will measurables matter for Chambliss?",
+      "body_text": "Which Tennessee defender is emerging among the DT group? Here's draft spin off CFB Week 7.",
+      "author": "Mel Kiper Jr. and Jordan Reid",
+      "published_at": "2026-10-21T23:13:17+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Which Tennessee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50218886",
+      "url": "https://www.espn.com/nfl/story/_/id/50218886/nfl-power-rankings-week-7-teams-biggest-issue-offense",
+      "title": "Our weekly NFL Power Rankings: 1-32 poll, plus the biggest offensive issue for each team",
+      "body_text": "How does every NFL team stack up heading into Week 7? We made our 1-32 list and picked the biggest offensive problem for every team.",
+      "author": "NFL Nation",
+      "published_at": "2026-10-22T18:42:18+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50211303",
+      "url": "https://www.espn.com/nfl/story/_/id/50211303/week-6-los-angeles-rams-disappointment-superteam-barnwell",
+      "title": "From superteam to 2-4 disappointment? Barnwell on what has gone wrong for the Rams",
+      "body_text": "The Rams have fallen way short of high expectations. Where were we all so wrong, and will they improve?",
+      "author": "Bill Barnwell",
+      "published_at": "2026-10-22T18:42:18+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Rams The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "US-EN-50225836",
+      "url": "https://www.espn.com/soccer/story/_/id/50225836/the-best-soccer-nfl-crossover-jerseys-psg-kit-pittsburgh-steelers-new-orleans-saints-paris-game",
+      "title": "The best soccer/NFL crossover jerseys as PSG unveil kit for Steelers vs. Saints in Paris",
+      "body_text": "If you've ever wondered what reigning Champions League holders PSG might look like should they suddenly relaunch as an NFL franchise, this is it.",
+      "author": "Chris Wright",
+      "published_at": "2026-10-21T15:51:22+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Champions League"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "US-EN-50189530",
+      "url": "https://www.espn.com/nfl/story/_/id/50189530/san-francisco-49ers-brock-purdy-layering-football",
+      "title": "The 'Layer King': How 49ers QB Brock Purdy mastered one of the hardest throws in football",
+      "body_text": "Purdy is terrific at layering the football -- fitting it perfectly between the second and third levels of the defense. And it's a big reason why he's playing at an MVP level this season.",
+      "author": "Nick Wagoner",
+      "published_at": "2026-10-19T19:09:56+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Layer King",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "US-EN-49745176",
+      "url": "https://www.espn.com/nfl/story/_/id/49745176/2026-nfl-playoff-predictions-afc-nfc-odds-super-bowl",
+      "title": "NFL playoff picture: Updated projections, chances to make the postseason",
+      "body_text": "We're looking ahead to how the 14-team playoff picture could line up -- and who will win divisions -- en route to the Super Bowl.",
+      "author": "ESPN staff",
+      "published_at": "2026-10-21T23:47:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49794361",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/49794361/2027-nfl-draft-order-projections-first-round-picks",
+      "title": "Projecting the 2027 NFL draft order: Which teams could have an early pick?",
+      "body_text": "ESPN's Football Power Index projects the 2027 NFL draft order for Round 1, complete with each team's chances to pick in the top five, in the top 10 and at No. 1.",
+      "author": "ESPN staff",
+      "published_at": "2026-10-21T23:47:06+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Football Power"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50179319",
+      "url": "https://www.espn.com/espn/betting/story/_/id/50179319/nfl-week-7-betting-odds-props-early-picks-predictions",
+      "title": "Early bets for Week 7: Three games to target right away",
+      "body_text": "Which Week 7 lines offered immediate value once odds came out? Here are three early bets we like.",
+      "author": "ESPN",
+      "published_at": "2026-10-19T16:48:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Which Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49466506",
+      "url": "https://www.espn.com/espn/betting/story/_/id/49466506/nfl-betting-buzz-odds-updates-line-moves-spreads",
+      "title": "Betting buzz: Rams' loss to Cardinals sends shockwaves through survivor pools",
+      "body_text": "On the fourth Sunday of every October since 2018, bettors and books alike celebrate National Tight Ends Day.",
+      "author": "ESPN",
+      "published_at": "2026-10-19T16:48:04+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "National Tight",
+        "Ends Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    }
+  ]
+}
