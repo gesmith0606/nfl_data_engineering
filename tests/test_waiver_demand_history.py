@@ -44,9 +44,10 @@ def test_collects_adds_and_drops_in_leg_order(monkeypatch):
         monkeypatch, {3: [_tx(adds={"13425": 1}, bid=1)], 4: [_tx(drops={"13425": 1})]}
     )
     moves = league_player_moves("123", 7)
+    # Each move carries the roster that made it, so "we cut him" is knowable.
     assert moves["13425"] == [
-        {"leg": 3, "bid": 1, "kind": "add"},
-        {"leg": 4, "bid": None, "kind": "drop"},
+        {"leg": 3, "bid": 1, "kind": "add", "by": "1"},
+        {"leg": 4, "bid": None, "kind": "drop", "by": "1"},
     ]
 
 

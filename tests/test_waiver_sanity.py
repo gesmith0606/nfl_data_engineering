@@ -154,3 +154,48 @@ def test_findings_are_ordered_most_severe_first():
     f = check_report(_report(rows, header=header), bye_teams=["BUF"])
     assert f[0].level == CRITICAL
     assert f[-1].level == WARN
+
+
+# --- rules the skill states that nothing used to enforce ---------------------
+
+
+def test_paying_to_re_buy_a_player_we_cut_is_critical():
+    """Week 7 2026 the model wanted $55 for Drew Lock, whom we cut for $55."""
+    rows = [_row("Drew Lock", "QB", "SEA", "no help BID $55 [cut wk4 by US (was $55)]")]
+    f = check_report(_report(rows), dynasty=True)
+    assert any(x.check == "re-buy" and x.level == CRITICAL for x in f)
+
+
+def test_a_minimum_bid_on_a_player_we_cut_is_allowed():
+    rows = [_row("Drew Lock", "QB", "SEA", "no help BID $1 [cut wk4 by US (was $55)]")]
+    assert not any(
+        x.check == "re-buy" for x in check_report(_report(rows), dynasty=True)
+    )
+
+
+def test_someone_else_cutting_him_is_not_a_re_buy():
+    rows = [_row("A Player", "QB", "SEA", "no help BID $9 [cut wk4 (was $55)]")]
+    assert not any(
+        x.check == "re-buy" for x in check_report(_report(rows), dynasty=True)
+    )
+
+
+def test_paying_for_a_no_help_player_is_critical_in_a_redraft_league():
+    rows = [_row("Hot Guy", "WR", "NO", "no help BID $12 [unclaimed]")]
+    f = check_report(_report(rows), dynasty=False)
+    assert any(x.check == "no-help-priced" and x.level == CRITICAL for x in f)
+
+
+def test_no_help_is_advisory_in_dynasty():
+    """Jalon Daniels read 'no help' and was the correct Mantis add."""
+    rows = [_row("Jalon Daniels", "QB", "TB", "no help BID $12 [unclaimed]")]
+    assert not any(
+        x.check == "no-help-priced" for x in check_report(_report(rows), dynasty=True)
+    )
+
+
+def test_a_starter_verdict_is_never_a_no_help_violation():
+    rows = [_row("Real Add", "RB", "NO", "STARTS BID $20 [unclaimed]")]
+    assert not any(
+        x.check == "no-help-priced" for x in check_report(_report(rows), dynasty=False)
+    )

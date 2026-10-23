@@ -160,3 +160,34 @@ def test_room_max_never_changes_the_number():
         None, [10], room_median=12, my_faab=1000, current_leg=7, room_max=450
     )
     assert plain == noted
+
+
+def test_a_player_we_cut_is_re_bought_at_the_minimum_only():
+    """Week 7 2026: the model wanted $55 for Drew Lock, whom we cut for $55."""
+    moves = [
+        {"leg": 1, "bid": 55, "kind": "add", "by": "6"},
+        {"leg": 4, "bid": None, "kind": "drop", "by": "6"},
+    ]
+    bid, why = suggest_bid(
+        moves, [40], room_median=23, my_faab=1000, current_leg=7, my_roster_id="6"
+    )
+    assert bid == 1
+    assert "WE cut him" in why
+
+
+def test_another_team_cutting_him_does_not_trigger_the_rule():
+    moves = [
+        {"leg": 1, "bid": 55, "kind": "add", "by": "9"},
+        {"leg": 4, "bid": None, "kind": "drop", "by": "9"},
+    ]
+    bid, why = suggest_bid(
+        moves, [], room_median=23, my_faab=1000, current_leg=7, my_roster_id="6"
+    )
+    assert "WE cut him" not in why
+    assert bid == 55
+
+
+def test_without_a_roster_id_the_rule_cannot_fire():
+    moves = [{"leg": 4, "bid": 55, "kind": "drop", "by": "6"}]
+    _bid, why = suggest_bid(moves, [], room_median=23, my_faab=1000, current_leg=7)
+    assert "WE cut him" not in why
