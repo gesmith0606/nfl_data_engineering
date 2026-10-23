@@ -31,7 +31,7 @@ import time
 import importlib.util
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Optional, Set, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple
 
 import pandas as pd
 
@@ -152,7 +152,31 @@ def roster_ids_from_file(path: Path, by_name: Dict[Any, str]) -> Set[str]:
 PlayerMoves = Dict[str, List[Dict[str, Any]]]
 
 
-def league_player_moves(league_id: str, through_leg: int) -> PlayerMoves:
+def fetch_league_transactions(league_id: str, through_leg: int) -> List[Dict[str, Any]]:
+    """Every completed transaction in the league, legs 1..``through_leg``.
+
+    Legs that fail to load are skipped: a thin history still prices most
+    claims, and a waiver report that dies on one bad HTTP call is useless.
+    """
+    rows: List[Dict[str, Any]] = []
+    for leg in range(1, max(1, through_leg) + 1):
+        try:
+            got = sleeper_http.fetch_sleeper_json(
+                f"https://api.sleeper.app/v1/league/{league_id}/transactions/{leg}"
+            )
+        except Exception:  # noqa: BLE001 — a missing leg is not a failure
+            continue
+        for t in got or []:
+            if isinstance(t, dict) and t.get("status") == "complete":
+                t = dict(t)
+                t["_leg"] = leg
+                rows.append(t)
+    return rows
+
+
+def league_player_moves(
+    league_id: str, through_leg: int, rows: Optional[List[Dict[str, Any]]] = None
+) -> PlayerMoves:
     """What this league has already paid for each player, from its own log.
 
     A room's median winning bid is the price of a *contested* player. Pricing
@@ -164,31 +188,52 @@ def league_player_moves(league_id: str, through_leg: int) -> PlayerMoves:
     Args:
         league_id: Numeric Sleeper league id.
         through_leg: Highest leg (week) to read, inclusive.
+        rows: Pre-fetched transactions, to avoid a second walk.
 
     Returns:
         ``sleeper_player_id -> [{"leg", "bid", "kind"}]`` oldest first, where
-        ``kind`` is ``"add"`` or ``"drop"``. Legs that fail to load are
-        skipped: a thin history is better than no report.
+        ``kind`` is ``"add"`` or ``"drop"``.
     """
+    if rows is None:
+        rows = fetch_league_transactions(league_id, through_leg)
     out: PlayerMoves = {}
-    for leg in range(1, max(1, through_leg) + 1):
-        try:
-            rows = sleeper_http.fetch_sleeper_json(
-                f"https://api.sleeper.app/v1/league/{league_id}/transactions/{leg}"
-            )
-        except Exception:  # noqa: BLE001 — a missing leg is not a failure
-            continue
-        for t in rows or []:
-            if not isinstance(t, dict) or t.get("status") != "complete":
-                continue
-            bid = (t.get("settings") or {}).get("waiver_bid")
-            for kind in ("add", "drop"):
-                for pid in (t.get(f"{kind}s") or {}) or {}:
-                    out.setdefault(str(pid), []).append(
-                        {"leg": leg, "bid": bid, "kind": kind}
-                    )
+    for t in rows:
+        bid = (t.get("settings") or {}).get("waiver_bid")
+        leg = int(t.get("_leg") or 0)
+        for kind in ("add", "drop"):
+            for pid in (t.get(f"{kind}s") or {}) or {}:
+                out.setdefault(str(pid), []).append(
+                    {"leg": leg, "bid": bid, "kind": kind}
+                )
     for moves in out.values():
         moves.sort(key=lambda m: m["leg"])
+    return out
+
+
+def team_bid_stats(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    """``roster_id -> {n, median, max}`` of that team's winning bids.
+
+    Remaining budget is not willingness to spend. In La Liga through week 7
+    2026 the three teams with the fullest budgets had spent $0, $0 and $1 all
+    season — treating them as threats is what turned a $10 claim into a $22
+    one. A rival's own bid history is the better read.
+    """
+    by_team: Dict[str, List[int]] = {}
+    for t in rows:
+        bid = (t.get("settings") or {}).get("waiver_bid")
+        if not bid:
+            continue
+        for rid in t.get("roster_ids") or []:
+            if (t.get("adds") or {}) and rid in set((t.get("adds") or {}).values()):
+                by_team.setdefault(str(rid), []).append(int(bid))
+    out: Dict[str, Dict[str, Any]] = {}
+    for rid, bids in by_team.items():
+        bids.sort()
+        out[rid] = {
+            "n": len(bids),
+            "median": bids[len(bids) // 2],
+            "max": bids[-1],
+        }
     return out
 
 
@@ -285,6 +330,108 @@ def moves_from_tx(tx: "pd.DataFrame", by_name: Mapping[Any, str]) -> PlayerMoves
     for moves in out.values():
         moves.sort(key=lambda m: m["leg"])
     return out
+
+
+def starters_required(roster_positions: Sequence[str]) -> Dict[str, int]:
+    """Dedicated starting slots per skill position (FLEX slots excluded).
+
+    A team with exactly its required starters at a position is thin there:
+    one injury and it is in the market. Surplus is what makes a team a
+    non-bidder.
+    """
+    need: Dict[str, int] = {p: 0 for p in SKILL_POSITIONS}
+    for slot in roster_positions:
+        if slot in need:
+            need[slot] += 1
+    return need
+
+
+def thin_at(
+    roster: Mapping[str, Any],
+    registry: Mapping[str, Any],
+    position: str,
+    required: int,
+) -> bool:
+    """Does this team lack a usable surplus at ``position``?
+
+    Counts rostered players at the position who are not on IR/taxi and not
+    carrying a blocking injury status.
+    """
+    reserve = {str(p) for p in (roster.get("reserve") or [])}
+    taxi = {str(p) for p in (roster.get("taxi") or [])}
+    healthy = 0
+    for pid in roster.get("players") or []:
+        sid = str(pid)
+        if sid in reserve or sid in taxi:
+            continue
+        meta = registry.get(sid) or {}
+        if meta.get("position") != position:
+            continue
+        if str(meta.get("injury_status") or "").upper() in BLOCKING_STATUSES:
+            continue
+        healthy += 1
+    return healthy <= required
+
+
+def suggest_bid(
+    moves: Optional[List[Dict[str, Any]]],
+    rival_bids: Sequence[int],
+    room_median: int,
+    my_faab: int,
+    current_leg: int,
+) -> Tuple[int, str]:
+    """A number to bid, and the one sentence that justifies it.
+
+    Three inputs in priority order, which is the order three bids were got
+    wrong in one session:
+
+    1. **What this room paid for HIM.** A player it bought for $1 and cut is
+       worth $1 (Jalon Daniels, bid $8, won at $1).
+    2. **Who can actually outbid you** — rivals thin at his position who have
+       both money and a history of spending it. Remaining budget alone is not
+       willingness: La Liga's three fullest budgets had spent $0, $0 and $1
+       (Omar Cooper, bid $22, needed $10).
+    3. **The room's median**, only as the floor-setter when he has no history.
+
+    Args:
+        moves: This player's history from :func:`league_player_moves`.
+        rival_bids: Median winning bid of each credible rival (thin at the
+            position, with budget and a bidding record).
+        room_median: The league's median winning bid.
+        my_faab: My remaining budget.
+        current_leg: The week being priced.
+
+    Returns:
+        ``(bid, reason)``. Never above a quarter of ``my_faab``.
+    """
+    cap = max(1, my_faab // 4)
+    cut_and_free = 0
+    if moves and moves[-1]["kind"] == "drop":
+        cut_and_free = max(0, current_leg - moves[-1]["leg"])
+    last_paid = next(
+        (m["bid"] for m in reversed(moves or []) if m["kind"] == "add" and m["bid"]),
+        None,
+    )
+
+    if not rival_bids:
+        if cut_and_free >= 1:
+            bid = max(1, int(last_paid or 1))
+            return min(bid, cap), (
+                f"this room cut him {cut_and_free}wk ago"
+                f"{f' after paying ${last_paid}' if last_paid else ''}"
+                " and nobody who needs the spot can outbid you"
+            )
+        return min(max(1, room_median // 3), cap), (
+            "no rival is both thin here and able to spend"
+        )
+
+    top = max(rival_bids)
+    beat = top + max(1, top // 5)
+    if cut_and_free >= 2 and last_paid and beat > last_paid * 3:
+        beat = max(last_paid * 2, room_median)
+    return min(max(1, int(beat)), cap), (
+        f"{len(rival_bids)} rival(s) thin here; their top median bid is ${top}"
+    )
 
 
 def demand_note(moves: Optional[List[Dict[str, Any]]], current_leg: int) -> str:
@@ -547,7 +694,8 @@ def main(argv: Optional[list] = None) -> int:
         if not league:
             sys.exit("Sleeper league unavailable")
         username = args.user or preset.get("my_user") or "georgesmith"
-        for r in sleeper_http.get_league_rosters(str(preset["league_id"])):
+        all_rosters = sleeper_http.get_league_rosters(str(preset["league_id"]))
+        for r in all_rosters:
             rostered.update(str(p) for p in (r.get("players") or []))
         my = set_lineups.find_my_roster(str(preset["league_id"]), username)
         mechanics = roster_mechanics(league, my, registry)
@@ -593,8 +741,40 @@ def main(argv: Optional[list] = None) -> int:
     # What this room has already paid for each player. Sleeper only: ESPN and
     # Yahoo transaction logs need the claims browser, which this report does
     # not open (league_context.py --espn-browser has them).
+    tx_rows: List[Dict[str, Any]] = []
+    bid_stats: Dict[str, Dict[str, Any]] = {}
+    rivals_by_pos: Dict[str, List[int]] = {}
+    room_median = 0
+    my_faab = 0
     if platform == "sleeper":
-        moves = league_player_moves(str(preset["league_id"]), week)
+        tx_rows = fetch_league_transactions(str(preset["league_id"]), week)
+        bid_stats = team_bid_stats(tx_rows)
+        moves = league_player_moves(str(preset["league_id"]), week, tx_rows)
+        my_rid = str(my.get("roster_id"))
+        budget_total = int((league.get("settings") or {}).get("waiver_budget") or 0)
+        my_faab = budget_total - int(
+            (my.get("settings") or {}).get("waiver_budget_used") or 0
+        )
+        need = starters_required(league.get("roster_positions") or [])
+        all_bids = sorted(
+            b for st in bid_stats.values() for b in [st["median"]] * st["n"]
+        )
+        room_median = all_bids[len(all_bids) // 2] if all_bids else 0
+        rivals_by_pos: Dict[str, List[int]] = {}
+        for r in all_rosters:
+            rid = str(r.get("roster_id"))
+            if rid == my_rid:
+                continue
+            st = bid_stats.get(rid)
+            left = budget_total - int(
+                (r.get("settings") or {}).get("waiver_budget_used") or 0
+            )
+            # Credible = thin at the spot, has money, and has shown he spends.
+            if not st or left < room_median:
+                continue
+            for pos in SKILL_POSITIONS:
+                if thin_at(r, registry, pos, need.get(pos, 0)):
+                    rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
         moves = espn_player_moves(
             str(preset["league_id"]),
@@ -673,6 +853,17 @@ def main(argv: Optional[list] = None) -> int:
             # What the room has paid for him before: price a claim off this,
             # not the league-wide median (see demand_note).
             "demand": demand_note(moves.get(sid), week) if moves else "",
+            "bid": (
+                suggest_bid(
+                    moves.get(sid),
+                    rivals_by_pos.get(pos, []),
+                    room_median,
+                    my_faab,
+                    week,
+                )
+                if moves and my_faab
+                else None
+            ),
             "blocked_by": [
                 f"{n}({news[bsid]})" if news.get(bsid) else n
                 for rank, n, bsid in blocked_map.get((str(meta.get("team")), pos), [])
@@ -705,6 +896,7 @@ def main(argv: Optional[list] = None) -> int:
             f" last{fmt(r['last'])} adds{r['adds'] / 1000:5.0f}k {fa:7}"
             + (f" dyn{r['dyn']:5d} age{r['age'] or '-':>3}" if dyn else "")
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
+            + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
             + (f" [{r['demand']}]" if r.get("demand") else "")
             + (
                 f" {'ENDING' if r.get('blocked_returning') else 'RENTAL'}"

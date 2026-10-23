@@ -96,8 +96,13 @@ for byes. A DEF-for-DEF swap costs no roster spot, so it is nearly free value.
   "Out" player unless `reserve_allow_out` is set — Mantis 2026 does not set it — and a
   bench player who *is* eligible frees an active slot for free. Both were got wrong on
   2026-10-20.
-- **Bids — price the player, not the room.** Read his `[demand]` bracket in the
-  waiver report FIRST: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
+- **Bids — use the report's `BID $N`.** It is computed from the three things that
+  actually set a price, in this order: what this room paid for HIM, which rivals are
+  thin at his position AND have both money and a bidding record, and only then the
+  room's median. Backtested on 51 real Mantis winning bids its median absolute error
+  is $6 against the median rule's $22. Deviate only with a reason you can state, and
+  note it caps at a quarter of your remaining budget by design.
+  Behind it, read his `[demand]` bracket: `unclaimed`, `held $N wkN`, or `cut wkN (was $N), free Nwk`.
   That is what these managers have actually paid for *him*. The room's median/p75 from
   Step 2 is the price of a CONTESTED player and is only the fallback when he has no
   history. On 2026-10-21 Jalon Daniels read `cut wk4 (was $1), free 3wk` after three
