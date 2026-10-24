@@ -349,7 +349,7 @@ ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
         # The 3 IR slots are unmodeled per the yahoo_default convention.
         "BN": 7,
     },
-    "sleeper_gentlemen": {
+    "sleeper_3flex_dst": {
         "QB": 1,
         "RB": 2,
         "WR": 2,
@@ -358,7 +358,7 @@ ROSTER_CONFIGS: Dict[str, Dict[str, int]] = {
         "DST": 1,  # no kicker slot in this league
         "BN": 10,  # 10 starters + 10 BN = 20 rounds
     },
-    "sleeper_mahomos": {
+    "sleeper_3flex": {
         "QB": 1,
         "RB": 2,
         "WR": 2,
@@ -406,26 +406,9 @@ LEAGUE_PRESETS: Dict[str, Dict[str, Any]] = {
     # NOT OURS. Both belong to the Sleeper account ``georgesmith``; George's
     # only Sleeper team is Mantis (``Gforceee``), confirmed 2026-10-23. They
     # are kept as shaped examples of 3-FLEX rosters for the draft tools, and
-    # ``owned: False`` makes every consumer say so out loud — a whole session's
-    # waiver advice was once produced for Mahomo's before anyone noticed.
-    "gentlemen": {
-        "platform": "sleeper",
-        "league_id": "1389709869531017216",
-        "scoring_format": "ppr",
-        "roster": "sleeper_gentlemen",
-        "teams": 12,
-        "my_pick": None,
-        "owned": False,
-    },
-    "mahomos": {
-        "platform": "sleeper",
-        "league_id": "1354274270989021184",
-        "scoring_format": "ppr",
-        "roster": "sleeper_mahomos",
-        "teams": 12,
-        "my_pick": None,
-        "owned": False,
-    },
+    # ``owned: False`` marks a league that is not George's. Kept as a flag
+    # because waiver advice was once produced for someone else's team before
+    # anyone noticed; every consumer says so out loud.
     # ``bid_floor_divisor``: the no-rival branch bids room_median // this.
     # MEASURED per room by scripts/backtest_bid_model.py, because one room
     # cannot tune it for all of them -- La Liga's $100 budget and $8 median

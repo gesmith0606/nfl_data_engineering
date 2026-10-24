@@ -29,7 +29,7 @@ from src import fantasy_browser as fb  # noqa: E402
 from src import waiver_claims as wc  # noqa: E402
 from src import waiver_sites as ws  # noqa: E402
 
-#: George's leagues (``gentlemen`` / ``mahomos`` presets are someone else's).
+#: George's leagues.
 MY_LEAGUES = ("mantis", "la_liga", "feetball")
 
 

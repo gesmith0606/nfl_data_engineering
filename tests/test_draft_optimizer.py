@@ -290,7 +290,7 @@ class TestReplacementRanksFor(unittest.TestCase):
     def test_no_kicker_league_omits_position(self):
         from draft_optimizer import replacement_ranks_for
 
-        ranks = replacement_ranks_for("sleeper_mahomos", n_teams=12)
+        ranks = replacement_ranks_for("sleeper_3flex", n_teams=12)
         self.assertNotIn("K", ranks)
         self.assertNotIn("DST", ranks)
         # 3 FLEX -> deep replacement levels.
@@ -300,7 +300,7 @@ class TestReplacementRanksFor(unittest.TestCase):
         df = _make_projections(60)
         legacy = compute_value_scores(df.copy())
         shaped = compute_value_scores(
-            df.copy(), roster_format="sleeper_mahomos", n_teams=12
+            df.copy(), roster_format="sleeper_3flex", n_teams=12
         )
         # Deeper replacement -> lower replacement points -> higher VORP for
         # the top player at flex-eligible positions.

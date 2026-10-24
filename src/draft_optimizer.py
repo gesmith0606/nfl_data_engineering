@@ -915,7 +915,7 @@ class DraftAdvisor:
             "WR": base["WR"] + flex_total + 2,
             # K/DST have no bench value in practice -- cap at exactly the
             # roster's slot count (0 when the league has none, e.g. K in
-            # sleeper_gentlemen/sleeper_mahomos; the elig filter above already
+            # sleeper_3flex/sleeper_3flex_dst; the elig filter above already
             # keeps those off the board, so this is belt-and-suspenders).
             "K": int(rc.get("K", 0)),
             "DST": int(rc.get("DST", 0)),

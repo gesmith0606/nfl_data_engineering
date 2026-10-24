@@ -26,7 +26,7 @@ from src.sleeper_player_map import normalize_name, load_sleeper_players  # noqa:
 _USAGE = (
     "usage: trade_scan.py <league>\n"
     "\n"
-    "  league is a LEAGUE_PRESETS key: mantis | la_liga | feetball | gentlemen\n"
+    "  league is a LEAGUE_PRESETS key: mantis | la_liga | feetball\n"
     "  Example: python scripts/trade_scan.py feetball\n"
 )
 if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):

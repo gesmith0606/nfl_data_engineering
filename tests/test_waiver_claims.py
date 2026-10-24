@@ -89,7 +89,7 @@ def test_load_claims_list_form_and_explicit_priority(tmp_path):
     "text, msg",
     [
         ("- {league: la_liga, add: X}\n", "'bid' is required"),
-        ("- {league: gentlemen, add: X, bid: 1}\n", "unknown league"),
+        ("- {league: not_a_league, add: X, bid: 1}\n", "unknown league"),
         ("- {league: la_liga, add: X, bid: true}\n", "whole number"),
         ("- {league: la_liga, add: X, bid: 2.5}\n", "whole number"),
         ("- {league: la_liga, add: X, bid: 1, pri: 2}\n", "unknown keys"),
