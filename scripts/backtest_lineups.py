@@ -191,6 +191,31 @@ def our_board(
     )
 
 
+def sleeper_board(
+    season: int, week: int, positions: Mapping[str, str], scoring: Mapping[str, float]
+) -> Dict[str, float]:
+    """``sleeper_id -> Sleeper's projected points`` for that week, under our scoring.
+
+    An independent second opinion, and the one that decides whether a swap we
+    called "variance" really was. If OUR board preferred the player we started
+    but Sleeper preferred the bench player, the loss was knowable after all and
+    our projection is the weak link. If both agreed, it was genuinely
+    unknowable and no optimizer recovers it.
+
+    Sleeper serves past weeks, so this works retrospectively.
+    """
+    from src.lineup_setter import score_sleeper_stats
+    from scripts import set_lineups
+
+    raw = set_lineups.load_sleeper_projections(season, week) or {}
+    out: Dict[str, float] = {}
+    for sid, stats in raw.items():
+        value = score_sleeper_stats(stats, dict(scoring), positions.get(str(sid), ""))
+        if value is not None:
+            out[str(sid)] = float(value)
+    return out
+
+
 def missed_swaps(
     roster: Mapping[str, Any],
     slots: Sequence[str],
@@ -319,7 +344,7 @@ def main(argv: Optional[list] = None) -> int:
     ours: List[float] = []
     theirs: List[float] = []
     per_week: List[Tuple[int, float, float]] = []
-    swaps: List[Tuple[int, str, str, float, Optional[bool]]] = []
+    swaps: List[Tuple[int, str, str, float, Optional[bool], Optional[bool]]] = []
     for week in range(1, through + 1):
         rosters = sleeper_http.fetch_sleeper_json(MATCHUPS.format(lid=lid, week=week))
         if not rosters:
@@ -336,7 +361,10 @@ def main(argv: Optional[list] = None) -> int:
                 board = our_board(
                     args.season, week, registry, scoring, gsis_map, full_names
                 )
+                slpr = sleeper_board(args.season, week, positions, scoring)
                 for started, benched, gain in missed_swaps(roster, slots, positions):
+                    # A swap we call variance is only variance if the SECOND
+                    # board agreed too; otherwise our projection lost it.
                     swaps.append(
                         (
                             week,
@@ -344,8 +372,10 @@ def main(argv: Optional[list] = None) -> int:
                             benched,
                             gain,
                             was_knowable(started, benched, board),
+                            was_knowable(started, benched, slpr),
                         )
                     )
+
             else:
                 theirs.append(regret)
 
@@ -372,7 +402,8 @@ def main(argv: Optional[list] = None) -> int:
 
     if swaps:
         knowable = [x for x in swaps if x[4] is True]
-        variance = [x for x in swaps if x[4] is False]
+        variance = [x for x in swaps if x[4] is False and x[5] is not True]
+        our_miss = [x for x in swaps if x[4] is False and x[5] is True]
         unknown = [x for x in swaps if x[4] is None]
         lost = sum(x[3] for x in swaps)
         print(
@@ -380,6 +411,7 @@ def main(argv: Optional[list] = None) -> int:
         )
         for label, group in (
             ("AVOIDABLE", knowable),
+            ("our proj", our_miss),
             ("variance", variance),
             ("no board", unknown),
         ):
@@ -390,7 +422,7 @@ def main(argv: Optional[list] = None) -> int:
             )
         if knowable:
             print("\n  the avoidable ones, worst first:")
-            for week, started, benched, gain, _k in sorted(
+            for week, started, benched, gain, _k, _s in sorted(
                 knowable, key=lambda x: -x[3]
             )[:5]:
                 print(
@@ -398,9 +430,11 @@ def main(argv: Optional[list] = None) -> int:
                     f"over {_name(registry, benched)[:20]:20} -{gain:5.1f}pt"
                 )
         print(
-            "\n  AVOIDABLE is the only share an optimizer can recover. A large\n"
-            "  'variance' share means the lineups were defensible and the points\n"
-            "  were simply unknowable."
+            "\n  AVOIDABLE = our own board already preferred the bench player.\n"
+            "  'our proj' = we did not, but SLEEPER did — our projection lost it,\n"
+            "  so the fix is the model, not the lineup process.\n"
+            "  'variance' = BOTH boards preferred who we started; genuinely\n"
+            "  unknowable, and no optimizer recovers it."
         )
 
     if per_week:

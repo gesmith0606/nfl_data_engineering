@@ -148,3 +148,27 @@ def test_knowability_is_what_separates_a_fixable_loss_from_variance():
     # than guessed at — reporting it as variance would flatter the process.
     assert bl.was_knowable("started", "benched", {"started": 5.0}) is None
     assert bl.was_knowable("started", "benched", {}) is None
+
+
+def test_a_second_board_decides_whether_variance_is_really_variance():
+    """Our board preferring the started player is not enough to call it noise.
+
+    If Sleeper's board preferred the BENCH player, the points were knowable
+    and our projection lost them — a model problem, not a lineup problem. All
+    7 week-1..6 cases turned out to be genuine variance (both boards agreed,
+    often widely: Loveland 18.7 vs Coleman 8.9), which is what rules out
+    "our projections are the weak link".
+    """
+    bl = _mod()
+    # Both boards preferred who we started -> genuine variance.
+    assert bl.was_knowable("a", "b", {"a": 18.7, "b": 8.9}) is False
+    # Sleeper disagreed -> our projection was the weak link, not the process.
+    assert bl.was_knowable("a", "b", {"a": 8.9, "b": 18.7}) is True
+    # The report must keep the three buckets distinct in its source.
+    body = (REPO / "scripts" / "backtest_lineups.py").read_text(encoding="utf-8")
+    assert '("our proj", our_miss)' in body
+    assert (
+        "x[4] is False and x[5] is True" in body
+    ), "our-proj = we missed, Sleeper didn't"
+    assert "x[4] is False and x[5] is not True" in body, "variance = both agreed"
+    assert "no optimizer recovers it" in body
