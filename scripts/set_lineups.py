@@ -28,7 +28,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, Mapping, Optional, Tuple
+from typing import Any, Dict, Mapping, Optional, Sequence, Tuple
 
 import pandas as pd
 
@@ -39,9 +39,11 @@ from src import config, sleeper_http  # noqa: E402
 from src.league_scoring import unmodeled_offense_keys  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     ET,
+    _SKIP_SLOTS,
     MIN_WEEKLY_ROWS,
     SKILL_POSITIONS,
     InjuryContext,
+    build_id_maps,
     build_rows,
     full_name_map,
     kickoffs_for_week,
@@ -55,7 +57,10 @@ from src.lineup_setter import (  # noqa: E402
     sleeper_to_gsis,
     weekly_gold_to_stats,
 )
-from src.sleeper_player_map import load_sleeper_players  # noqa: E402
+from src.sleeper_player_map import (  # noqa: E402
+    load_sleeper_players,
+    normalize_name,
+)
 
 GOLD = REPO_ROOT / "data" / "gold" / "projections"
 SCHEDULES = REPO_ROOT / "data" / "bronze" / "schedules"
@@ -325,6 +330,105 @@ def last_week_bench_loss(
         return f"\n  (last week's bench loss unavailable: {type(exc).__name__})"
 
 
+#: config.SCORING_CONFIGS keys -> the Sleeper scoring keys score_with_settings
+#: understands. Same map waiver_wire.scoring_for uses; duplicated rather than
+#: imported because importing one CLI from another drags its whole module in.
+_TO_SLEEPER_KEYS = {
+    "reception": "rec",
+    "rush_yd": "rush_yd",
+    "rec_yd": "rec_yd",
+    "rush_td": "rush_td",
+    "rec_td": "rec_td",
+    "pass_yd": "pass_yd",
+    "pass_td": "pass_td",
+    "interception": "pass_int",
+    "fumble_lost": "fum_lost",
+}
+
+#: ROSTER_CONFIGS uses DST where Sleeper uses DEF.
+_SHAPE_TO_SLEEPER_SLOT = {"DST": "DEF", "SFLEX": "SUPER_FLEX"}
+
+
+def slots_from_shape(preset: Mapping[str, Any]) -> list:
+    """A Sleeper-style flat slot list from a preset's ROSTER_CONFIGS shape.
+
+    Sleeper publishes ``roster_positions`` as one entry per slot; ESPN and
+    Yahoo do not publish it at all, but the shape is already in
+    ``config.ROSTER_CONFIGS`` for every league we play. Bench slots are
+    dropped: a lineup tool only allocates starters.
+    """
+    shape = config.ROSTER_CONFIGS[preset["roster"]]
+    out = []
+    for slot, count in shape.items():
+        if slot == "BN":
+            continue
+        name = _SHAPE_TO_SLEEPER_SLOT.get(slot, slot)
+        out.extend([name] * int(count))
+    return out
+
+
+def scoring_for_preset(preset: Mapping[str, Any]) -> Dict[str, float]:
+    """Sleeper-keyed scoring for a league with no live settings feed.
+
+    Mirrors ``waiver_wire.scoring_for`` for the no-league case so both tools
+    price a pasted board the same way.
+    """
+    base = config.SCORING_CONFIGS[preset["scoring_format"]]
+    return {_TO_SLEEPER_KEYS[k]: v for k, v in base.items() if k in _TO_SLEEPER_KEYS}
+
+
+def roster_from_file(path: Path, registry: Mapping[str, Any]) -> list:
+    """Sleeper ids for the names in a pasted roster file.
+
+    Unresolvable names are reported rather than dropped silently: a missing
+    starter changes the lineup, and a D/ST or fullback that our registry has
+    no entry for is a known gap, not a surprise.
+    """
+    _by_gsis, by_name = build_id_maps(dict(registry))
+    ids, missing = [], []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        name = line.split("#", 1)[0].strip()
+        if not name:
+            continue
+        norm = normalize_name(name)
+        hit = next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
+        if hit is None:
+            missing.append(name)
+        else:
+            ids.append(hit)
+    if missing:
+        print(f"  not in the Sleeper registry (skipped): {', '.join(missing)}")
+    return ids
+
+
+def recommended_starters(rows: Sequence[Any], roster_positions: Sequence[str]) -> list:
+    """A starters list in ``roster_positions`` order, from the optimizer.
+
+    Sleeper tells us which players are currently started, so the tool can show
+    deltas against a real lineup. ESPN and Yahoo tell us nothing without a
+    login, so there is no lineup to compare against — the honest output there
+    is the lineup we RECOMMEND, allocated by the same optimizer, with the
+    comparison left to the reader's own screen.
+
+    ``"0"`` marks a slot the roster cannot fill (a missing D/ST, say).
+    """
+    from src.roster_optimizer import optimal_lineup
+
+    pool = [r.as_optimizer_dict("blend") for r in rows]
+    allocated = optimal_lineup(pool, roster_positions=list(roster_positions))
+    by_slot: Dict[str, list] = {
+        slot: [str(p["sleeper_id"]) for p in players]
+        for slot, players in (allocated.get("starters") or {}).items()
+    }
+    out = []
+    for slot in roster_positions:
+        if str(slot).upper() in _SKIP_SLOTS:
+            continue
+        queue = by_slot.get(slot) or []
+        out.append(queue.pop(0) if queue else "0")
+    return out
+
+
 def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -335,6 +439,13 @@ def main(argv: Optional[list] = None) -> int:
     )
     ap.add_argument("--season", type=int, help="Season (default: current)")
     ap.add_argument("--user", help="Sleeper display name (default: preset my_user)")
+    ap.add_argument(
+        "--roster-file",
+        type=Path,
+        help="ESPN/Yahoo: your roster, one player name per line (the same "
+        "file the waiver report takes). Slots and scoring come from "
+        "LEAGUE_PRESETS, so no login is needed.",
+    )
     ap.add_argument(
         "--threshold",
         type=float,
@@ -347,12 +458,19 @@ def main(argv: Optional[list] = None) -> int:
         preset = config.our_league(args.league)
     except (KeyError, ValueError) as exc:
         sys.exit(exc.args[0])
-    if preset.get("platform") != "sleeper":
+    platform = preset.get("platform")
+    if platform != "sleeper" and not args.roster_file:
         sys.exit(
-            f"{args.league} is on {preset.get('platform')}: only Sleeper rosters are supported yet."
+            f"{args.league} is on {platform}, which publishes no roster we can read "
+            "without a login. Pass --roster-file with your roster (one name per "
+            "line) — the same file the waiver report takes. Slots and scoring come "
+            "from LEAGUE_PRESETS, projections from our board plus Sleeper's, so "
+            "nothing else is needed:\n"
+            f"  python scripts/set_lineups.py --league {args.league} "
+            f"--roster-file data/draft/{args.league}_2026_roster.txt"
         )
-    username = args.user or preset.get("my_user")
-    if not username:
+    username = args.user or preset.get("my_user") or args.league
+    if platform == "sleeper" and not username:
         sys.exit("Pass --user <Sleeper display name> (preset has no my_user).")
 
     if args.season and args.week:
@@ -363,12 +481,21 @@ def main(argv: Optional[list] = None) -> int:
     league_id = str(preset["league_id"])
 
     league = sleeper_http.get_league(league_id)
-    if not league:
-        sys.exit(f"Sleeper league {league_id} unavailable.")
-    roster_positions = league.get("roster_positions") or []
-    scoring = league.get("scoring_settings") or {}
-    mine = find_my_roster(league_id, username)
     registry = load_sleeper_players(max_age_days=REGISTRY_MAX_AGE_DAYS)
+    if platform == "sleeper":
+        if not league:
+            sys.exit(f"Sleeper league {league_id} unavailable.")
+        roster_positions = league.get("roster_positions") or []
+        scoring = league.get("scoring_settings") or {}
+        mine = find_my_roster(league_id, username)
+    else:
+        # ESPN and Yahoo expose no roster without a login, but the shape and
+        # the scoring are already in LEAGUE_PRESETS and the roster is the same
+        # pasted file the waiver report takes. Two of three teams had no
+        # lineup tool at all purely because nobody wired this path.
+        roster_positions = slots_from_shape(preset)
+        scoring = scoring_for_preset(preset)
+        mine = {"players": roster_from_file(args.roster_file, registry)}
 
     ours_df, ours_label = load_ours(season, week)
     roster_files = sorted(
@@ -404,6 +531,7 @@ def main(argv: Optional[list] = None) -> int:
     if not kickoffs:
         print(f"WARN: no schedule for {season} week {week}; lock/bye flags disabled")
 
+    injury_ctx = injury_context(season, week, registry, gsis_map, this_season_weekly)
     rows = build_rows(
         player_ids=[
             p for p in mine.get("players") or [] if p not in (mine.get("taxi") or [])
@@ -416,15 +544,54 @@ def main(argv: Optional[list] = None) -> int:
         scoring_settings=scoring,
         kickoffs=kickoffs,
         now=dt.datetime.now(tz=ET),
-        injury_ctx=injury_context(season, week, registry, gsis_map, this_season_weekly),
+        injury_ctx=injury_ctx,
         news=news_by_sleeper(sentiment_flags(season, week), registry, gsis_map),
     )
+    if platform != "sleeper":
+        # Second pass: the first had no starters to key off, so everything
+        # rendered as bench. Allocate the recommendation and rebuild.
+        mine["starters"] = recommended_starters(rows, roster_positions)
+        rows = build_rows(
+            player_ids=[p for p in mine.get("players") or []],
+            starters=mine["starters"],
+            roster_positions=roster_positions,
+            registry=registry,
+            ours=ours,
+            sleeper_proj=sleeper_proj,
+            scoring_settings=scoring,
+            kickoffs=kickoffs,
+            injury_ctx=injury_ctx,
+            news=news_by_sleeper(sentiment_flags(season, week), registry, gsis_map),
+        )
     deltas = lineup_deltas(rows, threshold=args.threshold)
     header = (
         f"{league.get('name', league_id)} — {username} — {season} week {week} "
         f"(threshold {args.threshold:.1f} on both sources)"
     )
     print(render(rows, deltas, header, ours_label))
+    if platform != "sleeper":
+        # The delta line below render() says "no bench player beats a starter",
+        # which reads as "your lineup is fine". On a pasted roster there IS no
+        # current lineup to compare against — the whole table is a
+        # recommendation, and saying otherwise would be a claim we cannot make.
+        unfilled = [
+            slot
+            for slot, pid in zip(
+                [p for p in roster_positions if str(p).upper() not in _SKIP_SLOTS],
+                mine.get("starters") or [],
+            )
+            if pid == "0"
+        ]
+        print(
+            f"\n  NOTE: {platform} publishes no lineup without a login, so the SLOT"
+            " column above is\n  what we RECOMMEND, not what you have set."
+            " Compare it against your own screen."
+        )
+        if unfilled:
+            print(
+                f"  Could not fill: {', '.join(unfilled)} — our player registry has no"
+                " D/ST or K\n  entries, so use scripts/stream_dst_k.py for those slots."
+            )
     gaps = unmodeled_offense_keys(scoring)
     if gaps:
         print(f"\n  note: OURS cannot model {', '.join(gaps)} (Sleeper side does)")

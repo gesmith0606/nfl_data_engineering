@@ -237,6 +237,18 @@ mistake that reached the user this season rather than the pipeline:
 - Sleeper Mantis: Wednesday morning; unclaimed players become instant free agents afterwards.
 - ESPN La Liga and Yahoo Feetball: Wednesday ~3am ET.
 
+## 5b. Lineups — all three leagues now
+```bash
+python scripts/set_lineups.py --league mantis                                  # live roster + deltas
+python scripts/set_lineups.py --league la_liga  --roster-file data/draft/la_liga_2026_roster.txt
+python scripts/set_lineups.py --league feetball --roster-file data/draft/feetball_2026_roster.txt
+```
+Mantis reads the live roster, so its SLOT column is **what you have set** and the deltas are
+real. ESPN and Yahoo publish no lineup without a login, so there the SLOT column is **what we
+recommend** — compare it against your own screen. K and DEF cannot be allocated (our player
+registry has no entries for them); `stream_dst_k.py` covers those. Every run also reports last
+week's points left on the bench.
+
 ## 6. File the claims (one confirmed command)
 1. **Generate** the claims file rather than typing it — one command per league:
    ```bash
