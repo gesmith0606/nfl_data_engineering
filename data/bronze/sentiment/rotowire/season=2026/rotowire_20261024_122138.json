@@ -1,0 +1,118 @@
+{
+  "fetch_run_id": "00118a39-2b18-4f49-a264-1b69b64ce773",
+  "source": "rotowire",
+  "fetched_at": "2026-10-24T12:21:38.342609+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl644035",
+      "url": "https://www.rotowire.com//football/player/omar-cooper-19314",
+      "permalink": "",
+      "title": "Omar Cooper: Could be set for lesser role",
+      "body_text": "Cooper may get fewer looks in the passing game Sunday versus Miami with Adonai Mitchell cleared to return from a finger injury, Amanda Vogt of the Jets' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-23T05:37:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Cooper",
+        "Adonai Mitchell",
+        "Amanda Vogt"
+      ],
+      "resolved_player_ids": [
+        "00-0039890"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl644024",
+      "url": "https://www.rotowire.com//football/player/braelon-allen-17702",
+      "permalink": "",
+      "title": "Braelon Allen: Week 7 role uncertain",
+      "body_text": "Allen's workload and role Sunday against Miami is unclear given that Breece Hall (quadriceps) is officially questionable to play, per Amanda Vogt of the Jets' official site. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-23T05:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Braelon Allen",
+        "Breece Hall",
+        "Amanda Vogt"
+      ],
+      "resolved_player_ids": [
+        "00-0039794",
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "nfl644016",
+      "url": "https://www.rotowire.com//football/player/aaron-jones-11763",
+      "permalink": "",
+      "title": "Aaron Jones: Workload could be eased Sunday",
+      "body_text": "Jones may log fewer touches in Week 7 against Indianapolis on Sunday, as fellow RB Jordan Mason (thumb) is questionable to suit up, Craig Peters of the Vikings' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-23T05:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Jones",
+        "Sunday Jones",
+        "Jordan Mason",
+        "Craig Peters"
+      ],
+      "resolved_player_ids": [
+        "00-0033293",
+        "00-0037525"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl644004",
+      "url": "https://www.rotowire.com//football/player/woody-marks-18449",
+      "permalink": "",
+      "title": "Woody Marks: Set to lead backfield again in Week 7",
+      "body_text": "Marks is lined up to start at running back against the Giants on Sunday with David Montgomery (groin) ruled out. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-23T04:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Woody Marks",
+        "David Montgomery"
+      ],
+      "resolved_player_ids": [
+        "00-0040583",
+        "00-0035685"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl643983",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Expected to be back in mix for Week 7",
+      "body_text": "Head coach John Harbaugh said Friday that Skattebo had a \"good week\" of practice and that the second-year running back should be back in the mix for backfield touches against the Texans on Sunday, Jordan Ranaan of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-23T03:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "John Harbaugh",
+        "Jordan Ranaan"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "HOU"
+    }
+  ]
+}

@@ -1,0 +1,569 @@
+{
+  "fetch_run_id": "e6679307-85a9-4f46-aa19-c09d030c1e37",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-10-24T12:21:29.041276+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "94b7e37c-77ab-4454-984c-1d92ad1dce15",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-george-pickens-deflects-brian-schottenheimers-critique/",
+      "title": "Cowboys' George Pickens brushes off Brian Schottenheimer's critique, says team needs to improve",
+      "body_text": "Schottenheimer challenged Pro Bowl WR George Pickens on his effort in the run game, Pickens talked about the team",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-24T00:14:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "George Pickens",
+        "Brian Schottenheimer",
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "485f6548-c062-4d16-b26c-d1a8e2822f89",
+      "url": "https://www.cbssports.com/betting/news/nfl-week-7-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sunday-games/",
+      "title": "NFL Week 7 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday games",
+      "body_text": "Coming off a 6-2 run, Sunday's card features an explosive total in Detroit, value on the underdog Dolphins, and a smash spot for Ja'Marr Chase against the Ravens",
+      "author": "Will Brinson",
+      "published_at": "2026-10-23T23:57:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marr Chase"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "56be28fa-2d40-4746-9be9-83020a8bf213",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-injury-report-baker-mayfield-lamar-jackson-questionable/",
+      "title": "NFL Week 7 injury report: Seahawks' Zach Charbonnet won't return for Sunday's game vs. Chiefs",
+      "body_text": "A look at game statuses across the league",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-23T22:23:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Zach Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "630abe33-cb14-4b79-b062-6d6a4c6a9ff0",
+      "url": "https://www.cbssports.com/nfl/news/lamar-jackson-injury-update-ravens-qb-return-bengals/",
+      "title": "Lamar Jackson says he's 'heading in the right direction' for potential return vs. Bengals",
+      "body_text": "Baltimore's offense could be back at full strength soon as Jackson progresses toward a possible return against Cincinnati",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T19:27:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Bengals Baltimore"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "39f909fa-1d28-4483-bf86-38560e479aec",
+      "url": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-benching-najee-harris-release/",
+      "title": "Giants RB Cam Skattebo says he 'got taught a lesson' after surprise benching",
+      "body_text": "After being effectively benched and watching New York release Najee Harris days later, Skattebo acknowledged his situation",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-23T19:04:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "New York",
+        "Najee Harris"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0036893"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "12b45ba8-ef85-462a-97dd-d885d70d696b",
+      "url": "https://www.cbssports.com/nfl/news/should-seahawks-trade-for-jonathan-taylor-pros-cons/",
+      "title": "Should Seahawks trade for Jonathan Taylor? Pros, cons for reigning champions to add Colts superstar",
+      "body_text": "The Colts could fetch a pretty penny for Taylor, but is it worth it for Seattle?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-23T18:56:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Should Seahawks",
+        "Jonathan Taylor",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "04a915d7-029d-4b7d-b3ff-0300d71af629",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-picks-score-predictions-odds-chiefs-seahawks/",
+      "title": "NFL Week 7 picks and score predictions: Chiefs edge Seahawks, Bengals over Ravens",
+      "body_text": "Here's your weekly dose of John Breech's NFL picks",
+      "author": "John Breech",
+      "published_at": "2026-10-23T18:36:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ravens Here",
+        "John Breech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "14b88fe4-0cce-423a-a855-a597b69a1f0b",
+      "url": "https://www.cbssports.com/nfl/news/priscos-week-7-nfl-picks-odds-expert-picks-upsets/",
+      "title": "Prisco's Week 7 NFL picks: Lions edge Packers, Steelers top Saints in Paris",
+      "body_text": "Pete Prisco reveals all of his Week 7 picks, including the Chiefs over the Seahawks in Kenneth Walker's revenge game",
+      "author": "Pete Prisco",
+      "published_at": "2026-10-23T18:34:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Paris Pete",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "0f3cf547-5105-4485-b4f8-97aa7fa9d11e",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-the-2026-nfl-draft-akheem-mesidor/",
+      "title": "Revisiting the 2026 NFL Draft: Can Akheem Mesidor be a building block for Chargers defense?",
+      "body_text": "An 0-6 start shifts the conversation in Los Angeles to the future and which first-year contributors can serve as foundational pieces",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-23T18:25:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Can Akheem",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "2e52eabd-cfa6-4338-b962-ee797cc8a8d3",
+      "url": "https://www.cbssports.com/nfl/news/bears-cole-kmet-season-ending-knee-injury/",
+      "title": "Bears fear season-ending injury for Cole Kmet after veteran tight end is carted off field",
+      "body_text": "Chicago's longest-tenured player suffered a likely season-ending knee injury against New England",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-23T18:15:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cole Kmet",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0036290"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "39f4b902-2a71-4d2f-ab45-815007348b6b",
+      "url": "https://www.cbssports.com/nfl/news/buccaneers-baker-mayfield-cleared-to-play-thumb-injury-glove/",
+      "title": "Baker Mayfield set to return for Buccaneers after three-game absence, will wear custom glove",
+      "body_text": "After a three-week absence, Mayfield is back under center for Tampa Bay",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T17:21:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "a6134c00-a65c-4e76-812f-c32a1da4b1c4",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-steelers-travel-plans-nfl-paris-game-saints/",
+      "title": "Aaron Rodgers sounds annoyed with Steelers' travel plans for Paris: Why the QB is unhappy",
+      "body_text": "The Steelers quarterback is set to become the first QB in NFL history to play international games in three straight seasons in three different countries",
+      "author": "John Breech",
+      "published_at": "2026-10-23T16:32:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "10161199-d3af-41ce-b434-9ac84fe9c431",
+      "url": "https://www.cbssports.com/nfl/news/saquon-barkley-breaks-silence-jalen-hurts-situation/",
+      "title": "Saquon Barkley on Jalen Hurts situation: 'It sucks that people tried to make it an Eagles vs. Jalen thing'",
+      "body_text": "Philadelphia has faced heavy scrutiny after the quarterback was ruled out for the season with blood clots in his lungs, prompting the NFLPA to demand an investigation into his medical care",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T15:56:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d7955680-9783-4bdc-b8bd-8b63bc1ebc60",
+      "url": "https://www.cbssports.com/nfl/news/colts-anthony-richardson-charge-marijuana-possession/",
+      "title": "Colts' Anthony Richardson facing charge for marijuana possession, per report",
+      "body_text": "Police cited the quarterback during an Oct. 12 traffic stop after officers discovered marijuana and THC gummies inside his vehicle",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-23T15:39:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "674d239b-5198-455c-be3b-8bbc56e52efd",
+      "url": "https://www.cbssports.com/betting/news/week-7-nfl-score-predictions-odds-picks-betting-advice-proven-model-gives-projections-for-every-game/",
+      "title": "Week 7 NFL score predictions, odds, picks, betting advice: Proven model gives projections for every game",
+      "body_text": "Make NFL best bets at NFL betting sites by seeing NFL score predictions from our advanced model for Week 7",
+      "author": "Ryan Wooden",
+      "published_at": "2026-10-23T15:09:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "28d4839a-779d-4835-80f6-f10277244f60",
+      "url": "https://www.cbssports.com/betting/news/week-7-nfl-betting-promos-get-over-3000-in-bonuses-from-online-betting-apps-sportsbooks-for-sunday/",
+      "title": "Week 7 NFL betting promos: Get over $3,000 in bonuses from online betting apps, sportsbooks for Sunday",
+      "body_text": "Top Week 7 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-10-23T14:59:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Top",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "68bf5a81-42e0-422b-be4a-5c7efdf4b7b2",
+      "url": "https://www.cbssports.com/nfl/news/how-to-bet-on-2026-nfl-week-7-betting-odds-trends-tips-schedule-game-previews-sportsbook-promos-offers/",
+      "title": "How to bet on 2026 NFL Week 7: Betting odds, trends, tips, schedule, game previews, sportsbook promos, offers",
+      "body_text": "Our NFL betting guide tells you where to bet on NFL Week 7, while providing odds, betting trends, schedule, promo offers, and more",
+      "author": "Brandt Sutton",
+      "published_at": "2026-10-23T14:52:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "25212e4f-732a-47de-ac1b-75145a6b4db6",
+      "url": "https://www.cbssports.com/betting/news/week-7-nfl-betting-lines-spreads-odds-totals/",
+      "title": "Week 7 NFL betting odds, spreads, totals, lines for every game, including Saints-Steelers, Chiefs-Seahawks",
+      "body_text": "The Week 7 NFL betting lines, including spreads and totals, are out for every game",
+      "author": "Dustin Baker",
+      "published_at": "2026-10-23T14:45:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Seahawks The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "f97a4d95-6884-4b18-bc3c-a23e87a7cc0b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-bold-predictions-cardinals-broncos-bijan-robinson-49ers/",
+      "title": "NFL Week 7 bold predictions: Cardinals stun Broncos without scoring TD, Bijan Robinson shreds 49ers",
+      "body_text": "The Cardinals produce another improbable victory behind a barrage of field goals, and the Dolphins finally hold their first lead of the season",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-23T14:08:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bijan Robinson",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "5e504f2d-aa24-481b-8530-571dbc8628fd",
+      "url": "https://www.cbssports.com/nfl/news/anton-harrison-injury-jaguars-lt-out-for-season-torn-acl/",
+      "title": "Jaguars LT Anton Harrison done for season with torn ACL, per report: options for Jaguars at the trade deadline",
+      "body_text": "Walker Little will take over protecting Trevor Lawrence's blind side",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-23T13:48:26+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Anton Harrison",
+        "Walker Little",
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0038934",
+        "00-0036975",
+        "00-0036971"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "cb84ceee-757f-4ed2-bc18-72c8143754a8",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-underrated-games-cowboys-eagles-giants-texan/",
+      "title": "Cowboys vs. Eagles rivalry game headlines three matchups with underrated big stakes",
+      "body_text": "The unpredictable NFC East supplies two of this week's most intriguing under-the-radar matchups",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-23T13:20:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "fa2db897-5d62-478d-b2e2-dc5c43568807",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-predictions-best-bets-for-week-7-2026/",
+      "title": "Week 7 NFL odds, picks, predictions: Computer model backs Jets and Broncos",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 7 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-10-23T13:20:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "f4fa3298-4cfd-4904-9e1c-5623b3f488aa",
+      "url": "https://www.cbssports.com/nfl/news/caleb-williams-drake-maye-nfl-draft-qb-brewers-rays-world-series-mlb/",
+      "title": "Caleb Williams wins duel of 2024 NFL Draft QBs; Brewers-Rays World Series opens with a twist",
+      "body_text": "Plus the Top 100 And 1 college basketball players for 2026-27",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-23T12:49:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "Rays World"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "a5d3bf89-8fe6-4231-a811-709ad1227c4a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-picks-odds-predictions-expert-picks-against-the-spread/",
+      "title": "NFL Week 7 odds, predictions, expert picks: Who wins Ravens-Bengals AFC North showdown? Texans keep rolling?",
+      "body_text": "Our experts make their selections for Bengals-Ravens, Packers-Lions, Chiefs-Seahawks, Cowboys-Eagles and every other game on the Week 7 schedule",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-23T12:47:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "624774fb-9491-482b-8a4f-9c5f7af05e5a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-picks-chiefs-saints-steelers-paris/",
+      "title": "NFL Week 7 picks, odds, best bets: Why Bengals will beat Ravens, Saints to cover in Paris",
+      "body_text": "This week's five best bets include Kansas City and Cincinnati as road underdogs",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-23T12:30:08+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Bengals",
+        "Paris This",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "4134c37e-6bfb-4988-8acf-e29e2c417080",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-week-7-parlays-featuring-favorites-underdogs-include-buccaneers-panthers-bengals-ravens/",
+      "title": "NFL odds: Week 7 parlays featuring favorites, underdogs include Buccaneers-Panthers, Bengals-Ravens",
+      "body_text": "SportsLine football expert Mike Tierney gives out his favorite parlays for Week 7 of the NFL season",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-10-23T12:01:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mike Tierney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "153aa072-f12b-4409-980f-4363dc7af488",
+      "url": "https://www.cbssports.com/nfl/news/garrett-wilson-trade-chiefs-jets-star-receiver-2026/",
+      "title": "Should the Chiefs trade for Garrett Wilson? Why blockbuster deal makes sense, and why it probably won't happen",
+      "body_text": "Pairing the dynamic Jets wideout with Patrick Mahomes could solve Kansas City's receiver concerns, but several obstacles stand in the way",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-23T11:44:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Garrett Wilson",
+        "Patrick Mahomes",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0037740",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "1211746b-2608-4fe2-95be-ec883572db87",
+      "url": "https://www.cbssports.com/nfl/news/week-7-best-bets-browns-running-backs-2026/",
+      "title": "Week 7 best bets: Browns keep stacking wins, two big-name running back under props to target",
+      "body_text": "Cleveland should move to 5-2 with a win in Tennessee",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-23T11:30:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "5bb0ad31-fc86-40b8-8012-d9a893849208",
+      "url": "https://www.cbssports.com/nfl/news/jared-goff-vs-packers-nfc-north-showdown-breakdown/",
+      "title": "Jared Goff vs. Packers' stifling secondary: How this crucial NFC North showdown will be won",
+      "body_text": "How aggressive Goff decides to be against Green Bay's defensive backs with tight window throws will be critical",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-23T11:24:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jared Goff",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "2e4bbc6c-4b03-4ffe-be87-a0bc60b0da3b",
+      "url": "https://www.cbssports.com/nfl/news/what-is-illegal-forward-handing-bears-patriots-nfl-penalty/",
+      "title": "Rare NFL penalty: Bears become first team in 16 years to get flagged for illegal forward handoff",
+      "body_text": "The failed trick play against the Patriots sent viewers scrambling to learn about one of the most obscure rules in the NFL rulebook",
+      "author": "John Breech",
+      "published_at": "2026-10-23T02:16:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "ec9a5f52-f047-484c-b1aa-4a867125979d",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-brian-schottenheimer-challenges-george-pickens/",
+      "title": "Brian Schottenheimer issues challenge to George Pickens as Cowboys search for answers on offense",
+      "body_text": "With Dallas sitting at 2-4, Schottenheimer acknowledged that he must coach better",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-23T01:37:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "George Pickens",
+        "With Dallas"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "c592e197-95d9-48ea-a2ff-ff52432c74d0",
+      "url": "https://www.cbssports.com/nfl/news/bears-vs-patriots-how-to-watch-odds-preview-prediction/",
+      "title": "Bears vs. Patriots prediction: Chicago aims to stop Drake Maye's hot streak on 'TNF'",
+      "body_text": "Here's how to watch, what to know, and an expert prediction before the Pats and Bears face off in Chicago",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T00:12:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "10f6824d-c815-4cb8-abd8-6d244c8e32fd",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-get-55-bonus-for-patriots-vs-bears-thursday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Get $55 bonus for Patriots vs. Bears on Thursday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 7 Patriots vs. Bears TNF matchup",
+      "author": "James Holliman",
+      "published_at": "2026-10-22T23:44:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thursday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "519d4c94-ee32-4e01-bcab-b80ddf38d7c4",
+      "url": "https://www.cbssports.com/prediction/news/patriots-vs-bears-odds-first-touchdown-scorer-picks-predictions-for-nfl-week-7-thursday-night-football/",
+      "title": "Patriots vs. Bears odds, first touchdown scorer picks, predictions for NFL Week 7 Thursday Night Football",
+      "body_text": "We look over the prediction markets at Kalshi for the first touchdown scorer in Patriots vs. Bears on TNF",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-10-22T23:01:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "94b90410-f1d2-4b8a-a228-9d1fdffeee60",
+      "url": "https://www.cbssports.com/betting/news/patriots-vs-bears-odds-picks-nfl-week-7-prediction-best-bets-player-props-for-thursday-night-football/",
+      "title": "Patriots vs. Bears odds, picks, NFL Week 7 prediction: Best bets, player props for Thursday Night Football",
+      "body_text": "Will Brinson gives out his best bets for Week 7 Thursday Night Football between the Patriots and the Bears",
+      "author": "Will Brinson",
+      "published_at": "2026-10-22T23:01:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Football Will"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "b85c1a6a-7365-49eb-9eb1-0ee47b24da36",
+      "url": "https://www.cbssports.com/nfl/news/steelers-cancel-paris-fan-event-amid-protests-saints-game/",
+      "title": "Paris protests force Steelers to cancel fan event ahead of historic NFL game",
+      "body_text": "Sunday's historic game at Stade de France will proceed as planned, with the NFL working alongside local authorities and increasing security",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-22T22:50:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    }
+  ]
+}

@@ -1,0 +1,508 @@
+{
+  "fetch_run_id": "e6679307-85a9-4f46-aa19-c09d030c1e37",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-24T12:21:27.470034+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rhamondre-stevenson-says-bears-defensive-alignment-helped-with-48-yard-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rhamondre-stevenson-says-bears-defensive-alignment-helped-with-48-yard-td",
+      "title": "Rhamondre Stevenson says Bears' defensive alignment helped with 48-yard TD",
+      "body_text": "Patriots running back Rhamondre Stevenson made one of the most stunning plays of this NFL season when he turned a short pass at the end of the first half and ran for a 48-yard touchdown against the Bears.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-24T10:53:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rhamondre Stevenson"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-lead-nfl-in-time-of-possession-but-ben-johnson-would-prefer-one-play-td-drives",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-lead-nfl-in-time-of-possession-but-ben-johnson-would-prefer-one-play-td-drives",
+      "title": "Bears lead NFL in time of possession, but Ben Johnson would prefer one-play TD drives",
+      "body_text": "\"\"I've never been one for the time of possession stat. I don't know that that really equates to winning and losing,\" Johnson said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-24T09:33:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sam-laporta-clarifies-contract-comments-i-want-to-play-for-this-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-sam-laporta-clarifies-contract-comments-i-want-to-play-for-this-team",
+      "title": "Lions' Sam LaPorta clarifies contract comments: \"I want to play for this team\"",
+      "body_text": "The Lions' tight end is hoping to get a contract extension from the Lions.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-24T08:32:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sent-mixed-signals-about-whether-zach-charbonnet-would-play-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sent-mixed-signals-about-whether-zach-charbonnet-would-play-on-sunday",
+      "title": "Seahawks sent mixed signals about whether Zach Charbonnet would play on Sunday",
+      "body_text": "The Seahawks sent plenty of mixed signals this week regarding the question of whether running back Zach Charbonnet would play on Sunday.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T03:41:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/president-trump-on-sundays-game-in-paris-nfl-probably-could-have-postponed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/president-trump-on-sundays-game-in-paris-nfl-probably-could-have-postponed",
+      "title": "President Trump on Sunday's game in Paris: \"The NFL probably could have postponed\"",
+      "body_text": "The NFL plans to press forward with Sunday's game between the Steelers and Saints in Paris.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T02:51:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "President Trump"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-iii-who-had-blood-clots-in-high-school-says-jalen-hurts-flying-is-crazy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-iii-who-had-blood-clots-in-high-school-says-jalen-hurts-flying-is-crazy",
+      "title": "Kenneth Walker III, who had blood clots in high school, says Jalen Hurts flying is \"crazy\"",
+      "body_text": "Chiefs running back Kenneth Walker III dealt with blood clots in his lungs in high school.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T01:52:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker III",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0038134",
+        "00-0036389"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-teams-could-be-undefeated-through-seven-weeks-which-is-a-rarity",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-teams-could-be-undefeated-through-seven-weeks-which-is-a-rarity",
+      "title": "Three teams could be undefeated through seven weeks, which is a rarity",
+      "body_text": "Entering Week 7, three teams are undefeated.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T01:20:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Entering Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-im-doing-what-they-tell-me-to-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-im-doing-what-they-tell-me-to-do",
+      "title": "George Pickens: \"I'm doing what they tell me to do\"",
+      "body_text": "On Thursday, Cowboys coach Brian Schottenheimer had some things to say about receiver George Pickens.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T01:04:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "On Thursday",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-saquon-barkley-remained-limited-in-fridays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-rb-saquon-barkley-remained-limited-in-fridays-practice",
+      "title": "Eagles RB Saquon Barkley remained limited in Friday's practice",
+      "body_text": "Eagles running back Saquon Barkley (hamstring) remained a limited practice participant on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T22:22:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-cb-patrick-surtain-ii-is-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-cb-patrick-surtain-ii-is-questionable",
+      "title": "Broncos CB Patrick Surtain II is questionable",
+      "body_text": "The Broncos could get cornerback Patrick Surtain II back this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T22:00:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Patrick Surtain II",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0015915"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-rams-rb-lawrence-mccutcheon-dies-at-76",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-rams-rb-lawrence-mccutcheon-dies-at-76",
+      "title": "Former Rams RB Lawrence McCutcheon dies at 76",
+      "body_text": "Former Rams running back Lawrence McCutcheon died Friday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T21:48:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-release-rb-deejay-dallas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-release-rb-deejay-dallas",
+      "title": "Vikings release RB Deejay Dallas",
+      "body_text": "The Vikings released running back Deejay Dallas on Friday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T21:17:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deejay Dallas",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0036425"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-christian-watson-among-packers-off-injury-report-and-set-to-play-vs-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-christian-watson-among-packers-off-injury-report-and-set-to-play-vs-lions",
+      "title": "Jordan Love, Christian Watson among Packers off injury report and set to play vs. Lions",
+      "body_text": "Earlier this week, Packers quarterback Jordan Love told reporters he would be available to play on Sunday, despite being listed as limited on Wednesday with a back issue.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-23T21:08:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love",
+        "Christian Watson",
+        "Lions Earlier"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-admits-a-penalty-by-the-cowboys-in-week-5-was-assessed-against-the-bucs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-admits-a-penalty-by-the-cowboys-in-week-5-was-assessed-against-the-bucs",
+      "title": "NFL admits a penalty by the Cowboys in Week 5 was assessed against the Bucs",
+      "body_text": "The NFL has admitted a rather embarrassing officiating mistake from Week 5: When Buccaneers defensive lineman Calijah Kancey was called for illegal hands to the face, it was actually a Cowboys player who put his hands in Kancey's face, and somehow the wrong team got assessed the penalty when it was time to step off the yardage.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-23T21:07:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bucs The",
+        "When Buccaneers",
+        "Calijah Kancey"
+      ],
+      "resolved_player_ids": [
+        "00-0039063"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/injuries-could-increase-aaron-donalds-playing-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/injuries-could-increase-aaron-donalds-playing-time",
+      "title": "Injuries could increase Aaron Donald's playing time",
+      "body_text": "Aaron Donald may be privately thinking, \"I'm too old for this shit.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-10-23T19:35:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-david-montgomery-db-jalen-pitre-among-texans-out-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rb-david-montgomery-db-jalen-pitre-among-texans-out-for-sunday",
+      "title": "RB David Montgomery, DB Jalen Pitre among Texans out for Sunday",
+      "body_text": "The Texans will be short-handed on Sunday, without four key players.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T21:05:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Montgomery",
+        "Jalen Pitre",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0035685",
+        "00-0037246"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-release-trevon-diggs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-release-trevon-diggs",
+      "title": "Seahawks release Trevon Diggs",
+      "body_text": "Veteran cornerback Trevon Diggs won't be on the Seahawks' active roster for Sunday's game against the Chiefs.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T20:57:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0036361"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-nick-bosa-among-several-49ers-ruled-out-for-week-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-nick-bosa-among-several-49ers-ruled-out-for-week-7",
+      "title": "Mike Evans, Nick Bosa among several 49ers ruled out for Week 7",
+      "body_text": "The 49ers will be down several players when they play the Falcons on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-23T20:45:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans",
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0031408",
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-charbonnet-will-not-play-for-seahawks-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zach-charbonnet-will-not-play-for-seahawks-on-sunday",
+      "title": "Zach Charbonnet will not play for Seahawks on Sunday",
+      "body_text": "Kenneth Walker will be back on the field in Seattle on Sunday for the first time since leaving the Seahawks for the Chiefs as a free agent, but Zach Charbonnet won't be joining his former teammate as an active participant.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T20:41:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Sunday Kenneth"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-cobie-durant-tyler-guyton-up-to-full-practices-for-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-cobie-durant-tyler-guyton-up-to-full-practices-for-cowboys",
+      "title": "George Pickens, Cobie Durant, Tyler Guyton up to full practices for Cowboys",
+      "body_text": "The Cowboys upgraded three players from limited to full participants in practice on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T20:34:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Cobie Durant",
+        "Tyler Guyton",
+        "Cowboys The"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0037839",
+        "00-0039341"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-on-cole-kmet-hes-going-to-be-sorely-missed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-on-cole-kmet-hes-going-to-be-sorely-missed",
+      "title": "Ben Johnson on Cole Kmet: He's going to be sorely missed",
+      "body_text": "Bears coach Ben Johnson confirmed that tight end Cole Kmet will miss the rest of the season on injured reserve after a right knee injury Thursday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T20:22:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson",
+        "Cole Kmet"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0036290"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-lb-tremaine-edmunds-ruled-out-for-week-7-reportedly-out-for-season-with-shoulder-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-lb-tremaine-edmunds-ruled-out-for-week-7-reportedly-out-for-season-with-shoulder-injury",
+      "title": "Giants LB Tremaine Edmunds ruled out for Week 7, reportedly out for season with shoulder injury",
+      "body_text": "The Giants won't have linebacker Tremaine Edmunds in the lineup against the Texans on Sunday and he reportedly will miss the rest of the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T20:15:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tremaine Edmunds",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0034673"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-list-a-j-and-avieon-terrell-as-questionable-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-list-a-j-and-avieon-terrell-as-questionable-for-sunday",
+      "title": "Falcons list A.J. and Avieon Terrell as questionable for Sunday",
+      "body_text": "The Falcons listed both of the Terrell brothers as questionable to play against the 49ers in Week 7.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T20:03:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Avieon Terrell",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-ive-got-to-put-my-best-foot-forward-try-to-make-plays-and-keep-going",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-ive-got-to-put-my-best-foot-forward-try-to-make-plays-and-keep-going",
+      "title": "A.J. Brown: I've got to put my best foot forward, try to make plays and keep going",
+      "body_text": "Patriots wide receiver A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T19:20:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-officially-questionable-for-ravens-bengals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jackson-officially-questionable-for-ravens-bengals",
+      "title": "Lamar Jackson officially questionable for Ravens-Bengals",
+      "body_text": "Jackson told reporters on Friday he's heading in the right direction to play on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-23T20:01:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Bengals Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-calvin-ridley-rb-tyjae-spears-questionable-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-calvin-ridley-rb-tyjae-spears-questionable-for-sunday",
+      "title": "WR Calvin Ridley, RB Tyjae Spears questionable for Sunday",
+      "body_text": "Titans wide receiver Calvin Ridley (hip) is questionable with another rehab day Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-23T19:58:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Calvin Ridley",
+        "Tyjae Spears",
+        "Sunday Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0034837",
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-again-ruled-out-for-week-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-again-ruled-out-for-week-7",
+      "title": "Rashee Rice again ruled out for Week 7",
+      "body_text": "The Chiefs will not have three players for Sunday's matchup against the Seahawks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-23T19:16:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashee Rice",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-is-expected-to-return-to-the-running-back-mix-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-is-expected-to-return-to-the-running-back-mix-on-sunday",
+      "title": "Cam Skattebo is expected to return to the running back mix on Sunday",
+      "body_text": "Giants running back Cam Skattebo, after having a key overtime fumble in Week 5, played only six snaps and had no touches in Week 6.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-23T19:51:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Sunday Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-denzel-ward-as-questionable-with-a-hand-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-denzel-ward-as-questionable-with-a-hand-injury",
+      "title": "Browns list Denzel Ward as questionable with a hand injury",
+      "body_text": "The Browns took a number of players off their injury report on Friday, but they also made one significant addition.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T19:50:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Denzel Ward",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0034856"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-sam-laportas-contract-comments-arent-a-distraction-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-sam-laportas-contract-comments-arent-a-distraction-for-us",
+      "title": "Dan Campbell: Sam LaPorta's contract comments aren't a distraction for us",
+      "body_text": "Lions tight end Sam LaPorta is in the market for a new contract and he said this week that \"it sucks\" that one hasn't come together with the team as he plays out the final year of his rookie deal.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-23T19:41:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}
