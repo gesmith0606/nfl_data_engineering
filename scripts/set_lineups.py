@@ -377,8 +377,8 @@ def scoring_for_preset(preset: Mapping[str, Any]) -> Dict[str, float]:
     return {_TO_SLEEPER_KEYS[k]: v for k, v in base.items() if k in _TO_SLEEPER_KEYS}
 
 
-def roster_from_file(path: Path, registry: Mapping[str, Any]) -> list:
-    """Sleeper ids for the names in a pasted roster file.
+def roster_from_names(names: Sequence[str], registry: Mapping[str, Any]) -> list:
+    """Sleeper ids for a list of player names.
 
     Unresolvable names are reported rather than dropped silently: a missing
     starter changes the lineup, and a D/ST or fullback that our registry has
@@ -386,8 +386,8 @@ def roster_from_file(path: Path, registry: Mapping[str, Any]) -> list:
     """
     _by_gsis, by_name = build_id_maps(dict(registry))
     ids, missing = [], []
-    for line in Path(path).read_text(encoding="utf-8").splitlines():
-        name = line.split("#", 1)[0].strip()
+    for raw in names:
+        name = str(raw).split("#", 1)[0].strip()
         if not name:
             continue
         norm = normalize_name(name)
@@ -399,6 +399,44 @@ def roster_from_file(path: Path, registry: Mapping[str, Any]) -> list:
     if missing:
         print(f"  not in the Sleeper registry (skipped): {', '.join(missing)}")
     return ids
+
+
+def roster_from_file(path: Path, registry: Mapping[str, Any]) -> list:
+    """Sleeper ids for the names in a pasted roster file."""
+    return roster_from_names(
+        Path(path).read_text(encoding="utf-8").splitlines(), registry
+    )
+
+
+def roster_from_espn(
+    league_id: int, season: int, registry: Mapping[str, Any]
+) -> Optional[list]:
+    """Sleeper ids for our LIVE ESPN roster, or None when cookies are absent.
+
+    A pasted file is a snapshot of whenever someone last pasted it. The one in
+    the repo on 2026-10-24 was two days old and already wrong in six places --
+    it still listed three players we had dropped and missed the three we added
+    on waivers, so the lineup it produced was for a team we no longer had.
+    With cookies, ESPN will just tell us.
+    """
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    from src.espn_league import cookies_from_env, fetch_league, find_my_team_id
+    from src.espn_lineup import espn_names_by_id
+
+    cookies = cookies_from_env()
+    if not cookies.get("SWID") or not cookies.get("espn_s2"):
+        return None
+    payload = fetch_league(
+        league_id, season, views=["mRoster", "mTeam"], cookies=cookies
+    )
+    team_id = find_my_team_id(payload, cookies.get("SWID", ""))
+    if team_id is None:
+        return None
+    names = list(espn_names_by_id(payload, team_id).values())
+    print(f"  roster: {len(names)} players read live from ESPN")
+    return roster_from_names(names, registry)
 
 
 def recommended_starters(rows: Sequence[Any], roster_positions: Sequence[str]) -> list:
@@ -429,6 +467,103 @@ def recommended_starters(rows: Sequence[Any], roster_positions: Sequence[str]) -
     return out
 
 
+def espn_write(
+    preset: Mapping[str, Any],
+    rows: Sequence[Any],
+    starters: Sequence[str],
+    roster_positions: Sequence[str],
+    season: int,
+    week: int,
+    apply_changes: bool,
+) -> int:
+    """Diff our recommended lineup against ESPN's live one, and optionally file it.
+
+    Printing is the default and applying is opt-in because this is the first
+    code that can change a real roster without a human in the loop. Every
+    refusal is loud: an unresolved name or an impossible slot aborts the whole
+    plan rather than filing the part that happened to resolve, since a
+    half-applied lineup benches a starter without starting his replacement.
+    """
+    from dotenv import load_dotenv
+
+    load_dotenv()  # ESPN_S2 / ESPN_SWID live in .env, like every other script here
+
+    from src.espn_league import (
+        current_lineup_slots,
+        fetch_league,
+        find_my_team_id,
+        cookies_from_env,
+        submit_lineup,
+    )
+    from src.espn_lineup import (
+        describe_moves,
+        espn_names_by_id,
+        espn_roster_index,
+        plan_moves,
+        resolve_players,
+    )
+
+    league_id = int(str(preset.get("league_id") or 0))
+    if not league_id:
+        print("ESPN write: this preset has no league_id")
+        return 1
+
+    cookies = cookies_from_env()
+    if not cookies.get("SWID") or not cookies.get("espn_s2"):
+        print("ESPN write: ESPN_S2 / ESPN_SWID are not set in .env")
+        return 1
+
+    payload = fetch_league(league_id, season, views=["mRoster", "mTeam"], cookies=cookies)
+    team_id = find_my_team_id(payload, cookies.get("SWID", ""))
+    if team_id is None:
+        print("ESPN write: could not find which team this account owns")
+        return 1
+
+    index = espn_roster_index(payload, team_id)
+    current = current_lineup_slots(league_id, season, team_id, week, cookies)
+    names_by_sid = {str(r.sleeper_id): r.name for r in rows}
+    labels = [s for s in roster_positions if str(s).upper() not in _SKIP_SLOTS]
+
+    desired = [
+        (label, names_by_sid.get(str(sid), str(sid)))
+        for label, sid in zip(labels, starters)
+        if str(sid) != "0"
+    ]
+    resolved, unresolved = resolve_players([n for _, n in desired], index)
+    moves, problems = plan_moves(desired, resolved, current)
+
+    print()
+    print(f"ESPN lineup — league {league_id}, team {team_id}, week {week}")
+    if unresolved:
+        print("  unmatched on the ESPN roster: " + ", ".join(unresolved))
+    if not moves and not problems:
+        print("  already set — no moves needed")
+        return 0
+    names_by_pid = espn_names_by_id(payload, team_id)
+    for line in describe_moves(moves, names_by_pid):
+        print("  " + line)
+    if problems:
+        print()
+        for why in problems:
+            print(f"  BLOCKED: {why}")
+        print("  Nothing was filed.")
+        return 1
+    if not apply_changes:
+        print()
+        print(f"  {len(moves)} move(s) — DRY RUN. Add --apply to file them.")
+        return 0
+
+    result = submit_lineup(league_id, season, team_id, week, moves, cookies)
+    if result.get("status") == 0 or result.get("errors"):
+        for why in result.get("errors") or [["", "refused"]]:
+            print(f"  NOT FILED: {why[-1]}")
+        return 1
+    after = current_lineup_slots(league_id, season, team_id, week, cookies)
+    landed = sum(1 for pid, _a, b in moves if after.get(pid) == b)
+    print(f"  filed: HTTP {result.get('status')} — {landed}/{len(moves)} moves confirmed on read-back")
+    return 0 if landed == len(moves) else 1
+
+
 def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -451,6 +586,17 @@ def main(argv: Optional[list] = None) -> int:
         type=float,
         default=3.0,
         help="Min margin on BOTH sources for a SWAP",
+    )
+    ap.add_argument(
+        "--espn-write",
+        action="store_true",
+        help="ESPN only: diff the recommended lineup against the live one and "
+        "print the moves. Prints only; add --apply to file them.",
+    )
+    ap.add_argument(
+        "--apply",
+        action="store_true",
+        help="With --espn-write, actually set the lineup on ESPN.",
     )
     args = ap.parse_args(argv)
 
@@ -495,7 +641,18 @@ def main(argv: Optional[list] = None) -> int:
         # lineup tool at all purely because nobody wired this path.
         roster_positions = slots_from_shape(preset)
         scoring = scoring_for_preset(preset)
-        mine = {"players": roster_from_file(args.roster_file, registry)}
+        live = (
+            roster_from_espn(int(str(preset.get("league_id") or 0)), season, registry)
+            if platform == "espn" and preset.get("league_id")
+            else None
+        )
+        if live:
+            # The live roster wins: a pasted file is only as fresh as the last
+            # paste, and a lineup built for a team you no longer have is wrong
+            # in a way no optimizer can recover from.
+            mine = {"players": live}
+        else:
+            mine = {"players": roster_from_file(args.roster_file, registry)}
 
     ours_df, ours_label = load_ours(season, week)
     roster_files = sorted(
@@ -596,6 +753,20 @@ def main(argv: Optional[list] = None) -> int:
     if gaps:
         print(f"\n  note: OURS cannot model {', '.join(gaps)} (Sleeper side does)")
     print(last_week_bench_loss(league_id, username, season, week, registry, league))
+
+    if args.espn_write:
+        if platform != "espn":
+            print(f"\n--espn-write only applies to ESPN leagues ({platform} given)")
+            return 1
+        return espn_write(
+            preset=preset,
+            rows=rows,
+            starters=mine.get("starters") or [],
+            roster_positions=roster_positions,
+            season=season,
+            week=week,
+            apply_changes=args.apply,
+        )
     return 0
 
 
