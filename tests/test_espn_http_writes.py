@@ -144,3 +144,30 @@ def test_a_network_failure_propagates_so_the_caller_re_reads(monkeypatch):
     )
     with pytest.raises(rq.RequestException):
         espn_league.submit_transaction(99, 2026, BODY, "WAIVERS", cookies=COOKIES)
+
+
+def test_submit_claims_can_choose_the_http_transport():
+    """A function nothing calls cannot earn its promotion.
+
+    `submit_transaction` existed with no caller, so there was no way to prove
+    it on a real claim — which was the stated condition for it replacing the
+    browser. `--espn-http` makes it reachable while leaving the default alone.
+    """
+    from pathlib import Path
+
+    src = (
+        Path(__file__).resolve().parent.parent / "scripts" / "submit_claims.py"
+    ).read_text(encoding="utf-8")
+
+    assert '"--espn-http"' in src, "the transport must be selectable"
+    assert (
+        'ctx[league]["espn_http"]' in src
+    ), "and the choice must reach the submit site"
+    assert 'if ctx.get("espn_http"):' in src
+    assert "espn_league.submit_transaction(" in src
+    # The browser remains the default: this moves money-equivalent state and
+    # has only been exercised against stubs.
+    assert "else:\n            res = ws.espn_submit(" in src
+    # Both transports return the same shape, so nothing downstream changes.
+    after = src[src.index('if ctx.get("espn_http"):') :]
+    assert after.index("status = _status(res)") > 0
