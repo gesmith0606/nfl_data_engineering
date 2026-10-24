@@ -304,10 +304,33 @@ def main(argv: Optional[list] = None) -> int:
     except (KeyError, ValueError) as exc:
         sys.exit(exc.args[0])
     if preset.get("platform") != "sleeper":
+        # Say WHY, and what would unblock it. "Sleeper only" sends the next
+        # reader to re-derive this, and it is not one missing feature:
+        #
+        #   * regret needs the lineup we ACTUALLY SET that week. Sleeper's
+        #     matchups endpoint publishes `starters` per roster per week;
+        #     ESPN and Yahoo publish nothing without a login, and a pasted
+        #     --roster-file is a CURRENT snapshot, not a historical lineup.
+        #   * the room comparison needs every rival's lineup and per-player
+        #     points. Sleeper gives both in one call. ESPN's payload can give
+        #     them with ESPN_S2/ESPN_SWID cookies, which `.env` does not have.
+        #   * hindsight-optimal alone is computable from Bronze actuals, but a
+        #     regret of "best possible minus nothing" is not a number.
+        #
+        # So: ESPN becomes possible the moment the cookies exist (then this
+        # function needs an ESPN branch reading mRoster + mMatchup per week).
+        # Yahoo needs the login or the API approval. Until then the 26.4pt
+        # figure is Mantis-only and the other two are genuinely unquantified —
+        # which is worth saying out loud rather than implying parity.
         sys.exit(
-            f"{args.league} is on {preset.get('platform')}: only Sleeper reports "
-            "per-player points for EVERY roster, which is what makes the room "
-            "comparison possible."
+            f"{args.league} is on {preset.get('platform')}, which publishes neither "
+            "the lineup you set that week nor per-player points without a login.\n"
+            "Regret cannot be computed from a current roster snapshot, so this is "
+            "blocked on credentials, not on code:\n"
+            "  ESPN  — add ESPN_S2 + ESPN_SWID to .env, then this needs an ESPN "
+            "branch (mRoster + mMatchup per week)\n"
+            "  Yahoo — needs the league_login.py session or the API write approval\n"
+            "The Mantis figure therefore does NOT cover this league."
         )
 
     lid = str(preset["league_id"])

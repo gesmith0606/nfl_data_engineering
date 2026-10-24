@@ -192,3 +192,19 @@ def test_the_lineup_tool_reports_last_week_s_bench_loss():
     assert "perfect lineup — nothing left on the bench" in body
     # And it must never break the tool it is a footnote on.
     assert "a note must never break the tool" in body
+
+
+def test_the_unsupported_platforms_explain_what_would_unblock_them():
+    """ "Sleeper only" sends the next reader to re-derive the reason.
+
+    And it is not one missing feature: regret needs the lineup actually SET
+    that week, which a current --roster-file snapshot cannot supply, plus
+    every rival's lineup for the room comparison. ESPN becomes possible the
+    moment the cookies exist; Yahoo needs the login or the API approval.
+    """
+    body = (REPO / "scripts" / "backtest_lineups.py").read_text(encoding="utf-8")
+    assert "blocked on credentials, not on code" in body
+    assert "ESPN_S2 + ESPN_SWID" in body
+    assert "league_login.py" in body
+    # The honest consequence must be stated, not implied.
+    assert "does NOT cover this league" in body
