@@ -172,3 +172,23 @@ def test_a_second_board_decides_whether_variance_is_really_variance():
     ), "our-proj = we missed, Sleeper didn't"
     assert "x[4] is False and x[5] is not True" in body, "variance = both agreed"
     assert "no optimizer recovers it" in body
+
+
+def test_the_lineup_tool_reports_last_week_s_bench_loss():
+    """A 26pt/week loss went unnoticed for six weeks because nothing said so.
+
+    The lineup tool is the one place it cannot be missed — you read it at
+    exactly the moment the same decision comes round again. Verified live:
+    week 6 printed "left 2.0pt on the bench. Worst: Jameis Winston over
+    Antonio Williams (-2.0)."
+    """
+    body = (REPO / "scripts" / "set_lineups.py").read_text(encoding="utf-8")
+    assert "def last_week_bench_loss(" in body
+    assert "left {lost:.1f}pt on the bench" in body
+    # It must be called, not merely defined.
+    assert "print(last_week_bench_loss(" in body
+    # Week 1, a bye, or missing data returns "" — a zero would read as perfect.
+    assert 'if prior < 1:\n        return ""' in body
+    assert "perfect lineup — nothing left on the bench" in body
+    # And it must never break the tool it is a footnote on.
+    assert "a note must never break the tool" in body

@@ -28,7 +28,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Mapping, Optional, Tuple
 
 import pandas as pd
 
@@ -245,6 +245,86 @@ def find_my_roster(league_id: str, username: str) -> Dict[str, Any]:
     return mine
 
 
+def last_week_bench_loss(
+    league_id: str,
+    username: str,
+    season: int,
+    week: int,
+    registry: Mapping[str, Any],
+    league: Mapping[str, Any],
+) -> str:
+    """One line: what last week's lineup left on the bench.
+
+    Measured for the first time on 2026-10-23, after six weeks: a median 26.4
+    points a week, of which 53% was already visible on our own board. A loss
+    that size went unnoticed because nothing ever reported it, and the lineup
+    tool is the one place it cannot be missed -- you are looking at it at
+    exactly the moment the same decision comes round again.
+
+    Returns "" when the previous week cannot be scored (week 1, a bye, or no
+    matchup data), because an empty string is honest and a zero is not.
+    """
+    prior = week - 1
+    if prior < 1:
+        return ""
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "_bl", Path(__file__).resolve().parent / "backtest_lineups.py"
+        )
+        bl = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(bl)
+        rosters = sleeper_http.fetch_sleeper_json(
+            bl.MATCHUPS.format(lid=league_id, week=prior)
+        )
+        if not rosters:
+            return ""
+        users = {
+            u["user_id"]: u.get("display_name")
+            for u in sleeper_http.get_league_users(str(league_id))
+        }
+        mine = next(
+            (
+                str(r.get("roster_id"))
+                for r in sleeper_http.get_league_rosters(str(league_id))
+                if users.get(r.get("owner_id")) == username
+            ),
+            None,
+        )
+        roster = next((r for r in rosters if str(r.get("roster_id")) == mine), None)
+        if roster is None:
+            return ""
+        slots = [s for s in (league.get("roster_positions") or []) if s != "BN"]
+        positions = {
+            sid: str((meta or {}).get("position") or "")
+            for sid, meta in registry.items()
+        }
+        got = bl.week_regret(roster, slots, positions)
+        if got is None:
+            return ""
+        actual, best = got
+        lost = max(0.0, best - actual)
+        if lost < 0.05:
+            return f"\n  week {prior}: perfect lineup — nothing left on the bench."
+        swaps = bl.missed_swaps(roster, slots, positions, limit=1)
+        detail = ""
+        if swaps:
+            started, benched, gain = swaps[0]
+
+            def name(sid: str) -> str:
+                return str((registry.get(sid) or {}).get("full_name") or sid)
+
+            detail = f" Worst: {name(started)} over {name(benched)} (-{gain:.1f})."
+        return (
+            f"\n  week {prior}: left {lost:.1f}pt on the bench.{detail}"
+            f"\n  (room median is ~24.7pt/wk, so this is only bad if it is much"
+            f" worse — scripts/backtest_lineups.py for the season view)"
+        )
+    except Exception as exc:  # noqa: BLE001 — a note must never break the tool
+        return f"\n  (last week's bench loss unavailable: {type(exc).__name__})"
+
+
 def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -348,6 +428,7 @@ def main(argv: Optional[list] = None) -> int:
     gaps = unmodeled_offense_keys(scoring)
     if gaps:
         print(f"\n  note: OURS cannot model {', '.join(gaps)} (Sleeper side does)")
+    print(last_week_bench_loss(league_id, username, season, week, registry, league))
     return 0
 
 
