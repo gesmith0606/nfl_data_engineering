@@ -99,6 +99,79 @@ def fill_lines_from_odds_snapshot(
         out.loc[fill, col] = out.loc[fill, src]
     return out.drop(columns=["_spread", "_total"])
 
+def build_game_lines_from_snapshots(
+    season: int,
+    snapshot_dir: Optional[str] = None,
+    schedule: Optional[pd.DataFrame] = None,
+) -> pd.DataFrame:
+    """Game-level open/close lines for a season the FinnedAI Bronze never covered.
+
+    ``silver_market_transformation.py`` reads ``data/bronze/odds/``, which stops
+    at 2021. The Odds API cron writes a different layout under
+    ``data/bronze/odds_api/snapshots``, and nothing consumed it — so from 2022 on
+    there is no Silver ``market_data``, no ``opening_spread`` feature, and the
+    ensemble cannot score the season at all. This bridges the two.
+
+    Sign: snapshot spreads are the SPORTSBOOK convention (negative = home
+    favoured); Silver ``opening_spread`` is nflverse-oriented for the row's team
+    (measured: Silver home rows correlate +0.944 with nflverse ``spread_line``
+    on 2020). So the home value is ``-open_spread``, exactly as
+    :func:`fill_lines_from_odds_snapshot` already does for ``spread_line``.
+    ``reshape_to_per_team`` then negates it for the away row.
+
+    Args:
+        season: NFL season year.
+        snapshot_dir: Override for the snapshot root (tests).
+        schedule: Schedule rows supplying game_id/week/game_type. Read from the
+            committed Bronze schedules when None.
+
+    Returns:
+        Game-level DataFrame shaped for :func:`compute_movement_features`, or an
+        empty DataFrame when the season has no snapshots.
+    """
+    from odds_snapshot_loader import load_open_close_lines
+
+    spreads = load_open_close_lines(season, "spreads", snapshot_dir)
+    totals = load_open_close_lines(season, "totals", snapshot_dir)
+    if spreads.empty and totals.empty:
+        return pd.DataFrame()
+
+    keys = ["home_team_nfl", "away_team_nfl"]
+    cols_s = keys + ["open_spread", "close_spread"]
+    cols_t = keys + ["open_total", "close_total"]
+    if spreads.empty:
+        games = totals[cols_t].copy()
+        games["open_spread"] = pd.NA
+        games["close_spread"] = pd.NA
+    elif totals.empty:
+        games = spreads[cols_s].copy()
+        games["open_total"] = pd.NA
+        games["close_total"] = pd.NA
+    else:
+        games = spreads[cols_s].merge(totals[cols_t], on=keys, how="outer")
+
+    if schedule is None:
+        files = sorted(
+            glob.glob(os.path.join("data", "bronze", "schedules", f"season={season}", "*.parquet"))
+        )
+        if not files:
+            return pd.DataFrame()
+        schedule = pd.read_parquet(files[-1])
+
+    need = ["game_id", "season", "week", "game_type", "home_team", "away_team"]
+    sched = schedule[[c for c in need if c in schedule.columns]].drop_duplicates()
+    out = sched.merge(
+        games, left_on=["home_team", "away_team"], right_on=keys, how="inner"
+    ).drop(columns=keys)
+
+    # Flip to the nflverse orientation the trained model expects.
+    out["opening_spread"] = -pd.to_numeric(out.pop("open_spread"), errors="coerce")
+    out["closing_spread"] = -pd.to_numeric(out.pop("close_spread"), errors="coerce")
+    out["opening_total"] = pd.to_numeric(out.pop("open_total"), errors="coerce")
+    out["closing_total"] = pd.to_numeric(out.pop("close_total"), errors="coerce")
+    return out.reset_index(drop=True)
+
+
 # NFL key numbers where point probability spikes
 KEY_SPREAD_NUMBERS = [3, 7, 10]
 KEY_TOTAL_NUMBERS = [41, 44, 47]

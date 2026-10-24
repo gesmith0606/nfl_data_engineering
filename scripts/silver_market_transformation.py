@@ -25,7 +25,11 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from config import SILVER_TEAM_S3_KEYS
-from market_analytics import compute_movement_features, reshape_to_per_team
+from market_analytics import (
+    build_game_lines_from_snapshots,
+    compute_movement_features,
+    reshape_to_per_team,
+)
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "..")
 BRONZE_DIR = os.path.join(PROJECT_ROOT, "data", "bronze")
@@ -119,8 +123,15 @@ def run_market_transform(seasons: list, s3_bucket: str = None) -> None:
         # Read Bronze odds
         odds_df = _read_local_odds(season)
         if odds_df.empty:
-            print(f"  No Bronze odds for season {season}, skipping.")
-            continue
+            # The FinnedAI Bronze stops at 2021. From 2022 the Odds API cron is
+            # the only line source, in a different layout -- without this the
+            # season has no market_data at all, so the ensemble's
+            # `opening_spread` feature is missing and it cannot score a game.
+            odds_df = build_game_lines_from_snapshots(season)
+            if odds_df.empty:
+                print(f"  No Bronze odds and no odds snapshots for season {season}, skipping.")
+                continue
+            print(f"  No Bronze odds; built {len(odds_df)} games from Odds API snapshots")
 
         # Compute movement features
         with_features = compute_movement_features(odds_df)
