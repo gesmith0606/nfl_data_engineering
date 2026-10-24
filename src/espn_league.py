@@ -26,8 +26,10 @@ DevTools → Application → Cookies → https://fantasy.espn.com → copy the
 from __future__ import annotations
 
 import logging
+import json
+import re
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Mapping, Optional
 
 import pandas as pd
 import requests
@@ -363,3 +365,180 @@ def extract_draft_picks(payload: Dict[str, Any]) -> List[PickEvent]:
         )
     picks.sort(key=lambda p: p.pick_no)
     return picks
+
+
+# ---------------------------------------------------------------------------
+# Writes without a browser
+# ---------------------------------------------------------------------------
+
+ESPN_WRITE_BASE = "https://lm-api-writes.fantasy.espn.com/apis/v3/games/ffl"
+
+#: ESPN echoes the member GUID back in error text; scrub it before logging.
+_GUID = re.compile(
+    r"\{?[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}?",
+    re.IGNORECASE,
+)
+
+
+def _scrub(text: Any) -> str:
+    """Replace member GUIDs in a message with ``{id}``."""
+    return _GUID.sub("{id}", str(text or ""))
+
+
+def submit_transaction(
+    league_id: int,
+    season: int,
+    body: Mapping[str, Any],
+    expect_status: str,
+    cookies: Optional[Dict[str, str]] = None,
+    timeout: int = 30,
+) -> Dict[str, Any]:
+    """File an ESPN transaction over plain HTTPS. No browser.
+
+    George, 2026-10-23: *"chrome should not be the transport."* Reads have
+    always gone over ``requests`` with the ``ESPN_S2``/``ESPN_SWID`` cookies
+    (:func:`fetch_league`); only writes went through an in-page fetch inside a
+    logged-in tab. That was a safety choice -- cookies never leaving the
+    browser -- not a technical necessity, so this is the same request with the
+    same auth.
+
+    Every guard the in-page version enforced is kept, because each one exists
+    to stop a specific way of filing the wrong claim:
+
+    1. The SWID must be readable, and becomes ``memberId`` -- ESPN rejects a
+       transaction without it.
+    2. The signed-in account must OWN ``teamId``. Filing into someone else's
+       team is the worst available failure.
+    3. The add must still be at ``expect_status`` (``FREEAGENT`` / ``WAIVERS``)
+       at the moment of posting, re-read live. A player claimed by someone else
+       between the dry run and the submit must not be posted blind.
+
+    Args:
+        league_id: Numeric ESPN league id.
+        season: Season year.
+        body: Transaction body from ``waiver_claims.espn_claim_body``.
+        expect_status: The add's status as seen during the dry run.
+        cookies: Auth cookies; :func:`cookies_from_env` when omitted.
+        timeout: Per-request timeout in seconds.
+
+    Returns:
+        ``{"status": <http code>, "transaction": {...}}`` on success, or
+        ``{"status": 0, "errors": [["not submitted", why]]}`` when a guard
+        refuses -- the same shape the in-page path returns, so callers and
+        their read-back logic are unchanged.
+
+    Raises:
+        requests.RequestException: Network failure. The caller must treat this
+            as UNKNOWN and re-read rather than retrying: a POST that timed out
+            may still have been applied.
+    """
+    cookies = cookies_from_env() if cookies is None else cookies
+    swid = (cookies or {}).get("SWID", "")
+    if not swid:
+        return {
+            "status": 0,
+            "errors": [["not submitted", "no SWID cookie — set ESPN_SWID"]],
+        }
+
+    team_id = body.get("teamId")
+    league = fetch_league(
+        league_id, season, views=["mTeam"], cookies=cookies, timeout=timeout
+    )
+    team = next(
+        (t for t in (league.get("teams") or []) if t.get("id") == team_id), None
+    )
+    owners = {str(o).upper() for o in ((team or {}).get("owners") or [])}
+    if swid.upper() not in owners:
+        return {
+            "status": 0,
+            "errors": [
+                ["not submitted", f"this ESPN account does not own team {team_id}"]
+            ],
+        }
+
+    add = next((i for i in (body.get("items") or []) if i.get("type") == "ADD"), None)
+    if add is None:
+        return {"status": 0, "errors": [["not submitted", "claim has no ADD item"]]}
+    now = _player_status(
+        league_id,
+        season,
+        int(body.get("scoringPeriodId") or 0),
+        int(add["playerId"]),
+        cookies,
+        timeout,
+    )
+    if now is None:
+        return {
+            "status": 0,
+            "errors": [
+                ["not submitted", f"player {add['playerId']} is no longer available"]
+            ],
+        }
+    if now != expect_status:
+        return {
+            "status": 0,
+            "errors": [
+                [
+                    "not submitted",
+                    f"player {add['playerId']} is now {now}, expected {expect_status}",
+                ]
+            ],
+        }
+
+    url = f"{ESPN_WRITE_BASE}/seasons/{season}/segments/0/leagues/{league_id}/transactions/"
+    resp = requests.post(
+        url,
+        json={**dict(body), "memberId": swid},
+        cookies=cookies,
+        headers={"Content-Type": "application/json", "Accept": "application/json"},
+        timeout=timeout,
+    )
+    out: Dict[str, Any] = {"status": resp.status_code}
+    try:
+        payload = resp.json()
+    except ValueError:
+        payload = None
+    if isinstance(payload, dict):
+        if payload.get("id"):
+            out["transaction"] = {
+                k: payload.get(k) for k in ("id", "type", "status", "bidAmount")
+            }
+        problems = payload.get("messages") or payload.get("details")
+        if problems:
+            out["errors"] = [["espn", _scrub(problems)]]
+    return out
+
+
+def _player_status(
+    league_id: int,
+    season: int,
+    scoring_period: int,
+    player_id: int,
+    cookies: Optional[Dict[str, str]],
+    timeout: int,
+) -> Optional[str]:
+    """The player's availability right now, or None when he is not listed."""
+    filt = {
+        "players": {
+            "filterIds": {"value": [player_id]},
+            "filterStatus": {"value": ["FREEAGENT", "WAIVERS"]},
+        }
+    }
+    resp = requests.get(
+        f"{ESPN_API_BASE}/seasons/{season}/segments/0/leagues/{league_id}",
+        params={"scoringPeriodId": str(scoring_period), "view": "kona_player_info"},
+        cookies=cookies,
+        headers={"Accept": "application/json", "x-fantasy-filter": json.dumps(filt)},
+        timeout=timeout,
+    )
+    if not resp.ok:
+        return None
+    entry = next(
+        (
+            p
+            for p in (resp.json().get("players") or [])
+            if (p.get("player") or {}).get("id") == player_id
+        ),
+        None,
+    )
+    return None if entry is None else str(entry.get("status") or "")

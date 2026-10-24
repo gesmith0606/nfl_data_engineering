@@ -266,6 +266,12 @@ mistake that reached the user this season rather than the pipeline:
    D/STs match on the nickname (`Jaguars`, `Jaguars D/ST`, `Jaguars DEF` are the same). Two
    players with the same name are never guessed between: add `add_id:` / `drop_id:` (the site's
    player id, printed in the error).
+1. **ESPN without Chrome (new, opt-in):** add `--espn-http` and the claim goes over plain
+   HTTPS with the `ESPN_S2`/`ESPN_SWID` cookies from `.env` instead of through the logged-in
+   browser tab — same three guards (SWID present, we own the teamId, the add is still at its
+   dry-run status), same return shape. It has only been exercised against stubs, so **file one
+   real claim with it under supervision before trusting it**; the browser remains the default.
+
 2. Dry run (sends nothing):
    `python scripts/submit_claims.py --claims data/draft/claims_week<N>.yaml`.
    Every claim is checked live (the weekly-waivers Step 4b rule, automated): the add is on

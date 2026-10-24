@@ -235,7 +235,20 @@ def submit_one(
             free_agent=c.add.status == wc.FREE_AGENT,
         )
         expect = "FREEAGENT" if c.add.status == wc.FREE_AGENT else "WAIVERS"
-        res = ws.espn_submit(ctx["page"], season, lid, body, expect=expect)
+        if ctx.get("espn_http"):
+            # "chrome should not be the transport." Same request, same cookies
+            # the reads already use, same three guards, same return shape — so
+            # everything below is unchanged. Opt-in until it has filed one real
+            # claim: this moves money-equivalent state, and a transport that
+            # has only ever been exercised against stubs has not earned being
+            # the default.
+            from src import espn_league
+
+            res = espn_league.submit_transaction(
+                int(lid), season, body, expect_status=expect
+            )
+        else:
+            res = ws.espn_submit(ctx["page"], season, lid, body, expect=expect)
         status = _status(res)
         errors = "; ".join(f"{t}: {m}" for t, m in res.get("errors") or [])
         tx_status = (res.get("transaction") or {}).get("status")
@@ -363,6 +376,13 @@ def main(argv: Optional[list] = None) -> int:
         help="also file free-agent adds (they execute immediately, no cancel)",
     )
     ap.add_argument("--season", type=int, default=2026)
+    ap.add_argument(
+        "--espn-http",
+        action="store_true",
+        help="file ESPN claims over plain HTTPS with the ESPN_S2/ESPN_SWID "
+        "cookies instead of through the logged-in browser tab — same guards, "
+        "no Chrome. Opt-in until it has filed one real claim.",
+    )
     fb.add_browser_args(ap)
     args = ap.parse_args(argv)
     with fb.open_browser(args) as browser:
@@ -390,6 +410,9 @@ def _run(args: argparse.Namespace, browser: fb.FantasyBrowser) -> int:
                 browser,
                 args.allow_free_agent,
             )
+            # The transport choice travels with the league's context so the
+            # submit site needs no extra argument threaded through it.
+            ctx[league]["espn_http"] = bool(getattr(args, "espn_http", False))
         except (LookupError, RuntimeError, OSError) as exc:
             unreadable.append(f"{league}: could not check - {exc}")
 
