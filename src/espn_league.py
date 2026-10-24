@@ -29,7 +29,7 @@ import logging
 import json
 import re
 import os
-from typing import Any, Dict, List, Mapping, Optional
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
 import pandas as pd
 import requests
@@ -503,6 +503,189 @@ def submit_transaction(
             out["transaction"] = {
                 k: payload.get(k) for k in ("id", "type", "status", "bidAmount")
             }
+        problems = payload.get("messages") or payload.get("details")
+        if problems:
+            out["errors"] = [["espn", _scrub(problems)]]
+    return out
+
+
+def current_lineup_slots(
+    league_id: int,
+    season: int,
+    team_id: int,
+    scoring_period: Optional[int] = None,
+    cookies: Optional[Dict[str, str]] = None,
+    timeout: int = 30,
+) -> Dict[int, int]:
+    """Read a team's live ``player_id -> lineupSlotId`` map.
+
+    This is what makes a lineup write safe to replay: a move is only posted
+    when the player is still sitting in the slot the plan was built from.
+
+    Args:
+        league_id: Numeric ESPN league id.
+        season: Season year.
+        team_id: The team whose roster to read.
+        scoring_period: Week; omitted asks ESPN for the current one.
+        cookies: Auth cookies; :func:`cookies_from_env` when omitted.
+        timeout: Per-request timeout in seconds.
+
+    Returns:
+        ``{player_id: lineupSlotId}``, empty when the team is not in the payload.
+    """
+    payload = fetch_league(
+        league_id,
+        season,
+        views=["mRoster"],
+        cookies=cookies,
+        timeout=timeout,
+        scoring_period=scoring_period,
+    )
+    team = next(
+        (t for t in (payload.get("teams") or []) if t.get("id") == team_id), None
+    )
+    entries = ((team or {}).get("roster") or {}).get("entries") or []
+    out: Dict[int, int] = {}
+    for entry in entries:
+        pid = (entry.get("playerPoolEntry") or {}).get("id") or entry.get("playerId")
+        slot = entry.get("lineupSlotId")
+        if pid is not None and slot is not None:
+            out[int(pid)] = int(slot)
+    return out
+
+
+def submit_lineup(
+    league_id: int,
+    season: int,
+    team_id: int,
+    scoring_period: int,
+    moves: Sequence[Tuple[int, int, int]],
+    cookies: Optional[Dict[str, str]] = None,
+    timeout: int = 30,
+) -> Dict[str, Any]:
+    """Apply lineup slot changes over plain HTTPS. No browser.
+
+    The sibling of :func:`submit_transaction` for the other half of the
+    automation George asked for. It keeps that function's auth and ownership
+    guards -- filing into someone else's team is the worst available failure --
+    and replaces the add-availability check with the lineup equivalent: every
+    player must still be in the slot the plan was built from, re-read live.
+    A board computed an hour ago must not blindly move a player who has since
+    been dropped, benched by hand, or shuffled by another device.
+
+    ESPN rejects moves for players whose game has started, and that rejection
+    is authoritative -- we do not try to predict locks locally, because a wrong
+    local guess would silently skip a legal move.
+
+    Args:
+        league_id: Numeric ESPN league id.
+        season: Season year.
+        team_id: Our team id (must be owned by the signed-in account).
+        scoring_period: The week being set.
+        moves: ``(player_id, from_slot_id, to_slot_id)`` triples. A swap is two
+            moves; both must be present or ESPN leaves a slot double-filled.
+        cookies: Auth cookies; :func:`cookies_from_env` when omitted.
+        timeout: Per-request timeout in seconds.
+
+    Returns:
+        ``{"status": <http code>, "transaction": {...}}`` on success, or
+        ``{"status": 0, "errors": [["not submitted", why]]}`` when a guard
+        refuses -- the same shape :func:`submit_transaction` returns.
+
+    Raises:
+        requests.RequestException: Network failure. Treat as UNKNOWN and
+            re-read: a POST that timed out may still have been applied.
+    """
+    cookies = cookies or cookies_from_env()
+    swid = (cookies.get("SWID") or "").strip()
+    if not swid:
+        return {"status": 0, "errors": [["not submitted", "ESPN_SWID is not set"]]}
+    if not moves:
+        return {"status": 0, "errors": [["not submitted", "no lineup moves given"]]}
+
+    unknown = sorted(
+        {s for _, a, b in moves for s in (a, b) if s not in LINEUP_SLOT_MAP}
+    )
+    if unknown:
+        return {
+            "status": 0,
+            "errors": [["not submitted", f"unknown lineup slot id(s): {unknown}"]],
+        }
+
+    league = fetch_league(
+        league_id, season, views=["mTeam"], cookies=cookies, timeout=timeout
+    )
+    team = next(
+        (t for t in (league.get("teams") or []) if t.get("id") == team_id), None
+    )
+    owners = {str(o).upper() for o in ((team or {}).get("owners") or [])}
+    if swid.upper() not in owners:
+        return {
+            "status": 0,
+            "errors": [
+                ["not submitted", f"this ESPN account does not own team {team_id}"]
+            ],
+        }
+
+    live = current_lineup_slots(
+        league_id, season, team_id, scoring_period, cookies, timeout
+    )
+    for player_id, from_slot, _to_slot in moves:
+        actual = live.get(int(player_id))
+        if actual is None:
+            return {
+                "status": 0,
+                "errors": [
+                    ["not submitted", f"player {player_id} is not on team {team_id}"]
+                ],
+            }
+        if actual != int(from_slot):
+            return {
+                "status": 0,
+                "errors": [
+                    [
+                        "not submitted",
+                        f"player {player_id} is in slot "
+                        f"{LINEUP_SLOT_MAP.get(actual, actual)}, "
+                        f"the plan expected {LINEUP_SLOT_MAP.get(from_slot, from_slot)}",
+                    ]
+                ],
+            }
+
+    body = {
+        "isLeagueManager": False,
+        "teamId": int(team_id),
+        "type": "ROSTER",
+        "memberId": swid,
+        "scoringPeriodId": int(scoring_period),
+        "executionType": "EXECUTE",
+        "items": [
+            {
+                "playerId": int(pid),
+                "type": "LINEUP",
+                "fromLineupSlotId": int(a),
+                "toLineupSlotId": int(b),
+            }
+            for pid, a, b in moves
+        ],
+    }
+
+    url = f"{ESPN_WRITE_BASE}/seasons/{season}/segments/0/leagues/{league_id}/transactions/"
+    resp = requests.post(
+        url,
+        json=body,
+        cookies=cookies,
+        headers={"Content-Type": "application/json", "Accept": "application/json"},
+        timeout=timeout,
+    )
+    out: Dict[str, Any] = {"status": resp.status_code}
+    try:
+        payload = resp.json()
+    except ValueError:
+        payload = None
+    if isinstance(payload, dict):
+        if payload.get("id"):
+            out["transaction"] = {k: payload.get(k) for k in ("id", "type", "status")}
         problems = payload.get("messages") or payload.get("details")
         if problems:
             out["errors"] = [["espn", _scrub(problems)]]
