@@ -144,7 +144,14 @@ def print_per_season_breakdown(results: pd.DataFrame, target: str) -> None:
 
 
 def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
-    """Print formatted CLV (Closing Line Value) report.
+    """Print the model-vs-close deviation report.
+
+    This is NOT Closing Line Value, despite the function name kept for
+    compatibility. ``evaluate_clv`` computes ``predicted_margin - spread_line``
+    — the edge the pick is derived from — so a positive mean says the model
+    sits above the market on the home side, not that our number beat the close.
+    It returns the same figure for games that have not been played.
+    True line capture is ``--clv-true`` (``evaluate_line_capture``).
 
     Args:
         results: DataFrame with predicted_margin, spread_line columns.
@@ -157,17 +164,18 @@ def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
     pct_beating = float((clv_df["clv"] > 0).mean())
 
     print(f"\n{'=' * 60}")
-    print(f"CLV RESULTS -- {label}")
+    print(f"MODEL-VS-CLOSE DEVIATION -- {label}")
+    print("  (edge vs the closing line; NOT line value -- use --clv-true for that)")
     print(f"{'=' * 60}")
-    print(f"  Mean CLV:           {mean_clv:+.2f} points")
-    print(f"  Median CLV:         {median_clv:+.2f} points")
-    print(f"  Pct Beating Close:  {pct_beating:.1%}")
+    print(f"  Mean deviation:     {mean_clv:+.2f} points")
+    print(f"  Median deviation:   {median_clv:+.2f} points")
+    print(f"  Pct above the line: {pct_beating:.1%}   (= share of home-side picks)")
 
     # By Confidence Tier
     tier_df = compute_clv_by_tier(clv_df)
     print(f"\n  By Confidence Tier:")
     print(
-        f"  {'Tier':<10} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}"
+        f"  {'Tier':<10} {'Games':>6}   {'Mean dev':>9}  {'Median dev':>10}  {'Pct above line':>14}"
     )
     print(f"  {'-' * 55}")
     for _, row in tier_df.iterrows():
@@ -181,7 +189,7 @@ def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
     season_df = compute_clv_by_season(clv_df)
     print(f"\n  By Season:")
     print(
-        f"  {'Season':<8} {'Games':>6}   {'Mean CLV':>9}  {'Median CLV':>10}  {'Pct Beat Close':>14}"
+        f"  {'Season':<8} {'Games':>6}   {'Mean dev':>9}  {'Median dev':>10}  {'Pct above line':>14}"
     )
     print(f"  {'-' * 55}")
     for _, row in season_df.iterrows():
@@ -913,8 +921,15 @@ def run_clv_true_backtest(
     snap_combined = pd.concat(season_frames, ignore_index=True)
 
     # Join open/close lines onto the game features.
-    # Match on (home_team_nfl, away_team_nfl, season).
-    required_join_cols = {"home_team_nfl", "away_team_nfl"}
+    # The snapshot loader names its teams *_nfl; the assembled features use the
+    # schedule's own home_team/away_team. This path had never run end to end, so
+    # it asked the feature frame for the snapshot's column names and bailed every
+    # time. The assembled frame names them team_home/team_away (the per-team
+    # reshape's suffixes), so rename the snapshot side to match.
+    snap_combined = snap_combined.rename(
+        columns={"home_team_nfl": "team_home", "away_team_nfl": "team_away"}
+    )
+    required_join_cols = {"team_home", "team_away"}
     if not required_join_cols.issubset(all_data.columns):
         missing = required_join_cols - set(all_data.columns)
         print(f"ERROR: Missing join columns in assembled features: {sorted(missing)}")
@@ -922,9 +937,9 @@ def run_clv_true_backtest(
 
     joined = all_data.merge(
         snap_combined[
-            ["home_team_nfl", "away_team_nfl", "season", "open_spread", "close_spread"]
+            ["team_home", "team_away", "season", "open_spread", "close_spread"]
         ],
-        on=["home_team_nfl", "away_team_nfl", "season"],
+        on=["team_home", "team_away", "season"],
         how="left",
     )
 
