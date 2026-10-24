@@ -84,3 +84,74 @@ def test_non_sleeper_output_says_it_is_a_recommendation():
     assert "stream_dst_k.py" in body, "point at the tool that does fill those slots"
     # And the refusal must name the flag rather than just declining.
     assert "--roster-file with your roster" in body
+
+
+# ---------------------------------------------------------------------------
+# Live ESPN lineup (2026-10-24): cookies turned "we can only recommend" into
+# "we can diff against what is actually set".
+# ---------------------------------------------------------------------------
+
+
+def test_espn_live_lineup_reads_the_lineup_that_is_set(monkeypatch):
+    """The starters come from ESPN's own slots, not from our optimizer.
+
+    Before cookies the tool had nothing to compare against, so the SWAP rule
+    could never fire for ESPN and the table was a recommendation. This is the
+    read that changed that, so it is worth pinning: QB/RB/WR slots map onto the
+    preset's slot order, and a bench player must not appear among the starters.
+    """
+    m = _mod()
+
+    payload = {
+        "teams": [
+            {
+                "id": 1,
+                "roster": {
+                    "entries": [
+                        {"playerId": 10, "lineupSlotId": 0,
+                         "playerPoolEntry": {"id": 10, "player": {"fullName": "Brock Purdy", "defaultPositionId": 1}}},
+                        {"playerId": 11, "lineupSlotId": 2,
+                         "playerPoolEntry": {"id": 11, "player": {"fullName": "Derrick Henry", "defaultPositionId": 2}}},
+                        {"playerId": 12, "lineupSlotId": 20,
+                         "playerPoolEntry": {"id": 12, "player": {"fullName": "Benched Guy", "defaultPositionId": 3}}},
+                    ]
+                },
+            }
+        ]
+    }
+
+    monkeypatch.setenv("ESPN_S2", "x")
+    monkeypatch.setenv("ESPN_SWID", "{S}")
+    monkeypatch.setattr(m, "build_id_maps", lambda reg: ({}, {
+        ("brock purdy", "QB"): "sid_qb",
+        ("derrick henry", "RB"): "sid_rb",
+        ("benched guy", "WR"): "sid_bn",
+    }))
+
+    import src.espn_league as espn_league
+
+    monkeypatch.setattr(espn_league, "cookies_from_env", lambda: {"SWID": "{S}", "espn_s2": "x"})
+    monkeypatch.setattr(espn_league, "fetch_league", lambda *a, **k: payload)
+    monkeypatch.setattr(espn_league, "find_my_team_id", lambda *a, **k: 1)
+
+    out = m.espn_live_lineup(123, 2026, {}, ["QB", "RB", "WR"])
+
+    assert out is not None
+    assert out["team_id"] == 1
+    assert out["starters"][0] == "sid_qb"
+    assert out["starters"][1] == "sid_rb"
+    assert out["starters"][2] == "0", "no WR is started, so the slot is unfilled"
+    assert "sid_bn" in out["players"], "the bench player is still on the roster"
+
+
+def test_espn_live_lineup_returns_none_without_cookies(monkeypatch):
+    """No cookies means fall back to the pasted file, not a half-read lineup."""
+    m = _mod()
+    monkeypatch.delenv("ESPN_S2", raising=False)
+    monkeypatch.delenv("ESPN_SWID", raising=False)
+    monkeypatch.setattr(m, "load_dotenv", lambda *a, **k: None, raising=False)
+
+    import src.espn_league as espn_league
+
+    monkeypatch.setattr(espn_league, "cookies_from_env", lambda: {})
+    assert m.espn_live_lineup(123, 2026, {}, ["QB"]) is None

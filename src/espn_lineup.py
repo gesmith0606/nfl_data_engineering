@@ -86,6 +86,26 @@ def espn_names_by_id(payload: Mapping[str, Any], team_id: int) -> Dict[int, str]
     return out
 
 
+def espn_slots_by_id(payload: Mapping[str, Any], team_id: int) -> Dict[int, int]:
+    """``{playerId: lineupSlotId}`` parsed from a payload already in hand.
+
+    :func:`espn_league.current_lineup_slots` does the same over the network;
+    this avoids a second round-trip when the caller has just fetched mRoster.
+    """
+    team = next(
+        (t for t in (payload.get("teams") or []) if t.get("id") == team_id), None
+    )
+    entries = ((team or {}).get("roster") or {}).get("entries") or []
+    out: Dict[int, int] = {}
+    for entry in entries:
+        pool = entry.get("playerPoolEntry") or {}
+        pid = pool.get("id") or entry.get("playerId")
+        slot = entry.get("lineupSlotId")
+        if pid is not None and slot is not None:
+            out[int(pid)] = int(slot)
+    return out
+
+
 def resolve_players(
     names: Sequence[str], index: Mapping[str, int]
 ) -> Tuple[Dict[str, int], List[str]]:
