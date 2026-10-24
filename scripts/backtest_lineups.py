@@ -27,7 +27,7 @@ import argparse
 import statistics
 import sys
 from pathlib import Path
-from typing import Any, List, Mapping, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -115,6 +115,144 @@ def week_regret(
     return actual, best
 
 
+def weekly_full_names(season: int) -> Dict[str, str]:
+    """``gsis id -> full name`` from Bronze weekly actuals, for the crosswalk."""
+    import glob
+
+    import pandas as pd
+
+    files = sorted(
+        glob.glob(
+            str(
+                REPO_ROOT
+                / "data"
+                / "bronze"
+                / "players"
+                / "weekly"
+                / f"season={season}"
+                / "*.parquet"
+            )
+        )
+    )
+    if not files:
+        return {}
+    df = pd.read_parquet(files[-1])
+    col = (
+        "player_display_name" if "player_display_name" in df.columns else "player_name"
+    )
+    return {
+        str(pid): str(name)
+        for pid, name in zip(df["player_id"], df[col])
+        if pid and name
+    }
+
+
+def _name(registry: Mapping[str, Any], sid: str) -> str:
+    """A player's display name, falling back to the id."""
+    return str((registry.get(sid) or {}).get("full_name") or sid)
+
+
+def our_board(
+    season: int,
+    week: int,
+    registry: Mapping[str, Any],
+    scoring: Mapping[str, float],
+    gsis_map: Mapping[str, str],
+    full_names: Mapping[str, str],
+) -> Dict[str, float]:
+    """``sleeper_id -> our projected points`` for that week, {} when absent.
+
+    Two mistakes made this return nothing useful before, both worth naming:
+
+    1. ``load_ours`` returns raw stat rows, so they must be scored before
+       ``ours_by_sleeper_id`` can read ``projected_points``. A bare except
+       swallowed the AttributeError and reported 100% of the loss as "no
+       board" -- a false finding from a one-line bug.
+    2. The crosswalk is not optional. Without ``gsis_map`` (Bronze rosters)
+       and ``full_names`` (gsis -> full name), weekly Gold's abbreviated names
+       like ``J.Price`` match nothing and rookies resolve not at all, which
+       left 87% of swaps unjudged.
+    """
+    from src.lineup_setter import ours_by_sleeper_id, score_ours
+    from scripts import set_lineups
+
+    try:
+        df, _label = set_lineups.load_ours(season, week)
+    except (OSError, ValueError, KeyError) as exc:
+        print(f"  WARN: no board for week {week} ({exc})")
+        return {}
+    if df is None or df.empty:
+        return {}
+    return ours_by_sleeper_id(
+        score_ours(df, dict(scoring)),
+        dict(registry),
+        gsis_map=dict(gsis_map),
+        full_names=dict(full_names),
+    )
+
+
+def missed_swaps(
+    roster: Mapping[str, Any],
+    slots: Sequence[str],
+    positions: Mapping[str, str],
+    limit: int = 2,
+) -> List[Tuple[str, str, float]]:
+    """``(started, benched, points gained)`` for the best swaps not made.
+
+    Names the decision rather than the total. A 26-point regret is only
+    actionable once you know whether it was one wrong flex or six small ones.
+    """
+    pts = {
+        str(k): float(v or 0.0) for k, v in (roster.get("players_points") or {}).items()
+    }
+    started = [str(p) for p in (roster.get("starters") or []) if p]
+    bench = [
+        str(p)
+        for p in (roster.get("players") or [])
+        if str(p) not in set(started) and str(p) in pts
+    ]
+    eligible_for = {s: slot_eligibility(s) for s in slots if slot_eligibility(s)}
+    out: List[Tuple[str, str, float]] = []
+    for sid in started:
+        # Which slot could this starter have occupied? Take the narrowest, so a
+        # swap is only proposed where the bench player could really have played.
+        fits = [s for s, elig in eligible_for.items() if positions.get(sid) in elig]
+        if not fits:
+            continue
+        allowed = set()
+        for slot in fits:
+            allowed |= set(eligible_for[slot])
+        better = [
+            b
+            for b in bench
+            if positions.get(b) in allowed and pts.get(b, 0.0) > pts.get(sid, 0.0)
+        ]
+        if better:
+            best = max(better, key=lambda b: pts[b])
+            out.append((sid, best, pts[best] - pts.get(sid, 0.0)))
+    return sorted(out, key=lambda t: -t[2])[:limit]
+
+
+def was_knowable(
+    started: str, benched: str, board: Mapping[str, float]
+) -> Optional[bool]:
+    """Did our own projection already favour the benched player?
+
+    This is the question that decides whether an optimizer can help at all.
+    If our board ranked the bench player higher and he was left out, the
+    information was there and the process lost it -- fixable. If the board
+    preferred the player we started, the swap was only obvious afterwards, and
+    no optimizer recovers it.
+
+    Returns None when either player is missing from that week's board, which
+    is itself worth counting rather than guessing at.
+    """
+    a, b = board.get(started), board.get(benched)
+    if a is None or b is None:
+        return None
+    return b > a
+
+
 def summarise(regrets: Sequence[float], label: str) -> List[str]:
     """Points left on the bench, per week."""
     if not regrets:
@@ -132,6 +270,7 @@ def main(argv: Optional[list] = None) -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     ap.add_argument("--league", default="mantis", help="LEAGUE_PRESETS key (Sleeper)")
+    ap.add_argument("--season", type=int, default=2026)
     ap.add_argument("--through-week", type=int, default=0)
     args = ap.parse_args(argv)
 
@@ -151,6 +290,14 @@ def main(argv: Optional[list] = None) -> int:
     if not league:
         sys.exit(f"Sleeper league {lid} unavailable")
     slots = [s for s in (league.get("roster_positions") or []) if s != "BN"]
+    scoring = league.get("scoring_settings") or {}
+    # The crosswalk weekly Gold needs: Bronze rosters map sleeper->gsis, and
+    # the weekly actuals carry the full names Gold abbreviates.
+    from src.lineup_setter import roster_gsis_map
+    from scripts.backtest_claim_outcomes import bronze_rosters
+
+    gsis_map = roster_gsis_map(bronze_rosters())
+    full_names = weekly_full_names(args.season)
     registry = load_sleeper_players(max_age_days=7)
     positions = {
         sid: str((meta or {}).get("position") or "") for sid, meta in registry.items()
@@ -172,6 +319,7 @@ def main(argv: Optional[list] = None) -> int:
     ours: List[float] = []
     theirs: List[float] = []
     per_week: List[Tuple[int, float, float]] = []
+    swaps: List[Tuple[int, str, str, float, Optional[bool]]] = []
     for week in range(1, through + 1):
         rosters = sleeper_http.fetch_sleeper_json(MATCHUPS.format(lid=lid, week=week))
         if not rosters:
@@ -185,6 +333,19 @@ def main(argv: Optional[list] = None) -> int:
             if str(roster.get("roster_id")) == mine:
                 ours.append(regret)
                 per_week.append((week, actual, best))
+                board = our_board(
+                    args.season, week, registry, scoring, gsis_map, full_names
+                )
+                for started, benched, gain in missed_swaps(roster, slots, positions):
+                    swaps.append(
+                        (
+                            week,
+                            started,
+                            benched,
+                            gain,
+                            was_knowable(started, benched, board),
+                        )
+                    )
             else:
                 theirs.append(regret)
 
@@ -208,6 +369,39 @@ def main(argv: Optional[list] = None) -> int:
             print(f"    n={len(ours)} weeks of ours — directional")
     else:
         print("\n  VERDICT: too few scorable weeks to compare (need 3 each)")
+
+    if swaps:
+        knowable = [x for x in swaps if x[4] is True]
+        variance = [x for x in swaps if x[4] is False]
+        unknown = [x for x in swaps if x[4] is None]
+        lost = sum(x[3] for x in swaps)
+        print(
+            "\n  -- was it knowable? (did OUR board already prefer the bench player) --"
+        )
+        for label, group in (
+            ("AVOIDABLE", knowable),
+            ("variance", variance),
+            ("no board", unknown),
+        ):
+            got = sum(x[3] for x in group)
+            share = 100 * got / lost if lost else 0.0
+            print(
+                f"  {label:10} {len(group):3} swaps  {got:6.1f}pt  ({share:4.0f}% of the loss)"
+            )
+        if knowable:
+            print("\n  the avoidable ones, worst first:")
+            for week, started, benched, gain, _k in sorted(
+                knowable, key=lambda x: -x[3]
+            )[:5]:
+                print(
+                    f"  wk{week:<3} started {_name(registry, started)[:20]:20} "
+                    f"over {_name(registry, benched)[:20]:20} -{gain:5.1f}pt"
+                )
+        print(
+            "\n  AVOIDABLE is the only share an optimizer can recover. A large\n"
+            "  'variance' share means the lineups were defensible and the points\n"
+            "  were simply unknowable."
+        )
 
     if per_week:
         print("\n  -- our weeks, worst first --")

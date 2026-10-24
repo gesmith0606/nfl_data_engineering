@@ -100,3 +100,51 @@ def test_a_starter_who_scored_nothing_still_counts_as_started():
     }
     actual, best = bl.week_regret(roster, ["FLEX"], POS)
     assert actual == 0.0 and best == 9.0
+
+
+def test_missed_swaps_only_proposes_a_player_who_could_have_played_the_slot():
+    """A 26-point regret is actionable only once the decision is named."""
+    bl = _mod()
+    roster = {
+        "players_points": {"te": 4.0, "wr": 20.0, "qb": 30.0},
+        "starters": ["te"],
+        "players": ["te", "wr", "qb"],
+    }
+    # FLEX cannot take a QB, so the 30 must not be offered as the swap.
+    ((started, benched, gain),) = bl.missed_swaps(roster, ["FLEX"], POS, limit=1)
+    assert (started, benched, gain) == ("te", "wr", 16.0)
+    # SUPER_FLEX can, so there the QB is the right answer.
+    ((_s, b2, g2),) = bl.missed_swaps(roster, ["SUPER_FLEX"], POS, limit=1)
+    assert (b2, g2) == ("qb", 26.0)
+
+
+def test_a_starter_who_beat_every_bench_option_yields_no_swap():
+    bl = _mod()
+    roster = {
+        "players_points": {"wr": 20.0, "te": 1.0},
+        "starters": ["wr"],
+        "players": ["wr", "te"],
+    }
+    assert bl.missed_swaps(roster, ["FLEX"], POS) == []
+
+
+def test_knowability_is_what_separates_a_fixable_loss_from_variance():
+    """53% of our week-1..6 loss was already visible on our own board.
+
+    That is the number that decides whether an optimizer can help at all: a
+    swap our projection preferred is a process failure, one it did not is only
+    obvious afterwards.
+    """
+    bl = _mod()
+    # Our board rated the bench player higher — we had the information.
+    assert (
+        bl.was_knowable("started", "benched", {"started": 5.0, "benched": 9.0}) is True
+    )
+    # Our board preferred who we started — hindsight only.
+    assert (
+        bl.was_knowable("started", "benched", {"started": 9.0, "benched": 5.0}) is False
+    )
+    # Missing from the board is neither, and must be counted separately rather
+    # than guessed at — reporting it as variance would flatter the process.
+    assert bl.was_knowable("started", "benched", {"started": 5.0}) is None
+    assert bl.was_knowable("started", "benched", {}) is None
