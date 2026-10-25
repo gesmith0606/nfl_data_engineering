@@ -16,17 +16,24 @@ import type { GamePrediction } from '../api/types';
 const EDGE_HIGH_THRESHOLD = 3.0;
 const MAX_HOPS = 3;
 
+/**
+ * Ranking signal for this module — the ATS edge ONLY.
+ *
+ * It used to be `max(|spread_edge|, |total_edge|)`, which let a totals edge
+ * both choose which games appear here and supply the pick label (`ou_pick`).
+ * `.planning/TOTALS_VERDICT.md` (2026-06-10) killed the game-totals betting
+ * surface, so a totals edge can no longer promote a game or name a side; the
+ * total itself still shows as market context on the predictions page.
+ */
 function topEdge(p: GamePrediction): number {
-  return Math.max(Math.abs(p.spread_edge ?? 0), Math.abs(p.total_edge ?? 0));
+  return Math.abs(p.spread_edge ?? 0);
 }
 
 function PickTile({ prediction }: { prediction: GamePrediction }) {
   const awayColor = getTeamColor(prediction.away_team);
   const homeColor = getTeamColor(prediction.home_team);
   const edge = topEdge(prediction);
-  const isSpreadEdge =
-    Math.abs(prediction.spread_edge ?? 0) >= Math.abs(prediction.total_edge ?? 0);
-  const pick = isSpreadEdge ? prediction.ats_pick : prediction.ou_pick;
+  const pick = prediction.ats_pick;
 
   return (
     <Link
@@ -69,17 +76,13 @@ function PickTile({ prediction }: { prediction: GamePrediction }) {
       <div className='flex items-center justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
         <span className='font-medium'>{pick}</span>
         <span className='text-muted-foreground tabular-nums'>
-          {isSpreadEdge ? 'Spread' : 'Total'}{' '}
+          Spread{' '}
           <span className='font-mono'>
-            {isSpreadEdge
-              ? `${prediction.predicted_spread > 0 ? '+' : ''}${prediction.predicted_spread.toFixed(1)}`
-              : prediction.predicted_total.toFixed(1)}
+            {`${prediction.predicted_spread > 0 ? '+' : ''}${prediction.predicted_spread.toFixed(1)}`}
           </span>
-          {isSpreadEdge && prediction.vegas_spread !== null
+          {prediction.vegas_spread !== null
             ? ` vs ${prediction.vegas_spread > 0 ? '+' : ''}${prediction.vegas_spread.toFixed(1)}`
-            : !isSpreadEdge && prediction.vegas_total !== null
-              ? ` vs ${prediction.vegas_total.toFixed(1)}`
-              : ''}
+            : ''}
         </span>
       </div>
     </Link>

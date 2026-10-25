@@ -166,7 +166,7 @@ This document describes the end-to-end architecture of the NFL Data Engineering 
 │ TOOLS & SERVICES                                            │
 │ • Draft Optimizer (snake/auction/mock/waiver)              │
 │ • Fantasy Backtester (MAE/RMSE/bias analysis)              │
-│ • Prediction Backtester (ATS/O-U/CLV evaluation)           │
+│ • Prediction Backtester (ATS/O-U evaluation)               │
 │ • Sanity Check (consensus comparison, pre-deploy gate)     │
 │ • NotebookLM Content Generator (weekly/rankings/matchup)   │
 │ • External Rankings Fetcher (Sleeper/FantasyPros/ESPN)     │
@@ -575,7 +575,7 @@ Edge Tiers:
 Evaluation Metrics:
     ├─ ATS Accuracy: % correct against spread_line
     ├─ O/U Accuracy: % correct against total_line
-    ├─ CLV (Closing Line Value): predicted - spread_line
+    ├─ Model-vs-close (spread edge, NOT CLV): predicted - spread_line
     ├─ Profit: units won/lost at -110 vig
     └─ ROI: profit / total_action
 ```
@@ -587,9 +587,16 @@ Ensemble Performance (v3.0 — CV meta-learner selection + calibrated probabilit
     ├─ OOF ATS Accuracy: 52.92% (up from 51.96% in v2.2)
     ├─ Sealed 2024 Holdout ATS: 53.0% (profit +$3.09 on 100 games)
     ├─ O/U Accuracy: 51.2%
-    ├─ Avg CLV: +0.12 points
+    ├─ Avg model-vs-close edge: +0.12 points (spread edge vs the close, not CLV)
     └─ ROI: +1.2% at -110 vig
     New in v3.0: calibrated cover/over probabilities alongside edge tiers
+
+    NOTE (2026-10-25): every figure above is the sealed-2024/OOF vintage, NOT
+    the current record.  Measured on 93 settled 2026 games (wk1-6): ATS
+    41-46-6 (47.1%, ROI -10.03%), O/U 41-52 (44.1%, ROI -15.84%) — both
+    losing, and n=93 is no verdict either way.  The O/U surface is being
+    retired per .planning/TOTALS_VERDICT.md.  See CLAUDE.md "Game-prediction
+    record" and .planning/CLV_PICK_RULE_AUDIT_2026_10_24.md.
 
 vs v1.4 Single Model:
     ├─ v1.4: 50.0% ATS, -$12.18 loss

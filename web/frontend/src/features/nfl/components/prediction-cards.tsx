@@ -147,7 +147,12 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
             )}
           </div>
 
-          {/* Total */}
+          {/* Total — MARKET TRACKING ONLY, never a pick. The game-totals
+              betting surface was killed by .planning/TOTALS_VERDICT.md
+              (2026-06-10): the totals model is near-constant, so "over if
+              total_edge > 0" was only ever fading extreme Vegas lines
+              (41-52-0, 44.1% on 2026). We show our number beside the market's
+              as context and recommend no side. */}
           <div className='space-y-[var(--space-1)]'>
             <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               <span className='text-muted-foreground'>Total</span>
@@ -166,11 +171,11 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
               <div className='space-y-[var(--space-1)]'>
                 <Progress value={Math.min((totalEdge / maxEdge) * 100, 100)} className='h-1.5' />
                 <div className='flex items-center justify-between'>
-                  <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
-                    {prediction.ou_pick}
+                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
+                    Market tracking
                   </span>
                   <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                    {totalEdge.toFixed(1)}pt edge
+                    {totalEdge.toFixed(1)}pt vs market
                   </span>
                 </div>
               </div>

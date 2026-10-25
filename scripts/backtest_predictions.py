@@ -48,13 +48,13 @@ from prediction_backtester import (
     BREAK_EVEN_PCT,
     compute_profit,
     evaluate_ats,
-    evaluate_clv,
+    evaluate_model_vs_close,
     evaluate_holdout,
     evaluate_ou,
     evaluate_line_capture,
     compute_line_capture_summary,
-    compute_clv_by_season,
-    compute_clv_by_tier,
+    compute_model_vs_close_by_season,
+    compute_model_vs_close_by_tier,
     compute_season_stability,
     print_holdout_comparison,
 )
@@ -143,60 +143,63 @@ def print_per_season_breakdown(results: pd.DataFrame, target: str) -> None:
         )
 
 
-def print_clv_report(results: pd.DataFrame, label: str = "Overall") -> None:
+def print_model_vs_close_report(results: pd.DataFrame, label: str = "Overall") -> None:
     """Print the model-vs-close deviation report.
 
-    This is NOT Closing Line Value, despite the function name kept for
-    compatibility. ``evaluate_clv`` computes ``predicted_margin - spread_line``
-    — the edge the pick is derived from — so a positive mean says the model
-    sits above the market on the home side, not that our number beat the close.
-    It returns the same figure for games that have not been played.
+    This is NOT Closing Line Value. ``evaluate_model_vs_close`` computes
+    ``predicted_margin - spread_line`` — the edge the pick is derived from — so
+    a positive mean says the model sits above the market on the home side, not
+    that our number beat the close. Only one price is involved, so no line
+    movement is observable here at all. It also returns the same figure for
+    games that have not been played.
     True line capture is ``--clv-true`` (``evaluate_line_capture``).
 
     Args:
         results: DataFrame with predicted_margin, spread_line columns.
         label: Report section label.
     """
-    clv_df = evaluate_clv(results)
-    n_games = len(clv_df)
-    mean_clv = float(clv_df["clv"].mean())
-    median_clv = float(clv_df["clv"].median())
-    pct_beating = float((clv_df["clv"] > 0).mean())
+    mvc_df = evaluate_model_vs_close(results)
+    n_games = len(mvc_df)
+    mean_mvc = float(mvc_df["model_vs_close"].mean())
+    median_mvc = float(mvc_df["model_vs_close"].median())
+    pct_home_lean = float((mvc_df["model_vs_close"] > 0).mean())
 
     print(f"\n{'=' * 60}")
     print(f"MODEL-VS-CLOSE DEVIATION -- {label}")
     print("  (edge vs the closing line; NOT line value -- use --clv-true for that)")
     print(f"{'=' * 60}")
-    print(f"  Mean deviation:     {mean_clv:+.2f} points")
-    print(f"  Median deviation:   {median_clv:+.2f} points")
-    print(f"  Pct above the line: {pct_beating:.1%}   (= share of home-side picks)")
+    print(f"  Mean deviation:     {mean_mvc:+.2f} points")
+    print(f"  Median deviation:   {median_mvc:+.2f} points")
+    print(f"  Home lean:          {pct_home_lean:.1%}   (= share of home-side picks)")
 
     # By Confidence Tier
-    tier_df = compute_clv_by_tier(clv_df)
+    tier_df = compute_model_vs_close_by_tier(mvc_df)
     print(f"\n  By Confidence Tier:")
     print(
-        f"  {'Tier':<10} {'Games':>6}   {'Mean dev':>9}  {'Median dev':>10}  {'Pct above line':>14}"
+        f"  {'Tier':<10} {'Games':>6}   {'Mean dev':>9}  {'Median dev':>10}  {'Home lean':>14}"
     )
     print(f"  {'-' * 55}")
     for _, row in tier_df.iterrows():
         print(
             f"  {row['tier']:<10} {int(row['games']):>6}   "
-            f"{row['mean_clv']:>+9.2f}  {row['median_clv']:>+10.2f}  "
-            f"{row['pct_beating_close']:>13.1%}"
+            f"{row['mean_model_vs_close']:>+9.2f}  "
+            f"{row['median_model_vs_close']:>+10.2f}  "
+            f"{row['pct_home_lean']:>13.1%}"
         )
 
     # By Season
-    season_df = compute_clv_by_season(clv_df)
+    season_df = compute_model_vs_close_by_season(mvc_df)
     print(f"\n  By Season:")
     print(
-        f"  {'Season':<8} {'Games':>6}   {'Mean dev':>9}  {'Median dev':>10}  {'Pct above line':>14}"
+        f"  {'Season':<8} {'Games':>6}   {'Mean dev':>9}  {'Median dev':>10}  {'Home lean':>14}"
     )
     print(f"  {'-' * 55}")
     for _, row in season_df.iterrows():
         print(
             f"  {int(row['season']):<8} {int(row['games']):>6}   "
-            f"{row['mean_clv']:>+9.2f}  {row['median_clv']:>+10.2f}  "
-            f"{row['pct_beating_close']:>13.1%}"
+            f"{row['mean_model_vs_close']:>+9.2f}  "
+            f"{row['median_model_vs_close']:>+10.2f}  "
+            f"{row['pct_home_lean']:>13.1%}"
         )
     print(f"{'=' * 60}")
 
@@ -456,7 +459,9 @@ def run_ensemble_backtest(
 
         print_per_season_breakdown(results, tgt)
         if tgt == "spread":
-            print_clv_report(results, f"Ensemble CLV ({len(results)} games)")
+            print_model_vs_close_report(
+                results, f"Ensemble ({len(results)} games)"
+            )
         ensemble_results[tgt] = results
 
     return ensemble_results
@@ -608,9 +613,11 @@ def run_comparison_backtest(
 
         print(f"  {'=' * 52}")
 
-        # CLV report for ensemble spread results
+        # Model-vs-close report for ensemble spread results
         if tgt == "spread":
-            print_clv_report(ens_results, f"Ensemble CLV ({len(ens_results)} games)")
+            print_model_vs_close_report(
+                ens_results, f"Ensemble ({len(ens_results)} games)"
+            )
 
 
 def run_holdout_comparison(
@@ -726,12 +733,12 @@ def run_holdout_comparison(
         holdout_season=HOLDOUT_SEASON,
     )
 
-    # CLV report for P31 ensemble on holdout season
+    # Model-vs-close report for P31 ensemble on holdout season
     if not p31_results.empty:
         holdout_data = p31_results[p31_results["season"] == HOLDOUT_SEASON]
         if not holdout_data.empty:
-            print_clv_report(
-                holdout_data, f"P31 Ensemble CLV -- {HOLDOUT_SEASON} Holdout"
+            print_model_vs_close_report(
+                holdout_data, f"P31 Ensemble -- {HOLDOUT_SEASON} Holdout"
             )
 
     return comparison

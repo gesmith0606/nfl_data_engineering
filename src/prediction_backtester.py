@@ -5,16 +5,25 @@ vig-adjusted profit accounting at standard -110 odds.
 
 TRUE CLV vs MODEL-VS-CLOSE NOTE
 ================================
-``evaluate_clv`` computes *model-vs-close*: how far the model's predicted margin
-differed from the closing spread.  This is NOT true Closing Line Value — it
-measures model signal relative to closing prices, which is useful as a
-directional indicator but cannot capture whether our pick beat the number we
-actually got.
+The term "CLV" in this module is reserved for ``evaluate_line_capture`` and
+``compute_line_capture_summary``.  Nothing else here measures it, and nothing
+else here is named for it.
+
+``evaluate_model_vs_close`` computes *model-vs-close*: how far the model's
+predicted margin differed from the closing spread, i.e. the spread edge the
+pick is derived from.  It observes exactly ONE price — the close, which we bet
+into — so it cannot say anything about line movement, and a positive mean means
+only that the model leans further toward the home side than the market did.
+``pct_home_lean`` is the share of games with a positive edge; it is NOT a
+"percent beating the close".  Renamed 2026-10-25 after a write-up quoted the
+old ``clv`` / ``pct_beating_close`` names as evidence that the market moved
+toward our predictions — see ``.planning/CLV_PICK_RULE_AUDIT_2026_10_24.md``.
 
 ``evaluate_line_capture`` is true CLV: given the spread/total at the time we
-made the pick (open_line) and the final closing line, it measures how many
-points the number moved in our favour by kickoff.  This is the primary spread
-metric once 2026 live-capture data flows from the odds-capture cron.
+made the pick (open_line) and the final closing line — two prices, observed at
+two times — it measures how many points the number moved in our favour by
+kickoff.  This is the primary spread metric once 2026 live-capture data flows
+from the odds-capture cron.
 
 See also: ``src/odds_snapshot_loader.py`` for deriving open_line/close_line
 from Bronze Parquet snapshots written by ``scripts/bronze_odds_api_ingestion.py``.
@@ -25,7 +34,10 @@ Success gate (ELITE 2.4): mean signed capture > +0.3 pts on n ≥ 100 picks by
 Exports:
     evaluate_ats: Add ATS classification columns to a game DataFrame.
     evaluate_ou: Add over/under classification columns to a game DataFrame.
-    evaluate_clv: Model-vs-close pseudo-CLV (NOT true CLV — see above).
+    evaluate_model_vs_close: Spread edge vs the closing line (NOT CLV — one
+        price only, so it cannot measure line movement; see above).
+    compute_model_vs_close_by_tier: Model-vs-close broken out by edge tier.
+    compute_model_vs_close_by_season: Model-vs-close broken out by season.
     evaluate_line_capture: True CLV — signed line movement in our favour.
     compute_line_capture_summary: Summary stats for line capture results.
     compute_profit: Compute vig-adjusted profit from backtest results.
@@ -91,27 +103,34 @@ def evaluate_ou(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def evaluate_clv(df: pd.DataFrame) -> pd.DataFrame:
-    """Add model-vs-close pseudo-CLV column.
+def evaluate_model_vs_close(df: pd.DataFrame) -> pd.DataFrame:
+    """Add the model-vs-close column: the spread edge against the closing line.
 
-    WARNING: This is NOT true Closing Line Value (CLV).  It computes
-    ``predicted_margin - spread_line`` — i.e., how far the model's prediction
-    deviated from the Vegas *closing* line.  Positive values indicate the model
-    predicted a bigger home margin than the market implied at close.
+    Computes ``predicted_margin - spread_line`` — how far the model's
+    prediction sits from the Vegas *closing* line.  Positive values mean the
+    model predicted a bigger home margin than the market implied at close, so
+    the mean of this column is a measure of the model's systematic home lean.
 
-    This function is useful as a directional model-signal indicator, but it
-    cannot tell you whether a pick made at the *opening* line was captured at a
-    better number than the close.  Use ``evaluate_line_capture`` for true CLV
-    once 2026 odds-capture data is available.
+    This is NOT Closing Line Value, and cannot be made into it.  Only ONE price
+    is involved — the close, which is the number we bet into — so there is no
+    second observation and therefore no line movement to measure.  A positive
+    value is true by construction for every pick on the home side; it says
+    nothing about whether the market later moved toward us.  True CLV needs an
+    opening price and a closing price: see ``evaluate_line_capture``.
+
+    (Named ``evaluate_clv`` with a ``clv`` column until 2026-10-25, when the
+    old name was read as evidence of market agreement —
+    ``.planning/CLV_PICK_RULE_AUDIT_2026_10_24.md``.)
 
     Args:
         df: DataFrame with columns predicted_margin, spread_line.
 
     Returns:
-        Copy of df with added column: clv (predicted_margin - spread_line).
+        Copy of df with added column: model_vs_close
+        (predicted_margin - spread_line).
     """
     df = df.copy()
-    df["clv"] = df["predicted_margin"] - df["spread_line"]
+    df["model_vs_close"] = df["predicted_margin"] - df["spread_line"]
     return df
 
 
@@ -295,7 +314,7 @@ def compute_line_capture_summary(
         - ``std_capture``: standard deviation of capture.
         - ``by_tier``: (only when ``edge_col`` provided) list of dicts, each
           with keys ``tier``, ``n``, ``mean_capture``, ``pct_captured``.
-          Tiers use the same thresholds as ``compute_clv_by_tier``:
+          Tiers use the same thresholds as ``compute_model_vs_close_by_tier``:
           high ≥ 3.0, medium ≥ 1.5, low < 1.5.
     """
     valid = df[df[capture_col].notna()].copy()
@@ -343,8 +362,13 @@ def compute_line_capture_summary(
     return summary
 
 
-def compute_clv_by_tier(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute CLV metrics grouped by confidence tier.
+def compute_model_vs_close_by_tier(df: pd.DataFrame) -> pd.DataFrame:
+    """Break the model-vs-close edge out by confidence tier.
+
+    Not CLV — see ``evaluate_model_vs_close``.  Note that the tiers are buckets
+    of ``|predicted_margin - spread_line|``, the magnitude of the very quantity
+    being summarised, so each row reports the sign distribution of our own edge
+    within a bucket of its own size.
 
     Tiers based on absolute edge (|predicted_margin - spread_line|):
         high: >= 3.0
@@ -352,10 +376,11 @@ def compute_clv_by_tier(df: pd.DataFrame) -> pd.DataFrame:
         low: < 1.5
 
     Args:
-        df: DataFrame with columns predicted_margin, spread_line, clv.
+        df: DataFrame with columns predicted_margin, spread_line, model_vs_close.
 
     Returns:
-        DataFrame with columns: tier, games, mean_clv, median_clv, pct_beating_close.
+        DataFrame with columns: tier, games, mean_model_vs_close,
+        median_model_vs_close, pct_home_lean (share of positive edges).
     """
     edge = (df["predicted_margin"] - df["spread_line"]).abs()
     tier = pd.cut(
@@ -368,30 +393,33 @@ def compute_clv_by_tier(df: pd.DataFrame) -> pd.DataFrame:
         rows.append({
             "tier": tier_label,
             "games": len(group),
-            "mean_clv": float(group["clv"].mean()),
-            "median_clv": float(group["clv"].median()),
-            "pct_beating_close": float((group["clv"] > 0).mean()),
+            "mean_model_vs_close": float(group["model_vs_close"].mean()),
+            "median_model_vs_close": float(group["model_vs_close"].median()),
+            "pct_home_lean": float((group["model_vs_close"] > 0).mean()),
         })
     return pd.DataFrame(rows)
 
 
-def compute_clv_by_season(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute CLV metrics grouped by season.
+def compute_model_vs_close_by_season(df: pd.DataFrame) -> pd.DataFrame:
+    """Break the model-vs-close edge out by season.
+
+    Not CLV — see ``evaluate_model_vs_close``.
 
     Args:
-        df: DataFrame with columns season, clv.
+        df: DataFrame with columns season, model_vs_close.
 
     Returns:
-        DataFrame with columns: season, games, mean_clv, median_clv, pct_beating_close.
+        DataFrame with columns: season, games, mean_model_vs_close,
+        median_model_vs_close, pct_home_lean (share of positive edges).
     """
     rows = []
     for season, group in df.groupby("season"):
         rows.append({
             "season": int(season),
             "games": len(group),
-            "mean_clv": float(group["clv"].mean()),
-            "median_clv": float(group["clv"].median()),
-            "pct_beating_close": float((group["clv"] > 0).mean()),
+            "mean_model_vs_close": float(group["model_vs_close"].mean()),
+            "median_model_vs_close": float(group["model_vs_close"].median()),
+            "pct_home_lean": float((group["model_vs_close"] > 0).mean()),
         })
     return pd.DataFrame(rows)
 

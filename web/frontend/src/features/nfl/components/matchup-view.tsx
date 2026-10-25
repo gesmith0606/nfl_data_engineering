@@ -1505,13 +1505,18 @@ export function MatchupView() {
                         </span>
                       </p>
                     )}
+                  {/* Totals are MARKET TRACKING, not a pick: the game-totals
+                      betting surface was killed by
+                      .planning/TOTALS_VERDICT.md (2026-06-10), so no O/U side
+                      is named here. */}
                   {prediction?.total_edge != null &&
                     Math.abs(prediction.total_edge) >= 1.5 && (
                       <p className='flex items-center gap-[var(--space-2)]'>
                         <Icons.target className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-peri,#5b67c7)]' />
                         <span>
-                          {Math.abs(prediction.total_edge).toFixed(1)}-point total edge.{' '}
-                          <span className='text-white/80 font-medium'>{prediction.ou_pick}</span>
+                          Our total sits {Math.abs(prediction.total_edge).toFixed(1)} points{' '}
+                          {prediction.total_edge > 0 ? 'above' : 'below'} the market&apos;s.{' '}
+                          <span className='text-white/60'>Market tracking — no O/U pick.</span>
                         </span>
                       </p>
                     )}

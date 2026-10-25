@@ -12,9 +12,36 @@ from ..services import prediction_service
 
 router = APIRouter(prefix="/predictions", tags=["predictions"])
 
+# The O/U betting surface is retired: .planning/TOTALS_VERDICT.md (2026-06-10,
+# VERDICT: KILL) says to "remove the game-totals betting surface from
+# production [and] keep predicted_total as website content labeled market
+# tracking (useful context; not a bet recommendation)".
+#
+# Blanked HERE, at the serving boundary, and not only in the generator,
+# because the boards on disk were written over the four months the verdict
+# went unenforced and still carry a real side; the API reads those parquets
+# directly. predicted_total / vegas_total / total_edge keep flowing as market
+# tracking. See scripts/generate_predictions.py::OU_PICK_RETIRED for the
+# evidence, and web/frontend/.../prediction-cards.tsx for the presentation.
+OU_PICK_RETIRED = ""
+
+# -110 break-even. NOT applied: whether to publish only picks that clear it is
+# the product owner's call (4 of 14 picked sides clear it on the served 2026
+# wk7 board). Documented here so the number sits beside the pick it would gate,
+# and gated for real by generate_predictions.ATS_PUBLISH_MIN_PROB if ever
+# switched on.
+ATS_BREAKEVEN_PROB = 0.5238
+
 
 def _row_to_prediction(row) -> GamePrediction:
-    """Convert a DataFrame row/Series to a GamePrediction."""
+    """Convert a DataFrame row/Series to a GamePrediction.
+
+    ``ats_pick`` is re-derived from ``home_cover_prob`` when the row carries
+    one, so the pick served can never contradict the calibrated probability
+    behind it — including for boards generated before the generator was fixed
+    (they picked on the raw edge sign and disagreed on 1 of 14 wk7 games).
+    This mirrors ``generate_predictions.picks_home_side``; keep the two in step.
+    """
 
     def _sf(val) -> Optional[float]:
         if val is None:
@@ -25,12 +52,20 @@ def _row_to_prediction(row) -> GamePrediction:
         except (ValueError, TypeError):
             return None
 
+    home_team = str(row.get("home_team", ""))
+    away_team = str(row.get("away_team", ""))
+    cover_prob = _sf(row.get("home_cover_prob"))
+    if cover_prob is None:
+        ats_pick = str(row.get("ats_pick", ""))
+    else:
+        ats_pick = home_team if cover_prob >= 0.50 else away_team
+
     return GamePrediction(
         game_id=str(row.get("game_id", "")),
         season=int(row.get("season", 0)),
         week=int(row.get("week", 0)),
-        home_team=str(row.get("home_team", "")),
-        away_team=str(row.get("away_team", "")),
+        home_team=home_team,
+        away_team=away_team,
         predicted_spread=float(row.get("predicted_spread", 0)),
         predicted_total=float(row.get("predicted_total", 0)),
         vegas_spread=_sf(row.get("vegas_spread")),
@@ -38,8 +73,8 @@ def _row_to_prediction(row) -> GamePrediction:
         spread_edge=_sf(row.get("spread_edge")),
         total_edge=_sf(row.get("total_edge")),
         confidence_tier=str(row.get("confidence_tier", "low")),
-        ats_pick=str(row.get("ats_pick", "")),
-        ou_pick=str(row.get("ou_pick", "")),
+        ats_pick=ats_pick,
+        ou_pick=OU_PICK_RETIRED,
     )
 
 

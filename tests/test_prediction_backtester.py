@@ -15,9 +15,9 @@ from src.config import HOLDOUT_SEASON, TRAINING_SEASONS
 from prediction_backtester import (
     evaluate_ats,
     evaluate_ou,
-    evaluate_clv,
-    compute_clv_by_tier,
-    compute_clv_by_season,
+    evaluate_model_vs_close,
+    compute_model_vs_close_by_tier,
+    compute_model_vs_close_by_season,
     compute_profit,
     evaluate_holdout,
     compute_season_stability,
@@ -521,129 +521,168 @@ class TestHoldoutComparison:
         assert str(HOLDOUT_SEASON) in captured.out
 
 
-class TestCLVEvaluation:
-    """Tests for evaluate_clv() — CLV (Closing Line Value) computation."""
+class TestModelVsCloseEvaluation:
+    """Tests for evaluate_model_vs_close() — spread edge vs the closing line.
 
-    def test_clv_computation(self):
-        """CLV = predicted_margin - spread_line."""
+    NOT CLV: only one price (the close) is involved.  See
+    ``.planning/CLV_PICK_RULE_AUDIT_2026_10_24.md``.
+    """
+
+    def test_model_vs_close_computation(self):
+        """model_vs_close = predicted_margin - spread_line."""
         df = pd.DataFrame({
             "predicted_margin": [7, -2, 3],
             "spread_line": [-3, 1, 5],
         })
-        result = evaluate_clv(df)
-        assert list(result["clv"]) == [10, -3, -2]
+        result = evaluate_model_vs_close(df)
+        assert list(result["model_vs_close"]) == [10, -3, -2]
 
-    def test_clv_preserves_columns(self):
+    def test_model_vs_close_preserves_columns(self):
         """All original columns are preserved in the output."""
         df = pd.DataFrame({
             "predicted_margin": [7, -2],
             "spread_line": [-3, 1],
             "extra_col": ["a", "b"],
         })
-        result = evaluate_clv(df)
+        result = evaluate_model_vs_close(df)
         assert "predicted_margin" in result.columns
         assert "spread_line" in result.columns
         assert "extra_col" in result.columns
-        assert "clv" in result.columns
+        assert "model_vs_close" in result.columns
 
-    def test_clv_returns_copy(self):
-        """evaluate_clv returns a copy, not mutating the input."""
+    def test_model_vs_close_returns_copy(self):
+        """evaluate_model_vs_close returns a copy, not mutating the input."""
         df = pd.DataFrame({
             "predicted_margin": [7],
             "spread_line": [-3],
         })
         original_cols = set(df.columns)
-        evaluate_clv(df)
+        evaluate_model_vs_close(df)
         assert set(df.columns) == original_cols
-        assert "clv" not in df.columns
+        assert "model_vs_close" not in df.columns
+
+    def test_no_clv_named_output(self):
+        """Regression guard: the old CLV vocabulary must not come back."""
+        df = pd.DataFrame({
+            "predicted_margin": [7, -2],
+            "spread_line": [-3, 1],
+        })
+        result = evaluate_model_vs_close(df)
+        assert not any("clv" in str(col).lower() for col in result.columns)
 
 
-class TestCLVByTier:
-    """Tests for compute_clv_by_tier() — CLV breakdown by confidence tier."""
+class TestModelVsCloseByTier:
+    """Tests for compute_model_vs_close_by_tier() — breakdown by edge tier."""
 
-    def _make_clv_df(self):
+    def _make_model_vs_close_df(self):
         """3 games: high edge (4.0), medium edge (2.0), low edge (0.5)."""
         return pd.DataFrame({
             "predicted_margin": [7, 3, 2],
             "spread_line": [3, 1, 1.5],
-            "clv": [2.0, -1.0, 0.5],
+            "model_vs_close": [2.0, -1.0, 0.5],
         })
 
     def test_tier_assignment(self):
         """Games are assigned to correct tiers based on edge magnitude."""
-        df = self._make_clv_df()
-        result = compute_clv_by_tier(df)
+        df = self._make_model_vs_close_df()
+        result = compute_model_vs_close_by_tier(df)
         tiers = set(result["tier"].tolist())
         assert "high" in tiers
         assert "medium" in tiers
         assert "low" in tiers
 
     def test_tier_metrics(self):
-        """Verify mean_clv, median_clv, pct_beating_close per tier."""
-        df = self._make_clv_df()
-        result = compute_clv_by_tier(df)
+        """Verify mean/median model_vs_close and pct_home_lean per tier."""
+        df = self._make_model_vs_close_df()
+        result = compute_model_vs_close_by_tier(df)
         result_dict = {row["tier"]: row for _, row in result.iterrows()}
 
-        # High tier: edge=4.0, clv=2.0 -> mean=2.0, pct=1.0
-        assert abs(result_dict["high"]["mean_clv"] - 2.0) < 0.01
-        assert abs(result_dict["high"]["pct_beating_close"] - 1.0) < 0.01
+        # High tier: edge=4.0, model_vs_close=2.0 -> mean=2.0, lean=1.0
+        assert abs(result_dict["high"]["mean_model_vs_close"] - 2.0) < 0.01
+        assert abs(result_dict["high"]["median_model_vs_close"] - 2.0) < 0.01
+        assert abs(result_dict["high"]["pct_home_lean"] - 1.0) < 0.01
 
-        # Medium tier: edge=2.0, clv=-1.0 -> mean=-1.0, pct=0.0
-        assert abs(result_dict["medium"]["mean_clv"] - (-1.0)) < 0.01
-        assert abs(result_dict["medium"]["pct_beating_close"] - 0.0) < 0.01
+        # Medium tier: edge=2.0, model_vs_close=-1.0 -> mean=-1.0, lean=0.0
+        assert abs(result_dict["medium"]["mean_model_vs_close"] - (-1.0)) < 0.01
+        assert abs(result_dict["medium"]["median_model_vs_close"] - (-1.0)) < 0.01
+        assert abs(result_dict["medium"]["pct_home_lean"] - 0.0) < 0.01
 
-        # Low tier: edge=0.5, clv=0.5 -> mean=0.5, pct=1.0
-        assert abs(result_dict["low"]["mean_clv"] - 0.5) < 0.01
-        assert abs(result_dict["low"]["pct_beating_close"] - 1.0) < 0.01
+        # Low tier: edge=0.5, model_vs_close=0.5 -> mean=0.5, lean=1.0
+        assert abs(result_dict["low"]["mean_model_vs_close"] - 0.5) < 0.01
+        assert abs(result_dict["low"]["median_model_vs_close"] - 0.5) < 0.01
+        assert abs(result_dict["low"]["pct_home_lean"] - 1.0) < 0.01
+
+    def test_zero_edge_is_not_a_home_lean(self):
+        """pct_home_lean counts strictly positive edges, so 0.0 does not count."""
+        df = pd.DataFrame({
+            "predicted_margin": [7, 7],
+            "spread_line": [3, 3],
+            "model_vs_close": [0.0, 1.0],
+        })
+        result = compute_model_vs_close_by_tier(df)
+        assert len(result) == 1  # both games are high tier (edge 4.0)
+        assert abs(float(result["pct_home_lean"].iloc[0]) - 0.5) < 0.01
 
     def test_all_columns_present(self):
-        """Result has columns: tier, games, mean_clv, median_clv, pct_beating_close."""
-        df = self._make_clv_df()
-        result = compute_clv_by_tier(df)
-        expected_cols = {"tier", "games", "mean_clv", "median_clv", "pct_beating_close"}
+        """Result columns are exactly the new model-vs-close vocabulary."""
+        df = self._make_model_vs_close_df()
+        result = compute_model_vs_close_by_tier(df)
+        expected_cols = {
+            "tier",
+            "games",
+            "mean_model_vs_close",
+            "median_model_vs_close",
+            "pct_home_lean",
+        }
         assert set(result.columns) == expected_cols
 
 
-class TestCLVBySeason:
-    """Tests for compute_clv_by_season() — CLV breakdown by season."""
+class TestModelVsCloseBySeason:
+    """Tests for compute_model_vs_close_by_season() — breakdown by season."""
 
-    def _make_season_clv_df(self):
-        """4 games in 2022 (clv=[1, -2, 3, -1]) + 2 games in 2023 (clv=[2, 4])."""
+    def _make_season_model_vs_close_df(self):
+        """4 games in 2022 (edges [1, -2, 3, -1]) + 2 in 2023 (edges [2, 4])."""
         return pd.DataFrame({
             "season": [2022, 2022, 2022, 2022, 2023, 2023],
-            "clv": [1, -2, 3, -1, 2, 4],
+            "model_vs_close": [1, -2, 3, -1, 2, 4],
         })
 
     def test_season_groupby(self):
         """Games are correctly grouped by season."""
-        df = self._make_season_clv_df()
-        result = compute_clv_by_season(df)
+        df = self._make_season_model_vs_close_df()
+        result = compute_model_vs_close_by_season(df)
         assert len(result) == 2
         seasons = set(result["season"].tolist())
         assert 2022 in seasons
         assert 2023 in seasons
 
     def test_season_metrics(self):
-        """Verify mean_clv, pct_beating_close per season."""
-        df = self._make_season_clv_df()
-        result = compute_clv_by_season(df)
+        """Verify mean_model_vs_close and pct_home_lean per season."""
+        df = self._make_season_model_vs_close_df()
+        result = compute_model_vs_close_by_season(df)
         result_dict = {int(row["season"]): row for _, row in result.iterrows()}
 
-        # 2022: clv=[1, -2, 3, -1] -> mean=0.25, pct=0.5 (2 of 4 positive)
-        assert abs(result_dict[2022]["mean_clv"] - 0.25) < 0.01
+        # 2022: [1, -2, 3, -1] -> mean=0.25, lean=0.5 (2 of 4 positive)
+        assert abs(result_dict[2022]["mean_model_vs_close"] - 0.25) < 0.01
         assert result_dict[2022]["games"] == 4
-        assert abs(result_dict[2022]["pct_beating_close"] - 0.5) < 0.01
+        assert abs(result_dict[2022]["pct_home_lean"] - 0.5) < 0.01
 
-        # 2023: clv=[2, 4] -> mean=3.0, pct=1.0
-        assert abs(result_dict[2023]["mean_clv"] - 3.0) < 0.01
+        # 2023: [2, 4] -> mean=3.0, lean=1.0
+        assert abs(result_dict[2023]["mean_model_vs_close"] - 3.0) < 0.01
         assert result_dict[2023]["games"] == 2
-        assert abs(result_dict[2023]["pct_beating_close"] - 1.0) < 0.01
+        assert abs(result_dict[2023]["pct_home_lean"] - 1.0) < 0.01
 
     def test_all_columns_present(self):
-        """Result has columns: season, games, mean_clv, median_clv, pct_beating_close."""
-        df = self._make_season_clv_df()
-        result = compute_clv_by_season(df)
-        expected_cols = {"season", "games", "mean_clv", "median_clv", "pct_beating_close"}
+        """Result columns are exactly the new model-vs-close vocabulary."""
+        df = self._make_season_model_vs_close_df()
+        result = compute_model_vs_close_by_season(df)
+        expected_cols = {
+            "season",
+            "games",
+            "mean_model_vs_close",
+            "median_model_vs_close",
+            "pct_home_lean",
+        }
         assert set(result.columns) == expected_cols
 
 
