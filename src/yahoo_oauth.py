@@ -68,6 +68,11 @@ _USER_AGENT: str = "NFLDataEngineering/1.0 (yahoo-oauth-helper)"
 _EXPIRY_SKEW_S: int = 300
 
 
+#: Read-only Fantasy Sports scope. ``fspt-w`` is read/write and needs the
+#: write tier on the sports.yahoo.com/developer/access application.
+DEFAULT_SCOPE = "fspt-r"
+
+
 class YahooAuthError(RuntimeError):
     """Raised when an auth step cannot proceed (e.g. missing credentials)."""
 
@@ -121,11 +126,25 @@ class YahooOAuth:
     # Authorization URL
     # ------------------------------------------------------------------
 
-    def build_authorization_url(self, state: Optional[str] = None) -> str:
+    def build_authorization_url(
+        self, state: Optional[str] = None, scope: Optional[str] = DEFAULT_SCOPE
+    ) -> str:
         """Build the URL a user visits once to grant access.
+
+        Since 2026 the Fantasy Sports API is approval-gated: a token granted
+        without a fantasy scope authenticates fine and then 401s on every
+        ``fantasysports.yahooapis.com`` call, which reads like a broken client
+        rather than missing access. Requesting the scope explicitly is what
+        turns "approved or not?" into a question the grant itself answers --
+        an unapproved app fails the grant with ``invalid_scope``.
 
         Args:
             state: Optional opaque value echoed back by Yahoo for CSRF defense.
+            scope: OAuth scope to request. ``fspt-r`` (the default) is
+                read-only; ``fspt-w`` is read/write and needs the write tier on
+                the access application. Pass None to omit it entirely, which is
+                the pre-2026 behaviour and yields a token that cannot read
+                fantasy data.
 
         Returns:
             The fully-qualified authorization URL.
@@ -139,6 +158,8 @@ class YahooOAuth:
             "redirect_uri": self.redirect_uri,
             "response_type": "code",
         }
+        if scope:
+            params["scope"] = scope
         if state:
             params["state"] = state
         return f"{AUTH_BASE_URL}?{urlencode(params)}"
