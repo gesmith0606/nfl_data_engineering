@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "d34dc3cc-bd8f-4e0f-95ca-d5c077a1ba63",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-10-25T12:22:04.709365+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "c2be037e-33c4-476d-ba9a-3aa559b30fd9",
+      "url": "https://www.cbssports.com/betting/news/nfl-picks-against-the-spread-week-7-2026-expert-ats-picks-predictions-prop-bets-for-sunday-oct-25/",
+      "title": "NFL picks against the spread, Week 7 2026: Expert ATS picks, predictions, prop bets for Sunday, Oct. 25",
+      "body_text": "The SportsLine experts have locked in their top Week 7 picks from this week's NFL schedule, see who they are backing and fading here",
+      "author": "Owen OBrien",
+      "published_at": "2026-10-25T11:45:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0b39103f-96e3-44c6-8768-60350f092d97",
+      "url": "https://www.cbssports.com/prediction/news/chiefs-vs-seahawks-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-in-nfl-week-7/",
+      "title": "Chiefs vs. Seahawks odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus in NFL Week 7",
+      "body_text": "Here's a look at the trading markets available at Kalshi for Week 7's Sunday Night Football matchup featuring the Kansas City Chiefs and Seattle Seahawks",
+      "author": "Nick Stellini",
+      "published_at": "2026-10-25T11:40:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Sunday Night",
+        "Kansas City",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "e4601244-6aab-4f67-885e-15f42aa44670",
+      "url": "https://www.cbssports.com/nfl/news/steelers-vs-saints-how-to-watch-odds-preview-prediction/",
+      "title": "Saints vs. Steelers prediction: Aaron Rodgers, Tyler Shough to duel in first-ever game in Paris",
+      "body_text": "Plus, how to watch, what to know and a preview from an NFL expert",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-10-25T11:40:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Tyler Shough",
+        "Paris Plus"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0040743"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "118ef64a-277d-4fcc-95ca-661e68ccc4f1",
+      "url": "https://www.cbssports.com/prediction/news/dolphins-vs-jets-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-7-matchup/",
+      "title": "Dolphins vs. Jets odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 7 matchup",
+      "body_text": "The Jets host the Dolphins for an AFC East battle on Sunday, and we're taking a look at some of the trading markets available on the game at Kalshi",
+      "author": "James Holliman",
+      "published_at": "2026-10-25T11:00:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "747bd92a-c3fd-4a19-aadc-8c745675b8fa",
+      "url": "https://www.cbssports.com/betting/news/bengals-vs-ravens-odds-picks-prediction-spread-start-time-nfl-week-7-betting-preview-best-bets/",
+      "title": "Bengals vs. Ravens odds, picks, prediction, spread: Start time, NFL Week 7 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Bengals vs. Ravens in NFL Week 7 action",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-10-25T10:01:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "332873e1-db05-4098-bc7b-1d3dc5a52092",
+      "url": "https://www.cbssports.com/prediction/news/panthers-vs-buccaneers-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-7/",
+      "title": "Panthers vs. Buccaneers odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 7",
+      "body_text": "NFC South rivals collide in Week 7, and you can make predictions with the latest Kalshi promo code CBSSPORTS55",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-10-25T10:00:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "a5d3bf89-8fe6-4231-a811-709ad1227c4a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-picks-odds-predictions-expert-picks-against-the-spread/",
+      "title": "NFL Week 7 odds, predictions, expert picks: Who wins Packers-Lions showdown? Texans keep rolling?",
+      "body_text": "Our experts make their selections for Bengals-Ravens, Packers-Lions, Chiefs-Seahawks, Cowboys-Eagles and every other game on the Week 7 schedule",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-25T10:01:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "f30e9ff4-88af-4ffb-932b-ac1b32bf8778",
+      "url": "https://www.cbssports.com/betting/news/browns-vs-titans-odds-picks-prediction-spread-start-time-nfl-week-7-betting-preview-best-bets/",
+      "title": "Browns vs. Titans odds, picks, prediction, spread: Start time, NFL Week 7 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Browns vs. Titans in NFL Week 7 action",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-10-25T09:00:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "ed246771-057e-4b21-8ed2-a8615910f0fd",
+      "url": "https://www.cbssports.com/prediction/news/steelers-vs-saints-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-nfl-week-7-paris-game/",
+      "title": "Steelers vs. Saints odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus, NFL Week 7 Paris game",
+      "body_text": "The Saints and Steelers will face off at Stade de France in Paris, and here's a look at the trading markets available at Kalshi for Sunday's matchup",
+      "author": "James Holliman",
+      "published_at": "2026-10-25T09:00:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "The Saints"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "14b88fe4-0cce-423a-a855-a597b69a1f0b",
+      "url": "https://www.cbssports.com/nfl/news/priscos-week-7-nfl-picks-odds-expert-picks-upsets/",
+      "title": "Prisco's Week 7 NFL picks: Lions edge Packers, Steelers top Saints in Paris",
+      "body_text": "Pete Prisco reveals all of his Week 7 picks, including the Chiefs over the Seahawks in Kenneth Walker's revenge game",
+      "author": "Pete Prisco",
+      "published_at": "2026-10-25T03:00:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Paris Pete",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "dcb17a73-3847-4e90-9d75-19d6faed4208",
+      "url": "https://www.cbssports.com/nfl/news/giants-john-harbaugh-details-j-j-mccarthy-start/",
+      "title": "Giants' John Harbaugh details J.J. McCarthy decision with convincing explanation: 'Heck of a skill set'",
+      "body_text": "The switch from Jameis Winston to McCarthy comes after the third-year quarterback has been with the team for four weeks",
+      "author": "Brad Crawford",
+      "published_at": "2026-10-24T22:18:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "John Harbaugh",
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "84c30f18-181e-4909-b889-33f73992080f",
+      "url": "https://www.cbssports.com/nfl/news/nfl-levies-two-fines-to-49ers-lb-fred-warner/",
+      "title": "NFL levies two fines to 49ers LB Fred Warner for hit on Commanders TE Chig Okonkwo",
+      "body_text": "Warner was initially flagged for the violation, but the officials picked it up",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-24T22:12:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Fred Warner",
+        "Chig Okonkwo"
+      ],
+      "resolved_player_ids": [
+        "00-0034815",
+        "00-0037809"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "951b327b-cc15-4fe3-8f01-68892a1424f3",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-last-minute-best-bets-cardinals-broncos-vikings-colts/",
+      "title": "NFL Week 7 last-minute best bets: Cardinals upset Broncos, Vikings cruise to win over Colts",
+      "body_text": "Need some last-minute advice on how to bet the Week 7 slate? Allow us to be of assistance",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-24T21:30:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Colts Need"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "19ed62c3-12bf-4469-8287-d576942c4d2f",
+      "url": "https://www.cbssports.com/nfl/news/bengals-vs-ravens-how-to-watch-odds-preview-prediction/",
+      "title": "Ravens vs. Bengals: How to watch AFC North showdown with big playoff implications",
+      "body_text": "Everything you need to know to catch the Week 7 matchup",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-24T20:19:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "56be28fa-2d40-4746-9be9-83020a8bf213",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-injury-report-baker-mayfield-lamar-jackson-questionable/",
+      "title": "NFL Week 7 injury report: Lamar Jackson downgraded to out for Ravens matchup vs. Bengals",
+      "body_text": "A look at game statuses across the league",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-24T20:12:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "f257fe9e-2760-4344-8c79-fcd84bab1d02",
+      "url": "https://www.cbssports.com/nfl/news/what-is-the-peanut-punch-nfl-football/",
+      "title": "Rise of the Peanut Punch: Why it's changing how defenses attack the football",
+      "body_text": "What was once a novelty is now a tool every defensive player uses",
+      "author": "JP Acosta",
+      "published_at": "2026-10-24T19:10:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Peanut Punch"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5184f161-796c-4756-a5fc-1013e9296ce9",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-kenneth-walker-iii-eagles-handling-jalen-hurts-blood-clot/",
+      "title": "Aaron Rodgers, Kenneth Walker III address Eagles' handling of Jalen Hurts blood clot situation: 'That's crazy'",
+      "body_text": "Hurts is presumed to miss the rest of the 2026 regular season",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-24T18:58:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Kenneth Walker III",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0038134",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6e722fe1-a213-403d-80de-1309c255206b",
+      "url": "https://www.cbssports.com/nfl/news/giants-john-harbaugh-challenges-tom-brady-retirement/",
+      "title": "John Harbaugh challenges Tom Brady to leave retirement: 'I doubt for one second he could'",
+      "body_text": "The New York Giants coach sent a playful jab toward the future Pro Football Hall of Famer when assessing his quarterback situation",
+      "author": "Brad Crawford",
+      "published_at": "2026-10-24T17:40:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "John Harbaugh",
+        "Tom Brady",
+        "The New",
+        "York Giants",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1ba9975c-d5cb-4338-97d6-8e7949f72299",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-vs-seahawks-how-to-watch-preview-odds-prediction/",
+      "title": "Seahawks vs. Chiefs: How to watch as Kansas City's Kenneth Walker III returns to Seattle",
+      "body_text": "Here's what you need to know to catch the game",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-24T17:21:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kansas City",
+        "Kenneth Walker III",
+        "Seattle Here"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "e389a80f-3b07-48d9-9d35-784fafa06036",
+      "url": "https://www.cbssports.com/nfl/news/national-tight-ends-day-betting-guide-10-te-to-score/",
+      "title": "National Tight Ends Day betting guide: 10 TEs who will score on this special Sunday",
+      "body_text": "George Kittle headlines the top anytime TD scorer picks as the league celebrates its annual holiday with big plus-money value across the board",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-24T16:50:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "National Tight",
+        "Ends Day",
+        "Sunday George"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "485f6548-c062-4d16-b26c-d1a8e2822f89",
+      "url": "https://www.cbssports.com/betting/news/nfl-week-7-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sunday-games/",
+      "title": "NFL Week 7 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday games",
+      "body_text": "Coming off a 6-2 run, Sunday's card features an explosive total in Detroit, value on the underdog Dolphins, and a smash spot for Ja'Marr Chase against the Ravens",
+      "author": "Will Brinson",
+      "published_at": "2026-10-24T15:45:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marr Chase"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "7389067a-2130-4aa2-a513-ddee3093a2be",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-raiders-2026-nfl-draft-no-1-pick-fernando-mendoza/",
+      "title": "Revisiting Raiders' 2026 NFL Draft: What Vegas is getting out of Fernando Mendoza, what's next",
+      "body_text": "Sitting behind Kirk Cousins was always the initial plan, but the Raiders may soon be pressed to start the No. 1 overall selection",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-24T15:04:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Revisiting Raiders",
+        "What Vegas",
+        "Fernando Mendoza",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "2a86e034-39d3-48aa-8c4b-9f1f86675388",
+      "url": "https://www.cbssports.com/nfl/news/nfl-paris-updates-saints-steelers-nfl-house-france-protests/",
+      "title": "NFL closes 'NFL House' in Paris amid security concerns as city braces for more protests",
+      "body_text": "The Week 7 matchup between the Steelers and Saints is still on as scheduled",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-24T14:41:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "e864b494-8a7f-4905-87fd-d3cd2d398707",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-browns-2026-nfl-draft-k-c-concepcion-denzel-boston/",
+      "title": "Revisiting Browns' 2026 NFL Draft: Did the K.C. Concepcion, Denzel Boston selections fix the offense?",
+      "body_text": "Concepcion and Boston are sparking the pass game, while Spencer Fano and Austin Barber have quickly solidified the rebuilt offensive line",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-24T14:27:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Revisiting Browns",
+        "Denzel Boston",
+        "Spencer Fano",
+        "Austin Barber"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "269615ca-1190-43a9-b86e-30328e0bb3f6",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-seahawks-trades-leonard-williams-ernest-jones-iv/",
+      "title": "Revisiting Seahawks' trades for Leonard Williams, Ernest Jones IV: Duo powered Seattle's Super Bowl D",
+      "body_text": "Williams and Jones were part of Mike Macdonald's defensive overhaul",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-24T14:15:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Revisiting Seahawks",
+        "Leonard Williams",
+        "Ernest Jones IV",
+        "Super Bowl",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [
+        "00-0031933",
+        "00-0036994"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "930ec4fe-697e-4949-bbbd-3faa7a688e37",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-the-2026-nfl-draft-broncos-jonah-coleman/",
+      "title": "Revisiting the 2026 NFL Draft: Jonah Coleman is all Broncos have to show for their efforts",
+      "body_text": "Fourth-round running back Jonah Coleman is the only draft pick to see the field this year, as Denver gets virtually zero production from its first-year players through six games",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-24T13:55:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonah Coleman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "94b7e37c-77ab-4454-984c-1d92ad1dce15",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-george-pickens-deflects-brian-schottenheimers-critique/",
+      "title": "Cowboys' George Pickens brushes off Brian Schottenheimer's critique, says team needs to improve",
+      "body_text": "Schottenheimer challenged Pro Bowl WR George Pickens on his effort in the run game, Pickens talked about the team",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-24T00:14:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "George Pickens",
+        "Brian Schottenheimer",
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "630abe33-cb14-4b79-b062-6d6a4c6a9ff0",
+      "url": "https://www.cbssports.com/nfl/news/lamar-jackson-injury-update-ravens-qb-return-bengals/",
+      "title": "Lamar Jackson says he's 'heading in the right direction' for potential return vs. Bengals",
+      "body_text": "Baltimore's offense could be back at full strength soon as Jackson progresses toward a possible return against Cincinnati",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T19:27:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Bengals Baltimore"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "39f909fa-1d28-4483-bf86-38560e479aec",
+      "url": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-benching-najee-harris-release/",
+      "title": "Giants RB Cam Skattebo says he 'got taught a lesson' after surprise benching",
+      "body_text": "After being effectively benched and watching New York release Najee Harris days later, Skattebo acknowledged his situation",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-23T19:04:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "New York",
+        "Najee Harris"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0036893"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "12b45ba8-ef85-462a-97dd-d885d70d696b",
+      "url": "https://www.cbssports.com/nfl/news/should-seahawks-trade-for-jonathan-taylor-pros-cons/",
+      "title": "Should Seahawks trade for Jonathan Taylor? Pros, cons for reigning champions to add Colts superstar",
+      "body_text": "The Colts could fetch a pretty penny for Taylor, but is it worth it for Seattle?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-23T18:56:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Should Seahawks",
+        "Jonathan Taylor",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "04a915d7-029d-4b7d-b3ff-0300d71af629",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-picks-score-predictions-odds-chiefs-seahawks/",
+      "title": "NFL Week 7 picks and score predictions: Chiefs edge Seahawks, Bengals over Ravens",
+      "body_text": "Here's your weekly dose of John Breech's NFL picks",
+      "author": "John Breech",
+      "published_at": "2026-10-23T18:36:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ravens Here",
+        "John Breech"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "0f3cf547-5105-4485-b4f8-97aa7fa9d11e",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-the-2026-nfl-draft-akheem-mesidor/",
+      "title": "Revisiting the 2026 NFL Draft: Can Akheem Mesidor be a building block for Chargers defense?",
+      "body_text": "An 0-6 start shifts the conversation in Los Angeles to the future and which first-year contributors can serve as foundational pieces",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-23T18:25:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Can Akheem",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "2e52eabd-cfa6-4338-b962-ee797cc8a8d3",
+      "url": "https://www.cbssports.com/nfl/news/bears-cole-kmet-season-ending-knee-injury/",
+      "title": "Bears fear season-ending injury for Cole Kmet after veteran tight end is carted off field",
+      "body_text": "Chicago's longest-tenured player suffered a likely season-ending knee injury against New England",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-23T18:15:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cole Kmet",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0036290"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "39f4b902-2a71-4d2f-ab45-815007348b6b",
+      "url": "https://www.cbssports.com/nfl/news/buccaneers-baker-mayfield-cleared-to-play-thumb-injury-glove/",
+      "title": "Baker Mayfield set to return for Buccaneers after three-game absence, will wear custom glove",
+      "body_text": "After a three-week absence, Mayfield is back under center for Tampa Bay",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T17:21:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "a6134c00-a65c-4e76-812f-c32a1da4b1c4",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-steelers-travel-plans-nfl-paris-game-saints/",
+      "title": "Aaron Rodgers sounds annoyed with Steelers' travel plans for Paris: Why the QB is unhappy",
+      "body_text": "The Steelers quarterback is set to become the first QB in NFL history to play international games in three straight seasons in three different countries",
+      "author": "John Breech",
+      "published_at": "2026-10-23T16:32:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "10161199-d3af-41ce-b434-9ac84fe9c431",
+      "url": "https://www.cbssports.com/nfl/news/saquon-barkley-breaks-silence-jalen-hurts-situation/",
+      "title": "Saquon Barkley on Jalen Hurts situation: 'It sucks that people tried to make it an Eagles vs. Jalen thing'",
+      "body_text": "Philadelphia has faced heavy scrutiny after the quarterback was ruled out for the season with blood clots in his lungs, prompting the NFLPA to demand an investigation into his medical care",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-23T15:56:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}

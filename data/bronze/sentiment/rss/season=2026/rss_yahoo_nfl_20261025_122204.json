@@ -1,0 +1,737 @@
+{
+  "fetch_run_id": "d34dc3cc-bd8f-4e0f-95ca-d5c077a1ba63",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-10-25T12:22:04.008398+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "3dabd792-754f-4a82-8916-493fe1322795",
+      "url": "https://sports.yahoo.com/nfl/live/steelers-saints-score-live-updates-paris-game-inactives-highlights-stats-where-to-watch-120107581.html",
+      "title": "Steelers vs. Saints live updates, inactives, where to watch: Aaron Rodgers, Pittsburgh face New Orleans in NFL's first regular-season game in Paris",
+      "body_text": "The Steelers and Saints will play in the league's first-ever regular-season game in Paris.",
+      "author": "Yahoo Sports Staff",
+      "published_at": "2026-10-25T12:01:07+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "New Orleans",
+        "Paris The"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "c422e7e0-157b-380b-afb6-30fa8ab8dba1",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-scores-picks-week-121315793.html",
+      "title": "NFL predictions: Scores and picks for Week 7 between the Buccaneers and Panthers",
+      "body_text": "The Tampa Bay Buccaneers are looking to get back in the win column following a disappointing 26-19 overtime loss to the Pittsburgh Steelers. Now, Tampa Bay heads to Charlotte for an NFC South matchup against the Carolina Panthers in Week 7. The Buccaneers enter Sunday’s matchup at 1-5 after dropping five of their first six […]",
+      "author": "",
+      "published_at": "2026-10-25T12:13:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Panthers The",
+        "Tampa Bay",
+        "Pittsburgh Steelers",
+        "Carolina Panthers",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "51540747-cc52-334b-86f7-2ca3b21d3bb2",
+      "url": "https://sports.yahoo.com/articles/other-week-7-game-interest-120532362.html",
+      "title": "Which other Week 7 game of interest will Browns fans be watching today?",
+      "body_text": "As the season moves forward, Browns fans will be watching how other games pan out for key AFC North teams and the Rams",
+      "author": "",
+      "published_at": "2026-10-25T12:05:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "8fbfbbfa-d285-3275-bb74-b3f560065a97",
+      "url": "https://sports.yahoo.com/articles/chargers-playing-today-nfl-week-120517431.html",
+      "title": "Are the Chargers playing today? NFL Week 7 schedule, next game, AFC West standings",
+      "body_text": "The Chargers are living through a nightmare in 2026. Here's a look at what awaits them in Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T12:05:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "e903119a-264c-360e-84fa-08cd3b535068",
+      "url": "https://sports.yahoo.com/articles/49ers-vs-falcons-watch-game-120300480.html",
+      "title": "49ers vs. Falcons: How to watch, game time, and betting odds",
+      "body_text": "Can the 49ers go to the BYE undefeated?",
+      "author": "",
+      "published_at": "2026-10-25T12:03:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "0336b50b-eece-3f69-b3c2-e2d292b1039f",
+      "url": "https://sports.yahoo.com/articles/watch-seahawks-vs-chiefs-live-120000295.html",
+      "title": "How to watch Seahawks vs. Chiefs live stream on ‘Sunday Night Football’",
+      "body_text": "The details you need to watch Seahawks vs. Chiefs on Sunday Night Football!",
+      "author": "",
+      "published_at": "2026-10-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "2413b636-0930-301e-b40a-5df8288d3748",
+      "url": "https://sports.yahoo.com/articles/york-jets-vs-miami-dolphins-120000440.html",
+      "title": "New York Jets vs Miami Dolphins Pre-Game Ball",
+      "body_text": "Who will be a key factor for the Jets against the Dolphins?",
+      "author": "",
+      "published_at": "2026-10-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Miami Dolphins",
+        "Game Ball"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "4c38c52e-cf33-3d3b-b9f5-5301967973e0",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-chris-roland-wallace-120000632.html",
+      "title": "Chiefs News: Chris Roland-Wallace fined for punch from Week 6",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-10-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Chris Roland"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a3312417-fcbc-393a-8e83-88b23c68e5bf",
+      "url": "https://sports.yahoo.com/articles/where-watch-colts-travel-vikings-120000087.html",
+      "title": "Where to Watch: Colts travel to the Vikings for Week 7",
+      "body_text": "Everything you need to know to successfully watch the Colts take on the Vikings for Week 7!",
+      "author": "",
+      "published_at": "2026-10-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "d9304c7a-eb7f-3dfe-b910-bbb687c80d51",
+      "url": "https://sports.yahoo.com/articles/falcons-vs-49ers-week-7-120000649.html",
+      "title": "Falcons vs. 49ers: What will Week 7’s win or loss mean for Atlanta?",
+      "body_text": "It’s danger time for the Falcons",
+      "author": "",
+      "published_at": "2026-10-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "f48dcd5d-4427-3814-9abf-74eb38a9502f",
+      "url": "https://sports.yahoo.com/articles/patriots-rooting-guide-nfl-week-120000799.html",
+      "title": "Patriots rooting guide for NFL Week 7",
+      "body_text": "Rooting information, kickoff times, TV schedule and more for NFL Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "07890d42-525c-30b2-b16f-67a417333f5c",
+      "url": "https://sports.yahoo.com/articles/titans-fans-confident-heading-today-115420892.html",
+      "title": "Are Titans fans confident heading into today’s game?",
+      "body_text": "There is still not a lot of confidence around here.",
+      "author": "",
+      "published_at": "2026-10-25T11:54:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Are Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "6652068b-7e10-3d91-9da7-79e93564f675",
+      "url": "https://sports.yahoo.com/articles/game-status-browns-cb-denzel-115059581.html",
+      "title": "Game status update for Browns CB Denzel Ward against Titans",
+      "body_text": "Cleveland gets an update on the status of their top cornerback.",
+      "author": "",
+      "published_at": "2026-10-25T11:50:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denzel Ward",
+        "Titans Cleveland"
+      ],
+      "resolved_player_ids": [
+        "00-0034856"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "75d3cbce-984d-393d-aa7e-772c6a6a613d",
+      "url": "https://sports.yahoo.com/articles/eagles-cowboys-final-injury-report-113045173.html",
+      "title": "Eagles-Cowboys Final Injury Report: DeVonta Smith and Dontayvion Wicks out",
+      "body_text": "Week 7 game status updates.",
+      "author": "",
+      "published_at": "2026-10-25T11:30:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys Final",
+        "Injury Report",
+        "Dontayvion Wicks"
+      ],
+      "resolved_player_ids": [
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d25c8bd8-e01d-368d-acb4-818be0b98755",
+      "url": "https://sports.yahoo.com/articles/jaguars-playing-today-nfl-week-113028189.html",
+      "title": "Are the Jaguars playing today? NFL Week 7 schedule, next game, AFC South standings",
+      "body_text": "The Jaguars got off to a fast start in 2026. Here's a look at what awaits them in Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T11:30:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "d4b46500-bd65-3c26-bd62-678ff5208e64",
+      "url": "https://sports.yahoo.com/articles/nfl-week-7-expert-picks-113000508.html",
+      "title": "NFL Week 7 expert picks, predictions: Moneyline, against the spread",
+      "body_text": "A look at our expert picks for Week 7 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-10-25T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "30f5ed52-0eda-4b85-9faa-012815086dc9",
+      "url": "https://sports.yahoo.com/nfl/article/sunday-night-football-how-to-watch-the-kansas-city-chiefs-vs-seattle-seahawks-game-tonight-111500681.html",
+      "title": "Sunday Night Football: How to watch the Kansas City Chiefs vs. Seattle Seahawks game tonight",
+      "body_text": "Here's how to tune into Sunday Night Football tonight without cable.",
+      "author": "Danica Creahan",
+      "published_at": "2026-10-25T11:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Kansas City",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "1c4a8504-d744-3842-a647-cd60fc26b594",
+      "url": "https://sports.yahoo.com/articles/browns-extend-defensive-player-30-110551076.html",
+      "title": "Browns extend defensive player with $30 million deal overnight",
+      "body_text": "Talented run defender gets two more years.",
+      "author": "",
+      "published_at": "2026-10-25T11:05:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "e6a77dc7-07b5-3026-8de8-2c27201cc108",
+      "url": "https://sports.yahoo.com/articles/bengals-vs-ravens-odds-expert-110500632.html",
+      "title": "Bengals vs. Ravens odds, expert picks, and our prediction for Week 7 matchup",
+      "body_text": "The oddsmakers and experts are starting to lean more towards the Bengals.",
+      "author": "",
+      "published_at": "2026-10-25T11:05:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "8c259172-68e0-31c1-b746-f345f56885ca",
+      "url": "https://sports.yahoo.com/articles/channel-seahawks-vs-chiefs-game-110144170.html",
+      "title": "What channel is the Seahawks vs Chiefs game today? Start time, schedule, streaming",
+      "body_text": "What channel is &quot;Sunday Night Football&quot; on? Here's how to watch the Seahawks vs. Chiefs game in Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T11:01:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a9a75538-0834-313e-aee6-59323c9a85fe",
+      "url": "https://sports.yahoo.com/articles/commanders-playing-today-nfl-week-110135862.html",
+      "title": "Are the Commanders playing today? NFL Week 7 schedule, next game, NFC East standings",
+      "body_text": "The Commanders are off to a rough start this season. Here's a look at what awaits them in Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T11:01:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "1edbeb33-4fbb-34ec-9618-52c5269c0eee",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-play-calling-110000838.html",
+      "title": "Cowboys news: Dallas play-calling posing a problem",
+      "body_text": "Here’s today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "26a68756-6934-3804-931b-01d3c768c54c",
+      "url": "https://sports.yahoo.com/articles/commanders-dc-daronte-jones-needs-110000124.html",
+      "title": "Commanders DC Daronte Jones needs to be busy in the bye week to figure out what’s ailing his defense - Daily Slop",
+      "body_text": "While the Washington defense had been exciting to watch (before the 49ers game), it ranks poorly in a broad range of NFL metrics",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daronte Jones",
+        "Daily Slop"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "6eea1ce4-ede8-3ae4-babf-fd3e163d8c92",
+      "url": "https://sports.yahoo.com/articles/indianapolis-colts-minnesota-vikings-coverage-110000306.html",
+      "title": "Indianapolis Colts at Minnesota Vikings: ALL THE COVERAGE~!",
+      "body_text": "It’s game day!",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Indianapolis Colts",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "78618bfe-f144-31eb-aea9-0d9020ac9732",
+      "url": "https://sports.yahoo.com/articles/discussion-baker-mayfield-return-good-110000578.html",
+      "title": "Discussion: Is Baker Mayfield’s return good or bad news for the Panthers?",
+      "body_text": "The Buccaneers are getting their starting quarterback back, but I don’t know if that’s good or bad.",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Is Baker",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "8babf53e-2fcb-3a0a-9c55-b120fc275ef3",
+      "url": "https://sports.yahoo.com/articles/broncos-vs-cardinals-watch-game-110000363.html",
+      "title": "Broncos vs. Cardinals: How to watch, game time, TV schedule, game preview and more",
+      "body_text": "The Denver Broncos have done their job through the first six games coming out with a 4-2 record despite facing almost all playoff teams to start the season. They are not without faults and they will be looking to fix some of those issues on offense against the Arizona Cardinals in Week 7. Game preview […]",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Arizona Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "a897824d-b732-3077-9587-2b0c8e1a0e09",
+      "url": "https://sports.yahoo.com/articles/packers-lions-primer-game-time-110000121.html",
+      "title": "Packers-Lions Primer: Game time, how to watch, odds, & more",
+      "body_text": "The two NFC North rivals play today for the first time since last Thanksgiving.",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Primer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "bf714412-06bc-3db1-a419-8ec32622c9d4",
+      "url": "https://sports.yahoo.com/articles/jets-vs-dolphins-game-time-110000828.html",
+      "title": "Jets vs. Dolphins: Game Time, TV, Announcers, Online Streaming, and More",
+      "body_text": "FOX has a doubleheader today while CBS will show a single game to each region. If you live in the New York area, you will see: Jets at Dolphins early on CBS Giants at Texans early on FOX Packers at Lions late on FOX Kickoff for the game between the Jets and the Dolphins is […]",
+      "author": "",
+      "published_at": "2026-10-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Game Time",
+        "Online Streaming",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "e0811829-7423-4a60-814d-73d7bacd0307",
+      "url": "https://sports.yahoo.com/nfl/article/los-angeles-rams-vs-las-vegas-raiders-how-to-watch-the-nfl-week-7-game-channel-streaming-info-and-more-105900831.html",
+      "title": "Los Angeles Rams vs. Las Vegas Raiders: How to watch the NFL Week 7 game, channel, streaming info and more",
+      "body_text": "How to watch the Los Angeles Rams vs. Las Vegas Raiders game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-10-25T10:59:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Los Angeles",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "80e1ce2c-132d-48e7-ad10-82d05918aaf7",
+      "url": "https://sports.yahoo.com/nfl/article/green-bay-packers-vs-detroit-lions-how-to-watch-the-nfl-week-7-game-channel-streaming-info-and-more-105500527.html",
+      "title": "Green Bay Packers vs. Detroit Lions: How to watch the NFL Week 7 game, channel, streaming info and more",
+      "body_text": "How to watch the Packers vs. Lions game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-10-25T10:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Green Bay",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "abeb2b10-84e1-350c-9528-432fae0362a7",
+      "url": "https://sports.yahoo.com/articles/saints-vs-steelers-watch-game-104500447.html",
+      "title": "Saints vs. Steelers How to Watch: Game time, TV, streaming, radio, and odds",
+      "body_text": "The Saints face the Steelers in their Week 7 matchup and this is your one-stop shop to find out how to follow the action!",
+      "author": "",
+      "published_at": "2026-10-25T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Steelers How",
+        "The Saints"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "d5160d71-5bf3-44e9-a552-b84525ef606e",
+      "url": "https://sports.yahoo.com/nfl/article/cincinnati-bengals-vs-baltimore-ravens-how-to-watch-today-start-time-where-to-stream-and-more-104500918.html",
+      "title": "Cincinnati Bengals vs. Baltimore Ravens: How to watch today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Bengals vs. Ravens game this week.",
+      "author": "Liz Kocan",
+      "published_at": "2026-10-25T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cincinnati Bengals",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "36f78018-b473-332b-b825-e96f9bcb8a21",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-welcome-week-103000041.html",
+      "title": "Cleveland Browns news: Welcome to Week 7 of the NFL!",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the October 25 edition of the Saturday Dawg Chow.",
+      "author": "",
+      "published_at": "2026-10-25T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Saturday Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "70fe1bc4-f6a1-331b-ad09-60610a5446bd",
+      "url": "https://sports.yahoo.com/articles/watch-lions-vs-packers-tv-103000757.html",
+      "title": "How to watch Lions vs. Packers: TV, streaming, radio, more",
+      "body_text": "TV, online streaming, announcer, and kickoff time information for Detroit Lions vs. Green Bay Packers.",
+      "author": "",
+      "published_at": "2026-10-25T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "db901519-b719-3dc8-a843-e7def60333d5",
+      "url": "https://sports.yahoo.com/articles/bills-playing-today-nfl-week-100054189.html",
+      "title": "Are the Bills playing today? NFL Week 7 schedule, next game, AFC East standings",
+      "body_text": "The Buffalo Bills and star QB Josh Allen are off to a terrific start to the 2026 NFL season. Here's what's on deck for the team in Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T10:00:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Buffalo",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "aaa1917e-0b5a-3086-9a19-a366ef8bec01",
+      "url": "https://sports.yahoo.com/articles/chiefs-playing-today-nfl-week-100046209.html",
+      "title": "Are the Chiefs playing today? NFL Week 7 schedule, next game, AFC West standings",
+      "body_text": "The Kansas City Chiefs remain undefeated to start the 2026 NFL season. Here's what's on deck for the team in Week 7.",
+      "author": "",
+      "published_at": "2026-10-25T10:00:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Kansas",
+        "City Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "066ee561-8673-4b55-b0d4-13712660c35d",
+      "url": "https://sports.yahoo.com/nfl/article/new-york-giants-vs-houston-texans-how-to-watch-the-nfl-week-7-game-channel-streaming-info-and-more-100000253.html",
+      "title": "New York Giants vs. Houston Texans: How to watch the NFL Week 7 game, channel, streaming info and more",
+      "body_text": "How to watch the Giants vs. Texans game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-10-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Houston Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "10b11e81-fef2-3b42-a26a-5f2363e8e71b",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-vs-tennessee-titans-100000715.html",
+      "title": "Cleveland Browns vs. Tennessee Titans: How to watch, TV schedule, history, betting odds and more",
+      "body_text": "Which cities get to watch the game on TV? What uniforms will the Browns wear? And a little bit of history between the two teams.",
+      "author": "",
+      "published_at": "2026-10-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Tennessee Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "a05db9a0-0b77-3802-8acc-cd739d659218",
+      "url": "https://sports.yahoo.com/articles/falcons-vs-49ers-2026-watch-100000136.html",
+      "title": "Falcons vs. 49ers 2026: How to watch, start time, TV, and odds for Week 7",
+      "body_text": "The 2-4 Falcons host the 6-0 49ers on FOX.",
+      "author": "",
+      "published_at": "2026-10-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "ebabb67c-eff2-3352-8746-311831222730",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-ravens-trey-hendrickson-100000584.html",
+      "title": "NFL predictions: Ravens need Trey Hendrickson revenge game vs. Bengals",
+      "body_text": "The Ravens will be counting on Trey Hendrickson to put on a show against his former team on Sunday.",
+      "author": "",
+      "published_at": "2026-10-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Trey Hendrickson",
+        "Bengals The"
+      ],
+      "resolved_player_ids": [
+        "00-0033935"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "eed64676-ca83-300d-aa79-5f371bc8e063",
+      "url": "https://sports.yahoo.com/articles/watch-steelers-vs-saints-100000155.html",
+      "title": "How to watch Steelers vs. Saints",
+      "body_text": "How to watch Steelers vs. Saints",
+      "author": "",
+      "published_at": "2026-10-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saints How"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "f3c84bc8-0f3c-310c-a9b8-5c093c593dd2",
+      "url": "https://sports.yahoo.com/articles/sean-payton-focused-keeping-broncos-100000898.html",
+      "title": "Sean Payton is focused on keeping the Broncos locked in every week",
+      "body_text": "Payton knows the Broncos cannot afford to overlook an opponent, making sure his team hears the right message each week.",
+      "author": "",
+      "published_at": "2026-10-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "a08708a1-ff93-308c-b7d3-b1faab1ba6fc",
+      "url": "https://sports.yahoo.com/articles/nfl-games-today-week-7-095547356.html",
+      "title": "What NFL games are on today? Week 7 TV channels, Sunday schedule, results",
+      "body_text": "The NFL Week 7 schedule on Sunday, Oct. 25 is loaded with important matchups, including a Sunday night showdown between the Seahawks and Chiefs.",
+      "author": "",
+      "published_at": "2026-10-25T09:55:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "5e658806-ef25-3bec-8548-50bfa05407e7",
+      "url": "https://sports.yahoo.com/articles/nfl-games-fox-cbs-broadcasting-092517311.html",
+      "title": "Which NFL games are Fox, CBS broadcasting? Week 7 coverage maps",
+      "body_text": "Which NFL games will be broadcast in your region in Week 7? Here are the coverage maps for Sunday's action.",
+      "author": "",
+      "published_at": "2026-10-25T09:25:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "d0bfe161-40d5-4ef2-942e-efdecee15825",
+      "url": "https://sports.yahoo.com/nfl/article/pittsburgh-steelers-vs-new-orleans-saints-how-to-watch-the-nfl-international-game-today-start-time-where-to-stream-and-more-092433973.html",
+      "title": "Pittsburgh Steelers vs. New Orleans Saints: How to watch the NFL international game today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Pittsburgh Steelers vs. New Orleans Saints NFL Paris game this week.",
+      "author": "Liz Kocan",
+      "published_at": "2026-10-24T18:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Pittsburgh Steelers",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "1067bea0-8695-3c3e-9e47-ad8d5a5dd570",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-game-day-091300960.html",
+      "title": "Golden Nuggets: GAME DAY",
+      "body_text": "Your daily San Francisco 49ers news for Sunday, October 25th, 2026",
+      "author": "",
+      "published_at": "2026-10-25T09:13:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "dc219a2c-2fe3-3288-bfbc-1122a55d563f",
+      "url": "https://sports.yahoo.com/articles/bengals-vs-ravens-news-pregame-090700223.html",
+      "title": "Bengals vs. Ravens news and pregame discussion",
+      "body_text": "The Bengals’ have a huge game against the Ravens, with Baltimore being without the services of Lamar Jackson.",
+      "author": "",
+      "published_at": "2026-10-25T09:07:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bengals",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "d34c6112-e609-3a2e-8af0-700ccda1c98e",
+      "url": "https://sports.yahoo.com/articles/jordyn-tyson-play-latest-injury-090513846.html",
+      "title": "When will Jordyn Tyson play? Latest injury updates on Saints rookie WR",
+      "body_text": "Former Arizona State star Jordyn Tyson is still waiting to make his NFL debut. When will the Saints rookie WR get back on the field?",
+      "author": "",
+      "published_at": "2026-10-25T09:05:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordyn Tyson",
+        "Former Arizona"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "35892aa0-5ebb-3956-bf3e-9e6d9a4c0241",
+      "url": "https://sports.yahoo.com/articles/channel-nfl-paris-game-today-090258833.html",
+      "title": "What channel is NFL Paris game today? Steelers vs Saints prediction, start time",
+      "body_text": "The Steelers will be playing the first NFL game in a new country for the second year in a row after taking down the Vikings in Dublin, Ireland in 2025.",
+      "author": "",
+      "published_at": "2026-10-25T09:02:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "28404771-3a4f-3c00-829b-10b6d851e732",
+      "url": "https://sports.yahoo.com/articles/steelers-vs-saints-live-updates-090059106.html",
+      "title": "Steelers vs Saints live updates, TV info, start time, stream NFL Paris game",
+      "body_text": "The Steelers are in the middle of a AFC North divisional dog fight as they look to win the first NFL regular season game on French soil.",
+      "author": "",
+      "published_at": "2026-10-25T09:00:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    }
+  ]
+}

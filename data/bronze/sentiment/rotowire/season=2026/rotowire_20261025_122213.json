@@ -1,0 +1,113 @@
+{
+  "fetch_run_id": "13f82480-fefd-4178-add3-7deb33f010a9",
+  "source": "rotowire",
+  "fetched_at": "2026-10-25T12:22:13.911351+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl644191",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Available to play in Paris",
+      "body_text": "Dowdle (knee) is active for Sunday's game against the Saints in Paris, Nick Farabaugh of PennLive.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-25T05:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle",
+        "Paris Dowdle",
+        "Nick Farabaugh"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl644190",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Optimism regarding Week 7 status",
+      "body_text": "The Rams are optimistic that Nacua (calf), who is listed as questionable for Week 7, will play in Sunday's game at Las Vegas, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-25T05:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "The Rams",
+        "Las Vegas",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl644187",
+      "url": "https://www.rotowire.com//football/player/breece-hall-15810",
+      "permalink": "",
+      "title": "Breece Hall: Not likely to play Sunday",
+      "body_text": "Hall (quadriceps) is unlikely to suit up for Sunday's game against the Dolphins, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-25T04:43:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Breece Hall",
+        "Sunday Hall",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl644186",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Slated to resume role as RB1",
+      "body_text": "Skattebo is expected to resume his role as the Giants' lead running back in Sunday's game at Houston, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-25T04:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl644147",
+      "url": "https://www.rotowire.com//football/player/christian-kirk-12508",
+      "permalink": "",
+      "title": "Christian Kirk: Activated from injured reserve",
+      "body_text": "The 49ers activated Kirk (calf) from injured reserve and removed his questionable designation for Sunday's game in Atlanta. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-24T01:47:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Kirk"
+      ],
+      "resolved_player_ids": [
+        "00-0034775"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}

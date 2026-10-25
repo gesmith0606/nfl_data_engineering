@@ -1,0 +1,491 @@
+{
+  "fetch_run_id": "d34dc3cc-bd8f-4e0f-95ca-d5c077a1ba63",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-25T12:22:02.092942+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-sanchezs-change-of-plea-hearing-has-been-rescheduled-for-january-25",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mark-sanchezs-change-of-plea-hearing-has-been-rescheduled-for-january-25",
+      "title": "Mark Sanchez's change-of-plea hearing has been rescheduled for January 25",
+      "body_text": "The confusion has been resolved regarding the status of former NFL quarterback and former Fox announcer Mark Sanchez's criminal case.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T12:06:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mark Sanchez"
+      ],
+      "resolved_player_ids": [
+        "00-0026898"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-after-colorados-blowout-loss-to-oklahoma-state-i-really-dont-understand-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-after-colorados-blowout-loss-to-oklahoma-state-i-really-dont-understand-it",
+      "title": "Deion Sanders after Colorado's blowout loss to Oklahoma State: \"I really don't understand it\"",
+      "body_text": "Deion Sanders's fourth season as head coach of the Colorado Buffaloes started with an upset of Georgia Tech and a blowout of overmatched Weber State.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T11:46:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Oklahoma State",
+        "Colorado Buffaloes",
+        "Georgia Tech",
+        "Weber State"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-andy-reid-and-patrick-mahomes-told-josh-simmons-to-leave-a-team-meeting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-andy-reid-and-patrick-mahomes-told-josh-simmons-to-leave-a-team-meeting",
+      "title": "Report: Andy Reid and Patrick Mahomes told Josh Simmons to leave a team meeting",
+      "body_text": "The incident took place a day before Simmons was placed on injured reserve. Simmons later apologized.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-25T11:40:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Patrick Mahomes",
+        "Josh Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0040116"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-has-yet-to-launch-full-investigation-of-jalen-hurts-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nflpa-has-yet-to-launch-full-investigation-of-jalen-hurts-situation",
+      "title": "NFLPA has yet to launch \"full investigation\" of Jalen Hurts situation",
+      "body_text": "Hurts still have the ability to launch the ultimate external investigation: Litigation.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T11:33:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelces-receiving-yardage-total-will-soon-break-tony-gonzalezs-tight-end-record",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelces-receiving-yardage-total-will-soon-break-tony-gonzalezs-tight-end-record",
+      "title": "Travis Kelce's receiving yardage total will soon break Tony Gonzalez's tight end record",
+      "body_text": "Kelce needs just 35 receiving yards to have a career total higher than Gonzalez, counting the postseason.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-25T08:28:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Kelce",
+        "Tony Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0030506",
+        "00-0006101"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-north-carolina-fall-to-syracuse-in-ot-31-30",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-north-carolina-fall-to-syracuse-in-ot-31-30",
+      "title": "Bill Belichick, North Carolina fall to Syracuse in OT, 31-30",
+      "body_text": "After a pair of signature wins over Pitt and Duke, North Carolina and coach Bill Belichick have fallen to ACC rival Syracuse.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T03:27:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-extend-dt-maliek-collins-by-two-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-extend-dt-maliek-collins-by-two-years",
+      "title": "Browns extend DT Maliek Collins by two years",
+      "body_text": "The contract year of veteran defensive tackle Maliek Collins has resulted after only six games in new contact.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T03:14:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maliek Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0033131"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-another-day-of-paris-protests-nfl-is-on-track-to-stage-steelers-saints-at-stade-de-france",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-another-day-of-paris-protests-nfl-is-on-track-to-stage-steelers-saints-at-stade-de-france",
+      "title": "After another day of Paris protests, NFL is on track to stage Steelers-Saints at Stade de France",
+      "body_text": "At this point, it's too late to turn back for Sunday's game.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T00:47:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-young-christen-miller-were-fined-for-violent-gestures-on-same-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-young-christen-miller-were-fined-for-violent-gestures-on-same-play",
+      "title": "Chase Young, Christen Miller were fined for violent gestures on same play",
+      "body_text": "The NFL's sudden embrace of the \"No Fun League\" dynamic resulted in a rash of fines that were replaced with a new approach to discipline for celebrations.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T01:20:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chase Young",
+        "Christen Miller",
+        "No Fun"
+      ],
+      "resolved_player_ids": [
+        "00-0036321"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-was-fined-for-hit-on-a-defenseless-player-malik-mustapha-was-not",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fred-warner-was-fined-for-hit-on-a-defenseless-player-malik-mustapha-was-not",
+      "title": "Fred Warner was fined for hit on a defenseless player, Malik Mustapha was not",
+      "body_text": "49ers linebacker Fred Warner heard from the NFL a couple of times for plays he made during Week 6.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-24T20:24:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fred Warner",
+        "Malik Mustapha"
+      ],
+      "resolved_player_ids": [
+        "00-0034815",
+        "00-0039360"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-trick-play-fell-flat-due-to-clear-rules-violation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-trick-play-fell-flat-due-to-clear-rules-violation",
+      "title": "Bears' trick play fell flat due to clear rules violation",
+      "body_text": "Thursday night's game between the Patriots and Bears included a trick play from Bears coach Ben Johnson.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T00:19:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034557"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-is-expected-to-be-in-the-mix-for-nc-state-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-is-expected-to-be-in-the-mix-for-nc-state-job",
+      "title": "Report: Philip Rivers is \"expected to be in the mix\" for NC State job",
+      "body_text": "Former NFL quarterback Philip Rivers interviewed for the Bills' head-coaching job in January.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T23:37:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-should-relocate-the-steelers-saints-game-in-paris-to-london",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-should-relocate-the-steelers-saints-game-in-paris-to-london",
+      "title": "The NFL should relocate the Steelers-Saints game in Paris to London",
+      "body_text": "NFL scraps multiple Saturday events due to ongoing protests.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T13:01:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-pft-25th-anniversary-is-coming-next-weekend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-pft-25th-anniversary-is-coming-next-weekend",
+      "title": "The PFT 25th anniversary is coming next weekend",
+      "body_text": "Twenty-five years ago this month, I had a decision to make.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T14:52:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-list-saquon-barkley-as-questionable-devonta-smith-dontayvion-wicks-ruled-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-list-saquon-barkley-as-questionable-devonta-smith-dontayvion-wicks-ruled-out",
+      "title": "Eagles list Saquon Barkley as questionable; DeVonta Smith, Dontayvion Wicks ruled out",
+      "body_text": "The Eagles have left the door open for running back Saquon Barkley to play on Monday night, but they will be down two wideouts against the Cowboys.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-24T20:00:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Dontayvion Wicks",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-troy-aikman-possibly-exiting-broadcasting-he-extends-an-olive-branch-to-jerry-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-troy-aikman-possibly-exiting-broadcasting-he-extends-an-olive-branch-to-jerry-jones",
+      "title": "With Troy Aikman possibly exiting broadcasting, he extends an olive branch to Jerry Jones",
+      "body_text": "Hall of Fame quarterback Troy Aikman has talked openly for years about wanting to work in an NFL front office.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T13:54:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With Troy",
+        "Jerry Jones",
+        "Troy Aikman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-activate-wr-tank-dell-to-the-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-activate-wr-tank-dell-to-the-active-roster",
+      "title": "Texans activate WR Tank Dell to the active roster",
+      "body_text": "Tank Dell will play his first game in nearly two years on Sunday when the Texans play the Giants.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-24T21:14:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tank Dell"
+      ],
+      "resolved_player_ids": [
+        "00-0038977"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-wr-christian-kirk-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-wr-christian-kirk-from-ir",
+      "title": "49ers activate WR Christian Kirk from IR",
+      "body_text": "The 49ers made a procedural move on Friday, releasing defensive lineman Ogbo Okoronkwo to make room for wide receiver Christian Kirk.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-24T21:00:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Kirk",
+        "Ogbo Okoronkwo"
+      ],
+      "resolved_player_ids": [
+        "00-0034775",
+        "00-0034807"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-george-pickens-cb-joey-porter-jr-have-no-injury-designation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-george-pickens-cb-joey-porter-jr-have-no-injury-designation",
+      "title": "WR George Pickens, CB Joey Porter Jr. have no injury designation",
+      "body_text": "The Cowboys will have wide receiver George Pickens (shoulder) and cornerback Joey Porter Jr.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-24T20:46:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Joey Porter Jr",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-panthers-players-fined-for-three-separate-incidents-of-taunting",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-panthers-players-fined-for-three-separate-incidents-of-taunting",
+      "title": "Three Panthers players fined for three separate incidents of taunting",
+      "body_text": "Only four players across the NFL got fined for taunting in Week 6, and three of those four were on the Panthers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-24T20:37:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Three Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-downgrade-qb-lamar-jackson-to-out-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-downgrade-qb-lamar-jackson-to-out-for-sunday",
+      "title": "Ravens downgrade QB Lamar Jackson to out for Sunday",
+      "body_text": "Jackson will miss third straight game with high-ankle sprain.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T19:45:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Sunday Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-activate-brian-branch-cade-mays",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-activate-brian-branch-cade-mays",
+      "title": "Lions activate Brian Branch, Cade Mays",
+      "body_text": "Safety Brian Branch will be back in the Lions' lineup on Sunday afternoon.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-24T20:32:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Branch",
+        "Cade Mays",
+        "Safety Brian"
+      ],
+      "resolved_player_ids": [
+        "00-0039141",
+        "00-0037297"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-activate-cb-a-j-terrell-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-activate-cb-a-j-terrell-from-ir",
+      "title": "Falcons activate CB A.J. Terrell from IR",
+      "body_text": "The Falcons activated cornerback A.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-24T20:23:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-activate-josh-jacobs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-activate-josh-jacobs",
+      "title": "Packers activate Josh Jacobs",
+      "body_text": "Packers running back Josh Jacobs is set to make his first appearance of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-24T20:07:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-dallas-cowboys-cheerleaders-have-unionized",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-dallas-cowboys-cheerleaders-have-unionized",
+      "title": "The Dallas Cowboys cheerleaders have unionized",
+      "body_text": "One of the NFL's teams has another union to deal with — and the team in question didn't fight it.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T20:01:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-raiders-rb-pete-banaszak-dies-at-82",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-raiders-rb-pete-banaszak-dies-at-82",
+      "title": "Former Raiders RB Pete Banaszak dies at 82",
+      "body_text": "Former Raiders running back Pete Banaszak has died, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-24T19:40:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Former Raiders",
+        "Pete Banaszak"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-nick-bosa-out-longer-than-expected-49ers-may-not-have-enough-healthy-players-for-roster-spots-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-nick-bosa-out-longer-than-expected-49ers-may-not-have-enough-healthy-players-for-roster-spots-on-sunday",
+      "title": "With Nick Bosa out longer than expected, 49ers may not have enough healthy players for roster spots on Sunday",
+      "body_text": "Bosa will miss fifth game with calf injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T18:13:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "With Nick",
+        "Sunday Bosa"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-activate-s-deshon-elliott",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-activate-s-deshon-elliott",
+      "title": "Steelers activate S DeShon Elliott",
+      "body_text": "Safety DeShon Elliott is back on the Steelers' active roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-24T19:05:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Elliott Safety"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/questions-linger-regarding-whether-jed-york-received-preferential-treatment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/questions-linger-regarding-whether-jed-york-received-preferential-treatment",
+      "title": "Questions linger regarding whether Jed York received preferential treatment",
+      "body_text": "As it relates to the financial consequences of 49ers owner Jed York's suspension, relative to the financial consequences of a player suspension, there's no question that York received preferential treatment.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-24T19:04:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jed York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-activate-s-kyle-louis-back-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-activate-s-kyle-louis-back-to-active-roster",
+      "title": "Dolphins activate S Kyle Louis back to active roster",
+      "body_text": "The Dolphins activated safety Kyle Louis off injured reserve, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-24T19:00:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Louis",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0041527"
+      ],
+      "team_hint": "MIA"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "batch_id": "c6c6dc55",
+  "season": 2026,
+  "week": 7,
+  "computed_at": "2026-10-25T12:27:48.624105+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chase-young-christen-miller-were-fined-for-violent-gestures-on-same-play",
+      "player_name": "Christen Miller",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Christen Miller was fined by the NFL for violent gestures during a play.",
+      "source_excerpt": "Chase Young, Christen Miller were fined for violent gestures on same play",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "7389067a-2130-4aa2-a513-ddee3093a2be",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "No. 1 overall pick Fernando Mendoza may be pressed into starting role for Raiders despite sitting behind Kirk Cousins initially.",
+      "source_excerpt": "Sitting behind Kirk Cousins was always the initial plan, but the Raiders may soon be pressed to start the No. 1 overall selection",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "e864b494-8a7f-4905-87fd-d3cd2d398707",
+      "player_name": "K.C. Concepcion",
+      "team_abbr": "CLE",
+      "category": "general",
+      "summary": "2026 Draft pick K.C. Concepcion is sparking Browns' pass game in their offensive rebuild.",
+      "source_excerpt": "Concepcion and Boston are sparking the pass game, while Spencer Fano and Austin Barber have quickly solidified the rebuilt offensive line",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "e864b494-8a7f-4905-87fd-d3cd2d398707",
+      "player_name": "Denzel Boston",
+      "team_abbr": "CLE",
+      "category": "general",
+      "summary": "2026 Draft pick Denzel Boston is sparking Browns' pass game in their offensive rebuild.",
+      "source_excerpt": "Concepcion and Boston are sparking the pass game, while Spencer Fano and Austin Barber have quickly solidified the rebuilt offensive line",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "930ec4fe-697e-4949-bbbd-3faa7a688e37",
+      "player_name": "Jonah Coleman",
+      "team_abbr": "DEN",
+      "category": "general",
+      "summary": "Broncos' 4th-round RB Jonah Coleman is only 2026 draft pick to see field as Denver struggles with rookie production.",
+      "source_excerpt": "Fourth-round running back Jonah Coleman is the only draft pick to see the field this year, as Denver gets virtually zero production from its first-year players through six games",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "4c38c52e-cf33-3d3b-b9f5-5301967973e0",
+      "player_name": "Chris Roland-Wallace",
+      "team_abbr": "KC",
+      "category": "legal",
+      "summary": "Chris Roland-Wallace fined for punch incident from Week 6.",
+      "source_excerpt": "The latest Chiefs news, brought fresh to you every morning! Chiefs News: Chris Roland-Wallace fined for punch from Week 6",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/former-raiders-rb-pete-banaszak-dies-at-82",
+      "player_name": "Pete Banaszak",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Former Raiders running back Pete Banaszak has died at age 82.",
+      "source_excerpt": "Former Raiders running back Pete Banaszak has died, the team announced Saturday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
