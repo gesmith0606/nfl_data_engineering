@@ -100,6 +100,14 @@ logger = logging.getLogger(__name__)
 # A+ gate constants (ELITE 3.1 — never change without updating CLAUDE.md)
 # ---------------------------------------------------------------------------
 _APLUS_MEAN_CAPTURE_PTS: float = 0.3  # spread line capture gate
+# The open must be a price from the betting week, not the first snapshot ever
+# captured for the game (a median 109 days before kickoff on 2026 data — a
+# summer futures price).  7 days is the widest window that is still the betting
+# week, and it costs no sample: all 93 settled 2026 games have a snapshot
+# inside it, median 16 snapshots across 8 of 9 books.  Measuring capture over
+# the full history instead carries sd 3.20 pts against a +0.3 threshold.
+# See .planning/OPEN_PROXY_VALIDATION_2026_10_25.md.
+_CAPTURE_OPEN_WITHIN_DAYS: float = 7.0
 _APLUS_N_PICKS: int = 150  # minimum picks for kill criterion
 _APLUS_N_PICKS_GATE: int = 150  # picks needed for A+ gate verdict
 _APLUS_N_PICKS_INTERIM: int = 100  # interim check threshold
@@ -324,10 +332,20 @@ def _load_game_predictions(
     Returns:
         DataFrame with game-prediction columns; empty if not found.
     """
-    week_dir = os.path.join(
-        data_root, "gold", "predictions", f"season={season}", f"week={week}"
-    )
-    if not os.path.isdir(week_dir):
+    # generate_predictions.py writes the partition ZERO-PADDED
+    # (``week={week:02d}``) while the fantasy projections next door are
+    # unpadded, so this loader has to accept both.  It only tried the unpadded
+    # form, which is why every 2026 grading report reads "SKIPPED: No Gold game
+    # predictions found" and the line-capture section had never once run.
+    week_dir = None
+    for candidate in (
+        os.path.join(data_root, "gold", "predictions", f"season={season}", f"week={week:02d}"),
+        os.path.join(data_root, "gold", "predictions", f"season={season}", f"week={week}"),
+    ):
+        if os.path.isdir(candidate):
+            week_dir = candidate
+            break
+    if week_dir is None:
         return pd.DataFrame()
 
     latest = _latest_parquet(week_dir)
@@ -966,6 +984,7 @@ def _build_spread_section(
         season=season,
         market="spreads",
         snapshot_dir=snapshot_dir,
+        open_within_days=_CAPTURE_OPEN_WITHIN_DAYS,
     )
 
     if lines_df.empty:

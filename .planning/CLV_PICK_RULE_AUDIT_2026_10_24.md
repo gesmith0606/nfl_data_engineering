@@ -209,12 +209,12 @@ set together.
 4. **Make the pick follow the calibrated probability**, not the raw edge, and
    publish only when it clears 52.38%. The ATS side already agrees 13/14 times;
    making it explicit costs little and closes the contradiction.
-5. **Do not rule on ELITE 2.4 as wired.** Fix the pick side first (capture must
-   use the line the published board was priced against, not one back-fitted
-   from a June price), then set the open horizon to ≤7 days — which costs no
-   sample, since n is set by the schedule at ~150 games through week 10 — and
-   restate the threshold against that window (~+0.15, or slip the gate to
-   accumulate n). Details in `OPEN_PROXY_VALIDATION_2026_10_25.md`.
+5. **DONE 2026-10-25.** Pick side now comes from the published board, the open
+   is bounded to the betting week (7 days), and the gate reads +0.3 at n≥150
+   with week 10 acknowledged as unreachable. The threshold was kept rather than
+   lowered to +0.15: at n=150 the MDE is 0.302, so +0.15 could not be told from
+   zero. First honest reading is −1.071 pts on 14 picks. Details in
+   `OPEN_PROXY_VALIDATION_2026_10_25.md` §5.
 6. **Diagnose the totals model** separately: a std of 0.49 against a 14.45 std
    outcome means it is predicting the mean and nothing else. That is a modelling
    question, not a pick-rule one.

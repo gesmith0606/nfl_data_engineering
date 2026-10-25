@@ -647,7 +647,7 @@ class TestLineCapturesSummary:
         assert total_from_tiers == summary["n"]
 
     def test_gate_threshold_boundary(self):
-        """Gate: mean > 0.3 at n ≥ 100 represents PASS; ≤ 0.3 is FAIL."""
+        """Gate: mean > 0.3 is PASS; ≤ 0.3 is FAIL (n bar is 150, see module)."""
         # Mean exactly 0.3 → not strictly greater → kill
         captures_at_threshold = [0.3] * 100
         df = self._make_capture_df(captures_at_threshold)

@@ -265,7 +265,33 @@ Consequently there is no new test either: the brief made that conditional on
 finding a bug, and no assertion written today would have failed before a
 change that is not needed.
 
-## 5. Proposed rule — not implemented, because it can invalidate the gate
+## 5. RESOLVED 2026-10-25 — both changes implemented, gate restated
+
+Implemented the same day, in PR #161:
+
+| change | where |
+|---|---|
+| `open_within_days` bound on the open (capture passes **7**) | `odds_snapshot_loader.load_open_close_lines` / `_derive_open_close` |
+| `open_days_before_kickoff` exposed, so a stale open is visible | same |
+| pick side taken from the **published board**, never re-derived | `backtest_predictions._attach_published_picks` |
+| the back-fitted `predicted_margin > -open_spread` removed, plus the dead `open_edge` | `backtest_predictions.run_line_capture_backtest` |
+| gate restated: +0.3 at **n ≥ 150**, 7-day open, board-derived picks, week 10 unreachable | `prediction_backtester` module docstring |
+| grading report's capture section unblocked (it looked for `week=7`, boards are written `week=07`, so it had **never run**) | `weekly_grading_report._load_game_predictions` |
+
+**First honest reading, 2026 week 7: mean capture −1.071 pts on 14 picks**
+(tiers: low −2.375 n=4, medium −0.214 n=7, high −1.333 n=3). The stale-open
+wiring had reported +1.26 season-to-date. n=14 is not a verdict; it is the
+first number from this metric that is not circular.
+
+Threshold decision taken: **keep +0.3, raise the n bar to 150.** Lowering the
+threshold to +0.15 was the alternative in §5 below, and it is the wrong move —
+at n=150 the MDE is 0.302, so +0.15 could not be distinguished from zero and
+the gate would be unfalsifiable in the opposite direction. +0.3 at n≥150 sits
+exactly at the detection limit, which is as strong as this data can support.
+
+---
+
+## 5. Original proposal (superseded by §5 above)
 
 Two changes are needed and both alter what ELITE 2.4 means, so they are the
 user's call.

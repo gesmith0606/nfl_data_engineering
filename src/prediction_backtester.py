@@ -28,8 +28,36 @@ from the odds-capture cron.
 See also: ``src/odds_snapshot_loader.py`` for deriving open_line/close_line
 from Bronze Parquet snapshots written by ``scripts/bronze_odds_api_ingestion.py``.
 
-Success gate (ELITE 2.4): mean signed capture > +0.3 pts on n ≥ 100 picks by
-2026 week 10.  Kill criterion: capture ≤ 0 at n ≥ 150 → declare no betting edge.
+Success gate (ELITE 2.4), restated 2026-10-25
+---------------------------------------------
+Ship: mean signed capture **> +0.3 pts on n ≥ 150 published picks**.
+Kill: capture ≤ 0 at n ≥ 150 → declare no betting edge.
+
+Both verdicts require, and are meaningless without:
+
+1. **The pick side from the board we published** — never a side re-derived
+   from the price being measured against. The old wiring re-made the pick
+   against the open, which made the gate unfalsifiable: a model with NO edge
+   scored +2.277 mean capture, and even one with 8 pts of error scored +0.923,
+   against a +0.3 bar.
+2. **An open from the betting week** (``open_within_days=7`` in
+   ``odds_snapshot_loader.load_open_close_lines``). Unbounded, the "open" is
+   the first snapshot ever captured — a median 109 days before kickoff, so
+   ``close - open`` is the summer-to-gameday repricing of a team's season, a
+   window nobody bets across.
+
+Why n ≥ 150 and not 100: inside a 7-day window the per-game move has
+sd 1.32 pts, giving a minimum detectable effect (80% power) of 0.370 at
+n = 100 — larger than the +0.3 threshold, so n = 100 cannot resolve the gate
+it was set for. At n = 150 the MDE is 0.302, which is the threshold. Note the
+bar is demanding by construction: the entire mean absolute move inside 7 days
+is 0.76 pts, so +0.3 means harvesting ~39% of all available movement.
+
+**Week 10 is not reachable.** n counts picks from committed boards, at ~14 per
+week; only 2026 w7 and 2025 w18 exist today (n = 30). At one board per week the
+150th pick lands at the end of the 2026 regular season at the earliest, and
+only if the weekly board keeps being committed. Ruling earlier would be ruling
+on noise. Derivation: ``.planning/OPEN_PROXY_VALIDATION_2026_10_25.md``.
 
 Exports:
     evaluate_ats: Add ATS classification columns to a game DataFrame.
@@ -147,6 +175,14 @@ def evaluate_line_capture(
     how many points the number moved in our favour by the time the closing line
     was set.  Positive capture means we got a better number than the close —
     the defining signal of a sharp bettor.
+
+    CALLER CONTRACT: ``open_col`` must be the price the pick was actually made
+    against, and ``pick_side_col`` must be the side that board published.  If
+    the side is derived from ``open_col`` itself the result is circular and
+    positive by construction — see the gate note in this module's header.  This
+    function cannot detect that, so the guarantee lives in the caller
+    (``_attach_published_picks`` in ``scripts/backtest_predictions.py``, and the
+    board-derived ``pick_side`` in ``scripts/weekly_grading_report.py``).
 
     Sign conventions
     ----------------

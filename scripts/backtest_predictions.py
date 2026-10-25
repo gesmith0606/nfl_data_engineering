@@ -31,6 +31,7 @@ ATS% is secondary — it cannot distinguish sharp from lucky.
 """
 
 import argparse
+import glob
 import logging
 import os
 import sys
@@ -260,6 +261,101 @@ def _assemble_settled(seasons, label=""):
     not :func:`run_ensemble_backtest`).
     """
     return drop_unsettled_games(assemble_multiyear_features(seasons), label)
+
+
+# The open must be a price from the betting week. Without this bound the open
+# is the first snapshot ever captured for a game — a median 109 days before
+# kickoff on 2026 data, i.e. a futures price — which inflates capture sd to
+# 3.20 pts against a +0.3 threshold. All 93 settled 2026 games still have a
+# snapshot inside 7 days, so the bound costs no sample.
+# See .planning/OPEN_PROXY_VALIDATION_2026_10_25.md.
+_CAPTURE_OPEN_WITHIN_DAYS: float = 7.0
+
+_GOLD_PREDICTIONS_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(__file__), "..", "data", "gold", "predictions")
+)
+
+
+def _load_published_picks(seasons: List[int]) -> pd.DataFrame:
+    """Load the ATS picks we actually published, from the committed Gold boards.
+
+    Capture is only meaningful against the price the published board was priced
+    against. Re-deriving the side now, from a price that board never saw, makes
+    the metric circular: a model regenerated today disagrees with a stale line
+    in exactly the direction the market later moved, and gets paid for the
+    market's own learning. Measured in
+    ``.planning/OPEN_PROXY_VALIDATION_2026_10_25.md``: a model with **no edge
+    at all** scored +2.277 mean capture that way, against a +0.3 gate.
+
+    Returns:
+        DataFrame with ``game_id`` and ``pick_side`` ("home"/"away"), one row
+        per published pick. Empty when no board is committed for any season.
+    """
+    frames: List[pd.DataFrame] = []
+    for season in sorted(seasons):
+        pattern = os.path.join(
+            _GOLD_PREDICTIONS_DIR, f"season={season}", "week=*", "predictions_*.parquet"
+        )
+        # One board per week partition; take the newest file in each.
+        by_week: dict = {}
+        for path in glob.glob(pattern):
+            by_week.setdefault(os.path.dirname(path), []).append(path)
+        for week_dir, paths in by_week.items():
+            try:
+                board = pd.read_parquet(sorted(paths)[-1])
+            except Exception as exc:  # pragma: no cover - unreadable board
+                logger.warning("Could not read board %s: %s", week_dir, exc)
+                continue
+            needed = {"game_id", "ats_pick", "home_team"}
+            if not needed.issubset(board.columns):
+                logger.warning(
+                    "Board %s lacks %s; skipped",
+                    week_dir,
+                    sorted(needed - set(board.columns)),
+                )
+                continue
+            picks = board[["game_id", "ats_pick", "home_team"]].copy()
+            home = picks["ats_pick"].astype(str).str.strip().str.upper() == picks[
+                "home_team"
+            ].astype(str).str.strip().str.upper()
+            # A board row with a blank ats_pick published no side.
+            published = picks["ats_pick"].astype(str).str.strip() != ""
+            picks["pick_side"] = pd.Series(
+                ["home" if h else "away" for h in home], index=picks.index
+            ).where(published)
+            frames.append(picks.loc[published, ["game_id", "pick_side"]])
+
+    if not frames:
+        return pd.DataFrame(columns=["game_id", "pick_side"])
+    return pd.concat(frames, ignore_index=True).drop_duplicates("game_id")
+
+
+def _attach_published_picks(df: pd.DataFrame, label: str = "") -> pd.DataFrame:
+    """Attach ``pick_side`` from the published boards and drop unmatched rows.
+
+    The counterpart to :func:`_assemble_settled`: one function so that no
+    capture path can quietly fall back to a pick it derived itself. Rows with
+    no published pick are dropped rather than back-filled, because a pick we
+    never made has no price basis and therefore no capture.
+    """
+    picks = _load_published_picks(sorted(df["season"].dropna().unique().astype(int)))
+    if picks.empty:
+        print(
+            f"  No published boards found for {label or 'these seasons'}; "
+            "capture needs the pick we actually published."
+        )
+        return df.iloc[0:0].assign(pick_side=pd.Series(dtype=object))
+
+    before = len(df)
+    out = df.merge(picks, on="game_id", how="inner")
+    dropped = before - len(out)
+    if dropped:
+        print(
+            f"  Dropped {dropped} game(s) with no published pick"
+            f"{' (' + label + ')' if label else ''}; "
+            f"{len(out)} published pick(s) remain"
+        )
+    return out
 
 
 def run_backtest(
@@ -885,16 +981,18 @@ def run_clv_true_backtest(
         print("ERROR: spread_line column missing from assembled features.")
         return
 
-    # nflverse spread_line is the expected HOME MARGIN (positive = home
-    # favoured). We pick home when predicted_margin > spread_line (model
-    # thinks home does better than the line), away otherwise. This is the
-    # FALLBACK pick basis; where an open-proxy snapshot exists the pick is
-    # re-made against the open line below — true CLV requires picking at
-    # the open, not the close.
-    all_data["pick_side"] = "away"
-    all_data.loc[
-        all_data["predicted_margin"] > all_data["spread_line"], "pick_side"
-    ] = "home"
+    # The pick side comes from the board we PUBLISHED, never from a side
+    # re-derived here (see _attach_published_picks). Rows with no published
+    # pick are dropped, so this frame may be much smaller than the feature set.
+    all_data = _attach_published_picks(all_data, label="line capture")
+    if all_data.empty:
+        print(
+            "\n  No published picks for the requested seasons, so there is no\n"
+            "  price basis to measure capture against. Commit the weekly board\n"
+            "  (data/gold/predictions/season=YYYY/week=WW/) and re-run."
+        )
+        print_line_capture_report({"n": 0}, label="All Seasons")
+        return
 
     # Build a model-edge column for tier breakdown.
     all_data["model_edge"] = (
@@ -908,6 +1006,7 @@ def run_clv_true_backtest(
             season=season,
             market="spreads",
             snapshot_dir=snapshot_dir,
+            open_within_days=_CAPTURE_OPEN_WITHIN_DAYS,
         )
         if snap_df.empty:
             logger.info("No spread snapshot data for season=%d", season)
@@ -950,25 +1049,16 @@ def run_clv_true_backtest(
         how="left",
     )
 
-    # Re-make picks at the OPEN-proxy line where available (true CLV =
-    # value captured by picking at the open). open_spread is in the
-    # sportsbook convention (negative = home favoured); convert to the
-    # nflverse margin convention with -open_spread before comparing to
-    # predicted_margin. Games without snapshots keep the closing-line pick.
-    has_open = joined["open_spread"].notna()
-    joined.loc[has_open, "pick_side"] = "away"
-    joined.loc[
-        has_open & (joined["predicted_margin"] > -joined["open_spread"]),
-        "pick_side",
-    ] = "home"
-    # Keep model_edge on the CLOSING-line basis for ALL rows so the tier
-    # breakdown stays comparable between snapshot and no-snapshot games
-    # (post-push review finding). The open-line edge — the basis the pick
-    # was actually made on — is recorded separately for capture analysis.
-    joined["open_edge"] = float("nan")
-    joined.loc[has_open, "open_edge"] = (
-        joined.loc[has_open, "predicted_margin"] + joined.loc[has_open, "open_spread"]
-    ).abs()
+    # NOTE: pick_side is NOT recomputed here. It arrived from the published
+    # board and must stay untouched. Re-making the pick against open_spread —
+    # which this function used to do — is what made the gate unfalsifiable: a
+    # model with no edge scored +2.277 mean capture against a +0.3 bar, because
+    # disagreeing with a median-109-day-old price means picking whatever side
+    # the market later moved toward. See
+    # .planning/OPEN_PROXY_VALIDATION_2026_10_25.md.
+    #
+    # model_edge stays on the CLOSING-line basis for all rows so the tier
+    # breakdown is comparable across games (post-push review finding).
 
     n_total = len(joined)
     n_with_open = joined["open_spread"].notna().sum()
