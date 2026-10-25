@@ -523,7 +523,7 @@ def test_run_auto_mock_report_has_picks_lineup_and_no_kickers():
 # the draftable_positions() pre-filter that scripts/draft_live.py already
 # applies -- once skill-position VORP drops below a kicker's flat baseline
 # late in a draft, the advisor keeps recommending kickers (no saturation cap
-# on K/DST) and, for the no-K sleeper_gentlemen/sleeper_mahomos presets, a
+# on K/DST) and, for the no-K sleeper_3flex_dst/sleeper_3flex shapes, a
 # K that has no roster slot at all still gets drafted, leaving vorp NaN for
 # that pick (replacement_ranks_for correctly omits K from a no-K shape) and
 # poisoning total_vorp -> a bogus 'D' draft grade.

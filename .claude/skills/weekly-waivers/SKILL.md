@@ -28,11 +28,10 @@ starter was due back — all three of which the two commands answer directly. If
 command fails, say so and fix it; do not substitute your own read of the raw data.
 
 ## Our leagues are Mantis, La Liga and Feetball — and only those
-`gentlemen` and `mahomos` are in `LEAGUE_PRESETS` as 3-FLEX roster-shape examples for
-the draft tools; they belong to a stranger whose Sleeper name resembles George's. The
-tools refuse them (`owned: False` -> `config.our_league` raises), which is how it was
-caught on 2026-10-23 after a session's advice had already been written for one of them.
-Never reach past that refusal to read a league directly.
+`LEAGUE_PRESETS` holds exactly those three. A league that is not George's must never be
+read directly: a whole session's waiver advice was once written for a stranger's team
+whose Sleeper name resembles his. `config.our_league` raises for anything marked
+`owned: False`; never reach past that refusal.
 
 ## Arguments
 `$ARGUMENTS` — `[league] [week]`. Default league `all`; default week = the upcoming

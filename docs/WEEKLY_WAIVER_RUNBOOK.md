@@ -2,9 +2,10 @@
 
 Leagues: **Mantis** (Sleeper, `Gforceee`, superflex TE-premium dynasty), **La Liga** (ESPN
 `teamId=1`, half-PPR, 2 FLEX, no K), **Feetball** (Yahoo `/f1/658684/10`, half-PPR, 3 WR).
-The `gentlemen` / `mahomos` presets in `config.py` are NOT George's leagues — they are
-marked `owned: False`, and `waiver_wire.py` / `set_lineups.py` / `league_context.py`
-refuse them outright (`config.our_league`). Don't work around that; it is load-bearing.
+Those three are the whole list. `waiver_wire.py` / `set_lineups.py` /
+`league_context.py` refuse any league marked `owned: False` (`config.our_league`);
+don't work around that, it is load-bearing — advice was once written for a stranger's
+team before anyone noticed.
 
 ## 1. Data is current?
 - Tuesday cron (`weekly-pipeline.yml`, 09:20 UTC) must have committed

@@ -1,6 +1,6 @@
 ---
 name: draft-agent
-description: Fantasy-football DRAFT strategist for the user's leagues (ESPN La Liga, Yahoo Feetball, Sleeper Gentlemen/Mahomos, and ESPN mocks). Use for pre-draft prep (room-specific ADP, projections for the room's scoring, tiers, value/bust/breakout report, Pick Queue), live draft co-piloting, per-pick "who and why" questions, and post-draft grading. Prices every player against the ROOM's ADP and our model, drafts by tiers + cost of waiting, and names the doctrine rule behind each pick. NOT for model research or pipeline work (use the data/ML agents).
+description: Fantasy-football DRAFT strategist for the user's leagues (ESPN La Liga, Yahoo Feetball, Sleeper Mantis, and ESPN mocks). Use for pre-draft prep (room-specific ADP, projections for the room's scoring, tiers, value/bust/breakout report, Pick Queue), live draft co-piloting, per-pick "who and why" questions, and post-draft grading. Prices every player against the ROOM's ADP and our model, drafts by tiers + cost of waiting, and names the doctrine rule behind each pick. NOT for model research or pipeline work (use the data/ML agents).
 model: sonnet
 tools:
   - Read
@@ -22,7 +22,7 @@ only in the final picks; starters before backups; price against the room's own A
   check its "Generated" date and regenerate (commands inside) if more than ~2 days old
   or if any NEWS item needs re-verifying.
 - **Projections for the room's scoring**: `python scripts/generate_projections.py --preseason --season <yr> --scoring <standard|half_ppr|ppr>` → `output/projections/preseason_<yr>_<scoring>_<ts>.csv`. Never hand-convert stat lines between formats.
-- **Room ADP**: `python scripts/refresh_adp.py --source <espn|ffc|sleeper|mfl> --scoring <fmt>` → `data/adp/adp_<source>_<fmt>.csv`. ESPN rooms → `espn`; Sleeper rooms → `sleeper` (RotoWire composite) or `ffc`; Yahoo → `ffc` until Yahoo API access lands ([[yahoo-fantasy-api-access-2026]]). League presets: `config.LEAGUE_PRESETS` (`la_liga`, `feetball`, `gentlemen`, `mahomos`).
+- **Room ADP**: `python scripts/refresh_adp.py --source <espn|ffc|sleeper|mfl> --scoring <fmt>` → `data/adp/adp_<source>_<fmt>.csv`. ESPN rooms → `espn`; Sleeper rooms → `sleeper` (RotoWire composite) or `ffc`; Yahoo → `ffc` until Yahoo API access lands ([[yahoo-fantasy-api-access-2026]]). League presets: `config.LEAGUE_PRESETS` (`la_liga`, `feetball`, `mantis`).
 - **Mispricing report**: `python scripts/draft_value_report.py --scoring <fmt> --sources espn,ffc,sleeper [--roster-format espn_default --teams 12]` → values, busts, breakout/sleeper candidates with the rule that fired, per source. Run it before every draft and paste the top of it into your prep note.
 - **Board engine**: `src/draft_optimizer.py` (`compute_value_scores`, `DraftAdvisor.recommend(next_pick_no, my_picks_remaining)` = opportunity-cost scoring + house rules, `build_queue`), `src/draft_availability.py` (survival odds, expected best VORP at next pick), `src/draft_tiers.py` (tiers).
 

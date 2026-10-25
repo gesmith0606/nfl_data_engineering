@@ -111,10 +111,10 @@ def build_checks(week: int) -> List[Check]:
         Check(
             "guards",
             "a league that is not ours is refused by name",
-            "python scripts/waiver_wire.py --league mahomos --week N",
+            "python scripts/waiver_wire.py --league mantis --week N",
             lambda: "NOT one of our leagues"
             in _sh(
-                ["scripts/waiver_wire.py", "--league", "mahomos", "--week", str(week)]
+                ["scripts/waiver_wire.py", "--league", "mantis", "--week", str(week)]
             ),
         ),
         # --- pricing ------------------------------------------------------
