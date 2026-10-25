@@ -56,3 +56,33 @@ def test_teams_401_when_disconnected(monkeypatch):
     monkeypatch.delenv("YAHOO_CLIENT_ID", raising=False)
     monkeypatch.delenv("YAHOO_CLIENT_SECRET", raising=False)
     assert client.get("/api/yahoo/league/nfl.l.123/teams").status_code == 401
+
+
+class TestAuthorizationScope:
+    """Since 2026 the Fantasy API is approval-gated and scope is not optional.
+
+    A token granted without a fantasy scope authenticates fine and then 401s on
+    every fantasysports call, which looks like a broken client rather than
+    missing access. Requesting the scope explicitly makes the grant itself say
+    whether the app is approved.
+    """
+
+    def _oauth(self):
+        from yahoo_oauth import YahooOAuth
+
+        return YahooOAuth(client_id="cid", client_secret="sec")
+
+    def test_read_scope_is_the_default(self):
+        assert "scope=fspt-r" in self._oauth().build_authorization_url()
+
+    def test_write_scope_can_be_requested(self):
+        """fspt-w is what a lineup write needs, and a higher access tier."""
+        assert "scope=fspt-w" in self._oauth().build_authorization_url(scope="fspt-w")
+
+    def test_scope_can_be_omitted_for_the_pre_2026_flow(self):
+        url = self._oauth().build_authorization_url(scope=None)
+        assert "scope=" not in url
+
+    def test_state_still_round_trips_alongside_scope(self):
+        url = self._oauth().build_authorization_url(state="xyz", scope="fspt-r")
+        assert "state=xyz" in url and "scope=fspt-r" in url
