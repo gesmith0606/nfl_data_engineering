@@ -57,8 +57,15 @@ def _row_to_prediction(row) -> GamePrediction:
     cover_prob = _sf(row.get("home_cover_prob"))
     if cover_prob is None:
         ats_pick = str(row.get("ats_pick", ""))
+        pick_cover_prob = None
     else:
-        ats_pick = home_team if cover_prob >= 0.50 else away_team
+        picks_home = cover_prob >= 0.50
+        ats_pick = home_team if picks_home else away_team
+        # The probability OF THE PICKED SIDE, not of home. Reading
+        # home_cover_prob directly is how the audit first concluded that no
+        # week-7 game cleared break-even: most picks are the away side, whose
+        # cover probability is 1 - home_cover_prob.
+        pick_cover_prob = cover_prob if picks_home else 1.0 - cover_prob
 
     return GamePrediction(
         game_id=str(row.get("game_id", "")),
@@ -74,6 +81,7 @@ def _row_to_prediction(row) -> GamePrediction:
         total_edge=_sf(row.get("total_edge")),
         confidence_tier=str(row.get("confidence_tier", "low")),
         ats_pick=ats_pick,
+        pick_cover_prob=pick_cover_prob,
         ou_pick=OU_PICK_RETIRED,
     )
 

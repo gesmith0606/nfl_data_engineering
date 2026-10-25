@@ -7,13 +7,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
+import { clearsBreakEven, formatCoverProbCompact } from '@/lib/nfl/pick-confidence';
 import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { resolvePredictionsLatestWeek } from '@/lib/week-context';
 import { predictionsQueryOptions } from '../api/queries';
 import { SectionHeading } from './section-heading';
 import type { GamePrediction } from '../api/types';
 
-const EDGE_HIGH_THRESHOLD = 3.0;
 const MAX_HOPS = 3;
 
 /**
@@ -65,12 +65,23 @@ function PickTile({ prediction }: { prediction: GamePrediction }) {
             {prediction.home_team}
           </span>
         </span>
+        {/* The badge shows the calibrated cover probability of the picked
+            side, and is emphasised only when it clears -110 break-even
+            (52.4%). It used to show edge size and emphasise >= 3pt, which
+            promoted games by a quantity that is not confidence — a 3+ pt edge
+            hit 57% ATS on sealed 2025, and tiering already runs on the
+            probability. See @/lib/nfl/pick-confidence. */}
         <Badge
-          variant={edge >= EDGE_HIGH_THRESHOLD ? 'default' : 'secondary'}
+          variant={clearsBreakEven(prediction.pick_cover_prob) ? 'default' : 'secondary'}
           className='shrink-0 gap-[var(--space-1)] whitespace-nowrap tabular-nums'
+          title={
+            clearsBreakEven(prediction.pick_cover_prob)
+              ? 'Clears the -110 break-even point (52.4%)'
+              : 'Model lean only — below the -110 break-even point (52.4%)'
+          }
         >
           <Icons.trendingUp className='size-[var(--space-3)]' />
-          {edge.toFixed(1)}pt
+          {formatCoverProbCompact(prediction.pick_cover_prob, prediction.spread_edge)}
         </Badge>
       </div>
       <div className='flex items-center justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>

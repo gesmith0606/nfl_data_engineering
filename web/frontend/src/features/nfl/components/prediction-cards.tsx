@@ -19,6 +19,7 @@ import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { PredictionLedger } from './prediction-ledger';
 import { formatRelativeTime } from '@/lib/format-relative-time';
+import { clearsBreakEven, pickConfidenceLabel } from '@/lib/nfl/pick-confidence';
 import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
 import { ApiError } from '@/lib/nfl/api';
@@ -139,8 +140,24 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
                   <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
                     {prediction.ats_pick}
                   </span>
-                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                    {spreadEdge.toFixed(1)}pt edge
+                  {/* The calibrated cover probability of the PICKED side,
+                      not the edge. Edge size is not confidence, and a bare
+                      team abbreviation reads as a betting recommendation we
+                      cannot support (2026 ATS 47.1%, capture -1.07). Sub
+                      break-even leans are dimmed rather than hidden. */}
+                  <span
+                    className={
+                      clearsBreakEven(prediction.pick_cover_prob)
+                        ? 'text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                        : 'text-muted-foreground/60 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                    }
+                    title={
+                      clearsBreakEven(prediction.pick_cover_prob)
+                        ? 'Clears the -110 break-even point (52.4%)'
+                        : 'Model lean only — below the -110 break-even point (52.4%)'
+                    }
+                  >
+                    {pickConfidenceLabel(prediction.pick_cover_prob, prediction.spread_edge)}
                   </span>
                 </div>
               </div>

@@ -391,6 +391,38 @@ class TestAtsPickFollowsCalibratedProbability:
             assert picked_home == (probs[p["game_id"]] >= 0.50), p
 
     @patch("web.api.services.prediction_service.get_predictions")
+    def test_pick_cover_prob_is_the_picked_sides_not_homes(self, mock_get):
+        """The inversion that fooled the audit itself.
+
+        ``home_cover_prob`` tops out below break-even on a typical board, so
+        reading it directly says "no game clears 52.38%". But most picks are
+        the AWAY side, whose cover probability is ``1 - home_cover_prob`` — on
+        the real week-7 board 4 of 14 recommendations do clear it. The API must
+        serve the probability of the side it actually recommends.
+        """
+        df = self._df_with_probs()
+        # Non-vacuity: row 0 picks away, and its probability is the complement.
+        assert df.loc[0, "home_cover_prob"] < 0.50
+
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+
+        # Row 0: picked PIT (away) -> 1 - 0.4469 = 0.5531, which CLEARS -110.
+        assert preds[0]["ats_pick"] == "PIT"
+        assert preds[0]["pick_cover_prob"] == pytest.approx(0.5531, abs=1e-4)
+        assert preds[0]["pick_cover_prob"] > 0.5238
+        # Row 1: picked BUF (home) -> the home probability, unchanged.
+        assert preds[1]["pick_cover_prob"] == pytest.approx(0.5243, abs=1e-4)
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_pick_cover_prob_is_null_without_a_calibrator(self, mock_get):
+        df = _mock_predictions_df()
+        assert "home_cover_prob" not in df.columns
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+        assert all(p["pick_cover_prob"] is None for p in preds)
+
+    @patch("web.api.services.prediction_service.get_predictions")
     def test_stored_pick_kept_when_no_calibrator_ran(self, mock_get):
         """Single-XGBoost boards carry no probability -- pass the pick through."""
         df = _mock_predictions_df()

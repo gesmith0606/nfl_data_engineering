@@ -56,6 +56,13 @@ export interface GamePrediction {
   confidence_tier: string;
   ats_pick: string;
   /**
+   * Calibrated probability that the PICKED side covers; `null` when no
+   * calibrator ran. -110 breaks even at 0.5238, so anything below that is a
+   * lean we do not claim an edge on — render it next to the pick rather than
+   * showing a bare team abbreviation, which reads as a recommendation.
+   */
+  pick_cover_prob: number | null;
+  /**
    * Retired — always `''`. The game-totals betting surface was killed by
    * `.planning/TOTALS_VERDICT.md` (2026-06-10): `predicted_total`,
    * `vegas_total` and `total_edge` are MARKET TRACKING content, never a bet

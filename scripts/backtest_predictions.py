@@ -90,7 +90,17 @@ def print_ats_report(results: pd.DataFrame, label: str = "Overall") -> None:
 
 
 def print_ou_report(results: pd.DataFrame, label: str = "Overall") -> None:
-    """Print formatted O/U backtest report.
+    """Print the O/U backtest report for the RETIRED totals surface.
+
+    Kept because knowing what the retired rule would have done is a useful
+    diagnostic, and because for completed historical seasons this is a real
+    measurement. It is NOT a strategy result and must not be quoted as one:
+    ``.planning/TOTALS_VERDICT.md`` ruled KILL on the game-totals betting
+    surface on 2026-06-10, and ``ou_pick`` no longer ships. The grade below is
+    computed from ``total_edge``, and on 2026 that edge is 99.4% explained by
+    the Vegas line alone (the totals model is near-constant, std 0.49 against
+    the line's 4.66), so the record it reports is a line-fade, not a model.
+    See ``.planning/CLV_PICK_RULE_AUDIT_2026_10_24.md`` §2.
 
     Args:
         results: DataFrame with O/U evaluation columns from evaluate_ou().
@@ -104,6 +114,9 @@ def print_ou_report(results: pd.DataFrame, label: str = "Overall") -> None:
 
     print(f"\n{'=' * 60}")
     print(f"O/U RESULTS -- {label} ({n_games} games)")
+    print("  [RETIRED SURFACE — reference only, not a strategy result.")
+    print("   TOTALS_VERDICT ruled KILL 2026-06-10; ou_pick no longer ships.")
+    print("   This grades total_edge, which on 2026 is the Vegas line fade.]")
     print(f"{'=' * 60}")
     print(
         f"  Record:       {profit_stats['wins']}-{profit_stats['losses']}-{profit_stats['pushes']} (W-L-P)"

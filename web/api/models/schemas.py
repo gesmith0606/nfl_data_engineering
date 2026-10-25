@@ -172,6 +172,17 @@ class GamePrediction(BaseModel):
         ),
     )
     ats_pick: str = Field(..., description="home / away team abbreviation")
+    pick_cover_prob: Optional[float] = Field(
+        None,
+        description=(
+            "Calibrated probability that the PICKED side covers (NaN-free; "
+            "null when no calibrator ran). -110 breaks even at 0.5238, so a "
+            "value below that is a pick we do not claim an edge on. Served so "
+            "the UI can show it next to the pick: a bare team abbreviation "
+            "reads as a betting recommendation, and on 2026 we have no "
+            "demonstrated ATS edge (47.1% on 93 games, line capture -1.07)."
+        ),
+    )
     ou_pick: str = Field(
         "",
         description=(
