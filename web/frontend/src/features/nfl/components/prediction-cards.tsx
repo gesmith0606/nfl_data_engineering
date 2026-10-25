@@ -52,7 +52,13 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
   const spreadEdge = Math.abs(prediction.spread_edge ?? 0);
   const totalEdge = Math.abs(prediction.total_edge ?? 0);
   const maxEdge = 10;
-  const topEdge = Math.max(spreadEdge, totalEdge);
+  // The ATS edge ONLY. This was max(spreadEdge, totalEdge), so a game with an
+  // extreme Vegas total got a shimmering "high edge" badge off the RETIRED
+  // totals surface — and that edge is 99.4% the Vegas line, not our model
+  // (predicted_total std 0.49 against the line's 4.66). models-picks.tsx was
+  // fixed for the same reason; this file was missed.
+  // See .planning/TOTALS_VERDICT.md and CLV_PICK_RULE_AUDIT_2026_10_24.md §2.
+  const topEdge = spreadEdge;
   const hasRevealEdge = topEdge >= EDGE_REVEAL_THRESHOLD;
   const hasHighEdge = topEdge >= EDGE_HIGH_THRESHOLD;
 
@@ -102,10 +108,10 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
                       'gap-[var(--space-1)] whitespace-nowrap',
                       hasHighEdge && 'edge-shimmer'
                     )}
-                    aria-label={`${topEdge.toFixed(1)} point edge`}
+                    aria-label={`${topEdge.toFixed(1)} point spread edge`}
                   >
                     <Icons.trendingUp className='h-[var(--space-3)] w-[var(--space-3)]' />
-                    {topEdge.toFixed(1)}pt edge
+                    {topEdge.toFixed(1)}pt spread
                   </Badge>
                 </FadeIn>
               )}

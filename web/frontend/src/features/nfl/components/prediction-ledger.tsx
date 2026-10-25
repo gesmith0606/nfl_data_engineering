@@ -2,6 +2,7 @@
 
 import { Card } from '@/components/ui/card';
 import type { GamePrediction, GameResult } from '../api/types';
+import { clearsBreakEven, formatCoverProbCompact } from '@/lib/nfl/pick-confidence';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 
@@ -222,7 +223,29 @@ export function PredictionLedger({
                       {verdict && verdict.ats !== null ? (
                         <VerdictCell verdict={verdict} />
                       ) : (
-                        p.ats_pick || '—'
+                        <span className='flex items-baseline gap-[var(--space-1)]'>
+                          <span>{p.ats_pick || '—'}</span>
+                          {/* Ungraded rows show the pick; qualify it with the
+                              calibrated cover probability so a bare team
+                              abbreviation does not read as a bet we claim an
+                              edge on. See @/lib/nfl/pick-confidence. */}
+                          {p.pick_cover_prob !== null && (
+                            <span
+                              className={
+                                clearsBreakEven(p.pick_cover_prob)
+                                  ? 'text-muted-foreground text-[length:var(--fs-xs)] tabular-nums'
+                                  : 'text-muted-foreground/60 text-[length:var(--fs-xs)] tabular-nums'
+                              }
+                              title={
+                                clearsBreakEven(p.pick_cover_prob)
+                                  ? 'Clears the -110 break-even point (52.4%)'
+                                  : 'Model lean only — below the -110 break-even point (52.4%)'
+                              }
+                            >
+                              {formatCoverProbCompact(p.pick_cover_prob, p.spread_edge)}
+                            </span>
+                          )}
+                        </span>
                       )}
                     </td>
                   </tr>

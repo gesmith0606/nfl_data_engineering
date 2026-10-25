@@ -33,6 +33,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { formatRelativeTime } from '@/lib/format-relative-time';
+import { clearsBreakEven, formatCoverProb } from '@/lib/nfl/pick-confidence';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { getTeamFullName, TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -1499,9 +1500,17 @@ export function MatchupView() {
                     Math.abs(prediction.spread_edge) >= 1.5 && (
                       <p className='flex items-center gap-[var(--space-2)]'>
                         <Icons.trendingUp className='h-[var(--space-4)] w-[var(--space-4)] text-[var(--wc-mint,#91edd0)]' />
+                        {/* The claim is the calibrated cover probability of
+                            the picked side, not the edge size — edge size is
+                            not confidence (see @/lib/nfl/pick-confidence), and
+                            on 2026 we have no demonstrated ATS edge. Below
+                            -110 break-even this says "lean", not "pick". */}
                         <span>
-                          Model sees {Math.abs(prediction.spread_edge).toFixed(1)}-point spread edge.{' '}
+                          Model {clearsBreakEven(prediction.pick_cover_prob) ? 'picks' : 'leans'}{' '}
                           <span className='text-white/80 font-medium'>{prediction.ats_pick}</span>
+                          {prediction.pick_cover_prob !== null
+                            ? ` — ${formatCoverProb(prediction.pick_cover_prob)}`
+                            : ` — ${Math.abs(prediction.spread_edge).toFixed(1)}pt spread edge`}
                         </span>
                       </p>
                     )}
