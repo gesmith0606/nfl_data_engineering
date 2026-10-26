@@ -1,0 +1,93 @@
+{
+  "fetch_run_id": "097cf578-f8fc-4f71-a7d1-55f1029c1a80",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-10-26T13:49:15.560299+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl644480",
+      "url": "https://www.rotowire.com//football/player/saquon-barkley-12507",
+      "title": "Saquon Barkley: 'Trending toward playing' Monday",
+      "body_text": "Barkley (hamstring), who is listed as questionable for Monday's game against the Cowboys, is \"trending toward playing,\" Mike Garafolo of NFL Network reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-26T06:23:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Monday Barkley",
+        "Mike Garafolo"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl644478",
+      "url": "https://www.rotowire.com//football/player/xavier-worthy-17687",
+      "title": "Xavier Worthy: Held to 11 yards on six targets",
+      "body_text": "Worthy caught three of six targets for 11 yards in Sunday's 20-3 loss to the Seahawks.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-25T09:01:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Xavier Worthy"
+      ],
+      "resolved_player_ids": [
+        "00-0039894"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl644477",
+      "url": "https://www.rotowire.com//football/player/travis-kelce-8783",
+      "title": "Travis Kelce: Moves to fifth on all-time catch list",
+      "body_text": "Kelce caught four of eight targets for 44 yards in Sunday's 20-3 loss to the Seahawks.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-25T08:59:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl644476",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "title": "Patrick Mahomes: Two-game TD drought sans Rice",
+      "body_text": "Mahomes completed 19 of 33 passes for 165 yards, no touchdowns and one interception in Sunday's 20-3 loss to the Seahawks. He added two rushing attempts for 14 yards.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-25T08:56:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Rice Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl644474",
+      "url": "https://www.rotowire.com//football/player/sam-darnold-12490",
+      "title": "Sam Darnold: One TD, one INT in comfortable win",
+      "body_text": "Darnold completed 20 of 28 passes for 257 yards, one touchdown and one interception in Sunday's 20-3 win over the Chiefs. He added two rushing attempts for 17 yards.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-25T08:53:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "batch_id": "561e1c44",
+  "season": 2026,
+  "week": 7,
+  "computed_at": "2026-10-26T13:55:25.251985+00:00",
+  "record_count": 11,
+  "records": [
+    {
+      "doc_id": "6625d102-0b4a-4a8c-bd99-e262407254e2",
+      "external_id": "6625d102-0b4a-4a8c-bd99-e262407254e2",
+      "team_abbr": null,
+      "summary": "Promotional content for DraftKings betting on Cowboys-Eagles Monday Night Football game.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for Eagles vs. Cowboys on Monday Night Football",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "6580cc49-b184-43cc-8d90-09222b7adf78",
+      "external_id": "6580cc49-b184-43cc-8d90-09222b7adf78",
+      "team_abbr": null,
+      "summary": "Promotional content for BetMGM betting on Cowboys-Eagles Monday Night Football game.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for Eagles vs. Cowboys on Monday Night Football",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "d4f4e348-3528-4bb1-ac53-d5b1194dc7eb",
+      "external_id": "d4f4e348-3528-4bb1-ac53-d5b1194dc7eb",
+      "team_abbr": null,
+      "summary": "Betting preview and predictions for Chiefs vs. Seahawks Sunday Night Football game.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Chiefs vs. Seahawks on Sunday Night Football",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0fc4117b-e8ac-40ab-97d1-e04b6e0895d7",
+      "external_id": "0fc4117b-e8ac-40ab-97d1-e04b6e0895d7",
+      "team_abbr": null,
+      "summary": "DraftKings promotional offer for Chiefs-Seahawks Sunday Night Football betting.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1bc87d48-4605-4ddc-8ba5-6aad9dd30f19",
+      "external_id": "1bc87d48-4605-4ddc-8ba5-6aad9dd30f19",
+      "team_abbr": null,
+      "summary": "Betting preview and predictions for Packers vs. Lions in NFL Week 7.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Here's everything bettors need to know for Packers vs. Lions in NFL Week 7",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "eccef4b1-8351-47fa-935a-ee4c1f5dd6f7",
+      "external_id": "eccef4b1-8351-47fa-935a-ee4c1f5dd6f7",
+      "team_abbr": null,
+      "summary": "Week 7 betting preview for Broncos vs. Cardinals matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "We have everything bettors need to know before placing any wagers on Sunday's Broncos vs. Cardinals matchup in NFL Week 7",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "fb3f28f0-ef47-4f8d-8e41-84bf7238d510",
+      "external_id": "fb3f28f0-ef47-4f8d-8e41-84bf7238d510",
+      "team_abbr": null,
+      "summary": "Week 7 NFL expert picks and predictions for Lions, Raiders, Seahawks.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "SportsLine's experts have revealed their Week 7 NFL picks and best bets for Sunday",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8624bba3-6c05-4f16-b4b1-3cc2e80d3ed4",
+      "external_id": "8624bba3-6c05-4f16-b4b1-3cc2e80d3ed4",
+      "team_abbr": null,
+      "summary": "Week 7 betting preview for 49ers vs. Falcons matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Claim the latest Polymarket promo code to make predictions for Sunday's game between the 49ers and Falcons",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "dc100c0d-42cb-47fd-8fe4-8df133e16188",
+      "external_id": "dc100c0d-42cb-47fd-8fe4-8df133e16188",
+      "team_abbr": null,
+      "summary": "Week 7 betting preview for Colts vs. Vikings matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's everything bettors need to know for Colts vs. Vikings in NFL Week 7 action",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "590074e6-139b-4c9c-aaa9-f85bf83d7b96",
+      "external_id": "590074e6-139b-4c9c-aaa9-f85bf83d7b96",
+      "team_abbr": null,
+      "summary": "Week 7 betting preview for Giants vs. Texans matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Claim the latest Polymarket promo code to make predictions for Sunday's game between the Giants and Texans",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "2016d5fc-84de-3da2-b937-0308bd7d7443",
+      "external_id": "2016d5fc-84de-3da2-b937-0308bd7d7443",
+      "team_abbr": null,
+      "summary": "2027 NFL draft order after Week 7 shows Browns stable, Rams drop spots.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Following Week 7's results, the 2027 NFL draft order is unchanged for the Cleveland Browns, dropping for the Rams",
+      "subject_type": "team"
+    }
+  ]
+}

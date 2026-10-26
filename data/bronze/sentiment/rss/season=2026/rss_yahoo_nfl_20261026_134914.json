@@ -1,0 +1,763 @@
+{
+  "fetch_run_id": "097cf578-f8fc-4f71-a7d1-55f1029c1a80",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-10-26T13:49:14.904923+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "1bef59b1-6b07-382d-b74c-45d5c1ba8d71",
+      "url": "https://sports.yahoo.com/articles/nfl-kickers-167-170-inside-133728641.html",
+      "title": "NFL kickers are 167-for-170 from inside 37 yards. Trey Smack had 2 of the 3 misses Sunday.",
+      "body_text": "Once an NFL offense gets inside the 20-yard line, coming away with at least a field goal should be just about a sure thing.",
+      "author": "",
+      "published_at": "2026-10-26T13:37:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Trey Smack"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "f3acf8d9-4a37-36e0-9ce1-36291c47ce2e",
+      "url": "https://sports.yahoo.com/articles/saquon-barkley-trending-towards-playing-133651294.html",
+      "title": "Saquon Barkley trending towards playing",
+      "body_text": "Philadelphia Eagles RB Saquon Barkley (hamstring) is trending towards playing Monday against the Dallas Cowboys.",
+      "author": "",
+      "published_at": "2026-10-26T13:36:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Philadelphia Eagles",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3c22d055-cfb4-4891-88b0-9b45530ba4b0",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-monday-night-football-preview-cowboys-cant-afford-to-lose-to-this-version-of-the-eagles-133246856.html",
+      "title": "NFL Monday Night Football preview: Cowboys can't afford to lose to this version of the Eagles",
+      "body_text": "The Cowboys and Eagles are both a disappointing 2-4 this season.",
+      "author": "Frank Schwab",
+      "published_at": "2026-10-26T13:32:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Eagles The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5fb0e3c1-dc9e-45f3-9cb1-c48b21493653",
+      "url": "https://sports.yahoo.com/nfl/live/nfl-news-injury-updates-130057467.html",
+      "title": "NFL news, live updates: Raiders considering changes; Christian McCaffrey will be 'alright' after thigh injury",
+      "body_text": "Follow along with the latest NFL news coming out of Week 7.",
+      "author": "Yahoo Sports Staff",
+      "published_at": "2026-10-26T13:00:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "2398e5bd-5fd2-3f46-a0ab-79caa088eddb",
+      "url": "https://sports.yahoo.com/articles/ravens-report-card-week-7-133000139.html",
+      "title": "Ravens Report Card, Week 7: Recurring second-half issues apex in blowout loss",
+      "body_text": "For the second straight week, the Ravens allowed zero first-half points and built up a double-digit lead, only to get shut out in the second half and lose. This time, the end result was worse, as the Ravens were outscored 35-0 over the final two quarters. Here are report card grades for the team’s offense […]",
+      "author": "",
+      "published_at": "2026-10-26T13:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens Report"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "2a201dc0-639b-319c-a3c0-1cb97eb43348",
+      "url": "https://sports.yahoo.com/articles/nfc-west-recap-49ers-lead-133000096.html",
+      "title": "NFC West Recap: 49ers’ lead shrinks to two; Seahawks, Rams both win",
+      "body_text": "Seahawks and Rams both just have to win when the 49ers lose.",
+      "author": "",
+      "published_at": "2026-10-26T13:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "West Recap"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "d6917dc2-cda7-39a5-870e-bd5a9b1962a6",
+      "url": "https://sports.yahoo.com/articles/5-things-watch-cowboys-play-133000534.html",
+      "title": "5 things to watch when the Cowboys play the Eagles",
+      "body_text": "What are you going to be paying the most attention to tonight?",
+      "author": "",
+      "published_at": "2026-10-26T13:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles What"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "26ff83ea-82f9-3e10-8876-5ebbca3bd65a",
+      "url": "https://sports.yahoo.com/articles/little-post-bye-reset-jog-132054330.html",
+      "title": "A little post-bye reset to jog your memory",
+      "body_text": "What could transpire leading into, and during, Week 8’s game vs. Ravens",
+      "author": "",
+      "published_at": "2026-10-26T13:20:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "425949f7-90fe-3164-bd21-d0be6e6371a5",
+      "url": "https://sports.yahoo.com/articles/plenty-blame-around-packers-loss-131500309.html",
+      "title": "Plenty of blame to go around for Packers in loss to Lions",
+      "body_text": "What will it take for the NFL to acknowledge it has an officiating problem?",
+      "author": "",
+      "published_at": "2026-10-26T13:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions What"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c7f7648f-a5aa-32b0-8db9-200b350bc310",
+      "url": "https://sports.yahoo.com/articles/eagles-vs-cowboys-week-7-130603064.html",
+      "title": "Eagles vs. Cowboys Week 7 game information",
+      "body_text": "Learn more about this NFC East matchup between the Philadelphia Eagles and Dallas Cowboys.",
+      "author": "",
+      "published_at": "2026-10-26T13:06:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys Week",
+        "Philadelphia Eagles",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "43e6b9a6-7e0d-3a41-9046-d40a1635ad37",
+      "url": "https://sports.yahoo.com/articles/jaguars-vs-colts-odds-opening-130400839.html",
+      "title": "Jaguars vs. Colts odds: Opening lines for Week 8 matchup",
+      "body_text": "The Jaguars are looking to beat the Colts in Jacksonville for the 12th season in a row.",
+      "author": "",
+      "published_at": "2026-10-26T13:04:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "11cfa462-ec40-3dcc-8aae-c2aebceca148",
+      "url": "https://sports.yahoo.com/articles/omar-cooper-jr-stars-again-130000568.html",
+      "title": "Omar Cooper Jr. stars again for New York Jets in historic NFL debut",
+      "body_text": "Omar Cooper Jr. is looking like an emerging star early for the New York Jets after spending four seasons with Indiana.",
+      "author": "",
+      "published_at": "2026-10-26T13:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Omar Cooper Jr",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "1cadb2c0-31ce-3573-8633-257c21c0d2b9",
+      "url": "https://sports.yahoo.com/articles/5-things-learned-chiefs-first-130000105.html",
+      "title": "5 things we learned from the Chiefs’ first loss of the season",
+      "body_text": "Kansas City messed around and found out against Seattle.",
+      "author": "",
+      "published_at": "2026-10-26T13:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "2246ff87-a03c-3849-8b2e-092623714a47",
+      "url": "https://sports.yahoo.com/articles/5-takeaways-steelers-16-10-130000863.html",
+      "title": "5 takeaways from the Steelers’ 16-10 win over the Saints in Paris",
+      "body_text": "Takeaways, analysis, and overreactions from the Steelers’ Week 7 win.",
+      "author": "",
+      "published_at": "2026-10-26T13:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Paris Takeaways"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "55ae708f-c28a-35d9-b79b-3f96c1b5c072",
+      "url": "https://sports.yahoo.com/articles/packers-were-lucky-keep-close-130000442.html",
+      "title": "The Packers were lucky to keep it close vs. the Lions",
+      "body_text": "Packers fans can complain about officiating all they want, but the Detroit Lions nearly blew Green Bay out.",
+      "author": "",
+      "published_at": "2026-10-26T13:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Packers",
+        "Lions Packers",
+        "Detroit Lions",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "7a92bd31-100c-3144-9a70-c1ec7f093089",
+      "url": "https://sports.yahoo.com/articles/fleur-links-saints-enter-bye-130000697.html",
+      "title": "Fleur-de-Links: Saints enter the bye week with a loss",
+      "body_text": "Here are today's Saints news links",
+      "author": "",
+      "published_at": "2026-10-26T13:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "d8ffc2e3-8b62-3cd4-9008-a140228f9ef4",
+      "url": "https://sports.yahoo.com/articles/dolphins-vs-patriots-odds-opening-130000252.html",
+      "title": "Dolphins vs. Patriots odds: Opening lines for Week 8 matchup",
+      "body_text": "The Miami Dolphins open as big home underdogs for Week 8 game against New England Patriots.",
+      "author": "",
+      "published_at": "2026-10-26T13:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Miami",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "49e4c629-052b-3c2f-b310-bd5bce4ad532",
+      "url": "https://sports.yahoo.com/articles/baker-mayfield-sundays-win-statement-124450818.html",
+      "title": "Baker Mayfield: Sunday's win was a statement of our potential",
+      "body_text": "Buccaneers quarterback Baker Mayfield said his right thumb might be a little sore after Sunday's win over the Panthers moved the team to 2-5, but he did it with a smile because the cause of the soreness was how often he handed the ball off.",
+      "author": "",
+      "published_at": "2026-10-26T12:44:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "03615813-ef8e-427a-962e-30093e00114d",
+      "url": "https://sports.yahoo.com/nfl/live/seahawks-defense-clamps-down-on-kenneth-walker-iii-hand-the-chiefs-their-first-loss-of-the-season-124150231.html",
+      "title": "Seahawks' defense clamps down on Kenneth Walker III, hand the Chiefs their first loss of the season",
+      "body_text": "The Seahawks had a spectacular defensive performance, shutting out the Chiefs in the first half and then keeping them out of the end zone in the second half on the way to a 20-3 win.",
+      "author": "Yahoo Sports Staff,Frank Schwab",
+      "published_at": "2026-10-25T23:01:21+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kenneth Walker III",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "7a96147a-8872-403b-a8c8-d812ac086da1",
+      "url": "https://sports.yahoo.com/nfl/article/kenneth-walker-iii-explains-why-he-didnt-shake-hands-with-seahawks-after-chiefs-loss-i-was-frustrated-123859449.html",
+      "title": "Kenneth Walker III explains why he didn't shake hands with Seahawks after Chiefs' loss: 'I was frustrated'",
+      "body_text": "Kenneth Walker III wasn't pleased to see his former teammates celebrating after Sunday's loss.",
+      "author": "Chris Cwik",
+      "published_at": "2026-10-26T12:38:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kenneth Walker III"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "604e9774-5dcb-3105-b8a3-79fabe903b5a",
+      "url": "https://sports.yahoo.com/articles/reacts-survey-results-jaguars-remain-123826762.html",
+      "title": "Reacts Survey Results: Jaguars remain heavy favorites to win AFC South",
+      "body_text": "Jacksonville controls its own destiny.",
+      "author": "",
+      "published_at": "2026-10-26T12:38:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Reacts Survey",
+        "South Jacksonville"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "b3fe030e-0fc3-3f92-b46d-d34555641e16",
+      "url": "https://sports.yahoo.com/articles/mike-vrabel-no-concern-j-123126990.html",
+      "title": "Mike Vrabel: No concern about A.J. Brown, just have to get into rhythm",
+      "body_text": "Patriots wide receiver A.J.",
+      "author": "",
+      "published_at": "2026-10-26T12:31:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "7b8daaa4-ba12-339e-8b05-89fd39d5719f",
+      "url": "https://sports.yahoo.com/articles/detroit-lions-grades-secondary-shines-121500767.html",
+      "title": "Detroit Lions grades: Secondary shines in breakout win vs. Packers",
+      "body_text": "The Detroit Lions secondary shined in our report cards and grades for Week 7 vs. the Packers.",
+      "author": "",
+      "published_at": "2026-10-26T12:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Packers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "2016d5fc-84de-3da2-b937-0308bd7d7443",
+      "url": "https://sports.yahoo.com/articles/2027-nfl-draft-order-week-121429859.html",
+      "title": "2027 NFL draft order after Week 7: Browns stable, Rams drop spots with win",
+      "body_text": "Following Week 7’s results, the 2027 NFL draft order is unchanged for the Cleveland Browns, dropping for the Rams",
+      "author": "",
+      "published_at": "2026-10-26T12:14:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Following Week",
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c99fe6d5-e974-3889-a6ca-4773c3beb6db",
+      "url": "https://sports.yahoo.com/articles/klint-kubiak-qb-change-were-120649915.html",
+      "title": "Klint Kubiak on QB change: We're thinking about everything to fix our problems",
+      "body_text": "The Raiders lost their fourth straight game on Sunday and head coach Klint Kubiak said that nothing is off the table as they consider ways to halt their slide.",
+      "author": "",
+      "published_at": "2026-10-26T12:06:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Klint Kubiak",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "55af9fca-8947-3b4d-bcd3-777ea31daca6",
+      "url": "https://sports.yahoo.com/articles/tanner-mckee-eagles-qb-starting-120504814.html",
+      "title": "Who is Tanner McKee? Eagles QB starting with Jalen Hurts sidelined by blood clots",
+      "body_text": "Tanner McKee is taking over for Jalen Hurts as the Eagles starting QB deals with blood clots in his lungs. Here's everything to know about McKee.",
+      "author": "",
+      "published_at": "2026-10-26T12:05:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9d10d973-d9c1-30ab-ade9-8c580370066d",
+      "url": "https://sports.yahoo.com/articles/good-bad-ugly-miami-dolphins-120243733.html",
+      "title": "The Good, Bad & Ugly from the Miami Dolphins Week 7 win over the New York Jets",
+      "body_text": "Dolphins end winless drought; ground Jets by a score of 28-25.",
+      "author": "",
+      "published_at": "2026-10-26T12:02:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Good",
+        "Miami Dolphins",
+        "New York",
+        "Jets Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "73022348-b66e-343a-8aaa-04007b263c4c",
+      "url": "https://sports.yahoo.com/articles/dolphins-news-reactions-recaps-week-120216820.html",
+      "title": "Dolphins news: Reactions, recaps from Week 7 win over New York Jets",
+      "body_text": "A collection of Miami Dolphins news from around the web, looking back at the team’s Week 7 win over the New York Jets.",
+      "author": "",
+      "published_at": "2026-10-26T12:02:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "491d56ba-8486-38af-8b9f-1ff587f5a6de",
+      "url": "https://sports.yahoo.com/articles/feels-end-aaron-glenn-era-120000638.html",
+      "title": "It feels like the end of the Aaron Glenn era after a horrific Jets loss to the Dolphins",
+      "body_text": "“You are what your record says you are.” That quote is popular in NFL circles. It has been widely attributed to Hall of Fame coach Bill Parcells. Parcells’ career contained many stops including a four year stint from 1997 through 2000 where he led the Jets. He was the head coach for the first three […]",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Glenn",
+        "Bill Parcells"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "6a2233ea-758a-3926-8ab6-ba978efbee72",
+      "url": "https://sports.yahoo.com/articles/falcons-49ers-recap-victory-sweet-120000522.html",
+      "title": "Falcons – 49ers recap: Victory, sweet and pure",
+      "body_text": "This was the most impressive win of the year, and the kind of game that proves Atlanta can hang with anybody on their best days.",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "78e4a5f8-11a5-352a-9cc2-e4a8f6e67d82",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-travis-kelce-record-120000210.html",
+      "title": "Chiefs News: Travis Kelce has record-setting night despite loss",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "8d3be1e7-cd11-3dd8-a260-df0812e6ecb5",
+      "url": "https://sports.yahoo.com/articles/nfc-playoff-picture-yes-talk-120000869.html",
+      "title": "NFC playoff picture: Yes, we can talk NY Giants playoff possibilities",
+      "body_text": "The New York Giants are in first place in the NFC East going into the bye week.",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The New",
+        "York Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "db0ed750-b80f-32fa-a2bf-80155915b190",
+      "url": "https://sports.yahoo.com/articles/cam-skattebo-earned-unnecessary-roughness-120000960.html",
+      "title": "Cam Skattebo earned unnecessary roughness penalty for trucking Texans defender",
+      "body_text": "Cam Skattebo wasn’t happy about his unnecessary roughness penalty",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "e4b17fc9-52c8-39ce-a8a9-83f0292d1119",
+      "url": "https://sports.yahoo.com/articles/cowboys-eagles-watch-game-time-120000409.html",
+      "title": "Cowboys at Eagles: How to watch, game time, TV schedule, streaming, radio",
+      "body_text": "Here is all of the information you need to know to watch today's Dallas Cowboys game.",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e5153b05-54ad-3f08-bb86-6c87775c1929",
+      "url": "https://sports.yahoo.com/articles/first-pro-tight-end-correcting-120000633.html",
+      "title": "The First All Pro Tight End: Correcting Mike Ditka’s Place in NFL History",
+      "body_text": "Chicago Sports historian Jack Silverstein with another must read about the Chicago Bears and the iconic Mike Ditka.",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The First",
+        "All Pro",
+        "Tight End",
+        "Correcting Mike",
+        "History Chicago",
+        "Jack Silverstein",
+        "Chicago Bears",
+        "Mike Ditka"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ff283ff0-e0fd-361a-98e1-890b22cad157",
+      "url": "https://sports.yahoo.com/articles/game-balls-broncos-route-cardinals-120000687.html",
+      "title": "Game balls for the Broncos route of the Cardinals in Week 7",
+      "body_text": "The Denver Broncos offense found the big play in blowout win over the Arizona Cardinals. Here are our game balls.",
+      "author": "",
+      "published_at": "2026-10-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Arizona Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "bab19fe9-9ef3-3c0c-8ff5-a99d5a0177d6",
+      "url": "https://sports.yahoo.com/articles/jalen-hurts-blood-clot-scare-115500566.html",
+      "title": "Jalen Hurts’ Blood Clot Scare Tests NFL Player Safety Protocols",
+      "body_text": "The serious health predicament facing Philadelphia Eagles quarterback Jalen Hurts—Hurts has been diagnosed with a deep vein thrombosis (DVT) and blood clots in his lungs—could spiral into a legal controversy, but don’t expect it to wind up in court. The NFL-NFLPA collective bargaining agreement will likely keep any controversy away from judges and juries. Hurts’ …",
+      "author": "",
+      "published_at": "2026-10-26T11:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jalen Hurts",
+        "Blood Clot",
+        "Scare Tests",
+        "Player Safety",
+        "Protocols The",
+        "Philadelphia Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "508d4266-0bdb-33e3-bc85-a40b31ab9211",
+      "url": "https://sports.yahoo.com/articles/browns-week-7-win-over-113726801.html",
+      "title": "Browns Week 7 win over Titans revealed 3 things about the team",
+      "body_text": "As the season progress, fans are learning a lot about this Cleveland Browns team.",
+      "author": "",
+      "published_at": "2026-10-26T11:37:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Browns Week",
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "04846a11-4d41-37ae-8461-290321f95bfe",
+      "url": "https://sports.yahoo.com/articles/value-things-rearview-mirror-113600630.html",
+      "title": "Value of Things: In the rearview mirror",
+      "body_text": "What was the good, bad, and ugly from the Texans 27-21 loss?",
+      "author": "",
+      "published_at": "2026-10-26T11:36:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "2916de18-5e91-312e-a39b-66fa3c4b8e0e",
+      "url": "https://sports.yahoo.com/articles/colts-sellers-stars-actually-move-113000494.html",
+      "title": "Colts should be sellers, but which stars should they actually move?",
+      "body_text": "With the Colts falling further out of contention, Indianapolis must decide which veterans are worth keeping and which could help reshape the franchise.",
+      "author": "",
+      "published_at": "2026-10-26T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "601fbadf-0806-3a1a-a695-c6e4fc2d9197",
+      "url": "https://sports.yahoo.com/articles/optimist-ve-got-nothing-113000143.html",
+      "title": "The Optimist: I’ve got nothing",
+      "body_text": "Words fail to describe how much the Panthers were outclasses yesterday",
+      "author": "",
+      "published_at": "2026-10-26T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Optimist"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "ebc38b21-4c7c-3812-89c4-732e9281b0eb",
+      "url": "https://sports.yahoo.com/articles/best-week-7-fantasy-football-113000171.html",
+      "title": "Best Week 7 fantasy football waiver wire pickups at QB, RB, WR, TE",
+      "body_text": "Omar Cooper Jr., Jonah Coleman, and Malik Willis highlight the top waiver wire fantasy football targets entering Week 8",
+      "author": "",
+      "published_at": "2026-10-26T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Best Week",
+        "Omar Cooper Jr",
+        "Jonah Coleman",
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "43b0386f-4302-3f0f-bc38-f8d4d5c18f97",
+      "url": "https://sports.yahoo.com/articles/could-eagles-trade-saquon-barkley-112920991.html",
+      "title": "Could Eagles trade Saquon Barkley? Ranking best team fits for RB",
+      "body_text": "For the Philadelphia Eagles, it might be time to start pondering the previously unthinkable.",
+      "author": "",
+      "published_at": "2026-10-26T11:29:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Could Eagles",
+        "Saquon Barkley",
+        "Philadelphia Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "32ec3111-e565-326b-b92d-aa85349acec9",
+      "url": "https://sports.yahoo.com/articles/plenty-proud-broncos-win-over-111148945.html",
+      "title": "Plenty to be proud of in Broncos win over Arizona",
+      "body_text": "It was a very good night for the Denver Broncos.",
+      "author": "",
+      "published_at": "2026-10-26T11:11:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "ada24dd0-8ed6-339c-906c-f2f50f969668",
+      "url": "https://sports.yahoo.com/articles/packers-xavier-mckinney-see-whats-110525616.html",
+      "title": "Packers S Xavier McKinney: I see what's going on with officiating and it's killing us",
+      "body_text": "Packers head coach Matt LaFleur got heated with officials several times during Sunday's 20-17 loss to the Lions, but he didn't want to make them the focus of his postgame comments.",
+      "author": "",
+      "published_at": "2026-10-26T11:05:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "bdbe922b-e39f-3108-87cf-661d6e0d8715",
+      "url": "https://sports.yahoo.com/articles/treveyon-henderson-still-enjoys-patriots-110451813.html",
+      "title": "TreVeyon Henderson still enjoys Patriots’ trust despite quiet season so far",
+      "body_text": "Through seven weeks,the second-year running back has played a minor role for the Patriots offense.",
+      "author": "",
+      "published_at": "2026-10-26T11:04:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "0eb705fb-2e1a-3b1d-9975-1803a6c274fc",
+      "url": "https://sports.yahoo.com/articles/happened-jalen-hurts-eagles-qbs-110226388.html",
+      "title": "What happened to Jalen Hurts? Eagles QB's blood clots explained",
+      "body_text": "What happened to Jalen Hurts? Explaining the blood clot situation that could end Eagles QB's season.",
+      "author": "",
+      "published_at": "2026-10-26T11:02:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "238819a9-8845-3c25-a39f-2d9fed9a3196",
+      "url": "https://sports.yahoo.com/articles/j-j-mccarthy-redemption-arc-110000998.html",
+      "title": "J.J. McCarthy’s redemption arc is bad news for the Vikings",
+      "body_text": "J.J. McCarthy is on a tear. James Dator breaks down the winners and losers. of Week 7.",
+      "author": "",
+      "published_at": "2026-10-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "James Dator"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "51195232-86f2-39fa-bd71-8bb62d3d65e9",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-eagles-game-crossroads-110000209.html",
+      "title": "Cowboys news: Eagles game a crossroads for Dallas’ season",
+      "body_text": "Here is today’s Dallas Cowboy news",
+      "author": "",
+      "published_at": "2026-10-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6c20b0c2-a3f8-3ccd-afb9-0579bb0bc853",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-loss-vs-110000523.html",
+      "title": "Tennessee Titans news: Loss vs. Browns kills momentum",
+      "body_text": "The Tennessee Titans are recovering from their loss to the Cleveland Browns in Week 7.",
+      "author": "",
+      "published_at": "2026-10-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee",
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    }
+  ]
+}

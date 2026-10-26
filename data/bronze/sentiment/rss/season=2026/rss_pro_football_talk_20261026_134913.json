@@ -1,0 +1,495 @@
+{
+  "fetch_run_id": "097cf578-f8fc-4f71-a7d1-55f1029c1a80",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-26T13:49:13.662908+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-trade-rumors-are-out-there-my-wife-discussing-it-doesnt-change-anything",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-trade-rumors-are-out-there-my-wife-discussing-it-doesnt-change-anything",
+      "title": "Jonathan Taylor: Trade rumors are out there, my wife discussing it doesn't change anything",
+      "body_text": "The Colts' decision to fire General Manager Chris Ballard last week has led to speculation about what other moves are coming for the team and particular attention has been paid to potential trades.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T13:42:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "The Colts",
+        "General Manager",
+        "Chris Ballard"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-games-against-the-bills-and-jaguars-looming-the-ravens-need-lamar-jackson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-games-against-the-bills-and-jaguars-looming-the-ravens-need-lamar-jackson",
+      "title": "With games against the Bills and Jaguars looming, the Ravens need Lamar Jackson",
+      "body_text": "There's no uncertainty as to whether the Ravens need quarterback Lamar Jackson.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-26T13:38:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickers-are-167-for-170-from-inside-37-yards-trey-smack-had-2-of-the-3-misses-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickers-are-167-for-170-from-inside-37-yards-trey-smack-had-2-of-the-3-misses-sunday",
+      "title": "NFL kickers are 167-for-170 from inside 37 yards. Trey Smack had 2 of the 3 misses Sunday.",
+      "body_text": "Once an NFL offense gets inside the 20-yard line, coming away with at least a field goal should be just about a sure thing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-26T13:37:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trey Smack"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-jaxon-smith-njigba-seahawks-defense-dominate-chiefs-win-20-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-jaxon-smith-njigba-seahawks-defense-dominate-chiefs-win-20-3",
+      "title": "Sunday Night Football: Jaxon Smith-Njigba, Seahawks defense dominate Chiefs, win 20-3",
+      "body_text": "Smith-Njigba had 150 yards while Seattle's defense stifled QB Patrick Mahomes and Kansas City's offense all night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-26T03:21:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Jaxon Smith",
+        "Patrick Mahomes",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-on-pace-to-break-calvin-johnsons-yardage-record-with-a-game-to-spare",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-on-pace-to-break-calvin-johnsons-yardage-record-with-a-game-to-spare",
+      "title": "Jaxon Smith-Njigba on pace to break Calvin Johnson's yardage record, with a game to spare",
+      "body_text": "After his huge performance on Sunday night, the Seahawks' star receiver has 867 yards through seven games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-26T09:02:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaxon Smith",
+        "Calvin Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0025389"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-s-xavier-mckinney-i-see-whats-going-on-with-officiating-and-its-killing-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-s-xavier-mckinney-i-see-whats-going-on-with-officiating-and-its-killing-us",
+      "title": "Packers S Xavier McKinney: I see what's going on with officiating and it's killing us",
+      "body_text": "Packers head coach Matt LaFleur got heated with officials several times during Sunday's 20-17 loss to the Lions, but he didn't want to make them the focus of his postgame comments.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T11:05:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-not-worried-about-thigh-injury-moving-forward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-not-worried-about-thigh-injury-moving-forward",
+      "title": "Christian McCaffrey not worried about thigh injury moving forward",
+      "body_text": "The 49ers have dealt with a slew of injuries this season, so they were likely bracing for the worst when running back Christian McCaffrey was forced out of Sunday's game against the Falcons with a thigh injury in the first quarter.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T13:02:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-sundays-win-was-a-statement-of-our-potential",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-sundays-win-was-a-statement-of-our-potential",
+      "title": "Baker Mayfield: Sunday's win was a statement of our potential",
+      "body_text": "Buccaneers quarterback Baker Mayfield said his right thumb might be a little sore after Sunday's win over the Panthers moved the team to 2-5, but he did it with a smile because the cause of the soreness was how often he handed the ball off.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T12:44:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-no-concern-about-a-j-brown-just-have-to-get-into-rhythm",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-no-concern-about-a-j-brown-just-have-to-get-into-rhythm",
+      "title": "Mike Vrabel: No concern about A.J. Brown, just have to get into rhythm",
+      "body_text": "Patriots wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T12:31:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-on-qb-change-were-thinking-about-everything-to-fix-our-problems",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-on-qb-change-were-thinking-about-everything-to-fix-our-problems",
+      "title": "Klint Kubiak on QB change: We're thinking about everything to fix our problems",
+      "body_text": "The Raiders lost their fourth straight game on Sunday and head coach Klint Kubiak said that nothing is off the table as they consider ways to halt their slide.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T12:06:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-on-penalty-for-lowering-his-helmet-im-going-to-keep-doing-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-on-penalty-for-lowering-his-helmet-im-going-to-keep-doing-it",
+      "title": "Cam Skattebo on penalty for lowering his helmet: I'm going to keep doing it",
+      "body_text": "Giants running back Cam Skattebo got an unnecessary roughness penalty on Sunday for lowering his helmet into a Texans defender.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-26T12:05:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-sunday-was-a-pivotal-game-our-guys-took-the-bull-by-the-horns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-sunday-was-a-pivotal-game-our-guys-took-the-bull-by-the-horns",
+      "title": "John Harbaugh: Sunday was a pivotal game, our guys took the bull by the horns",
+      "body_text": "The Giants came into Sunday's game in Houston off a tie and a loss that led to a quarterback change and oddsmakers installed them as heavy underdogs as a result.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T10:52:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-were-confident-were-not-far-off-offensively",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-were-confident-were-not-far-off-offensively",
+      "title": "Kevin O'Connell: We're confident we're not far off offensively",
+      "body_text": "With the 49ers and Chiefs losing on Sunday, the Vikings are the last unbeaten team standing in the NFL and they are in some rare company when it comes to how they're winning games.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T10:37:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-supports-dan-campbells-late-fourth-down-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-supports-dan-campbells-late-fourth-down-decision",
+      "title": "Mike Tomlin supports Dan Campbell's late fourth-down decision",
+      "body_text": "Mike Tomlin has no qualms regarding a decision from Dan Campbell that may have seemed curious on the surface.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-26T10:32:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Tomlin",
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-emmanwori-seahawks-defense-was-motivated-to-stop-kenneth-walker",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-emmanwori-seahawks-defense-was-motivated-to-stop-kenneth-walker",
+      "title": "Nick Emmanwori: Seahawks' defense was motivated to stop Kenneth Walker",
+      "body_text": "Walker entered Sunday night averaging 133 rushing yards a game. The Seahawks held him to 36 yards.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-26T10:06:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Emmanwori",
+        "Kenneth Walker",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0040733",
+        "00-0038134"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-doesnt-regret-his-recent-arrest-for-marijuana-posession",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/anthony-richardson-doesnt-regret-his-recent-arrest-for-marijuana-posession",
+      "title": "Anthony Richardson doesn't regret his recent arrest for marijuana posession",
+      "body_text": "Colts quarterback Anthony Richardson was arrested last week for marijuana possession — presumably without taking a plutonium-powered Delorean back to 1955.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-26T10:03:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-thought-wed-get-fourth-and-1-if-not-i-knew-wed-get-the-ball-back",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-thought-wed-get-fourth-and-1-if-not-i-knew-wed-get-the-ball-back",
+      "title": "Dan Campbell: I thought we'd get fourth-and-1, if not I knew we'd get the ball back",
+      "body_text": "Dan Campbell made the most Dan Campbell-like decision he could make on Sunday when the Lions faced fourth-and-1 at their own 24-yard line with the score tied and 4:53 remaining in the fourth quarter: He went for it.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-26T08:08:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-moves-to-no-5-all-time-in-receptions-passes-marvin-harrison-cris-carter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/travis-kelce-moves-to-no-5-all-time-in-receptions-passes-marvin-harrison-cris-carter",
+      "title": "Travis Kelce moves to No. 5 all-time in receptions, passes Marvin Harrison, Cris Carter",
+      "body_text": "The Chiefs have been mostly stymied on offense throughout Sunday night’s matchup with the Seahawks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-26T02:50:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Travis Kelce",
+        "Marvin Harrison",
+        "Cris Carter",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0030506",
+        "00-0039849",
+        "00-0002721"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashid-shaheed-questionable-to-return-to-seahawks-chiefs-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashid-shaheed-questionable-to-return-to-seahawks-chiefs-with-knee-injury",
+      "title": "Rashid Shaheed questionable to return to Seahawks-Chiefs with knee injury",
+      "body_text": "The Seahawks have an injury concern with one of their key weapons.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-26T02:09:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashid Shaheed",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0037545"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-register-highest-blitz-rate-of-next-gen-stats-era-at-85-2-percent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-register-highest-blitz-rate-of-next-gen-stats-era-at-85-2-percent",
+      "title": "Vikings register highest blitz rate of Next Gen Stats era, at 85.2 percent",
+      "body_text": "The blitz-happy Vikings defense took their habit to the highest level on Sunday against the Colts.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-26T02:34:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Next Gen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-if-im-not-the-best-option-i-dont-want-to-be-out-there",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-if-im-not-the-best-option-i-dont-want-to-be-out-there",
+      "title": "Kirk Cousins: \"If I'm not the best option, I don't want to be out there\"",
+      "body_text": "As the Raiders were rattling off three straight wins to start the season, the decision to ride with veteran quarterback Kirk Cousins was looking like the right way to go.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-26T02:12:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dt-zach-allen-says-hell-be-fine-after-hurting-hamstring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-dt-zach-allen-says-hell-be-fine-after-hurting-hamstring",
+      "title": "Broncos DT Zach Allen says he'll be fine after hurting hamstring",
+      "body_text": "Broncos defensive tackle Zach Allen offered a positive update on his health after Sunday's 30-16 win over the Cardinals.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T00:30:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0035248"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-will-be-without-pat-surtain-ii-for-third-straight-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-will-be-without-pat-surtain-ii-for-third-straight-game",
+      "title": "Broncos will be without Pat Surtain II for third straight game",
+      "body_text": "The Broncos will be without cornerback Pat Surtain II again on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-25T18:45:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Pat Surtain II",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0036874"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nixs-62-yard-td-run-puts-broncos-up-13-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nixs-62-yard-td-run-puts-broncos-up-13-6",
+      "title": "Bo Nix's 62-yard TD run puts Broncos up 13-6",
+      "body_text": "Ryan Fitzpatrick might have a higher opinion of Bo Nix than he did the last time he saw the Broncos quarterback on the field.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-25T21:28:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Ryan Fitzpatrick"
+      ],
+      "resolved_player_ids": [
+        "00-0039732",
+        "00-0023682"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-up-13-6-at-halftime-in-arizona",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-up-13-6-at-halftime-in-arizona",
+      "title": "Broncos up 13-6 at halftime in Arizona",
+      "body_text": "The Cardinals defense was able to hold the Broncos in check for most of the first half of Sunday's game in Arizona, but one big play has made the difference for the visiting team.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-25T21:45:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arizona The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-stretch-lead-to-27-13-at-end-of-third-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-stretch-lead-to-27-13-at-end-of-third-quarter",
+      "title": "Broncos stretch lead to 27-13 at end of third quarter",
+      "body_text": "Explosive plays were in short supply for the Broncos in the first six weeks of the season, but they've found them in this Sunday's trip to Arizona.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-25T22:36:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-beat-cardinals-30-16-extend-winning-streak-to-three-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-beat-cardinals-30-16-extend-winning-streak-to-three-games",
+      "title": "Broncos beat Cardinals 30-16, extend winning streak to three games",
+      "body_text": "Bo Nix bounced back in Sunday's road win.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-25T23:30:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-reverse-that-led-to-jaylen-waddle-injury-was-an-awful-play-call",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-reverse-that-led-to-jaylen-waddle-injury-was-an-awful-play-call",
+      "title": "Sean Payton: Reverse that led to Jaylen Waddle injury was an \"awful\" play call",
+      "body_text": "Broncos wide receiver Jaylen Waddle left Sunday's game against the Cardinals after suffering a chest injury on a fourth quarter play that head coach Sean Payton would like to have back.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T00:22:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-matthew-golden-are-delivering-for-the-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-matthew-golden-are-delivering-for-the-packers",
+      "title": "Christian Watson, Matthew Golden are delivering for the Packers",
+      "body_text": "Although Green Bay's running game should get a boost on Sunday with the return of Josh Jacobs, the passing game is getting it done.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-25T19:42:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Watson",
+        "Matthew Golden",
+        "Packers Although",
+        "Green Bay",
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0038124",
+        "00-0040667",
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-top-two-centers-are-questionable-to-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-top-two-centers-are-questionable-to-return",
+      "title": "Packers' top two centers are questionable to return",
+      "body_text": "Packers running back Josh Jacobs' first carry of the season has taken center Sean Rhyan off the field.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-25T20:59:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Sean Rhyan"
+      ],
+      "resolved_player_ids": [
+        "00-0035700",
+        "00-0037076"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

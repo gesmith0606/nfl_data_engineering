@@ -1,0 +1,563 @@
+{
+  "fetch_run_id": "097cf578-f8fc-4f71-a7d1-55f1029c1a80",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-10-26T13:49:15.446043+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "6a43deac-07ea-46ec-bca7-91c7863c0778",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-harrison-butker-problem-andy-reid-kicker-gotta-fix-it/",
+      "title": "Chiefs may have a Harrison Butker problem: Andy Reid says KC kicker 'gotta fix it'",
+      "body_text": "Butker missed two field goals during Kansas City's Week 7 loss to the Seahawks on Sunday",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-26T13:40:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Harrison Butker",
+        "Andy Reid",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "6625d102-0b4a-4a8c-bd99-e262407254e2",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-free-nba-league-pass-cowboys-eagles-monday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus, free NBA League Pass for Cowboys-Eagles, Monday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for Eagles vs. Cowboys on Monday Night Football",
+      "author": "Owen OBrien",
+      "published_at": "2026-10-26T13:07:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6580cc49-b184-43cc-8d90-09222b7adf78",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-cowboys-vs-eagles-monday-night-football/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 bonus bets for Cowboys vs. Eagles, Monday Night Football",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for Eagles vs. Cowboys on Monday Night Football",
+      "author": "Owen OBrien",
+      "published_at": "2026-10-26T13:03:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Use"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cf43da26-05bf-4a64-9099-d57c773be4f4",
+      "url": "https://www.cbssports.com/nfl/news/giants-among-nfls-biggest-week-7-winners-todays-rare-sports-equinox-with-world-series-mnf-wnba-finals/",
+      "title": "Giants among NFL's biggest Week 7 winners; today's rare Sports Equinox with World Series, MNF, WNBA Finals",
+      "body_text": "Plus highlights from UFC 333, another chaotic weekend of college football and blockbuster NHL trade",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-26T12:56:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sports Equinox",
+        "World Series",
+        "Finals Plus"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "5f891112-3fb9-4cac-91a7-332fcbebffcb",
+      "url": "https://www.cbssports.com/nfl/news/peyton-manning-not-interested-colts-gm-chris-ballard/",
+      "title": "Peyton Manning for Colts GM after Chris Ballard's firing? Why timing isn't right for Hall of Fame QB",
+      "body_text": "The franchise legend spent 14 seasons in Indianapolis, winning Super Bowl XLI with the Colts",
+      "author": "Brad Crawford",
+      "published_at": "2026-10-26T12:26:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Peyton Manning",
+        "Chris Ballard",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0010346"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "e09d1bff-8297-475a-9704-e881d49286d7",
+      "url": "https://www.cbssports.com/nfl/news/eagles-vs-cowboys-prediction-odds-monday-night-football-2026/",
+      "title": "Eagles vs. Cowboys prediction, odds, pick: Dallas visits injury-ravaged Philadelphia on Monday Night Football",
+      "body_text": "Dallas has dropped two straight games, but Philadelphia enters the NFC East matchup without Jalen Hurts",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-26T11:51:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Dallas",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "db72f624-cf40-43f1-8878-0b85d1309a67",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-analysis-why-bengals-trade-colts-jonathan-taylor/",
+      "title": "Cover 32: There is a very clear Jonathan Taylor trade destination, plus game balls, biggest gaffes from Week 7",
+      "body_text": "Why Cincinnati should make a blockbuster offer for Jonathan Taylor, plus Week 7 game balls for Joe Burrow and Malik Willis",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-26T13:37:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Why Cincinnati",
+        "Joe Burrow",
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0036442",
+        "00-0038128"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "7cb07b77-8d5c-4220-9b5b-db7dd535fc9e",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-odds-lines-spreads-picks-vikings-lions-chiefs-broncos/",
+      "title": "NFL Week 8 early odds: Undefeated Vikings gain respect, Chiefs-Broncos line flips",
+      "body_text": "Minnesota is gaining ground ahead of its NFC North showdown with Detroit, while the Chiefs-Broncos and Eagles-Commanders lines have flipped",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-26T11:33:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Undefeated Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "6779487b-ba82-454b-8127-355a7fcf041c",
+      "url": "https://www.cbssports.com/nfl/news/vikings-super-bowl-brian-flores-2026-defense/",
+      "title": "Can the Vikings actually win the Super Bowl with this offense? You're telling me there's a chance",
+      "body_text": "Minnesota has one of the NFL's worst offenses and a defense playing at a historically dominant level -- the 2015 Broncos provide a blueprint, but there are reasons to be skeptical",
+      "author": "Ryan Wilson",
+      "published_at": "2026-10-26T11:30:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "f7ffcfda-4f5d-4401-941e-d9390e61211d",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-grades-falcons-buccaneers-giants-panthers/",
+      "title": "NFL Week 7 grades: Falcons earn solid 'A' mark, while Panthers flop with a resounding 'F'",
+      "body_text": "We're grading every game from Week 7 that has been played so far",
+      "author": "John Breech",
+      "published_at": "2026-10-26T12:56:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "7b9e92c8-e385-46c7-aea6-49f5e94081f6",
+      "url": "https://www.cbssports.com/nfl/news/cam-skattebo-rare-penalty-giants-texans-2026/",
+      "title": "Cam Skattebo says he's going to keep breaking NFL rules after getting flagged for rarely enforced penalty",
+      "body_text": "Skattebo made it clear he intends to keep seeking out contact",
+      "author": "John Breech",
+      "published_at": "2026-10-26T03:40:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "f7be79e4-371e-4641-a686-3bb64db818ee",
+      "url": "https://www.cbssports.com/nfl/news/nfl-overreactions-panthers-bryce-young-ravens/",
+      "title": "NFL Week 7 overreactions: Panthers have season's worst loss? Dan Campbell was right? Ravens to miss playoffs?",
+      "body_text": "Plus, did the Vikings choose the right quarterback?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-26T00:53:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "d19ccceb-15d9-4049-a000-668a6eb58acd",
+      "url": "https://www.cbssports.com/betting/news/chiefs-vs-seahawks-picks-prediction-player-props-experts-best-bets-for-sunday-night-football-nfl-week-7/",
+      "title": "Chiefs vs. Seahawks picks, prediction, player props: Expert's best bets for Sunday Night Football NFL Week 7",
+      "body_text": "Backing Patrick Mahomes as a road underdog leads Sunday night's top betting plays, along with props on Kenneth Walker and Jaxson Smith-Njigba",
+      "author": "Will Brinson",
+      "published_at": "2026-10-26T00:07:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Backing Patrick",
+        "Kenneth Walker",
+        "Jaxson Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "7946a84a-0e48-443b-a76e-d6e344d282b1",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-winners-losers-cam-skattebo-j-j-mccarthy-giants-aaron-glenn/",
+      "title": "NFL Week 7 winners and losers: Cam Skattebo, J.J. McCarthy lift Giants; Aaron Glenn's seat heats up",
+      "body_text": "One of the New York teams is in much better shape than the other. Plus, what happened to the Panthers?",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-26T00:01:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Aaron Glenn",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0006034"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "ec2b2f88-5b45-4afc-97e3-9f7935e08b05",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-for-chiefs-seahawks-nfl-sunday-night-football-betting/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 bonus bets for Chiefs-Seahawks, NFL Sunday Night Footbal betting",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting",
+      "author": "Owen OBrien",
+      "published_at": "2026-10-25T23:54:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "8494aa70-9a37-4130-90ff-53a8bf86002c",
+      "url": "https://www.cbssports.com/prediction/news/kalshi-promo-code-cbssports55-get-55-bonus-chiefs-vs-seahawks-sunday-night-football-nfl-week-7/",
+      "title": "Kalshi promo code CBSSPORTS55: Get $55 bonus for Chiefs vs. Seahawks on Sunday Night Football in NFL Week 7",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 7 Chiefs vs. Seahawks SNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-10-25T23:11:27+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "d4f4e348-3528-4bb1-ac53-d5b1194dc7eb",
+      "url": "https://www.cbssports.com/betting/news/chiefs-seahawks-prediction-odds-start-time-betting-preview-sunday-night-football-picks-best-bets/",
+      "title": "Chiefs vs. Seahawks prediction, odds, start time, betting preview: Sunday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Chiefs vs. Seahawks on Sunday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-10-25T23:05:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "0b39103f-96e3-44c6-8768-60350f092d97",
+      "url": "https://www.cbssports.com/prediction/news/chiefs-vs-seahawks-nfl-week-7-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus/",
+      "title": "Chiefs vs. Seahawks NFL Week 7 odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "Here's a look at the trading markets available at Kalshi for Week 7's Sunday Night Football matchup featuring the Kansas City Chiefs and Seattle Seahawks",
+      "author": "Nick Stellini",
+      "published_at": "2026-10-25T23:00:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Sunday Night",
+        "Kansas City",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "cedb7a4f-9f27-4ec0-af98-3e55a5b7fe48",
+      "url": "https://www.cbssports.com/nfl/news/steelers-aaron-rodgers-nfl-once-considered-week-all-international-games/",
+      "title": "Steelers' Aaron Rodgers reveals NFL once had a completely different plan for its international games",
+      "body_text": "Rodgers is now the first quarterback to play an international game in three different countries in three straight years",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-25T22:57:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "fb9cf16b-5434-44ee-b9bb-4061d97a635a",
+      "url": "https://www.cbssports.com/nfl/news/49ers-rb-christian-mccaffrey-injury-updates-falcons/",
+      "title": "Christian McCaffrey injury: 49ers' RB says leg 'just died' on him during loss to Falcons",
+      "body_text": "McCaffrey expressed his frustrations with his limitations during the game",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-25T22:43:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "5545c740-8102-4d61-ab14-f096d0a9bed0",
+      "url": "https://www.cbssports.com/nfl/news/giants-overtime-win-john-harbaugh-j-j-mccarthy-cam-skattebo/",
+      "title": "J.J. McCarthy, Cam Skattebo seize second chances as John Harbaugh's surprising Giants keep rolling",
+      "body_text": "McCarthy impressed in his first start for New York, and Skattebo responded emphatically to his Week 6 benching",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-25T22:07:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "John Harbaugh",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "af1f9804-b45a-436e-b8b6-68836f271949",
+      "url": "https://www.cbssports.com/nfl/news/new-york-giants-cam-skattebo-shines-vs-houston-texans/",
+      "title": "Cam Skattebo redemption game: Giants RB returns with stellar performance after benching",
+      "body_text": "Fresh out of the dog house, the second-year back erupted for 124 yards and set up Devin Singletary's overtime touchdown to revive New York's run game",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-25T21:51:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Devin Singletary",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0035250"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "0fc4117b-e8ac-40ab-97d1-e04b6e0895d7",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-free-nba-league-pass-chiefs-seahawks-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus, free NBA League Pass for Chiefs-Seahawks, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-10-25T21:27:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "28d4839a-779d-4835-80f6-f10277244f60",
+      "url": "https://www.cbssports.com/betting/news/week-7-nfl-betting-promos-chiefs-seahawks-get-over-3000-in-bonuses-from-online-betting-apps-sportsbooks/",
+      "title": "Week 7 NFL betting promos, Chiefs-Seahawks: Get over $3,000 in bonuses from online betting apps, sportsbooks",
+      "body_text": "Top Week 7 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-10-25T21:26:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "1bc87d48-4605-4ddc-8ba5-6aad9dd30f19",
+      "url": "https://www.cbssports.com/betting/news/packers-vs-lions-odds-picks-prediction-spread-start-time-betting-preview-best-bets-for-nfl-week-7/",
+      "title": "Packers vs. Lions odds, picks, prediction, spread: Start time, betting preview, best bets for NFL Week 7",
+      "body_text": "Here's everything bettors need to know for Packers vs. Lions in NFL Week 7",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-10-25T19:20:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "f18ff99a-b3cf-45dc-a5c6-144efc900a0c",
+      "url": "https://www.cbssports.com/nfl/news/look-marvin-harrison-jr-catches-first-touchdown-texans/",
+      "title": "LOOK: Marvin Harrison Jr. catches first touchdown as a member of the Texans",
+      "body_text": "Marvin Harrison Jr. is catching TD passes from C.J. Stroud, just like old times",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-25T19:05:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marvin Harrison Jr",
+        "Texans Marvin"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "eccef4b1-8351-47fa-935a-ee4c1f5dd6f7",
+      "url": "https://www.cbssports.com/betting/news/broncos-vs-cardinals-odds-picks-prediction-spread-start-time-nfl-week-7-betting-preview-best-bets/",
+      "title": "Broncos vs. Cardinals odds, picks, prediction, spread: Start time, NFL Week 7 betting preview, best bets",
+      "body_text": "We have everything bettors need to know before placing any wagers on Sunday's Broncos vs. Cardinals matchup in NFL Week 7",
+      "author": "James Holliman",
+      "published_at": "2026-10-25T18:45:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "a5d3bf89-8fe6-4231-a811-709ad1227c4a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-picks-odds-predictions-expert-picks-against-the-spread/",
+      "title": "NFL Week 7 odds, predictions, expert picks: Who wins Packers-Lions showdown? Rams get back on track?",
+      "body_text": "Our experts make their selections for every game on the Week 7 schedule",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-25T17:01:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "fb3f28f0-ef47-4f8d-8e41-84bf7238d510",
+      "url": "https://www.cbssports.com/betting/news/2026-week-7-nfl-odds-picks-predictions-best-bets-experts-backing-lions-raiders-seahawks-on-sunday/",
+      "title": "2026 Week 7 NFL odds, picks, predictions, best bets: Experts backing Lions, Raiders, Seahawks on Sunday",
+      "body_text": "SportsLine's experts have revealed their Week 7 NFL picks and best bets for Sunday",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-10-25T16:21:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "25212e4f-732a-47de-ac1b-75145a6b4db6",
+      "url": "https://www.cbssports.com/betting/news/week-7-nfl-betting-odds-totals-spreads-lines/",
+      "title": "Week 7 NFL betting odds, spreads, totals, lines for every game, including Lions-Packers, Chiefs-Seahawks",
+      "body_text": "The Week 7 NFL betting lines, including spreads and totals, are out for every game",
+      "author": "Dustin Baker",
+      "published_at": "2026-10-25T16:20:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Seahawks The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "4a2bbe02-7c17-4155-8491-48f46b288d4a",
+      "url": "https://www.cbssports.com/nfl/news/tampa-bay-rays-help-buccaneers-baker-mayfield-glove/",
+      "title": "Buccaneers' Baker Mayfield gets unexpected help from World Series team to make return after injury",
+      "body_text": "Mayfield is returning after missing three games with a thumb injury to his throwing hand",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-25T16:17:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Baker Mayfield",
+        "World Series"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "e92ecb50-8502-4bad-8ef3-1489b1e9038f",
+      "url": "https://www.cbssports.com/betting/news/2026-week-7-nfl-player-props-odds-picks-best-bets-sundays-games-feature-patrick-mahomes-jahmyr-gibbs/",
+      "title": "2026 Week 7 NFL player props, odds, picks, best bets for Sunday's games feature Patrick Mahomes, Jahmyr Gibbs",
+      "body_text": "Bet on NFL player props Week 7 at NFL sportsbooks like DraftKings, FanDuel and BetMGM",
+      "author": "Jason Hall",
+      "published_at": "2026-10-25T15:53:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0039139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "8624bba3-6c05-4f16-b4b1-3cc2e80d3ed4",
+      "url": "https://www.cbssports.com/prediction/news/49ers-vs-falcons-nfl-week-7-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "49ers vs. Falcons NFL Week 7 odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Claim the latest Polymarket promo code to make predictions for Sunday's game between the 49ers and Falcons",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-10-25T15:50:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "dc100c0d-42cb-47fd-8fe4-8df133e16188",
+      "url": "https://www.cbssports.com/betting/news/colts-vs-vikings-nfl-week-7-odds-picks-prediction-spread-start-time-betting-preview-best-bets/",
+      "title": "Colts vs. Vikings NFL Week 7 odds, picks, prediction, spread: Start time, betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Colts vs. Vikings in NFL Week 7 action",
+      "author": "Nick Stellini",
+      "published_at": "2026-10-25T15:45:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "590074e6-139b-4c9c-aaa9-f85bf83d7b96",
+      "url": "https://www.cbssports.com/prediction/news/giants-vs-texans-nfl-week-7-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "Giants vs. Texans NFL Week 7 odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Claim the latest Polymarket promo code to make predictions for Sunday's game between the Giants and Texans",
+      "author": "Nick Stellini",
+      "published_at": "2026-10-25T15:45:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "f30e9ff4-88af-4ffb-932b-ac1b32bf8778",
+      "url": "https://www.cbssports.com/betting/news/browns-vs-titans-odds-picks-prediction-spread-start-time-betting-preview-best-bets-for-nfl-week-7/",
+      "title": "Browns vs. Titans odds, picks, prediction, spread: Start time, betting preview, best bets for NFL Week 7",
+      "body_text": "Here's everything bettors need to know for Browns vs. Titans in NFL Week 7 action",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-10-25T15:40:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    }
+  ]
+}

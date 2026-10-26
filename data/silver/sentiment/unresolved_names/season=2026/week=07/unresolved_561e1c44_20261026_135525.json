@@ -1,0 +1,72 @@
+{
+  "batch_id": "561e1c44",
+  "season": 2026,
+  "week": 7,
+  "computed_at": "2026-10-26T13:55:25.259807+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickers-are-167-for-170-from-inside-37-yards-trey-smack-had-2-of-the-3-misses-sunday",
+      "player_name": "Trey Smack",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Trey Smack missed 2 of 3 total NFL field goals from inside 37 yards on Sunday.",
+      "source_excerpt": "NFL kickers are 167-for-170 from inside 37 yards. Trey Smack had 2 of the 3 misses Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "1bef59b1-6b07-382d-b74c-45d5c1ba8d71",
+      "player_name": "Trey Smack",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Kicker Trey Smack accounted for 2 of 3 field goal misses from inside 37 yards in Week 7.",
+      "source_excerpt": "NFL kickers are 167-for-170 from inside 37 yards. Trey Smack had 2 of the 3 misses Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "11cfa462-ec40-3dcc-8aae-c2aebceca148",
+      "player_name": "Omar Cooper Jr.",
+      "team_abbr": "NYJ",
+      "category": "general",
+      "summary": "Omar Cooper Jr. starring early in historic NFL debut for Jets after four seasons with Indianapolis.",
+      "source_excerpt": "Omar Cooper Jr. is looking like an emerging star early for the New York Jets after spending four seasons with Indiana.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ebc38b21-4c7c-3812-89c4-732e9281b0eb",
+      "player_name": "Omar Cooper Jr.",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Omar Cooper Jr. highlighted as top waiver wire fantasy football target entering Week 8.",
+      "source_excerpt": "Omar Cooper Jr., Jonah Coleman, and Malik Willis highlight the top waiver wire fantasy football targets entering Week 8",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ebc38b21-4c7c-3812-89c4-732e9281b0eb",
+      "player_name": "Jonah Coleman",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Jonah Coleman highlighted as top waiver wire fantasy football target entering Week 8.",
+      "source_excerpt": "Omar Cooper Jr., Jonah Coleman, and Malik Willis highlight the top waiver wire fantasy football targets entering Week 8",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ada24dd0-8ed6-339c-906c-f2f50f969668",
+      "player_name": "Matt LaFleur",
+      "team_abbr": "GB",
+      "category": "general",
+      "summary": "Packers head coach Matt LaFleur got heated with officials during 20-17 loss to Lions.",
+      "source_excerpt": "Packers head coach Matt LaFleur got heated with officials several times during Sunday's 20-17 loss to the Lions, but he didn't want to make them the focus of his postgame comments.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-kickers-are-167-for-170-from-inside-37-yards-trey-smack-had-2-of-the-3-misses-sunday",
+      "player_name": "Trey Smack",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Kicker Trey Smack missed 2 of 3 kicks from inside 37 yards on Sunday, bucking league trend.",
+      "source_excerpt": "NFL kickers are 167-for-170 from inside 37 yards. Trey Smack had 2 of the 3 misses Sunday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
