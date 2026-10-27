@@ -1,0 +1,100 @@
+{
+  "fetch_run_id": "9171330d-90cc-4cf1-bfed-3006a840b39f",
+  "source": "rotowire",
+  "fetched_at": "2026-10-27T12:26:06.432339+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl644633",
+      "url": "https://www.rotowire.com//football/player/dallas-goedert-12860",
+      "permalink": "",
+      "title": "Dallas Goedert: Five catches in Week 7 loss",
+      "body_text": "Goedert secured five of seven targets for 48 yards in the Eagles' 38-21 loss to the Cowboys on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-26T09:16:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Goedert"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl644632",
+      "url": "https://www.rotowire.com//football/player/makai-lemon-19231",
+      "permalink": "",
+      "title": "Makai Lemon: Paces pass catchers in Week 7 loss",
+      "body_text": "Lemon brought in seven of eight targets for 67 yards and a touchdown in the Eagles' 38-21 loss to the Cowboys on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-26T09:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl644631",
+      "url": "https://www.rotowire.com//football/player/saquon-barkley-12507",
+      "permalink": "",
+      "title": "Saquon Barkley: Suffers compensatory back injury",
+      "body_text": "Barkley said Monday that his back injury was compensatory after he tweaked his hamstring on his first run of the game and tried to play through it, EJ Smith of The Philadelphia Inquirer reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-26T09:09:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Philadelphia"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl644630",
+      "url": "https://www.rotowire.com//football/player/tanner-mckee-16686",
+      "permalink": "",
+      "title": "Tanner McKee: Modest numbers in Week 7 loss",
+      "body_text": "McKee completed 23 of 35 passes for 211 yards with one touchdown and one interception and added one rush for one yard in the Eagles' 38-21 loss to the Cowboys on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-26T09:07:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl644629",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "permalink": "",
+      "title": "George Pickens: Gets into end zone in win",
+      "body_text": "Pickens brought in four of six targets for 57 yards and a touchdown in the Cowboys' 38-21 win over the Eagles on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-26T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}

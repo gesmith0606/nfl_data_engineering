@@ -1,0 +1,42 @@
+{
+  "batch_id": "1800e3a9",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-27T12:31:22.351535+00:00",
+  "record_count": 3,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-jay-z-as-the-super-bowl-lxi-halftime-act",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-jay-z-as-the-super-bowl-lxi-halftime-act",
+      "team_abbr": null,
+      "summary": "NFL announces Jay-Z as Super Bowl LXI halftime show performer.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "As expected, the selection of Super Bowl halftime show producer Jay-Z to perform at halftime of Super Bowl LXI at SoFi Stadium is . . .",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c6867eb4-a61a-396a-8431-d084b793d3d8",
+      "external_id": "c6867eb4-a61a-396a-8431-d084b793d3d8",
+      "team_abbr": null,
+      "summary": "Weekly check-in on Purdue Boilermakers players in the NFL for Week 7.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Checking in on Purdue Boilermakers in the NFL.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "0ef4c73d-8275-379b-84b6-6327d9529f43",
+      "external_id": "0ef4c73d-8275-379b-84b6-6327d9529f43",
+      "team_abbr": null,
+      "summary": "Analysis of winners and losers from Monday's Cowboys vs. Eagles game.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Here are our winners and losers from Monday's game",
+      "subject_type": "reporter"
+    }
+  ]
+}

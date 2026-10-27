@@ -1,0 +1,501 @@
+{
+  "fetch_run_id": "1a36086b-dc51-46df-994a-af0d6b4b08ff",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-27T12:25:58.404590+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/landon-dickerson-feels-he-let-team-down-in-his-return-to-lineup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/landon-dickerson-feels-he-let-team-down-in-his-return-to-lineup",
+      "title": "Landon Dickerson feels he let team down in his return to lineup",
+      "body_text": "The Eagles got left guard Landon Dickerson back in the lineup for Monday night's game against the Cowboys, but his return wasn't enough to snap the team's losing streak.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T11:10:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Landon Dickerson",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0037002"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javonte-williams-good-to-give-confidence-to-keep-calling-runs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/javonte-williams-good-to-give-confidence-to-keep-calling-runs",
+      "title": "Javonte Williams: Good to give confidence to keep calling runs",
+      "body_text": "Given the number of factors that go into determining winners and losers in NFL games, it's hard to pin the Cowboys' back-to-back losses solely on running back Javonte Williams carrying the ball 23 times in Weeks 5 and 6.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T10:49:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Javonte Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036997"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-are-the-betting-favorites-to-win-the-nfc-east-after-win-in-philadelphia",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-are-the-betting-favorites-to-win-the-nfc-east-after-win-in-philadelphia",
+      "title": "Cowboys are the betting favorites to win the NFC East after win in Philadelphia",
+      "body_text": "The Cowboys are not in first place in the NFC East, but they will be at the end of the season, if the betting odds are to be believed.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-27T09:25:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Philadelphia The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-addressed-teammates-after-loss-never-quit-never-give-up",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-addressed-teammates-after-loss-never-quit-never-give-up",
+      "title": "Saquon Barkley addressed teammates after loss: \"Never quit, never give up\"",
+      "body_text": "The Eagles fell to 2-5 on Monday night, but Barkley doesn't want to see anyone quitting on the season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-27T08:06:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oregon-qb-dante-moore-wont-return-this-season-from-his-concussion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oregon-qb-dante-moore-wont-return-this-season-from-his-concussion",
+      "title": "Oregon QB Dante Moore won't return this season from his concussion",
+      "body_text": "Oregon quarterback Dante Moore, who entered the season as one of the top prospects in the 2027 draft, will not play again during the 2026 season.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T05:19:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dante Moore"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-defends-cam-skattebos-helmet-lowering-technique",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-defends-cam-skattebos-helmet-lowering-technique",
+      "title": "John Harbaugh defends Cam Skattebo's helmet-lowering technique",
+      "body_text": "On Sunday, Giants running back Cam Skattebo drew a rare flag for impermissible use of the helmet.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T03:44:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-cowboys-run-past-eagles-38-21",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-cowboys-run-past-eagles-38-21",
+      "title": "Monday Night Football: Cowboys run past Eagles 38-21",
+      "body_text": "Javonte Williams had a career-high 155 yards, and Dak Prescott threw three touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T03:21:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Javonte Williams",
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0036997",
+        "00-0033077"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dez-bryant-wants-a-full-investigation-following-a-sunday-citation-for-assault",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dez-bryant-wants-a-full-investigation-following-a-sunday-citation-for-assault",
+      "title": "Dez Bryant wants a full investigation following a Sunday citation for assault",
+      "body_text": "Former Cowboys receiver Dez Bryant wants a full investigation following an incident that resulted in the three-time Pro Bowler being cited for assault.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T03:03:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dez Bryant",
+        "Former Cowboys",
+        "Pro Bowler"
+      ],
+      "resolved_player_ids": [
+        "00-0027902"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-is-questionable-to-return-with-back-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-is-questionable-to-return-with-back-injury",
+      "title": "Saquon Barkley is questionable to return with back injury",
+      "body_text": "The Eagles running back entered with a right hamstring injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T02:51:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-regain-lead-on-ceedee-lambs-second-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-regain-lead-on-ceedee-lambs-second-td",
+      "title": "Cowboys regain lead on CeeDee Lamb's second TD",
+      "body_text": "The back-and-forth between the Cowboys and Eagles continues in the second half.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T02:32:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-caleb-williams-11-941-for-displaying-unauthorized-logo-on-his-shoes-in-week-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-caleb-williams-11-941-for-displaying-unauthorized-logo-on-his-shoes-in-week-6",
+      "title": "NFL fines Caleb Williams $11,941 for displaying \"unauthorized logo\" on his shoes in Week 6",
+      "body_text": "The No Fun League is also the No Footwear League.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T02:28:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams",
+        "No Fun",
+        "No Footwear"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-21-20-lead-on-cowboys-to-open-second-half",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-21-20-lead-on-cowboys-to-open-second-half",
+      "title": "Eagles take 21-20 lead on Cowboys to open second half",
+      "body_text": "Rookie Makai Lemon scored his first NFL touchdown, a 4-yard reception from Tanner McKee.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T02:20:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rookie Makai"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-16-game-international-week-was-never-a-possibility-during-2020-cba-talks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-16-game-international-week-was-never-a-possibility-during-2020-cba-talks",
+      "title": "A 16-game international week was never a possibility during 2020 CBA talks",
+      "body_text": "On Sunday, Steelers quarterback Aaron Rodgers claimed that, during the 2020 Collective Bargaining Agreement negotiations, a discussion was had regarding the possibility of a full-blown \"international week.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-10-26T21:17:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "On Sunday",
+        "Aaron Rodgers",
+        "Collective Bargaining"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-jay-z-as-the-super-bowl-lxi-halftime-act",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-announces-jay-z-as-the-super-bowl-lxi-halftime-act",
+      "title": "NFL announces Jay-Z as the Super Bowl LXI halftime act",
+      "body_text": "As expected, the selection of Super Bowl halftime show producer Jay-Z to perform at halftime of Super Bowl LXI at SoFi Stadium is . . .",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T02:06:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-cowboys-lead-eagles-20-14-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-cowboys-lead-eagles-20-14-at-halftime",
+      "title": "Monday Night Football: Cowboys lead Eagles 20-14 at halftime",
+      "body_text": "The Cowboys gained 275 yards, scoring on four of five possessions.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T01:55:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-highlight-reel-td-catch-puts-cowboys-back-on-top",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-highlight-reel-td-catch-puts-cowboys-back-on-top",
+      "title": "George Pickens' highlight-reel TD catch puts Cowboys back on top",
+      "body_text": "Brian Schottenheimer said he wanted to see more out of wide receiver George Pickens this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T01:19:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-advantage-of-cowboys-defensive-mistakes-for-14-10-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-advantage-of-cowboys-defensive-mistakes-for-14-10-lead",
+      "title": "Eagles take advantage of Cowboys' defensive mistakes for 14-10 lead",
+      "body_text": "The Cowboys defense isn't good, and they can't get out of their own way either.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T01:05:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-lead-eagles-10-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-lead-eagles-10-7",
+      "title": "Cowboys lead Eagles 10-7",
+      "body_text": "The Cowboys are leaning on their run game after hearing criticism all week about their pass-happy ways last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T00:46:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-scores-on-second-carry-for-7-3-eagles-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-scores-on-second-carry-for-7-3-eagles-lead",
+      "title": "Saquon Barkley scores on second carry for 7-3 Eagles lead",
+      "body_text": "The Cowboys got a 55-yard field goal from Brandon Aubrey to end their first drive.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T00:37:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Cowboys",
+        "Brandon Aubrey"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0037692"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-jonathan-greenard-saquon-barkley-are-active-for-eagles-vs-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-jonathan-greenard-saquon-barkley-are-active-for-eagles-vs-cowboys",
+      "title": "Monday Night Football: Jonathan Greenard, Saquon Barkley are active for Eagles vs. Cowboys",
+      "body_text": "The Eagles will have outside linebackers Jonathan Greenard (ankle) and Jalyx Hunt (knee/ankle) tonight.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-26T23:05:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Jonathan Greenard",
+        "Saquon Barkley",
+        "Cowboys The",
+        "Jalyx Hunt"
+      ],
+      "resolved_player_ids": [
+        "00-0036224",
+        "00-0034844",
+        "00-0039740"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-has-mild-hamstring-strain-49ers-optimistic-hell-play-after-bye",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-has-mild-hamstring-strain-49ers-optimistic-hell-play-after-bye",
+      "title": "Christian McCaffrey has mild hamstring strain, 49ers optimistic he'll play after bye",
+      "body_text": "The 49ers announced running back Christian McCaffrey had a thigh injury during Sunday's loss to the Falcons, but the diagnosis of his injury was different on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T22:42:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-will-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-will-practice-wednesday",
+      "title": "Cardinals RB Jeremiyah Love will practice Wednesday",
+      "body_text": "Jeremiyah Love has missed the past two games with a sprained left ankle, but the Cardinals running back is close to returning.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-26T22:29:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Wednesday Jeremiyah"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-christian-watson-off-packers-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-christian-watson-off-packers-injury-report",
+      "title": "Jordan Love, Christian Watson off Packers' injury report",
+      "body_text": "The Packers had quarterback Jordan Love and wide receiver Christian Watson on their injury report last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-26T22:00:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love",
+        "Christian Watson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zac-taylor-on-shemar-stewart-being-inactive-hes-making-progress-but-we-have-a-deep-group",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zac-taylor-on-shemar-stewart-being-inactive-hes-making-progress-but-we-have-a-deep-group",
+      "title": "Zac Taylor on Shemar Stewart being inactive: He's making progress, but we have a deep group",
+      "body_text": "The decision to make defensive end Shemar Stewart a healthy scratch on Sunday was the subject of a question for Bengals head coach Zac Taylor at a Monday press conference.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T21:51:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zac Taylor",
+        "Shemar Stewart"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-estimate-four-starters-out-of-practice-including-olb-jaelan-phillips",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-estimate-four-starters-out-of-practice-including-olb-jaelan-phillips",
+      "title": "Panthers estimate four starters out of practice, including OLB Jaelan Phillips",
+      "body_text": "The Panthers did not practice on Monday, but they still had to submit an injury report for Thursday night's game.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-26T21:44:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaelan Phillips",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036934"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-struggling-to-find-room-to-run-averaging-3-1-yards-per-carry",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-struggling-to-find-room-to-run-averaging-3-1-yards-per-carry",
+      "title": "Ashton Jeanty struggling to find room to run, averaging 3.1 yards per carry",
+      "body_text": "Raiders running back Ashton Jeanty has not been the player they thought they were getting when they selected him with the sixth overall pick in the 2025 NFL draft.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-26T21:23:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-were-excited-to-keep-maliek-collins-in-cleveland",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andrew-berry-were-excited-to-keep-maliek-collins-in-cleveland",
+      "title": "Andrew Berry: We're excited to keep Maliek Collins in Cleveland",
+      "body_text": "The 5-3 Browns have another reason to celebrate on Monday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-26T21:06:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrew Berry",
+        "Maliek Collins",
+        "Cleveland The"
+      ],
+      "resolved_player_ids": [
+        "00-0033131"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-taylor-moton-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-put-taylor-moton-on-injured-reserve",
+      "title": "Panthers put Taylor Moton on injured reserve",
+      "body_text": "Veteran right tackle Taylor Moton's return to the Panthers lineup turned out to be a short-lived one.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T20:44:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Taylor Moton"
+      ],
+      "resolved_player_ids": [
+        "00-0033284"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-designate-jack-bech-to-return-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-designate-jack-bech-to-return-to-practice",
+      "title": "Raiders designate Jack Bech to return to practice",
+      "body_text": "The Raiders are getting healthier at receiver.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-26T20:34:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jack Bech",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040729"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-activate-dillon-gabriel-from-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-activate-dillon-gabriel-from-injured-reserve",
+      "title": "Browns activate Dillon Gabriel from injured reserve",
+      "body_text": "The Browns are up to four quarterbacks on their active roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-26T20:28:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dillon Gabriel",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040704"
+      ],
+      "team_hint": "CLE"
+    }
+  ]
+}

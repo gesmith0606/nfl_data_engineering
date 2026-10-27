@@ -1,0 +1,108 @@
+{
+  "batch_id": "1800e3a9",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-27T12:31:22.357801+00:00",
+  "record_count": 11,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oregon-qb-dante-moore-wont-return-this-season-from-his-concussion",
+      "player_name": "Dante Moore",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Oregon QB Dante Moore, top 2027 draft prospect, ruled out for remainder of 2026 season due to concussion.",
+      "source_excerpt": "Oregon quarterback Dante Moore, who entered the season as one of the top prospects in the 2027 draft, will not play again during the 2026 season.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-21-20-lead-on-cowboys-to-open-second-half",
+      "player_name": "Makai Lemon",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Rookie Makai Lemon scores first NFL touchdown on 4-yard reception.",
+      "source_excerpt": "Rookie Makai Lemon scored his first NFL touchdown, a 4-yard reception from Tanner McKee.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-will-practice-wednesday",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals RB Jeremiyah Love expected to practice Wednesday after missing two games with ankle injury.",
+      "source_excerpt": "Jeremiyah Love has missed the past two games with a sprained left ankle, but the Cardinals running back is close to returning.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl644632",
+      "player_name": "Makai Lemon",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles WR Makai Lemon led pass catchers with 7 of 8 targets for 67 yards and TD in loss to Cowboys.",
+      "source_excerpt": "Lemon brought in seven of eight targets for 67 yards and a touchdown in the Eagles' 38-21 loss to the Cowboys on Monday night.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "13a81367-eb91-4588-953a-b931a9e2eba5",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Raiders considering potential Fernando Mendoza turn amid four-game losing streak after 3-0 start.",
+      "source_excerpt": "Las Vegas has dropped four consecutive games after a 3-0 start, potentially moving the franchise closer to Mendoza",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "6e3d634e-430b-354b-867d-95349fe6e0cd",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Mendoza won't start in Week 8 vs Jets; Raiders sticking with Kirk Cousins despite top pick speculation.",
+      "source_excerpt": "Despite some rumblings that the Las Vegas Raiders were on the verge of giving top overall pick Fernando Mendoza his first career start in the team's Week 8 games against the New York Jets, the team has decided to stick with veteran Kirk Cousins at quarterback.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ccc2492d-920c-3e54-9c74-51aa491d68b9",
+      "player_name": "Makai Lemon",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Makai Lemon registered his first NFL touchdown on MNF with a 7-67-1 line against the Cowboys.",
+      "source_excerpt": "Makai Lemon had the best game of his young career, posting a 7-67-1 line against the Cowboys on Monday night.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ac2c5706-ae80-3418-81e3-ff40b49ddbe6",
+      "player_name": "Dominic Zvada",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Giants sticking with Dominic Zvada despite ugly kicking performance with multiple misses.",
+      "source_excerpt": "Zvada also missed a 56-yarder earlier in the game, and the Giants opted not to go for a 55-yard attempt in the second half.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/oregon-qb-dante-moore-wont-return-this-season-from-his-concussion",
+      "player_name": "Dante Moore",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Oregon QB Dante Moore ruled out for remainder of 2026 season due to concussion.",
+      "source_excerpt": "Oregon quarterback Dante Moore, who entered the season as one of the top prospects in the 2027 draft, will not play again during the 2026 season.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-take-21-20-lead-on-cowboys-to-open-second-half",
+      "player_name": "Makai Lemon",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Rookie Makai Lemon scored his first NFL touchdown on 4-yard reception from Tanner McKee.",
+      "source_excerpt": "Rookie Makai Lemon scored his first NFL touchdown, a 4-yard reception from Tanner McKee.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-will-practice-wednesday",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Jeremiyah Love will practice Wednesday after missing two games with sprained left ankle.",
+      "source_excerpt": "Jeremiyah Love has missed the past two games with a sprained left ankle, but the Cardinals running back is close to returning.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
