@@ -1,19 +1,49 @@
-# Feetball W7 DEF/K pool — read from Yahoo 2026-10-20 (Yahoo week-7 projections)
-MINE|DEF|IND|6.90
-MINE|K|Eddy Pineiro|9.74
-DEF|TEN|9.48
-DEF|CLE|9.11
-DEF|NYJ|8.97
-DEF|DAL|7.56
-DEF|CHI|7.14
-DEF|MIA|7.08
-DEF|SF|6.99
-DEF|DET|6.84
-DEF|NO|6.47
-DEF|CIN|6.41
-K|Brandon McManus|9.91
-K|Jake Bates|9.74
-K|Chris Boswell|9.53
-K|Cairo Santos|9.44
-K|Jason Sanders|9.34
-K|Evan McPherson|9.18
+# Feetball W8 DEF/K pool — availability read LIVE from the Yahoo API
+# (fspt-r) on 2026-10-28. No site projections: SLPR + VEGAS rank these.
+# MINE reflects the live roster: Pineiro (SF, on bye) at K, Bengals at DEF.
+MINE|K|Eddy Pineiro|
+MINE|DEF|CIN|
+K|Ka'imi Fairbairn|
+K|Tyler Loop|
+K|Cairo Santos|
+K|Cameron Dicker|
+K|Chase McLaughlin|
+K|Tyler Bass|
+K|Harrison Mevis|
+K|Andy Borregales|
+K|Trey Smack|
+K|Dominic Zvada|
+K|Matt Gay|
+K|Chad Ryland|
+K|Andre Szmyt|
+K|Nick Folk|
+K|Ryan Fitzgerald|
+K|Wil Lutz|
+K|Jason Sanders|
+K|Joey Slye|
+K|Drew Stevens|
+K|Daniel Carlson|
+K|Zane Gonzalez|
+K|Riley Patterson|
+K|Charlie Smyth|
+K|Jake Moody|
+K|Jake Elliott|
+DEF|PHI|
+DEF|CLE|
+DEF|BUF|
+DEF|LAC|
+DEF|CHI|
+DEF|NO|
+DEF|NYG|
+DEF|GB|
+DEF|LV|
+DEF|TB|
+DEF|DET|
+DEF|ATL|
+DEF|TEN|
+DEF|NYJ|
+DEF|WAS|
+DEF|IND|
+DEF|ARI|
+DEF|MIA|
+DEF|DAL|

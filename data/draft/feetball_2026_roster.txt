@@ -1,19 +1,24 @@
-# feetball 2026 (Yahoo, /f1/658684/10) — read 2026-10-05 by scripts/refresh_league_pools.py.
-# IR slot: Jadarian Price, A.J. Brown
-Jalen Hurts
-Christian McCaffrey
+# feetball 2026 (Yahoo, /f1/658684/10) — read 2026-10-28 live from the Yahoo
+# Fantasy API (fspt-r), league_key 470.l.658684, season 2026, current_week 8.
+# IR slot: Jacory Croskey-Merritt, Jalen Hurts, Jadarian Price
+# Lineup as set on Yahoo: QB Love | RB Henry, Jeanty | WR Wilson, Brown, Jefferson
+#   | TE Loveland | W/R/T Burden | K Pineiro | DEF (EMPTY — Bengals on bench)
+Jordan Love
 Derrick Henry
-Garrett Wilson
-Ladd McConkey
-Luther Burden III
-Colston Loveland
 Ashton Jeanty
-Emeka Egbuka
-Brian Thomas Jr.
-Jacory Croskey-Merritt
-Kyle Monangai
-Devaughn Vele
-Brenton Strange
-MarShawn Lloyd
-Jadarian Price
+Garrett Wilson
 A.J. Brown
+Justin Jefferson
+Colston Loveland
+Luther Burden III
+Christian McCaffrey
+Brenton Strange
+Emeka Egbuka
+Ladd McConkey
+Devaughn Vele
+MarShawn Lloyd
+Jacory Croskey-Merritt
+Jalen Hurts
+Jadarian Price
+Eddy Pineiro
+Bengals
