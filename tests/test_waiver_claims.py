@@ -1130,7 +1130,7 @@ def test_yahoo_reads_return_transactions_and_faab_together(monkeypatch):
 
 
 def _espn_team(tid, name, spent, roster):
-    """roster: list of (defaultPositionId, injuryStatus)."""
+    """roster: list of (defaultPositionId, injuryStatus[, proTeamId])."""
     return {
         "id": tid,
         "name": name,
@@ -1138,10 +1138,15 @@ def _espn_team(tid, name, spent, roster):
         "roster": {
             "entries": [
                 {
-                    "injuryStatus": status,
-                    "playerPoolEntry": {"player": {"defaultPositionId": pos}},
+                    "injuryStatus": entry[1],
+                    "playerPoolEntry": {
+                        "player": {
+                            "defaultPositionId": entry[0],
+                            "proTeamId": entry[2] if len(entry) > 2 else 6,
+                        }
+                    },
                 }
-                for pos, status in roster
+                for entry in roster
             ]
         },
     }
@@ -1151,49 +1156,82 @@ ESPN_PAYLOAD = {
     "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
     "teams": [
         _espn_team(1, "Us", 42, [(4, "ACTIVE"), (4, "ACTIVE")]),
-        # Thin at TE (1 healthy, needs 1), rich, and a proven bidder.
-        _espn_team(2, "Thin+Rich", 10, [(4, "ACTIVE"), (2, "ACTIVE")]),
-        # Thin at TE but broke.
-        _espn_team(3, "Thin+Broke", 98, [(4, "ACTIVE")]),
-        # Thin at TE, rich, but has never bid.
-        _espn_team(4, "Thin+Silent", 0, [(4, "ACTIVE")]),
-        # Rich bidder but stacked at TE.
-        _espn_team(5, "Stacked", 5, [(4, "ACTIVE"), (4, "ACTIVE"), (4, "ACTIVE")]),
+        # Cannot field a TE this week, rich, and a proven bidder.
+        _espn_team(2, "Short+Rich", 10, [(4, "INJURY_RESERVE"), (2, "ACTIVE")]),
+        # Cannot field a TE but broke.
+        _espn_team(3, "Short+Broke", 98, [(4, "INJURY_RESERVE")]),
+        # Cannot field a TE, rich, but has never bid.
+        _espn_team(4, "Short+Silent", 0, [(4, "INJURY_RESERVE")]),
+        # Rich bidder who can field one, so not in the market.
+        _espn_team(5, "Covered", 5, [(4, "ACTIVE"), (4, "ACTIVE")]),
     ],
 }
-ESPN_BIDS = {"Thin+Rich": [8, 12, 20], "Thin+Broke": [30], "Stacked": [15]}
+ESPN_BIDS = {"Short+Rich": [8, 12, 20], "Short+Broke": [30], "Covered": [15]}
 
 
-def test_espn_rival_model_requires_thin_and_funded_and_proven():
+def test_espn_rival_model_requires_short_and_funded_and_proven():
     """Only Sleeper had this; every ESPN bid fell to the room-median floor."""
     ww = _waiver_wire()
     rivals = ww.espn_rivals(ESPN_PAYLOAD, 1, {"TE": 1}, ESPN_BIDS, room_median=10)
-    # Thin+Rich qualifies on all three counts; its median of [8,12,20] is 12.
+    # Short+Rich qualifies on all three counts; its median of [8,12,20] is 12.
     assert rivals == {"TE": [12]}
+
+
+def test_a_team_that_can_field_the_position_is_not_a_rival():
+    """It used to be enough to lack a SURPLUS, which in a one-QB league is
+    true of nearly everyone. Week 8 2026 that reported three La Liga rivals
+    thin at QB whose quarterbacks all played, and priced a bye-week fill at a
+    quarter of the budget."""
+    ww = _waiver_wire()
+    exactly_enough = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [
+            _espn_team(1, "Us", 0, [(1, "ACTIVE")]),
+            _espn_team(2, "OneQB", 0, [(1, "ACTIVE")]),
+        ],
+    }
+    assert ww.espn_rivals(exactly_enough, 1, {"QB": 1}, {"OneQB": [9]}, 5) == {}
 
 
 def test_espn_rival_model_excludes_us_and_counts_only_healthy_bodies():
     ww = _waiver_wire()
-    # Our own team is never a rival, however thin.
-    assert 1 not in [t["id"] for t in ESPN_PAYLOAD["teams"] if False]
     out_payload = {
         "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
         "teams": [
             _espn_team(1, "Us", 0, [(2, "ACTIVE")]),
-            # Two RBs on paper, one on IR -> thin at RB.
-            _espn_team(2, "Hurt", 0, [(2, "ACTIVE"), (2, "INJURY_RESERVE")]),
+            # His only running back is on IR, so he has nobody to start.
+            _espn_team(2, "Hurt", 0, [(2, "INJURY_RESERVE")]),
         ],
     }
     assert ww.espn_rivals(out_payload, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {"RB": [9]}
-    # With both healthy he has a surplus and is no threat.
     healthy = {
         "settings": out_payload["settings"],
         "teams": [
             _espn_team(1, "Us", 0, [(2, "ACTIVE")]),
-            _espn_team(2, "Hurt", 0, [(2, "ACTIVE"), (2, "ACTIVE")]),
+            _espn_team(2, "Hurt", 0, [(2, "ACTIVE")]),
         ],
     }
     assert ww.espn_rivals(healthy, 1, {"RB": 1}, {"Hurt": [9]}, 5) == {}
+
+
+def test_a_rival_whose_only_quarterback_is_on_bye_is_in_the_market():
+    """The other half of the La Liga case: a bye is not a playable body."""
+    ww = _waiver_wire()
+    payload = {
+        "settings": {"acquisitionSettings": {"acquisitionBudget": 100}},
+        "teams": [
+            _espn_team(1, "Us", 0, [(1, "ACTIVE", 6)]),
+            _espn_team(2, "ByeQB", 0, [(1, "ACTIVE", 25)]),  # 25 = SF
+        ],
+    }
+    playing = {"DAL", "BAL"}  # SF are on bye
+    assert ww.espn_rivals(payload, 1, {"QB": 1}, {"ByeQB": [9]}, 5, playing) == {
+        "QB": [9]
+    }
+    # ...and with San Francisco playing he is covered again.
+    assert (
+        ww.espn_rivals(payload, 1, {"QB": 1}, {"ByeQB": [9]}, 5, playing | {"SF"}) == {}
+    )
 
 
 def test_snap_trend_reads_the_bronze_column_names_that_actually_exist(tmp_path):

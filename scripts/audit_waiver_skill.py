@@ -59,6 +59,29 @@ class Check:
     live: bool = False  # needs a league API / the committed boards
 
 
+def _guard_refuses_a_foreign_league() -> bool:
+    """``config.our_league`` rejects a preset that is not George's.
+
+    Asserted against a synthetic entry rather than a real one: the guard has
+    to keep working even when every configured league happens to be ours,
+    which is exactly the state that silently disarmed the old check.
+    """
+    from src import config
+
+    key = "_audit_not_ours"
+    config.LEAGUE_PRESETS[key] = {"platform": "sleeper", "owned": False}
+    try:
+        config.our_league(key)
+    except ValueError as exc:
+        return "NOT one of our leagues" in str(exc)
+    except Exception:
+        return False
+    else:
+        return False
+    finally:
+        config.LEAGUE_PRESETS.pop(key, None)
+
+
 def _sh(args: Sequence[str], timeout: int = 900) -> str:
     """Run a repo script and return its combined output ('' on failure)."""
     try:
@@ -111,11 +134,15 @@ def build_checks(week: int) -> List[Check]:
         Check(
             "guards",
             "a league that is not ours is refused by name",
-            "python scripts/waiver_wire.py --league mantis --week N",
-            lambda: "NOT one of our leagues"
-            in _sh(
-                ["scripts/waiver_wire.py", "--league", "mantis", "--week", str(week)]
-            ),
+            "python -c \"from src import config; config.our_league('x')\"",
+            # Was: grep the mantis report for the refusal. #158 dropped
+            # `gentlemen` and `mahomos`, the last presets marked owned: False,
+            # so from 2026-10-24 there was no league left that could produce
+            # the message and the check could never pass again — it sat red
+            # for three days while the skill still advertised 100/100. The
+            # guard is asserted directly now, so removing a preset cannot
+            # quietly disarm it.
+            _guard_refuses_a_foreign_league,
         ),
         # --- pricing ------------------------------------------------------
         Check(

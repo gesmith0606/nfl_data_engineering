@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 #: A free-agent line: name, POS, TEAM, then the annotated tail.
 ROW_RE = re.compile(
@@ -21,6 +21,13 @@ ROW_RE = re.compile(
     r"(?P<tail>.*)$"
 )
 BID_RE = re.compile(r"\bBID \$(?P<bid>\d+)")
+#: ``ours 16.8 slpr  0.0`` — the two projection sources, either possibly "-".
+SOURCES_RE = re.compile(r"\bours\s+(?P<ours>[\d.]+|-)\s+slpr\s+(?P<slpr>[\d.]+|-)")
+#: One source at or below this says "he is not playing".
+SOURCE_SILENT = 0.5
+#: The other at or above this says "he is a starter". Between the two the
+#: sources merely disagree about degree, which is ordinary noise.
+SOURCE_STARTER = 8.0
 BOARD_AGE_RE = re.compile(
     r"projections_\w+?_\d{8}_\d{6}\.parquet \((?P<age>\d+)h old\)"
 )
@@ -90,6 +97,30 @@ class Row:
             if v in self.tail:
                 return v
         return ""
+
+    @property
+    def sources(self) -> Optional[Tuple[float, float]]:
+        """``(ours, slpr)`` when both printed a number, else ``None``."""
+        m = SOURCES_RE.search(self.tail)
+        if not m:
+            return None
+        try:
+            return float(m.group("ours")), float(m.group("slpr"))
+        except ValueError:  # one side printed "-"
+            return None
+
+    @property
+    def sources_disagree_on_playing(self) -> bool:
+        """One source says he does not play, the other says he starts.
+
+        Not a disagreement about how good he is — a disagreement about whether
+        he takes the field at all, which no average of the two can represent.
+        """
+        s = self.sources
+        if s is None:
+            return False
+        lo, hi = min(s), max(s)
+        return lo <= SOURCE_SILENT and hi >= SOURCE_STARTER
 
 
 def parse_rows(text: str) -> List[Row]:
@@ -172,6 +203,26 @@ def check_report(
     if not rows:
         out.append(Finding(CRITICAL, "rows", "no free agents parsed from the report"))
         return out
+
+    # 0. The two sources disagree about whether he PLAYS. A FIT verdict is
+    #    computed off our number alone, so when Sleeper projects zero the
+    #    verdict is a claim about a player the other source says is inactive,
+    #    and the printed blend is the average of a starter and a scratch —
+    #    a number describing nobody. Week 8 2026 Tyler Huntley read
+    #    "ours 16.8 slpr 0.0 blend 8.4 ... BENCH+" and was recommended twice;
+    #    Lamar Jackson was back and Huntley had no Sleeper projection at all.
+    for r in rows:
+        if r.sources_disagree_on_playing and r.verdict in ("STARTS", "BENCH+"):
+            ours, slpr = r.sources or (0.0, 0.0)
+            out.append(
+                Finding(
+                    CRITICAL,
+                    "sources-disagree",
+                    f"{r.name} ({r.team}) rated {r.verdict} but the sources "
+                    f"disagree on whether he plays (ours {ours:.1f} vs slpr "
+                    f"{slpr:.1f}) — resolve before pricing him",
+                )
+            )
 
     # 1. A player on bye scores zero. Recommending one is never right.
     byes = {t.upper() for t in bye_teams}
@@ -326,8 +377,13 @@ def check_report(
             )
         )
 
+    # A player can be rendered in more than one section (the free-agent list
+    # and the dynasty targets), which would otherwise report his one problem
+    # once per appearance and inflate the critical count.
+    seen: set = set()
+    unique = [f for f in out if not (f in seen or seen.add(f))]
     order = {CRITICAL: 0, WARN: 1}
-    return sorted(out, key=lambda f: order.get(f.level, 9))
+    return sorted(unique, key=lambda f: order.get(f.level, 9))
 
 
 def summarise(findings: Sequence[Finding]) -> Dict[str, Any]:
