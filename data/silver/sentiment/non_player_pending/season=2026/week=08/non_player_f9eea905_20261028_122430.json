@@ -1,0 +1,240 @@
+{
+  "batch_id": "f9eea905",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-28T12:24:30.975914+00:00",
+  "record_count": 21,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-beasley-agrees-to-plead-guilty-to-gambling-charges",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-beasley-agrees-to-plead-guilty-to-gambling-charges",
+      "team_abbr": null,
+      "summary": "NBA guard Malik Beasley revises plea to guilty for federal gambling crimes.",
+      "sentiment": -0.7,
+      "confidence": 0.85,
+      "category": "legal",
+      "source_excerpt": "Veteran NBA guard Malik Beasley, who was indicted earlier this year for federal gambling crimes, will be revising his not-guilty plea.",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lions-does-24-67-million-in-sundays-late-window",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lions-does-24-67-million-in-sundays-late-window",
+      "team_abbr": null,
+      "summary": "Packers-Lions game drew 24.67 million viewers in late-afternoon Sunday window.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The NFL's late-afternoon window on Sundays continues to rack up big audiences.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alabama-dismisses-cb-dre-kirkpatrick-jr-after-arrest-for-doxxing-harassing-police-officer",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alabama-dismisses-cb-dre-kirkpatrick-jr-after-arrest-for-doxxing-harassing-police-officer",
+      "team_abbr": null,
+      "summary": "Alabama cornerback Dre Kirkpatrick Jr. dismissed from team after arrest for doxxing and harassing police officer.",
+      "sentiment": -1.0,
+      "confidence": 0.95,
+      "category": "legal",
+      "source_excerpt": "Alabama cornerback Dre Kirkpatrick Jr., the son of former NFL cornerback Dre Kirkpatrick, has been dismissed from the team.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-offer-of-50-000-to-critics-was-a-joke",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-offer-of-50-000-to-critics-was-a-joke",
+      "team_abbr": null,
+      "summary": "Colorado coach Deion Sanders clarifies $50K offer to critics was a joke.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Colorado coach Deion Sanders has addressed the comments made recently by Christopher \"Uncle\" Neely regarding a supposed willingness to pay critics $50,000 to not mention his name.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "aa872050-c98f-4535-9eea-303877f3b2a8",
+      "external_id": "aa872050-c98f-4535-9eea-303877f3b2a8",
+      "team_abbr": null,
+      "summary": "Tyler Sullivan provides Week 8 NFL picks and spreads across all games.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Tyler Sullivan picks every game on the Week 8 schedule, including five locks against the spread",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "a1c39a13-9a38-4a37-8696-74b01120810f",
+      "external_id": "a1c39a13-9a38-4a37-8696-74b01120810f",
+      "team_abbr": null,
+      "summary": "Pete Prisco provides Week 8 NFL picks including Packers over Panthers and Lions beating Vikings.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Pete Prisco reveals all of his Week 8 picks, including the Bills to top the Ravens in a high-scoring game",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "96bbbfe8-5c07-4f83-9783-219154cc67e9",
+      "external_id": "96bbbfe8-5c07-4f83-9783-219154cc67e9",
+      "team_abbr": null,
+      "summary": "Week 8 predictions include close contests for multiple contenders.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Week 8 brings Halloween scares for several contenders, including the Bills, Vikings, Chiefs and Seahawks",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "8a43d40a-5d3d-392e-bb87-dce5a47214aa",
+      "external_id": "8a43d40a-5d3d-392e-bb87-dce5a47214aa",
+      "team_abbr": null,
+      "summary": "NFL power rankings compilation for Week 8 of the 2026 season.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Nick's power rankings heading into Week 8 of the 2026 NFL season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "0ddd3f6e-c575-3069-9d2a-262662b0e887",
+      "external_id": "0ddd3f6e-c575-3069-9d2a-262662b0e887",
+      "team_abbr": null,
+      "summary": "Week 7 NFC standouts highlighted: linebacker with four pass breakups, cornerback with four sacks, and versatile safety.",
+      "sentiment": 0.5,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "A linebacker with four pass breakups, a cornerback with four sacks, and a safety who does everything are Week 7's NFC Secret Superstars",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "25c89496-e97d-3341-b75f-a6c5c64c4a3c",
+      "external_id": "25c89496-e97d-3341-b75f-a6c5c64c4a3c",
+      "team_abbr": null,
+      "summary": "Article examines shared roster history between Patriots and Dolphins ahead of Week 8 matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The ex-Patriots and ex-Dolphins set for Sunday at Hard Rock Stadium.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "e937e209-fb90-347d-8107-b9d0e4a5d11a",
+      "external_id": "e937e209-fb90-347d-8107-b9d0e4a5d11a",
+      "team_abbr": null,
+      "summary": "Chargers and Colts among 11 teams with 2 or fewer wins, causing concern in Week 8.",
+      "sentiment": -0.6,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "There are 11 NFL teams with two or fewer wins in 2026. Which of them should be panicking the most? USA TODAY Sports breaks it down.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f9abfaf1-e59b-3bc1-92b3-437d94932f25",
+      "external_id": "f9abfaf1-e59b-3bc1-92b3-437d94932f25",
+      "team_abbr": null,
+      "summary": "Jay-Z announced as Super Bowl 61 halftime performer.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "During halftime of the Philadelphia Eagles vs. Dallas Cowboys matchup on Monday Night Football, the NFL announced that Jay-Z would be performing the halftime show for Super Bowl 61 at...",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "cf7caf4b-4e33-3582-9262-6abfd53df24d",
+      "external_id": "cf7caf4b-4e33-3582-9262-6abfd53df24d",
+      "team_abbr": null,
+      "summary": "Packers-Lions game drew 24.67 million viewers in Sunday's late window.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The NFL's late-afternoon window on Sundays continues to rack up big audiences.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-beasley-agrees-to-plead-guilty-to-gambling-charges",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-beasley-agrees-to-plead-guilty-to-gambling-charges",
+      "team_abbr": null,
+      "summary": "Subject is NBA player Malik Beasley, not NFL-related.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Veteran NBA guard Malik Beasley, who was indicted earlier this year for federal gambling crimes, will be revising his not-guilty plea.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lions-does-24-67-million-in-sundays-late-window",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lions-does-24-67-million-in-sundays-late-window",
+      "team_abbr": null,
+      "summary": "Packers-Lions game achieved 24.67M viewers in late Sunday window.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The NFL's late-afternoon window on Sundays continues to rack up big audiences.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-saints-in-paris-generates-7-7-million-on-sunday-morning",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-saints-in-paris-generates-7-7-million-on-sunday-morning",
+      "team_abbr": null,
+      "summary": "Steelers-Saints game in Paris generated 7.7M viewers Sunday morning.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Sunday morning football doesn't do the same numbers as Sunday afternoon or evening (or Monday night or Thursday) football, but it does better than anything else on TV at that time of day.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-seahawks-attracts-26-3-million-viewers-on-sunday-night",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-seahawks-attracts-26-3-million-viewers-on-sunday-night",
+      "team_abbr": null,
+      "summary": "Chiefs-Seahawks game drew 26.3 million viewers on Sunday night.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "the matchup of a pair of former AFC West rivals delivered big numbers on Sunday night.",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-offer-of-50-000-to-critics-was-a-joke",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-offer-of-50-000-to-critics-was-a-joke",
+      "team_abbr": null,
+      "summary": "Deion Sanders clarifies that his offer to pay critics $50,000 was intended as a joke.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Colorado coach Deion Sanders has addressed the comments made recently by Christopher \"Uncle\" Neely regarding a supposed willingness to pay critics $50,000 to not mention his name.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-announce-quenton-nelson-trade-waive-g-christian-haynes",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-announce-quenton-nelson-trade-waive-g-christian-haynes",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-rb-gregory-desrosiers-off-chargers-practice-squad",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-rb-gregory-desrosiers-off-chargers-practice-squad",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-raiders-waiving-dt-jonah-laulu",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-raiders-waiving-dt-jonah-laulu",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    }
+  ]
+}

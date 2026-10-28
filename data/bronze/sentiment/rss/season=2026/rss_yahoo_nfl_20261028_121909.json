@@ -1,0 +1,804 @@
+{
+  "fetch_run_id": "ca7c419c-9be3-40fc-a5bc-e240a6ee464d",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-10-28T12:19:09.856211+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "11599f35-bb3b-3e61-978a-1d3a6d9bcf14",
+      "url": "https://sports.yahoo.com/articles/chicago-bears-stat-tracker-week-120000620.html",
+      "title": "Chicago Bears Stat Tracker Week 7: Stacking Wins",
+      "body_text": "Caleb posts back to back 300 yard games, passes Harbaugh on all-time TD list",
+      "author": "",
+      "published_at": "2026-10-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "Stat Tracker",
+        "Stacking Wins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "31830588-bf49-36c6-a04a-3f90708b5dc0",
+      "url": "https://sports.yahoo.com/articles/panthers-vs-packers-matchups-watch-120000184.html",
+      "title": "Panthers vs Packers: Matchups to watch",
+      "body_text": "Four matchups that are likely to determine the outcome of the Panthers vs the Packers.",
+      "author": "",
+      "published_at": "2026-10-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "58233472-85ad-3721-8c53-92fea99635e5",
+      "url": "https://sports.yahoo.com/articles/patriots-opponent-preview-dolphins-trending-120000357.html",
+      "title": "Patriots opponent preview: Are the Dolphins trending up?",
+      "body_text": "The Patriots will visit the Dolphins on Sunday.",
+      "author": "",
+      "published_at": "2026-10-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "5fd32d74-ec57-3786-90fb-34d50661c235",
+      "url": "https://sports.yahoo.com/articles/fleur-links-kellen-moore-oppurtunity-120000869.html",
+      "title": "Fleur-de-Links: Kellen Moore has an oppurtunity to make changes",
+      "body_text": "Here are today's Saints news links",
+      "author": "",
+      "published_at": "2026-10-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kellen Moore"
+      ],
+      "resolved_player_ids": [
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "b8051b47-572e-3786-a82b-6ca4d11b0d5a",
+      "url": "https://sports.yahoo.com/articles/lions-stock-report-19-risers-120000386.html",
+      "title": "Lions stock report: 19 risers, 9 fallers against the Packers",
+      "body_text": "The biggest risers and fallers from the Detroit Lions' tight-knit thriller against the Packers.",
+      "author": "",
+      "published_at": "2026-10-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers The",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c14d846b-7a7e-3480-90fb-14c153ac20d6",
+      "url": "https://sports.yahoo.com/articles/daily-slop-120000286.html",
+      "title": "- Daily Slop",
+      "body_text": "The Daily Slop – 28 October 2026 Editor’s note: Each day, Hogs Haven compiles a collection of articles, podcasts & tweets from around the web to keep you in touch with the Commanders, the NFC East, the NFL and sports in general, with a sprinkling of other stuff. Enjoy! Commanders links Articles Sports Illustrated Former […]",
+      "author": "",
+      "published_at": "2026-10-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daily Slop",
+        "The Daily",
+        "Hogs Haven",
+        "Articles Sports",
+        "Illustrated Former"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "555398b2-430a-3e25-b122-b3b96b5aeaa8",
+      "url": "https://sports.yahoo.com/articles/4-key-matchups-watch-bengals-115500688.html",
+      "title": "4 key matchups to watch in Bengals vs. Titans",
+      "body_text": "Dexter Lawrence should give the Titans interior offensive line nightmares.",
+      "author": "",
+      "published_at": "2026-10-28T11:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Titans Dexter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "8a43d40a-5d3d-392e-bb87-dce5a47214aa",
+      "url": "https://sports.yahoo.com/articles/nfl-power-rankings-nick-picks-111717538.html",
+      "title": "NFL power rankings: Nick’s picks for how teams stack up before Week 8",
+      "body_text": "Nick’s power rankings heading into Week 8 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-10-28T11:17:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "598a5539-7138-39db-87af-72e61ac0de65",
+      "url": "https://sports.yahoo.com/articles/jerry-jones-thinks-unlikely-cowboys-110053949.html",
+      "title": "Jerry Jones thinks it is &quot;unlikely&quot; Cowboys add help in a trade",
+      "body_text": "The trade deadline is a couple of weeks away, but things started heating up on Tuesday with the Colts making a pair of trades that could spur other teams to start making moves as well.",
+      "author": "",
+      "published_at": "2026-10-28T11:00:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "0154ef39-b1dc-3fc1-b685-b5990470e321",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-moving-ahead-110000369.html",
+      "title": "Tennessee Titans news: Moving ahead to Week 8 vs. Bengals",
+      "body_text": "The Tennessee Titans are making a run for an upset win in Week 8 against the Cincinnati Bengals",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "Bengals The",
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "0ddd3f6e-c575-3069-9d2a-262662b0e887",
+      "url": "https://sports.yahoo.com/articles/nfl-secret-superstars-3-under-110000655.html",
+      "title": "NFL Secret Superstars: 3 under-the-radar NFC standouts in Week 7",
+      "body_text": "A linebacker with four pass breakups, a cornerback with four sacks, and a safety who does everything are Week 7’s NFC Secret Superstars",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Secret Superstars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1e2ac7e5-edde-3c18-adb7-308abd2a39f2",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-jerry-jones-happy-110000570.html",
+      "title": "Cowboys news: Jerry Jones happy with the run game",
+      "body_text": "Here is today’s Dallas Cowboys news",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "25c89496-e97d-3341-b75f-a6c5c64c4a3c",
+      "url": "https://sports.yahoo.com/articles/examining-roster-ties-between-patriots-110000108.html",
+      "title": "Examining the roster ties between Patriots, Dolphins ahead of Week 8",
+      "body_text": "The ex-Patriots and ex-Dolphins set for Sunday at Hard Rock Stadium.",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "31187ad6-73e0-3288-91c8-f6a2690a9d2c",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-colts-burning-110000868.html",
+      "title": "New York Jets News: Colts Burning it to the Ground Before NFL Trade Deadline",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Colts Burning",
+        "Ground Before",
+        "Trade Deadline"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "38b65ba8-bbba-39dd-9131-698acc9ea075",
+      "url": "https://sports.yahoo.com/articles/lions-beat-vikings-week-8-110000669.html",
+      "title": "Will the Lions beat the Vikings in Week 8?",
+      "body_text": "Do Detroit Lions fans think they’ll beat the undefeated Minnesota Vikings?",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Do Detroit",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "9617242d-3c75-3841-9e9b-b5de528dc76b",
+      "url": "https://sports.yahoo.com/articles/nfl-secret-superstars-week-7-110000347.html",
+      "title": "NFL Secret Superstars, Week 7: 3 under-the-radar standouts from the AFC",
+      "body_text": "Tony Pollard ran for 129 yards and three touchdowns, Caleb Douglas turned his only two catches into two scores, and Harold Fannin Jr. proved that he can do everything you need a tight end to do.",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Secret Superstars",
+        "Tony Pollard",
+        "Caleb Douglas",
+        "Harold Fannin Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0035261",
+        "00-0040663"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "b4eac0ed-b6a9-3472-a26f-e76696011bbc",
+      "url": "https://sports.yahoo.com/articles/ravens-survey-discussion-predicting-baltimore-110000132.html",
+      "title": "Ravens survey and discussion: predicting Baltimore’s 2026 win total",
+      "body_text": "Take this week’s Ravens Reacts survey and give your projection for Baltimore’s 2026 regular-season win total!",
+      "author": "",
+      "published_at": "2026-10-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens Reacts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "8a0cf0b6-ff5e-3375-af67-881d759bd428",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-harrison-butker-may-103000176.html",
+      "title": "Chiefs News: Harrison Butker may have competition amid struggles",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-10-28T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Harrison Butker"
+      ],
+      "resolved_player_ids": [
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "3e637e72-419c-3c76-8267-f8b012ac6ffa",
+      "url": "https://sports.yahoo.com/articles/chad-kelly-becomes-first-million-102519618.html",
+      "title": "Chad Kelly becomes the first million-dollar player of CFL salary-cap era",
+      "body_text": "Quarterback Chad Kelly said earlier this year that he'd still like to return to the NFL.",
+      "author": "",
+      "published_at": "2026-10-28T10:25:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chad Kelly",
+        "Quarterback Chad"
+      ],
+      "resolved_player_ids": [
+        "00-0033597"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e937e209-fb90-347d-8107-b9d0e4a5d11a",
+      "url": "https://sports.yahoo.com/articles/nfl-panic-meter-week-8-101602402.html",
+      "title": "NFL panic meter Week 8: Chargers, Colts have plenty of reasons to worry",
+      "body_text": "There are 11 NFL teams with two or fewer wins in 2026. Which of them should be panicking the most? USA TODAY Sports breaks it down.",
+      "author": "",
+      "published_at": "2026-10-28T10:16:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "e7288279-90f1-3d69-9cc2-e2f4a2928d29",
+      "url": "https://sports.yahoo.com/articles/texas-left-tackle-likely-first-100423513.html",
+      "title": "Texas left tackle and likely first-round pick Trevor Goosby out for season",
+      "body_text": "Texas left tackle Trevor Goosby, a likely first-round draft pick and the protector of Arch Manning's blind side, will miss the rest of this season with a knee injury.",
+      "author": "",
+      "published_at": "2026-10-28T10:04:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Trevor Goosby",
+        "Arch Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "43f6db64-1013-3136-bf27-3a34c9d85858",
+      "url": "https://sports.yahoo.com/articles/bear-den-trades-abound-none-100000488.html",
+      "title": "The Bear’s Den: Trades abound, but none yet for Bears",
+      "body_text": "So far the Chicago Bears have yet to be active in the pre-deadline trading market. Will that change today?",
+      "author": "",
+      "published_at": "2026-10-28T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "80e2ab61-c410-3358-bf2c-2d1e730d2846",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-breaking-three-100000806.html",
+      "title": "Cleveland Browns news: Breaking the Three Rivers Jinx",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the October 28 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-10-28T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Three Rivers",
+        "Jinx The",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "82971b59-b910-3d01-9477-ae2ede9ca4e1",
+      "url": "https://sports.yahoo.com/articles/bengals-news-colts-josh-downs-100000969.html",
+      "title": "Bengals News: Colts’ Josh Downs could make sense as Cincinnati trade target",
+      "body_text": "Your daily dose of Bengals news.",
+      "author": "",
+      "published_at": "2026-10-28T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "924d3b88-d44d-3145-bf1f-e5e18ee25727",
+      "url": "https://sports.yahoo.com/articles/horse-tracks-why-talking-broncos-100000695.html",
+      "title": "Horse Tracks: Why are we talking about the Broncos making a trade?",
+      "body_text": "The Denver Broncos aren’t likely to be in on big trades at the deadline in my opinion",
+      "author": "",
+      "published_at": "2026-10-28T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Horse Tracks",
+        "The Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "b18202e8-ac42-3351-892b-43f864fb8e9a",
+      "url": "https://sports.yahoo.com/articles/giants-news-joe-schoen-trade-100000538.html",
+      "title": "Giants news: Joe Schoen on trade deadline, Tyrone Tracy to IR, more",
+      "body_text": "New York Giants headlines for Wednesday.",
+      "author": "",
+      "published_at": "2026-10-28T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Schoen",
+        "Tyrone Tracy",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0039384"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "dd25d598-9375-3036-b711-e3e53802efdb",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-welcome-back-deforest-090300771.html",
+      "title": "Golden Nuggets: Welcome back, DeForest Buckner!",
+      "body_text": "Your daily San Francisco 49ers news for Wednesday, October 28th, 2026",
+      "author": "",
+      "published_at": "2026-10-28T09:03:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "9ba03f16-d413-3b02-a7b2-0659cbd32c5c",
+      "url": "https://sports.yahoo.com/articles/revisited-one-thought-27-commanders-090000932.html",
+      "title": "REVISITED: One thought on 27 Commanders 2026 free agents",
+      "body_text": "Someone has to take accountability for his opinions…",
+      "author": "",
+      "published_at": "2026-10-28T09:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "11e32c0e-0323-3f14-b994-44b413ed2097",
+      "url": "https://sports.yahoo.com/articles/jahmyr-gibbs-closing-6-000-084833263.html",
+      "title": "Jahmyr Gibbs closing in on 6,000 scrimmage yards and 60 touchdowns in four NFL seasons",
+      "body_text": "Gibbs is set to become the third player in NFL history to reach those milestones within his first four years in the league.",
+      "author": "",
+      "published_at": "2026-10-28T08:48:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e3a1580b-36dc-3258-843a-1723850708a5",
+      "url": "https://sports.yahoo.com/articles/why-hurts-played-blood-clot-064908565.html",
+      "title": "Why Hurts played with blood clot and what it means for NFL",
+      "body_text": "Philadelphia Eagles quarterback Jalen Hurts is recovering from a life-threatening condition which developed after he was cleared to play with a blood clot and board a long-haul flight.",
+      "author": "",
+      "published_at": "2026-10-28T07:15:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Why Hurts",
+        "Philadelphia Eagles",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5fc24467-9f10-325b-9f47-eef24e39a32e",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-saquon-barkley-070000510.html",
+      "title": "Eagles snap counts: Saquon Barkley efficient in hobbled game",
+      "body_text": "Saquon Barkley wasn't anywhere near 100% but he still looked good against the Cowboys.",
+      "author": "",
+      "published_at": "2026-10-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6da911fb-9b80-3857-aad4-940d933ad733",
+      "url": "https://sports.yahoo.com/articles/weeks-roobs-eagles-stats-good-070000211.html",
+      "title": "In this week's Roob's Eagles Stats, some good and a whole lot of truly atrocious",
+      "body_text": "The Eagles are having one of the worst defensive stretches in franchise history.",
+      "author": "",
+      "published_at": "2026-10-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles Stats",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d1c07235-7fc4-3f42-9f4c-20ef6a3ed3c6",
+      "url": "https://sports.yahoo.com/articles/inside-tape-details-set-makai-070000158.html",
+      "title": "Inside the Tape: The details that set Makai Lemon apart",
+      "body_text": "Makai Lemon took advantage of an expanded opportunity Monday night against Dallas.",
+      "author": "",
+      "published_at": "2026-10-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5c663820-50b2-3484-9794-10a776ea00a8",
+      "url": "https://sports.yahoo.com/articles/jonathan-taylor-wife-wonders-colts-050344096.html",
+      "title": "Jonathan Taylor’s wife wonders about his Colts future after sweeping trades: ‘Should I start packing?!’",
+      "body_text": "The Colts were having a fire sale on Tuesday.",
+      "author": "",
+      "published_at": "2026-10-28T05:03:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "f9abfaf1-e59b-3bc1-92b3-437d94932f25",
+      "url": "https://www.yahoo.com/entertainment/music/articles/jay-z-shrugs-off-super-033646773.html",
+      "title": "Jay-Z shrugs off Super Bowl halftime pressure with bold response",
+      "body_text": "During halftime of the Philadelphia Eagles vs. Dallas Cowboys matchup on Monday Night Football, the NFL announced that Jay-Z would be performing the halftime show for Super Bowl 61 at...",
+      "author": "",
+      "published_at": "2026-10-28T03:36:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Philadelphia Eagles",
+        "Dallas Cowboys",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4c703270-dc53-467f-8d7a-027a4d0cedec",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-trade-deadline-4-players-we-want-to-see-dealt-to-ideal-landing-spots-include-rbs-saquon-barkley-and-jonathan-taylor-032918484.html",
+      "title": "NFL trade deadline: 4 players we want to see dealt to ideal landing spots include RBs Saquon Barkley and Jonathan Taylor",
+      "body_text": "As rumors and buzz builds over deals in the NFL, Yahoo Sports' Frank Schwab, Jay Busbee, Jori Epstein and Eric Edholm each weighed in on trades they want to see in the coming days.",
+      "author": "Yahoo Sports Staff",
+      "published_at": "2026-10-28T03:29:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Jonathan Taylor",
+        "Yahoo Sports",
+        "Frank Schwab",
+        "Jay Busbee",
+        "Jori Epstein",
+        "Eric Edholm"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036223"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "506c0145-dd30-3ab1-8ca4-75d926ffc52d",
+      "url": "https://sports.yahoo.com/articles/nick-bosa-girlfriend-full-cartoon-024029885.html",
+      "title": "Nick Bosa and girlfriend go full cartoon for Halloween as 49ers fans share fairly odd request",
+      "body_text": "Halloween is rapidly approaching, and NFL players are showing off their costumes with their significant others. San Francisco 49ers star defensive end Nick Bosa’s girlfriend Ella Ailiff revealed their costumes...",
+      "author": "",
+      "published_at": "2026-10-28T02:40:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Bosa",
+        "San Francisco",
+        "Ella Ailiff"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "cf7caf4b-4e33-3582-9262-6abfd53df24d",
+      "url": "https://sports.yahoo.com/articles/packers-lions-does-24-67-023936917.html",
+      "title": "Packers-Lions does 24.67 million in Sunday's late window",
+      "body_text": "The NFL's late-afternoon window on Sundays continues to rack up big audiences.",
+      "author": "",
+      "published_at": "2026-10-28T02:39:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "0d475aa2-404e-388f-b2b8-593d2b88fdce",
+      "url": "https://sports.yahoo.com/articles/reaction-colts-trading-franchise-trench-022552142.html",
+      "title": "Reaction from Colts trading franchise trench pillars: Quenton Nelson and DeForest Buckner during tough day",
+      "body_text": "It wasn’t an easy day by any means for the Colts, but arguably a necessary one in at least some regards.",
+      "author": "",
+      "published_at": "2026-10-28T02:25:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0034342"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "0a1568b0-2087-335c-8129-6ff150beb942",
+      "url": "https://sports.yahoo.com/articles/jonathan-taylors-wife-sounds-off-021548954.html",
+      "title": "Jonathan Taylor's wife sounds off on Colts trades: 'Is literally anyone safe on this team?'",
+      "body_text": "Ayanna Taylor took to social media to question the Colts' decision to trade Quenton Nelson and what it might mean for the team moving forward.",
+      "author": "",
+      "published_at": "2026-10-28T02:15:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Ayanna Taylor",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0034342"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "aba0d971-272f-3c95-9db3-4deed2100272",
+      "url": "https://sports.yahoo.com/articles/joey-porter-jr-critics-theyll-015820434.html",
+      "title": "Joey Porter Jr. on his critics: They'll be quiet soon",
+      "body_text": "Upset about not getting a contract extension before the season, cornerback Joey Porter Jr. didn't play in four games with the Steelers.",
+      "author": "",
+      "published_at": "2026-10-28T01:58:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "64002765-7d73-4f53-97de-c03488cecd81",
+      "url": "https://sports.yahoo.com/article/32-teams-32-fantasy-football-facts-to-bully-week-8-015713265.html",
+      "title": "32 Teams. 32 fantasy football facts to BULLY week 8.",
+      "body_text": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 8.",
+      "author": "Hayden Winks,Josh Norris,Matt Harmon",
+      "published_at": "2026-10-28T01:57:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Norris",
+        "Hayden Winks",
+        "Matt Harmon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "39ba9ad9-5410-3900-9b52-7000c878da69",
+      "url": "https://sports.yahoo.com/articles/cardinals-four-receivers-sign-one-014402473.html",
+      "title": "Cardinals work out four receivers, sign one",
+      "body_text": "Zay Jones is coming back to the desert",
+      "author": "",
+      "published_at": "2026-10-28T01:44:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zay Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0033891"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "447fe5ad-d61e-3f1f-9356-4edd8a9efa92",
+      "url": "https://sports.yahoo.com/articles/nfl-week-8-injury-report-012331954.html",
+      "title": "NFL Week 8 Injury Report: Lamar Jackson expected to play, plus updates on Jaylin Noel, Aaron Jones, CMC",
+      "body_text": "Track the injuries to know around the NFL, all in one place.",
+      "author": "",
+      "published_at": "2026-10-28T01:23:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Injury Report",
+        "Lamar Jackson",
+        "Jaylin Noel",
+        "Aaron Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0040138",
+        "00-0033293"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "52aeabae-6b01-3f0e-825d-0f83e0e24b0b",
+      "url": "https://sports.yahoo.com/articles/patriots-power-rankings-week-8-010324611.html",
+      "title": "Patriots Power Rankings Week 8: Streak stops, Pats drop",
+      "body_text": "Check out where the experts rank the Pats heading into Week 8",
+      "author": "",
+      "published_at": "2026-10-28T01:03:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patriots Power",
+        "Rankings Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "a1796add-1441-3bed-bd9e-d19e3084fd19",
+      "url": "https://sports.yahoo.com/articles/j-j-mccarthy-different-one-004725337.html",
+      "title": "This J.J. McCarthy different than one Giants passed over in draft",
+      "body_text": "In the aftermath of the Giants’ overtime win Sunday, the interaction “meant the world” to J.J. McCarthy. But general manager Joe Schoen being “fired up” and telling McCarthy “we believe...",
+      "author": "",
+      "published_at": "2026-10-28T00:47:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Schoen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "0118f712-26d6-3029-b024-d024effefe8e",
+      "url": "https://sports.yahoo.com/articles/rams-add-special-teams-ace-004612686.html",
+      "title": "Rams add special teams ace to practice squad",
+      "body_text": "Jon Rhattigan has played over 1,200 special teams snaps in his career",
+      "author": "",
+      "published_at": "2026-10-28T00:46:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jon Rhattigan"
+      ],
+      "resolved_player_ids": [
+        "00-0036802"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "13dc1991-bf78-3fb0-a384-b01ae23ca570",
+      "url": "https://sports.yahoo.com/articles/steelers-saints-paris-generates-7-004606024.html",
+      "title": "Steelers-Saints in Paris generates 7.7 million on Sunday morning",
+      "body_text": "Sunday morning football doesn't do the same numbers as Sunday afternoon or evening (or Monday night or Thursday) football, but it does better than anything else on TV at that time of day.",
+      "author": "",
+      "published_at": "2026-10-28T00:46:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "5d99cc84-0417-3802-8072-8a596ba87520",
+      "url": "https://sports.yahoo.com/articles/jared-goff-backs-dan-campbells-001157520.html",
+      "title": "Jared Goff backs Dan Campbell's decision to go for it deep in Lions' own end",
+      "body_text": "The Lions went for it on fourth-and-1 in a tie game with 4:53 left, and Jahmyr Gibbs was stopped for a 2-yard loss.",
+      "author": "",
+      "published_at": "2026-10-28T00:11:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jared Goff",
+        "Dan Campbell",
+        "The Lions",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0033106",
+        "00-0002565",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "9c50d7d5-872f-383d-af33-80864fd26351",
+      "url": "https://sports.yahoo.com/articles/josh-simmons-may-done-chiefs-000206225.html",
+      "title": "Josh Simmons may be done with Chiefs after blowup with Andy Reid, Patrick Mahomes",
+      "body_text": "Josh Simmons may never take the field for the Chiefs again.",
+      "author": "",
+      "published_at": "2026-10-28T00:02:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Simmons",
+        "Andy Reid",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0040116",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}

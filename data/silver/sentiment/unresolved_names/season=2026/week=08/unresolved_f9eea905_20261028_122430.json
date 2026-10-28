@@ -1,0 +1,72 @@
+{
+  "batch_id": "f9eea905",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-28T12:24:30.983805+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-left-tackle-and-likely-first-round-pick-trevor-goosby-out-for-season",
+      "player_name": "Trevor Goosby",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Texas left tackle Trevor Goosby, likely first-round pick protecting Arch Manning, ruled out for season with knee injury.",
+      "source_excerpt": "Texas left tackle Trevor Goosby, a likely first-round draft pick and the protector of Arch Manning's blind side, will miss the rest of this season with a knee injury.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "190ee70d-2fd5-47e3-ba95-82bca0b3ce08",
+      "player_name": "Troy Aikman",
+      "team_abbr": "DAL",
+      "category": "general",
+      "summary": "Jerry Jones indicates possible role for Troy Aikman with the Cowboys organization.",
+      "source_excerpt": "Aikman won three Super Bowls with the Cowboys in the 1990s",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "058c42c0-badf-4708-968d-952c3275a217",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Fernando Mendoza will see time but limited opportunity with Kirk Cousins as locked-in starter.",
+      "source_excerpt": "Kubiak said Mendoza will play this season, but with Cousins locked into the lineup, when will his opportunity arise?",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "9617242d-3c75-3841-9e9b-b5de528dc76b",
+      "player_name": "Caleb Douglas",
+      "team_abbr": null,
+      "category": "usage",
+      "summary": "Caleb Douglas converted two catches into two TDs as AFC underrated performer Week 7.",
+      "source_excerpt": "Caleb Douglas turned his only two catches into two scores",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "e7288279-90f1-3d69-9cc2-e2f4a2928d29",
+      "player_name": "Trevor Goosby",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Texas left tackle Trevor Goosby, likely first-round pick, out for season with knee injury.",
+      "source_excerpt": "Texas left tackle Trevor Goosby, a likely first-round draft pick and the protector of Arch Manning's blind side, will miss the rest of this season with a knee injury.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "d1c07235-7fc4-3f42-9f4c-20ef6a3ed3c6",
+      "player_name": "Makai Lemon",
+      "team_abbr": null,
+      "category": "usage",
+      "summary": "Makai Lemon took advantage of expanded opportunity against Dallas on Monday night.",
+      "source_excerpt": "Makai Lemon took advantage of an expanded opportunity Monday night against Dallas.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-left-tackle-and-likely-first-round-pick-trevor-goosby-out-for-season",
+      "player_name": "Trevor Goosby",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Texas LT Trevor Goosby, likely 1st-round pick, ruled out for season with knee injury.",
+      "source_excerpt": "Texas left tackle Trevor Goosby, a likely first-round draft pick and the protector of Arch Manning's blind side, will miss the rest of this season with a knee injury.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

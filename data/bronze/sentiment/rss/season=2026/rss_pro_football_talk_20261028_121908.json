@@ -1,0 +1,484 @@
+{
+  "fetch_run_id": "ca7c419c-9be3-40fc-a5bc-e240a6ee464d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-28T12:19:08.417404+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-thinks-it-is-unlikely-cowboys-add-help-in-a-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-thinks-it-is-unlikely-cowboys-add-help-in-a-trade",
+      "title": "Jerry Jones thinks it is \"unlikely\" Cowboys add help in a trade",
+      "body_text": "The trade deadline is a couple of weeks away, but things started heating up on Tuesday with the Colts making a pair of trades that could spur other teams to start making moves as well.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-28T11:00:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-becomes-the-first-million-dollar-player-of-cfl-salary-cap-era",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chad-kelly-becomes-the-first-million-dollar-player-of-cfl-salary-cap-era",
+      "title": "Chad Kelly becomes the first million-dollar player of CFL salary-cap era",
+      "body_text": "Quarterback Chad Kelly said earlier this year that he'd still like to return to the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-28T10:25:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Chad Kelly",
+        "Quarterback Chad"
+      ],
+      "resolved_player_ids": [
+        "00-0033597"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-wants-to-be-the-next-baylor-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-wants-to-be-the-next-baylor-coach",
+      "title": "Robert Griffin III wants to be the next Baylor coach",
+      "body_text": "From time to time, former NFL quarterback Robert Griffin III expresses interest in continuing his career.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-28T10:07:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Griffin III"
+      ],
+      "resolved_player_ids": [
+        "00-0029665"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-left-tackle-and-likely-first-round-pick-trevor-goosby-out-for-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texas-left-tackle-and-likely-first-round-pick-trevor-goosby-out-for-season",
+      "title": "Texas left tackle and likely first-round pick Trevor Goosby out for season",
+      "body_text": "Texas left tackle Trevor Goosby, a likely first-round draft pick and the protector of Arch Manning's blind side, will miss the rest of this season with a knee injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-28T10:04:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevor Goosby",
+        "Arch Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-beasley-agrees-to-plead-guilty-to-gambling-charges",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-beasley-agrees-to-plead-guilty-to-gambling-charges",
+      "title": "Malik Beasley agrees to plead guilty to gambling charges",
+      "body_text": "Veteran NBA guard Malik Beasley, who was indicted earlier this year for federal gambling crimes, will be revising his not-guilty plea.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-28T09:45:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Beasley"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-closing-in-on-6-000-scrimmage-yards-and-60-touchdowns-in-four-nfl-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-closing-in-on-6-000-scrimmage-yards-and-60-touchdowns-in-four-nfl-seasons",
+      "title": "Jahmyr Gibbs closing in on 6,000 scrimmage yards and 60 touchdowns in four NFL seasons",
+      "body_text": "Gibbs is set to become the third player in NFL history to reach those milestones within his first four years in the league.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-28T08:48:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lions-does-24-67-million-in-sundays-late-window",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lions-does-24-67-million-in-sundays-late-window",
+      "title": "Packers-Lions does 24.67 million in Sunday's late window",
+      "body_text": "The NFL's late-afternoon window on Sundays continues to rack up big audiences.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-28T02:39:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-on-his-critics-theyll-be-quiet-soon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-on-his-critics-theyll-be-quiet-soon",
+      "title": "Joey Porter Jr. on his critics: They'll be quiet soon",
+      "body_text": "Upset about not getting a contract extension before the season, cornerback Joey Porter Jr. didn't play in four games with the Steelers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-28T01:58:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-saints-in-paris-generates-7-7-million-on-sunday-morning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-saints-in-paris-generates-7-7-million-on-sunday-morning",
+      "title": "Steelers-Saints in Paris generates 7.7 million on Sunday morning",
+      "body_text": "Sunday morning football doesn't do the same numbers as Sunday afternoon or evening (or Monday night or Thursday) football, but it does better than anything else on TV at that time of day.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-28T00:46:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alabama-dismisses-cb-dre-kirkpatrick-jr-after-arrest-for-doxxing-harassing-police-officer",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alabama-dismisses-cb-dre-kirkpatrick-jr-after-arrest-for-doxxing-harassing-police-officer",
+      "title": "Alabama dismisses CB Dre Kirkpatrick Jr. after arrest for doxxing, harassing police officer",
+      "body_text": "Alabama cornerback Dre Kirkpatrick Jr., the son of former NFL cornerback Dre Kirkpatrick, has been dismissed from the team.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-28T00:20:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dre Kirkpatrick Jr",
+        "Dre Kirkpatrick"
+      ],
+      "resolved_player_ids": [
+        "00-0029560"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-backs-dan-campbells-decision-to-go-for-it-deep-in-lions-own-end",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-backs-dan-campbells-decision-to-go-for-it-deep-in-lions-own-end",
+      "title": "Jared Goff backs Dan Campbell's decision to go for it deep in Lions' own end",
+      "body_text": "The Lions went for it on fourth-and-1 in a tie game with 4:53 left, and Jahmyr Gibbs was stopped for a 2-yard loss.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-28T00:11:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jared Goff",
+        "Dan Campbell",
+        "The Lions",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0033106",
+        "00-0002565",
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-seahawks-attracts-26-3-million-viewers-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-seahawks-attracts-26-3-million-viewers-on-sunday-night",
+      "title": "Chiefs-Seahawks attracts 26.3 million viewers on Sunday night",
+      "body_text": "Even though the game itself was far from compelling, the matchup of a pair of former AFC West rivals delivered big numbers on Sunday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T23:44:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-moves-closer-to-a-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-moves-closer-to-a-return",
+      "title": "Micah Parsons moves closer to a return",
+      "body_text": "The Packers' defense could be getting a major boost.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T23:28:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Micah Parsons",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-wr-zay-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-wr-zay-jones",
+      "title": "Cardinals sign WR Zay Jones",
+      "body_text": "Zay Jones was one of four wide receivers who tried out for the Cardinals on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T23:13:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zay Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0033891"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lb-zaire-franklin-wont-play-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lb-zaire-franklin-wont-play-thursday-night",
+      "title": "Packers LB Zaire Franklin won't play Thursday night",
+      "body_text": "Packers linebacker Zaire Franklin will miss another game.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T22:55:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zaire Franklin"
+      ],
+      "resolved_player_ids": [
+        "00-0034431"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/montez-sweat-on-suspension-what-happened-happened-and-im-moving-forward",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/montez-sweat-on-suspension-what-happened-happened-and-im-moving-forward",
+      "title": "Montez Sweat on suspension: What happened, happened and I'm moving forward",
+      "body_text": "Defensive end Montez Sweat's two-game suspension ended after last Thursday's win over the Patriots and he addressed his absence from the team's facility on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T22:23:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Montez Sweat"
+      ],
+      "resolved_player_ids": [
+        "00-0035647"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-waive-rb-emari-demercado",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-waive-rb-emari-demercado",
+      "title": "Cowboys waive RB Emari Demercado",
+      "body_text": "The Cowboys waived running back Emari Demercado on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T22:05:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Emari Demercado",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0038705"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-stand-to-benefit-from-colts-fire-sale",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-stand-to-benefit-from-colts-fire-sale",
+      "title": "Jets stand to benefit from Colts' fire sale",
+      "body_text": "The Seahawks and 49ers hope to benefit in the near term from the trades they made with the Colts on Tuesday, but another team could wind up as a long-term winner.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T21:43:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-two-trades-in-one-day-colts-are-clearly-open-for-business",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-two-trades-in-one-day-colts-are-clearly-open-for-business",
+      "title": "With two trades in one day, Colts are clearly open for business",
+      "body_text": "The Sunday Splash!",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T21:06:11+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-agree-to-acquire-deforest-buckner-from-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-agree-to-acquire-deforest-buckner-from-colts",
+      "title": "49ers agree to acquire DeForest Buckner from Colts",
+      "body_text": "Buckner is headed back to the team that drafted him at No. 7 overall in 2016.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-27T20:52:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Colts Buckner"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-wr-jalen-brooks-on-season-ending-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-wr-jalen-brooks-on-season-ending-ir",
+      "title": "Cardinals place WR Jalen Brooks on season-ending IR",
+      "body_text": "The Cardinals placed wide receiver Jalen Brooks on season-ending injured reserve, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T21:03:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Brooks",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038640"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lamar-jackson-is-expected-to-return-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-lamar-jackson-is-expected-to-return-sunday",
+      "title": "Report: Lamar Jackson is expected to return Sunday",
+      "body_text": "Ravens quarterback Lamar Jackson has not played since Oct. 4, missing the past three games with a high ankle sprain.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T20:52:53+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Sunday Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-knows-opposing-offenses-are-excited-to-game-plan-vs-panthers-run-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dave-canales-knows-opposing-offenses-are-excited-to-game-plan-vs-panthers-run-defense",
+      "title": "Dave Canales knows opposing offenses are excited to game plan vs. Panthers' run defense",
+      "body_text": "The Panthers have the worst run defense in the NFL, and head coach Dave Canales knows what that means for opposing teams game planning against them.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-27T20:45:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dave Canales",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-offer-of-50-000-to-critics-was-a-joke",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-offer-of-50-000-to-critics-was-a-joke",
+      "title": "Deion Sanders says offer of $50,000 to critics was \"a joke\"",
+      "body_text": "Colorado coach Deion Sanders has addressed the comments made recently by Christopher \"Uncle\" Neely regarding a supposed willingness to pay critics $50,000 to not mention his name.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-27T20:37:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-list-matthew-golden-as-out-of-practice-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-list-matthew-golden-as-out-of-practice-tuesday",
+      "title": "Packers list Matthew Golden as out of practice Tuesday",
+      "body_text": "The Packers turned in their second estimated injury report of the week on Tuesday and it showed no change in status for wide receiver Matthew Golden.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T20:24:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Golden",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040667"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-activate-wr-donte-thornton-off-of-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-activate-wr-donte-thornton-off-of-ir",
+      "title": "Raiders activate WR Dont'e Thornton off of IR",
+      "body_text": "The Raiders have one of their offensive contributors back.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-27T20:23:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-place-cb-cam-taylor-britt-on-ir-sign-cb-kenneth-harris-from-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-place-cb-cam-taylor-britt-on-ir-sign-cb-kenneth-harris-from-practice-squad",
+      "title": "Colts place CB Cam Taylor-Britt on IR, sign CB Kenneth Harris from practice squad",
+      "body_text": "The Colts signed cornerback Kenneth Harris to the 53-player roster from the practice squad, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-27T20:18:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Taylor",
+        "Kenneth Harris",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0026836"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-announce-quenton-nelson-trade-waive-g-christian-haynes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-announce-quenton-nelson-trade-waive-g-christian-haynes",
+      "title": "Seahawks announce Quenton Nelson trade, waive G Christian Haynes",
+      "body_text": "Guard Quenton Nelson will need to pass a physical to finalize his move to the Seahawks, but the team has already made room for him on their 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T20:08:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Quenton Nelson",
+        "Christian Haynes",
+        "Guard Quenton"
+      ],
+      "resolved_player_ids": [
+        "00-0034342",
+        "00-0039839"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-rb-gregory-desrosiers-off-chargers-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-to-sign-rb-gregory-desrosiers-off-chargers-practice-squad",
+      "title": "Giants to sign RB Gregory Desrosiers off Chargers practice squad",
+      "body_text": "The Giants will be without Tyrone Tracy for at least the next four games because of a hamstring injury and they'll pluck a player from another team to fill the opening on their active roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-27T19:56:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gregory Desrosiers",
+        "The Giants",
+        "Tyrone Tracy"
+      ],
+      "resolved_player_ids": [
+        "00-0039384"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-raiders-waiving-dt-jonah-laulu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-raiders-waiving-dt-jonah-laulu",
+      "title": "Report: Raiders waiving DT Jonah Laulu",
+      "body_text": "The Raiders are moving on from one of their young defensive linemen.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-27T19:45:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonah Laulu",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039423"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}

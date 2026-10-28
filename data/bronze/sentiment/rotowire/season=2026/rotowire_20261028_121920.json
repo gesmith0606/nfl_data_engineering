@@ -1,0 +1,109 @@
+{
+  "fetch_run_id": "bb4ec3b3-82ad-4048-adcb-5e90e4f13aa8",
+  "source": "rotowire",
+  "fetched_at": "2026-10-28T12:19:20.038682+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl644649",
+      "url": "https://www.rotowire.com//football/player/tyrone-tracy-17967",
+      "permalink": "",
+      "title": "Tyrone Tracy: Move to IR official",
+      "body_text": "The Giants placed Tracy (hamstring) on injured reserve Tuesday, Dan Salomone of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-27T02:04:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyrone Tracy",
+        "The Giants",
+        "Dan Salomone"
+      ],
+      "resolved_player_ids": [
+        "00-0039384"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl644648",
+      "url": "https://www.rotowire.com//football/player/deforest-buckner-10925",
+      "permalink": "",
+      "title": "DeForest Buckner: Headed back to San Francisco",
+      "body_text": "The 49ers acquired Buckner from the Colts on Tuesday in exchange for a 2027 fourth-round draft pick, Tom Pelissero of Netflix reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-27T01:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "San Francisco",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl644647",
+      "url": "https://www.rotowire.com//football/player/lamar-jackson-12561",
+      "permalink": "",
+      "title": "Lamar Jackson: Trending toward return in Week 8",
+      "body_text": "Jackson (ankle) is \"believed to be close to 100 percent\" and is expected to play Sunday versus the Bills, Ian Rapoport of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-27T01:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Lamar Jackson",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "nfl644646",
+      "url": "https://www.rotowire.com//football/player/matthew-golden-18500",
+      "permalink": "",
+      "title": "Matthew Golden: Sits out walkthrough practice",
+      "body_text": "Golden (shoulder/foot) didn't participate in Tuesday's walkthrough practice. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-27T01:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Golden"
+      ],
+      "resolved_player_ids": [
+        "00-0040667"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl644644",
+      "url": "https://www.rotowire.com//football/player/jalen-coker-17976",
+      "permalink": "",
+      "title": "Jalen Coker: Practices fully Tuesday",
+      "body_text": "Coker (shoulder) was listed as a full participant in Tuesday's practice, Mike Kaye of ESPN.com reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-10-27T12:23:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Coker",
+        "Tuesday Coker",
+        "Mike Kaye"
+      ],
+      "resolved_player_ids": [
+        "00-0039491"
+      ],
+      "team_hint": null
+    }
+  ]
+}
