@@ -28,6 +28,14 @@ heuristic with no model behind it at all** — rank the same tier by last week's
 you do just as well (edge -0.05, MDE 1.03, n=6 weeks). So: the ranking is not noise, and it is
 not yet worth the pipeline. Read the failing check as the finding it is, not as a broken test.
 
+**Where it loses is only the very top** (`.planning/WAIVER_RANKING_FLAT_TOP.md`, both rooms,
+2026 w2-7). At k=10/20/40 the board beats the box score by +0.36 to +0.51; at k=1 it loses. One
+step down the tier it is calibrated (ranks 6-10 vs 11-20: claims +1.94, reality +1.88); at the
+top it claims three times the gap that exists (ranks 1-5 vs 6-10: claims +1.12, reality +0.37).
+So **the board's #1 waiver name is not meaningfully better than its #5-10** -- treat the top ten
+as one candidate set and break the tie on role, snaps and news, which is what Step 3c does. It
+is not a position (WR loses in Mantis and gains in La Liga) and not inactives (85% vs 84% played).
+
 Only 2026 weeks 2-7 are eligible, because every 2024 and 2025 board on disk was written *after*
 the games it covers. Regenerating them would not help — rosters, depth charts and injury
 reports are overwritten in place, so a rebuilt board sees what the engine could not have seen.
