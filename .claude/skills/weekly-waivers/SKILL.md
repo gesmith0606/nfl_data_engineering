@@ -10,14 +10,33 @@ not from one week's projections. Full checklist: `docs/WEEKLY_WAIVER_RUNBOOK.md`
 
 ## Is this skill still any good? Run the audit, don't take my word
 ```bash
-python scripts/audit_waiver_skill.py          # 19 falsifiable checks, exit 1 on any failure
+python scripts/audit_waiver_skill.py          # 21 falsifiable checks, exit 1 on any failure
 python scripts/audit_waiver_skill.py --offline # the 8 that need no league data
+python scripts/backtest_recommendations.py --league mantis --top-k 3   # the advice score
 ```
-Every check is a claim plus the command that settles it, across guards, pricing, coverage,
-sentiment, parity, outcomes and rule provenance. **100/100 as of 2026-10-23** — and if a rule
-regresses the number drops by itself, which is the point. An earlier 72->100 score for this
-skill was a judgement call on a rubric written by the agent doing the work: a claim with no way
-to be wrong, i.e. the exact thing every invariant here exists to prevent.
+It prints **two** numbers and you need both. **MACHINERY 100/100, ADVICE 50/100 as of
+2026-10-27.** Machinery asks whether the tool has a property — a guard exists, a tag comes from
+something published, the bid model beats a naive rule on bids somebody already made. Nineteen
+of the twenty-one checks are that, and **not one of them can fail because a recommendation was
+wrong**: week 8 2026 this audit read 100/100 while four recommendations in a row had to be
+corrected by hand. One number let "the machinery is sound" be read as "the advice is good",
+which it was never evidence for.
+
+The advice checks score the board's own waiver-tier ranking against what those players then
+did. It clears a shuffled ranking comfortably (+3.2 pts/wk vs a flat null) but **ties a
+heuristic with no model behind it at all** — rank the same tier by last week's box score and
+you do just as well (edge -0.05, MDE 1.03, n=6 weeks). So: the ranking is not noise, and it is
+not yet worth the pipeline. Read the failing check as the finding it is, not as a broken test.
+
+Only 2026 weeks 2-7 are eligible, because every 2024 and 2025 board on disk was written *after*
+the games it covers. Regenerating them would not help — rosters, depth charts and injury
+reports are overwritten in place, so a rebuilt board sees what the engine could not have seen.
+The sample grows by one week a week.
+
+An earlier 72->100 score for this skill was a judgement call on a rubric written by the agent
+doing the work: a claim with no way to be wrong, i.e. the exact thing every invariant here
+exists to prevent. A single 100/100 that could not move on bad advice was the same mistake
+wearing a lab coat.
 
 ## Gate — no recommendation before the tools have run
 Do not name a player, a bid or a drop until `league_context.py` AND `waiver_wire.py`
