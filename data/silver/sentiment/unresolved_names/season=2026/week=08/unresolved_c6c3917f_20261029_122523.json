@@ -1,0 +1,126 @@
+{
+  "batch_id": "c6c3917f",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-29T12:25:23.218090+00:00",
+  "record_count": 13,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-heyward-jared-verse-calling-steelers-dirty-will-be-addressed-sunday",
+      "player_name": "Cam Heyward",
+      "team_abbr": "PIT",
+      "category": "general",
+      "summary": "Steelers' Cam Heyward says Jared Verse's comments about Pittsburgh being dirty will be addressed on game day.",
+      "source_excerpt": "Dislike between the Browns and Steelers has been brewing for decades, so there isn't much need for any one player to fan the flames of the bad feelings between the two AFC North teams.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-limited-in-his-return-to-practice",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals rookie RB Jeremiyah Love returns to limited practice participation Wednesday.",
+      "source_excerpt": "Cardinals rookie running back Jeremiyah Love returned to practice Wednesday, getting in limited work.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/db-caleb-downs-wr-george-pickens-dl-quinnen-williams-limited-wednesday",
+      "player_name": "Caleb Downs",
+      "team_abbr": "DAL",
+      "category": "injury",
+      "summary": "Cowboys DB Caleb Downs limited Wednesday with ankle injury; status to be determined.",
+      "source_excerpt": "Cowboys defensive back Caleb Downs (ankle) and wide receiver George Pickens (shoulder/hamstring) were limited participants in Wednesday's practice.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-dl-john-franklin-myers-as-non-participants",
+      "player_name": "Carnell Tate",
+      "team_abbr": "TEN",
+      "category": "injury",
+      "summary": "Titans WR Carnell Tate was a non-participant at Wednesday's practice.",
+      "source_excerpt": "The Titans practiced without four players Wednesday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "8d04c502-333b-3376-8fed-3e09b3bf4c74",
+      "player_name": "Chase",
+      "team_abbr": "CIN",
+      "category": "usage",
+      "summary": "Chase expected to be fed early and often by Bengals offense against Titans in Week 8.",
+      "source_excerpt": "Feed Chase and Higgins early and often this week against Tennessee.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "8d04c502-333b-3376-8fed-3e09b3bf4c74",
+      "player_name": "Higgins",
+      "team_abbr": "CIN",
+      "category": "usage",
+      "summary": "Higgins expected to be fed early and often by Bengals offense against Titans in Week 8.",
+      "source_excerpt": "Feed Chase and Higgins early and often this week against Tennessee.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "c433676c-1d6d-376b-acc4-c37902ce40da",
+      "player_name": "Kenny Gainwell",
+      "team_abbr": "TB",
+      "category": "injury",
+      "summary": "Kenny Gainwell non-participant in Buccaneers practice Wednesday with hip injury.",
+      "source_excerpt": "Running back Kenny Gainwell (hip), offensive tackle Luke Goedeke (calf) and linebacker Josiah Trotter (illness) were all listed as non-participants",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "c433676c-1d6d-376b-acc4-c37902ce40da",
+      "player_name": "Josiah Trotter",
+      "team_abbr": "TB",
+      "category": "injury",
+      "summary": "Josiah Trotter non-participant in Buccaneers practice Wednesday with illness.",
+      "source_excerpt": "Running back Kenny Gainwell (hip), offensive tackle Luke Goedeke (calf) and linebacker Josiah Trotter (illness) were all listed as non-participants",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "308b34b3-5fe3-3f3e-935b-a9999717b263",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals rookie RB Jeremiyah Love returned to practice with limited work.",
+      "source_excerpt": "Cardinals rookie running back Jeremiyah Love returned to practice Wednesday, getting in limited work.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-heyward-jared-verse-calling-steelers-dirty-will-be-addressed-sunday",
+      "player_name": "Cam Heyward",
+      "team_abbr": "PIT",
+      "category": "general",
+      "summary": "Cam Heyward responds to Jared Verse's criticism of Steelers defense.",
+      "source_excerpt": "Dislike between the Browns and Steelers has been brewing for decades, so there isn't much need for any one player to fan the flames of the bad feelings between the two AFC North teams.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-limited-in-his-return-to-practice",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals rookie RB Jeremiyah Love returns to practice with limited participation.",
+      "source_excerpt": "Cardinals rookie running back Jeremiyah Love returned to practice Wednesday, getting in limited work.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-theres-a-50-50-chance-he-wont-be-working-in-tv-next-year",
+      "player_name": "Troy Aikman",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Hall of Famer Aikman uncertain about TV broadcasting future.",
+      "source_excerpt": "Hall of Fame quarterback Troy Aikman appeared at a Dallas event on Wednesday night with Peter King, in connection with Peter's new book, The Game.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-carnell-tate-dl-john-franklin-myers-as-non-participants",
+      "player_name": "Carnell Tate",
+      "team_abbr": "TEN",
+      "category": "injury",
+      "summary": "Titans WR Carnell Tate was a non-participant at Wednesday's practice.",
+      "source_excerpt": "The Titans practiced without four players Wednesday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

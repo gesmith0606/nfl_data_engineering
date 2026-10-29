@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "79405eb6-95eb-48db-938d-c81c83e26fcc",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-10-29T12:19:35.427660+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "7f19b4d6-21b0-40be-8541-0714d567e84e",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-picks-experts-face-off-panthers-packers-ravens-bills/",
+      "title": "NFL Week 8 picks: Our experts face off on Panthers at Packers, Ravens at Bills and more",
+      "body_text": "CBS Sports writers Jordan Dajani and Jared Dubin predict this weekend's top games",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-29T12:05:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Dajani",
+        "Jared Dubin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "0c682ad0-92ae-48cb-a66f-8cf4d2aa4df6",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-upset-picks-bills-vs-ravens-vikings-lions/",
+      "title": "NFL Week 8 upset alert: Can Lamar Jackson stun Bills? Will Vikings stay undefeated?",
+      "body_text": "Lamar Jackson's return gives Baltimore a chance to stun Buffalo",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-29T11:33:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Can Lamar",
+        "Will Vikings",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "ec7fabca-9cfa-407e-9e7e-e44e7922be29",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-candidates-impact-tiers/",
+      "title": "2026 NFL trade deadline candidates: Ranking big-name players possibly on the move into tiers",
+      "body_text": "From proven stars like Jonathan Taylor and Maxx Crosby to discount playmakers and depth rentals, here is a look at who could switch teams before the window closes",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-29T11:31:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0034973"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "b718a9a1-aeeb-4611-adf3-adec04dab1d7",
+      "url": "https://www.cbssports.com/nfl/news/most-important-nfl-week-8-games-playoff-picture/",
+      "title": "Most important NFL Week 8 games for playoff picture: Steelers-Browns AFC North battle looms large",
+      "body_text": "Assessing the biggest games of the week using SportsLine projections",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-29T11:30:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4a475ce6-917d-4a0f-98c9-ba482e9cb777",
+      "url": "https://www.cbssports.com/nfl/news/super-bowl-stock-report-for-week-8-joe-burrow-bengals-texans/",
+      "title": "Super Bowl stock report for Week 8: Joe Burrow's excellence ignites Bengals, Texans reach screeching halt",
+      "body_text": "We assess the NFL title race after Week 7 and identify four upcoming games that could reshape the Super Bowl picture",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-29T11:30:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "e7a681ab-0f32-460a-b173-0468f3228d04",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-shocking-predictions-colts-jonathan-taylors-lamar-jackson/",
+      "title": "It wouldn't shock me if ... NFL Week 8: Colts split Jonathan Taylor's reps, Lamar Jackson shows no rust",
+      "body_text": "A Vikings' tight end breaks out? The first place Atlanta Falcons?",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-29T11:28:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Lamar Jackson",
+        "Atlanta Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0034796"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "7ccc895d-2a87-4341-a26f-934c61ec380a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-injury-report-lamar-jackson-kerby-joseph-updates/",
+      "title": "NFL Week 8 injury report: Lamar Jackson practices in full, Lions star Kerby Joseph returns",
+      "body_text": "Get the latest Week 8 injury updates on Lamar Jackson, Kerby Joseph, Matthew Golden, Ja'Marr Chase, Saquon Barkley and other notable NFL players",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-29T04:25:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Kerby Joseph",
+        "Matthew Golden",
+        "Marr Chase",
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0037667",
+        "00-0040667",
+        "00-0034844"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "f22f3fe2-2ea1-488b-a955-0f37fdb290fe",
+      "url": "https://www.cbssports.com/nfl/news/jaguars-lions-set-to-unveil-rivalries-uniform-week-8/",
+      "title": "Two NFL teams set to unveil a new uniform in Week 8 with special 'Rivalries' helmet and jersey",
+      "body_text": "The Lions and Jaguars will both be debuting new uniforms on Sunday",
+      "author": "John Breech",
+      "published_at": "2026-10-28T19:22:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "5a64ffd8-82ee-4b39-95e4-d8c1f4b42439",
+      "url": "https://www.cbssports.com/nfl/news/agents-take-lions-sam-laporta-contract-problem/",
+      "title": "Agent's Take: Detroit Lions' Sam LaPorta contract problem isn't going away",
+      "body_text": "LaPorta may have reason to wait if the Lions use the franchise tag, especially with Brock Bowers positioned to dramatically reshape the tight end market",
+      "author": "Joel Corry",
+      "published_at": "2026-10-28T20:24:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "f2488b0e-35ae-433d-9aef-a568769f2222",
+      "url": "https://www.cbssports.com/nfl/news/colts-josh-downs-request-trade-landing-spots/",
+      "title": "Josh Downs landing spots after Colts WR reportedly asks out, Indy continues fire sale",
+      "body_text": "Downs is in the final year of his rookie deal and drawing trade interest",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-28T18:03:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "7e2b83dc-30af-4bf9-8f78-af73c0d687bc",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-predictions-week-8-2026/",
+      "title": "Week 8 NFL odds, picks, predictions: Computer model backs Steelers and Rams",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 8 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-10-28T16:07:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "bb259f99-22fc-4016-99e3-0993444c3ad5",
+      "url": "https://www.cbssports.com/nfl/draft/news/2027-nfl-mock-draft-week-8-jets-three-top-12-picks/",
+      "title": "2027 NFL Mock Draft: Jets positioned with 3 top-12 picks, plus each team makes at least one selection",
+      "body_text": "Top quarterback prospects head back to school, while the Jets load up with three first-round picks and Jeremiah Smith headlines the class",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-28T15:17:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mock Draft",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "681802b7-0770-42da-9fda-e8c85403cebd",
+      "url": "https://www.cbssports.com/nfl/news/jonathan-taylors-wife-speaks-colts-trade-rumors/",
+      "title": "Jonathan Taylor's wife speaks out on Colts trade rumors: 'My mind is spiraling'",
+      "body_text": "Indianapolis dealt Quenton Nelson and DeForest Buckner, leaving the star running back's family wondering if he is the next veteran on the move before the Nov. 10 trade deadline",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-28T14:35:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0034342"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "e58d56d4-c007-426b-8ce1-e34537989af6",
+      "url": "https://www.cbssports.com/nfl/news/case-for-against-seahawks-trading-for-saquon-barkley/",
+      "title": "Saquon Barkley trade rumors: Should the Seahawks trade for the Eagles' running back?",
+      "body_text": "Here are the pros and cons of a Barkley trade for the defending Super Bowl champs",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-28T13:58:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "007577da-1099-4b1b-bfa6-e9b0dc8c62c8",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-sign-former-ravens-kicker-justin-tucker/",
+      "title": "Chiefs sign former Ravens kicker Justin Tucker after Harrison Butker struggles",
+      "body_text": "Tucker is back with a team for the first time since 2024",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-28T13:47:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Justin Tucker",
+        "Harrison Butker"
+      ],
+      "resolved_player_ids": [
+        "00-0029597",
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "18911223-f152-410b-89cf-d570f9b8e416",
+      "url": "https://www.cbssports.com/nfl/news/predicting-full-14-team-nfl-playoff-bracket-week-8/",
+      "title": "Predicting the full 14-team NFL playoff bracket entering Week 8: Cowboys steal NFC East, Bills make Super Bowl",
+      "body_text": "The Bills in the Super Bowl? Here's our playoff projection heading into Week 8",
+      "author": "John Breech",
+      "published_at": "2026-10-28T13:44:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "801b29fa-9219-40dc-b43a-16fb81e5dc47",
+      "url": "https://www.cbssports.com/nfl/news/nfl-qb-power-rankings-week-8-jared-goff-patrick-mahomes/",
+      "title": "NFL QB Power Rankings, Week 8: There's a new name at No. 1, Patrick Mahomes out of the top 10",
+      "body_text": "Jared Goff seizes the top spot, Joe Burrow climbs into the top five and Mahomes drops out of the top 10",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-29T04:27:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Patrick Mahomes",
+        "Jared Goff",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0033106",
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "c103f620-799a-44cd-882f-96c1116d42ab",
+      "url": "https://www.cbssports.com/betting/news/week-8-nfl-betting-odds-lines-totals-spreads/",
+      "title": "Week 8 NFL betting odds, lines, totals, spreads for every game, including Packers-Panthers, Bills-Ravens",
+      "body_text": "Check out the Week 8 NFL betting odds, spreads and totals for all 14 games, including Packers-Panthers and Bills-Ravens.",
+      "author": "Dustin Baker",
+      "published_at": "2026-10-28T13:19:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ravens Check"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "32955fd6-47b7-45ff-8f82-98bd7390ee97",
+      "url": "https://www.cbssports.com/mlb/news/rays-brewers-world-series-classic-mlb-colts-nfl-trade-deadline-sale/",
+      "title": "Rays stay alive vs. Brewers in extra-innings World Series classic; Colts begin NFL trade deadline sale",
+      "body_text": "Plus the Top 100 And 1 college basketball teams for the 2026-27 season",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-28T12:44:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "World Series"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "aa872050-c98f-4535-9eea-303877f3b2a8",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-picks-predictions-odds-best-bets-commanders-vs-eagles/",
+      "title": "NFL Week 8 picks, best bets: Commanders handle disadvantaged Eagles, Jaguars rout Colts",
+      "body_text": "Tyler Sullivan picks every game on the Week 8 schedule, including five locks against the spread",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-28T11:20:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Colts Tyler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "55f5d998-23ed-45de-9fe4-81a0c8b9088d",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-grades-for-biggest-2025-deals/",
+      "title": "One year later, regrading the 10 biggest deals from the 2025 NFL trade deadline",
+      "body_text": "From the Colts' disastrous gamble on Sauce Gardner to the Eagles' productive Jaelan Phillips rental, here is how last year's biggest deals have aged",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-28T11:17:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sauce Gardner",
+        "Jaelan Phillips"
+      ],
+      "resolved_player_ids": [
+        "00-0037190",
+        "00-0036934"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a1c39a13-9a38-4a37-8696-74b01120810f",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-8-nfl-picks-odds-predictions/",
+      "title": "Prisco's Week 8 NFL picks: Packers over Panthers, Lions hand Vikings their first loss",
+      "body_text": "Pete Prisco reveals all of his Week 8 picks, including the Bills to top the Ravens in a high-scoring game",
+      "author": "Pete Prisco",
+      "published_at": "2026-10-28T10:00:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "c8bb8c00-1ffd-41d7-b4f7-0b5d8a4d2f3b",
+      "url": "https://www.cbssports.com/nfl/news/deforest-buckner-trade-grades-49ers-colts/",
+      "title": "DeForest Buckner trade grades: 49ers get reunion with three-time Pro Bowler, Colts work toward rebuild",
+      "body_text": "The trade makes sense for both sides",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-27T22:33:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pro Bowler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "f3730d33-27b0-4021-8449-4132086ebfe8",
+      "url": "https://www.cbssports.com/nfl/news/deforest-buckner-trade-colts-49ers/",
+      "title": "DeForest Buckner trade: Colts send DT to 49ers in exchange for 2027 fourth-round pick",
+      "body_text": "Buckner began his NFL career with the Niners as a first round pick in 2016",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-27T22:04:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "25dd4b88-0fc9-4075-a8a5-d222f5ea72ec",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-rankings-top-25-eagles-colts/",
+      "title": "NFL trade deadline: Four Eagles, a star Colt and two starting QBs included among top 25 candidates",
+      "body_text": "Saquon Barkley, Jonathan Taylor, Kirk Cousins and more could fetch returns at the trade deadline",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-27T21:11:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Four Eagles",
+        "Saquon Barkley",
+        "Jonathan Taylor",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036223",
+        "00-0029604"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "369950b4-4868-47ee-b370-0b619152dfb4",
+      "url": "https://www.cbssports.com/nfl/news/quenton-nelson-trade-grades-seahawks-colts/",
+      "title": "Quenton Nelson trade grades: Seahawks add eight-time Pro Bowler, while Colts look to sell pieces",
+      "body_text": "Seattle shores up protection for Sam Darnold with an eight-time Pro Bowler, while Indianapolis opens the door to sell more",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-27T18:29:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Quenton Nelson",
+        "Pro Bowler",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034342",
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "b5f5d8c7-9988-44ba-8ddf-3f7bdf77bb2f",
+      "url": "https://www.cbssports.com/nfl/news/2027-super-bowl-headliner-announced-jay-z-super-bowl-lxi/",
+      "title": "2027 Super Bowl halftime show: Jay-Z picks himself to perform for Super Bowl LXI",
+      "body_text": "This is a public service announcement sponsored by Roc Nation",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-27T17:29:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Roc Nation"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "dfa8f457-a294-4dc5-b08c-2750d92b73a1",
+      "url": "https://www.cbssports.com/nfl/news/quenton-nelson-trade-seahawks-colts-nfl-draft-picks/",
+      "title": "Quenton Nelson trade: Seahawks acquire All-Pro guard from Colts for two draft picks, per report",
+      "body_text": "Indianapolis has begun selling off pieces prior to the Nov. 10 trade deadline",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-10-27T17:07:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0034342"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "6ae8bc7a-e2c4-46f9-bd21-b7e4f4887ef5",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-draft-are-eagles-about-to-enter-jeremiah-smith-sweepstakes/",
+      "title": "Tank, Eagles tank? Reeling Philadelphia on verge of entering Jeremiah Smith sweepstakes",
+      "body_text": "A five-game slide and mounting injuries have Philadelphia spiraling toward the top of the draft, where Ohio State's generational wide receiver awaits",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-27T16:57:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Reeling Philadelphia",
+        "Jeremiah Smith",
+        "Ohio State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "190ee70d-2fd5-47e3-ba95-82bca0b3ce08",
+      "url": "https://www.cbssports.com/nfl/news/jerry-jones-on-possible-role-for-troy-aikman-with-cowboys-dont-rule-it-out/",
+      "title": "Jerry Jones on a possible role for Troy Aikman with the Cowboys: 'Don't rule it out'",
+      "body_text": "Aikman won three Super Bowls with the Cowboys in the 1990s",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-27T18:30:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "Troy Aikman",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "058c42c0-badf-4708-968d-952c3275a217",
+      "url": "https://www.cbssports.com/nfl/news/raiders-no-qb-controversy-klint-kubiak-commits-to-kirk-cousins/",
+      "title": "Raiders have 'no controversy' at QB as Klint Kubiak commits to Kirk Cousins over Fernando Mendoza",
+      "body_text": "Kubiak said Mendoza will play this season, but with Cousins locked into the lineup, when will his opportunity arise?",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-27T15:18:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Kirk Cousins",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "b15adce8-1199-49e8-bee9-73ee6c08bd3b",
+      "url": "https://www.cbssports.com/nfl/news/giants-john-harbaugh-backing-cam-skattebos-plan-to-defy-nfl-rulebook/",
+      "title": "Why Giants coach John Harbaugh is backing Cam Skattebo's plan to defy the NFL rulebook",
+      "body_text": "New York's running back refuses to change his hard-nosed approach and his coach wants clarity from the league",
+      "author": "John Breech",
+      "published_at": "2026-10-27T15:49:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Giants",
+        "John Harbaugh",
+        "Cam Skattebo",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "3860fe3c-3042-40da-a0dc-6bdbe4000f96",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-7-lessons-seahawks-super-bowl-jaxson-smith-njigba/",
+      "title": "Lessons from NFL Week 7: Jaxon Smith-Njigba could make WR history, Seahawks look like champs again",
+      "body_text": "Seattle delivered a championship-caliber performance, while Cincinnati discovered that its best offensive formula may also be its simplest",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-27T13:45:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "2add7e47-db47-42fb-9576-b35aa114dfe0",
+      "url": "https://www.cbssports.com/nfl/news/nfl-hot-seat-rankings-2026-head-coach-aaron-glenn-jets-shane-steichen-colts/",
+      "title": "NFL hot-seat rankings: Nick Sirianni's seat getting warmer? Shane Steichen running out of time",
+      "body_text": "These coaches are feeling the most heat entering Week 8",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-10-27T19:14:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Shane Steichen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7a25e9ef-45fc-4b0e-bbe4-de37a52cada6",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-eagles-nfc-east-nfl-brewers-rays-world-series-mlb/",
+      "title": "Cowboys crush Eagles to revive NFC East hopes; Brewers hammer Rays for 3-0 World Series lead",
+      "body_text": "Plus, the Valkyries won a defensive struggle in Game 5 of the WNBA Finals",
+      "author": "Austin Nivison",
+      "published_at": "2026-10-27T12:50:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "World Series"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f168e34d-12d9-4471-823e-e1fbdb7081b2",
+      "url": "https://www.cbssports.com/nfl/news/case-for-against-giants-trading-for-saquon-barkley/",
+      "title": "Should the Giants trade for Saquon Barkley? Making the case for and against potential blockbuster deal",
+      "body_text": "A look at the pros and cons of acquiring Barkley",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-27T18:13:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

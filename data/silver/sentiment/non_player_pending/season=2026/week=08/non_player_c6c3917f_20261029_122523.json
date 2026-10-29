@@ -1,0 +1,273 @@
+{
+  "batch_id": "c6c3917f",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-29T12:25:23.209585+00:00",
+  "record_count": 24,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/expect-plenty-of-flags-to-fly-on-thursday-night-between-panthers-and-packers",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/expect-plenty-of-flags-to-fly-on-thursday-night-between-panthers-and-packers",
+      "team_abbr": null,
+      "summary": "Panthers and Packers Thursday night game expected to have excessive penalties.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "On Thursday night, the planets will align in a very specific way.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-estimates-75-percent-of-former-nfl-players-who-died-from-2008-to-2023-had-cte",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-estimates-75-percent-of-former-nfl-players-who-died-from-2008-to-2023-had-cte",
+      "team_abbr": null,
+      "summary": "Study finds 75% of former NFL players who died 2008-2023 had CTE, highlighting long-term health risks.",
+      "sentiment": -0.7,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "A new study from JAMA Network Open by researchers at Boston University, Mass General Brigham, and the Concussion & CTE Foundation has found that an estimated 75 percent of former NFL players who died between 2008 and 2023 had CTE.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-pfts-25th-anniversary-completely-re-written-quarterback-of-the-future-is-coming",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-pfts-25th-anniversary-completely-re-written-quarterback-of-the-future-is-coming",
+      "team_abbr": null,
+      "summary": "Pro Football Talk marks 25th anniversary on November 1 with re-written Quarterback of the Future feature.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The 25th anniversary of the launch of PFT happens on Sunday, November 1.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-theres-a-50-50-chance-he-wont-be-working-in-tv-next-year",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-theres-a-50-50-chance-he-wont-be-working-in-tv-next-year",
+      "team_abbr": null,
+      "summary": "Troy Aikman indicates 50-50 chance he leaves TV broadcasting role next year amid uncertainty.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Hall of Fame quarterback Troy Aikman appeared at a Dallas event on Wednesday night with Peter King, in connection with Peter's new book, The Game.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/18-8-million-for-cowboys-eagles-on-monday-night",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/18-8-million-for-cowboys-eagles-on-monday-night",
+      "team_abbr": null,
+      "summary": "Cowboys-Eagles NFC East matchup drew 18.8 million viewers despite both teams entering at 4-8 record.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Even with the teams entering the game at a combined 4-8, an NFC East battle between the Cowboys and Eagles delivered.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-non-political-kirk-herbstreit-recently-spoke-at-a-political-action-committee-event",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-non-political-kirk-herbstreit-recently-spoke-at-a-political-action-committee-event",
+      "team_abbr": null,
+      "summary": "Kirk Herbstreit spoke at a political action committee event despite non-political positioning.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "This age of liars, grifters, and charlatans encourages other liars, grifters, and charlatans to lie, grift, and/or engage in charlatanry.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "7f19b4d6-21b0-40be-8541-0714d567e84e",
+      "external_id": "7f19b4d6-21b0-40be-8541-0714d567e84e",
+      "team_abbr": null,
+      "summary": "CBS Sports writers Jordan Dajani and Jared Dubin make Week 8 predictions for top games.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "CBS Sports writers Jordan Dajani and Jared Dubin predict this weekend's top games",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "b718a9a1-aeeb-4611-adf3-adec04dab1d7",
+      "external_id": "b718a9a1-aeeb-4611-adf3-adec04dab1d7",
+      "team_abbr": null,
+      "summary": "Analysis of Week 8's most important games for playoff picture, highlighting Steelers-Browns AFC North battle.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Assessing the biggest games of the week using SportsLine projections",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "18911223-f152-410b-89cf-d570f9b8e416",
+      "external_id": "18911223-f152-410b-89cf-d570f9b8e416",
+      "team_abbr": null,
+      "summary": "Playoff projection for Week 8 features Bills in Super Bowl and Cowboys winning NFC East.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The Bills in the Super Bowl? Here's our playoff projection heading into Week 8",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c103f620-799a-44cd-882f-96c1116d42ab",
+      "external_id": "c103f620-799a-44cd-882f-96c1116d42ab",
+      "team_abbr": null,
+      "summary": "Week 8 NFL betting odds and spreads posted for all 14 games.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Check out the Week 8 NFL betting odds, spreads and totals for all 14 games, including Packers-Panthers and Bills-Ravens.",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "8528eccb-f255-358b-9249-2022fd626480",
+      "external_id": "8528eccb-f255-358b-9249-2022fd626480",
+      "team_abbr": null,
+      "summary": "NFL predictions noting injury concerns affecting teams heading into short week.",
+      "sentiment": -0.2,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "Depth and discipline may well decide the game. Who does that favor on a short week?",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "f9fb0133-cba9-3991-a72d-2b161de23c75",
+      "external_id": "f9fb0133-cba9-3991-a72d-2b161de23c75",
+      "team_abbr": null,
+      "summary": "General NFL Survivor pool strategy article for Week 8 without specific player focus.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "David Fucillo provides NFL Survivor pool tips in Week 8, offering up safe, value, and trap picks.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "69a7ad3b-6888-317c-ab85-2b5bad4f5001",
+      "external_id": "69a7ad3b-6888-317c-ab85-2b5bad4f5001",
+      "team_abbr": null,
+      "summary": "Poll ranking and breaking down the best teams in the NFC through Week 8.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Breaking down and ranking the best teams in the NFC through eight weeks.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "9fc1f198-121c-338b-9a80-f89ae96740d3",
+      "external_id": "9fc1f198-121c-338b-9a80-f89ae96740d3",
+      "team_abbr": null,
+      "summary": "David Fucillo provides straight-up picks for all 14 NFL games in Week 8 with confidence levels.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "David Fucillo makes picks for all 14 NFL games with levels of confidence ahead of Week 8.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "fcc1f228-f267-3d16-b4cf-dfc7919cebf6",
+      "external_id": "fcc1f228-f267-3d16-b4cf-dfc7919cebf6",
+      "team_abbr": null,
+      "summary": "Christopher Hart provides straight-up winner predictions for all Week 8 2026 NFL matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Mile High Report's Christopher Hart predicts the straight-up winners for every Week 8 matchup of the 2026 season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "214fa9db-401d-3500-bbd2-659bba0ac72c",
+      "external_id": "214fa9db-401d-3500-bbd2-659bba0ac72c",
+      "team_abbr": null,
+      "summary": "General fantasy football start/sit recommendations for Week 8 without specific player mentions.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Who can you start and sit in fantasy football Week 8? USA TODAY Sports breaks down 30 players to trust or fade.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "a372c086-d526-3421-93e1-6435e01a9125",
+      "external_id": "a372c086-d526-3421-93e1-6435e01a9125",
+      "team_abbr": null,
+      "summary": "NFL trade deadline approaching with teams considering selling veterans.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "trade",
+      "source_excerpt": "Trade winds are already picking up in the NFL ahead of the league's annual deadline for deals. But which teams could be sellers at the cutoff?",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "e50b7dc4-584d-301a-98c7-ab54929a11dd",
+      "external_id": "e50b7dc4-584d-301a-98c7-ab54929a11dd",
+      "team_abbr": null,
+      "summary": "Thursday Night Football to feature heavily-penalized team against ref with most penalty calls.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "What happens when the NFL's most-penalized team runs into the ref calling the most penalties in a season? \"Thursday Night Football\" will give us the answer.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "cf932364-5bb9-375e-80b8-f005aa36a41d",
+      "external_id": "cf932364-5bb9-375e-80b8-f005aa36a41d",
+      "team_abbr": null,
+      "summary": "Week 8 predictions include Lions defeating unbeaten Vikings and Steelers beating Browns.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Sam Farmer makes his predictions for Week 8 of the NFL season, with the Lions defeating the unbeaten Vikings and the Steelers beating the Browns.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "baf3d0f5-3b56-3b03-9272-77271b352c7c",
+      "external_id": "baf3d0f5-3b56-3b03-9272-77271b352c7c",
+      "team_abbr": null,
+      "summary": "NFL Week 8 schedule information including Thursday Night Football game details.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The NFL regular season rolls into Week 8. Does that mean there is a Thursday Night Football game tonight? Here's what to know.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "91c5415b-01bd-33e3-84d1-56e97f2b4c80",
+      "external_id": "91c5415b-01bd-33e3-84d1-56e97f2b4c80",
+      "team_abbr": null,
+      "summary": "Ranking of Hall of Fame caliber receivers available to NFL quarterbacks in 2026.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Quarterbacks in 2026 have a series of dazzling weapons at their disposal. We rank the best of the receivers in the NFL at the moment",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-estimates-75-percent-of-former-nfl-players-who-died-from-2008-to-2023-had-cte",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-study-estimates-75-percent-of-former-nfl-players-who-died-from-2008-to-2023-had-cte",
+      "team_abbr": null,
+      "summary": "Study finds 75% of deceased former NFL players had CTE between 2008-2023.",
+      "sentiment": -0.5,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "A new study from JAMA Network Open by researchers at Boston University, Mass General Brigham, and the Concussion & CTE Foundation has found that an estimated 75 percent of former NFL players who died between 2008 and 2023 had CTE.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-pfts-25th-anniversary-completely-re-written-quarterback-of-the-future-is-coming",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-pfts-25th-anniversary-completely-re-written-quarterback-of-the-future-is-coming",
+      "team_abbr": null,
+      "summary": "PFT celebrates 25th anniversary with updated Quarterback of the Future feature.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The 25th anniversary of the launch of PFT happens on Sunday, November 1.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-non-political-kirk-herbstreit-recently-spoke-at-a-political-action-committee-event",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-non-political-kirk-herbstreit-recently-spoke-at-a-political-action-committee-event",
+      "team_abbr": null,
+      "summary": "Non-NFL player content; not relevant to fantasy football analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "This age of liars, grifters, and charlatans encourages other liars, grifters, and charlatans to lie, grift, and/or engage in charlatanry.",
+      "subject_type": "reporter"
+    }
+  ]
+}

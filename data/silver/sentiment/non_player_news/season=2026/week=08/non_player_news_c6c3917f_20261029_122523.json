@@ -1,0 +1,229 @@
+{
+  "batch_id": "c6c3917f",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-29T12:25:23.210095+00:00",
+  "record_count": 20,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-doesnt-rule-out-having-two-kickers-on-48-man-game-day-roster",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-doesnt-rule-out-having-two-kickers-on-48-man-game-day-roster",
+      "team_abbr": "LAR",
+      "summary": "Rams head coach Sean McVay explores unconventional roster options including potentially two kickers for game day.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "When you have two quarterbacks, you have none.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "4a475ce6-917d-4a0f-98c9-ba482e9cb777",
+      "external_id": "4a475ce6-917d-4a0f-98c9-ba482e9cb777",
+      "team_abbr": "HOU",
+      "summary": "Texans' Super Bowl stock takes significant hit after Week 7 performance.",
+      "sentiment": -0.6,
+      "confidence": 0.75,
+      "category": "general",
+      "source_excerpt": "Joe Burrow's excellence ignites Bengals, Texans reach screeching halt",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f22f3fe2-2ea1-488b-a955-0f37fdb290fe",
+      "external_id": "f22f3fe2-2ea1-488b-a955-0f37fdb290fe",
+      "team_abbr": "DET",
+      "summary": "Lions will debut new 'Rivalries' uniform with special helmet and jersey in Week 8.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Lions and Jaguars will both be debuting new uniforms on Sunday",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f22f3fe2-2ea1-488b-a955-0f37fdb290fe",
+      "external_id": "f22f3fe2-2ea1-488b-a955-0f37fdb290fe",
+      "team_abbr": "JAX",
+      "summary": "Jaguars will debut new 'Rivalries' uniform with special helmet and jersey in Week 8.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Lions and Jaguars will both be debuting new uniforms on Sunday",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "bb259f99-22fc-4016-99e3-0993444c3ad5",
+      "external_id": "bb259f99-22fc-4016-99e3-0993444c3ad5",
+      "team_abbr": "NYJ",
+      "summary": "Jets positioned with three top-12 picks in 2027 mock draft; Jeremiah Smith headlines prospect class.",
+      "sentiment": 0.2,
+      "confidence": 0.65,
+      "category": "general",
+      "source_excerpt": "Top quarterback prospects head back to school, while the Jets load up with three first-round picks and Jeremiah Smith headlines the class",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "32955fd6-47b7-45ff-8f82-98bd7390ee97",
+      "external_id": "32955fd6-47b7-45ff-8f82-98bd7390ee97",
+      "team_abbr": "IND",
+      "summary": "Colts begin NFL trade deadline sale.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "trade",
+      "source_excerpt": "Colts begin NFL trade deadline sale",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "27651ac2-c5e9-3995-b628-5d8027c8bdd4",
+      "external_id": "27651ac2-c5e9-3995-b628-5d8027c8bdd4",
+      "team_abbr": "DET",
+      "summary": "Lions Week 8 preview analyzing Vikings' offensive and defensive schemes.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Breaking down the offensive and defensive schemes of the Minnesota Vikings, the Detroit Lions' Week 8 opponent.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "803684f6-4725-3235-aaa0-49818a32e785",
+      "external_id": "803684f6-4725-3235-aaa0-49818a32e785",
+      "team_abbr": "NO",
+      "summary": "Saints news coverage including owner Gayle Benson's thoughts after Paris game.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Gayle Benson's thoughts after the Paris game",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "ce50a01a-2512-3976-9f4b-bb24b382125a",
+      "external_id": "ce50a01a-2512-3976-9f4b-bb24b382125a",
+      "team_abbr": "LAR",
+      "summary": "Coach Sean McVay said injury-ravaged Rams will stand pat ahead of trade deadline.",
+      "sentiment": -0.4,
+      "confidence": 0.8,
+      "category": "trade",
+      "source_excerpt": "The NFL trade deadline is less than two weeks away, but coach Sean McVay said that the injury-ravaged Rams are standing pat.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "53094532-d10a-3689-be1f-ac72cad98cce",
+      "external_id": "53094532-d10a-3689-be1f-ac72cad98cce",
+      "team_abbr": "TEN",
+      "summary": "Titans preparing for Week 8 matchup against Bengals with focus on internal progress.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Tennessee Titans are getting ready to play their Week 8 matchup against the Cincinnati Bengals.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8d139783-d96d-3f2c-b8f3-384ee4f397b5",
+      "external_id": "8d139783-d96d-3f2c-b8f3-384ee4f397b5",
+      "team_abbr": "TB",
+      "summary": "Buccaneers prepare for Week 8 matchup against Falcons in attempt to salvage season.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Tampa Bay Buccaneers are back to business this week against the Atlanta Falcons.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "40aab560-d924-3e85-ae6d-b50ec80c9f60",
+      "external_id": "40aab560-d924-3e85-ae6d-b50ec80c9f60",
+      "team_abbr": "CLE",
+      "summary": "Browns suffered 51-point loss to Pittsburgh in October 29 game.",
+      "sentiment": -0.5,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the October 29 edition of the Daily Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a07edf44-4979-3bca-9f8d-23347fa69bd3",
+      "external_id": "a07edf44-4979-3bca-9f8d-23347fa69bd3",
+      "team_abbr": "WAS",
+      "summary": "Analysis of key matchups in Week 8 Sunday Night Football between Eagles and Commanders.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Hogs Haven looks at key factors that affect this Week 8 Sunday Night Football game between the Eagles & Commanders",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b97a510d-8862-3104-80b9-29277c0e9473",
+      "external_id": "b97a510d-8862-3104-80b9-29277c0e9473",
+      "team_abbr": "GB",
+      "summary": "Game primer for Packers vs. Panthers Thursday Night Football matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Here's your primer for the Packers' second and final Thursday Night Football game of the year.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b92fa5f8-2b40-3d60-882a-7c4ea6c7ac35",
+      "external_id": "b92fa5f8-2b40-3d60-882a-7c4ea6c7ac35",
+      "team_abbr": "SF",
+      "summary": "Daily 49ers news roundup for Thursday, October 29th, 2026.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Your daily San Francisco 49ers news for Thursday, October 29th, 2026",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a13af16b-7841-3658-a197-55912a60c85f",
+      "external_id": "a13af16b-7841-3658-a197-55912a60c85f",
+      "team_abbr": "PHI",
+      "summary": "Eagles defensive performance disappointing after fifth straight loss.",
+      "sentiment": -0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "A look at some negative specs on defense after the Eagles dropped their fifth straight.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f074889c-f21f-3a99-a2d2-2eda78bb673b",
+      "external_id": "f074889c-f21f-3a99-a2d2-2eda78bb673b",
+      "team_abbr": "PHI",
+      "summary": "Eagles considering selling at trade deadline with 2-5 record and potential roster losses.",
+      "sentiment": -0.8,
+      "confidence": 0.8,
+      "category": "trade",
+      "source_excerpt": "The Eagles are 2-5 so it is time to think about selling at the deadline. Here's a look at their trade chips.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "469327d1-a7e7-3873-a677-adcc8a17880f",
+      "external_id": "469327d1-a7e7-3873-a677-adcc8a17880f",
+      "team_abbr": "MIN",
+      "summary": "Brian Flores' blitz-heavy defensive scheme with Vikings succeeding after dominant 6-0 start.",
+      "sentiment": 0.9,
+      "confidence": 0.85,
+      "category": "general",
+      "source_excerpt": "The Minnesota Vikings under defensive coordinator Brian Flores run a unique scheme that has become a hot topic around the league after dominating every opponent en route to a 6-0 start for the Vikings.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "265879a4-4584-314e-bb45-b43e693752e3",
+      "external_id": "265879a4-4584-314e-bb45-b43e693752e3",
+      "team_abbr": "LAR",
+      "summary": "Sean McVay discusses potential roster management for kickers.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "When you have two quarterbacks, you have none.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-doesnt-rule-out-having-two-kickers-on-48-man-game-day-roster",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-doesnt-rule-out-having-two-kickers-on-48-man-game-day-roster",
+      "team_abbr": "LAR",
+      "summary": "McVay considers roster flexibility with potential dual kicker strategy.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "When you have two quarterbacks, you have none.",
+      "subject_type": "coach"
+    }
+  ]
+}
