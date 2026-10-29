@@ -6,7 +6,7 @@ Covers:
 - Full positional coverage (QB/RB/WR/TE) regardless of raw data gaps.
 - Real SOS data surfacing (def_sos_rank, def_sos_score) for a team-week that
   definitely exists in silver.
-- Season-walk-back fallback (2026 -> latest available season).
+- Season-walk-back fallback (a season with no silver -> latest available).
 - Week-walk-back fallback when the requested week has no rows.
 - Unknown team rejection (ValueError / HTTP 404).
 - Monotone rating-vs-rank contract (lower rank = higher rating).
@@ -29,6 +29,24 @@ from web.api.main import app  # noqa: E402
 from web.api.services import team_defense_service  # noqa: E402
 
 client = TestClient(app)
+
+#: The router accepts seasons in [2016, 2030] (see teams_defense.py).
+_ROUTER_MAX_SEASON = 2030
+
+
+def _absent_season() -> int:
+    """The first season with no positional silver, for exercising walk-back.
+
+    Pinning a literal year is what rotted the original version of these
+    tests: they used 2026 because it was absent when they were written, and
+    they began failing the moment 2026 silver landed (2026-10-22). The
+    fallback path itself was never broken. Derive the year instead, so the
+    test keeps testing the mechanism rather than the calendar.
+    """
+    seasons = team_defense_service._available_seasons(
+        team_defense_service._POSITIONAL_ROOT
+    )
+    return max(seasons) + 1 if seasons else _ROUTER_MAX_SEASON
 
 
 # ---------------------------------------------------------------------------
@@ -68,12 +86,27 @@ class TestLoadDefenseMetrics:
         assert 1 <= result["def_sos_rank"] <= 32
         assert result["adj_def_epa"] is not None
 
-    def test_season_fallback_2026(self):
-        """Requesting 2026 (absent) must fall back to latest available season."""
-        result = team_defense_service.load_defense_metrics("BUF", 2026, 1)
+    def test_season_fallback_walks_back(self):
+        """A season with no silver must fall back to the latest available."""
+        absent = _absent_season()
+        result = team_defense_service.load_defense_metrics("BUF", absent, 1)
         assert result["fallback"] is True
         assert result["fallback_season"] is not None
-        assert result["fallback_season"] < 2026
+        assert result["fallback_season"] < absent
+
+    def test_no_fallback_when_season_present(self):
+        """The flag must stay False for a season we actually hold.
+
+        Guards the other direction: the stale version of this test passed for
+        years by asserting fallback on a season that later gained data, and
+        nothing checked that a present season reports no fallback.
+        """
+        seasons = team_defense_service._available_seasons(
+            team_defense_service._POSITIONAL_ROOT
+        )
+        result = team_defense_service.load_defense_metrics("BUF", max(seasons), 1)
+        assert result["fallback"] is False
+        assert result["fallback_season"] is None
         # Positional coverage still holds on fallback.
         assert {p["position"] for p in result["positional"]} == {
             "QB",
@@ -146,9 +179,16 @@ class TestDefenseMetricsEndpoint:
         resp = client.get("/api/teams/BUF/defense-metrics?season=2024&week=99")
         assert resp.status_code == 422
 
-    def test_endpoint_fallback_for_2026(self):
-        """2026 silver/defense absent at execution time → fallback=true."""
-        resp = client.get("/api/teams/BUF/defense-metrics?season=2026&week=1")
+    def test_endpoint_fallback_for_absent_season(self):
+        """A season with no silver returns 200 with fallback=true."""
+        absent = _absent_season()
+        if absent > _ROUTER_MAX_SEASON:
+            pytest.skip(
+                f"positional silver now reaches {absent - 1}, the router's "
+                f"max season is {_ROUTER_MAX_SEASON} — raise the Query bound "
+                "in teams_defense.py before this can be exercised again"
+            )
+        resp = client.get(f"/api/teams/BUF/defense-metrics?season={absent}&week=1")
         assert resp.status_code == 200, resp.text
         body = resp.json()
         assert body["fallback"] is True
