@@ -57,6 +57,73 @@ class Check:
     run: Callable[[], bool]
     required: bool = True
     live: bool = False  # needs a league API / the committed boards
+    #: "machinery" — does the tool have this property. "advice" — is what it
+    #: recommends any good. Reported separately because for a season the two
+    #: were conflated into one number: week 8 2026 the skill advertised
+    #: 100/100 while four recommendations in a row had to be corrected by
+    #: hand, which was true and useless, because no check could move when the
+    #: advice was wrong.
+    kind: str = "machinery"
+
+
+_REC_CACHE: dict = {}
+
+
+def _rec_backtest(league: str) -> dict:
+    """The recommendation backtest's summary, run once per league."""
+    if league not in _REC_CACHE:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "backtest_recommendations",
+            REPO_ROOT / "scripts" / "backtest_recommendations.py",
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        _REC_CACHE[league] = mod.run(2026, league, 3)["summary"]
+    return _REC_CACHE[league]
+
+
+def _ranking_beats_chance(league: str) -> bool:
+    s = _rec_backtest(league)
+    return (
+        s.get("n_weeks", 0) >= 2
+        and abs(s.get("null_lift", 9)) <= 0.5
+        and s.get("mean_lift", 0) > s.get("mde", 9)
+    )
+
+
+def _ranking_beats_the_box_score(league: str) -> bool:
+    """Does the modelling earn its keep over "whoever scored most last week"?
+
+    Currently it does not — both readable rooms come out tied. That is the
+    check doing its job: it is the first thing in this audit that can fail
+    because the advice is weak rather than because a function is missing.
+    """
+    return _rec_backtest(league).get("verdict") == "RANKING ADDS VALUE"
+
+
+def _guard_refuses_a_foreign_league() -> bool:
+    """``config.our_league`` rejects a preset that is not George's.
+
+    Asserted against a synthetic entry rather than a real one: the guard has
+    to keep working even when every configured league happens to be ours,
+    which is exactly the state that silently disarmed the old check.
+    """
+    from src import config
+
+    key = "_audit_not_ours"
+    config.LEAGUE_PRESETS[key] = {"platform": "sleeper", "owned": False}
+    try:
+        config.our_league(key)
+    except ValueError as exc:
+        return "NOT one of our leagues" in str(exc)
+    except Exception:
+        return False
+    else:
+        return False
+    finally:
+        config.LEAGUE_PRESETS.pop(key, None)
 
 
 def _sh(args: Sequence[str], timeout: int = 900) -> str:
@@ -111,11 +178,33 @@ def build_checks(week: int) -> List[Check]:
         Check(
             "guards",
             "a league that is not ours is refused by name",
-            "python scripts/waiver_wire.py --league mantis --week N",
-            lambda: "NOT one of our leagues"
-            in _sh(
-                ["scripts/waiver_wire.py", "--league", "mantis", "--week", str(week)]
-            ),
+            "python -c \"from src import config; config.our_league('x')\"",
+            # Was: grep the mantis report for the refusal. #158 dropped
+            # `gentlemen` and `mahomos`, the last presets marked owned: False,
+            # so from 2026-10-24 there was no league left that could produce
+            # the message and the check could never pass again — it sat red
+            # for three days while the skill still advertised 100/100. The
+            # guard is asserted directly now, so removing a preset cannot
+            # quietly disarm it.
+            _guard_refuses_a_foreign_league,
+        ),
+        # --- advice quality -------------------------------------------------
+        # The only checks here that can fail because a RECOMMENDATION was bad.
+        Check(
+            "advice",
+            "the board's waiver-tier ranking beats a shuffled one",
+            "python scripts/backtest_recommendations.py --league mantis --top-k 3",
+            lambda: _ranking_beats_chance("mantis"),
+            live=True,
+            kind="advice",
+        ),
+        Check(
+            "advice",
+            "...and beats ranking the same tier by last week's box score",
+            "python scripts/backtest_recommendations.py --league mantis --top-k 3",
+            lambda: _ranking_beats_the_box_score("mantis"),
+            live=True,
+            kind="advice",
         ),
         # --- pricing ------------------------------------------------------
         Check(
@@ -262,12 +351,14 @@ def main(argv: Optional[list] = None) -> int:
     print(f"\n=== waiver skill audit — {len(checks)} falsifiable checks ===\n")
     passed, failed_required = 0, 0
     by_dim: dict = {}
+    by_check: dict = {}
     for check in checks:
         ok = False
         try:
             ok = bool(check.run())
         except Exception as exc:  # noqa: BLE001 — a crashing check is a failing check
             print(f"  [ERROR] {check.claim}: {type(exc).__name__}")
+        by_check[id(check)] = ok
         passed += ok
         failed_required += (not ok) and check.required
         tally = by_dim.setdefault(check.dimension, [0, 0])
@@ -281,6 +372,31 @@ def main(argv: Optional[list] = None) -> int:
     print(f"\n  {'dimension':14}{'passed':>8}")
     for dim, (got, tot) in by_dim.items():
         print(f"  {dim:14}{got:>4}/{tot}")
+
+    # Two scores, never one. A single number let "the machinery is sound" be
+    # read as "the advice is good", which is how this audit sat at 100/100
+    # through a week of corrections.
+    def _tally(kind: str) -> tuple:
+        sel = [c for c in checks if c.kind == kind]
+        ok = sum(1 for c in sel if by_check.get(id(c)))
+        return ok, len(sel)
+
+    mach_ok, mach_n = _tally("machinery")
+    adv_ok, adv_n = _tally("advice")
+    print(
+        f"\n  MACHINERY: {round(100 * mach_ok / max(1, mach_n))}/100 "
+        f"({mach_ok}/{mach_n}) — does the tool have the property"
+    )
+    if adv_n:
+        print(
+            f"  ADVICE:    {round(100 * adv_ok / max(1, adv_n))}/100 "
+            f"({adv_ok}/{adv_n}) — is what it recommends any good"
+        )
+        if adv_ok < adv_n:
+            print(
+                "             a machinery score of 100 says nothing about this;"
+                "\n             run the evidence command above for the numbers"
+            )
     score = round(100 * passed / max(1, len(checks)))
     print(f"\n  SCORE: {score}/100 ({passed}/{len(checks)} checks hold)")
     if failed_required:

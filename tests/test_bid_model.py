@@ -35,36 +35,80 @@ def test_counts_dedicated_slots_and_ignores_flex():
     assert need == {"QB": 1, "RB": 2, "WR": 3, "TE": 1}
 
 
-# --- is a rival thin at the position? ---------------------------------------
+# --- can a rival field the position this week? -------------------------------
+#
+# This used to ask "does the team lack a surplus" (healthy <= required). In a
+# one-QB league that is true of nearly every team by construction, so week 8
+# 2026 the model reported three La Liga rivals "thin at QB" whose quarterbacks
+# all played, and escalated the bid to $14 — a quarter of the budget — for a
+# bye-week fill. The correct count that week was zero. The test is now whether
+# he is short THIS week; a rival who might need the spot after some future
+# injury is not bidding against you now.
 
 REG = {
-    "1": {"position": "RB", "injury_status": None},
-    "2": {"position": "RB", "injury_status": None},
-    "3": {"position": "RB", "injury_status": "Out"},
-    "4": {"position": "RB", "injury_status": None},
-    "5": {"position": "WR", "injury_status": None},
+    "1": {"position": "RB", "injury_status": None, "team": "BAL"},
+    "2": {"position": "RB", "injury_status": None, "team": "BUF"},
+    "3": {"position": "RB", "injury_status": "Out", "team": "CIN"},
+    "4": {"position": "RB", "injury_status": None, "team": "DAL"},
+    "5": {"position": "WR", "injury_status": None, "team": "DEN"},
+    "6": {"position": "QB", "injury_status": None, "team": "SF"},
+    "7": {"position": "QB", "injury_status": None, "team": "DAL"},
 }
+#: Everyone in REG except SF, who are on bye.
+PLAYING = {"BAL", "BUF", "CIN", "DAL", "DEN"}
 
 
-def test_team_at_exactly_its_requirement_is_thin():
-    assert thin_at({"players": ["1", "2"]}, REG, "RB", 2) is True
+def test_team_at_exactly_its_requirement_can_field_it():
+    """Two healthy RBs against a two-RB requirement is not a need."""
+    assert thin_at({"players": ["1", "2"]}, REG, "RB", 2) is False
+
+
+def test_team_one_body_short_is_not_a_rival():
+    """It fills from flex or streams cheaply; it is not bidding against us.
+
+    Counting these put most of a 10-team dynasty league in the market during
+    a four-bye week and priced no-help wideouts at $94.
+    """
+    assert thin_at({"players": ["1"]}, REG, "RB", 2) is False
+
+
+def test_team_with_nobody_to_start_is_a_rival():
+    assert thin_at({"players": []}, REG, "RB", 2) is True
 
 
 def test_team_with_surplus_is_not_thin():
-    """Three healthy RBs against a two-RB requirement is depth, not a need."""
     assert thin_at({"players": ["1", "2", "4"]}, REG, "RB", 2) is False
     assert thin_at({"players": ["1", "2", "4", "5"]}, REG, "RB", 1) is False
 
 
 def test_injured_reserve_and_taxi_players_do_not_count():
-    roster = {"players": ["1", "2", "4"], "reserve": ["4"]}
-    assert thin_at(roster, REG, "RB", 2) is True
-    roster = {"players": ["1", "2", "4"], "taxi": ["4"]}
-    assert thin_at(roster, REG, "RB", 2) is True
+    """A stashed body cannot start, so a team holding only one has nobody."""
+    assert thin_at({"players": ["1"]}, REG, "RB", 1) is False
+    assert thin_at({"players": ["1"], "reserve": ["1"]}, REG, "RB", 1) is True
+    assert thin_at({"players": ["1"], "taxi": ["1"]}, REG, "RB", 1) is True
 
 
 def test_blocked_players_do_not_count_as_depth():
-    assert thin_at({"players": ["1", "2", "3"]}, REG, "RB", 2) is True
+    """ "3" is Out, so a team holding only him has nobody to start."""
+    assert thin_at({"players": ["3"]}, REG, "RB", 1) is True
+    assert thin_at({"players": ["1"]}, REG, "RB", 1) is False
+
+
+def test_a_quarterback_on_bye_cannot_fill_the_slot():
+    """The La Liga week-8 case, both sides of it.
+
+    Our only QB was Brock Purdy and San Francisco were on bye; every rival's
+    quarterback played. Before this, both read "thin".
+    """
+    mine = {"players": ["6"]}  # SF QB, on bye
+    rival = {"players": ["7"]}  # DAL QB, playing
+    assert thin_at(mine, REG, "QB", 1, PLAYING) is True
+    assert thin_at(rival, REG, "QB", 1, PLAYING) is False
+
+
+def test_without_a_playing_set_a_bye_still_counts_as_available():
+    """Callers that cannot resolve kickoffs keep the old, looser behaviour."""
+    assert thin_at({"players": ["6"]}, REG, "QB", 1) is False
 
 
 # --- per-team bid history ----------------------------------------------------

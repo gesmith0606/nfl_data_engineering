@@ -13,7 +13,7 @@ both agree (the same rule the skill-position lineup tool uses):
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import AbstractSet, Dict, Iterable, List, Optional, Tuple
 
 import pandas as pd
 
@@ -26,16 +26,29 @@ def _norm(team: object) -> str:
     return TEAM_ALIAS.get(t, t)
 
 
-def implied_totals_from_odds(odds: pd.DataFrame) -> Dict[str, float]:
+def implied_totals_from_odds(
+    odds: pd.DataFrame,
+    games: Optional[AbstractSet[Tuple[str, str]]] = None,
+) -> Dict[str, float]:
     """``team -> implied points`` from an odds snapshot (median across books).
 
     Expects ``home_team_nfl``, ``away_team_nfl``, ``market`` in {spreads, totals},
     ``home_spread`` (negative = home favored) and ``total_points``.
+
+    ``games`` is the set of ``(home, away)`` pairs to keep, normalised the same
+    way this module normalises everything else. **Pass it.** A live snapshot
+    holds every game the books have posted, which in-season is the current week
+    AND the next one or two, so a team appears in several matchups and the last
+    one written wins. Week 8 2026 that made the Cowboys' opponent read an
+    implied 16.8 — Arizona's week-NINE line at Seattle — instead of 24.0, and
+    the defense streamer recommended the wrong team off it.
     """
     if odds is None or odds.empty:
         return {}
     out: Dict[str, float] = {}
     for (home, away), g in odds.groupby(["home_team_nfl", "away_team_nfl"]):
+        if games is not None and (_norm(home), _norm(away)) not in games:
+            continue
         spread = g.loc[g["market"] == "spreads", "home_spread"].dropna().median()
         total = g.loc[g["market"] == "totals", "total_points"].dropna().median()
         if pd.isna(spread) or pd.isna(total):
@@ -43,6 +56,12 @@ def implied_totals_from_odds(odds: pd.DataFrame) -> Dict[str, float]:
         out[_norm(home)] = total / 2 - spread / 2
         out[_norm(away)] = total / 2 + spread / 2
     return out
+
+
+def week_games(sched: pd.DataFrame, week: int) -> AbstractSet[Tuple[str, str]]:
+    """``{(home, away)}`` for ``week``, normalised — the filter for odds rows."""
+    g = sched[sched["week"] == week]
+    return {(_norm(r.home_team), _norm(r.away_team)) for r in g.itertuples(index=False)}
 
 
 def implied_totals_from_schedule(sched: pd.DataFrame, week: int) -> Dict[str, float]:

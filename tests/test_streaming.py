@@ -5,6 +5,7 @@ import pytest
 
 from src.streaming import (
     implied_totals_from_odds,
+    week_games,
     implied_totals_from_schedule,
     matchup_table,
     swap_verdict,
@@ -104,3 +105,63 @@ def test_swap_verdict_requires_both_sources():
         swap_verdict(proj_gain=-1.0, vegas_gain=-2.0, proj_min=1.5, vegas_min=2.0)
         == "KEEP"
     )
+
+
+class TestOddsWeekScoping:
+    """A live snapshot holds more than one week of games.
+
+    Week 8 2026 the Cowboys' opponent read an implied 16.8 — Arizona's week-9
+    line at Seattle — instead of 24.0, and the defense streamer recommended
+    the wrong team off it.
+    """
+
+    @staticmethod
+    def _snapshot():
+        import pandas as pd
+
+        rows = []
+        for home, away, spread, total in (
+            ("DAL", "ARI", -6.5, 54.5),  # week 8
+            ("SEA", "ARI", -11.0, 44.5),  # week 9 — same visitor
+        ):
+            rows.append(
+                dict(
+                    home_team_nfl=home,
+                    away_team_nfl=away,
+                    market="spreads",
+                    home_spread=spread,
+                    total_points=float("nan"),
+                )
+            )
+            rows.append(
+                dict(
+                    home_team_nfl=home,
+                    away_team_nfl=away,
+                    market="totals",
+                    home_spread=float("nan"),
+                    total_points=total,
+                )
+            )
+        return pd.DataFrame(rows)
+
+    def test_unfiltered_snapshot_mixes_weeks(self):
+        """The old behaviour, kept as the thing the filter prevents."""
+        got = implied_totals_from_odds(self._snapshot())
+        assert got["ARI"] == pytest.approx(16.75)  # week 9 overwrote week 8
+
+    def test_scoping_to_the_week_gives_that_week_s_number(self):
+        got = implied_totals_from_odds(self._snapshot(), games={("DAL", "ARI")})
+        assert got["ARI"] == pytest.approx(24.0)
+        assert got["DAL"] == pytest.approx(30.5)
+        assert "SEA" not in got
+
+    def test_week_games_reads_the_schedule(self):
+        import pandas as pd
+
+        sched = pd.DataFrame(
+            [
+                {"week": 8, "home_team": "DAL", "away_team": "ARI"},
+                {"week": 9, "home_team": "SEA", "away_team": "ARI"},
+            ]
+        )
+        assert week_games(sched, 8) == {("DAL", "ARI")}
