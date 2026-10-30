@@ -1,0 +1,240 @@
+{
+  "batch_id": "48300711",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-30T12:25:16.016830+00:00",
+  "record_count": 21,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-it-was-unfair-for-him-to-back-jerry-jones-into-a-corner",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-it-was-unfair-for-him-to-back-jerry-jones-into-a-corner",
+      "team_abbr": null,
+      "summary": "Troy Aikman addresses uncertainty over his professional future and comments about Jerry Jones.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "ESPN's Troy Aikman has had plenty to say recently about his uncertain professional future.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "team_abbr": null,
+      "summary": "NFL flexes referee Alex Moore's crew out of prime time despite poor records.",
+      "sentiment": -0.2,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The NFL, for reasons still neither known nor apparent, opted not to flex the game between the 2-5 Eagles and 1-4-1 Commanders out of prime time, despite multiple other compelling Sunday afternoon games.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-grudens-case-against-the-nfl-isnt-going-well-and-its-his-own-fault",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-grudens-case-against-the-nfl-isnt-going-well-and-its-his-own-fault",
+      "team_abbr": null,
+      "summary": "Jon Gruden's legal case against NFL facing difficulties with judge expressing distrust of his representations.",
+      "sentiment": -0.7,
+      "confidence": 0.8,
+      "category": "legal",
+      "source_excerpt": "Said the presiding judge in a recent hearing: \"We have no reason to trust representations by Mr. Gruden.\"",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "ac357484-39ae-4c4e-8bd7-e437f04763a1",
+      "external_id": "ac357484-39ae-4c4e-8bd7-e437f04763a1",
+      "team_abbr": null,
+      "summary": "Generic NFL Week 8 picks article with no specific player information.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Jordan Dajani gives his picks for Week 8 of the 2026 NFL season",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "ec5eac3d-1240-422f-9fe1-1f79cd6ee79c",
+      "external_id": "ec5eac3d-1240-422f-9fe1-1f79cd6ee79c",
+      "team_abbr": null,
+      "summary": "Prediction markets and first touchdown scorer picks for Panthers vs. Packers TNF.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Here's a look at the prediction markets at Kalshi for the first touchdown scorer in Panthers vs. Packers on TNF",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "936b2cd6-4d6e-4f58-8360-89d373042ae5",
+      "external_id": "936b2cd6-4d6e-4f58-8360-89d373042ae5",
+      "team_abbr": null,
+      "summary": "Promotional offer for Kalshi betting platform for Panthers vs. Packers Week 8 TNF matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 8 Panthers vs. Packers TNF matchup",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "7ff484f4-a4bb-472a-b776-5120cbf0950c",
+      "external_id": "7ff484f4-a4bb-472a-b776-5120cbf0950c",
+      "team_abbr": null,
+      "summary": "Week 8 NFL betting promotions and bonuses from multiple sportsbooks for Packers-Panthers.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Top Week 8 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "1d7c4885-e34a-4a26-9223-19267615336d",
+      "external_id": "1d7c4885-e34a-4a26-9223-19267615336d",
+      "team_abbr": null,
+      "summary": "Betting preview and picks for Panthers vs. Packers Thursday Night Football matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Panthers vs. Packers on Thursday Night Football",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "4f3b7940-03ef-4524-a9ef-9b62376e63de",
+      "external_id": "4f3b7940-03ef-4524-a9ef-9b62376e63de",
+      "team_abbr": null,
+      "summary": "Jason Kelce voiced displeasure with NFL officials over penalty calls.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The Kelce brothers did not mince words when they voiced displeasure with the NFL's officials",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "fba14ba0-9696-4108-931c-031cbdbbd85d",
+      "external_id": "fba14ba0-9696-4108-931c-031cbdbbd85d",
+      "team_abbr": null,
+      "summary": "Non-NFL content referencing Brewers World Series and NBA; NFL picks mentioned but no actionable player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Plus, the Rockets are off to a flying start in 2026-27 NBA season",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "36205a06-1889-3439-87f0-a54dd05a0c93",
+      "external_id": "36205a06-1889-3439-87f0-a54dd05a0c93",
+      "team_abbr": null,
+      "summary": "Preview article for Lions vs. Vikings matchup with three key matchups identified; no specific player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "Our Detroit Lions vs. Minnesota Vikings preview identifies three key matchups.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "fa8f421d-efe0-3c53-9ce0-971e8d0e245e",
+      "external_id": "fa8f421d-efe0-3c53-9ce0-971e8d0e245e",
+      "team_abbr": null,
+      "summary": "Generic editorial commentary on game outcomes with no player-specific information.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "A tough loss is better than a blow out, even if they count the same",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "b94acb04-e205-32d5-b54b-d71068977f54",
+      "external_id": "b94acb04-e205-32d5-b54b-d71068977f54",
+      "team_abbr": null,
+      "summary": "Fantasy football analyst Chet Gresham provides weekly start/sit recommendations for Week 8.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Chet Gresham gives you his best fantasy football starts and sits for Week 8",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "31d0b353-9eeb-3903-a2c4-41b55de01146",
+      "external_id": "31d0b353-9eeb-3903-a2c4-41b55de01146",
+      "team_abbr": null,
+      "summary": "NFL trade deadline overview article discussing key date and potential trade candidates.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "trade",
+      "source_excerpt": "The 2026 NFL trade deadline is rapidly approaching. Here's what to know about the key date on the NFL calendar and who might end up being traded.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-it-was-unfair-for-him-to-back-jerry-jones-into-a-corner",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-it-was-unfair-for-him-to-back-jerry-jones-into-a-corner",
+      "team_abbr": null,
+      "summary": "ESPN's Troy Aikman comments on uncertainty regarding his professional future.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "ESPN's Troy Aikman has had plenty to say recently about his uncertain professional future.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "team_abbr": null,
+      "summary": "NFL did not flex Eagles-Commanders game out of prime time despite poor records.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The NFL, for reasons still neither known nor apparent, opted not to flex the game between the 2-5 Eagles and 1-4-1 Commanders out of prime time.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-eagles-audience-blows-out-world-series-game-3",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-eagles-audience-blows-out-world-series-game-3",
+      "team_abbr": null,
+      "summary": "NFL viewership story about Cowboys-Eagles game outperforming World Series Game 3.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "There once was a time when the mere thought of competing with the World Series made the NFL hide under the bed.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-out-of-practice-again-thursday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-out-of-practice-again-thursday",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-dont-do-a-big-study-on-fourth-downs-its-just-what-i-believe-in",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-dont-do-a-big-study-on-fourth-downs-its-just-what-i-believe-in",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-grudens-case-against-the-nfl-isnt-going-well-and-its-his-own-fault",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-grudens-case-against-the-nfl-isnt-going-well-and-its-his-own-fault",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-you-have-to-produce-results-or-theres-gonna-be-heat",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-you-have-to-produce-results-or-theres-gonna-be-heat",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    }
+  ]
+}

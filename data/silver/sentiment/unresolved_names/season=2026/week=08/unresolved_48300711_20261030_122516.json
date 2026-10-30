@@ -1,0 +1,99 @@
+{
+  "batch_id": "48300711",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-30T12:25:16.025506+00:00",
+  "record_count": 10,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-isnt-bothered-by-not-having-a-sack-since-he-returned-to-the-rams",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "general",
+      "summary": "Aaron Donald unconcerned about lack of sacks in five games since returning from two-year retirement.",
+      "source_excerpt": "In five games played since he emerged from a two-year retirement, Rams defensive tackle Aaron Donald has yet to record a sack.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-add-rookie-cb-mansoor-delane-to-the-injury-report",
+      "player_name": "Mansoor Delane",
+      "team_abbr": "KC",
+      "category": "injury",
+      "summary": "Rookie CB Mansoor Delane added to Chiefs injury report Thursday.",
+      "source_excerpt": "The Chiefs added rookie cornerback Mansoor Delane to their injury report Thursday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "4cd93cc4-2e51-4e43-aa96-aa7a84a9cb85",
+      "player_name": "CJ Carr",
+      "team_abbr": "NYJ",
+      "category": "general",
+      "summary": "Notre Dame QB CJ Carr headlined in mock 2027 draft for Jets with three first-round picks.",
+      "source_excerpt": "Notre Dame quarterback CJ Carr headlines a massive first-round haul that also lands defensive replacements",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ff97b5ee-7913-3cd0-a000-2e0f84246d61",
+      "player_name": "Christian Parker",
+      "team_abbr": "DAL",
+      "category": "general",
+      "summary": "Christian Parker may be making adjustments this week for the Cowboys.",
+      "source_excerpt": "Christian Parker may be making adjustments this week",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "a4fa996d-c6fa-3d70-9e32-65849fac8315",
+      "player_name": "Markel Bell",
+      "team_abbr": "PHI",
+      "category": "usage",
+      "summary": "Markel Bell's play has stabilized since making his first start at right tackle for Eagles.",
+      "source_excerpt": "Bell's play has stabilized since making his first start.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "f06e0720-63aa-3548-a120-4869ce6282ea",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "usage",
+      "summary": "Aaron Donald has not recorded a sack in five games since returning from two-year retirement.",
+      "source_excerpt": "In five games played since he emerged from a two-year retirement, Rams defensive tackle Aaron Donald has yet to record a sack.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-isnt-bothered-by-not-having-a-sack-since-he-returned-to-the-rams",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "usage",
+      "summary": "Rams DT Aaron Donald unconcerned about sack drought in five games since comeback from retirement.",
+      "source_excerpt": "In five games played since he emerged from a two-year retirement, Rams defensive tackle Aaron Donald has yet to record a sack.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lead-panthers-6-3-after-trey-smack-misses-another-pat",
+      "player_name": "Trey Smack",
+      "team_abbr": "GB",
+      "category": "usage",
+      "summary": "Kicker Trey Smack misses another PAT; Packers lead Panthers 6-3.",
+      "source_excerpt": "The Packers stuck with kicker Trey Smack after his misses from 26 and 35 in a 20-17 loss to the Lions last week.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-wr-michael-wilson-remain-limited-thursday",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals rookie RB Jeremiyah Love remains limited in practice Thursday.",
+      "source_excerpt": "Cardinals rookie running back Jeremiyah Love was limited again Thursday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-add-rookie-cb-mansoor-delane-to-the-injury-report",
+      "player_name": "Mansoor Delane",
+      "team_abbr": "KC",
+      "category": "injury",
+      "summary": "Chiefs rookie CB Mansoor Delane added to injury report Thursday.",
+      "source_excerpt": "The Chiefs added rookie cornerback Mansoor Delane to their injury report Thursday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

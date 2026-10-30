@@ -1,0 +1,796 @@
+{
+  "fetch_run_id": "5ab66ba6-57ad-45f1-9170-326abeb8ebb2",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-10-30T12:19:22.618524+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "36205a06-1889-3439-87f0-a54dd05a0c93",
+      "url": "https://sports.yahoo.com/articles/lions-vs-vikings-preview-3-120000411.html",
+      "title": "Lions vs. Vikings preview: 3 key matchups",
+      "body_text": "Our Detroit Lions vs. Minnesota Vikings preview identifies three key matchups.",
+      "author": "",
+      "published_at": "2026-10-30T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Our Detroit",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "5a57671e-0e92-385a-81e5-bea601b3c032",
+      "url": "https://sports.yahoo.com/articles/fleur-links-nfc-south-still-120000722.html",
+      "title": "Fleur-de-Links: The NFC South is still wide open",
+      "body_text": "Here are today's Saints news links",
+      "author": "",
+      "published_at": "2026-10-30T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "7472d115-b70f-3637-8839-926d84ead974",
+      "url": "https://sports.yahoo.com/articles/bears-acted-super-bowl-contender-120000364.html",
+      "title": "The Bears acted like a Super Bowl contender with the Jeffery Simmons trade. It’s about time",
+      "body_text": "Now is the time for the Bears to go for it.",
+      "author": "",
+      "published_at": "2026-10-30T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bears",
+        "Super Bowl",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "fa8f421d-efe0-3c53-9ce0-971e8d0e245e",
+      "url": "https://sports.yahoo.com/articles/optimist-could-worse-120000510.html",
+      "title": "The Optimist: That could have been worse",
+      "body_text": "A tough loss is better than a blow out, even if they count the same",
+      "author": "",
+      "published_at": "2026-10-30T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Optimist"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2379d688-9fff-3dde-89fc-614b8cf0d6a5",
+      "url": "https://sports.yahoo.com/articles/green-bay-packers-josh-jacobs-114217733.html",
+      "title": "Green Bay Packers' Josh Jacobs denies TD celebration was tied to arrest",
+      "body_text": "Josh Jacobs took issue with criticism over his 'Thursday Night Football' touchdown celebration, saying it was an ode to a gospel song.",
+      "author": "",
+      "published_at": "2026-10-30T11:42:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Green Bay",
+        "Josh Jacobs",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "6ac4ce5e-6e35-34b8-bf43-8b263e9e6fd2",
+      "url": "https://sports.yahoo.com/articles/jeffery-simmons-quenton-nelson-renew-114145322.html",
+      "title": "Jeffery Simmons, Quenton Nelson will renew their rivalry at Bears-Seahawks Monday night",
+      "body_text": "Nelson vs. Simmons will be the most-watched offensive lineman vs. defensive lineman battle of this NFL season, as two All-Pros go at it again on new teams.",
+      "author": "",
+      "published_at": "2026-10-30T11:41:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Quenton Nelson",
+        "Seahawks Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0034342"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "b94acb04-e205-32d5-b54b-d71068977f54",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-sit-advice-113000988.html",
+      "title": "Fantasy football start/sit advice for Week 8",
+      "body_text": "Chet Gresham gives you his best fantasy football starts and sits for Week 8",
+      "author": "",
+      "published_at": "2026-10-30T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chet Gresham"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b9d763a1-5f7d-4a50-b063-620eed63519b",
+      "url": "https://sports.yahoo.com/nfl/article/how-to-watch-every-sunday-nfl-football-game-during-week-8-of-the-2026-season-111848490.html",
+      "title": "How to watch every Sunday NFL football game during Week 8 of the 2026 season",
+      "body_text": "How you can keep up with every NFL game this Sunday.",
+      "author": "Danica Creahan",
+      "published_at": "2026-09-12T19:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "57c3555d-3fa0-320d-bdbf-0aa7d2572014",
+      "url": "https://sports.yahoo.com/articles/bengals-real-nfl-trade-deadline-111500532.html",
+      "title": "The Bengals’ real need at NFL trade deadline may not be in the offensive backfield",
+      "body_text": "The Bengals may make a move at the trade deadline, but is running back the best move to make?",
+      "author": "",
+      "published_at": "2026-10-30T11:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "df9f47c2-2e8e-345b-bedb-7b40abac75cf",
+      "url": "https://sports.yahoo.com/articles/kudos-wet-willies-plus-bye-111438031.html",
+      "title": "‘Kudos and Wet Willies’, plus bye week thoughts on every Giants offensive player",
+      "body_text": "Reviewing the Giants’ offense at the bye week.",
+      "author": "",
+      "published_at": "2026-10-30T11:14:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Wet Willies"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "5fcbf038-4709-3098-b8fe-18f7d7ed0731",
+      "url": "https://sports.yahoo.com/articles/colts-trade-jonathan-taylor-110701361.html",
+      "title": "Should the Colts trade Jonathan Taylor?",
+      "body_text": "Should he stay, or should he go now?",
+      "author": "",
+      "published_at": "2026-10-30T11:07:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "3ed3020f-8514-3493-952a-5894191618a1",
+      "url": "https://sports.yahoo.com/articles/postpulpit-mailbag-expect-trade-deadline-110015361.html",
+      "title": "#PostPulpit mailbag: What to expect at the trade deadline?",
+      "body_text": "The latest edition of our Patriots mailbag answers questions about the trade deadline, injured reserve, and more.",
+      "author": "",
+      "published_at": "2026-10-30T11:00:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "5b475c8f-d288-3508-97f2-83eaca163a1b",
+      "url": "https://sports.yahoo.com/articles/cardinals-cowboys-thursday-injury-reports-110000571.html",
+      "title": "Cardinals, Cowboys Thursday injury reports: Some positive, mostly no changes",
+      "body_text": "The matchup between the Arizona Cardinals and Dallas Cowboys could be decided by injuries",
+      "author": "",
+      "published_at": "2026-10-30T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys Thursday",
+        "Arizona Cardinals",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "7c99f793-3ae6-396c-abf0-23104241cbae",
+      "url": "https://sports.yahoo.com/articles/roar-previewing-lions-vs-vikings-110000014.html",
+      "title": "Before the Roar: Previewing Lions vs. Vikings",
+      "body_text": "Detroit Lions vs. Minnesota Vikings Week 8 preview. Breaking down the matchup and biggest storylines.",
+      "author": "",
+      "published_at": "2026-10-30T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Previewing Lions",
+        "Vikings Detroit",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "88d3a51c-d0e2-3946-990e-74a06e73820a",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-raiders-game-110000314.html",
+      "title": "New York Jets News: Raiders Game Will Determine Aaron Glenn’s Control of the Locker Room",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-10-30T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Raiders Game",
+        "Will Determine",
+        "Aaron Glenn",
+        "Locker Room"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "9f4227ba-4d91-3373-8ca7-80e3bb8df945",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-jeffery-simmons-110000101.html",
+      "title": "Tennessee Titans news: Jeffery Simmons trade to Bears makes big statement",
+      "body_text": "The Tennessee Titans are getting ready to play their Week 8 matchup against the Cincinnati Bengals.",
+      "author": "",
+      "published_at": "2026-10-30T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "Jeffery Simmons",
+        "The Tennessee",
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ff97b5ee-7913-3cd0-a000-2e0f84246d61",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-christian-parker-may-110000953.html",
+      "title": "Cowboys news: Christian Parker may be making adjustments this week",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-10-30T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Parker",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "d17affe1-68df-39d1-b17e-18b1fc77ccc4",
+      "url": "https://sports.yahoo.com/articles/bryce-young-says-knee-fine-105818244.html",
+      "title": "Bryce Young says knee is &quot;fine&quot; after loss to Packers",
+      "body_text": "Panthers quarterback Bryce Young has been on the injury report since hurting his left knee during the team's Week 3 loss to the Browns and he was asked if it was bothering him after Thursday night's game in Green Bay.",
+      "author": "",
+      "published_at": "2026-10-30T10:58:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bryce Young",
+        "Packers Panthers",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "75897169-686f-36e4-975b-8202e2bada4f",
+      "url": "https://sports.yahoo.com/articles/bengals-film-room-money-well-103000927.html",
+      "title": "Bengals Film Room: Money well spent on the defense this year",
+      "body_text": "The front office deserves a lot of praise for the defensive additions this season.",
+      "author": "",
+      "published_at": "2026-10-30T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Film"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "be071052-fb6b-37f3-9fca-2c44bb979f85",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-self-awareness-defining-103000549.html",
+      "title": "Chiefs News: Self-awareness is a defining trait of Patrick Mahomes",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-10-30T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "cafff3db-de95-3922-815a-b198e72b9374",
+      "url": "https://sports.yahoo.com/articles/robert-saleh-titans-arent-shopping-102740396.html",
+      "title": "Robert Saleh: Titans aren't shopping anyone, but when you're 1-6 teams call you",
+      "body_text": "Titans head coach Robert Saleh says his team will not hold a fire sale ahead of the trade deadline.",
+      "author": "",
+      "published_at": "2026-10-30T10:27:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Robert Saleh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "31d0b353-9eeb-3903-a2c4-41b55de01146",
+      "url": "https://sports.yahoo.com/articles/nfl-trade-deadline-date-time-100810470.html",
+      "title": "When is the NFL trade deadline? Date, time and biggest names to watch",
+      "body_text": "The 2026 NFL trade deadline is rapidly approaching. Here's what to know about the key date on the NFL calendar and who might end up being traded.",
+      "author": "",
+      "published_at": "2026-10-30T10:08:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7e72d224-eca9-3cd6-b038-06691e3f2bc8",
+      "url": "https://sports.yahoo.com/articles/steelers-buyers-trade-deadline-100000184.html",
+      "title": "Should the Steelers be buyers at the trade deadline?",
+      "body_text": "Should the Steelers make a trade before the deadline? We’d lean no. Will they make a trade? We’d lean yes.",
+      "author": "",
+      "published_at": "2026-10-30T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "a617c412-7e09-3a9b-b8ec-2dd975648bdc",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-magical-night-100000364.html",
+      "title": "Cleveland Browns news: A magical night in Pittsburgh",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the October 30 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-10-30T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Pittsburgh The",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "b0d399ae-f11e-3735-9654-7fc698436f89",
+      "url": "https://sports.yahoo.com/articles/broncos-chance-revenge-vs-chiefs-100000209.html",
+      "title": "Broncos get chance at revenge vs Chiefs in Sunday’s rematch",
+      "body_text": "The Broncos know what’s at stake when they face Kansas City again, and Bo Nix made it clear this is one Denver wants.",
+      "author": "",
+      "published_at": "2026-10-30T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Broncos",
+        "Kansas City",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "034cca6b-9d94-3baa-9734-3b1ec05ea8f5",
+      "url": "https://sports.yahoo.com/articles/why-justin-herbert-3-other-094655053.html",
+      "title": "Why Justin Herbert, 3 other NFL stars won't be traded: Follow the money",
+      "body_text": "These four NFL stars are highly unlikely to be dealt before the NFL trade deadline due to their contracts.",
+      "author": "",
+      "published_at": "2026-10-30T09:46:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Why Justin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7b6a027d-05ea-32a7-8b9d-1fc21ed48dfa",
+      "url": "https://sports.yahoo.com/articles/bear-den-jeffery-simmons-way-090000226.html",
+      "title": "The Bear’s Den: Jeffery Simmons on his way to Halas Hall",
+      "body_text": "The Jeffery Simmons era begins for the Chicago Bears as the team prepares for MNF at the Seattle Seahawks",
+      "author": "",
+      "published_at": "2026-10-30T09:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Jeffery Simmons",
+        "Halas Hall",
+        "The Jeffery",
+        "Chicago Bears",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "fc06ee7b-7e73-36e2-b186-b50138b7905a",
+      "url": "https://sports.yahoo.com/articles/christian-watson-spat-blood-broke-075839426.html",
+      "title": "Christian Watson spat up blood, broke a rib, went to the hospital and returned to the game",
+      "body_text": "Watson left Lambeau Field in an ambulance, spent an hour getting checked at the hospital, and then rode in an ambulance back to the stadium and played again.",
+      "author": "",
+      "published_at": "2026-10-30T07:58:39+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Watson",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "f93d9350-490e-3600-9d20-047509eb5616",
+      "url": "https://sports.yahoo.com/articles/packers-star-josh-jacobs-explains-073802270.html",
+      "title": "Packers’ star Josh Jacobs explains handcuff celebration that infuriated fans",
+      "body_text": "Packers RB Josh Jacobs says his TD celebration was inspired by the gospel song &quot;Break Every Chain,&quot; not a reference to his recent arrest.",
+      "author": "",
+      "published_at": "2026-10-30T07:38:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Break Every"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "1b1dc827-7f8f-3103-81d1-f2cc2221a8f1",
+      "url": "https://sports.yahoo.com/articles/whos-next-five-running-backs-070000177.html",
+      "title": "Who's next? With five running backs injured, it may be speedy Jaydon Blue's turn",
+      "body_text": "The former Cowboy may get an opportunity with the Eagles.",
+      "author": "",
+      "published_at": "2026-10-30T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaydon Blue"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5b1ff69c-b4f0-3f21-b884-89d209fc988b",
+      "url": "https://sports.yahoo.com/articles/riq-woolen-deals-being-subject-070000595.html",
+      "title": "How Riq Woolen deals with being subject of trade rumors",
+      "body_text": "With the trade deadline coming up, Riq Woolen's name has come up. And he hears it.",
+      "author": "",
+      "published_at": "2026-10-30T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "How Riq",
+        "Riq Woolen"
+      ],
+      "resolved_player_ids": [
+        "00-0037079"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "633f131e-af72-3c86-a58c-fef5012ea5b0",
+      "url": "https://sports.yahoo.com/articles/eagles-commanders-matchups-watch-week-070000816.html",
+      "title": "Eagles-Commanders matchups to watch in Week 8",
+      "body_text": "Here's a look at some key matchups to watch against as the Eagles face the Commanders on Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-10-30T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a4fa996d-c6fa-3d70-9e32-65849fac8315",
+      "url": "https://sports.yahoo.com/articles/rocky-start-markel-bell-gradually-070000301.html",
+      "title": "After rocky start, Markel Bell gradually finding his way as Eagles' right tackle",
+      "body_text": "Bell's play has stabilized since making his first start.",
+      "author": "",
+      "published_at": "2026-10-30T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Markel Bell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a283d898-7eb4-3150-bb7e-5aebbed7d1e9",
+      "url": "https://sports.yahoo.com/articles/two-touchdowns-josh-jacobs-tnf-055101641.html",
+      "title": "Two touchdowns for Josh Jacobs on TNF",
+      "body_text": "Josh Jacobs managed just 52 yards on his 27 touches but did score twice in a Week 8 win over the Panthers.",
+      "author": "",
+      "published_at": "2026-10-30T05:51:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "39a02690-3a80-4c19-b4c7-aaca4dd93beb",
+      "url": "https://sports.yahoo.com/nfl/article/new-monster-in-the-midway-why-jeffery-simmons-could-be-worth-the-price-for-bears-in-a-wide-open-nfl-045335275.html",
+      "title": "New monster in the Midway: Why Jeffery Simmons could be worth the price for Bears in a wide-open NFL",
+      "body_text": "Simmons is a one-man game-wrecker on every down and in every situation, which will give a needed lift to a Chicago defense that has been punching above its weight this season despite some flaws.",
+      "author": "Nate Tice",
+      "published_at": "2026-10-30T04:53:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Why Jeffery"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "c1ac40dd-4795-31cd-936d-1b621860995f",
+      "url": "https://sports.yahoo.com/articles/christian-watson-explains-whirlwind-roundtrip-043935503.html",
+      "title": "Christian Watson explains his whirlwind, roundtrip hospital visit: ‘I was spitting a little blood’",
+      "body_text": "Christian Watson lived a full night — and then some — on Thursday.",
+      "author": "",
+      "published_at": "2026-10-30T04:39:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "63173c12-cd61-4e01-bf1c-0a4a3af190bc",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/packers-wr-christian-watson-returns-vs-panthers-after-leaving-game-in-ambulance-coughing-up-blood-with-broken-rib-043320762.html",
+      "title": "Packers WR Christian Watson returns vs. Panthers after leaving game in ambulance coughing up blood with broken rib",
+      "body_text": "Watson left the game before halftime in an ambulance and was back on the field in the third quarter.",
+      "author": "Jason Owens",
+      "published_at": "2026-10-30T01:19:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "20aa27c2-48b2-3104-b582-da0928cdacaf",
+      "url": "https://sports.yahoo.com/articles/packers-snap-counts-week-8-042356743.html",
+      "title": "Packers Snap Counts, Week 8: It’s the Josh Jacobs show in Green Bay",
+      "body_text": "Green Bay RB Josh Jacobs played 70 percent of the running back snaps this week, compared to 52 in Week 7",
+      "author": "",
+      "published_at": "2026-10-30T04:23:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers Snap",
+        "Josh Jacobs",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "cfcbefec-6b39-356d-9db3-af3d7b6f1709",
+      "url": "https://sports.yahoo.com/articles/packers-christian-watson-describes-tough-041620089.html",
+      "title": "Packers' Christian Watson describes 'tough' hospital trip: 'I never wanted to go'",
+      "body_text": "Christian Watson had to be taken to the hospital because of a chest injury against the Panthers. The Packers WR eventually returned to the game.",
+      "author": "",
+      "published_at": "2026-10-30T04:16:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Watson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "25297f82-73a1-3a26-b15c-5c79c3c187e3",
+      "url": "https://sports.yahoo.com/articles/christian-watson-jordan-love-surging-034017099.html",
+      "title": "Christian Watson, Jordan Love and surging Packers beat plummeting Panthers: TNF winners, losers",
+      "body_text": "The winners and losers of the &quot;Thursday Night Football&quot; game between the Green Bay Packers and Carolina Panthers.",
+      "author": "",
+      "published_at": "2026-10-30T03:40:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Watson",
+        "Jordan Love",
+        "Thursday Night",
+        "Green Bay",
+        "Carolina Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124",
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "3dce337a-75fd-34ef-a3f9-16a16176be42",
+      "url": "https://sports.yahoo.com/articles/packers-stick-playoff-spot-week-033935762.html",
+      "title": "Packers stick in a playoff spot with their Week 8 win",
+      "body_text": "The Green Bay Packers stick in seventh place with their Week 8 win.",
+      "author": "",
+      "published_at": "2026-10-30T03:39:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Green",
+        "Bay Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "65a74b27-f499-309b-a50b-d44e34ab842c",
+      "url": "https://sports.yahoo.com/articles/packers-panthers-final-score-pressure-033645972.html",
+      "title": "Packers-Panthers Final Score: Pressure gets to Carolina’s Bryce Young",
+      "body_text": "Green Bay turned around its pass-rush unit, but their running game was still absent against the Panthers",
+      "author": "",
+      "published_at": "2026-10-30T03:36:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Panthers Final",
+        "Bryce Young",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "813c1c90-6155-36f1-a2df-8ced888fb643",
+      "url": "https://sports.yahoo.com/articles/thursday-night-football-packers-hold-033445723.html",
+      "title": "Thursday Night Football: Packers hold on for 27-19 win over Panthers",
+      "body_text": "The Packers improved to 5-3 despite a sluggish fourth quarter.",
+      "author": "",
+      "published_at": "2026-10-30T03:34:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Panthers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "0cf20643-81fe-4c9b-a5d9-f4edfb94b15a",
+      "url": "https://sports.yahoo.com/nfl/article/packers-panthers-interrupted-due-to-drone-hovering-near-lambeau-field-022752290.html",
+      "title": "Packers-Panthers interrupted due to drone hovering near Lambeau Field",
+      "body_text": "Both teams were required to head back to the sidelines for the delay due to safety concerns.",
+      "author": "Kari Anderson",
+      "published_at": "2026-10-30T02:27:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "afadcaba-bf05-32f8-85a1-f2f4a5a0f8cd",
+      "url": "https://sports.yahoo.com/articles/panthers-fall-tie-nfc-south-032510493.html",
+      "title": "Panthers fall into tie for NFC South lead with loss to Packers",
+      "body_text": "The Carolina Panthers are still in first place, but just barely.",
+      "author": "",
+      "published_at": "2026-10-30T03:25:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers The",
+        "Carolina Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "78dbdc29-ac3c-46e2-a86a-2c1c16f83e95",
+      "url": "https://sports.yahoo.com/nfl/live/packers-panthers-score-live-updates-inactives-highlights-stats-where-to-watch-week-8-thursday-night-football-225254485.html",
+      "title": "Packers take big lead and then hold on over Panthers, who are suddenly in a slump",
+      "body_text": "The Panthers and Packers were looking to bounce back from Week 7 losses.",
+      "author": "Frank Schwab",
+      "published_at": "2026-10-29T22:52:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "f06e0720-63aa-3548-a120-4869ce6282ea",
+      "url": "https://sports.yahoo.com/articles/aaron-donald-isnt-bothered-not-030855546.html",
+      "title": "Aaron Donald isn't bothered by not having a sack since he returned to the Rams",
+      "body_text": "In five games played since he emerged from a two-year retirement, Rams defensive tackle Aaron Donald has yet to record a sack.",
+      "author": "",
+      "published_at": "2026-10-30T03:08:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "e97192bd-cc4b-393e-9992-7fe27644b3e1",
+      "url": "https://sports.yahoo.com/articles/panthers-close-within-27-19-030632801.html",
+      "title": "Panthers close to within 27-19 of Packers",
+      "body_text": "The Packers led 27-10 midway through the third quarter.",
+      "author": "",
+      "published_at": "2026-10-30T03:06:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "e77e7315-4d0e-3504-aa31-0727230a33fd",
+      "url": "https://sports.yahoo.com/articles/jaxon-smith-njigba-receives-day-030306645.html",
+      "title": "Jaxon Smith-Njigba receives day off Thursday",
+      "body_text": "Seattle Seahawks WR Jaxon Smith-Njigba sits out Thursday's practice",
+      "author": "",
+      "published_at": "2026-10-30T03:03:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaxon Smith",
+        "Thursday Seattle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "4f049aa0-b477-37ed-9e25-42cc4d123c37",
+      "url": "https://sports.yahoo.com/articles/christian-watson-returns-against-carolina-024635863.html",
+      "title": "Christian Watson returns against Carolina",
+      "body_text": "Green Bay Packers WR Christian Watson returns to Week 8 contest after hospital trip",
+      "author": "",
+      "published_at": "2026-10-30T02:46:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Watson",
+        "Carolina Green",
+        "Bay Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

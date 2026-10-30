@@ -1,0 +1,581 @@
+{
+  "fetch_run_id": "b1ed1b2c-c291-4cfe-a201-4147ae776a77",
+  "source": "pft",
+  "fetched_at": "2026-10-30T12:19:38.326101+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-quenton-nelson-will-renew-their-rivalry-at-bears-seahawks-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-quenton-nelson-will-renew-their-rivalry-at-bears-seahawks-monday-night",
+      "permalink": "",
+      "title": "Jeffery Simmons, Quenton Nelson will renew their rivalry at Bears-Seahawks Monday night",
+      "body_text": "Nelson vs. Simmons will be the most-watched offensive lineman vs. defensive lineman battle of this NFL season, as two All-Pros go at it again on new teams.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-30T11:41:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Quenton Nelson",
+        "Seahawks Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0034342"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-says-knee-is-fine-after-loss-to-packers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-says-knee-is-fine-after-loss-to-packers",
+      "permalink": "",
+      "title": "Bryce Young says knee is \"fine\" after loss to Packers",
+      "body_text": "Panthers quarterback Bryce Young has been on the injury report since hurting his left knee during the team's Week 3 loss to the Browns and he was asked if it was bothering him after Thursday night's game in Green Bay.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T10:58:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bryce Young",
+        "Packers Panthers",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-titans-arent-shopping-anyone-but-when-youre-1-6-teams-call-you",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-titans-arent-shopping-anyone-but-when-youre-1-6-teams-call-you",
+      "permalink": "",
+      "title": "Robert Saleh: Titans aren't shopping anyone, but when you're 1-6 teams call you",
+      "body_text": "Titans head coach Robert Saleh says his team will not hold a fire sale ahead of the trade deadline.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-30T10:27:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Saleh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-denies-he-was-mimicking-himself-in-handcuffs-in-touchdown-celebration",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-denies-he-was-mimicking-himself-in-handcuffs-in-touchdown-celebration",
+      "permalink": "",
+      "title": "Josh Jacobs denies he was mimicking himself in handcuffs in touchdown celebration",
+      "body_text": "After scoring a touchdown on Thursday night, Packers running back Josh Jacobs put his hands behind his back, which many observers interpreted as mimicking himself in handcuffs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-30T09:09:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-spat-up-blood-broke-a-rib-went-to-the-hospital-and-returned-to-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-spat-up-blood-broke-a-rib-went-to-the-hospital-and-returned-to-the-game",
+      "permalink": "",
+      "title": "Christian Watson spat up blood, broke a rib, went to the hospital and returned to the game",
+      "body_text": "Watson left Lambeau Field in an ambulance, spent an hour getting checked at the hospital, and then rode in an ambulance back to the stadium and played again.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-30T07:58:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson",
+        "Lambeau Field"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-packers-hold-on-for-27-19-win-over-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-packers-hold-on-for-27-19-win-over-panthers",
+      "permalink": "",
+      "title": "Thursday Night Football: Packers hold on for 27-19 win over Panthers",
+      "body_text": "The Packers improved to 5-3 despite a sluggish fourth quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T03:34:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Panthers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-isnt-bothered-by-not-having-a-sack-since-he-returned-to-the-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-isnt-bothered-by-not-having-a-sack-since-he-returned-to-the-rams",
+      "permalink": "",
+      "title": "Aaron Donald isn't bothered by not having a sack since he returned to the Rams",
+      "body_text": "In five games played since he emerged from a two-year retirement, Rams defensive tackle Aaron Donald has yet to record a sack.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T03:08:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-close-to-within-27-19",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-close-to-within-27-19",
+      "permalink": "",
+      "title": "Panthers close to within 27-19 of Packers",
+      "body_text": "The Packers led 27-10 midway through the third quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T03:06:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Packers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-cleared-on-his-way-back-to-lambeau-from-hospital",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-cleared-on-his-way-back-to-lambeau-from-hospital",
+      "permalink": "",
+      "title": "Christian Watson cleared, on his way back to Lambeau from hospital",
+      "body_text": "The Packers wide receiver was injured in the second quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T02:15:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-it-was-unfair-for-him-to-back-jerry-jones-into-a-corner",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/troy-aikman-says-it-was-unfair-for-him-to-back-jerry-jones-into-a-corner",
+      "permalink": "",
+      "title": "Troy Aikman says it was \"unfair\" for him to back Jerry Jones \"into a corner\"",
+      "body_text": "ESPN's Troy Aikman has had plenty to say recently about his uncertain professional future.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T02:24:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Troy Aikman",
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-packers-lead-panthers-20-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-packers-lead-panthers-20-10-at-halftime",
+      "permalink": "",
+      "title": "Thursday Night Football: Packers lead Panthers 20-10 at halftime",
+      "body_text": "The Packers have outgained the Panthers 227 to 87.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T01:50:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "permalink": "",
+      "title": "Report: NFL flexes referee Alex Moore's crew out of prime time",
+      "body_text": "The NFL, for reasons still neither known nor apparent, opted not to flex the game between the 2-5 Eagles and 1-4-1 Commanders out of prime time, despite multiple other compelling Sunday afternoon games.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T01:44:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alex Moore"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-transported-to-hospital-will-lee-injures-hamstring-on-same-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-transported-to-hospital-will-lee-injures-hamstring-on-same-play",
+      "permalink": "",
+      "title": "Christian Watson transported to hospital; Will Lee injures hamstring on same play",
+      "body_text": "The Packers receiver injured his chest on a 53-yard reception.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T01:28:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson",
+        "Will Lee",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-announce-trade-for-dt-jeffery-simmons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-announce-trade-for-dt-jeffery-simmons",
+      "permalink": "",
+      "title": "Bears announce trade for DT Jeffery Simmons",
+      "body_text": "It was a very big day for the Chicago Bears; they added one of the best defensive tackles in the league, and they're reportedly closing in on a deal to stay in Illinois.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T01:18:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chuba-hubbard-gives-panthers-10-6-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chuba-hubbard-gives-panthers-10-6-lead",
+      "permalink": "",
+      "title": "Chuba Hubbard gives Panthers 10-6 lead",
+      "body_text": "The Panthers have had three possessions and 21 plays.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T00:58:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chuba Hubbard",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0036555"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-on-cardinals-dominance-over-cowboys-its-crazy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-on-cardinals-dominance-over-cowboys-its-crazy",
+      "permalink": "",
+      "title": "CeeDee Lamb on Cardinals' dominance over Cowboys: It's crazy",
+      "body_text": "The Cardinals, no matter how bad they have been, have had the Cowboys' number.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T00:48:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lead-panthers-6-3-after-trey-smack-misses-another-pat",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-lead-panthers-6-3-after-trey-smack-misses-another-pat",
+      "permalink": "",
+      "title": "Packers lead Panthers 6-3 after Trey Smack misses another PAT",
+      "body_text": "The Packers stuck with kicker Trey Smack after his misses from 26 and 35 in a 20-17 loss to the Lions last week.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T00:47:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trey Smack",
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-anthony-bradford-losing-starting-job-its-not-an-easy-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-anthony-bradford-losing-starting-job-its-not-an-easy-situation",
+      "permalink": "",
+      "title": "Mike Macdonald on Anthony Bradford losing starting job: \"It's not an easy situation\"",
+      "body_text": "One of the most basic realities of the NFL trade market is that, when a team adds a key player during a given season, someone will be taking a seat.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T00:47:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Anthony Bradford"
+      ],
+      "resolved_player_ids": [
+        "00-0039020"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-eagles-audience-blows-out-world-series-game-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-eagles-audience-blows-out-world-series-game-3",
+      "permalink": "",
+      "title": "Cowboys-Eagles' audience blows out World Series Game 3",
+      "body_text": "There once was a time when the mere thought of competing with the World Series made the NFL hide under the bed.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T00:08:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "World Series"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-wr-michael-wilson-remain-limited-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rb-jeremiyah-love-wr-michael-wilson-remain-limited-thursday",
+      "permalink": "",
+      "title": "Cardinals RB Jeremiyah Love, WR Michael Wilson remain limited Thursday",
+      "body_text": "Cardinals rookie running back Jeremiyah Love was limited again Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-29T23:15:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Michael Wilson",
+        "Thursday Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0038559"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-wr-matthew-golden-dt-devonte-wyatt-are-active-for-packers-vs-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-wr-matthew-golden-dt-devonte-wyatt-are-active-for-packers-vs-panthers",
+      "permalink": "",
+      "title": "Thursday Night Football: WR Matthew Golden, DT Devonte Wyatt are active for Packers vs. Panthers",
+      "body_text": "The Packers will have wide receiver Matthew Golden (shoulder/foot), defensive tackle Devonte Wyatt (ankle) and cornerback Keisean Nixon (shoulder).",
+      "author": "Charean Williams",
+      "published_at": "2026-10-29T22:57:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Matthew Golden",
+        "Devonte Wyatt",
+        "Panthers The",
+        "Keisean Nixon"
+      ],
+      "resolved_player_ids": [
+        "00-0040667",
+        "00-0037075",
+        "00-0035133"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-bieniemy-shares-positive-update-about-his-wife-who-was-shot-three-months-ago",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eric-bieniemy-shares-positive-update-about-his-wife-who-was-shot-three-months-ago",
+      "permalink": "",
+      "title": "Eric Bieniemy shares positive update about his wife, who was shot three months ago",
+      "body_text": "Chiefs offensive coordinator Eric Bieniemy shared a positive update on his wife, Mia, who survived a shooting in late July.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-29T22:43:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eric Bieniemy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-list-jaylen-waddle-zach-allen-as-limited-at-thursdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-list-jaylen-waddle-zach-allen-as-limited-at-thursdays-practice",
+      "permalink": "",
+      "title": "Broncos list Jaylen Waddle, Zach Allen as limited at Thursday's practice",
+      "body_text": "Broncos wide receiver Jaylen Waddle was back on the practice field Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-29T22:32:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Waddle",
+        "Zach Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0036613",
+        "00-0035248"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-wilkss-role-with-commanders-will-now-include-game-days",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steve-wilkss-role-with-commanders-will-now-include-game-days",
+      "permalink": "",
+      "title": "Steve Wilks's role with Commanders will now include game days",
+      "body_text": "The Commanders have quickly decided to give veteran defensive coach Steve Wilks more duties.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-29T22:12:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Steve Wilks",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-returns-to-vikings-practice-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-returns-to-vikings-practice-on-thursday",
+      "permalink": "",
+      "title": "Aaron Jones returns to Vikings practice on Thursday",
+      "body_text": "Vikings running back Aaron Jones took a step in the right direction at practice on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-29T22:11:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Jones",
+        "Thursday Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0033293"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-add-rookie-cb-mansoor-delane-to-the-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-add-rookie-cb-mansoor-delane-to-the-injury-report",
+      "permalink": "",
+      "title": "Chiefs add rookie CB Mansoor Delane to the injury report",
+      "body_text": "The Chiefs added rookie cornerback Mansoor Delane to their injury report Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-29T22:08:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mansoor Delane",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-out-of-practice-again-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-out-of-practice-again-thursday",
+      "permalink": "",
+      "title": "Saquon Barkley, DeVonta Smith out of practice again Thursday",
+      "body_text": "The Eagles remained without some key offensive players at practice on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-29T22:03:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-dont-do-a-big-study-on-fourth-downs-its-just-what-i-believe-in",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-i-dont-do-a-big-study-on-fourth-downs-its-just-what-i-believe-in",
+      "permalink": "",
+      "title": "Dan Campbell: I don't do a big study on fourth downs, it's just what I believe in",
+      "body_text": "Analytics studies have consistently shown that NFL teams should go for it on fourth down more often.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-29T21:54:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-grudens-case-against-the-nfl-isnt-going-well-and-its-his-own-fault",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jon-grudens-case-against-the-nfl-isnt-going-well-and-its-his-own-fault",
+      "permalink": "",
+      "title": "Jon Gruden's case against the NFL isn't going well — and it's his own fault",
+      "body_text": "Said the presiding judge in a recent hearing: “We have no reason to trust representations by Mr. Gruden.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-10-29T14:22:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jon Gruden"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-you-have-to-produce-results-or-theres-gonna-be-heat",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mcdaniel-you-have-to-produce-results-or-theres-gonna-be-heat",
+      "permalink": "",
+      "title": "Mike McDaniel: \"You have to produce results or there's gonna be heat\"",
+      "body_text": "The Chargers' bye week began with head coach Jim Harbaugh not committing to keeping Mike McDaniel as the offensive play-caller.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-29T21:43:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chargers",
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    }
+  ]
+}

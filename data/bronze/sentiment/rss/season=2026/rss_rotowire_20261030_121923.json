@@ -1,0 +1,92 @@
+{
+  "fetch_run_id": "5ab66ba6-57ad-45f1-9170-326abeb8ebb2",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-10-30T12:19:23.358222+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645055",
+      "url": "https://www.rotowire.com//football/player/jalen-coker-17976",
+      "title": "Jalen Coker: Salvages night with TD in loss",
+      "body_text": "Coker secured two of five targets for 37 yards and a touchdown in the Panthers' 27-19 loss to the Packers on Thursday. He also lost a fumble.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-29T09:23:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jalen Coker"
+      ],
+      "resolved_player_ids": [
+        "00-0039491"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645054",
+      "url": "https://www.rotowire.com//football/player/jordan-love-14371",
+      "title": "Jordan Love: Stays hot in Week 9 win",
+      "body_text": "Love completed 30 of 41 passes for 288 yards with three touchdowns and one interception and recovered a fumble in the Packers' 27-19 win over the Panthers on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-29T09:18:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645052",
+      "url": "https://www.rotowire.com//football/player/bryce-young-16807",
+      "title": "Bryce Young: Struggles again in defeat",
+      "body_text": "Young completed 23 of 41 passes for 209 yards with one touchdown and one interception in the Panthers' 27-19 loss to the Packers on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-29T09:10:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645051",
+      "url": "https://www.rotowire.com//football/player/christian-watson-15946",
+      "title": "Christian Watson: Suffers broken rib Thursday",
+      "body_text": "Watson said he suffered a broken rib in Thursday night's 27-19 win over the Panthers, Rob Demovsky of ESPN.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-29T09:06:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Christian Watson",
+        "Thursday Watson",
+        "Rob Demovsky"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645050",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "title": "Tucker Kraft: Back in end zone during win",
+      "body_text": "Kraft secured all six targets for 53 yards and a touchdown in the Packers' 27-19 win over the Panthers on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-29T09:04:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Tucker Kraft"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}
