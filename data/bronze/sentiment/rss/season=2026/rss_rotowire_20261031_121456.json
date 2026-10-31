@@ -1,0 +1,95 @@
+{
+  "fetch_run_id": "60258984-e7e2-4c7a-b8e9-19e910002841",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-10-31T12:14:56.715667+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645218",
+      "url": "https://www.rotowire.com//football/player/jonathan-taylor-14455",
+      "title": "Jonathan Taylor: Trade talks heating up",
+      "body_text": "Taylor is being made available via trade by the Colts, Adam Schefter of ESPN  reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-31T05:04:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645145",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "title": "Jadarian Price: Practices fully Friday",
+      "body_text": "Price (chest) was a full participant in Friday's practice, John Boyle of the Seahawks' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-30T04:25:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jadarian Price",
+        "Friday Price",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645143",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "title": "Zach Charbonnet: Practices in limited capacity",
+      "body_text": "Charbonnet (knee) was a limited participant in Friday's practice, John Boyle of the Seahawks' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-30T04:18:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Zach Charbonnet",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645140",
+      "url": "https://www.rotowire.com//football/player/jordan-mason-16163",
+      "title": "Jordan Mason: Sharing backfield with Jones vs. Detroit",
+      "body_text": "Mason and Aaron Jones (knee) will share the backfield against the Lions on Sunday after the latter avoided an injury designation for Week 8, Craig Peters of the Vikings' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-30T03:57:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jordan Mason",
+        "Detroit Mason",
+        "Aaron Jones",
+        "Craig Peters"
+      ],
+      "resolved_player_ids": [
+        "00-0037525",
+        "00-0033293"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645136",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "title": "RJ Harvey: Shouldn't be out too long",
+      "body_text": "Harvey (knee) is ruled out for Sunday's game against the Chiefs, but his injury isn't considered severe or long term, Sam Jane of The Denver Post reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-30T03:38:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Sam Jane",
+        "The Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}

@@ -1,0 +1,818 @@
+{
+  "fetch_run_id": "60258984-e7e2-4c7a-b8e9-19e910002841",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-10-31T12:14:55.927662+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "17c488b1-3910-350b-a440-fe6efc32ef95",
+      "url": "https://sports.yahoo.com/articles/future-broncos-2027-nfl-mock-120000101.html",
+      "title": "Future Broncos: A 2027 NFL Mock Draft for Denver",
+      "body_text": "Mile High Report’s Christopher Hart gives his first 2027 NFL Mock draft for the Denver Broncos.",
+      "author": "",
+      "published_at": "2026-10-31T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Future Broncos",
+        "Mock Draft",
+        "Denver Mile",
+        "High Report",
+        "Christopher Hart",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "83802527-15de-3685-9f28-e7cef3332d9d",
+      "url": "https://sports.yahoo.com/articles/washington-commanders-vs-philadelphia-eagles-120000997.html",
+      "title": "Washington Commanders vs Philadelphia Eagles Week 8: Five Questions with Bleeding Green Nation",
+      "body_text": "Which team is more desperate for a win?",
+      "author": "",
+      "published_at": "2026-10-31T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington Commanders",
+        "Philadelphia Eagles",
+        "Five Questions",
+        "Bleeding Green",
+        "Nation Which"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "bcb2933b-a1c9-379e-b2a2-f307010d028b",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-3-underdogs-set-120000907.html",
+      "title": "NFL predictions: 3 underdogs set to surprise for Bills vs. Ravens",
+      "body_text": "Three Buffalo Bills underdogs who could play huge roles against Baltimore Ravens in Week 8",
+      "author": "",
+      "published_at": "2026-10-31T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens Three",
+        "Buffalo Bills",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "4cc34466-87c6-3851-9d44-fa7550ce66a2",
+      "url": "https://sports.yahoo.com/articles/kyren-williams-blake-corum-balance-113000298.html",
+      "title": "Kyren Williams, Blake Corum balance the Rams' offense. Can Sean McVay unlock their potential?",
+      "body_text": "Kyren Williams and Blake Corum proved against the Raiders they can be a potent 1-2 punch for the Rams if the team can continue to maximize their skills.",
+      "author": "",
+      "published_at": "2026-10-31T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyren Williams",
+        "Blake Corum",
+        "Can Sean"
+      ],
+      "resolved_player_ids": [
+        "00-0037840",
+        "00-0039738"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "146a1b88-ab3d-3265-8b7d-ee94f1b73602",
+      "url": "https://sports.yahoo.com/articles/cashius-howell-could-redeem-bengals-110500722.html",
+      "title": "Cashius Howell could redeem the Bengals for their Shemar Stewart selection",
+      "body_text": "The two former Texas A&amp;M Aggies are headed in opposite directions with the Bengals.",
+      "author": "",
+      "published_at": "2026-10-31T11:05:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cashius Howell",
+        "Shemar Stewart"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "4ad33034-10b4-36c0-bf86-f7084711cfc7",
+      "url": "https://sports.yahoo.com/articles/detroit-fans-pick-winner-lions-110000911.html",
+      "title": "Detroit fans pick winner of Lions vs. Vikings in Week 8",
+      "body_text": "﻿Detroit Lions fans discuss their confidence level in the team and predict the winner of this week’s game.",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "4d4d68ab-07f6-3817-a93b-02b0185bbf9a",
+      "url": "https://sports.yahoo.com/articles/sb-nation-reacts-results-cash-110000242.html",
+      "title": "SB Nation Reacts Results: Cash Rules Everything Around Him",
+      "body_text": "So sayeth our readers",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nation Reacts",
+        "Cash Rules",
+        "Everything Around"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "4d539a8d-3b28-3b9c-8cb4-162e601210d0",
+      "url": "https://sports.yahoo.com/articles/broncos-vs-chiefs-5-questions-110000160.html",
+      "title": "Broncos vs Chiefs 5 questions: How does the Seattle loss impact KC?",
+      "body_text": "The Chiefs come to Denver for an AFC West showdown on Sunday. On the heels of a flogging, how are fans feeling?",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "561e8bca-ee8e-321a-844b-bf8caa6f76b8",
+      "url": "https://sports.yahoo.com/articles/cardinals-vs-cowboys-week-8-110000664.html",
+      "title": "Cardinals vs. Cowboys Week 8 TV Map",
+      "body_text": "The early game has more of a national audience",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys Week",
+        "Map The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "8b9c3f9c-6c56-3cc5-bb58-3ebd4adff2cd",
+      "url": "https://sports.yahoo.com/articles/chargers-vs-rams-watch-start-110000245.html",
+      "title": "Chargers vs. Rams: How to watch, start time, prediction and odds",
+      "body_text": "Everything you need to know about the Chargers and the Rams ahead of their crosstown showdown, including start time, how to watch and betting odds.",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "afbb4412-5040-37b6-b3ba-09bdd60c68a6",
+      "url": "https://sports.yahoo.com/articles/york-jets-flight-connections-10-110000958.html",
+      "title": "New York Jets Flight Connections 10/31/26",
+      "body_text": "Happy Saturday, Jets fans! We are one day away from the Jets hosting the Las Vegas Raiders in a game they need to win if they want to have any chance of getting this season back on track. It sounds like the Jets might need to try and win this game without David Bailey. The […]",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets Flight",
+        "Happy Saturday",
+        "Las Vegas",
+        "David Bailey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "b9d0534c-6382-38ed-8089-a890018daf4e",
+      "url": "https://sports.yahoo.com/articles/news-analysis-amid-chargers-chaos-110000126.html",
+      "title": "News Analysis: Amid the Chargers' chaos, one thing is certain: Justin Herbert won't be traded",
+      "body_text": "The Chargers are in desperate need of a reboot, but trading away Justin Herbert for three first-round draft picks won't be part of the team's plans.",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "News Analysis",
+        "Justin Herbert",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "bc81cbed-5a68-3d26-8d2b-59ab1ec1082f",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-seems-want-110000647.html",
+      "title": "Cowboys news: Dallas seems to want Joey Porter Jr. beyond this season",
+      "body_text": "Here is today's Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-10-31T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "1c07286d-073a-31d1-8ee3-a68e5c601b6c",
+      "url": "https://sports.yahoo.com/articles/even-without-jeffery-simmons-titans-104500532.html",
+      "title": "Even without Jeffery Simmons, the Titans are still a team to be wary of",
+      "body_text": "Bengals center Ted Karras is not taking anything for granted.",
+      "author": "",
+      "published_at": "2026-10-31T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Ted Karras"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0032445"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "6607fe83-ccee-37e1-8278-4105b98fadc5",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-york-jets-rebound-103124109.html",
+      "title": "NFL predictions: Can the New York Jets rebound against a struggling Raiders team?",
+      "body_text": "Two struggling teams hope for a win when the Jets face the Raiders on Sunday",
+      "author": "",
+      "published_at": "2026-10-31T10:31:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "5e9b64d3-437b-38b4-9b54-f3b47ec9af14",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-happy-halloween-103000580.html",
+      "title": "Cleveland Browns news: Happy Halloween!",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the October 31 edition of the Saturday Dawg Chow.",
+      "author": "",
+      "published_at": "2026-10-31T10:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Happy Halloween",
+        "Saturday Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "6ee21833-1d30-3578-8522-e88e657d794e",
+      "url": "https://sports.yahoo.com/articles/jeffery-simmons-excited-play-prime-085712182.html",
+      "title": "Jeffery Simmons excited to play in prime time for Bears, something Titans rarely do",
+      "body_text": "Jeffery Simmons is ready for prime time.",
+      "author": "",
+      "published_at": "2026-10-31T08:57:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "3a83ac2d-1082-324f-a4a9-4dd77ec565bd",
+      "url": "https://sports.yahoo.com/articles/eagles-commanders-predictions-week-8-070000709.html",
+      "title": "Eagles at Commanders predictions for Week 8 of the 2026 NFL season",
+      "body_text": "Here are our predictions as the Eagles face the Commanders on Sunday Night Football in Washington.",
+      "author": "",
+      "published_at": "2026-10-31T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "60b2d424-c55c-3173-a741-12f5ea826b12",
+      "url": "https://sports.yahoo.com/articles/eagles-notebook-tanner-mckee-still-070000114.html",
+      "title": "Eagles notebook: Tanner McKee still leaning on Jalen Hurts",
+      "body_text": "In the latest Eagles notebook, Tanner McKee is still leaning on Jalen Hurts, Jordan Mailata shares the origin of his leadership and more.",
+      "author": "",
+      "published_at": "2026-10-31T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jalen Hurts",
+        "Jordan Mailata"
+      ],
+      "resolved_player_ids": [
+        "00-0036389",
+        "00-0034429"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "746b70f2-1fbb-37ba-89c4-25eb42440d94",
+      "url": "https://sports.yahoo.com/articles/roobs-observations-league-figured-vic-070000956.html",
+      "title": "In Roob's Observations: Has the league figured out Vic Fangio?",
+      "body_text": "From defensive regression to a lack of explosive passes, Roob breaks down the Eagles’ biggest concerns.",
+      "author": "",
+      "published_at": "2026-10-31T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "In Roob",
+        "Vic Fangio"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d40ab80a-f246-3580-8324-3775c1b06816",
+      "url": "https://sports.yahoo.com/articles/eagles-jordan-davis-stresses-effort-070000198.html",
+      "title": "Eagles' Jordan Davis stresses effort, pride and accountability",
+      "body_text": "Eagles defensive tackle Jordan Davis took accountability for his play against the Cowboys and preached effort and pride.",
+      "author": "",
+      "published_at": "2026-10-31T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1dfed2d2-f016-3b59-954e-ac44f3465c0f",
+      "url": "https://sports.yahoo.com/articles/report-philip-rivers-emerged-focus-030320015.html",
+      "title": "Report: Philip Rivers has &quot;emerged as the focus&quot; of NC State coaching search",
+      "body_text": "Six days ago, former NFL (and NC State) quarterback Philip Rivers was identified as a person &quot;expected to be in the mix&quot; for the now-vacant Wolfpack head-coaching job.",
+      "author": "",
+      "published_at": "2026-10-31T03:03:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "c505fc3c-7e42-3db1-9469-7d884c2ffa08",
+      "url": "https://sports.yahoo.com/articles/jordan-love-passes-brett-favre-021251584.html",
+      "title": "Jordan Love passes Brett Favre for multi-touchdown games to start season",
+      "body_text": "The Packers have had three starting quarterbacks since Brett Favre replaced Don Majkowski in Week 3 of the 1992 season.",
+      "author": "",
+      "published_at": "2026-10-31T02:12:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Love",
+        "Brett Favre",
+        "The Packers",
+        "Don Majkowski"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0005106"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "5d91f935-8a64-3765-bc29-a48f7562cffb",
+      "url": "https://sports.yahoo.com/articles/los-angeles-chargers-news-chargers-015000603.html",
+      "title": "Los Angeles Chargers news: Chargers-Rams final score predictions",
+      "body_text": "Good morning, Chargers fans! The Chargers are back on the field this weekend which means it’s time to get back to our final score predictions. As we do every Friday, go ahead and drop into the comments to let us know how you see this game shaking out against their crosstown rival! And now for […]",
+      "author": "",
+      "published_at": "2026-10-31T01:50:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Los Angeles",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "f1d27a9f-9c28-3143-b776-8eb408f14a50",
+      "url": "https://sports.yahoo.com/articles/sean-payton-goes-200th-career-014752600.html",
+      "title": "Sean Payton goes for his 200th career win on Sunday",
+      "body_text": "Broncos coach Sean Payton, with five wins in 2026, now sits one win short of a milestone only 11 other NFL coaches have achieved.",
+      "author": "",
+      "published_at": "2026-10-31T01:47:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sean Payton",
+        "Sunday Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "53f98e51-17f5-31b2-8c04-613a1ee74078",
+      "url": "https://sports.yahoo.com/articles/bill-belichick-jordon-hudson-breakup-010739264.html",
+      "title": "Bill Belichick, Jordon Hudson breakup report catches UNC staffers off guard",
+      "body_text": "Bill Belichick and Jordan Hudson reportedly broke up a year ago, but two people inside the UNC football office were unaware of a split.",
+      "author": "",
+      "published_at": "2026-10-31T01:07:39+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bill Belichick",
+        "Jordon Hudson",
+        "Jordan Hudson"
+      ],
+      "resolved_player_ids": [
+        "00-0040934"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "90e4c558-db5d-3522-9a40-d8d6fbcf43f9",
+      "url": "https://sports.yahoo.com/articles/omar-cooper-jr-kenyon-sadiq-005932673.html",
+      "title": "Omar Cooper Jr., Kenyon Sadiq ready for a Jets takeoff — at the same time",
+      "body_text": "As roommates during Jets training camp, Omar Cooper Jr. and Kenyon Sadiq had to learn how to take turns with each other.",
+      "author": "",
+      "published_at": "2026-10-31T00:59:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Omar Cooper Jr",
+        "Kenyon Sadiq"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "711af1aa-7b81-3bb9-81e6-3f60a8610d59",
+      "url": "https://sports.yahoo.com/articles/commanders-star-daron-payne-likely-004429801.html",
+      "title": "Commanders star Daron Payne likely heading to IR in crusher before trade deadline",
+      "body_text": "Commanders defensive tackle Daron Payne suffered a significant foot injury during Friday's practice, which will send him to injured reserve.",
+      "author": "",
+      "published_at": "2026-10-31T00:44:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daron Payne"
+      ],
+      "resolved_player_ids": [
+        "00-0034333"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "596b239f-b646-3c58-91bc-b2c42c048fa5",
+      "url": "https://sports.yahoo.com/articles/seahawks-bears-friday-injury-report-235815613.html",
+      "title": "Seahawks-Bears Friday injury report: Cross and Nwosu sit, Byron Murphy limited by back",
+      "body_text": "The only scary thing Seahawks fans need this Halloween is the team’s injury report.",
+      "author": "",
+      "published_at": "2026-10-30T23:58:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears Friday",
+        "Byron Murphy"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "10a38d5f-fbb5-361d-9bf4-32b8554d9e95",
+      "url": "https://sports.yahoo.com/articles/david-bailey-likely-miss-chance-235419037.html",
+      "title": "David Bailey likely to miss chance at sacking Fernando Mendoza in Jets-Raiders meeting",
+      "body_text": "Jets pass rusher David Bailey is doubtful with a groin injury, likely missing Sunday's matchup with the Raiders and No. 1 pick Fernando Mendoza.",
+      "author": "",
+      "published_at": "2026-10-30T23:54:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "David Bailey",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "67653da6-71aa-4789-be38-65775026e883",
+      "url": "https://sports.yahoo.com/nfl/article/ryan-poles-says-bears-arent-adopting-f-them-picks-mindset-with-jeffery-simmons-trade-dts-impact-on-culture-factored-into-deal-232848179.html",
+      "title": "Ryan Poles says Bears aren't adopting 'F them picks' mindset with Jeffery Simmons trade, DT's impact on culture factored into deal",
+      "body_text": "Chicago sent the Tennessee Titans 2027 and 2028 first-round picks, along with a 2027 fourth-round pick, in exchange for the 3-time All-Pro and a 2028 fifth-round pick.",
+      "author": "Andy Backstrom",
+      "published_at": "2026-10-30T23:28:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ryan Poles",
+        "Jeffery Simmons",
+        "Tennessee Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e42876dc-2621-31fa-a1d4-144979371899",
+      "url": "https://sports.yahoo.com/articles/ravens-vs-bengals-rookie-report-231514825.html",
+      "title": "Ravens vs. Bengals: Rookie Report",
+      "body_text": "Recapping the Ravens rookies’ performances against the Bengals.",
+      "author": "",
+      "published_at": "2026-10-30T23:15:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rookie Report"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "9015bf69-a328-364a-a968-ec36ab7ca9b9",
+      "url": "https://sports.yahoo.com/articles/vikings-lions-final-injury-report-231223009.html",
+      "title": "Vikings-Lions Final Injury Report",
+      "body_text": "The Minnesota Vikings and Detroit Lions released their final injury reports with injury designations in advance of their Sunday afternoon matchup at Ford Field. Here they are. Minnesota Vikings Detroit Lions Injury Report Terms and Glossary Injury designation definitions: Probable = the league defines a Probable injury designation as a 75% or greater chance of […]",
+      "author": "",
+      "published_at": "2026-10-30T23:12:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Final",
+        "Injury Report",
+        "The Minnesota",
+        "Detroit Lions",
+        "Ford Field",
+        "Minnesota Vikings",
+        "Glossary Injury"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "3a1078a3-6662-412f-8277-47aa98dcd446",
+      "url": "https://sports.yahoo.com/fantasy/live/nfl-injury-tracker-week-8-latest-news-fantasy-implications-as-saquon-barkley-hamstring-remains-out-of-practice-lamar-jackson-ankle-set-to-return-132719592.html",
+      "title": "NFL injury tracker Week 8: Latest news, fantasy implications as Saquon Barkley (hamstring/back), Lamar Jackson (ankle) set to play; A.J. Brown (ankle/knee) questionable",
+      "body_text": "Here's everything you need to know injury-wise for Week 8.",
+      "author": "Ben Zweiman,Sean Leahy",
+      "published_at": "2026-10-26T17:07:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "21a0f720-edfd-3577-9471-96f5e58bddc7",
+      "url": "https://sports.yahoo.com/articles/rj-harvey-knee-injury-not-230559383.html",
+      "title": "RJ Harvey’s knee injury is not believed to be serious",
+      "body_text": "The Denver Broncos ruled running back RJ Harvey out for their game against the Kansas City Chiefs, but with no word or comment on the severity of the knee injury he seemingly suffered in practice this week. A source told The Denver post that the injury does not appear to be serious: It really stinks […]",
+      "author": "",
+      "published_at": "2026-10-30T23:05:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "7312a346-fbe1-336b-a5e5-769f0e5ff4d3",
+      "url": "https://sports.yahoo.com/articles/packers-numbers-stats-week-8-225755075.html",
+      "title": "Packers By The Numbers: Stats from the Week 8 win over the Panthers",
+      "body_text": "Digging into some numbers on the Packers Week 8 victory over the Panthers",
+      "author": "",
+      "published_at": "2026-10-30T22:57:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "By The",
+        "Panthers Digging",
+        "Packers Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "d439c615-e808-3df7-90ea-fd57ae690d02",
+      "url": "https://sports.yahoo.com/articles/49ers-must-pay-necessary-price-223812378.html",
+      "title": "49ers must pay necessary price to maximize Super Bowl window",
+      "body_text": "The 49ers should have more than a passing interest in Sunday’s game between the Raiders and Jets. Two players on that field could help them close the agonizing distance between...",
+      "author": "",
+      "published_at": "2026-10-30T22:38:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "add2d93d-4233-3d9d-9f00-955887ec12ce",
+      "url": "https://sports.yahoo.com/articles/las-vegas-raiders-york-jets-223800582.html",
+      "title": "Las Vegas Raiders-New York Jets FEED Topic: Monitoring Geno Smith’s ‘revenge game’",
+      "body_text": "Considering how things went in Las Vegas, New York’s quarterback likely had this game circled when the schedule came out",
+      "author": "",
+      "published_at": "2026-10-30T22:38:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Las Vegas",
+        "New York",
+        "Monitoring Geno"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "0094a400-f9aa-3cb3-8eed-7b3193647769",
+      "url": "https://sports.yahoo.com/articles/ravens-qb-lamar-jackson-return-174117977.html",
+      "title": "Ravens QB Lamar Jackson to return Sunday vs. Bills",
+      "body_text": "Lamar Jackson is (finally) coming back from a three-game absence due to a high ankle sprain.",
+      "author": "",
+      "published_at": "2026-10-30T22:37:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Bills Lamar"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "d0d8822f-1fbe-3970-b57c-98e0a8e72a2b",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-3-bold-takes-223000171.html",
+      "title": "NFL predictions: 3 bold takes on the Cowboys vs Cardinals game",
+      "body_text": "We have three bold predictions for the Cowboys and Cardinals game",
+      "author": "",
+      "published_at": "2026-10-30T22:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "79535662-fd96-3bf1-9ac7-bbbf84c8d1a1",
+      "url": "https://sports.yahoo.com/articles/rj-harvey-ruled-broncos-game-222513769.html",
+      "title": "RJ Harvey ruled OUT for Broncos game vs. Chiefs",
+      "body_text": "Terrible news for the Denver Broncos final injury report update with running back RJ Harvey suffering an unknown severity of a knee injury this week and was ruled out for their critical home game against the Kansas City Chiefs on Sunday. Safety Talanoa Hufanga has also been officially ruled out for the game. On the […]",
+      "author": "",
+      "published_at": "2026-10-30T22:25:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs Terrible",
+        "Denver Broncos",
+        "Kansas City",
+        "Safety Talanoa"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "2cd98242-d9dd-3667-b0b7-07bffed74b46",
+      "url": "https://sports.yahoo.com/articles/jets-defense-quietly-aware-ashton-222158638.html",
+      "title": "Jets defense quietly aware of Ashton Jeanty’s tackling comments",
+      "body_text": "On Wednesday, Raiders running back Ashton Jeanty called out the Jets’ unwillingness to tackle. A day later, Jets defensive coordinator Brian Duker revealed he heard Jeanty’s words and had a...",
+      "author": "",
+      "published_at": "2026-10-30T22:21:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "On Wednesday",
+        "Brian Duker"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "bb97426c-0a6b-3c72-9953-4b62637bee33",
+      "url": "https://sports.yahoo.com/articles/saquon-barkley-explains-why-powering-221707083.html",
+      "title": "Saquon Barkley explains why he’s powering through injuries in trying Eagles season",
+      "body_text": "Eagles RB Saquon Barkley was removed from the injury report and expects to play Sunday against the Commanders despite hamstring and back issues.",
+      "author": "",
+      "published_at": "2026-10-30T22:17:07+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "622b1b0a-b7ed-37cb-969f-10ad96ee0a8f",
+      "url": "https://sports.yahoo.com/articles/aaron-glenn-says-jets-ready-221337655.html",
+      "title": "Aaron Glenn says his Jets will be ‘ready to play’ after Ashton Jeanty’s brutal dig",
+      "body_text": "See you Sunday, Ashton Jeanty.",
+      "author": "",
+      "published_at": "2026-10-30T22:13:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Glenn",
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0006034",
+        "00-0040122"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "21a5e632-9168-3011-a828-f57f09d7379f",
+      "url": "https://sports.yahoo.com/articles/packers-winners-losers-week-8-221020255.html",
+      "title": "Packers Winners and Losers: Week 8 vs. the Panthers",
+      "body_text": "The best and worst as the Packers find a way to make it work after a short week.",
+      "author": "",
+      "published_at": "2026-10-30T22:10:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers Winners",
+        "Panthers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "56cbc3ba-5241-37e8-9d9a-05b0c033c108",
+      "url": "https://sports.yahoo.com/articles/steelers-ot-troy-fautanu-responds-215930040.html",
+      "title": "Steelers OT Troy Fautanu responds to Jared Verse comments",
+      "body_text": "Steelers OT Troy Fautanu responds to Jared Verse.",
+      "author": "",
+      "published_at": "2026-10-30T21:59:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Troy Fautanu",
+        "Jared Verse"
+      ],
+      "resolved_player_ids": [
+        "00-0039871",
+        "00-0039852"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "5f459c58-413d-3b70-ab9e-91364720eda4",
+      "url": "https://sports.yahoo.com/articles/former-seahawks-assistant-takes-over-214950372.html",
+      "title": "Former Seahawks assistant takes over Panthers defense after Ejiro Evero firing",
+      "body_text": "Wash is a part of a Panthers team heavy on Seahawks ties.",
+      "author": "",
+      "published_at": "2026-10-30T21:49:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Former Seahawks",
+        "Ejiro Evero"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "fc89761d-cd9c-3c09-a5f9-3dc96c119784",
+      "url": "https://sports.yahoo.com/articles/raiders-week-8-jets-defense-214500020.html",
+      "title": "Raiders Week 8: Jets defense can turn afterburners on Las Vegas",
+      "body_text": "New York ranked 13th in points allowed, 9th in yards yielded and pass defense is a Top 5 unit",
+      "author": "",
+      "published_at": "2026-10-30T21:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Raiders Week",
+        "Las Vegas",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "3d1df1fc-cf55-3431-9690-159f5863a84b",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-falcons-must-slow-214148755.html",
+      "title": "NFL predictions: Falcons must slow down Bucs run game",
+      "body_text": "The Falcons can take control of the NFC South against the Bucs in Week 8.",
+      "author": "",
+      "published_at": "2026-10-30T21:41:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "7d61971a-f7a5-37c2-8fec-9d3bc0fd3032",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-vs-pittsburgh-steelers-212606498.html",
+      "title": "Cleveland Browns vs. Pittsburgh Steelers: Week 8 Need to Know",
+      "body_text": "First place is on the line when the Browns face the Steelers on Sunday. Here is everything to know about the game.",
+      "author": "",
+      "published_at": "2026-10-30T21:26:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Pittsburgh Steelers",
+        "Know First"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    }
+  ]
+}

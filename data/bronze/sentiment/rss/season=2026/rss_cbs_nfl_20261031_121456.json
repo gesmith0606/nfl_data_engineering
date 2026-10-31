@@ -1,0 +1,571 @@
+{
+  "fetch_run_id": "60258984-e7e2-4c7a-b8e9-19e910002841",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-10-31T12:14:56.468796+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "e9edb7d0-3e5f-4a93-970c-3ecef9d14a01",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-injury-report-lamar-jackson-aj-brown-emeka-egbuka-more/",
+      "title": "NFL Week 8 final injury report: Latest on Lamar Jackson, AJ Brown, George Pickens, more",
+      "body_text": "A rundown of each team's final Week 8 injury report",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-10-30T22:30:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e403ff84-f6fc-430c-8672-e58391ed6193",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-budda-baker-addresses-trade-rumors-while-wearing-halloween-costume/",
+      "title": "LOOK: Cardinals' Budda Baker addresses trade rumors while wearing Halloween costume",
+      "body_text": "Baker isn't letting trade speculation spoil his Halloween spirit",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-10-30T21:21:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Budda Baker"
+      ],
+      "resolved_player_ids": [
+        "00-0033890"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "8b2bfefd-4234-49f8-aa30-71cb2a29a389",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-ceedee-lamb-long-haunted-cardinals/",
+      "title": "CeeDee Lamb says Cowboys have a Cardinals boogeyman: 'They've punched us in the mouth every single time'",
+      "body_text": "Dallas five-time Pro Bowl wide receiver CeeDee Lamb has never beaten Arizona, and they have won eight of the last nine matchups",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-30T18:45:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "c1a42062-d047-4c49-8004-825c2258096c",
+      "url": "https://www.cbssports.com/nfl/news/ravens-lamar-jackson-injury-update-bills/",
+      "title": "Ravens coach Jesse Minter confirms Lamar Jackson will return from ankle injury, start vs. Bills",
+      "body_text": "The two-time MVP hasn't played since Week 4 after suffering a high ankle sprain",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-10-30T17:50:27+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jesse Minter",
+        "Lamar Jackson",
+        "Bills The"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "e837b20c-0173-4133-afc8-0b13bb05077b",
+      "url": "https://www.cbssports.com/nfl/news/browns-trying-to-end-stunning-38-year-drought-against-steelers/",
+      "title": "Browns trying to end stunning 38-year drought against Steelers in Week 8 AFC North showdown",
+      "body_text": "A win in Pittsburgh would secure Cleveland's first season sweep of its rival since 1988",
+      "author": "John Breech",
+      "published_at": "2026-10-30T17:33:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "c0168111-0caf-4ade-b233-27fcc9604ca1",
+      "url": "https://www.cbssports.com/nfl/news/nfl-halloween-costumes-2026-roundup/",
+      "title": "NFL Halloween costumes 2026: Roundup of some of the best looks ahead of the holiday",
+      "body_text": "A look at some of the funniest and most iconic costumes from this year",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-30T17:31:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "fddf13e7-766e-45c9-aa0b-7ede8d37bae5",
+      "url": "https://www.cbssports.com/nfl/news/bryce-young-panthers-passing-game-familiar-problems-can-they-be-fixed/",
+      "title": "Bryce Young and the Panthers' passing game are running into familiar problems, can they be fixed?",
+      "body_text": "Young struggled again as Carolina lost to the Packers and fell below .500",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-30T15:52:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "e46e08d5-9bf7-4695-a12f-19c1207bf73a",
+      "url": "https://www.cbssports.com/nfl/news/giants-cam-skattebo-feared-amputation-after-2025-injury/",
+      "title": "Cam Skattebo says he feared amputation after gruesome injury that ended his 2025 season",
+      "body_text": "In a new documentary about his recovery, he also said he had a pregame premonition about his injury",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-30T15:46:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "7ff484f4-a4bb-472a-b776-5120cbf0950c",
+      "url": "https://www.cbssports.com/betting/news/week-8-nfl-betting-promos-get-over-3000-in-bonuses-from-betting-apps-sportsbooks-for-sundays-games/",
+      "title": "Week 8 NFL betting promos: Get over $3,000 in bonuses from betting apps, sportsbooks for Sunday's games",
+      "body_text": "Top Week 8 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-10-30T15:21:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5a8d6eaf-c097-48f7-824e-e7f005eebbad",
+      "url": "https://www.cbssports.com/nfl/news/how-to-bet-on-2026-nfl-week-8-betting-odds-game-previews-trends-tips-schedule-sportsbook-promos-offers/",
+      "title": "How to bet on 2026 NFL Week 8: Betting odds, game previews, trends, tips, schedule, sportsbook promos, offers",
+      "body_text": "Our NFL betting guide tells you where to bet on NFL Week 8, while providing odds, betting trends, schedule, promo offers, and more",
+      "author": "Brandt Sutton",
+      "published_at": "2026-10-30T15:15:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0c4e5368-7143-4366-8fec-cb4193246bb7",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-schedule-where-to-watch-these-three-underrated-games/",
+      "title": "NFL Week 8 schedule: Why you should watch these three underrated games",
+      "body_text": "Here are three games you should watch that people may not be talking about",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-10-30T21:24:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c103f620-799a-44cd-882f-96c1116d42ab",
+      "url": "https://www.cbssports.com/betting/news/week-8-nfl-betting-odds-spreads-lines-totals/",
+      "title": "Week 8 NFL betting odds, lines, totals, spreads for every game, including Bills-Ravens, Lions-Vikings",
+      "body_text": "Check out the Week 8 NFL betting odds, spreads and totals for all 14 games, including Lions-Vikings and Bills-Ravens.",
+      "author": "Dustin Baker",
+      "published_at": "2026-10-30T15:10:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Vikings Check"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "781feafa-cc07-4c3a-98cd-d2f02b656f22",
+      "url": "https://www.cbssports.com/betting/news/cfl-semifinals-odds-picks-proven-expert-provides-best-bets-for-winnipeg-vs-toronto-saskatchewan-vs-bc/",
+      "title": "CFL semifinals odds, picks: Proven expert provides best bets for Winnipeg vs. Toronto, Saskatchewan vs. BC",
+      "body_text": "SportsLine football expert Emory Hunt gives out his best bets for the CFL playoff semifinals",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-10-30T15:06:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Emory Hunt"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7d0c0359-eb65-4d93-bd62-137b327f9194",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-needs-potential-options-all-32-teams/",
+      "title": "2026 NFL trade deadline: One position of need and potential options for all 32 teams",
+      "body_text": "Following Chicago's blockbuster deal for Jeffery Simmons, contenders and sellers across the league have less than two weeks to reshape their rosters",
+      "author": "Josh Edwards",
+      "published_at": "2026-10-30T15:08:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Following Chicago",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "278a1dbb-0d1b-467e-9eac-c39259688c13",
+      "url": "https://www.cbssports.com/nfl/news/panthers-fire-defensive-coordinator-ejiro-evero/",
+      "title": "Panthers fire defensive coordinator Ejiro Evero, make other defensive changes after Packers loss",
+      "body_text": "Evero has had the league's No. 30 scoring defense (26.3 points per game) after four years in Carolina",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-30T14:48:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ejiro Evero"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "dc5191b2-cf49-4f67-9d69-c59a44db6f96",
+      "url": "https://www.cbssports.com/betting/news/nfl-week-8-odds-picks-brinsons-best-bets-player-props-anytime-touchdown-scorers-for-sundays-games/",
+      "title": "NFL Week 8 odds, picks: Brinson's best bets, player props, anytime touchdown scorers for Sunday's games",
+      "body_text": "Back the Dolphins against the Patriots, ride high on Ravens-Bills points and target Zay Flowers and Jameson Williams to deliver big returns",
+      "author": "Will Brinson",
+      "published_at": "2026-10-30T15:42:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Zay Flowers",
+        "Jameson Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0037240"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "db866f62-3953-4abe-973b-9cfa0712fe23",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-already-won-2026-nfl-trade-deadline-joey-porter-jr-trade/",
+      "title": "Cowboys already won 2026 NFL trade deadline with Joey Porter Jr. trade",
+      "body_text": "In Porter Jr.'s three games with Dallas, he profiles as the league's best cornerback",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-30T14:39:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "In Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "7e2b83dc-30af-4bf9-8f78-af73c0d687bc",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-predictions-best-bets-week-8-2026/",
+      "title": "Week 8 NFL odds, picks, predictions: Computer model backs Steelers and Rams",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 8 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-10-30T14:24:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "5dc818c8-94f1-4448-8109-033ef61de340",
+      "url": "https://www.cbssports.com/betting/news/browns-vs-steelers-nfl-picks-parlay-surprising-cleveland-would-make-history-with-road-upset-sunday-on-cbs/",
+      "title": "Browns vs. Steelers NFL picks, parlay: Surprising Cleveland would make history with road upset Sunday on CBS",
+      "body_text": "The Browns would end two shocking droughts with a win in Pittsburgh on Sunday on CBS",
+      "author": "Matt Severance",
+      "published_at": "2026-10-30T15:46:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Surprising Cleveland",
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4dffaf36-eb3b-441e-916e-44e4e2380b40",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-best-bets-zay-flowers-lamar-jackson-ravens-steelers/",
+      "title": "Week 8 best bets: Zay Flowers tallies big day in Lamar Jackson's return, Steelers win AFC North showdown",
+      "body_text": "Plus, a forgotten superstar just keeps on chugging",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-30T14:13:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Zay Flowers",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0039064",
+        "00-0034796"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "2a5c7990-b6d8-475e-b030-2f2a27196362",
+      "url": "https://www.cbssports.com/nfl/news/steelers-legend-kordell-stewart-changes-narrative-hbo-documentary/",
+      "title": "Steelers legend Kordell Stewart changes narrative on his NFL career in new HBO documentary",
+      "body_text": "Stewart wants his career to be remembered for what happened on the field",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-10-30T17:58:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kordell Stewart"
+      ],
+      "resolved_player_ids": [
+        "00-0015700"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "11fe3db5-b416-4ddb-a1ab-5f6b214b2ca2",
+      "url": "https://www.cbssports.com/nfl/news/packers-josh-jacobs-explains-touchdown-celebration-panthers/",
+      "title": "Josh Jacobs explains controversial touchdown celebration vs. Panthers that seemed to mimic arrest",
+      "body_text": "Jacobs says the celebration was a reference to a gospel song titled \"Break Every Chain\"",
+      "author": "Jared Dubin",
+      "published_at": "2026-10-30T13:48:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Break Every"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "7241de7a-6243-47a7-9324-c4e1de9519ea",
+      "url": "https://www.cbssports.com/nfl/news/deshaun-watson-vs-steelers-how-pivotal-afc-north-duel-won/",
+      "title": "Deshaun Watson vs. Steelers' suffocating secondary: How pivotal AFC North duel will be won",
+      "body_text": "How Watson attacks Pittsburgh's zone coverage will be crucial",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-30T13:12:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Deshaun Watson",
+        "How Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "a2b015c8-5db5-4bff-996d-f5b0656aebcb",
+      "url": "https://www.cbssports.com/nfl/news/jordan-love-picks-panthers-apart-christian-watsons-midgame-hospital-trip-top-50-mlb-free-agents/",
+      "title": "Jordan Love picks Panthers apart; Christian Watson's midgame hospital trip; top 50 MLB free agents",
+      "body_text": "Plus, predictions for this weekend's college football and NFL games",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-30T13:00:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Love",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "6627001d-aac7-4d84-a4be-b2f4884a9c0b",
+      "url": "https://www.cbssports.com/nfl/news/nfls-scariest-good-bad-teams-seahawks-titans/",
+      "title": "NFL's 'scariest' good, bad teams: Why Seahawks strike fear, Titans fans should be terrified",
+      "body_text": "With Halloween arriving, these teams sure are spooky",
+      "author": "Zachary Pereles",
+      "published_at": "2026-10-30T12:57:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Seahawks",
+        "With Halloween"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "24e5fb0b-ebb5-4062-98d7-6c8b85020137",
+      "url": "https://www.cbssports.com/nfl/news/jordan-love-picks-apart-panthers-christian-watsons-midgame-hospital-trip-top-50-mlb-free-agents/",
+      "title": "Jordan Love picks Panthers apart; Christian Watson's midgame hospital trip; top 50 MLB free agents",
+      "body_text": "Plus, predictions for this weekend's college football and NFL games",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-30T12:58:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Love",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "690601a0-3985-48ce-8ba7-e1cfc19ee481",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-bold-predictions-jared-goff-vikings-justin-herbert/",
+      "title": "NFL Week 8 bold predictions: Jared Goff tears up Vikings D and Justin Herbert plays a clean game?",
+      "body_text": "Plus, an AFC South running back has a huge game, and Jets WR Garrett Wilson reconnects with Geno Smith a week after sideline shouting match",
+      "author": "Garrett Podell",
+      "published_at": "2026-10-30T12:45:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jared Goff",
+        "Justin Herbert",
+        "Garrett Wilson",
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0033106",
+        "00-0036355",
+        "00-0037740",
+        "00-0030565"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "1edb797b-8785-48df-bd4c-2f58be34d9bf",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-week-8-parlays-featuring-favorites-underdogs-include-bills-ravens-bears-seahawks/",
+      "title": "NFL odds: Week 8 parlays featuring favorites, underdogs include Bills-Ravens, Bears-Seahawks",
+      "body_text": "SportsLine football expert Mike Tierney gives out his favorite parlays for Week 8 of the NFL season",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-10-30T12:01:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mike Tierney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "ac357484-39ae-4c4e-8bd7-e437f04763a1",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-odds-picks-against-spread-predictions-2026/",
+      "title": "NFL Week 8 picks, best bets: Lions hand Vikings first loss, Commanders cruise past Eagles",
+      "body_text": "Jordan Dajani gives his picks for Week 8 of the 2026 NFL season",
+      "author": "Jordan Dajani",
+      "published_at": "2026-10-30T11:50:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Eagles Jordan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "ce63e2bd-ef25-4c14-935a-4ea7ffcc0b06",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-expert-picks-predictions-odds-schedule-2026/",
+      "title": "NFL Week 8 picks: Experts split on Ravens vs. Bills as Lamar Jackson eyes return",
+      "body_text": "From Ravens-Bills and Eagles-Commanders to Bears-Seahawks on Monday night, here's what our experts and the SportsLine model are forecasting in Week 8",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-30T11:48:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "From Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "3a9d268f-6db9-41fc-b945-a8a72098b952",
+      "url": "https://www.cbssports.com/nfl/news/christian-watson-injury-update-packers-wr-hospital/",
+      "title": "Packers' Christian Watson returns against Panthers after chest injury, hospital visit",
+      "body_text": "The Packers wide receiver was injured on a 53-yard reception in the first half",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-30T04:02:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Christian Watson",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "a1c39a13-9a38-4a37-8696-74b01120810f",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-8-nfl-picks-odds-predictions/",
+      "title": "Prisco's Week 8 NFL picks: Lions hand Vikings their first loss, Chiefs over Broncos",
+      "body_text": "Pete Prisco reveals all of his Week 8 picks, including the Bills to top the Ravens in a high-scoring game",
+      "author": "Pete Prisco",
+      "published_at": "2026-10-30T00:13:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Broncos Pete"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "1daf8a85-6d94-41c4-910e-dc5d7237dc11",
+      "url": "https://www.cbssports.com/nfl/news/jonathan-taylor-nfl-trade-deadline-rumors-colts-2026/",
+      "title": "Jonathan Taylor says he hasn't requested trade as Colts' deadline selloff continues",
+      "body_text": "Trade speculation continues to swirl around the star running back as Indianapolis shifts toward a rebuild ahead of the NFL trade deadline",
+      "author": "Carter Bahns",
+      "published_at": "2026-10-29T23:18:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "ec5eac3d-1240-422f-9fe1-1f79cd6ee79c",
+      "url": "https://www.cbssports.com/prediction/news/panthers-vs-packers-odds-first-touchdown-scorer-picks-predictions-for-nfl-week-8-thursday-night-football/",
+      "title": "Panthers vs. Packers odds, first touchdown scorer picks, predictions for NFL Week 8 Thursday Night Football",
+      "body_text": "Here's a look at the prediction markets at Kalshi for the first touchdown scorer in Panthers vs. Packers on TNF",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-10-29T23:15:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "936b2cd6-4d6e-4f58-8360-89d373042ae5",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-unlock-55-bonus-panthers-vs-packers-thursday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Unlock $55 bonus for Panthers vs. Packers on Thursday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 8 Panthers vs. Packers TNF matchup",
+      "author": "James Holliman",
+      "published_at": "2026-10-29T23:05:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thursday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "1d7c4885-e34a-4a26-9223-19267615336d",
+      "url": "https://www.cbssports.com/betting/news/panthers-packers-odds-prediction-betting-preview-start-time-thursday-night-football-picks-best-bets/",
+      "title": "Panthers vs. Packers odds, prediction, betting preview, start time: Thursday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Panthers vs. Packers on Thursday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-10-29T23:02:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    }
+  ]
+}

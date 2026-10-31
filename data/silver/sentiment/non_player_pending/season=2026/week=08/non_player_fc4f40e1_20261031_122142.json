@@ -1,0 +1,229 @@
+{
+  "batch_id": "fc4f40e1",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-31T12:21:42.949301+00:00",
+  "record_count": 20,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-on-nc-state-job-nothings-imminent",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-on-nc-state-job-nothings-imminent",
+      "team_abbr": null,
+      "summary": "Philip Rivers says nothing is imminent regarding NC State coaching position despite emerging as focus of search.",
+      "sentiment": 0.0,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Former NFL quarterback Philip Rivers has reportedly \"emerged as the focus\" of the NC State coaching search.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-has-emerged-as-the-focus-of-nc-state-coaching-search",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-has-emerged-as-the-focus-of-nc-state-coaching-search",
+      "team_abbr": null,
+      "summary": "Philip Rivers has emerged as focus of NC State coaching search, advancing from expected candidate status.",
+      "sentiment": 0.3,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "Six days ago, former NFL (and NC State) quarterback Philip Rivers was identified as a person \"expected to be in the mix\" for the now-vacant Wolfpack head-coaching job.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "team_abbr": null,
+      "summary": "Appeals court reinstates $4.7 billion verdict against NFL in Sunday Ticket class action.",
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "category": "general",
+      "source_excerpt": "NFL undoubtedly will appeal the ruling to the U.S. Supreme Court.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "team_abbr": null,
+      "summary": "Appeals court ruling could end NFL Sunday Ticket program.",
+      "sentiment": 0.0,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "NFL will eventually need to come up with a new way to provide out-of-market games.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c0168111-0caf-4ade-b233-27fcc9604ca1",
+      "external_id": "c0168111-0caf-4ade-b233-27fcc9604ca1",
+      "team_abbr": null,
+      "summary": "Roundup of NFL Halloween costumes from 2026 season.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "A look at some of the funniest and most iconic costumes from this year",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0c4e5368-7143-4366-8fec-cb4193246bb7",
+      "external_id": "0c4e5368-7143-4366-8fec-cb4193246bb7",
+      "team_abbr": null,
+      "summary": "Three underrated games to watch in NFL Week 8 schedule.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Here are three games you should watch that people may not be talking about",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "781feafa-cc07-4c3a-98cd-d2f02b656f22",
+      "external_id": "781feafa-cc07-4c3a-98cd-d2f02b656f22",
+      "team_abbr": null,
+      "summary": "CFL playoff semifinal betting analysis; no NFL players or teams mentioned.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "SportsLine football expert Emory Hunt gives out his best bets for the CFL playoff semifinals",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "2a5c7990-b6d8-475e-b030-2f2a27196362",
+      "external_id": "2a5c7990-b6d8-475e-b030-2f2a27196362",
+      "team_abbr": null,
+      "summary": "Steelers legend Kordell Stewart featured in HBO documentary; focuses on on-field legacy.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Stewart wants his career to be remembered for what happened on the field",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "53f98e51-17f5-31b2-8c04-613a1ee74078",
+      "external_id": "53f98e51-17f5-31b2-8c04-613a1ee74078",
+      "team_abbr": null,
+      "summary": "Bill Belichick and Jordan Hudson's relationship status reported, but UNC staff unaware of split.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Bill Belichick and Jordan Hudson reportedly broke up a year ago, but two people inside the UNC football office were unaware of a split.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "d0d8822f-1fbe-3970-b57c-98e0a8e72a2b",
+      "external_id": "d0d8822f-1fbe-3970-b57c-98e0a8e72a2b",
+      "team_abbr": null,
+      "summary": "Bold predictions for Cowboys vs Cardinals game.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "We have three bold predictions for the Cowboys and Cardinals game",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7d61971a-f7a5-37c2-8fec-9d3bc0fd3032",
+      "external_id": "7d61971a-f7a5-37c2-8fec-9d3bc0fd3032",
+      "team_abbr": null,
+      "summary": "Browns vs. Steelers Week 8 matchup with first place on the line.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "First place is on the line when the Browns face the Steelers on Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-on-nc-state-job-nothings-imminent",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-on-nc-state-job-nothings-imminent",
+      "team_abbr": null,
+      "summary": "Philip Rivers denies imminent NC State coaching job move; reports suggest he is focus of search.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Former NFL quarterback Philip Rivers has reportedly \"emerged as the focus\" of the NC State coaching search.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-has-emerged-as-the-focus-of-nc-state-coaching-search",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-has-emerged-as-the-focus-of-nc-state-coaching-search",
+      "team_abbr": null,
+      "summary": "Philip Rivers identified as primary focus for NC State head-coaching vacancy.",
+      "sentiment": 0.0,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Six days ago, former NFL (and NC State) quarterback Philip Rivers was identified as a person \"expected to be in the mix\" for the now-vacant Wolfpack head-coaching job.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-set-to-play-mansoor-delane-questionable-for-chiefs-broncos",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-set-to-play-mansoor-delane-questionable-for-chiefs-broncos",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rule-out-brian-robinson-list-eight-as-questionable",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rule-out-brian-robinson-list-eight-as-questionable",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colston-loveland-limited-at-bears-practice-with-a-neck-injury",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colston-loveland-limited-at-bears-practice-with-a-neck-injury",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-g-vega-ioane-ruled-out-for-week-8",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-g-vega-ioane-ruled-out-for-week-8",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-three-players-as-questionable-including-ot-tytus-howard",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-three-players-as-questionable-including-ot-tytus-howard",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "batch_id": "fc4f40e1",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-10-31T12:21:42.956926+00:00",
+  "record_count": 9,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-g-vega-ioane-ruled-out-for-week-8",
+      "player_name": "Vega Ioane",
+      "team_abbr": "BAL",
+      "category": "injury",
+      "summary": "Ravens G Vega Ioane ruled out for Week 8 vs Bills; Lamar Jackson expected to return.",
+      "source_excerpt": "The Ravens expect to have quarterback Lamar Jackson back in the lineup for Sunday's game against the Bills, but they will be missing one of their starting offensive linemen.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl645145",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "injury",
+      "summary": "Jadarian Price practices fully Friday after chest injury; cleared for action.",
+      "source_excerpt": "Price (chest) was a full participant in Friday's practice, John Boyle of the Seahawks' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl645145",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "injury",
+      "summary": "Price was full participant in Friday practice after chest injury, indicating positive return trajectory.",
+      "source_excerpt": "Price (chest) was a full participant in Friday's practice, John Boyle of the Seahawks' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "146a1b88-ab3d-3265-8b7d-ee94f1b73602",
+      "player_name": "Cashius Howell",
+      "team_abbr": "CIN",
+      "category": "general",
+      "summary": "Cashius Howell from Texas A&M could redeem Bengals for Shemar Stewart draft selection.",
+      "source_excerpt": "The two former Texas A&M Aggies are headed in opposite directions with the Bengals.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "afbb4412-5040-37b6-b3ba-09bdd60c68a6",
+      "player_name": "David Bailey",
+      "team_abbr": "NYJ",
+      "category": "injury",
+      "summary": "Jets may be without David Bailey for upcoming game vs. Raiders as team tries to get season back on track.",
+      "source_excerpt": "It sounds like the Jets might need to try and win this game without David Bailey.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "90e4c558-db5d-3522-9a40-d8d6fbcf43f9",
+      "player_name": "Omar Cooper Jr.",
+      "team_abbr": "NYJ",
+      "category": "general",
+      "summary": "Omar Cooper Jr. and Kenyon Sadiq are roommates during Jets training camp.",
+      "source_excerpt": "As roommates during Jets training camp, Omar Cooper Jr. and Kenyon Sadiq had to learn how to take turns with each other.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "90e4c558-db5d-3522-9a40-d8d6fbcf43f9",
+      "player_name": "Kenyon Sadiq",
+      "team_abbr": "NYJ",
+      "category": "general",
+      "summary": "Kenyon Sadiq and Omar Cooper Jr. are roommates during Jets training camp.",
+      "source_excerpt": "As roommates during Jets training camp, Omar Cooper Jr. and Kenyon Sadiq had to learn how to take turns with each other.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "596b239f-b646-3c58-91bc-b2c42c048fa5",
+      "player_name": "Byron Murphy",
+      "team_abbr": "SEA",
+      "category": "injury",
+      "summary": "Byron Murphy limited by back injury for Seahawks.",
+      "source_excerpt": "The only scary thing Seahawks fans need this Halloween is the team's injury report.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "10a38d5f-fbb5-361d-9bf4-32b8554d9e95",
+      "player_name": "David Bailey",
+      "team_abbr": "NYJ",
+      "category": "injury",
+      "summary": "Jets pass rusher David Bailey doubtful with groin injury, likely missing Raiders matchup.",
+      "source_excerpt": "Jets pass rusher David Bailey is doubtful with a groin injury, likely missing Sunday's matchup with the Raiders and No. 1 pick Fernando Mendoza.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

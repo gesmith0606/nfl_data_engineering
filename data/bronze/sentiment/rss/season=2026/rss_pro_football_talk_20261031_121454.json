@@ -1,0 +1,517 @@
+{
+  "fetch_run_id": "60258984-e7e2-4c7a-b8e9-19e910002841",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-10-31T12:14:54.156367+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-trade-talks-are-active-and-ongoing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-trade-talks-are-active-and-ongoing",
+      "title": "Jonathan Taylor trade talks are \"active and ongoing\"",
+      "body_text": "Seahawks, Packers, Broncos, Vikings, Giants are pegged as potential destinations.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T12:08:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-on-nc-state-job-nothings-imminent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-on-nc-state-job-nothings-imminent",
+      "title": "Philip Rivers on NC State job: \"Nothing's imminent\"",
+      "body_text": "Former NFL quarterback Philip Rivers has reportedly \"emerged as the focus\" of the NC State coaching search.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T11:46:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-excited-to-play-in-prime-time-for-bears-something-titans-rarely-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-excited-to-play-in-prime-time-for-bears-something-titans-rarely-do",
+      "title": "Jeffery Simmons excited to play in prime time for Bears, something Titans rarely do",
+      "body_text": "Jeffery Simmons is ready for prime time.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-31T08:57:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-josh-jacobs-was-arrested-three-other-women-told-police-he-had-abused-them-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-josh-jacobs-was-arrested-three-other-women-told-police-he-had-abused-them-too",
+      "title": "After Josh Jacobs was arrested, three other women told police he had abused them, too",
+      "body_text": "Police records released late on Friday show three women contacted police after Jacobs' May arrest to report similar incidents.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-31T08:14:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "After Josh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-has-emerged-as-the-focus-of-nc-state-coaching-search",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-philip-rivers-has-emerged-as-the-focus-of-nc-state-coaching-search",
+      "title": "Report: Philip Rivers has \"emerged as the focus\" of NC State coaching search",
+      "body_text": "Six days ago, former NFL (and NC State) quarterback Philip Rivers was identified as a person \"expected to be in the mix\" for the now-vacant Wolfpack head-coaching job.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T03:03:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-says-calling-caleb-williams-painted-nails-was-just-smack-talk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-says-calling-caleb-williams-painted-nails-was-just-smack-talk",
+      "title": "Jeffery Simmons says calling Caleb Williams \"Painted Nails\" was \"just smack talk\"",
+      "body_text": "New Bears defensive tackle Jeffery Simmons said his nickname for Caleb Williams two years ago was nothing more than gamesmanship.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T20:34:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Caleb Williams",
+        "Painted Nails",
+        "New Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-daron-payne-has-a-significant-foot-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-daron-payne-has-a-significant-foot-injury",
+      "title": "Report: Daron Payne has a significant foot injury",
+      "body_text": "Commanders defensive tackle Daron Payne was expected to have serious trade interest before the Nov. 10 trade deadline.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T02:39:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daron Payne"
+      ],
+      "resolved_player_ids": [
+        "00-0034333"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-passes-brett-favre-for-multi-touchdown-games-to-start-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-passes-brett-favre-for-multi-touchdown-games-to-start-season",
+      "title": "Jordan Love passes Brett Favre for multi-touchdown games to start season",
+      "body_text": "The Packers have had three starting quarterbacks since Brett Favre replaced Don Majkowski in Week 3 of the 1992 season.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T02:12:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love",
+        "Brett Favre",
+        "The Packers",
+        "Don Majkowski"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0005106"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-goes-for-his-200th-career-win-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-goes-for-his-200th-career-win-on-sunday",
+      "title": "Sean Payton goes for his 200th career win on Sunday",
+      "body_text": "Broncos coach Sean Payton, with five wins in 2026, now sits one win short of a milestone only 11 other NFL coaches have achieved.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T01:47:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Sunday Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sixth-round-rookie-anterio-thompson-says-he-was-told-hell-never-play-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-sixth-round-rookie-anterio-thompson-says-he-was-told-hell-never-play-again",
+      "title": "Falcons sixth-round rookie Anterio Thompson says he was told he'll never play again",
+      "body_text": "Falcons rookie defensive tackle Anterio Thompson, who has been on the non-football injury list since the start of training camp, has disclosed that his career is over.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T01:26:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Anterio Thompson"
+      ],
+      "resolved_player_ids": [
+        "00-0041484"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/budda-baker-says-hes-focused-on-the-cowboys-not-trade-talk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/budda-baker-says-hes-focused-on-the-cowboys-not-trade-talk",
+      "title": "Budda Baker says he's focused on the Cowboys, not trade talk",
+      "body_text": "The trade deadline is Nov. 10, and the Cardinals could be sellers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T22:38:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Budda Baker"
+      ],
+      "resolved_player_ids": [
+        "00-0033890"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/video-seems-to-contradict-josh-jacobss-explanation-of-td-celebration",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/video-seems-to-contradict-josh-jacobss-explanation-of-td-celebration",
+      "title": "Video seems to contradict Josh Jacobs's explanation of TD celebration",
+      "body_text": "After Packers running back Josh Jacobs scored his first of two touchdowns on Thursday night, he seemed to celebrate by pretending to be in handcuffs.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T19:52:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "After Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-list-kenny-clark-george-pickens-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-list-kenny-clark-george-pickens-as-questionable",
+      "title": "Cowboys list Kenny Clark, George Pickens as questionable",
+      "body_text": "The Cowboys added defensive tackle Kenny Clark to the injury report on Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T21:09:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenny Clark",
+        "George Pickens",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0033120",
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-questionable-rj-harvey-ruled-out-for-broncos-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-questionable-rj-harvey-ruled-out-for-broncos-chiefs",
+      "title": "Jaylen Waddle questionable, RJ Harvey ruled out for Broncos-Chiefs",
+      "body_text": "At this point, it’s still unclear whether or not the Broncos will have receiver Jaylen Waddle for Sunday’s game against the Chiefs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-30T21:05:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-add-dt-daron-payne-to-injury-report-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-add-dt-daron-payne-to-injury-report-as-questionable",
+      "title": "Commanders add DT Daron Payne to injury report as questionable",
+      "body_text": "The Commanders had already ruled out defensive tackle Javon Kinlaw (knee).",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T20:52:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daron Payne",
+        "The Commanders",
+        "Javon Kinlaw"
+      ],
+      "resolved_player_ids": [
+        "00-0034333",
+        "00-0036260"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-list-trent-mcduffie-coleman-shelton-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-list-trent-mcduffie-coleman-shelton-as-questionable",
+      "title": "Rams list Trent McDuffie, Coleman Shelton as questionable",
+      "body_text": "The Rams didn't rule anyone out on their final injury report of the week, but they're not sure they'll have cornerback Trent McDuffie against the Chargers on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T20:36:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Coleman Shelton",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0034114"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-set-to-play-derwin-james-out-vs-rams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ladd-mcconkey-set-to-play-derwin-james-out-vs-rams",
+      "title": "Ladd McConkey set to play, Derwin James out vs. Rams",
+      "body_text": "The Chargers will have two of their key receivers for Sunday's game against the Rams.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-30T20:35:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derwin James",
+        "Rams The"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-de-jamree-kromah-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-claim-de-jamree-kromah-off-waivers",
+      "title": "Dolphins claim DE Jamree Kromah off waivers",
+      "body_text": "The Dolphins made a roster change a couple of days before their Week 8 game against the Patriots.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T20:29:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamree Kromah",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0039461"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-g-jackson-powers-johnson-is-questionable-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-g-jackson-powers-johnson-is-questionable-for-sunday",
+      "title": "Raiders G Jackson Powers-Johnson is questionable for Sunday",
+      "body_text": "The Raiders aren't sure if they'll have one of their starting offensive linemen for Sunday's game against the Jets.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T20:20:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jackson Powers",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rule-out-wr-carnell-tate-rb-tyjae-spears-p-tommy-townsend",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-rule-out-wr-carnell-tate-rb-tyjae-spears-p-tommy-townsend",
+      "title": "Titans rule out WR Carnell Tate, RB Tyjae Spears, P Tommy Townsend",
+      "body_text": "The Titans ruled out rookie wide receiver Carnell Tate (shoulder) for Sunday's game against the Bengals.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T20:13:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carnell Tate",
+        "Tyjae Spears",
+        "Tommy Townsend",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0039032",
+        "00-0035889"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-set-to-play-devonta-smith-ruled-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-set-to-play-devonta-smith-ruled-out",
+      "title": "Saquon Barkley set to play, DeVonta Smith ruled out",
+      "body_text": "The Eagles will have their top running back, but their top receiver will be out for Sunday night’s matchup against the Commanders.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-30T20:07:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sauce-gardner-tyler-warren-set-to-play-for-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sauce-gardner-tyler-warren-set-to-play-for-colts",
+      "title": "Sauce Gardner, Tyler Warren set to play for Colts",
+      "body_text": "The Colts ended a tumultuous week with a bit of good news about the health of two of their top remaining players.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T20:01:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sauce Gardner",
+        "Tyler Warren",
+        "Colts The"
+      ],
+      "resolved_player_ids": [
+        "00-0037190",
+        "00-0040128"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kerby-joseph-after-return-to-practice-im-still-him-i-hope-yall-aint-forgot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kerby-joseph-after-return-to-practice-im-still-him-i-hope-yall-aint-forgot",
+      "title": "Kerby Joseph after return to practice: I'm still him; I hope you all ain't forgot",
+      "body_text": "The Lions added cornerback Roger McCreary to their injury report Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T19:45:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kerby Joseph",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0037667"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-set-to-play-mansoor-delane-questionable-for-chiefs-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-set-to-play-mansoor-delane-questionable-for-chiefs-broncos",
+      "title": "Rashee Rice set to play, Mansoor Delane questionable for Chiefs-Broncos",
+      "body_text": "The Chiefs will have one of their key receivers back when they play the Broncos on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-10-30T19:44:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rashee Rice",
+        "Mansoor Delane",
+        "Broncos The"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rule-out-brian-robinson-list-eight-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rule-out-brian-robinson-list-eight-as-questionable",
+      "title": "Falcons rule out Brian Robinson, list eight as questionable",
+      "body_text": "The Falcons will be without running back Brian Robinson against the Buccaneers on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T19:11:04+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Robinson",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0037746"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colston-loveland-limited-at-bears-practice-with-a-neck-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colston-loveland-limited-at-bears-practice-with-a-neck-injury",
+      "title": "Colston Loveland limited at Bears practice with a neck injury",
+      "body_text": "The Bears added an offensive starter to their injury report after Thursday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T19:41:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Colston Loveland",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "title": "Appeals court reverses rejection of damages award against NFL in Sunday Ticket class action",
+      "body_text": "NFL undoubtedly will appeal the ruling to the U.S. Supreme Court.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T19:01:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket",
+        "Supreme Court"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "title": "New appeals court ruling could end Sunday Ticket",
+      "body_text": "NFL will eventually need to come up with a new way to provide out-of-market games.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T19:31:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-g-vega-ioane-ruled-out-for-week-8",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-g-vega-ioane-ruled-out-for-week-8",
+      "title": "Ravens G Vega Ioane ruled out for Week 8",
+      "body_text": "The Ravens expect to have quarterback Lamar Jackson back in the lineup for Sunday's game against the Bills, but they will be missing one of their starting offensive linemen.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-30T19:26:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vega Ioane",
+        "The Ravens",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-three-players-as-questionable-including-ot-tytus-howard",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-list-three-players-as-questionable-including-ot-tytus-howard",
+      "title": "Browns list three players as questionable, including OT Tytus Howard",
+      "body_text": "The Browns have only three players with injury designations ahead of their Week 8 matchup against the Steelers.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-30T19:14:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tytus Howard",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0035234"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
