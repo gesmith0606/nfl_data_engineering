@@ -141,6 +141,13 @@ def _upsert_predictions(conn, df: pd.DataFrame) -> int:
         if col not in df.columns:
             df[col] = None
 
+    # O/U pick retired per .planning/TOTALS_VERDICT.md (VERDICT: KILL,
+    # 2026-06-10).  The column stays in the table, but a side is never loaded
+    # -- including from boards written before the verdict was enforced.
+    # predicted_total / vegas_total / total_edge still load as market-tracking
+    # content.  See scripts/generate_predictions.py::OU_PICK_RETIRED.
+    df["ou_pick"] = ""
+
     cols_str = ", ".join(_PREDICTION_COLS)
     placeholders = ", ".join(["%s"] * len(_PREDICTION_COLS))
     conflict_updates = ", ".join(

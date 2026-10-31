@@ -17,7 +17,7 @@ published Gold boards; MAE is always against **actuals**.
 | Weekly fantasy ordering | **QB badly behind, others at parity or ahead** | top-N hit rate below |
 | Floor/ceiling bands | **BROKEN — 29.8% coverage vs ~80% target**; fixed this session to 83.2% | n=1,757 |
 | Graph features | **inert; contributes nothing** | A/B below |
-| Game predictions (ATS/O-U/CLV) | **MEASURED 2026-10-23: LOSING** — ATS 47.1% / -10.0% ROI, O/U 44.1% / -15.8%, break-even 52.38%; CLV +0.37 positive | 93 settled games |
+| Game predictions (ATS/O-U) | **MEASURED 2026-10-23: LOSING** — ATS 47.1% / -10.0% ROI, O/U 44.1% / -15.8%, break-even 52.38%; **no CLV evidence** (the "+0.37 CLV" first listed here was the spread edge, retracted 2026-10-24) | 93 settled games |
 | PPR / Standard | **UNASSESSABLE — not produced weekly** | only `projections_half_ppr` |
 | Kickers / DST | **UNASSESSABLE — not on the weekly board** | positions are QB/RB/WR/TE only |
 | Rookies | thin and under-projected; flag stops after week 2 | n=43 flagged rows |
@@ -210,16 +210,20 @@ Combined MAE: 5.440 -> 5.364, gap to Sleeper +0.169 -> +0.093.
 2. ~~**Get game predictions evaluated.**~~ **DONE 2026-10-23 — and it is
    losing.** Rebuilt the 2026 team-side Silver chain (none of it existed),
    generated weeks 1-6 and backtested: **ATS 41-46-6 (47.1%, -10.0% ROI), O/U
-   41-52 (44.1%, -15.8%)** against a 52.38% break-even. CLV is the one
+   41-52 (44.1%, -15.8%)** against a 52.38% break-even. ~~CLV is the one
    positive: +0.37 mean, 52.7% beating the close, ordered by tier (low 41.3%,
    medium 68.0%, high 59.1%) — our numbers anticipate line movement while our
-   side selection loses. n=93 is small (~5.2pp SE) and the predictions were
+   side selection loses.~~ **RETRACTED 2026-10-24: that was the spread edge
+   (`predicted_margin - spread_line`, closing line only), i.e. a home lean, not
+   CLV; home/favourites covered 39 of 87 this season. The 2026 O/U record also
+   reproduces from the Vegas total line alone** — see
+   `CLV_PICK_RULE_AUDIT_2026_10_24.md`. n=93 is small (~5.2pp SE) and the predictions were
    generated retrospectively, so this is *no evidence of edge* rather than
    proof of a broken model. **Getting here first required fixing the harness,
    which reported 75.7% O/U accuracy and +44.6% ROI by scoring 179 unplayed
    fixtures as wins** (`NaN > x` is `False`, not `NaN`). See
-   `PREDICTION_BACKTEST_PHANTOM_GAMES.md`. Still open: understand positive CLV
-   alongside losing picks; re-add `--check-predictions` to the sanity gate.
+   `PREDICTION_BACKTEST_PHANTOM_GAMES.md`. Still open: ~~understand positive CLV
+   alongside losing picks~~ (premise false); re-add `--check-predictions` to the sanity gate.
 3. **Fix the anchor coverage erosion** — restores a lever already paid for.
 4. **Decide the graph programme.** On this evidence, park it.
 5. ~~TE anchor weight 0.5 -> 0.75~~ **REJECTED 2026-10-22.** The -0.18 figure

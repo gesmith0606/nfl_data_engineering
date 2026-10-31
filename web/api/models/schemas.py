@@ -164,9 +164,35 @@ class GamePrediction(BaseModel):
     vegas_total: Optional[float] = None
     spread_edge: Optional[float] = None
     total_edge: Optional[float] = None
-    confidence_tier: str = Field(..., description="high / medium / low")
-    ats_pick: str = Field(..., description="home / away")
-    ou_pick: str = Field(..., description="over / under")
+    confidence_tier: str = Field(
+        ...,
+        description=(
+            "high / medium / low — confidence in the ATS pick (the calibrated "
+            "cover probability of the picked side)"
+        ),
+    )
+    ats_pick: str = Field(..., description="home / away team abbreviation")
+    pick_cover_prob: Optional[float] = Field(
+        None,
+        description=(
+            "Calibrated probability that the PICKED side covers (NaN-free; "
+            "null when no calibrator ran). -110 breaks even at 0.5238, so a "
+            "value below that is a pick we do not claim an edge on. Served so "
+            "the UI can show it next to the pick: a bare team abbreviation "
+            "reads as a betting recommendation, and on 2026 we have no "
+            "demonstrated ATS edge (47.1% on 93 games, line capture -1.07)."
+        ),
+    )
+    ou_pick: str = Field(
+        "",
+        description=(
+            "Retired: always empty. The game-totals betting surface was killed "
+            "by .planning/TOTALS_VERDICT.md (2026-06-10) — predicted_total, "
+            "vegas_total and total_edge are market-tracking content, not a bet "
+            "recommendation. The field is kept so the response schema does not "
+            "break existing clients."
+        ),
+    )
 
 
 class ProjectionMeta(BaseModel):
