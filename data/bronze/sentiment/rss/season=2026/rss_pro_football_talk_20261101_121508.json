@@ -1,0 +1,482 @@
+{
+  "fetch_run_id": "f572ab1a-008d-4bc4-b333-5128efaaa728",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-01T12:15:08.690287+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-going-for-his-102nd-win-counting-playoffs-more-than-tom-bradys-first-9-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-going-for-his-102nd-win-counting-playoffs-more-than-tom-bradys-first-9-seasons",
+      "title": "Josh Allen going for his 102nd win counting playoffs, more than Tom Brady's first 9 seasons",
+      "body_text": "If Allen and the Bills win today, he'll surpass Brady for sole possession of the third-most wins in a quarterback's first nine seasons.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-01T09:14:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen",
+        "Tom Brady",
+        "If Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0019596"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-and-unc-nearly-upset-no-1-miami",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bill-belichick-and-unc-nearly-upset-no-1-miami",
+      "title": "Bill Belichick and UNC nearly upset No. 1 Miami",
+      "body_text": "Earlier this month, Bill Belichick and North Carolina got a signature win over previously-unbeaten Pitt.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-01T03:19:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Belichick",
+        "Miami Earlier",
+        "North Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-is-one-four-td-no-int-game-away-from-elite-club",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-is-one-four-td-no-int-game-away-from-elite-club",
+      "title": "Joe Burrow is one four-TD, no-INT game away from elite club",
+      "body_text": "The 2026 Bengals have won two, lost two, and then won two.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-01T03:03:13+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-have-a-franchise-record-14-straight-games-with-20-or-more-points-allowed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-have-a-franchise-record-14-straight-games-with-20-or-more-points-allowed",
+      "title": "Cowboys have a franchise-record 14 straight games with 20 or more points allowed",
+      "body_text": "The Dallas Cowboys have applied to themselves the nickname of \"greatest offense there is.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-11-01T02:43:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-88-yards-on-sunday-derrick-henry-will-jump-to-no-7-all-time-in-rushing-yards",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-88-yards-on-sunday-derrick-henry-will-jump-to-no-7-all-time-in-rushing-yards",
+      "title": "With 88 yards on Sunday, Derrick Henry will jump to No. 7 all-time in rushing yards",
+      "body_text": "Ravens running back Derrick Henry, who turns 33 in early January, continues to get it done at a high level.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-01T00:32:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-eagles-prepare-for-sunday-night-questions-of-effort-from-monday-night-linger",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/as-eagles-prepare-for-sunday-night-questions-of-effort-from-monday-night-linger",
+      "title": "As Eagles prepare for Sunday night, questions of effort from Monday night linger",
+      "body_text": "As the Eagles plunged to their fifth straight loss, questions emerged regarding effort, or lack thereof.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-01T00:19:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "As Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-put-dt-tvondre-sweat-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-put-dt-tvondre-sweat-on-ir",
+      "title": "Jets put DT T'Vondre Sweat on IR",
+      "body_text": "The Jets ruled defensive tackle T'Vondre Sweat out for Week 8 on Friday and they ruled him out for at least three more games on Saturday.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-31T22:05:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vondre Sweat",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rbs-zach-charbonnet-jadarian-price-will-return-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rbs-zach-charbonnet-jadarian-price-will-return-monday-night",
+      "title": "Seahawks RBs Zach Charbonnet, Jadarian Price will return Monday night",
+      "body_text": "The Seahawks will have veteran running back Zach Charbonnet and rookie running back Jadarian Price in the same game for the first time on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T21:57:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Jadarian Price",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-and-colorado-survive-in-overtime-for-first-big-12-win-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-and-colorado-survive-in-overtime-for-first-big-12-win-of-the-season",
+      "title": "Deion Sanders and Colorado survive in overtime for first Big 12 win of the season",
+      "body_text": "It was harder than it should have been, but Colorado and coach Deion Sanders finally have their first Big 12 win of the season, beating Kansas State 27-24 in overtime to snap a five-game losing streak.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-31T21:42:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Deion Sanders",
+        "Kansas State"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-rule-out-rb-kyle-monangai",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-rule-out-rb-kyle-monangai",
+      "title": "Bears rule out RB Kyle Monangai",
+      "body_text": "Bears running back Kyle Monangai will miss his fourth consecutive game.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T21:26:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Monangai"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/new-appeals-court-ruling-could-end-sunday-ticket",
+      "title": "New appeals court ruling could end Sunday Ticket",
+      "body_text": "NFL will eventually need to come up with a new way to provide out-of-market games.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T19:31:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/appeals-court-reinstates-4-7-billion-verdict-against-nfl-in-sunday-ticket-class-action",
+      "title": "Appeals court reverses rejection of damages award against NFL in Sunday Ticket class action",
+      "body_text": "NFL undoubtedly will appeal the ruling to the U.S. Supreme Court.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T19:01:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Ticket",
+        "Supreme Court"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-josh-jacobs-was-arrested-three-other-women-told-police-he-had-abused-them-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-josh-jacobs-was-arrested-three-other-women-told-police-he-had-abused-them-too",
+      "title": "After Josh Jacobs was arrested, three other women told police he had abused them, too",
+      "body_text": "Police records released late on Friday show three women contacted police after Jacobs' May arrest to report similar incidents.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-31T08:14:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "After Josh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-could-be-on-thin-ice-in-green-bay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-could-be-on-thin-ice-in-green-bay",
+      "title": "Josh Jacobs could be on thin ice in Green Bay",
+      "body_text": "Throughout his off-field incident that resulted in a no-contest plea to misdemeanor battery, the Packers have remained steadfast in their support of running back Josh Jacobs.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T14:41:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-review-the-new-allegations-against-josh-jacobs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-review-the-new-allegations-against-josh-jacobs",
+      "title": "NFL \"will review\" the new allegations against Josh Jacobs",
+      "body_text": "Jacobs could be facing a lengthy suspension.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T16:44:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-trade-talks-are-active-and-ongoing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonathan-taylor-trade-talks-are-active-and-ongoing",
+      "title": "Jonathan Taylor trade talks are \"active and ongoing\"",
+      "body_text": "Seahawks, Packers, Broncos, Vikings, Giants are pegged as potential destinations.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T12:08:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-john-harbaugh-called-amy-adams-strunk-directly-in-an-effort-to-land-jeffery-simmons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-john-harbaugh-called-amy-adams-strunk-directly-in-an-effort-to-land-jeffery-simmons",
+      "title": "Report: John Harbaugh called Amy Adams Strunk directly in an effort to land Jeffery Simmons",
+      "body_text": "Harbaugh's unconventional move failed to prevent Bears from doing deal with Titans.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T13:34:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Amy Adams",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-caleb-williams-23-882-for-unauthorized-logo-on-shoes-in-week-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-fines-caleb-williams-23-882-for-unauthorized-logo-on-shoes-in-week-7",
+      "title": "NFL fines Caleb Williams $23,882 for \"unauthorized logo\" on shoes in Week 7",
+      "body_text": "NFL doubles the fine amount from Week 6; Williams has said he won't back down.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-29T21:20:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-flexes-referee-alex-moores-crew-out-of-prime-time",
+      "title": "Report: NFL flexes referee Alex Moore's crew out of prime time",
+      "body_text": "The NFL, for reasons still neither known nor apparent, opted not to flex the game between the 2-5 Eagles and 1-4-1 Commanders out of prime time, despite multiple other compelling Sunday afternoon games.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-30T01:44:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alex Moore"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/of-eight-use-of-helmet-infractions-in-week-7-only-cam-skattebo-was-flagged",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/of-eight-use-of-helmet-infractions-in-week-7-only-cam-skattebo-was-flagged",
+      "title": "Of eight use of helmet infractions in Week 7, only Cam Skattebo was flagged",
+      "body_text": "The fine imposed on Giants running back Cam Skattebo for illegal use of the helmet was not a rarity.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T21:09:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-place-db-derwin-james-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-place-db-derwin-james-on-ir",
+      "title": "Chargers place DB Derwin James on IR",
+      "body_text": "Chargers defensive back Derwin James hasn't played since Sept. 27.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T20:33:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derwin James"
+      ],
+      "resolved_player_ids": [
+        "00-0034790"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-elevate-zane-gonzalez-max-llewellyn",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-elevate-zane-gonzalez-max-llewellyn",
+      "title": "Dolphins elevate Zane Gonzalez, Max Llewellyn",
+      "body_text": "The Dolphins elevated kicker Zane Gonzalez and edge rusher Max Llewellyn to the active roster for Sunday’s game, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T20:23:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zane Gonzalez",
+        "Max Llewellyn",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0033862",
+        "00-0041531"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-will-put-running-back-r-j-harvey-on-injured-reserve-after-injury-in-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-will-put-running-back-r-j-harvey-on-injured-reserve-after-injury-in-practice",
+      "title": "Broncos will put running back R.J. Harvey on injured reserve after injury in practice",
+      "body_text": "Broncos running back R.J.",
+      "author": "Michael David Smith",
+      "published_at": "2026-10-31T20:21:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-ruled-out-four-players-elevate-two",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-ruled-out-four-players-elevate-two",
+      "title": "Falcons rule out four players, elevate two",
+      "body_text": "The Falcons ruled out cornerback Billy Bowman Jr.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T20:13:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Falcons",
+        "Billy Bowman Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040156"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-ruled-out-cb-mansoor-delane-place-cb-ljarius-sneed-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-ruled-out-cb-mansoor-delane-place-cb-ljarius-sneed-on-ir",
+      "title": "Chiefs rule out CB Mansoor Delane, place CB L'Jarius Sneed on IR",
+      "body_text": "The Chiefs secondary took two big hits on the eve of Sunday's rivalry game against the Broncos.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T20:03:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mansoor Delane",
+        "Jarius Sneed",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-activate-s-p-j-locke-back-to-active-roster-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-activate-s-p-j-locke-back-to-active-roster-from-ir",
+      "title": "Cowboys activate S P.J. Locke back to active roster from IR",
+      "body_text": "The Cowboys activated safety P.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-10-31T19:46:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/before-daron-payne-suffered-a-season-ending-injury-the-commanders-were-in-trade-talks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/before-daron-payne-suffered-a-season-ending-injury-the-commanders-were-in-trade-talks",
+      "title": "Before Daron Payne suffered a season-ending injury, the Commanders were in trade talks",
+      "body_text": "Why are teams trading key players well in advance of the November 10 deadline?",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T19:06:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Before Daron"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-have-become-the-ultimate-good-half-bad-half-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-have-become-the-ultimate-good-half-bad-half-team",
+      "title": "Ravens have become the ultimate good half/bad half team",
+      "body_text": "The Baltimore Ravens have fallen from 4-1 to 4-3, thanks to a pair of division games in which a 10-0 halftime lead against the Browns became a loss and a 13-0 halftime lead against the Bengals became a loss.",
+      "author": "Mike Florio",
+      "published_at": "2026-10-31T18:57:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Baltimore"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rule-out-a-j-brown-treveyon-henderson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rule-out-a-j-brown-treveyon-henderson",
+      "title": "Patriots rule out A.J. Brown, TreVeyon Henderson",
+      "body_text": "Wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-31T17:21:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Henderson Wide"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-elevate-de-carl-lawson-cb-johnathan-edwards",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-elevate-de-carl-lawson-cb-johnathan-edwards",
+      "title": "Colts elevate DE Carl Lawson, CB Johnathan Edwards",
+      "body_text": "The Colts have called up a pair of players from the practice squad for Sunday's game against the Jaguars.",
+      "author": "Josh Alper",
+      "published_at": "2026-10-31T16:47:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carl Lawson",
+        "Johnathan Edwards",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0033463",
+        "00-0040347"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "batch_id": "41c8a5e2",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-11-01T12:20:54.993928+00:00",
+  "record_count": 5,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rbs-zach-charbonnet-jadarian-price-will-return-monday-night",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "usage",
+      "summary": "Seahawks rookie RB Jadarian Price returns Monday night alongside veteran Zach Charbonnet for first game together.",
+      "source_excerpt": "The Seahawks will have veteran running back Zach Charbonnet and rookie running back Jadarian Price in the same game for the first time on Monday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl645229",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "injury",
+      "summary": "Price remains on injured reserve with chest injury, no designation for Week 8 game vs Bears.",
+      "source_excerpt": "Price (chest) doesn't have a designation for Monday's game against the Bears, but he remains on injured reserve, John Boyle of the Seahawks' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl645229",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "injury",
+      "summary": "Price remains on injured reserve with chest injury, no designation for Week 8 game vs Bears.",
+      "source_excerpt": "Price (chest) doesn't have a designation for Monday's game against the Bears, but he remains on injured reserve, John Boyle of the Seahawks' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-rbs-zach-charbonnet-jadarian-price-will-return-monday-night",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "usage",
+      "summary": "Seahawks rookie RB Jadarian Price plays first game with veteran Zach Charbonnet Monday night.",
+      "source_excerpt": "The Seahawks will have veteran running back Zach Charbonnet and rookie running back Jadarian Price in the same game for the first time on Monday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-ruled-out-cb-mansoor-delane-place-cb-ljarius-sneed-on-ir",
+      "player_name": "Mansoor Delane",
+      "team_abbr": "KC",
+      "category": "injury",
+      "summary": "Chiefs CB Mansoor Delane ruled out for Sunday's rivalry game.",
+      "source_excerpt": "The Chiefs ruled out CB Mansoor Delane, place CB L'Jarius Sneed on IR",
+      "extractor": "claude_primary"
+    }
+  ]
+}

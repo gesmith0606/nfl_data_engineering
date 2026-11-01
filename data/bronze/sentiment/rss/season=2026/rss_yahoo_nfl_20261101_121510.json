@@ -1,0 +1,759 @@
+{
+  "fetch_run_id": "f572ab1a-008d-4bc4-b333-5128efaaa728",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-01T12:15:10.536904+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "7da521c8-77a5-487b-aed7-123082c82bc9",
+      "url": "https://sports.yahoo.com/nfl/article/cleveland-browns-vs-pittsburgh-steelers-how-to-watch-today-start-time-where-to-stream-and-more-120500721.html",
+      "title": "Cleveland Browns vs. Pittsburgh Steelers: How to watch today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Cleveland Browns vs. Pittsburgh Steelers game this week.",
+      "author": "Liz Kocan",
+      "published_at": "2026-11-01T12:05:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "25cd5e47-62f4-3f8b-91ae-9e64ebd37be7",
+      "url": "https://sports.yahoo.com/articles/broncos-vs-chiefs-week-8-120000903.html",
+      "title": "Broncos vs. Chiefs in Week 8: How to watch, game time, TV schedule, game preview and more",
+      "body_text": "The battle for the AFC West hears up in Week 8 with the 5-1 Kansas City Chiefs on the road to take on our 5-2 Denver Broncos. The winner of today’s game will be atop of the division and in control of their own destiny heading into the second half of the season. Game preview […]",
+      "author": "",
+      "published_at": "2026-11-01T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kansas City",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "2dbc3709-04f3-3153-a53f-cf843660b16d",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-cardinal-problem-120000109.html",
+      "title": "Cowboys news: Dallas has a Cardinal problem",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-01T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "7947b0b0-c9a8-35fc-9675-88533a934cd2",
+      "url": "https://sports.yahoo.com/articles/jaguars-vs-colts-watch-week-120000650.html",
+      "title": "Jaguars vs. Colts: How to Watch Week 8",
+      "body_text": "Game time, TV/radio schedule, betting odds, and more for Jaguars vs. Colts in Week 8.",
+      "author": "",
+      "published_at": "2026-11-01T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Watch Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "b364b933-981c-3695-acf2-d713b61bb095",
+      "url": "https://sports.yahoo.com/articles/york-jets-flight-connections-11-120000805.html",
+      "title": "New York Jets Flight Connections 11/01/26",
+      "body_text": "Happy game day, Jets fans! The Jets face the Las Vegas Raiders this afternoon at MetLife Stadium in a game the team desperately needs to win. With the Chiefs and the Bills on the horizon over the next two weeks, a loss could put the Jets on the path to 2-8 very quickly. With the […]",
+      "author": "",
+      "published_at": "2026-11-01T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets Flight",
+        "The Jets",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "da655c5a-db44-3e37-9b56-8962f24e764a",
+      "url": "https://sports.yahoo.com/articles/giants-rookie-report-mostly-good-120000418.html",
+      "title": "Giants rookie report: Mostly good marks for at the midterm",
+      "body_text": "How have the Giants' rookies played through the first seven games?",
+      "author": "",
+      "published_at": "2026-11-01T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "fbd53a66-14f3-30b2-b974-e0fc188f0e50",
+      "url": "https://sports.yahoo.com/articles/watch-bills-ravens-week-8-120000336.html",
+      "title": "Here’s how to watch Bills at Ravens in Week 8",
+      "body_text": "All the ways to catch the action live when the Buffalo Bills take on the Baltimore Ravens in Week 8",
+      "author": "",
+      "published_at": "2026-11-01T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "e2f93c3b-ff0e-3278-8898-e0fbe5b81a79",
+      "url": "https://sports.yahoo.com/articles/browns-vs-steelers-week-8-115809321.html",
+      "title": "Browns vs. Steelers Week 8 is a big example of why we are glad CLE didn’t punt on the season",
+      "body_text": "As the Cleveland Browns look forward to a big Week 8 contest, looking back in thanks that they didn’t punt on 2026",
+      "author": "",
+      "published_at": "2026-11-01T11:58:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Steelers Week",
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "e6bba6d3-b095-4357-aa50-e3b88e74f77c",
+      "url": "https://sports.yahoo.com/nfl/article/arizona-cardinals-vs-dallas-cowboys-how-to-watch-the-nfl-week-8-game-channel-streaming-info-and-more-115500708.html",
+      "title": "Arizona Cardinals vs. Dallas Cowboys: How to watch the NFL Week 8 game, channel, streaming info and more",
+      "body_text": "How to watch the Arizona Cardinals vs. Dallas Cowboys game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-01T11:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "dad742bf-32a5-3106-a381-b87954424a2c",
+      "url": "https://sports.yahoo.com/articles/49ers-playing-today-nfl-week-114519380.html",
+      "title": "Are the 49ers playing today? NFL Week 8 schedule, next game, NFC West standings",
+      "body_text": "The 49ers are riding high at 6-1 this season. Will they be in action in this week? Here's what to know about Week 8.",
+      "author": "",
+      "published_at": "2026-11-01T11:45:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "1e7e6849-2269-48e4-956a-066de0ad2014",
+      "url": "https://sports.yahoo.com/nfl/article/minnesota-vikings-vs-detroit-lions-how-to-watch-the-nfl-week-8-game-channel-streaming-info-and-more-114500756.html",
+      "title": "Minnesota Vikings vs. Detroit Lions: How to watch the NFL Week 8 game, channel, streaming info and more",
+      "body_text": "How to watch the Minnesota Vikings vs. Detroit Lions game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-01T11:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Minnesota Vikings",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "0d944c42-0407-3d70-a7cf-1728c343a1fa",
+      "url": "https://sports.yahoo.com/articles/bills-news-know-ahead-week-114248282.html",
+      "title": "Bills news: What to know ahead of Week 8 vs. Ravens",
+      "body_text": "Everything you need to know as the Bills look to pick up their fifth win in the last six games vs. the Baltimore Ravens",
+      "author": "",
+      "published_at": "2026-11-01T11:42:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens Everything",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "2b32f59e-158f-3f9a-88d8-dd57d337ca02",
+      "url": "https://sports.yahoo.com/articles/appreciating-career-tee-higgins-having-113100642.html",
+      "title": "Appreciating the career year Tee Higgins is having with the Bengals",
+      "body_text": "Higgins is putting up monster numbers right now for the Bengals.",
+      "author": "",
+      "published_at": "2026-11-01T11:31:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tee Higgins",
+        "Bengals Higgins"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "6f0f8f49-bdd5-3616-9d98-d700b5f08654",
+      "url": "https://sports.yahoo.com/articles/channel-commanders-vs-eagles-game-113044028.html",
+      "title": "What channel is the Commanders vs Eagles game today? Start time, schedule, streaming",
+      "body_text": "What channel is &quot;Sunday Night Football&quot; on? Here's how to watch the Commanders vs. Eagles game in Week 8.",
+      "author": "",
+      "published_at": "2026-11-01T11:30:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e70a29b6-275b-3d37-a850-95ac79a33a41",
+      "url": "https://sports.yahoo.com/articles/giants-playing-today-nfl-week-113019041.html",
+      "title": "Are the Giants playing today? NFL Week 8 schedule, next game, NFC East standings",
+      "body_text": "The New York Giants are in first place in the NFC East entering Week 8 and are fresh off a win over the Texans. Here's what's next for the G-Men:",
+      "author": "",
+      "published_at": "2026-11-01T11:30:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The New",
+        "York Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "c223cfda-d4d6-36ae-ab9b-d1c574919319",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-streak-ends-113000633.html",
+      "title": "Cleveland Browns news: The streak ends today! (Maybe!)",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 1 edition of the Sunday Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-01T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Sunday Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "00489a57-65a7-422c-92c4-aa78a38e9c95",
+      "url": "https://sports.yahoo.com/nfl/article/baltimore-ravens-vs-buffalo-bills-how-to-watch-today-start-time-where-to-stream-and-more-112800773.html",
+      "title": "Baltimore Ravens vs. Buffalo Bills: How to watch today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Baltimore Ravens vs. Buffalo Bills game this weekend.",
+      "author": "Liz Kocan",
+      "published_at": "2026-11-01T11:28:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Baltimore Ravens",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "495ecaf5-966b-3899-9b51-c899aea673af",
+      "url": "https://sports.yahoo.com/articles/bengals-vs-titans-watch-game-110500959.html",
+      "title": "Bengals vs. Titans: How to watch, game time, TV info, and online stream",
+      "body_text": "Zac Taylor and Joe Burrow have dominated the Titans over their tenure. Can they continue that trend?",
+      "author": "",
+      "published_at": "2026-11-01T11:05:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zac Taylor",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "6f42dd18-3c1f-3af5-9c29-d1717b7c3a79",
+      "url": "https://sports.yahoo.com/articles/vikings-lose-game-breaking-down-110326521.html",
+      "title": "When will the Vikings lose a game? Breaking down Minnesota's remaining schedule",
+      "body_text": "The Vikings are the last undefeated team left in the NFL this season. When will they lose a game?",
+      "author": "",
+      "published_at": "2026-11-01T11:03:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "1752f243-4b67-3502-bd51-b367e1c9a6e0",
+      "url": "https://sports.yahoo.com/articles/nfl-games-fox-cbs-broadcasting-110208440.html",
+      "title": "Which NFL games are Fox, CBS broadcasting? Week 8 coverage maps",
+      "body_text": "Which NFL games will be broadcast in your region in Week 8? Here are the coverage maps for Sunday's action.",
+      "author": "",
+      "published_at": "2026-11-01T11:02:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "33f7171f-c21a-3ccb-b3c4-35ea1ccabbb5",
+      "url": "https://sports.yahoo.com/articles/chargers-win-game-breaking-down-110152005.html",
+      "title": "When will the Chargers win a game? Breaking down LA's remaining schedule",
+      "body_text": "The Chargers are the NFL's last winless team. When will they enter the win column? Here are the most winnable games on LA's schedule.",
+      "author": "",
+      "published_at": "2026-11-01T11:01:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "1c026dc5-b100-369b-a42c-79ef471fa745",
+      "url": "https://sports.yahoo.com/articles/watch-arizona-cardinals-dallas-cowboys-110000013.html",
+      "title": "How to Watch: Arizona Cardinals at Dallas Cowboys",
+      "body_text": "All the information you need on the Cardinals vs. Cowboys week eight battle.",
+      "author": "",
+      "published_at": "2026-11-01T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "8fa2919f-45df-3027-93b4-073889bf85ae",
+      "url": "https://sports.yahoo.com/articles/watch-steelers-vs-browns-110000078.html",
+      "title": "How to watch Steelers vs. Browns",
+      "body_text": "How to watch Steelers vs. Browns.",
+      "author": "",
+      "published_at": "2026-11-01T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Browns How"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "b44ec8f4-26b8-316f-8e00-9b0106bbd11f",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-vs-pittsburgh-steelers-110000895.html",
+      "title": "Cleveland Browns vs. Pittsburgh Steelers: How to watch, TV schedule, history, betting odds and more",
+      "body_text": "Which cities get to watch the game on TV? What uniforms will the Browns wear? And a little bit of history between the two teams.",
+      "author": "",
+      "published_at": "2026-11-01T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "eb7e8ffa-6334-3d66-9270-26a0dbc57ebb",
+      "url": "https://sports.yahoo.com/articles/broncos-don-t-much-motivation-110000043.html",
+      "title": "Broncos don’t need much motivation for showdown with KC",
+      "body_text": "The rivalry with the Chiefs speaks for itself, especially after the Week 1 debacle. The Broncos get a redo today.",
+      "author": "",
+      "published_at": "2026-11-01T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "f9ace583-e1d7-3061-99f6-4a83f9867811",
+      "url": "https://sports.yahoo.com/articles/falcons-buccaneers-2026-watch-start-110000345.html",
+      "title": "Falcons @ Buccaneers 2026: How to watch, start time, TV, and odds for Week 8",
+      "body_text": "The 3-4 Falcons try to pick up their second divisional win and bury the 2-5 Buccaneers today.",
+      "author": "",
+      "published_at": "2026-11-01T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "6055b4fa-c9e4-304d-baf7-f67e76dfdd3f",
+      "url": "https://sports.yahoo.com/articles/nfl-games-today-week-8-105531535.html",
+      "title": "What NFL games are on today? Week 8 TV channels, Sunday schedule, results",
+      "body_text": "The NFL Week 8 schedule on Sunday, Nov. 1 is loaded with important games, including a Sunday afternoon showdown between the Ravens and Bills.",
+      "author": "",
+      "published_at": "2026-11-01T10:55:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "cbdfaf95-7375-32f9-8436-7dddb72cd765",
+      "url": "https://sports.yahoo.com/articles/patriots-vs-dolphins-watch-week-100000061.html",
+      "title": "Patriots vs. Dolphins: How to watch the Week 8 game on Sunday",
+      "body_text": "Everything you need to know about watching the Patriots game on Sunday.",
+      "author": "",
+      "published_at": "2026-11-01T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Everything"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "227ea303-9806-3a53-886e-adcaeaffa077",
+      "url": "https://sports.yahoo.com/articles/nfl-international-game-today-nfl-093050159.html",
+      "title": "Is there an NFL international game today? NFL Week 8 schedule",
+      "body_text": "Another NFL Sunday is here and we've reached Week 8. Does that mean there is another early NFL international game today? Here's what to know.",
+      "author": "",
+      "published_at": "2026-11-01T09:30:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "daa72d1b-02dc-3fec-9e52-2229b4be1fe1",
+      "url": "https://sports.yahoo.com/articles/josh-allen-going-102nd-win-091458529.html",
+      "title": "Josh Allen going for his 102nd win counting playoffs, more than Tom Brady's first 9 seasons",
+      "body_text": "If Allen and the Bills win today, he'll surpass Brady for sole possession of the third-most wins in a quarterback's first nine seasons.",
+      "author": "",
+      "published_at": "2026-11-01T09:14:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Allen",
+        "Tom Brady",
+        "If Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0019596"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "b2c9ae6a-1dcc-35d8-8a50-d18cebdabb9a",
+      "url": "https://sports.yahoo.com/articles/york-jets-vs-las-vegas-080033602.html",
+      "title": "New York Jets vs Las Vegas Raiders: Five Questions with Silver and Black Pride",
+      "body_text": "The Jets look to get back on the winning track against the Las Vegas Raiders",
+      "author": "",
+      "published_at": "2026-11-01T08:00:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Las Vegas",
+        "Five Questions",
+        "Black Pride",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "4d9fb853-a430-3469-a8ac-d9195580e086",
+      "url": "https://sports.yahoo.com/articles/york-jets-roster-moves-ahead-074954270.html",
+      "title": "New York Jets make roster moves ahead of Las Vegas Raiders game",
+      "body_text": "The Jets suffer a big loss on the defensive line",
+      "author": "",
+      "published_at": "2026-11-01T07:49:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Las Vegas",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "1963edc6-03eb-3d68-953f-52eb6d6ecf63",
+      "url": "https://sports.yahoo.com/articles/eagles-eli-stowers-ready-build-070000851.html",
+      "title": "Eagles' Eli Stowers ready to build on his solid NFL debut",
+      "body_text": "Eagles rookie Eli Stowers got his feet wet against the Cowboys and is hoping to build on that the rest of the way.",
+      "author": "",
+      "published_at": "2026-11-01T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eli Stowers"
+      ],
+      "resolved_player_ids": [
+        "00-0041483"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "bd0e5543-9a22-3c33-851c-f0f96130503c",
+      "url": "https://sports.yahoo.com/articles/avalanche-bad-things-happen-eagles-070000884.html",
+      "title": "‘An avalanche of bad things happen': Eagles must fix leaky run defense",
+      "body_text": "How can the Eagles stop the run?",
+      "author": "",
+      "published_at": "2026-11-01T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5bc94ae1-80ef-34e6-9584-19b0a2fa0d2b",
+      "url": "https://sports.yahoo.com/articles/vikings-elevate-deejay-dallas-practice-053526515.html",
+      "title": "Vikings Elevate DeeJay Dallas from Practice Squad",
+      "body_text": "One more roster move before Sunday",
+      "author": "",
+      "published_at": "2026-11-01T05:35:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikings Elevate",
+        "Practice Squad"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "83b3414c-0ea1-3351-acaa-62d1cadc3547",
+      "url": "https://sports.yahoo.com/articles/daily-norseman-staff-nfl-picks-050846343.html",
+      "title": "Daily Norseman Staff NFL Picks, Week 8",
+      "body_text": "Time to make the picks!",
+      "author": "",
+      "published_at": "2026-11-01T05:08:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daily Norseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b2b00328-6d98-3a5d-89be-bb5a9f3935b1",
+      "url": "https://sports.yahoo.com/articles/good-bad-ugly-north-carolina-043211689.html",
+      "title": "The Good, The Bad, and The Ugly: North Carolina Tar Heels 2026 Edition",
+      "body_text": "Miami went on the road and found a way to win. But let’s look under the hood of the win in Chapel hill",
+      "author": "",
+      "published_at": "2026-11-01T04:32:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Good",
+        "The Bad",
+        "The Ugly",
+        "North Carolina",
+        "Tar Heels",
+        "Edition Miami"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c976a804-1230-3fe9-9ef2-506367f83c99",
+      "url": "https://sports.yahoo.com/articles/recap-miami-survives-north-carolina-034126681.html",
+      "title": "Recap: Miami survives North Carolina 38-35",
+      "body_text": "Wow. All I can immediately muster as I sit down at my computer. The Miami Hurricanes remained perfect on Saturday night in Chapel Hill, just barely getting past North Carolina 38-35. Darian Mensah was 22/29 passing for 274 yards and three scores with no interceptions. Mark Fletcher, Jr. had 13 rushes for 43 yards with […]",
+      "author": "",
+      "published_at": "2026-11-01T03:41:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "North Carolina",
+        "The Miami",
+        "Chapel Hill",
+        "Darian Mensah",
+        "Mark Fletcher"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "ff216713-8957-3c41-b785-e1f3cb12bc66",
+      "url": "https://sports.yahoo.com/articles/joe-burrow-one-four-td-030313654.html",
+      "title": "Joe Burrow is one four-TD, no-INT game away from elite club",
+      "body_text": "The 2026 Bengals have won two, lost two, and then won two.",
+      "author": "",
+      "published_at": "2026-11-01T03:03:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "24b51622-b830-3ac3-b892-291923d9141f",
+      "url": "https://sports.yahoo.com/articles/cowboys-franchise-record-14-straight-024351367.html",
+      "title": "Cowboys have a franchise-record 14 straight games with 20 or more points allowed",
+      "body_text": "The Dallas Cowboys have applied to themselves the nickname of &quot;greatest offense there is.&quot;",
+      "author": "",
+      "published_at": "2026-11-01T02:43:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "317de5d7-89fc-32c5-9146-b7cb831ce839",
+      "url": "https://sports.yahoo.com/articles/cardinals-roster-moves-prior-cowboys-011333793.html",
+      "title": "Cardinals make roster moves prior to Cowboys game",
+      "body_text": "Team received some good injury news",
+      "author": "",
+      "published_at": "2026-11-01T01:13:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "4af3dc40-9d53-35ba-819d-703ba053e08f",
+      "url": "https://sports.yahoo.com/articles/nfl-week-8-gambling-preview-010000487.html",
+      "title": "NFL Week 8 gambling preview: Bet on George Pickens, plus other picks",
+      "body_text": "What are your favorite NFL props for this week?",
+      "author": "",
+      "published_at": "2026-11-01T01:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "50d115fb-3f49-37cd-82d7-ffb1619d5472",
+      "url": "https://sports.yahoo.com/articles/nahshon-wright-frustrating-jets-could-004223466.html",
+      "title": "Nahshon Wright’s ‘frustrating’ Jets year could see him on the move at trade deadline",
+      "body_text": "Nahshon Wright admits this season has been tough on him.",
+      "author": "",
+      "published_at": "2026-11-01T00:42:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nahshon Wright"
+      ],
+      "resolved_player_ids": [
+        "00-0036986"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "56e0e851-69ce-3c40-992f-ef267a1b3ddd",
+      "url": "https://sports.yahoo.com/articles/eagles-prepare-sunday-night-questions-001900701.html",
+      "title": "As Eagles prepare for Sunday night, questions of effort from Monday night linger",
+      "body_text": "As the Eagles plunged to their fifth straight loss, questions emerged regarding effort, or lack thereof.",
+      "author": "",
+      "published_at": "2026-11-01T00:19:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "As Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9b7b16b0-3a9e-3979-9ba0-33ca9f09b386",
+      "url": "https://sports.yahoo.com/articles/no-11-texas-vs-mississippi-000524374.html",
+      "title": "No. 11 Texas vs. Mississippi State final score: Horns notch comfortable 31-3 win",
+      "body_text": "The Longhorns sealed the game midway through the fourth quarter.",
+      "author": "",
+      "published_at": "2026-11-01T00:05:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mississippi State",
+        "The Longhorns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "ecf50745-4b40-375f-b7e7-1b2531e9757a",
+      "url": "https://sports.yahoo.com/articles/vikings-trade-jonathan-taylor-000241290.html",
+      "title": "Should the Vikings Trade for Jonathan Taylor?",
+      "body_text": "The NFL trade deadline is approaching in just two weeks- November 10th. NFC teams like the 49ers, Seahawks, and Bears are making deals to bolster their roster. Should the Minnesota Vikings be aggressive in doing the same? The Vikings are undefeated and a Super Bowl contender. That typically is a recipe for an aggressive acquisition […]",
+      "author": "",
+      "published_at": "2026-11-01T00:02:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikings Trade",
+        "Jonathan Taylor",
+        "Minnesota Vikings",
+        "The Vikings",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "8aec4499-9d66-3173-b2aa-64e9a57dc4f8",
+      "url": "https://sports.yahoo.com/articles/dolphins-fans-miami-dolphins-vs-000000088.html",
+      "title": "Dolphins Fans: Miami Dolphins Vs. New England Patriots Predictions",
+      "body_text": "Miami Dolphins fans share their prediction for tomorrows game against the New England Patriots.",
+      "author": "",
+      "published_at": "2026-11-01T00:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dolphins Fans",
+        "Miami Dolphins",
+        "New England",
+        "Patriots Predictions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "021ff9fe-af43-31cc-8aa9-bfd495ae25a3",
+      "url": "https://sports.yahoo.com/articles/giants-cam-skattebo-gets-hit-232841899.html",
+      "title": "Giants’ Cam Skattebo gets hit with $7,073 fine for controversial use-of-helmet flag",
+      "body_text": "Skattebo, 24, did not hold back when talking to reporters about the flag following Sunday's game.",
+      "author": "",
+      "published_at": "2026-10-31T23:28:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "6cb4f2bf-5b1a-3a59-8441-ce97a1d3fb17",
+      "url": "https://sports.yahoo.com/articles/signing-lan-larison-53-man-232559295.html",
+      "title": "What signing Lan Larison to the 53-man roster means for the Patriots",
+      "body_text": "The Patriots added to their running back group ahead of their game against the Dolphins.",
+      "author": "",
+      "published_at": "2026-10-31T23:25:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lan Larison",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0040568"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "0811f25d-137e-3a7d-b340-95f9752e6ef9",
+      "url": "https://sports.yahoo.com/articles/state-giants-entering-bye-week-232020161.html",
+      "title": "State of the Giants entering bye week: How this team became a true contender",
+      "body_text": "The Giants enter November atop their division and in the playoff picture. Away we go.",
+      "author": "",
+      "published_at": "2026-10-31T23:20:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    }
+  ]
+}

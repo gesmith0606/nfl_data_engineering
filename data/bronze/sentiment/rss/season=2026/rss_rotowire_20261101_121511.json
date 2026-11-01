@@ -1,0 +1,93 @@
+{
+  "fetch_run_id": "f572ab1a-008d-4bc4-b333-5128efaaa728",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-01T12:15:11.179375+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645230",
+      "url": "https://www.rotowire.com//football/player/rashid-shaheed-16560",
+      "title": "Rashid Shaheed: Ruled out for MNF",
+      "body_text": "Shaheed (knee) has been ruled out for Monday's game against the Bears, Curtis Crabtree of FOX 13 Seattle reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-31T01:53:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Rashid Shaheed",
+        "Curtis Crabtree"
+      ],
+      "resolved_player_ids": [
+        "00-0037545"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645229",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "title": "Jadarian Price: No designation for Week 8",
+      "body_text": "Price (chest) doesn't have a designation for Monday's game against the Bears, but he remains on injured reserve, John Boyle of the Seahawks' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-31T01:50:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jadarian Price",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645228",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "title": "Zach Charbonnet: Will play Monday",
+      "body_text": "Charbonnet (knee) does not carry an injury designation into Monday's game against the Bears, John Boyle of the Seahawks' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-31T01:49:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Zach Charbonnet",
+        "Monday Charbonnet",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645227",
+      "url": "https://www.rotowire.com//football/player/rj-harvey-18522",
+      "title": "RJ Harvey: Lands on injured reserve",
+      "body_text": "The Broncos placed Harvey (knee) on injured reserve Saturday, Ian Rapoport of NFL Network reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-31T01:19:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "The Broncos",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645225",
+      "url": "https://www.rotowire.com//football/player/colston-loveland-18460",
+      "title": "Colston Loveland: Cleared for Monday Night Football",
+      "body_text": "Loveland (neck) does not carry an injury designation into Monday's game against the Seahawks.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-10-31T11:57:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Colston Loveland",
+        "Monday Night",
+        "Football Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "SEA"
+    }
+  ]
+}
