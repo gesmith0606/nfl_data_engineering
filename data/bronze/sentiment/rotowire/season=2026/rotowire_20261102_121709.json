@@ -1,0 +1,99 @@
+{
+  "fetch_run_id": "987650be-43cc-4cac-92da-9bd7bdcc2d7d",
+  "source": "rotowire",
+  "fetched_at": "2026-11-02T12:17:09.338462+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl645560",
+      "url": "https://www.rotowire.com//football/player/tanner-mckee-16686",
+      "permalink": "",
+      "title": "Tanner McKee: Fails to produce TD in Week 8 loss",
+      "body_text": "McKee completed 23 of 34 passes for 212 yards, no touchdowns and one interception in Sunday's 27-10 loss to the Commanders. He also rushed four times for 25 yards and lost a fumble. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-01T08:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl645558",
+      "url": "https://www.rotowire.com//football/player/makai-lemon-19231",
+      "permalink": "",
+      "title": "Makai Lemon: Leads team with six catches for 57 yards",
+      "body_text": "Lemon caught six of nine targets for 57 yards in Sunday's 27-10 loss to the Commanders. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-01T08:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl645557",
+      "url": "https://www.rotowire.com//football/player/dallas-goedert-12860",
+      "permalink": "",
+      "title": "Dallas Goedert: Four catches in Week 8",
+      "body_text": "Goedert caught all four of his targets for 30 yards and added a two-yard run in Sunday's 27-10 loss to the Commanders. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-01T08:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Goedert"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl645556",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Steps up late as team's top RB",
+      "body_text": "White rushed 11 times for 55 yards and a touchdown while catching two of three targets for five yards in Sunday's 27-10 win over the Eagles. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-01T08:51:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl645554",
+      "url": "https://www.rotowire.com//football/player/stefon-diggs-10133",
+      "permalink": "",
+      "title": "Stefon Diggs: Scores fifth TD in Week 8 win",
+      "body_text": "Diggs caught three of six targets for 38 yards and a touchdown in Sunday's 19-10 win over the Eagles. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-01T08:50:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}

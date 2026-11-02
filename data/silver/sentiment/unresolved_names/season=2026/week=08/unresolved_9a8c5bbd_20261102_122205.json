@@ -1,0 +1,72 @@
+{
+  "batch_id": "9a8c5bbd",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-11-02T12:22:05.868318+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-csonka-celebrates-vikings-loss-as-1972-dolphins-stand-alone-for-another-year",
+      "player_name": "Larry Csonka",
+      "team_abbr": "MIA",
+      "category": "general",
+      "summary": "Larry Csonka celebrates Vikings' loss as 1972 Dolphins' perfect season record stands alone another year.",
+      "source_excerpt": "Larry Csonka celebrates Vikings' loss as 1972 Dolphins stand alone for another year. It's celebration time for the 1972 Dolphins",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-lead-broncos-17-13-at-halftime",
+      "player_name": "Emmett Johnson",
+      "team_abbr": "KC",
+      "category": "usage",
+      "summary": "Chiefs rookie RB Emmett Johnson showing strong usage with 28 touches for 171 yards entering Sunday.",
+      "source_excerpt": "Chiefs rookie running back Emmett Johnson entered Sunday's game with 28 touches for 171 yards.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl645558",
+      "player_name": "Makai Lemon",
+      "team_abbr": null,
+      "category": "usage",
+      "summary": "Makai Lemon led team with 6 catches for 57 yards in 27-10 Week 8 loss to Commanders.",
+      "source_excerpt": "Lemon caught six of nine targets for 57 yards in Sunday's 27-10 loss to the Commanders.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl645558",
+      "player_name": "Makai Lemon",
+      "team_abbr": "PHI",
+      "category": "usage",
+      "summary": "Lemon led team with 6 catches on 9 targets for 57 yards in Week 8 loss.",
+      "source_excerpt": "Lemon caught six of nine targets for 57 yards in Sunday's 27-10 loss to the Commanders.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "eb4fe081-5c80-37da-8719-0380dd57874e",
+      "player_name": "Cashius Howell",
+      "team_abbr": "CIN",
+      "category": "injury",
+      "summary": "Bengals monitoring Cashius Howell injury status with potential depth concerns.",
+      "source_excerpt": "The Bengals may be needing to find some depth if these injuries are serious.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-csonka-celebrates-vikings-loss-as-1972-dolphins-stand-alone-for-another-year",
+      "player_name": "Larry Csonka",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "1972 Dolphins legend Larry Csonka celebrated the Vikings' loss, keeping the undefeated Dolphins' record standing alone.",
+      "source_excerpt": "It's celebration time for the 1972 Dolphins.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-lead-broncos-17-13-at-halftime",
+      "player_name": "Emmett Johnson",
+      "team_abbr": "KC",
+      "category": "usage",
+      "summary": "Chiefs rookie RB Emmett Johnson has 28 touches for 171 yards entering Sunday game.",
+      "source_excerpt": "Chiefs rookie running back Emmett Johnson entered Sunday's game with 28 touches for 171 yards.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

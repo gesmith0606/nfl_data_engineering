@@ -1,0 +1,174 @@
+{
+  "batch_id": "9a8c5bbd",
+  "season": 2026,
+  "week": 8,
+  "computed_at": "2026-11-02T12:22:05.858960+00:00",
+  "record_count": 15,
+  "records": [
+    {
+      "doc_id": "7902a0af-21dd-465f-b064-8e363d161ef6",
+      "external_id": "7902a0af-21dd-465f-b064-8e363d161ef6",
+      "team_abbr": null,
+      "summary": "Prediction markets article for Eagles vs. Commanders first touchdown scorer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a look at the prediction markets at Kalshi for the first touchdown scorer in Eagles vs. Commanders on Sunday Night Football",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "cdc9a102-56b9-4b8a-b634-61f1183746b2",
+      "external_id": "cdc9a102-56b9-4b8a-b634-61f1183746b2",
+      "team_abbr": null,
+      "summary": "Betting preview and odds for Commanders vs. Eagles Week 8 SNF matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a closer look at the top trading markets available at Kalshi for Week 8's Sunday Night Football matchup between Washington and Philadelphia",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "4885c832-0bd7-45f8-adee-e2d9348623d3",
+      "external_id": "4885c832-0bd7-45f8-adee-e2d9348623d3",
+      "team_abbr": null,
+      "summary": "Kalshi promo code offer for Eagles vs. Commanders SNF betting.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 8 Eagles vs. Commanders SNF matchup",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "355470c5-5782-4de2-a113-a45af83e45d7",
+      "external_id": "355470c5-5782-4de2-a113-a45af83e45d7",
+      "team_abbr": null,
+      "summary": "Betting preview and best bets for Eagles vs. Commanders SNF.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Eagles vs. Commanders on Sunday Night Football",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "c9839f59-21e3-4cc3-92d2-3d07163f5611",
+      "external_id": "c9839f59-21e3-4cc3-92d2-3d07163f5611",
+      "team_abbr": null,
+      "summary": "Promotional content for betting promo code on Patriots vs. Dolphins Week 8 matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Claim the latest Polymarket promo code to make predictions for Sunday's Week 8 matchup between New England and Miami",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c710e561-f7b9-468f-84a4-269b07fc2cf1",
+      "external_id": "c710e561-f7b9-468f-84a4-269b07fc2cf1",
+      "team_abbr": null,
+      "summary": "Promotional content for betting promo code on Chargers vs. Rams Week 8 rivalry matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The Chargers and Rams face off in an L.A. rivalry showdown, and here's a look at the trading markets available for Sunday's matchup at Kalshi",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "77219886-e5b1-41b3-80c3-57e3d0d96afc",
+      "external_id": "77219886-e5b1-41b3-80c3-57e3d0d96afc",
+      "team_abbr": null,
+      "summary": "Week 8 betting preview for Chiefs vs. Broncos with odds, picks, and predictions.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Here's everything bettors need to know for Chiefs vs. Broncos in NFL Week 8",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1162fb91-732e-3f7e-90bb-dce76e5fa03b",
+      "external_id": "1162fb91-732e-3f7e-90bb-dce76e5fa03b",
+      "team_abbr": null,
+      "summary": "NFL trade deadline updates with teams taking action eight days before deadline.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "trade",
+      "source_excerpt": "The NFL trade deadline is eight days away, but teams are already taking bold action to reshape their rosters.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "050f88e6-12b7-3e75-ade5-114b501a884f",
+      "external_id": "050f88e6-12b7-3e75-ade5-114b501a884f",
+      "team_abbr": null,
+      "summary": "Analysis of overpaid NFL quarterbacks and Week 8 winners/losers.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "James Dator looks at the overpaid QBs of the NFL, and breaks down the winners and losers from Week 8.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "47f78f1a-0bed-44e8-aeea-9259da9ee63a",
+      "external_id": "47f78f1a-0bed-44e8-aeea-9259da9ee63a",
+      "team_abbr": null,
+      "summary": "Streaming guide for Monday Night Football broadcast.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Tune in to tonight's Cowboys vs. Eagles MNF action without cable \u2014 here's how.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "34029304-cdc4-485b-a0fe-b737bfb31899",
+      "external_id": "34029304-cdc4-485b-a0fe-b737bfb31899",
+      "team_abbr": null,
+      "summary": "Week 8 instant reactions from analysts discussing Cowboys and Ravens performance.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Nate Tice & Hayden Winks dive into their instant takeaways from Week 8 of NFL action.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "7ac0adf6-392e-4d26-bd02-4e6d3e5d0b99",
+      "external_id": "7ac0adf6-392e-4d26-bd02-4e6d3e5d0b99",
+      "team_abbr": null,
+      "summary": "Fantasy analyst Chris Allen discusses Week 8 storylines and offseason narratives.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Chris Allen examines some storylines coming off Week 8's Sunday action.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "dad94357-0483-397f-9a0f-95cff0183109",
+      "external_id": "dad94357-0483-397f-9a0f-95cff0183109",
+      "team_abbr": null,
+      "summary": "Raiders fans create home-field atmosphere at MetLife Stadium for Jets game.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Raiders hadn't visited the Jets in a non-COVID-19-restricted season since 2019, so local fans of one of the NFL's national teams waited a long time for Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f8e3348b-b293-4f7f-947e-28bf02212044",
+      "external_id": "f8e3348b-b293-4f7f-947e-28bf02212044",
+      "team_abbr": null,
+      "summary": "Commanders defeat Eagles in NFC East divisional matchup with multiple turnovers.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Eagles took an early lead but that quickly vanished.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-after-going-down-10-0-commanders-lead-eagles-13-10-at-halftime",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-after-going-down-10-0-commanders-lead-eagles-13-10-at-halftime",
+      "team_abbr": null,
+      "summary": "No actionable fantasy signal in game score recap.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Philadelphia took an early 10-0 lead before Washington scored 13 straight points.",
+      "subject_type": "team"
+    }
+  ]
+}

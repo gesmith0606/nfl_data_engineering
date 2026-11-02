@@ -1,0 +1,578 @@
+{
+  "fetch_run_id": "66874a3e-a9ef-4db7-bc53-a181d7279693",
+  "source": "pft",
+  "fetched_at": "2026-11-02T12:17:14.602808+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-we-found-a-way-to-win-we-didnt-do-that-the-last-few-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-we-found-a-way-to-win-we-didnt-do-that-the-last-few-years",
+      "permalink": "",
+      "title": "Joe Burrow: We found a way to win, we didn't do that the last few years",
+      "body_text": "The Bengals apparently need to dig themselves a 13-0 hole before they're ready to start playing football this season.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-02T12:08:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-sundays-performance-is-the-expectation-for-our-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-sundays-performance-is-the-expectation-for-our-defense",
+      "permalink": "",
+      "title": "Joe Brady: Sunday's performance is the expectation for our defense",
+      "body_text": "The Bills allowed an average of 28.5 points per game in their first six games of the 2026 season and improving on that was a focus for the team during their bye week.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-02T11:54:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Brady",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/khalil-mack-trying-to-be-where-his-feet-are-at-amid-trade-rumors",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/khalil-mack-trying-to-be-where-his-feet-are-at-amid-trade-rumors",
+      "permalink": "",
+      "title": "Khalil Mack trying to be where his \"feet are at\" amid trade rumors",
+      "body_text": "The Chargers slumped to another defeat on Sunday and most of the attention being paid to the 0-7 team concerns who is going to be hitting the road in the near future.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-02T11:40:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Khalil Mack",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0031040"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-eagles-said-they-wont-trade-me-i-want-to-be-here-to-fix-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-eagles-said-they-wont-trade-me-i-want-to-be-here-to-fix-it",
+      "permalink": "",
+      "title": "Saquon Barkley: Eagles said they won't trade me, I want to be here to fix it",
+      "body_text": "A report before Sunday's games said that the Eagles will not trade running back Saquon Barkley ahead of the November 10 trade deadline and Barkley said after Sunday night's game against the Commanders that he's received the same message from the team.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-02T11:31:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-wisely-declined-the-vikings-intentional-offsides",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-wisely-declined-the-vikings-intentional-offsides",
+      "permalink": "",
+      "title": "Dan Campbell wisely declined the Vikings' intentional offsides",
+      "body_text": "With 2:00 left in the fourth quarter on Sunday in Detroit, the Lions had a 19-15 lead and the ball, facing second-and-2.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-02T11:27:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-csonka-celebrates-vikings-loss-as-1972-dolphins-stand-alone-for-another-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/larry-csonka-celebrates-vikings-loss-as-1972-dolphins-stand-alone-for-another-year",
+      "permalink": "",
+      "title": "Larry Csonka celebrates Vikings' loss as 1972 Dolphins stand alone for another year",
+      "body_text": "It's celebration time for the 1972 Dolphins.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-02T09:46:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Larry Csonka"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-i-am-not-doing-a-good-enough-job-ive-got-to-do-better",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-i-am-not-doing-a-good-enough-job-ive-got-to-do-better",
+      "permalink": "",
+      "title": "Nick Sirianni: I am not doing a good enough job, I've got to do better",
+      "body_text": "The Eagles' head coach took the blame after Sunday night's 27-10 loss to the Commanders.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-02T09:13:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Sirianni",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-commanders-roll-to-27-10-victory-over-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-commanders-roll-to-27-10-victory-over-eagles",
+      "permalink": "",
+      "title": "Sunday Night Football: Commanders roll to 27-10 victory over Eagles",
+      "body_text": "Philadelphia took a 10-0 lead early, but didn't score again. The Eagles have now lost six consecutive games.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-02T04:30:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night",
+        "Eagles Philadelphia",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-steelers-commanders-have-interest-in-brian-thomas-jr",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-steelers-commanders-have-interest-in-brian-thomas-jr",
+      "permalink": "",
+      "title": "Chiefs, Steelers, Commanders have interest in Brian Thomas Jr.",
+      "body_text": "Contenders usually aren't sellers at the trade deadline.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-02T04:02:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brian Thomas Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039893"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-developed-hamstring-tightness-late-in-sundays-loss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-developed-hamstring-tightness-late-in-sundays-loss",
+      "permalink": "",
+      "title": "Kyler Murray developed hamstring tightness late in Sunday's loss",
+      "body_text": "Vikings quarterback Kyler Murray developed hamstring tightness sometime late in the fourth quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-02T03:11:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frustrated-justin-jefferson-didnt-speak-to-reporters-after-sundays-loss",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/frustrated-justin-jefferson-didnt-speak-to-reporters-after-sundays-loss",
+      "permalink": "",
+      "title": "Frustrated Justin Jefferson didn't speak to reporters after Sunday's loss",
+      "body_text": "When a team is winning, it's hard for any offensive players who aren't getting the ball as often as they should to be upset.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-02T03:07:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Frustrated Justin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-after-going-down-10-0-commanders-lead-eagles-13-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-after-going-down-10-0-commanders-lead-eagles-13-10-at-halftime",
+      "permalink": "",
+      "title": "Sunday Night Football: After going down 10-0, Commanders lead Eagles 13-10 at halftime",
+      "body_text": "Philadelphia took an early 10-0 lead before Washington scored 13 straight points.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-02T03:04:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-zach-allen-garett-bolles-brandon-jones-active-for-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-waddle-zach-allen-garett-bolles-brandon-jones-active-for-broncos",
+      "permalink": "",
+      "title": "Jaylen Waddle, Zach Allen, Garett Bolles, Brandon Jones active for Broncos",
+      "body_text": "The Broncos entered Sunday with four players listed as questionable.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-01T20:35:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Waddle",
+        "Zach Allen",
+        "Garett Bolles",
+        "Brandon Jones",
+        "Broncos The"
+      ],
+      "resolved_player_ids": [
+        "00-0036613",
+        "00-0035248",
+        "00-0033538",
+        "00-0036221"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-lead-broncos-17-13-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-lead-broncos-17-13-at-halftime",
+      "permalink": "",
+      "title": "Chiefs lead Broncos 17-13 at halftime",
+      "body_text": "Chiefs rookie running back Emmett Johnson entered Sunday's game with 28 touches for 171 yards.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-01T23:07:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emmett Johnson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-third-td-gives-chiefs-a-24-13-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-third-td-gives-chiefs-a-24-13-lead",
+      "permalink": "",
+      "title": "Patrick Mahomes' third TD gives Chiefs a 24-13 lead",
+      "body_text": "The Chiefs have opened it up against the Broncos, taking a 24-13 lead late in the third quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-01T23:53:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-make-it-a-game-now-trail-24-21",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-make-it-a-game-now-trail-24-21",
+      "permalink": "",
+      "title": "Broncos make it a game, now trail 24-21",
+      "body_text": "Bo Nix's second touchdown pass of the day was much like his first.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-02T00:16:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-goal-line-stand-holds-off-chiefs-28-24-for-division-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-goal-line-stand-holds-off-chiefs-28-24-for-division-lead",
+      "permalink": "",
+      "title": "Broncos' goal-line stand holds off Chiefs 28-24 for division lead",
+      "body_text": "The Broncos, who have four comeback wins this season, are 6-2.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-02T00:53:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-i-didnt-see-a-false-start-on-jaylon-moore-at-end-of-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-i-didnt-see-a-false-start-on-jaylon-moore-at-end-of-game",
+      "permalink": "",
+      "title": "Andy Reid: I didn't see a false start on Jaylon Moore at end of game",
+      "body_text": "The Chiefs blew an 11-point lead in the fourth quarter of Sunday's game against the Broncos, but they were able to drive back into position to try for a game-winning touchdown in the final seconds.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-02T02:27:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "Jaylon Moore",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0036557"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-is-the-sixth-fastest-coach-to-200-wins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-is-the-sixth-fastest-coach-to-200-wins",
+      "permalink": "",
+      "title": "Sean Payton is the sixth-fastest coach to 200 wins",
+      "body_text": "Broncos coach (and long-time Saints coach) Sean Payton was going for his 200th career win on Sunday.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-02T02:31:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-has-gone-eight-straight-starts-without-multiple-tds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-has-gone-eight-straight-starts-without-multiple-tds",
+      "permalink": "",
+      "title": "Justin Herbert has gone eight straight starts without multiple TDs",
+      "body_text": "As the 0-6 Chargers emerge from their bye with a \"visit\" to the Rams, quarterback Justin Herbert will be trying to reverse a horrible trend.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-01T19:15:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-take-10-9-halftime-lead-with-kyren-williams-1-yard-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-take-10-9-halftime-lead-with-kyren-williams-1-yard-td",
+      "permalink": "",
+      "title": "Rams take 10-9 halftime lead with Kyren Williams 1-yard TD",
+      "body_text": "While the Rams’ offense was largely listless for the first 30 minutes of Sunday’s game against the Chargers, the team woke up late in the second quarter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-01T22:31:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyren Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/blake-corum-23-yard-touchdown-gives-rams-17-9-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/blake-corum-23-yard-touchdown-gives-rams-17-9-lead",
+      "permalink": "",
+      "title": "Blake Corum 23-yard touchdown gives Rams 17-9 lead",
+      "body_text": "The Rams had just five rushing attempts in their first two quarters.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-01T22:51:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Corum",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-turn-justin-herberts-second-interception-into-td-lead-24-9",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-turn-justin-herberts-second-interception-into-td-lead-24-9",
+      "permalink": "",
+      "title": "Rams turn Justin Herbert's second interception into TD, lead 24-9",
+      "body_text": "The Chargers' offense remains poor with coordinator Mike McDaniel and quarterback Justin Herbert.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-01T23:16:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dominate-second-half-defeat-chargers-24-9",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-dominate-second-half-defeat-chargers-24-9",
+      "permalink": "",
+      "title": "Rams dominate second half, defeat Chargers 24-9",
+      "body_text": "The Rams scored 21 unanswered points to beat the Chargers, sending the cross-town team to 0-7 in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-02T00:00:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-saw-some-good-some-bad-from-having-two-kickers-active-vs-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-saw-some-good-some-bad-from-having-two-kickers-active-vs-chargers",
+      "permalink": "",
+      "title": "Sean McVay saw some good, some bad from having two kickers active vs. Chargers",
+      "body_text": "The Rams took the unusual step today of having a field goal kicker, a kickoff kicker and a punter all active against the Chargers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-02T01:25:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chargers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carlton-davis-is-active-for-the-patriots-in-miami",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carlton-davis-is-active-for-the-patriots-in-miami",
+      "permalink": "",
+      "title": "Carlton Davis is active for the Patriots in Miami",
+      "body_text": "Cornerback Carlton Davis is back in the lineup for the Patriots.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-01T20:07:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carlton Davis",
+        "Miami Cornerback"
+      ],
+      "resolved_player_ids": [
+        "00-0034778"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-td-pass-puts-dolphins-up-13-3-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-willis-td-pass-puts-dolphins-up-13-3-at-halftime",
+      "permalink": "",
+      "title": "Malik Willis TD pass puts Dolphins up 13-3 at halftime",
+      "body_text": "The Dolphins got their first win of the season in Week 7 and it seems they've developed a taste for victory.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-01T22:50:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cut-dolphins-lead-to-13-10-on-kyle-williams-touchdown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cut-dolphins-lead-to-13-10-on-kyle-williams-touchdown",
+      "permalink": "",
+      "title": "Patriots cut Dolphins lead to 13-10 on Kyle Williams touchdown",
+      "body_text": "The Patriots are back within a field goal in Miami.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-01T23:24:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Williams",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0040131"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-puts-patriots-up-17-13-at-end-of-third-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drake-maye-puts-patriots-up-17-13-at-end-of-third-quarter",
+      "permalink": "",
+      "title": "Drake Maye puts Patriots up 17-13 at end of third quarter",
+      "body_text": "The Patriots were down 10 at halftime in Miami, but they're back on top before the end of the third quarter.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-01T23:45:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drake Maye",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rally-in-second-half-for-24-19-win-in-miami",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rally-in-second-half-for-24-19-win-in-miami",
+      "permalink": "",
+      "title": "Patriots rally in second half for 24-19 win in Miami",
+      "body_text": "Drake Maye came alive after halftime and the Patriots improved to 5-3.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-02T00:34:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Miami Drake"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    }
+  ]
+}

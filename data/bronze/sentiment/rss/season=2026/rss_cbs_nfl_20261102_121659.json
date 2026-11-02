@@ -1,0 +1,565 @@
+{
+  "fetch_run_id": "f51000b2-3463-4583-b094-f7ce603054f5",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-02T12:16:59.576285+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "90028e52-50cf-44d6-85f1-80a6d78280fe",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-grades-cowboys-get-an-f-steelers-surge-to-a/",
+      "title": "NFL Week 8 grades for every team: Cowboys get an 'F' for choking, Steelers surge to 'A+'",
+      "body_text": "We're handing out grades for every team that played in Week 8",
+      "author": "John Breech",
+      "published_at": "2026-11-02T05:02:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "af90d8bf-e83b-45cb-84a3-debab08ce1a2",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-broncos-five-things-we-learned-bo-nix/",
+      "title": "Five things we learned as Broncos stun Chiefs, seize first place in AFC West",
+      "body_text": "Denver's quarterback delivered another remarkable finish, while a vastly improved defense and two emerging running backs helped the Broncos take control of the AFC West",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-02T04:20:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "West Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "809186ee-293e-4f62-988c-88aa96e84f14",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-controversial-penalty-andy-reid-broncos/",
+      "title": "Andy Reid questions controversial false start that erased Chiefs' apparent winning TD",
+      "body_text": "A controversial false start on Jaylon Moore wiped out a go-ahead touchdown before Malcolm Roach sealed the win with a sack on Patrick Mahomes",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-02T03:38:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andy Reid",
+        "Jaylon Moore",
+        "Malcolm Roach",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0036557",
+        "00-0035763",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "03887e89-535d-47d9-9464-4af947a04a6a",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-loss-to-cardinals-qb-ben-dinucci/",
+      "title": "Former Cowboys QB rips Dallas for 'embarrassing' loss to Cardinals: 'They stink'",
+      "body_text": "The loss was bad enough, but the way the Cowboys crumbled did not sit well with the 2020 draft pick",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-02T03:27:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Former Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "03192bb6-517c-48a3-9c47-481e0bdfd9be",
+      "url": "https://www.cbssports.com/nfl/news/andy-reid-harrison-butker-decision-chiefs-broncos/",
+      "title": "Andy Reid backs decision to trust Harrison Butker despite Chiefs kicker's struggles",
+      "body_text": "Butker's late miss helped give Denver an opportunity to complete its comeback and intensified questions about Kansas City's kicker situation",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-02T03:19:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andy Reid",
+        "Harrison Butker",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "60124aaf-39d5-4374-b0ec-ed88b7cfeedb",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-winners-losers-cowboys-joe-burrow/",
+      "title": "NFL Week 8 winners and losers: Cowboys suffer epic collapse, Joe Burrow delivers historic heroics",
+      "body_text": "Burrow produced a historic six-touchdown performance, while the Cowboys squandered a late lead and the Ravens endured another devastating Lamar Jackson injury",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-02T01:57:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0034796"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "8d94179a-d37d-4ba9-b5e2-457faa46d5cb",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-overreactions-vikings-kyler-murray-colts/",
+      "title": "Week 8 overreactions: Time for Vikings to bench Kyler Murray? Colts should fire Steichen?",
+      "body_text": "Plus, does the NFC South run through the Buccaneers?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-02T02:11:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "0736836f-6f96-4cde-bdac-efeb8d749633",
+      "url": "https://www.cbssports.com/nfl/news/why-is-ashton-jeanty-not-getting-ball-raiders-mike-washington-jr/",
+      "title": "Why is Ashton Jeanty not getting carries? Another Raider emerges as Vegas' top RB in Week 8",
+      "body_text": "Jeanty's rushing workload continues to decrease on a weekly basis",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-02T01:20:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Another Raider"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "7902a0af-21dd-465f-b064-8e363d161ef6",
+      "url": "https://www.cbssports.com/prediction/news/eagles-vs-commanders-odds-nfl-week-8-first-touchdown-scorer-picks-predictions-for-sunday-night-football/",
+      "title": "Eagles vs. Commanders odds, NFL Week 8 first touchdown scorer picks, predictions for Sunday Night Football",
+      "body_text": "Here's a look at the prediction markets at Kalshi for the first touchdown scorer in Eagles vs. Commanders on Sunday Night Football",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-02T00:51:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a33439eb-53dd-423e-89a2-00e14a9c75af",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-150-bonus-bets-eagles-commanders-nfl-sunday-night-football/",
+      "title": "Use FanDuel promo code to get $150 in bonus bets by targeting Eagles-Commanders, NFL Sunday Night Football",
+      "body_text": "Sign up and bet with the latest FanDuel promo code on Sunday to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-02T00:44:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Sign"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cf76fa8f-5215-4ec6-a608-e9f42f756578",
+      "url": "https://www.cbssports.com/nfl/news/jerry-jones-cowboys-fire-brian-schottenheimer-midseason-cardinals-loss/",
+      "title": "Why Jerry Jones 'doesn't see' firing Brian Schottenheimer midseason after disaster Cowboys loss to Cardinals",
+      "body_text": "Dallas squandered a 14-point fourth-quarter lead in its overtime loss to Arizona, but Jones says he is not considering an in-season coaching change",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-02T00:35:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Jerry",
+        "Brian Schottenheimer",
+        "Cardinals Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "6580cc49-b184-43cc-8d90-09222b7adf78",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-for-eagles-commanders-sunday-night-football-betting/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 bonus bets for Eagles-Commanders, Sunday Night Football betting",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL Week 8 betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-02T00:32:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cdc9a102-56b9-4b8a-b634-61f1183746b2",
+      "url": "https://www.cbssports.com/betting/news/commanders-vs-eagles-odds-nfl-predictions-use-best-kalshi-promo-code-cbssports55-for-55-bonus/",
+      "title": "Commanders vs. Eagles odds, NFL predictions: Use best Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Week 8's Sunday Night Football matchup between Washington and Philadelphia",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-02T00:27:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "2c532a85-4479-4207-a58c-c5a50629803c",
+      "url": "https://www.cbssports.com/nfl/news/bengals-wild-overtime-win-ends-scorigami/",
+      "title": "Bengals wild overtime win ends with final score that's never happened before in NFL history",
+      "body_text": "Ladies and gentlemen, we have a scorigami!",
+      "author": "John Breech",
+      "published_at": "2026-11-02T00:20:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "4885c832-0bd7-45f8-adee-e2d9348623d3",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-receive-55-bonus-eagles-vs-commanders-sunday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Receive $55 bonus for Eagles vs. Commanders on Sunday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 8 Eagles vs. Commanders SNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-02T00:17:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "355470c5-5782-4de2-a113-a45af83e45d7",
+      "url": "https://www.cbssports.com/betting/news/eagles-commanders-prediction-odds-start-time-betting-preview-sunday-night-football-picks-best-bets/",
+      "title": "Eagles vs. Commanders prediction, odds, start time, betting preview: Sunday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Eagles vs. Commanders on Sunday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-02T00:01:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "152bbc22-562e-494b-b61a-4472081712bf",
+      "url": "https://www.cbssports.com/betting/news/eagles-vs-commanders-nfl-week-8-picks-prediction-player-props-experts-best-bets-for-sunday-night-football/",
+      "title": "Eagles vs. Commanders NFL Week 8 picks, prediction, player props: Expert's best bets for Sunday Night Football",
+      "body_text": "With Jalen Hurts sidelined and Tanner McKee stepping in, Washington has a prime opportunity to cover at home while Jayden Daniels makes plays with his legs",
+      "author": "Will Brinson",
+      "published_at": "2026-11-01T23:45:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football With",
+        "Jalen Hurts",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0036389",
+        "00-0039910"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6625d102-0b4a-4a8c-bd99-e262407254e2",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-nba-league-pass-eagles-commanders-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus + NBA League Pass for Eagles-Commanders, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL Week 8 betting",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-01T22:23:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "582a4aea-dd8d-416c-a8f1-c997bb1af730",
+      "url": "https://www.cbssports.com/nfl/news/lions-jack-campbell-injury-updates-vikings/",
+      "title": "Lions' Jack Campbell placed on backboard, carted off field after suffering serious injury",
+      "body_text": "The All-Pro linebacker suffered what appeared to be a serious injury vs. the Vikings",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-01T22:18:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jack Campbell",
+        "The All"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "b88b4511-f831-41fa-8132-9bd100af327e",
+      "url": "https://www.cbssports.com/nfl/news/lamar-jackson-injury-updates-ravens-bills/",
+      "title": "Lamar Jackson headed for injured reserve: Ravens QB to undergo surgery after injuring thumb vs. Bills",
+      "body_text": "Jackson made his first start on Sunday after missing the last three games",
+      "author": "John Breech",
+      "published_at": "2026-11-01T21:59:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Bills Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "2544090c-2711-463b-9512-ed457c4c00f9",
+      "url": "https://www.cbssports.com/nfl/news/buccaneers-falcons-baker-mayfield-no-completions-nfl-history/",
+      "title": "Baker Mayfield, Buccaneers complete win against Falcons with statistics not seen since 1933",
+      "body_text": "Tampa Bay quarterback Baker Mayfield didn't complete any of his three throws in a 16-0 win",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-01T21:48:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "c9839f59-21e3-4cc3-92d2-3d07163f5611",
+      "url": "https://www.cbssports.com/prediction/news/patriots-vs-dolphins-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus-for-nfl-week-8/",
+      "title": "Patriots vs. Dolphins odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus for NFL Week 8",
+      "body_text": "Claim the latest Polymarket promo code to make predictions for Sunday's Week 8 matchup between New England and Miami",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-01T20:00:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "2c5be549-cfb1-42e8-a999-b029e9acb470",
+      "url": "https://www.cbssports.com/nfl/news/who-is-ravens-joe-fagnano-baltimore-quarterbacks-lamar-jackson/",
+      "title": "Who is Ravens' Joe Fagnano? Baltimore turns to third QB after Lamar Jackson, Tyler Huntley injuries",
+      "body_text": "Baltimore is down to its third-string quarterback, an undrafted rookie",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-01T21:54:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Fagnano",
+        "Lamar Jackson",
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0040981",
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "c710e561-f7b9-468f-84a4-269b07fc2cf1",
+      "url": "https://www.cbssports.com/betting/news/chargers-vs-rams-odds-predictions-use-best-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-8-games/",
+      "title": "Chargers vs. Rams odds, predictions: Use best Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 8 games",
+      "body_text": "The Chargers and Rams face off in an L.A. rivalry showdown, and here's a look at the trading markets available for Sunday's matchup at Kalshi",
+      "author": "James Holliman",
+      "published_at": "2026-11-01T19:45:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "9faaa436-2533-40a8-bc3e-194122170de3",
+      "url": "https://www.cbssports.com/nfl/news/deshaun-watson-injury-browns-qb-steelers/",
+      "title": "Deshaun Watson injury: Browns QB temporarily exits vs. Steelers after taking a big hit early",
+      "body_text": "Shedeur Sanders briefly replaced Watson at quarterback",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-01T18:23:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "ce63e2bd-ef25-4c14-935a-4ea7ffcc0b06",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-expert-picks-predictions-odds-schedule-2026/",
+      "title": "NFL Week 8 odds, predictions, expert picks: Who wins Chiefs vs. Broncos showdown?",
+      "body_text": "Here's what our experts and the SportsLine model are forecasting in Week 8",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-01T18:03:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a7cd7bec-9723-4404-8405-843fdc1eb0a1",
+      "url": "https://www.cbssports.com/nfl/news/vikings-jauan-jennings-declined-trade-to-49ers/",
+      "title": "Jauan Jennings declined trade to return to 49ers after Vikings had framework set, per report",
+      "body_text": "The veteran receiver chose to stay with the undefeated Vikings over a reunion with Kyle Shanahan and Brock Purdy, despite having caught just four passes this season",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-01T17:44:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jauan Jennings",
+        "Kyle Shanahan",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0036259",
+        "00-0037834"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "08d35eca-ca62-4447-add4-78e3a7a6d74e",
+      "url": "https://www.cbssports.com/nfl/news/jonathan-taylor-trade-rumors-colts-not-shopping-around/",
+      "title": "Jonathan Taylor trade rumors: Colts not actively shopping around star running back before deadline",
+      "body_text": "However, in a meeting with ownership, Taylor was not given any assurances that a deal would not happen, according to CBS Sports' Aditi Kinkhabwala",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-01T17:42:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Aditi Kinkhabwala"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "56b3bc84-8f16-4983-924c-675978a4c441",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-schedule-lions-halftime-show-performer-wu-tang-clan/",
+      "title": "NFL Thanksgiving schedule: Lions announce halftime show performer for game vs. Bears",
+      "body_text": "Wu-Tang Clan will perform at halftime for a huge holiday game",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-01T17:33:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tang Clan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "7e2b83dc-30af-4bf9-8f78-af73c0d687bc",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-spreads-betting-lines-top-predictions-week-8-2026/",
+      "title": "Week 8 NFL odds, picks, predictions: Computer model backs Steelers and Rams",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 8 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-01T17:26:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c103f620-799a-44cd-882f-96c1116d42ab",
+      "url": "https://www.cbssports.com/betting/news/week-8-nfl-betting-lines-odds-totals-spreads/",
+      "title": "Week 8 NFL betting odds, lines, totals, spreads for every game, including Bills-Ravens, Vikings-Lions",
+      "body_text": "Check out the Week 8 NFL betting odds, spreads and totals for all 14 games, including Lions-Vikings and Bills-Ravens.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-01T17:02:26+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lions Check"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "7ff484f4-a4bb-472a-b776-5120cbf0950c",
+      "url": "https://www.cbssports.com/betting/news/week-8-nfl-betting-promos-receive-over-3000-in-bonuses-from-betting-apps-sportsbooks-for-sundays-games/",
+      "title": "Week 8 NFL betting promos: Receive over $3,000 in bonuses from betting apps, sportsbooks for Sunday's games",
+      "body_text": "Top Week 8 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-01T17:01:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "934c33be-1ae6-4f41-9bea-f367238b6179",
+      "url": "https://www.cbssports.com/nfl/news/josh-sweat-trade-rumors-cowboys-potential-landing-spots/",
+      "title": "Josh Sweat trade rumors: Cowboys among potential landing spots for Cardinals pass rusher",
+      "body_text": "Sweat has two sacks on the season entering Week 8",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-01T16:57:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Sweat"
+      ],
+      "resolved_player_ids": [
+        "00-0034381"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "5a8d6eaf-c097-48f7-824e-e7f005eebbad",
+      "url": "https://www.cbssports.com/nfl/news/how-to-bet-on-2026-nfl-week-8-betting-odds-trends-tips-schedule-game-previews-sportsbook-promos-offers/",
+      "title": "How to bet on 2026 NFL Week 8: Betting odds, trends, tips, schedule, game previews, sportsbook promos, offers",
+      "body_text": "Our NFL betting guide tells you where to bet on NFL Week 8, while providing odds, betting trends, schedule, promo offers, and more",
+      "author": "Brandt Sutton",
+      "published_at": "2026-11-01T16:48:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5f3745ba-01b7-4600-9bce-9d37578a4023",
+      "url": "https://www.cbssports.com/betting/news/2026-week-8-nfl-odds-picks-predictions-best-bets-experts-targeting-steelers-chiefs-eagles-on-sunday/",
+      "title": "2026 Week 8 NFL odds, picks, predictions, best bets: Experts targeting Steelers, Chiefs, Eagles on Sunday",
+      "body_text": "SportsLine's experts have revealed their Week 8 NFL picks and best bets for Sunday",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-01T16:48:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "77219886-e5b1-41b3-80c3-57e3d0d96afc",
+      "url": "https://www.cbssports.com/betting/news/chiefs-vs-broncos-odds-picks-spread-prediction-start-time-nfl-week-8-betting-preview-best-bets/",
+      "title": "Chiefs vs. Broncos odds, picks, spread, prediction: Start time, NFL Week 8 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Chiefs vs. Broncos in NFL Week 8",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-01T19:40:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}

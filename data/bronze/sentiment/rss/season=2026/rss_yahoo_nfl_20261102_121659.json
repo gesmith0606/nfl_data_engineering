@@ -1,0 +1,763 @@
+{
+  "fetch_run_id": "f51000b2-3463-4583-b094-f7ce603054f5",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-02T12:16:59.020476+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "6eb91018-98d8-3a5b-a34f-81e385832249",
+      "url": "https://sports.yahoo.com/articles/kevin-byard-first-patriots-interception-120901801.html",
+      "title": "Kevin Byard’s first Patriots interception turns the tide against Dolphins",
+      "body_text": "Byard’s takeaway helped fuel New England’s second-half comeback",
+      "author": "",
+      "published_at": "2026-11-02T12:09:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kevin Byard",
+        "Dolphins Byard",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0033132"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "1162fb91-732e-3f7e-90bb-dce76e5fa03b",
+      "url": "https://sports.yahoo.com/articles/nfl-trade-deadline-live-updates-120139187.html",
+      "title": "NFL trade deadline live updates: Latest news, rumors after Week 8",
+      "body_text": "The NFL trade deadline is eight days away, but teams are already taking bold action to reshape their rosters. Here's the latest buzz from Monday.",
+      "author": "",
+      "published_at": "2026-11-02T12:01:39+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "47056d1f-81f4-31f2-b4a2-6abe673a34f6",
+      "url": "https://sports.yahoo.com/articles/best-available-nfl-free-agent-120100022.html",
+      "title": "Best available NFL free agent cornerbacks the Bengals could target if DJ Turner misses significant time",
+      "body_text": "Here are some free agent and practice squad corners the Bengals could sign if DJ Turner misses time.",
+      "author": "",
+      "published_at": "2026-11-02T12:01:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "050f88e6-12b7-3e75-ade5-114b501a884f",
+      "url": "https://sports.yahoo.com/articles/nfl-overpaid-qb-problem-120000871.html",
+      "title": "The NFL’s overpaid QB problem",
+      "body_text": "James Dator looks at the overpaid QBs of the NFL, and breaks down the winners and losers from Week 8.",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "James Dator"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "14512fe0-6752-3fc0-9676-96288bc1e3ee",
+      "url": "https://sports.yahoo.com/articles/ravens-keep-falling-playoff-race-120000502.html",
+      "title": "Ravens keep falling in playoff race after three straight losses",
+      "body_text": "The Baltimore Ravens need some help and soon",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Baltimore"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "2008b86b-d8a0-3b29-85c7-1ac91430fabd",
+      "url": "https://sports.yahoo.com/articles/nfc-playoff-picture-ny-giants-120000613.html",
+      "title": "NFC playoff picture: NY Giants lead in NFC East widens",
+      "body_text": "The weekend was good to the Giants.",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "47f78f1a-0bed-44e8-aeea-9259da9ee63a",
+      "url": "https://sports.yahoo.com/nfl/article/chicago-bears-vs-seattle-seahawks-how-to-watch-monday-night-football-tonight-start-time-and-where-to-stream-120000922.html",
+      "title": "Chicago Bears vs. Seattle Seahawks: How to watch Monday Night Football tonight, start time and where to stream",
+      "body_text": "Tune in to tonight's Cowboys vs. Eagles MNF action without cable — here's how.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "Seattle Seahawks",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7270ed40-94dc-37da-8428-f71a0d3af1b1",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-gets-upset-120000217.html",
+      "title": "Cowboys news: Dallas gets upset, embarrassed by Cardinals in OT",
+      "body_text": "Here is today’s Dallas Cowboys news",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "772b4dd8-ef92-31b6-b9e4-f2a70905fa23",
+      "url": "https://sports.yahoo.com/articles/best-week-9-fantasy-football-120000387.html",
+      "title": "Best Week 9 fantasy football waiver wire pickups at QB, RB, WR, TE",
+      "body_text": "Tyler Allgeier, AD Mitchell, and Malik Willis highlight the top waiver wire fantasy football targets entering Week 9",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Best Week",
+        "Tyler Allgeier",
+        "Malik Willis"
+      ],
+      "resolved_player_ids": [
+        "00-0037263",
+        "00-0038128"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "c57a31a7-6c08-398c-8c65-c92cb2913335",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-week-8-120000021.html",
+      "title": "Tennessee Titans news: Week 8 vs. Bengals shows promise, but no win",
+      "body_text": "The Tennessee Titans are still in the loss column after falling to the Cincinnati Bengals.",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee",
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "c602d9f7-3ea8-3fbc-ab1e-8c1a0ab0405e",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-aaron-glenn-120000446.html",
+      "title": "New York Jets News: Aaron Glenn is Dying by the Sword",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Aaron Glenn",
+        "Sword Your"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "d79cb599-01ee-393b-9d3e-89dce9fe60f4",
+      "url": "https://sports.yahoo.com/articles/top-takeaways-ravens-week-8-120000428.html",
+      "title": "Top takeaways from the Ravens’ Week 8 loss to the Bills",
+      "body_text": "The Ravens stacked insults upon injuries in Sunday’s loss to the Bills.",
+      "author": "",
+      "published_at": "2026-11-02T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bills The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "b66623a7-0db4-3b9e-9e4b-65271c8fc4b2",
+      "url": "https://sports.yahoo.com/articles/browns-steelers-winners-losers-cleveland-115758154.html",
+      "title": "Browns, Steelers winners and losers: Cleveland was never in the game",
+      "body_text": "A key AFC North divisional matchup, was a mismatch as the Steelers destroyed the Browns. A few winners, lots of losers.",
+      "author": "",
+      "published_at": "2026-11-02T11:57:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "49608a62-bc6e-3f73-8d32-0f0cd187876f",
+      "url": "https://sports.yahoo.com/articles/joe-brady-sundays-performance-expectation-115442119.html",
+      "title": "Joe Brady: Sunday's performance is the expectation for our defense",
+      "body_text": "The Bills allowed an average of 28.5 points per game in their first six games of the 2026 season and improving on that was a focus for the team during their bye week.",
+      "author": "",
+      "published_at": "2026-11-02T11:54:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Brady",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "39e79647-e9f6-3a43-867a-5a5490180fb2",
+      "url": "https://sports.yahoo.com/articles/vikings-chiefs-cowboys-beaten-nfl-072750394.html",
+      "title": "Vikings, Chiefs and Cowboys beaten - NFL week eight",
+      "body_text": "A wild weekend in the NFL saw Joe Burrow and the Tampa Bay Buccaneers make history, while Lamar Jackson was sidelined on his return from injury.",
+      "author": "",
+      "published_at": "2026-11-02T11:50:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Tampa Bay",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0034796"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "b423fcc3-d7db-329a-9c18-5116c5a1ae64",
+      "url": "https://sports.yahoo.com/articles/patriots-trade-deadline-tracker-news-231608460.html",
+      "title": "Patriots trade deadline tracker: News and rumors ahead of the Nov. 10 deadline",
+      "body_text": "Tracking all the relevant developments ahead of the NFL trade deadline.",
+      "author": "",
+      "published_at": "2026-11-02T11:33:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "a1ae4bcc-f2aa-3f41-95b0-f2b530f5fd55",
+      "url": "https://sports.yahoo.com/articles/long-lamar-jackson-latest-injury-113111373.html",
+      "title": "How long is Lamar Jackson out? Latest injury update on Ravens QB's thumb",
+      "body_text": "Lamar Jackson has suffered another injury that is expected to keep him out multiple weeks. Here's what to know about his timetable to return.",
+      "author": "",
+      "published_at": "2026-11-02T11:31:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "6bbb748f-2cab-355d-b6d7-8d47dc2b132c",
+      "url": "https://sports.yahoo.com/articles/dan-campbell-wisely-declined-vikings-112714524.html",
+      "title": "Dan Campbell wisely declined the Vikings' intentional offsides",
+      "body_text": "With 2:00 left in the fourth quarter on Sunday in Detroit, the Lions had a 19-15 lead and the ball, facing second-and-2.",
+      "author": "",
+      "published_at": "2026-11-02T11:27:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "1bbc983d-cab0-3139-95bc-fc5cb77df842",
+      "url": "https://sports.yahoo.com/articles/most-impressive-part-detroit-lions-111606690.html",
+      "title": "What was the most impressive part of the Detroit Lions’ victory over the Minnesota Vikings?",
+      "body_text": "What part of the Detroit Lions’ win over the Minnesota Vikings stood out the most to you?",
+      "author": "",
+      "published_at": "2026-11-02T11:16:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "162b807d-323f-35a9-900b-86fa168390ea",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-brett-veach-looking-111500778.html",
+      "title": "Chiefs News: Brett Veach is looking for receivers before trade deadline",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-02T11:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Brett Veach"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "8ba2d549-6d57-3d75-a834-fd132595fe50",
+      "url": "https://sports.yahoo.com/articles/nfl-week-8-winners-losers-110828768.html",
+      "title": "NFL Week 8 winners, losers: Vikings have clear Kyler Murray problem",
+      "body_text": "The Vikings only suffered their first loss of the season, but Minnesota might already be at a crisis point with quarterback Kyler Murray.",
+      "author": "",
+      "published_at": "2026-11-02T11:08:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyler Murray",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "1431c88b-ece8-36ea-86b1-a67be4b1c15a",
+      "url": "https://sports.yahoo.com/articles/commanders-vs-rams-odds-opening-110000282.html",
+      "title": "Commanders vs. Rams odds: Opening lines for Week 9 matchup",
+      "body_text": "The Commanders are big home underdogs against the Rams",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "1b2efed3-72af-3226-b07b-f2170c3e6bd7",
+      "url": "https://sports.yahoo.com/articles/ravens-qb-tyler-huntley-could-110000775.html",
+      "title": "Ravens QB Tyler Huntley could miss TNF vs. Jags with suspected turf toe",
+      "body_text": "Ravens quarterbacks Lamar Jackson and Tyler Huntley both suffered injuries in Sunday’s loss to the Bills.",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tyler Huntley",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0035993",
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "38b0e4b4-2123-39dc-a43f-2f1bd6fb7fdb",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-hell-110000267.html",
+      "title": "Cleveland Browns news: What the hell was that?",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 2 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "53c70f54-f34f-3c83-b688-172ec7a9914d",
+      "url": "https://sports.yahoo.com/articles/swanson-chargers-lost-season-really-110000141.html",
+      "title": "Swanson: Chargers' lost season really could become the NFL's first 0-17 humiliation",
+      "body_text": "With the Chargers looking completely lost on offense amid an 0-7 start, it's possible they could become the first 0-17 team in NFL history.",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "be34e32d-7daa-3eff-900b-1e0f9c6ca0ed",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-seattle-face-110000837.html",
+      "title": "The Bear’s Den: Bears are in Seattle to face the Seahawks on MNF",
+      "body_text": "The Chicago Bears are in Seattle tonight to take on the Super Bowl Champion Seattle Seahawks as road underdogs",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "The Chicago",
+        "Super Bowl",
+        "Champion Seattle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e270d094-dc8d-3a87-a336-d1eafd0b4339",
+      "url": "https://sports.yahoo.com/articles/5-takeaways-steelers-27-6-110000841.html",
+      "title": "5 takeaways from the Steelers’ 27-6 win over the Cleveland Browns",
+      "body_text": "Takeaways, analysis, and overreactions from the Steelers’ Week 8 win.",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "eb4fe081-5c80-37da-8719-0380dd57874e",
+      "url": "https://sports.yahoo.com/articles/bengals-news-dj-turner-cashius-110000102.html",
+      "title": "Bengals News: DJ Turner and Cashius Howell Injury Watch",
+      "body_text": "The Bengals may be needing to find some depth if these injuries are serious.",
+      "author": "",
+      "published_at": "2026-11-02T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Cashius Howell",
+        "Injury Watch",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "a57d0302-6007-3bef-8341-ee802bebd8f1",
+      "url": "https://sports.yahoo.com/articles/ravens-lamar-jackson-dilemma-likely-102524273.html",
+      "title": "Ravens' Lamar Jackson dilemma is likely only beginning | Opinion",
+      "body_text": "Whether or not the two-time MVP returns this season, Baltimore could face a far more existential issue in a few months.",
+      "author": "",
+      "published_at": "2026-11-02T10:25:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Opinion Whether"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "96e76f4f-99e3-3f83-92ed-718259b62ba7",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-da-bears-tonight-100000207.html",
+      "title": "Golden Nuggets:: Da Bears tonight",
+      "body_text": "Your daily San Francisco 49ers news for Monday, November 2nd, 2026",
+      "author": "",
+      "published_at": "2026-11-02T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Da Bears",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "db8775d9-bd33-376c-9c6e-dc28d1655249",
+      "url": "https://sports.yahoo.com/articles/5-winners-losers-patriots-win-100000337.html",
+      "title": "5 winners and losers from Patriots’ win over the Dolphins",
+      "body_text": "Drake Maye, Rhamondre Stevenson, and other noteworthy players from Week 8.",
+      "author": "",
+      "published_at": "2026-11-02T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dolphins Drake",
+        "Rhamondre Stevenson"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "4474bd20-d8da-3db7-ac77-0d9b1b72e9d7",
+      "url": "https://sports.yahoo.com/articles/patriots-vs-packers-opening-odds-095500551.html",
+      "title": "Patriots vs. Packers opening odds: Is a new win streak on the horizon?",
+      "body_text": "Spread, money line, over/under for NFL Week 9.",
+      "author": "",
+      "published_at": "2026-11-02T09:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "814bb511-dce8-390c-a212-381271dd1fd0",
+      "url": "https://sports.yahoo.com/articles/larry-csonka-celebrates-vikings-loss-094629560.html",
+      "title": "Larry Csonka celebrates Vikings' loss as 1972 Dolphins stand alone for another year",
+      "body_text": "It's celebration time for the 1972 Dolphins.",
+      "author": "",
+      "published_at": "2026-11-02T09:46:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Larry Csonka"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "fa2fc8f3-78e4-3583-ad64-62ff52065578",
+      "url": "https://sports.yahoo.com/articles/zero-passing-yards-one-win-080035656.html",
+      "title": "Zero passing yards, one win. Did the Bucs just reinvent the NFL in all the wrong ways?",
+      "body_text": "In a downpour against the Atlanta Falcons, Tampa Bay decided throwing was for losers. They were proved right",
+      "author": "",
+      "published_at": "2026-11-02T08:00:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Atlanta Falcons",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "ee166abc-854c-3414-bea3-a3aaac728d58",
+      "url": "https://sports.yahoo.com/articles/packers-vs-patriots-odds-opening-072724416.html",
+      "title": "Packers vs. Patriots odds: Opening lines for Week 9 matchup",
+      "body_text": "Green Bay will be underdogs to Drake Maye’s Patriots on Sunday",
+      "author": "",
+      "published_at": "2026-11-02T07:27:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Green Bay",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "360440ee-dc2f-3c46-9455-4fa9cfbfc6a3",
+      "url": "https://sports.yahoo.com/articles/10-eagles-things-think-think-072142507.html",
+      "title": "10 Eagles things I think I think from the loss to the Commanders",
+      "body_text": "Takeaways from the Eagles’ most embarrassing loss of the year.",
+      "author": "",
+      "published_at": "2026-11-02T07:21:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders Takeaways"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "34029304-cdc4-485b-a0fe-b737bfb31899",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-week-8-instant-reactions-are-the-cowboys-cooked-ravens-need-to-make-a-move-071431153.html",
+      "title": "NFL Week 8 INSTANT reactions: Are the Cowboys cooked? Ravens need to make a move",
+      "body_text": "Nate Tice & Hayden Winks dive into their instant takeaways from Week 8 of NFL action.",
+      "author": "Nate Tice,Hayden Winks",
+      "published_at": "2026-11-02T07:14:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nate Tice",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "b6b048b2-b409-33dc-82a3-c743d5b52955",
+      "url": "https://sports.yahoo.com/articles/eagles-vs-giants-odds-opening-071008837.html",
+      "title": "Eagles vs. Giants odds: Opening lines for Week 9 matchup",
+      "body_text": "Can the Eagles finally stop the bleeding? Probably not.",
+      "author": "",
+      "published_at": "2026-11-02T07:10:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3e0e1b72-4864-3a3f-b95d-e471e3074939",
+      "url": "https://sports.yahoo.com/articles/jordan-mailata-gives-blunt-assessment-070000673.html",
+      "title": "Jordan Mailata gives blunt assessment of O-line after loss to Commanders",
+      "body_text": "Jordan Mailata gave a blunt assessment of the Eagles' OL after their loss to the Commanders.",
+      "author": "",
+      "published_at": "2026-11-02T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Mailata",
+        "Commanders Jordan"
+      ],
+      "resolved_player_ids": [
+        "00-0034429"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c5e7a995-443e-328a-9663-4730b750fe3d",
+      "url": "https://sports.yahoo.com/articles/updating-eagles-2027-draft-pick-070000085.html",
+      "title": "Updating Eagles' 2027 draft pick after 6th straight loss",
+      "body_text": "Here's the latest update to the Eagles' 2027 first-round draft pick after their Week 8 loss.",
+      "author": "",
+      "published_at": "2026-11-02T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Updating Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "eda36d03-0f75-3cb9-aade-68c3a53394a8",
+      "url": "https://sports.yahoo.com/articles/eagles-grades-position-loss-commanders-070000272.html",
+      "title": "Eagles grades by position after loss to Commanders on Sunday Night Football",
+      "body_text": "Here's a look at our grades by position after the Eagles' 27-10 loss to the Commanders.",
+      "author": "",
+      "published_at": "2026-11-02T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e8ff39f4-1a5f-3c55-9a82-4dd8fd595aa6",
+      "url": "https://sports.yahoo.com/articles/report-card-grading-commanders-crucial-065252974.html",
+      "title": "Report card: Grading the Commanders in a crucial Week 8 win over the Eagles",
+      "body_text": "Here’s how the Commanders graded out in Washington’s victory over the Philadelphia Eagles in the NFL Week 8 contest",
+      "author": "",
+      "published_at": "2026-11-02T06:52:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles Here",
+        "Philadelphia Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c4b5c584-6ea6-3c9f-8385-e8eab0130772",
+      "url": "https://sports.yahoo.com/articles/2027-nfl-draft-order-eagles-064912122.html",
+      "title": "2027 NFL Draft order: Eagles in the top 5",
+      "body_text": "The light at the end of a dark tunnel.",
+      "author": "",
+      "published_at": "2026-11-02T06:49:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4c934b2f-3334-33fc-a17d-5400290c2be4",
+      "url": "https://sports.yahoo.com/articles/eagles-vs-commanders-good-bad-060112020.html",
+      "title": "Eagles vs. Commanders: The good, the bad, and the ugly",
+      "body_text": "Highlights and lowlights from Philadelphia’s Week 8 loss.",
+      "author": "",
+      "published_at": "2026-11-02T06:01:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "29340437-d187-31aa-a5f1-6076722d5baf",
+      "url": "https://sports.yahoo.com/articles/ravens-could-down-undrafted-rookie-055819615.html",
+      "title": "Ravens could be down to undrafted rookie QB after Lamar Jackson, Tyler Huntley injuries",
+      "body_text": "The Ravens are going through quarterback hell right now.",
+      "author": "",
+      "published_at": "2026-11-02T05:58:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Tyler Huntley",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "98e3e5a8-4d1a-3b36-8137-7886f8ec5133",
+      "url": "https://sports.yahoo.com/articles/texans-vs-chargers-opening-odds-053127131.html",
+      "title": "Texans vs. Chargers Opening Odds: Bolts face another test in Week 9",
+      "body_text": "The Los Angeles Chargers are turning the page to their next game against the Houston Texans.",
+      "author": "",
+      "published_at": "2026-11-02T05:31:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chargers Opening",
+        "The Los",
+        "Angeles Chargers",
+        "Houston Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "7ac0adf6-392e-4d26-bd02-4e6d3e5d0b99",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-key-offseason-narratives-take-shape-on-sunday-in-week-8-025047633.html",
+      "title": "Fantasy Football: Key offseason narratives take shape on Sunday in Week 8",
+      "body_text": "Fantasy football analyst Chris Allen examines some storylines coming off Week 8's Sunday action.",
+      "author": "Chris Allen",
+      "published_at": "2026-11-02T02:50:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Chris Allen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "dad94357-0483-397f-9a0f-95cff0183109",
+      "url": "https://sports.yahoo.com/articles/raiders-fans-flip-metlife-stadium-051812025.html",
+      "title": "Raiders fans flip MetLife Stadium into ‘road’ game for Jets: ‘Have to handle it’",
+      "body_text": "The Raiders hadn’t visited the Jets in a non-COVID-19-restricted season since 2019, so local fans of one of the NFL’s national teams waited a long time for Sunday.",
+      "author": "",
+      "published_at": "2026-11-02T05:18:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "f8e3348b-b293-4f7f-947e-28bf02212044",
+      "url": "https://sports.yahoo.com/nfl/live/eagles-commanders-score-live-updates-inactives-highlights-stats-where-to-watch-week-8-235000372.html",
+      "title": "Commanders beat mistake-ridden Eagles in another ugly NFC East game",
+      "body_text": "The Eagles took an early lead but that quickly vanished.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-01T23:50:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "698319ca-03cc-3839-a7d7-a9caa0c7e04c",
+      "url": "https://sports.yahoo.com/articles/york-jets-vs-kansas-city-045711420.html",
+      "title": "New York Jets vs. Kansas City Chiefs odds: Opening lines for Week 9 matchup",
+      "body_text": "The Jets try to avoid a seventh loss in the last eight games when they face a tough Kansas City Chiefs team",
+      "author": "",
+      "published_at": "2026-11-02T04:57:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Kansas City",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}
