@@ -1,0 +1,64 @@
+{
+  "batch_id": "d7b17467",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-03T12:21:48.830510+00:00",
+  "record_count": 5,
+  "records": [
+    {
+      "doc_id": "ad7d4a36-1edb-4bfb-9263-60f367d45a87",
+      "external_id": "ad7d4a36-1edb-4bfb-9263-60f367d45a87",
+      "team_abbr": null,
+      "summary": "Betting preview and picks for Bears vs. Seahawks Monday Night Football game.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Bears vs. Seahawks on Monday Night Football",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0f4e1f3e-9fc6-4603-92ac-2c4bb2d8232e",
+      "external_id": "0f4e1f3e-9fc6-4603-92ac-2c4bb2d8232e",
+      "team_abbr": null,
+      "summary": "NFL coverage summary for Week 8 featuring Seahawks vs. Bears picks and notable stats.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Here's everything you need to know about the NFL for Nov. 2",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "1e4da28e-3269-43f1-b341-f65fe96ad04f",
+      "external_id": "1e4da28e-3269-43f1-b341-f65fe96ad04f",
+      "team_abbr": null,
+      "summary": "2027 mock draft projects multiple QBs in Round 1; Jets, Titans, Browns with multiple first-round picks.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Jets, Titans and Browns all have multiple first-round picks. Wilson's 2027 NFL mock draft: Browns trade up for QB, five passers land in Round 1",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "50b3c586-7a12-3e81-b032-f662e554616c",
+      "external_id": "50b3c586-7a12-3e81-b032-f662e554616c",
+      "team_abbr": null,
+      "summary": "Seven NFC contenders competing for five playoff spots; two will miss postseason.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "There are 7 NFC contenders fighting for 5 playoff spots. Who are the two teams that will miss the postseason?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d1cd3f45-c944-361c-ba83-89f95ece25f3",
+      "external_id": "d1cd3f45-c944-361c-ba83-89f95ece25f3",
+      "team_abbr": null,
+      "summary": "USA TODAY Sports provides fantasy football start/sit recommendations for 16 players in Week 9.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "USA TODAY Sports breaks down eight players to start and eight players to sit ahead of Week 9 of the 2026 NFL season.",
+      "subject_type": "reporter"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "fetch_run_id": "7ae15ffe-76f2-41b7-b35a-8bb2e2a5a0b7",
+  "source": "rotowire",
+  "fetched_at": "2026-11-03T12:16:14.292337+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl645762",
+      "url": "https://www.rotowire.com//football/player/sam-darnold-12490",
+      "permalink": "",
+      "title": "Sam Darnold: Middling numbers in Week 8 loss",
+      "body_text": "Darnold completed 17 of 34 passes for 188 yards with two touchdowns and one interception while adding two rushes for 20 yards in the Seahawks' 34-17 loss to the Bears on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-02T09:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl645761",
+      "url": "https://www.rotowire.com//football/player/zach-charbonnet-16897",
+      "permalink": "",
+      "title": "Zach Charbonnet: Nine touches in season debut",
+      "body_text": "Charbonnet (knee) rushed six times for 23 yards and brought in three of four targets for six yards in the Seahawks' 34-17 loss to the Bears on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-02T09:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zach Charbonnet"
+      ],
+      "resolved_player_ids": [
+        "00-0039165"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl645757",
+      "url": "https://www.rotowire.com//football/player/jadarian-price-19299",
+      "permalink": "",
+      "title": "Jadarian Price: Gains 37 total yards in return",
+      "body_text": "Price rushed 10 times for 29 yards and brought in two of four targets for eight yards in the Seahawks' 34-17 loss to the Bears on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-02T09:14:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl645756",
+      "url": "https://www.rotowire.com//football/player/caleb-williams-17695",
+      "permalink": "",
+      "title": "Caleb Williams: Impressive performance against elite defense",
+      "body_text": "Williams completed 24 of 34 passes for 247 yards with one touchdown and no interceptions and rushed twice for one yard in the Bears' 34-17 win over the Seahawks on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-02T09:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "nfl645754",
+      "url": "https://www.rotowire.com//football/player/rome-odunze-17020",
+      "permalink": "",
+      "title": "Rome Odunze: Team-high yardage total in win",
+      "body_text": "Odunze brought in four of six targets for 87 yards in the Bears' 34-17 win over the Seahawks on Monday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-02T09:03:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}

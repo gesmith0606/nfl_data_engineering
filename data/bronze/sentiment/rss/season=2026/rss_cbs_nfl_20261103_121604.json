@@ -1,0 +1,601 @@
+{
+  "fetch_run_id": "db137e59-b3e0-48d7-8495-6f89ce0eaad7",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-03T12:16:04.989708+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "90259020-1c73-4d97-a3c9-74897726abcf",
+      "url": "https://www.cbssports.com/nfl/news/could-tyson-bagent-save-ravens-playoff-hopes-lamar-jackson-injury/",
+      "title": "Could Tyson Bagent save Ravens' playoff hopes? Lamar Jackson injury raises a costly trade question",
+      "body_text": "OC Declan Doyle knows Bagent from Chicago, but does that familiarity justify a potentially expensive trade for a mostly unproven player?",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-03T12:01:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Could Tyson",
+        "Lamar Jackson",
+        "Declan Doyle"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "f00f813d-2f14-4d4b-94dd-a9842266cd9a",
+      "url": "https://www.cbssports.com/nfl/news/jaguars-mock-trade-brian-thomas-jr-chiefs-raiders/",
+      "title": "Mock trades for Jaguars' Brian Thomas Jr.: Why Chiefs, Raiders could stand out as top fits",
+      "body_text": "Thomas has struggled after an outstanding rookie year",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-03T11:50:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brian Thomas Jr",
+        "Why Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0039893"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "24d67590-7eaa-41df-be18-79639ff87155",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-picks-score-predictions-packers-patriots/",
+      "title": "NFL Week 9 picks and score predictions: Packers ruin Tom Brady's trip to New England, Jaguars destroy Ravens",
+      "body_text": "John Breech makes his Week 9 NFL picks, including Jacksonville cruising past a short-handed Baltimore team and Green Bay spoiling a star-studded weekend in New England",
+      "author": "John Breech",
+      "published_at": "2026-11-03T11:47:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tom Brady",
+        "New England",
+        "Ravens John",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "51a2f4d7-ded4-4b28-bf23-54d421b0bed4",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-power-rankings-bills-steelers/",
+      "title": "Prisco's NFL Week 9 Power Rankings: Bills take over top spot, Steelers on the rise",
+      "body_text": "Pete Prisco shares his Week 9 Power Rankings for the 2026 NFL season, including a big fall for the Seahawks",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-03T10:00:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "90028e52-50cf-44d6-85f1-80a6d78280fe",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-grades-cowboys-get-an-f-steelers-surge-to-a/",
+      "title": "NFL Week 8 grades for every team: Bears earn 'A+' for destroying Seahawks, Cowboys get an 'F' for choking",
+      "body_text": "We're handing out grades for every team that played in Week 8",
+      "author": "John Breech",
+      "published_at": "2026-11-03T04:41:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "3009c9fc-d3f6-4bcc-8a75-fd5505045802",
+      "url": "https://www.cbssports.com/nfl/news/nfl-reinstates-james-pearce-jr-after-eight-game-suspension-falcons/",
+      "title": "NFL reinstates James Pearce Jr. after eight-game suspension: Why EDGE returns at critical time for Falcons",
+      "body_text": "Pearce's insertion into the lineup could be the lift the Falcons need to emerge as the NFC South's top team",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-03T01:09:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "James Pearce Jr",
+        "Falcons Pearce"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "b6c7f022-b738-4adc-8410-a631754d2660",
+      "url": "https://www.cbssports.com/nfl/news/best-kalshi-promo-code-cbssports55-get-55-bonus-bears-vs-seahawks-monday-night-football-election/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Get $55 bonus for Bears vs. Seahawks, Monday Night Football, election",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 8 Bears vs. Seahawks MNF matchup",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-03T00:10:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Monday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "036a84d3-645d-4514-b6db-90d68b45d64f",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-seahawks-vs-bears-nfl-monday-night-football/",
+      "title": "Use FanDuel promo code to get $200 in bonus bets by targeting Seahawks vs. Bears, NFL Monday Night Football",
+      "body_text": "Sign up and bet with the latest FanDuel promo code to wager on Monday to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-03T00:06:26+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Sign"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "5e970aa6-ddaa-45c1-9555-73f3e270fcd0",
+      "url": "https://www.cbssports.com/betting/news/bears-vs-seahawks-odds-picks-player-props-experts-best-bets-for-monday-night-football-in-nfl-week-8/",
+      "title": "Bears vs. Seahawks odds, picks, player props: Expert's best bets for Monday Night Football in NFL Week 8",
+      "body_text": "Take the points with the underdog in a projected prime-time shootout, plus target high-volume value on Jaxson Smith-Njigba and plus-money tight end props",
+      "author": "Will Brinson",
+      "published_at": "2026-11-03T00:01:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Jaxson Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ad7d4a36-1edb-4bfb-9263-60f367d45a87",
+      "url": "https://www.cbssports.com/betting/news/bears-vs-seahawks-odds-betting-preview-prediction-start-time-monday-night-football-picks-best-bets/",
+      "title": "Bears vs. Seahawks odds, betting preview, prediction, start time: Monday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Bears vs. Seahawks on Monday Night Football",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-02T23:47:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "7ff484f4-a4bb-472a-b776-5120cbf0950c",
+      "url": "https://www.cbssports.com/betting/news/week-8-nfl-betting-promos-get-over-3000-in-bonuses-from-betting-apps-sportsbooks-for-bears-seahawks/",
+      "title": "Week 8 NFL betting promos: Get over $3,000 in bonuses from betting apps, sportsbooks for Bears-Seahawks",
+      "body_text": "Top Week 8 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-02T23:44:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Seahawks Top",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ecc4779d-e51c-4100-ba2e-37f86fe153f7",
+      "url": "https://www.cbssports.com/nfl/news/is-jadarian-price-playing-seahawks-bears-monday-night-football/",
+      "title": "Is Jadarian Price playing on MNF? Latest Seahawks RB injury update for game vs. Bears",
+      "body_text": "The Seahawks could activate Jadarian Price from injured reserve before Monday night's game, but Mike Macdonald offered few clues about the rookie's status",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-02T23:25:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Is Jadarian",
+        "Latest Seahawks",
+        "Bears The",
+        "Jadarian Price",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "244dcdeb-56eb-4c4f-a565-207634d147e3",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-name-gardner-minshew-carson-beck-no-2-jacoby-brissett/",
+      "title": "Cardinals name Gardner Minshew as starter, Carson Beck No. 2: What's next for Jacoby Brissett?",
+      "body_text": "Brissett has been demoted to third string after Arizona's comeback win against the Cowboys",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-02T22:27:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Gardner Minshew",
+        "Carson Beck",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0035289",
+        "00-0041561",
+        "00-0033119"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "d39b69a6-6887-4f94-afe0-9f9f9490f4e2",
+      "url": "https://www.cbssports.com/nfl/news/seahawks-vs-bears-how-to-watch-prediction-odds-caleb-williams/",
+      "title": "Seahawks vs. Bears prediction: Caleb Williams faces toughest test yet in Seattle defense",
+      "body_text": "The Bears take their surging offense into Seattle for a matchup with one of the NFL's best defenses",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-02T22:12:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "de86fbd5-2703-488f-96bf-cd901807477c",
+      "url": "https://www.cbssports.com/nfl/news/interview-pittsburghs-jalen-ramsey-state-of-steelers/",
+      "title": "1-on-1 with Pittsburgh's Jalen Ramsey: How he views state of the Steelers, offense's improvement",
+      "body_text": "A Super Bowl champion with the Rams, Ramsey spoke with CBS Sports about where he sees the Steelers organization at 6-2 this season",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-02T22:03:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jalen Ramsey",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0033055"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "582a4aea-dd8d-416c-a8f1-c997bb1af730",
+      "url": "https://www.cbssports.com/nfl/news/lions-jack-campbell-injury-updates-vikings/",
+      "title": "Jack Campbell injury updates: Lions LB remains in hospital, but 'indications are positive'",
+      "body_text": "The All-Pro linebacker suffered what appeared to be a serious injury vs. the Vikings",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-02T20:12:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jack Campbell",
+        "The All"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "06c82134-d464-464d-aaf2-dddf3dfac097",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-qb-rankings-mac-jones-kirk-cousins/",
+      "title": "2026 NFL trade deadline QB rankings: Mac Jones, Kirk Cousins lead 10 best targets",
+      "body_text": "With the Ravens, Eagles and other teams potentially searching for help, we rank 10 quarterbacks who could be available before the Nov. 10 deadline",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-02T20:41:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mac Jones",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0036972",
+        "00-0029604"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "10044504-5453-4925-a267-5a62de6e9a59",
+      "url": "https://www.cbssports.com/nfl/news/ravens-quarterback-trade-rumors-lamar-jackson-tyson-bagent/",
+      "title": "Should Ravens trade for QB after Lamar Jackson, Tyler Huntley injuries? Possible candidates to watch",
+      "body_text": "Baltimore could be without Jackson for the rest of the year",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-02T18:35:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Should Ravens",
+        "Lamar Jackson",
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "0f4e1f3e-9fc6-4603-92ac-2c4bb2d8232e",
+      "url": "https://www.cbssports.com/nfl/news/pick-six-seahawks-bears-picks-mnf-15-crazy-stats-week-8/",
+      "title": "Pick Six: Seahawks, Bears picks for 'MNF'; plus 15 crazy stats from Week 8",
+      "body_text": "Here's everything you need to know about the NFL for Nov. 2",
+      "author": "John Breech",
+      "published_at": "2026-11-02T17:46:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pick Six"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "22a08d5b-91d4-47ac-961e-4af1f1d041fc",
+      "url": "https://www.cbssports.com/nfl/news/jaguars-lose-davon-hamilton-trade-deadline-options/",
+      "title": "Jaguars lose standout DT DaVon Hamilton: Trade partners for Jacksonville include Cowboys, Colts",
+      "body_text": "Hamilton has been a stud for one of the league's best run defenses",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-02T16:17:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Colts Hamilton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "bdf0cb01-a7aa-4ef7-b354-abedb3ce06f7",
+      "url": "https://www.cbssports.com/nfl/news/caleb-downs-cowboys-defense-trey-mcbride/",
+      "title": "Trey McBride taunts Caleb Downs as Cowboys rookie's struggles reach alarming level",
+      "body_text": "Dallas rebuilt its defense around first-round pick Caleb Downs, but his coverage struggles and costly mistakes were exposed",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-02T15:53:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "bd4b7f5a-299c-4293-b827-20193064763b",
+      "url": "https://www.cbssports.com/nfl/news/lamar-jackson-injury-ravens-contract-extension/",
+      "title": "Lamar Jackson injury throws huge wrench into looming contract talks with Ravens",
+      "body_text": "Jackson's current contract runs through the 2027 season",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-02T14:34:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Ravens Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "013502d2-91fe-4716-80e7-6f82c231ad03",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-biggest-loser-from-nfl-week-8-fsu-starts-coaching-search-after-firing-mike-norvell/",
+      "title": "Cowboys biggest loser from NFL Week 8; FSU starts coaching search after firing Mike Norvell",
+      "body_text": "Plus, Lamar Jackson played one snap before suffering another long-term injury",
+      "author": "Austin Nivison",
+      "published_at": "2026-11-02T13:57:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mike Norvell",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "c21cc8e2-f85d-45f9-83d4-e52b79ca81aa",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-nfl-trade-deadline-george-pickens-destinations/",
+      "title": "Cowboys should consider trading George Pickens: 5 logical NFL deadline destinations",
+      "body_text": "Pickens received only four targets in Dallas' historic collapse against Arizona, adding urgency to the Cowboys' decision before the NFL trade deadline",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-02T13:37:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "7062650d-4c28-45b1-802d-3efed3d43686",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-early-odds-spreads-ravens-jaguars-lamar-jackson/",
+      "title": "NFL Week 9 early odds: Ravens become home underdogs to Jaguars after Lamar Jackson injury",
+      "body_text": "A look at where the odds and spreads currently stand heading into Week 9, including a big move in Baltimore",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-02T13:28:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "381a2f96-abd8-4781-988d-048f922da98d",
+      "url": "https://www.cbssports.com/nfl/news/steelers-jaylen-warren-breakout-running-back/",
+      "title": "Steelers' Jaylen Warren is 'on fire': Why the breakout running back keeps getting better",
+      "body_text": "Warren tied his career high with 143 rushing yards on his 28th birthday, continuing a breakout season that has made him the engine of Pittsburgh's offense",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-02T13:03:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jaylen Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0037228"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "1e4da28e-3269-43f1-b341-f65fe96ad04f",
+      "url": "https://www.cbssports.com/nfl/draft/news/ryan-wilsons-2027-nfl-mock-draft-browns-trade-up-for-qb/",
+      "title": "Wilson's 2027 NFL mock draft: Browns trade up for QB, five passers land in Round 1",
+      "body_text": "Jets, Titans and Browns all have multiple first-round picks",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-02T18:38:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "0e283d73-17c5-4866-949a-40f91deb7962",
+      "url": "https://www.cbssports.com/nfl/news/cover-32-nfl-week-8-trade-deadline-jets/",
+      "title": "Cover 32: Why Jets have every reason to trade Breece Hall, plus Week 8 games balls, gaffes",
+      "body_text": "Tyler Sullivan dives into the biggest items from Week 8, including Joe Burrow's six-touchdown day and Chad Ryland's redemption",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-02T12:36:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Jets",
+        "Breece Hall",
+        "Tyler Sullivan",
+        "Joe Burrow",
+        "Chad Ryland"
+      ],
+      "resolved_player_ids": [
+        "00-0038120",
+        "00-0036442",
+        "00-0038567"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "af90d8bf-e83b-45cb-84a3-debab08ce1a2",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-broncos-five-things-we-learned-bo-nix/",
+      "title": "Five things we learned as Broncos stun Chiefs, seize first place in AFC West",
+      "body_text": "Denver's quarterback delivered another remarkable finish, while a vastly improved defense and two emerging running backs helped the Broncos take control of the AFC West",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-02T04:20:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "West Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "809186ee-293e-4f62-988c-88aa96e84f14",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-controversial-penalty-andy-reid-broncos/",
+      "title": "Andy Reid questions controversial false start that erased Chiefs' apparent winning TD",
+      "body_text": "A controversial false start on Jaylon Moore wiped out a go-ahead touchdown before Malcolm Roach sealed the win with a sack on Patrick Mahomes",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-02T03:38:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andy Reid",
+        "Jaylon Moore",
+        "Malcolm Roach",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0036557",
+        "00-0035763",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "03887e89-535d-47d9-9464-4af947a04a6a",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-loss-to-cardinals-qb-ben-dinucci/",
+      "title": "Former Cowboys QB rips Dallas for 'embarrassing' loss to Cardinals: 'They stink'",
+      "body_text": "The loss was bad enough, but the way the Cowboys crumbled did not sit well with the 2020 draft pick",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-02T03:27:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Former Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "03192bb6-517c-48a3-9c47-481e0bdfd9be",
+      "url": "https://www.cbssports.com/nfl/news/andy-reid-harrison-butker-decision-chiefs-broncos/",
+      "title": "Andy Reid backs decision to trust Harrison Butker despite Chiefs kicker's struggles",
+      "body_text": "Butker's late miss helped give Denver an opportunity to complete its comeback and intensified questions about Kansas City's kicker situation",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-02T03:19:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andy Reid",
+        "Harrison Butker",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "60124aaf-39d5-4374-b0ec-ed88b7cfeedb",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-winners-losers-cowboys-joe-burrow/",
+      "title": "NFL Week 8 winners and losers: Cowboys suffer epic collapse, Joe Burrow delivers historic heroics",
+      "body_text": "Burrow produced a historic six-touchdown performance, while the Cowboys squandered a late lead and the Ravens endured another devastating Lamar Jackson injury",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-02T01:57:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0034796"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "8d94179a-d37d-4ba9-b5e2-457faa46d5cb",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-8-overreactions-vikings-kyler-murray-colts/",
+      "title": "Week 8 overreactions: Time for Vikings to bench Kyler Murray? Colts should fire Steichen?",
+      "body_text": "Plus, does the NFC South run through the Buccaneers?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-02T02:11:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "0736836f-6f96-4cde-bdac-efeb8d749633",
+      "url": "https://www.cbssports.com/nfl/news/why-is-ashton-jeanty-not-getting-ball-raiders-mike-washington-jr/",
+      "title": "Why is Ashton Jeanty not getting carries? Another Raider emerges as Vegas' top RB in Week 8",
+      "body_text": "Jeanty's rushing workload continues to decrease on a weekly basis",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-02T01:20:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "Another Raider"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "7902a0af-21dd-465f-b064-8e363d161ef6",
+      "url": "https://www.cbssports.com/prediction/news/eagles-vs-commanders-odds-nfl-week-8-first-touchdown-scorer-picks-predictions-for-sunday-night-football/",
+      "title": "Eagles vs. Commanders odds, NFL Week 8 first touchdown scorer picks, predictions for Sunday Night Football",
+      "body_text": "Here's a look at the prediction markets at Kalshi for the first touchdown scorer in Eagles vs. Commanders on Sunday Night Football",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-02T00:51:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    }
+  ]
+}

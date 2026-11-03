@@ -1,0 +1,99 @@
+{
+  "batch_id": "d7b17467",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-03T12:21:48.839443+00:00",
+  "record_count": 10,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-de-cashius-howell-had-wrist-surgery",
+      "player_name": "Cashius Howell",
+      "team_abbr": "CIN",
+      "category": "injury",
+      "summary": "Bengals rookie DE Cashius Howell had wrist surgery and will be out for coming weeks.",
+      "source_excerpt": "The Bengals are set to be without rookie defensive end Cashius Howell in the coming weeks.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-lost-linebacker-jimmy-rolder-to-season-ending-hamstring-injury-vs-vikings",
+      "player_name": "Jimmy Rolder",
+      "team_abbr": "DET",
+      "category": "injury",
+      "summary": "Lions linebacker Jimmy Rolder suffered a season-ending hamstring injury against the Vikings.",
+      "source_excerpt": "Lions linebacker Jimmy Rolder will miss the rest of the season after suffering a hamstring injury on Sunday against the Vikings.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl645757",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "usage",
+      "summary": "Price returned to action with 10 rushes for 29 yards and 2 catches for 8 yards in loss to Bears.",
+      "source_excerpt": "Price rushed 10 times for 29 yards and brought in two of four targets for eight yards in the Seahawks' 34-17 loss to the Bears on Monday night.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl645757",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "usage",
+      "summary": "Price returned to action with 10 rushes for 29 yards and 2 catches for 8 yards in loss to Bears.",
+      "source_excerpt": "Price rushed 10 times for 29 yards and brought in two of four targets for eight yards in the Seahawks' 34-17 loss to the Bears on Monday night.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "5e970aa6-ddaa-45c1-9555-73f3e270fcd0",
+      "player_name": "Jaxson Smith-Njigba",
+      "team_abbr": "SEA",
+      "category": "general",
+      "summary": "Expert targets Jaxson Smith-Njigba for high-volume value in Seahawks-Bears Monday Night Football prop bets.",
+      "source_excerpt": "target high-volume value on Jaxson Smith-Njigba",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ecc4779d-e51c-4100-ba2e-37f86fe153f7",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "injury",
+      "summary": "Seahawks could activate rookie RB Jadarian Price from injured reserve before Monday night vs. Bears; status unclear.",
+      "source_excerpt": "The Seahawks could activate Jadarian Price from injured reserve before Monday night's game, but Mike Macdonald offered few clues about the rookie's status",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "bdf0cb01-a7aa-4ef7-b354-abedb3ce06f7",
+      "player_name": "Caleb Downs",
+      "team_abbr": "DAL",
+      "category": "usage",
+      "summary": "Cowboys first-round pick Caleb Downs' coverage struggles and costly mistakes have reached alarming levels.",
+      "source_excerpt": "Dallas rebuilt its defense around first-round pick Caleb Downs, but his coverage struggles and costly mistakes were exposed",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-de-cashius-howell-had-wrist-surgery",
+      "player_name": "Cashius Howell",
+      "team_abbr": "CIN",
+      "category": "injury",
+      "summary": "Bengals rookie DE Cashius Howell underwent wrist surgery and will miss upcoming weeks.",
+      "source_excerpt": "The Bengals are set to be without rookie defensive end Cashius Howell in the coming weeks.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-dbs-caleb-downs-p-j-locke-in-concussion-protocol",
+      "player_name": "Caleb Downs",
+      "team_abbr": "DAL",
+      "category": "injury",
+      "summary": "Caleb Downs entered concussion protocol following Cowboys' OT loss to Cardinals.",
+      "source_excerpt": "The Cowboys had injury to go with the insult of Sunday's 33-30 meltdown overtime loss to the Cardinals.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-lost-linebacker-jimmy-rolder-to-season-ending-hamstring-injury-vs-vikings",
+      "player_name": "Jimmy Rolder",
+      "team_abbr": "DET",
+      "category": "injury",
+      "summary": "Lions linebacker Jimmy Rolder suffered season-ending hamstring injury vs. Vikings.",
+      "source_excerpt": "Lions linebacker Jimmy Rolder will miss the rest of the season after suffering a hamstring injury on Sunday against the Vikings.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

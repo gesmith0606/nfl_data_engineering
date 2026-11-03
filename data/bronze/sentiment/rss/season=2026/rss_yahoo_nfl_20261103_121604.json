@@ -1,0 +1,797 @@
+{
+  "fetch_run_id": "db137e59-b3e0-48d7-8495-6f89ce0eaad7",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-03T12:16:04.422930+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "661a0181-c1a5-3192-b858-95b3a02b1b2d",
+      "url": "https://sports.yahoo.com/articles/bengals-tuesday-trenches-pros-cons-120000621.html",
+      "title": "Bengals Tuesday Trenches: Pros and cons of a potential Jonathan Taylor trade and more",
+      "body_text": "Pros and cons of a potential trade for Taylor, and a lot……. A LOT more.",
+      "author": "",
+      "published_at": "2026-11-03T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Tuesday",
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "6cd4f60d-ff46-3403-b96a-2d1eb57eb36e",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-defense-banged-physically-120000566.html",
+      "title": "Cowboys news: Defense banged up physically after collapse to Cardinals",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-03T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cardinals Here",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "76f85ba7-4756-3591-b68d-fcec5c28c926",
+      "url": "https://sports.yahoo.com/articles/cardinals-running-back-situation-highs-120000726.html",
+      "title": "The Cardinals’ running back situation: Highs and lows",
+      "body_text": "What began as a team strength may now be in trouble",
+      "author": "",
+      "published_at": "2026-11-03T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "be8d9ee0-2e7f-3b86-9e52-90d6876aea66",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-insider-says-120000054.html",
+      "title": "New York Jets News: Insider Says Aaron Glenn Path to Salvation has Closed",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-03T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Insider Says",
+        "Aaron Glenn",
+        "Closed Your"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "c79cd6a5-c476-39af-b0d7-1a3ef8402e18",
+      "url": "https://sports.yahoo.com/articles/too-many-sacks-deshaun-watson-120000656.html",
+      "title": "Too many sacks for Deshaun Watson and Browns offense",
+      "body_text": "Deshaun Watson needs to be better after his performance against the Steelers.",
+      "author": "",
+      "published_at": "2026-11-03T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d6ae3864-e535-3f81-a418-03b568b2f320",
+      "url": "https://sports.yahoo.com/articles/panthers-could-player-similar-story-120000192.html",
+      "title": "The Panthers could take a player with a similar story to Efe Obada in the Draft",
+      "body_text": "Let’s take a closer look at one of the prospects the Panthers could select in the 2027 NFL Draft.",
+      "author": "",
+      "published_at": "2026-11-03T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Panthers",
+        "Efe Obada",
+        "Draft Let"
+      ],
+      "resolved_player_ids": [
+        "00-0031500"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "d9b907f7-d53c-3f9d-9925-1455921df96c",
+      "url": "https://sports.yahoo.com/articles/mike-macdonald-lost-three-phases-114443996.html",
+      "title": "Mike Macdonald: We lost in all three phases",
+      "body_text": "Monday night's game in Seattle featured a pair of 2025 NFC playoff teams who would like to be back in the postseason this year and it ended with the Bears celebrating a 34-17 win over the defending Super Bowl champions.",
+      "author": "",
+      "published_at": "2026-11-03T11:44:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "50755708-5a99-37e5-992c-a5f4925e8251",
+      "url": "https://sports.yahoo.com/articles/nfl-power-rankings-week-9-113220321.html",
+      "title": "NFL power rankings Week 9: Where do Bears, Seahawks settle after Monday night clash?",
+      "body_text": "Seahawks slip after losing decisively at home to Chicago, but do 49ers also take a backseat to Chicago?",
+      "author": "",
+      "published_at": "2026-11-03T11:32:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "9acf9127-ecd5-35ae-877b-67ddf35a6181",
+      "url": "https://sports.yahoo.com/articles/shemar-stewart-time-show-bengals-113000857.html",
+      "title": "Shemar Stewart’s time to show the Bengals what he’s made of has come",
+      "body_text": "Can Stewart take advantage of the opportunity he’s been given?",
+      "author": "",
+      "published_at": "2026-11-03T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Shemar Stewart",
+        "Can Stewart"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "50b3c586-7a12-3e81-b032-f662e554616c",
+      "url": "https://sports.yahoo.com/articles/nfc-contenders-miss-playoffs-111805924.html",
+      "title": "Which NFC contenders will miss the playoffs?",
+      "body_text": "There are 7 NFC contenders fighting for 5 playoff spots. Who are the two teams that will miss the postseason?",
+      "author": "",
+      "published_at": "2026-11-03T11:18:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "a097f567-5b3d-3822-bd98-95e0a2c1659f",
+      "url": "https://sports.yahoo.com/articles/afc-north-standings-bengals-survive-111500935.html",
+      "title": "AFC North Standings: Bengals survive Titans scare; Steelers take first place",
+      "body_text": "Pittsburgh rolls past Cleveland for division lead.",
+      "author": "",
+      "published_at": "2026-11-03T11:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "North Standings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d1cd3f45-c944-361c-ba83-89f95ece25f3",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-110803795.html",
+      "title": "Fantasy football Start ‘Em, Sit ‘Em: 16 players to start or sit in Week 9",
+      "body_text": "USA TODAY Sports breaks down eight players to start and eight players to sit ahead of Week 9 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-11-03T11:08:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "64ea13f9-3446-310b-94b2-8876008388dc",
+      "url": "https://sports.yahoo.com/articles/jack-campbell-lions-team-captain-110517156.html",
+      "title": "Jack Campbell is a Lions team captain. Here's why his teammates love him",
+      "body_text": "The sports world was shaken when Jack Campbell suffered a neck injury during a game. Here's the kind words his Detroit Lions teammates said about him.",
+      "author": "",
+      "published_at": "2026-11-03T11:05:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jack Campbell",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "2b8c247d-ee04-3af0-a8cb-3c4fa4cc06e0",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-beat-seattle-110000912.html",
+      "title": "The Bear’s Den: Bears beat Seattle Seahawks in road MNF match-up",
+      "body_text": "The Chicago Bears went to Seattle and dominated the Super Bowl Champion Seahawks, doubling up their score 34-17.",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Seattle Seahawks",
+        "The Chicago",
+        "Super Bowl",
+        "Champion Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "60039025-2436-38d9-ab72-9b522cc9b9d2",
+      "url": "https://sports.yahoo.com/articles/giants-news-road-favorite-vs-110000690.html",
+      "title": "Giants news: Road favorite vs. Eagles, trade rumors, more",
+      "body_text": "New York Giants headlines for Tuesday",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c407f230-16c4-345a-808f-2a795a3edc5d",
+      "url": "https://sports.yahoo.com/articles/bengals-news-zac-taylor-defends-110000037.html",
+      "title": "Bengals News: Zac Taylor defends Ja’Marr Chase’s passion after heated sideline outburst",
+      "body_text": "Competitive fire, or a looming concern?",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Zac Taylor",
+        "Marr Chase"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "c983b691-ac85-3cce-822c-ae4fcdb8d46e",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-left-pick-110000918.html",
+      "title": "Cleveland Browns news: Left to pick up the pieces once again",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 3 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "d12685ad-ae3a-35e1-8df0-f597d3c91f5b",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-kingsley-suamataia-benching-110000299.html",
+      "title": "Chiefs News: Kingsley Suamataia’s benching ‘isn’t punishment’",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Kingsley Suamataia"
+      ],
+      "resolved_player_ids": [
+        "00-0039844"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "e9cc6ad0-f3c8-3bce-b597-e9723dda2241",
+      "url": "https://sports.yahoo.com/articles/patriots-injury-analysis-dolphins-win-110000961.html",
+      "title": "Patriots injury analysis: Dolphins win creates more questions",
+      "body_text": "Analyzing the Patriots’ injury situation before their upcoming game against the Packers.",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "f80d3078-4c96-39fa-b5da-e57c3b2eed13",
+      "url": "https://sports.yahoo.com/articles/ravens-could-place-tyler-loop-110000435.html",
+      "title": "Ravens could place Tyler Loop on IR, Jake Moody to kick vs. Jaguars",
+      "body_text": "The Ravens will be without their usual kicker on Thursday night against the Jaguars and potentially much longer.",
+      "author": "",
+      "published_at": "2026-11-03T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tyler Loop",
+        "Jake Moody",
+        "Jaguars The"
+      ],
+      "resolved_player_ids": [
+        "00-0040074",
+        "00-0038562"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "431e450b-72dd-3dde-a0be-84d6980f82b5",
+      "url": "https://sports.yahoo.com/articles/patriots-lose-practice-squad-linebacker-100000269.html",
+      "title": "Patriots lose practice squad linebacker to the Lions",
+      "body_text": "Britt appeared in one game for the Patriots this season.",
+      "author": "",
+      "published_at": "2026-11-03T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Britt"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "d4ef4563-f746-3211-9ff8-f0cfa2934fcb",
+      "url": "https://sports.yahoo.com/articles/patriots-date-depth-chart-roster-202222083.html",
+      "title": "Patriots up-to-date depth chart: Who is on the roster right now?",
+      "body_text": "An updated look at the Patriots’ roster in 2026.",
+      "author": "",
+      "published_at": "2026-11-03T09:41:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "229236fd-7513-36f2-8309-291e410b9a4b",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-raiders-093700675.html",
+      "title": "Golden Nuggets: We’re on to the Raiders",
+      "body_text": "Your daily San Francisco 49ers news for Tuesday, November 3rd, 2026",
+      "author": "",
+      "published_at": "2026-11-03T09:37:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Raiders Your",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "19ef7c00-cb74-46af-873c-7f7a0e6a1032",
+      "url": "https://sports.yahoo.com/nfl/article/im-happy-hes-on-our-side-bears-jeffery-simmons-looks-like-perfect-fit-and-caleb-williams-delivers-late-to-humble-seahawks-075242002.html",
+      "title": "'I'm happy he's on our side': Bears' Jeffery Simmons looks like perfect fit and Caleb Williams delivers late to humble Seahawks",
+      "body_text": "&quot;When I ran out of that tunnel, I just kept telling myself it's, it's just football. Go out there, be me, play by play, be in the moment,&quot; Simmons said. &quot;It was a lot of emotion, and I'm grateful to be here and today was a great start.&quot;",
+      "author": "Kari Anderson",
+      "published_at": "2026-11-03T07:52:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "39e79647-e9f6-3a43-867a-5a5490180fb2",
+      "url": "https://sports.yahoo.com/articles/vikings-chiefs-cowboys-beaten-nfl-072750394.html",
+      "title": "Vikings, Chiefs, Cowboys and Seahawks beaten - NFL week eight",
+      "body_text": "A wild week in the NFL sees Chicago beat Seattle, Joe Burrow and the Tampa Bay Buccaneers make history, while Lamar Jackson is sidelined on his return from injury.",
+      "author": "",
+      "published_at": "2026-11-03T07:46:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Tampa Bay",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0034796"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "354e2f63-6d9b-37b7-9fb9-6427c9d902af",
+      "url": "https://sports.yahoo.com/articles/jaxon-smith-njigba-maintains-record-073946167.html",
+      "title": "Jaxon Smith-Njigba maintains record-setting pace with 118 yards on MNF",
+      "body_text": "Jaxon Smith-Njigba posted a 6-118-1 line on Week 8, putting him on pace for 2,093 receiving yards in 2026 -- the NFL record is 1,964.",
+      "author": "",
+      "published_at": "2026-11-03T07:39:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "03ff2bbf-99ef-37b7-be86-e01a16362cf1",
+      "url": "https://sports.yahoo.com/articles/winners-losers-seahawks-vs-bears-073625177.html",
+      "title": "Winners and Losers from Seahawks vs. Bears: Is it time to fire Brian Fleury?",
+      "body_text": "That was bad. The Seahawks are not playing good football.",
+      "author": "",
+      "published_at": "2026-11-03T07:36:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brian Fleury",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "a04bebbf-12cd-42ff-9d0d-0a45b89f875a",
+      "url": "https://sports.yahoo.com/nfl/article/bears-qb-caleb-williams-blacks-out-logo-on-cleats-says-he-wants-to-calm-things-down-after-risking-12000-in-nfl-fines-072404682.html",
+      "title": "Bears QB Caleb Williams blacks out logo on cleats, says he wants 'to calm things down' after risking $12,000 in NFL fines",
+      "body_text": "Williams said he wanted to 'minimize' media attention after initially saying he would keep wearing the unauthorized cleats.",
+      "author": "Kari Anderson",
+      "published_at": "2026-11-03T07:24:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "9d636de5-a833-36b1-854c-8bc201158916",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-time-see-070000822.html",
+      "title": "Eagles snap counts: Time to see more of Eli Stowers",
+      "body_text": "Here's a look at Eagles snap counts from their 27-10 loss to the Commanders on Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-11-03T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eli Stowers",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0041483"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e49d5127-191f-3f41-96c8-db68ff682397",
+      "url": "https://sports.yahoo.com/articles/roobs-eagles-stats-big-pile-070000807.html",
+      "title": "In Roob's Eagles Stats: A big pile of misery broken up by tiny encouraging blips",
+      "body_text": "When you lose six in a row, the stats aren’t pretty.",
+      "author": "",
+      "published_at": "2026-11-03T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "In Roob",
+        "Eagles Stats"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a73b274a-e1a5-3ea4-981d-f468e532ae86",
+      "url": "https://sports.yahoo.com/articles/bears-vs-buccaneers-odds-opening-061751526.html",
+      "title": "Bears vs. Buccaneers odds: Opening lines for Week 9 matchup",
+      "body_text": "Check out the early odds for the Buccaneers at the Bears game on November 8 on Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-11-03T06:17:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "18c9fc55-54a7-326d-9cd1-9e97690fac45",
+      "url": "https://sports.yahoo.com/articles/luther-burden-iii-gets-scoring-053700997.html",
+      "title": "Luther Burden III gets the scoring started in Seattle",
+      "body_text": "Luther Burden III had 65 yards on seven receptions, which included a touchdown on Chicago's opening drive on MNF.",
+      "author": "",
+      "published_at": "2026-11-03T05:37:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Luther Burden III",
+        "Seattle Luther"
+      ],
+      "resolved_player_ids": [
+        "00-0040735"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e7f38216-0896-3978-97be-9948ac2b1bf3",
+      "url": "https://sports.yahoo.com/articles/bears-dominate-seahawks-jeffery-simmons-045759667.html",
+      "title": "Bears dominate Seahawks as Jeffery Simmons makes statement after trade",
+      "body_text": "Jeffery Simmons delivered just what Chicago needed on defense as the Bears beat the Seattle Seahawks 34-17 on Monday night.",
+      "author": "",
+      "published_at": "2026-11-03T04:57:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "2ca61f76-7f9c-334b-a351-e4b9ce626f00",
+      "url": "https://sports.yahoo.com/articles/caleb-williams-efficient-road-win-045523520.html",
+      "title": "Caleb Williams efficient in road win over Seattle on MNF",
+      "body_text": "Caleb Williams passed for 247 yards and a touchdown as the Bears won in Seattle on MNF.",
+      "author": "",
+      "published_at": "2026-11-03T04:55:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "fc6e60df-9f33-44c7-a30c-5722dd869987",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/jeffery-simmons-gets-huge-sack-on-sam-darnold-in-first-game-with-the-bears-015753847.html",
+      "title": "Bears DT Jeffery Simmons gets huge sack in Chicago debut en route to win over Seahawks",
+      "body_text": "It took very little time for Simmons to make an impact for Chicago.",
+      "author": "Kari Anderson",
+      "published_at": "2026-11-03T01:57:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "2f468256-22c9-3a2a-a45b-209ace4e7946",
+      "url": "https://sports.yahoo.com/articles/jeffery-simmons-stellar-bears-debut-044042254.html",
+      "title": "Jeffery Simmons stellar in Bears debut: Winners, losers of Chicago's rout of Seahawks",
+      "body_text": "The Chicago Bears' new trade acquisition Jeffery Simmons had a standout performance in a rout of the Seattle Seahawks on &quot;Monday Night Football.&quot;",
+      "author": "",
+      "published_at": "2026-11-03T04:40:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Seahawks The",
+        "Chicago Bears",
+        "Seattle Seahawks",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ba5ad541-ff16-37c1-8d97-ef7d7e5777a0",
+      "url": "https://sports.yahoo.com/articles/seahawks-vs-bears-post-game-044023312.html",
+      "title": "Seahawks vs. Bears post-game reaction: What we learned from a damaging Monday night defeat",
+      "body_text": "An immediate post-game recap of the Seahawks vs. Bears, including big thoughts on Seattle’s horrible showing at home against Chicago.",
+      "author": "",
+      "published_at": "2026-11-03T04:40:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "f04a0e84-0972-3012-b25a-d0762eba3d8b",
+      "url": "https://sports.yahoo.com/articles/seahawks-playoff-picture-takes-hit-043718355.html",
+      "title": "Seahawks’ playoff picture takes a hit with Monday night loss",
+      "body_text": "The Seattle Seahawks had a chance to move into playoff position on Monday. They did not do that.",
+      "author": "",
+      "published_at": "2026-11-03T04:37:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Seattle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "977e98ea-82f7-3e5a-8ec6-e5d5aa05ea7d",
+      "url": "https://sports.yahoo.com/articles/bears-v-seahawks-postgame-statement-043557453.html",
+      "title": "Bears v. Seahawks Postgame: A Statement Victory in Big Jeff’s First Game",
+      "body_text": "The Bears got a Statement Victory in Big Jeff’s First Game!",
+      "author": "",
+      "published_at": "2026-11-03T04:35:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Seahawks Postgame",
+        "Statement Victory",
+        "Big Jeff",
+        "First Game",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "b12fa821-4beb-4fc4-9eee-656510edd7f5",
+      "url": "https://sports.yahoo.com/nfl/live/bears-seahawks-score-live-updates-inactives-highlights-stats-where-to-watch-week-8-000730581.html",
+      "title": "Caleb Williams' late push, Jeffery Simmons' dominance help Bears hold off Seahawks for big prime-time victory",
+      "body_text": "Chicago doused a late Seattle spark with big plays on both ends of the field.",
+      "author": "Kari Anderson",
+      "published_at": "2026-11-03T00:07:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "cafa08cd-88ad-33dc-abd2-69c63b54dee5",
+      "url": "https://sports.yahoo.com/articles/monday-night-football-jeffery-simmons-042810173.html",
+      "title": "Monday Night Football: Jeffery Simmons, Caleb Williams lead Bears to 34-17 rout of Seahawks",
+      "body_text": "The Bears acquired Simmons on Thursday, and he had six tackles and a sack, and Williams threw for 247 yards.",
+      "author": "",
+      "published_at": "2026-11-03T04:28:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Jeffery Simmons",
+        "Caleb Williams",
+        "Seahawks The"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "37917b54-6f7a-4ede-b6ba-6de4cd786dd3",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-power-rankings-entering-week-9-broncos-are-6-2-but-need-to-improve-perhaps-with-some-pre-deadline-trades-042648675.html",
+      "title": "NFL Power Rankings entering Week 9: Broncos are 6-2 but need to improve, perhaps with some pre-deadline trades",
+      "body_text": "Denver is winning close games at an incredible rate, but it may not be able to count on that continuing without some trade additions.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-03T04:26:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "0c536351-548c-3c25-bbb5-358e61cca096",
+      "url": "https://sports.yahoo.com/articles/seahawks-bears-score-4-4-042612910.html",
+      "title": "Seahawks-Bears score: 4-4. Seahawks blown out in Monday night horror show",
+      "body_text": "The Seahawks are back to .500 and this time the offense cannot avoid a blowout loss because of the defense.",
+      "author": "",
+      "published_at": "2026-11-03T04:26:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "89db185b-9e21-3126-b12d-989af53a020f",
+      "url": "https://sports.yahoo.com/articles/chicago-bears-solidify-standing-monday-042322327.html",
+      "title": "Chicago Bears solidify standing with Monday night win and Vikings loss",
+      "body_text": "The Chicago Bears’ win coupled with losses by the Minnesota Vikings and Seattle Seahawks put them in great playoff position.",
+      "author": "",
+      "published_at": "2026-11-03T04:23:22+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "The Chicago",
+        "Minnesota Vikings",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "fbd09fdd-831f-304d-ace6-57229a725015",
+      "url": "https://sports.yahoo.com/articles/bears-answer-seahawks-lead-27-040130293.html",
+      "title": "Bears answer Seahawks, up lead to 27-17",
+      "body_text": "The Bears have had an answer for the Seahawks all night.",
+      "author": "",
+      "published_at": "2026-11-03T04:01:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "1c5c50e6-ee45-3220-babc-faa2dbfbdd47",
+      "url": "https://sports.yahoo.com/articles/seahawks-convert-bears-fumble-now-035148367.html",
+      "title": "Seahawks convert Bears' fumble, now trail only 20-17",
+      "body_text": "The Bears let the Seahawks back in the game when tight end Colston Loveland fumbled.",
+      "author": "",
+      "published_at": "2026-11-03T03:51:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bears",
+        "Colston Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "1f7c7159-f37d-3e6b-b4f4-e8481d8d8691",
+      "url": "https://sports.yahoo.com/articles/giants-might-return-bye-without-034948321.html",
+      "title": "Giants might return from bye without injured Cam Skattebo",
+      "body_text": "As the Giants returned from the bye, Skattebo began practice off to the side with a trainer.",
+      "author": "",
+      "published_at": "2026-11-03T03:49:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "b034f172-e95d-35f6-9d9e-f221391433d1",
+      "url": "https://sports.yahoo.com/articles/jaxon-smith-njigbas-td-vs-033615825.html",
+      "title": "Peyton Manning’s ManningCast prediction backfires on Jaxon Smith-Njigba TD",
+      "body_text": "Peyton Manning had to eat crow during on &quot;Monday Night Football&quot; when Jaxon Smith-Njigba scored a long touchdown. Here's why.",
+      "author": "",
+      "published_at": "2026-11-03T03:36:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Peyton Manning",
+        "Jaxon Smith",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0010346"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "d1f39aaa-3998-3011-b689-7802f281edc4",
+      "url": "https://sports.yahoo.com/articles/dandre-swifts-td-run-gives-032314340.html",
+      "title": "D'Andre Swift's TD run gives Bears a 20-9 lead on Seahawks",
+      "body_text": "The Bears have taken control in Chicago.",
+      "author": "",
+      "published_at": "2026-11-03T03:23:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Andre Swift",
+        "Seahawks The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "493da704-c76b-3fe7-a1f6-99a49aea5b7c",
+      "url": "https://sports.yahoo.com/articles/most-cowboys-players-left-facility-030608492.html",
+      "title": "Most Cowboys players left facility on Monday before locker-room media availability",
+      "body_text": "The day after an embarrassing home loss to the Cardinals — who have never lost at AT&amp;T Stadium — many of the Cowboys' players skipped a session with the media covering the team.",
+      "author": "",
+      "published_at": "2026-11-03T03:06:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Most Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    }
+  ]
+}
