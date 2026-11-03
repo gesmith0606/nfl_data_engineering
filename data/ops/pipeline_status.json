@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T12:16:33.512214+00:00",
+  "generated_at": "2026-11-03T18:13:37.269798+00:00",
   "repo": "gesmith0606/nfl_data_engineering",
   "workflows": [
     {
@@ -35,15 +35,15 @@
       "schedule": "Daily 12:00 UTC",
       "purpose": "News ingestion + rankings refresh + archive",
       "last_run": {
-        "status": "in_progress",
-        "conclusion": null,
+        "status": "completed",
+        "conclusion": "success",
         "started_at": "2026-11-03T12:14:37Z",
-        "duration_seconds": null,
+        "duration_seconds": 450,
         "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41634061279",
         "event": "schedule"
       },
       "recent": [
-        "in_progress",
+        "success",
         "success",
         "success",
         "success",
@@ -64,9 +64,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-11-03T12:03:49Z",
-        "duration_seconds": 100,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41632563338",
+        "started_at": "2026-11-03T13:07:59Z",
+        "duration_seconds": 80,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41641615123",
         "event": "schedule"
       },
       "recent": [
@@ -118,9 +118,9 @@
       "last_run": {
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-11-01T12:03:12Z",
-        "duration_seconds": 199,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41304619901",
+        "started_at": "2026-11-03T14:10:02Z",
+        "duration_seconds": 198,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41651008313",
         "event": "schedule"
       },
       "recent": [
@@ -145,9 +145,9 @@
       "last_run": {
         "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-11-03T12:16:17Z",
+        "started_at": "2026-11-03T18:12:55Z",
         "duration_seconds": null,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41634294469",
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41691631116",
         "event": "schedule"
       },
       "recent": [
@@ -171,14 +171,14 @@
       "purpose": "Sanity gates + HF/Vercel deploy verification",
       "last_run": {
         "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-11-02T14:35:17Z",
-        "duration_seconds": 335,
-        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41463368155",
+        "conclusion": "failure",
+        "started_at": "2026-11-03T14:35:18Z",
+        "duration_seconds": 101,
+        "html_url": "https://github.com/gesmith0606/nfl_data_engineering/actions/runs/41655165236",
         "event": "schedule"
       },
       "recent": [
-        "success",
+        "failure",
         "success",
         "success",
         "success",
@@ -189,7 +189,7 @@
         "success",
         "success"
       ],
-      "success_rate": 1.0
+      "success_rate": 0.9
     }
   ]
 }
