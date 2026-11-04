@@ -1,0 +1,141 @@
+{
+  "batch_id": "da8a085e",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-04T12:23:04.801418+00:00",
+  "record_count": 12,
+  "records": [
+    {
+      "doc_id": "9ca9de77-5ab8-4538-9523-abe7b17ea92d",
+      "external_id": "9ca9de77-5ab8-4538-9523-abe7b17ea92d",
+      "team_abbr": null,
+      "summary": "All 32 NFL teams categorized as buyers, sellers, or fence-sitters ahead of Nov. 10 trade deadline.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "We sorted all 32 teams into three categories ahead of the Nov. 10 trade deadline: buyers, sellers and fence-sitters.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "13f15e8e-c346-470f-bed8-1295bf90226c",
+      "external_id": "13f15e8e-c346-470f-bed8-1295bf90226c",
+      "team_abbr": null,
+      "summary": "Fantasy football analysis show featuring Stats vs. Film for Week 9.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "0a28749d-96d2-3494-af3f-e9d18243d78c",
+      "external_id": "0a28749d-96d2-3494-af3f-e9d18243d78c",
+      "team_abbr": null,
+      "summary": "Chiefs-Broncos Week 8 game generated 28.175 million viewers for CBS.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "To no surprise, the top late-afternoon game from Week 8 of the 2026 NFL season generated very big numbers.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-c-j-stroud-continue-fourth-seasons-without-new-contracts",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-c-j-stroud-continue-fourth-seasons-without-new-contracts",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-defense-aiming-for-25th-straight-game-not-allowing-a-75-yard-rusher",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-defense-aiming-for-25th-straight-game-not-allowing-a-75-yard-rusher",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-season-could-highlight-the-unfairness-of-the-eight-division-structure",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-season-could-highlight-the-unfairness-of-the-eight-division-structure",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vic-fangio-j-j-mccarthy-was-a-steal-for-the-giants",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vic-fangio-j-j-mccarthy-was-a-steal-for-the-giants",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-needs-to-display-more-or-any-contrition",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-needs-to-display-more-or-any-contrition",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-reverse-course-on-high-maintenance-c-j-gardner-johnson",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-reverse-course-on-high-maintenance-c-j-gardner-johnson",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-russell-wilson-interviews-for-nc-state-head-coaching-job",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-russell-wilson-interviews-for-nc-state-head-coaching-job",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/iowa-coach-kirk-ferentz-expresses-support-for-former-hawkeyes-lb-jack-campbell",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/iowa-coach-kirk-ferentz-expresses-support-for-former-hawkeyes-lb-jack-campbell",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-broncos-racks-up-28-175-million-for-cbs",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-broncos-racks-up-28-175-million-for-cbs",
+      "team_abbr": null,
+      "summary": "Chiefs-Broncos Week 8 game drew 28.175 million viewers on CBS.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "To no surprise, the top late-afternoon game from Week 8 of the 2026 NFL season generated very big numbers.",
+      "subject_type": "player"
+    }
+  ]
+}

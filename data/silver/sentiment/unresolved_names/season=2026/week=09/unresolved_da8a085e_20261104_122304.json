@@ -1,0 +1,72 @@
+{
+  "batch_id": "da8a085e",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-04T12:23:04.810193+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "nfl645780",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Jeremiyah Love placed on injured reserve with ankle injury, out 4-to-5 weeks.",
+      "source_excerpt": "Arizona placed Love (ankle) on injured reserve Tuesday, Darren Urban of the Cardinals' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl645780",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Jeremiyah Love placed on injured reserve with ankle injury, out 4-to-5 weeks.",
+      "source_excerpt": "Arizona placed Love (ankle) on injured reserve Tuesday, Darren Urban of the Cardinals' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "fb9fa2aa-b3e2-43f3-a190-e3a4c71ee04c",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Jeremiyah Love placed on injured reserve after suffering high ankle sprain vs Cowboys.",
+      "source_excerpt": "Love suffered a high ankle sprain against the Cowboys and now heads to injured reserve",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "2165044d-a779-3c63-b6e0-8bb13ac2582c",
+      "player_name": "Malachi Lawrence",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Malachi Lawrence might miss multiple weeks with injury.",
+      "source_excerpt": "Malachi Lawrence might be out a while, while Caleb Downs and P.J. Locke are in the concussion protocol",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "2165044d-a779-3c63-b6e0-8bb13ac2582c",
+      "player_name": "Caleb Downs",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Caleb Downs in concussion protocol.",
+      "source_excerpt": "Caleb Downs and P.J. Locke are in the concussion protocol",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "6040d8d6-c91b-3629-9107-2be7a2759898",
+      "player_name": "Bob Heinz",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Bob Heinz, member of NFL's last undefeated team, passed away at 79.",
+      "source_excerpt": "A Milwaukee native who then moved to California, attended Delta College and the University of the Pacific before getting selected in the second round of the 1969 NFL Draft.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-lb-jimmy-rolder-on-ir-waive-db-bishop-fitzgerald",
+      "player_name": "Jimmy Rolder",
+      "team_abbr": "DET",
+      "category": "injury",
+      "summary": "Lions LB Jimmy Rolder placed on IR with season-ending hamstring injury.",
+      "source_excerpt": "The Lions announced that linebacker Jimmy Rolder suffered a season-ending hamstring injury during Sunday's win over the Vikings and they moved him to the injured reserve list.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

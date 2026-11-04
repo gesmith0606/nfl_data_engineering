@@ -1,0 +1,92 @@
+{
+  "fetch_run_id": "a7ab273a-bea1-4dce-84e3-90427ecc9783",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-04T12:16:24.446822+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645802",
+      "url": "https://www.rotowire.com//football/player/tyler-allgeier-15976",
+      "title": "Tyler Allgeier: Set for lead-back duties",
+      "body_text": "Allgeier is slated to work as Arizona's No. 1 running back for at least the next four weeks after Jeremiyah Love (ankle) was placed on injured reserve Tuesday, Darren Urban of the team's official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-03T04:18:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Tyler Allgeier",
+        "Jeremiyah Love",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [
+        "00-0037263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645786",
+      "url": "https://www.rotowire.com//football/player/jakobi-meyers-13517",
+      "title": "Jakobi Meyers: Remains limited in Tuesday's practice",
+      "body_text": "Meyers (hamstring/ankle) was listed as a limited participant in Tuesday's practice.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-03T01:57:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jakobi Meyers"
+      ],
+      "resolved_player_ids": [
+        "00-0034960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645785",
+      "url": "https://www.rotowire.com//football/player/chris-rodriguez-16933",
+      "title": "Chris Rodriguez: Limited in Tuesday's practice",
+      "body_text": "Rodriguez (hand) was listed as a limited participant in Tuesday's practice.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-03T01:54:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Chris Rodriguez"
+      ],
+      "resolved_player_ids": [
+        "00-0038611"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645784",
+      "url": "https://www.rotowire.com//football/player/bhayshul-tuten-18524",
+      "title": "Bhayshul Tuten: Sits out Tuesday's practice",
+      "body_text": "The Jaguars listed Tuten (ankle/foot) as a non-participant in Tuesday's practice.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-03T01:49:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Bhayshul Tuten",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0040719"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl645780",
+      "url": "https://www.rotowire.com//football/player/jeremiyah-love-19235",
+      "title": "Jeremiyah Love: Hits IR, out 4-to-5 weeks",
+      "body_text": "Arizona placed Love (ankle) on injured reserve Tuesday, Darren Urban of the Cardinals' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-03T01:14:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    }
+  ]
+}

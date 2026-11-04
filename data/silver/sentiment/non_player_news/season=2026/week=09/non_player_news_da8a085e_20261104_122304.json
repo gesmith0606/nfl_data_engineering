@@ -1,0 +1,196 @@
+{
+  "batch_id": "da8a085e",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-04T12:23:04.801808+00:00",
+  "record_count": 17,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-focus-on-recapturing-us",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-focus-on-recapturing-us",
+      "team_abbr": "SEA",
+      "summary": "Seahawks coach Mike Macdonald says team was beaten in all three phases after Monday loss to Bears.",
+      "sentiment": -0.6,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "After Monday night's loss to the Bears, Seahawks head coach Mike Macdonald said that his team was beaten in all three phases of the game and he revisited that line of thinking on Tuesday.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "ab94e5ff-ed1c-3649-8053-afc8421898d6",
+      "external_id": "ab94e5ff-ed1c-3649-8053-afc8421898d6",
+      "team_abbr": "WAS",
+      "summary": "Commanders evaluating trade deadline options as potential buyers or sellers.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "trade",
+      "source_excerpt": "Will the Commanders be buyers or sellers at the NFL trade deadline? We identify targets in both scenarios",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "de7065e9-fecc-3e8f-8ff6-4609124580ea",
+      "external_id": "de7065e9-fecc-3e8f-8ff6-4609124580ea",
+      "team_abbr": "CHI",
+      "summary": "Bears return to practice and prepare for Sunday matchup against Tampa Bay Buccaneers.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Bears are back from the Pacific Northwest and are starting to prepare for Sunday's game against the Tampa Bay Bucs.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "cca39656-1d3b-36c0-a12e-b5cbcb239825",
+      "external_id": "cca39656-1d3b-36c0-a12e-b5cbcb239825",
+      "team_abbr": "SF",
+      "summary": "49ers trade deadline approaching with less than a week remaining.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "trade",
+      "source_excerpt": "Less than a week until the trade deadline",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "9f7a52ef-6f28-32c1-836e-80efd99ce0bb",
+      "external_id": "9f7a52ef-6f28-32c1-836e-80efd99ce0bb",
+      "team_abbr": "PHI",
+      "summary": "Eagles head coach Nick Sirianni backs offensive line coach Chris Kuper despite line struggles.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Eagles head coach Nick Sirianni still believes in offensive line coach Chris Kuper despite the struggles of the line this season.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "5b33e09c-a56c-3142-b407-9403dd5f4f1c",
+      "external_id": "5b33e09c-a56c-3142-b407-9403dd5f4f1c",
+      "team_abbr": "MIN",
+      "summary": "Vikings survey asking if it's time for a change.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "That's our big question this week",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "6ec3971c-773f-3cc6-a878-da0ac6e28f39",
+      "external_id": "6ec3971c-773f-3cc6-a878-da0ac6e28f39",
+      "team_abbr": "HOU",
+      "summary": "Houston Texans resume play after their bye week.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Houston didn't lose in heartbreaking fashion this past week, nor did they win. Let's consider what lies ahead.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "6034de72-1c32-34d8-b139-1dbd1ecdd9a2",
+      "external_id": "6034de72-1c32-34d8-b139-1dbd1ecdd9a2",
+      "team_abbr": "SEA",
+      "summary": "Seahawks lost to Bears 34-17 in Week 8; stat analysis of advanced metrics from the game.",
+      "sentiment": -0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "A stat dump of major advanced metrics and other tidbits from the Seahawks' 34-17 loss to the Bears.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c2a97987-b767-3664-98ff-e1700145ad10",
+      "external_id": "c2a97987-b767-3664-98ff-e1700145ad10",
+      "team_abbr": "SF",
+      "summary": "49ers injured WR posting recovery hype video; reinforcements expected for Raiders matchup on Sunday.",
+      "sentiment": 0.5,
+      "confidence": 0.5,
+      "category": "injury",
+      "source_excerpt": "While the 49ers enjoyed a day off Tuesday, reinforcements could be on the way to the team's wide receiver room as they prepare to take on the Raiders on Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "5d0d7faf-8615-3be6-a552-da56ff25966b",
+      "external_id": "5d0d7faf-8615-3be6-a552-da56ff25966b",
+      "team_abbr": "MIA",
+      "summary": "Dolphins fans discuss predictions for Week 9 matchup against Detroit Lions.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "We ask Miami Dolphins fans for their takes and predictions for the upcoming game against the Detroit Lions.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d5eade7e-90f3-35e8-9ce9-bfcedecf2a15",
+      "external_id": "d5eade7e-90f3-35e8-9ce9-bfcedecf2a15",
+      "team_abbr": "DAL",
+      "summary": "Brian Schottenheimer criticized for giving Cowboys a coaching disadvantage.",
+      "sentiment": -0.6,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Cowboys have a coaching disadvantage",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "27230aac-35d1-3dbc-97c9-278d9c888fa7",
+      "external_id": "27230aac-35d1-3dbc-97c9-278d9c888fa7",
+      "team_abbr": "BUF",
+      "summary": "Bills first in AFC; considering position targets ahead of NFL trade deadline.",
+      "sentiment": 0.3,
+      "confidence": 0.5,
+      "category": "trade",
+      "source_excerpt": "Currently in first place in the AFC, should the Buffalo Bills target a specific position with the NFL trade deadline looming?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a2b20897-77e2-3a7a-9479-3aa9ca7bcfd0",
+      "external_id": "a2b20897-77e2-3a7a-9479-3aa9ca7bcfd0",
+      "team_abbr": "DEN",
+      "summary": "Broncos faced toughest schedule through Week 8 but now face one of the easiest schedules going forward.",
+      "sentiment": 0.6,
+      "confidence": 0.75,
+      "category": "general",
+      "source_excerpt": "As for the Denver Broncos, no team has faced a tougher schedule through the first eight weeks than they have. By far the toughest of all 32 teams.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8cc8e06d-340a-3dbd-895d-79726740aeeb",
+      "external_id": "8cc8e06d-340a-3dbd-895d-79726740aeeb",
+      "team_abbr": "CLE",
+      "summary": "Cleveland Browns' run defense showing significant weakness despite strong overall defensive performance.",
+      "sentiment": -0.5,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Cleveland's defense has carried the team so far. But the run defense is starting to spring some big leaks.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d016d09c-6f36-3eac-b421-fcaf63fead48",
+      "external_id": "d016d09c-6f36-3eac-b421-fcaf63fead48",
+      "team_abbr": "JAX",
+      "summary": "Survey article asking Jaguars fans about AFC contenders they hope to avoid in playoffs.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Which contender are you hoping to avoid in January?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b3ac81e1-0d30-3640-9d89-01e335407955",
+      "external_id": "b3ac81e1-0d30-3640-9d89-01e335407955",
+      "team_abbr": "CHI",
+      "summary": "Chicago Bears defeated Seattle Seahawks with day-after analysis suggesting this win represents meaningful progress.",
+      "sentiment": 0.5,
+      "confidence": 0.65,
+      "category": "general",
+      "source_excerpt": "Our cooled-down, day-after review of the Chicago Bears' win over the Seattle Seahawks from @gridironborn and @wiltfongjr is right here!",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-focus-on-recapturing-us",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-focus-on-recapturing-us",
+      "team_abbr": "SEA",
+      "summary": "Seahawks head coach Mike Macdonald acknowledges team was beaten in all three phases against Bears, seeks refocus.",
+      "sentiment": -0.4,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "After Monday night's loss to the Bears, Seahawks head coach Mike Macdonald said that his team was beaten in all three phases of the game and he revisited that line of thinking on Tuesday.",
+      "subject_type": "coach"
+    }
+  ]
+}

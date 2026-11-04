@@ -1,0 +1,510 @@
+{
+  "fetch_run_id": "a7ab273a-bea1-4dce-84e3-90427ecc9783",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-04T12:16:22.371647+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-focus-on-recapturing-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-wants-seahawks-to-focus-on-recapturing-us",
+      "title": "Mike Macdonald wants Seahawks to \"focus on recapturing us\"",
+      "body_text": "After Monday night's loss to the Bears, Seahawks head coach Mike Macdonald said that his team was beaten in all three phases of the game and he revisited that line of thinking on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T12:02:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "After Monday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-c-j-stroud-continue-fourth-seasons-without-new-contracts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-c-j-stroud-continue-fourth-seasons-without-new-contracts",
+      "title": "Bryce Young, C.J. Stroud continue fourth seasons without new contracts",
+      "body_text": "In theory, new deals could be done at any time.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T11:17:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-defense-aiming-for-25th-straight-game-not-allowing-a-75-yard-rusher",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-defense-aiming-for-25th-straight-game-not-allowing-a-75-yard-rusher",
+      "title": "Jaguars' defense aiming for 25th straight game not allowing a 75-yard rusher",
+      "body_text": "Down to their third-string quarterback, the Ravens will likely need a big game from Derrick Henry.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-04T09:13:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-season-could-highlight-the-unfairness-of-the-eight-division-structure",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-season-could-highlight-the-unfairness-of-the-eight-division-structure",
+      "title": "2026 season could highlight the unfairness of the eight-division structure",
+      "body_text": "It's time to consider ditching the two-conference, eight-division approach.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T03:46:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vic-fangio-j-j-mccarthy-was-a-steal-for-the-giants",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vic-fangio-j-j-mccarthy-was-a-steal-for-the-giants",
+      "title": "Vic Fangio: J.J. McCarthy was a \"steal\" for the Giants",
+      "body_text": "In late September, the Vikings sent quarterback J.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T02:52:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Vic Fangio"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-needs-to-display-more-or-any-contrition",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-needs-to-display-more-or-any-contrition",
+      "title": "Josh Jacobs needs to display more (or any) contrition",
+      "body_text": "In May 2026, Packers running back Josh Jacobs crossed a line that should never be crossed.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T02:19:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "In May"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-reverse-course-on-high-maintenance-c-j-gardner-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-reverse-course-on-high-maintenance-c-j-gardner-johnson",
+      "title": "Bills reverse course on \"high-maintenance\" C.J. Gardner-Johnson",
+      "body_text": "The Bills said they'd be keeping safety C.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T01:40:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Johnson The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-russell-wilson-interviews-for-nc-state-head-coaching-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-russell-wilson-interviews-for-nc-state-head-coaching-job",
+      "title": "Report: Russell Wilson interviews for NC State head-coaching job",
+      "body_text": "\"Let Russ coach.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T00:55:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Russell Wilson",
+        "Let Russ"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/iowa-coach-kirk-ferentz-expresses-support-for-former-hawkeyes-lb-jack-campbell",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/iowa-coach-kirk-ferentz-expresses-support-for-former-hawkeyes-lb-jack-campbell",
+      "title": "Iowa coach Kirk Ferentz expresses support for former Hawkeyes LB Jack Campbell",
+      "body_text": "Anyone who follows football and who cares about the men who play the game remains deeply concerned about the health and well-being of Lions linebacker Jack Campbell, who remains hospitalized after suffering a neck injury during Sunday's game against the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T00:31:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Ferentz",
+        "Jack Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-broncos-racks-up-28-175-million-for-cbs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-broncos-racks-up-28-175-million-for-cbs",
+      "title": "Chiefs-Broncos racks up 28.175 million for CBS",
+      "body_text": "To no surprise, the top late-afternoon game from Week 8 of the 2026 NFL season generated very big numbers.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T00:13:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-ol-blake-freeland-off-bengals-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-sign-ol-blake-freeland-off-bengals-practice-squad",
+      "title": "Jets sign OL Blake Freeland off Bengals' practice squad",
+      "body_text": "The Jets signed offensive tackle Blake Freeland off the Bengals' practice squad, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-03T23:11:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Blake Freeland",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0039158"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-lb-jimmy-rolder-on-ir-waive-db-bishop-fitzgerald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-put-lb-jimmy-rolder-on-ir-waive-db-bishop-fitzgerald",
+      "title": "Lions put LB Jimmy Rolder on IR, waive DB Bishop Fitzgerald",
+      "body_text": "The Lions announced that linebacker Jimmy Rolder suffered a season-ending hamstring injury during Sunday's win over the Vikings and they moved him to the injured reserve list.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T23:04:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jimmy Rolder",
+        "Bishop Fitzgerald",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0040914"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-waive-cb-jakorian-bennett-off-of-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-waive-cb-jakorian-bennett-off-of-injured-reserve",
+      "title": "Eagles waive CB Jakorian Bennett off of injured reserve",
+      "body_text": "Cornerback Jakorian Bennett returned to practice a few weeks ago, but he won't be returning to the Eagles lineup.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T22:57:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jakorian Bennett",
+        "Cornerback Jakorian"
+      ],
+      "resolved_player_ids": [
+        "00-0039072"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-has-15-game-winning-drives-most-ever-for-a-qb-in-his-first-three-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-has-15-game-winning-drives-most-ever-for-a-qb-in-his-first-three-seasons",
+      "title": "Bo Nix has 15 game-winning drives, most ever for a QB in his first three seasons",
+      "body_text": "The Broncos trailed the Chiefs 24-13 with 10 minutes left on Sunday, but anyone who thought the Broncos were out of it hasn't been watching Nix.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-03T22:46:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-qb-joe-fagnano-has-full-participation-in-tuesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-qb-joe-fagnano-has-full-participation-in-tuesdays-practice",
+      "title": "Ravens QB Joe Fagnano has full participation in Tuesday's practice",
+      "body_text": "Lamar Jackson (right thumb) and Tyler Huntley (toe) are expected to land on injured reserve this week.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-03T22:24:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Fagnano",
+        "Lamar Jackson",
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0040981",
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-waive-g-trevor-keegan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-waive-g-trevor-keegan",
+      "title": "Vikings waive G Trevor Keegan",
+      "body_text": "The Vikings have let go of an offensive lineman.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-03T22:03:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevor Keegan",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0039310"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-place-de-samson-ebukam-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-place-de-samson-ebukam-on-ir",
+      "title": "Falcons place DE Samson Ebukam on IR",
+      "body_text": "The Falcons placed defensive end Samson Ebukam on injured reserve Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-03T22:02:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Samson Ebukam",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0033945"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bhayshul-tuten-remains-out-of-practice-for-the-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bhayshul-tuten-remains-out-of-practice-for-the-jaguars",
+      "title": "Bhayshul Tuten remains out of practice for the Jaguars",
+      "body_text": "The Jaguars listed a key offensive player as out of practice for the second straight day on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T22:00:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bhayshul Tuten",
+        "Jaguars The"
+      ],
+      "resolved_player_ids": [
+        "00-0040719"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-place-daron-payne-javon-kinlaw-jeremy-mcnichols-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-place-daron-payne-javon-kinlaw-jeremy-mcnichols-on-ir",
+      "title": "Commanders place Daron Payne, Javon Kinlaw, Jeremy McNichols on IR",
+      "body_text": "The Commanders have placed defensive lineman Daron Payne, defensive lineman Javon Kinlaw and running back Jeremy McNichols on injured reserve, the team announced Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-03T21:53:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daron Payne",
+        "Javon Kinlaw",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0034333",
+        "00-0036260"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-release-s-c-j-gardner-johnson-after-one-game-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-release-s-c-j-gardner-johnson-after-one-game-suspension",
+      "title": "Bills release S C.J. Gardner-Johnson after one-game suspension",
+      "body_text": "C.J.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-03T21:45:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-put-tyler-loop-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-put-tyler-loop-on-injured-reserve",
+      "title": "Ravens put Tyler Loop on injured reserve",
+      "body_text": "The Ravens' kicker change will last longer than one game.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T21:35:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Loop",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0040074"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murrays-hamstring-issue-could-be-cover-for-a-soft-benching",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murrays-hamstring-issue-could-be-cover-for-a-soft-benching",
+      "title": "Kyler Murray's hamstring issue could be cover for a soft benching",
+      "body_text": "How can the Vikings bench Kyler Murray without benching Kyler Murray?",
+      "author": "Mike Florio",
+      "published_at": "2026-11-03T21:30:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-officially-place-jeremiyah-love-kendrick-bourne-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-officially-place-jeremiyah-love-kendrick-bourne-on-ir",
+      "title": "Cardinals officially place Jeremiyah Love, Kendrick Bourne on IR",
+      "body_text": "The Cardinals made the move of running back Jeremiyah Love to injured reserve official on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-03T21:26:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jeremiyah Love",
+        "Kendrick Bourne",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0033307"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-release-daniel-carlson-claim-audric-estime-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-release-daniel-carlson-claim-audric-estime-off-waivers",
+      "title": "Saints release Daniel Carlson, claim Audric Estime off waivers",
+      "body_text": "An offensive player is returning to New Orleans.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-03T21:26:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Daniel Carlson",
+        "Audric Estime",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0034161",
+        "00-0039373"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-newsome-giants-agree-on-three-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-newsome-giants-agree-on-three-year-extension",
+      "title": "Greg Newsome, Giants agree on three-year extension",
+      "body_text": "Cornerback Greg Newsome signed a one-year deal with the Giants as a free agent this offseason, but his stay with the team won't be done once the 2026 season comes to an end.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T21:25:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Newsome",
+        "Cornerback Greg"
+      ],
+      "resolved_player_ids": [
+        "00-0036996"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dt-adetomiwa-adebawore-agrees-to-two-year-extension-with-colts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dt-adetomiwa-adebawore-agrees-to-two-year-extension-with-colts",
+      "title": "DT Adetomiwa Adebawore agrees to two-year extension with Colts",
+      "body_text": "The Colts took a break from working on trading away players ahead of next Tuesday's deadline to assure that one member of the team will be sticking around for a while.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T21:17:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Adetomiwa Adebawore",
+        "Colts The"
+      ],
+      "resolved_player_ids": [
+        "00-0039031"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-huntley-could-land-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-huntley-could-land-on-injured-reserve",
+      "title": "Tyler Huntley could land on injured reserve",
+      "body_text": "Lamar Jackson has not undergone surgery on his right thumb yet.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-03T21:01:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyler Huntley",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0035993",
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-wants-to-see-more-targets-for-george-pickens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-wants-to-see-more-targets-for-george-pickens",
+      "title": "Jerry Jones wants to see more targets for George Pickens",
+      "body_text": "The 3-5 Cowboys have plenty of problems.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-03T15:35:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jerry Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-says-joe-fagnano-will-be-ravens-qb-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-says-joe-fagnano-will-be-ravens-qb-on-thursday-night",
+      "title": "Joe Fagnano will be the Ravens QB on Thursday night",
+      "body_text": "Lamar Jackson and Tyler Huntley are both injured, so the rookie is the next man up.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-03T20:44:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Fagnano",
+        "Lamar Jackson",
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0040981",
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sione-vaki-emerges-as-lions-change-of-pace-back-to-jahmyr-gibbs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sione-vaki-emerges-as-lions-change-of-pace-back-to-jahmyr-gibbs",
+      "title": "Sione Vaki emerges as Lions' change-of-pace back to pair with Jahmyr Gibbs",
+      "body_text": "Even though the Lions have only played seven games and most teams have played eight, Lions running back Jahmyr Gibbs is leading the NFL with 191 touches — a huge workload that raises questions about whether Detroit needs a player to share carries with Gibbs, the way David Montgomery had done before he was traded to Houston.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-03T20:24:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sione Vaki",
+        "Jahmyr Gibbs",
+        "David Montgomery"
+      ],
+      "resolved_player_ids": [
+        "00-0039364",
+        "00-0039139",
+        "00-0035685"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}

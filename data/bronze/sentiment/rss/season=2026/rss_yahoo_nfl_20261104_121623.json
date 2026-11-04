@@ -1,0 +1,800 @@
+{
+  "fetch_run_id": "a7ab273a-bea1-4dce-84e3-90427ecc9783",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-04T12:16:23.642170+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "1109540d-e7ad-30fa-9bfa-1fd512ee6fb4",
+      "url": "https://sports.yahoo.com/articles/examining-roster-ties-between-patriots-120000396.html",
+      "title": "Examining the roster ties between Patriots, Packers ahead of Week 9",
+      "body_text": "The former Patriots and former Packers in the fold for Sunday.",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "34cf1255-7064-309b-b2d7-e7a96e81e21b",
+      "url": "https://sports.yahoo.com/articles/statistical-dive-denver-broncos-record-120000147.html",
+      "title": "Statistical dive into Denver Broncos record-tying 15th straight win in one-score games",
+      "body_text": "The Denver Broncos have now won 15 straight regular season games that were decided by one-score (8 or fewer points). This ties the 2007-2008 Peyton Manning-led Colts. Since the start of the 2025 season the Broncos are 16 and 2 in one-score games in the regular season (1-1 in the post-season). This is a big […]",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos",
+        "The Denver",
+        "Peyton Manning"
+      ],
+      "resolved_player_ids": [
+        "00-0010346"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "6953db68-0636-3b99-9df3-f106bdc71071",
+      "url": "https://sports.yahoo.com/articles/survey-lions-beat-dolphins-week-120000897.html",
+      "title": "Survey: Will the Lions beat the Dolphins in Week 9?",
+      "body_text": "Will the Detroit Lions keep their winning streak alive against the Miami Dolphins in Week 9?",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "8766fea6-aabd-3661-b92f-2e91b0b2f606",
+      "url": "https://sports.yahoo.com/articles/nfl-secret-superstars-week-8-120000526.html",
+      "title": "NFL’s Secret Superstars, Week 8: 3 under-the-radar standouts from the NFC",
+      "body_text": "Gardner Minshew came off the bench to rally Arizona to an overtime win in Dallas. Bucky Irving and Kenneth Gainwell ran for 310 yards as the Bucs won without completing a pass. And Ty’Ron Hopper did something no Packer had done since Charles Woodson.",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Secret Superstars",
+        "Gardner Minshew",
+        "Bucky Irving",
+        "Kenneth Gainwell",
+        "Ron Hopper",
+        "Charles Woodson"
+      ],
+      "resolved_player_ids": [
+        "00-0035289",
+        "00-0039361",
+        "00-0036919",
+        "00-0018227"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "8c82aa40-1523-3c1a-835f-4a20a007e992",
+      "url": "https://sports.yahoo.com/articles/bengals-news-falcons-key-defender-120000394.html",
+      "title": "Bengals News: Falcons get key defender back vs. Cincinnati",
+      "body_text": "Your daily dose of Bengals news.",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Cincinnati Your"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "8d8c498b-c5c2-3ee9-ba4e-258bb3f41c7c",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-jerry-jones-likes-120000244.html",
+      "title": "Cowboys news: Jerry Jones likes the direction of his defense",
+      "body_text": "Here is today’s Dallas Cowboys news",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "e8acf2dd-22a4-37fb-971b-d961fee0b064",
+      "url": "https://sports.yahoo.com/articles/nfl-secret-superstars-3-under-120000172.html",
+      "title": "NFL Secret Superstars: 3 under-the-radar AFC standouts in Week 8",
+      "body_text": "Emmett Johnson gave the Chiefs 143 yards against Denver, Braelon Allen is forcing missed tackles at a Jahmyr Gibbs rate, and Jacob Martin pressured Joe Burrow ceaselessly even without Jeffery Simmons beside him.",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Secret Superstars",
+        "Emmett Johnson",
+        "Braelon Allen",
+        "Jahmyr Gibbs",
+        "Jacob Martin",
+        "Joe Burrow",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0039794",
+        "00-0039139",
+        "00-0034163",
+        "00-0036442",
+        "00-0035643"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "f4392448-2483-3721-9c1e-3e30c9669fed",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-bye-week-120000509.html",
+      "title": "Tennessee Titans news: Bye week gives chance to reflect",
+      "body_text": "The Tennessee Titans are entering the bye week at the right time.",
+      "author": "",
+      "published_at": "2026-11-04T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "8cfb8b8b-1422-340c-ab60-b1e1ba06f4ee",
+      "url": "https://sports.yahoo.com/articles/nfl-power-rankings-roundup-week-113000430.html",
+      "title": "NFL Power Rankings Roundup Week 9: Bengals’ overtime win vs. Titans gets mixed reviews",
+      "body_text": "Yards allowed and interceptions are on the minds of Cincinnati’s critics.",
+      "author": "",
+      "published_at": "2026-11-04T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Roundup Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "4ee61a1e-b130-3e47-9a80-3c31d56cf783",
+      "url": "https://sports.yahoo.com/articles/patriots-vs-dolphins-snap-counts-111624187.html",
+      "title": "Patriots vs. Dolphins snap counts: O-line shakeup continues",
+      "body_text": "Notes and thoughts on the Patriots’ snap counts from their 24-19 win over the Dolphins.",
+      "author": "",
+      "published_at": "2026-11-04T11:16:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "3f90ed3e-21a9-311a-b653-b014b5485f60",
+      "url": "https://sports.yahoo.com/articles/needs-picks-offense-lacking-110000848.html",
+      "title": "Who needs picks when your offense is lacking?",
+      "body_text": "The Denver Broncos should be buyers at the trade deadline",
+      "author": "",
+      "published_at": "2026-11-04T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "86caab35-525a-31c9-ae79-65e3a9ca575b",
+      "url": "https://sports.yahoo.com/articles/giants-news-greg-newsome-contract-110000419.html",
+      "title": "Giants news: Greg Newsome contract extension, running back rumors, more",
+      "body_text": "New York Giants headlines for Wednesday.",
+      "author": "",
+      "published_at": "2026-11-04T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Greg Newsome",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0036996"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "ab94e5ff-ed1c-3649-8053-afc8421898d6",
+      "url": "https://sports.yahoo.com/articles/buyers-sellers-deep-dive-potential-110000302.html",
+      "title": "Buyers or Sellers?: A deep dive into potential Commanders trade deadline targets",
+      "body_text": "Will the Commanders be buyers or sellers at the NFL trade deadline? We identify targets in both scenarios",
+      "author": "",
+      "published_at": "2026-11-04T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "de7065e9-fecc-3e8f-8ff6-4609124580ea",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-back-ahead-110000978.html",
+      "title": "The Bear’s Den: The Bears get back to work ahead of Tampa Bay Buccaneers",
+      "body_text": "The Bears are back from the Pacific Northwest and are starting to prepare for Sunday’s game against the Tampa Bay Bucs.",
+      "author": "",
+      "published_at": "2026-11-04T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "The Bears",
+        "Tampa Bay",
+        "Buccaneers The",
+        "Pacific Northwest"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e56c8c91-62af-3573-9ec9-9142f0fd94fb",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-kingsley-suamataia-playing-110000635.html",
+      "title": "Chiefs News: Kingsley Suamataia is playing his part",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-04T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Kingsley Suamataia"
+      ],
+      "resolved_player_ids": [
+        "00-0039844"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "cca39656-1d3b-36c0-a12e-b5cbcb239825",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-less-week-until-100000285.html",
+      "title": "Golden Nuggets: Less than a week until the trade deadline",
+      "body_text": "Your daily San Francisco 49ers news for Wednesday, November 4th, 2026",
+      "author": "",
+      "published_at": "2026-11-04T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "6972f5f7-dbc3-3fa6-952c-e8c250c34b66",
+      "url": "https://sports.yahoo.com/articles/jaguars-defense-aiming-25th-straight-091342910.html",
+      "title": "Jaguars' defense aiming for 25th straight game not allowing a 75-yard rusher",
+      "body_text": "Down to their third-string quarterback, the Ravens will likely need a big game from Derrick Henry.",
+      "author": "",
+      "published_at": "2026-11-04T09:13:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "79667eda-7a33-3078-8dd3-d4fbc0a1da6d",
+      "url": "https://sports.yahoo.com/articles/gardner-johnson-released-bills-spitting-071748773.html",
+      "title": "Gardner-Johnson released by Bills after spitting ban",
+      "body_text": "The Buffalo Bills release safety CJ Gardner-Johnson after he serves a one-game suspension for spitting in the direction of an opponent.",
+      "author": "",
+      "published_at": "2026-11-04T07:17:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "9f7a52ef-6f28-32c1-836e-80efd99ce0bb",
+      "url": "https://sports.yahoo.com/articles/nick-sirianni-emphatically-backs-ol-070000723.html",
+      "title": "Nick Sirianni emphatically backs OL coach Chris Kuper amid losing streak",
+      "body_text": "Eagles head coach Nick Sirianni still believes in offensive line coach Chris Kuper despite the struggles of the line this season.",
+      "author": "",
+      "published_at": "2026-11-04T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Chris Kuper"
+      ],
+      "resolved_player_ids": [
+        "00-0024375"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9ca9de77-5ab8-4538-9523-abe7b17ea92d",
+      "url": "https://sports.yahoo.com/nfl/article/buyers-sellers-or-fence-sitters-all-32-nfl-teams-slotted-before-the-trade-deadline-051811133.html",
+      "title": "Buyers, sellers or fence-sitters? All 32 NFL teams slotted before the trade deadline",
+      "body_text": "We sorted all 32 teams into three categories ahead of the Nov. 10 trade deadline: buyers, sellers and fence-sitters.",
+      "author": "Eric Edholm",
+      "published_at": "2026-11-04T05:18:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "333a3bcb-46dd-3b8b-adaf-a910c64dd493",
+      "url": "https://sports.yahoo.com/articles/jake-ferguson-gets-good-prognosis-051557667.html",
+      "title": "Jake Ferguson gets good prognosis on ankle injury",
+      "body_text": "Dallas Cowboys tight end Jake Ferguson suffered an ankle injury in Week 8, but head coach Brian Schottenheimer said the initial feedback was good.",
+      "author": "",
+      "published_at": "2026-11-04T05:15:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jake Ferguson",
+        "Dallas Cowboys",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0038041"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "2165044d-a779-3c63-b6e0-8bb13ac2582c",
+      "url": "https://sports.yahoo.com/articles/malachi-lawrence-might-miss-multiple-045311668.html",
+      "title": "Malachi Lawrence might miss multiple weeks",
+      "body_text": "Malachi Lawrence might be out a while, while Caleb Downs and P.J. Locke are in the concussion protocol",
+      "author": "",
+      "published_at": "2026-11-04T04:53:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Malachi Lawrence",
+        "Caleb Downs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "a157e31e-351c-331f-b8b0-5b46e03fa946",
+      "url": "https://sports.yahoo.com/articles/ravens-starting-undrafted-rookie-joe-044503790.html",
+      "title": "Ravens starting undrafted rookie Joe Fagnano at QB for ‘Thursday Night Football’",
+      "body_text": "In what's been a roller-coaster season for the Ravens, they're going with a largely untested rookie under center on Thursday night.",
+      "author": "",
+      "published_at": "2026-11-04T04:45:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Fagnano",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0040981"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "aca1334a-c0e5-4713-9119-f2c1a6b85de0",
+      "url": "https://sports.yahoo.com/nfl/article/15-players-to-watch-amid-nfl-trade-deadline-buzz-033058936.html",
+      "title": "15 players to watch amid NFL trade deadline buzz",
+      "body_text": "Yahoo Sports' Frank Schwab and Eric Edholm highlight 15 players who could be trade candidates prior to the deadline.",
+      "author": "Frank Schwab,Eric Edholm",
+      "published_at": "2026-11-04T03:30:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Yahoo Sports",
+        "Frank Schwab",
+        "Eric Edholm"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7b33e09c-a56c-3142-b407-9403dd5f4f1c",
+      "url": "https://sports.yahoo.com/articles/daily-norseman-reacts-survey-time-025344468.html",
+      "title": "Daily Norseman Reacts Survey: Is It Time for a Change?",
+      "body_text": "That’s our big question this week",
+      "author": "",
+      "published_at": "2026-11-04T02:53:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daily Norseman",
+        "Reacts Survey",
+        "It Time"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c087d469-f201-3abc-ab0b-9b39a8845d46",
+      "url": "https://sports.yahoo.com/articles/vic-fangio-j-j-mccarthy-025246470.html",
+      "title": "Vic Fangio: J.J. McCarthy was a &quot;steal&quot; for the Giants",
+      "body_text": "In late September, the Vikings sent quarterback J.J.",
+      "author": "",
+      "published_at": "2026-11-04T02:52:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vic Fangio"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "889beab5-94a8-3ff8-8098-c2bc3b7945f8",
+      "url": "https://sports.yahoo.com/articles/former-steelers-qb-russell-wilson-023925472.html",
+      "title": "Former Steelers QB Russell Wilson interviews for head coach job",
+      "body_text": "Former Steelers QB Russell Wilson interviews for college head coach job.",
+      "author": "",
+      "published_at": "2026-11-04T02:39:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Former Steelers",
+        "Russell Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "13f15e8e-c346-470f-bed8-1295bf90226c",
+      "url": "https://sports.yahoo.com/article/32-teams-32-fantasy-football-facts-to-bully-week-9-023742052.html",
+      "title": "32 Teams. 32 Fantasy football facts to BULLY week 9",
+      "body_text": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 9.",
+      "author": "Hayden Winks,Josh Norris,Matt Harmon",
+      "published_at": "2026-11-04T02:37:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Norris",
+        "Hayden Winks",
+        "Matt Harmon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "4ba0ae7f-69e9-3484-838a-d58b91db0654",
+      "url": "https://sports.yahoo.com/articles/matthew-stafford-wife-kelly-blasts-023555308.html",
+      "title": "Matthew Stafford’s wife Kelly blasts NFL over Thanksgiving Eve game",
+      "body_text": "Kelly Stafford speaks out against the NFL scheduling the Rams to play on Thanksgiving Eve.NFL teams’ bye weeks typically last 13 days so players can take time off and retool...",
+      "author": "",
+      "published_at": "2026-11-04T02:35:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Thanksgiving Eve",
+        "Kelly Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "ea66b3b7-4bb2-37da-86fc-a5ddd37fabde",
+      "url": "https://sports.yahoo.com/articles/confident-bears-caleb-williams-moving-023000862.html",
+      "title": "How confident are you in the Bears and in Caleb Williams moving forward?",
+      "body_text": "Vote in our Bears survey questions this week! @wiltfongjr has them right here.",
+      "author": "",
+      "published_at": "2026-11-04T02:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e020f8f9-4e6c-3162-ab16-cf4dc40a285b",
+      "url": "https://sports.yahoo.com/articles/russell-wilson-interviews-nc-state-022034515.html",
+      "title": "Russell Wilson interviews for NC State coaching job in major twist amid Philip Rivers flirtation",
+      "body_text": "NFL veteran Russell Wilson interviewed for the NC State head coaching job, joining former Wolfpack star Philip Rivers as a top candidate.",
+      "author": "",
+      "published_at": "2026-11-04T02:20:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Russell Wilson",
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0029263",
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "7a8b13be-6c27-34f6-a168-8e761cda2a48",
+      "url": "https://sports.yahoo.com/articles/josh-jacobs-needs-display-more-021941160.html",
+      "title": "Josh Jacobs needs to display more (or any) contrition",
+      "body_text": "In May 2026, Packers running back Josh Jacobs crossed a line that should never be crossed.",
+      "author": "",
+      "published_at": "2026-11-04T02:19:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "In May"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "cd8ce276-efe4-31de-aef9-8f7777d8d779",
+      "url": "https://sports.yahoo.com/articles/adetomiwa-adebawore-signs-35-million-020623193.html",
+      "title": "Adetomiwa Adebawore signs $35 million Colts extension one week before trade deadline",
+      "body_text": "One player is staying in Indianapolis a little longer.",
+      "author": "",
+      "published_at": "2026-11-04T02:06:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Adetomiwa Adebawore"
+      ],
+      "resolved_player_ids": [
+        "00-0039031"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "6ec3971c-773f-3cc6-a878-da0ac6e28f39",
+      "url": "https://sports.yahoo.com/articles/day-day-houston-texans-resume-020000049.html",
+      "title": "The Day After the Day After: The Houston Texans resume their season after the bye",
+      "body_text": "Houston didn’t lose in heartbreaking fashion this past week, nor did they win. Let’s consider what lies ahead.",
+      "author": "",
+      "published_at": "2026-11-04T02:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Day",
+        "Day After",
+        "The Houston"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "6040d8d6-c91b-3629-9107-2be7a2759898",
+      "url": "https://sports.yahoo.com/articles/bob-heinz-member-nfl-last-014501472.html",
+      "title": "Bob Heinz, member of NFL’s last undefeated team, dead at 79",
+      "body_text": "A Milwaukee native who then moved to California, attended Delta College and the University of the Pacific before getting selected in the second round of the 1969 NFL Draft.",
+      "author": "",
+      "published_at": "2026-11-04T01:45:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bob Heinz",
+        "Delta College"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "6034de72-1c32-34d8-b139-1dbd1ecdd9a2",
+      "url": "https://sports.yahoo.com/articles/stat-dump-key-numbers-observations-012251346.html",
+      "title": "Stat dump: Key numbers and observations from the Seahawks Week 8 loss to the Bears",
+      "body_text": "A stat dump of major advanced metrics and other tidbits from the Seahawks’ 34-17 loss to the Bears.",
+      "author": "",
+      "published_at": "2026-11-04T01:22:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Seahawks Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "aa7445e4-734f-311d-a8cc-5071a20f155a",
+      "url": "https://sports.yahoo.com/articles/former-seahawks-quarterback-russell-wilson-010147178.html",
+      "title": "Former Seahawks quarterback Russell Wilson interviews for NC State head coaching job",
+      "body_text": "The long-time Seahawks quarterback’s stay at the CBS desk could be short-lived.",
+      "author": "",
+      "published_at": "2026-11-04T01:01:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Former Seahawks",
+        "Russell Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0029263"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "c2a97987-b767-3664-98ff-e1700145ad10",
+      "url": "https://sports.yahoo.com/articles/49ers-injured-receiver-posts-hype-010028632.html",
+      "title": "49ers injured receiver posts hype video of recovery with Raiders on tap",
+      "body_text": "While the 49ers enjoyed a day off Tuesday, reinforcements could be on the way to the team’s wide receiver room as they prepare to take on the Raiders on Sunday....",
+      "author": "",
+      "published_at": "2026-11-04T01:00:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "5d0d7faf-8615-3be6-a552-da56ff25966b",
+      "url": "https://sports.yahoo.com/articles/miami-dolphins-discussion-week-9-010000867.html",
+      "title": "Miami Dolphins Discussion: Week 9 Game Vs Detroit Lions Predictions Edition",
+      "body_text": "We ask Miami Dolphins fans for their takes and predictions for the upcoming game against the Detroit Lions.",
+      "author": "",
+      "published_at": "2026-11-04T01:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Miami Dolphins",
+        "Vs Detroit",
+        "Lions Predictions",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "d5eade7e-90f3-35e8-9ce9-bfcedecf2a15",
+      "url": "https://sports.yahoo.com/articles/brian-schottenheimer-failing-cowboys-010000405.html",
+      "title": "How Brian Schottenheimer is failing the Cowboys",
+      "body_text": "The Cowboys have a coaching disadvantage",
+      "author": "",
+      "published_at": "2026-11-04T01:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "How Brian",
+        "Cowboys The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "27230aac-35d1-3dbc-97c9-278d9c888fa7",
+      "url": "https://sports.yahoo.com/articles/position-buffalo-bills-target-nfl-005726351.html",
+      "title": "What position should the Buffalo Bills target at NFL trade deadline?",
+      "body_text": "Currently in first place in the AFC, should the Buffalo Bills target a specific position with the NFL trade deadline looming?",
+      "author": "",
+      "published_at": "2026-11-04T00:57:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "5db8733c-8f11-3744-be3a-b753240092e9",
+      "url": "https://sports.yahoo.com/articles/bengals-film-room-chase-brown-004302249.html",
+      "title": "Bengals Film Room: Chase Brown starting to heat up?",
+      "body_text": "Chase Brown had over 100 all-purpose yards against the Titans.",
+      "author": "",
+      "published_at": "2026-11-04T00:43:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Film",
+        "Chase Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0038597"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "0a28749d-96d2-3494-af3f-e9d18243d78c",
+      "url": "https://sports.yahoo.com/articles/chiefs-broncos-racks-28-175-001345900.html",
+      "title": "Chiefs-Broncos racks up 28.175 million for CBS",
+      "body_text": "To no surprise, the top late-afternoon game from Week 8 of the 2026 NFL season generated very big numbers.",
+      "author": "",
+      "published_at": "2026-11-04T00:13:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a2b20897-77e2-3a7a-9479-3aa9ca7bcfd0",
+      "url": "https://sports.yahoo.com/articles/broncos-had-toughest-schedule-weeks-000448920.html",
+      "title": "Broncos had toughest schedule Weeks 1-8; now face one of the easiest",
+      "body_text": "The analytics nerds are back at this week with some live tracking of strength of schedule. As for the Denver Broncos, no team has faced a tougher schedule through the first eight weeks than they have. By far the toughest of all 32 teams. There isn’t a winning record within ten spots of them on […]",
+      "author": "",
+      "published_at": "2026-11-04T00:04:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "8cc8e06d-340a-3dbd-895d-79726740aeeb",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-run-defense-scary-000053811.html",
+      "title": "Cleveland Browns: Run defense is scary. And not in a good way.",
+      "body_text": "Cleveland’s defense has carried the team so far. But the run defense is starting to spring some big leaks.",
+      "author": "",
+      "published_at": "2026-11-04T00:00:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "d016d09c-6f36-3eac-b421-fcaf63fead48",
+      "url": "https://sports.yahoo.com/articles/jaguars-reacts-survey-jacksonville-top-000011856.html",
+      "title": "Jaguars Reacts Survey: Who is Jacksonville’s Top Threat in the AFC?",
+      "body_text": "Which contender are you hoping to avoid in January?",
+      "author": "",
+      "published_at": "2026-11-04T00:00:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaguars Reacts",
+        "Top Threat"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "fdc78912-209a-3af1-9c5f-f152f72c304b",
+      "url": "https://sports.yahoo.com/articles/rashan-gary-inexcusable-penalty-opened-000000715.html",
+      "title": "Rashan Gary’s inexcusable penalty opened the door to final collapse",
+      "body_text": "Rashan Gary had one of the worst moments from last week’s loss.",
+      "author": "",
+      "published_at": "2026-11-04T00:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rashan Gary"
+      ],
+      "resolved_player_ids": [
+        "00-0034967"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "b3ac81e1-0d30-3640-9d89-01e335407955",
+      "url": "https://sports.yahoo.com/articles/time-different-chicago-bears-233000069.html",
+      "title": "This time is different for the Chicago Bears",
+      "body_text": "Our cooled-down, day-after review of the Chicago Bears' win over the Seattle Seahawks from @gridironborn and @wiltfongjr is right here!",
+      "author": "",
+      "published_at": "2026-11-03T23:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "Seattle Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "686340a7-af29-4a8a-a9da-dab29845d21d",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/colts-reportedly-extend-promising-dt-adetomiwa-adebawore-amid-roster-purge-232731725.html",
+      "title": "Colts reportedly extend promising DT Adetomiwa Adebawore amid roster purge",
+      "body_text": "The Indianapolis Colts aren't purging their entire roster.",
+      "author": "Jason Owens",
+      "published_at": "2026-11-03T23:27:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Adetomiwa Adebawore",
+        "The Indianapolis"
+      ],
+      "resolved_player_ids": [
+        "00-0039031"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "998186a4-ed62-3985-81a6-c7428b46deb8",
+      "url": "https://sports.yahoo.com/articles/bills-release-c-j-gardner-232420040.html",
+      "title": "Bills release C.J. Gardner-Johnson after Brock Bowers spitting incident",
+      "body_text": "The Buffalo Bills released C.J. Gardner-Johnson just one day after he served a one-game suspension for spitting on Raiders tight end Brock Bowers.",
+      "author": "",
+      "published_at": "2026-11-03T23:24:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brock Bowers",
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}
