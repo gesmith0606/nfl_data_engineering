@@ -1,0 +1,196 @@
+{
+  "batch_id": "376c2263",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-05T12:22:34.308650+00:00",
+  "record_count": 17,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-proactively-replace-entire-surface-at-mile-high-stadium-again",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-proactively-replace-entire-surface-at-mile-high-stadium-again",
+      "team_abbr": "DEN",
+      "summary": "Broncos proactively replace playing surface at Mile High Stadium to maintain field quality.",
+      "sentiment": 0.2,
+      "confidence": 0.5,
+      "category": "weather",
+      "source_excerpt": "With four regular-season home games played and four to go, the Broncos are being proactive \u2014 again \u2014 about the quality of the playing surface at Mile High Stadium.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "475c807f-c4cc-3e99-ba5c-f75acde115c9",
+      "external_id": "475c807f-c4cc-3e99-ba5c-f75acde115c9",
+      "team_abbr": "TEN",
+      "summary": "Tennessee Titans evaluate Robert Saleh's progress in first season as head coach at bye week.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "The Tennessee Titans are in the first season with Robert Saleh in charge.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "b4b32a0b-e601-3c41-b875-bcedc29bdf44",
+      "external_id": "b4b32a0b-e601-3c41-b875-bcedc29bdf44",
+      "team_abbr": "TB",
+      "summary": "Buccaneers preparing for Week 9 matchup against Bears in Sunday Night Football.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Tampa Bay Buccaneers are battling against the Chicago Bears in Week 9's edition of Sunday Night Football.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8e044ecd-aefa-360c-978f-94599528231f",
+      "external_id": "8e044ecd-aefa-360c-978f-94599528231f",
+      "team_abbr": "CIN",
+      "summary": "Article discusses potential trade targets for Bengals before trade deadline.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "trade",
+      "source_excerpt": "Here's some guys the Bengals could be interested in before the trade deadline.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "eb8b5a15-ebce-4f87-a872-8ca46d0d98d9",
+      "external_id": "eb8b5a15-ebce-4f87-a872-8ca46d0d98d9",
+      "team_abbr": "JAX",
+      "summary": "Thursday Night Football matchup between Jaguars and Ravens.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "How to watch this week's Thursday Night Football game between the Jaguars and the Ravens.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8690d356-3b0c-34cb-ae17-ac1975846061",
+      "external_id": "8690d356-3b0c-34cb-ae17-ac1975846061",
+      "team_abbr": "DET",
+      "summary": "Multiple Lions players dealing with injuries heading into game against Dolphins.",
+      "sentiment": -0.5,
+      "confidence": 0.6,
+      "category": "injury",
+      "source_excerpt": "With injuries mounting, these Detroit Lions players need to step their game up vs. the Miami Dolphins.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "28fd99be-ca2f-3c6e-9216-9121e5ba591a",
+      "external_id": "28fd99be-ca2f-3c6e-9216-9121e5ba591a",
+      "team_abbr": "NE",
+      "summary": "Patriots (5-3) face Packers in measuring-stick opportunity to strengthen playoff position.",
+      "sentiment": 0.5,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "At 5-3, both teams enter Sunday looking to keep pace in competitive divisions while strengthening their respective position in the playoff picture.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "2c82c328-977c-33fa-88d4-6825b27d1ca8",
+      "external_id": "2c82c328-977c-33fa-88d4-6825b27d1ca8",
+      "team_abbr": "DEN",
+      "summary": "Broncos seek to reach 7-2 record against Panthers before bye week.",
+      "sentiment": 0.5,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Denver Broncos have a shot to be 7-2 before their bye week if they can topple the Carolina Panthers on Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "86608cf2-3a3a-3bcb-8c06-870c0a8a9c18",
+      "external_id": "86608cf2-3a3a-3bcb-8c06-870c0a8a9c18",
+      "team_abbr": "PIT",
+      "summary": "Steelers' second-half schedule may not be as difficult as perceived.",
+      "sentiment": 0.5,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The second half of Pittsburgh's schedule might not be as hard as you think.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "af2a282b-7b9b-3358-b4fc-e4355bced049",
+      "external_id": "af2a282b-7b9b-3358-b4fc-e4355bced049",
+      "team_abbr": "CLE",
+      "summary": "Cleveland Browns news and notes roundup with mention of QB-related news.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the November 5 edition of the Daily Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d5384290-f542-3509-9e93-27d9485873d6",
+      "external_id": "d5384290-f542-3509-9e93-27d9485873d6",
+      "team_abbr": "WAS",
+      "summary": "Commanders Week 9 matchup analysis against Rams covering coaching, roster, and injuries.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Hogs Haven looks at coaching, roster, injuries and performance to day for this key Week 9 game against the Rams",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "9f13539f-da41-3b4d-affe-9a14baeb78e9",
+      "external_id": "9f13539f-da41-3b4d-affe-9a14baeb78e9",
+      "team_abbr": "SF",
+      "summary": "San Francisco 49ers bye week news roundup.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Your daily San Francisco 49ers news for Thursday, November 5th, 2026",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "2fcd3793-5630-34bf-81be-0ca1b4eedb36",
+      "external_id": "2fcd3793-5630-34bf-81be-0ca1b4eedb36",
+      "team_abbr": "PHI",
+      "summary": "Eagles lose sixth straight game for first time since 2012, extending disastrous streak with loss to Commanders.",
+      "sentiment": -0.9,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "The Eagles lose their sixth-straight game for the first time since 2012.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "ac2c21b8-13ef-321d-be88-e88b4483c026",
+      "external_id": "ac2c21b8-13ef-321d-be88-e88b4483c026",
+      "team_abbr": "PHI",
+      "summary": "Eagles defense historically terrible through eight games based on detailed statistical analysis.",
+      "sentiment": -0.95,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "The numbers reveal just how badly the Eagles' defense has struggled through eight games.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f52e267b-9654-3ae4-9ed6-c2eb582d2146",
+      "external_id": "f52e267b-9654-3ae4-9ed6-c2eb582d2146",
+      "team_abbr": "PHI",
+      "summary": "Eagles season appears lost; focus turning to evaluating young player development.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Eagles are eight games into a lost season so it's time to really watch the young players develop.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-proactively-replace-entire-surface-at-mile-high-stadium-again",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-proactively-replace-entire-surface-at-mile-high-stadium-again",
+      "team_abbr": "DEN",
+      "summary": "Broncos replacing playing surface at Mile High Stadium again due to quality concerns.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "With four regular-season home games played and four to go, the Broncos are being proactive \u2014 again \u2014 about the quality of the playing surface at Mile High Stadium.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-commanders-somehow-breaks-19-million-viewers",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-commanders-somehow-breaks-19-million-viewers",
+      "team_abbr": "PHI",
+      "summary": "Eagles-Commanders game drew over 19 million viewers.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "When George Costanza pitched the show about nothing to NBC president Russell Dalrymple, Dalrymple asked, \"Well, why am I watching it?\"",
+      "subject_type": "team"
+    }
+  ]
+}

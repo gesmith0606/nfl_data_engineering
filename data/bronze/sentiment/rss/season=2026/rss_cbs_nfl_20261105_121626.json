@@ -1,0 +1,626 @@
+{
+  "fetch_run_id": "777704a3-3c81-4334-8f83-00d9ce39439d",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-05T12:16:26.660862+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "809f28cf-48e3-43b3-9977-ef9f08f9d827",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-injury-report-micah-parsons-jaylen-watson-rams/",
+      "title": "NFL Week 9 injury report: Micah Parsons returns to Packers practice, Rams lose Jaylen Watson for season",
+      "body_text": "Parsons has opened his 21-day practice window, while Jackson, Sam Darnold and Deshaun Watson headline the notable quarterback injuries entering Week 9",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-05T03:07:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Micah Parsons",
+        "Jaylen Watson",
+        "Sam Darnold",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0036932",
+        "00-0037195",
+        "00-0034869",
+        "00-0033537"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "6b9b151a-3971-4002-94cb-e923080c0c6d",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-lines-picks-predictions-best-bets-week-9-2026/",
+      "title": "Week 9 NFL odds, picks, predictions: Computer model backs Chiefs and Commanders",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 9 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-04T22:05:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "5280951f-7356-4caa-8bd1-767fad435729",
+      "url": "https://www.cbssports.com/nfl/news/matthew-staffords-wife-calls-out-nfl-rams-thanksgiving-eve/",
+      "title": "Matthew Stafford's wife calls out NFL over apparent scheduling disadvantage given to Rams",
+      "body_text": "Los Angeles will play in the NFL's first-ever Thanksgiving Eve game, which doesn't give the Rams a true bye week",
+      "author": "John Breech",
+      "published_at": "2026-11-04T21:27:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Rams Los",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "52c801a2-e353-4f63-9f5e-4292f340713d",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-tracker-latest-deals-grades/",
+      "title": "2026 NFL trade deadline tracker: Latest deals, grades as Jacoby Brissett heads to Baltimore",
+      "body_text": "Track every completed deal before the Nov. 10 deadline, including Chicago's blockbuster addition of Jeffery Simmons and the Colts' trades of Quenton Nelson and DeForest Buckner",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-04T20:49:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Baltimore Track",
+        "Jeffery Simmons",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0033119",
+        "00-0035643",
+        "00-0034342"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "e6dac693-feb7-4383-b18b-ebdc5ec0bd89",
+      "url": "https://www.cbssports.com/nfl/news/predicting-the-full-14-team-nfl-playoff-bracket-week-9-bears/",
+      "title": "Predicting the full 14-team NFL playoff bracket entering Week 9: Bears make Super Bowl run",
+      "body_text": "Are the Bears the best team in the NFC? Our latest playoff projection answers that question",
+      "author": "John Breech",
+      "published_at": "2026-11-04T23:31:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "4235b195-c054-4084-829d-0c084e2ef28a",
+      "url": "https://www.cbssports.com/nfl/news/agents-take-whats-next-lamar-jackson-ravens-contract/",
+      "title": "Agent's Take: What's next between Lamar Jackson, Ravens after yet another injury",
+      "body_text": "Jackson's contract with the Ravens expires after the 2027 season, but can he and Baltimore reach an agreement before then? What happens if they can't?",
+      "author": "Joel Corry",
+      "published_at": "2026-11-04T20:53:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "d784f711-18d6-451c-8873-526029d4b36c",
+      "url": "https://www.cbssports.com/nfl/news/jacoby-brissett-trade-ravens-cardinals-lamar-jackson/",
+      "title": "Jacoby Brissett trade: Ravens strike deal for Cardinals QB amid injury crisis",
+      "body_text": "Baltimore is expected to acquire the veteran quarterback from Arizona after injuries to Lamar Jackson, Tyler Huntley and Joe Fagnano decimated its depth chart",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-04T20:23:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Lamar Jackson",
+        "Tyler Huntley",
+        "Joe Fagnano"
+      ],
+      "resolved_player_ids": [
+        "00-0033119",
+        "00-0034796",
+        "00-0035993",
+        "00-0040981"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "2f720acb-b296-4385-83d3-3b57422a47c4",
+      "url": "https://www.cbssports.com/nfl/news/sam-darnold-out-injury-seahawks-qb-drew-lock-cardinals/",
+      "title": "Sam Darnold out for Seahawks in Week 9 as Drew Lock gets another start vs. Cardinals",
+      "body_text": "Darnold will sit with a quad injury, while Lock is expected to make his second start of the season despite dealing with an elbow issue.",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-04T19:46:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sam Darnold",
+        "Drew Lock",
+        "Cardinals Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "f6248e98-9a44-49ad-a1d8-37d1207063d1",
+      "url": "https://www.cbssports.com/nfl/news/eagles-joe-milton-starting-quarterback-giants-tanner-mckee/",
+      "title": "Eagles to start Joe Milton at quarterback vs. Giants, replacing Tanner McKee",
+      "body_text": "Milton will replace Tanner McKee and become Philadelphia's third starting quarterback of the season when the Eagles face the NFC East-leading Giants",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-04T19:52:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9188326b-fd79-46e6-8e68-3f624796d1fd",
+      "url": "https://www.cbssports.com/nfl/news/lions-jack-campbell-issues-statement-after-injury-vikings/",
+      "title": "Lions' Jack Campbell issues statement updating condition after scary injury vs. Vikings",
+      "body_text": "The Lions linebacker says he has full movement in his lower body and is making progress with his upper body following a scary collision against the Vikings",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-04T18:58:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jack Campbell",
+        "Vikings The"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "da6f7f6a-b077-461e-a2b9-a78ae0f7f7eb",
+      "url": "https://www.cbssports.com/nfl/news/jets-garrett-wilson-enters-concussion-protocol/",
+      "title": "Jets' Garrett Wilson enters concussion protocol a week before 2026 NFL trade deadline",
+      "body_text": "Could Wilson's status as potential trade bait be impacted by entering the concussion protocol?",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-04T18:56:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Garrett Wilson",
+        "Could Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "8ced0e1e-52a6-4e17-9b60-318304939d34",
+      "url": "https://www.cbssports.com/nfl/news/2027-football-hall-of-fame-nominees-robert-kraft/",
+      "title": "Robert Kraft named one of five contributor nominees for 2027 Pro Football Hall of Fame class",
+      "body_text": "The Patriots owner is one of five contributor nominees still under consideration after falling short of induction in the previous Hall of Fame cycle",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-04T18:42:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Robert Kraft",
+        "Pro Football",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "3a2dbb30-b19d-464c-8427-6a78c68882e8",
+      "url": "https://www.cbssports.com/nfl/news/ravens-trade-candidates-quarterback-injuries-lamar-jackson/",
+      "title": "Ravens trade candidates: Three quarterbacks Baltimore should consider amid injury crisis",
+      "body_text": "With Lamar Jackson sidelined and Tyler Huntley out for the year, Baltimore could look to Jacoby Brissett or Anthony Richardson before the trade deadline to keep its 4-4 season alive",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-04T17:21:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "With Lamar",
+        "Tyler Huntley",
+        "Jacoby Brissett",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0035993",
+        "00-0033119",
+        "00-0039164"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "d4a5f9aa-7c0f-455f-bbbc-db0178c8817e",
+      "url": "https://www.cbssports.com/nfl/news/jadeveon-clowney-mock-trades-cowboys-texans-nfl-trade-deadline/",
+      "title": "Jadeveon Clowney mock trades: Cowboys reunion headlines four deals Texans can make before NFL trade deadline",
+      "body_text": "Clowney's name has surfaced in trade discussions this week",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-04T17:05:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jadeveon Clowney"
+      ],
+      "resolved_player_ids": [
+        "00-0031364"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "c0bc2963-9b61-4728-825d-080431ee1109",
+      "url": "https://www.cbssports.com/nfl/news/browns-deshaun-watson-concussion-protocol-shedeur-sanders-week-9-saints/",
+      "title": "Browns' Deshaun Watson in concussion protocol: Shedeur Sanders potentially in line to start Week 9 at Saints",
+      "body_text": "Watson cleared evaluation Sunday but started having symptoms Monday night",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-04T15:31:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Deshaun Watson",
+        "Shedeur Sanders",
+        "Saints Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "414501c7-8246-49a6-a0e7-8df4336db6af",
+      "url": "https://www.cbssports.com/nfl/news/brandon-aiyuk-files-to-be-reinstated-49ers/",
+      "title": "Brandon Aiyuk files to be reinstated, will report to 49ers facility this week, per report",
+      "body_text": "San Francisco now has the option to trade or release the disgruntled wide receiver, with an outright cut viewed as the most likely outcome after a turbulent year away from the team",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-04T15:17:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "74d196c1-d1ca-4357-bfba-cbb02d0c18cf",
+      "url": "https://www.cbssports.com/nfl/news/nfl-midseason-all-rookie-team-jalon-daniels-browns-jets/",
+      "title": "Midseason All-Rookie Team: QB Jalon Daniels leads team filled with multiple Browns, Jets",
+      "body_text": "A dynamic Browns wide receiver duo and Titans standout Carnell Tate highlight the offensive playmakers making an immediate impact through the first eight weeks",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-04T14:28:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Midseason All",
+        "Rookie Team",
+        "Jalon Daniels",
+        "Carnell Tate"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "b55d4031-6bbe-4a7c-96d6-5097735ae7b9",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-picks-best-bets-bears-surge-vikings-lose/",
+      "title": "NFL Week 9 picks, best bets: Bears continue to surge in primetime, Vikings lose second straight vs. Bills",
+      "body_text": "Tyler Sullivan picks every game on the Week 9 schedule, including five locks against the spread",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-04T14:00:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bills Tyler"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "d2fed68a-6385-40c7-b871-33fb51f62254",
+      "url": "https://www.cbssports.com/fantasy/football/news/biggest-surprises-from-initial-cfp-rankings-ravens-starting-an-undrafted-rookie-qb-on-tnf/",
+      "title": "Biggest surprises from initial CFP Rankings; Ravens starting an undrafted rookie QB on 'TNF'",
+      "body_text": "Plus NBA Bracketology and Pete Prisco's Week 9 NFL Power Rankings",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-04T13:53:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pete Prisco",
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "14ce5a2d-c3c1-4bbd-8a7d-8f176025f19c",
+      "url": "https://www.cbssports.com/nfl/news/ravens-tyler-huntley-injury-update-turf-toe-out-for-season/",
+      "title": "Tyler Huntley out for season: Ravens lose top backup with Lamar Jackson already out, per report",
+      "body_text": "Baltimore will start undrafted rookie Joe Fagnano on Thursday",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-04T13:49:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tyler Huntley",
+        "Lamar Jackson",
+        "Joe Fagnano"
+      ],
+      "resolved_player_ids": [
+        "00-0035993",
+        "00-0034796",
+        "00-0040981"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "9250ee43-9987-457c-9227-4d48c0937c9d",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-qb-power-rankings-josh-allen-cam-ward/",
+      "title": "Week 9 QB Power Rankings: Familiar name returns to No. 1, Cam Ward crawls out of basement",
+      "body_text": "Josh Allen returns to the top spot, Joe Burrow climbs into the top five and Patrick Mahomes moves up once again",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-04T19:04:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Cam Ward",
+        "Josh Allen",
+        "Joe Burrow",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0040676",
+        "00-0034857",
+        "00-0036442",
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "bf757ab8-4b86-4fa7-9957-1a835e5a8a23",
+      "url": "https://www.cbssports.com/nfl/news/priscos-week-9-nfl-expert-picks-jaguars-roll-over-lamar-jackson-less-ravens-cowboys-rebound/",
+      "title": "Prisco's Week 9 NFL expert picks: Jaguars roll over Lamar Jackson-less Ravens, Cowboys rebound",
+      "body_text": "Pete Prisco reveals all of his Week 9 picks, including the Bills handing the Vikings their second straight loss",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-04T11:00:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "a8f356dc-2b13-4c47-9b2d-5d40583875f7",
+      "url": "https://www.cbssports.com/nfl/news/bills-release-c-j-gardner-johnson-days-after-being-suspended-spitting-incident/",
+      "title": "Bills release C.J. Gardner-Johnson just days after being suspended for spitting incident",
+      "body_text": "Gardner-Johnson signed a one-year deal with Buffalo back in March",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-03T22:04:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "6e036c67-3df7-4bc5-a0c9-0f01a242e5dd",
+      "url": "https://www.cbssports.com/nfl/news/giants-sign-greg-newsome-three-year-46-million-extension/",
+      "title": "Giants sign Greg Newsome to three-year, $46 million extension, per report",
+      "body_text": "Newsome was playing on a one-year deal he signed with New York in March",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-03T21:40:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Greg Newsome",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0036996"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "cc8bf854-1e54-477b-a03e-c701961ee2bb",
+      "url": "https://www.cbssports.com/nfl/news/ravens-starting-qb-joe-fagnano-jaguars-lamar-jackson-tyler-huntley-injured/",
+      "title": "Ravens name Joe Fagnano starter for Week 9 matchup vs. Jaguars with Lamar Jackson, Tyler Huntley injured",
+      "body_text": "Joe Fagnano will make his first NFL start Thursday against the Jaguars, with Lamar Jackson and Tyler Huntley likely headed to injured reserve",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-03T21:29:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Fagnano",
+        "Lamar Jackson",
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0040981",
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "ef89b8f3-c877-43d3-a951-0db6081b4fd5",
+      "url": "https://www.cbssports.com/nfl/news/why-bears-caleb-williams-gave-fight-against-nfl-over-cleats/",
+      "title": "Why Bears' Caleb Williams gave up his fight against the NFL over his unapproved cleats",
+      "body_text": "For the first time this season, Caleb Williams actually followed the NFL's uniform policy",
+      "author": "John Breech",
+      "published_at": "2026-11-03T21:02:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Bears",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "736d0691-30fd-4ea2-9999-341eb611be6d",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-rookie-grades-midseason-surprises/",
+      "title": "2026 midseason rookie grades: Ranking the early hits, misses and biggest surprises",
+      "body_text": "Grading every first-round pick after eight weeks, from breakout stars to disappointing starts. Plus, 10 Day 2 and Day 3 rookies making their mark.",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-03T21:15:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "fb9fa2aa-b3e2-43f3-a190-e3a4c71ee04c",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-jeremiyah-loves-injured-reserve-ankle-2026/",
+      "title": "Jeremiyah Love's difficult rookie season takes another hit with trip to injured reserve",
+      "body_text": "Love suffered a high ankle sprain against the Cowboys and now heads to injured reserve",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-03T19:26:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jeremiyah Love"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "ed014d61-5531-4346-b60b-79f6d347fff3",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-no-trade-clause-joe-burrow-patrick-mahomes/",
+      "title": "2026 NFL trade deadline: 12 players with no-trade clauses, including Joe Burrow, Patrick Mahomes",
+      "body_text": "Joe Burrow, Patrick Mahomes and 10 other prominent players would have to approve any trade before the Nov. 10 deadline, but one quarterback may have reason to listen",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-03T18:46:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "0e67da51-1d71-405b-bf1e-f36955a42c36",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-jerry-jones-wants-george-pickens-to-be-more-involved/",
+      "title": "Cowboys' Jerry Jones has blunt response on George Pickens' useage: 'He needs the ball coming his way more'",
+      "body_text": "Pickens is coming off his lowest snap count since being traded to Dallas",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-03T17:24:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "d584360e-aba8-427e-81bf-4b89680f8751",
+      "url": "https://www.cbssports.com/nfl/news/jerry-jones-coaching-salaries-cowboys-playoff-drought/",
+      "title": "Jerry Jones' coaching philosophy explains why Cowboys can't end playoff drought",
+      "body_text": "The Cowboys owner insists coaching investment has no correlation with winning",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-03T16:52:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "dfc55be7-abe8-4f8b-b33a-aed46c51f117",
+      "url": "https://www.cbssports.com/nfl/news/nfc-north-four-playoff-teams-looking-more-likely-than-ever/",
+      "title": "Could NFC North have four playoff teams? After strong Week 8, it's looking more likely than ever",
+      "body_text": "The NFC North's worst team is 5-3",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-03T16:26:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "da7131de-8cc4-441b-9743-d6aea0d09d8d",
+      "url": "https://www.cbssports.com/nfl/news/klint-kubiak-ashton-jeantys-disappearance-from-game-plan-vs-jets/",
+      "title": "Klint Kubiak addresses Ashton Jeanty's disappearance from game plan vs. Jets",
+      "body_text": "Jeanty had just two carries and played less than 40% of the snaps against New York",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-03T16:03:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Ashton Jeanty",
+        "Jets Jeanty",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "7d2d4794-76f9-4133-81f9-dfc4f38a1e37",
+      "url": "https://www.cbssports.com/nfl/news/bears-assert-super-bowl-candidacy-jeffery-simmons/",
+      "title": "Bears assert Super Bowl candidacy: After Jeffery Simmons trade and 'MNF' win, NFC runs through Chicago",
+      "body_text": "The Bears' blockbuster deal ahead of the NFL trade deadline reshaped the championship picture",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-03T15:36:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "After Jeffery",
+        "Chicago The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "a310731e-f362-4885-ac9e-f8fe49e47322",
+      "url": "https://www.cbssports.com/nfl/news/ravens-add-starting-qb-kedon-slovis-week-9/",
+      "title": "Ravens add possible starting QB just two days ahead of Week 9 showdown with Jaguars",
+      "body_text": "With Lamar Jackson and Tyler Huntley sidelined and Joe Fagnano battling an ankle injury, Baltimore could turn to Kedon Slovis",
+      "author": "John Breech",
+      "published_at": "2026-11-03T15:17:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jaguars With",
+        "Lamar Jackson",
+        "Tyler Huntley",
+        "Joe Fagnano",
+        "Kedon Slovis"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0035993",
+        "00-0040981",
+        "00-0039577"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "90dbc35e-6012-444f-a95e-7afce740cf83",
+      "url": "https://www.cbssports.com/nfl/news/bears-seahawks-super-bowl-nfl-mnf-miami-cfb-college-football-rankings/",
+      "title": "Bears crash the Super Bowl conversation by beating Seahawks; Miami up to No. 1 in CFB Power Rankings",
+      "body_text": "Plus, winners and losers from a wild opening night of college basketball",
+      "author": "Austin Nivison",
+      "published_at": "2026-11-03T13:42:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    }
+  ]
+}

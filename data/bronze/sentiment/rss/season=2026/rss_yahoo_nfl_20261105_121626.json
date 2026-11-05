@@ -1,0 +1,806 @@
+{
+  "fetch_run_id": "777704a3-3c81-4334-8f83-00d9ce39439d",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-05T12:16:26.117981+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "167419a2-16c8-3524-8af7-d30a678f1ce4",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-geno-smith-120000324.html",
+      "title": "New York Jets News: Geno Smith Fires off ‘Believe’ Message Before Chiefs Contest",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-05T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Geno Smith",
+        "Message Before",
+        "Chiefs Contest"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "3f0f4028-ec1b-3c7e-a9e3-1a87ee4a6a5d",
+      "url": "https://sports.yahoo.com/articles/2026-nfl-week-9-hart-120000069.html",
+      "title": "2026 NFL Week 9: Hart’s Picks",
+      "body_text": "Mile High Report’s Christopher Hart predicts the straight-up winners for every Week 9 matchup of the 2026 season.",
+      "author": "",
+      "published_at": "2026-11-05T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Picks Mile",
+        "High Report",
+        "Christopher Hart"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "46a82378-aba6-37fb-9dfb-368a9e2b3e07",
+      "url": "https://sports.yahoo.com/articles/full-list-week-9-straight-120000431.html",
+      "title": "Full list of Week 9 straight-up picks with confidence levels",
+      "body_text": "David Fucillo makes picks for all 15 NFL games with levels of confidence ahead of Week 9.",
+      "author": "",
+      "published_at": "2026-11-05T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "David Fucillo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "475c807f-c4cc-3e99-ba5c-f75acde115c9",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-evaluating-robert-120000945.html",
+      "title": "Tennessee Titans news: Evaluating Robert Saleh’s progress at the bye week",
+      "body_text": "The Tennessee Titans are in the first season with Robert Saleh in charge.",
+      "author": "",
+      "published_at": "2026-11-05T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "Evaluating Robert",
+        "The Tennessee",
+        "Robert Saleh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "8b3ffeba-8695-3a1b-9760-0a44df77758c",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-lack-snaps-george-120000644.html",
+      "title": "Cowboys news: The lack of snaps for George Pickens explained",
+      "body_text": "Here is today's Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-05T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "George Pickens",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "b4b32a0b-e601-3c41-b875-bcedc29bdf44",
+      "url": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-120000244.html",
+      "title": "Tampa Bay Buccaneers news: Bucs getting ready for Bears",
+      "body_text": "The Tampa Bay Buccaneers are battling against the Chicago Bears in Week 9’s edition of Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-11-05T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tampa Bay",
+        "Bears The",
+        "Chicago Bears",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "8e044ecd-aefa-360c-978f-94599528231f",
+      "url": "https://sports.yahoo.com/articles/nfl-ranking-top-50-trade-115500975.html",
+      "title": "NFL ranking of top 50 trade prospects is full of potential Bengals targets",
+      "body_text": "Here’s some guys the Bengals could be interested in before the trade deadline.",
+      "author": "",
+      "published_at": "2026-11-05T11:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "eb8b5a15-ebce-4f87-a872-8ca46d0d98d9",
+      "url": "https://sports.yahoo.com/nfl/article/jacksonville-jaguars-vs-baltimore-ravens-how-to-watch-thursday-night-football-tonight-114500617.html",
+      "title": "Jacksonville Jaguars vs. Baltimore Ravens: How to watch Thursday Night Football tonight",
+      "body_text": "How to watch this week's Thursday Night Football game between the Jaguars and the Ravens.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-05T11:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jacksonville Jaguars",
+        "Baltimore Ravens",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "355f2e15-97e7-3b5b-8d54-4ecadb93553e",
+      "url": "https://sports.yahoo.com/articles/saints-wr-jordyn-tyson-feels-114428990.html",
+      "title": "Saints WR Jordyn Tyson feels &quot;more explosive than I ever have&quot; in return from hamstring injury",
+      "body_text": "The Saints can use all the help they can get after a 2-5 start to the season and one ray of hope is the return of rookie wide receiver Jordyn Tyson to the practice field this week.",
+      "author": "",
+      "published_at": "2026-11-05T11:44:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordyn Tyson",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "8690d356-3b0c-34cb-ae17-ac1975846061",
+      "url": "https://sports.yahoo.com/articles/lions-player-needs-step-most-113644457.html",
+      "title": "Which Lions player needs to step up most in light of injuries?",
+      "body_text": "With injuries mounting, these Detroit Lions players need to step their game up vs. the Miami Dolphins.",
+      "author": "",
+      "published_at": "2026-11-05T11:36:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Which Lions",
+        "Detroit Lions",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "4a1e7b8f-e2c6-3f08-9c73-03732188667f",
+      "url": "https://sports.yahoo.com/articles/why-isnt-lamar-jackson-playing-113106887.html",
+      "title": "Why isn't Lamar Jackson playing today? Injury update, return timeline for Ravens QB",
+      "body_text": "Lamar Jackson is set to be sidelined long-term because of a thumb injury. Here's what to know about the Ravens QB's status.",
+      "author": "",
+      "published_at": "2026-11-05T11:31:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "1c8218c9-c6d4-3aff-bbd5-1757d28e8880",
+      "url": "https://sports.yahoo.com/articles/j-j-watt-cris-collinsworth-113000152.html",
+      "title": "J.J. Watt, Cris Collinsworth want Bengals to trade for Jonathan Taylor",
+      "body_text": "Would the Bengals be this bold?",
+      "author": "",
+      "published_at": "2026-11-05T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cris Collinsworth",
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "5c96950d-3fb5-3db3-ad43-0b04affdad99",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-111525697.html",
+      "title": "Fantasy football Start ‘Em, Sit ‘Em: 30 players to start or sit in Week 9",
+      "body_text": "Who can you start and sit in fantasy football Week 9? USA TODAY Sports breaks down 30 players to trust or fade.",
+      "author": "",
+      "published_at": "2026-11-05T11:15:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "511e28c3-d321-4eb1-bc7b-6b2c418e7912",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-week-9-how-to-watch-every-football-game-this-week-during-the-2026-season-111537773.html",
+      "title": "NFL Week 9: How to watch every football game this week during the 2026 season",
+      "body_text": "How you can keep up with every NFL game, from the season opener to the 2027 Super Bowl.",
+      "author": "Danica Creahan",
+      "published_at": "2026-09-08T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b6b9e9b6-f615-3b30-8bc6-9212ae9b45cd",
+      "url": "https://sports.yahoo.com/articles/jacoby-brissett-playing-today-ravens-110611725.html",
+      "title": "Is Jacoby Brissett playing today for Ravens? QB’s status for 'Thursday Night Football'",
+      "body_text": "The Jacoby Brissett trade will not affect the Ravens' QB depth chart plans for &quot;Thursday Night Football.&quot; Here's why.",
+      "author": "",
+      "published_at": "2026-11-05T11:06:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Is Jacoby",
+        "Thursday Night",
+        "The Jacoby"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "00298314-4381-3439-8a8f-2eac862e002b",
+      "url": "https://sports.yahoo.com/articles/sean-payton-says-j-k-110202739.html",
+      "title": "Sean Payton says J.K. Dobbins remains &quot;a huge part of what we're doing&quot;",
+      "body_text": "It's been a somewhat strange second year in Denver for veteran running back J.K.",
+      "author": "",
+      "published_at": "2026-11-05T11:02:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1d58970b-c125-3b6e-bba0-a99048699d2a",
+      "url": "https://sports.yahoo.com/articles/giants-news-giants-face-eagles-110000234.html",
+      "title": "Giants news: Giants to face new Eagles QB, Cam Skattebo, Abdul Carter, more",
+      "body_text": "New York Giants headlines for Thursday.",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Abdul Carter",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0040677"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "28fd99be-ca2f-3c6e-9216-9121e5ba591a",
+      "url": "https://sports.yahoo.com/articles/patriots-set-measuring-stick-opportunity-110000066.html",
+      "title": "Patriots set for measuring-stick opportunity against Packers",
+      "body_text": "The New England Patriots have a big opportunity ahead of themselves against one of the NFC’s top teams this Sunday when they welcome the Green Bay Packers to Gillette Stadium. At 5-3, both teams enter Sunday looking to keep pace in competitive divisions while strengthening their respective position in the playoff picture. For the Patriots, […]",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers The",
+        "New England",
+        "Green Bay",
+        "Gillette Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "2c82c328-977c-33fa-88d4-6825b27d1ca8",
+      "url": "https://sports.yahoo.com/articles/broncos-focused-taking-care-business-110000968.html",
+      "title": "Broncos focused on taking care of business against Panthers",
+      "body_text": "The Denver Broncos have a shot to be 7-2 before their bye week if they can topple the Carolina Panthers on Sunday.",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Panthers The",
+        "Denver Broncos",
+        "Carolina Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "52f983b1-95aa-3cce-a7aa-3882c26342ad",
+      "url": "https://sports.yahoo.com/articles/bengals-news-jets-rb-breece-110000429.html",
+      "title": "Bengals News: Should Jets RB Breece Hall be trade target for Cincinnati?",
+      "body_text": "The Bengals have been frequently linked as a suitor for a different running back, but could there be a better option?",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Should Jets",
+        "Breece Hall",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "67d52926-c5f5-374a-8983-95b435189ce4",
+      "url": "https://sports.yahoo.com/articles/bear-den-jeffery-simmons-making-110000764.html",
+      "title": "The Bear’s Den: Jeffery Simmons is making an impact",
+      "body_text": "Jeffery Simmons is already making a huge impact on the Bears, stepping into a leadership by example role",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "86608cf2-3a3a-3bcb-8c06-870c0a8a9c18",
+      "url": "https://sports.yahoo.com/articles/just-hard-rest-steelers-schedule-110000896.html",
+      "title": "Just how hard is the rest of the Steelers’ schedule?",
+      "body_text": "The second half of Pittsburgh’s schedule might not be as hard as you think.",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "af2a282b-7b9b-3358-b4fc-e4355bced049",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-weird-stats-110000593.html",
+      "title": "Cleveland Browns news: Weird stats, and some unfortunate QB news",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 5 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "c5e41aca-446f-38a8-a9ec-58aa1e92e691",
+      "url": "https://sports.yahoo.com/articles/nfl-week-9-picks-bills-110000825.html",
+      "title": "NFL Week 9 picks: Bills prevail over Vikings; Packers beat Patriots",
+      "body_text": "Sam Farmer makes his picks and predictions for Week 9 of the NFL season, with the 6-1 Bills beating the 6-1 Vikings and the Packers winning in Foxborough.",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patriots Sam"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "d5384290-f542-3509-9e93-27d9485873d6",
+      "url": "https://sports.yahoo.com/articles/commanders-look-upset-la-rams-110000462.html",
+      "title": "Commanders will look to upset the LA Rams at Northwest Stadium in Week 9: Inside the Matchup",
+      "body_text": "Hogs Haven looks at coaching, roster, injuries and performance to day for this key Week 9 game against the Rams",
+      "author": "",
+      "published_at": "2026-11-05T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Northwest Stadium",
+        "Matchup Hogs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "10db0f19-681c-37b2-b6f9-ebe7bcb7dfe6",
+      "url": "https://sports.yahoo.com/articles/mack-hollins-greg-van-roten-102543006.html",
+      "title": "What Mack Hollins, Greg Van Roten returning to practice means for the Patriots",
+      "body_text": "The two veterans were back on the practice fields on Wednesday.",
+      "author": "",
+      "published_at": "2026-11-05T10:25:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "What Mack",
+        "Greg Van",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "c33da5d5-e1f9-3dc6-a820-503a3e0b3cb2",
+      "url": "https://sports.yahoo.com/articles/thursday-night-football-game-tonight-100806546.html",
+      "title": "Is there a Thursday Night Football game tonight? NFL Week 9 schedule",
+      "body_text": "The NFL regular season rolls into Week 9. Does that mean there is a Thursday Night Football game tonight? Here's what to know.",
+      "author": "",
+      "published_at": "2026-11-05T10:08:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2b3260a2-394d-36b0-82d9-cff6c55a4b3b",
+      "url": "https://sports.yahoo.com/articles/arizona-cardinals-designate-isaiah-adams-100000811.html",
+      "title": "Arizona Cardinals designate Isaiah Adams to return from injured reserve",
+      "body_text": "Isaiah Adams is coming back from the IR… hopefully.",
+      "author": "",
+      "published_at": "2026-11-05T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "Isaiah Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0039808"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "9f13539f-da41-3b4d-affe-9a14baeb78e9",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-bye-week-felt-100000241.html",
+      "title": "Golden Nuggets: This bye week has felt like a bye month",
+      "body_text": "Your daily San Francisco 49ers news for Thursday, November 5th, 2026",
+      "author": "",
+      "published_at": "2026-11-05T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "06a96b19-4c46-372b-a19f-ee8fe01650ba",
+      "url": "https://sports.yahoo.com/articles/eagles-making-switch-qb-joe-141942994.html",
+      "title": "Eagles making the switch to QB Joe Milton for Week 9 vs. Giants",
+      "body_text": "The Eagles are benching Tanner McKee in favor of Joe Milton for Sunday's Week 9 game against the Giants.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Giants The"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1e2849cb-c120-35f2-9890-a1161a5a391b",
+      "url": "https://sports.yahoo.com/articles/nick-sirianni-sticking-sean-mannion-171529555.html",
+      "title": "Nick Sirianni sticking with Sean Mannion and Tanner McKee",
+      "body_text": "Eagles head coach Nick Sirianni on Monday said he's sticking with Sean Mannion and Tanner McKee.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0032245"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "26a137c0-9ea5-3cad-90a6-3e7f7ea6a4ce",
+      "url": "https://sports.yahoo.com/articles/playing-nfl-week-9-heres-172037718.html",
+      "title": "Who is playing in NFL Week 9? Here's the full schedule",
+      "body_text": "Packers-Patriots, Bills-Vikings and Buccaneers-Bears highlight the upcoming slate.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "2fcd3793-5630-34bf-81be-0ca1b4eedb36",
+      "url": "https://sports.yahoo.com/articles/roobs-observations-eagles-disastrous-streak-232600054.html",
+      "title": "Roob's Observations as Eagles' disastrous streak continues in loss to Commanders",
+      "body_text": "The Eagles lose their sixth-straight game for the first time since 2012.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3e0e1b72-4864-3a3f-b95d-e471e3074939",
+      "url": "https://sports.yahoo.com/articles/jordan-mailata-gives-blunt-assessment-070000673.html",
+      "title": "Jordan Mailata gives blunt assessment of O-line after loss to Commanders",
+      "body_text": "Jordan Mailata gave a blunt assessment of the Eagles' OL after their loss to the Commanders.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Mailata",
+        "Commanders Jordan"
+      ],
+      "resolved_player_ids": [
+        "00-0034429"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5152b96d-0aeb-3e83-aac6-bce04876a4ca",
+      "url": "https://sports.yahoo.com/articles/10-things-know-eagles-quarterback-070000066.html",
+      "title": "10 things you need to know about new Eagles quarterback Joe Milton",
+      "body_text": "From his powerful arm to his NFL family ties, get to know Joe Milton before his first Eagles start.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "63e4fd4a-5f32-336f-904f-f603b9bbecb9",
+      "url": "https://sports.yahoo.com/articles/theres-no-magic-potion-vic-134112001.html",
+      "title": "‘There's no magic potion:' Vic Fangio pinpoints the issue with Jonathan Greenard",
+      "body_text": "The Eagles’ $98 million free agent edge rusher doesn’t have much to show for his first two months as an Eagle.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vic Fangio",
+        "Jonathan Greenard",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8b9c92f7-e088-31da-af90-c45068845071",
+      "url": "https://sports.yahoo.com/articles/nick-siriannis-vague-response-asked-082216089.html",
+      "title": "Nick Sirianni's vague response when asked about Sean Mannion's future",
+      "body_text": "Sirianni offered no clear answer on Mannion’s future as the Eagles’ offensive struggles continued.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0032245"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9d636de5-a833-36b1-854c-8bc201158916",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-time-see-070000822.html",
+      "title": "Eagles snap counts: Time to see more of Eli Stowers",
+      "body_text": "Here's a look at Eagles snap counts from their 27-10 loss to the Commanders on Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eli Stowers",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0041483"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9f7a52ef-6f28-32c1-836e-80efd99ce0bb",
+      "url": "https://sports.yahoo.com/articles/nick-sirianni-emphatically-backs-ol-070000723.html",
+      "title": "Nick Sirianni emphatically backs OL coach Chris Kuper amid losing streak",
+      "body_text": "Eagles head coach Nick Sirianni still believes in offensive line coach Chris Kuper despite the struggles of the line this season.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Chris Kuper"
+      ],
+      "resolved_player_ids": [
+        "00-0024375"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "ac2c21b8-13ef-321d-be88-e88b4483c026",
+      "url": "https://sports.yahoo.com/articles/understanding-just-historically-terrible-eagles-123355766.html",
+      "title": "Understanding just how historically terrible the Eagles' defense has been",
+      "body_text": "The numbers reveal just how badly the Eagles’ defense has struggled through eight games.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c5e7a995-443e-328a-9663-4730b750fe3d",
+      "url": "https://sports.yahoo.com/articles/updating-eagles-2027-draft-pick-070000085.html",
+      "title": "Updating Eagles' 2027 draft pick after 6th straight loss",
+      "body_text": "Here's the latest update to the Eagles' 2027 first-round draft pick after their Week 8 loss.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Updating Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "ce0c21c5-0ed6-358b-b82b-804d6c04ae44",
+      "url": "https://sports.yahoo.com/articles/ravens-trade-jacoby-brissett-cardinals-102347124.html",
+      "title": "Ravens to trade for Jacoby Brissett from Cardinals to fill QB void: Report",
+      "body_text": "Baltimore lost Lamar Jackson and Tyler Huntley to potential season-ending injuries last week.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Report Baltimore",
+        "Lamar Jackson",
+        "Tyler Huntley"
+      ],
+      "resolved_player_ids": [
+        "00-0033119",
+        "00-0034796",
+        "00-0035993"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "e49d5127-191f-3f41-96c8-db68ff682397",
+      "url": "https://sports.yahoo.com/articles/roobs-eagles-stats-big-pile-070000807.html",
+      "title": "In Roob's Eagles Stats: A big pile of misery broken up by tiny encouraging blips",
+      "body_text": "When you lose six in a row, the stats aren’t pretty.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "In Roob",
+        "Eagles Stats"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e88956c6-d4dd-3d96-9b94-d4d2427f68f2",
+      "url": "https://sports.yahoo.com/articles/eagles-injury-joe-milton-might-155919346.html",
+      "title": "Eagles injury update: Joe Milton might not get much extra help",
+      "body_text": "The Eagles are still banged up going into their Week 9 game against the Giants on Sunday afternoon.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "eda36d03-0f75-3cb9-aade-68c3a53394a8",
+      "url": "https://sports.yahoo.com/articles/eagles-grades-position-loss-commanders-070000272.html",
+      "title": "Eagles grades by position after loss to Commanders on Sunday Night Football",
+      "body_text": "Here's a look at our grades by position after the Eagles' 27-10 loss to the Commanders.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f52e267b-9654-3ae4-9ed6-c2eb582d2146",
+      "url": "https://sports.yahoo.com/articles/13-young-eagles-worth-watching-082707494.html",
+      "title": "13 young Eagles worth watching in what's left of a lost season",
+      "body_text": "The Eagles are eight games into a lost season so it's time to really watch the young players develop.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f9bce433-0545-3c1e-8ec4-cc781c0853b0",
+      "url": "https://sports.yahoo.com/articles/eagles-locker-room-rallying-around-070000992.html",
+      "title": "Eagles locker room rallying around rocket-armed QB Joe Milton",
+      "body_text": "Joe Milton will make his first NFL start on Sunday and his new Eagles teammates are rallying around him.",
+      "author": "",
+      "published_at": "2026-11-05T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cbb52ac4-69ab-36fd-a868-8d8903220458",
+      "url": "https://sports.yahoo.com/articles/josh-jacobs-calls-more-allegations-050829664.html",
+      "title": "Josh Jacobs calls more allegations of abuse surfacing ‘an attack ​​on me’",
+      "body_text": "Jacobs' attorneys released a detailed statement pushing back on the claims, and the running back addressed them on Wednesday.",
+      "author": "",
+      "published_at": "2026-11-05T05:08:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "9e51ff03-4675-3820-9306-4e349c0d9ab8",
+      "url": "https://sports.yahoo.com/articles/josh-jacobs-not-expecting-miss-041038792.html",
+      "title": "Josh Jacobs not expecting to miss more time",
+      "body_text": "Green Bay Packers RB Josh Jacobs confident he will avoid more punishment",
+      "author": "",
+      "published_at": "2026-11-05T04:10:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "3ac7aff3-95c8-37af-a9c3-059197241c86",
+      "url": "https://sports.yahoo.com/articles/reporter-asks-commanders-coach-ll-033400702.html",
+      "title": "Reporter asks Commanders coach how he’ll stop injured Davante Adams",
+      "body_text": "Dan Quinn responds to questions during a press conference.The Los Angeles Rams are set to travel to D.C. to take on the Washington Commanders this Sunday and are expected to...",
+      "author": "",
+      "published_at": "2026-11-05T03:34:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Davante Adams",
+        "Dan Quinn",
+        "The Los",
+        "Angeles Rams",
+        "Washington Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "batch_id": "376c2263",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-05T12:22:34.316239+00:00",
+  "record_count": 2,
+  "records": [
+    {
+      "doc_id": "nfl645992",
+      "player_name": "Kenny Gainwell",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Kenny Gainwell limited on Wednesday's injury report with hip injury.",
+      "source_excerpt": "Gainwell (hip) was listed as limited on Wednesday's injury report.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl645992",
+      "player_name": "Kenny Gainwell",
+      "team_abbr": null,
+      "category": "injury",
+      "summary": "Kenny Gainwell limited on Wednesday's injury report with hip injury.",
+      "source_excerpt": "Gainwell (hip) was listed as limited on Wednesday's injury report.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

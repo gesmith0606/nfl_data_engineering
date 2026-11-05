@@ -1,0 +1,97 @@
+{
+  "batch_id": "376c2263",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-05T12:22:34.308327+00:00",
+  "record_count": 8,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-gets-out-the-word-that-shes-coming-back-to-work-next-week",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-gets-out-the-word-that-shes-coming-back-to-work-next-week",
+      "team_abbr": null,
+      "summary": "Reporter Dianna Russini announces her return to work next week.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The halfway point of the 2026 NFL season arrives this weekend.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "d2fed68a-6385-40c7-b871-33fb51f62254",
+      "external_id": "d2fed68a-6385-40c7-b871-33fb51f62254",
+      "team_abbr": null,
+      "summary": "Article mentions CFP rankings, NBA bracketology, and NFL power rankings without specific player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Biggest surprises from initial CFP Rankings; Ravens starting an undrafted rookie QB on 'TNF' Plus NBA Bracketology and Pete Prisco's Week 9 NFL Power Rankings",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "3f0f4028-ec1b-3c7e-a9e3-1a87ee4a6a5d",
+      "external_id": "3f0f4028-ec1b-3c7e-a9e3-1a87ee4a6a5d",
+      "team_abbr": null,
+      "summary": "Week 9 game predictions without specific player impact analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Mile High Report's Christopher Hart predicts the straight-up winners for every Week 9 matchup of the 2026 season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "46a82378-aba6-37fb-9dfb-368a9e2b3e07",
+      "external_id": "46a82378-aba6-37fb-9dfb-368a9e2b3e07",
+      "team_abbr": null,
+      "summary": "Week 9 game picks with confidence levels without specific player analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "David Fucillo makes picks for all 15 NFL games with levels of confidence ahead of Week 9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "5c96950d-3fb5-3db3-ad43-0b04affdad99",
+      "external_id": "5c96950d-3fb5-3db3-ad43-0b04affdad99",
+      "team_abbr": null,
+      "summary": "Fantasy football analysis article covering 30 players for Week 9 start/sit recommendations.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Who can you start and sit in fantasy football Week 9? USA TODAY Sports breaks down 30 players to trust or fade.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c5e41aca-446f-38a8-a9ec-58aa1e92e691",
+      "external_id": "c5e41aca-446f-38a8-a9ec-58aa1e92e691",
+      "team_abbr": null,
+      "summary": "Sam Farmer's Week 9 NFL predictions including Bills over Vikings and Packers over Patriots.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Sam Farmer makes his picks and predictions for Week 9 of the NFL season, with the 6-1 Bills beating the 6-1 Vikings and the Packers winning in Foxborough.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c33da5d5-e1f9-3dc6-a820-503a3e0b3cb2",
+      "external_id": "c33da5d5-e1f9-3dc6-a820-503a3e0b3cb2",
+      "team_abbr": null,
+      "summary": "NFL Week 9 schedule information.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The NFL regular season rolls into Week 9. Does that mean there is a Thursday Night Football game tonight? Here's what to know.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "26a137c0-9ea5-3cad-90a6-3e7f7ea6a4ce",
+      "external_id": "26a137c0-9ea5-3cad-90a6-3e7f7ea6a4ce",
+      "team_abbr": null,
+      "summary": "NFL Week 9 schedule announced with Packers-Patriots, Bills-Vikings and Buccaneers-Bears highlighted.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Packers-Patriots, Bills-Vikings and Buccaneers-Bears highlight the upcoming slate.",
+      "subject_type": "team"
+    }
+  ]
+}

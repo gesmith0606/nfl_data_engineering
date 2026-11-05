@@ -1,0 +1,513 @@
+{
+  "fetch_run_id": "777704a3-3c81-4334-8f83-00d9ce39439d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-05T12:16:24.736080+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-jordyn-tyson-feels-more-explosive-than-i-ever-have-in-return-from-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-wr-jordyn-tyson-feels-more-explosive-than-i-ever-have-in-return-from-hamstring-injury",
+      "title": "Saints WR Jordyn Tyson feels \"more explosive than I ever have\" in return from hamstring injury",
+      "body_text": "The Saints can use all the help they can get after a 2-5 start to the season and one ray of hope is the return of rookie wide receiver Jordyn Tyson to the practice field this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-05T11:44:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordyn Tyson",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jacksons-latest-injury-raises-obvious-questions-about-his-future-in-baltimore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lamar-jacksons-latest-injury-raises-obvious-questions-about-his-future-in-baltimore",
+      "title": "Lamar Jackson's latest injury raises obvious questions about his future in Baltimore",
+      "body_text": "The Ravens wanted to re-sign him in 2026, and there's no reason to think they won't want to in 2027.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T11:42:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Lamar Jackson",
+        "Baltimore The"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-proactively-replace-entire-surface-at-mile-high-stadium-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-proactively-replace-entire-surface-at-mile-high-stadium-again",
+      "title": "Broncos proactively replace entire surface at Mile High Stadium, again",
+      "body_text": "With four regular-season home games played and four to go, the Broncos are being proactive — again — about the quality of the playing surface at Mile High Stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T11:17:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mile High"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-says-j-k-dobbins-remains-a-huge-part-of-what-were-doing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-says-j-k-dobbins-remains-a-huge-part-of-what-were-doing",
+      "title": "Sean Payton says J.K. Dobbins remains \"a huge part of what we're doing\"",
+      "body_text": "It's been a somewhat strange second year in Denver for veteran running back J.K.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T11:02:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-and-james-cook-can-both-top-5-000-career-rushing-yards-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-and-james-cook-can-both-top-5-000-career-rushing-yards-on-monday-night",
+      "title": "Josh Allen and James Cook can both top 5,000 career rushing yards on Monday night",
+      "body_text": "Allen currently has 4,991 career rushing yards, and Cook currently has 4,966.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-05T08:45:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen",
+        "James Cook"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0037248"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-confirms-jauan-jennings-decided-not-to-pursue-trade-back-to-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-confirms-jauan-jennings-decided-not-to-pursue-trade-back-to-49ers",
+      "title": "Kyle Shanahan confirms Jauan Jennings decided not to pursue trade back to 49ers",
+      "body_text": "Yes, the 49ers tried to arrange a reunion with receiver Jauan Jennings.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T03:52:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Jauan Jennings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-a-full-participant-but-with-an-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bryce-young-a-full-participant-but-with-an-ankle-injury",
+      "title": "Bryce Young a full participant but with an ankle injury",
+      "body_text": "Bryce Young was listed with a knee injury on the Panthers' practice reports over the past four weeks.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-05T02:31:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bryce Young"
+      ],
+      "resolved_player_ids": [
+        "00-0039150"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-returns-to-practice-with-limited-work",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-returns-to-practice-with-limited-work",
+      "title": "Nick Bosa returns to practice with limited work",
+      "body_text": "49ers defensive end Nick Bosa returned to practice Wednesday after missing the team's past five games with a calf injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-05T00:41:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-has-full-participation-wednesday-myles-garrett-limited-in-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-has-full-participation-wednesday-myles-garrett-limited-in-return",
+      "title": "Matthew Stafford has full participation with elbow injury; Myles Garrett limited in return",
+      "body_text": "Rams coach Sean McVay wouldn't allow much about the ice pack on quarterback Matthew Stafford's arm after Sunday's win over the Chargers other than to say it was soreness.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-05T01:20:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jalen-hurts-makes-an-appearance-at-team-facility",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-jalen-hurts-makes-an-appearance-at-team-facility",
+      "title": "Report: Jalen Hurts makes an appearance at team facility",
+      "body_text": "Eagles quarterback Jalen Hurts made an appearance at the team's practice facility on Wednesday, Tim McManus of ESPN reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-05T02:03:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-theres-a-lot-of-stuff-being-said-about-me-thats-completely-false",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-theres-a-lot-of-stuff-being-said-about-me-thats-completely-false",
+      "title": "Josh Jacobs: \"There's a lot of stuff being said about me that's completely false\"",
+      "body_text": "On Friday, Wisconsin authorities released documents in the Josh Jacobs criminal case that included three allegations against him from other women.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T01:47:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Jacobs",
+        "On Friday"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-campbell-i-have-full-movement-in-my-lower-body-and-am-making-progress-with-movement-in-my-upper-body",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-campbell-i-have-full-movement-in-my-lower-body-and-am-making-progress-with-movement-in-my-upper-body",
+      "title": "Jack Campbell: I have full movement in my lower body, and am making progress with movement in my upper body",
+      "body_text": "The Lions released a statement from Campbell on Wednesday providing an update on his condition after he suffered a significant neck injury on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-04T17:42:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jack Campbell",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-justin-herbert-respond-to-quentin-lakes-seeing-ghosts-critique",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-justin-herbert-respond-to-quentin-lakes-seeing-ghosts-critique",
+      "title": "Jim Harbaugh, Justin Herbert respond to Quentin Lake's \"seeing ghosts\" critique",
+      "body_text": "As the football-following world tries to figure out the problem(s) with Chargers quarterback Justin Herbert, Rams safety Quentin Lake provided a scathing critique of Herbert's most recent performance, in a 24-9 loss to the Rams.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T01:31:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh",
+        "Justin Herbert",
+        "Quentin Lake"
+      ],
+      "resolved_player_ids": [
+        "00-0036355",
+        "00-0037841"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-says-i-feel-great-after-hamstring-injury-but-he-didnt-practice-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-says-i-feel-great-after-hamstring-injury-but-he-didnt-practice-on-wednesday",
+      "title": "Christian McCaffrey says \"I feel great\" after hamstring injury, but he didn't practice on Wednesday",
+      "body_text": "Thigh injury that became hamstring problem keeps McCaffrey out of practice.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T00:57:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Wednesday Thigh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-dontayvion-wicks-miss-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-devonta-smith-dontayvion-wicks-miss-wednesdays-practice",
+      "title": "Saquon Barkley, DeVonta Smith, Dontayvion Wicks miss Wednesday's practice",
+      "body_text": "Eagles running back Saquon Barkley missed practice Wednesday with his hamstring and back injuries.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-05T00:18:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Dontayvion Wicks"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-commanders-somehow-breaks-19-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-commanders-somehow-breaks-19-million-viewers",
+      "title": "Eagles-Commanders somehow breaks 19 million viewers",
+      "body_text": "When George Costanza pitched the show about nothing to NBC president Russell Dalrymple, Dalrymple asked, \"Well, why am I watching it?\"",
+      "author": "Mike Florio",
+      "published_at": "2026-11-05T00:18:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "When George",
+        "Russell Dalrymple"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-i-love-being-a-raider-and-this-is-where-i-want-to-be",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-i-love-being-a-raider-and-this-is-where-i-want-to-be",
+      "title": "Maxx Crosby: I love being a Raider, and this is where I want to be",
+      "body_text": "A report this week indicated the Raiders have no plans to trade Crosby, who wants to stay with the team.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-04T23:46:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0034973"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-watson-to-undergo-season-ending-shoulder-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaylen-watson-to-undergo-season-ending-shoulder-surgery",
+      "title": "Jaylen Watson to undergo season-ending shoulder surgery",
+      "body_text": "The Rams will not have one of their starting cornerbacks for the rest of the year.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-04T22:06:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaylen Watson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0037195"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mansoor-delane-travis-kelce-limited-at-chiefs-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mansoor-delane-travis-kelce-limited-at-chiefs-practice",
+      "title": "Mansoor Delane, Travis Kelce limited at Chiefs practice",
+      "body_text": "Chiefs cornerback Mansoor Delane missed last Sunday's loss to the Broncos with a shoulder injury and his outlook for Week 9's home game against the Jets looks a little better after Wednesday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T22:58:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mansoor Delane",
+        "Travis Kelce"
+      ],
+      "resolved_player_ids": [
+        "00-0030506"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-george-pickens-og-tyler-smith-were-limited-in-wednesdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-george-pickens-og-tyler-smith-were-limited-in-wednesdays-practice",
+      "title": "WR George Pickens, OG Tyler Smith were limited in Wednesday's practice",
+      "body_text": "The Cowboys' injury report has 16 names, with five players sitting out Wednesday's practice with injuries.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-04T22:52:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Pickens",
+        "Tyler Smith",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0037243"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-wont-pinpoint-a-day-ill-be-back-in-the-lineup",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-wont-pinpoint-a-day-ill-be-back-in-the-lineup",
+      "title": "Micah Parsons won't \"pinpoint a day\" I'll be back in the lineup",
+      "body_text": "Parsons practiced with the team on Wednesday for the first time since tearing his ACL.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T22:38:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-confirms-charlie-smyth-will-kick-for-the-saints-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kellen-moore-confirms-charlie-smyth-will-kick-for-the-saints-this-week",
+      "title": "Kellen Moore confirms Charlie Smyth will kick for the Saints this week",
+      "body_text": "The Saints released veteran kicker Daniel Carlson on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-04T22:29:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kellen Moore",
+        "Charlie Smyth",
+        "The Saints",
+        "Daniel Carlson"
+      ],
+      "resolved_player_ids": [
+        "00-0029234",
+        "00-0039229",
+        "00-0034161"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-bailey-breece-hall-listed-as-limited-in-jets-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-bailey-breece-hall-listed-as-limited-in-jets-practice",
+      "title": "David Bailey, Breece Hall listed as limited in Jets practice",
+      "body_text": "The Jets played without rookie linebacker David Bailey in Week 8 after he missed practice all week with a groin injury, but Week 9's practice schedule got off to a better start.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T21:55:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Bailey",
+        "Breece Hall",
+        "The Jets"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-is-in-the-concussion-protocol",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/garrett-wilson-is-in-the-concussion-protocol",
+      "title": "Garrett Wilson is in the concussion protocol",
+      "body_text": "The Jets may be without wide receiver Garrett Wilson in Kansas City this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T17:23:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Garrett Wilson",
+        "The Jets",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0037740"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-gets-out-the-word-that-shes-coming-back-to-work-next-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russini-gets-out-the-word-that-shes-coming-back-to-work-next-week",
+      "title": "Dianna Russini gets out the word that she's coming back to work next week",
+      "body_text": "The halfway point of the 2026 NFL season arrives this weekend.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-04T21:21:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-misses-practice-due-to-a-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-misses-practice-due-to-a-hamstring-injury",
+      "title": "Cam Skattebo misses practice due to a hamstring injury",
+      "body_text": "Giants running back Cam Skattebo said he felt something in his hamstring near the end of the team's Week 7 win over the Texans and it's still an issue coming out of the team's bye week.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T21:46:05+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-claim-ol-trevor-keegan-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/buccaneers-claim-ol-trevor-keegan-off-waivers",
+      "title": "Buccaneers claim OL Trevor Keegan off waivers",
+      "body_text": "The Buccaneers are adding some depth to their offensive line.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-04T21:40:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trevor Keegan",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0039310"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rg-isaiah-adams-returns-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-rg-isaiah-adams-returns-to-practice",
+      "title": "Cardinals RG Isaiah Adams returns to practice",
+      "body_text": "The Cardinals designated right guard Isaiah Adams to return from injured reserve, the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-04T21:39:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Isaiah Adams",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0039808"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-put-dl-kentavius-street-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-put-dl-kentavius-street-on-injured-reserve",
+      "title": "Bears put DL Kentavius Street on injured reserve",
+      "body_text": "The Bears saw defensive lineman Kentavius Street leave Monday night's win over the Seahawks with a knee injury and it is going to keep him out for an extended period of time.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T21:37:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kentavius Street",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0034320"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-nothings-changed-for-me-with-brandon-aiyuk-ive-moved-on-mentally",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-nothings-changed-for-me-with-brandon-aiyuk-ive-moved-on-mentally",
+      "title": "Kyle Shanahan: Nothing's changed for me with Brandon Aiyuk, I've moved on mentally",
+      "body_text": "When 49ers head coach Kyle Shanahan was asked in September if the team's injury issues at wide receiver had led him to consider bringing Brandon Aiyuk back, his answer was a strong no.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-04T21:31:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}

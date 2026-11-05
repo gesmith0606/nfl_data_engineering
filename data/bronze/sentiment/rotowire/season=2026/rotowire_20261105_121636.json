@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "d594a73e-0b29-4cbf-80ae-713b02eda6b3",
+  "source": "rotowire",
+  "fetched_at": "2026-11-05T12:16:36.403731+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl645995",
+      "url": "https://www.rotowire.com//football/player/michael-wilson-16957",
+      "permalink": "",
+      "title": "Michael Wilson: Stays limited Wednesday",
+      "body_text": "Wilson (rest/ribs) practiced in a limited capacity Wednesday, Theo Mackie of The Arizona Republic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-04T06:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Wilson",
+        "Wednesday Wilson",
+        "Theo Mackie",
+        "The Arizona"
+      ],
+      "resolved_player_ids": [
+        "00-0038559"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl645994",
+      "url": "https://www.rotowire.com//football/player/drew-lock-13736",
+      "permalink": "",
+      "title": "Drew Lock: Listed as limited Wednesday",
+      "body_text": "Lock (right elbow) was limited at Wednesday's walkthrough, John Boyle of the Seahawks' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-04T06:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Lock",
+        "Wednesday Lock",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl645992",
+      "url": "https://www.rotowire.com//football/player/kenny-gainwell-15222",
+      "permalink": "",
+      "title": "Kenny Gainwell: Limited Wednesday",
+      "body_text": "Gainwell (hip) was listed as limited on Wednesday's injury report. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-04T06:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenny Gainwell",
+        "Limited Wednesday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl645986",
+      "url": "https://www.rotowire.com//football/player/kyle-monangai-18520",
+      "permalink": "",
+      "title": "Kyle Monangai: Misses Wednesday's walkthrough",
+      "body_text": "Monangai (thumb/toe) didn't participate in Wednesday's walkthrough. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-04T06:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai",
+        "Misses Wednesday"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl645958",
+      "url": "https://www.rotowire.com//football/player/matthew-stafford-5971",
+      "permalink": "",
+      "title": "Matthew Stafford: Practices fully Wednesday",
+      "body_text": "Stafford (right elbow) was a full participant in Wednesday's practice, Sarah Barshop of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-04T04:36:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Wednesday Stafford",
+        "Sarah Barshop"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": null
+    }
+  ]
+}
