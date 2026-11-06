@@ -1,0 +1,251 @@
+{
+  "batch_id": "c01b583c",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-06T12:21:46.618365+00:00",
+  "record_count": 22,
+  "records": [
+    {
+      "doc_id": "615f224b-3a82-42e6-99a7-e74b2d88b93c",
+      "external_id": "615f224b-3a82-42e6-99a7-e74b2d88b93c",
+      "team_abbr": null,
+      "summary": "Week 9 bold predictions article covering Eagles-Giants, Vikings-Bills, Dolphins-Lions matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Plus, the Dolphins stifle Jared Goff and the roaring Lions offense",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "dfc086f4-11d5-4bfe-9a31-f905a6336382",
+      "external_id": "dfc086f4-11d5-4bfe-9a31-f905a6336382",
+      "team_abbr": null,
+      "summary": "Speculative analysis of potential 2026 trade deadline scenarios for NFL playoff contenders.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "trade",
+      "source_excerpt": "2026 NFL trade deadline: One realistic, one pipe dream trade scenario for every playoff contender. What does each contender need to put them over the top?",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "03f9f9cd-8f57-4afe-ada4-c518754b1db6",
+      "external_id": "03f9f9cd-8f57-4afe-ada4-c518754b1db6",
+      "team_abbr": null,
+      "summary": "Jordan Dajani provides expert picks for Week 9 2026 NFL season with predictions for multiple matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "Jordan Dajani gives his picks for Week 9 of the 2026 NFL season",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "8389d59b-3739-4f55-9cf9-34797c938176",
+      "external_id": "8389d59b-3739-4f55-9cf9-34797c938176",
+      "team_abbr": null,
+      "summary": "Promotional content for Kalshi betting platform with $55 bonus for Jaguars vs. Ravens Thursday Night Football.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 9 Jaguars vs. Ravens TNF matchup",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "cbe2e257-ef7c-4c59-a78c-eecdd4376986",
+      "external_id": "cbe2e257-ef7c-4c59-a78c-eecdd4376986",
+      "team_abbr": null,
+      "summary": "Betting preview and odds for Jaguars vs. Ravens Thursday Night Football matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Jaguars vs. Ravens on Thursday Night Football",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0b542cc6-fe72-40b6-a931-2f67d614e492",
+      "external_id": "0b542cc6-fe72-40b6-a931-2f67d614e492",
+      "team_abbr": null,
+      "summary": "First touchdown scorer predictions for Jaguars vs. Ravens Week 9 Thursday Night Football game.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "We highlight some first touchdown scorer prediction markets at Kalshi for Jaguars vs. Ravens on Thursday Night Football",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "600ef679-5a32-4991-990d-4510aef2e8c4",
+      "external_id": "600ef679-5a32-4991-990d-4510aef2e8c4",
+      "team_abbr": null,
+      "summary": "Week 9 NFL betting promos and sportsbook bonuses for Ravens vs. Jaguars matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Top Week 9 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f139d95c-c5b0-47dc-b451-716db4d399d8",
+      "external_id": "f139d95c-c5b0-47dc-b451-716db4d399d8",
+      "team_abbr": null,
+      "summary": "Top games and best bets for Thursday sports action including Jaguars vs. Ravens NFL Week 9 TNF matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "e1300b0e-1d41-3a71-aaa0-b4849c5d465f",
+      "external_id": "e1300b0e-1d41-3a71-aaa0-b4849c5d465f",
+      "team_abbr": null,
+      "summary": "Historical analysis of the nine greatest NFL trade deadline deals of all time.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "trade",
+      "source_excerpt": "These nine midseason trades stand among the greatest NFL trade deadline deals of all time.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "553c920d-ffa1-49fa-9f4e-26588b775d58",
+      "external_id": "553c920d-ffa1-49fa-9f4e-26588b775d58",
+      "team_abbr": null,
+      "summary": "Analysis of how QB prospect hype may influence 2027 draft pick trades at deadline.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "In April, teams were wary of trading away 2027 picks due to the buzz around the class, specifically quarterbacks.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-re-sign-wr-cody-white-waive-te-carter-runyon",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-re-sign-wr-cody-white-waive-te-carter-runyon",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-returned-to-practice-as-limited-participant",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-returned-to-practice-as-limited-participant",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-files-for-bankruptcy-citing-more-than-3-45-million-in-debt",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rashee-rice-files-for-bankruptcy-citing-more-than-3-45-million-in-debt",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/talanoa-hufanga-returns-to-broncos-practice",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/talanoa-hufanga-returns-to-broncos-practice",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-returns-to-limited-work-thursday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-returns-to-limited-work-thursday",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-on-cutting-s-c-j-gardner-johnson-it-was-the-best-interests-of-the-football-team",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-brady-on-cutting-s-c-j-gardner-johnson-it-was-the-best-interests-of-the-football-team",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-limited-dion-dawkins-did-not-practice-on-thursday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dj-moore-limited-dion-dawkins-did-not-practice-on-thursday",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-downgraded-to-limited-thursday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-downgraded-to-limited-thursday",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-treveyon-henderson-hunter-henry-did-not-practice-on-thursday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-treveyon-henderson-hunter-henry-did-not-practice-on-thursday",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-add-te-harold-fannin-to-injury-report-deshaun-watson-remains-out",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-add-te-harold-fannin-to-injury-report-deshaun-watson-remains-out",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-doesnt-practice-says-hes-good-for-sunday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-doesnt-practice-says-hes-good-for-sunday",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-add-lt-tristan-wirfs-to-the-practice-report-with-a-toe-injury",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-add-lt-tristan-wirfs-to-the-practice-report-with-a-toe-injury",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "fetch_run_id": "d61b6db9-8ed5-43d5-b30c-8b902190a71a",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-06T12:15:44.968493+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646205",
+      "url": "https://www.rotowire.com//football/player/justice-hill-13427",
+      "title": "Justice Hill: Season-high rushing yardage total",
+      "body_text": "Hill rushed nine times for 85 yards and a touchdown and brought in all three targets for seven yards in the Ravens' 33-10 loss to the Jaguars on Thursday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-05T09:39:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Justice Hill"
+      ],
+      "resolved_player_ids": [
+        "00-0034975"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646203",
+      "url": "https://www.rotowire.com//football/player/mark-andrews-12559",
+      "title": "Mark Andrews: Two catches in Week 9 loss",
+      "body_text": "Andrews secured both targets for 19 yards in the Ravens' 33-10 loss to the Jaguars on Thursday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-05T09:29:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Mark Andrews"
+      ],
+      "resolved_player_ids": [
+        "00-0034753"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646202",
+      "url": "https://www.rotowire.com//football/player/joe-fagnano-19428",
+      "title": "Joe Fagnano: Modest numbers in starting role",
+      "body_text": "Fagnano completed 10 of 18 passes for 60 yards with no touchdowns and two interceptions while adding three rushes for 13 yards in the Ravens' 33-10 loss to the Jaguars on Thursday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-05T09:24:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Joe Fagnano"
+      ],
+      "resolved_player_ids": [
+        "00-0040981"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646201",
+      "url": "https://www.rotowire.com//football/player/jakobi-meyers-13517",
+      "title": "Jakobi Meyers: Paces pass catchers in win",
+      "body_text": "Meyers brought in four of six targets for 65 yards in the Jaguars' 33-10 win over the Ravens on Thursday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-05T09:14:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jakobi Meyers"
+      ],
+      "resolved_player_ids": [
+        "00-0034960"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646200",
+      "url": "https://www.rotowire.com//football/player/trevor-lawrence-15357",
+      "title": "Trevor Lawrence: Solid numbers in comfortable win",
+      "body_text": "Lawrence completed 16 of 26 passes for 242 yards with a touchdown and no interceptions while rushing once for minus-1 yard in the Jaguars' 33-16 win over the Ravens on Thursday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-05T09:09:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Trevor Lawrence"
+      ],
+      "resolved_player_ids": [
+        "00-0036971"
+      ],
+      "team_hint": "BAL"
+    }
+  ]
+}

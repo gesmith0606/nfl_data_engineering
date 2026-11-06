@@ -1,0 +1,805 @@
+{
+  "fetch_run_id": "d61b6db9-8ed5-43d5-b30c-8b902190a71a",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-06T12:15:44.520692+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "b7181d00-1154-316f-9d6c-0c8394582623",
+      "url": "https://sports.yahoo.com/articles/3-keys-cincinnati-bengals-victory-120500179.html",
+      "title": "3 keys to a Cincinnati Bengals victory vs. the Atlanta Falcons",
+      "body_text": "The Bengals will need to establish the running game to slow down the Falcons pass rush.",
+      "author": "",
+      "published_at": "2026-11-06T12:05:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cincinnati Bengals",
+        "Atlanta Falcons",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "0725ffc7-139d-32b3-a5f9-8a39482a94e9",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-mike-borgonzi-120043217.html",
+      "title": "Tennessee Titans news: Mike Borgonzi may not be donw trading",
+      "body_text": "The Tennessee Titans are days away from the NFL Trade Deadline with pieces to move.",
+      "author": "",
+      "published_at": "2026-11-06T12:00:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "Mike Borgonzi",
+        "The Tennessee",
+        "Trade Deadline"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "10516a91-cbd8-32ed-a5f9-f186d9ebf576",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-offense-feeling-120000718.html",
+      "title": "Cowboys news: Dallas offense is feeling the frustration",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-06T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "136ba099-fdd7-3135-97d5-fa5a3a48d400",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-4-keys-lions-120000040.html",
+      "title": "NFL predictions: 4 keys to a Lions victory over the Dolphins",
+      "body_text": "Predicting what the Detroit Lions will do to earn a victory over the Miami Dolphins in Week 9 of the 2026 season.",
+      "author": "",
+      "published_at": "2026-11-06T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dolphins Predicting",
+        "Detroit Lions",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "3f0bfc44-3af6-34c7-b58e-2ff004ede05c",
+      "url": "https://sports.yahoo.com/articles/postpulpit-mailbag-patriots-buyers-sellers-120000956.html",
+      "title": "#PostPulpit mailbag: Will the Patriots be buyers or sellers at the trade deadline?",
+      "body_text": "The latest edition of our Patriots mailbag answers questions about the trade deadline, TreVeyon Henderson, and more.",
+      "author": "",
+      "published_at": "2026-11-06T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "a47161df-8cda-3e32-82f0-f31f08227564",
+      "url": "https://sports.yahoo.com/articles/where-steelers-defense-still-room-120000820.html",
+      "title": "Here’s where the Steelers’ defense still has room to grow",
+      "body_text": "Pittsburgh’s defense has been great, but can the secondary hold up all season?",
+      "author": "",
+      "published_at": "2026-11-06T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d6d94225-9f9d-3aa7-8d6b-78fd42f1763a",
+      "url": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-115518234.html",
+      "title": "Tampa Bay Buccaneers news: Bucs have huge test vs. Bears",
+      "body_text": "The Tampa Bay Buccaneers are taking on the Chicago Bears in Week 9’s edition of Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-11-06T11:55:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tampa Bay",
+        "Bears The",
+        "Chicago Bears",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ac36e405-1f00-361e-9dea-5da8fceff732",
+      "url": "https://sports.yahoo.com/articles/five-plays-stanford-third-quarter-114400554.html",
+      "title": "Five Plays: Stanford Third Quarter",
+      "body_text": "It took until the second half, but Louisville started to get more aggressive with their linebackers. On this play, Stanquan Clark times up the snap before shooting the gap to make a play in the backfield. He’s just unlucky because the play goes to the other side, which leaves him grasping for air. Stanford uses […]",
+      "author": "",
+      "published_at": "2026-11-06T11:44:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Five Plays",
+        "Stanford Third",
+        "Stanquan Clark"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e1300b0e-1d41-3a71-aaa0-b4849c5d465f",
+      "url": "https://sports.yahoo.com/articles/best-nfl-trade-deadline-deals-110607519.html",
+      "title": "What are the best NFL trade deadline deals ever? These 9 top the list",
+      "body_text": "These nine midseason trades stand among the greatest NFL trade deadline deals of all time.",
+      "author": "",
+      "published_at": "2026-11-06T11:06:07+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "68f18f76-7b1d-3562-8493-003bc3cc542d",
+      "url": "https://sports.yahoo.com/articles/derrick-henrys-production-plummeted-without-110119685.html",
+      "title": "Derrick Henry's production has plummeted without Lamar Jackson this season",
+      "body_text": "Without quarterback Lamar Jackson, the Ravens want to be able to rely on running back Derrick Henry.",
+      "author": "",
+      "published_at": "2026-11-06T11:01:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Derrick Henry",
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0032764",
+        "00-0034796"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "117be2f3-0ebc-32cc-940f-4f6f307b893a",
+      "url": "https://sports.yahoo.com/articles/bear-den-injury-updates-show-110000154.html",
+      "title": "The Bear’s Den: Injury updates show progress… but…",
+      "body_text": "The Chicago Bears got some relatively good injury news today, as they prepare for Sunday night’s game against the Tampa",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "The Chicago"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "645aa82c-49f2-3794-a93f-7741391444fb",
+      "url": "https://sports.yahoo.com/articles/jonah-coleman-continues-turn-heads-110000627.html",
+      "title": "Jonah Coleman continues to turn heads with the Broncos",
+      "body_text": "Jonah Coleman is making the most of his opportunities in Denver’s offense, giving the Broncos reason to be encouraged.",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonah Coleman",
+        "Broncos Jonah"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "79224d50-06d8-3e24-9690-2993cc5b1096",
+      "url": "https://sports.yahoo.com/articles/giants-news-cam-skattebo-still-110000030.html",
+      "title": "Giants news: Cam Skattebo still sidelined, Malik Nabers wins monthly honor, more",
+      "body_text": "New York Giants headlines for Friday.",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Malik Nabers",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "83490ebc-4b00-3038-81e3-a0c51bd9d4de",
+      "url": "https://sports.yahoo.com/articles/bengals-news-salute-landon-robinson-110000726.html",
+      "title": "Bengals News: Salute to Landon Robinson",
+      "body_text": "It’s November, which means two things when the Cincinnati Bengals are concerned. One: Joe Burrow and the offense have woken up from their annual offseason slumber (that extended a little too far into the season, as usual). And two: it’s Salute to Service Month. With Veterans Day just a few days away, the NFL is […]",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Landon Robinson",
+        "Cincinnati Bengals",
+        "Joe Burrow",
+        "Service Month",
+        "With Veterans"
+      ],
+      "resolved_player_ids": [
+        "00-0041118",
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "a2ea9ce4-e902-3cfd-ba30-fe43950e9382",
+      "url": "https://sports.yahoo.com/articles/washington-commanders-vs-la-rams-110000858.html",
+      "title": "Washington Commanders vs LA Rams Week 9: Five Questions with Turf Show Times",
+      "body_text": "What happened to this year’s presumptive Super Bowl contenders?",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington Commanders",
+        "Rams Week",
+        "Five Questions",
+        "Turf Show",
+        "Times What",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "cb838d98-04ab-3415-93f7-066232a51bc2",
+      "url": "https://sports.yahoo.com/articles/drake-maye-early-season-turnaround-110000914.html",
+      "title": "Drake Maye’s early-season turnaround earns him October honors",
+      "body_text": "Maye was named AFC Offensive Player of the Month.",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "Offensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e4f35975-cc1f-3d09-98fb-c317200a1ab3",
+      "url": "https://sports.yahoo.com/articles/cardinals-seahawks-injury-reports-seattle-110000435.html",
+      "title": "Cardinals, Seahawks injury reports: Seattle without starting QB",
+      "body_text": "Some positive news: getting back OG Isaiah Adams and DT Walter Nolen",
+      "author": "",
+      "published_at": "2026-11-06T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Isaiah Adams",
+        "Walter Nolen"
+      ],
+      "resolved_player_ids": [
+        "00-0039808",
+        "00-0040706"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "93db67ee-cf8a-3093-b40f-5c0d5022bbf0",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-guys-think-gonna-100000328.html",
+      "title": "Golden Nuggets: Do you guys think they’re gonna let Brandon Aiyuk take a free water?",
+      "body_text": "Your daily San Francisco 49ers news for Friday, November 6th, 2026",
+      "author": "",
+      "published_at": "2026-11-06T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Brandon Aiyuk",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "32cad348-aaad-37c6-84ee-56eb08eb639d",
+      "url": "https://sports.yahoo.com/articles/jaguars-point-differential-108-season-085236141.html",
+      "title": "Jaguars' point differential of +108 this season is 50 points better than any other team",
+      "body_text": "The Jaguars have won four games by more than 21 points this season; no other team has more than one win by more than 21 points.",
+      "author": "",
+      "published_at": "2026-11-06T08:52:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "06a96b19-4c46-372b-a19f-ee8fe01650ba",
+      "url": "https://sports.yahoo.com/articles/eagles-making-switch-qb-joe-141942994.html",
+      "title": "Eagles making the switch to QB Joe Milton for Week 9 vs. Giants",
+      "body_text": "The Eagles are benching Tanner McKee in favor of Joe Milton for Sunday's Week 9 game against the Giants.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Giants The"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "24246042-b650-3d17-95e3-1aae4c9ae898",
+      "url": "https://sports.yahoo.com/articles/stayed-enough-saw-why-eagles-092809360.html",
+      "title": "If you stayed up late enough, you saw why the Eagles are so high on Eli Stowers",
+      "body_text": "Stowers caught three passes for 53 yards in the second half of the Eagles’ sixth straight loss.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eli Stowers"
+      ],
+      "resolved_player_ids": [
+        "00-0041483"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5152b96d-0aeb-3e83-aac6-bce04876a4ca",
+      "url": "https://sports.yahoo.com/articles/10-things-know-eagles-quarterback-070000066.html",
+      "title": "10 things you need to know about new Eagles quarterback Joe Milton",
+      "body_text": "From his powerful arm to his NFL family ties, get to know Joe Milton before his first Eagles start.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "63e4fd4a-5f32-336f-904f-f603b9bbecb9",
+      "url": "https://sports.yahoo.com/articles/theres-no-magic-potion-vic-134112001.html",
+      "title": "‘There's no magic potion:' Vic Fangio pinpoints the issue with Jonathan Greenard",
+      "body_text": "The Eagles’ $98 million free agent edge rusher doesn’t have much to show for his first two months as an Eagle.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vic Fangio",
+        "Jonathan Greenard",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9d636de5-a833-36b1-854c-8bc201158916",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-time-see-070000822.html",
+      "title": "Eagles snap counts: Time to see more of Eli Stowers",
+      "body_text": "Here's a look at Eagles snap counts from their 27-10 loss to the Commanders on Sunday Night Football.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eli Stowers",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0041483"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9f7a52ef-6f28-32c1-836e-80efd99ce0bb",
+      "url": "https://sports.yahoo.com/articles/nick-sirianni-emphatically-backs-ol-070000723.html",
+      "title": "Nick Sirianni emphatically backs OL coach Chris Kuper amid losing streak",
+      "body_text": "Eagles head coach Nick Sirianni still believes in offensive line coach Chris Kuper despite the struggles of the line this season.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Chris Kuper"
+      ],
+      "resolved_player_ids": [
+        "00-0024375"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a69cbc5a-ca81-3a2b-b67f-5c1159db1e94",
+      "url": "https://sports.yahoo.com/articles/eagles-qb-joe-milton-preparing-070000236.html",
+      "title": "How new Eagles QB Joe Milton is preparing for unlikely first career start",
+      "body_text": "Milton will replace Tanner McKee under center when the Eagles take on the Giants in Week 9.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e12d501d-f7ea-3bdb-a238-f20ac04c70e6",
+      "url": "https://sports.yahoo.com/articles/eagles-giants-matchups-watch-week-070000158.html",
+      "title": "Eagles-Giants matchups to watch in Week 9",
+      "body_text": "Here are some key Eagles-Giants matchups to watch in Week 9 before the bye week.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e49d5127-191f-3f41-96c8-db68ff682397",
+      "url": "https://sports.yahoo.com/articles/roobs-eagles-stats-big-pile-070000807.html",
+      "title": "In Roob's Eagles Stats: A big pile of misery broken up by tiny encouraging blips",
+      "body_text": "When you lose six in a row, the stats aren’t pretty.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "In Roob",
+        "Eagles Stats"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e76f68ef-0c3a-3e0c-9363-515677f4442b",
+      "url": "https://sports.yahoo.com/articles/tanner-mckee-found-benched-hes-070000891.html",
+      "title": "How Tanner McKee found out he was benched and what he's doing about it",
+      "body_text": "Tanner McKee explains how he found out he was demoted by the Eagles and what he's doing about it.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "How Tanner"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e88956c6-d4dd-3d96-9b94-d4d2427f68f2",
+      "url": "https://sports.yahoo.com/articles/eagles-injury-joe-milton-might-155919346.html",
+      "title": "Eagles injury update: Joe Milton might not get much extra help",
+      "body_text": "The Eagles are still banged up going into their Week 9 game against the Giants on Sunday afternoon.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f52e267b-9654-3ae4-9ed6-c2eb582d2146",
+      "url": "https://sports.yahoo.com/articles/13-young-eagles-worth-watching-082707494.html",
+      "title": "13 young Eagles worth watching in what's left of a lost season",
+      "body_text": "The Eagles are eight games into a lost season so it's time to really watch the young players develop.",
+      "author": "",
+      "published_at": "2026-11-06T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f757ce6c-070a-30e4-839e-3b484ca2553d",
+      "url": "https://sports.yahoo.com/articles/2026-nfl-trade-deadline-live-165219645.html",
+      "title": "2026 NFL Trade Deadline live updates: Tracker, deals, news, rumors, analysis",
+      "body_text": "Jeffery Simmons, DeForest Buckner, Quenton Nelson and more big-name NFL players are on the move.",
+      "author": "",
+      "published_at": "2026-11-06T05:52:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Trade Deadline",
+        "Jeffery Simmons",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0034342"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "b6c2d50f-5492-3b22-b9dd-a1e88fdc4e78",
+      "url": "https://sports.yahoo.com/articles/justin-jefferson-says-frustration-came-052255952.html",
+      "title": "Justin Jefferson says his frustration came from &quot;wanting to win&quot;",
+      "body_text": "Vikings receiver Justin Jefferson engaged in a rare display of frustration late in Sunday's 19-15 loss to the Lions.",
+      "author": "",
+      "published_at": "2026-11-06T05:22:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "d8efcba9-69a8-3c43-964e-e451bccf9b25",
+      "url": "https://sports.yahoo.com/articles/jaguars-defense-drowns-ravens-rainy-045036621.html",
+      "title": "Jaguars Defense Drowns Ravens in Rainy Baltimore",
+      "body_text": "The Jacksonville Jaguars weathered the storm in Baltimore, and the Ravens had no answer for the elements or Anthony Campanile’s defense. In a rainy Thursday night showdown, Jacksonville completely smothered Baltimore, turning a hostile road environment into a blowout victory. Here’s everything you need to know from Jacksonville’s Week 9 33-10 road win over the […]",
+      "author": "",
+      "published_at": "2026-11-06T04:50:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaguars Defense",
+        "Drowns Ravens",
+        "Rainy Baltimore",
+        "The Jacksonville",
+        "Anthony Campanile"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "b1834477-4f89-43b0-8389-f50f381152bb",
+      "url": "https://sports.yahoo.com/nfl/article/ravens-kyle-hamilton-exits-jaguars-game-with-hip-injury-045220919.html",
+      "title": "Ravens' Kyle Hamilton exits Jaguars game with hip injury",
+      "body_text": "The Ravens might be facing another brutal blow.",
+      "author": "Jack Baer",
+      "published_at": "2026-11-06T04:44:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyle Hamilton",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0038038"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "4baeda72-eaa8-32a8-816f-610599975f44",
+      "url": "https://sports.yahoo.com/articles/ravens-discussion-instant-reactions-week-044354340.html",
+      "title": "Ravens discussion: instant reactions to Week 9 loss to Jaguars",
+      "body_text": "Share your instant reactions to the Ravens’ Week 9 loss to the Jaguars!",
+      "author": "",
+      "published_at": "2026-11-06T04:43:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaguars Share"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "fbcb2897-0853-3a8b-b96a-8cb830e11466",
+      "url": "https://sports.yahoo.com/articles/thursday-night-football-jaguars-blow-042124478.html",
+      "title": "Thursday Night Football: Jaguars blow out Ravens 33-10",
+      "body_text": "The Jaguars outgained the Ravens 319 to 227 and forced three Baltimore turnovers.",
+      "author": "",
+      "published_at": "2026-11-06T04:21:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "fca6b3d6-e4c5-30b0-b11b-26065cdebff2",
+      "url": "https://sports.yahoo.com/articles/giants-not-looking-past-saquon-042048770.html",
+      "title": "Giants not looking past Saquon Barkley and struggling Eagles",
+      "body_text": "Where art thou, great Eagles offensive linemen?",
+      "author": "",
+      "published_at": "2026-11-06T04:20:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley",
+        "Eagles Where"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "b435b322-237c-31ca-8a92-129acb7ed189",
+      "url": "https://sports.yahoo.com/articles/steelers-fall-afc-playoff-standings-042007897.html",
+      "title": "Steelers fall in AFC playoff standings after Ravens loss to Jaguars",
+      "body_text": "Steelers fall in playoff standings after Thursday Night Football.",
+      "author": "",
+      "published_at": "2026-11-06T04:20:07+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaguars Steelers",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "10162058-436a-4719-bd94-925917aeb9d8",
+      "url": "https://sports.yahoo.com/nfl/live/jaguars-vs-ravens-score-live-updates-inactives-highlights-stats-where-to-watch-week-9-235334072.html",
+      "title": "Ravens were down to their third QB and had a predictably ugly performance in blowout loss to Jaguars",
+      "body_text": "The Ravens had to prepare for Thursday night with their top two QBs on injured reserve.",
+      "author": "Yahoo Sports Staff,Frank Schwab",
+      "published_at": "2026-11-05T23:53:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaguars The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "31877fe0-f63e-350d-b957-8721a5ee71ae",
+      "url": "https://sports.yahoo.com/articles/jaguars-move-afc-standings-squashing-035020134.html",
+      "title": "Jaguars move up in AFC standings after squashing Ravens",
+      "body_text": "The Jaguars moved up from fourth place in Week 8 after beating the Ravens. They can go even higher if things break their way.",
+      "author": "",
+      "published_at": "2026-11-06T03:50:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "d3b580be-d589-3f54-9c4a-86665c2e806c",
+      "url": "https://sports.yahoo.com/articles/full-practice-patrick-mahomes-thursday-034515572.html",
+      "title": "Full practice for Patrick Mahomes Thursday",
+      "body_text": "Kansas City Chiefs QB Patrick Mahomes a full go at Thursday's practice",
+      "author": "",
+      "published_at": "2026-11-06T03:45:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Thursday Kansas",
+        "City Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "0406174d-1295-3934-acc8-78927acac69c",
+      "url": "https://sports.yahoo.com/articles/49ers-general-manager-reveals-message-034434052.html",
+      "title": "49ers general manager reveals message to team after blockbuster trade",
+      "body_text": "The 49ers pulled off a blockbuster trade ahead of the Nov. 10 trade deadline.",
+      "author": "",
+      "published_at": "2026-11-06T03:44:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "165b6ee4-34a6-350d-85da-e62f52ae0b58",
+      "url": "https://sports.yahoo.com/articles/dennard-wilson-embracing-results-brutal-034001568.html",
+      "title": "Dennard Wilson embracing results from brutal Giants ‘traitors’ dig",
+      "body_text": "Dennard Wilson believes most coaches are too afraid to do what he did.",
+      "author": "",
+      "published_at": "2026-11-06T03:40:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dennard Wilson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "7e58706a-4754-3168-8b30-452722f4db8c",
+      "url": "https://sports.yahoo.com/articles/ravens-rule-kyle-hamilton-hip-033415372.html",
+      "title": "Ravens rule out Kyle Hamilton with a hip injury",
+      "body_text": "Ravens safety Kyle Hamilton was injured in the second quarter and briefly returned after halftime.",
+      "author": "",
+      "published_at": "2026-11-06T03:34:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyle Hamilton"
+      ],
+      "resolved_player_ids": [
+        "00-0038038"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "553c920d-ffa1-49fa-9f4e-26588b775d58",
+      "url": "https://sports.yahoo.com/nfl/article/will-arch-manning-dante-moore-and-other-qb-prospect-questions-influence-nfl-trade-deadline-041655621.html",
+      "title": "Will Arch Manning, Dante Moore and other QB prospect questions influence NFL trade deadline?",
+      "body_text": "In April, teams were wary of trading away 2027 picks due to the buzz around the class, specifically quarterbacks. If the hype has dimmed, are those picks more for sale?",
+      "author": "Jori Epstein",
+      "published_at": "2026-11-06T03:22:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Will Arch",
+        "Dante Moore",
+        "In April"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "4ae9296f-6b7d-36c9-b411-31e7ad583005",
+      "url": "https://sports.yahoo.com/articles/brandon-aiyuk-owing-49ers-money-031724197.html",
+      "title": "Brandon Aiyuk owing the 49ers money could complicate his release",
+      "body_text": "Brandon Aiyuk is set to meet with the 49ers on Friday",
+      "author": "",
+      "published_at": "2026-11-06T03:17:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "1eccc596-0a10-3b2d-adfc-3915d0102d62",
+      "url": "https://sports.yahoo.com/articles/aaron-donald-hilariously-reenacts-failed-031401386.html",
+      "title": "Aaron Donald hilariously reenacts failed touchdown as Myles Garrett, Rams teammates roast him",
+      "body_text": "Aaron Donald reveals what went wrong on his botched scoop-and-score as Myles Garrett mocks the Rams star in a hilarious practice reenactment.",
+      "author": "",
+      "published_at": "2026-11-06T03:14:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Donald",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "be0b3536-740e-48db-b3d6-0bc7a2c10b4e",
+      "url": "https://sports.yahoo.com/nfl/article/brandon-aiyuk-to-return-to-49ers-facility-friday-afternoon-reportedly-discussing-forfeiture-of-13-million-bonus-030846166.html",
+      "title": "Brandon Aiyuk to return to 49ers' facility Friday afternoon, reportedly discussing forfeiture of $13 million bonus",
+      "body_text": "Aiyuk's return to San Francisco will hopefully resolve a year-long saga.",
+      "author": "Kari Anderson",
+      "published_at": "2026-11-06T03:08:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "37015b80-78e0-34a1-a61e-7c859fe1b518",
+      "url": "https://sports.yahoo.com/articles/chargers-reportedly-won-t-trade-030428704.html",
+      "title": "Chargers reportedly won’t trade any players ahead of deadline: ‘What the hell are you doing?’",
+      "body_text": "The Chargers haven’t won a game this NFL season. But while the team struggles to find its stride, the front office is reportedly unwilling to trade any of its players...",
+      "author": "",
+      "published_at": "2026-11-06T03:04:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "batch_id": "c01b583c",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-06T12:21:46.624882+00:00",
+  "record_count": 6,
+  "records": [
+    {
+      "doc_id": "5b922f1b-34f8-4cc7-86f3-540fb0c36491",
+      "player_name": "Jeremiyah Love",
+      "team_abbr": "ARI",
+      "category": "general",
+      "summary": "Cardinals RB drafted in top 10 but off to slow start, raising questions about draft value.",
+      "source_excerpt": "The Raiders and Cardinals spent premium picks on RBs. Their slow starts raise a bigger question about draft value and missed opportunities.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "71890c06-6917-4561-bc96-beb75d149537",
+      "player_name": "Malachi Toney",
+      "team_abbr": "MIA",
+      "category": "injury",
+      "summary": "Dolphins lose Toney to high ankle sprain ahead of Week 9.",
+      "source_excerpt": "Miami loses Malachi Toney to high ankle sprain; Week 9 NFL picks and latest NBA Power Rankings",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ac36e405-1f00-361e-9dea-5da8fceff732",
+      "player_name": "Stanquan Clark",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "College football analysis of Stanquan Clark's linebacker play in Stanford vs. Louisville game.",
+      "source_excerpt": "On this play, Stanquan Clark times up the snap before shooting the gap to make a play in the backfield. He's just unlucky because the play goes to the other side, which leaves him grasping for air.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "645aa82c-49f2-3794-a93f-7741391444fb",
+      "player_name": "Jonah Coleman",
+      "team_abbr": "DEN",
+      "category": "usage",
+      "summary": "Jonah Coleman is making the most of his opportunities in Denver's offense, giving the Broncos reason to be encouraged.",
+      "source_excerpt": "Jonah Coleman is making the most of his opportunities in Denver's offense, giving the Broncos reason to be encouraged.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "d8efcba9-69a8-3c43-964e-e451bccf9b25",
+      "player_name": "Anthony Campanile",
+      "team_abbr": "JAX",
+      "category": "general",
+      "summary": "Campanile's defense dominated Ravens in rainy Week 9 road win, turning 33-10 blowout.",
+      "source_excerpt": "the Ravens had no answer for the elements or Anthony Campanile's defense. In a rainy Thursday night showdown, Jacksonville completely smothered Baltimore",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "1eccc596-0a10-3b2d-adfc-3915d0102d62",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "general",
+      "summary": "Aaron Donald reenacts failed touchdown play as Myles Garrett and teammates mock him.",
+      "source_excerpt": "Aaron Donald reveals what went wrong on his botched scoop-and-score as Myles Garrett mocks the Rams star in a hilarious practice reenactment.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
