@@ -1,0 +1,92 @@
+{
+  "fetch_run_id": "2caa3fff-7d70-4034-8c94-a9cac4703d0c",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-07T12:14:53.421980+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646306",
+      "url": "https://www.rotowire.com//football/player/terrance-ferguson-18497",
+      "title": "Terrance Ferguson: Suffers hamstring injury, out again",
+      "body_text": "Ferguson (ankle) was expected to return for Sunday's game against Washington, but he's been ruled out after injuring his hamstring during Friday's practice, Cameron DaSilva of USA Today reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-06T02:30:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Terrance Ferguson"
+      ],
+      "resolved_player_ids": [
+        "00-0040737"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646305",
+      "url": "https://www.rotowire.com//football/player/drew-lock-13736",
+      "title": "Drew Lock: Set for Week 9 start",
+      "body_text": "Lock (right elbow) doesn't have a designation for Sunday's contest against the Cardinals, John Boyle of the Seahawks' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-06T02:26:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Drew Lock",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646304",
+      "url": "https://www.rotowire.com//football/player/michael-wilson-16957",
+      "title": "Michael Wilson: No designation for Week 9",
+      "body_text": "Wilson (rest/ribs) doesn't have a designation for Sunday's contest in Seattle, Josh Weinfuss of ESPN.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-06T02:19:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Michael Wilson",
+        "Josh Weinfuss"
+      ],
+      "resolved_player_ids": [
+        "00-0038559"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646303",
+      "url": "https://www.rotowire.com//football/player/christian-mccaffrey-11690",
+      "title": "Christian McCaffrey: Set to play Sunday",
+      "body_text": "McCaffrey (hamstring) doesn't have a designation for Sunday's game versus the Raiders, Nick Wagoner of ESPN.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-06T02:12:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646302",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "title": "Mike Evans: Won't play Sunday",
+      "body_text": "Evans (Achilles) has been ruled out for Sunday's game against the Raiders, Nick Wagoner of ESPN reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-06T02:06:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Mike Evans",
+        "Sunday Evans",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "LV"
+    }
+  ]
+}

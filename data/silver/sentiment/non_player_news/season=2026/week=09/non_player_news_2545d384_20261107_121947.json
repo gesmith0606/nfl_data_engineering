@@ -1,0 +1,163 @@
+{
+  "batch_id": "2545d384",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-07T12:19:47.346467+00:00",
+  "record_count": 14,
+  "records": [
+    {
+      "doc_id": "781ef36f-bbba-4ec7-890c-578cb0619a46",
+      "external_id": "781ef36f-bbba-4ec7-890c-578cb0619a46",
+      "team_abbr": "LA",
+      "summary": "Mike McDaniel to call plays from booth for Chargers; desperation move after 0-7 start to season.",
+      "sentiment": -0.5,
+      "confidence": 0.75,
+      "category": "general",
+      "source_excerpt": "Los Angeles enters Week 9 with a 0-7 record",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "cd45f67b-baf0-44af-bd18-4e72fc51ed96",
+      "external_id": "cd45f67b-baf0-44af-bd18-4e72fc51ed96",
+      "team_abbr": "BAL",
+      "summary": "Ravens lost to Jaguars with undermanned roster in Week 9.",
+      "sentiment": -0.7,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "Jaguars rout undermanned Ravens",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "94d31dd5-4b9b-31e0-8735-02c23cdffd19",
+      "external_id": "94d31dd5-4b9b-31e0-8735-02c23cdffd19",
+      "team_abbr": "DET",
+      "summary": "Detroit Lions fan confidence reaches season-high ahead of upcoming game.",
+      "sentiment": 0.8,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Detroit Lions fans discuss their confidence level in the team and predict the winner of this week's game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "9cd914c0-fd0a-340b-800d-b2319f218efc",
+      "external_id": "9cd914c0-fd0a-340b-800d-b2319f218efc",
+      "team_abbr": "NE",
+      "summary": "Patriots should avoid midseason youth movement trade deadline roster changes.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "New England shouldn't rush into midseason roster changes",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "ca765530-a9d7-3320-9515-7a46586bb2f6",
+      "external_id": "ca765530-a9d7-3320-9515-7a46586bb2f6",
+      "team_abbr": "DAL",
+      "summary": "Jerry Jones addresses comments about paying coaches.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Here is today's Dallas Cowboys news.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "c4064620-93dd-361c-88f2-9ce88356612a",
+      "external_id": "c4064620-93dd-361c-88f2-9ce88356612a",
+      "team_abbr": "CAR",
+      "summary": "Panthers face struggles but remain in contention ahead of Broncos matchup.",
+      "sentiment": -0.3,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "The Panthers are down, but not out. How much further they slide depends a lot on what they can pull together against the Broncos",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f63fd8bf-ed58-3d4e-b160-e93b3b636f03",
+      "external_id": "f63fd8bf-ed58-3d4e-b160-e93b3b636f03",
+      "team_abbr": "CLE",
+      "summary": "Browns news roundup covering injuries and fan sentiment.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the November 7 edition of the Saturday Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "cd7b6982-5d48-3a67-8cd1-19df91a5a836",
+      "external_id": "cd7b6982-5d48-3a67-8cd1-19df91a5a836",
+      "team_abbr": "ARI",
+      "summary": "Three Cardinals offensive players ruled out for Seattle game; specific players unnamed in headline.",
+      "sentiment": -0.7,
+      "confidence": 0.3,
+      "category": "injury",
+      "source_excerpt": "Three offensive players will not play against Seahawks",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1e5bce1a-b8eb-3d06-aa8d-1e8ab0d8c948",
+      "external_id": "1e5bce1a-b8eb-3d06-aa8d-1e8ab0d8c948",
+      "team_abbr": "SF",
+      "summary": "49ers daily news roundup for November 7, 2026 with potential trade activity mentioned.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Your daily San Francisco 49ers news for Saturday, November 7th, 2026",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "3ab2c737-87d5-3694-874c-18fcd85a197d",
+      "external_id": "3ab2c737-87d5-3694-874c-18fcd85a197d",
+      "team_abbr": "PHI",
+      "summary": "Week 9 predictions for Eagles vs Giants game at Lincoln Financial Field.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here are our Eagles-Giants predictions for Week 9 at the Linc.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "abd9c3c6-1c31-3a26-9598-aa860d1d5b91",
+      "external_id": "abd9c3c6-1c31-3a26-9598-aa860d1d5b91",
+      "team_abbr": "PHI",
+      "summary": "Draft analysis of four versatile offensive tackles as potential Eagles fits for 2027 NFL Draft.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Ryan Fowler breaks down four offensive tackles who could be fits for the Eagles.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "cd4c745d-5433-3c6f-b7f6-71052b5207f7",
+      "external_id": "cd4c745d-5433-3c6f-b7f6-71052b5207f7",
+      "team_abbr": "PHI",
+      "summary": "Giants vs Eagles betting guide covering odds and props with QBs who started season elsewhere.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "An NFC East showdown featuring two QBs who started the season elsewhere: let's get nuts!",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "3af1e768-50e7-3782-8de8-2fd9b46bc020",
+      "external_id": "3af1e768-50e7-3782-8de8-2fd9b46bc020",
+      "team_abbr": "LAC",
+      "summary": "Chargers seeking first win of the year against Texans this week.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Will the Chargers finally get their first win of the year against the Texans this week?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-listed-matthew-stafford-with-elbow-injury-because-reporters-asked-about-ice-on-it",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-listed-matthew-stafford-with-elbow-injury-because-reporters-asked-about-ice-on-it",
+      "team_abbr": "LAR",
+      "summary": "Sean McVay addressed media questions about Matthew Stafford having ice on his throwing arm after the Chargers game.",
+      "sentiment": 0.0,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "On Monday, reporters asked Rams coach Sean McVay about quarterback Matthew Stafford having ice on his throwing arm after Sunday's win over the Chargers.",
+      "subject_type": "coach"
+    }
+  ]
+}

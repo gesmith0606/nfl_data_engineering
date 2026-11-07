@@ -1,6 +1,6 @@
 {
   "source": "sharps",
-  "fetched_at": "2026-11-04T12:23:16.030209+00:00",
+  "fetched_at": "2026-11-07T12:19:58.066985+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1461,7 +1461,7 @@
     {
       "player_name": "Jacoby Brissett",
       "position": "QB",
-      "team": "ARI",
+      "team": "BAL",
       "external_rank": 223,
       "rank": 209
     },

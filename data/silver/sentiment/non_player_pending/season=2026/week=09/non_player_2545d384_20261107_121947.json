@@ -1,0 +1,86 @@
+{
+  "batch_id": "2545d384",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-07T12:19:47.346166+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "03bd2dec-6313-417a-b7be-9bd49fa0bcf1",
+      "external_id": "03bd2dec-6313-417a-b7be-9bd49fa0bcf1",
+      "team_abbr": null,
+      "summary": "Analysis questions Drew Mestemaker QB1 hype; highlights performance concerns under pressure vs Caleb Williams and Trevor Lawrence.",
+      "sentiment": -0.2,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Oklahoma State QB has become a popular QB1 choice, but his mistakes under pressure offer a warning \u2013 and some fascinating historical comparisons.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "7063e075-3dd7-4743-bffe-3b8dfc123565",
+      "external_id": "7063e075-3dd7-4743-bffe-3b8dfc123565",
+      "team_abbr": null,
+      "summary": "CFL expert provides betting picks for division finals.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "SportsLine football expert Emory Hunt gives out his best bets for the CFL division finals ahead of the Grey Cup",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "208d6d44-9d26-4059-90d2-bc8f8175bd67",
+      "external_id": "208d6d44-9d26-4059-90d2-bc8f8175bd67",
+      "team_abbr": null,
+      "summary": "General NFL playoff preview with 100 facts and storylines before Super Bowl LXI.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "We are officially 100 days from the Super Bowl. Here are 100 facts and storylines to get you ready",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "12076830-a414-32ea-b946-eda5c0f01a73",
+      "external_id": "12076830-a414-32ea-b946-eda5c0f01a73",
+      "team_abbr": null,
+      "summary": "Cardinals vs. Seahawks Week 9 divisional matchup TV coverage information.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Key divisional matchup",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "60042915-70fb-30a4-9e7d-e998bd450d90",
+      "external_id": "60042915-70fb-30a4-9e7d-e998bd450d90",
+      "team_abbr": null,
+      "summary": "Bengals and Falcons game information for Madrid matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Everything you need to know to watch the Bengals and Falcons play in Madrid.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "878e44b3-2ef6-37f6-96dc-5c79dcb16143",
+      "external_id": "878e44b3-2ef6-37f6-96dc-5c79dcb16143",
+      "team_abbr": null,
+      "summary": "Falcons-Bengals Week 9 matchup details for Madrid game.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The 3-5 Falcons meet the 5-2 Bengals in Spain.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "dfa59be5-affd-4ad1-baf8-e90a3f30248b",
+      "external_id": "dfa59be5-affd-4ad1-baf8-e90a3f30248b",
+      "team_abbr": null,
+      "summary": "Fantasy analyst Justin Boone provides Week 9 start/sit recommendations.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Justin Boone shares his top sits and starts for Week 9.",
+      "subject_type": "reporter"
+    }
+  ]
+}

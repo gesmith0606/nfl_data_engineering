@@ -1,0 +1,63 @@
+{
+  "batch_id": "2545d384",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-07T12:19:47.354059+00:00",
+  "record_count": 6,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-rams-opponents-will-have-to-pick-their-poison-me-or-aaron-donald",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "general",
+      "summary": "Aaron Donald will pair with Myles Garrett for first time on Sunday vs Commanders.",
+      "source_excerpt": "Garrett and Donald will play together for the first time on Sunday against the Commanders.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "6da0251b-baf0-374e-b595-e5ecdec64bf6",
+      "player_name": "Drew Mukuba",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles notebook discusses future outlook for Drew Mukuba along with team updates.",
+      "source_excerpt": "In the latest Eagles notebook: The future of Drew Mukuba, Jalen Hurts makes an appearance and more.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "806ed0c6-9dc4-3fb5-8154-d7727ada4c59",
+      "player_name": "CJ Allen",
+      "team_abbr": "IND",
+      "category": "usage",
+      "summary": "Colts rookie LB CJ Allen will handle important defensive duty for the first time on Sunday.",
+      "source_excerpt": "Colts rookie linebacker CJ Allen will be handling one of the most important defensive jobs for the team on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "72b1e240-fb6d-31ba-acec-58ac9bc1fbc7",
+      "player_name": "Zachariah Branch",
+      "team_abbr": "ATL",
+      "category": "injury",
+      "summary": "Falcons S Zachariah Branch ruled out for game vs Bengals.",
+      "source_excerpt": "The Falcons have a significant injury list\u2026again.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-rams-opponents-will-have-to-pick-their-poison-me-or-aaron-donald",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "general",
+      "summary": "Aaron Donald will play alongside Myles Garrett for the first time on Sunday against the Commanders.",
+      "source_excerpt": "Garrett and Donald will play together for the first time on Sunday against the Commanders.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-downs-has-no-injury-designation-george-pickens-listed-as-questionable",
+      "player_name": "Caleb Downs",
+      "team_abbr": "DAL",
+      "category": "injury",
+      "summary": "Cowboys safety Caleb Downs has no injury designation, set to play.",
+      "source_excerpt": "Cowboys safety Caleb Downs is set to play against the Colts on Sunday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
