@@ -574,11 +574,11 @@ The ML pipeline will produce 200+ features per game (requirement ML-01), includi
 | ATS Accuracy | `evaluate_ats()` in `prediction_backtester.py` | 53.0% on 2024 holdout |
 | O/U Accuracy | `evaluate_ou()` in `prediction_backtester.py` | Evaluated per-season |
 | Vig-Adjusted Profit | `compute_profit()` at -110 odds | +$3.09 on 271 games |
-| CLV (Closing Line Value) | `evaluate_clv()` — model_spread - spread_line | Per-game, by-tier, by-season |
+| Model-vs-close (spread edge; **not** CLV) | `evaluate_model_vs_close()` — predicted_margin - spread_line | Per-game, by-tier, by-season |
 | Per-Season Stability | `evaluate_holdout()` with 58% leakage threshold | 2019-2023 walk-forward |
-| Confidence Tiers | Edge thresholds: >=3.0 high, >=1.5 medium, else low | Tier-stratified CLV |
+| Confidence Tiers | Edge thresholds: >=3.0 high, >=1.5 medium, else low | Tier-stratified model-vs-close |
 
-**CLV tracking (v2.1):** Point-based CLV measures whether the model's predicted spread beats the Vegas closing line. Reported by confidence tier (high/medium/low) and by season via `compute_clv_by_tier()` and `compute_clv_by_season()`.
+**Model-vs-close tracking (v2.1; originally labelled "CLV"):** `evaluate_model_vs_close()` computes `predicted_margin - spread_line` against the closing line only, reported by confidence tier and by season via `compute_model_vs_close_by_tier()` and `compute_model_vs_close_by_season()`. It is the spread edge the pick is derived from. It observes a single price (the close, which we bet into), so it cannot show that the model beat the closing line or that the market moved toward it; a positive mean means only that the model leans further toward the home side than the market (`pct_home_lean` is the share of games with a positive edge). True Closing Line Value needs an opening price and is computed by `evaluate_line_capture()` / `compute_line_capture_summary()` (CLI `--clv-true`). See `.planning/CLV_PICK_RULE_AUDIT_2026_10_24.md`.
 
 ### Market Data Integration -- Implemented (v2.1)
 

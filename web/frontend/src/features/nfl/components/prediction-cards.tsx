@@ -19,6 +19,7 @@ import { Icons } from '@/components/icons';
 import { EmptyState } from '@/components/EmptyState';
 import { PredictionLedger } from './prediction-ledger';
 import { formatRelativeTime } from '@/lib/format-relative-time';
+import { clearsBreakEven, pickConfidenceLabel } from '@/lib/nfl/pick-confidence';
 import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { TeamSentimentBadge } from './team-sentiment-badge';
 import { ApiError } from '@/lib/nfl/api';
@@ -51,7 +52,13 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
   const spreadEdge = Math.abs(prediction.spread_edge ?? 0);
   const totalEdge = Math.abs(prediction.total_edge ?? 0);
   const maxEdge = 10;
-  const topEdge = Math.max(spreadEdge, totalEdge);
+  // The ATS edge ONLY. This was max(spreadEdge, totalEdge), so a game with an
+  // extreme Vegas total got a shimmering "high edge" badge off the RETIRED
+  // totals surface — and that edge is 99.4% the Vegas line, not our model
+  // (predicted_total std 0.49 against the line's 4.66). models-picks.tsx was
+  // fixed for the same reason; this file was missed.
+  // See .planning/TOTALS_VERDICT.md and CLV_PICK_RULE_AUDIT_2026_10_24.md §2.
+  const topEdge = spreadEdge;
   const hasRevealEdge = topEdge >= EDGE_REVEAL_THRESHOLD;
   const hasHighEdge = topEdge >= EDGE_HIGH_THRESHOLD;
 
@@ -101,10 +108,10 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
                       'gap-[var(--space-1)] whitespace-nowrap',
                       hasHighEdge && 'edge-shimmer'
                     )}
-                    aria-label={`${topEdge.toFixed(1)} point edge`}
+                    aria-label={`${topEdge.toFixed(1)} point spread edge`}
                   >
                     <Icons.trendingUp className='h-[var(--space-3)] w-[var(--space-3)]' />
-                    {topEdge.toFixed(1)}pt edge
+                    {topEdge.toFixed(1)}pt spread
                   </Badge>
                 </FadeIn>
               )}
@@ -139,15 +146,36 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
                   <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
                     {prediction.ats_pick}
                   </span>
-                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                    {spreadEdge.toFixed(1)}pt edge
+                  {/* The calibrated cover probability of the PICKED side,
+                      not the edge. Edge size is not confidence, and a bare
+                      team abbreviation reads as a betting recommendation we
+                      cannot support (2026 ATS 47.1%, capture -1.07). Sub
+                      break-even leans are dimmed rather than hidden. */}
+                  <span
+                    className={
+                      clearsBreakEven(prediction.pick_cover_prob)
+                        ? 'text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                        : 'text-muted-foreground/60 text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'
+                    }
+                    title={
+                      clearsBreakEven(prediction.pick_cover_prob)
+                        ? 'Clears the -110 break-even point (52.4%)'
+                        : 'Model lean only — below the -110 break-even point (52.4%)'
+                    }
+                  >
+                    {pickConfidenceLabel(prediction.pick_cover_prob, prediction.spread_edge)}
                   </span>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Total */}
+          {/* Total — MARKET TRACKING ONLY, never a pick. The game-totals
+              betting surface was killed by .planning/TOTALS_VERDICT.md
+              (2026-06-10): the totals model is near-constant, so "over if
+              total_edge > 0" was only ever fading extreme Vegas lines
+              (41-52-0, 44.1% on 2026). We show our number beside the market's
+              as context and recommend no side. */}
           <div className='space-y-[var(--space-1)]'>
             <div className='flex items-center justify-between text-[length:var(--fs-sm)] leading-[var(--lh-sm)]'>
               <span className='text-muted-foreground'>Total</span>
@@ -166,11 +194,11 @@ function PredictionCard({ prediction, season, week }: { prediction: GamePredicti
               <div className='space-y-[var(--space-1)]'>
                 <Progress value={Math.min((totalEdge / maxEdge) * 100, 100)} className='h-1.5' />
                 <div className='flex items-center justify-between'>
-                  <span className='text-[length:var(--fs-xs)] leading-[var(--lh-xs)] font-medium'>
-                    {prediction.ou_pick}
+                  <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)] tracking-[0.08em] uppercase'>
+                    Market tracking
                   </span>
                   <span className='text-muted-foreground text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
-                    {totalEdge.toFixed(1)}pt edge
+                    {totalEdge.toFixed(1)}pt vs market
                   </span>
                 </div>
               </div>

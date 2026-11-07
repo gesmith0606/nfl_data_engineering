@@ -74,7 +74,7 @@
 - Silver market data generated for all 10 seasons (2016-2025) and all Silver transformations completed for 2025 including player quality gap-fill for 2020-2025
 - Validated 310+ column prediction feature vectors for all 10 seasons (2016-2025) with 0% NaN on 2025 market features and 323 usable model features
 - Rotated holdout from 2024 to 2025 with all season ranges derived from HOLDOUT_SEASON; updated 4 test files to eliminate hardcoded holdout references
-- Retrained XGB+LGB+CB+Ridge ensemble on 2016-2024 with sealed 2025 holdout: 51.7% ATS, -$3.73 profit, +0.14 CLV
+- Retrained XGB+LGB+CB+Ridge ensemble on 2016-2024 with sealed 2025 holdout: 51.7% ATS, -$3.73 profit, +0.14 "CLV" (spread edge vs the close, not true CLV — see `CLV_PICK_RULE_AUDIT_2026_10_24.md`)
 - Definitive market feature ablation on 2025 holdout: SHIP verdict -- diff_opening_spread is #1 SHAP feature (23.6%), ATS improves 50.2% to 50.6%, 120-feature model replaces 321-feature baseline
 
 ---
@@ -89,7 +89,7 @@
 - Odds registered in DATA_TYPE_SEASON_RANGES with (2016, lambda: 2021), end-to-end 2020 ingestion producing 244-row validated Parquet with r=0.997 cross-validation
 - Line movement module with spread/total shift, ordinal magnitude buckets (0-3), key number crossings, and per-team reshape producing 488-row Silver Parquet for season 2020
 - Opening spread/total wired into pre-game feature filter with 9 integration tests verifying retrospective feature exclusion
-- Three CLV functions (evaluate_clv, compute_clv_by_tier, compute_clv_by_season) with 9 TDD tests and CLI reporting in backtest_predictions.py
+- Three "CLV" functions — spread-edge-vs-close, not true CLV (evaluate_clv, compute_clv_by_tier, compute_clv_by_season) with 9 TDD tests and CLI reporting in backtest_predictions.py
 - Ablation script comparing P30 baseline vs market-feature-augmented ensemble with SHAP importance, opening_spread dominance detection, and ship-or-skip decision logic
 
 ---
