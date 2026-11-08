@@ -1,6 +1,6 @@
 {
   "source": "fantasypros",
-  "fetched_at": "2026-11-07T12:19:50.127686+00:00",
+  "fetched_at": "2026-11-08T12:19:31.050543+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -1776,7 +1776,7 @@
     {
       "player_name": "Kendre Miller",
       "position": "RB",
-      "team": "NO",
+      "team": "FA",
       "external_rank": 270,
       "rank": 254
     },

@@ -1,0 +1,789 @@
+{
+  "fetch_run_id": "737c69de-bdce-4850-acda-b93476420b72",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-08T12:14:37.033841+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "83e6351b-2135-392e-bae5-71d604f7fe22",
+      "url": "https://sports.yahoo.com/articles/brandon-aiyuk-potential-landing-spots-120322306.html",
+      "title": "Brandon Aiyuk potential landing spots: Where might the WR play next?",
+      "body_text": "NFL wide receiver Brandon Aiyuk might have burned his bridges with the San Francisco 49ers. Are there any other NFL teams that might sign him?",
+      "author": "",
+      "published_at": "2026-11-08T12:03:22+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "543ba212-2eab-384f-b545-0a48d9637972",
+      "url": "https://sports.yahoo.com/articles/steelers-playing-today-nfl-week-120210778.html",
+      "title": "Are the Steelers playing today? NFL Week 9 schedule, next game, AFC North standings",
+      "body_text": "First-year coach Mike McCarthy's team is enjoying a week off before a crucial AFC North matchup against the Cincinnati Bengals.",
+      "author": "",
+      "published_at": "2026-11-08T12:02:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "00d6167c-2cfe-3d45-ac1a-bdf05184fa9a",
+      "url": "https://sports.yahoo.com/articles/3-things-think-giants-eagles-120000842.html",
+      "title": "3 ‘things I think’ before Giants-Eagles: Critical 5-day stretch has arrived",
+      "body_text": "John Harbaugh is right about the importance of the next five days.",
+      "author": "",
+      "published_at": "2026-11-08T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "10619ff6-f150-370f-8f0c-ceba9f929dcb",
+      "url": "https://sports.yahoo.com/articles/5-questions-mile-high-report-120000451.html",
+      "title": "5 questions with Mile High Report",
+      "body_text": "The Broncos are expected to kick off a real losing streak in Charlotte. Is there any hope for the Panthers?",
+      "author": "",
+      "published_at": "2026-11-08T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mile High",
+        "Report The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "62b752bc-b66d-3aa5-a74f-0d2590afe25f",
+      "url": "https://sports.yahoo.com/articles/york-jets-flight-connections-11-120000911.html",
+      "title": "New York Jets Flight Connections 11/08/26",
+      "body_text": "Good morning, Jets fans! The Jets face the Kansas City Chiefs today. They look to end their three game losing streak. This surely will not be an easy game. The Chiefs are a good team, and coming off a frustrating loss in a big divisional game it seems unlikely the Jets will sneak up on […]",
+      "author": "",
+      "published_at": "2026-11-08T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets Flight",
+        "The Jets",
+        "Kansas City",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "cadab145-77d1-3c61-9455-6629ae8eaf14",
+      "url": "https://sports.yahoo.com/articles/steelers-veteran-linebacker-tabbed-trade-120000348.html",
+      "title": "Steelers veteran linebacker tabbed as trade candidate",
+      "body_text": "The Steelers are shopping linebacker Cole Holcomb.",
+      "author": "",
+      "published_at": "2026-11-08T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Steelers",
+        "Cole Holcomb"
+      ],
+      "resolved_player_ids": [
+        "00-0035286"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "cdb11da4-08cd-3434-b5e3-c780a5845fd1",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-rookie-edge-rusher-120000953.html",
+      "title": "Cowboys news: Rookie edge rusher to IR",
+      "body_text": "Here is today’s Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-08T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "dd46c6b0-bd7d-3fd2-8002-9bd1e480c294",
+      "url": "https://sports.yahoo.com/articles/broncos-vs-panthers-week-9-120000044.html",
+      "title": "Broncos vs. Panthers in Week 9: How to watch, game time, TV schedule, game preview and more",
+      "body_text": "The Denver Broncos seized control of the AFC West from the Kansas City Chiefs last week after a thrilling fourth quarter comeback and goal line stand. Now that they are back in first place in the division, they’ve got to keep it. That work starts today against the Carolina Panthers. Game preview While most expect […]",
+      "author": "",
+      "published_at": "2026-11-08T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Kansas City",
+        "Carolina Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "5dd2e2ed-a0a3-4deb-b2b9-6cfa8ebb376c",
+      "url": "https://sports.yahoo.com/nfl/article/seattle-seahawks-vs-arizona-cardinals-how-to-watch-the-nfl-week-9-game-channel-streaming-info-and-more-115500844.html",
+      "title": "Seattle Seahawks vs. Arizona Cardinals: How to watch the NFL Week 9 game, channel, streaming info and more",
+      "body_text": "How to watch the Seattle Seahawks vs. Arizona Cardinals game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-08T11:55:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Seattle Seahawks",
+        "Arizona Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "80f55ba6-cc3a-4fd6-a565-83ba175afbfe",
+      "url": "https://sports.yahoo.com/nfl/article/sunday-night-football-how-to-watch-the-tampa-bay-buccaneers-vs-chicago-bears-game-tonight-114800046.html",
+      "title": "Sunday Night Football: How to watch the Tampa Bay Buccaneers vs. Chicago Bears game tonight",
+      "body_text": "Here's how to tune into Sunday Night Football tonight without cable.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-08T11:48:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Tampa Bay",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "a9a8af7f-d67e-439f-9290-644e52401e58",
+      "url": "https://sports.yahoo.com/nfl/article/las-vegas-raiders-vs-san-francisco-49ers-how-to-watch-the-nfl-week-9-game-channel-streaming-info-and-more-114500272.html",
+      "title": "Las Vegas Raiders vs. San Francisco 49ers: How to watch the NFL Week 9 game, channel, streaming info and more",
+      "body_text": "How to watch the Las Vegas Raiders vs. San Francisco 49ers game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-08T11:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Las Vegas",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "79b8cb0a-1630-3bac-8e75-d4a2fb07698a",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-going-day-113000778.html",
+      "title": "Cleveland Browns news: It is going to be a day, that’s for sure!",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 8 edition of the Sunday Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-08T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Sunday Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "a329d0c9-fb50-47e4-89ee-27a206690e71",
+      "url": "https://sports.yahoo.com/nfl/article/green-bay-packers-vs-new-england-patriots-how-to-watch-the-nfl-week-9-game-channel-streaming-info-and-more-112900537.html",
+      "title": "Green Bay Packers vs. New England Patriots: How to watch the NFL Week 9 game, channel, streaming info and more",
+      "body_text": "How to watch the Green Bay Packers vs. New England Patriots game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-08T11:29:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Green Bay",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "eb0325be-1e81-35c0-a0d2-456bd8ae108b",
+      "url": "https://sports.yahoo.com/articles/joe-milton-iii-eagles-turn-110530515.html",
+      "title": "Who is Joe Milton III? Eagles turn to QB with 'cannon' arm strength",
+      "body_text": "Joe Milton has long been known for arm strength that's the stuff of urban legend. Now the QB will make his first NFL start for the Eagles.",
+      "author": "",
+      "published_at": "2026-11-08T11:05:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton III",
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "29382176-2dbf-395f-a62a-2fa36a727f31",
+      "url": "https://sports.yahoo.com/articles/chargers-look-answers-blame-0-110223705.html",
+      "title": "As Chargers look for answers, who is to blame for 0-7 start?",
+      "body_text": "The Los Angeles Chargers’ season is in jeopardy of being a complete failure. There's plenty of blame to go around.",
+      "author": "",
+      "published_at": "2026-11-08T11:02:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "As Chargers",
+        "The Los",
+        "Angeles Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "1841b9b2-ca2d-3d9b-bf2a-82698d931402",
+      "url": "https://sports.yahoo.com/articles/watch-lions-vs-dolphins-tv-110000658.html",
+      "title": "How to watch Lions vs. Dolphins: TV, streaming, radio, more",
+      "body_text": "TV, online streaming, announcer, and kickoff time information for Detroit Lions vs. Miami Dolphins",
+      "author": "",
+      "published_at": "2026-11-08T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "2f976920-45c8-3a53-9e0e-879010fa3b83",
+      "url": "https://sports.yahoo.com/articles/sunday-patriots-notes-christian-elliss-110000707.html",
+      "title": "Sunday Patriots Notes: Christian Elliss continues to impress",
+      "body_text": "Notes and thoughts on Christian Elliss, Jordan Love and the Packers, and more.",
+      "author": "",
+      "published_at": "2026-11-08T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Patriots",
+        "Christian Elliss",
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036813",
+        "00-0036264"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "864ea441-75f3-33c5-996b-5977a803a760",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-vs-orleans-saints-110000736.html",
+      "title": "Cleveland Browns vs. New Orleans Saints: How to watch, TV schedule, history, betting odds and more",
+      "body_text": "The Cleveland Browns face the New Orleans Saints on the road today. Here are some notes about the matchup & information on how you can watch or listen to the game. Game Information TV Distribution Map Fans in the yellow-colored areas will get to see the Browns game locally on CBS. Uniform & Poster Connections […]",
+      "author": "",
+      "published_at": "2026-11-08T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "New Orleans",
+        "The Cleveland",
+        "Game Information",
+        "Distribution Map",
+        "Poster Connections"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "8acbf748-7e9e-3c59-ba2a-db3bfb75771c",
+      "url": "https://sports.yahoo.com/articles/mike-shanahan-dan-reeves-among-110000044.html",
+      "title": "Mike Shanahan and Dan Reeves among Hall of Fame finalists",
+      "body_text": "Shanahan and Reeves are unlikely to get inducted in the 2027 HOF class. But the fact they are finalists is a good sign.",
+      "author": "",
+      "published_at": "2026-11-08T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Shanahan",
+        "Dan Reeves"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e0e942a2-99a6-3bea-9b94-cf2c4847ac3f",
+      "url": "https://sports.yahoo.com/articles/nfl-games-today-week-9-105941399.html",
+      "title": "What NFL games are on today? Week 9 TV channels, Sunday schedule, results",
+      "body_text": "NFL Week 9 features several intriguing games pitting teams needing wins to keep pace in the playoff race. Here's how to watch every matchup.",
+      "author": "",
+      "published_at": "2026-11-08T10:59:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "8b328916-ce85-30fe-a2ee-0c1506dd31f8",
+      "url": "https://sports.yahoo.com/articles/bengals-trade-targets-show-jonathan-104615096.html",
+      "title": "Bengals trade targets show Jonathan Taylor is a luxury the team can't afford",
+      "body_text": "The Bengals are trying to win the Super Bowl this season. Here are some NFL trade deadline targets to help make that dream a reality.",
+      "author": "",
+      "published_at": "2026-11-08T10:46:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "The Bengals",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "b9d763a1-5f7d-4a50-b063-620eed63519b",
+      "url": "https://sports.yahoo.com/nfl/article/how-to-watch-every-sunday-nfl-football-game-during-week-9-of-the-2026-season-101501019.html",
+      "title": "How to watch every Sunday NFL football game during Week 9 of the 2026 season",
+      "body_text": "How you can keep up with every NFL game this Sunday.",
+      "author": "Danica Creahan",
+      "published_at": "2026-09-12T19:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7af8778d-de1d-3457-8e5d-53f24cb31b44",
+      "url": "https://sports.yahoo.com/articles/nfl-games-fox-cbs-broadcasting-100348980.html",
+      "title": "Which NFL games are Fox, CBS broadcasting? Week 9 coverage maps",
+      "body_text": "Which NFL games will be broadcast in your region in Week 9? Here are the coverage maps for Sunday's action.",
+      "author": "",
+      "published_at": "2026-11-08T10:03:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "87ab45c1-97b3-32e2-b221-27bf007e4c81",
+      "url": "https://sports.yahoo.com/articles/patriots-vs-packers-watch-week-100000281.html",
+      "title": "Patriots vs. Packers: How to watch the Week 9 game on Sunday",
+      "body_text": "Everything you need to know about watching Sunday’s Patriots game.",
+      "author": "",
+      "published_at": "2026-11-08T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Everything"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "e072480b-0126-3488-873a-d15817a07846",
+      "url": "https://sports.yahoo.com/articles/bengals-vs-falcons-week-9-100000686.html",
+      "title": "Bengals vs. Falcons Week 9 news and pregame discussion",
+      "body_text": "Cincinnati kicks off against the Falcons in a few hours.",
+      "author": "",
+      "published_at": "2026-11-08T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Falcons Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "e0763dea-a244-3a65-8f52-8f0fb0652b28",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-game-day-095900824.html",
+      "title": "Golden Nuggets: GAME DAY",
+      "body_text": "Your daily San Francisco 49ers news for Sunday, November 8th, 2026",
+      "author": "",
+      "published_at": "2026-11-08T09:59:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "644fa326-8cf2-317b-905c-2c615fba6893",
+      "url": "https://sports.yahoo.com/articles/report-colts-told-teams-were-093224843.html",
+      "title": "Report: Colts have told teams they were offered a fourth-round pick for Josh Downs",
+      "body_text": "A third-round pick appears to be what the Colts are trying to get to trade Downs.",
+      "author": "",
+      "published_at": "2026-11-08T09:32:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "8ff6848c-f10f-42e5-ab51-9b0c32d648ad",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-wr-blueprint-for-week-9-201635405.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' WR Blueprint for Week 9",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint for the WR position in Week 9.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-05T20:16:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b1c39210-58f9-454f-9ed5-861bf1bad2d1",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-rb-blueprint-for-week-9-211240137.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' RB Blueprint for Week 9",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint at the running back position for Week 9.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-04T21:12:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5d760138-606c-386a-a7ac-675259bdef8b",
+      "url": "https://sports.yahoo.com/articles/good-bad-ugly-notre-dame-060453579.html",
+      "title": "The Good, The Bad, and The Ugly: Notre Dame Fighting Irish 2026 Edition",
+      "body_text": "Despite a furious comeback attempt, Miami dropped their first game of the year to a hated rival",
+      "author": "",
+      "published_at": "2026-11-08T06:04:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Good",
+        "The Bad",
+        "The Ugly",
+        "Notre Dame",
+        "Fighting Irish",
+        "Edition Despite"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "05084a29-9589-4714-9231-819b73b7f9b6",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-qbtedefk-blueprint-for-week-9-160055438.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' QB/TE/DEF/K Blueprint for Week 9",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint to the onesies (QB, TE, DEF and K) for Week 9.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-05T16:00:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "8117d791-a708-37cc-975b-c047c5ef113d",
+      "url": "https://sports.yahoo.com/articles/georgia-42-ole-miss-7-043255485.html",
+      "title": "Georgia 42, Ole Miss 7: ‘Dawgs Turn the Rebs Every Way But Loose",
+      "body_text": "Kirby Smart spent an entire week ruminating on how calm and steady Ole Miss quarterback Trinidad Chambliss has been this season. He then conspired with Glenn Schumann to put Chambliss in a blender and switch back and forth between the puree and smoothie settings for an entire college football game. Georgia pressured Chambliss early and […]",
+      "author": "",
+      "published_at": "2026-11-08T04:32:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ole Miss",
+        "Dawgs Turn",
+        "Rebs Every",
+        "Way But",
+        "Loose Kirby",
+        "Trinidad Chambliss",
+        "Glenn Schumann"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c122c471-b74a-34e3-a731-a0f99e533f2f",
+      "url": "https://sports.yahoo.com/articles/steelers-hall-fame-linebacker-jack-031450943.html",
+      "title": "Steelers Hall of Fame linebacker Jack Ham hospitalized",
+      "body_text": "Steelers legend Jack Ham hospitalized.",
+      "author": "",
+      "published_at": "2026-11-08T03:14:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Steelers Hall",
+        "Jack Ham"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "52950b50-7570-3951-a847-b1399363d433",
+      "url": "https://sports.yahoo.com/articles/cam-jordan-become-third-defensive-030536611.html",
+      "title": "Cam Jordan will become third defensive player to play 250 games with same team",
+      "body_text": "When the Saints host the Browns on Sunday, New Orleans defensive end Cam Jordan will reach a rare milestone.",
+      "author": "",
+      "published_at": "2026-11-08T03:05:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Jordan",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "e0de525a-2713-4f92-b3dd-77ed4e7a0b13",
+      "url": "https://sports.yahoo.com/nfl/betting/article/week-9-nfl-odds-picks-predictions-our-6-best-bets-for-this-weeks-games-021937160.html",
+      "title": "Week 9 NFL odds, picks, predictions: Our 6 best bets for this week's games",
+      "body_text": "Our NFL handicappers give out their favorite bets for Week 9 games.",
+      "author": "Matt Russell,Matt Jacob,Jeremy Pond",
+      "published_at": "2026-11-06T16:36:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2eba0e8b-c7be-47b2-a7a8-1157be88f530",
+      "url": "https://sports.yahoo.com/nfl/betting/article/nfl-odds-betting-storylines-2-underdogs-to-back-in-week-9-232645096.html",
+      "title": "NFL odds, betting, storylines: 2 underdogs to back in Week 9",
+      "body_text": "Let's look at two spots where some 'dogs are in position to bark in Week 9.",
+      "author": "Matt Jacob",
+      "published_at": "2026-11-04T23:26:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c5647905-8e47-371c-9daf-a877deb2f373",
+      "url": "https://sports.yahoo.com/articles/ravens-lb-roquan-smith-fined-021711691.html",
+      "title": "Ravens LB Roquan Smith fined for missed penalties vs. Bills’ Josh Allen, DJ Moore",
+      "body_text": "Baltimore Ravens LB Roquan Smith received a pair of hefty fines for transgressive play against Buffalo Bills in Week 8",
+      "author": "",
+      "published_at": "2026-11-08T02:17:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Roquan Smith",
+        "Josh Allen",
+        "Moore Baltimore",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0034874",
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "beb8d03c-ee5c-3de5-b373-64041f754181",
+      "url": "https://sports.yahoo.com/articles/ravens-film-study-zion-young-021359577.html",
+      "title": "Ravens film study: Zion Young stepping up after Tavius Robinson injury",
+      "body_text": "With Tavius Robinson out for the year, Zion Young is showing why the Ravens drafted him in the second round.",
+      "author": "",
+      "published_at": "2026-11-08T02:13:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zion Young",
+        "Tavius Robinson",
+        "With Tavius"
+      ],
+      "resolved_player_ids": [
+        "00-0038505"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "3b9bdfc3-2f09-3535-9923-0dc195e0a3a4",
+      "url": "https://sports.yahoo.com/articles/j-j-mccarthy-gets-latest-012809228.html",
+      "title": "J.J. McCarthy gets latest Giants road test in Philadelphia house of horrors",
+      "body_text": "Life on the road is usually not easy. It has never really bothered J.J. McCarthy.",
+      "author": "",
+      "published_at": "2026-11-08T01:28:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1ce69a0d-5c03-3246-b656-6e5d7e43a248",
+      "url": "https://sports.yahoo.com/articles/washington-commanders-roster-moves-jer-190937968.html",
+      "title": "Commanders Roster Moves: Jer'Zhan Newton activated, Dyami Brown to IR",
+      "body_text": "The Commanders activate defensive lineman off injured reserve, place wide receiver on it",
+      "author": "Scott Jennings",
+      "published_at": "2026-11-07T21:15:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders Roster",
+        "Zhan Newton",
+        "Dyami Brown",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036626"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "842515e7-3acf-3009-91fa-67dc8bdf772d",
+      "url": "https://sports.yahoo.com/articles/jets-joseph-ossai-extremely-frustrated-012153997.html",
+      "title": "Jets’ Joseph Ossai ‘extremely’ frustrated he will miss fourth straight game",
+      "body_text": "This was not how Joseph Ossai expected his first season with the Jets to go.",
+      "author": "",
+      "published_at": "2026-11-08T01:21:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joseph Ossai"
+      ],
+      "resolved_player_ids": [
+        "00-0036902"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "528814f9-8d19-3cf6-9ffd-007315cdad23",
+      "url": "https://sports.yahoo.com/articles/broncos-bo-nix-won-16-011752435.html",
+      "title": "Broncos and Bo Nix have won 16 straight one-score games",
+      "body_text": "The Broncos keep finding ways to win games — especially close games.",
+      "author": "",
+      "published_at": "2026-11-08T01:17:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "096a783c-6d27-3416-833a-8e3d259ec1e6",
+      "url": "https://sports.yahoo.com/articles/bears-vs-buccaneers-game-picks-011643382.html",
+      "title": "Bears vs. Buccaneers: Game Picks and Predictions",
+      "body_text": "The WCG crew makes their picks and predictions for the Bears vs Buccaneers game.",
+      "author": "",
+      "published_at": "2026-11-08T01:16:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Game Picks",
+        "Predictions The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "cdde811d-3031-398d-b62c-69fb2faae182",
+      "url": "https://sports.yahoo.com/articles/jauan-jennings-shocking-decision-stay-010617034.html",
+      "title": "Jauan Jennings’ shocking decision to stay in Minnesota revealed",
+      "body_text": "Last Sunday, NFL insider Jay Glazer revealed that the 49ers attempted to trade and reunite with Jauan Jennings but were denied. On Saturday, the reason why Jennings decided to stay...",
+      "author": "",
+      "published_at": "2026-11-08T01:06:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jauan Jennings",
+        "Last Sunday",
+        "Jay Glazer",
+        "On Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "0a162f1b-3510-3dad-afe0-3b8d7dc29dbc",
+      "url": "https://sports.yahoo.com/articles/dolphins-fans-miami-dolphins-vs-010000132.html",
+      "title": "Dolphins Fans: Miami Dolphins Vs. Detroit Lions Predictions",
+      "body_text": "Miami Dolphins fans share their takes and prediction for tomorrows game against the Detroit Lions.",
+      "author": "",
+      "published_at": "2026-11-08T01:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dolphins Fans",
+        "Miami Dolphins",
+        "Detroit Lions",
+        "Predictions Miami"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "44afa8ba-2a01-3860-91ad-7c2417742ee4",
+      "url": "https://sports.yahoo.com/articles/jets-elevate-two-practice-squad-010000028.html",
+      "title": "Jets elevate two from practice squad ahead of Chiefs game",
+      "body_text": "A special teams ace and a backup offensive lineman get their chance with the Jets",
+      "author": "",
+      "published_at": "2026-11-08T01:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "8ccd05e6-1d3c-30ba-a6dc-27ac7a97938a",
+      "url": "https://sports.yahoo.com/articles/player-personnel-handbook-implies-nfl-004916778.html",
+      "title": "Player Personnel Handbook implies that the NFL can delay (or deny) Brandon Aiyuk's reinstatement",
+      "body_text": "The CBA is silent on the issue.",
+      "author": "",
+      "published_at": "2026-11-08T00:49:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Player Personnel",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "137e1a69-b2f8-3621-b8fd-66294fda01cf",
+      "url": "https://sports.yahoo.com/articles/chris-mara-tells-post-changed-001002119.html",
+      "title": "Chris Mara tells The Post what’s changed with J.J. McCarthy — two years after Giants passed on QB in draft",
+      "body_text": "Instead of taking J.J. McCarthy, the Giants picked receiver Malik Nabers sixth overall before taking QB Jaxson Dart late in the first round.",
+      "author": "",
+      "published_at": "2026-11-08T00:10:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chris Mara",
+        "The Post",
+        "Malik Nabers",
+        "Jaxson Dart"
+      ],
+      "resolved_player_ids": [
+        "00-0039337",
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "334fb431-eb71-391e-b99d-11884d4f597d",
+      "url": "https://sports.yahoo.com/articles/cowboys-vs-colts-writer-predictions-000000989.html",
+      "title": "Cowboys vs Colts: Writer predictions for Week 9",
+      "body_text": "Our score predictions for this week’s Cowboys game",
+      "author": "",
+      "published_at": "2026-11-08T00:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "84ce30f5-0ebd-315f-8d5f-1146b1916ace",
+      "url": "https://sports.yahoo.com/articles/intriguing-players-watch-falcons-vs-000000070.html",
+      "title": "Intriguing players to watch in Falcons vs. Bengals",
+      "body_text": "Naming five Falcons who must bounce back in Madrid to spark an international fiesta and save Atlanta's playoff hopes.",
+      "author": "",
+      "published_at": "2026-11-08T00:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Naming"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    }
+  ]
+}

@@ -1,0 +1,596 @@
+{
+  "fetch_run_id": "37c39aaa-ad2c-4879-b3b8-163d03480458",
+  "source": "pft",
+  "fetched_at": "2026-11-08T12:14:49.192714+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-colorado-deserves-better-after-falling-to-3-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-colorado-deserves-better-after-falling-to-3-6",
+      "permalink": "",
+      "title": "Deion Sanders says Colorado deserves better after falling to 3-6",
+      "body_text": "Colorado lost again on Saturday night, and afterward head coach Deion Sanders said he knows his team isn't good enough.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-08T11:56:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deion Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0014324"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-colts-have-told-teams-they-were-offered-a-fourth-round-pick-for-josh-downs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-colts-have-told-teams-they-were-offered-a-fourth-round-pick-for-josh-downs",
+      "permalink": "",
+      "title": "Report: Colts have told teams they were offered a fourth-round pick for Josh Downs",
+      "body_text": "A third-round pick appears to be what the Colts are trying to get to trade Downs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-08T09:32:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-will-become-third-defensive-player-to-play-250-games-with-same-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-will-become-third-defensive-player-to-play-250-games-with-same-team",
+      "permalink": "",
+      "title": "Cam Jordan will become third defensive player to play 250 games with same team",
+      "body_text": "When the Saints host the Browns on Sunday, New Orleans defensive end Cam Jordan will reach a rare milestone.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-08T03:05:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Jordan",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/player-personnel-handbook-implies-that-the-nfl-can-delay-or-deny-brandon-aiyuks-reinstatement",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/player-personnel-handbook-implies-that-the-nfl-can-delay-or-deny-brandon-aiyuks-reinstatement",
+      "permalink": "",
+      "title": "Player Personnel Handbook implies that the NFL can delay (or deny) Brandon Aiyuk's reinstatement",
+      "body_text": "The CBA is silent on the issue.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-08T00:49:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Player Personnel",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-defending-his-willingness-to-spend-jerry-jones-may-have-admitted-to-tampering",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-defending-his-willingness-to-spend-jerry-jones-may-have-admitted-to-tampering",
+      "permalink": "",
+      "title": "In defending his willingness to spend, Jerry Jones may have admitted to tampering",
+      "body_text": "On Friday, Cowboys owner Jerry Jones tried to reverse the perception/reality that he deliberately underspends on coaches.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T00:13:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "On Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-colts-are-in-trade-talks-regarding-qb-daniel-jones",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-colts-are-in-trade-talks-regarding-qb-daniel-jones",
+      "permalink": "",
+      "title": "Report: Colts are in trade talks regarding QB Daniel Jones",
+      "body_text": "The list of \"multiple teams\" currently includes the Ravens (who pivoted elsewhere) and the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T14:54:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-olb-malachi-lawrence-on-ir-activate-olb-marist-liufau-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-olb-malachi-lawrence-on-ir-activate-olb-marist-liufau-from-ir",
+      "permalink": "",
+      "title": "Cowboys place OLB Malachi Lawrence on IR, activate OLB Marist Liufau from IR",
+      "body_text": "The Cowboys placed outside linebacker Malachi Lawrence on injured reserve, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-07T19:58:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malachi Lawrence",
+        "Marist Liufau",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039352"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-listed-matthew-stafford-with-elbow-injury-because-reporters-asked-about-ice-on-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-listed-matthew-stafford-with-elbow-injury-because-reporters-asked-about-ice-on-it",
+      "permalink": "",
+      "title": "Rams listed Matthew Stafford with elbow injury because reporters asked about ice on it",
+      "body_text": "On Monday, reporters asked Rams coach Sean McVay about quarterback Matthew Stafford having ice on his throwing arm after Sunday's win over the Chargers.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T04:01:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "On Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-rams-opponents-will-have-to-pick-their-poison-me-or-aaron-donald",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-garrett-rams-opponents-will-have-to-pick-their-poison-me-or-aaron-donald",
+      "permalink": "",
+      "title": "Myles Garrett: Rams' opponents will have to pick their poison, me or Aaron Donald",
+      "body_text": "Garrett and Donald will play together for the first time on Sunday against the Commanders.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-07T10:19:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-activate-myles-garrett-put-jaylen-watson-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-activate-myles-garrett-put-jaylen-watson-on-ir",
+      "permalink": "",
+      "title": "Rams activate Myles Garrett, put Jaylen Watson on IR",
+      "body_text": "Myles Garrett is officially back on the Rams' active roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T18:52:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "Jaylen Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033868",
+        "00-0037195"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-set-to-play-as-eagles-remain-without-devonta-smith-dontayvion-wicks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-set-to-play-as-eagles-remain-without-devonta-smith-dontayvion-wicks",
+      "permalink": "",
+      "title": "Saquon Barkley set to play as Eagles remain without DeVonta Smith, Dontayvion Wicks",
+      "body_text": "Eagles running back Saquon Barkley is on track to play against his former team.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-06T21:15:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Dontayvion Wicks"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-admits-that-he-misled-reporters-about-quarterback-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-admits-that-he-misled-reporters-about-quarterback-situation",
+      "permalink": "",
+      "title": "Nick Sirianni admits that he misled reporters about quarterback situation",
+      "body_text": "Instead of covering up one lie with another lie, Sirianni opted to tell the truth that he hadn't.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-06T21:33:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-completes-high-school-season-confirms-interview-with-nc-state",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-completes-high-school-season-confirms-interview-with-nc-state",
+      "permalink": "",
+      "title": "Philip Rivers completes high-school season, confirms interview with NC State",
+      "body_text": "It's looking more and more like former NFL and NC State quarterback Philip Rivers will be the next coach of the Wolfpack.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T19:55:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-and-bo-nix-have-won-16-straight-one-score-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-and-bo-nix-have-won-16-straight-one-score-games",
+      "permalink": "",
+      "title": "Broncos and Bo Nix have won 16 straight one-score games",
+      "body_text": "The Broncos keep finding ways to win games — especially close games.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-08T01:17:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bo Nix",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-could-end-up-with-both-daniel-jones-and-jonathan-taylor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-could-end-up-with-both-daniel-jones-and-jonathan-taylor",
+      "permalink": "",
+      "title": "Vikings could end up with both Daniel Jones and Jonathan Taylor",
+      "body_text": "With Minnesota linked to both players, why not do a package deal?",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T23:54:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones",
+        "Jonathan Taylor",
+        "With Minnesota"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0036223"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-jake-haener-returns-to-the-giants-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/qb-jake-haener-returns-to-the-giants-practice-squad",
+      "permalink": "",
+      "title": "QB Jake Haener returns to the Giants' practice squad",
+      "body_text": "The Giants signed quarterback Jake Haener back to the practice squad, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-07T22:01:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jake Haener",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0038998"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-mccormick-wasnt-fined-for-dumping-jared-verse-on-his-head",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-mccormick-wasnt-fined-for-dumping-jared-verse-on-his-head",
+      "permalink": "",
+      "title": "Mason McCormick wasn't fined for dumping Jared Verse on his head",
+      "body_text": "Browns defensive end Jared Verse is getting upset.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T21:45:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Verse"
+      ],
+      "resolved_player_ids": [
+        "00-0039852"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-demarcus-robinson-elevate-khadarel-hodge",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-demarcus-robinson-elevate-khadarel-hodge",
+      "permalink": "",
+      "title": "49ers activate Demarcus Robinson, elevate KhaDarel Hodge",
+      "body_text": "The 49ers will have two of their Week 1 wideouts back in the lineup for Sunday's game against the Raiders.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T21:40:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Demarcus Robinson",
+        "Hodge The"
+      ],
+      "resolved_player_ids": [
+        "00-0032775"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-activate-wr-pat-bryant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-activate-wr-pat-bryant",
+      "permalink": "",
+      "title": "Broncos activate WR Pat Bryant",
+      "body_text": "The Broncos have wide receiver Pat Bryant back for Sunday's game against the Panthers.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T21:30:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pat Bryant",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0040134"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-lb-jack-campbell-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-lb-jack-campbell-on-injured-reserve",
+      "permalink": "",
+      "title": "Lions place LB Jack Campbell on injured reserve",
+      "body_text": "The Lions placed linebacker Jack Campbell on injured reserve, the team announced Saturday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-07T21:27:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Campbell",
+        "The Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-activate-kelvin-banks-jordyn-tyson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-activate-kelvin-banks-jordyn-tyson",
+      "permalink": "",
+      "title": "Saints activate Kelvin Banks, Jordyn Tyson",
+      "body_text": "The Saints offense will be getting a couple of reinforcements for Sunday's game against the Browns.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T21:23:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kelvin Banks",
+        "Jordyn Tyson",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0040125",
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-activate-james-pearce-yasir-abdullah",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-activate-james-pearce-yasir-abdullah",
+      "permalink": "",
+      "title": "Falcons activate James Pearce, Yasir Abdullah",
+      "body_text": "Falcons linebacker James Pearce is set to make his 2026 debut.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T21:15:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Pearce",
+        "Yasir Abdullah"
+      ],
+      "resolved_player_ids": [
+        "00-0040578",
+        "00-0038580"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-activate-mack-hollins-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-activate-mack-hollins-from-ir",
+      "permalink": "",
+      "title": "Patriots activate Mack Hollins from IR",
+      "body_text": "The Patriots won't have A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T21:08:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mack Hollins",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0033555"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-rule-jauan-jennings-out-for-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-rule-jauan-jennings-out-for-monday-night",
+      "permalink": "",
+      "title": "Vikings rule Jauan Jennings out for Monday night",
+      "body_text": "Wide receiver Jauan Jennings passed on a possible trade back to the 49ers in order to remain with the Vikings, but he won't be in Minnesota's lineup against the Bills on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T19:53:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jauan Jennings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wr-jauan-jennings-declined-49ers-interest-because-i-love-where-im-at",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wr-jauan-jennings-declined-49ers-interest-because-i-love-where-im-at",
+      "permalink": "",
+      "title": "Vikings WR Jauan Jennings declined 49ers interest because \"I love where I'm at\"",
+      "body_text": "Wide receiver Jauan Jennings has not played a major role in the Vikings offense through the first eight weeks of the season, but he wasn't interested in switching teams when the possibility presented itself last month.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T21:00:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jauan Jennings"
+      ],
+      "resolved_player_ids": [
+        "00-0036259"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-list-dion-dawkins-as-questionable-to-play-on-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-list-dion-dawkins-as-questionable-to-play-on-monday-night",
+      "permalink": "",
+      "title": "Bills list Dion Dawkins as questionable to play on Monday night",
+      "body_text": "Dion Dawkins didn't practice at all this week, but the Bills aren't counting him out for Monday night's game against the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-07T20:08:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dion Dawkins"
+      ],
+      "resolved_player_ids": [
+        "00-0033904"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-are-seeking-a-tight-end-trade-cardinals-rebuffed-request-for-trey-mcbride",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-broncos-are-seeking-a-tight-end-trade-cardinals-rebuffed-request-for-trey-mcbride",
+      "permalink": "",
+      "title": "Report: Broncos are seeking a tight end trade, Cardinals rebuffed request for Trey McBride",
+      "body_text": "Denver would like to acquire a veteran tight end before Tuesday's trade deadline, but that tight end will apparently not be Arizona's Trey McBride.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-07T14:15:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-activate-dt-johnny-newton-from-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-activate-dt-johnny-newton-from-injured-reserve",
+      "permalink": "",
+      "title": "Commanders activate DT Johnny Newton from injured reserve",
+      "body_text": "The Commanders are activating defensive tackle Johnny Newton from injured reserve, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-07T19:33:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Johnny Newton",
+        "The Commanders",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-can-become-third-quarterback-with-four-or-more-td-passes-in-four-straight-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-can-become-third-quarterback-with-four-or-more-td-passes-in-four-straight-games",
+      "permalink": "",
+      "title": "Joe Burrow can become third quarterback with four or more TD passes in four straight games",
+      "body_text": "Bengals quarterback Joe Burrow had seven touchdown passes in his team's first four games of the season.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T19:32:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-release-rb-kendre-miller",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-release-rb-kendre-miller",
+      "permalink": "",
+      "title": "Saints release RB Kendre Miller",
+      "body_text": "The Saints, on the last day before their first game since Week 7, have made a change.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-07T19:15:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kendre Miller",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0038551"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}

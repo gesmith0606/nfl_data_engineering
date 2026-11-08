@@ -1,0 +1,196 @@
+{
+  "batch_id": "d26d6b81",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-08T12:19:28.480868+00:00",
+  "record_count": 17,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-colorado-deserves-better-after-falling-to-3-6",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deion-sanders-says-colorado-deserves-better-after-falling-to-3-6",
+      "team_abbr": null,
+      "summary": "Head coach Deion Sanders acknowledges Colorado team performance is inadequate after falling to 3-6 record.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Colorado lost again on Saturday night, and afterward head coach Deion Sanders said he knows his team isn't good enough.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-completes-high-school-season-confirms-interview-with-nc-state",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-completes-high-school-season-confirms-interview-with-nc-state",
+      "team_abbr": null,
+      "summary": "Former NFL quarterback Philip Rivers completes high school season, confirms interview with NC State for head coaching position.",
+      "sentiment": 0.0,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "It's looking more and more like former NFL and NC State quarterback Philip Rivers will be the next coach of the Wolfpack.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "8bbd12f8-e6ba-42a8-8ad8-19511f5ebced",
+      "external_id": "8bbd12f8-e6ba-42a8-8ad8-19511f5ebced",
+      "team_abbr": null,
+      "summary": "Week 9 betting advice and predictions for multiple NFL matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "NFL Week 9 last-minute best bets: Packers upset Patriots in Foxborough, Rams edge out road win vs. Commanders",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "1841b9b2-ca2d-3d9b-bf2a-82698d931402",
+      "external_id": "1841b9b2-ca2d-3d9b-bf2a-82698d931402",
+      "team_abbr": null,
+      "summary": "Broadcast and viewing information for Lions vs. Dolphins game.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "TV, online streaming, announcer, and kickoff time information for Detroit Lions vs. Miami Dolphins",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "864ea441-75f3-33c5-996b-5977a803a760",
+      "external_id": "864ea441-75f3-33c5-996b-5977a803a760",
+      "team_abbr": null,
+      "summary": "Game broadcast and viewing information for Browns vs. Saints matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Cleveland Browns face the New Orleans Saints on the road today. Here are some notes about the matchup & information on how you can watch or listen to the game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8acbf748-7e9e-3c59-ba2a-db3bfb75771c",
+      "external_id": "8acbf748-7e9e-3c59-ba2a-db3bfb75771c",
+      "team_abbr": null,
+      "summary": "Mike Shanahan and Dan Reeves named Hall of Fame finalists for 2027 class.",
+      "sentiment": 0.5,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Shanahan and Reeves are unlikely to get inducted in the 2027 HOF class. But the fact they are finalists is a good sign.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "e0e942a2-99a6-3bea-9b94-cf2c4847ac3f",
+      "external_id": "e0e942a2-99a6-3bea-9b94-cf2c4847ac3f",
+      "team_abbr": null,
+      "summary": "Week 9 NFL schedule and TV channels for games featuring playoff contenders.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "NFL Week 9 features several intriguing games pitting teams needing wins to keep pace in the playoff race. Here's how to watch every matchup.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7af8778d-de1d-3457-8e5d-53f24cb31b44",
+      "external_id": "7af8778d-de1d-3457-8e5d-53f24cb31b44",
+      "team_abbr": null,
+      "summary": "Week 9 NFL broadcast coverage maps for Fox and CBS regional availability.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Which NFL games will be broadcast in your region in Week 9? Here are the coverage maps for Sunday's action.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "8ff6848c-f10f-42e5-ab51-9b0c32d648ad",
+      "external_id": "8ff6848c-f10f-42e5-ab51-9b0c32d648ad",
+      "team_abbr": null,
+      "summary": "Fantasy football analyst Hayden Winks provides WR positional rankings blueprint for Week 9.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Hayden Winks lays out the blueprint for the WR position in Week 9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "b1c39210-58f9-454f-9ed5-861bf1bad2d1",
+      "external_id": "b1c39210-58f9-454f-9ed5-861bf1bad2d1",
+      "team_abbr": null,
+      "summary": "Fantasy football analyst Hayden Winks provides RB positional rankings blueprint for Week 9.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Hayden Winks lays out the blueprint at the running back position for Week 9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "5d760138-606c-386a-a7ac-675259bdef8b",
+      "external_id": "5d760138-606c-386a-a7ac-675259bdef8b",
+      "team_abbr": null,
+      "summary": "College football recap of Notre Dame defeating Miami despite comeback attempt.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Despite a furious comeback attempt, Miami dropped their first game of the year to a hated rival",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "05084a29-9589-4714-9231-819b73b7f9b6",
+      "external_id": "05084a29-9589-4714-9231-819b73b7f9b6",
+      "team_abbr": null,
+      "summary": "Generic fantasy football rankings article with no specific player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Hayden Winks lays out the blueprint to the onesies (QB, TE, DEF and K) for Week 9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "8117d791-a708-37cc-975b-c047c5ef113d",
+      "external_id": "8117d791-a708-37cc-975b-c047c5ef113d",
+      "team_abbr": null,
+      "summary": "College football game recap, no NFL players mentioned.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Kirby Smart spent an entire week ruminating on how calm and steady Ole Miss quarterback Trinidad Chambliss has been this season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "e0de525a-2713-4f92-b3dd-77ed4e7a0b13",
+      "external_id": "e0de525a-2713-4f92-b3dd-77ed4e7a0b13",
+      "team_abbr": null,
+      "summary": "Generic betting picks article with no specific player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Our NFL handicappers give out their favorite bets for Week 9 games.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "2eba0e8b-c7be-47b2-a7a8-1157be88f530",
+      "external_id": "2eba0e8b-c7be-47b2-a7a8-1157be88f530",
+      "team_abbr": null,
+      "summary": "Generic betting article with no specific player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Let's look at two spots where some 'dogs are in position to bark in Week 9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootbalktalk/rumor-mill/news/deion-sanders-says-colorado-deserves-better-after-falling-to-3-6",
+      "external_id": "https://www.nbcsports.com/nfl/profootbalktalk/rumor-mill/news/deion-sanders-says-colorado-deserves-better-after-falling-to-3-6",
+      "team_abbr": null,
+      "summary": "Head coach Deion Sanders acknowledges Colorado team is not good enough after falling to 3-6 record.",
+      "sentiment": -0.5,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Colorado lost again on Saturday night, and afterward head coach Deion Sanders said he knows his team isn't good enough.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-completes-high-school-season-confirms-interview-with-nc-state",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-completes-high-school-season-confirms-interview-with-nc-state",
+      "team_abbr": null,
+      "summary": "Former NFL QB Philip Rivers interviewed for NC State head coach position.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "It's looking more and more like former NFL and NC State quarterback Philip Rivers will be the next coach of the Wolfpack.",
+      "subject_type": "coach"
+    }
+  ]
+}

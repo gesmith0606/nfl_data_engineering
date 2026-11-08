@@ -1,6 +1,6 @@
 {
   "source": "ftn",
-  "fetched_at": "2026-11-07T12:19:56.857159+00:00",
+  "fetched_at": "2026-11-08T12:19:37.320810+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1790,7 +1790,7 @@
     {
       "player_name": "Kendre Miller",
       "position": "RB",
-      "team": "NO",
+      "team": "FA",
       "external_rank": 273,
       "rank": 256
     },

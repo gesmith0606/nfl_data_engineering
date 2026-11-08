@@ -1,0 +1,577 @@
+{
+  "fetch_run_id": "737c69de-bdce-4850-acda-b93476420b72",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-08T12:14:37.383353+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "9ebb0cd3-6696-44ec-a545-eb42e9964fa8",
+      "url": "https://www.cbssports.com/betting/news/2026-week-9-nfl-player-props-odds-picks-best-bets-for-sundays-games-include-brock-purdy-nico-collins/",
+      "title": "2026 Week 9 NFL player props, odds, picks, best bets for Sunday's games include Brock Purdy, Nico Collins",
+      "body_text": "Bet on Week 9 NFL player props at NFL sportsbooks like DraftKings, FanDuel and BetMGM",
+      "author": "Brandt Sutton",
+      "published_at": "2026-11-08T12:05:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brock Purdy",
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0036554"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "cdac941c-7e9b-4445-b374-ed0d4d8bdda4",
+      "url": "https://www.cbssports.com/betting/news/packers-vs-patriots-odds-picks-prediction-spread-line-start-time-nfl-week-9-betting-preview-best-bets/",
+      "title": "Packers vs. Patriots odds, picks, prediction, spread, line: Start time, NFL Week 9 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know about wagering on Packers vs. Patriots in NFL Week 9",
+      "author": "James Holliman",
+      "published_at": "2026-11-08T11:45:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "ce3758ff-bd32-4678-9186-ae798ee35eb8",
+      "url": "https://www.cbssports.com/betting/news/nfl-week-9-giants-vs-eagles-odds-picks-prediction-spread-line-start-time-betting-preview-best-bets/",
+      "title": "Giants vs. Eagles odds, picks, prediction, spread, line: Start time, betting preview, best bets for NFL Week 9",
+      "body_text": "Here's everything bettors need to know for Giants vs. Eagles in NFL Week 9",
+      "author": "James Holliman",
+      "published_at": "2026-11-08T11:45:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f15cb37a-2986-4e00-9da4-a1f59f41e196",
+      "url": "https://www.cbssports.com/prediction/news/bengals-falcons-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-in-nfl-week-9/",
+      "title": "Bengals vs. Falcons odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus in NFL Week 9",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi as the Bengals and Falcons meet in Madrid",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-08T11:25:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "bf757ab8-4b86-4fa7-9957-1a835e5a8a23",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-9-nfl-expert-picks/",
+      "title": "Prisco's Week 9 NFL expert picks: Bengals rout Falcons in Madrid, Cowboys rebound",
+      "body_text": "Pete Prisco reveals all of his Week 9 picks, including the Bills handing the Vikings their second straight loss",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-08T11:00:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "906ade6c-6502-42a6-9b87-e9a54230f062",
+      "url": "https://www.cbssports.com/betting/news/jets-vs-chiefs-odds-picks-prediction-spread-start-time-nfl-week-9-betting-preview-best-bets/",
+      "title": "Jets vs. Chiefs odds, picks, prediction, spread: Start time, NFL Week 9 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Jets vs. Chiefs in NFL Week 9",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-08T10:00:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "afef1daa-ec93-4a59-b3c5-3c5a29c02299",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-odds-how-to-watch-streaming-expert-picks/",
+      "title": "NFL Week 9 odds, predictions, expert picks, best bets, teasers: Can Packers upset Patriots?",
+      "body_text": "CBS Sports experts pick every Week 9 game against the spread, with most backing Green Bay to upset New England",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-08T10:00:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Can Packers",
+        "Green Bay",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "667b1b15-8f65-4ee0-9d98-fa6614ca39d8",
+      "url": "https://www.cbssports.com/nfl/news/bears-vs-buccaneers-odds-prediction-where-to-watch/",
+      "title": "Bears vs. Buccaneers: Chicago looks to tame Tampa's running game while staying atop the NFC North",
+      "body_text": "Plus, where to watch, what to know and a preview from an NFL expert",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-08T03:00:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "North Plus"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "6b9b151a-3971-4002-94cb-e923080c0c6d",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-lines-picks-game-predictions-best-bets-for-week-9-2026/",
+      "title": "Week 9 NFL odds, picks, predictions: Computer model backs Chiefs and Commanders",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 9 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-08T00:45:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a86eeef2-6beb-492c-af11-61c004b36243",
+      "url": "https://www.cbssports.com/nfl/news/falcons-vs-bengals-prediction-odds-where-to-watch/",
+      "title": "Falcons vs. Bengals: Cincinnati seeks first international win as division contenders travel to Madrid",
+      "body_text": "The NFL returns to Spain for the second straight season with a matchup that features many of the league's top offensive stars",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-08T00:01:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Madrid The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "73cab46d-5919-41ff-888c-7930b67857b4",
+      "url": "https://www.cbssports.com/nfl/news/nfl-fines-jaquan-brisker-two-others-for-illegal-week-8-hits/",
+      "title": "NFL fines Jaquan Brisker, two others for illegal Week 8 hits that placed opponents in concussion protocol",
+      "body_text": "Each of the players on the receiving end of those collisions will miss Week 9",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-07T22:01:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jaquan Brisker"
+      ],
+      "resolved_player_ids": [
+        "00-0038135"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "8bbd12f8-e6ba-42a8-8ad8-19511f5ebced",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-last-minute-best-bets-packers-upset-patriots/",
+      "title": "NFL Week 9 last-minute best bets: Packers upset Patriots in Foxborough, Rams edge out road win vs. Commanders",
+      "body_text": "Need some last-minute advice on how to bet the Week 9 slate? Allow us to be of assistance",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-07T20:44:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Commanders Need"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "f93d5be0-d8ee-4323-b77d-6861fe62293c",
+      "url": "https://www.cbssports.com/nfl/news/rams-myles-garrett-anticipates-matchup-nightmares-first-game-aaron-donald/",
+      "title": "Pick your poison: Rams' Myles Garrett anticipates matchup nightmares in first game with Aaron Donald",
+      "body_text": "An injured reserve stint delayed the first look at Garrett and Donald in the same lineup, but now they could dominate opposing offenses",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-07T20:38:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Myles Garrett",
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "bceedb7d-8595-4d57-a480-6fe406e8bca2",
+      "url": "https://www.cbssports.com/nfl/news/saints-motivated-to-face-browns-shedeur-sanders/",
+      "title": "Saints motivated to face 'smiling' Shedeur Sanders after Browns QB offers bulletin board material",
+      "body_text": "The maligned New Orleans defense will have a chip on its shoulder in Sanders' first start of the season",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-07T18:00:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "New Orleans"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "0be726ad-61c2-4c10-88cb-6edb1ece159b",
+      "url": "https://www.cbssports.com/nfl/news/rams-quentin-lake-apologizes-justin-herbert-deli-meat-remarks-chargers/",
+      "title": "Rams' Quentin Lake apologizes to Justin Herbert for 'deli meat' remarks, Chargers not moving QB via trade",
+      "body_text": "Herbert leads the NFL in interceptions and holds the league's worst QBR through seven games",
+      "author": "Brad Crawford",
+      "published_at": "2026-11-07T17:20:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Quentin Lake",
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0037841",
+        "00-0036355"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "77040603-5023-4291-bce9-a56cc9fd4f1c",
+      "url": "https://www.cbssports.com/nfl/news/nfl-trade-deadline-rumors-giants-john-harbaugh-reunite-former-running-back/",
+      "title": "NFL trade deadline rumors: Could Giants' John Harbaugh reunite with former running back?",
+      "body_text": "Harbaugh brought seven players with him from the Ravens when he took the Giants job. Might an eighth be on the way?",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-07T17:14:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Could Giants",
+        "John Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "69ec45f8-8530-4ae1-b500-b63c1b26f067",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-anytime-td-best-bets-jonah-coleman-joe-milton-iii/",
+      "title": "NFL week 9 anytime TD best bets: Look for Jonah Coleman and Joe Milton III to find end zone",
+      "body_text": "Target strong value in the red zone this week with five picks, including rookie runner Jonah Coleman against a reeling Panthers defense",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-07T16:50:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonah Coleman",
+        "Joe Milton III"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "6f151492-9d9d-4f9d-b428-73aa15a973ce",
+      "url": "https://www.cbssports.com/nfl/news/trade-deadline-chargers-to-retain-khalil-mack-top-offensive-players-despite-0-7-record/",
+      "title": "Chargers not interested in Khalil Mack trade, will retain top offensive players despite 0-7 record, per report",
+      "body_text": "The winless Chargers will stick to the status quo",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-07T16:35:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Khalil Mack"
+      ],
+      "resolved_player_ids": [
+        "00-0031040"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "092ec7b7-ddd5-4f45-9bf0-ff7b1f91a9d5",
+      "url": "https://www.cbssports.com/betting/news/nfl-week-9-odds-best-bets-brinsons-top-player-props-anytime-touchdown-scorers-picks-for-sundays-games/",
+      "title": "NFL Week 9 odds, best bets: Brinson's top player props, anytime touchdown scorers picks for Sunday's games",
+      "body_text": "Back the Colts as dogs against Dallas, trust New England in Foxborough and target a low rushing total for Ashton Jeanty",
+      "author": "Will Brinson",
+      "published_at": "2026-11-07T16:25:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "New England",
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "ec7fabca-9cfa-407e-9e7e-e44e7922be29",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-candidates-impact-tiers/",
+      "title": "2026 NFL trade deadline candidates: Ranking big-name players into tiers",
+      "body_text": "From proven stars like Jonathan Taylor and Maxx Crosby to discount playmakers and depth rentals, here is a look at who could switch teams before the window closes",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-07T16:24:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Maxx Crosby"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0034973"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "25dd4b88-0fc9-4075-a8a5-d222f5ea72ec",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-rankings-top-25-eagles-colts/",
+      "title": "NFL trade deadline: Four Eagles, two more Colts and a starting QB included among top candidates",
+      "body_text": "Saquon Barkley, Jonathan Taylor, Kirk Cousins and more could fetch returns at the trade deadline",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-07T16:22:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Four Eagles",
+        "Saquon Barkley",
+        "Jonathan Taylor",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0034844",
+        "00-0036223",
+        "00-0029604"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c21cc8e2-f85d-45f9-83d4-e52b79ca81aa",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-nfl-trade-deadline-george-pickens-destinations/",
+      "title": "Cowboys should consider trading George Pickens: 5 logical destinations at NFL trade deadline",
+      "body_text": "Pickens received only four targets in Dallas' historic collapse against Arizona, adding urgency to the Cowboys' decision before the NFL trade deadline",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-07T16:21:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "9f161615-20e4-475c-bafc-2dd34bf1a67a",
+      "url": "https://www.cbssports.com/nfl/news/ravens-derrick-henry-trade-rumor-thoughts-nfl-trade-deadline/",
+      "title": "Frustrated Derrick Henry responds to trade rumors, Ravens not expected to deal him, per report",
+      "body_text": "Henry was not a happy camper after Baltimore's fourth straight setback",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-07T15:48:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Frustrated Derrick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "9edbf461-ef9a-4808-9270-3a3ab693e7b6",
+      "url": "https://www.cbssports.com/nfl/news/nfl-trade-deadline-rumors-colts-daniel-jones-vikings/",
+      "title": "NFL trade deadline rumors: Colts' Daniel Jones could get dealt and there's only one team that makes sense",
+      "body_text": "The Vikings are 6-1 despite fielding the league's second-worst passing attack, and a reunion with Kevin O'Connell makes all the sense in the world",
+      "author": "John Breech",
+      "published_at": "2026-11-07T14:18:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Daniel Jones",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "dc4679fb-04f9-4ecd-badc-57dd3a2ca34f",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-injury-report-seahawks-quenton-nelson-out-knee-procedure/",
+      "title": "NFL Week 9 injury report: Mike Evans ruled out, Seahawks' Quenton Nelson 'week-to-week' after knee procedure",
+      "body_text": "The final injury reports for every NFL team in Week 9",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-07T01:23:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mike Evans",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0031408",
+        "00-0034342"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "54b9ec83-fd6a-4b59-861c-6ad2f954b8f9",
+      "url": "https://www.cbssports.com/nfl/news/brandon-aiyuk-returns-49ers-offices-13-million-problem-looms/",
+      "title": "Brandon Aiyuk returns to 49ers offices to seek NFL reinstatement as $13 million problem looms",
+      "body_text": "The wide receiver says he is 100% healthy and filing for NFL reinstatement, though a $13 million financial dispute remains",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-07T00:39:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "03bd2dec-6313-417a-b7be-9bd49fa0bcf1",
+      "url": "https://www.cbssports.com/nfl/draft/news/is-drew-mestemaker-really-qb1-troubling-trend-lessons-from-caleb-williams-trevor-lawrence/",
+      "title": "Is Drew Mestemaker really QB1? A troubling trend and lessons from Caleb Williams, Trevor Lawrence",
+      "body_text": "The Oklahoma State QB has become a popular QB1 choice, but his mistakes under pressure offer a warning – and some fascinating historical comparisons.",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-06T20:16:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Is Drew",
+        "Caleb Williams",
+        "Trevor Lawrence",
+        "The Oklahoma"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0036971"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "cbee2bff-86e9-4558-ac30-841b5a829b61",
+      "url": "https://www.cbssports.com/nfl/news/steelers-bucs-antonio-brown-takes-plea-deal-in-miami-shooting/",
+      "title": "Antonio Brown avoids jail time, receives punishment after plea deal in Miami shooting",
+      "body_text": "The former NFL star was accused of opening fire at a man last year",
+      "author": "Brad Crawford",
+      "published_at": "2026-11-06T20:03:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Antonio Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0027793"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1616cfa0-5f54-4aec-824f-9e40ab096e00",
+      "url": "https://www.cbssports.com/nfl/news/nfl-spain-bengals-joe-burrow-full-tourist-in-madrid/",
+      "title": "NFL in Spain: Bengals star Joe Burrow goes full tourist in Madrid, reveals the one thing he hates the most",
+      "body_text": "The Bengals are fully enjoying their time in the Spanish capital, which has been taken over by Cincinnati fans",
+      "author": "John Breech",
+      "published_at": "2026-11-06T19:08:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "8b5be2a5-49c2-49e9-9bef-33eac99dd696",
+      "url": "https://www.cbssports.com/nfl/news/browns-name-starting-qb-week-9-saints-shedeur-sanders-deshaun-watson/",
+      "title": "Browns name starting QB for Week 9 game vs. Saints: Shedeur Sanders gets nod over Deshaun Watson",
+      "body_text": "Sanders briefly replaced Watson during last Sunday's loss in Pittsburgh",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-07T00:45:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Shedeur Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0040668",
+        "00-0033537"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "63635476-bb06-437f-82af-e8bba1bdedb3",
+      "url": "https://www.cbssports.com/nfl/news/myles-garrett-injury-status-rams-week-9-vs-commanders/",
+      "title": "Myles Garrett on track to be activated ahead of Rams Week 9 matchup vs. Commanders",
+      "body_text": "Los Angeles could be getting its star pass rusher back",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-06T19:38:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Myles Garrett",
+        "Rams Week",
+        "Commanders Los"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "62ad907d-813e-43b1-80f2-9de82d3d8ebf",
+      "url": "https://www.cbssports.com/nfl/news/patriots-treveyon-henderson-update-unknown-unexplainable-illness/",
+      "title": "Patriots' TreVeyon Henderson provides update on 'unknown and unexplainable' illness",
+      "body_text": "The second-year back spent several days in the hospital with neurological symptoms that affected his strength and coordination",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-06T16:55:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "781ef36f-bbba-4ec7-890c-578cb0619a46",
+      "url": "https://www.cbssports.com/nfl/news/chargers-mike-mcdaniel-calling-play-from-booth-desperation-move/",
+      "title": "Chargers' Mike McDaniel to begin calling play from the booth: Desperation move or possible fix?",
+      "body_text": "Los Angeles enters Week 9 with a 0-7 record",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-06T16:38:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "5d41771b-d550-4b11-a01c-e4ec6e8c289b",
+      "url": "https://www.cbssports.com/nfl/news/jacoby-brissett-trade-grades-cardinals-ravens-trade-deadline/",
+      "title": "Jacoby Brissett trade grades: Cardinals earn high mark, Ravens stay afloat in mutually beneficial trade",
+      "body_text": "The Ravens needed a quarterback, and the Cardinals got valuable draft capital",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-06T16:30:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jacoby Brissett",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "bc190b9b-0dc8-4c77-80e0-e1134de0d03e",
+      "url": "https://www.cbssports.com/nfl/news/nfl-trade-deadline-4-trade-options-steelers-super-bowl-contender/",
+      "title": "NFL Trade Deadline: 4 mock trades that would make Steelers a true Super Bowl contender",
+      "body_text": "Pittsburgh needs to make the most of its 6-2 start while giving Aaron Rodgers a real chance to win big in his final season",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-06T15:30:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Trade Deadline",
+        "Super Bowl",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "faf85ee8-bb60-4e25-bc83-611c9fb5feba",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-underrated-games-madrid-falcons-bengals/",
+      "title": "NFL Week 9 underrated games: An international game, two AFC vs. NFC showdowns to add to your watch list",
+      "body_text": "A look at three games you should keep an eye on this week",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-06T15:00:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

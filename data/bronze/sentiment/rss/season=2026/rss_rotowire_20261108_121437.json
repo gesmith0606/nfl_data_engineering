@@ -1,0 +1,94 @@
+{
+  "fetch_run_id": "737c69de-bdce-4850-acda-b93476420b72",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-08T12:14:37.545117+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646490",
+      "url": "https://www.rotowire.com//football/player/emeka-egbuka-18549",
+      "title": "Emeka Egbuka: Expected to return Sunday",
+      "body_text": "Egbuka (foot), who is listed as questionable for Sunday's game at Chicago, is slated to return to action, Tom Pelissero of Netflix reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-08T03:17:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Emeka Egbuka",
+        "Sunday Egbuka",
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [
+        "00-0040129"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646489",
+      "url": "https://www.rotowire.com//football/player/amon-ra-st-brown-15332",
+      "title": "Amon-Ra St. Brown: In line to play Sunday",
+      "body_text": "St. Brown (ribs) is slated to play in Sunday's game at Miami, Tom Pelissero of Netflix reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-08T03:09:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Tom Pelissero"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646440",
+      "url": "https://www.rotowire.com//football/player/demarcus-robinson-11163",
+      "title": "Demarcus Robinson: Off IR, clear for Sunday",
+      "body_text": "Robinson (ankle) was activated from injured reserve Saturday, per Matt Maiocco of NBC Sports Bay Area, and the 49ers removed his questionable designation for Sunday's game versus the Raiders.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-07T01:45:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Demarcus Robinson",
+        "Sunday Robinson",
+        "Matt Maiocco",
+        "Sports Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0032775"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646439",
+      "url": "https://www.rotowire.com//football/player/pat-bryant-18562",
+      "title": "Pat Bryant: Activated from IR",
+      "body_text": "Bryant (ankle) was activated from injured reserve Saturday, but he remains questionable for Sunday's game in Carolina, Zac Stevens of TheDNVR.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-07T01:35:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Pat Bryant",
+        "Zac Stevens"
+      ],
+      "resolved_player_ids": [
+        "00-0040134"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646436",
+      "url": "https://www.rotowire.com//football/player/jordyn-tyson-19233",
+      "title": "Jordyn Tyson: Activated from injured reserve",
+      "body_text": "Tyson (hamstring) was activated from injured reserve Saturday, but he remains questionable for Sunday's game against the Browns.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-07T01:10:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jordyn Tyson"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "CLE"
+    }
+  ]
+}

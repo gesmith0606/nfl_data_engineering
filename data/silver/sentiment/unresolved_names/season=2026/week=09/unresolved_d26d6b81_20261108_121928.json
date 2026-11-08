@@ -1,0 +1,90 @@
+{
+  "batch_id": "d26d6b81",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-08T12:19:28.487872+00:00",
+  "record_count": 9,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-jordan-will-become-third-defensive-player-to-play-250-games-with-same-team",
+      "player_name": "Cam Jordan",
+      "team_abbr": "NO",
+      "category": "general",
+      "summary": "Saints defensive end Cam Jordan will reach rare 250-game milestone with same team against Browns on Sunday.",
+      "source_excerpt": "When the Saints host the Browns on Sunday, New Orleans defensive end Cam Jordan will reach a rare milestone.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-olb-malachi-lawrence-on-ir-activate-olb-marist-liufau-from-ir",
+      "player_name": "Malachi Lawrence",
+      "team_abbr": "DAL",
+      "category": "injury",
+      "summary": "Cowboys place OLB Malachi Lawrence on injured reserve Saturday.",
+      "source_excerpt": "The Cowboys placed outside linebacker Malachi Lawrence on injured reserve, the team announced Saturday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-activate-dt-johnny-newton-from-injured-reserve",
+      "player_name": "Johnny Newton",
+      "team_abbr": "WAS",
+      "category": "usage",
+      "summary": "Commanders activate DT Johnny Newton from injured reserve.",
+      "source_excerpt": "The Commanders are activating defensive tackle Johnny Newton from injured reserve, Ian Rapoport of NFL Media reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "69ec45f8-8530-4ae1-b500-b63c1b26f067",
+      "player_name": "Jonah Coleman",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Rookie RB Jonah Coleman highlighted as strong value play for anytime TD against Panthers defense in Week 9.",
+      "source_excerpt": "Target strong value in the red zone this week with five picks, including rookie runner Jonah Coleman against a reeling Panthers defense",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "c122c471-b74a-34e3-a731-a0f99e533f2f",
+      "player_name": "Jack Ham",
+      "team_abbr": "PIT",
+      "category": "injury",
+      "summary": "Hall of Fame Steelers LB Jack Ham hospitalized; unclear if current player or historical figure.",
+      "source_excerpt": "Steelers legend Jack Ham hospitalized.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "52950b50-7570-3951-a847-b1399363d433",
+      "player_name": "Cam Jordan",
+      "team_abbr": "NO",
+      "category": "general",
+      "summary": "Cam Jordan will become third defensive player to play 250 games with same team (Saints).",
+      "source_excerpt": "When the Saints host the Browns on Sunday, New Orleans defensive end Cam Jordan will reach a rare milestone.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "beb8d03c-ee5c-3de5-b373-64041f754181",
+      "player_name": "Zion Young",
+      "team_abbr": "BAL",
+      "category": "usage",
+      "summary": "Zion Young stepping up after Tavius Robinson's season-ending injury; second-round pick showing value.",
+      "source_excerpt": "With Tavius Robinson out for the year, Zion Young is showing why the Ravens drafted him in the second round.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-olb-malachi-lawrence-on-ir-activate-olb-marist-liufau-from-ir",
+      "player_name": "Malachi Lawrence",
+      "team_abbr": "DAL",
+      "category": "injury",
+      "summary": "Cowboys OLB Malachi Lawrence placed on injured reserve.",
+      "source_excerpt": "The Cowboys placed outside linebacker Malachi Lawrence on injured reserve, the team announced Saturday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-activate-dt-johnny-newton-from-injured-reserve",
+      "player_name": "Johnny Newton",
+      "team_abbr": "WAS",
+      "category": "injury",
+      "summary": "Commanders activate defensive tackle Johnny Newton from injured reserve.",
+      "source_excerpt": "The Commanders are activating defensive tackle Johnny Newton from injured reserve, Ian Rapoport of NFL Media reports.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
