@@ -1,0 +1,495 @@
+{
+  "fetch_run_id": "fca67033-6d99-459b-95ad-4b962da1afb3",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-09T12:17:10.440966+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-expect-terrance-ferguson-to-miss-another-couple-weeks-with-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-expect-terrance-ferguson-to-miss-another-couple-weeks-with-hamstring-injury",
+      "title": "Rams expect Terrance Ferguson to miss \"another couple weeks\" with hamstring injury",
+      "body_text": "The Rams planned to have tight end Terrance Ferguson come off of injured reserve to play against the Commanders in Week 9, but he wound up being ruled out after Friday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T12:00:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Terrance Ferguson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0040737"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-bears-barked-out-the-buccaneers-cadence-causing-a-false-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-bears-barked-out-the-buccaneers-cadence-causing-a-false-start",
+      "title": "Baker Mayfield: Bears barked out the Buccaneers' cadence, causing a false start",
+      "body_text": "The Buccaneers were flagged for five false starts on Sunday night, and quarterback Baker Mayfield said at least one of them was caused by an illegal tactic by the Bears.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-09T11:50:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-sundays-game-definitely-up-there-with-best-ive-ever-played",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-sundays-game-definitely-up-there-with-best-ive-ever-played",
+      "title": "Jordan Love: Sunday's game \"definitely up there\" with best I've ever played",
+      "body_text": "Packers quarterback Jordan Love ran for a touchdown to stake the team to a lead 100 seconds into Sunday's game in New England, but he used his right arm as his main weapon over the rest of the 45-27 win.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T11:42:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Love",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-wr-luther-burden-suffered-a-concussion-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-wr-luther-burden-suffered-a-concussion-on-sunday-night",
+      "title": "Bears WR Luther Burden suffered a concussion on Sunday night",
+      "body_text": "Bears wide receiver Luther Burden went for a medical evaluation near the end of Sunday night's win over the Buccaneers and head coach Ben Johnson updated his condition after the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T11:29:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Luther Burden",
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0040735",
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carl-granderson-saints-defense-was-disrespected-so-we-came-in-ready-to-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carl-granderson-saints-defense-was-disrespected-so-we-came-in-ready-to-play",
+      "title": "Carl Granderson: Saints defense was disrespected, so we came in ready to play",
+      "body_text": "Browns quarterback Shedeur Sanders's response to questions about the Saints defense leading into Sunday's game drew the ire of Saints linebacker Carl Granderson and they remained on his mind after a 23-22 overtime win.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T11:21:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carl Granderson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0035402",
+        "00-0040668"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tee-higgins-thinks-joe-burrow-has-another-step-in-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tee-higgins-thinks-joe-burrow-has-another-step-in-him",
+      "title": "Tee Higgins thinks Joe Burrow has \"another step in him\"",
+      "body_text": "The Bengals extended their winning streak to four games against the Falcons in Madrid on Sunday and they continued to use their aerial attack to fuel their success.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T11:08:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tee Higgins",
+        "Joe Burrow",
+        "The Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0036410",
+        "00-0036442"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-fox-tried-to-create-a-narrative-about-me-being-a-bad-teammate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-fox-tried-to-create-a-narrative-about-me-being-a-bad-teammate",
+      "title": "Malik Nabers: Fox tried to \"create a narrative\" about me being a bad teammate",
+      "body_text": "Giants wide receiver Malik Nabers took to social media on Sunday night to express his displeasure with how he was portrayed during the Fox broadcast of his team's 19-11 win over the Eagles.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T10:55:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-had-5-catches-for-5-yards-on-another-awful-day-for-raiders-running-backs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeanty-had-5-catches-for-5-yards-on-another-awful-day-for-raiders-running-backs",
+      "title": "Ashton Jeanty had 5 catches for -5 yards on another awful day for Raiders' running backs",
+      "body_text": "The Raiders' running back situation has been awful all season, but it hit a new low in Sunday's loss to the 49ers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-09T10:04:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ashton Jeanty",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-nfl-trade-deadline-live-updates-tracker-deals-news-rumors-analysis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-nfl-trade-deadline-live-updates-tracker-deals-news-rumors-analysis",
+      "title": "2026 NFL Trade Deadline live updates: Tracker, deals, news, rumors, analysis",
+      "body_text": "Jeffery Simmons, DeForest Buckner, Quenton Nelson and more big-name NFL players are on the move.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-09T05:01:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Trade Deadline",
+        "Jeffery Simmons",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0034342"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-i-could-throw-100-picks-and-i-wouldnt-get-gun-shy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-i-could-throw-100-picks-and-i-wouldnt-get-gun-shy",
+      "title": "Caleb Williams: I could throw 100 picks and I wouldn't get gun-shy",
+      "body_text": "Williams threw four interceptions on Sunday night but still led the Bears to a win over the Buccaneers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-09T09:11:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-bears-overcome-five-giveaways-beat-bucs-27-24",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-bears-overcome-five-giveaways-beat-bucs-27-24",
+      "title": "Sunday Night Football: Bears overcome five giveaways, beat Bucs 27-24",
+      "body_text": "Caleb Williams threw four interceptions, but the Buccaneers could not capitalize on the opportunities enough to win.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-09T04:53:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-calvin-ridley-was-involved-in-an-incident-at-nashville-international-airport",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-wr-calvin-ridley-was-involved-in-an-incident-at-nashville-international-airport",
+      "title": "Titans WR Calvin Ridley was involved in an incident at Nashville International Airport",
+      "body_text": "The Titans had a bye in Week 9.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-09T04:13:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Calvin Ridley",
+        "Nashville International",
+        "Airport The"
+      ],
+      "resolved_player_ids": [
+        "00-0034837"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-caleb-williams-fourth-int-jaylon-johnson-nabs-pick-six-off-baker-mayfield",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-caleb-williams-fourth-int-jaylon-johnson-nabs-pick-six-off-baker-mayfield",
+      "title": "After Caleb Williams' fourth INT, Jaylon Johnson nabs pick-six off Baker Mayfield",
+      "body_text": "Though they didn't score off a blocked punt in the third quarter, the Buccaneers did get another takeaway with a fourth interception off Caleb Williams.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-09T03:48:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "After Caleb",
+        "Jaylon Johnson",
+        "Baker Mayfield",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036292",
+        "00-0034855",
+        "00-0039918"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-hopes-to-reverse-struggles-against-demeco-ryans-defenses",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-hopes-to-reverse-struggles-against-demeco-ryans-defenses",
+      "title": "Justin Herbert hopes to reverse struggles against DeMeco Ryans defenses",
+      "body_text": "Chargers quarterback Justin Herbert is generally struggling this year.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-08T20:39:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-roll-chargers-in-first-half-take-24-9-lead-to-locker-room",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-roll-chargers-in-first-half-take-24-9-lead-to-locker-room",
+      "title": "Texans roll Chargers in first half, take 24-9 lead to locker room",
+      "body_text": "The Texans have figured out how to fix their defense: Play the Chargers.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-08T22:50:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-acrobatic-td-catch-gives-texans-31-9-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nico-collins-acrobatic-td-catch-gives-texans-31-9-lead",
+      "title": "Nico Collins' acrobatic TD catch gives Texans 31-9 lead",
+      "body_text": "Nico Collins made one of the best touchdown catches you will ever see in the third quarter on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-08T23:24:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nico Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-score-first-td-since-oct-11-going-37-possessions-without-one",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-score-first-td-since-oct-11-going-37-possessions-without-one",
+      "title": "Chargers score first TD since Oct. 11, going 37 possessions without one",
+      "body_text": "The streak is over.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-08T23:56:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-appears-to-injure-middle-finger-on-left-hand",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-appears-to-injure-middle-finger-on-left-hand",
+      "title": "Justin Herbert appears to injure middle finger on left hand",
+      "body_text": "The Chargers quarterback left in the fourth quarter, but the score was 41-15 when he departed.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-09T00:15:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-has-a-possible-fracture-in-his-left-middle-finger",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-has-a-possible-fracture-in-his-left-middle-finger",
+      "title": "Justin Herbert has a possible fracture in his left middle finger",
+      "body_text": "The Chargers quarterback was injured in the fourth quarter of the 44-22 loss to the Texans.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-09T01:16:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-blow-out-chargers-44-22-as-c-j-stroud-throws-five-tds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-blow-out-chargers-44-22-as-c-j-stroud-throws-five-tds",
+      "title": "Texans blow out Chargers 44-22 as C.J. Stroud throws five TDs",
+      "body_text": "The Texans might not be back, considering it was the Chargers they blew out, but they can't be counted out just yet either.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-09T00:32:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/video-emerges-of-parking-lot-brawl-at-raiders-49ers-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/video-emerges-of-parking-lot-brawl-at-raiders-49ers-game",
+      "title": "Video emerges of parking lot brawl at Raiders-49ers game",
+      "body_text": "It remains to be seen whether the first Raiders game at Levi's Stadium in eight years matched or exceeded the 32 arrests made in the building in 2018.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-09T03:29:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-score-to-start-third-quarter-trail-bears-17-13",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-score-to-start-third-quarter-trail-bears-17-13",
+      "title": "Bucs score to start third quarter, trail Bears 17-13",
+      "body_text": "In his halftime interview with NBC, Buccaneers head coach Todd Bowles said that he didn't go for a touchdown to close the second quarter largely because his team was going to receive the second-half kickoff with a chance to double up.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-09T03:21:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Todd Bowles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-return-to-bay-area-and-the-jail-at-levis-stadium-could-be-busy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-return-to-bay-area-and-the-jail-at-levis-stadium-could-be-busy",
+      "title": "Raiders return to Bay Area — and the jail at Levi's Stadium could be busy",
+      "body_text": "The Raiders left Oakland, for the second time, after the 2019 season.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-08T16:04:08+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bay Area",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dominating-raiders-lead-21-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dominating-raiders-lead-21-10-at-halftime",
+      "title": "49ers dominating Raiders, lead 21-10 at halftime",
+      "body_text": "The 49ers offense has been tough to stop all year and that has remained the case in Sunday’s game against the Raiders.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-08T22:41:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaden-dugger-pick-six-puts-49ers-up-28-10-early-in-third-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaden-dugger-pick-six-puts-49ers-up-28-10-early-in-third-quarter",
+      "title": "Jaden Dugger pick-six puts 49ers up 28-10 early in third quarter",
+      "body_text": "Things are starting to get out of hand in Santa Clara.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-08T22:59:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaden Dugger",
+        "Santa Clara"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-sets-record-for-most-receptions-by-a-te-in-first-three-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-sets-record-for-most-receptions-by-a-te-in-first-three-seasons",
+      "title": "Brock Bowers sets record for most receptions by a TE in first three seasons",
+      "body_text": "Brock Bowers is good — really good.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-08T23:44:35+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Bowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-gracen-halton-carted-off-with-an-air-cast-in-fourth-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-gracen-halton-carted-off-with-an-air-cast-in-fourth-quarter",
+      "title": "49ers DT Gracen Halton carted off with an air cast in fourth quarter",
+      "body_text": "The 49ers have lost another defensive player.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-09T00:09:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gracen Halton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-beat-raiders-38-17-improve-to-7-1-in-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-beat-raiders-38-17-improve-to-7-1-in-2026",
+      "title": "49ers beat Raiders 38-17, improve to 7-1 in 2026",
+      "body_text": "San Francisco picked up five takeaways to beat Las Vegas in Week 9.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-09T00:23:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "San Francisco",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-becomes-an-option-for-a-contender-like-the-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-becomes-an-option-for-a-contender-like-the-vikings",
+      "title": "Kirk Cousins becomes an option for a contender, like the Vikings",
+      "body_text": "With a switch from veteran quarterback Kirk Cousins to rookie Fernando Mendoza seemingly inevitable, the question becomes whether the Raiders will explore trading Cousins to a quarterback-needy contender.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-09T02:25:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Vikings With",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-despite-three-caleb-williams-ints-bears-lead-17-6-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-despite-three-caleb-williams-ints-bears-lead-17-6-at-halftime",
+      "title": "Sunday Night Football: Despite three Caleb Williams INTs, Bears lead 17-6 at halftime",
+      "body_text": "The Buccaneers scored just three points off of Williams' interceptions in the first half.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-09T02:59:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Caleb Williams",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "batch_id": "26306f08",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-09T12:23:04.648880+00:00",
+  "record_count": 9,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-score-to-start-third-quarter-trail-bears-17-13",
+      "player_name": "Todd Bowles",
+      "team_abbr": "TB",
+      "category": "general",
+      "summary": "Buccaneers head coach Todd Bowles discussed decision-making at end of second quarter halftime.",
+      "source_excerpt": "In his halftime interview with NBC, Buccaneers head coach Todd Bowles said that he didn't go for a touchdown to close the second quarter largely because his team was going to receive the second-half kickoff with a chance to double up.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaden-dugger-pick-six-puts-49ers-up-28-10-early-in-third-quarter",
+      "player_name": "Jaden Dugger",
+      "team_abbr": "SF",
+      "category": "general",
+      "summary": "49ers safety Jaden Dugger records pick-six defensive touchdown to extend lead to 28-10.",
+      "source_excerpt": "Things are starting to get out of hand in Santa Clara.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-gracen-halton-carted-off-with-an-air-cast-in-fourth-quarter",
+      "player_name": "Gracen Halton",
+      "team_abbr": "SF",
+      "category": "injury",
+      "summary": "49ers DT Gracen Halton carted off with an air cast in fourth quarter, indicating potential serious injury.",
+      "source_excerpt": "The 49ers have lost another defensive player.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl646805",
+      "player_name": "Kenny Gainwell",
+      "team_abbr": "PHI",
+      "category": "usage",
+      "summary": "Kenny Gainwell accumulated 304 yards over last three games, demonstrating consistent receiving usage with 60 yards in 27-24 loss to Bears.",
+      "source_excerpt": "Gainwell rushed five times for 16 yards and caught all three of his targets for 60 yards in Sunday's 27-24 loss to the Bears.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl646805",
+      "player_name": "Kenny Gainwell",
+      "team_abbr": "PHI",
+      "category": "usage",
+      "summary": "Gainwell rushed 5 times for 16 yards and caught all 3 targets for 60 yards in Philadelphia's 27-24 loss to Chicago, extending his 304-yard streak.",
+      "source_excerpt": "Gainwell rushed five times for 16 yards and caught all three of his targets for 60 yards in Sunday's 27-24 loss to the Bears.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "559031d3-0200-3be2-bf06-bb954f8a0a1c",
+      "player_name": "David Bailey",
+      "team_abbr": "NYJ",
+      "category": "general",
+      "summary": "David Bailey provided historic performance in Jets loss to Chiefs.",
+      "source_excerpt": "David Bailey Provides Historic Silver Lining in Loss to Chiefs",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "aca28548-92eb-31e0-b1d5-6cab4cb55424",
+      "player_name": "Jim Harbaugh",
+      "team_abbr": "LAC",
+      "category": "general",
+      "summary": "Jim Harbaugh criticized as Chargers struggle with 0-8 record.",
+      "source_excerpt": "Jim Harbaugh is a clown and the Chargers are his circus",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaden-dugger-pick-six-puts-49ers-up-28-10-early-in-third-quarter",
+      "player_name": "Jaden Dugger",
+      "team_abbr": "SF",
+      "category": "general",
+      "summary": "Jaden Dugger returns interception for touchdown, extending 49ers' lead to 28-10 over Raiders.",
+      "source_excerpt": "Things are starting to get out of hand in Santa Clara.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-dt-gracen-halton-carted-off-with-an-air-cast-in-fourth-quarter",
+      "player_name": "Gracen Halton",
+      "team_abbr": "SF",
+      "category": "injury",
+      "summary": "49ers DT Gracen Halton carted off field with air cast in fourth quarter due to injury.",
+      "source_excerpt": "The 49ers have lost another defensive player.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "batch_id": "26306f08",
+  "season": 2026,
+  "week": 9,
+  "computed_at": "2026-11-09T12:23:04.641910+00:00",
+  "record_count": 11,
+  "records": [
+    {
+      "doc_id": "fd84f740-575d-4b19-895f-dc1aedb47e08",
+      "external_id": "fd84f740-575d-4b19-895f-dc1aedb47e08",
+      "team_abbr": null,
+      "summary": "Week 9 team grades issued; Patriots among failing teams, Cowboys barely passing.",
+      "sentiment": -0.2,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "NFL Week 9 grades for every team: Patriots among two teams with failing grades, Cowboys barely pass",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "efdfec37-6847-46b7-99cf-a31879f9be70",
+      "external_id": "efdfec37-6847-46b7-99cf-a31879f9be70",
+      "team_abbr": null,
+      "summary": "2027 NFL Draft order and team positional needs published for all 32 teams' first-round picks.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "2027 NFL Draft order, team needs: Full first-round picks for all 32 teams",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0190a527-50d0-4e18-89df-0dc37a47239f",
+      "external_id": "0190a527-50d0-4e18-89df-0dc37a47239f",
+      "team_abbr": null,
+      "summary": "Promotional content for Kalshi trading platform with NFL Week 9 bonus offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 9 Buccaneers vs. Bears SNF matchup",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "99fc693a-e7ef-4507-a396-0d6d207f68c4",
+      "external_id": "99fc693a-e7ef-4507-a396-0d6d207f68c4",
+      "team_abbr": null,
+      "summary": "Article ranks 20 rumored NFL trade deadline targets by playoff and Super Bowl impact potential.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "trade",
+      "source_excerpt": "With the 2026 NFL trade deadline approaching, we rank 20 rumored targets by the impact they could have on the playoff and Super Bowl races",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1e366587-f4b8-48d5-a8d0-b805a2beeac7",
+      "external_id": "1e366587-f4b8-48d5-a8d0-b805a2beeac7",
+      "team_abbr": null,
+      "summary": "Promotional content for Polymarket trading platform with NFL Week 9 SNF bonus offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Use the latest Polymarket promo code to make predictions for Sunday Night Football in NFL Week 9",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "dbd8f7a7-6354-4aa2-849f-48ab530b0ad7",
+      "external_id": "dbd8f7a7-6354-4aa2-849f-48ab530b0ad7",
+      "team_abbr": null,
+      "summary": "Betting promotion for NFL games featuring Packers-Patriots and Bears-Buccaneers matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "57043218-8881-49de-896a-9fb12288dc74",
+      "external_id": "57043218-8881-49de-896a-9fb12288dc74",
+      "team_abbr": null,
+      "summary": "Trading prediction markets for Week 9 Raiders vs. 49ers matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a closer look at the top trading markets available at Kalshi for Sunday's Week 9 matchup between Las Vegas and San Francisco",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "91b5148f-2e4c-4fa3-a803-ee8bc038fbec",
+      "external_id": "91b5148f-2e4c-4fa3-a803-ee8bc038fbec",
+      "team_abbr": null,
+      "summary": "Prediction markets for Week 9 Cardinals vs. Seahawks NFL matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "We'll go over the prediction markets available for NFL Week 9 action between the Cardinals and Seahawks",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "215bb099-1b52-4bf8-8f6f-f36908298010",
+      "external_id": "215bb099-1b52-4bf8-8f6f-f36908298010",
+      "team_abbr": null,
+      "summary": "Analysts Nate Tice and Hayden Winks discuss Week 9 takeaways including Packers dominance and Bears' ugly win.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Nate Tice & Hayden Winks dive into their instant takeaways from Week 9 of NFL action.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "e138ffbb-d4e5-3582-a9a7-e501d6d62c74",
+      "external_id": "e138ffbb-d4e5-3582-a9a7-e501d6d62c74",
+      "team_abbr": null,
+      "summary": "Week 9 summary showing Bengals and Packers impressed while Bears and Broncos grinded out wins.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Chicago Bears and Denver Broncos grind out wins while the Cincinnati Bengals and Green Bay Packers put on a show as the NFL season reaches the halfway point.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "e722e80d-0386-30ca-9a18-8a2f3202bbbc",
+      "external_id": "e722e80d-0386-30ca-9a18-8a2f3202bbbc",
+      "team_abbr": null,
+      "summary": "Week 9 winners and losers including Packers' rout over Patriots and 49ers Bay Area victory.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Here are the best and worst performers from Sunday's games.",
+      "subject_type": "reporter"
+    }
+  ]
+}

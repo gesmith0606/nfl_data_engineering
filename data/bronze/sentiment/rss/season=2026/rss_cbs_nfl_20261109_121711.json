@@ -1,0 +1,582 @@
+{
+  "fetch_run_id": "fca67033-6d99-459b-95ad-4b962da1afb3",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-09T12:17:11.566844+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "36de25df-14c3-4406-b374-e524b6fe1ef7",
+      "url": "https://www.cbssports.com/nfl/news/vikings-vs-bills-prediction-odds-line-josh-allen-monday-night-football/",
+      "title": "Vikings vs. Bills prediction, odds, line: Josh Allen faces NFL's top defense on Monday night",
+      "body_text": "Josh Allen and Buffalo's explosive offense face Brian Flores' dominant defense, while Carson Wentz replaces the injured Kyler Murray",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-09T11:55:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Allen",
+        "Brian Flores",
+        "Carson Wentz",
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0032950",
+        "00-0035228"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "0a881b4f-a949-4437-99c9-0f828c63c7e9",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-whos-buying-whos-selling/",
+      "title": "2026 NFL trade deadline: Who's buying, who's selling, plus biggest names, led by Jonathan Taylor",
+      "body_text": "Plus, there are a few wild cards in play ahead of Tuesday's deadline",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-09T11:00:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "88675c66-5e2b-4f75-92fc-f5c7661d19f4",
+      "url": "https://www.cbssports.com/nfl/news/are-broncos-nfls-luckiest-super-bowl-contender/",
+      "title": "Are the Broncos the NFL's luckiest Super Bowl contender? Their 7-2 start is unlike anything we've ever seen",
+      "body_text": "Denver keeps winning despite historically troubling numbers. Here's how they're pulling it off -- and what history says happens next.",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-09T11:00:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "fd84f740-575d-4b19-895f-dc1aedb47e08",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-grades-cowboys-bengals-patriots-packers/",
+      "title": "NFL Week 9 grades for every team: Patriots among two teams with failing grades, Cowboys barely pass",
+      "body_text": "We're handing out grades for every team that played in Week 9",
+      "author": "John Breech",
+      "published_at": "2026-11-09T05:13:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "efdfec37-6847-46b7-99cf-a31879f9be70",
+      "url": "https://www.cbssports.com/nfl/news/2027-nfl-draft-order-team-needs/",
+      "title": "2027 NFL Draft order, team needs: Full first-round picks for all 32 teams",
+      "body_text": "See where every team picks in the first round and which positions each franchise could target in the 2027 NFL Draft",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-09T05:03:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "98c77d07-1d45-4fc1-9bce-7dd4065d8f78",
+      "url": "https://www.cbssports.com/nfl/news/titans-calvin-ridley-involved-in-incident-nashville-airport/",
+      "title": "Titans' Calvin Ridley involved in 'incident' at Nashville International Airport, per report",
+      "body_text": "Ridley has been the subject of trade rumors in recent weeks",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-09T04:55:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Calvin Ridley",
+        "Nashville International"
+      ],
+      "resolved_player_ids": [
+        "00-0034837"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "44a40bce-6748-4f44-b021-3db4e3d13b20",
+      "url": "https://www.cbssports.com/nfl/news/drew-lock-suffers-oblique-injury-week-10-status-seahawks-could-start-jalen-milroe/",
+      "title": "Drew Lock suffers oblique injury, Week 10 status up in the air: Seahawks could have to start Jalen Milroe",
+      "body_text": "Lock was already filling in for Sam Darnold, who missed Week 9 with quad and rib injuries",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-09T02:10:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drew Lock",
+        "Jalen Milroe",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0035704",
+        "00-0040673",
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "97719263-96d4-4783-9d43-42bd6218005a",
+      "url": "https://www.cbssports.com/nfl/news/josh-jacobs-breaks-finger-packers-win-over-patriots-trade-deadline/",
+      "title": "Josh Jacobs breaks finger during Packers' win over Patriots, could Green Bay trade for a RB?",
+      "body_text": "Jacobs hopes to play through the issue, but grip struggles could force Green Bay to pursue running back help before Tuesday's trade deadline",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-09T01:48:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "f699a27b-4a1a-417c-9260-f2cf8f535792",
+      "url": "https://www.cbssports.com/nfl/news/patrick-mahomes-injury-update-mri-chiefs-qb-elbow/",
+      "title": "Patrick Mahomes injury update: MRI reveals no significant damage to Chiefs QB's elbow",
+      "body_text": "An MRI revealed no significant injury after Mahomes' right elbow bent awkwardly",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-09T01:35:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "76b29810-76ca-4a61-b308-2a74814c780b",
+      "url": "https://www.cbssports.com/nfl/news/daniel-jones-trade-rumors-colts-nfl-deadline/",
+      "title": "Daniel Jones trade rumors: Colts tell QB he will not be dealt before NFL deadline, per report",
+      "body_text": "The 2-7 Colts have taken Daniel Jones off the market, even as Jonathan Taylor and several teammates remain names to watch",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-09T01:22:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Daniel Jones",
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "9cc55219-37b2-438c-86a9-08a53d09fea9",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-overreactions-joe-burrow-mvp-shedeur-sanders-deserves-to-remain-starter/",
+      "title": "NFL Week 9 overreactions: Joe Burrow or Jordan Love for MVP? Shedeur Sanders deserves to remain starter?",
+      "body_text": "Plus, speaking of MVPs, last year's is struggling",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-09T00:56:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Jordan Love",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0036264",
+        "00-0040668"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "8c46d4e1-e28b-4ce6-a7d8-9c6dc8f98615",
+      "url": "https://www.cbssports.com/betting/news/buccaneers-vs-bears-odds-nfl-week-9-sunday-night-football-first-touchdown-scorer-picks-predictions/",
+      "title": "Buccaneers vs. Bears odds: NFL Week 9 Sunday Night Football first touchdown scorer picks, predictions",
+      "body_text": "Here are our top picks for first touchdown prediction markets on Sunday Night Football between the Bears and Buccaneers",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-09T00:44:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ba6b02f3-9055-42a6-9798-d2fbc97e66ee",
+      "url": "https://www.cbssports.com/betting/news/buccaneers-vs-bears-prediction-odds-betting-preview-start-time-sunday-night-football-picks-best-bets/",
+      "title": "Buccaneers vs. Bears prediction, odds, betting preview, start time: Sunday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Buccaneers vs. Bears on Sunday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-09T00:40:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "9ac2c464-a6b1-448d-87e4-34229137b038",
+      "url": "https://www.cbssports.com/nfl/news/colts-jonathan-taylor-says-goodbye-indianapolis-nfl-trade-deadline/",
+      "title": "Jonathan Taylor says goodbye to Indianapolis as trade deadline nears: 'Just know it was a pleasure'",
+      "body_text": "Taylor expressed gratitude to the city and fans following Sunday's loss as Indianapolis faces a Tuesday deadline decision",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-09T00:36:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "178162a0-2341-4290-ba22-8f001e8f8bb5",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-free-nba-league-pass-for-bears-buccaneers-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus + free NBA League Pass for Bears-Buccaneers, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-09T00:29:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "15c3270e-57bf-44d0-afb0-94ad8144a121",
+      "url": "https://www.cbssports.com/prediction/news/buccaneers-vs-bears-odds-sunday-night-football-predictions-use-kalshi-promo-code-cbssports55-55-bonus/",
+      "title": "Buccaneers vs. Bears odds, Sunday Night Football predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "We'll go over the prediction markets available for NFL Week 9's edition of Sunday Night Football featuring Chicago and Tampa Bay",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-09T00:18:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Use Kalshi",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "7e0b39b9-ab1f-497c-a773-687c2d35a97c",
+      "url": "https://www.cbssports.com/betting/news/buccaneers-vs-bears-picks-prediction-player-props-experts-best-bets-for-nfl-week-9-sunday-night-football/",
+      "title": "Buccaneers vs. Bears picks, prediction, player props: Expert's best bets for NFL Week 9 Sunday Night Football",
+      "body_text": "Targeting a 6-point favorite, anytime touchdown value at +380 and key player props featuring Baker Mayfield and Luther Burden III",
+      "author": "Will Brinson",
+      "published_at": "2026-11-08T23:50:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Targeting",
+        "Baker Mayfield",
+        "Luther Burden III"
+      ],
+      "resolved_player_ids": [
+        "00-0034855",
+        "00-0040735"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "0190a527-50d0-4e18-89df-0dc37a47239f",
+      "url": "https://www.cbssports.com/nfl/news/best-kalshi-promo-code-cbssports55-receive-55-bonus-buccaneers-vs-bears-sunday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Receive $55 bonus for Buccaneers vs. Bears on Sunday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 9 Buccaneers vs. Bears SNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-08T23:40:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "9ebd7e45-5a79-4bac-a43b-9b5d772b5020",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-winners-and-losers-jamarr-chase-bengals-commanders/",
+      "title": "NFL Week 9 winners and losers: Ja'Marr Chase, Packers WRs go ballistic while Drake Maye's turnover woes return",
+      "body_text": "Ja'Marr Chase's historic first half in Madrid led Sunday's standout performances",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T01:38:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marr Chase",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "80630c53-5c6d-494b-a4c9-235ffee3305d",
+      "url": "https://www.cbssports.com/nfl/news/how-browns-shadeur-sanders-fared-season-debut-saints/",
+      "title": "How Shedeur Sanders fared in first 2026 start: Browns QB shines late vs. Saints",
+      "body_text": "Sanders sparked a high-scoring finish that has analysts calling for him to keep the job over Deshaun Watson",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-08T23:46:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "How Shedeur",
+        "Saints Sanders",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "99fc693a-e7ef-4507-a396-0d6d207f68c4",
+      "url": "https://www.cbssports.com/nfl/news/nfl-trade-deadline-2026-ranking-20-impact-players/",
+      "title": "NFL trade deadline 2026: Ranking 20 players who could have the biggest impact if dealt",
+      "body_text": "With the 2026 NFL trade deadline approaching, we rank 20 rumored targets by the impact they could have on the playoff and Super Bowl races",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-08T23:05:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "f9f1209a-198d-4d18-a493-4cb9f34c0909",
+      "url": "https://www.cbssports.com/nfl/news/puka-nacua-injury-rams-wr-undergo-mri-knee-injury-on-final-snap/",
+      "title": "Puka Nacua injury: Rams WR to undergo MRI after suffering knee injury on final snap, per report",
+      "body_text": "The Rams do not believe Nacua suffered a torn ACL, but the wide receiver will undergo imaging on Monday to confirm",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-08T23:04:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Puka Nacua",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "1e366587-f4b8-48d5-a8d0-b805a2beeac7",
+      "url": "https://www.cbssports.com/prediction/news/buccaneers-vs-bears-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus-for-snf/",
+      "title": "Buccaneers vs. Bears odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus for SNF",
+      "body_text": "Use the latest Polymarket promo code to make predictions for Sunday Night Football in NFL Week 9",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-08T22:52:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "fdc7f23b-5644-4c96-9a64-6984eab2bde8",
+      "url": "https://www.cbssports.com/nfl/news/10-nfl-trades-deadline-derrick-henry-patriots-budda-baker-bills/",
+      "title": "10 NFL trades that need to happen: Derrick Henry to Patriots, Budda Baker to Bills among options",
+      "body_text": "Kirk Cousins returns to Minnesota, George Pickens heads to Las Vegas and more aggressive moves contenders should make before Tuesday's trade deadline",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-08T21:46:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Derrick Henry",
+        "Budda Baker",
+        "Kirk Cousins",
+        "George Pickens",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [
+        "00-0032764",
+        "00-0033890",
+        "00-0029604",
+        "00-0037247"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "9a75cf39-83b4-4232-9b76-dc382978f07e",
+      "url": "https://www.cbssports.com/nfl/news/giants-j-j-mccarthy-hip-injury-update-vs-eagles/",
+      "title": "Giants' J.J. McCarthy returns against Eagles after hip injury sent QB to locker room",
+      "body_text": "Jameis Winston briefly entered the Week 9 contest in relief of McCarthy",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-08T20:41:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "036a84d3-645d-4514-b6db-90d68b45d64f",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-packers-patriots-buccaneers-bears-nfl-betting/",
+      "title": "Use FanDuel promo code to get $200 bonus bets for Packers-Patriots, Buccaneers-Bears, NFL betting",
+      "body_text": "Sign up to wager on NFL Week 9 on Sunday with the latest FanDuel promo code to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-08T20:07:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "1ce278b8-7041-4e49-b9dd-b2926d350898",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-looking-to-trade-for-wide-receiver-nfl-trade-deadline/",
+      "title": "Chiefs looking to trade for wide receiver, GM Brett Veach tells NFL on CBS' Tracy Wolfson",
+      "body_text": "Kansas City has one of the NFL's least-productive wide receiver corps in 2026",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-08T20:08:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brett Veach",
+        "Tracy Wolfson",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "cdac941c-7e9b-4445-b374-ed0d4d8bdda4",
+      "url": "https://www.cbssports.com/betting/news/packers-vs-patriots-odds-picks-prediction-spread-line-start-time-nfl-week-9-betting-preview-best-bets/",
+      "title": "Packers vs. Patriots odds, picks, prediction, spread, line: Start time, NFL Week 9 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know about wagering on Packers vs. Patriots in NFL Week 9",
+      "author": "James Holliman",
+      "published_at": "2026-11-08T20:00:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "dbd8f7a7-6354-4aa2-849f-48ab530b0ad7",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-packers-patriots-bears-buccaneers-nfl-picks/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 in bonus bets for Packers-Patriots, Bears-Buccaneers, NFL picks",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-08T19:52:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "57043218-8881-49de-896a-9fb12288dc74",
+      "url": "https://www.cbssports.com/prediction/news/raiders-vs-49ers-odds-nfl-week-9-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus/",
+      "title": "Raiders vs. 49ers odds, NFL Week 9 predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Sunday's Week 9 matchup between Las Vegas and San Francisco",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-08T19:47:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Las Vegas",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "91b5148f-2e4c-4fa3-a803-ee8bc038fbec",
+      "url": "https://www.cbssports.com/prediction/news/nfl-week-9-cardinals-vs-seahawks-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus/",
+      "title": "NFL Week 9 Cardinals vs. Seahawks odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "We'll go over the prediction markets available for NFL Week 9 action between the Cardinals and Seahawks",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-08T19:45:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "5e2ecac8-b336-4d36-b853-b81df5104bf2",
+      "url": "https://www.cbssports.com/nfl/news/bill-belichick-surprise-return-patriots-new-england-week-9-showdown-packers/",
+      "title": "Bill Belichick makes surprise return to Patriots ahead of New England's Week 9 showdown vs. Packers",
+      "body_text": "Belichick has kept his distance since leaving New England after parting ways in 2023.",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-08T19:53:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bill Belichick",
+        "New England",
+        "Packers Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "bceedb7d-8595-4d57-a480-6fe406e8bca2",
+      "url": "https://www.cbssports.com/nfl/news/saints-motivated-to-face-browns-shedeur-sanders/",
+      "title": "Browns' Shedeur Sanders claims 'smiling' comment about Saints defense was taken out of context",
+      "body_text": "However, Sanders claims he doesn't care about how the Saints' defense feels",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-08T20:06:00+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "54829979-4d5b-4536-835e-74dc38a6b786",
+      "url": "https://www.cbssports.com/nfl/news/kirk-cousins-rumors-raiders-nfl-trade-deadline-2026/",
+      "title": "Kirk Cousins trade rumors: Raiders have received no calls, reportedly want to keep QB",
+      "body_text": "Despite speculation connecting Cousins to a reunion with the Vikings, the Raiders reportedly are not interested in moving their starting quarterback",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-08T18:20:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "600ef679-5a32-4991-990d-4510aef2e8c4",
+      "url": "https://www.cbssports.com/betting/news/week-9-nfl-betting-promos-get-over-3000-bonuses-from-betting-apps-sportsbooks-betmgm-draftkings/",
+      "title": "Week 9 NFL betting promos: Get over $3,000 in bonuses from betting apps, sportsbooks, BetMGM, DraftKings",
+      "body_text": "Top Week 9 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-08T17:52:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "906ade6c-6502-42a6-9b87-e9a54230f062",
+      "url": "https://www.cbssports.com/betting/news/jets-vs-chiefs-odds-picks-prediction-spread-start-time-betting-preview-best-bets-for-nfl-week-9/",
+      "title": "Jets vs. Chiefs odds, picks, prediction, spread: Start time, betting preview, best bets for NFL Week 9",
+      "body_text": "Here's everything bettors need to know for Jets vs. Chiefs in NFL Week 9",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-08T17:48:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}
