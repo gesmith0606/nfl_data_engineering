@@ -1,0 +1,810 @@
+{
+  "fetch_run_id": "3440a70f-bcba-434d-bab8-2f38b07df6d2",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-10T12:15:27.150720+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "75c36a49-3f5c-3c42-b938-c73acc03852e",
+      "url": "https://sports.yahoo.com/articles/greg-rousseau-bills-defense-showing-115709726.html",
+      "title": "Greg Rousseau: Bills defense showing &quot;what we can do&quot; over last two weeks",
+      "body_text": "The Bills gave up at least 29 points in five of their first six games of the season and opponents averaged over 386 yards of offense in those contests.",
+      "author": "",
+      "published_at": "2026-11-10T11:57:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Greg Rousseau",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0036914"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "cf2e635b-3b03-33b3-8979-050032d223bf",
+      "url": "https://sports.yahoo.com/articles/nfl-power-rankings-week-10-113245399.html",
+      "title": "NFL power rankings Week 10: How will trade deadline affect pecking order?",
+      "body_text": "Our rankings will actually change throughout Tuesday ... just as players, presumably like Jonathan Taylor, continue to change teams.",
+      "author": "",
+      "published_at": "2026-11-10T11:32:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "cc20ddf1-7b56-31c5-a3dc-990fd855f0cb",
+      "url": "https://sports.yahoo.com/articles/good-bad-ugly-bengals-34-113000483.html",
+      "title": "The Good, The Bad and The Ugly in Bengals’ 34-17 win over Falcons in Madrid",
+      "body_text": "There were a lot of elements to the Bengals’ victory over the Falcons to like, but some areas still need work.",
+      "author": "",
+      "published_at": "2026-11-10T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Good",
+        "The Bad",
+        "The Ugly",
+        "Madrid There"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "4eb2f775-d2a6-3a51-a6d1-8d3435d9d313",
+      "url": "https://sports.yahoo.com/articles/patriots-injury-analysis-hits-just-112312603.html",
+      "title": "Patriots injury analysis: The hits just keep coming",
+      "body_text": "Analyzing the Patriots’ injury situation before their upcoming game against the Lions.",
+      "author": "",
+      "published_at": "2026-11-10T11:23:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "9fd87e88-b293-37a4-8f20-5fcb6f7fb6eb",
+      "url": "https://sports.yahoo.com/articles/carson-wentz-one-felt-pretty-112152699.html",
+      "title": "Carson Wentz: This one felt pretty terrible",
+      "body_text": "The Vikings' quarterback had perhaps the worst game any NFL quarterback has had this season in Monday night's loss to the Bills.",
+      "author": "",
+      "published_at": "2026-11-10T11:21:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carson Wentz",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "f20c0aa3-bd48-3b5c-9775-79d096e94f36",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-110544582.html",
+      "title": "Fantasy football Start ‘Em, Sit ‘Em: 16 players to start or sit in Week 10",
+      "body_text": "USA TODAY Sports breaks down eight players to start and eight players to sit ahead of Week 10 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-11-10T11:05:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "3533beab-bd6a-3bae-99f7-aa7d07ad25d0",
+      "url": "https://sports.yahoo.com/articles/worst-nfl-trade-deadline-deals-110234488.html",
+      "title": "What are the worst NFL trade deadline deals ever? These 7 top the list",
+      "body_text": "These seven midseason trades stand among the worst NFL trade deadline deals of all time.",
+      "author": "",
+      "published_at": "2026-11-10T11:02:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "4b768c2b-39cb-34a7-8dc4-cdc8ff63a377",
+      "url": "https://sports.yahoo.com/articles/giants-news-trade-deadline-day-110000023.html",
+      "title": "Giants news: Trade deadline day, Cam Skattebo should be ‘full-go’, more",
+      "body_text": "New York Giants headlines for Tuesday.",
+      "author": "",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "8a639d61-2abd-385e-bf95-9b00280750f6",
+      "url": "https://sports.yahoo.com/articles/ravens-news-eric-decosta-gets-110000510.html",
+      "title": "Ravens news: Eric DeCosta gets mixed grades for Jacoby Brissett trade",
+      "body_text": "Rounding up the latest news and analysis about the Baltimore Ravens!",
+      "author": "",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jacoby Brissett",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "9b2e20f7-30cd-306a-9063-f8522f69d33e",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-3-chiefs-players-110000630.html",
+      "title": "Chiefs News: 3 Chiefs players labeled as ‘Day-to-Day’",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "b19f04a1-40ef-3884-bfab-257bf465e0c7",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-sole-possession-110000767.html",
+      "title": "The Bear’s Den: Bears take sole possession of NFC North",
+      "body_text": "The Chicago Bears slip into first place in the NFC North folloiwng the Minnesota Vikings loss to the Buffalo Bills",
+      "author": "",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "North The",
+        "Chicago Bears",
+        "Minnesota Vikings",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "f79a4e8d-c7aa-3fc4-81ec-766222d164ff",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-most-insufferable-110000687.html",
+      "title": "Cleveland Browns news: It’s the most insufferable time of the year",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 10 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-10T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "bcfc1c5a-e413-3011-b36f-7fa834e6b772",
+      "url": "https://sports.yahoo.com/articles/patriots-cb-christian-gonzalez-had-105638274.html",
+      "title": "Patriots CB Christian Gonzalez had a game so bad, he did something never seen before",
+      "body_text": "When Christian Gonzalez signed a four-year, $135 million contract with the Patriots before the season, it was a new record for a cornerback.",
+      "author": "",
+      "published_at": "2026-11-10T10:56:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Gonzalez",
+        "When Christian"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "6e73b8b7-ce3b-3edd-8c36-e56de5fe30bf",
+      "url": "https://sports.yahoo.com/articles/james-cooks-31-carries-vs-100610559.html",
+      "title": "James Cook's 31 carries vs. Vikings were the most in any NFL game this season",
+      "body_text": "Against a Vikings defense that has been teeing off on opposing quarterbacks this season, Bills coach Joe Brady knew he needed to lean on his running back on Monday night.",
+      "author": "",
+      "published_at": "2026-11-10T10:06:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "James Cook",
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "697e0700-24f8-3799-8c3d-47959620d5dc",
+      "url": "https://sports.yahoo.com/articles/afc-playoff-picture-patriots-hold-012247436.html",
+      "title": "Patriots continue losing ground in the AFC East in Week 9",
+      "body_text": "Assessing the AFC standings and playoff picture after the Patriots’ loss on Sunday.",
+      "author": "",
+      "published_at": "2026-11-10T10:00:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "96ae3272-9c23-39df-9111-8bc42486c7e7",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-trade-deadline-approaches-100000671.html",
+      "title": "Golden Nuggets: The trade deadline approaches",
+      "body_text": "Your daily San Francisco 49ers news for Tuesday, November 10th, 2026",
+      "author": "",
+      "published_at": "2026-11-10T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "10f774a2-236d-383e-8011-62900fb89ba1",
+      "url": "https://sports.yahoo.com/articles/matthew-stafford-trade-proposal-stupid-083952865.html",
+      "title": "This Matthew Stafford trade proposal is stupid",
+      "body_text": "The Vikings need a quarterback, but it won’t be Matthew Stafford",
+      "author": "",
+      "published_at": "2026-11-10T08:39:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "This Matthew",
+        "The Vikings",
+        "Matthew Stafford"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "3d0b23b7-68ab-31e5-b607-a02bb433fcb5",
+      "url": "https://sports.yahoo.com/articles/buffalo-bills-open-heavy-road-064002069.html",
+      "title": "Buffalo Bills open as heavy road favorites over New York Jets in Week 10",
+      "body_text": "The Buffalo Bills look to remain undefeated on the road in 2026, taking on the New York Jets during Week 10 of NFL action",
+      "author": "",
+      "published_at": "2026-11-10T06:40:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "New York",
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "8f9033af-aa9f-3845-8f73-437a1a44e6cb",
+      "url": "https://sports.yahoo.com/articles/vikings-week-9-stock-market-064002331.html",
+      "title": "Vikings Week 9 Stock Market Report",
+      "body_text": "The Minnesota Vikings lost a game 23-6 they should have won easily with even mediocre quarterback play. But instead their starting quarterback, Carson Wentz, could hardly throw a catchable pass all night. He was off early and often and pretty much single-handedly lost the game for the Vikings. Bankruptcies Carson Wentz. Honestly, the average fan […]",
+      "author": "",
+      "published_at": "2026-11-10T06:40:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikings Week",
+        "Stock Market",
+        "Report The",
+        "Minnesota Vikings",
+        "Carson Wentz",
+        "Bankruptcies Carson"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "e138ffbb-d4e5-3582-a9a7-e501d6d62c74",
+      "url": "https://sports.yahoo.com/articles/packers-bengals-win-style-nfl-072129076.html",
+      "title": "Bills join league-leading 49ers on 7-1 - NFL week nine",
+      "body_text": "The Buffalo Bills and San Francisco 49ers share the NFL's best record halfway through the 2026 season after both won during week nine.",
+      "author": "",
+      "published_at": "2026-11-10T06:35:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Buffalo",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "f99a676a-1c77-3bf7-8a7e-863174bdc086",
+      "url": "https://sports.yahoo.com/articles/troy-aikman-had-seen-enough-061904158.html",
+      "title": "Troy Aikman had seen enough of Carson Wentz’s historically bad Vikings outing on ‘MNF’",
+      "body_text": "Wentz completed 8 of 25 passes for a mere 81 yards and two interceptions before he was taken out late in the fourth quarter during the ugly Week 9 defeat at the hands of the Bills.",
+      "author": "",
+      "published_at": "2026-11-10T06:19:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Troy Aikman",
+        "Carson Wentz"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "1ea8d927-63a4-378c-b061-4620035451c6",
+      "url": "https://sports.yahoo.com/articles/aaron-glenn-isn-t-ruling-061749678.html",
+      "title": "Aaron Glenn isn’t ruling out giving up play calling with Jets defense struggling",
+      "body_text": "With Superman looking more like Clark Kent, Aaron Glenn is at least open — if noncommittal — to ceding what he has called his “superpower.”",
+      "author": "",
+      "published_at": "2026-11-10T06:17:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Glenn",
+        "With Superman",
+        "Clark Kent"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "d10ffc50-8096-3b3d-aad6-e8eaba72cd5a",
+      "url": "https://sports.yahoo.com/articles/bills-vikings-week-9-instant-055131594.html",
+      "title": "Bills at Vikings Week 9 instant analysis: Buffalo batters Minnesota",
+      "body_text": "The Buffalo Bills proved to be too much for the vaunted Minnesota Vikings defense to handle in Week 9",
+      "author": "",
+      "published_at": "2026-11-10T05:51:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikings Week",
+        "Minnesota The",
+        "Buffalo Bills",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "7f132ad4-8e8a-36f7-8e54-1692ccb3d1d6",
+      "url": "https://sports.yahoo.com/articles/john-harbaugh-responds-broadcast-critique-053717886.html",
+      "title": "John Harbaugh responds to broadcast’s critique of Malik Nabers’ body language",
+      "body_text": "John Harbaugh does not sound interested in diagnosing the body language of Malik Nabers.",
+      "author": "",
+      "published_at": "2026-11-10T05:37:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "John Harbaugh",
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "0062ec21-be4e-3850-b1ad-65e4ffc6bb18",
+      "url": "https://sports.yahoo.com/articles/vikings-head-coach-addresses-quarterback-052328024.html",
+      "title": "Vikings head coach addresses quarterback conundrum after Week 9 loss",
+      "body_text": "The Minnesota Vikings' Week 9 loss emphasized their starting quarterback need. Here's what HC Kevin O'Connell said after the game.",
+      "author": "",
+      "published_at": "2026-11-10T05:23:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Minnesota"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "838c046c-0440-4896-9bab-2a7c66108eaf",
+      "url": "https://sports.yahoo.com/fantasy/article/post-week-9-peoples-panic-meter-are-rams-cooked-without-puka-052153935.html",
+      "title": "Post-Week 9 People's Panic Meter: Are Rams cooked without Puka?",
+      "body_text": "The panic levels are rising after another week of shocking and disappointing fantasy performances! Matt Harmon and Justin Boone are back to tackle your biggest fantasy concerns, taking your submissions and determining which players are actually worth panicking over after a subpar Week 9. The two also dive into the top 10 waiver wire targets for Week 10, highlighting the players who could make an immediate impact on your fantasy roster, plus the candidates you should consider dropping as you look to improve your team heading into Week 10.",
+      "author": "Matt Harmon,Justin Boone",
+      "published_at": "2026-11-10T05:21:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Panic Meter",
+        "Are Rams",
+        "Matt Harmon",
+        "Justin Boone"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "55fa0f70-5502-48ab-8f08-d9b81d154171",
+      "url": "https://sports.yahoo.com/article/week-10-waiver-wire---upgrade-your-starting-lineup-045756617.html",
+      "title": "Week 10 waiver wire - upgrade your starting lineup",
+      "body_text": "Josh Norris and Joel Smyth highlight the players you need to target on the waiver wire ahead of Week 10.",
+      "author": "Hayden Winks, Josh Norris,Josh Norris,Joel Smyth",
+      "published_at": "2026-11-10T04:57:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Norris",
+        "Joel Smyth"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "6640d6fa-e369-3c08-a5a6-8fbe8497ee29",
+      "url": "https://sports.yahoo.com/articles/james-cook-delivered-bills-monday-045559161.html",
+      "title": "James Cook delivered for the Bills on Monday night against the Vikings",
+      "body_text": "James Cook put the Bills on his back Monday night against the Vikings",
+      "author": "",
+      "published_at": "2026-11-10T04:55:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "James Cook",
+        "Vikings James"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "cd2f87c8-1fd3-480c-8b23-dc4bef31644e",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-power-rankings-entering-week-10-after-some-massive-trades-the-jaguars-take-the-top-spot-044759878.html",
+      "title": "NFL Power Rankings entering Week 10: After some massive trades, the Jaguars take the top spot",
+      "body_text": "The Jaguars might have won the trade deadline with a flurry of moves.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-10T04:47:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "acb07237-fee3-3b19-97f9-90f4606663a9",
+      "url": "https://sports.yahoo.com/articles/nfc-north-rivals-delight-vikings-044010481.html",
+      "title": "NFC North rivals delight in Vikings' defeat to Bills: Winners, losers from MNF",
+      "body_text": "If you fancy offensive football, then Monday night’s matchup between the Buffalo Bills and Minnesota Vikings was a disappointment.",
+      "author": "",
+      "published_at": "2026-11-10T04:40:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "d1c08a10-e335-367d-907f-661ef58a1605",
+      "url": "https://sports.yahoo.com/articles/vikings-tumble-nfc-playoff-picture-043731677.html",
+      "title": "Vikings tumble in the NFC playoff picture after loss",
+      "body_text": "The Minnesota Vikings could have been in first place. Instead they drop far in the playoff picture.",
+      "author": "",
+      "published_at": "2026-11-10T04:37:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Minnesota"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "c3ea303e-b1d1-38c2-9ae3-20d858d51f70",
+      "url": "https://sports.yahoo.com/articles/nfc-playoff-picture-week-9-043251608.html",
+      "title": "NFC Playoff Picture After Week 9: Bears move up to the 2 seed",
+      "body_text": "The Chicago Bears move up in the NFC postseason standings and into first place in the NFC North after the Vikings' loss. @wiltfongjr has the details here.",
+      "author": "",
+      "published_at": "2026-11-10T04:32:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Playoff Picture",
+        "After Week",
+        "The Chicago"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "0da27c06-7b61-34fa-bb7c-a57e0dbdf787",
+      "url": "https://sports.yahoo.com/articles/monday-night-football-bills-wear-043241383.html",
+      "title": "Monday Night Football: Bills wear down Vikings, 23-6",
+      "body_text": "The Bills had 79 plays and held the ball for 42:32.",
+      "author": "",
+      "published_at": "2026-11-10T04:32:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "658dafbb-ce3c-4c8b-941a-4670224eec97",
+      "url": "https://sports.yahoo.com/nfl/live/bills-vikings-score-live-updates-inactives-highlights-stats-where-to-watch-week-9-monday-night-football-234804735.html",
+      "title": "Carson Wentz and Vikings' offense melt down in loss to Bills with trade deadline looming",
+      "body_text": "The Bills and Vikings were both 6-1 before Monday night's prime-time showdown.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-09T23:48:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carson Wentz",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "4a224b98-d06a-3564-b22b-af0996b6d40a",
+      "url": "https://sports.yahoo.com/articles/buffalo-bills-stock-report-horns-042818466.html",
+      "title": "Buffalo Bills stock report: Horns Up, Horns down in gritty win vs. Minnesota Vikings",
+      "body_text": "Buffalo came out with a hard-fought win tonight",
+      "author": "",
+      "published_at": "2026-11-10T04:28:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "Minnesota Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "f73014a7-3734-310c-9b3f-64ca0435f6b9",
+      "url": "https://sports.yahoo.com/articles/vikings-pathetic-offense-wastes-another-042757273.html",
+      "title": "Vikings’ Pathetic Offense Wastes Another Strong Defensive Effort Against Bills",
+      "body_text": "More of the same in prime time",
+      "author": "",
+      "published_at": "2026-11-10T04:27:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Pathetic Offense",
+        "Wastes Another",
+        "Strong Defensive",
+        "Effort Against",
+        "Bills More"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "df769465-ecda-336c-adc8-ac241976e3a3",
+      "url": "https://sports.yahoo.com/articles/lions-move-ngc-playoff-picture-042634867.html",
+      "title": "Lions move up in NGC playoff picture following Vikings loss",
+      "body_text": "The Detroit Lions have moved up in the NFC after the Vikings loss on Monday night",
+      "author": "",
+      "published_at": "2026-11-10T04:26:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Detroit"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "4d8b53e2-51b7-3697-a5d0-8bd1dd401834",
+      "url": "https://sports.yahoo.com/articles/browns-defense-big-day-carson-042457156.html",
+      "title": "Browns defense has big day from Carson Schwesinger, but yields two late TDs",
+      "body_text": "The Browns’ defense gave up two late touchdowns.",
+      "author": "",
+      "published_at": "2026-11-10T04:24:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carson Schwesinger",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0040579"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "60b0ecf9-9a1b-3a15-aa89-e299198d4675",
+      "url": "https://sports.yahoo.com/articles/bills-first-place-afc-following-041748981.html",
+      "title": "The Bills are in first place in the AFC following their Monday night win",
+      "body_text": "The Buffalo Bills are in first place in the AFC.",
+      "author": "",
+      "published_at": "2026-11-10T04:17:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bills",
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "cfa590b4-2bd0-3572-acd4-d74d813c4e7b",
+      "url": "https://sports.yahoo.com/articles/tony-romo-makes-first-appearance-041533795.html",
+      "title": "Tony Romo makes first appearance since OWI arrest on Pat McAfee’s ‘MNF’ alt-cast",
+      "body_text": "Ex-CBS broadcaster and Dallas Cowboys QB Tony Romo was on the Pat McAfee-led ESPN alt-cast in the second quarter of the Bills-Vikings Week 9 game.",
+      "author": "",
+      "published_at": "2026-11-10T04:15:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tony Romo",
+        "Dallas Cowboys",
+        "Vikings Week"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "ad303d38-70bc-3749-8830-77a25d4b75d6",
+      "url": "https://sports.yahoo.com/articles/horsepower-horseplay-individual-performances-highlight-041452190.html",
+      "title": "Horsepower or Horseplay? Individual performances to highlight from Colts’ Week 9 loss to Cowboys",
+      "body_text": "See, it wasn’t all bad versus the Cowboys!",
+      "author": "",
+      "published_at": "2026-11-10T04:14:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys See"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "a5f8f714-9485-3290-bf5b-f83878d8e660",
+      "url": "https://sports.yahoo.com/articles/big-play-potential-returns-browns-041243888.html",
+      "title": "The big-play potential returns for Browns offense with Shedeur Sanders",
+      "body_text": "Shedeur Sanders at least gave us something to talk about after three periods of nothing.",
+      "author": "",
+      "published_at": "2026-11-10T04:12:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040668"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "2e6e54b4-4592-3fda-b378-9f04aed19ede",
+      "url": "https://sports.yahoo.com/articles/carson-wentz-foot-stepped-stays-040930686.html",
+      "title": "Carson Wentz has foot stepped on, but stays in game",
+      "body_text": "Vikings quarterback Carson Wentz had his foot stepped on by offensive lineman Joe Huber with 7 seconds remaining in the third quarter.",
+      "author": "",
+      "published_at": "2026-11-10T04:09:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carson Wentz",
+        "Joe Huber"
+      ],
+      "resolved_player_ids": [
+        "00-0032950",
+        "00-0040500"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "fa1d3c00-2dd1-3f0b-811f-5583f204a486",
+      "url": "https://sports.yahoo.com/articles/rhamondre-stevenson-set-miss-time-034910022.html",
+      "title": "Rhamondre Stevenson set to miss time with knee injury",
+      "body_text": "The Patriots running back exited Sunday’s game in the third quarter.",
+      "author": "",
+      "published_at": "2026-11-10T03:49:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rhamondre Stevenson",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "1db82e44-6482-3274-a00d-61a21efcdb31",
+      "url": "https://sports.yahoo.com/articles/josh-allen-run-5-000-033047865.html",
+      "title": "Josh Allen has run for 5,000 yards and only 4 other QBs can say that",
+      "body_text": "Josh Allen joins Jackson, Vick, Newton, and Wilson as the only quarterbacks with 5,000 career rushing yards.",
+      "author": "",
+      "published_at": "2026-11-10T03:30:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e5532ea3-8ba5-3ace-a78b-acbc0e700094",
+      "url": "https://sports.yahoo.com/articles/josh-johnson-leaving-bengals-practice-032906284.html",
+      "title": "Josh Johnson leaving Bengals practice squad to join Arizona Cardinals",
+      "body_text": "Josh Johnson finds himself on his 15th team as the potential Arizona Cardinals starting QB.",
+      "author": "",
+      "published_at": "2026-11-10T03:29:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Johnson",
+        "Arizona Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0026300"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "20a034af-b3ca-372f-893e-a3dc3e571b6e",
+      "url": "https://sports.yahoo.com/articles/patriots-rb-rhamondre-stevenson-miss-032118790.html",
+      "title": "Patriots RB Rhamondre Stevenson will miss multiple weeks with a knee issue",
+      "body_text": "Patriots running back Rhamondre Stevenson will miss multiple weeks with a knee issue.",
+      "author": "",
+      "published_at": "2026-11-10T03:21:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rhamondre Stevenson"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "8d452ec2-4bc5-48c3-9727-b2517d919073",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/patriots-rb-rhamondre-stevenson-reportedly-expected-to-miss-a-few-weeks-with-tendon-injury-in-knee-032118587.html",
+      "title": "Patriots RB Rhamondre Stevenson reportedly expected to miss a 'few weeks' with tendon injury in knee",
+      "body_text": "The injury leaves an already shorthanded Patriots backfield even thinner.",
+      "author": "Jason Owens",
+      "published_at": "2026-11-10T03:21:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rhamondre Stevenson"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "d046653d-2ad9-3c4a-9e6d-3e46c79e8db7",
+      "url": "https://sports.yahoo.com/articles/tony-romo-makes-shocking-return-032015703.html",
+      "title": "Tony Romo makes shocking return to TV on Pat McAfee ‘MNF’ alt-cast months after OWI arrest",
+      "body_text": "Tony Romo made a surprise return to television and to breaking down NFL games.",
+      "author": "",
+      "published_at": "2026-11-10T03:20:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "2f03014a-b7bd-3924-be72-46ce551ac2e2",
+      "url": "https://sports.yahoo.com/articles/josh-allen-ties-peyton-manning-031804706.html",
+      "title": "Josh Allen ties Peyton Manning for most touchdowns in a quarterback’s first 10 seasons",
+      "body_text": "Josh Allen needed just part of nine seasons to break a record Peyton Manning set over his first 10 years in the NFL.",
+      "author": "",
+      "published_at": "2026-11-10T03:18:04+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Allen",
+        "Peyton Manning"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0010346"
+      ],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,508 @@
+{
+  "fetch_run_id": "3440a70f-bcba-434d-bab8-2f38b07df6d2",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-10T12:15:25.292672+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-rousseau-bills-defense-showing-what-we-can-do-over-last-two-weeks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-rousseau-bills-defense-showing-what-we-can-do-over-last-two-weeks",
+      "title": "Greg Rousseau: Bills defense showing \"what we can do\" over last two weeks",
+      "body_text": "The Bills gave up at least 29 points in five of their first six games of the season and opponents averaged over 386 yards of offense in those contests.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T11:57:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Greg Rousseau",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0036914"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-this-one-felt-pretty-terrible",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-this-one-felt-pretty-terrible",
+      "title": "Carson Wentz: This one felt pretty terrible",
+      "body_text": "The Vikings' quarterback had perhaps the worst game any NFL quarterback has had this season in Monday night's loss to the Bills.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-10T11:21:52+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Wentz",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cb-christian-gonzalez-had-a-game-so-bad-he-did-something-never-seen-before",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-cb-christian-gonzalez-had-a-game-so-bad-he-did-something-never-seen-before",
+      "title": "Patriots CB Christian Gonzalez had a game so bad, he did something never seen before",
+      "body_text": "When Christian Gonzalez signed a four-year, $135 million contract with the Patriots before the season, it was a new record for a cornerback.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-10T10:56:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Christian Gonzalez",
+        "When Christian"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cooks-31-carries-vs-vikings-were-the-most-in-any-nfl-game-this-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cooks-31-carries-vs-vikings-were-the-most-in-any-nfl-game-this-season",
+      "title": "James Cook's 31 carries vs. Vikings were the most in any NFL game this season",
+      "body_text": "Against a Vikings defense that has been teeing off on opposing quarterbacks this season, Bills coach Joe Brady knew he needed to lean on his running back on Monday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-10T10:06:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "James Cook",
+        "Joe Brady"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-vikings-offense-didnt-get-it-done-weve-got-to-figure-it-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-vikings-offense-didnt-get-it-done-weve-got-to-figure-it-out",
+      "title": "Justin Jefferson: Vikings' offense didn't get it done, we've got to figure it out",
+      "body_text": "Jefferson finished with three catches for 58 yards in the Vikings' 23-6 loss to the Bills.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-10T09:29:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-on-potential-quarterback-trade-ill-defer-to-nolan-teasley-on-that",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-on-potential-quarterback-trade-ill-defer-to-nolan-teasley-on-that",
+      "title": "Kevin O'Connell on potential quarterback trade: \"I'll defer to Nolan [Teasley] on that\"",
+      "body_text": "Vikings coach doesn't rule out making a deal by Tuesday's deadline.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T05:27:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/receiver-needy-teams-should-call-about-justin-jefferson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/receiver-needy-teams-should-call-about-justin-jefferson",
+      "title": "Receiver-needy teams should call about Justin Jefferson",
+      "body_text": "If the Vikings aren't going to upgrade at QB, they should give Jefferson a chance at a championship.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T05:02:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-wear-down-vikings-23-6",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-wear-down-vikings-23-6",
+      "title": "Monday Night Football: Bills wear down Vikings, 23-6",
+      "body_text": "The Bills had 79 plays and held the ball for 42:32.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T04:32:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-vikings-need-to-trade-for-a-quarterback-tomorrow",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-vikings-need-to-trade-for-a-quarterback-tomorrow",
+      "title": "The Vikings need to trade for a quarterback tomorrow",
+      "body_text": "Failure to act leads to one conclusion: The Vikings are dysfunctional.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T04:11:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-has-foot-stepped-on-but-stays-in-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-has-foot-stepped-on-but-stays-in-game",
+      "title": "Carson Wentz has foot stepped on, but stays in game",
+      "body_text": "Vikings quarterback Carson Wentz had his foot stepped on by offensive lineman Joe Huber with 7 seconds remaining in the third quarter.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T04:09:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carson Wentz",
+        "Joe Huber"
+      ],
+      "resolved_player_ids": [
+        "00-0032950",
+        "00-0040500"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rb-rhamondre-stevenson-will-miss-multiple-weeks-with-a-knee-issue",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rb-rhamondre-stevenson-will-miss-multiple-weeks-with-a-knee-issue",
+      "title": "Patriots RB Rhamondre Stevenson will miss multiple weeks with a knee issue",
+      "body_text": "Patriots running back Rhamondre Stevenson will miss multiple weeks with a knee issue.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T03:21:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rhamondre Stevenson"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-may-plan-for-jordan-davis-to-play-more-than-52-percent-of-the-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-may-plan-for-jordan-davis-to-play-more-than-52-percent-of-the-time",
+      "title": "Jaguars may plan for Jordan Davis to play more than 52 percent of the time",
+      "body_text": "The good news for defensive tackle Jordan Davis is that he's been traded to a team in a state with no income tax.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T03:18:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-could-return-after-the-seahawks-bye-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-could-return-after-the-seahawks-bye-week",
+      "title": "Sam Darnold could return after the Seahawks' bye week",
+      "body_text": "Seahawks quarterback Sam Darnold will not play in Sunday's game against the Raiders, but he could return after the team's bye week.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T03:06:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lead-vikings-10-6-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lead-vikings-10-6-at-halftime",
+      "title": "Monday Night Football: Bills lead Vikings 10-6 at halftime",
+      "body_text": "Josh Allen threw a 25-yard touchdown pass to Keleki Latu with 44 seconds left in the first half for the halftime lead.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T02:59:20+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Josh Allen",
+        "Keleki Latu"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0040363"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-makes-appearance-on-the-pat-mcafee-alt-cast",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-makes-appearance-on-the-pat-mcafee-alt-cast",
+      "title": "Tony Romo makes appearance on the Pat McAfee alt cast",
+      "body_text": "Tony Romo has made a return to sports media.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T02:32:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jake-ferguson-tyler-goodson-will-miss-multiple-weeks-for-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jake-ferguson-tyler-goodson-will-miss-multiple-weeks-for-cowboys",
+      "title": "Jake Ferguson, Tyler Goodson will miss multiple weeks for Cowboys",
+      "body_text": "The Cowboys will play \"multiple weeks\" without starting tight end Jake Ferguson and backup running back Tyler Goodson, coach Brian Schottenheimer said Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T01:54:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jake Ferguson",
+        "Tyler Goodson",
+        "Cowboys The",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [
+        "00-0038041",
+        "00-0037120"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-game-carries-major-significance-for-both-teams",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-game-carries-major-significance-for-both-teams",
+      "title": "Bills-Vikings game carries major significance for both teams",
+      "body_text": "The Bills and Vikings have identical 0-4 records in the Super Bowl.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-09T19:43:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bills",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-to-sign-josh-johnson-off-bengals-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cardinals-to-sign-josh-johnson-off-bengals-practice-squad",
+      "title": "Report: Cardinals to sign Josh Johnson off Bengals practice squad",
+      "body_text": "Quarterback Josh Johnson's long list of NFL teams is getting a little longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T00:26:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Johnson",
+        "Quarterback Josh"
+      ],
+      "resolved_player_ids": [
+        "00-0026300"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/imaging-showed-no-fracture-in-justin-herberts-finger",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/imaging-showed-no-fracture-in-justin-herberts-finger",
+      "title": "Imaging showed no fracture in Justin Herbert's finger",
+      "body_text": "Herbert injured his left middle finger on the final of eight sacks he took Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T01:31:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-gives-defensive-coordinator-rob-leonard-a-vote-of-confidence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/klint-kubiak-gives-defensive-coordinator-rob-leonard-a-vote-of-confidence",
+      "title": "Klint Kubiak gives defensive coordinator Rob Leonard a vote of confidence",
+      "body_text": "The Raiders defense allowed 38 points in the loss to the 49ers on Sunday, the sixth consecutive game of giving up 30-plus points.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T01:19:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Klint Kubiak",
+        "Rob Leonard",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-puka-nacua-injury-id-be-lying-if-i-said-i-wasnt-questioning-that-play-call",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-on-puka-nacua-injury-id-be-lying-if-i-said-i-wasnt-questioning-that-play-call",
+      "title": "Sean McVay on Puka Nacua injury: I'd be lying if I said I wasn't questioning that play call",
+      "body_text": "Rams wide receiver Puka Nacua is set to go on injured reserve after suffering MCL, PCL and turf toe injuries in Sunday's win over the Commanders.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T00:14:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lt-dion-dawkins-lg-alec-anderson-are-inactive-vs-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lt-dion-dawkins-lg-alec-anderson-are-inactive-vs-vikings",
+      "title": "Monday Night Football: Bills LT Dion Dawkins, LG Alec Anderson are inactive vs. Vikings",
+      "body_text": "The Bills will not have the left side of their offensive line when they play the Vikings to cap Week 9.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-10T00:06:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Dion Dawkins",
+        "Alec Anderson",
+        "Vikings The"
+      ],
+      "resolved_player_ids": [
+        "00-0033904",
+        "00-0037428"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-j-j-mccarthy-as-limited-on-mondays-practice-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-list-j-j-mccarthy-as-limited-on-mondays-practice-report",
+      "title": "Giants list J.J. McCarthy as limited on Monday's practice report",
+      "body_text": "The Giants didn't hold a practice on Monday, but they say quarterback J.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T23:36:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-lg-steve-avila-will-miss-time-after-aggravating-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-lg-steve-avila-will-miss-time-after-aggravating-hamstring-injury",
+      "title": "Rams LG Steve Avila will miss time after aggravating hamstring injury",
+      "body_text": "The Rams will place wide receiver Puka Nacua on injured reserve with MCL and PCL knee sprains and turf toe.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-09T23:30:56+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Steve Avila",
+        "The Rams",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039058",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-gardner-minshew-will-likely-need-season-ending-elbow-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-gardner-minshew-will-likely-need-season-ending-elbow-surgery",
+      "title": "Report: Gardner Minshew will likely need season-ending elbow surgery",
+      "body_text": "Minshew suffered a torn ulnar collateral ligament on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-09T22:56:32+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gardner Minshew"
+      ],
+      "resolved_player_ids": [
+        "00-0035289"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-brandon-aiyuks-reinstatement-means-absolutely-nothing-to-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-brandon-aiyuks-reinstatement-means-absolutely-nothing-to-49ers",
+      "title": "Kyle Shanahan: Brandon Aiyuk's reinstatement means \"absolutely nothing\" to 49ers",
+      "body_text": "Brandon Aiyuk was reinstated from the 49ers' reserve/left squad list on Monday, but head coach Kyle Shanahan's tune has not changed about the wide receiver.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T22:55:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-say-jaguars-made-an-offer-they-couldnt-refuse-for-jordan-davis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-say-jaguars-made-an-offer-they-couldnt-refuse-for-jordan-davis",
+      "title": "Eagles say Jaguars made an offer they couldn't refuse for Jordan Davis",
+      "body_text": "The Eagles announced the trade that sent defensive tackle Jordan Davis to the Jaguars, saying the \"Jaguars made an offer that executive vice president/General Manager Howie Roseman simply could not refuse.\"",
+      "author": "Charean Williams",
+      "published_at": "2026-11-09T22:55:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Davis",
+        "The Eagles",
+        "General Manager",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gardner-minshew-having-tests-on-right-arm-after-injury-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/gardner-minshew-having-tests-on-right-arm-after-injury-on-sunday",
+      "title": "Gardner Minshew having tests on right arm after injury on Sunday",
+      "body_text": "Cardinals quarterback Gardner Minshew remained in Sunday's loss to the Seahawks after hurting his right arm late in the first half, but his status for the team's Week 10 game against the Rams is not certain.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-09T22:39:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Gardner Minshew",
+        "Sunday Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0035289"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-trade-dt-jordan-davis-to-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-trade-dt-jordan-davis-to-jaguars",
+      "title": "Eagles trade DT Jordan Davis to Jaguars",
+      "body_text": "The Jaguars have gone all-in, and (as to 2027) the Eagles have checked out.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-09T22:00:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Davis",
+        "Jaguars The"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-headed-to-ir-with-mcl-pcl-knee-sprains-turf-toe",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-headed-to-ir-with-mcl-pcl-knee-sprains-turf-toe",
+      "title": "Puka Nacua headed to IR with MCL, PCL knee sprains, turf toe",
+      "body_text": "The Rams wide receiver was injured on the team's final play from scrimmage on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-09T22:31:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Puka Nacua",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}

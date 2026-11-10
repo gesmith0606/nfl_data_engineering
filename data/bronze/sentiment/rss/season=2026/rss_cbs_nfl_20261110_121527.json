@@ -1,0 +1,579 @@
+{
+  "fetch_run_id": "3440a70f-bcba-434d-bab8-2f38b07df6d2",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-10T12:15:27.727415+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "94b6614f-c41a-4819-8583-8466a2661303",
+      "url": "https://www.cbssports.com/nfl/news/priscos-nfl-week-10-power-rankings-bengals-packers-climbing/",
+      "title": "Prisco's NFL Week 10 Power Rankings: Top 5 remains same, Bengals and Packers surging thanks to MVP candidates",
+      "body_text": "Pete Prisco shares his Week 10 Power Rankings for the 2026 NFL season, including the Vikings dropping five spots",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-10T10:00:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "4bc741a0-af39-42a5-9a05-bf4a2fc166b2",
+      "url": "https://www.cbssports.com/nfl/news/six-lessons-nfl-week-9-arvell-reese-c-j-stroud/",
+      "title": "Six lessons learned from NFL Week 9: Arvell Reese a superstar in the making, C.J. Stroud having career year",
+      "body_text": "Plus, there's a bell cow running back emerging for one of the NFL's best teams",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-10T04:44:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Arvell Reese"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "fd84f740-575d-4b19-895f-dc1aedb47e08",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-9-grades-cowboys-bengals-patriots-packers/",
+      "title": "NFL Week 9 grades for every team: Bills earn impressive mark for beating Vikings, Cowboys barely pass",
+      "body_text": "We're handing out grades for every team that played in Week 9",
+      "author": "John Breech",
+      "published_at": "2026-11-10T04:34:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "ec3b43e7-2ff3-4ed6-8dde-c33aa4a17579",
+      "url": "https://www.cbssports.com/nfl/news/can-carson-beck-convince-cardinals-not-to-draft-a-qb/",
+      "title": "Can Carson Beck convince the Cardinals not to draft a QB? He has eight games to make his case",
+      "body_text": "The third-round rookie has eight games to prove he can be this year's Tyler Shough, but history says that won't be easy",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-10T02:36:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Can Carson",
+        "Tyler Shough"
+      ],
+      "resolved_player_ids": [
+        "00-0040743"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "8e5701d9-875b-4566-a09b-9b648d6b57d2",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-gardner-minshew-feared-torn-ucl-could-out-for-season-report/",
+      "title": "Cardinals' Gardner Minshew feared to have suffered a torn UCL, could be out for season, per report",
+      "body_text": "Carson Beck would get the start if Minshew is sidelined",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-10T00:22:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Gardner Minshew",
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "00-0035289",
+        "00-0041561"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "e153f64c-8af5-4e3c-a18e-e4d9710572d3",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-bills-vs-vikings-monday-night-football-nfl-betting/",
+      "title": "Use FanDuel promo code to get $200 bonus bets for Bills vs. Vikings, Monday Night Football, NFL betting",
+      "body_text": "Sign up to wager on Monday Night Football in NFL Week 9 with the latest FanDuel promo code to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-10T00:18:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "7931fd66-438c-4603-b6d0-504ba3dcda61",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-get-55-bonus-bills-vs-vikings-monday-night-football-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Get $55 bonus for Bills vs. Vikings, Monday Night Football predictions",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 9 Bills vs. Vikings MNF matchup",
+      "author": "James Holliman",
+      "published_at": "2026-11-10T00:05:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Monday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "2f64b72b-7531-47a9-b92c-7e99deaf6e73",
+      "url": "https://www.cbssports.com/betting/news/bills-vs-vikings-odds-picks-player-props-experts-nfl-week-9-best-bets-for-monday-night-football/",
+      "title": "Bills vs. Vikings odds, picks, player props: Expert's NFL Week 9 best bets for Monday Night Football",
+      "body_text": "CBS Sports NFL expert Will Brinson shares his top picks and props for Monday Night Football in NFL Week 9",
+      "author": "Will Brinson",
+      "published_at": "2026-11-09T23:45:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Will Brinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "b6b2da7c-c1ac-4abb-8b0b-86676a12f82d",
+      "url": "https://www.cbssports.com/betting/news/bills-vs-vikings-odds-prediction-betting-preview-start-time-monday-night-football-picks-best-bets/",
+      "title": "Bills vs. Vikings odds, prediction, betting preview, start time: Monday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Bills vs. Vikings on Monday Night Football",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-09T23:45:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "5f0c2324-100b-421f-a469-7f859a950f8a",
+      "url": "https://www.cbssports.com/nfl/news/jordan-davis-trade-grades-eagles-jaguars/",
+      "title": "Jordan Davis trade grades: Eagles kickstart rebuild, Jaguars push for 2026 AFC and Super Bowl titles",
+      "body_text": "Grading how both squads made out in the biggest trade on the eve of the NFL's Nov. 10 trade deadline",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-09T23:26:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6ead8998-6d9b-440a-a94a-fd4f30bc4ff7",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-michael-wilson-out-for-the-year-neck-fracture-fantasy-football/",
+      "title": "Cardinals Michael Wilson out for the year with neck fracture, how it impacts fantasy football",
+      "body_text": "Wilson was the top wide receiver for the Cardinals this season, who have lost a lot of depth at the position.",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-09T23:01:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cardinals Michael"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "efdfec37-6847-46b7-99cf-a31879f9be70",
+      "url": "https://www.cbssports.com/nfl/news/2027-nfl-draft-order-team-needs/",
+      "title": "2027 NFL Draft order, team needs: Full first-round picks for all 32 teams after Jags-Eagles trade",
+      "body_text": "See where every team picks in the first round and which positions each franchise could target in the 2027 NFL Draft",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-09T22:58:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "486039a4-9b65-4f51-b78f-17a2d649bff9",
+      "url": "https://www.cbssports.com/nfl/news/rams-all-pro-puka-nacua-likely-to-go-on-injured-reserve/",
+      "title": "Rams All-Pro Puka Nacua likely to go on injured reserve with knee, toe injuries",
+      "body_text": "The Rams will now likely be without both Puka Nacua and Davante Adams",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-09T22:45:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Rams All",
+        "Pro Puka",
+        "The Rams",
+        "Puka Nacua",
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075",
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c8a92589-9c2d-4630-b473-0d45e9887537",
+      "url": "https://www.cbssports.com/prediction/news/bills-vs-vikings-odds-first-touchdown-scorer-picks-nfl-predictions-monday-night-football/",
+      "title": "Bills vs. Vikings odds: First touchdown scorer picks, NFL predictions for Monday Night Football",
+      "body_text": "Here are our top picks for first touchdown prediction markets on Monday Night Football between the Bills and Vikings",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-09T22:44:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "43e770ea-1b30-43e5-a4fd-2e13bcdb33c6",
+      "url": "https://www.cbssports.com/nfl/news/why-nfl-trade-deadline-evolved-from-afterthought-to-hectic-new-normal/",
+      "title": "Why NFL trade deadline evolved from afterthought to hectic: In-season transaction boom is league's new normal",
+      "body_text": "After a record-breaking trade deadline in 2025 and with an active transaction wire in 2026, the times are a-changin' in the NFL",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T22:31:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "64f6d2bb-d50d-409a-bb81-a5a7e05dd2fa",
+      "url": "https://www.cbssports.com/nfl/news/jordan-davis-traded-jaguars-acquire-former-first-round-pick-from-eagles/",
+      "title": "Jordan Davis traded: Jaguars going all in, acquire former first-round pick from Eagles",
+      "body_text": "Davis is the third defender the AFC South-leading Jacksonville Jaguars have traded for on Monday",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-09T22:25:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Eagles Davis",
+        "Jacksonville Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f13e096c-3060-493d-86de-44fba62508a5",
+      "url": "https://www.cbssports.com/nfl/news/eagles-coach-nick-sirianni-denies-giving-fans-middle-finger-division-loss-absolutely-not/",
+      "title": "Eagles coach Nick Sirianni denies giving his fans the middle finger after division loss: 'Absolutely not'",
+      "body_text": "Sirianni said the accusations were a 'surprise' to him, which come after Philadelphia's first home loss to the Giants in 13 years.",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-09T21:49:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d3b42ab5-4f10-4057-976f-3a058119ad72",
+      "url": "https://www.cbssports.com/nfl/news/jessie-bates-trade-jaguars-falcons-nfl-deadline-2026/",
+      "title": "Jaguars-Falcons trade grades: Jacksonville acquires All-Pro safety Jessie Bates III to bolster defense",
+      "body_text": "Bates, who is in the final year of his contract, heads to Jacksonville in exchange for two future draft picks",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-09T20:39:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jessie Bates III"
+      ],
+      "resolved_player_ids": [
+        "00-0034675"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "024a1e76-2d77-4356-aff2-c7e9227d0fee",
+      "url": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-bills-vs-vikings-on-mnf-nuggets-vs-rockets-and-more/",
+      "title": "Today's top games to watch, best bets, odds: Bills vs. Vikings on MNF, Nuggets vs. Rockets and more",
+      "body_text": "Find best bets and props for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
+      "author": "Scott Erskine",
+      "published_at": "2026-11-09T20:30:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Projection Model"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "36de25df-14c3-4406-b374-e524b6fe1ef7",
+      "url": "https://www.cbssports.com/nfl/news/vikings-vs-bills-prediction-odds-line-josh-allen-monday-night-football/",
+      "title": "Vikings vs. Bills prediction: Josh Allen faces NFL's top defense on Monday night",
+      "body_text": "Josh Allen and Buffalo's explosive offense face Brian Flores' dominant defense, while Carson Wentz replaces the injured Kyler Murray",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-09T20:13:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Allen",
+        "Brian Flores",
+        "Carson Wentz",
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0032950",
+        "00-0035228"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "97719263-96d4-4783-9d43-42bd6218005a",
+      "url": "https://www.cbssports.com/nfl/news/josh-jacobs-breaks-finger-packers-win-over-patriots-trade-deadline/",
+      "title": "Josh Jacobs breaks finger during Packers' win, will undergo surgery and could miss a maximum of three weeks",
+      "body_text": "Jacobs hopes to play through the issue, but grip struggles could force Green Bay to pursue running back help before Tuesday's trade deadline",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-09T20:41:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "52c801a2-e353-4f63-9f5e-4292f340713d",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-trade-deadline-tracker-latest-deals-grades/",
+      "title": "2026 NFL trade deadline tracker: Latest deals, grades as Jordan Davis heads to Jacksonville",
+      "body_text": "Track every completed deal before the Nov. 10 deadline, including Jacksonville's blockbuster Monday",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T22:28:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Jacksonville Track"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "ac78e10a-249e-4d34-89b9-db853e0f9f1b",
+      "url": "https://www.cbssports.com/nfl/news/lions-jets-trade-grades-detroit-andre-cisco-jets-acquire-late-round-pick/",
+      "title": "Lions-Jets trade grades: Detroit bolsters secondary with Andre Cisco, Jets acquire a late-round pick",
+      "body_text": "It wasn't the splashiest of moves, but Detroit nonetheless strengthened its secondary ahead of Tuesday's trade deadline",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-09T19:11:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andre Cisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036941"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "a8d93034-bd27-472c-9bb9-a169bee3d02b",
+      "url": "https://www.cbssports.com/nfl/news/jaguars-trade-acquire-saints-dt-davon-godchaux-second-defensive-move-report/",
+      "title": "Jaguars agree to trade for Saints DT Davon Godchaux in second defensive trade of the day, per report",
+      "body_text": "Jacksonville is among the most active buyers ahead of the NFL trade deadline",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T19:09:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Davon Godchaux"
+      ],
+      "resolved_player_ids": [
+        "00-0033860"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "685ffb15-ae81-4606-a682-657ae2f350a9",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-schedule-flex-giants-jaguars-steelers-eagles/",
+      "title": "NFL Week 11 schedule flex: Giants-Jaguars moves to 4:25, Steelers-Eagles shifts to 1 p.m.",
+      "body_text": "New York and Jacksonville will receive a larger Week 11 spotlight as the league swaps their start time with the intrastate matchup between Pittsburgh and Philadelphia",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-09T18:49:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "98ff7b75-4653-45ae-89bb-b7444ebc7020",
+      "url": "https://www.cbssports.com/nfl/news/seahawks-plan-to-start-drew-lock-in-week-10-despite-oblique-injury-sam-darnold-to-miss-another-game/",
+      "title": "Seahawks plan to start Drew Lock in Week 10 despite oblique injury, Sam Darnold to miss another game",
+      "body_text": "Lock will make his third start of the season as the Seattle quarterback group battles multiple injuries",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T18:30:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drew Lock",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0035704",
+        "00-0034869"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "89966f22-9ef3-4a47-bd66-888d93c570e3",
+      "url": "https://www.cbssports.com/nfl/news/cam-skattebo-injury-update-giants-rb-thursday-night-commanders/",
+      "title": "Cam Skattebo injury update: Giants RB 'full go' for Thursday night vs. Commanders",
+      "body_text": "Cam Skattebo is set to return from a hamstring injury as the NFC East-leading Giants prepare for a rematch with the Commanders",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-09T17:38:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Commanders Cam"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "0848a866-0ae3-4e63-98cc-a74a90194f32",
+      "url": "https://www.cbssports.com/nfl/news/jj-mccarthy-injury-giants-qb-on-track-commanders-thursday-night-football/",
+      "title": "JJ McCarthy injury: Giants QB is on track to face Commanders on 'Thursday Night Football'",
+      "body_text": "McCarthy suffered a hip injury during Sunday's win over the Eagles but returned to play",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-09T17:25:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a6b6fe6f-b96b-48cc-a48f-b686e280c88c",
+      "url": "https://www.cbssports.com/nfl/news/bills-vikings-picks-monday-night-nfl-week-9-losers-jaguars-trade-jessie-bates/",
+      "title": "Bills-Vikings picks for Monday night, plus NFL Week 9 losers and Jaguars make trade for Pro Bowl safety",
+      "body_text": "Here's everything you need to know about the NFL for Nov. 9",
+      "author": "John Breech",
+      "published_at": "2026-11-09T17:08:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pro Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "44c51f8c-dca5-4620-9b72-febdfc5a9bcc",
+      "url": "https://www.cbssports.com/nfl/news/browns-starting-qb-deshaun-watson-shedeur-sanders-texans-2026/",
+      "title": "Browns QB update: Todd Monken hasn't decided between Deshaun Watson and Shedeur Sanders for Week 10",
+      "body_text": "Sanders' performance against the Saints might earn another chance to start Sunday vs. the Texans",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-09T23:34:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Todd Monken",
+        "Deshaun Watson",
+        "Shedeur Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0033537",
+        "00-0040668"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "39c5ee57-a67a-4a75-a6af-47effcd4b854",
+      "url": "https://www.cbssports.com/nfl/news/nick-sirianni-eagles-hot-seat-coaching-changes-2026/",
+      "title": "Nick Sirianni says Eagles could make coaching changes as struggling offense enters bye week",
+      "body_text": "Philadelphia has lost seven straight games, and Nick Sirianni is evaluating everything",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T16:35:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "600ef679-5a32-4991-990d-4510aef2e8c4",
+      "url": "https://www.cbssports.com/betting/news/week-9-nfl-betting-promos-get-over-3000-bonuses-from-betting-apps-sportsbooks-bills-vikings-mnf/",
+      "title": "Week 9 NFL betting promos: Get over $3,000 in bonuses from betting apps, sportsbooks for Bills-Vikings, MNF",
+      "body_text": "Top Week 9 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-09T16:11:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "8e6a6357-4a0b-4a4c-baaa-1d2628fe0b0d",
+      "url": "https://www.cbssports.com/nfl/news/jessie-bates-iii-join-exclusive-club-after-trade-falcons-jaguars/",
+      "title": "Jessie Bates III in line to join exclusive club after trade from Falcons to Jaguars",
+      "body_text": "Bates will take his game to new heights in more ways than one in Jacksonville",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-09T14:53:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jessie Bates III",
+        "Jaguars Bates"
+      ],
+      "resolved_player_ids": [
+        "00-0034675"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "b955f7c7-6331-420a-ba68-2d6aabc498e7",
+      "url": "https://www.cbssports.com/nfl/news/andy-reid-harrison-butker-chiefs-field-goal-kicker/",
+      "title": "Andy Reid noncommittal on Harrison Butker's Chiefs future after another missed field goal",
+      "body_text": "Butker has made a career-low 63.2% of his field-goal attempts this season, while five-time All-Pro Justin Tucker waits on Kansas City's practice squad",
+      "author": "Brad Crawford",
+      "published_at": "2026-11-09T13:53:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andy Reid",
+        "Harrison Butker",
+        "Pro Justin",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0033303"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "2f07ab53-38d8-406f-94ff-2ce9eb3202e5",
+      "url": "https://www.cbssports.com/nfl/news/bears-overcome-caleb-williams-interceptions-for-snf-win-resetting-cfp-race-after-week-10/",
+      "title": "Bears overcome Caleb Williams' interceptions for 'SNF' win; resetting CFP race after Week 10",
+      "body_text": "Plus, NFL trade deadline is a day away, and we project AP Top 25 after college basketball's opening week",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-09T13:53:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "23ff3b7d-345d-4bb6-aa2e-76bdab457eb6",
+      "url": "https://www.cbssports.com/nfl/news/caleb-williams-four-interceptions-bears-buccaneers-2026/",
+      "title": "Caleb Williams unfazed by four-interception game in Bears win: 'I don't get gun shy'",
+      "body_text": "Williams threw four interceptions for the first time in his football career but responded by putting Chicago in position for a game-winning field goal",
+      "author": "Brad Crawford",
+      "published_at": "2026-11-09T13:36:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    }
+  ]
+}

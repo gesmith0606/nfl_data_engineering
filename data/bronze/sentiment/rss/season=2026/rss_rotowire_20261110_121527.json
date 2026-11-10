@@ -1,0 +1,87 @@
+{
+  "fetch_run_id": "3440a70f-bcba-434d-bab8-2f38b07df6d2",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-10T12:15:27.868161+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646965",
+      "url": "https://www.rotowire.com//football/player/jordan-mason-16163",
+      "title": "Jordan Mason: Garners 42 scrimmage yards in loss",
+      "body_text": "Mason rushed six times for 35 yards and brought in two of three targets for seven yards in the Vikings' 23-6 loss to the Bills on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-09T09:18:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jordan Mason"
+      ],
+      "resolved_player_ids": [
+        "00-0037525"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646963",
+      "url": "https://www.rotowire.com//football/player/carson-wentz-10856",
+      "title": "Carson Wentz: Forgettable performance in spot start",
+      "body_text": "Wentz completed eight of 25 passes for 81 yards with no touchdowns and two interceptions and rushed once for no gain in the Vikings' 23-6 loss to the Bills on Monday night. He also lost a fumble.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-09T09:12:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Carson Wentz"
+      ],
+      "resolved_player_ids": [
+        "00-0032950"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646962",
+      "url": "https://www.rotowire.com//football/player/dalton-kincaid-16697",
+      "title": "Dalton Kincaid: Three-catch effort in win",
+      "body_text": "Kincaid secured all three targets for 28 yards in the Bills' 23-6 win over the Vikings on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-09T09:05:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Dalton Kincaid"
+      ],
+      "resolved_player_ids": [
+        "00-0038933"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646961",
+      "url": "https://www.rotowire.com//football/player/dj-moore-12477",
+      "title": "DJ Moore: Three catches in tough matchup",
+      "body_text": "Moore secured three of five targets for 25 yards and rushed once for 11 yards in the Bills' 23-6 win over the Vikings on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-09T09:00:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl646958",
+      "url": "https://www.rotowire.com//football/player/justin-jefferson-14509",
+      "title": "Justin Jefferson: Highly inefficient sans Murray",
+      "body_text": "Jefferson brought in three of 11 targets for 58 yards in the Vikings' 23-6 loss to the Bills on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-09T08:53:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Justin Jefferson",
+        "Murray Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0036322"
+      ],
+      "team_hint": "BUF"
+    }
+  ]
+}

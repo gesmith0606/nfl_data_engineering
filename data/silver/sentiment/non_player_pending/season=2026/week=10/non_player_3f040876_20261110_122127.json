@@ -1,0 +1,185 @@
+{
+  "batch_id": "3f040876",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-10T12:21:27.540799+00:00",
+  "record_count": 16,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-wear-down-vikings-23-6",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-wear-down-vikings-23-6",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-vikings-need-to-trade-for-a-quarterback-tomorrow",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-vikings-need-to-trade-for-a-quarterback-tomorrow",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-has-foot-stepped-on-but-stays-in-game",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-wentz-has-foot-stepped-on-but-stays-in-game",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rb-rhamondre-stevenson-will-miss-multiple-weeks-with-a-knee-issue",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-rb-rhamondre-stevenson-will-miss-multiple-weeks-with-a-knee-issue",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-may-plan-for-jordan-davis-to-play-more-than-52-percent-of-the-time",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-may-plan-for-jordan-davis-to-play-more-than-52-percent-of-the-time",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-could-return-after-the-seahawks-bye-week",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-could-return-after-the-seahawks-bye-week",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lead-vikings-10-6-at-halftime",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bills-lead-vikings-10-6-at-halftime",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-makes-appearance-on-the-pat-mcafee-alt-cast",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-makes-appearance-on-the-pat-mcafee-alt-cast",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "43e770ea-1b30-43e5-a4fd-2e13bcdb33c6",
+      "external_id": "43e770ea-1b30-43e5-a4fd-2e13bcdb33c6",
+      "team_abbr": null,
+      "summary": "Analysis of evolving NFL trade deadline culture showing increased transaction activity as league norm.",
+      "sentiment": 0.0,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Why NFL trade deadline evolved from afterthought to hectic: In-season transaction boom is league's new normal. After a record-breaking trade deadline in 2025 and with an active transaction wire in 2026, the times are a-changin' in the NFL",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "024a1e76-2d77-4356-aff2-c7e9227d0fee",
+      "external_id": "024a1e76-2d77-4356-aff2-c7e9227d0fee",
+      "team_abbr": null,
+      "summary": "Sports betting preview article covering multiple games including Bills-Vikings; no player-specific NFL news.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Find best bets and props for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "a6b6fe6f-b96b-48cc-a48f-b686e280c88c",
+      "external_id": "a6b6fe6f-b96b-48cc-a48f-b686e280c88c",
+      "team_abbr": null,
+      "summary": "NFL Week 9 preview with predictions for Bills-Vikings and mention of Jaguars trade activity and Pro Bowl safety.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Here's everything you need to know about the NFL for Nov. 9",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "f20c0aa3-bd48-3b5c-9775-79d096e94f36",
+      "external_id": "f20c0aa3-bd48-3b5c-9775-79d096e94f36",
+      "team_abbr": null,
+      "summary": "Fantasy football start/sit recommendations for 16 players in Week 10.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "USA TODAY Sports breaks down eight players to start and eight players to sit ahead of Week 10 of the 2026 NFL season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "3533beab-bd6a-3bae-99f7-aa7d07ad25d0",
+      "external_id": "3533beab-bd6a-3bae-99f7-aa7d07ad25d0",
+      "team_abbr": null,
+      "summary": "Seven worst NFL trade deadline deals of all time ranked and analyzed.",
+      "sentiment": -0.5,
+      "confidence": 0.4,
+      "category": "trade",
+      "source_excerpt": "These seven midseason trades stand among the worst NFL trade deadline deals of all time.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "55fa0f70-5502-48ab-8f08-d9b81d154171",
+      "external_id": "55fa0f70-5502-48ab-8f08-d9b81d154171",
+      "team_abbr": null,
+      "summary": "Week 10 waiver wire recommendations provided by analysts.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Josh Norris and Joel Smyth highlight the players you need to target on the waiver wire ahead of Week 10.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "d046653d-2ad9-3c4a-9e6d-3e46c79e8db7",
+      "external_id": "d046653d-2ad9-3c4a-9e6d-3e46c79e8db7",
+      "team_abbr": null,
+      "summary": "Tony Romo made surprise return to television on Pat McAfee MNF alt-cast following prior legal incident.",
+      "sentiment": 0.2,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Tony Romo made a surprise return to television and to breaking down NFL games.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-makes-appearance-on-the-pat-mcafee-alt-cast",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tony-romo-makes-appearance-on-the-pat-mcafee-alt-cast",
+      "team_abbr": null,
+      "summary": "Tony Romo made appearance on Pat McAfee alt cast.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Tony Romo has made a return to sports media.",
+      "subject_type": "reporter"
+    }
+  ]
+}
