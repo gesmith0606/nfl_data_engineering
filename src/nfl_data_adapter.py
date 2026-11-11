@@ -24,6 +24,28 @@ from config import (
 logger = logging.getLogger(__name__)
 
 
+def ensure_ca_bundle() -> None:
+    """Point HTTPS verification at certifi's CA bundle unless one is set.
+
+    On the Windows PC the OS store lacks an intermediate nflverse's CDN needs,
+    so every download failed CERTIFICATE_VERIFY_FAILED and each ingest wrote
+    0 rows. Any explicitly configured CA (``SSL_CERT_FILE``, ``SSL_CERT_DIR``,
+    ``REQUESTS_CA_BUNDLE``, ``CURL_CA_BUNDLE`` — e.g. a corporate root) always
+    wins: overriding it with certifi would drop those roots.
+    """
+    for var in ("SSL_CERT_FILE", "SSL_CERT_DIR", "REQUESTS_CA_BUNDLE", "CURL_CA_BUNDLE"):
+        if os.environ.get(var):
+            return
+    try:
+        import certifi
+    except ImportError:  # pragma: no cover - certifi ships with requests
+        return
+    os.environ["SSL_CERT_FILE"] = certifi.where()
+
+
+ensure_ca_bundle()
+
+
 def format_validation_output(result: Dict[str, any]) -> Optional[str]:
     """Format a validation result dict into human-readable output lines.
 

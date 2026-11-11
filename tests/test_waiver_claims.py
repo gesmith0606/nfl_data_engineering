@@ -851,6 +851,25 @@ def test_yahoo_submit_outcomes(fake_sites, monkeypatch, posted, verdict):
     assert sub.submit_one("feetball", c, {"page": None}, 2026)[0] == verdict
 
 
+def test_yahoo_reserved_form_names_the_stage_it_wanted(fake_sites, monkeypatch):
+    # 2026-11-10: stage-2 POST came back as the form, no claim. The verdict
+    # stays UNKNOWN (never auto-confirm) but now says what Yahoo asked for.
+    sub, _ = fake_sites
+    posted = {"status": 200, "path": "/f1/658684/10/addplayer", "messages": [],
+              "form_again": True, "sent_stage": "2", "stage": "3",
+              "buttons": ["Submit Claim"], "heading": "Confirm Transaction"}
+    monkeypatch.setattr(ws, "yahoo_form",
+                        lambda *a, **k: {"found": True, "posted": posted})
+    c = wc.CheckedClaim(
+        _claim("Tyler Shough", "Sam Darnold", 2, league="feetball"),
+        wc.Player("Tyler Shough", "41825", wc.WAIVERS),
+        wc.Player("Sam Darnold", "30973", wc.MINE),
+    )
+    verdict, msg = sub.submit_one("feetball", c, {"page": None}, 2026)
+    assert verdict == "UNKNOWN"
+    assert "got stage 3" in msg and "Submit Claim" in msg
+
+
 def test_read_back_not_found_exits_2(fake_sites, monkeypatch, tmp_path, capsys):
     sub, _ = fake_sites
     monkeypatch.setattr(ws, "read_claims", lambda *a, **k: ("summary", []))

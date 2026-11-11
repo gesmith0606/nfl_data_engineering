@@ -329,9 +329,43 @@ Notes:
 - **ESPN outcomes**: `FAILED_INVALIDPLAYERSOURCE` = the player went elsewhere or an earlier
   claim already used the drop (wk5: Commanders D/ST executed, so the Jaguars claim with the same
   Bears drop failed). A free-agent add executes immediately and cannot be cancelled.
-- **Yahoo**: the Fantasy API needs an approved app (ours: 401 `additional_authorization_required`;
-  new apps cannot get write scope), so the tool posts Yahoo's own add/drop form. The team page's
+- **Yahoo**: READ access (`fspt-r`) was APPROVED 2026-10-28 for app `rDgNjgPC`; writes are not
+  available (new apps cannot get write scope), so the tool posts Yahoo's own add/drop form. See
+  "Yahoo API access" below for the per-machine token setup. The team page's
   pending-claim markup was not captured yet (nothing was pending) - check the first real Yahoo
   claim's read-back by eye, then lock the parser with a fixture.
 - **Terms of use**: ESPN (Disney ToU §2.B.x) and Yahoo (ToS §2.4) also prohibit automated
   access, as do the existing pool-refresh reads. Whether to `--submit` is George's call.
+
+## Yahoo API access (read-only) — per-machine setup
+
+Read access (`fspt-r`) was approved 2026-10-28 for YDN app **NFL Draft Co-Pilot** (App ID
+`rDgNjgPC`). Writes stay unavailable, so claims still go through Yahoo's own form (§6).
+
+**Why it breaks on a "new" machine (2026-11-03 incident, ~1 hour lost):** the token pair lives in
+`data/yahoo_tokens.json`, which is gitignored, so it never syncs between the PC and the MacBook.
+A token granted BEFORE the approval (or without `scope=fspt-r`) still refreshes fine and then 401s
+every call with `additional_authorization_required`. Refreshing never adds a scope — only a new
+grant or a copy of a good token fixes it.
+
+Checklist, in order — do this BEFORE Step 3 on any machine:
+1. `python scripts/yahoo_auth.py --check` — lists the leagues and the Feetball roster if the token
+   is good.
+2. If it 401s, restore the token from Bitwarden: the working token pair is stored as the secret
+   **`YAHOO_TOKENS`** (assumed to be the JSON of `data/yahoo_tokens.json` — confirm the shape the
+   first time it is resolved, and fix this line if not). Resolve it with
+   `node ~/.claude/scripts/resolve-secret.js YAHOO_TOKENS > data/yahoo_tokens.json`
+   (needs Bitwarden reachable on that machine: `bws` token in the keychain via `kcadd
+   BWS_ACCESS_TOKEN`, or `bw login` once then `bwu`). Never print it.
+3. No Bitwarden on this machine: re-grant with `python scripts/yahoo_auth.py` (redirect `oob`,
+   scope `fspt-r` by default; click Allow, paste the code into the terminal, never into chat).
+   Afterwards store the new token back into `YAHOO_TOKENS` so the other machine can use it.
+4. `YAHOO_CLIENT_ID` / `YAHOO_CLIENT_SECRET` must be in each machine's `.env` (not synced either).
+
+## Chrome-tab fallback (no Playwright login, no debug Chrome)
+`scripts/waiver_preflight.py` names this route when both browser routes are down. Reads: run
+the ESPN `kona_player_info` / `mRoster` and Yahoo Players-page fetches in a claude-in-chrome tab
+and write the pool files (`la_liga_2026_{roster,all_rostered}.txt`, Yahoo via
+`src.league_pools.yahoo_pool_files`). Filing: `scripts/tab_snippet.py` prints the SAME guarded
+snippets `submit_claims.py` runs and writes the ledger rows — the full procedure and the Yahoo
+multi-stage caveat are in the weekly-waivers skill, Step 6 "Chrome-tab route".
