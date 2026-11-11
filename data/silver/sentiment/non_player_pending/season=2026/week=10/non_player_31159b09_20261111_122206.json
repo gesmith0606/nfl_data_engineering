@@ -1,0 +1,97 @@
+{
+  "batch_id": "31159b09",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-11T12:22:06.609053+00:00",
+  "record_count": 8,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-ravens-averages-13-96-million-on-prime-video",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-ravens-averages-13-96-million-on-prime-video",
+      "team_abbr": null,
+      "summary": "Article discusses viewership metrics for Jaguars-Ravens game on Prime Video.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "When it comes to interpreting press releases regarding the audiences for sporting events, there's a rule of thumb.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "cc169749-77d8-488b-adc5-ae25cc32674e",
+      "external_id": "cc169749-77d8-488b-adc5-ae25cc32674e",
+      "team_abbr": null,
+      "summary": "Power rankings analysis separating playoff contenders from pretenders after Week 9, noting NFC North strength and Giants/Steelers weakness.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Breaking down all 14 teams currently in playoff position at the midway point to separate the legitimate Super Bowl threats from the impostors",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b3036ae6-3bd3-4d09-97ba-9148fd71e6e4",
+      "external_id": "b3036ae6-3bd3-4d09-97ba-9148fd71e6e4",
+      "team_abbr": null,
+      "summary": "SportsLine's model simulated Week 10 games and provided best bets including Bills and Texans.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "SportsLine's advanced model has simulated every game in the Week 10 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "9ab7b12d-4dc5-4824-ac38-c021a2b348eb",
+      "external_id": "9ab7b12d-4dc5-4824-ac38-c021a2b348eb",
+      "team_abbr": null,
+      "summary": "John Breech predicts Week 10 games including Lions victory over Patriots in Munich.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "John Breech predicts every Week 10 game, including a Lions victory over the Patriots in Munich",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "153cec11-4a98-33d8-b5df-32f64e1d9b16",
+      "external_id": "153cec11-4a98-33d8-b5df-32f64e1d9b16",
+      "team_abbr": null,
+      "summary": "Survey asks whether Lions will keep their winning streak alive against Patriots in Week 10.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Will the Detroit Lions keep their winning streak alive against the New England Patriots in Week 10?",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "a22a372c-c221-3ad3-9bf5-cff8670da5a2",
+      "external_id": "a22a372c-c221-3ad3-9bf5-cff8670da5a2",
+      "team_abbr": null,
+      "summary": "Panthers vs Broncos game review covering non-primary storyline topics.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "We all know the hot topic right now. This one is about everything else.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c69715c4-1d1d-41e4-8292-d589846027b7",
+      "external_id": "c69715c4-1d1d-41e4-8292-d589846027b7",
+      "team_abbr": null,
+      "summary": "Fantasy football analysis preview for Week 10 with multiple experts providing stats and film breakdowns.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 10.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-ravens-averages-13-96-million-on-prime-video",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-ravens-averages-13-96-million-on-prime-video",
+      "team_abbr": null,
+      "summary": "Jaguars-Ravens game averaged 13.96 million viewers on Prime Video.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "When it comes to interpreting press releases regarding the audiences for sporting events, there's a rule of thumb.",
+      "subject_type": "reporter"
+    }
+  ]
+}

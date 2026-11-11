@@ -1,6 +1,6 @@
 {
   "source": "ftn",
-  "fetched_at": "2026-11-08T12:19:37.320810+00:00",
+  "fetched_at": "2026-11-11T12:22:15.197755+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -656,7 +656,7 @@
     {
       "player_name": "Josh Downs",
       "position": "WR",
-      "team": "IND",
+      "team": "KC",
       "external_rank": 94,
       "rank": 94
     },
@@ -1167,7 +1167,7 @@
     {
       "player_name": "Keenan Allen",
       "position": "WR",
-      "team": "IND",
+      "team": "SF",
       "external_rank": 172,
       "rank": 167
     },
@@ -1790,7 +1790,7 @@
     {
       "player_name": "Kendre Miller",
       "position": "RB",
-      "team": "FA",
+      "team": "DAL",
       "external_rank": 273,
       "rank": 256
     },
@@ -1979,7 +1979,7 @@
     {
       "player_name": "Jaydon Blue",
       "position": "RB",
-      "team": "PHI",
+      "team": "FA",
       "external_rank": 302,
       "rank": 283
     },
@@ -2056,7 +2056,7 @@
     {
       "player_name": "Kirk Cousins",
       "position": "QB",
-      "team": "LV",
+      "team": "MIN",
       "external_rank": 313,
       "rank": 294
     }

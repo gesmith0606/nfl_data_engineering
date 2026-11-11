@@ -1,6 +1,6 @@
 {
   "source": "fantasypros",
-  "fetched_at": "2026-11-08T12:19:31.050543+00:00",
+  "fetched_at": "2026-11-11T12:22:09.211054+00:00",
   "players": [
     {
       "player_name": "Jahmyr Gibbs",
@@ -684,7 +684,7 @@
     {
       "player_name": "Josh Downs",
       "position": "WR",
-      "team": "IND",
+      "team": "KC",
       "external_rank": 98,
       "rank": 98
     },
@@ -1209,7 +1209,7 @@
     {
       "player_name": "Keenan Allen",
       "position": "WR",
-      "team": "IND",
+      "team": "SF",
       "external_rank": 173,
       "rank": 173
     },
@@ -1727,7 +1727,7 @@
     {
       "player_name": "Kirk Cousins",
       "position": "QB",
-      "team": "LV",
+      "team": "MIN",
       "external_rank": 263,
       "rank": 247
     },
@@ -1776,7 +1776,7 @@
     {
       "player_name": "Kendre Miller",
       "position": "RB",
-      "team": "FA",
+      "team": "DAL",
       "external_rank": 270,
       "rank": 254
     },
@@ -2014,7 +2014,7 @@
     {
       "player_name": "Jaydon Blue",
       "position": "RB",
-      "team": "PHI",
+      "team": "FA",
       "external_rank": 308,
       "rank": 288
     },

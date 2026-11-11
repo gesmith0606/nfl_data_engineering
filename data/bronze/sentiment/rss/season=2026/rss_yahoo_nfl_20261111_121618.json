@@ -1,0 +1,806 @@
+{
+  "fetch_run_id": "1a18d633-302f-4c7f-b50b-8374c13a2106",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-11T12:16:18.475536+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "62f0d809-0962-3552-a15d-dcd259121644",
+      "url": "https://sports.yahoo.com/articles/john-spytek-fernando-mendoza-passed-120143276.html",
+      "title": "John Spytek: Fernando Mendoza passed every test, allowed us to make a hard decision",
+      "body_text": "It took longer than it has for most quarterbacks drafted first overall, but Fernando Mendoza's time has come in Las Vegas.",
+      "author": "",
+      "published_at": "2026-11-11T12:01:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "John Spytek",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "153cec11-4a98-33d8-b5df-32f64e1d9b16",
+      "url": "https://sports.yahoo.com/articles/survey-lions-beat-patriots-week-120000206.html",
+      "title": "Survey: Will the Lions beat the Patriots in Week 10?",
+      "body_text": "Will the Detroit Lions keep their winning streak alive against the New England Patriots in Week 10?",
+      "author": "",
+      "published_at": "2026-11-11T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "59054992-08d6-32ab-8504-f5fd7f0ca183",
+      "url": "https://sports.yahoo.com/articles/bengals-film-room-joe-burrow-120000547.html",
+      "title": "Bengals Film Room: Joe Burrow now a frontrunner for MVP?",
+      "body_text": "Burrow has been on fire during the Bengals current 4 game winning streak.",
+      "author": "",
+      "published_at": "2026-11-11T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Film",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "9903ae16-1c4b-3278-8eff-6fc9a5593d1c",
+      "url": "https://sports.yahoo.com/articles/cardinals-post-nfl-trade-deadline-120000892.html",
+      "title": "Cardinals post-NFL trade deadline moves & workouts",
+      "body_text": "The franchise is still attempting to be competitive",
+      "author": "",
+      "published_at": "2026-11-11T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "aa70a914-b1ec-37fe-a359-24fe0e65fa26",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-anticlimactic-nfl-120000558.html",
+      "title": "New York Jets News: Anticlimactic NFL Trade Deadline Day for NYJ",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-11T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Trade Deadline"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "b640e10b-c115-3f89-98e9-3aa69ecbc46d",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-second-half-120000501.html",
+      "title": "Tennessee Titans news: Second half of the season awaits",
+      "body_text": "The Tennessee Titans are getting ready for the second half of the regular season.",
+      "author": "",
+      "published_at": "2026-11-11T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "c584ae3b-9653-3d2b-b051-f5328612c746",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-adds-running-120000102.html",
+      "title": "Cowboys news: Dallas adds running back to practice squad",
+      "body_text": "Here is today’s Dallas Cowboys news",
+      "author": "",
+      "published_at": "2026-11-11T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "a22a372c-c221-3ad3-9bf5-cff8670da5a2",
+      "url": "https://sports.yahoo.com/articles/panthers-vs-broncos-game-review-115742482.html",
+      "title": "Panthers vs Broncos game review: The other stuff",
+      "body_text": "We all know the hot topic right now. This one is about everything else.",
+      "author": "",
+      "published_at": "2026-11-11T11:57:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "176ddc04-7f1c-3b8c-a71a-0cdbadc74fe1",
+      "url": "https://sports.yahoo.com/articles/terps-nfl-week-9-nick-114000905.html",
+      "title": "Terps in the NFL Week 9: Nick Cross has monster game in loss to Rams",
+      "body_text": "See how former Terps playing in the pros did this week.",
+      "author": "",
+      "published_at": "2026-11-11T11:40:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Cross",
+        "Rams See"
+      ],
+      "resolved_player_ids": [
+        "00-0037616"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c531bc66-0512-3924-9b1b-df029034efeb",
+      "url": "https://sports.yahoo.com/articles/jaguars-super-bowl-time-praise-113108579.html",
+      "title": "As Jaguars go all-in for Super Bowl, it's time to praise them – and bury them | Opinion",
+      "body_text": "Jaguars GM James Gladstone's hyper aggressive tendencies were fun to watch at the NFL trade deadline, writes columnist Nate Davis. But there is a cost.",
+      "author": "",
+      "published_at": "2026-11-11T11:31:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "As Jaguars",
+        "Super Bowl",
+        "Opinion Jaguars",
+        "James Gladstone",
+        "Nate Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0035649"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "a22a372c-c221-3ad3-9bf5-cff8670da5a2",
+      "url": "https://sports.yahoo.com/articles/panthers-vs-broncos-game-review-115742482.html",
+      "title": "Panthers vs Broncos game review: The other stuff",
+      "body_text": "We all know the hot topic right now. This one is about everything else.",
+      "author": "",
+      "published_at": "2026-11-11T11:57:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "176ddc04-7f1c-3b8c-a71a-0cdbadc74fe1",
+      "url": "https://sports.yahoo.com/articles/terps-nfl-week-9-nick-114000905.html",
+      "title": "Terps in the NFL Week 9: Nick Cross has monster game in loss to Rams",
+      "body_text": "See how former Terps playing in the pros did this week.",
+      "author": "",
+      "published_at": "2026-11-11T11:40:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Cross",
+        "Rams See"
+      ],
+      "resolved_player_ids": [
+        "00-0037616"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c531bc66-0512-3924-9b1b-df029034efeb",
+      "url": "https://sports.yahoo.com/articles/jaguars-super-bowl-time-praise-113108579.html",
+      "title": "As Jaguars go all-in for Super Bowl, it's time to praise them – and bury them | Opinion",
+      "body_text": "Jaguars GM James Gladstone's hyper aggressive tendencies were fun to watch at the NFL trade deadline, writes columnist Nate Davis. But there is a cost.",
+      "author": "",
+      "published_at": "2026-11-11T11:31:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "As Jaguars",
+        "Super Bowl",
+        "Opinion Jaguars",
+        "James Gladstone",
+        "Nate Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0035649"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "94c31e26-77cd-3f95-a86e-fd5df24e0091",
+      "url": "https://sports.yahoo.com/articles/bengals-now-best-8-game-113000081.html",
+      "title": "Bengals now have best 8-game start under Zac Taylor",
+      "body_text": "Cincinnati is now 6-2 to start the season",
+      "author": "",
+      "published_at": "2026-11-11T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zac Taylor"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "34aa05a2-302c-3f26-b7ed-25c74d1a8570",
+      "url": "https://sports.yahoo.com/articles/position-grades-patriots-loss-packers-112050576.html",
+      "title": "Position grades from the Patriots’ loss to the Packers",
+      "body_text": "Our film review of each position group after the Patriots’ 45-27 loss.",
+      "author": "",
+      "published_at": "2026-11-11T11:20:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers Our"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "13015a9c-fa21-3a5b-bafc-de84eb18cdcd",
+      "url": "https://sports.yahoo.com/articles/5-nfl-trade-deadline-moves-110602189.html",
+      "title": "5 NFL trade deadline moves we wish happened, including Jonathan Taylor",
+      "body_text": "The 2026 NFL trade deadline included some marquee trades, but players like Jonathan Taylor and Brian Thomas Jr. ultimately stayed put.",
+      "author": "",
+      "published_at": "2026-11-11T11:06:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Taylor",
+        "Brian Thomas Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0036223",
+        "00-0039893"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "79d205f2-20bf-31b3-91f0-0cf4e26f13aa",
+      "url": "https://sports.yahoo.com/articles/jonah-jackson-luke-goedekes-grievances-110317066.html",
+      "title": "Jonah Jackson on Luke Goedeke's grievances: &quot;This is football, man&quot;",
+      "body_text": "After Sunday night's game between the Buccaneers and Bears, Tampa Bay tackle Luke Goedeke had some grievances to air about Chicago defensive tackle Jeffery Simmons.",
+      "author": "",
+      "published_at": "2026-11-11T11:03:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonah Jackson",
+        "Luke Goedeke",
+        "After Sunday",
+        "Tampa Bay",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0036258",
+        "00-0037835",
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "466dabd8-38bf-3450-9b62-5b06ce34415e",
+      "url": "https://sports.yahoo.com/articles/ravens-news-arthur-maulet-retires-110000182.html",
+      "title": "Ravens news: Arthur Maulet retires",
+      "body_text": "Rounding up the latest news and analysis about the Baltimore Ravens.",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arthur Maulet",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0033503"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "4caac5fc-9116-321d-a5a9-3309370a301f",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-josh-downs-trade-110000679.html",
+      "title": "Chiefs News: Josh Downs trade is worth it in the Mahomes era",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "5ab7acf6-6478-3820-8088-655f5f748f94",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-big-nothingburger-110000196.html",
+      "title": "Cleveland Browns news: A big nothingburger at the trade deadline",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 11 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "6b3898f8-f679-3a42-bb8e-c66476deab89",
+      "url": "https://sports.yahoo.com/articles/bengals-news-embarrassing-trade-deadline-110000689.html",
+      "title": "Bengals News: Embarrassing Trade Deadline for Cincinnati",
+      "body_text": "Your daily dose of Bengals news.",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Embarrassing Trade",
+        "Cincinnati Your"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "74c2117a-09b2-3ed4-9ba5-0051af231881",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-stand-pat-110000409.html",
+      "title": "The Bear’s Den: Bears stand pat at trade deadline, Minnesota Vikings don’t",
+      "body_text": "It was the Minnesota Vikings, not the Chicago Bears, who made the big trade-deadline splash this year with Kirk Cousins",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Minnesota Vikings",
+        "Chicago Bears",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "aaa77f6b-eb5f-3e78-81c9-18ffabaa93c8",
+      "url": "https://sports.yahoo.com/articles/malik-willis-going-ir-cost-110000480.html",
+      "title": "Malik Willis going on IR can cost the Packers a round in the 2027 draft",
+      "body_text": "Green Bay will almost certainly receive a fourth-round pick for the loss of Malik Willis, not a third-round pick",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Malik Willis",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "d8106d46-fee0-310f-bcf3-018ac498528c",
+      "url": "https://sports.yahoo.com/articles/no-bull-thoughts-ilb-room-110000148.html",
+      "title": "No Bull thoughts on the ILB room after the Daiyan Henley trade",
+      "body_text": "The Denver Broncos traded for inside linebacker Daiyan Henley. What does this mean for the defensive rotation there?",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "No Bull",
+        "Daiyan Henley",
+        "The Denver"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "e0b296e2-ca55-3968-8c93-cf311943b154",
+      "url": "https://sports.yahoo.com/articles/giants-news-giants-stand-pat-110000772.html",
+      "title": "Giants news: Giants stand pat at deadline, McCarthy practices, more",
+      "body_text": "New York Giants headlines for Thursday",
+      "author": "",
+      "published_at": "2026-11-11T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "ec2be7c7-8574-31c3-ba92-c0f9a7700f4f",
+      "url": "https://sports.yahoo.com/articles/rams-more-likely-miss-playoffs-103906303.html",
+      "title": "Rams more likely to miss the playoffs than make the playoffs, according to betting odds",
+      "body_text": "After opening the season as the betting favorites to win the Super Bowl, the Rams are now underdogs to make the playoffs.",
+      "author": "",
+      "published_at": "2026-11-11T10:39:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "9fa7a3a9-66cb-3914-9daf-a647a09cd479",
+      "url": "https://sports.yahoo.com/articles/number-crunch-demolition-derby-gillette-100712593.html",
+      "title": "The Number Crunch: Demolition Derby at Gillette Stadium",
+      "body_text": "Statistics and more from the Patriots’ 45-27 loss in Week 9.",
+      "author": "",
+      "published_at": "2026-11-11T10:07:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Number",
+        "Demolition Derby",
+        "Gillette Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "c8749e05-4ed5-37c6-876e-b4eaa5edcb44",
+      "url": "https://sports.yahoo.com/articles/aaron-rodgers-one-win-away-092248820.html",
+      "title": "Aaron Rodgers is one win away from tying Drew Brees for fourth-most of all time",
+      "body_text": "The Steelers' next win will give Rodgers 181 in his career, counting the playoffs, the same number as Brees.",
+      "author": "",
+      "published_at": "2026-11-11T09:22:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Drew Brees",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0020531"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "ba6b4074-f951-3296-8d9c-6e90a859ce74",
+      "url": "https://sports.yahoo.com/articles/nfl-trade-deadline-winners-losers-090035948.html",
+      "title": "NFL trade deadline winners and losers: Vikings go full dadcore with Kirk Cousins in Super Bowl quest",
+      "body_text": "Teams with championship aspirations tooled up at the deadline. Most, but not all of them, have improved their chances",
+      "author": "",
+      "published_at": "2026-11-11T09:00:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "a62ff5fe-b8f6-347e-832f-d6637d294832",
+      "url": "https://sports.yahoo.com/articles/reggie-wayne-jokes-become-player-043049074.html",
+      "title": "Reggie Wayne jokes he should become ‘player-coach’ after Colts’ trade deadline sell-off",
+      "body_text": "Reggie Wayne jokes about a player-coach comeback after the Colts trade two receivers.",
+      "author": "",
+      "published_at": "2026-11-11T04:30:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Reggie Wayne"
+      ],
+      "resolved_player_ids": [
+        "00-0020498"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "c69715c4-1d1d-41e4-8292-d589846027b7",
+      "url": "https://sports.yahoo.com/article/32-teams-32-fantasy-football-facts-to-bully-week-10-042300583.html",
+      "title": "32 Teams. 32 Fantasy football facts to BULLY week 10",
+      "body_text": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 10.",
+      "author": "Hayden Winks,Josh Norris,Matt Harmon",
+      "published_at": "2026-11-11T04:23:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Norris",
+        "Hayden Winks",
+        "Matt Harmon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "18da7074-b26b-37d5-9fd7-20e92ffe2667",
+      "url": "https://sports.yahoo.com/articles/time-play-rookies-040733599.html",
+      "title": "Sean McVay should play the rookies now",
+      "body_text": "The Rams must feature CJ Daniels and Max Klare because they don’t have any other options",
+      "author": "",
+      "published_at": "2026-11-11T04:07:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Rams",
+        "Max Klare"
+      ],
+      "resolved_player_ids": [
+        "00-0041510"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "1f20ddd8-3eb7-36a5-9a05-78298736dfcb",
+      "url": "https://sports.yahoo.com/articles/packers-film-room-packers-defense-040256019.html",
+      "title": "Packers Film Room: Packers defense picks off Drake Maye 3 times",
+      "body_text": "Breaking down the Packers 3 interceptions against Drake Maye",
+      "author": "",
+      "published_at": "2026-11-11T04:02:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers Film",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "5c273e9a-2154-3397-954a-4b9f05ad487c",
+      "url": "https://sports.yahoo.com/articles/jets-quiet-trade-deadline-brings-033610252.html",
+      "title": "Jets’ quiet trade deadline brings about big defensive questions",
+      "body_text": "The Jets, a year removed from making splashy news on NFL trade deadline day, were quiet Tuesday.",
+      "author": "",
+      "published_at": "2026-11-11T03:36:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "512590a8-7eb0-3ddc-9b49-69136036f5e0",
+      "url": "https://sports.yahoo.com/articles/j-j-mccarthy-puts-end-033305664.html",
+      "title": "J.J. McCarthy puts end to any Giants hip injury speculation",
+      "body_text": "Two days after he suffered a hip pointer, J.J. McCarthy skipped over all the “Will he or won’t he play?” drama.",
+      "author": "",
+      "published_at": "2026-11-11T03:33:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "47ec733a-fcf4-3c9e-8d29-e42fa1452f88",
+      "url": "https://sports.yahoo.com/articles/cba-allows-49ers-not-pay-031224664.html",
+      "title": "CBA allows 49ers to not pay Brandon Aiyuk during two-week roster exemption",
+      "body_text": "When unusual situations emerge in the NFL, it becomes a piece-by-piece exercise in figuring out the specific rules that apply.",
+      "author": "",
+      "published_at": "2026-11-11T03:12:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "13420afe-01e8-3f15-92ee-6dab9c75ad65",
+      "url": "https://sports.yahoo.com/articles/justin-herbert-khalil-mack-remain-025108237.html",
+      "title": "Justin Herbert, Khalil Mack remain with Chargers after trade deadline",
+      "body_text": "The Los Angeles Chargers had an opportunity to be true sellers after an 0-8 start to the season, only to land somewhere closer to the middle.",
+      "author": "",
+      "published_at": "2026-11-11T02:51:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Justin Herbert",
+        "Khalil Mack",
+        "The Los",
+        "Angeles Chargers"
+      ],
+      "resolved_player_ids": [
+        "00-0036355",
+        "00-0031040"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "00ce147c-7990-3d59-a5be-d03be75061df",
+      "url": "https://sports.yahoo.com/articles/jordan-davis-trade-grades-eagles-102943943.html",
+      "title": "Jordan Davis trade grades: Eagles celebrated, Jaguars dragged",
+      "body_text": "NFL writers gave Howie Roseman his flowers after seeing the return the Eagles received in the Monday afternoon trade of Jordan Davis.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "04fa357c-624b-3531-a530-6f32b17ae6bf",
+      "url": "https://sports.yahoo.com/articles/warning-nfl-general-managers-howie-023500135.html",
+      "title": "Warning to NFL general managers: Howie Roseman is about to fleece you",
+      "body_text": "Eagles general manager Howie Roseman always seems to come out with a better deal.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4f9ab681-c1b1-34cf-802d-b05ea7645bfa",
+      "url": "https://sports.yahoo.com/articles/roob-stats-makai-lemon-shows-111309154.html",
+      "title": "Roob's Stats: Makai Lemon shows up again and 2nd-half defense doesn't",
+      "body_text": "The stats to know after the Eagles fell to 2-7.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "63cc687c-0487-36d7-94aa-0b2c9ad79718",
+      "url": "https://sports.yahoo.com/articles/nick-sirianni-denies-flipping-bird-164355736.html",
+      "title": "Nick Sirianni denies flipping the bird; looking for answers in bye week",
+      "body_text": "Nick Sirianni and his staff are busy searching for answers in this forgettable 2026 season.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "739f1947-3d27-3f88-a618-32ccad7f487e",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-happens-jordan-070000966.html",
+      "title": "Eagles snap counts: What happens after Jordan Davis trade?",
+      "body_text": "Here's a complete look at Eagles snap counts from their Week 9 loss to the Giants.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "81c1bbfd-e4fd-37d7-ab92-bd1f64cac12b",
+      "url": "https://sports.yahoo.com/articles/next-step-eagles-dt-trading-070000843.html",
+      "title": "The next step for the Eagles at DT after trading Jordan Davis",
+      "body_text": "After trading Jordan Davis to the Jaguars on Monday afternoon, the next step for the Eagles is to extend Moro Ojomo.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Moro Ojomo"
+      ],
+      "resolved_player_ids": [
+        "00-0037073",
+        "00-0038412"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a2ead4ec-012e-3da5-b1df-827c488fc456",
+      "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html",
+      "title": "Eagles down 1 RB on active roster after waiving Blue",
+      "body_text": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blue Saquon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a5848bb6-82b9-37cb-97a5-386b954c2053",
+      "url": "https://sports.yahoo.com/articles/eagles-rookie-progress-report-midway-023500155.html",
+      "title": "An Eagles rookie progress report at the midway point of 2026 season",
+      "body_text": "Here's an updated look at rookie performance from the first half of the Eagles' 2026 season.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "An Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "af50de0c-849e-32ca-b2fa-8da523b64b4f",
+      "url": "https://sports.yahoo.com/articles/inside-tape-why-nolan-smiths-141134751.html",
+      "title": "Inside the tape: Why Nolan Smith's impact goes beyond a box score",
+      "body_text": "Box scores give you the what. Film gives you the why.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Why Nolan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b6e8471a-2078-381f-b7e5-23cdd50c370e",
+      "url": "https://sports.yahoo.com/articles/bengals-back-trade-eagles-arnold-111819846.html",
+      "title": "Bengals back out of trade with Eagles for Arnold Ebiketie",
+      "body_text": "The Eagles on Tuesday morning agreed to trade Arnold Ebiketie to Bengals but deal has fallen through.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arnold Ebiketie",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0038116"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cd851b41-8472-3ef5-9394-7e23bf626ea4",
+      "url": "https://sports.yahoo.com/articles/blockbuster-eagles-trade-jordan-davis-171924572.html",
+      "title": "A blockbuster! Eagles trade Jordan Davis to Jaguars for 1st- and 2nd-round picks",
+      "body_text": "Howie Roseman made his first move before the NFL trade deadline and it is a blockbuster.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e1c26595-56c5-30cc-9737-65ead38aa2a6",
+      "url": "https://sports.yahoo.com/articles/joe-milton-made-few-plays-090729702.html",
+      "title": "Joe Milton made a few plays but couldn't overcome latest offensive line disaster",
+      "body_text": "The Eagles lost their seventh straight to the Giants in Joe Milton's debut.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f4f468ee-91e5-3fc8-a9d5-eadf926e968e",
+      "url": "https://sports.yahoo.com/articles/couple-potential-eagles-trade-chips-070000614.html",
+      "title": "Couple of potential Eagles trade chips prefer to stay in Philly",
+      "body_text": "A couple of the Eagles' potential trade chips said after Sunday's loss that they'd prefer to stay in Philly.",
+      "author": "",
+      "published_at": "2026-11-11T02:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    }
+  ]
+}

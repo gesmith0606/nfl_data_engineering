@@ -1,0 +1,112 @@
+{
+  "fetch_run_id": "091e9219-3b2e-40c6-a00a-fe01186d14b3",
+  "source": "rotowire",
+  "fetched_at": "2026-11-11T12:16:26.559208+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl647024",
+      "url": "https://www.rotowire.com//football/player/travis-etienne-15385",
+      "permalink": "",
+      "title": "Travis Etienne: Coach non-committal on Week 10 return",
+      "body_text": "Head coach Kellen Moore said Monday that the Saints haven't yet determined whether Etienne (hamstring) will return from injured reserve ahead of Sunday's game against the Panthers, Luke Johnson of The New Orleans Times-Picayune reports. \"We'll see,\" Moore said. \"He's progressing well. We'll gather some more information and make a decision.\" Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-10T04:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Etienne",
+        "Kellen Moore",
+        "Luke Johnson",
+        "The New",
+        "Orleans Times"
+      ],
+      "resolved_player_ids": [
+        "00-0036973",
+        "00-0029234"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "nfl647014",
+      "url": "https://www.rotowire.com//football/player/gardner-minshew-13741",
+      "permalink": "",
+      "title": "Gardner Minshew: Placed on IR",
+      "body_text": "The Cardinals placed Minshew (elbow) on injured reserve Tuesday, Darren Urban of the team's official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-10T02:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gardner Minshew",
+        "The Cardinals",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [
+        "00-0035289"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "nfl647012",
+      "url": "https://www.rotowire.com//football/player/kyle-mccord-18498",
+      "permalink": "",
+      "title": "Kyle McCord: New starting QB in Miami",
+      "body_text": "McCord will step in as the Dolphins' starting quarterback beginning with Sunday's game at Indianapolis after Miami placed Malik Willis (core) on injured reserve Tuesday, Cameron Wolfe of NFL Network reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-10T02:08:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis",
+        "Cameron Wolfe"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "nfl647009",
+      "url": "https://www.rotowire.com//football/player/jj-mccarthy-17689",
+      "permalink": "",
+      "title": "J.J. McCarthy: Practices fully, ready for Thursday",
+      "body_text": "McCarthy (hip) was listed as a full participant in Tuesday's practice, Dan Salomone of the Giants' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-10T01:39:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Salomone"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl647008",
+      "url": "https://www.rotowire.com//football/player/cam-skattebo-18514",
+      "permalink": "",
+      "title": "Cam Skattebo: Ready to go for Thursday night",
+      "body_text": "Skattebo (hamstring) was listed as a full participant in Tuesday's practice, Dan Salomone of the Giants' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-10T01:38:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Dan Salomone"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

@@ -1,0 +1,606 @@
+{
+  "fetch_run_id": "d9d1d1e2-fa9b-4193-bd48-08d77aaff25d",
+  "source": "pft",
+  "fetched_at": "2026-11-11T12:16:30.857175+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-fernando-mendoza-passed-every-test-allowed-us-to-make-a-hard-decision",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-fernando-mendoza-passed-every-test-allowed-us-to-make-a-hard-decision",
+      "permalink": "",
+      "title": "John Spytek: Fernando Mendoza passed every test, allowed us to make a hard decision",
+      "body_text": "It took longer than it has for most quarterbacks drafted first overall, but Fernando Mendoza's time has come in Las Vegas.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T12:01:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Spytek",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fran-tarkenton-raves-about-kirk-cousinss-return-to-minnesota",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fran-tarkenton-raves-about-kirk-cousinss-return-to-minnesota",
+      "permalink": "",
+      "title": "Fran Tarkenton raves about Kirk Cousins's return to Minnesota",
+      "body_text": "On Monday night, I was explaining to my wife the bizarre situation in Minnesota, where a championship-caliber defense has been paired with an offense that would have trouble scoring a touchdown in the lower divisions of college football.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T11:55:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fran Tarkenton",
+        "Kirk Cousins",
+        "On Monday"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonah-jackson-on-luke-goedekes-grievances-this-is-football-man",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jonah-jackson-on-luke-goedekes-grievances-this-is-football-man",
+      "permalink": "",
+      "title": "Jonah Jackson on Luke Goedeke's grievances: \"This is football, man\"",
+      "body_text": "After Sunday night's game between the Buccaneers and Bears, Tampa Bay tackle Luke Goedeke had some grievances to air about Chicago defensive tackle Jeffery Simmons.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T11:03:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jonah Jackson",
+        "Luke Goedeke",
+        "After Sunday",
+        "Tampa Bay",
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0036258",
+        "00-0037835",
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-more-likely-to-miss-the-playoffs-than-make-the-playoffs-according-to-betting-odds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-more-likely-to-miss-the-playoffs-than-make-the-playoffs-according-to-betting-odds",
+      "permalink": "",
+      "title": "Rams more likely to miss the playoffs than make the playoffs, according to betting odds",
+      "body_text": "After opening the season as the betting favorites to win the Super Bowl, the Rams are now underdogs to make the playoffs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-11T10:39:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-is-one-win-away-from-tying-drew-brees-for-fourth-most-of-all-time",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-is-one-win-away-from-tying-drew-brees-for-fourth-most-of-all-time",
+      "permalink": "",
+      "title": "Aaron Rodgers is one win away from tying Drew Brees for fourth-most of all time",
+      "body_text": "The Steelers' next win will give Rodgers 181 in his career, counting the playoffs, the same number as Brees.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-11T09:22:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Drew Brees",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0020531"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cba-allows-49ers-to-not-pay-brandon-aiyuk-during-two-week-roster-exemption",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cba-allows-49ers-to-not-pay-brandon-aiyuk-during-two-week-roster-exemption",
+      "permalink": "",
+      "title": "CBA allows 49ers to not pay Brandon Aiyuk during two-week roster exemption",
+      "body_text": "When unusual situations emerge in the NFL, it becomes a piece-by-piece exercise in figuring out the specific rules that apply.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T03:12:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-denies-giving-subtle-middle-finger-to-fans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-denies-giving-subtle-middle-finger-to-fans",
+      "permalink": "",
+      "title": "Nick Sirianni denies giving subtle middle finger to fans",
+      "body_text": "After Sunday's loss to the Giants — Philadelphia's seventh loss in a row — a video emerged of Eagles coach Nick Sirianni leaving the field, along with Dom DiSandro.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T02:47:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Sirianni",
+        "After Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-kirk-cousins-the-vikings-landed-their-first-choice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-kirk-cousins-the-vikings-landed-their-first-choice",
+      "permalink": "",
+      "title": "In Kirk Cousins, the Vikings landed their first choice",
+      "body_text": "After last night's abysmal performance by the offense against the Bills, the Vikings mobilized to trade for a quarterback.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T02:09:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "In Kirk"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-ravens-averages-13-96-million-on-prime-video",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-ravens-averages-13-96-million-on-prime-video",
+      "permalink": "",
+      "title": "Jaguars-Ravens averages 13.96 million on Prime Video",
+      "body_text": "When it comes to interpreting press releases regarding the audiences for sporting events, there's a rule of thumb.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T01:51:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Prime Video"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-first-real-call-on-kirk-cousins-came-this-morning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-first-real-call-on-kirk-cousins-came-this-morning",
+      "permalink": "",
+      "title": "John Spytek: First \"real\" call on Kirk Cousins came this morning",
+      "body_text": "As NFL trades slip into hibernation until March, it's important to remember something the next time players can be sent from one team to another.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T01:25:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Spytek",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-dl-tim-keenan-to-the-active-roster-from-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-dl-tim-keenan-to-the-active-roster-from-the-practice-squad",
+      "permalink": "",
+      "title": "Raiders sign DL Tim Keenan to the active roster from the practice squad",
+      "body_text": "The Raiders traded quarterback Kirk Cousins to the Vikings, leaving an open roster spot.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-11T00:52:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tim Keenan",
+        "The Raiders",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0041534",
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-upgrade-wr-treylon-burks-to-full-practice-participation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-upgrade-wr-treylon-burks-to-full-practice-participation",
+      "permalink": "",
+      "title": "Commanders upgrade WR Treylon Burks to limited practice participation",
+      "body_text": "Commanders wide receiver Treylon Burks missed last Sunday's loss to the Rams with a foot injury, but he's moving toward a return to the lineup.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T00:02:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Treylon Burks"
+      ],
+      "resolved_player_ids": [
+        "00-0037742"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-i-felt-like-it-was-a-lie-to-attack-my-character",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/malik-nabers-i-felt-like-it-was-a-lie-to-attack-my-character",
+      "permalink": "",
+      "title": "Malik Nabers: I felt like it was a lie for Fox broadcast to attack my character",
+      "body_text": "\"Don't tell the world something that's not me.\"",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T23:48:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-qb-gardner-minshew-and-wr-michael-wilson-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-place-qb-gardner-minshew-and-wr-michael-wilson-on-ir",
+      "permalink": "",
+      "title": "Cardinals place QB Gardner Minshew and WR Michael Wilson on IR",
+      "body_text": "The Cardinals placed quarterback Gardner Minshew and wide receiver Michael Wilson on injured reserve Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T22:32:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gardner Minshew",
+        "Michael Wilson",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0035289",
+        "00-0038559"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-release-te-nick-vannett-waive-g-kyle-hergel",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-release-te-nick-vannett-waive-g-kyle-hergel",
+      "permalink": "",
+      "title": "Ravens release TE Nick Vannett, waive G Kyle Hergel",
+      "body_text": "The Ravens parted ways with guard Andrew Vorhees in a trade with the Falcons on Tuesday and they also cut a couple of other players from the active roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T22:27:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Vannett",
+        "Kyle Hergel",
+        "The Ravens",
+        "Andrew Vorhees"
+      ],
+      "resolved_player_ids": [
+        "00-0032394",
+        "00-0039624",
+        "00-0038383"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-put-dt-gracen-halton-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-put-dt-gracen-halton-on-ir",
+      "permalink": "",
+      "title": "49ers put DT Gracen Halton on IR",
+      "body_text": "49ers rookie defensive tackle Gracen Halton was placed on injured reserve on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T22:21:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Gracen Halton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-on-giants-not-adding-a-running-back-they-know-what-i-can-do",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-on-giants-not-adding-a-running-back-they-know-what-i-can-do",
+      "permalink": "",
+      "title": "Cam Skattebo on Giants not adding a running back: They know what I can do",
+      "body_text": "Cam Skattebo is set to return to the Giants lineup for Thursday night's game against the Commanders and he won't be looking over his shoulder at any new additions to the team's running back depth chart.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T22:06:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-release-wr-odell-beckham-jr-but-will-re-sign-him-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-release-wr-odell-beckham-jr-but-will-re-sign-him-to-the-practice-squad",
+      "permalink": "",
+      "title": "Vikings release WR Odell Beckham Jr., but will re-sign him to the practice squad",
+      "body_text": "The Vikings terminated the contract of wide receiver Odell Beckham Jr. on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T21:48:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dolphins-to-place-qb-malik-willis-on-ir-with-core-muscle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-dolphins-to-place-qb-malik-willis-on-ir-with-core-muscle-injury",
+      "permalink": "",
+      "title": "Dolphins place QB Malik Willis on IR with core muscle injury",
+      "body_text": "The Dolphins placed quarterback Malik Willis on injured reserve, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T20:59:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Willis",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0038128"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-nfl-trade-deadline-live-updates-tracker-deals-news-rumors-analysis",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-nfl-trade-deadline-live-updates-tracker-deals-news-rumors-analysis",
+      "permalink": "",
+      "title": "2026 NFL Trade Deadline live updates: Tracker, deals, news, rumors, analysis",
+      "body_text": "Jordan Davis, Jeffery Simmons, DeForest Buckner, Quenton Nelson and more big-name NFL players are on the move.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-10T21:00:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trade Deadline",
+        "Jordan Davis",
+        "Jeffery Simmons",
+        "Quenton Nelson"
+      ],
+      "resolved_player_ids": [
+        "00-0037073",
+        "00-0035643",
+        "00-0034342"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-bring-back-wr-xavier-smith-sign-him-off-49ers-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-bring-back-wr-xavier-smith-sign-him-off-49ers-practice-squad",
+      "permalink": "",
+      "title": "Rams bring back WR Xavier Smith, sign him off 49ers practice squad",
+      "body_text": "The Rams did not bring in a receiver via trade before the deadline, but they have acquired one who knows their system.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-10T21:33:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Smith",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0038359"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cowboys-to-sign-rb-kendre-miller-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-cowboys-to-sign-rb-kendre-miller-to-the-practice-squad",
+      "permalink": "",
+      "title": "Report: Cowboys to sign RB Kendre Miller to the practice squad",
+      "body_text": "The Cowboys are expected to sign running back Kendre Miller to the practice squad, Joseph Hoyt of the Dallas Morning News reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T21:29:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kendre Miller",
+        "The Cowboys",
+        "Joseph Hoyt",
+        "Dallas Morning"
+      ],
+      "resolved_player_ids": [
+        "00-0038551"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-trade-for-ol-ryan-neuzil-send-ol-andrew-vorhees-to-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-trade-for-ol-ryan-neuzil-send-ol-andrew-vorhees-to-falcons",
+      "permalink": "",
+      "title": "Ravens trade for OL Ryan Neuzil, send OL Andrew Vorhees to Falcons",
+      "body_text": "The Falcons and Ravens executed one last trade before the 4 p.m.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-10T21:26:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ryan Neuzil",
+        "Andrew Vorhees",
+        "Falcons The"
+      ],
+      "resolved_player_ids": [
+        "00-0036833",
+        "00-0038383"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-cam-skattebo-return-to-full-participation-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-cam-skattebo-return-to-full-participation-tuesday",
+      "permalink": "",
+      "title": "J.J. McCarthy, Cam Skattebo return to full participation Tuesday",
+      "body_text": "Giants quarterback J.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T21:22:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Tuesday Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-waive-cb-alijah-huzzie",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-waive-cb-alijah-huzzie",
+      "permalink": "",
+      "title": "Jaguars waive CB Alijah Huzzie",
+      "body_text": "The Jaguars spent Monday adding players to their roster and they moved in the other direction on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T21:07:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Alijah Huzzie",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0040411"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-announce-return-of-kirk-cousins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-announce-return-of-kirk-cousins",
+      "permalink": "",
+      "title": "Vikings announce return of Kirk Cousins",
+      "body_text": "It's official.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T20:56:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-agree-to-trade-for-wr-josh-downs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-agree-to-trade-for-wr-josh-downs",
+      "permalink": "",
+      "title": "Chiefs agree to trade for WR Josh Downs",
+      "body_text": "Josh Downs has gotten his wish.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-10T20:43:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kirk-cousins-contract-points-to-a-revised-deal-or-termination-after-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kirk-cousins-contract-points-to-a-revised-deal-or-termination-after-2026",
+      "permalink": "",
+      "title": "The Kirk Cousins contract points to a revised deal or termination after 2026",
+      "body_text": "The last time the Vikings brought back a key former player for a third-round pick, the reunion didn't last long.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-10T20:46:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Kirk"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-release-wr-david-moore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-release-wr-david-moore",
+      "permalink": "",
+      "title": "Panthers release WR David Moore",
+      "body_text": "The Panthers have not announced any trades ahead of the deadline yet, but they have opened up a spot on their 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-10T20:44:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Moore",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0033589"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-wr-nick-westbrook-ikhine-from-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-wr-nick-westbrook-ikhine-from-the-practice-squad",
+      "permalink": "",
+      "title": "Colts sign WR Nick Westbrook-Ikhine from the practice squad",
+      "body_text": "The Colts signed wide receiver Nick Westbrook-Ikhine to the 53-player roster from the practice squad, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-10T20:41:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Westbrook",
+        "The Colts"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "batch_id": "31159b09",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-11T12:22:06.616829+00:00",
+  "record_count": 10,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-fernando-mendoza-passed-every-test-allowed-us-to-make-a-hard-decision",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza cleared all tests, enabling Raiders to make their QB1 decision.",
+      "source_excerpt": "It took longer than it has for most quarterbacks drafted first overall, but Fernando Mendoza's time has come in Las Vegas.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-put-dt-gracen-halton-on-ir",
+      "player_name": "Gracen Halton",
+      "team_abbr": "SF",
+      "category": "injury",
+      "summary": "49ers rookie DT Gracen Halton placed on injured reserve.",
+      "source_excerpt": "49ers rookie defensive tackle Gracen Halton was placed on injured reserve on Tuesday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-release-wr-odell-beckham-jr-but-will-re-sign-him-to-the-practice-squad",
+      "player_name": "Odell Beckham Jr.",
+      "team_abbr": "MIN",
+      "category": "general",
+      "summary": "Vikings released WR Odell Beckham Jr. and re-signed him to the practice squad, signaling reduced role with the team.",
+      "source_excerpt": "The Vikings terminated the contract of wide receiver Odell Beckham Jr. on Tuesday, the team announced.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "c5ca22ac-7022-47e1-9faf-466ba9ffa3da",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Rookie QB Fernando Mendoza faces leadership challenge on struggling 4-5 Raiders team.",
+      "source_excerpt": "Fernando Mendoza inherits a 4-5 Raiders team and NFL history offers two wildly different outcomes",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "ce6ce4d4-f2e4-4d26-b30d-cdccc57fd9ea",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Raiders turn offensive duties over to rookie QB Fernando Mendoza following Kirk Cousins trade.",
+      "source_excerpt": "Raiders get 'A,' turn to Fernando Mendoza",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "6e4f4209-397e-42fe-aa7d-2d2600ec3815",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Raiders hand offense to rookie QB Fernando Mendoza following Kirk Cousins trade.",
+      "source_excerpt": "Las Vegas looks ready to hand the offense over to rookie Fernando Mendoza",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "62f0d809-0962-3552-a15d-dcd259121644",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza has passed every test and earned his opportunity as Las Vegas's first overall QB.",
+      "source_excerpt": "It took longer than it has for most quarterbacks drafted first overall, but Fernando Mendoza's time has come in Las Vegas.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "4f9ab681-c1b1-34cf-802d-b05ea7645bfa",
+      "player_name": "Makai Lemon",
+      "team_abbr": "PHI",
+      "category": "usage",
+      "summary": "Makai Lemon shows up positively in Eagles stats after 2-7 loss.",
+      "source_excerpt": "Makai Lemon shows up again and 2nd-half defense doesn't",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-spytek-fernando-mendoza-passed-every-test-allowed-us-to-make-a-hard-decision",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza passed all tests to start for Raiders after being first overall pick.",
+      "source_excerpt": "It took longer than it has for most quarterbacks drafted first overall, but Fernando Mendoza's time has come in Las Vegas.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-release-wr-odell-beckham-jr-but-will-re-sign-him-to-the-practice-squad",
+      "player_name": "Odell Beckham Jr.",
+      "team_abbr": "MIN",
+      "category": "usage",
+      "summary": "Vikings released WR Odell Beckham Jr. but will re-sign him to practice squad.",
+      "source_excerpt": "The Vikings terminated the contract of wide receiver Odell Beckham Jr. on Tuesday, the team announced.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
