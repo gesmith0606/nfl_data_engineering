@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "9e16467c-9645-4e8c-afbf-b6a8d15c7f35",
+  "source": "rotowire",
+  "fetched_at": "2026-11-12T12:16:44.951865+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl647242",
+      "url": "https://www.rotowire.com//football/player/drew-lock-13736",
+      "permalink": "",
+      "title": "Drew Lock: Limited Wednesday",
+      "body_text": "Lock (right elbow/oblique) was limited at Wednesday's practice, John Boyle of the Seahawks' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-11T04:10:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Lock",
+        "Limited Wednesday",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl647236",
+      "url": "https://www.rotowire.com//football/player/rashid-shaheed-16560",
+      "permalink": "",
+      "title": "Rashid Shaheed: Full practice Wednesday",
+      "body_text": "Shaheed (knee) was a full participant in Wednesday's practice, John Boyle of the Seahawks' official site reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-11T04:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashid Shaheed",
+        "Wednesday Shaheed",
+        "John Boyle"
+      ],
+      "resolved_player_ids": [
+        "00-0037545"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "nfl647232",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "permalink": "",
+      "title": "Deebo Samuel: Limited in return to practice",
+      "body_text": "Samuel (hamstring) was a limited practice participant Wednesday, Matt Barrows of The Athletic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-11T03:53:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "Matt Barrows",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl647229",
+      "url": "https://www.rotowire.com//football/player/bam-knight-16105",
+      "permalink": "",
+      "title": "Bam Knight: Officially limited Wednesday",
+      "body_text": "Knight (concussion) practiced in a limited capacity Wednesday, Theo Mackie of The Arizona Republic reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-11T03:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bam Knight",
+        "Wednesday Knight",
+        "Theo Mackie",
+        "The Arizona"
+      ],
+      "resolved_player_ids": [
+        "00-0037157"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "nfl647210",
+      "url": "https://www.rotowire.com//football/player/treveyon-henderson-18517",
+      "permalink": "",
+      "title": "TreVeyon Henderson: Deemed out for Sunday's game",
+      "body_text": "Henderson (illness) didn't practice Wednesday and is listed as out for Sunday's game against the Lions in Munich. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-11T03:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    }
+  ]
+}

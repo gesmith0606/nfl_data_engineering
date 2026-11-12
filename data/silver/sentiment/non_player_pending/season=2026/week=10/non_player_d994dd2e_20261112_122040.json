@@ -1,0 +1,251 @@
+{
+  "batch_id": "d994dd2e",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-12T12:20:40.374982+00:00",
+  "record_count": 22,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-week-9-next-gen-stats-outpaced-the-mcafee-alt-cast-again",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-week-9-next-gen-stats-outpaced-the-mcafee-alt-cast-again",
+      "team_abbr": null,
+      "summary": "Next Gen Stats outperformed McAfee alt cast viewership for Week 9 Monday night game.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The ESPN announcement of the viewership for a given Monday night game always requires a careful look for any information about the viewership of the multiple weekly alt casts on the Disney-owned networks.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-patriots-on-fox-leads-week-9-with-25-7-million",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-patriots-on-fox-leads-week-9-with-25-7-million",
+      "team_abbr": null,
+      "summary": "Packers-Patriots game on Fox leads Week 9 with 25.7 million viewers.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "As NFL games go, the 4:25 p.m.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russinis-return-includes-no-specifics-about-multiple-controversies",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russinis-return-includes-no-specifics-about-multiple-controversies",
+      "team_abbr": null,
+      "summary": "Dianna Russini returns to sports media with one-hour show; controversies not addressed.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "As expected, Dianna Russini made her return to sports media on Wednesday, with a one-hour show platformed by an illegal offshore sports book.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nc-state-moves-even-closer-to-hiring-philip-rivers",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nc-state-moves-even-closer-to-hiring-philip-rivers",
+      "team_abbr": null,
+      "summary": "Philip Rivers is poised to become the head coach at NC State, his alma mater.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Rivers, who played for the Wolfpack from 1999 through 2003, is now poised to coach them.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kamario-taylor-lands-7-5-million-deal-to-return-to-mississippi-state",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kamario-taylor-lands-7-5-million-deal-to-return-to-mississippi-state",
+      "team_abbr": null,
+      "summary": "Kamario Taylor signed a $7.5 million deal to return to Mississippi State.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "One man's chaos is another man's ca-ching.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-racks-up-21-7-million-for-monday-night-football",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-racks-up-21-7-million-for-monday-night-football",
+      "team_abbr": null,
+      "summary": "Bills-Vikings Monday Night Football game drew 21.7 million viewers.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The game itself was not much fun to watch, except for Bills fans.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-5-panthers-face-3-5-saints-for-first-place-in-nfc-south",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-5-panthers-face-3-5-saints-for-first-place-in-nfc-south",
+      "team_abbr": null,
+      "summary": "Panthers and Saints, both 3-5, face off with playoff implications despite identical records.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "It's not often that a matchup of two 3-5 teams carries major playoff implications.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "169b6cd6-2c40-3979-9b8a-450333e2d1c0",
+      "external_id": "169b6cd6-2c40-3979-9b8a-450333e2d1c0",
+      "team_abbr": null,
+      "summary": "David Fucillo provides Week 10 straight-up picks with confidence levels for all 14 games.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "David Fucillo makes picks for all 14 NFL games with levels of confidence ahead of Week 10.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "dbaa0d56-f9b4-34ee-b856-6e39f57fb4c0",
+      "external_id": "dbaa0d56-f9b4-34ee-b856-6e39f57fb4c0",
+      "team_abbr": null,
+      "summary": "Christopher Hart predicts straight-up winners for every Week 10 matchup of 2026 season.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Mile High Report's Christopher Hart predicts the straight-up winners for every Week 10 matchup of the 2026 season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "d2053993-512b-3ceb-b6b3-6ada3202db96",
+      "external_id": "d2053993-512b-3ceb-b6b3-6ada3202db96",
+      "team_abbr": null,
+      "summary": "Mike Tomlin identifies 12 top coaching candidates for 2027 NFL offseason hiring cycle.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The 2027 NFL coach hiring cycle hasn't yet kicked into full gear, but there are plenty of candidates in whom teams will be interested once it does.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "6ef483f3-ee8c-483b-b869-27c9ec1e3249",
+      "external_id": "6ef483f3-ee8c-483b-b869-27c9ec1e3249",
+      "team_abbr": null,
+      "summary": "Scheduling information for Commanders vs Giants Thursday Night Football game.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "How to watch this week's Thursday Night Football game between the Commanders and the Giants.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1ad78fac-4ab9-365c-8775-3d74674ca7de",
+      "external_id": "1ad78fac-4ab9-365c-8775-3d74674ca7de",
+      "team_abbr": null,
+      "summary": "USA TODAY Sports provides Week 10 fantasy football start/sit recommendations for 30 players.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "USA TODAY Sports breaks down 30 players to trust or fade.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c0e002b5-1900-31ff-9226-0929ea9280ca",
+      "external_id": "c0e002b5-1900-31ff-9226-0929ea9280ca",
+      "team_abbr": null,
+      "summary": "Scheduling details for Thursday Night Football Commanders at Giants game.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "This week's 'Thursday Night Football' matchup features the Commanders heading to MetLife Stadium to take on the Giants.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7bffe2df-ad53-3076-ab1b-edfe10303d1f",
+      "external_id": "7bffe2df-ad53-3076-ab1b-edfe10303d1f",
+      "team_abbr": null,
+      "summary": "NFL Week 10 begins with NFC East Thursday Night Football game between Commanders and Giants.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The NFL regular season rolls into Week 10 and it starts with an NFC East battle on Thursday Night Football.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "bdc1c0e3-4cdf-3f96-aa6a-581b6b1d0da7",
+      "external_id": "bdc1c0e3-4cdf-3f96-aa6a-581b6b1d0da7",
+      "team_abbr": null,
+      "summary": "Sam Farmer provides Week 10 NFL picks including Packers over Vikings and Steelers over Bengals.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Sam Farmer makes his picks and predictions for Week 10 of the NFL season, with the Rams beating the Cardinals and the Chargers falling to 0-9.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "55c5670f-c644-3062-8b81-4fcd0431af2a",
+      "external_id": "55c5670f-c644-3062-8b81-4fcd0431af2a",
+      "team_abbr": null,
+      "summary": "Packers-Patriots game on Fox leads Week 9 viewership with 25.7 million viewers.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "As NFL games go, the 4:25 p.m.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "aae78767-363e-3033-9fc0-667b37cde5c6",
+      "external_id": "aae78767-363e-3033-9fc0-667b37cde5c6",
+      "team_abbr": null,
+      "summary": "Midseason awards coverage evaluating which teams and players are excelling at halfway point.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "With the season reaching its halfway point, it's time to see which teams and players are excelling",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "2fabc142-6ed9-307d-8c31-d903168984bd",
+      "external_id": "2fabc142-6ed9-307d-8c31-d903168984bd",
+      "team_abbr": null,
+      "summary": "Film study of Washington Huskies vs Penn State Nittany Lions college football game.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The Washington Huskies returned home to Husky Stadium with some momentum as they took on the Penn State Nittany Lions.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d3e1ace0-6099-37ae-b273-545377ca5b81",
+      "external_id": "d3e1ace0-6099-37ae-b273-545377ca5b81",
+      "team_abbr": null,
+      "summary": "NFL Week 10 schedule overview highlighting Vikings-Packers, Steelers-Bengals, and Patriots-Lions matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Vikings-Packers, Steelers-Bengals and Patriots-Lions highlight the upcoming slate.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "0a49ac25-444c-4d04-a7c4-4f68078dbd3a",
+      "external_id": "0a49ac25-444c-4d04-a7c4-4f68078dbd3a",
+      "team_abbr": null,
+      "summary": "NFL midseason grades from Yahoo Sports analysts for all 32 teams at 2026 campaign halfway point.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "NFL midseason grades: 2 teams go from Super Bowl hopes to Fs, while overachieving Giants, Browns receive high praise. Yahoo Sports NFL analysts Frank Schwab and Eric Edholm evaluate all 32 teams at the halfway mark of the 2026 campaign.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russinis-return-includes-no-specifics-about-multiple-controversies",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russinis-return-includes-no-specifics-about-multiple-controversies",
+      "team_abbr": null,
+      "summary": "Dianna Russini returned to sports media on Wednesday with a new platform.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Dianna Russini made her return to sports media on Wednesday, with a one-hour show platformed by an illegal offshore sports book.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-racks-up-21-7-million-for-monday-night-football",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-racks-up-21-7-million-for-monday-night-football",
+      "team_abbr": null,
+      "summary": "Bills-Vikings Monday Night Football game drew 21.7 million viewers.",
+      "sentiment": 0.1,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Bills-Vikings racks up 21.7 million for Monday Night Football",
+      "subject_type": "team"
+    }
+  ]
+}

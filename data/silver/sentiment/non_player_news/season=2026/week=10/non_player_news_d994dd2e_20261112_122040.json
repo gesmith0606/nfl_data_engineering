@@ -1,0 +1,185 @@
+{
+  "batch_id": "d994dd2e",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-12T12:20:40.375427+00:00",
+  "record_count": 16,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-laughs-as-he-says-hes-tempted-to-ask-assistant-coach-robert-woods-to-suit-up",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-laughs-as-he-says-hes-tempted-to-ask-assistant-coach-robert-woods-to-suit-up",
+      "team_abbr": "LAR",
+      "summary": "Sean McVay jokingly considers asking WR coach Robert Woods to suit up due to multiple WR injuries.",
+      "sentiment": 0.0,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Rams coach Sean McVay said on Wednesday that he talked to assistant wide receivers coach Robert Woods about whether he could suit up and play while receivers Puka Nacua, Davante Adams and Jordan Whittington are all out with injuries.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-bears-generates-21-5-million-on-sunday-night",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-bears-generates-21-5-million-on-sunday-night",
+      "team_abbr": "CHI",
+      "summary": "Bears-Bucs game drew 21.5 million viewers on Sunday night, highlighting Chicago's increased media appeal.",
+      "sentiment": 0.6,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Bears have become a significant draw \u2014 and it helps when they're in a close game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c2819d95-1fa8-3577-8683-adbf4307156a",
+      "external_id": "c2819d95-1fa8-3577-8683-adbf4307156a",
+      "team_abbr": "DET",
+      "summary": "Lions preparation article breaking down Patriots' offensive and defensive schemes for Week 10.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Breaking down the offensive and defensive schemes of the New England Patriots, the Detroit Lions' Week 10 opponent.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "352fb6a4-5ee8-3953-96b7-c87585223721",
+      "external_id": "352fb6a4-5ee8-3953-96b7-c87585223721",
+      "team_abbr": "LAR",
+      "summary": "Sean McVay jokingly mentions considering assistant coach Robert Woods to suit up due to receiver injuries.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Rams coach Sean McVay said on Wednesday that he talked to assistant wide receivers coach Robert Woods about whether he could suit up and play",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "42fc957a-e12e-393e-bc01-1e86b55a4b9d",
+      "external_id": "42fc957a-e12e-393e-bc01-1e86b55a4b9d",
+      "team_abbr": "CLE",
+      "summary": "Cleveland Browns news roundup addressing quarterback questions.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the November 12 edition of the Daily Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "935e0cd3-3c1a-3954-99c6-0c1bf6e368a8",
+      "external_id": "935e0cd3-3c1a-3954-99c6-0c1bf6e368a8",
+      "team_abbr": "DEN",
+      "summary": "Head Coach Sean Payton may make lineup changes during bye week following media appearance.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Head Coach Sean Payton's interview with Colin Cowherd may have been a precursor to making changes during the bye week.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "a1722b6d-343b-36cf-8bca-4490b2a8b247",
+      "external_id": "a1722b6d-343b-36cf-8bca-4490b2a8b247",
+      "team_abbr": "CHI",
+      "summary": "Chicago Bears on bye week; leadership updates continue.",
+      "sentiment": 0.1,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Chicago Bears are on their bye week, but that doesn't stop the news from happening.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "dcaffa21-8022-3b80-a5ec-459c2dd44f13",
+      "external_id": "dcaffa21-8022-3b80-a5ec-459c2dd44f13",
+      "team_abbr": "DET",
+      "summary": "Discussion of which NFL trades the Lions should have made at deadline.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "trade",
+      "source_excerpt": "Which NFL trade deadline move that was made do you think the Detroit Lions should have made/",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f1167d39-64de-39bf-a8c4-eba8ae25a89e",
+      "external_id": "f1167d39-64de-39bf-a8c4-eba8ae25a89e",
+      "team_abbr": "NYG",
+      "summary": "Giants Week 10 preview against Commanders with analysis of their 5-2-1 record.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Are the Giants as good as their 5-2-1 record says they are?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "34f14daf-ea31-3639-83f8-94ae6025aea8",
+      "external_id": "34f14daf-ea31-3639-83f8-94ae6025aea8",
+      "team_abbr": "SF",
+      "summary": "49ers daily news roundup for November 12th, 2026 with focus on upcoming Dallas Cowboys matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Your daily San Francisco 49ers news for Thursday, November 12th, 2026",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "28e215e4-ed1d-3873-b76b-ec6c4cd74c25",
+      "external_id": "28e215e4-ed1d-3873-b76b-ec6c4cd74c25",
+      "team_abbr": "WAS",
+      "summary": "Week 10 matchup preview for Commanders vs Giants with injury report information.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Washington Commanders visit the New York Giants in Week 10!",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "580683a7-234c-3f44-9cb1-f4979b38809f",
+      "external_id": "580683a7-234c-3f44-9cb1-f4979b38809f",
+      "team_abbr": "NE",
+      "summary": "Patriots preview for Week 10 matchup against Lions in Germany highlighting opponent offensive firepower.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Patriots will take on the Lions in Germany this week.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "74202014-74dd-3be8-9405-501b216c6e2d",
+      "external_id": "74202014-74dd-3be8-9405-501b216c6e2d",
+      "team_abbr": "CAR",
+      "summary": "Panthers have positive injury report with reinforcements returning ahead of Saints matchup.",
+      "sentiment": 0.6,
+      "confidence": 0.75,
+      "category": "injury",
+      "source_excerpt": "Panthers injury report is full of reinforcements. The Carolina Panthers have some good news to report regarding their injuries going into their matchup with the Saints.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-laughs-as-he-says-hes-tempted-to-ask-assistant-coach-robert-woods-to-suit-up",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-laughs-as-he-says-hes-tempted-to-ask-assistant-coach-robert-woods-to-suit-up",
+      "team_abbr": "LAR",
+      "summary": "Sean McVay humorously considers asking assistant coach Robert Woods to play due to WR injuries.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Rams coach Sean McVay said on Wednesday that he talked to assistant wide receivers coach Robert Woods about whether he could suit up and play",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-bears-generates-21-5-million-on-sunday-night",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-bears-generates-21-5-million-on-sunday-night",
+      "team_abbr": "CHI",
+      "summary": "Bears-Buccaneers game generated 21.5 million viewers on Sunday night.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "The Bears have become a significant draw \u2014 and it helps when they're in a close game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-5-panthers-face-3-5-saints-for-first-place-in-nfc-south",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-5-panthers-face-3-5-saints-for-first-place-in-nfc-south",
+      "team_abbr": "CAR",
+      "summary": "Panthers face Saints in NFC South matchup with playoff implications despite both teams at 3-5.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "It's not often that a matchup of two 3-5 teams carries major playoff implications.",
+      "subject_type": "team"
+    }
+  ]
+}

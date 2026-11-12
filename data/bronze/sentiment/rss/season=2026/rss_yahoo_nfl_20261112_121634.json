@@ -1,0 +1,795 @@
+{
+  "fetch_run_id": "00eebb36-89c3-4c26-bb65-8573a8d8fc70",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-12T12:16:34.767001+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "d3535a0b-5d87-3e27-9db4-eabb61749298",
+      "url": "https://sports.yahoo.com/articles/jaxson-dart-return-giants-qb-120441408.html",
+      "title": "When will Jaxson Dart return? Giants QB suffered leg injury Week 2, timeline",
+      "body_text": "Will Jaxson Dart play again this season? New York Giants QB has missed time with knee injury. Here's the latest injury update:",
+      "author": "",
+      "published_at": "2026-11-12T12:04:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaxson Dart",
+        "Will Jaxson",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040691"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "169b6cd6-2c40-3979-9b8a-450333e2d1c0",
+      "url": "https://sports.yahoo.com/articles/full-list-week-10-straight-120000008.html",
+      "title": "Full list of Week 10 straight-up picks with confidence levels",
+      "body_text": "David Fucillo makes picks for all 14 NFL games with levels of confidence ahead of Week 10.",
+      "author": "",
+      "published_at": "2026-11-12T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "David Fucillo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c2819d95-1fa8-3577-8683-adbf4307156a",
+      "url": "https://sports.yahoo.com/articles/lions-preview-breaking-down-patriots-120000050.html",
+      "title": "Lions preview: Breaking down Patriots’ offensive, defensive schemes",
+      "body_text": "Breaking down the offensive and defensive schemes of the New England Patriots, the Detroit Lions’ Week 10 opponent.",
+      "author": "",
+      "published_at": "2026-11-12T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New England",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "d9c285d9-0fe4-322f-a080-43532870af00",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-insider-says-120000136.html",
+      "title": "New York Jets News: Insider Says There is Geno Smith Extension Interest?",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-12T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Insider Says",
+        "Geno Smith",
+        "Extension Interest"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "dbaa0d56-f9b4-34ee-b856-6e39f57fb4c0",
+      "url": "https://sports.yahoo.com/articles/2026-nfl-week-10-hart-120000128.html",
+      "title": "2026 NFL Week 10: Hart’s Picks",
+      "body_text": "Mile High Report’s Christopher Hart predicts the straight-up winners for every Week 10 matchup of the 2026 season.",
+      "author": "",
+      "published_at": "2026-11-12T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Picks Mile",
+        "High Report",
+        "Christopher Hart"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "f5833ed8-de05-36c9-8669-a282586026b0",
+      "url": "https://sports.yahoo.com/articles/yhonzae-pierre-fit-panthers-defensive-120000840.html",
+      "title": "Would Yhonzae Pierre fit in the Panthers new defensive scheme next season?",
+      "body_text": "Let’s take a closer look at one of the prospects the Panthers could select in the 2027 NFL Draft.",
+      "author": "",
+      "published_at": "2026-11-12T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Would Yhonzae"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "d2053993-512b-3ceb-b6b3-6ada3202db96",
+      "url": "https://sports.yahoo.com/articles/mike-tomlin-highlights-12-top-114526014.html",
+      "title": "Mike Tomlin highlights 12 top coaching candidates for 2027 NFL offseason",
+      "body_text": "The 2027 NFL coach hiring cycle hasn't yet kicked into full gear, but there are plenty of candidates in whom teams will be interested once it does.",
+      "author": "",
+      "published_at": "2026-11-12T11:45:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Tomlin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "6ef483f3-ee8c-483b-b869-27c9ec1e3249",
+      "url": "https://sports.yahoo.com/nfl/article/washington-commanders-vs-new-york-giants-how-to-watch-thursday-night-football-tonight-114500745.html",
+      "title": "Washington Commanders vs. New York Giants: How to watch Thursday Night Football tonight",
+      "body_text": "How to watch this week's Thursday Night Football game between the Commanders and the Giants.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-12T11:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington Commanders",
+        "New York",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "511e28c3-d321-4eb1-bc7b-6b2c418e7912",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-week-10-how-to-watch-every-football-game-this-week-during-the-2026-season-114534644.html",
+      "title": "NFL Week 10: How to watch every football game this week during the 2026 season",
+      "body_text": "Here's how you can keep up with every NFL game, from this weekend to the 2027 Super Bowl.",
+      "author": "Danica Creahan",
+      "published_at": "2026-09-08T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "352fb6a4-5ee8-3953-96b7-c87585223721",
+      "url": "https://sports.yahoo.com/articles/sean-mcvay-laughs-says-hes-113705297.html",
+      "title": "Sean McVay laughs as he says he's tempted to ask assistant coach Robert Woods to suit up",
+      "body_text": "He didn't sound completely serious, but Rams coach Sean McVay said on Wednesday that he talked to assistant wide receivers coach Robert Woods about whether he could suit up and play while receivers Puka Nacua, Davante Adams and Jordan Whittington are all out with injuries.",
+      "author": "",
+      "published_at": "2026-11-12T11:37:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Robert Woods",
+        "Puka Nacua",
+        "Davante Adams",
+        "Jordan Whittington"
+      ],
+      "resolved_player_ids": [
+        "00-0030431",
+        "00-0039075",
+        "00-0031381",
+        "00-0039751"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "0f3d2449-56b6-36c7-9493-2f9b2fcb4b19",
+      "url": "https://sports.yahoo.com/articles/commanders-look-stay-alive-against-113112113.html",
+      "title": "Commanders look to stay alive against Giants in 'TNF' game Jayden Daniels called 'must win'",
+      "body_text": "Washington Commanders QB Jayden Daniels said Thursday's game against the New York Giants is a &quot;must win&quot; in the NFC East rivalry.",
+      "author": "",
+      "published_at": "2026-11-12T11:31:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Washington Commanders",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "9a91199c-d24f-3686-86c0-55c17e69a33f",
+      "url": "https://sports.yahoo.com/articles/best-available-free-agent-edge-113000983.html",
+      "title": "Best available free agent edge rushers for Bengals to target after failed Arnold Ebiketie trade",
+      "body_text": "We take a look at some free agency options for defensive end after the Bengals stuck out at the NFL Trade Deadline.",
+      "author": "",
+      "published_at": "2026-11-12T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arnold Ebiketie",
+        "Trade Deadline"
+      ],
+      "resolved_player_ids": [
+        "00-0038116"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1ad78fac-4ab9-365c-8775-3d74674ca7de",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-110905398.html",
+      "title": "Fantasy football Start ‘Em, Sit ‘Em: 30 players to start or sit in Week 10",
+      "body_text": "Who can you start and sit in fantasy football Week 10? USA TODAY Sports breaks down 30 players to trust or fade.",
+      "author": "",
+      "published_at": "2026-11-12T11:09:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c0e002b5-1900-31ff-9226-0929ea9280ca",
+      "url": "https://sports.yahoo.com/articles/channel-nfl-game-today-time-110346002.html",
+      "title": "What channel is the NFL game on today? Time, schedule for 'Thursday Night Football'",
+      "body_text": "This week's 'Thursday Night Football' matchup features the Commanders heading to MetLife Stadium to take on the Giants. Here's how to watch.",
+      "author": "",
+      "published_at": "2026-11-12T11:03:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "7bffe2df-ad53-3076-ab1b-edfe10303d1f",
+      "url": "https://sports.yahoo.com/articles/thursday-night-football-game-tonight-110221959.html",
+      "title": "Is there a Thursday Night Football game tonight? NFL Week 10 schedule",
+      "body_text": "The NFL regular season rolls into Week 10 and it starts with an NFC East battle on Thursday Night Football. Here's what to know.",
+      "author": "",
+      "published_at": "2026-11-12T11:02:21+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "42fc957a-e12e-393e-bc01-1e86b55a4b9d",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-silencing-qb-110000405.html",
+      "title": "Cleveland Browns news: Silencing the QB noise",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 12 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "935e0cd3-3c1a-3954-99c6-0c1bf6e368a8",
+      "url": "https://sports.yahoo.com/articles/broncos-changes-starting-lineup-over-110000136.html",
+      "title": "Will the Broncos make any changes to the starting lineup over the bye week?",
+      "body_text": "Head Coach Sean Payton’s interview with Colin Cowherd may have been a precursor to making changes during the bye week.",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Head Coach",
+        "Sean Payton",
+        "Colin Cowherd"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "963c51a4-ef22-33ec-a837-a5cb887c1e5f",
+      "url": "https://sports.yahoo.com/articles/mack-hollins-happy-patriots-response-110000871.html",
+      "title": "Mack Hollins happy with Patriots’ response after post-game challenge",
+      "body_text": "Hollins clarified comments made after the Patriots’ loss to the Packers.",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mack Hollins"
+      ],
+      "resolved_player_ids": [
+        "00-0033555"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "a1722b6d-343b-36cf-8bca-4490b2a8b247",
+      "url": "https://sports.yahoo.com/articles/bear-den-leadership-display-chicago-110000527.html",
+      "title": "The Bear’s Den: Leadership is on display in Chicago",
+      "body_text": "The Chicago Bears are on their bye week, but that doesn’t stop the news from happening.c",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Chicago The",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "bdc1c0e3-4cdf-3f96-aa6a-581b6b1d0da7",
+      "url": "https://sports.yahoo.com/articles/nfl-week-10-picks-packers-110000575.html",
+      "title": "NFL Week 10 picks: Packers prevail over Vikings; Steelers beat Bengals",
+      "body_text": "Sam Farmer makes his picks and predictions for Week 10 of the NFL season, with the Rams beating the Cardinals and the Chargers falling to 0-9.",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Sam"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c0a659c6-5ada-38e8-a700-0e85179df6bb",
+      "url": "https://sports.yahoo.com/articles/giants-news-game-preview-arvell-110000603.html",
+      "title": "Giants news: Game preview, Arvell Reese named Defensive Player Of The Week, more",
+      "body_text": "New York Giants headlines for Thursday",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arvell Reese",
+        "Defensive Player",
+        "Of The",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "dcaffa21-8022-3b80-a5ec-459c2dd44f13",
+      "url": "https://sports.yahoo.com/articles/nfl-trade-wish-lions-had-110000243.html",
+      "title": "Which NFL trade do you wish the Lions had made?",
+      "body_text": "Which NFL trade deadline move that was made do you think the Detroit Lions should have made/",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "f1167d39-64de-39bf-a8c4-eba8ae25a89e",
+      "url": "https://sports.yahoo.com/articles/washington-commanders-vs-york-giants-110000574.html",
+      "title": "Washington Commanders vs New York Giants Week 10: Five Questions with Big Blue View",
+      "body_text": "Are the Giants as good as their 5-2-1 record says they are?",
+      "author": "",
+      "published_at": "2026-11-12T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington Commanders",
+        "New York",
+        "Giants Week",
+        "Five Questions",
+        "Big Blue",
+        "View Are"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "55c5670f-c644-3062-8b81-4fcd0431af2a",
+      "url": "https://sports.yahoo.com/articles/packers-patriots-fox-leads-week-105355074.html",
+      "title": "Packers-Patriots on Fox leads Week 9 with 25.7 million",
+      "body_text": "As NFL games go, the 4:25 p.m.",
+      "author": "",
+      "published_at": "2026-11-12T10:53:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "34f14daf-ea31-3639-83f8-94ae6025aea8",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-dallas-cowboys-101500480.html",
+      "title": "Golden Nuggets: We’re on to the Dallas Cowboys",
+      "body_text": "Your daily San Francisco 49ers news for Thursday, November 12th, 2026",
+      "author": "",
+      "published_at": "2026-11-12T10:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Dallas Cowboys",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "28e215e4-ed1d-3873-b76b-ec6c4cd74c25",
+      "url": "https://sports.yahoo.com/articles/watch-commanders-vs-giants-tv-100000605.html",
+      "title": "How to watch Commanders vs Giants: TV, radio, streaming, Week 10 injury report",
+      "body_text": "Washington Commanders visit the New York Giants in Week 10!",
+      "author": "",
+      "published_at": "2026-11-12T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington Commanders",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "580683a7-234c-3f44-9cb1-f4979b38809f",
+      "url": "https://sports.yahoo.com/articles/patriots-opponent-preview-more-offensive-100000135.html",
+      "title": "Patriots opponent preview: More offensive firepower awaits in Week 10",
+      "body_text": "The Patriots will take on the Lions in Germany this week.",
+      "author": "",
+      "published_at": "2026-11-12T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "aae78767-363e-3033-9fc0-667b37cde5c6",
+      "url": "https://sports.yahoo.com/articles/nfl-midseason-awards-allen-brilliance-093014542.html",
+      "title": "NFL midseason awards: Allen’s brilliance, a Seahawks shocker and a new Super Bowl pick",
+      "body_text": "With the season reaching its halfway point, it’s time to see which teams and players are excelling",
+      "author": "",
+      "published_at": "2026-11-12T09:30:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "2c9d47e0-0a92-367e-9da7-c6f8098b2fcc",
+      "url": "https://sports.yahoo.com/articles/broncos-chargers-announce-daiyan-henley-092338516.html",
+      "title": "Broncos, Chargers announce Daiyan Henley will not be traded after all",
+      "body_text": "More than 24 hours after the NFL trade deadline, the trade of Henley from the Charges to the Broncos was canceled.",
+      "author": "",
+      "published_at": "2026-11-12T09:23:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "2fabc142-6ed9-307d-8c31-d903168984bd",
+      "url": "https://sports.yahoo.com/articles/uw-huskies-film-study-penn-082937141.html",
+      "title": "UW Huskies Film Study: Penn State Nittany Lions",
+      "body_text": "The Washington Huskies returned home to Husky Stadium with some momentum as they took on the Penn State Nittany Lions. Unfortunately said momentum from last game did not travel with them from Nebraska, as the offense stuttered out the gates yet again but now this time with the defense looking all out of sorts. UW […]",
+      "author": "",
+      "published_at": "2026-11-12T08:29:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Huskies Film",
+        "Penn State",
+        "Nittany Lions",
+        "The Washington",
+        "Husky Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "5dd5821c-76b4-3aac-a679-8b532eba6165",
+      "url": "https://sports.yahoo.com/articles/lions-patriots-week-10-injury-211643861.html",
+      "title": "Lions, Patriots Week 10 injury report: Jared Goff limited; DJ Wonnum returns to practice",
+      "body_text": "Taking a closer look at the Lions and Patriots initial injury report for Week 10.",
+      "author": "",
+      "published_at": "2026-11-12T08:08:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patriots Week",
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "00ce147c-7990-3d59-a5be-d03be75061df",
+      "url": "https://sports.yahoo.com/articles/jordan-davis-trade-grades-eagles-102943943.html",
+      "title": "Jordan Davis trade grades: Eagles celebrated, Jaguars dragged",
+      "body_text": "NFL writers gave Howie Roseman his flowers after seeing the return the Eagles received in the Monday afternoon trade of Jordan Davis.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "04fa357c-624b-3531-a530-6f32b17ae6bf",
+      "url": "https://sports.yahoo.com/articles/warning-nfl-general-managers-howie-023500135.html",
+      "title": "Warning to NFL general managers: Howie Roseman is about to fleece you",
+      "body_text": "Eagles general manager Howie Roseman always seems to come out with a better deal.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4f9ab681-c1b1-34cf-802d-b05ea7645bfa",
+      "url": "https://sports.yahoo.com/articles/roob-stats-makai-lemon-shows-111309154.html",
+      "title": "Roob's Stats: Makai Lemon shows up again and 2nd-half defense doesn't",
+      "body_text": "The stats to know after the Eagles fell to 2-7.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "739f1947-3d27-3f88-a618-32ccad7f487e",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-happens-jordan-070000966.html",
+      "title": "Eagles snap counts: What happens after Jordan Davis trade?",
+      "body_text": "Here's a complete look at Eagles snap counts from their Week 9 loss to the Giants.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "81c1bbfd-e4fd-37d7-ab92-bd1f64cac12b",
+      "url": "https://sports.yahoo.com/articles/next-step-eagles-dt-trading-070000843.html",
+      "title": "The next step for the Eagles at DT after trading Jordan Davis",
+      "body_text": "After trading Jordan Davis to the Jaguars on Monday afternoon, the next step for the Eagles is to extend Moro Ojomo.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Moro Ojomo"
+      ],
+      "resolved_player_ids": [
+        "00-0037073",
+        "00-0038412"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a2ead4ec-012e-3da5-b1df-827c488fc456",
+      "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html",
+      "title": "Eagles down 1 RB on active roster after waiving Blue",
+      "body_text": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blue Saquon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a5848bb6-82b9-37cb-97a5-386b954c2053",
+      "url": "https://sports.yahoo.com/articles/eagles-rookie-progress-report-midway-023500155.html",
+      "title": "An Eagles rookie progress report at the midway point of 2026 season",
+      "body_text": "Here's an updated look at rookie performance from the first half of the Eagles' 2026 season.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "An Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "b6e8471a-2078-381f-b7e5-23cdd50c370e",
+      "url": "https://sports.yahoo.com/articles/bengals-back-trade-eagles-arnold-111819846.html",
+      "title": "Bengals back out of trade with Eagles for Arnold Ebiketie",
+      "body_text": "The Eagles on Tuesday morning agreed to trade Arnold Ebiketie to Bengals but deal has fallen through.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arnold Ebiketie",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0038116"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cd851b41-8472-3ef5-9394-7e23bf626ea4",
+      "url": "https://sports.yahoo.com/articles/blockbuster-eagles-trade-jordan-davis-171924572.html",
+      "title": "A blockbuster! Eagles trade Jordan Davis to Jaguars for 1st- and 2nd-round picks",
+      "body_text": "Howie Roseman made his first move before the NFL trade deadline and it is a blockbuster.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d3e1ace0-6099-37ae-b273-545377ca5b81",
+      "url": "https://sports.yahoo.com/articles/playing-nfl-week-10-heres-095123121.html",
+      "title": "Who is playing in NFL Week 10? Here's the full schedule",
+      "body_text": "Vikings-Packers, Steelers-Bengals and Patriots-Lions highlight the upcoming slate.",
+      "author": "",
+      "published_at": "2026-11-12T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "0047dbc6-09f2-3fe3-99fd-82a258127d79",
+      "url": "https://sports.yahoo.com/articles/daniel-jones-bluntly-says-not-063756409.html",
+      "title": "Daniel Jones bluntly says he’s ‘not happy’ with Colts trade deadline fire sale",
+      "body_text": "The Colts traded away their present to hopefully help their future.",
+      "author": "",
+      "published_at": "2026-11-12T06:37:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daniel Jones",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "a335a9b6-6bdc-327b-b0aa-fe2aa0033a81",
+      "url": "https://sports.yahoo.com/articles/broncos-trade-chargers-daiyan-henley-062049049.html",
+      "title": "Broncos trade with Chargers for Daiyan Henley called off in stunner",
+      "body_text": "The NFL trade deadline had one more twist after all.",
+      "author": "",
+      "published_at": "2026-11-12T06:20:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "ef999260-cd03-34fd-8e7b-b00124cbb99b",
+      "url": "https://sports.yahoo.com/articles/broncos-announce-trade-chargers-daiyan-060035563.html",
+      "title": "Broncos announce trade for Chargers' Daiyan Henley 'will not be finalized'",
+      "body_text": "A day after the Chargers announced they reached an agreement to trade linebacker Daiyan Henley to Denver, the Broncos call off the deal.",
+      "author": "",
+      "published_at": "2026-11-12T06:00:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "c80378bf-c4aa-3840-9db6-54dab897389c",
+      "url": "https://sports.yahoo.com/articles/broncos-announce-trade-chargers-lb-054535108.html",
+      "title": "Broncos announce trade with Chargers for LB Daiyan Henley is called off",
+      "body_text": "The Broncos announced late Wednesday that their deadline day trade for linebacker Daiyan Henley had been called off.",
+      "author": "",
+      "published_at": "2026-11-12T05:45:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daiyan Henley",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "b7fb106c-9dd6-4eda-8753-0d5e6f305089",
+      "url": "https://sports.yahoo.com/nfl/article/broncos-deal-for-chargers-lb-daiyan-henley-falls-through-after-nfl-trade-deadline-060825628.html",
+      "title": "Broncos' deal for Chargers LB Daiyan Henley falls through after NFL trade deadline",
+      "body_text": "No reason was provided for the trade getting spiked.",
+      "author": "Jack Baer",
+      "published_at": "2026-11-12T05:43:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "5e6168a0-cb16-3d95-a017-cee14882e6a6",
+      "url": "https://sports.yahoo.com/articles/broncos-trade-daiyan-henley-not-053328942.html",
+      "title": "The Broncos trade for Daiyan Henley will not be finalized",
+      "body_text": "According to the team’s official X account, the trade for inside linebacker Daiyan Henley will not go through.",
+      "author": "",
+      "published_at": "2026-11-12T05:33:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Broncos",
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "0a49ac25-444c-4d04-a7c4-4f68078dbd3a",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-midseason-grades-2-teams-go-from-super-bowl-hopes-to-fs-while-overachieving-giants-browns-receive-high-praise-045511698.html",
+      "title": "NFL midseason grades: 2 teams go from Super Bowl hopes to Fs, while overachieving Giants, Browns receive high praise",
+      "body_text": "Yahoo Sports NFL analysts Frank Schwab and Eric Edholm evaluate all 32 teams at the halfway mark of the 2026 campaign.",
+      "author": "Frank Schwab,Eric Edholm",
+      "published_at": "2026-11-12T04:55:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Yahoo Sports",
+        "Frank Schwab",
+        "Eric Edholm"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "74202014-74dd-3be8-9405-501b216c6e2d",
+      "url": "https://sports.yahoo.com/articles/panthers-injury-report-full-reinforcements-044729589.html",
+      "title": "Panthers injury report is full of reinforcements",
+      "body_text": "The Carolina Panthers have some good news to report regarding their injuries going into their matchup with the Saints.",
+      "author": "",
+      "published_at": "2026-11-12T04:47:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Carolina"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "1f4324e3-a6e0-3d15-a592-cfa7837f1c33",
+      "url": "https://sports.yahoo.com/articles/day-off-jaxon-smith-njigba-041120115.html",
+      "title": "Day off for Jaxon Smith-Njigba",
+      "body_text": "Seattle Seahawks WR Jaxon Smith-Njigba receives day off Wednesday",
+      "author": "",
+      "published_at": "2026-11-12T04:11:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaxon Smith",
+        "Njigba Seattle"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    }
+  ]
+}

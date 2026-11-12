@@ -1,0 +1,81 @@
+{
+  "batch_id": "d994dd2e",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-12T12:20:40.384922+00:00",
+  "record_count": 8,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-starting-is-a-new-step-but-its-not-a-whirlwind",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Fernando Mendoza named Raiders starting QB after being first overall pick; says it's a new step but not a whirlwind.",
+      "source_excerpt": "Everyone knew that it was only a matter of time before Fernando Mendoza became the Raiders' starting quarterback, but the first overall pick in this year's draft said on Wednesday that he was taken by surprise when he learned the time had come.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-wr-denzel-boston-is-expected-back-at-practice-thursday",
+      "player_name": "Denzel Boston",
+      "team_abbr": "CLE",
+      "category": "injury",
+      "summary": "Browns WR Denzel Boston missed Wednesday practice but expected to return Thursday; absence expected to be brief.",
+      "source_excerpt": "The Browns practiced without wide receiver Denzel Boston on Wednesday, but they don't expect his absence to be an extended one.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "243bff43-999f-4058-9b26-6fecc5962399",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Fernando Mendoza becomes new favorite to win Offensive Rookie of the Year ahead of first NFL start despite brutal schedule.",
+      "source_excerpt": "A wide-open race puts the No. 1 overall pick atop the odds board before his first career start, though a brutal schedule against top defenses looms",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "f5833ed8-de05-36c9-8669-a282586026b0",
+      "player_name": "Yhonzae Pierre",
+      "team_abbr": "CAR",
+      "category": "general",
+      "summary": "Analysis of prospect Yhonzae Pierre as potential fit for Panthers' new defensive scheme in 2027.",
+      "source_excerpt": "Let's take a closer look at one of the prospects the Panthers could select in the 2027 NFL Draft.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "c0a659c6-5ada-38e8-a700-0e85179df6bb",
+      "player_name": "Arvell Reese",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Arvell Reese named NFL Defensive Player of the Week.",
+      "source_excerpt": "New York Giants headlines for Thursday",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-starting-is-a-new-step-but-its-not-a-whirlwind",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Fernando Mendoza, first overall pick in 2024 draft, becomes Raiders starting QB after being surprised by the timing.",
+      "source_excerpt": "Everyone knew that it was only a matter of time before Fernando Mendoza became the Raiders' starting quarterback, but the first overall pick in this year's draft said on Wednesday that he was taken by surprise when he learned the time had come.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kamario-taylor-lands-7-5-million-deal-to-return-to-mississippi-state",
+      "player_name": "Kamario Taylor",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Kamario Taylor signed a $7.5 million deal to return to Mississippi State.",
+      "source_excerpt": "Kamario Taylor lands $7.5 million deal to return to Mississippi State",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-wr-denzel-boston-is-expected-back-at-practice-thursday",
+      "player_name": "Denzel Boston",
+      "team_abbr": "CLE",
+      "category": "injury",
+      "summary": "Browns WR Denzel Boston is expected back at practice Thursday after missing Wednesday.",
+      "source_excerpt": "The Browns practiced without wide receiver Denzel Boston on Wednesday, but they don't expect his absence to be an extended one.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

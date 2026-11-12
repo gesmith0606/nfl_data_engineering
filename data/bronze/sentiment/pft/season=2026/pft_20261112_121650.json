@@ -1,0 +1,582 @@
+{
+  "fetch_run_id": "095262df-690a-4eae-b5f8-4168a88f32c7",
+  "source": "pft",
+  "fetched_at": "2026-11-12T12:16:50.059354+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-starting-is-a-new-step-but-its-not-a-whirlwind",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-starting-is-a-new-step-but-its-not-a-whirlwind",
+      "permalink": "",
+      "title": "Fernando Mendoza: Starting is a \"new step,\" but it's not a whirlwind",
+      "body_text": "Everyone knew that it was only a matter of time before Fernando Mendoza became the Raiders' starting quarterback, but the first overall pick in this year's draft said on Wednesday that he was taken by surprise when he learned the time had come.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T12:00:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-laughs-as-he-says-hes-tempted-to-ask-assistant-coach-robert-woods-to-suit-up",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-laughs-as-he-says-hes-tempted-to-ask-assistant-coach-robert-woods-to-suit-up",
+      "permalink": "",
+      "title": "Sean McVay laughs as he says he's tempted to ask assistant coach Robert Woods to suit up",
+      "body_text": "He didn't sound completely serious, but Rams coach Sean McVay said on Wednesday that he talked to assistant wide receivers coach Robert Woods about whether he could suit up and play while receivers Puka Nacua, Davante Adams and Jordan Whittington are all out with injuries.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-12T11:37:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Woods",
+        "Puka Nacua",
+        "Davante Adams",
+        "Jordan Whittington"
+      ],
+      "resolved_player_ids": [
+        "00-0030431",
+        "00-0039075",
+        "00-0031381",
+        "00-0039751"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-week-9-next-gen-stats-outpaced-the-mcafee-alt-cast-again",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-week-9-next-gen-stats-outpaced-the-mcafee-alt-cast-again",
+      "permalink": "",
+      "title": "For Week 9, Next Gen Stats outpaced the McAfee alt cast again",
+      "body_text": "The ESPN announcement of the viewership for a given Monday night game always requires a careful look for any information about the viewership of the multiple weekly alt casts on the Disney-owned networks.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T11:21:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "For Week",
+        "Next Gen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-optimistic-that-trent-mcduffie-will-play-sunday-vs-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mcvay-optimistic-that-trent-mcduffie-will-play-sunday-vs-cardinals",
+      "permalink": "",
+      "title": "Sean McVay optimistic that Trent McDuffie will play Sunday vs. Cardinals",
+      "body_text": "Rams cornerback Trent McDuffie has missed three games this season and was listed as a non-participant in Wednesday's practice with a back injury, but the outlook for his ability to play Sunday against the Cardinals is good.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-12T11:14:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cardinals Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-patriots-on-fox-leads-week-9-with-25-7-million",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-patriots-on-fox-leads-week-9-with-25-7-million",
+      "permalink": "",
+      "title": "Packers-Patriots on Fox leads Week 9 with 25.7 million",
+      "body_text": "As NFL games go, the 4:25 p.m.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T10:53:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-chargers-announce-daiyan-henley-will-not-be-traded-after-all",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-chargers-announce-daiyan-henley-will-not-be-traded-after-all",
+      "permalink": "",
+      "title": "Broncos, Chargers announce Daiyan Henley will not be traded after all",
+      "body_text": "More than 24 hours after the NFL trade deadline, the trade of Henley from the Charges to the Broncos was canceled.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-12T09:23:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keenan-allen-says-his-beef-with-mike-evans-is-in-the-past",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/keenan-allen-says-his-beef-with-mike-evans-is-in-the-past",
+      "permalink": "",
+      "title": "Keenan Allen says his beef with Mike Evans is in the past",
+      "body_text": "Keenan Allen says his beef with Mike Evans is in the past.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-12T04:04:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Keenan Allen",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0030279",
+        "00-0031408"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russinis-return-includes-no-specifics-about-multiple-controversies",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dianna-russinis-return-includes-no-specifics-about-multiple-controversies",
+      "permalink": "",
+      "title": "Dianna Russini's return includes no specifics about multiple controversies",
+      "body_text": "As expected, Dianna Russini made her return to sports media on Wednesday, with a one-hour show platformed by an illegal offshore sports book.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T03:44:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dianna Russini"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nc-state-moves-even-closer-to-hiring-philip-rivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nc-state-moves-even-closer-to-hiring-philip-rivers",
+      "permalink": "",
+      "title": "NC State moves even closer to hiring Philip Rivers",
+      "body_text": "Rivers, who played for the Wolfpack from 1999 through 2003, is now poised to coach them.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T03:31:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-are-in-the-four-quarterback-club-for-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-are-in-the-four-quarterback-club-for-now",
+      "permalink": "",
+      "title": "Vikings are in the four-quarterback club, for now",
+      "body_text": "The Vikings' addition of quarterback Kirk Cousins comes with a surprising decision on the back end.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T02:10:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Vikings",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kamario-taylor-lands-7-5-million-deal-to-return-to-mississippi-state",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kamario-taylor-lands-7-5-million-deal-to-return-to-mississippi-state",
+      "permalink": "",
+      "title": "Kamario Taylor lands $7.5 million deal to return to Mississippi State",
+      "body_text": "One man's chaos is another man's ca-ching.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T01:21:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kamario Taylor",
+        "Mississippi State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-racks-up-21-7-million-for-monday-night-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-vikings-racks-up-21-7-million-for-monday-night-football",
+      "permalink": "",
+      "title": "Bills-Vikings racks up 21.7 million for Monday Night Football",
+      "body_text": "The game itself was not much fun to watch, except for Bills fans.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T00:56:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Football The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-a-full-participant-wednesday-myles-garrett-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matthew-stafford-a-full-participant-wednesday-myles-garrett-limited",
+      "permalink": "",
+      "title": "Matthew Stafford a full participant Wednesday; Myles Garrett limited",
+      "body_text": "Rams quarterback Matthew Stafford (right elbow) had full participation on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-12T00:38:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Myles Garrett"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-is-not-happy-with-colts-roster-purge",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-is-not-happy-with-colts-roster-purge",
+      "permalink": "",
+      "title": "Daniel Jones is \"not happy\" with Colts' roster purge",
+      "body_text": "The Colts had a mini-fire sale in recent weeks, trading away four starters for future assets.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T00:23:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-did-not-practice-drew-lock-was-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-did-not-practice-drew-lock-was-limited",
+      "permalink": "",
+      "title": "Sam Darnold did not practice Wednesday; Drew Lock was limited",
+      "body_text": "The Seahawks have already ruled out Sam Darnold for Week 10, with the starting quarterback's return potentially coming in Week 12 after the bye.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-12T00:18:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold",
+        "Drew Lock",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ravens-to-sign-k-riley-patterson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-ravens-to-sign-k-riley-patterson",
+      "permalink": "",
+      "title": "Report: Ravens to sign K Riley Patterson",
+      "body_text": "The Ravens have reportedly settled on their next kicker.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T23:35:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Riley Patterson",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0036816"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-bears-generates-21-5-million-on-sunday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-bears-generates-21-5-million-on-sunday-night",
+      "permalink": "",
+      "title": "Bucs-Bears generates 21.5 million on Sunday night",
+      "body_text": "The Bears have become a significant draw — and it helps when they're in a close game.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T00:05:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-limited-in-his-return-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-limited-in-his-return-to-practice",
+      "permalink": "",
+      "title": "Deebo Samuel limited in his return to practice",
+      "body_text": "49ers wide receiver Deebo Samuel was limited in his return to practice on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-11T23:55:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-s-amani-hooker-amazing-to-be-on-a-team-thats-winning",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-s-amani-hooker-amazing-to-be-on-a-team-thats-winning",
+      "permalink": "",
+      "title": "Bills S Amani Hooker: \"Amazing\" to be on a team that's winning",
+      "body_text": "Safety Amani Hooker was catapulted up the standings this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T23:23:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Amani Hooker",
+        "Safety Amani"
+      ],
+      "resolved_player_ids": [
+        "00-0035632"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-wr-denzel-boston-is-expected-back-at-practice-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-wr-denzel-boston-is-expected-back-at-practice-thursday",
+      "permalink": "",
+      "title": "Browns WR Denzel Boston is expected back at practice Thursday",
+      "body_text": "The Browns practiced without wide receiver Denzel Boston on Wednesday, but they don't expect his absence to be an extended one.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T23:05:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Denzel Boston",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-limited-in-return-to-practice-patriots-rule-out-three",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-limited-in-return-to-practice-patriots-rule-out-three",
+      "permalink": "",
+      "title": "A.J. Brown limited in return to practice, Patriots rule out three",
+      "body_text": "The Patriots ruled three players out for Sunday's game against the Lions in Munich on Wednesday, but there was some encouraging news about wide receiver A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T22:53:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-james-pearce-did-not-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-james-pearce-did-not-practice-wednesday",
+      "permalink": "",
+      "title": "Falcons DE James Pearce did not practice Wednesday",
+      "body_text": "Falcons defensive end James Pearce Jr. made his season debut on Sunday after serving an eight-game suspension.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-11T22:51:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Pearce",
+        "Wednesday Falcons",
+        "James Pearce Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/blake-cashman-t-j-hockenson-miss-practice-for-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/blake-cashman-t-j-hockenson-miss-practice-for-vikings",
+      "permalink": "",
+      "title": "Blake Cashman, T.J. Hockenson miss practice for Vikings",
+      "body_text": "Vikings linebacker Blake Cashman may not be available for Sunday's showdown with the Packers.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T22:39:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Cashman",
+        "Vikings Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035276"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mahogany-i-need-to-grow-up-and-stop-breaking-team-rules",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mahogany-i-need-to-grow-up-and-stop-breaking-team-rules",
+      "permalink": "",
+      "title": "Christian Mahogany: I need to grow up and stop breaking team rules",
+      "body_text": "Christian Mahogany will return as the Lions' starting left guard on Sunday, a week after his benching for a violation of team rules.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-11T22:23:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Mahogany"
+      ],
+      "resolved_player_ids": [
+        "00-0039408"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-5-panthers-face-3-5-saints-for-first-place-in-nfc-south",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/3-5-panthers-face-3-5-saints-for-first-place-in-nfc-south",
+      "permalink": "",
+      "title": "3-5 Panthers face 3-5 Saints for first place in NFC South",
+      "body_text": "It's not often that a matchup of two 3-5 teams carries major playoff implications.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-11T22:12:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-rb-travis-etienne-has-limited-practice-in-his-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-rb-travis-etienne-has-limited-practice-in-his-return",
+      "permalink": "",
+      "title": "Saints RB Travis Etienne has limited practice in his return",
+      "body_text": "Saints running back Travis Etienne returned to practice on Wednesday as a limited participant.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-11T22:07:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Etienne"
+      ],
+      "resolved_player_ids": [
+        "00-0036973"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-practiced-in-full-on-wednesday-im-in-a-great-spot",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-practiced-in-full-on-wednesday-im-in-a-great-spot",
+      "permalink": "",
+      "title": "Patrick Mahomes practiced in full on Wednesday: \"I'm in a great spot\"",
+      "body_text": "While it looked at first on Sunday like Chiefs quarterback Patrick Mahomes had suffered a significant elbow injury, it turns out he hasn't even missed any practice time.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-11T22:02:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-plans-to-talk-to-jakobe-thomas-about-no-8",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-plans-to-talk-to-jakobe-thomas-about-no-8",
+      "permalink": "",
+      "title": "Kirk Cousins plans to talk to Jakobe Thomas about No. 8",
+      "body_text": "Vikings quarterback Kirk Cousins made his official return to the team on Wednesday.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-11T21:57:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Jakobe Thomas"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0041054"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-on-kyler-murray-i-want-him-to-get-healthy-you-never-know-what-could-happen",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kevin-oconnell-on-kyler-murray-i-want-him-to-get-healthy-you-never-know-what-could-happen",
+      "permalink": "",
+      "title": "Kevin O'Connell on Kyler Murray: I want him to get healthy, you never know what could happen",
+      "body_text": "The Vikings made Kyler Murray their quarterback choice to open the 2026 season, but it didn't take long for their plans to go awry.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-11T21:56:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-has-limited-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-has-limited-practice-wednesday",
+      "permalink": "",
+      "title": "Micah Parsons has limited practice Wednesday",
+      "body_text": "Packers edge rusher Micah Parsons had limited work in Wednesday's practice.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-11T21:47:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Parsons",
+        "Wednesday Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}
