@@ -1,0 +1,90 @@
+{
+  "batch_id": "a85c4154",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-13T12:20:07.875313+00:00",
+  "record_count": 9,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-expresses-confidence-in-k-dominic-zvada",
+      "player_name": "Dominic Zvada",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Ravens coach John Harbaugh expresses confidence in rookie kicker Dominic Zvada despite six misses in nine games.",
+      "source_excerpt": "Giants rookie kicker Dominic Zvada has missed six field goals in nine games.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-on-having-no-sacks-they-come-in-bunches",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "general",
+      "summary": "Rams defensive tackle Aaron Donald comments on lack of sacks through seven games this season.",
+      "source_excerpt": "Rams defensive tackle Aaron Donald has played seven games this season.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-re-sign-odell-beckham-jr-to-practice-squad",
+      "player_name": "Odell Beckham Jr.",
+      "team_abbr": "MIN",
+      "category": "general",
+      "summary": "Vikings re-signed wide receiver Odell Beckham Jr. to practice squad.",
+      "source_excerpt": "Wide receiver Odell Beckham Jr. is back with the Vikings.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "f53d26dc-e928-411f-b856-241a252f2348",
+      "player_name": "Arvell Reese",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Arvell Reese evaluated as top-10 Giants draft pick with Defensive Rookie of the Year candidate status emerging.",
+      "source_excerpt": "New York's top-10 investments are already fueling a 5-2-1 start, with a Defensive Rookie of the Year candidate emerging on defense",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "f53d26dc-e928-411f-b856-241a252f2348",
+      "player_name": "Francis Mauigoa",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Francis Mauigoa evaluated for improvement on Giants reshaped offensive line during 5-2-1 start.",
+      "source_excerpt": "New York's top-10 investments are already fueling a 5-2-1 start, with a Defensive Rookie of the Year candidate emerging on defense and a reshaped offensive line",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "16901ecc-4a64-3e37-a0de-41194b6b6d17",
+      "player_name": "Hollywood Brown",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles release Hollywood Brown after just four games with the team.",
+      "source_excerpt": "Hollywood Brown's time in Philadelphia comes to an end after just four games.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "f52093df-22f2-3cc0-b755-43c841a12dff",
+      "player_name": "Dominic Zvada",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Giants kicker Dominic Zvada struggles with consistency again in 24-21 loss to Commanders.",
+      "source_excerpt": "Kicking woes, thought to be behind the Giants, arose again in Thursday night's 24-21 loss to the Commanders at MetLife Stadium.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-expresses-confidence-in-k-dominic-zvada",
+      "player_name": "Dominic Zvada",
+      "team_abbr": "NYG",
+      "category": "injury",
+      "summary": "Giants rookie kicker Dominic Zvada has missed six of nine field goal attempts; coach Harbaugh expresses confidence.",
+      "source_excerpt": "Giants rookie kicker Dominic Zvada has missed six field goals in nine games.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-on-having-no-sacks-they-come-in-bunches",
+      "player_name": "Aaron Donald",
+      "team_abbr": "LAR",
+      "category": "general",
+      "summary": "Aaron Donald comments on sack drought, noting they come in bunches after seven games this season.",
+      "source_excerpt": "Rams defensive tackle Aaron Donald has played seven games this season.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

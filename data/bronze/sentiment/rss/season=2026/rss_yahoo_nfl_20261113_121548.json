@@ -1,0 +1,781 @@
+{
+  "fetch_run_id": "279d28ee-4824-4586-86fa-9ae56016ada0",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-13T12:15:48.444166+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "88b05c11-ff8c-3659-b88c-89dbff7ddb84",
+      "url": "https://sports.yahoo.com/articles/postpulpit-mailbag-happened-christian-gonzalez-120000220.html",
+      "title": "#PostPulpit mailbag: What happened to Christian Gonzalez?",
+      "body_text": "The latest edition of our Patriots mailbag answers questions about Christian Gonzalez, the trade deadline, and more.",
+      "author": "",
+      "published_at": "2026-11-13T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "c41d7eba-eb79-3d04-87b2-2a60bfb0e5a3",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-change-afoot-120000083.html",
+      "title": "Tennessee Titans news: Change is afoot before Jaguars game",
+      "body_text": "The Tennessee Titans are undergoing some change before facing the Jacksonville Jaguars in Week 10.",
+      "author": "",
+      "published_at": "2026-11-13T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee",
+        "Jacksonville Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "d8b3f374-efff-32fa-89c9-e0b971fd0bcf",
+      "url": "https://sports.yahoo.com/articles/lions-vs-patriots-preview-prediction-120000239.html",
+      "title": "Lions vs. Patriots preview, prediction: On Paper",
+      "body_text": "Our Detroit Lions vs. New England Patriots preview and predictions for Week 10 in Munich!",
+      "author": "",
+      "published_at": "2026-11-13T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "On Paper",
+        "Our Detroit",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "f7008bc5-da3b-30c0-b4bb-5a78e0351bd1",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-familiar-face-120000385.html",
+      "title": "New York Jets News: Familiar Face Returns in Bills Clash",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-13T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Familiar Face",
+        "Bills Clash"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "fb1834a7-4d0e-3300-b972-5a6550441188",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-joey-porter-jr-120000992.html",
+      "title": "Cowboys news: Joey Porter Jr. provides update on his recent injury",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-13T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "9f47222c-cf0a-38fe-844a-9cd99c75dfd9",
+      "url": "https://sports.yahoo.com/articles/browns-penalty-problem-stats-details-115815617.html",
+      "title": "Browns have a penalty problem: All the stats and details- where does the blame fall?",
+      "body_text": "Drive killers a plenty for the Cleveland Browns. Detailed look at their penalty issue, but what gets the blame?",
+      "author": "",
+      "published_at": "2026-11-13T11:58:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "438e3154-0f59-3ac3-99a2-22d1f621a6a6",
+      "url": "https://sports.yahoo.com/articles/bruce-arians-says-wants-head-112815438.html",
+      "title": "Bruce Arians says he wants to be a head coach in the NFL next season",
+      "body_text": "Bruce Arians is thinking about coming out of retirement.",
+      "author": "",
+      "published_at": "2026-11-13T11:28:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bruce Arians"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "022634e1-2896-3ebc-8767-07144644fa0d",
+      "url": "https://sports.yahoo.com/articles/nfl-hot-seat-rankings-every-110717693.html",
+      "title": "NFL hot seat rankings for every team: Coaches most likely to be fired",
+      "body_text": "The pressure is rising for several NFL coaches on the hot seat entering Week 10. Here's a look at where every coach stands in terms of job security.",
+      "author": "",
+      "published_at": "2026-11-13T11:07:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "8ff1ca3e-e29a-3db1-8277-c6e3f073bfac",
+      "url": "https://sports.yahoo.com/articles/abysmal-nfc-south-keep-proving-110553948.html",
+      "title": "Abysmal NFC South keep proving it's time to fix NFL playoffs | Opinion",
+      "body_text": "Another NFC South race to the bottom should have NFL fans everywhere wondering why the league keeps rewarding bad teams with home playoff games.",
+      "author": "",
+      "published_at": "2026-11-13T11:05:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Opinion Another"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2e7d9af9-da8e-3fe7-96ff-ccab659c3c23",
+      "url": "https://sports.yahoo.com/articles/giants-news-giants-lose-commanders-110000395.html",
+      "title": "Giants news: Giants lose to Commanders, more",
+      "body_text": "New York Giants headlines for Friday.",
+      "author": "",
+      "published_at": "2026-11-13T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "aa51b12a-31c9-3ecd-9d7e-869780035c8f",
+      "url": "https://sports.yahoo.com/articles/elite-pocket-passer-jared-goff-110000431.html",
+      "title": "‘Elite pocket passer’ Jared Goff not being underestimated by Patriots",
+      "body_text": "The Lions’ quarterback has been one of the most efficient passers in the NFL.",
+      "author": "",
+      "published_at": "2026-11-13T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jared Goff",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "c1bac3f0-8cd3-389c-a5d5-0d9cac28e12d",
+      "url": "https://sports.yahoo.com/articles/broncos-eager-bye-week-prepare-110000501.html",
+      "title": "Broncos eager to use bye week to prepare for the stretch run",
+      "body_text": "The Broncos are ready to take advantage of their bye week, getting healthy, and preparing for the challenges ahead.",
+      "author": "",
+      "published_at": "2026-11-13T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "cafc921d-8c5d-3c32-a184-e99ae377b96d",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-nikko-remigio-signs-110000357.html",
+      "title": "Chiefs News: Nikko Remigio signs with the Texans",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-13T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Nikko Remigio",
+        "Texans The"
+      ],
+      "resolved_player_ids": [
+        "00-0038519"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "64329fe9-7b1b-3445-8421-b00fc5957ece",
+      "url": "https://sports.yahoo.com/articles/did-giants-beat-commanders-final-100920662.html",
+      "title": "Did Giants beat Commanders? Final score of NFL 'Thursday Night Football' game last night",
+      "body_text": "J.J. McCarthy and the Giants battled Jayden Daniels and the Commanders last night on &quot;Thursday Night Football.&quot; Here's who won the NFL game:",
+      "author": "",
+      "published_at": "2026-11-13T10:09:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Did Giants",
+        "Thursday Night",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "fbe87e67-e4c0-3408-be8d-df7b1f88fecb",
+      "url": "https://sports.yahoo.com/articles/luke-mccaffrey-knew-rules-made-100619763.html",
+      "title": "Luke McCaffrey knew the rules and made a heads-up play, causing a kickoff out of bounds",
+      "body_text": "Commanders kickoff returner Luke McCaffrey made the smartest play of the game by not returning a kick in Thursday night's win over the Giants.",
+      "author": "",
+      "published_at": "2026-11-13T10:06:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "59757110-b363-34f6-b70f-cd19baf499e7",
+      "url": "https://sports.yahoo.com/articles/patriots-vs-lions-weather-forecast-100611823.html",
+      "title": "Patriots vs. Lions weather forecast: Nothing to worry about for Drake Maye",
+      "body_text": "Up-to-date weather forecast for Sunday’s game between the Patriots and Lions.",
+      "author": "",
+      "published_at": "2026-11-13T10:06:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "255d981b-d275-33aa-bfc0-96ddde2fee7c",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-only-midseason-award-094100052.html",
+      "title": "Golden Nuggets: The only midseason award that matters is 7-1",
+      "body_text": "Your daily San Francisco 49ers news for Friday, November 13th, 2026",
+      "author": "",
+      "published_at": "2026-11-13T09:41:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "00ce147c-7990-3d59-a5be-d03be75061df",
+      "url": "https://sports.yahoo.com/articles/jordan-davis-trade-grades-eagles-102943943.html",
+      "title": "Jordan Davis trade grades: Eagles celebrated, Jaguars dragged",
+      "body_text": "NFL writers gave Howie Roseman his flowers after seeing the return the Eagles received in the Monday afternoon trade of Jordan Davis.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "04fa357c-624b-3531-a530-6f32b17ae6bf",
+      "url": "https://sports.yahoo.com/articles/warning-nfl-general-managers-howie-023500135.html",
+      "title": "Warning to NFL general managers: Howie Roseman is about to fleece you",
+      "body_text": "Eagles general manager Howie Roseman always seems to come out with a better deal.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "16901ecc-4a64-3e37-a0de-41194b6b6d17",
+      "url": "https://sports.yahoo.com/articles/eagles-continue-reshaping-roster-reportedly-221326007.html",
+      "title": "Eagles continue reshaping roster by reportedly releasing veteran wide receiver",
+      "body_text": "Hollywood Brown's time in Philadelphia comes to an end after just four games.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1830b115-c527-395f-9434-41fdb5e59393",
+      "url": "https://sports.yahoo.com/articles/winners-losers-commanders-upset-giants-171100995.html",
+      "title": "Winners, losers as Commanders upset Giants 24-21 on Thursday Night Football",
+      "body_text": "It came down to the final minutes, but Jayden Daniels kept Washington's season alive on the road.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "24427063-e0e4-3296-b2d3-9eec4158f1f6",
+      "url": "https://sports.yahoo.com/articles/why-jordan-davis-listening-sinatra-093428638.html",
+      "title": "Why was Jordan Davis listening to Sinatra on his way out of Philly?",
+      "body_text": "The Eagles traded Jordan Davis to the Jaguars for two draft picks on Monday.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4f9ab681-c1b1-34cf-802d-b05ea7645bfa",
+      "url": "https://sports.yahoo.com/articles/roob-stats-makai-lemon-shows-111309154.html",
+      "title": "Roob's Stats: Makai Lemon shows up again and 2nd-half defense doesn't",
+      "body_text": "The stats to know after the Eagles fell to 2-7.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Makai Lemon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "739f1947-3d27-3f88-a618-32ccad7f487e",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-happens-jordan-070000966.html",
+      "title": "Eagles snap counts: What happens after Jordan Davis trade?",
+      "body_text": "Here's a complete look at Eagles snap counts from their Week 9 loss to the Giants.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7e3e1582-7b3e-36d9-8be1-80f1a93ba2c2",
+      "url": "https://sports.yahoo.com/articles/international-player-joshua-weru-development-070000762.html",
+      "title": "International player Joshua Weru on his development behind the scenes",
+      "body_text": "Joshua Weru has spent this first half of the season on the practice squad working to improve.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joshua Weru"
+      ],
+      "resolved_player_ids": [
+        "00-0040926"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "81c1bbfd-e4fd-37d7-ab92-bd1f64cac12b",
+      "url": "https://sports.yahoo.com/articles/next-step-eagles-dt-trading-070000843.html",
+      "title": "The next step for the Eagles at DT after trading Jordan Davis",
+      "body_text": "After trading Jordan Davis to the Jaguars on Monday afternoon, the next step for the Eagles is to extend Moro Ojomo.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Moro Ojomo"
+      ],
+      "resolved_player_ids": [
+        "00-0037073",
+        "00-0038412"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a2ead4ec-012e-3da5-b1df-827c488fc456",
+      "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html",
+      "title": "Eagles down 1 RB on active roster after waiving Blue",
+      "body_text": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blue Saquon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a5848bb6-82b9-37cb-97a5-386b954c2053",
+      "url": "https://sports.yahoo.com/articles/eagles-rookie-progress-report-midway-023500155.html",
+      "title": "An Eagles rookie progress report at the midway point of 2026 season",
+      "body_text": "Here's an updated look at rookie performance from the first half of the Eagles' 2026 season.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "An Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "b6e8471a-2078-381f-b7e5-23cdd50c370e",
+      "url": "https://sports.yahoo.com/articles/bengals-back-trade-eagles-arnold-111819846.html",
+      "title": "Bengals back out of trade with Eagles for Arnold Ebiketie",
+      "body_text": "The Eagles on Tuesday morning agreed to trade Arnold Ebiketie to Bengals but deal has fallen through.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arnold Ebiketie",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0038116"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cd851b41-8472-3ef5-9394-7e23bf626ea4",
+      "url": "https://sports.yahoo.com/articles/blockbuster-eagles-trade-jordan-davis-171924572.html",
+      "title": "A blockbuster! Eagles trade Jordan Davis to Jaguars for 1st- and 2nd-round picks",
+      "body_text": "Howie Roseman made his first move before the NFL trade deadline and it is a blockbuster.",
+      "author": "",
+      "published_at": "2026-11-13T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "81d72412-d714-3559-b86f-4cbe178fa55c",
+      "url": "https://sports.yahoo.com/articles/giants-commanders-kudos-wet-willies-060619044.html",
+      "title": "Giants-Commanders ‘Kudos & Wet Willies’: New York misses an opportunity",
+      "body_text": "Let’s hand out some praise, and some criticism, after a disappointing night.",
+      "author": "",
+      "published_at": "2026-11-13T06:37:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Wet Willies",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "4b66722f-4fc9-3338-a50d-86d699bb316a",
+      "url": "https://sports.yahoo.com/articles/4-things-learned-giants-24-063520626.html",
+      "title": "4 things we learned from the Giants’ 24-21 loss to the Commanders",
+      "body_text": "Playing not to lose rather than to win.",
+      "author": "",
+      "published_at": "2026-11-13T06:35:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders Playing"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1b2b83c2-d54c-329e-a118-9b2c3e1fb27b",
+      "url": "https://sports.yahoo.com/articles/commanders-report-card-got-high-063119835.html",
+      "title": "Commanders report card: Who got high marks after massive win over Giants",
+      "body_text": "Here’s how the Commanders graded out in Washington’s win over the N.Y. Giants in the NFL Week 10 contest",
+      "author": "",
+      "published_at": "2026-11-13T06:31:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Giants Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "630bcd19-62f1-3258-98fd-82cad20a878a",
+      "url": "https://sports.yahoo.com/articles/giants-commanders-immediate-positional-grades-061359002.html",
+      "title": "Giants-Commanders: Immediate positional grades for Week 10",
+      "body_text": "Immediate grades from the Giants 24-21 loss to Washington",
+      "author": "",
+      "published_at": "2026-11-13T06:13:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "473c75b5-8e88-37ab-92a5-055a37862a56",
+      "url": "https://sports.yahoo.com/articles/heroes-zeros-giants-loss-commanders-053902806.html",
+      "title": "Heroes, zeros from Giants’ loss to Commanders: Jayden Daniels remains unbeaten against Big Blue",
+      "body_text": "Heroes, zeros and the full blitz from the Giants’ 24-21 loss to the Commanders on Monday:",
+      "author": "",
+      "published_at": "2026-11-13T05:39:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Big Blue"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "f52093df-22f2-3cc0-b755-43c841a12dff",
+      "url": "https://sports.yahoo.com/articles/dominic-zvada-still-looking-consistency-052457351.html",
+      "title": "Dominic Zvada still looking for consistency after another Giants blunder",
+      "body_text": "Kicking woes, thought to be behind the Giants, arose again in Thursday night’s 24-21 loss to the Commanders at MetLife Stadium.",
+      "author": "",
+      "published_at": "2026-11-13T05:24:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dominic Zvada"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "43f19271-3652-3cf2-a45d-0dbcad19de61",
+      "url": "https://sports.yahoo.com/articles/malik-nabers-stunned-look-said-051519265.html",
+      "title": "Malik Nabers’ stunned look said it all in frustrating Giants night — and week",
+      "body_text": "It was the end of a tough night and a tougher week for Nabers.",
+      "author": "",
+      "published_at": "2026-11-13T05:15:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "d06a852d-5dd8-3528-957d-1362a90a51f5",
+      "url": "https://sports.yahoo.com/articles/giants-defense-came-one-interception-050514045.html",
+      "title": "Giants’ defense came up one interception short of securing a win",
+      "body_text": "Two should-be game-sealing fourth-quarter interceptions weren’t enough for the Giants defense to hold a four-point lead.",
+      "author": "",
+      "published_at": "2026-11-13T05:05:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "8a92a153-b62e-35d7-9627-2332519d4115",
+      "url": "https://sports.yahoo.com/articles/commanders-save-season-victory-giants-044255837.html",
+      "title": "Commanders save season with victory Giants let slip away: TNF winners and losers",
+      "body_text": "A look at the winners and losers of the &quot;Thursday Night Football&quot; game between the Commanders and Giants.",
+      "author": "",
+      "published_at": "2026-11-13T04:42:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "867e477d-0f9c-3e23-bd37-053da3ba3a4f",
+      "url": "https://sports.yahoo.com/articles/thursday-night-football-stefon-diggs-042909175.html",
+      "title": "Thursday Night Football: Stefon Diggs' late TD gives Commanders 24-21 win",
+      "body_text": "The wide receiver caught a 32-yard touchdown pass from Jayden Daniels with 57 seconds left.",
+      "author": "",
+      "published_at": "2026-11-13T04:29:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Stefon Diggs",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0031588",
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "e4636ecf-5eb3-3e95-84f5-c06da21b3adf",
+      "url": "https://sports.yahoo.com/articles/giants-vs-commanders-week-10-233121911.html",
+      "title": "Giants vs. Commanders, Week 10: Giants lose to Washington Commanders",
+      "body_text": "Follow Thursday’s action right here.",
+      "author": "",
+      "published_at": "2026-11-13T04:28:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington Commanders",
+        "Follow Thursday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "2aef244f-9d5a-3df4-9c8a-066d4930b72f",
+      "url": "https://sports.yahoo.com/articles/nfl-playoff-picture-week-10-042438503.html",
+      "title": "NFL playoff picture Week 10: Giants come back to NFC East pack with loss to Commanders",
+      "body_text": "Where the projected NFL playoff picture stands with Week 10 underway.",
+      "author": "",
+      "published_at": "2026-11-13T04:24:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders Where"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "df4358a2-9f04-3baf-814b-0903096dd92a",
+      "url": "https://sports.yahoo.com/articles/giants-blow-lead-fourth-quarter-042416970.html",
+      "title": "Giants blow late lead in fourth quarter to suffer heartbreaking ‘TNF’ loss to Commanders",
+      "body_text": "Sometimes, prosperity can be a deceptive dance partner.",
+      "author": "",
+      "published_at": "2026-11-13T04:24:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders Sometimes"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "9b3d9e90-63d1-35e4-9fc8-a7004ef845ec",
+      "url": "https://sports.yahoo.com/articles/commanders-help-cowboys-nfc-east-042256004.html",
+      "title": "Commanders help Cowboys’ NFC East hopes with TNF win over Giants",
+      "body_text": "Thank you, Commanders!",
+      "author": "",
+      "published_at": "2026-11-13T04:22:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Giants Thank"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "6d00f586-c4ab-358a-bdfb-441f99bed0a3",
+      "url": "https://sports.yahoo.com/articles/let-dogs-jameis-winston-busts-042020499.html",
+      "title": "'Who let the dogs out?' Jameis Winston busts out hilarious cadence",
+      "body_text": "Jameis Winston invoked the Baha Men with his cadence while trying to draw the Commanders offside.",
+      "author": "",
+      "published_at": "2026-11-13T04:20:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jameis Winston",
+        "Baha Men"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "3936008b-095e-3ed5-9810-6597c27eb5df",
+      "url": "https://sports.yahoo.com/articles/justin-herbert-rookie-card-silent-041345967.html",
+      "title": "Justin Herbert rookie card at silent auction results in meatball sub bidding war",
+      "body_text": "Justin Herbert attends a silent auction involving meatball subs.Even on his day off, Justin Herbert is still feeling the wrath of sandwich jokes. While the Chargers are preparing for a...",
+      "author": "",
+      "published_at": "2026-11-13T04:13:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "2e77cf6e-578f-3106-81db-50a2b24b6c69",
+      "url": "https://sports.yahoo.com/articles/fcs-week-11-game-week-041026873.html",
+      "title": "FCS Week 11 Game of the Week: Mercer Bears @ Tennessee Tech Golden Eagles: How to Watch, Preview, Predictions",
+      "body_text": "The SoCon race comes to a head on Saturday.",
+      "author": "",
+      "published_at": "2026-11-13T04:10:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mercer Bears",
+        "Tennessee Tech",
+        "Golden Eagles",
+        "Predictions The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3469ebc1-04b9-318f-a123-0cc5cdb29c3c",
+      "url": "https://sports.yahoo.com/articles/david-njoku-limited-thursdays-practice-034812580.html",
+      "title": "David Njoku limited at Thursday's practice",
+      "body_text": "Los Angeles Chargers TE David Njoku manages limited session",
+      "author": "",
+      "published_at": "2026-11-13T03:48:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "David Njoku",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0033885"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "7190116e-54c4-499a-91fd-b3bbedfd011c",
+      "url": "https://sports.yahoo.com/nba/breaking-news/article/commanders-giants-cam-skattebo-refuses-to-be-normal-stares-into-camera-during-thursday-night-football-034621044.html",
+      "title": "Commanders-Giants: Cam Skattebo refuses to be normal, stares into camera during 'Thursday Night Football'",
+      "body_text": "NFL fans were treated to a haunting sight in the fourth quarter of Commanders-Giants.",
+      "author": "Jack Baer",
+      "published_at": "2026-11-13T03:46:21+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "f043ddf0-7714-3518-a2c1-99231fc6c241",
+      "url": "https://sports.yahoo.com/articles/justin-jefferson-drops-truth-bomb-033728585.html",
+      "title": "Justin Jefferson drops truth bomb on Vikings trade with Raiders as ‘much needed’ amid QB struggles",
+      "body_text": "Justin Jefferson speaks about the Kirk Cousins trade.Perhaps nobody needed the Raiders to move off Kirk Cousins more than Justin Jefferson. Jefferson was asked about Minnesota trading for Cousins and...",
+      "author": "",
+      "published_at": "2026-11-13T03:37:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Justin Jefferson",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

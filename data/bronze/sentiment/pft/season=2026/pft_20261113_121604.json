@@ -1,0 +1,590 @@
+{
+  "fetch_run_id": "0273c5ed-bb4e-4752-a56e-f59f5a842559",
+  "source": "pft",
+  "fetched_at": "2026-11-13T12:16:04.205593+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bruce-arians-says-he-wants-to-be-a-head-coach-in-the-nfl-next-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bruce-arians-says-he-wants-to-be-a-head-coach-in-the-nfl-next-season",
+      "permalink": "",
+      "title": "Bruce Arians says he wants to be a head coach in the NFL next season",
+      "body_text": "Bruce Arians is thinking about coming out of retirement.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T11:28:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bruce Arians"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-mccaffrey-knew-the-rules-and-made-a-heads-up-play-causing-a-kickoff-out-of-bounds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-mccaffrey-knew-the-rules-and-made-a-heads-up-play-causing-a-kickoff-out-of-bounds",
+      "permalink": "",
+      "title": "Luke McCaffrey knew the rules and made a heads-up play, causing a kickoff out of bounds",
+      "body_text": "Commanders kickoff returner Luke McCaffrey made the smartest play of the game by not returning a kick in Thursday night's win over the Giants.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T10:06:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-we-needed-that-we-needed-every-bit-of-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-we-needed-that-we-needed-every-bit-of-it",
+      "permalink": "",
+      "title": "Dan Quinn: We needed that, we needed every bit of it",
+      "body_text": "After the win, the Commanders are 3-5-1, two games behind the division-leading Giants.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T09:30:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Quinn"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-expresses-confidence-in-k-dominic-zvada",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-expresses-confidence-in-k-dominic-zvada",
+      "permalink": "",
+      "title": "John Harbaugh expresses confidence in K Dominic Zvada",
+      "body_text": "Giants rookie kicker Dominic Zvada has missed six field goals in nine games.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T05:26:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Dominic Zvada"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-stefon-diggs-late-td-gives-commanders-24-21-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-stefon-diggs-late-td-gives-commanders-24-21-win",
+      "permalink": "",
+      "title": "Thursday Night Football: Stefon Diggs' late TD gives Commanders 24-21 win",
+      "body_text": "The wide receiver caught a 32-yard touchdown pass from Jayden Daniels with 57 seconds left.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T04:29:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Stefon Diggs",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0031588",
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-on-having-no-sacks-they-come-in-bunches",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-donald-on-having-no-sacks-they-come-in-bunches",
+      "permalink": "",
+      "title": "Aaron Donald on having no sacks: \"They come in bunches\"",
+      "body_text": "Rams defensive tackle Aaron Donald has played seven games this season.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T04:26:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Donald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/isaiah-likelys-66-yard-td-has-giants-leading-puts-him-over-100-yards",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/isaiah-likelys-66-yard-td-has-giants-leading-puts-him-over-100-yards",
+      "permalink": "",
+      "title": "Isaiah Likely's 66-yard TD has Giants leading, puts him over 100 yards",
+      "body_text": "Isaiah Likely has a career high, with 127 yards on nine catches.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T03:49:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Isaiah Likely"
+      ],
+      "resolved_player_ids": [
+        "00-0037838"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-its-a-joy-to-see-kirk-cousins-take-over-as-a-leader",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-jefferson-its-a-joy-to-see-kirk-cousins-take-over-as-a-leader",
+      "permalink": "",
+      "title": "Justin Jefferson: It's a joy to see Kirk Cousins take over as a leader",
+      "body_text": "Kirk Cousins is back in Minnesota, and perhaps no one is more excited about that than Justin Jefferson.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T03:26:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Jefferson",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0036322",
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-back-in-front-of-giants-17-14",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-back-in-front-of-giants-17-14",
+      "permalink": "",
+      "title": "Commanders back in front of Giants, 17-14",
+      "body_text": "The Commanders answered the Giants with a six-play, 77-yard drive.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T03:14:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-gives-giants-a-14-10-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-gives-giants-a-14-10-lead",
+      "permalink": "",
+      "title": "Cam Skattebo gives Giants a 14-10 lead",
+      "body_text": "Cam Skattebo has his second touchdown, and the Giants lead for the second time.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T03:06:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo"
+      ],
+      "resolved_player_ids": [
+        "00-0040715"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rex-ryan-incident-was-captured-on-camera",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rex-ryan-incident-was-captured-on-camera",
+      "permalink": "",
+      "title": "Report: Rex Ryan incident was captured on camera",
+      "body_text": "The recent news that Rex Ryan, of all people, allegedly ran over, of all the things, the feet of a pair of pedestrians in Nashville seems too crazy to be true, absent visual evidence.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T03:02:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rex Ryan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-commanders-lead-giants-10-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-commanders-lead-giants-10-7-at-halftime",
+      "permalink": "",
+      "title": "Thursday Night Football: Commanders lead Giants 10-7 at halftime",
+      "body_text": "Ben Sinnott caught a 1-yard touchdown pass from Jayden Daniels with 5 seconds remaining in the first half.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T02:40:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Ben Sinnott",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039912",
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-place-wr-puka-nacua-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-place-wr-puka-nacua-on-ir",
+      "permalink": "",
+      "title": "Rams place WR Puka Nacua on IR",
+      "body_text": "Nacua injured the MCL and PCL in his knee and has turf toe.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T00:56:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-is-not-on-chargers-injury-report-as-they-begin-prep-for-ravens",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-is-not-on-chargers-injury-report-as-they-begin-prep-for-ravens",
+      "permalink": "",
+      "title": "Justin Herbert is not on Chargers' injury report as they begin prep for Ravens",
+      "body_text": "Justin Herbert injured the middle finger on his left hand in Sunday's loss to the Texans.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T00:23:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Herbert",
+        "Ravens Justin"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-lt-charles-cross-practices-for-the-first-time-since-week-7",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-lt-charles-cross-practices-for-the-first-time-since-week-7",
+      "permalink": "",
+      "title": "Seahawks LT Charles Cross practices for the first time since Week 7",
+      "body_text": "The Seahawks had their starting left tackle back at practice on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-13T00:00:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Charles Cross",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0037821"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-giants-lb-malik-harrison-is-inactive",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-giants-lb-malik-harrison-is-inactive",
+      "permalink": "",
+      "title": "Thursday Night Football: Giants LB Malik Harrison is inactive",
+      "body_text": "The Commanders and Giants had no surprises among their inactives.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-12T23:57:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Malik Harrison",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036280"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dre-greenlaw-trent-williams-were-limited-in-thursdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dre-greenlaw-trent-williams-were-limited-in-thursdays-practice",
+      "permalink": "",
+      "title": "Dre Greenlaw, Trent Williams were limited in Thursday's practice",
+      "body_text": "49ers linebacker Dre Greenlaw and left tackle Trent Williams rested during Wednesday's practice, but they had different listings on Thursday's practice report.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T23:43:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dre Greenlaw",
+        "Trent Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0034982",
+        "00-0027857"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-didnt-know-inactive-players-couldnt-celebrate-on-the-field",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/demarvion-overshown-didnt-know-inactive-players-couldnt-celebrate-on-the-field",
+      "permalink": "",
+      "title": "DeMarvion Overshown didn't know inactive players couldn't celebrate on the field",
+      "body_text": "The Cowboys had 14 accepted penalties for 153 yards in the 27-23 win over the Colts.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-12T23:32:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-list-rashod-bateman-vega-ioane-as-limited-in-thursdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ravens-list-rashod-bateman-vega-ioane-as-limited-in-thursdays-practice",
+      "permalink": "",
+      "title": "Ravens list Rashod Bateman, Vega Ioane as limited in Thursday's practice",
+      "body_text": "Everyone on the Ravens' active roster practiced on Thursday, but a handful of them were limited participants.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T23:26:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashod Bateman",
+        "Vega Ioane"
+      ],
+      "resolved_player_ids": [
+        "00-0036550"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-montgomery-returns-to-texans-practice-woody-marks-marvin-harrison-jr-dont-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-montgomery-returns-to-texans-practice-woody-marks-marvin-harrison-jr-dont-practice",
+      "permalink": "",
+      "title": "David Montgomery returns to Texans practice; Woody Marks, Marvin Harrison Jr. don't practice",
+      "body_text": "The Texans had running back David Montgomery back on the practice field on Thursday, but they were missing a couple of other key offensive players.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T22:28:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Montgomery",
+        "Woody Marks",
+        "Marvin Harrison Jr",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0035685",
+        "00-0040583",
+        "00-0039849"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/knoxville-chattanooga-fox-affiliates-pass-on-titans-game-for-now",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/knoxville-chattanooga-fox-affiliates-pass-on-titans-game-for-now",
+      "permalink": "",
+      "title": "Knoxville, Chattanooga Fox affiliates pass on Titans game, for now",
+      "body_text": "The Tennessee Titans apparently need an asterisk on their name.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-12T23:15:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chattanooga Fox",
+        "The Tennessee"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-get-jakobi-meyers-travon-walker-back-at-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-get-jakobi-meyers-travon-walker-back-at-practice",
+      "permalink": "",
+      "title": "Jaguars get Jakobi Meyers, Travon Walker back at practice",
+      "body_text": "The Jaguars got a couple of their top players back on the practice field on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T23:08:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jakobi Meyers",
+        "Travon Walker",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [
+        "00-0034960",
+        "00-0037235"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-limited-again-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-limited-again-thursday",
+      "permalink": "",
+      "title": "George Pickens limited again Thursday",
+      "body_text": "Cowboys wide receiver George Pickens remained a limited participant on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-12T23:08:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens",
+        "Thursday Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-listed-as-full-participant-at-thursdays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-listed-as-full-participant-at-thursdays-practice",
+      "permalink": "",
+      "title": "Jared Goff listed as full participant at Thursday's practice",
+      "body_text": "Lions quarterback Jared Goff was listed as a limited participant in practice on Wednesday, but it doesn't look like there will be an issue with his availability for Sunday's game against the Patriots.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T22:52:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-broncos-took-advantage-of-a-loophole-the-nfl-should-not-allow",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-broncos-took-advantage-of-a-loophole-the-nfl-should-not-allow",
+      "permalink": "",
+      "title": "Jim Harbaugh: Broncos took advantage of a loophole the NFL should not allow",
+      "body_text": "The Chargers' head coach is not happy with the Broncos trying to renegotiate the trade for Daiyan Henley after the deadline, or with the NFL allowing it.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-12T22:47:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jim Harbaugh",
+        "The Chargers",
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-injuries-keeping-me-off-field-not-my-contract-situation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joey-porter-jr-injuries-keeping-me-off-field-not-my-contract-situation",
+      "permalink": "",
+      "title": "Joey Porter Jr.: Injuries keeping me off field, not my contract situation",
+      "body_text": "Porter missed practice again on Thursday with an ankle injury.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T22:45:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rhamondre-stevenson-returns-to-practice-a-j-brown-remains-limited",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rhamondre-stevenson-returns-to-practice-a-j-brown-remains-limited",
+      "permalink": "",
+      "title": "Rhamondre Stevenson returns to practice, A.J. Brown remains limited",
+      "body_text": "The Patriots had some positive news on their injury report from Thursday's reportedly light practice in Munich.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-12T22:01:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rhamondre Stevenson",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-on-josh-downs-you-can-tell-the-intellect-how-he-can-pick-things-up",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patrick-mahomes-on-josh-downs-you-can-tell-the-intellect-how-he-can-pick-things-up",
+      "permalink": "",
+      "title": "Patrick Mahomes on Josh Downs: You can tell the intellect, how he can pick things up",
+      "body_text": "The Chiefs brought in a receiver at the trading deadline, acquiring Josh Downs from the Colts.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-12T20:59:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Josh Downs",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0033873",
+        "00-0038997"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-re-sign-odell-beckham-jr-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-re-sign-odell-beckham-jr-to-practice-squad",
+      "permalink": "",
+      "title": "Vikings re-sign Odell Beckham Jr. to practice squad",
+      "body_text": "Wide receiver Odell Beckham Jr. is back with the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T20:55:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Odell Beckham Jr"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-the-last-week-has-definitely-been-a-crash-course",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jacoby-brissett-the-last-week-has-definitely-been-a-crash-course",
+      "permalink": "",
+      "title": "Jacoby Brissett: The last week has definitely been a crash course",
+      "body_text": "Jacoby Brissett has been a member of the Ravens for less than a week, but he's set to start at quarterback in the team's game against the Chargers on Monday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-12T20:33:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    }
+  ]
+}

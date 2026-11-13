@@ -1,0 +1,229 @@
+{
+  "batch_id": "a85c4154",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-13T12:20:07.866467+00:00",
+  "record_count": 20,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bruce-arians-says-he-wants-to-be-a-head-coach-in-the-nfl-next-season",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bruce-arians-says-he-wants-to-be-a-head-coach-in-the-nfl-next-season",
+      "team_abbr": null,
+      "summary": "Bruce Arians considering coming out of retirement to be an NFL head coach next season.",
+      "sentiment": 0.0,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Bruce Arians is thinking about coming out of retirement.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rex-ryan-incident-was-captured-on-camera",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rex-ryan-incident-was-captured-on-camera",
+      "team_abbr": null,
+      "summary": "Rex Ryan allegedly ran over pedestrians' feet in Nashville; incident reportedly captured on camera.",
+      "sentiment": -0.7,
+      "confidence": 0.6,
+      "category": "legal",
+      "source_excerpt": "The recent news that Rex Ryan, of all people, allegedly ran over, of all the things, the feet of a pair of pedestrians in Nashville seems too crazy to be true, absent visual evidence.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "f0e18690-6dd8-465b-824e-d2fbe69ca1ad",
+      "external_id": "f0e18690-6dd8-465b-824e-d2fbe69ca1ad",
+      "team_abbr": null,
+      "summary": "Kalshi promo code promotion for Commanders vs. Giants Week 10 Thursday Night Football betting.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 10 Commander vs. Giants TNF matchup",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "62980452-081d-49c0-bee6-9bb1e77a72ed",
+      "external_id": "62980452-081d-49c0-bee6-9bb1e77a72ed",
+      "team_abbr": null,
+      "summary": "First touchdown scorer prediction markets analysis for Commanders vs. Giants Week 10 Thursday Night Football.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "We go over first touchdown scorer prediction markets at Kalshi for Commanders vs. Giants NFL Week 10 Thursday Night Football",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "ff054625-322b-4a59-bcf5-1a0e10207dbc",
+      "external_id": "ff054625-322b-4a59-bcf5-1a0e10207dbc",
+      "team_abbr": null,
+      "summary": "Best bets and betting preview for Commanders vs. Giants Thursday Night Football.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Commanders vs. Giants on Thursday Night Football",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "dc94f8fe-eac5-4e78-b4db-c4edd2c199f8",
+      "external_id": "dc94f8fe-eac5-4e78-b4db-c4edd2c199f8",
+      "team_abbr": null,
+      "summary": "Week 10 NFL betting promos and sportsbook bonuses for Commanders vs. Giants.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Top Week 10 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "92c7e242-aa7e-4b43-84e4-12a4d7e512d1",
+      "external_id": "92c7e242-aa7e-4b43-84e4-12a4d7e512d1",
+      "team_abbr": null,
+      "summary": "Week 10 NFL odds, lines, and spreads for all games including Giants-Commanders and Cowboys-49ers.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "NFL Week 10 spreads and totals for every game, including Commanders-Giants, 49ers-Cowboys and Steelers-Bengals",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "d12f3f95-31db-4af5-9c6a-5e16133f575b",
+      "external_id": "d12f3f95-31db-4af5-9c6a-5e16133f575b",
+      "team_abbr": null,
+      "summary": "General sports betting preview article with no specific player impact information.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "68b4c1d0-fe5c-4ef8-9f49-fb164863da64",
+      "external_id": "68b4c1d0-fe5c-4ef8-9f49-fb164863da64",
+      "team_abbr": null,
+      "summary": "Week 10 preview covering Commanders vs Giants, trade deadline analysis, and playoff projections.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Picks for Commanders vs. Giants, plus midseason award predictions and full playoff projections",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "f300093b-7386-4c14-86f9-5d4f87080478",
+      "external_id": "f300093b-7386-4c14-86f9-5d4f87080478",
+      "team_abbr": null,
+      "summary": "Midseason award predictions from CBS Sports staff including Super Bowl, MVP, and Coach of the Year.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The CBS Sports NFL staff predicts winners at the halfway point",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "e41602e7-9a31-48e6-9e08-70dd22944d61",
+      "external_id": "e41602e7-9a31-48e6-9e08-70dd22944d61",
+      "team_abbr": null,
+      "summary": "CFL betting picks and predictions for 2026 Grey Cup from SportsLine expert.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "SportsLine football expert Emory Hunt gives out his best bets for the 2026 Grey Cup",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "57f1b6e2-ce7e-4367-8259-c00584260d1f",
+      "external_id": "57f1b6e2-ce7e-4367-8259-c00584260d1f",
+      "team_abbr": null,
+      "summary": "SportsLine analysis of five Week 10 games with biggest playoff implications.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "SportsLine projections say these five games mean the most for the postseason",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "0e3e6403-705a-4a97-8d29-6092cdbd4e9c",
+      "external_id": "0e3e6403-705a-4a97-8d29-6092cdbd4e9c",
+      "team_abbr": null,
+      "summary": "Article discusses playoff bracket predictions with all NFC North teams making postseason for first time in NFL history.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "For the first time in NFL history, all four teams from the same division make it to the postseason, and one team makes a run",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d8b3f374-efff-32fa-89c9-e0b971fd0bcf",
+      "external_id": "d8b3f374-efff-32fa-89c9-e0b971fd0bcf",
+      "team_abbr": null,
+      "summary": "Preview and predictions for Week 10 matchup between Detroit Lions and New England Patriots in Munich.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Our Detroit Lions vs. New England Patriots preview and predictions for Week 10 in Munich!",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "438e3154-0f59-3ac3-99a2-22d1f621a6a6",
+      "external_id": "438e3154-0f59-3ac3-99a2-22d1f621a6a6",
+      "team_abbr": null,
+      "summary": "Bruce Arians considering coming out of retirement to become NFL head coach next season.",
+      "sentiment": 0.5,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Bruce Arians is thinking about coming out of retirement.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "022634e1-2896-3ebc-8767-07144644fa0d",
+      "external_id": "022634e1-2896-3ebc-8767-07144644fa0d",
+      "team_abbr": null,
+      "summary": "Multiple NFL coaches face increased job security pressure entering Week 10.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The pressure is rising for several NFL coaches on the hot seat entering Week 10. Here's a look at where every coach stands in terms of job security.",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "8ff1ca3e-e29a-3db1-8277-c6e3f073bfac",
+      "external_id": "8ff1ca3e-e29a-3db1-8277-c6e3f073bfac",
+      "team_abbr": null,
+      "summary": "NFC South teams continue poor performance, raising questions about playoff qualification structure.",
+      "sentiment": -0.5,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Another NFC South race to the bottom should have NFL fans everywhere wondering why the league keeps rewarding bad teams with home playoff games.",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "2e77cf6e-578f-3106-81db-50a2b24b6c69",
+      "external_id": "2e77cf6e-578f-3106-81db-50a2b24b6c69",
+      "team_abbr": null,
+      "summary": "FCS college football Week 11 preview for Mercer vs Tennessee Tech.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "FCS Week 11 Game of the Week: Mercer Bears @ Tennessee Tech Golden Eagles: How to Watch, Preview, Predictions",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bruce-arians-says-he-wants-to-be-a-head-coach-in-the-nfl-next-season",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bruce-arians-says-he-wants-to-be-a-head-coach-in-the-nfl-next-season",
+      "team_abbr": null,
+      "summary": "Bruce Arians considering returning from retirement to be an NFL head coach next season.",
+      "sentiment": 0.2,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Bruce Arians is thinking about coming out of retirement.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rex-ryan-incident-was-captured-on-camera",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-rex-ryan-incident-was-captured-on-camera",
+      "team_abbr": null,
+      "summary": "Report indicates an alleged incident involving Rex Ryan running over pedestrians' feet in Nashville was captured on video.",
+      "sentiment": -0.8,
+      "confidence": 0.7,
+      "category": "legal",
+      "source_excerpt": "The recent news that Rex Ryan, of all people, allegedly ran over, of all the things, the feet of a pair of pedestrians in Nashville seems too crazy to be true, absent visual evidence.",
+      "subject_type": "reporter"
+    }
+  ]
+}

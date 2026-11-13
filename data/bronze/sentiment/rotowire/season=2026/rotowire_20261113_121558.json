@@ -1,0 +1,101 @@
+{
+  "fetch_run_id": "44e40d59-4c44-4e75-b567-876699b8e228",
+  "source": "rotowire",
+  "fetched_at": "2026-11-13T12:15:58.797584+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl647485",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Leads backfield in win",
+      "body_text": "White rushed 11 times for 47 yards and brought in one of two targets for five yards in the Commanders' 24-21 win over the Giants on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-12T09:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl647484",
+      "url": "https://www.rotowire.com//football/player/jj-mccarthy-17689",
+      "permalink": "",
+      "title": "J.J. McCarthy: Impressive numbers in loss",
+      "body_text": "McCarthy completed 23 of 36 passes for 293 yards with a touchdown and an interception while adding six rushes for 34 yards in the Giants' 24-21 loss to the Commanders on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-12T09:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl647483",
+      "url": "https://www.rotowire.com//football/player/stefon-diggs-10133",
+      "permalink": "",
+      "title": "Stefon Diggs: Records game-winning TD in victory",
+      "body_text": "Diggs secured six of 10 targets for 83 yards and a touchdown in the Commanders' 24-21 win over the Giants on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-12T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl647482",
+      "url": "https://www.rotowire.com//football/player/jayden-daniels-17692",
+      "permalink": "",
+      "title": "Jayden Daniels: Overcomes turnovers in win",
+      "body_text": "Daniels completed 23 of 33 passes for 249 yards with three touchdowns and two interceptions and rushed 11 times for 28 yards in the Commanders' 24-21 win over the Giants on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-12T08:57:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "nfl647481",
+      "url": "https://www.rotowire.com//football/player/malik-nabers-17704",
+      "permalink": "",
+      "title": "Malik Nabers: Middling production in Week 10 loss",
+      "body_text": "Nabers secured five of seven targets for 44 yards and lost a fumble in the Giants' 24-21 loss to the Commanders on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-12T08:48:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}
