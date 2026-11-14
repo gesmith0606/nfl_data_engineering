@@ -229,9 +229,20 @@ YAHOO_FORM_JS = r"""(async (A) => {
    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
    body: fd.toString()});
  const pd = P.parseFromString(await p.text(), 'text/html');
+ const again = pd.getElementById('add-drop-players-form');
+ const stageOf = form => ((form && form.querySelector('input[name=stage]')) || {}).value || null;
  out.posted = {status: p.status, path: new URL(p.url).pathname,
                messages: notes(pd),
-               form_again: !!pd.getElementById('add-drop-players-form')};
+               form_again: !!again,
+               // 2026-11-10: Yahoo re-served the form after a stage-2 POST and no
+               // claim appeared. Report what came back so the next unclear
+               // outcome says which stage/buttons Yahoo wanted (e.g. a stage-3
+               // confirm page) instead of being silent. Never auto-submitted.
+               sent_stage: stageOf(f),
+               stage: stageOf(again),
+               buttons: again ? [...again.querySelectorAll('input[type=submit], button[type=submit]')]
+                 .map(b => b.value || txt(b)).filter(Boolean).slice(0, 4) : [],
+               heading: txt(pd.querySelector('h1, h2, h3')).slice(0, 80)};
  return JSON.stringify(out);
 })(__ARGS__)"""
 

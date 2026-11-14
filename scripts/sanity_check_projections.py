@@ -3524,9 +3524,24 @@ def _check_weekly_star_rank_sanity(
         return criticals, warnings
 
     # Pick the requested week's partition when it exists; otherwise use latest.
+    # The Tuesday cron (09:13 UTC) runs before that week's consensus lands
+    # (~14:13 UTC), so it nearly always compares against LAST week's
+    # consensus — which still ranks players hurt in the game since as stars
+    # (Lamar 2026-11-03, Mike Evans 11-10, Tyler Warren 10-27). On that stale
+    # fallback a star WE project at exactly 0 (Out on the report / bye) is a
+    # warning, not a critical; a buried star with any nonzero projection
+    # (CMC at RB118 had 0.4) still fails, so the guard keeps its teeth.
     target_week_dir = os.path.join(ext_base, f"week={week:02d}")
+    stale_consensus = False
     if not os.path.isdir(target_week_dir):
         target_week_dir = week_dirs[-1]
+        stale_consensus = ext_season == season
+        if stale_consensus:
+            warnings.append(
+                f"WEEKLY STAR-RANK on STALE consensus: no week={week:02d} partition "
+                f"yet, compared against {os.path.basename(target_week_dir)}; stars "
+                "we project at 0 are reported as warnings."
+            )
 
     ext_files = sorted(globmod.glob(os.path.join(target_week_dir, "*.parquet")))
     if not ext_files:
@@ -3617,6 +3632,18 @@ def _check_weekly_star_rank_sanity(
                 continue
 
             our_rank = int(our_rows["position_rank"].iloc[0])
+            our_pts = float(our_rows[pts_col].iloc[0])
+            if our_rank > _WEEKLY_RANK_WINDOW and stale_consensus and our_pts == 0:
+                warnings.append(
+                    f"WEEKLY STAR ZEROED ({pos}): '{cons_row['player_name']}' was a "
+                    f"consensus star last week; we project 0 this week (Out/bye) — "
+                    "confirm on the injury report."
+                )
+                print(
+                    f"  [WARN] {pos} star '{cons_row['player_name']}': projected 0 "
+                    "(stale consensus; Out/bye)"
+                )
+                continue
             if our_rank > _WEEKLY_RANK_WINDOW:
                 n_failed += 1
                 criticals.append(
