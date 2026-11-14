@@ -1,0 +1,218 @@
+{
+  "batch_id": "5283862c",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-14T12:18:51.336785+00:00",
+  "record_count": 19,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-says-he-and-liam-coen-are-good-after-misunderstanding-last-year",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-says-he-and-liam-coen-are-good-after-misunderstanding-last-year",
+      "team_abbr": "TEN",
+      "summary": "Robert Saleh says he and Liam Coen resolved their misunderstanding from previous year.",
+      "sentiment": 0.3,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "When the Titans face the Jaguars on Sunday, Robert Saleh and Liam Coen will coach against each other for the first time since their run-in last year, when they exchanged words on the field.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "3c8d72bc-bab9-49c3-9ede-d55379514fdc",
+      "external_id": "3c8d72bc-bab9-49c3-9ede-d55379514fdc",
+      "team_abbr": "BUF",
+      "summary": "Buffalo rated among highest-performing teams at midseason; Eagles disappoint and Chargers receive failing grade.",
+      "sentiment": 0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Buffalo is among the highest-rated teams, while the Eagles sit at the opposite end as a big disappointment",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "3c8d72bc-bab9-49c3-9ede-d55379514fdc",
+      "external_id": "3c8d72bc-bab9-49c3-9ede-d55379514fdc",
+      "team_abbr": "LAC",
+      "summary": "Chargers receive failing 'F' grade at NFL midway point.",
+      "sentiment": -0.8,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Chargers get an 'F,' three teams get solid 'A' grade",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "2d013001-4513-32f1-89de-6f54bc89cfe7",
+      "external_id": "2d013001-4513-32f1-89de-6f54bc89cfe7",
+      "team_abbr": "DEN",
+      "summary": "Three collegiate prospects highlighted for Broncos fans to watch in NCAA Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Here are three collegiate prospects Broncos Country should watch in Week 11 of the NCAA Football Season.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "bd919fd5-43e5-355d-bfda-4b2d092c6f62",
+      "external_id": "bd919fd5-43e5-355d-bfda-4b2d092c6f62",
+      "team_abbr": "DET",
+      "summary": "Detroit Lions fan confidence declines following quiet trade deadline performance.",
+      "sentiment": -0.5,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Detroit Lions fans discuss their confidence level in the team and predict the winner of this week's game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a9d21c14-c1c3-3566-a85b-1c61187b0e93",
+      "external_id": "a9d21c14-c1c3-3566-a85b-1c61187b0e93",
+      "team_abbr": "CIN",
+      "summary": "Bengals have significant Sunday Night Football matchup ahead.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The Bengals have a huge Sunday Night Football matchup.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c7a49a0d-75cf-3acd-9f85-dd24a4d8f6fa",
+      "external_id": "c7a49a0d-75cf-3acd-9f85-dd24a4d8f6fa",
+      "team_abbr": "CLE",
+      "summary": "Cleveland Browns news roundup for November 14 with playoff discussions.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the November 14 edition of the Saturday Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "67380504-b1bd-3988-95f4-4f30c9d0d1d1",
+      "external_id": "67380504-b1bd-3988-95f4-4f30c9d0d1d1",
+      "team_abbr": "PIT",
+      "summary": "Steelers-Bengals rematch carries high playoff stakes for 2026 season.",
+      "sentiment": 0.4,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Both teams will likely be favored in most of their remaining games of 2026, which could make it difficult for the loser to catch the winner.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "57336b5b-e019-3e07-adb4-13ba0b6c01b8",
+      "external_id": "57336b5b-e019-3e07-adb4-13ba0b6c01b8",
+      "team_abbr": "ARI",
+      "summary": "Week 10 Cardinals TV map guide for local game viewing.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Can your city view the game?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "09de65dc-c377-3530-90f0-0d4565773a6f",
+      "external_id": "09de65dc-c377-3530-90f0-0d4565773a6f",
+      "team_abbr": "SF",
+      "summary": "49ers run defense mentioned in daily news roundup; no specific player or actionable signal.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Golden Nuggets: Ground stop? Sounds like the 49ers run defense. Your daily San Francisco 49ers news for Saturday, November 14th, 2026",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0d99e2ee-ba69-3a72-a4b8-7c3bf81c4616",
+      "external_id": "0d99e2ee-ba69-3a72-a4b8-7c3bf81c4616",
+      "team_abbr": "BUF",
+      "summary": "Aaron Glenn has coaching familiarity with Bills staff; context on coaching staff connections.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Aaron Glenn has plenty to say about coaching buddies on Bills staff. Aaron Glenn has plenty of familiarity with the Bills coaching staff.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "6aa3a020-222b-32a1-b03e-6f74683c4624",
+      "external_id": "6aa3a020-222b-32a1-b03e-6f74683c4624",
+      "team_abbr": "LAC",
+      "summary": "Chargers losing players' trust after eight-game losing streak despite retaining roster.",
+      "sentiment": -0.8,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Chargers are losing their players' trust. Despite losing eight straight games to open the 2026 season, the Los Angeles front office chose to retain all of its players ahead...",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "cd1a7957-74ca-34f3-9acc-8bf8605d06eb",
+      "external_id": "cd1a7957-74ca-34f3-9acc-8bf8605d06eb",
+      "team_abbr": "CHI",
+      "summary": "Bears seeking to improve from 2025 record and reach 12 wins despite tough NFC North division.",
+      "sentiment": 0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Bears play in the toughest division in the NFL and have seven wins at the bye, so can they better their 2025 record and get to 12 wins?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "efe2452f-5308-376b-9151-225edee8b6a6",
+      "external_id": "efe2452f-5308-376b-9151-225edee8b6a6",
+      "team_abbr": "PIT",
+      "summary": "Steelers may be forced to travel by bus to Cincinnati due to FAA flight groundings.",
+      "sentiment": -0.3,
+      "confidence": 0.7,
+      "category": "weather",
+      "source_excerpt": "All of a sudden, Steelers travel plans could look drastically different. Steelers could be forced to bus to Cincinnati after FAA grounds flights",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "da3758ed-9a65-39c3-a6bb-56d1a86a0656",
+      "external_id": "da3758ed-9a65-39c3-a6bb-56d1a86a0656",
+      "team_abbr": "NO",
+      "summary": "Reader opinions on Saints' matchup against Panthers on Sunday.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "CSC readers give their thoughts on what the Saints will do on Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "85d0f66b-52e3-3336-991d-048fe05b1fac",
+      "external_id": "85d0f66b-52e3-3336-991d-048fe05b1fac",
+      "team_abbr": "NYG",
+      "summary": "Giants' playoff odds dropped to 50% after loss to Washington; face brutal schedule ahead.",
+      "sentiment": -0.2,
+      "confidence": 0.65,
+      "category": "general",
+      "source_excerpt": "A loss to Washington dropped the Giants' playoff odds to 50 percent. Now the 5-3-1 team faces a brutal stretch against opponents with a .607 win percentage.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a396bd3f-2952-3d11-bd77-df5f71499370",
+      "external_id": "a396bd3f-2952-3d11-bd77-df5f71499370",
+      "team_abbr": "NYJ",
+      "summary": "Jets offense seeks to move past unrealized opportunities and get a genuine chance to compete.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "It's hard not to ruminate over what could have been.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "50549954-0b5c-3503-b889-71f1c90e243c",
+      "external_id": "50549954-0b5c-3503-b889-71f1c90e243c",
+      "team_abbr": "DAL",
+      "summary": "Cowboys need to increase offensive aggressiveness to defeat 49ers in divisional showdown.",
+      "sentiment": 0.2,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "What do the upset-minded Cowboys need to do at home to beat the 49ers?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-expects-garrett-wilson-to-clear-concussion-protocol-play-vs-bills",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-expects-garrett-wilson-to-clear-concussion-protocol-play-vs-bills",
+      "team_abbr": "NYJ",
+      "summary": "Jets HC Aaron Glenn comments on Garrett Wilson's concussion protocol status.",
+      "sentiment": 0.0,
+      "confidence": 0.75,
+      "category": "general",
+      "source_excerpt": "It sounds like Jets receiver Garrett Wilson is on track to return to action on Sunday.",
+      "subject_type": "coach"
+    }
+  ]
+}

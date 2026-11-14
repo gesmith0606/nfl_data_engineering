@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "b43aecb5-7c52-4db9-a5e6-ada50d0690e0",
+  "source": "pft",
+  "fetched_at": "2026-11-14T12:14:37.284043+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sent-jordyn-tyson-to-renowned-hamstring-specialist-at-university-of-wisconsin",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-sent-jordyn-tyson-to-renowned-hamstring-specialist-at-university-of-wisconsin",
+      "permalink": "",
+      "title": "Saints sent Jordyn Tyson to renowned hamstring specialist at University of Wisconsin",
+      "body_text": "In 2021, the NFL awarded a $4 million grant to Dr.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-14T11:19:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordyn Tyson"
+      ],
+      "resolved_player_ids": [
+        "00-0041029"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-can-join-peyton-manning-as-only-qbs-with-4-total-tds-in-5-straight-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-can-join-peyton-manning-as-only-qbs-with-4-total-tds-in-5-straight-games",
+      "permalink": "",
+      "title": "Joe Burrow can join Peyton Manning as only QBs with 4 total TDs in 5 straight games",
+      "body_text": "A big game from Burrow on Sunday night would put him in some very exclusive company in NFL history.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-14T10:01:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Peyton Manning"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0010346"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-least-50-different-quarterbacks-will-have-started-games-through-week-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-least-50-different-quarterbacks-will-have-started-games-through-week-10",
+      "permalink": "",
+      "title": "At least 50 different quarterbacks will have started games through Week 10",
+      "body_text": "Raiders quarterback Fernando Mendoza will make his first career start on Sunday.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T03:00:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/faa-lifts-ground-stop-clearing-the-way-for-nfl-teams-to-travel-on-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/faa-lifts-ground-stop-clearing-the-way-for-nfl-teams-to-travel-on-saturday",
+      "permalink": "",
+      "title": "FAA lifts ground stop, clearing the way for NFL teams to travel on Saturday",
+      "body_text": "Eleven teams will be flying for Sunday games.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T02:27:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saturday Eleven"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victims-claim-rex-ryan-almost-killed-them-with-truck-in-nasvhille",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victims-claim-rex-ryan-almost-killed-them-with-truck-in-nasvhille",
+      "permalink": "",
+      "title": "Victims claim Rex Ryan \"almost killed\" them with truck in Nasvhille",
+      "body_text": "The victims in last week's Nashville incident involving former NFL coach Rex Ryan have come forward.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T02:10:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rex Ryan",
+        "Nasvhille The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-lock-has-another-limited-practice-but-does-not-have-an-injury-designation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/drew-lock-has-another-limited-practice-but-does-not-have-an-injury-designation",
+      "permalink": "",
+      "title": "Drew Lock has another limited practice but does not have an injury designation",
+      "body_text": "Drew Lock was limited in practice Friday, his sixth consecutive practice without team drills.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-14T00:14:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Lock"
+      ],
+      "resolved_player_ids": [
+        "00-0035704"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cbs-joey-porter-jr-daron-bland-are-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-cbs-joey-porter-jr-daron-bland-are-questionable",
+      "permalink": "",
+      "title": "Cowboys CBs Joey Porter Jr., DaRon Bland are questionable",
+      "body_text": "The Cowboys added cornerback DaRon Bland to the injury report Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T22:30:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-has-no-injury-designation-but-four-cbs-are-questionable-for-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-has-no-injury-designation-but-four-cbs-are-questionable-for-49ers",
+      "permalink": "",
+      "title": "Deebo Samuel has no injury designation, but four CBs are questionable for 49ers",
+      "body_text": "The 49ers will see the return of wide receiver Deebo Samuel.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T22:16:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-cam-skattebo-was-not-supposed-to-push-on-jameis-winston-sneak",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-cam-skattebo-was-not-supposed-to-push-on-jameis-winston-sneak",
+      "permalink": "",
+      "title": "John Harbaugh: Cam Skattebo was not supposed to push on Jameis Winston sneak",
+      "body_text": "Giants coach John Harbaugh defended running back Cam Skattebo, who stayed in his stance on a crucial Jameis Winston quarterback sneak during Thursday night's loss to the Commanders.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T22:16:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Cam Skattebo",
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nationwide-ground-stop-potentially-complicates-nfl-college-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nationwide-ground-stop-potentially-complicates-nfl-college-games",
+      "permalink": "",
+      "title": "Nationwide ground stop potentially complicates NFL, college games",
+      "body_text": "Some teams could get to game locations by ground. Many would have a hard time.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T22:05:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-hjalte-froholdt-will-miss-his-first-game-since-joining-the-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-hjalte-froholdt-will-miss-his-first-game-since-joining-the-cardinals",
+      "permalink": "",
+      "title": "C Hjalte Froholdt will miss his first game since joining the Cardinals",
+      "body_text": "Center Hjalte Froholdt will miss his first start since joining the Cardinals in 2023.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T21:57:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hjalte Froholdt",
+        "Cardinals Center"
+      ],
+      "resolved_player_ids": [
+        "00-0035258"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-will-start-for-vikings-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-will-start-for-vikings-on-sunday",
+      "permalink": "",
+      "title": "Kirk Cousins will start for Vikings on Sunday",
+      "body_text": "The Vikings acquired the quarterback in a trade with the Raiders on Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T21:38:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/danielle-hunter-out-will-anderson-jr-questionable-for-texans-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/danielle-hunter-out-will-anderson-jr-questionable-for-texans-browns",
+      "permalink": "",
+      "title": "Danielle Hunter out, Will Anderson Jr. questionable for Texans-Browns",
+      "body_text": "The Texans will be without at least one of their top edge rushers for Sunday's game against the Browns.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T21:39:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Danielle Hunter",
+        "Will Anderson Jr",
+        "Browns The"
+      ],
+      "resolved_player_ids": [
+        "00-0031565",
+        "00-0039108"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-rt-spencer-brown-is-doubtful-with-ankle-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-rt-spencer-brown-is-doubtful-with-ankle-injury",
+      "permalink": "",
+      "title": "Bills RT Spencer Brown is doubtful with ankle injury",
+      "body_text": "Bills right tackle Spencer Brown (ankle) is doubtful for Sunday's game against the Jets.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T21:17:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Spencer Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0036976"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-james-pearce-is-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-de-james-pearce-is-questionable",
+      "permalink": "",
+      "title": "Falcons DE James Pearce is questionable",
+      "body_text": "Falcons defensive end James Pearce Jr. is questionable for Sunday's game against the Chiefs.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T21:05:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Pearce",
+        "James Pearce Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-mansoor-delane-are-questionable-for-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-mansoor-delane-are-questionable-for-chiefs",
+      "permalink": "",
+      "title": "Kenneth Walker, Mansoor Delane are questionable for Chiefs",
+      "body_text": "The Chiefs officially list running back Kenneth Walker as questionable for Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T20:46:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker",
+        "Mansoor Delane",
+        "Chiefs The"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-list-myles-garrett-as-questionable-but-sean-mcvay-expects-him-to-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-list-myles-garrett-as-questionable-but-sean-mcvay-expects-him-to-play",
+      "permalink": "",
+      "title": "Rams list Myles Garrett as questionable, but Sean McVay expects him to play",
+      "body_text": "The Rams are listing Myles Garrett as questionable for Sunday's rematch with the Cardinals, but the club is still expecting him to play.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T20:34:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Myles Garrett",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0033868"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-will-release-wr-hollywood-brown-at-his-request",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-will-release-wr-hollywood-brown-at-his-request",
+      "permalink": "",
+      "title": "Eagles will release WR Hollywood Brown, at his request",
+      "body_text": "Say goodbye to Philadelphia.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T20:09:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-eagles-to-release-veteran-ol-fred-johnson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-eagles-to-release-veteran-ol-fred-johnson",
+      "permalink": "",
+      "title": "Report: Eagles to release veteran OL Fred Johnson",
+      "body_text": "The Eagles are releasing veteran offensive tackle Fred Johnson, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-13T20:29:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fred Johnson",
+        "The Eagles",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0034951"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-did-not-practice-friday-with-groin-tightness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-did-not-practice-friday-with-groin-tightness",
+      "permalink": "",
+      "title": "Kenneth Walker did not practice Friday with groin tightness",
+      "body_text": "There is a potentially significant injury situation brewing with the Chiefs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T19:39:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-says-he-and-liam-coen-are-good-after-misunderstanding-last-year",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-says-he-and-liam-coen-are-good-after-misunderstanding-last-year",
+      "permalink": "",
+      "title": "Robert Saleh says he and Liam Coen are good after \"misunderstanding\" last year",
+      "body_text": "When the Titans face the Jaguars on Sunday, Robert Saleh and Liam Coen will coach against each other for the first time since their run-in last year, when they exchanged words on the field over something Saleh, then the defensive coordinator of the 49ers, said something about Coen that Coen didn't appreciate.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T19:51:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Saleh",
+        "Liam Coen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-knew-about-the-jameis-winston-who-let-the-dogs-out-cadence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-knew-about-the-jameis-winston-who-let-the-dogs-out-cadence",
+      "permalink": "",
+      "title": "John Harbaugh knew about the Jameis Winston \"who let the dogs out?\" cadence",
+      "body_text": "Thursday night's game between the Commanders and the Giants introduced a new wrinkle to the legend of Jameis Winston.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T19:48:35+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "John Harbaugh",
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-is-expected-to-interview-for-baylor-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-is-expected-to-interview-for-baylor-job",
+      "permalink": "",
+      "title": "Robert Griffin III is \"expected to interview\" for Baylor job",
+      "body_text": "Former Baylor quarterback Robert Griffin III is interested in coaching his former college team.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-13T19:05:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Robert Griffin III",
+        "Former Baylor"
+      ],
+      "resolved_player_ids": [
+        "00-0029665"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-te-elijah-higgins-agree-to-three-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-te-elijah-higgins-agree-to-three-year-extension",
+      "permalink": "",
+      "title": "Cardinals, TE Elijah Higgins agree to three-year extension",
+      "body_text": "The Cardinals are investing further in the tight end position.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T18:20:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Elijah Higgins",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [
+        "00-0039041"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-named-nc-state-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-named-nc-state-head-coach",
+      "permalink": "",
+      "title": "Philip Rivers named NC State head coach",
+      "body_text": "NC State has made it official: Philip Rivers is the football program's new head coach.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T18:05:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-rhamondre-stevenson-among-patriots-questionable-for-sunday-vs-lions",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/a-j-brown-rhamondre-stevenson-among-patriots-questionable-for-sunday-vs-lions",
+      "permalink": "",
+      "title": "A.J. Brown, Rhamondre Stevenson among Patriots questionable for Sunday vs. Lions",
+      "body_text": "The Patriots have several players listed as questionable for Sunday's game against the Lions in Madrid.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T17:23:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rhamondre Stevenson",
+        "Lions The"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-claim-nikko-remigio-release-dare-ogunbowale",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-claim-nikko-remigio-release-dare-ogunbowale",
+      "permalink": "",
+      "title": "Texans claim Nikko Remigio, release Dare Ogunbowale",
+      "body_text": "The Texans have made a couple of roster moves on Friday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T16:56:46+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nikko Remigio",
+        "Dare Ogunbowale",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0038519",
+        "00-0033854"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-list-amon-ra-st-brown-as-questionable-vs-patriots-in-germany",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-list-amon-ra-st-brown-as-questionable-vs-patriots-in-germany",
+      "permalink": "",
+      "title": "Lions list Amon-Ra St. Brown as questionable vs. Patriots in Germany",
+      "body_text": "Officially, Lions wide receiver Amon-Ra St.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T16:45:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Germany Officially"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-expects-garrett-wilson-to-clear-concussion-protocol-play-vs-bills",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-glenn-expects-garrett-wilson-to-clear-concussion-protocol-play-vs-bills",
+      "permalink": "",
+      "title": "Aaron Glenn expects Garrett Wilson to clear concussion protocol, play vs. Bills",
+      "body_text": "It sounds like Jets receiver Garrett Wilson is on track to return to action on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-13T16:34:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Glenn",
+        "Garrett Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0006034",
+        "00-0037740"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-stayed-in-his-stance-instead-of-pushing-jameis-winstons-tush-on-key-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-stayed-in-his-stance-instead-of-pushing-jameis-winstons-tush-on-key-play",
+      "permalink": "",
+      "title": "Cam Skattebo stayed in his stance instead of pushing Jameis Winston's tush on key play",
+      "body_text": "Giants running back Cam Skattebo stayed in his stance and didn't participate in the play on a key short-yardage snap late in the Giants' loss on Thursday night.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-13T16:07:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cam Skattebo",
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

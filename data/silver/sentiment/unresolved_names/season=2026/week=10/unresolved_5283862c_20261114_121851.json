@@ -1,0 +1,108 @@
+{
+  "batch_id": "5283862c",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-14T12:18:51.345808+00:00",
+  "record_count": 11,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-least-50-different-quarterbacks-will-have-started-games-through-week-10",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Raiders QB Fernando Mendoza making first career start on Sunday.",
+      "source_excerpt": "Raiders quarterback Fernando Mendoza will make his first career start on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-will-release-wr-hollywood-brown-at-his-request",
+      "player_name": "Hollywood Brown",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles releasing WR Hollywood Brown at his request.",
+      "source_excerpt": "Say goodbye to Philadelphia.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "4890f686-943f-4ed7-9adc-e11877048bbf",
+      "player_name": "Hollywood Brown",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles released WR Hollywood Brown at his request after limited usage.",
+      "source_excerpt": "Eagles release wide receiver Hollywood Brown upon his request, according to report. Brown wasn't used much in the Eagles offense this year",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "68412ef9-3366-426f-8606-d863bdaa3e68",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Raiders No. 1 overall pick Fernando Mendoza makes his first NFL start vs. Seattle.",
+      "source_excerpt": "Raiders No. 1 overall pick Fernando Mendoza makes his first NFL start Sunday vs. Seattle",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "8764054c-4576-4b83-b750-5f0649f6a60a",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza predicted to be picked and lose in his first start Week 10.",
+      "source_excerpt": "Fernando Mendoza gets picked, loses in first start",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "7c66e2a3-261d-3795-be25-bf481e0406cc",
+      "player_name": "Drew Mestemaker",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Drew Mestemaker closing in on Heisman contention with big game against Texas Tech in Week 11.",
+      "source_excerpt": "Drew Mestemaker can lead Oklahoma State to an upset win over Texas Tech in Week 11. He can also claim more than just a win with a big game.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "6420c8f3-fbfc-3757-8eed-22bf6ee64080",
+      "player_name": "Jeremiah Smith",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Jeremiah Smith mentioned as potential Eagles fit in 2027 WR class; pre-draft prospect analysis.",
+      "source_excerpt": "Future Eagles Fits: Jeremiah Smith headlines an explosive 2027 WR class. How good the Eagles further upgrade their wide receiver corps in the 2027 NFL Draft?",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "157952f9-7385-3e21-86ac-fdfa09fd0e23",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "usage",
+      "summary": "Raiders QB Fernando Mendoza making first career start on Sunday; significant opportunity for backup.",
+      "source_excerpt": "At least 50 different quarterbacks will have started games through Week 10. Raiders quarterback Fernando Mendoza will make his first career start on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-least-50-different-quarterbacks-will-have-started-games-through-week-10",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Raiders QB Fernando Mendoza making first career start on Sunday.",
+      "source_excerpt": "Raiders quarterback Fernando Mendoza will make his first career start on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-mansoor-delane-are-questionable-for-chiefs",
+      "player_name": "Mansoor Delane",
+      "team_abbr": "KC",
+      "category": "injury",
+      "summary": "Mansoor Delane questionable for Chiefs Sunday game.",
+      "source_excerpt": "The Chiefs officially list running back Kenneth Walker as questionable for Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-will-release-wr-hollywood-brown-at-his-request",
+      "player_name": "Hollywood Brown",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles WR Hollywood Brown released at his request.",
+      "source_excerpt": "Eagles will release WR Hollywood Brown, at his request",
+      "extractor": "claude_primary"
+    }
+  ]
+}

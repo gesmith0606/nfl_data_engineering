@@ -1,0 +1,562 @@
+{
+  "fetch_run_id": "a03b8443-2a27-45fc-b7d5-54c310725360",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-14T12:14:22.175043+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "b379f116-73f8-4336-855d-90d43494ec0b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-injury-report-chiefs-kenneth-walker-aj-brown/",
+      "title": "NFL Week 10 injury report: Chiefs' Kenneth Walker has new groin injury, Patriots' A.J. Brown questionable",
+      "body_text": "The final injury reports for every NFL team playing on Sunday in Week 10",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-14T01:35:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "b3036ae6-3bd3-4d09-97ba-9148fd71e6e4",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-spreads-lines-picks-predictions-best-bets-week-10-2026/",
+      "title": "Week 10 NFL odds, picks, predictions: Computer model backs Bills and Texans",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 10 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-13T23:31:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "59867954-eee3-4dcc-ae76-04aca0ba7ebf",
+      "url": "https://www.cbssports.com/nfl/news/vikings-officially-announce-kirk-cousins-start-vs-packers-lambeau-field-sunday/",
+      "title": "Vikings officially announce Kirk Cousins will start vs. Packers following trade deadline",
+      "body_text": "Minnesota traded for their old friend on Tuesday at the NFL trade deadline, and he will start for the Vikings right away on Sunday",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-14T01:33:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c1fef5a2-b0e7-4461-b9f3-45286dc19b50",
+      "url": "https://www.cbssports.com/nfl/news/week-10-underrated-games-browns-texans-raiders-seahawks/",
+      "title": "Week 10 underrated games: 3 games you should watch this week, from divisional matchups to first QB starts",
+      "body_text": "A look at three games that should be on your radar this week",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-13T21:05:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2b4c1d52-28e1-4fe1-8a0e-442c40aa88f7",
+      "url": "https://www.cbssports.com/nfl/news/jerry-jones-on-nfl-expansion-18-game-regular-season/",
+      "title": "Jerry Jones reveals when he thinks NFL expands to 18-game season, but process to get there is complicated",
+      "body_text": "Jones sees the NFL 'maybe' expanding to an 18-game regular season sooner than one might think",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-13T20:36:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "09ac41fe-0605-47f8-919c-6b1d1b8899b9",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-2026-nfl-draft-did-titans-take-right-receiver-4-overall/",
+      "title": "Revisiting the 2026 NFL Draft: Did the Titans take the right receiver at No. 4 overall?",
+      "body_text": "Carnell Tate has given quarterback Cam Ward a reliable target against zone coverage, but ball security issues and questions about his ultimate ceiling complicate the pick",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-13T20:23:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Carnell Tate",
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "4890f686-943f-4ed7-9adc-e11877048bbf",
+      "url": "https://www.cbssports.com/nfl/news/eagles-release-wide-receiver-hollywood-brown-upon-his-request-according-to-report/",
+      "title": "Eagles release wide receiver Hollywood Brown upon his request, according to report",
+      "body_text": "Brown wasn't used much in the Eagles offense this year",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-13T20:19:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "55716286-4084-47ed-a072-102cfddede1a",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-sign-2-tight-end-elijah-higgins-three-year-extension-per-report/",
+      "title": "Cardinals reportedly extend No. 2 TE Elijah Higgins, going all-in on tight ends amid WR injuries",
+      "body_text": "Coupled with the McBride extension in 2025, the Cardinals have now signed over $100 million in contracts for their top two tight ends",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-13T19:38:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Elijah Higgins"
+      ],
+      "resolved_player_ids": [
+        "00-0039041"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "75ca2492-eb0f-4745-905f-da450c4c72b7",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-joey-porter-jr-breaks-silence-on-chatter-that-absence-is-contract-related/",
+      "title": "Cowboys' Joey Porter Jr. breaks silence on chatter that absence is contract related",
+      "body_text": "Porter Jr. missed Week 5 with a stomach bug and Week 9 at the Indianapolis Colts because of a foot injury",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-13T19:26:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joey Porter Jr",
+        "Indianapolis Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "5e769eeb-4efd-4ee3-b78e-03f90a101cfa",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-dak-prescott-feels-jason-witten-could-absolutely-be-nfl-head-coach/",
+      "title": "Star on the rise: Cowboys' Dak Prescott feels Jason Witten could 'absolutely' be an NFL head coach",
+      "body_text": "Dallas' future Hall of Fame tight end has risen quickly from being a Texas high school head coach to being the interim offensive coordinator at the University of Oklahoma",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-13T19:09:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "Jason Witten"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0022127"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "0e8808d7-326e-4f96-ba96-5a4ce0b72fbd",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-picks-experts-face-off-commanders-giants-vikings-packers/",
+      "title": "NFL Week 10 picks: Our experts face off on Vikings at Packers, Steelers at Bengals and more",
+      "body_text": "CBS Sports writers Jordan Dajani and Jared Dubin predict this weekend's top games",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-13T18:08:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Dajani",
+        "Jared Dubin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "453e7114-b0c8-4959-bcf6-4f16b4b079f8",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-10-expert-nfl-picks/",
+      "title": "Prisco's Week 10 NFL picks: Lions top Patriots in Munich, Cowboys upset 49ers",
+      "body_text": "Pete Prisco reveals all of his Week 10 picks, including the Packers to spoil Kirk Cousins' return with the Vikings",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-13T18:03:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pete Prisco",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "bbe0c115-6e8a-40c5-b4eb-1ee020a30063",
+      "url": "https://www.cbssports.com/nfl/news/bengals-facing-massive-nfl-scheduling-disadvantage-vs-steelers-week-10-no-team-ever/",
+      "title": "Bengals facing massive NFL scheduling disadvantage vs. Steelers in Week 10: No team has ever overcome this",
+      "body_text": "The NFL didn't really think through this part of the schedule",
+      "author": "John Breech",
+      "published_at": "2026-11-13T17:38:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "9a880bcc-85e5-4176-9624-eaf69d55bc2e",
+      "url": "https://www.cbssports.com/nfl/news/fernando-mendoza-carson-beck-kyle-mccord-make-nfl-history-first-starts/",
+      "title": "Fernando Mendoza, Carson Beck, Kyle McCord set to make NFL history with first starts, debuts",
+      "body_text": "A look at the three QBs set to make their first starts this week and what they had to say",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-13T17:30:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "14aff12a-7004-46ec-8e78-2d5bd81674d6",
+      "url": "https://www.cbssports.com/nfl/news/giants-players-blast-controversial-dpi-penalty-loss-to-commanders/",
+      "title": "Giants players blast controversial DPI penalty in loss to Commanders: 'This league is funny, bro'",
+      "body_text": "The late-game penalty led to a game-winning Commanders touchdown",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-13T17:25:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "6211ecaa-ee4c-46ad-b561-f7cef143941c",
+      "url": "https://www.cbssports.com/nfl/news/jaguars-liam-coen-acquisitions-jessie-bates-iii-jordan-davis-wont-play-week-10-trade-deadline-titans/",
+      "title": "Jaguars' trade deadline acquisitions Jessie Bates III and Jordan Davis won't play in Week 10 vs. Titans",
+      "body_text": "Bates and Davis have yet to take their bye weeks, while the Jaguars have already had theirs",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-13T16:44:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jessie Bates III",
+        "Jordan Davis",
+        "Titans Bates"
+      ],
+      "resolved_player_ids": [
+        "00-0034675",
+        "00-0037073"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "0e4194e2-b1a6-485f-86f8-07fcd83e8fce",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-predictions-rams-steelers-part-of-week-10-parlays-involving-favorites-underdogs/",
+      "title": "NFL odds, picks, predictions: Rams, Steelers part of Week 10 parlays involving favorites, underdogs",
+      "body_text": "SportsLine football expert Mike Tierney locks in his top parlays for Week 10 NFL games",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-13T17:02:27+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mike Tierney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "dc94f8fe-eac5-4e78-b4db-c4edd2c199f8",
+      "url": "https://www.cbssports.com/betting/news/week-10-nfl-betting-promos-get-over-3000-in-bonuses-from-betting-apps-sportsbooks-for-sunday/",
+      "title": "Week 10 NFL betting promos: Get over $3,000 in bonuses from betting apps, sportsbooks for Sunday",
+      "body_text": "Top Week 10 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-13T16:40:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Top",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "92c7e242-aa7e-4b43-84e4-12a4d7e512d1",
+      "url": "https://www.cbssports.com/betting/news/week-10-nfl-odds-betting-lines-totals-spreads/",
+      "title": "Week 10 NFL odds, lines, totals, spreads for every game, including Cowboys-49ers, Steelers-Bengals",
+      "body_text": "NFL Week 10 spreads and totals for every game, including 49ers-Cowboys and Steelers-Bengals",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-13T16:36:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "4a8f8b02-ba6e-4c08-bc33-2ebb8585ae8d",
+      "url": "https://www.cbssports.com/nfl/news/top-week-10-battle-to-watch-packers-jordan-love-vikings-defense/",
+      "title": "Top Week 10 battle to watch: Packers' surging offensive trio vs. No. 1 Vikings defense",
+      "body_text": "A closer look at the key factors in the Week 10 battle between the NFL's most exciting passing offense and the league's No. 1 defense",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-13T16:30:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "05f9232b-49db-48a1-a2aa-bfd21342abfa",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-bold-predictions-joe-burrow-lights-up-steelers-tony-pollard-bulldozes-jags/",
+      "title": "NFL Week 10 bold predictions: Joe Burrow lights up first-place Steelers, Tony Pollard bulldozes new-look Jags",
+      "body_text": "Plus, the Packers ruin Kirk Cousins' Vikings return",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-13T16:00:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Tony Pollard",
+        "Jags Plus",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0035261",
+        "00-0029604"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "b076ba85-eb3d-4972-a298-346e2883ccac",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-brinsons-week-10-best-bets-player-props-anytime-touchdown-scorers-for-sundays-matchups/",
+      "title": "NFL odds, picks: Brinson's Week 10 best bets, player props, anytime touchdown scorers for Sunday's matchups",
+      "body_text": "Back Kirk Cousins in his return to Minnesota, take the points with New England against Detroit and expect points in an AFC East shootout at MetLife",
+      "author": "Will Brinson",
+      "published_at": "2026-11-13T15:45:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Back Kirk",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "533160ab-39be-4859-9f67-11b530125ba0",
+      "url": "https://www.cbssports.com/nfl/news/ravens-announce-lamar-jackson-surgery-broken-dislocated-thumb-out-6-10-weeks/",
+      "title": "Ravens announce Lamar Jackson had surgery on broken and dislocated thumb, will be out 6-10 weeks",
+      "body_text": "The Ravens will turn to Jacoby Brissett under center in Jackson's absence",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-13T15:07:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson",
+        "The Ravens",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0034796",
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "68412ef9-3366-426f-8606-d863bdaa3e68",
+      "url": "https://www.cbssports.com/nfl/news/seahawks-vs-raiders-picks-fernando-mendoza-era-begins-most-historical-trends-against-no-1-overall-pick/",
+      "title": "Seahawks vs. Raiders picks: Fernando Mendoza era begins, most historical trends against No. 1 overall pick",
+      "body_text": "Raiders No. 1 overall pick Fernando Mendoza makes his first NFL start Sunday vs. Seattle",
+      "author": "Matt Severance",
+      "published_at": "2026-11-13T15:00:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "01970067-cf1e-48b8-8245-a581b192315f",
+      "url": "https://www.cbssports.com/nfl/news/notre-dame-commanders-sam-hartman-named-the-bachelor-season-30/",
+      "title": "Former Notre Dame, current Commanders QB Sam Hartman to star in new season of 'The Bachelor'",
+      "body_text": "Hartman is currently on Washington's practice squad",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-13T14:57:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Former Notre",
+        "Sam Hartman",
+        "The Bachelor"
+      ],
+      "resolved_player_ids": [
+        "00-0039677"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "8764054c-4576-4b83-b750-5f0649f6a60a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-best-bets-fernando-mendoza-seahawks-josh-downs-chiefs/",
+      "title": "Week 10 best bets: Fernando Mendoza gets picked, loses in first start; Josh Downs has big impact for KC",
+      "body_text": "Plus, another Cowboys letdown against the 49ers?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-13T14:44:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Josh Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "cccf6a0d-b786-4cd2-b129-4fe21a99d7b9",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-picks-hub-expert-selections-best-bets-teasers-survivor/",
+      "title": "NFL Week 10 Picks Hub: Expert selections, best bets, teasers, survivor picks and more",
+      "body_text": "CBSSports.com and SportsLine break down every single NFL game in Week 10",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-13T15:17:08+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Picks Hub"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "256d3e2b-2888-4a30-a39e-0bbea42f2bad",
+      "url": "https://www.cbssports.com/nfl/news/nfl-midseason-grades-awards-2nd-half-predictions-commanders-open-up-nfc-east-race/",
+      "title": "NFL midseason grades, awards, 2nd-half predictions; Commanders open up NFC East race",
+      "body_text": "Plus college football Week 11 picks and predictions",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-13T14:11:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "c3d6e1d1-868b-42a4-918f-5e8f68f5d9ca",
+      "url": "https://www.cbssports.com/nfl/news/fatal-flaw-super-bowl-contenders-49ers-bears-packers/",
+      "title": "One fatal flaw of every Super Bowl contender from 49ers depth to Packers run game",
+      "body_text": "What could stop your favorite team from winning it all?",
+      "author": "JP Acosta",
+      "published_at": "2026-11-13T13:58:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "e951faf4-c8ae-48da-bc07-5a284d336e84",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-week-10-picks-odds-best-bets-lions-munich-bills-jets/",
+      "title": "NFL Week 10 picks, odds, best bets: Lions cover in Munich, Bills crush Jets",
+      "body_text": "After an unusual Week 9 in which 11 favorites covered the spread, here are Jordan Dajani's top five picks",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-13T12:50:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jets After",
+        "Jordan Dajani"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "3c8d72bc-bab9-49c3-9ede-d55379514fdc",
+      "url": "https://www.cbssports.com/nfl/news/grading-every-nfl-team-at-midway-point-bills-49ers-chargers/",
+      "title": "Grading every NFL team at the midway point: Chargers get an 'F,' three teams get solid 'A' grade",
+      "body_text": "Buffalo is among the highest-rated teams, while the Eagles sit at the opposite end as a big disappointment",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-13T17:36:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9ba8b053-fae7-4b81-8e91-6ea8e4b04f0e",
+      "url": "https://www.cbssports.com/nfl/news/5-bold-predictions-second-half-nfl-season-packers-rams/",
+      "title": "5 bold NFL predictions for second half of season: Packers take NFC North; Seahawks, Rams miss playoffs",
+      "body_text": "Plus, we may have our first coach firing of the season soon",
+      "author": "John Breech",
+      "published_at": "2026-11-13T14:56:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "b9cb477c-8049-4c37-b1c2-17d8f2ac94bf",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-starting-qb-carson-beck-2026/",
+      "title": "Cardinals name Carson Beck starting QB: Rookie faces Aaron Donald, Myles Garrett in NFL debut",
+      "body_text": "Gardner Minshew's season-ending injury opens the door for Beck, whose first assignment comes against one of the NFL's most accomplished pass-rushing duos",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-13T02:09:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Carson Beck",
+        "Aaron Donald",
+        "Myles Garrett",
+        "Gardner Minshew"
+      ],
+      "resolved_player_ids": [
+        "00-0041561",
+        "00-0033868",
+        "00-0035289"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "f0e18690-6dd8-465b-824e-d2fbe69ca1ad",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-secure-55-bonus-commanders-vs-giants-thursday-night-football-picks/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Secure $55 bonus for Commanders vs. Giants, Thursday Night Football picks",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 10 Commander vs. Giants TNF matchup",
+      "author": "James Holliman",
+      "published_at": "2026-11-13T00:25:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thursday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "62980452-081d-49c0-bee6-9bb1e77a72ed",
+      "url": "https://www.cbssports.com/prediction/news/commanders-vs-giants-odds-first-touchdown-scorer-picks-predictions-thursday-night-football-nfl-week-10/",
+      "title": "Commanders vs. Giants odds, first touchdown scorer picks, predictions for Thursday Night Football, NFL Week 10",
+      "body_text": "We go over first touchdown scorer prediction markets at Kalshi for Commanders vs. Giants NFL Week 10 Thursday Night Football",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-13T00:16:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "deb37724-2afe-466f-841a-8d6d09ebefde",
+      "url": "https://www.cbssports.com/betting/news/commanders-vs-giants-odds-picks-prediction-best-bets-player-props-for-nfl-week-10-thursday-night-football/",
+      "title": "Commanders vs. Giants odds, picks, prediction: Best bets, player props for NFL Week 10 Thursday Night Football",
+      "body_text": "New York is a 2.5-point home favorite, but backing Jayden Daniels against an erratic J.J. McCarthy in prime time provides strong value to take Washington on the money line",
+      "author": "Will Brinson",
+      "published_at": "2026-11-13T00:01:27+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Football New",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "NYG"
+    }
+  ]
+}

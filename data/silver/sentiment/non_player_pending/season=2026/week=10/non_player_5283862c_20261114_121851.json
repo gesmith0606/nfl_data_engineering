@@ -1,0 +1,174 @@
+{
+  "batch_id": "5283862c",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-14T12:18:51.336279+00:00",
+  "record_count": 15,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/faa-lifts-ground-stop-clearing-the-way-for-nfl-teams-to-travel-on-saturday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/faa-lifts-ground-stop-clearing-the-way-for-nfl-teams-to-travel-on-saturday",
+      "team_abbr": null,
+      "summary": "FAA lifts ground stop, allowing eleven NFL teams to travel for Sunday games.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "weather",
+      "source_excerpt": "FAA lifts ground stop, clearing the way for NFL teams to travel on Saturday. Eleven teams will be flying for Sunday games.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victims-claim-rex-ryan-almost-killed-them-with-truck-in-nasvhille",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victims-claim-rex-ryan-almost-killed-them-with-truck-in-nasvhille",
+      "team_abbr": null,
+      "summary": "Victims in Nashville incident involving former NFL coach Rex Ryan claim he almost killed them with truck.",
+      "sentiment": -1.0,
+      "confidence": 0.8,
+      "category": "legal",
+      "source_excerpt": "Victims claim Rex Ryan \"almost killed\" them with truck in Nasvhille. The victims in last week's Nashville incident involving former NFL coach Rex Ryan have come forward.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-is-expected-to-interview-for-baylor-job",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-is-expected-to-interview-for-baylor-job",
+      "team_abbr": null,
+      "summary": "Robert Griffin III expected to interview for Baylor coaching position.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Former Baylor quarterback Robert Griffin III is interested in coaching his former college team.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-named-nc-state-head-coach",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-named-nc-state-head-coach",
+      "team_abbr": null,
+      "summary": "Philip Rivers named NC State head coach; not an active NFL player.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "NC State has made it official: Philip Rivers is the football program's new head coach.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "e951faf4-c8ae-48da-bc07-5a284d336e84",
+      "external_id": "e951faf4-c8ae-48da-bc07-5a284d336e84",
+      "team_abbr": null,
+      "summary": "Jordan Dajani provides NFL Week 10 picks and best bets with focus on Lions and Bills matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "After an unusual Week 9 in which 11 favorites covered the spread, here are Jordan Dajani's top five picks",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "9ba8b053-fae7-4b81-8e91-6ea8e4b04f0e",
+      "external_id": "9ba8b053-fae7-4b81-8e91-6ea8e4b04f0e",
+      "team_abbr": null,
+      "summary": "Bold second-half predictions include Packers winning NFC North, Seahawks and Rams missing playoffs, and potential coaching change.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "Plus, we may have our first coach firing of the season soon",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "1a3c03ea-9efb-3588-aa7e-1e35f3259d96",
+      "external_id": "1a3c03ea-9efb-3588-aa7e-1e35f3259d96",
+      "team_abbr": null,
+      "summary": "College football game coverage; not relevant to NFL player signals.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Game Day: Louisville at North Carolina. LOUISVILLE CARDINALS (6-3, 5-2) at NORTH CAROLINA TAR HEELS (5-4, 2-3) Game Time: 7 p.m.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "2ec70354-2a93-3f27-b12a-1880365827eb",
+      "external_id": "2ec70354-2a93-3f27-b12a-1880365827eb",
+      "team_abbr": null,
+      "summary": "Historical retrospective on Packers-Vikings rivalry game.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Another look back at a random game from a storied rivalry between the Packers and Vikings.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "66fc4f9b-553c-3104-940e-ed463c0c0363",
+      "external_id": "66fc4f9b-553c-3104-940e-ed463c0c0363",
+      "team_abbr": null,
+      "summary": "Generic column content with no actionable fantasy signals.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Come through. Stay awhile.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/faa-lifts-ground-stop-clearing-the-way-for-nfl-teams-to-travel-on-saturday",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/faa-lifts-ground-stop-clearing-the-way-for-nfl-teams-to-travel-on-saturday",
+      "team_abbr": null,
+      "summary": "FAA lifts ground stop allowing NFL teams to travel for Sunday games.",
+      "sentiment": 0.5,
+      "confidence": 0.6,
+      "category": "weather",
+      "source_excerpt": "Eleven teams will be flying for Sunday games.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victims-claim-rex-ryan-almost-killed-them-with-truck-in-nasvhille",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/victims-claim-rex-ryan-almost-killed-them-with-truck-in-nasvhille",
+      "team_abbr": null,
+      "summary": "Victims come forward claiming former NFL coach Rex Ryan nearly hit them with truck in Nashville.",
+      "sentiment": -1.0,
+      "confidence": 0.9,
+      "category": "legal",
+      "source_excerpt": "The victims in last week's Nashville incident involving former NFL coach Rex Ryan have come forward.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nationwide-ground-stop-potentially-complicates-nfl-college-games",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nationwide-ground-stop-potentially-complicates-nfl-college-games",
+      "team_abbr": null,
+      "summary": "Nationwide ground stop could complicate NFL team travel logistics for games.",
+      "sentiment": -0.4,
+      "confidence": 0.6,
+      "category": "weather",
+      "source_excerpt": "Some teams could get to game locations by ground. Many would have a hard time.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-says-he-and-liam-coen-are-good-after-misunderstanding-last-year",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-says-he-and-liam-coen-are-good-after-misunderstanding-last-year",
+      "team_abbr": null,
+      "summary": "Robert Saleh says he and Liam Coen resolved past misunderstanding; will coach against each other for first time.",
+      "sentiment": 0.3,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "When the Titans face the Jaguars on Sunday, Robert Saleh and Liam Coen will coach against each other for the first time since their run-in last year, when they exchanged words on the field over something Saleh, then the defensive coordinator of the 49ers, said something about Coen that Coen didn't appreciate.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-is-expected-to-interview-for-baylor-job",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-griffin-iii-is-expected-to-interview-for-baylor-job",
+      "team_abbr": null,
+      "summary": "Robert Griffin III expected to interview for Baylor head coaching job.",
+      "sentiment": 0.0,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "Former Baylor quarterback Robert Griffin III is interested in coaching his former college team.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-named-nc-state-head-coach",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philip-rivers-named-nc-state-head-coach",
+      "team_abbr": null,
+      "summary": "Philip Rivers named NC State football program's new head coach.",
+      "sentiment": 0.0,
+      "confidence": 0.85,
+      "category": "general",
+      "source_excerpt": "NC State has made it official: Philip Rivers is the football program's new head coach.",
+      "subject_type": "coach"
+    }
+  ]
+}

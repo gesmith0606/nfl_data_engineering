@@ -1,0 +1,89 @@
+{
+  "fetch_run_id": "a03b8443-2a27-45fc-b7d5-54c310725360",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-14T12:14:22.291506+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647582",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "title": "Ladd McConkey: Remains sidelined at practice Friday",
+      "body_text": "McConkey (back) didn't practice Friday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-13T03:05:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647575",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "title": "Patrick Mahomes: No injury designation",
+      "body_text": "Mahomes (elbow) was a full practice participant throughout the week and doesn't have an injury designation for Sunday's game at Atlanta.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-13T02:48:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647561",
+      "url": "https://www.rotowire.com//football/player/george-pickens-15853",
+      "title": "George Pickens: Clear for return in Week 10",
+      "body_text": "Pickens (hamstring) doesn't have a designation for Sunday's contest against the 49ers, Tommy Yarrish of the Cowboys' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-13T02:17:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "George Pickens",
+        "Tommy Yarrish"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647560",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "title": "Deebo Samuel: Set to return in Week 10",
+      "body_text": "Samuel (hamstring) doesn't have a designation for Sunday's game in Dallas, Nick Wagoner of ESPN reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-13T02:12:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Deebo Samuel",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647557",
+      "url": "https://www.rotowire.com//football/player/mike-evans-9253",
+      "title": "Mike Evans: Ruled out for Week 10",
+      "body_text": "Evans (Achilles) has been ruled out for Sunday's game at Dallas, Nick Wagoner of ESPN reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-13T02:08:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Mike Evans",
+        "Nick Wagoner"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": null
+    }
+  ]
+}
