@@ -2,6 +2,7 @@
 
 import { Card } from '@/components/ui/card';
 import type { GamePrediction, GameResult } from '../api/types';
+import { clearsBreakEven, formatCoverProbCompact } from '@/lib/nfl/pick-confidence';
 import { getTeamColor } from '@/lib/nfl/team-colors';
 import { TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
 
@@ -17,13 +18,18 @@ import { TEAM_SECONDARY_COLORS } from '@/lib/nfl/team-meta';
  *   home_covers      = actual_margin > vegas_spread
  *   model_picks_home = predicted_spread > vegas_spread
  *   ats_correct      = !push && home_covers === model_picks_home
+ *
+ * ATS only. `.planning/TOTALS_VERDICT.md` (2026-06-10) killed the game-totals
+ * betting surface, so this ledger grades no O/U pick and keeps no O/U record:
+ * the total columns are MARKET TRACKING (our number beside the market's), and
+ * the edge glyph reads the spread edge alone.
  */
 
 const EDGE_HIGH = 3.0;
 const EDGE_MED = 1.5;
 
 function edgeLevel(p: GamePrediction): 'high' | 'med' | 'low' {
-  const top = Math.max(Math.abs(p.spread_edge ?? 0), Math.abs(p.total_edge ?? 0));
+  const top = Math.abs(p.spread_edge ?? 0);
   if (top >= EDGE_HIGH) return 'high';
   if (top >= EDGE_MED) return 'med';
   return 'low';
@@ -35,7 +41,6 @@ interface Verdict {
   finalAway: number;
   finalHome: number;
   ats: 'hit' | 'miss' | 'push' | null; // null = ungradable (no vegas line)
-  ou: 'hit' | 'miss' | 'push' | null;
 }
 
 function gradeGame(p: GamePrediction, g: GameResult | undefined): Verdict | null {
@@ -45,7 +50,6 @@ function gradeGame(p: GamePrediction, g: GameResult | undefined): Verdict | null
   // showing the pick).
   if (g.home_score === 0 && g.away_score === 0) return null;
   const margin = g.home_score - g.away_score;
-  const total = g.home_score + g.away_score;
 
   let ats: Verdict['ats'] = null;
   if (p.vegas_spread !== null) {
@@ -57,16 +61,7 @@ function gradeGame(p: GamePrediction, g: GameResult | undefined): Verdict | null
     }
   }
 
-  let ou: Verdict['ou'] = null;
-  if (p.vegas_total !== null && p.ou_pick) {
-    if (total === p.vegas_total) ou = 'push';
-    else {
-      const wentOver = total > p.vegas_total;
-      ou = (p.ou_pick.toLowerCase() === 'over') === wentOver ? 'hit' : 'miss';
-    }
-  }
-
-  return { finalAway: g.away_score, finalHome: g.home_score, ats, ou };
+  return { finalAway: g.away_score, finalHome: g.home_score, ats };
 }
 
 function TeamChip({ team }: { team: string }) {
@@ -86,8 +81,8 @@ function fmtLine(value: number | null): string {
   return `${value > 0 ? '+' : ''}${value.toFixed(1)}`;
 }
 
-function VerdictCell({ verdict, kind }: { verdict: Verdict; kind: 'ats' | 'ou' }) {
-  const v = verdict[kind];
+function VerdictCell({ verdict }: { verdict: Verdict }) {
+  const v = verdict.ats;
   if (v === null) return <span className='text-muted-foreground'>—</span>;
   if (v === 'push') return <span className='text-muted-foreground'>PUSH</span>;
   return v === 'hit' ? (
@@ -97,14 +92,14 @@ function VerdictCell({ verdict, kind }: { verdict: Verdict; kind: 'ats' | 'ou' }
   );
 }
 
-function record(verdicts: (Verdict | null)[], kind: 'ats' | 'ou'): string {
+function record(verdicts: (Verdict | null)[]): string {
   let w = 0;
   let l = 0;
   let push = 0;
   for (const v of verdicts) {
-    if (!v || v[kind] === null) continue;
-    if (v[kind] === 'hit') w += 1;
-    else if (v[kind] === 'miss') l += 1;
+    if (!v || v.ats === null) continue;
+    if (v.ats === 'hit') w += 1;
+    else if (v.ats === 'miss') l += 1;
     else push += 1;
   }
   return push > 0 ? `${w}–${l}–${push}` : `${w}–${l}`;
@@ -128,7 +123,7 @@ export function PredictionLedger({
     .map((p) => ({ p, verdict: gradeGame(p, finals.get(p.game_id)) }));
 
   const verdicts = rows.map((r) => r.verdict);
-  const gradedCount = verdicts.filter((v) => v && (v.ats !== null || v.ou !== null)).length;
+  const gradedCount = verdicts.filter((v) => v && v.ats !== null).length;
   const graded = gradedCount > 0;
   const highEdge = rows.filter(
     (r) => edgeLevel(r.p) === 'high' && r.verdict != null && r.verdict.ats !== null
@@ -142,18 +137,10 @@ export function PredictionLedger({
         <div className='flex flex-wrap items-center gap-x-7 gap-y-2 rounded-xl border border-[rgba(145,237,208,0.35)] bg-[rgba(19,23,34,0.8)] px-5 py-3'>
           <div>
             <div className='wc-display text-2xl font-extrabold text-[var(--wc-mint,#91edd0)]'>
-              {record(verdicts, 'ats')}
+              {record(verdicts)}
             </div>
             <div className='wc-display text-xs tracking-[0.12em] text-muted-foreground'>
               ATS record
-            </div>
-          </div>
-          <div>
-            <div className='wc-display text-2xl font-extrabold text-[var(--wc-mint,#91edd0)]'>
-              {record(verdicts, 'ou')}
-            </div>
-            <div className='wc-display text-xs tracking-[0.12em] text-muted-foreground'>
-              O/U record
             </div>
           </div>
           {highEdge.length > 0 && (
@@ -183,14 +170,14 @@ export function PredictionLedger({
                 )}
                 <th className='px-[var(--space-3)] py-[var(--space-3)] text-right'>Our Spread</th>
                 <th className='px-[var(--space-3)] py-[var(--space-3)] text-right'>Market</th>
-                <th className='px-[var(--space-3)] py-[var(--space-3)] text-right'>Our Total</th>
+                <th className='px-[var(--space-3)] py-[var(--space-3)] text-right'>
+                  Our Total{' '}
+                  <span className='text-muted-foreground normal-case'>(tracking)</span>
+                </th>
                 <th className='px-[var(--space-3)] py-[var(--space-3)] text-right'>Market</th>
                 <th className='px-[var(--space-3)] py-[var(--space-3)] text-left'>Edge</th>
                 <th className='px-[var(--space-3)] py-[var(--space-3)] text-left'>
                   {graded ? 'ATS Result' : 'ATS Pick'}
-                </th>
-                <th className='px-[var(--space-3)] py-[var(--space-3)] text-left'>
-                  {graded ? 'O/U Result' : 'O/U Pick'}
                 </th>
               </tr>
             </thead>
@@ -234,16 +221,31 @@ export function PredictionLedger({
                     </td>
                     <td className='px-[var(--space-3)] py-[var(--space-3)] font-medium'>
                       {verdict && verdict.ats !== null ? (
-                        <VerdictCell verdict={verdict} kind='ats' />
+                        <VerdictCell verdict={verdict} />
                       ) : (
-                        p.ats_pick || '—'
-                      )}
-                    </td>
-                    <td className='px-[var(--space-3)] py-[var(--space-3)] font-medium'>
-                      {verdict && verdict.ou !== null ? (
-                        <VerdictCell verdict={verdict} kind='ou' />
-                      ) : (
-                        p.ou_pick || '—'
+                        <span className='flex items-baseline gap-[var(--space-1)]'>
+                          <span>{p.ats_pick || '—'}</span>
+                          {/* Ungraded rows show the pick; qualify it with the
+                              calibrated cover probability so a bare team
+                              abbreviation does not read as a bet we claim an
+                              edge on. See @/lib/nfl/pick-confidence. */}
+                          {p.pick_cover_prob !== null && (
+                            <span
+                              className={
+                                clearsBreakEven(p.pick_cover_prob)
+                                  ? 'text-muted-foreground text-[length:var(--fs-xs)] tabular-nums'
+                                  : 'text-muted-foreground/60 text-[length:var(--fs-xs)] tabular-nums'
+                              }
+                              title={
+                                clearsBreakEven(p.pick_cover_prob)
+                                  ? 'Clears the -110 break-even point (52.4%)'
+                                  : 'Model lean only — below the -110 break-even point (52.4%)'
+                              }
+                            >
+                              {formatCoverProbCompact(p.pick_cover_prob, p.spread_edge)}
+                            </span>
+                          )}
+                        </span>
                       )}
                     </td>
                   </tr>

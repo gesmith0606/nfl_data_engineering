@@ -59,10 +59,65 @@ OUTPUT_COLUMNS = [
     "total_edge",
     "confidence_tier",
     "ats_pick",
+    # Retired betting surface, kept in the schema. See OU_PICK_RETIRED.
     "ou_pick",
     "home_cover_prob",
     "over_prob",
 ]
+
+
+# ---------------------------------------------------------------------------
+# Retired betting surface: game totals
+# ---------------------------------------------------------------------------
+# .planning/TOTALS_VERDICT.md (2026-06-10) reached VERDICT: KILL on the
+# game-totals betting surface, with this action: "Remove the game-totals
+# betting surface from production. Keep predicted_total as website content
+# labeled market tracking (useful context; not a bet recommendation)."
+#
+# Enforced by never populating a side in ``ou_pick``. The column itself stays
+# in OUTPUT_COLUMNS (and in the predictions DDL, the API schema and the
+# frontend types) so the served schema and the DB contract are unchanged;
+# dropping it would cascade a migration through four consumers to no benefit.
+# predicted_total, vegas_total, total_edge and over_prob are all still emitted
+# -- those are the market-tracking content the verdict asks us to keep.
+#
+# Why no side can be emitted: the totals model is near-constant
+# (``predicted_total`` std 0.49 against ``vegas_total`` std 4.66 on the served
+# 2026 wk7 board), so ``total_edge`` is the Vegas line with its sign flipped
+# (corr -0.9944, vs +0.038 against our own prediction) and "over if
+# total_edge > 0" reduces to fading every extreme line. Graded model-free
+# against the 93 settled 2026 games, that rule goes 41-52-0 (44.1%, ROI
+# -15.84%) -- byte-identical to the shipped ensemble O/U record, while the
+# market itself was a coin flip (overs 50.5%). The pick also contradicted our
+# own calibrated ``over_prob`` on 9 of 14 wk7 games. Full write-up:
+# .planning/CLV_PICK_RULE_AUDIT_2026_10_24.md.
+OU_PICK_RETIRED = ""
+
+
+# ---------------------------------------------------------------------------
+# ATS pick rule
+# ---------------------------------------------------------------------------
+# The calibrated cover probability -- not the raw edge sign -- picks the side,
+# so ``ats_pick`` and ``home_cover_prob`` can never contradict each other (they
+# disagreed on 1 of 14 games on the served 2026 wk7 board). ``>=`` preserves
+# the historical tie behaviour: a dead-even game is a home pick.
+ATS_PICK_PROB_THRESHOLD = 0.50
+
+# -110 juice breaks even at 52.38%. Gating publication on it is a PRODUCT
+# decision, not a modelling one: on the served 2026 wk7 board only 4 of 14
+# picked sides clear it (the picked side's probability tops out at 0.5531), so
+# switching this on strips most of the board off a monetized site.
+# Deliberately left OFF -- ``None`` publishes every pick, which is the existing
+# behaviour. Set it to 0.5238 to publish only picks that clear break-even;
+# rows below it get an empty ``ats_pick``, the same "no recommendation" shape
+# ``ou_pick`` now carries permanently.
+#
+# Measured on the only two boards carrying a calibrator (2026 wk7 n=14, 2025
+# wk18 n=16): 10 of 30 picked sides clear 52.38% (33%). Reading the raw
+# ``home_cover_prob`` instead of the picked side's probability gives 1 of 30 --
+# that is the "nothing clears it" figure, and it undercounts, because most
+# picks are AWAY and the away side's probability is 1 - home_cover_prob.
+ATS_PUBLISH_MIN_PROB: Optional[float] = None
 
 
 def classify_tier(edge_value: float) -> Optional[str]:
@@ -115,12 +170,76 @@ def classify_tier_prob(pick_prob: float) -> Optional[str]:
     return "low"
 
 
+def picks_home_side(df: pd.DataFrame) -> pd.Series:
+    """Whether the ATS pick takes the home side, per the calibrated probability.
+
+    ``home_cover_prob`` is the leak-free OOF calibrator's probability that the
+    home side covers, so picking from it makes the served pick and the served
+    probability agree by construction. Rows with no probability -- the single
+    XGBoost path trains no calibrator -- fall back to the edge sign, which is
+    the pre-2026-10 behaviour (NaN edge picked home, and still does).
+
+    Args:
+        df: Frame carrying ``home_cover_prob`` and/or ``spread_edge``.
+
+    Returns:
+        Boolean Series aligned to ``df.index``.
+    """
+    nan_series = pd.Series(np.nan, index=df.index)
+    prob = pd.to_numeric(df.get("home_cover_prob", nan_series), errors="coerce")
+    edge = pd.to_numeric(df.get("spread_edge", nan_series), errors="coerce")
+    return pd.Series(
+        np.where(prob.notna(), prob >= ATS_PICK_PROB_THRESHOLD, edge.fillna(0.0) >= 0),
+        index=df.index,
+    )
+
+
+def picked_side_prob(df: pd.DataFrame) -> pd.Series:
+    """Calibrated probability that the *picked* ATS side covers.
+
+    Args:
+        df: Frame carrying ``home_cover_prob`` (and the columns
+            :func:`picks_home_side` needs).
+
+    Returns:
+        Float Series; NaN wherever no calibrated probability exists.
+    """
+    nan_series = pd.Series(np.nan, index=df.index)
+    prob = pd.to_numeric(df.get("home_cover_prob", nan_series), errors="coerce")
+    return prob.where(picks_home_side(df), 1.0 - prob)
+
+
+def derive_ats_pick(df: pd.DataFrame) -> pd.Series:
+    """Resolve the ATS pick to a team abbreviation.
+
+    Args:
+        df: Frame with ``home_team``/``away_team`` plus the probability/edge
+            columns :func:`picks_home_side` reads.
+
+    Returns:
+        Series of team abbreviations. Empty string where ``ATS_PUBLISH_MIN_PROB``
+        is set and the picked side's probability does not clear it (that gate is
+        off by default, so every row carries a team).
+    """
+    empty = pd.Series("", index=df.index)
+    home = df.get("home_team", empty).fillna("").astype(str)
+    away = df.get("away_team", empty).fillna("").astype(str)
+    pick = pd.Series(np.where(picks_home_side(df), home, away), index=df.index)
+
+    if ATS_PUBLISH_MIN_PROB is not None:
+        pick_prob = picked_side_prob(df)
+        pick = pick.where(pick_prob.isna() | (pick_prob >= ATS_PUBLISH_MIN_PROB), "")
+
+    return pick
+
+
 def _normalize_prediction_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Normalize column names and derive fields for the output schema.
 
     Maps feature-engineering names (team_home/team_away, model_spread/model_total)
     to the output schema expected by the web API (home_team/away_team,
-    predicted_spread/predicted_total, confidence_tier, ats_pick, ou_pick).
+    predicted_spread/predicted_total, confidence_tier, ats_pick) and blanks the
+    retired ``ou_pick`` (see OU_PICK_RETIRED).
     """
     out = df.copy()
 
@@ -132,32 +251,33 @@ def _normalize_prediction_columns(df: pd.DataFrame) -> pd.DataFrame:
     if "model_spread" in out.columns and "predicted_spread" not in out.columns:
         out.rename(columns={"model_spread": "predicted_spread", "model_total": "predicted_total"}, inplace=True)
 
-    # Collapse two confidence tiers into a single tier (take the higher one)
+    # Confidence tier = the SPREAD tier alone. This used to take the better of
+    # the spread and total tiers, which let a retired totals edge badge a game
+    # "high confidence" beside an ATS pick that had no edge at all. The ATS
+    # pick is the only recommendation served, so it is the only thing the tier
+    # can describe (TOTALS_VERDICT; see OU_PICK_RETIRED).
     if "spread_confidence_tier" in out.columns and "confidence_tier" not in out.columns:
-        tier_rank = {"high": 0, "medium": 1, "low": 2, None: 3}
-        spread_rank = out["spread_confidence_tier"].map(tier_rank).fillna(3).astype(int)
-        total_rank = out["total_confidence_tier"].map(tier_rank).fillna(3).astype(int)
-        best_rank = pd.DataFrame({"s": spread_rank, "t": total_rank}).min(axis=1)
-        rank_tier = {0: "high", 1: "medium", 2: "low", 3: "low"}
-        out["confidence_tier"] = best_rank.map(rank_tier)
+        tier = out["spread_confidence_tier"]
+        out["confidence_tier"] = tier.where(tier.notna(), "low")
 
-    # Derive ATS pick: if predicted spread < vegas spread, take away team
-    if "ats_pick" not in out.columns:
-        out["ats_pick"] = out.apply(
-            lambda r: r.get("away_team", "") if r.get("spread_edge", 0) < 0 else r.get("home_team", ""),
-            axis=1,
-        )
-
-    # Derive O/U pick
-    if "ou_pick" not in out.columns:
-        out["ou_pick"] = out["total_edge"].apply(
-            lambda e: "over" if (e is not None and not pd.isna(e) and e > 0) else "under"
-        )
-
-    # Calibrated probabilities default to NaN when no calibrator was applied
+    # Calibrated probabilities default to NaN when no calibrator was applied.
+    # home_cover_prob drives ats_pick below; over_prob is retained purely as
+    # market-tracking content (see OU_PICK_RETIRED). Defaulted before the pick
+    # is derived so derive_ats_pick always sees the column.
     for prob_col in ("home_cover_prob", "over_prob"):
         if prob_col not in out.columns:
             out[prob_col] = float("nan")
+
+    # ATS pick follows the calibrated cover probability, falling back to the
+    # edge sign when no calibrator ran.
+    if "ats_pick" not in out.columns:
+        out["ats_pick"] = derive_ats_pick(out)
+
+    # O/U pick retired -- assigned unconditionally, not behind an "if not
+    # present" guard: an upstream frame (or a board written before this change)
+    # may carry a real side, and this is the single place that can guarantee
+    # none ships. See OU_PICK_RETIRED.
+    out["ou_pick"] = OU_PICK_RETIRED
 
     return out
 
@@ -227,9 +347,10 @@ def generate_week_predictions(
     week_df["spread_edge"] = week_df["model_spread"] - week_df["vegas_spread"]
     week_df["total_edge"] = week_df["model_total"] - week_df["vegas_total"]
 
-    # Classify confidence tiers (apply to raw edge, not abs)
+    # Classify the confidence tier (apply to raw edge, not abs). Spread only:
+    # the O/U pick is retired, so there is no totals tier to compute
+    # (TOTALS_VERDICT; see OU_PICK_RETIRED).
     week_df["spread_confidence_tier"] = week_df["spread_edge"].apply(classify_tier)
-    week_df["total_confidence_tier"] = week_df["total_edge"].apply(classify_tier)
 
     # Metadata
     week_df["model_version"] = "v1.4.0"
@@ -376,7 +497,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         week_df["spread_edge"] = week_df["model_spread"] - week_df["vegas_spread"]
         week_df["total_edge"] = week_df["model_total"] - week_df["vegas_total"]
         week_df["spread_confidence_tier"] = week_df["spread_edge"].apply(classify_tier)
-        week_df["total_confidence_tier"] = week_df["total_edge"].apply(classify_tier)
 
         # Calibrated edge -> probability (trained on leak-free OOF predictions)
         for prob_col, models_dict, edge_col in (
@@ -387,16 +507,19 @@ def main(argv: Optional[List[str]] = None) -> int:
             if calibrator is not None:
                 edge_vals = week_df[edge_col].fillna(0.0).values.reshape(-1, 1)
                 week_df[prob_col] = calibrator.predict_proba(edge_vals)[:, 1].round(4)
-                # Tier on the picked side's calibrated probability. Picks
-                # mirror _normalize_prediction_columns: home when spread
-                # edge >= 0, over only when total edge > 0.
-                edge = week_df[edge_col]
-                picks_event = edge >= 0 if edge_col == "spread_edge" else edge > 0
-                pick_prob = week_df[prob_col].where(picks_event, 1 - week_df[prob_col])
-                tier = pick_prob.where(edge.notna()).apply(classify_tier_prob)
-                week_df[edge_col.replace("_edge", "_confidence_tier")] = tier
             else:
                 week_df[prob_col] = float("nan")
+
+        # Tier the ATS pick on the calibrated probability of the side we
+        # actually pick (picks_home_side decides it, the same rule
+        # derive_ats_pick uses, so tier and pick can never describe different
+        # sides). No totals tier: the O/U pick is retired, so there is no
+        # picked side to tier (TOTALS_VERDICT; see OU_PICK_RETIRED).
+        if week_df["home_cover_prob"].notna().any():
+            pick_prob = picked_side_prob(week_df)
+            week_df["spread_confidence_tier"] = pick_prob.where(
+                week_df["spread_edge"].notna()
+            ).apply(classify_tier_prob)
 
         week_df["model_version"] = model_version
         week_df["prediction_timestamp"] = datetime.utcnow()

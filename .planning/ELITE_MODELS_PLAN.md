@@ -23,7 +23,7 @@
 | Fantasy heuristic + eval | `src/unified_evaluation.py`, `scripts/backtest_projections.py`, `scripts/production_eval.py`, `scripts/experiment_heuristic_lab.py` (cached sweeps) | 4.71 MAE 2022-24 w3-18 half-PPR |
 | External projections pipeline | `scripts/ingest_external_projections_{espn,sleeper,yahoo}.py`, `src/external_projections.py`, `scripts/silver_external_projections_transformation.py`, `.github/workflows/weekly-external-projections.yml` | Built (Phase 73), forward-only, no historical data committed |
 | Sleeper historical projections | `https://api.sleeper.app/v1/projections/nfl/regular/{season}/{week}` | **Verified live for past weeks (2023 w5)** |
-| Game ensemble | `src/ensemble_training.py` (spread + total targets), `src/prediction_backtester.py` | 52.9% OOF ATS; `evaluate_clv` is model-vs-close, not true CLV |
+| Game ensemble | `src/ensemble_training.py` (spread + total targets), `src/prediction_backtester.py` | 52.9% OOF ATS; `evaluate_model_vs_close` (formerly `evaluate_clv`) is model-vs-close, not true CLV |
 | Odds | `scripts/bronze_odds_ingestion.py` (FinnedAI 2016–21, dead), nflverse `spread_line`/`total_line` (closing only) | No openers, no live capture |
 | Participation | `data/bronze/pbp_participation/season=2020..2025` (`game_id, play_id, offense_players, defense_players`) | 100% non-null 2023–25, 92.8% 2021 |
 | Graph features | `scripts/compute_graph_features.py`, `src/graph_{wr,te}_matchup.py` (excluded as same-game leaks), survivors in `src/graph_{qb_wr_chemistry,red_zone,game_script,injury_cascade}.py` | TE hybrid shipped on survivors |
@@ -109,7 +109,7 @@
 
 **What:** Two parts.
 1. **Features:** starting-QB-out indicator and weighted starter-injury counts (injuries + depth_charts Bronze, both available historically) joined into `src/feature_engineering.py`'s game vector. Honest framing: closing lines fully price QB news; the hypothesis is only that *early-week* lines lag — testable solely after 1.4 capture exists. On closing-line OOF expect ≈0 ATS gain; ship the features anyway because they're required for the open-line experiment.
-2. **True CLV:** extend `src/prediction_backtester.py` — keep `evaluate_clv` (model-vs-close) but add `evaluate_line_capture(open_line, close_line, pick_side)`: did our pick's number beat the close? Wire `scripts/backtest_predictions.py --clv-true` to the 1.4 Bronze snapshots. **Declare CLV the primary spread metric in CLAUDE.md**; ATS% demoted to secondary.
+2. **True CLV:** extend `src/prediction_backtester.py` — keep `evaluate_model_vs_close` (formerly `evaluate_clv`; model-vs-close) but add `evaluate_line_capture(open_line, close_line, pick_side)`: did our pick's number beat the close? Wire `scripts/backtest_predictions.py --clv-true` to the 1.4 Bronze snapshots. **Declare CLV the primary spread metric in CLAUDE.md**; ATS% demoted to secondary.
 
 **Success gate (deferred to 2026 season):** mean signed line capture > +0.3 pts on picks made at open-proxy, n ≥ 100 picks, by 2026 w10.
 **Kill:** capture ≤ 0 at n ≥ 150 → declare no betting edge; spread model survives as a calibrated-probability content feature (already shipped), and we stop spending model effort on it.
@@ -176,5 +176,5 @@ If line capture > 0 at n≥100: upgrade The Odds API tier for historical line-mo
 - `scripts/backtest_projections.py` — consensus harness integration point (`run_backtest`, `print_summary`, `_compute_week_implied_totals`)
 - `scripts/ingest_external_projections_sleeper.py` — historical backfill of the verified Sleeper projections endpoint
 - `scripts/compute_graph_features.py` — registration point for route-rate proxy and lagged WR/TE matchup rebuilds
-- `src/prediction_backtester.py` — replace pseudo-CLV (`evaluate_clv`) with true open-vs-close line capture
+- `src/prediction_backtester.py` — replace pseudo-CLV (`evaluate_model_vs_close`, formerly `evaluate_clv`) with true open-vs-close line capture
 - `scripts/experiment_heuristic_lab.py` — cached-sweep lab where all new fantasy multipliers (2.1/2.2) are gated

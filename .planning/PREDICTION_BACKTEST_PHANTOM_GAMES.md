@@ -92,20 +92,27 @@ unfiltered call survives.
 
 Both markets are losing, and not marginally.
 
-CLV is the one positive signal — mean **+0.37** points, median +0.24, 52.7%
-beating the close — and it is ordered sensibly by confidence tier:
+The harness also printed a "CLV" line (mean +0.37 points, median +0.24, 52.7%
+"beating the close", higher at medium/high tiers), which this note first read
+as the one positive signal. **It is not CLV — retracted 2026-10-24.**
+`evaluate_clv` (since renamed `evaluate_model_vs_close`) is `predicted_margin - spread_line` against the closing line
+only: no opening price, no movement. So +0.37 is the model leaning 0.37 points
+more toward home than the close, 52.7% is the share of games where our number
+sits on the home side, and the tier table is the sign of our own edge inside
+buckets of its own magnitude:
 
-| tier | games | mean CLV | beat close |
+| tier | games | mean edge toward home (printed as "CLV") | home-side share (printed as "beat close") |
 |---|---|---|---|
 | low | 46 | -0.04 | 41.3% |
 | medium | 25 | +0.76 | 68.0% |
 | high | 22 | +0.78 | 59.1% |
 
-So our numbers anticipate line movement (especially at medium/high
-confidence) while our side selection loses money. That combination is worth
-understanding rather than explaining away: a model whose price is directionally
-right but whose pick is wrong is usually mis-calibrated around the line rather
-than uninformative.
+That lean is the losing record, not a counterweight to it: home teams and
+favourites covered 39 of 87 (44.8%) in weeks 1-6. The O/U record has the same
+character — 41-52 reproduces exactly from the Vegas total line plus one
+constant, with no model input. Both derivations:
+`CLV_PICK_RULE_AUDIT_2026_10_24.md`. True CLV is `evaluate_line_capture` (open
+vs close) and has not been ruled on.
 
 ### How much weight this carries
 
@@ -133,9 +140,11 @@ own and is not taken here.
 
 ## Ranked follow-ups
 
-1. **Understand positive CLV alongside losing picks.** If the line moves our
-   way but the result does not, the edge calculation or the pick rule is
-   mis-specified — that is a more tractable problem than "the model is bad".
+1. ~~**Understand positive CLV alongside losing picks.**~~ Premise false
+   (2026-10-24): the "CLV" was the spread edge, so there was no paradox to
+   explain. Real follow-ups are in `CLV_PICK_RULE_AUDIT_2026_10_24.md`
+   (stop emitting O/U picks; validate the open-price proxy before the week-10
+   line-capture gate).
 2. **Re-add `--check-predictions` to the sanity gate.** It was disabled
    because no workflow produced predictions; one does now (since 2026-10-18).
 3. **Decide whether the ensemble should be making ATS picks at all this

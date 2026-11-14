@@ -40,10 +40,10 @@ from ensemble_training import load_ensemble, predict_ensemble, train_ensemble
 from feature_engineering import assemble_multiyear_features, get_feature_columns
 from feature_selector import FeatureSelectionResult, select_features_for_fold
 from prediction_backtester import (
-    compute_clv_by_tier,
+    compute_model_vs_close_by_tier,
     compute_profit,
     evaluate_ats,
-    evaluate_clv,
+    evaluate_model_vs_close,
     evaluate_holdout,
 )
 
@@ -69,7 +69,7 @@ def evaluate_baseline(
         feature_cols: Feature columns present in the P30 ensemble metadata.
 
     Returns:
-        Dict with ats_accuracy, profit_stats, clv_by_tier, n_games.
+        Dict with ats_accuracy, profit_stats, model_vs_close_by_tier, n_games.
     """
     spread_models, total_models, metadata = load_ensemble(ENSEMBLE_DIR)
     baseline_features = metadata.get("selected_features", feature_cols)
@@ -92,15 +92,15 @@ def evaluate_baseline(
     holdout = evaluate_ats(holdout)
     holdout_result = evaluate_holdout(holdout, metadata)
 
-    # CLV
-    holdout = evaluate_clv(holdout)
-    clv_tiers = compute_clv_by_tier(holdout)
+    # Model-vs-close edge (NOT CLV -- see prediction_backtester module docstring)
+    holdout = evaluate_model_vs_close(holdout)
+    mvc_tiers = compute_model_vs_close_by_tier(holdout)
 
     return {
         "ats_accuracy": holdout_result["ats_accuracy"],
         "profit_stats": holdout_result["profit_stats"],
         "n_games": holdout_result["n_games"],
-        "clv_by_tier": clv_tiers,
+        "model_vs_close_by_tier": mvc_tiers,
         "feature_count": len(baseline_features),
     }
 
@@ -266,7 +266,7 @@ def evaluate_ablation_model(
         feature_cols: Feature columns for the ablation model.
 
     Returns:
-        Dict with ats_accuracy, profit_stats, clv_by_tier, n_games.
+        Dict with ats_accuracy, profit_stats, model_vs_close_by_tier, n_games.
     """
     spread_models, total_models, metadata = load_ensemble(ABLATION_DIR)
     ablation_features = metadata.get("selected_features", feature_cols)
@@ -287,14 +287,14 @@ def evaluate_ablation_model(
     holdout = evaluate_ats(holdout)
     holdout_result = evaluate_holdout(holdout, metadata)
 
-    holdout = evaluate_clv(holdout)
-    clv_tiers = compute_clv_by_tier(holdout)
+    holdout = evaluate_model_vs_close(holdout)
+    mvc_tiers = compute_model_vs_close_by_tier(holdout)
 
     return {
         "ats_accuracy": holdout_result["ats_accuracy"],
         "profit_stats": holdout_result["profit_stats"],
         "n_games": holdout_result["n_games"],
-        "clv_by_tier": clv_tiers,
+        "model_vs_close_by_tier": mvc_tiers,
         "feature_count": len(ablation_features),
     }
 

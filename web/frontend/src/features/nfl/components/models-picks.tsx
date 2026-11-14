@@ -7,26 +7,33 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Icons } from '@/components/icons';
+import { clearsBreakEven, formatCoverProbCompact } from '@/lib/nfl/pick-confidence';
 import { getTeamColor, getReadableTeamColorVars } from '@/lib/nfl/team-colors';
 import { resolvePredictionsLatestWeek } from '@/lib/week-context';
 import { predictionsQueryOptions } from '../api/queries';
 import { SectionHeading } from './section-heading';
 import type { GamePrediction } from '../api/types';
 
-const EDGE_HIGH_THRESHOLD = 3.0;
 const MAX_HOPS = 3;
 
+/**
+ * Ranking signal for this module — the ATS edge ONLY.
+ *
+ * It used to be `max(|spread_edge|, |total_edge|)`, which let a totals edge
+ * both choose which games appear here and supply the pick label (`ou_pick`).
+ * `.planning/TOTALS_VERDICT.md` (2026-06-10) killed the game-totals betting
+ * surface, so a totals edge can no longer promote a game or name a side; the
+ * total itself still shows as market context on the predictions page.
+ */
 function topEdge(p: GamePrediction): number {
-  return Math.max(Math.abs(p.spread_edge ?? 0), Math.abs(p.total_edge ?? 0));
+  return Math.abs(p.spread_edge ?? 0);
 }
 
 function PickTile({ prediction }: { prediction: GamePrediction }) {
   const awayColor = getTeamColor(prediction.away_team);
   const homeColor = getTeamColor(prediction.home_team);
   const edge = topEdge(prediction);
-  const isSpreadEdge =
-    Math.abs(prediction.spread_edge ?? 0) >= Math.abs(prediction.total_edge ?? 0);
-  const pick = isSpreadEdge ? prediction.ats_pick : prediction.ou_pick;
+  const pick = prediction.ats_pick;
 
   return (
     <Link
@@ -58,28 +65,35 @@ function PickTile({ prediction }: { prediction: GamePrediction }) {
             {prediction.home_team}
           </span>
         </span>
+        {/* The badge shows the calibrated cover probability of the picked
+            side, and is emphasised only when it clears -110 break-even
+            (52.4%). It used to show edge size and emphasise >= 3pt, which
+            promoted games by a quantity that is not confidence — a 3+ pt edge
+            hit 57% ATS on sealed 2025, and tiering already runs on the
+            probability. See @/lib/nfl/pick-confidence. */}
         <Badge
-          variant={edge >= EDGE_HIGH_THRESHOLD ? 'default' : 'secondary'}
+          variant={clearsBreakEven(prediction.pick_cover_prob) ? 'default' : 'secondary'}
           className='shrink-0 gap-[var(--space-1)] whitespace-nowrap tabular-nums'
+          title={
+            clearsBreakEven(prediction.pick_cover_prob)
+              ? 'Clears the -110 break-even point (52.4%)'
+              : 'Model lean only — below the -110 break-even point (52.4%)'
+          }
         >
           <Icons.trendingUp className='size-[var(--space-3)]' />
-          {edge.toFixed(1)}pt
+          {formatCoverProbCompact(prediction.pick_cover_prob, prediction.spread_edge)}
         </Badge>
       </div>
       <div className='flex items-center justify-between text-[length:var(--fs-xs)] leading-[var(--lh-xs)]'>
         <span className='font-medium'>{pick}</span>
         <span className='text-muted-foreground tabular-nums'>
-          {isSpreadEdge ? 'Spread' : 'Total'}{' '}
+          Spread{' '}
           <span className='font-mono'>
-            {isSpreadEdge
-              ? `${prediction.predicted_spread > 0 ? '+' : ''}${prediction.predicted_spread.toFixed(1)}`
-              : prediction.predicted_total.toFixed(1)}
+            {`${prediction.predicted_spread > 0 ? '+' : ''}${prediction.predicted_spread.toFixed(1)}`}
           </span>
-          {isSpreadEdge && prediction.vegas_spread !== null
+          {prediction.vegas_spread !== null
             ? ` vs ${prediction.vegas_spread > 0 ? '+' : ''}${prediction.vegas_spread.toFixed(1)}`
-            : !isSpreadEdge && prediction.vegas_total !== null
-              ? ` vs ${prediction.vegas_total.toFixed(1)}`
-              : ''}
+            : ''}
         </span>
       </div>
     </Link>

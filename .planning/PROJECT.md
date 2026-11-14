@@ -76,7 +76,7 @@ A rich, well-modeled NFL data lake that serves as the foundation for both fantas
 - ✓ 516 total tests passing — v2.1
 - ✓ Silver line movement features: spread/total shift, ordinal magnitude buckets, key number crossings, per-team reshape with sign flips, feature_engineering.py integration (opening_spread/opening_total in _PRE_GAME_CONTEXT) — Phase 33, v2.1
 - ✓ 545 total tests passing — v2.1
-- ✓ CLV tracking: evaluate_clv(), by-tier, by-season metrics in prediction backtester and CLI — Phase 34, v2.1
+- ✓ "CLV tracking": evaluate_model_vs_close() (formerly evaluate_clv()), by-tier, by-season metrics in prediction backtester and CLI — Phase 34, v2.1 (**misnamed**: these compute the spread edge vs the close, not CLV; true CLV is `evaluate_line_capture` — `CLV_PICK_RULE_AUDIT_2026_10_24.md`)
 - ✓ Market feature ablation script: P30 baseline vs market-augmented ensemble on sealed 2024 holdout with SHAP report and ship-or-skip verdict — Phase 34, v2.1
 - ✓ 571 total tests passing — v2.1
 - ✓ Full FinnedAI odds ingestion for all 6 seasons (2016-2021) with cross-validation r > 0.95, nflverse odds bridge for 2022-2025 with line_source provenance — Phase 35, v2.2
@@ -252,7 +252,7 @@ Bronze layer: 18 data types (16 NFL + 2 college) + odds (FinnedAI 2016-2021, nfl
 Silver layer: 14 team output paths (including market/line movement, graph features for all 10 seasons), 3 player output paths, 15 prospect features (college teammate networks, coaching trees, prospect comps), 49 total graph features (22 NFL + 27 college/prospect).
 Gold layer: weekly + preseason fantasy projections (QB via ML, RB/WR/TE via heuristic with hybrid residual testing); ML game predictions with 120-feature SHAP-selected ensemble (market features included); kicker projections; game results archive (1999-2026) + player stats per game (all scoring formats).
 Prediction feature vector: 1139 raw columns → 120 SHAP-selected features. `diff_opening_spread` is #1 feature (23.6% SHAP importance).
-ML models (game prediction): v2.1 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). CLV tracking measures model quality against closing lines.
+ML models (game prediction): v2.1 stacking ensemble (XGB+LGB+CB + Ridge meta-learner) with market features; walk-forward CV, sealed 2025 holdout (51.7% ATS, 50.6% with market features). `evaluate_model_vs_close` (formerly `evaluate_clv`) reports the model's spread edge against the closing line; that is not true CLV (`evaluate_line_capture`, open vs close, is) — see `CLV_PICK_RULE_AUDIT_2026_10_24.md`.
 Player models (fantasy): 19 per-position per-stat XGBoost models (2016-2025 training data +66% from v2.0, walk-forward CV, SHAP feature selection). QB SHIP (6.72 MAE, 14% better than heuristic). RB/WR/TE under evaluation with hybrid residual approach (train ML on heuristic errors, not raw projections). Graph features (49) integrated; 22 NFL + 27 college/prospect for draft preparation.
 College integration (CFBD API): prospect profiles with scheme familiarity, conference adjustment, comparable arcs, bust rates, coaching tree lineage, college teammate networks (tracked annually).
 Game archive: PostgreSQL tables (game_results, game_player_stats) for historical lookup and backtest validation; all 3 scoring formats (PPR/Half-PPR/Standard) computed per game.
@@ -321,7 +321,7 @@ Existing documentation:
 | SHAP-based feature selection | Walk-forward-safe, per-fold isolation, holdout excluded | ✓ Good — 310→100 features |
 | Honest ablation for Phase 31 features | Momentum/EWM improved training but not holdout | ✓ Good — shipped P30 ensemble |
 | Conservative hyperparameters for LGB/CB | Analogous to XGBoost: shallow trees, strong regularization | ✓ Good |
-| CLV = predicted_margin - spread_line | Point-based CLV is the gold standard for betting model evaluation | ✓ Good |
+| CLV = predicted_margin - spread_line | Point-based CLV is the gold standard for betting model evaluation | ✗ Wrong (2026-10-24) — that expression is the spread edge; CLV needs an opening price. See `CLV_PICK_RULE_AUDIT_2026_10_24.md` |
 | Ablation saves to models/ensemble_ablation/ | Protects production model during comparison | ✓ Good |
 | Ship market features only if holdout ATS improves | Accuracy is the decision criterion, not model purity | ✓ Good |
 | CI quality-gate keys on exit code only (no stdout grep) | Preserves warnings-allowed contract; 0 = deploy, 1 = block | ✓ Good — phase 60 |
