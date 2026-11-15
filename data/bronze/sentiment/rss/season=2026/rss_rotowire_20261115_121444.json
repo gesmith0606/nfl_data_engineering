@@ -1,0 +1,86 @@
+{
+  "fetch_run_id": "81622d4a-fac2-4639-b4fb-cf7113bb2e91",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-15T12:14:44.893398+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647783",
+      "url": "https://www.rotowire.com//football/player/amon-ra-st-brown-15332",
+      "title": "Amon-Ra St. Brown: Expected to suit up Sunday",
+      "body_text": "St. Brown (ribs), who is listed as questionable for Sunday's game against the Patriots in Munich, is expected to play, Ian Rapoport of NFL Network reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-15T04:06:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647782",
+      "url": "https://www.rotowire.com//football/player/rhamondre-stevenson-15372",
+      "title": "Rhamondre Stevenson: Appears poised to play",
+      "body_text": "Stevenson (knee) is expected to play in Sunday's game against the Lions in Munich, Adam Schefter of ESPN reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-15T03:15:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Rhamondre Stevenson",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036875"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647781",
+      "url": "https://www.rotowire.com//football/player/aj-brown-13432",
+      "title": "A.J. Brown: Expected to play Sunday",
+      "body_text": "Brown (ankle/knee) is expected to play in Sunday's game against the Lions in Munich, Adam Schefter of ESPN reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-15T03:10:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Sunday Brown",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647738",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "title": "Ladd McConkey: Questionable for Monday Night Football",
+      "body_text": "McConkey (back) is listed as questionable for Monday night's game against the Ravens, Noah Furtado of The Athletic reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-14T01:30:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Monday Night",
+        "Noah Furtado",
+        "The Athletic"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl647737",
+      "url": "https://www.rotowire.com//football/player/treveyon-henderson-18517",
+      "title": "TreVeyon Henderson: Placed on IR",
+      "body_text": "Henderson (illness) was placed on injured reserve Saturday, Mike Reiss of ESPN.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-14T01:14:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Mike Reiss"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    }
+  ]
+}

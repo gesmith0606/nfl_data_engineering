@@ -1,0 +1,591 @@
+{
+  "fetch_run_id": "1353ae44-35bc-4c13-8d3f-79b3d4fd78d5",
+  "source": "pft",
+  "fetched_at": "2026-11-15T12:14:56.877164+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-trade-offers-rejected-titans-plans-for-tony-pollard-come-into-question",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-trade-offers-rejected-titans-plans-for-tony-pollard-come-into-question",
+      "permalink": "",
+      "title": "With trade offers rejected, Titans' plans for Tony Pollard come into question",
+      "body_text": "All the factors had lined up for a Tony Pollard trade.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T11:57:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard"
+      ],
+      "resolved_player_ids": [
+        "00-0035261"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-fly-to-colorado-tonight-to-begin-acclimating-to-altitude-for-mexico-city-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-fly-to-colorado-tonight-to-begin-acclimating-to-altitude-for-mexico-city-game",
+      "permalink": "",
+      "title": "49ers will fly to Colorado tonight to begin acclimating to altitude for Mexico City game",
+      "body_text": "The 49ers won't fly home after today's game in Dallas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-15T11:03:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mexico City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-shakes-off-3-interceptions-throws-game-winning-td-pass-as-texas-beats-lsu",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-shakes-off-3-interceptions-throws-game-winning-td-pass-as-texas-beats-lsu",
+      "permalink": "",
+      "title": "Arch Manning shakes off 3 interceptions, throws game-winning TD pass as Texas beats LSU",
+      "body_text": "As he has been throughout his college football career, Texas quarterback Arch Manning was a mixed bag on Saturday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-15T09:17:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arch Manning"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-jets-renegotiated-andre-cisco-trade-after-concerns-arose-about-his-physical",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-jets-renegotiated-andre-cisco-trade-after-concerns-arose-about-his-physical",
+      "permalink": "",
+      "title": "Lions, Jets renegotiated Andre Cisco trade after concerns arose about his physical",
+      "body_text": "The Broncos-Chargers Daiyan Henley trade wasn't the only one affected by the player's physical.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-15T08:40:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Cisco",
+        "The Broncos",
+        "Chargers Daiyan"
+      ],
+      "resolved_player_ids": [
+        "00-0036941"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-referees-will-be-working-in-other-roles-on-sunday-due-to-the-ground-stop",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/three-referees-will-be-working-in-other-roles-on-sunday-due-to-the-ground-stop",
+      "permalink": "",
+      "title": "Three referees will be working in other roles on Sunday, due to the ground stop",
+      "body_text": "The full scope of the adjustments to the usual officiating crews isn't officially known.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T04:50:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/game-between-bill-belichicks-unc-and-louisville-ends-in-a-brawl",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/game-between-bill-belichicks-unc-and-louisville-ends-in-a-brawl",
+      "permalink": "",
+      "title": "Game between Bill Belichick's UNC and Louisville ends in a brawl",
+      "body_text": "Saturday's not alright for fighting.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T04:30:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bill Belichick"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-jones-rejoins-chiefs-after-traveling-on-his-own-to-atlanta",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-jones-rejoins-chiefs-after-traveling-on-his-own-to-atlanta",
+      "permalink": "",
+      "title": "Chris Jones rejoins Chiefs after traveling on his own to Atlanta",
+      "body_text": "On Saturday afternoon, the Chiefs announced that defensive tackle Chris Jones would travel on his own to Atlanta for Sunday's game against the Falcons.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T03:04:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Jones",
+        "On Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0032762"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-activate-dt-derrick-harmon",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-activate-dt-derrick-harmon",
+      "permalink": "",
+      "title": "Steelers activate DT Derrick Harmon",
+      "body_text": "Defensive tackle Derrick Harmon is set to return to the Steelers lineup against the Bengals on Sunday night.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T01:14:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Derrick Harmon"
+      ],
+      "resolved_player_ids": [
+        "00-0040678"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rex-ryan-will-appear-on-espns-sunday-pregame-show-despite-arrest",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rex-ryan-will-appear-on-espns-sunday-pregame-show-despite-arrest",
+      "permalink": "",
+      "title": "Rex Ryan will appear on ESPN's Sunday pregame show, despite arrest",
+      "body_text": "ESPN hasn't said much about analyst Rex Ryan following his recent arrest in Nashville for running over the feet of two pedestrians with his truck.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T00:52:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rex Ryan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-saints-game-wont-have-a-replay-assistant-due-to-ground-stop",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-saints-game-wont-have-a-replay-assistant-due-to-ground-stop",
+      "permalink": "",
+      "title": "Panthers-Saints game won't have a replay assistant, due to ground stop",
+      "body_text": "Travel issues will leave at least one game short-staffed.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T00:35:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-week-9-jalen-pitre-was-fined-twice-for-illegal-use-of-helmet",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-week-9-jalen-pitre-was-fined-twice-for-illegal-use-of-helmet",
+      "permalink": "",
+      "title": "For Week 9, Jalen Pitre was fined twice for illegal use of helmet",
+      "body_text": "Every Saturday, plenty of players get fined for illegal use of helmet fouls from the prior weekend's game.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T00:20:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "For Week",
+        "Jalen Pitre",
+        "Every Saturday"
+      ],
+      "resolved_player_ids": [
+        "00-0037246"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-very-very-impressed-with-how-jacoby-brissett-picked-up-offense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-very-very-impressed-with-how-jacoby-brissett-picked-up-offense",
+      "permalink": "",
+      "title": "Jesse Minter: \"Very, very impressed\" with how Jacoby Brissett picked up offense",
+      "body_text": "It appears quarterback Jacoby Brissett earned a good grade in his crash course on the Ravens offense.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T23:56:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jesse Minter",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-put-peter-skoronski-tommy-townsend-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-put-peter-skoronski-tommy-townsend-on-ir",
+      "permalink": "",
+      "title": "Titans put Peter Skoronski, Tommy Townsend on IR",
+      "body_text": "The Titans ruled left guard Peter Skoronski out on Friday due to a hamstring injury and his absence is going to last beyond this Sunday's game against the Jaguars.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T22:05:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Peter Skoronski",
+        "Tommy Townsend",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0039034",
+        "00-0035889"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-treveyon-henderson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-place-treveyon-henderson-on-injured-reserve",
+      "permalink": "",
+      "title": "Patriots place TreVeyon Henderson on injured reserve",
+      "body_text": "Patriots running back TreVeyon Henderson's absence from the lineup will stretch through at least Week 15.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T21:53:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jakobe-thomas-gave-kirk-cousins-no-8-for-nothing-other-than-wins",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jakobe-thomas-gave-kirk-cousins-no-8-for-nothing-other-than-wins",
+      "permalink": "",
+      "title": "Jakobe Thomas gave Kirk Cousins No. 8 for nothing (other than wins)",
+      "body_text": "The Raiders arguably could have driven a harder bargain over the trade that sent quarterback Kirk Cousins back to the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T21:52:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jakobe Thomas",
+        "Kirk Cousins",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0041054",
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-activate-rb-chris-brooks-wr-skyy-moore",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-activate-rb-chris-brooks-wr-skyy-moore",
+      "permalink": "",
+      "title": "Packers activate RB Chris Brooks, WR Skyy Moore",
+      "body_text": "The Packers will have two offensive players back in the lineup for Sunday's matchup with the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T21:42:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Brooks",
+        "Skyy Moore",
+        "The Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0038685",
+        "00-0038090"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-takes-1-3-career-record-vs-patriots-into-germany-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jared-goff-takes-1-3-career-record-vs-patriots-into-germany-game",
+      "permalink": "",
+      "title": "Jared Goff takes 1-3 career record vs. Patriots into Germany game",
+      "body_text": "For his career, Lions quarterback Jared Goff has a record of 101-67-1 as a starter.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T14:24:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Goff"
+      ],
+      "resolved_player_ids": [
+        "00-0033106"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-list-ladd-mcconkey-as-questionable-for-monday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-list-ladd-mcconkey-as-questionable-for-monday-night",
+      "permalink": "",
+      "title": "Chargers list Ladd McConkey as questionable for Monday night",
+      "body_text": "Wide receiver Ladd McConkey is among the Chargers players listed as questionable for Monday night's game against the Ravens.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T21:34:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-rb-tyler-goodson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-rb-tyler-goodson-on-injured-reserve",
+      "permalink": "",
+      "title": "Cowboys place RB Tyler Goodson on injured reserve",
+      "body_text": "The Cowboys said this week that running back Tyler Goodson will miss multiple weeks due to knee and ankle injuries and we learned on Saturday that he'll be out for at least the next four games.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T20:01:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Goodson",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0037120"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-reunites-with-jordan-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-reunites-with-jordan-rodgers",
+      "permalink": "",
+      "title": "Aaron Rodgers reunites with Jordan Rodgers",
+      "body_text": "Aaron Rodgers insists on keeping his personal life private.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T19:55:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Jordan Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-tells-senator-that-jalen-hurts-review-will-include-mutually-agreed-upon-independent-medical-experts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-tells-senator-that-jalen-hurts-review-will-include-mutually-agreed-upon-independent-medical-experts",
+      "permalink": "",
+      "title": "NFL tells Senator that Jalen Hurts review will include \"mutually agreed-upon independent medical experts\"",
+      "body_text": "Five weeks since Eagles quarterback Jalen Hurts played a game in London with a blood clot in his leg, the NFL and NFL Players Association have not yet begun an official investigation of the situation.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T19:28:40+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jalen Hurts",
+        "Players Association"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-activate-wr-xavier-legette-from-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-activate-wr-xavier-legette-from-ir",
+      "permalink": "",
+      "title": "Panthers activate WR Xavier Legette from IR",
+      "body_text": "The Panthers got wide receiver Xavier Legette back at practice this week and he will be available for Sunday's game against the Saints.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T19:12:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Xavier Legette",
+        "The Panthers"
+      ],
+      "resolved_player_ids": [
+        "00-0039342"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-activate-arden-key-place-mo-alie-cox-and-akeem-davis-gaither-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-activate-arden-key-place-mo-alie-cox-and-akeem-davis-gaither-on-ir",
+      "permalink": "",
+      "title": "Colts activate Arden Key, place Mo Alie-Cox and Akeem Davis-Gaither on IR",
+      "body_text": "The Colts have not won a game since defensive end Arden Key went on injured reserve and he'll be back as they try to snap their five-game losing streak against the Dolphins on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T19:04:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Arden Key",
+        "Mo Alie",
+        "Akeem Davis",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0034825",
+        "00-0030644"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-rule-david-montgomery-out-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-rule-david-montgomery-out-for-sunday",
+      "permalink": "",
+      "title": "Texans rule David Montgomery out for Sunday",
+      "body_text": "Texans running back David Montgomery will not make his return to the lineup in Sunday's game against the Browns.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T18:45:07+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Montgomery",
+        "Sunday Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0035685"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-k-zane-gonzalez-to-53-man-roster-elevate-qb-brady-cook-wr-jalen-reagor",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-k-zane-gonzalez-to-53-man-roster-elevate-qb-brady-cook-wr-jalen-reagor",
+      "permalink": "",
+      "title": "Dolphins sign K Zane Gonzalez to 53-man roster; elevate QB Brady Cook, WR Jalen Reagor",
+      "body_text": "The Dolphins announced a handful of roster moves ahead of Sunday's game against the Colts.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-14T18:33:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zane Gonzalez",
+        "Brady Cook",
+        "Jalen Reagor",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0033862",
+        "00-0040398",
+        "00-0036387"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-say-pat-freiermuth-is-questionable-for-sunday-night-vs-bengals-with-an-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-say-pat-freiermuth-is-questionable-for-sunday-night-vs-bengals-with-an-illness",
+      "permalink": "",
+      "title": "Steelers say Pat Freiermuth is questionable for Sunday night vs. Bengals with an illness",
+      "body_text": "The Steelers might be without tight end Pat Freiermuth on Sunday night against the Bengals.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-14T18:18:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pat Freiermuth",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0036894"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-jones-will-travel-on-his-own-to-atlanta-for-sundays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chris-jones-will-travel-on-his-own-to-atlanta-for-sundays-game",
+      "permalink": "",
+      "title": "Chris Jones will travel on his own to Atlanta for Sunday's game",
+      "body_text": "The Chiefs officially ruled out running back Kenneth Walker.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-14T17:41:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Jones",
+        "The Chiefs",
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0032762",
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-broncos-explored-possible-tony-pollard-trade",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-broncos-explored-possible-tony-pollard-trade",
+      "permalink": "",
+      "title": "Packers, Broncos explored possible Tony Pollard trade",
+      "body_text": "One week before the trade deadline, teams had interest in Titans running back Tony Pollard.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-14T16:54:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tony Pollard"
+      ],
+      "resolved_player_ids": [
+        "00-0035261"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-wont-play-vs-falcons-due-to-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-wont-play-vs-falcons-due-to-groin-injury",
+      "permalink": "",
+      "title": "Kenneth Walker won't play vs. Falcons due to groin injury",
+      "body_text": "The Chiefs will not have one of their top players for Sunday's game against the Falcons.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-14T16:43:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-to-activate-rb-travis-etienne-for-sundays-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-to-activate-rb-travis-etienne-for-sundays-game",
+      "permalink": "",
+      "title": "Report: Saints to activate RB Travis Etienne for Sunday's game",
+      "body_text": "The Saints are getting a key offensive player back.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-14T16:18:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Travis Etienne",
+        "The Saints"
+      ],
+      "resolved_player_ids": [
+        "00-0036973"
+      ],
+      "team_hint": "NO"
+    }
+  ]
+}

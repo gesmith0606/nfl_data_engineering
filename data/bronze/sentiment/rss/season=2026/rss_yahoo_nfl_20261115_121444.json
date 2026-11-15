@@ -1,0 +1,766 @@
+{
+  "fetch_run_id": "81622d4a-fac2-4639-b4fb-cf7113bb2e91",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-15T12:14:44.212200+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "0f0a882b-0f69-37cf-98c5-c39423a682a0",
+      "url": "https://sports.yahoo.com/articles/jaguars-vs-titans-watch-week-120000944.html",
+      "title": "Jaguars vs. Titans: How to Watch Week 10",
+      "body_text": "Game time, TV/radio schedule, betting odds, and more for Jaguars vs. Titans in Week 10.",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Watch Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "5f3516c3-098f-38a2-b8f3-b489a2a2f342",
+      "url": "https://sports.yahoo.com/articles/corey-levin-ready-falcons-starting-120000082.html",
+      "title": "Corey Levin is ready to be the Falcons’ starting center vs. Chiefs",
+      "body_text": "How will Corey Levin assimilate into the Falcons’ starting offensive line? By proving to his teammates they can trust his play.",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Corey Levin",
+        "Chiefs How"
+      ],
+      "resolved_player_ids": [
+        "00-0033793"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "61ee8675-fb71-394f-a54d-3b38ac16311f",
+      "url": "https://sports.yahoo.com/articles/york-jets-flight-connections-11-120000287.html",
+      "title": "New York Jets Flight Connections 11/15/26",
+      "body_text": "Happy Sunday, Jets fans! The Jets host the Buffalo Bills today at MetLife Stadium. Going up against Josh Allen and one of the top teams in the AFC will be a tall order for a Jets team in freefall. The 2026 season has completely fallen apart over the last couple of weeks. Most analysts are […]",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets Flight",
+        "Happy Sunday",
+        "The Jets",
+        "Buffalo Bills",
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "6fd3e6a2-9a62-3975-ae40-421b835962a1",
+      "url": "https://sports.yahoo.com/articles/arizona-cardinals-fans-excited-see-120000225.html",
+      "title": "Arizona Cardinals fans are excited to see Carson Beck in action",
+      "body_text": "Arizona Cardinals fans are excited about the start of the Carson Beck era.",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [
+        "00-0041561"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "79b3177e-f8b5-3c67-8d0d-322a7f30c996",
+      "url": "https://sports.yahoo.com/articles/where-watch-colts-host-dolphins-120000038.html",
+      "title": "Where to Watch: Colts host Dolphins for Week 10 matchup",
+      "body_text": "Everything you need to know to successfully watch the Colts host the Dolphins for Week 10!",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "c44c0cb3-ddde-313c-8212-cbb888124cc3",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-practice-squad-elevation-120000195.html",
+      "title": "Cowboys news: Practice squad elevation could hint at Joey Porter Jr. status",
+      "body_text": "Here’s today’s Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "d7877eb4-e27e-3ae0-bc6d-5026c0a82898",
+      "url": "https://sports.yahoo.com/articles/watch-bills-jets-week-10-120000192.html",
+      "title": "Here’s how to watch Bills at Jets in Week 10",
+      "body_text": "All the ways to catch the action live when the Buffalo Bills take on the New York Jets in Week 10",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "df483c04-b6c0-3a40-89d4-1802cd2303a7",
+      "url": "https://sports.yahoo.com/articles/minnesota-vikings-green-bay-packers-120000935.html",
+      "title": "Minnesota Vikings at Green Bay Packers: ALL THE COVERAGE~!",
+      "body_text": "It’s game day!",
+      "author": "",
+      "published_at": "2026-11-15T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Minnesota Vikings",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "30b80dbb-d6a5-3a10-8f15-7df6ce71dfb6",
+      "url": "https://sports.yahoo.com/articles/trade-offers-rejected-titans-plans-115734374.html",
+      "title": "With trade offers rejected, Titans' plans for Tony Pollard come into question",
+      "body_text": "All the factors had lined up for a Tony Pollard trade.",
+      "author": "",
+      "published_at": "2026-11-15T11:57:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tony Pollard"
+      ],
+      "resolved_player_ids": [
+        "00-0035261"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "bab332bb-bd24-43ab-9e47-ecec323e30db",
+      "url": "https://sports.yahoo.com/nfl/article/sunday-night-football-how-to-watch-the-pittsburgh-steelers-vs-cincinnati-bengals-game-tonight-114500835.html",
+      "title": "Sunday Night Football: How to watch the Pittsburgh Steelers vs. Cincinnati Bengals game tonight",
+      "body_text": "Here's how to tune into Sunday Night Football tonight without cable.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-15T11:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Pittsburgh Steelers",
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4221f61c-fc8f-4083-9e7f-977018ae3cb8",
+      "url": "https://sports.yahoo.com/nfl/article/minnesota-vikings-vs-green-bay-packers-how-to-watch-the-week-10-nfl-game-channel-streaming-info-and-more-113000568.html",
+      "title": "Minnesota Vikings vs. Green Bay Packers: How to watch the Week 10 NFL game, channel, streaming info and more",
+      "body_text": "How to watch the Minnesota Vikings vs. Green Bay Packers game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-15T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Minnesota Vikings",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "a1fbb5f3-33b7-3b7e-a654-3be8e956ec62",
+      "url": "https://sports.yahoo.com/articles/detroit-lions-updated-depth-chart-113000994.html",
+      "title": "Detroit Lions updated depth chart: Week 10 vs. Patriots in Germany",
+      "body_text": "An updated look at the 2026 Detroit Lions’ depth chart ahead of their Week 10 game vs. the New England Patriots in Germany.",
+      "author": "",
+      "published_at": "2026-11-15T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "d315f373-09a9-4403-833c-a4b68d4a867c",
+      "url": "https://sports.yahoo.com/nfl/article/new-england-patriots-vs-detroit-lions-how-to-watch-the-nfl-international-game-channel-streaming-info-and-more-182900164.html",
+      "title": "New England Patriots vs. Detroit Lions: How to watch the NFL international game, channel, streaming info and more",
+      "body_text": "How to watch the New England Patriots vs. Detroit Lions international game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-14T18:29:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New England",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "91ec69e0-627d-37bb-a539-8acc81eb5659",
+      "url": "https://sports.yahoo.com/articles/bears-playing-today-nfl-week-110830313.html",
+      "title": "Are the Bears playing today? NFL Week 10 schedule, next game, NFC North standings",
+      "body_text": "Caleb Williams threw four interceptions, and the 7-2 Bears still won. Now they sit while the Lions, Vikings and Packers try to close in.",
+      "author": "",
+      "published_at": "2026-11-15T11:08:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "d291a5a4-48a7-3888-a479-46d31934278f",
+      "url": "https://sports.yahoo.com/articles/channel-international-nfl-game-today-110331855.html",
+      "title": "What channel is the international NFL game on today? Time, schedule to watch Patriots-Lions",
+      "body_text": "This week's international Football matchup features the New England Patriots facing the Detroit Lions in Munich, Germany. Here is how to watch.",
+      "author": "",
+      "published_at": "2026-11-15T11:03:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions This",
+        "New England",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "7561d608-8f94-33bb-815c-b2f5bb3e264b",
+      "url": "https://sports.yahoo.com/articles/broncos-playing-today-nfl-week-110318731.html",
+      "title": "Are the Broncos playing today? NFL Week 10 schedule, next game, AFC West standings",
+      "body_text": "The Denver Broncos have emerged as Super Bowl contenders despite early offensive struggles. Here's a look at what's next, where they stand in the AFC.",
+      "author": "",
+      "published_at": "2026-11-15T11:03:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "3209d166-fda9-3994-8e6b-8a6ba0e8d2b9",
+      "url": "https://sports.yahoo.com/articles/sunday-patriots-notes-10-things-110000753.html",
+      "title": "Sunday Patriots Notes: 10 things we learned in Munich",
+      "body_text": "Notes, thoughts and observations before the Week 10 game in Munich.",
+      "author": "",
+      "published_at": "2026-11-15T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Patriots",
+        "Munich Notes"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "53fad8f0-de4b-3cb8-82e9-57c245d099f1",
+      "url": "https://sports.yahoo.com/articles/york-jets-vs-buffalo-bills-110000905.html",
+      "title": "New York Jets vs. Buffalo Bills: Game Time, TV, Announcers, Online Streaming, and More",
+      "body_text": "FOX has a doubleheader this week while CBS will show a single game to each region. If you live in the New York area, you will see: Bills at Jets early on CBS Vikings at Packers early on FOX 49ers at Cowboys late on FOX Kickoff time between the Jets and the Bills is scheduled […]",
+      "author": "",
+      "published_at": "2026-11-15T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Buffalo Bills",
+        "Game Time",
+        "Online Streaming"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "78c736fa-889c-3f59-b22f-c6fcd5e1d7bc",
+      "url": "https://sports.yahoo.com/articles/broncos-mastered-art-winning-close-110000348.html",
+      "title": "Broncos have mastered the art of winning close games",
+      "body_text": "Denver has consistently found ways to pull out close victories, showing resilience to deliver under any circumstance.",
+      "author": "",
+      "published_at": "2026-11-15T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "c0e4e00a-a57d-312e-8a58-cb97b4e5642e",
+      "url": "https://sports.yahoo.com/articles/falcons-vs-chiefs-2026-watch-110000494.html",
+      "title": "Falcons vs. Chiefs 2026: How to watch, start time, TV, and odds for Week 10",
+      "body_text": "The Falcons are seeking an upset at home against a very good Chiefs team.",
+      "author": "",
+      "published_at": "2026-11-15T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Falcons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "90c76e9b-4ba0-3cd4-9ed8-c2d57ee31683",
+      "url": "https://sports.yahoo.com/articles/bengals-vs-steelers-watch-game-105700427.html",
+      "title": "Bengals vs. Steelers: How to watch, game time, TV info, online stream, and more",
+      "body_text": "We should be in store for another great game between these two teams.",
+      "author": "",
+      "published_at": "2026-11-15T10:57:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "637c0b45-5013-3d8b-bdbe-3bc318855208",
+      "url": "https://sports.yahoo.com/articles/jack-campbell-doing-latest-injury-104518712.html",
+      "title": "How is Jack Campbell doing? Latest injury update for Lions LB",
+      "body_text": "Jack Campbell suffered a neck injury in the Lions' Week 8 win over the Vikings. Here's the latest update on his condition.",
+      "author": "",
+      "published_at": "2026-11-15T10:45:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jack Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "b3ca4f76-f881-3002-8ebe-e871a4e04fd8",
+      "url": "https://sports.yahoo.com/articles/falcons-player-fined-actions-vs-104500600.html",
+      "title": "Falcons player fined for actions vs. Bengals",
+      "body_text": "Anyone who says football isn’t the roughest sport doesn’t know what they’re talking about.",
+      "author": "",
+      "published_at": "2026-11-15T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Anyone"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "0cb880a4-d0ff-356b-bd6b-7a8193b66008",
+      "url": "https://sports.yahoo.com/articles/nfl-games-today-week-10-103038896.html",
+      "title": "What NFL games are on today? Week 10 TV channels, Sunday schedule, results",
+      "body_text": "The NFL Week 10 schedule is filled with matchups that could transform the league's playoff picture. Here's how to watch every game on Sunday.",
+      "author": "",
+      "published_at": "2026-11-15T10:30:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "8cbcb475-ee24-39d5-b82f-2f0c19263b66",
+      "url": "https://sports.yahoo.com/articles/patriots-vs-lions-watch-week-100000478.html",
+      "title": "Patriots vs. Lions: How to watch the Week 10 game on Sunday",
+      "body_text": "Everything you need to know about watching Sunday’s Patriots game.",
+      "author": "",
+      "published_at": "2026-11-15T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Everything"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "bd51eb36-db16-3de8-8a4e-fff9ce9c0aaf",
+      "url": "https://sports.yahoo.com/articles/3-things-patriots-beat-lions-100000815.html",
+      "title": "3 things the Patriots have to do to beat the Lions",
+      "body_text": "Stopping Jahmyr Gibbs is one of the keys to the Patriots’ Week 10 game.",
+      "author": "",
+      "published_at": "2026-11-15T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Stopping",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "4baac987-0400-3551-9c2b-61231163c65b",
+      "url": "https://sports.yahoo.com/articles/nfl-picks-against-spread-week-093500475.html",
+      "title": "NFL Picks Against the Spread: Week 10 Games",
+      "body_text": "﻿﻿﻿﻿﻿﻿﻿﻿﻿Which bets do you like the most?",
+      "author": "",
+      "published_at": "2026-11-15T09:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Picks Against"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "d0408236-b6ed-34e4-8beb-16eaf0883fa4",
+      "url": "https://sports.yahoo.com/articles/patriots-first-5-international-games-091911348.html",
+      "title": "Patriots’ first 5 international games, revisited before Lions matchup",
+      "body_text": "The Patriots will play their sixth international game later in 2026.",
+      "author": "",
+      "published_at": "2026-11-15T09:19:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "3e83afc8-7639-3176-bb1d-ad215a5a7457",
+      "url": "https://sports.yahoo.com/articles/lions-jets-renegotiated-andre-cisco-084030255.html",
+      "title": "Lions, Jets renegotiated Andre Cisco trade after concerns arose about his physical",
+      "body_text": "The Broncos-Chargers Daiyan Henley trade wasn't the only one affected by the player's physical.",
+      "author": "",
+      "published_at": "2026-11-15T08:40:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Andre Cisco",
+        "The Broncos",
+        "Chargers Daiyan"
+      ],
+      "resolved_player_ids": [
+        "00-0036941"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "04fa357c-624b-3531-a530-6f32b17ae6bf",
+      "url": "https://sports.yahoo.com/articles/warning-nfl-general-managers-howie-023500135.html",
+      "title": "Warning to NFL general managers: Howie Roseman is about to fleece you",
+      "body_text": "Eagles general manager Howie Roseman always seems to come out with a better deal.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "0e8a2131-7a4f-399d-b5f7-fad8e34aa35c",
+      "url": "https://sports.yahoo.com/articles/roobs-eagles-observations-time-turn-070000324.html",
+      "title": "Roob's Eagles Observations: Time to turn to a Stout disciple who's already here?",
+      "body_text": "Roob answers some of the most pressing questions about the Eagles during their bye week.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles Observations"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "16901ecc-4a64-3e37-a0de-41194b6b6d17",
+      "url": "https://sports.yahoo.com/articles/eagles-continue-reshaping-roster-reportedly-221326007.html",
+      "title": "Eagles continue reshaping roster by reportedly releasing veteran wide receiver",
+      "body_text": "Hollywood Brown's time in Philadelphia comes to an end after just four games.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "24427063-e0e4-3296-b2d3-9eec4158f1f6",
+      "url": "https://sports.yahoo.com/articles/why-jordan-davis-listening-sinatra-093428638.html",
+      "title": "Why was Jordan Davis listening to Sinatra on his way out of Philly?",
+      "body_text": "The Eagles traded Jordan Davis to the Jaguars for two draft picks on Monday.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6420c8f3-fbfc-3757-8eed-22bf6ee64080",
+      "url": "https://sports.yahoo.com/articles/future-eagles-fits-jeremiah-smith-070000656.html",
+      "title": "Future Eagles Fits: Jeremiah Smith headlines an explosive 2027 WR class",
+      "body_text": "How good the Eagles further upgrade their wide receiver corps in the 2027 NFL Draft?",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Future Eagles",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7e3e1582-7b3e-36d9-8be1-80f1a93ba2c2",
+      "url": "https://sports.yahoo.com/articles/international-player-joshua-weru-development-070000762.html",
+      "title": "International player Joshua Weru on his development behind the scenes",
+      "body_text": "Joshua Weru has spent the first half of this season on the practice squad working to improve.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joshua Weru"
+      ],
+      "resolved_player_ids": [
+        "00-0040926"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "a2ead4ec-012e-3da5-b1df-827c488fc456",
+      "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html",
+      "title": "Eagles down 1 RB on active roster after waiving Blue",
+      "body_text": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blue Saquon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a5848bb6-82b9-37cb-97a5-386b954c2053",
+      "url": "https://sports.yahoo.com/articles/eagles-rookie-progress-report-midway-023500155.html",
+      "title": "An Eagles rookie progress report at the midway point of 2026 season",
+      "body_text": "Here's an updated look at rookie performance from the first half of the Eagles' 2026 season.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "An Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c6db9cf9-ee1b-3638-8f84-31f78cafb486",
+      "url": "https://sports.yahoo.com/articles/eagles-waiving-veteran-ot-fred-164600222.html",
+      "title": "Eagles waiving veteran OT Fred Johnson",
+      "body_text": "Eagles releasing another veteran during bye week.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fred Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034951"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d3e1ace0-6099-37ae-b273-545377ca5b81",
+      "url": "https://sports.yahoo.com/articles/playing-nfl-week-10-heres-095123121.html",
+      "title": "Who is playing in NFL Week 10? Here's the full schedule",
+      "body_text": "Vikings-Packers, Steelers-Bengals and Patriots-Lions highlight the upcoming slate.",
+      "author": "",
+      "published_at": "2026-11-15T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "ecd8381f-0f4d-4d5c-b520-6b178b2ac3f4",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-qbtedefk-blueprint-for-week-10-183903588.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' QB/TE/DEF/K Blueprint for Week 10",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint for the onesies — QB, TE, DEF and K — for Week 10.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-12T18:39:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c242e0f9-522f-4d07-b48f-52926a1b3341",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-rb-blueprint-for-week-10-220134721.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' RB Blueprint for Week 10",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint for the RB position in Week 10.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-11T22:01:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "ccc2af7c-1a87-332b-96dd-a7f2b45260d2",
+      "url": "https://sports.yahoo.com/articles/three-referees-working-other-roles-045040010.html",
+      "title": "Three referees will be working in other roles on Sunday, due to the ground stop",
+      "body_text": "The full scope of the adjustments to the usual officiating crews isn't officially known.",
+      "author": "",
+      "published_at": "2026-11-15T04:50:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "83c20335-5825-37dd-8692-41caaff877a9",
+      "url": "https://sports.yahoo.com/articles/andrew-beck-declares-himself-jets-040245585.html",
+      "title": "Andrew Beck declares himself Jets ‘emergency specialist’ with more potential kicking duties to come",
+      "body_text": "Andrew Beck had already proven his versatility this season, but he took it to another level last week in Kansas City.",
+      "author": "",
+      "published_at": "2026-11-15T04:02:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Andrew Beck",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0034959"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "6bba199b-3251-3a86-9119-8e1b97a4a699",
+      "url": "https://sports.yahoo.com/articles/rex-ryan-expected-normal-sunday-033958409.html",
+      "title": "Rex Ryan expected to make normal Sunday ESPN appearance after arrest",
+      "body_text": "Ryan, 63, turned himself in Wednesday over allegations he ran over pedestrians' feet with his car in an incident earlier this month.",
+      "author": "",
+      "published_at": "2026-11-15T03:39:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rex Ryan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c3982f91-e0a6-367a-acaa-958b7b02cc6c",
+      "url": "https://sports.yahoo.com/articles/titans-place-guard-peter-skoronski-032359132.html",
+      "title": "Titans place guard Peter Skoronski on injured reserve",
+      "body_text": "A tough week of injury news for the Titans coming off the bye",
+      "author": "",
+      "published_at": "2026-11-15T03:23:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Peter Skoronski"
+      ],
+      "resolved_player_ids": [
+        "00-0039034"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "eb5b6b73-c5cd-3a47-9521-6f5afe232ba9",
+      "url": "https://sports.yahoo.com/articles/why-seahawks-vs-raiders-jarran-031624353.html",
+      "title": "Why Seahawks vs. Raiders is a Jarran Reed showcase game after recent trade interest",
+      "body_text": "The man of intrigue in the middle of the Seahawks defensive line this week.",
+      "author": "",
+      "published_at": "2026-11-15T03:16:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Why Seahawks",
+        "Jarran Reed"
+      ],
+      "resolved_player_ids": [
+        "00-0032387"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "f455ce05-be97-3973-9b36-d07229c5b707",
+      "url": "https://sports.yahoo.com/articles/vikings-elevate-two-players-ahead-022535367.html",
+      "title": "Vikings elevate two players ahead of Week 10",
+      "body_text": "The Minnesota Vikings elevated a pair of players for divisional matchup",
+      "author": "",
+      "published_at": "2026-11-15T02:25:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Minnesota"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "c6dd23f5-0106-3c23-a32a-ff2869e1c2df",
+      "url": "https://sports.yahoo.com/articles/miami-signs-zane-gonzalez-ahead-022010583.html",
+      "title": "Miami signs Zane Gonzalez ahead of Week 10",
+      "body_text": "Miami Dolphins PK Zane Gonzalez signed to active roster",
+      "author": "",
+      "published_at": "2026-11-15T02:20:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zane Gonzalez",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0033862"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "cdcbfff7-9283-316b-a3a6-37cf15eb3a2d",
+      "url": "https://sports.yahoo.com/articles/josh-whyle-lands-ir-020043693.html",
+      "title": "Josh Whyle lands on IR",
+      "body_text": "Green Bay Packers TE Josh Whyle sidelined with a concussion",
+      "author": "",
+      "published_at": "2026-11-15T02:00:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Whyle",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0038589"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "0543177c-3984-39e0-bda7-56b7e26ad3c3",
+      "url": "https://sports.yahoo.com/articles/nfl-week-10-gambling-preview-020000627.html",
+      "title": "NFL Week 10 gambling preview: Bet on Ryan Flournoy, plus other picks",
+      "body_text": "What are your favorite NFL props for this week?",
+      "author": "",
+      "published_at": "2026-11-15T02:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ryan Flournoy"
+      ],
+      "resolved_player_ids": [
+        "00-0039410"
+      ],
+      "team_hint": null
+    }
+  ]
+}

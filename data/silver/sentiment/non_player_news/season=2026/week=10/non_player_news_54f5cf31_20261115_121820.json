@@ -1,0 +1,207 @@
+{
+  "batch_id": "54f5cf31",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-15T12:18:20.734971+00:00",
+  "record_count": 18,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-fly-to-colorado-tonight-to-begin-acclimating-to-altitude-for-mexico-city-game",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-fly-to-colorado-tonight-to-begin-acclimating-to-altitude-for-mexico-city-game",
+      "team_abbr": "SF",
+      "summary": "49ers traveling to Colorado for altitude acclimation before Mexico City game.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The 49ers won't fly home after today's game in Dallas.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-saints-game-wont-have-a-replay-assistant-due-to-ground-stop",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-saints-game-wont-have-a-replay-assistant-due-to-ground-stop",
+      "team_abbr": "CAR",
+      "summary": "Panthers-Saints game will be short-staffed due to travel ground stop preventing replay assistant from attending.",
+      "sentiment": -0.2,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Travel issues will leave at least one game short-staffed.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "bab332bb-bd24-43ab-9e47-ecec323e30db",
+      "external_id": "bab332bb-bd24-43ab-9e47-ecec323e30db",
+      "team_abbr": "PIT",
+      "summary": "Sunday Night Football broadcast information for Steelers vs. Bengals game.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Here's how to tune into Sunday Night Football tonight without cable.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "4221f61c-fc8f-4083-9e7f-977018ae3cb8",
+      "external_id": "4221f61c-fc8f-4083-9e7f-977018ae3cb8",
+      "team_abbr": "MIN",
+      "summary": "Broadcast information for Vikings vs. Packers Week 10 game.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "How to watch the Minnesota Vikings vs. Green Bay Packers game this Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a1fbb5f3-33b7-3b7e-a654-3be8e956ec62",
+      "external_id": "a1fbb5f3-33b7-3b7e-a654-3be8e956ec62",
+      "team_abbr": "DET",
+      "summary": "Updated Lions depth chart for Week 10 game vs. Patriots in Germany.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "An updated look at the 2026 Detroit Lions' depth chart ahead of their Week 10 game vs. the New England Patriots in Germany.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d315f373-09a9-4403-833c-a4b68d4a867c",
+      "external_id": "d315f373-09a9-4403-833c-a4b68d4a867c",
+      "team_abbr": "NE",
+      "summary": "Broadcast information for Patriots vs. Lions international game.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "How to watch the New England Patriots vs. Detroit Lions international game this Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d291a5a4-48a7-3888-a479-46d31934278f",
+      "external_id": "d291a5a4-48a7-3888-a479-46d31934278f",
+      "team_abbr": "NE",
+      "summary": "Broadcast information for Patriots-Lions international game in Munich, Germany.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "This week's international Football matchup features the New England Patriots facing the Detroit Lions in Munich, Germany. Here is how to watch.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7561d608-8f94-33bb-815c-b2f5bb3e264b",
+      "external_id": "7561d608-8f94-33bb-815c-b2f5bb3e264b",
+      "team_abbr": "DEN",
+      "summary": "Broncos emerging as Super Bowl contenders despite early offensive struggles.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The Denver Broncos have emerged as Super Bowl contenders despite early offensive struggles. Here's a look at what's next, where they stand in the AFC.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "3209d166-fda9-3994-8e6b-8a6ba0e8d2b9",
+      "external_id": "3209d166-fda9-3994-8e6b-8a6ba0e8d2b9",
+      "team_abbr": "NE",
+      "summary": "Patriots notes and observations ahead of Week 10 game in Munich.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Notes, thoughts and observations before the Week 10 game in Munich.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "53fad8f0-de4b-3cb8-82e9-57c245d099f1",
+      "external_id": "53fad8f0-de4b-3cb8-82e9-57c245d099f1",
+      "team_abbr": "NYJ",
+      "summary": "Jets vs Bills game scheduling and broadcast information for Week 10.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "If you live in the New York area, you will see: Bills at Jets early on CBS Vikings at Packers early on FOX 49ers at Cowboys late on FOX",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "78c736fa-889c-3f59-b22f-c6fcd5e1d7bc",
+      "external_id": "78c736fa-889c-3f59-b22f-c6fcd5e1d7bc",
+      "team_abbr": "DEN",
+      "summary": "Broncos consistently win close games, demonstrating resilience and clutch performance.",
+      "sentiment": 0.6,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Denver has consistently found ways to pull out close victories, showing resilience to deliver under any circumstance.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c0e4e00a-a57d-312e-8a58-cb97b4e5642e",
+      "external_id": "c0e4e00a-a57d-312e-8a58-cb97b4e5642e",
+      "team_abbr": "ATL",
+      "summary": "Falcons face uphill battle against Chiefs in Week 10 home matchup.",
+      "sentiment": -0.3,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Falcons are seeking an upset at home against a very good Chiefs team.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "90c76e9b-4ba0-3cd4-9ed8-c2d57ee31683",
+      "external_id": "90c76e9b-4ba0-3cd4-9ed8-c2d57ee31683",
+      "team_abbr": "CIN",
+      "summary": "Bengals vs Steelers matchup expected to be competitive in Week 10.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "We should be in store for another great game between these two teams.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b3ca4f76-f881-3002-8ebe-e871a4e04fd8",
+      "external_id": "b3ca4f76-f881-3002-8ebe-e871a4e04fd8",
+      "team_abbr": "ATL",
+      "summary": "Falcons player fined for actions against Bengals.",
+      "sentiment": -0.4,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "Anyone who says football isn't the roughest sport doesn't know what they're talking about.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d0408236-b6ed-34e4-8beb-16eaf0883fa4",
+      "external_id": "d0408236-b6ed-34e4-8beb-16eaf0883fa4",
+      "team_abbr": "NE",
+      "summary": "Patriots' international game history before Week 10 Lions matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The Patriots will play their sixth international game later in 2026.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0e8a2131-7a4f-399d-b5f7-fad8e34aa35c",
+      "external_id": "0e8a2131-7a4f-399d-b5f7-fad8e34aa35c",
+      "team_abbr": "PHI",
+      "summary": "Eagles observations and analysis during bye week.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Roob answers some of the most pressing questions about the Eagles during their bye week.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f455ce05-be97-3973-9b36-d07229c5b707",
+      "external_id": "f455ce05-be97-3973-9b36-d07229c5b707",
+      "team_abbr": "MIN",
+      "summary": "Vikings elevate two players for Week 10 divisional matchup.",
+      "sentiment": 0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Minnesota Vikings elevated a pair of players for divisional matchup",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-fly-to-colorado-tonight-to-begin-acclimating-to-altitude-for-mexico-city-game",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-will-fly-to-colorado-tonight-to-begin-acclimating-to-altitude-for-mexico-city-game",
+      "team_abbr": "SF",
+      "summary": "49ers flying to Colorado for altitude acclimation ahead of Mexico City game.",
+      "sentiment": 0.0,
+      "confidence": 0.7,
+      "category": "weather",
+      "source_excerpt": "The 49ers won't fly home after today's game in Dallas.",
+      "subject_type": "team"
+    }
+  ]
+}

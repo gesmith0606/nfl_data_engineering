@@ -1,0 +1,27 @@
+{
+  "batch_id": "54f5cf31",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-15T12:18:20.742270+00:00",
+  "record_count": 2,
+  "records": [
+    {
+      "doc_id": "7860f9f5-fb56-4c6e-b328-8cd0ba857d0e",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza prop bets and predictions for his first NFL start versus Seahawks.",
+      "source_excerpt": "Fernando Mendoza picks, predictions, best bets: Props for first NFL start versus Seahawks",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-shakes-off-3-interceptions-throws-game-winning-td-pass-as-texas-beats-lsu",
+      "player_name": "Arch Manning",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Arch Manning threw 3 interceptions but recovered with game-winning TD pass in college game; not yet NFL active.",
+      "source_excerpt": "As he has been throughout his college football career, Texas quarterback Arch Manning was a mixed bag on Saturday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}
