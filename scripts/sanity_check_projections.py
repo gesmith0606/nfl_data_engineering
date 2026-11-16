@@ -914,15 +914,22 @@ def _check_consensus_cross_check(
     by a constant factor for months). A handful of disagreements is normal edge;
     >35% of top-N disagreeing signals broken inputs and escalates to CRITICAL.
 
-    The check loads the latest Silver external_projections for the most recent
-    available week matching the target season. If no Silver external_projections
-    exist, the check is skipped with a WARN (not CRITICAL — Silver external
-    data is optional infrastructure).
+    The reference week follows the board's horizon. A weekly consensus only
+    lists players who play that week, so a season-long (preseason) board is
+    compared with the opening week on disk — no byes, and the closest consensus
+    to the horizon the board was built for. Compared with the latest week
+    instead, every star on a bye or an injury report counted as a disagreement
+    (31/72 by week 11 of 2026, which blocked every deploy from 2026-11-10). A
+    per-game (weekly) board is compared with the latest week.
+
+    If no Silver external_projections exist, the check is skipped with a WARN
+    (not CRITICAL — Silver external data is optional infrastructure).
 
     Args:
         scoring: Scoring format string (e.g., ``"half_ppr"``).
         season: Target projection season.
-        week: Optional week override; uses latest available week if None.
+        week: Optional week override; if None the week is chosen from the
+            board's horizon as described above.
 
     Returns:
         ``(criticals, warnings)`` lists.
@@ -946,7 +953,6 @@ def _check_consensus_cross_check(
         )
         return criticals, warnings
 
-    # Find latest available week.
     week_dirs = sorted(globmod.glob(os.path.join(ext_base, "week=*")))
     if not week_dirs:
         warnings.append(
@@ -956,10 +962,32 @@ def _check_consensus_cross_check(
         print("  [SKIP] Consensus cross-check (no week partitions in Silver ext)")
         return criticals, warnings
 
+    # ------------------------------------------------------------------
+    # 2. Load our Gold projections (first: the board's horizon picks the week).
+    # ------------------------------------------------------------------
+    try:
+        our_df = _load_our_projections(scoring, season)
+    except FileNotFoundError as exc:
+        warnings.append(f"CONSENSUS CROSS-CHECK SKIPPED: {exc}")
+        return criticals, warnings
+
+    if our_df is None or our_df.empty:
+        warnings.append("CONSENSUS CROSS-CHECK SKIPPED: Gold projections empty.")
+        return criticals, warnings
+
+    points_col = (
+        "projected_points"
+        if "projected_points" in our_df.columns
+        else "projected_season_points"
+    )
+
     if week is not None:
         target_week_dir = os.path.join(ext_base, f"week={week:02d}")
         if not os.path.isdir(target_week_dir):
             target_week_dir = week_dirs[-1]
+    elif points_col == "projected_season_points":
+        # Season-long board: opening week (see docstring).
+        target_week_dir = week_dirs[0]
     else:
         target_week_dir = week_dirs[-1]
 
@@ -978,24 +1006,9 @@ def _check_consensus_cross_check(
             f"CONSENSUS CROSS-CHECK SKIPPED: could not read {ext_files[-1]}: {exc}"
         )
         return criticals, warnings
-
-    # ------------------------------------------------------------------
-    # 2. Load our Gold projections.
-    # ------------------------------------------------------------------
-    try:
-        our_df = _load_our_projections(scoring, season)
-    except FileNotFoundError as exc:
-        warnings.append(f"CONSENSUS CROSS-CHECK SKIPPED: {exc}")
-        return criticals, warnings
-
-    if our_df is None or our_df.empty:
-        warnings.append("CONSENSUS CROSS-CHECK SKIPPED: Gold projections empty.")
-        return criticals, warnings
-
-    points_col = (
-        "projected_points"
-        if "projected_points" in our_df.columns
-        else "projected_season_points"
+    print(
+        f"  Consensus reference: {os.path.basename(target_week_dir)}/"
+        f"{os.path.basename(ext_files[-1])}"
     )
 
     # ------------------------------------------------------------------
@@ -1098,6 +1111,12 @@ def _check_consensus_cross_check(
         print(
             f"  [FAIL] Consensus cross-check: {frac:.0%} disagreement > {_CONSENSUS_CROSS_CRITICAL_FRAC:.0%}"
         )
+        # The caller prints only a count of criticals, so name the players
+        # here or a red deploy gives no clue what tripped it.
+        for line in warn_lines[:40]:
+            print(f"  {line}")
+        if len(warn_lines) > 40:
+            print(f"    ... and {len(warn_lines) - 40} more")
     elif total_flagged > 0:
         for line in warn_lines[:5]:
             warnings.append(f"CONSENSUS GAP:{line.strip()}")
