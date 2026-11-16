@@ -1,0 +1,804 @@
+{
+  "fetch_run_id": "7afe8266-adb2-44cd-9015-2de169c18549",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-16T12:21:09.817131+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "1aa3e043-a7bf-330d-830b-c3e73278f456",
+      "url": "https://sports.yahoo.com/articles/josh-downs-excited-keep-building-121201390.html",
+      "title": "Josh Downs &quot;excited to keep building&quot; connection with Patrick Mahomes",
+      "body_text": "Chiefs wide receiver Josh Downs didn't waste any time making an impact for his new team.",
+      "author": "",
+      "published_at": "2026-11-16T12:12:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Downs",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0038997",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "e07fd6fb-ffc6-35f3-b268-895f0bbd99e6",
+      "url": "https://sports.yahoo.com/articles/reported-drake-maye-injury-means-120920022.html",
+      "title": "What the reported Drake Maye injury means for the Patriots",
+      "body_text": "The Patriots’ starting quarterback is believed to have suffered a “significant” injury in Week 10.",
+      "author": "",
+      "published_at": "2026-11-16T12:09:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "Patriots The"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "6b003eb0-94e8-36e1-9022-b85219affd19",
+      "url": "https://sports.yahoo.com/articles/sounds-unlikely-bills-face-drake-120117201.html",
+      "title": "Sounds unlikely Bills face Drake Maye vs. Patriots in early December",
+      "body_text": "Sounds like the Patriots quarterback is seriously injured",
+      "author": "",
+      "published_at": "2026-11-16T12:01:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "December Sounds"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "1c533998-5f35-3c8c-bcfe-3c73f4d814b3",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-losing-streak-120000699.html",
+      "title": "Tennessee Titans news: Losing streak continues vs. Jaguars",
+      "body_text": "The Tennessee Titans are going back to the drawing board after losing to the Jacksonville Jaguars.",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "Jaguars The",
+        "Jacksonville Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "36efc5c4-ec6a-3ab1-91b0-91a44d226bed",
+      "url": "https://sports.yahoo.com/articles/beaks-geeks-cardinals-rams-winners-120000053.html",
+      "title": "Beaks & Geeks: Cardinals, Rams Winners & Losers: Arizona taken to the woodshed",
+      "body_text": "Key divisional matchup",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rams Winners"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "4c641f98-7a0d-3a3c-a767-44600711be1f",
+      "url": "https://sports.yahoo.com/articles/confident-lions-defense-without-aidan-120000751.html",
+      "title": "Are you confident in the Lions defense without Aidan Hutchinson?",
+      "body_text": "Can the Detroit Lions’ defense survive after the injury to Aidan Hutchinson?",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aidan Hutchinson",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "65017a31-d9cc-3fc5-afc0-87a733a7f42a",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-defense-gets-120000922.html",
+      "title": "Cowboys news: Dallas defense gets trampled in loss to the 49ers",
+      "body_text": "Here is today’s Dallas Cowboys news",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "afe8f199-22b3-3ac9-bc23-a3ee2d0452b3",
+      "url": "https://sports.yahoo.com/articles/kirk-cousins-still-costco-hot-120000827.html",
+      "title": "Kirk Cousins is still a Costco hot dog, but a wiener the Vikings needed",
+      "body_text": "James Dator takes a trip through the world of Costco to find the winners and losers from Week 10.",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kirk Cousins",
+        "James Dator"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "b077eeda-245d-3289-889b-9b90a2de564a",
+      "url": "https://sports.yahoo.com/articles/liam-coen-parker-washington-best-120000386.html",
+      "title": "Liam Coen: Parker Washington was ‘the best player on the field’ on Sunday",
+      "body_text": "Was that Parker Washington or Randy Moss out there?!",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Liam Coen",
+        "Parker Washington",
+        "Sunday Was",
+        "Randy Moss"
+      ],
+      "resolved_player_ids": [
+        "00-0038606",
+        "00-0011754"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e11c1914-cd12-3576-9ca5-ef08b4e1e763",
+      "url": "https://sports.yahoo.com/articles/houston-texans-news-monday-november-120000435.html",
+      "title": "Houston Texans News: Monday November 16, 2026",
+      "body_text": "Your one-stop shop for Houston Texans, local sports, and news from around the league for Monday November 16, 2026.",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Houston Texans",
+        "Monday November"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "fc303c9f-9988-3996-8307-1d3a543ef39e",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-cade-klubnik-120000342.html",
+      "title": "New York Jets News: Is it Cade Klubnik Time?",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-16T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Cade Klubnik"
+      ],
+      "resolved_player_ids": [
+        "00-0041056"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "9dfeb1eb-444c-3783-88b1-9ffa74fc2df3",
+      "url": "https://sports.yahoo.com/articles/drake-maye-injury-patriots-qb-151411451.html",
+      "title": "Drake Maye injury: Patriots QB hurts ankle vs. Lions",
+      "body_text": "Patriots QB Drake Maye suffered an ankle injury vs. Lions",
+      "author": "",
+      "published_at": "2026-11-16T11:57:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "Lions Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "dc3fcf7c-e045-3c62-8d4d-10e3c9eb0e39",
+      "url": "https://sports.yahoo.com/articles/channel-chargers-vs-ravens-game-115418673.html",
+      "title": "What channel is Chargers vs Ravens game today? Start time, NFL schedule, streaming",
+      "body_text": "The Los Angeles Chargers are in search of their first win of the season, traveling to take on the Baltimore Ravens on &quot;Monday Night Football.&quot;",
+      "author": "",
+      "published_at": "2026-11-16T11:54:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Los",
+        "Angeles Chargers",
+        "Baltimore Ravens",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "06f542d9-fd1e-46ae-8c66-de1d8ebba3b8",
+      "url": "https://sports.yahoo.com/nfl/article/los-angeles-chargers-vs-baltimore-ravens-how-to-watch-monday-night-football-tonight-start-time-and-where-to-stream-114900920.html",
+      "title": "Los Angeles Chargers vs. Baltimore Ravens: How to watch Monday Night Football tonight, start time and where to stream",
+      "body_text": "Tune in to tonight's Chargers vs. Ravens MNF action without cable — here's how.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-16T11:49:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Los Angeles",
+        "Baltimore Ravens",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "84f1faf6-a00f-3afb-b69d-16733b08024f",
+      "url": "https://sports.yahoo.com/articles/0-8-chargers-finally-win-113000487.html",
+      "title": "Can the 0-8 Chargers finally win? Struggling Ravens provide an opportunity",
+      "body_text": "The winless Chargers will face Jesse Minter, their former defensive coordinator, in a matchup against Baltimore that presents a realistic chance at victory.",
+      "author": "",
+      "published_at": "2026-11-16T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Struggling Ravens",
+        "Jesse Minter"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "f3f50ddb-0168-30e2-adda-9fcbf12470c9",
+      "url": "https://sports.yahoo.com/articles/nfl-week-10-winners-losers-110626897.html",
+      "title": "NFL Week 10 winners and losers: Packers' Matt LaFleur didn't learn his lesson",
+      "body_text": "Matt LaFleur dismissed the Packers' offensive struggles against the Vikings in the season opener. On Sunday, Green Bay paid for the coach's hubris.",
+      "author": "",
+      "published_at": "2026-11-16T11:06:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "On Sunday",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "83868b00-a1c6-3da1-b516-b2f16b51bddb",
+      "url": "https://sports.yahoo.com/articles/fernando-mendoza-good-learn-getting-110256483.html",
+      "title": "Fernando Mendoza: It's good to learn from getting punched in the face",
+      "body_text": "Fernando Mendoza didn't look overmatched early in his first NFL start, but the road got tougher for the Raiders' rookie quarterback over the final three quarters of Sunday's game against the Seahawks.",
+      "author": "",
+      "published_at": "2026-11-16T11:02:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "3067f271-cd29-3b8f-8952-3695c77e7857",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-emmett-johnson-star-110000583.html",
+      "title": "Chiefs News: Emmett Johnson was the star of the show in Atlanta",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Emmett Johnson",
+        "Atlanta The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "44863a17-a03c-36ff-80f0-2247fee0a4b9",
+      "url": "https://sports.yahoo.com/articles/chargers-vs-baltimore-ravens-watch-110000617.html",
+      "title": "Chargers vs. Baltimore Ravens: How to watch, start time, prediction and betting odds",
+      "body_text": "Everything you need to know for Monday's game between the Chargers and Baltimore Ravens, including how to watch, injuries and a score prediction.",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "66a5d2cd-60d7-3a79-b7fa-5117abb35392",
+      "url": "https://sports.yahoo.com/articles/yes-no-odafe-oweh-bust-110000178.html",
+      "title": "Yes or no: Has Odafe Oweh been a bust in Commanders NFL free agency?",
+      "body_text": "Did Adam Peters make a poor decision signing Edge Odafe Oweh to a multi-year contract?",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Has Odafe",
+        "Did Adam",
+        "Edge Odafe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "7ecf55d8-37b6-3124-8c33-c6c87330f6ce",
+      "url": "https://sports.yahoo.com/articles/broncos-quarterbacks-past-present-does-110000870.html",
+      "title": "Broncos quarterbacks past and present, how does Bo Nix measure up?",
+      "body_text": "Don’t be so focused on identifying what Bo Nix isn’t that you miss all that he is.",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "80504edd-9641-3fb5-954e-fdd495ea0cbe",
+      "url": "https://sports.yahoo.com/articles/bengals-news-statement-win-vs-110000678.html",
+      "title": "Bengals News: Statement win vs. Steelers",
+      "body_text": "The Bengals beat a team with a winning record handily. Now what is the criticism against them?",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Steelers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "88faad16-4a2b-3f13-b80f-8553d7262df0",
+      "url": "https://sports.yahoo.com/articles/lions-vs-buccaneers-odds-opening-110000168.html",
+      "title": "Lions vs. Buccaneers odds: Opening lines for Week 11 matchup",
+      "body_text": "Checking in on the opening betting odds for the Week 11 matchup between the Detroit Lions and the Tampa Bay Buccaneers.",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Tampa Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "b28cf3b2-ea48-3628-97f4-4bb79fed2ea4",
+      "url": "https://sports.yahoo.com/articles/ny-giants-news-j-j-110000748.html",
+      "title": "NY Giants news: J.J. McCarthy, Tush Push, Jameis Winston, more",
+      "body_text": "New York Giants headlines for Monday.",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tush Push",
+        "Jameis Winston",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "bc4d7079-9283-3b44-9e05-65b26aa10907",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-weekend-off-110000047.html",
+      "title": "The Bear’s Den: Bears take weekend off, Lions win, Vikings crush Packers",
+      "body_text": "The Chicago Bears took the weekend off, while the Lions won in Germany . The Vikings embarassed the Packers at Green Bay",
+      "author": "",
+      "published_at": "2026-11-16T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Packers The",
+        "Chicago Bears",
+        "The Vikings",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "f11a0ab3-95c3-30e8-ad94-216bf59d9dfe",
+      "url": "https://sports.yahoo.com/articles/drake-maye-injury-know-patriots-195552414.html",
+      "title": "Drake Maye injury: What we know after Patriots QB left Lions game",
+      "body_text": "Maye suffered an ankle injury in Week 10 that forced him out of the Patriots’ loss to the Lions.",
+      "author": "",
+      "published_at": "2026-11-16T10:46:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "3bbe70e0-c677-366c-b039-95aeadc3b4df",
+      "url": "https://sports.yahoo.com/articles/drake-maye-might-miss-rest-104238871.html",
+      "title": "Drake Maye might miss rest of the season with ‘significant lower leg injury’",
+      "body_text": "The Patriots quarterback left Sunday’s loss to the Lions in the first quarter.",
+      "author": "",
+      "published_at": "2026-11-16T10:42:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "The Patriots"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "00d9f3e3-9287-3ad2-916b-3443ad4cc56e",
+      "url": "https://sports.yahoo.com/articles/49ers-stun-cowboys-chiefs-bengals-073556398.html",
+      "title": "49ers stun Cowboys, Chiefs and Bengals impress - NFL week 10",
+      "body_text": "The NFL's brightest stars lit up week 10 of the 2026 season with some astonishing plays as the San Francisco 49ers, Kansas City Chiefs and Cincinnati Bengals all won on Sunday.",
+      "author": "",
+      "published_at": "2026-11-16T10:14:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "San Francisco",
+        "Kansas City",
+        "Cincinnati Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "20246f12-da78-3ede-a7ca-eea424c506a8",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-delicious-victory-monday-100000072.html",
+      "title": "Golden Nuggets: What a delicious Victory Monday",
+      "body_text": "Your daily San Francisco 49ers news for Monday, November 16th, 2026",
+      "author": "",
+      "published_at": "2026-11-16T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Victory Monday",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "4d9e5e77-27c4-342e-ac7b-543dc3de0456",
+      "url": "https://sports.yahoo.com/articles/2-winners-losers-patriots-loss-100000358.html",
+      "title": "2 winners and losers from the Patriots’ loss to the Lions",
+      "body_text": "Mike Vrabel, Christian Gonzalez, and other noteworthy players from Week 10.",
+      "author": "",
+      "published_at": "2026-11-16T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Mike",
+        "Christian Gonzalez"
+      ],
+      "resolved_player_ids": [
+        "00-0039147"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "33cc65de-03fa-3484-8765-bb679d590f05",
+      "url": "https://sports.yahoo.com/articles/jahmyr-gibbs-hall-fame-company-095815517.html",
+      "title": "Jahmyr Gibbs in Hall of Fame company with a long list of statistical achievements",
+      "body_text": "Lions running back Jahmyr Gibbs had another phenomenal game on Sunday, and in his fourth NFL season he has hit a long list of statistical milestones that only Hall of Famers have reached before him.",
+      "author": "",
+      "published_at": "2026-11-16T09:58:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "305ecba9-f009-3ef5-a73c-d1cc0bc9900c",
+      "url": "https://sports.yahoo.com/articles/mike-mccarthy-thats-clearly-not-090629028.html",
+      "title": "Mike McCarthy: &quot;That's clearly not to the standard of the Pittsburgh Steelers&quot;",
+      "body_text": "&quot;I was very disappointed. We're all disappointed,&quot; McCarthy said after a 38-18 loss to the Bengals.",
+      "author": "",
+      "published_at": "2026-11-16T09:06:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "422fed91-7cbe-3fb9-b638-8cbffbd8a98b",
+      "url": "https://sports.yahoo.com/articles/kyren-williams-does-next-nothing-090012891.html",
+      "title": "Kyren Williams does next to nothing against Arizona in Week 10",
+      "body_text": "Kyren Williams' poor November continued into Week 10, as he managed only 32 total yards on 14 touches in Week 10 versus the Cardinals.",
+      "author": "",
+      "published_at": "2026-11-16T09:00:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyren Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "83d51fb7-e6f7-35a2-b878-7fbd9fd7b737",
+      "url": "https://sports.yahoo.com/articles/matthew-stafford-shines-without-top-085950847.html",
+      "title": "Matthew Stafford shines without top weapons in Week 10 rout of Arizona",
+      "body_text": "Matthew Stafford picks apart Arizona for 249 yards and three touchdowns in Week 10 without Puka Nacua and Davante Adams.",
+      "author": "",
+      "published_at": "2026-11-16T08:59:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Arizona Matthew",
+        "Puka Nacua",
+        "Davante Adams"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0039075",
+        "00-0031381"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "17007a4a-f2ef-30eb-8540-2d5c33656214",
+      "url": "https://sports.yahoo.com/articles/brock-purdy-once-dismissed-system-080253732.html",
+      "title": "Brock Purdy was once dismissed as a system guy. Now he is THE guy",
+      "body_text": "The San Francisco 49ers quarterback was long seen as the beneficiary of the tools at his disposal. This season, he’s setting fire to that narrative",
+      "author": "",
+      "published_at": "2026-11-16T08:02:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brock Purdy",
+        "The San"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "8cd3f7f5-6734-38eb-8053-62d92caa26c8",
+      "url": "https://sports.yahoo.com/articles/seahawks-bizarre-play-really-penalty-072559912.html",
+      "title": "Was the Seahawks’ bizarre play really a penalty? Here’s what the NFL rulebook says",
+      "body_text": "It’s a weird play to officiate, and it’s still not totally clear if this was the right call.",
+      "author": "",
+      "published_at": "2026-11-16T07:25:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "a9c61663-d1ab-4bd7-864d-cca4a4bdb933",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-week-10-instant-reactions-bengals--jags-dominate-mendozas-first-start-vintage-patrick-mahomes-072242331.html",
+      "title": "NFL Week 10 INSTANT reactions: Bengals & Jags dominate, Mendoza's first start, vintage Patrick Mahomes",
+      "body_text": "Nate Tice & Hayden Winks dive into their instant takeaways from Week 10 of NFL action.",
+      "author": "Nate Tice,Hayden Winks",
+      "published_at": "2026-11-16T07:22:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patrick Mahomes",
+        "Nate Tice",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "04fa357c-624b-3531-a530-6f32b17ae6bf",
+      "url": "https://sports.yahoo.com/articles/warning-nfl-general-managers-howie-023500135.html",
+      "title": "Warning to NFL general managers: Howie Roseman is about to fleece you",
+      "body_text": "Eagles general manager Howie Roseman always seems to come out with a better deal.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Howie Roseman"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "0e8a2131-7a4f-399d-b5f7-fad8e34aa35c",
+      "url": "https://sports.yahoo.com/articles/roobs-eagles-observations-time-turn-070000324.html",
+      "title": "Roob's Eagles Observations: Time to turn to a Stout disciple who's already here?",
+      "body_text": "Roob answers some of the most pressing questions about the Eagles during their bye week.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles Observations"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "16901ecc-4a64-3e37-a0de-41194b6b6d17",
+      "url": "https://sports.yahoo.com/articles/eagles-continue-reshaping-roster-reportedly-221326007.html",
+      "title": "Eagles continue reshaping roster by reportedly releasing veteran wide receiver",
+      "body_text": "Hollywood Brown's time in Philadelphia comes to an end after just four games.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "24427063-e0e4-3296-b2d3-9eec4158f1f6",
+      "url": "https://sports.yahoo.com/articles/why-jordan-davis-listening-sinatra-093428638.html",
+      "title": "Why was Jordan Davis listening to Sinatra on his way out of Philly?",
+      "body_text": "The Eagles traded Jordan Davis to the Jaguars for two draft picks on Monday.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Davis",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0037073"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "299d897f-e7ef-38cd-aeff-b796e720d91c",
+      "url": "https://sports.yahoo.com/articles/takeaways-bengals-crush-steelers-38-221305988.html",
+      "title": "Takeaways as Bengals crush Steelers 38-18 on Sunday Night Football",
+      "body_text": "In a battle between two 6-2 sides, one proved to be on a much higher tier than the other.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "319d49a2-4562-3ea4-ae44-bd94669492e9",
+      "url": "https://sports.yahoo.com/articles/nfl-week-10-winners-losers-164032097.html",
+      "title": "NFL Week 10 winners and losers: Vikings' offense arrives, 49ers top Cowboys",
+      "body_text": "Here are the best and worst performers from Sunday's action.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "6420c8f3-fbfc-3757-8eed-22bf6ee64080",
+      "url": "https://sports.yahoo.com/articles/future-eagles-fits-jeremiah-smith-070000656.html",
+      "title": "Future Eagles Fits: Jeremiah Smith headlines an explosive 2027 WR class",
+      "body_text": "How good the Eagles further upgrade their wide receiver corps in the 2027 NFL Draft?",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Future Eagles",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7e3e1582-7b3e-36d9-8be1-80f1a93ba2c2",
+      "url": "https://sports.yahoo.com/articles/international-player-joshua-weru-development-070000762.html",
+      "title": "International player Joshua Weru on his development behind the scenes",
+      "body_text": "Joshua Weru has spent the first half of this season on the practice squad working to improve.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joshua Weru"
+      ],
+      "resolved_player_ids": [
+        "00-0040926"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "a2ead4ec-012e-3da5-b1df-827c488fc456",
+      "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html",
+      "title": "Eagles down 1 RB on active roster after waiving Blue",
+      "body_text": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blue Saquon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c6db9cf9-ee1b-3638-8f84-31f78cafb486",
+      "url": "https://sports.yahoo.com/articles/eagles-waiving-veteran-ot-fred-164600222.html",
+      "title": "Eagles waiving veteran OT Fred Johnson",
+      "body_text": "Eagles releasing another veteran during bye week.",
+      "author": "",
+      "published_at": "2026-11-16T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fred Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034951"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c450ddb3-d0fc-3496-9639-bda42213f071",
+      "url": "https://sports.yahoo.com/articles/rams-may-sign-center-4-061450929.html",
+      "title": "Rams may need to sign a center: These 4 options are available",
+      "body_text": "The Rams lost 2 centers on Sunday, these 4 players could fill in",
+      "author": "",
+      "published_at": "2026-11-16T06:14:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "d5c006af-6eeb-3292-9f50-0edc58e77492",
+      "url": "https://sports.yahoo.com/articles/elic-ayomanor-posts-career-high-055315226.html",
+      "title": "Elic Ayomanor posts career-high 79 yards receiving vs. Jaguars in Week 10",
+      "body_text": "Elic Ayomanor enjoyed the best game of his young career in Week 10 against Jacksonville, tallying 79 yards on five catches.",
+      "author": "",
+      "published_at": "2026-11-16T05:53:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Elic Ayomanor"
+      ],
+      "resolved_player_ids": [
+        "00-0040170"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "5b7f2404-0d34-3fea-ae6c-0e4da31d8970",
+      "url": "https://sports.yahoo.com/articles/wan-dale-robinson-unable-anything-055242704.html",
+      "title": "Wan’Dale Robinson unable to get anything going in Week 10 vs. Jaguars",
+      "body_text": "Wan’Dale Robinson turned in his third game of the season with 10 receiving or less in Week 10, finishing with exactly that many against Jacksonville.",
+      "author": "",
+      "published_at": "2026-11-16T05:52:42+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dale Robinson",
+        "Jaguars Wan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    }
+  ]
+}

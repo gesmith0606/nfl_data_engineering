@@ -1,0 +1,556 @@
+{
+  "fetch_run_id": "e5d67d74-aec2-4ca3-a46c-14f5be8d3d39",
+  "source": "pft",
+  "fetched_at": "2026-11-16T12:21:20.323234+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-excited-to-keep-building-connection-with-patrick-mahomes",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-downs-excited-to-keep-building-connection-with-patrick-mahomes",
+      "permalink": "",
+      "title": "Josh Downs \"excited to keep building\" connection with Patrick Mahomes",
+      "body_text": "Chiefs wide receiver Josh Downs didn't waste any time making an impact for his new team.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T12:12:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Downs",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0038997",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-praises-tory-hortons-tremendous-play-on-late-kickoff-return",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-praises-tory-hortons-tremendous-play-on-late-kickoff-return",
+      "permalink": "",
+      "title": "Mike Macdonald praises Tory Horton's \"tremendous play\" on late kickoff return",
+      "body_text": "After the Raiders cut the Seahawks' lead to 21-13 by kicking a field goal with 2:04 left in Sunday's game, they wanted to force a touchback that would allow them to use the two-minute warning as a third timeout in hopes of getting the ball back.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T11:54:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Macdonald",
+        "Tory Horton"
+      ],
+      "resolved_player_ids": [
+        "00-0040648"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-found-it-definitely-special-to-beat-the-texans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deshaun-watson-found-it-definitely-special-to-beat-the-texans",
+      "permalink": "",
+      "title": "Deshaun Watson found it \"definitely special\" to beat the Texans",
+      "body_text": "Browns quarterback Deshaun Watson led a game-winning drive in the fourth quarter on Sunday, which isn't surprising given the way the 2026 season has unfolded in Cleveland.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T11:41:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deshaun Watson",
+        "Texans Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-sunday-night-was-great-but-youre-not-winning-anything-after-nine-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-sunday-night-was-great-but-youre-not-winning-anything-after-nine-games",
+      "permalink": "",
+      "title": "Joe Burrow: Sunday night was great, but you're not winning anything after nine games",
+      "body_text": "Bengals quarterback Joe Burrow entered some rare company in Sunday night's romp over the Steelers.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T11:20:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-its-good-to-learn-from-getting-punched-in-the-face",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-its-good-to-learn-from-getting-punched-in-the-face",
+      "permalink": "",
+      "title": "Fernando Mendoza: It's good to learn from getting punched in the face",
+      "body_text": "Fernando Mendoza didn't look overmatched early in his first NFL start, but the road got tougher for the Raiders' rookie quarterback over the final three quarters of Sunday's game against the Seahawks.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T11:02:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-in-hall-of-fame-company-with-a-long-list-of-statistical-achievements",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-in-hall-of-fame-company-with-a-long-list-of-statistical-achievements",
+      "permalink": "",
+      "title": "Jahmyr Gibbs in Hall of Fame company with a long list of statistical achievements",
+      "body_text": "Lions running back Jahmyr Gibbs had another phenomenal game on Sunday, and in his fourth NFL season he has hit a long list of statistical milestones that only Hall of Famers have reached before him.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-16T09:58:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-thats-clearly-not-to-the-standard-of-the-pittsburgh-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-thats-clearly-not-to-the-standard-of-the-pittsburgh-steelers",
+      "permalink": "",
+      "title": "Mike McCarthy: \"That's clearly not to the standard of the Pittsburgh Steelers\"",
+      "body_text": "\"I was very disappointed. We're all disappointed,\" McCarthy said after a 38-18 loss to the Bengals.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-16T09:06:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-joe-burrow-jamarr-chase-torch-steelers-in-38-18-bengals-victory",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-joe-burrow-jamarr-chase-torch-steelers-in-38-18-bengals-victory",
+      "permalink": "",
+      "title": "Sunday Night Football: Joe Burrow, Ja'Marr Chase torch Steelers in 38-18 Bengals victory",
+      "body_text": "Burrow threw for 409 yards and four TDs while Chase caught 11 passes for 231 yards.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-16T04:29:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night",
+        "Joe Burrow",
+        "Marr Chase"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-matches-peyton-mannings-record-for-consecutive-games-with-at-least-four-tds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-matches-peyton-mannings-record-for-consecutive-games-with-at-least-four-tds",
+      "permalink": "",
+      "title": "Joe Burrow matches Peyton Manning's record for consecutive games with at least four TDs",
+      "body_text": "Joe Burrow has accomplished something that had not been done for over 20 years.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-16T03:34:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Peyton Manning"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0010346"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-is-96-yards-from-becoming-first-cowboys-player-with-six-straight-1-000-yard-seasons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ceedee-lamb-is-96-yards-from-becoming-first-cowboys-player-with-six-straight-1-000-yard-seasons",
+      "permalink": "",
+      "title": "CeeDee Lamb is 96 yards from becoming first Cowboys' player with six straight 1,000-yard seasons",
+      "body_text": "It may not happen today, but it'll happen at some point.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-15T20:13:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-scores-on-49ers-first-drive-for-7-3-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuel-scores-on-49ers-first-drive-for-7-3-lead",
+      "permalink": "",
+      "title": "Deebo Samuel scores on 49ers' first drive for 7-3 lead",
+      "body_text": "Deebo Samuel hadn't played since Oct. 11.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-15T21:51:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-td-has-cowboys-with-a-10-7-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-pickens-td-has-cowboys-with-a-10-7-lead",
+      "permalink": "",
+      "title": "George Pickens' TD has Cowboys with a 10-7 lead",
+      "body_text": "George Pickens is back and has his first touchdown since Oct. 26.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-15T22:02:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lead-cowboys-17-16-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lead-cowboys-17-16-at-halftime",
+      "permalink": "",
+      "title": "49ers lead Cowboys 17-16 at halftime",
+      "body_text": "The 49ers and Cowboys are in a shootout at AT&T Stadium.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-15T22:59:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuels-70-yard-td-run-gives-49ers-31-19-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/deebo-samuels-70-yard-td-run-gives-49ers-31-19-lead",
+      "permalink": "",
+      "title": "Deebo Samuel's 70-yard TD run gives 49ers 31-19 lead",
+      "body_text": "Welcome back, Deebo Samuel.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-15T23:36:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-49ers-run-past-cowboys-46-40",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-49ers-run-past-cowboys-46-40",
+      "permalink": "",
+      "title": "Christian McCaffrey, 49ers run past Cowboys 46-40",
+      "body_text": "The 49ers had 584 yards, the third-most the Cowboys have allowed in their history.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T00:49:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-on-career-high-receiving-yards-you-just-catch-it-and-run-as-fast-as-you-can",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-on-career-high-receiving-yards-you-just-catch-it-and-run-as-fast-as-you-can",
+      "permalink": "",
+      "title": "Christian McCaffrey on career-high receiving yards: You just catch it and run as fast as you can",
+      "body_text": "Christian McCaffrey had a day.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T02:12:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-49ers-fans-were-more-present-than-ours",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dak-prescott-49ers-fans-were-more-present-than-ours",
+      "permalink": "",
+      "title": "Dak Prescott: 49ers fans \"were more present than ours\"",
+      "body_text": "On Sunday, America's Team wasn't even Dallas's Team. 49ers fans showed up in big numbers for the game against the Cowboys at AT&T Stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-16T02:58:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dak Prescott",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thomas-booker-donte-thornton-are-inactive-for-the-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thomas-booker-donte-thornton-are-inactive-for-the-raiders",
+      "permalink": "",
+      "title": "Thomas Booker, Dont'e Thornton are inactive for the Raiders",
+      "body_text": "The Raiders had a pair of players listed as questionable on their final injury report of the week and neither of them will be in the lineup for Fernando Mendoza's first NFL start.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T19:43:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thomas Booker",
+        "Raiders The",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0037262"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendozas-first-nfl-td-puts-raiders-up-7-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendozas-first-nfl-td-puts-raiders-up-7-0",
+      "permalink": "",
+      "title": "Fernando Mendoza's first NFL TD puts Raiders up 7-0",
+      "body_text": "Fernando Mendoza helped secure a national title at Indiana with a scramble for a touchdown and his first NFL touchdown came the same way.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T21:21:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-lead-seahawks-10-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-lead-seahawks-10-7-at-halftime",
+      "permalink": "",
+      "title": "Raiders lead Seahawks 10-7 at halftime",
+      "body_text": "It didn't take long for Fernando Mendoza to show that he brings a different skill set to the Raiders offense than Kirk Cousins.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T22:20:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-puts-seahawks-up-14-10-in-third-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-puts-seahawks-up-14-10-in-third-quarter",
+      "permalink": "",
+      "title": "Jadarian Price puts Seahawks up 14-10 in third quarter",
+      "body_text": "Fernando Mendoza isn't the only rookie who has scored his first NFL touchdown in Las Vegas on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T22:49:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jadarian Price",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-shut-down-raiders-in-second-half-of-21-13-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-shut-down-raiders-in-second-half-of-21-13-win",
+      "permalink": "",
+      "title": "Seahawks shut down Raiders in second half of 21-13 win",
+      "body_text": "The Raiders led 10-7 at halftime, but the Seahawks took over in the final 30 minutes.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T23:58:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-should-be-taken-seriously-as-an-mvp-candidate",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaxon-smith-njigba-should-be-taken-seriously-as-an-mvp-candidate",
+      "permalink": "",
+      "title": "Jaxon Smith-Njigba should be taken seriously as an MVP candidate",
+      "body_text": "No player as been more valuable to his team this year than JSN.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-16T02:05:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaxon Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-to-play-against-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-anderson-to-play-against-browns",
+      "permalink": "",
+      "title": "Will Anderson to play against Browns",
+      "body_text": "All of the inactives for Sunday's 1 p.m. ET kickoffs.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-15T16:34:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Anderson",
+        "Browns All"
+      ],
+      "resolved_player_ids": [
+        "00-0039108"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-lead-browns-17-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-lead-browns-17-10-at-halftime",
+      "permalink": "",
+      "title": "Texans lead Browns 17-10 at halftime",
+      "body_text": "The Texans got out to a 17-0 lead in Cleveland, but the Browns have made it a game with 10 straight points.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-15T19:29:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-6-yard-touchdown-run-ties-browns-texans-at-17-17",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-6-yard-touchdown-run-ties-browns-texans-at-17-17",
+      "permalink": "",
+      "title": "KC Concepcion 6-yard touchdown run ties Browns-Texans at 17-17",
+      "body_text": "After going down 17-0 early, the Browns have tied it up against the Texans.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-15T20:03:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-joe-burrow-torching-steelers-bengals-lead-24-3-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-joe-burrow-torching-steelers-bengals-lead-24-3-at-halftime",
+      "permalink": "",
+      "title": "Sunday Night Football: Joe Burrow torching Steelers, Bengals lead 24-3 at halftime",
+      "body_text": "Burrow threw for 302 yards and three touchdowns in the first half.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-16T03:03:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Night",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/woody-marks-ruled-out-of-texans-browns-with-a-concussion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/woody-marks-ruled-out-of-texans-browns-with-a-concussion",
+      "permalink": "",
+      "title": "Woody Marks ruled out of Texans-Browns with a concussion",
+      "body_text": "If the Texans are going to beat the Browns, they'll have to do it without one of their key offensive players.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-15T20:23:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Woody Marks"
+      ],
+      "resolved_player_ids": [
+        "00-0040583"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-get-another-fourth-quarter-comeback-defeat-texans-27-24",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-get-another-fourth-quarter-comeback-defeat-texans-27-24",
+      "permalink": "",
+      "title": "Browns get another fourth-quarter comeback, defeat Texans 27-24",
+      "body_text": "Cleveland is now 4-0 at home for the first time since 1963.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-15T21:28:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-mcduffie-active-for-rams-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/trent-mcduffie-active-for-rams-cardinals",
+      "permalink": "",
+      "title": "Trent McDuffie active for Rams-Cardinals",
+      "body_text": "The Rams will have one of their star defenders back for Sunday's game against the Cardinals.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-15T19:49:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Cardinals The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "fetch_run_id": "a83e6904-b5e2-46a0-9c6e-ba0e01c456df",
+  "source": "rotowire",
+  "fetched_at": "2026-11-16T12:21:16.822220+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl648126",
+      "url": "https://www.rotowire.com//football/player/dk-metcalf-13424",
+      "permalink": "",
+      "title": "DK Metcalf: Gets into end zone in loss",
+      "body_text": "Metcalf brought in two of six targets for 54 yards and a touchdown and added a two-point conversion catch in the Steelers' 38-18 loss to the Bengals on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-15T09:19:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl648125",
+      "url": "https://www.rotowire.com//football/player/jaylen-warren-15984",
+      "permalink": "",
+      "title": "Jaylen Warren: Stymied by Bengals in loss",
+      "body_text": "Warren rushed seven times for 15 yards and brought in five of six targets for 26 yards in the Steelers' 38-18 loss to the Bengals on Sunday night. He committed a fumble recovered by Pittsburgh. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-15T09:15:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0037228"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl648119",
+      "url": "https://www.rotowire.com//football/player/tee-higgins-14506",
+      "permalink": "",
+      "title": "Tee Higgins: Five catches in Week 10 win",
+      "body_text": "Higgins brought in five of six targets for 66 yards in the Bengals' 38-18 win over the Steelers on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-15T08:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tee Higgins"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl648118",
+      "url": "https://www.rotowire.com//football/player/chase-brown-16934",
+      "permalink": "",
+      "title": "Chase Brown: Garners 18 touches in win",
+      "body_text": "Brown rushed 10 times for 44 yards and brought in eight of nine targets for 39 yards in the Bengals' 38-18 win over the Steelers on Sunday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-15T08:52:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chase Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0038597"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl648117",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Only seven touches in Week 10",
+      "body_text": "Dowdle rushed five times for 26 yards and caught both of his targets for eight yards during Sunday's 38-18 defeat at Cincinnati. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-15T08:49:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": null
+    }
+  ]
+}

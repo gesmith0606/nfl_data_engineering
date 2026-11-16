@@ -1,0 +1,144 @@
+{
+  "batch_id": "da642a92",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-16T12:25:30.143884+00:00",
+  "record_count": 15,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-its-good-to-learn-from-getting-punched-in-the-face",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Raiders rookie QB Fernando Mendoza struggles in first start against Seahawks but remains composed.",
+      "source_excerpt": "Fernando Mendoza didn't look overmatched early in his first NFL start, but the road got tougher for the Raiders' rookie quarterback over the final three quarters of Sunday's game against the Seahawks.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendozas-first-nfl-td-puts-raiders-up-7-0",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza scored his first NFL touchdown on a scramble, putting Raiders up 7-0 in debut.",
+      "source_excerpt": "Fernando Mendoza helped secure a national title at Indiana with a scramble for a touchdown and his first NFL touchdown came the same way.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-lead-seahawks-10-7-at-halftime",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza's diverse skill set helped Raiders lead Seahawks 10-7 at halftime in his first start.",
+      "source_excerpt": "It didn't take long for Fernando Mendoza to show that he brings a different skill set to the Raiders offense than Kirk Cousins.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-puts-seahawks-up-14-10-in-third-quarter",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "general",
+      "summary": "Jadarian Price scored his first NFL touchdown in third quarter, putting Seahawks up 14-10.",
+      "source_excerpt": "Fernando Mendoza isn't the only rookie who has scored his first NFL touchdown in Las Vegas on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-puts-seahawks-up-14-10-in-third-quarter",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Reference to Fernando Mendoza as rookie context for Jadarian Price's touchdown.",
+      "source_excerpt": "Fernando Mendoza isn't the only rookie who has scored his first NFL touchdown in Las Vegas on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-6-yard-touchdown-run-ties-browns-texans-at-17-17",
+      "player_name": "KC Concepcion",
+      "team_abbr": "CLE",
+      "category": "general",
+      "summary": "KC Concepcion scores 6-yard TD to tie game at 17-17 after Browns came back from 17-0 deficit.",
+      "source_excerpt": "After going down 17-0 early, the Browns have tied it up against the Texans.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "84f1faf6-a00f-3afb-b69d-16733b08024f",
+      "player_name": "Jesse Minter",
+      "team_abbr": "BAL",
+      "category": "general",
+      "summary": "Jesse Minter, Ravens defensive coordinator and former Chargers DC, faces his old team in potential upset opportunity.",
+      "source_excerpt": "The winless Chargers will face Jesse Minter, their former defensive coordinator, in a matchup against Baltimore that presents a realistic chance at victory.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "83868b00-a1c6-3da1-b516-b2f16b51bddb",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Rookie QB Mendoza struggled in final three quarters of first NFL start against Seahawks.",
+      "source_excerpt": "Fernando Mendoza didn't look overmatched early in his first NFL start, but the road got tougher for the Raiders' rookie quarterback over the final three quarters of Sunday's game against the Seahawks.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "3067f271-cd29-3b8f-8952-3695c77e7857",
+      "player_name": "Emmett Johnson",
+      "team_abbr": "KC",
+      "category": "general",
+      "summary": "Emmett Johnson was standout performer in Chiefs game against Atlanta.",
+      "source_excerpt": "The latest Chiefs news, brought fresh to you every morning! Emmett Johnson was the star of the show in Atlanta",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-its-good-to-learn-from-getting-punched-in-the-face",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Rookie QB Mendoza had rough final three quarters of his first NFL start vs. Seahawks, learning from adversity.",
+      "source_excerpt": "Fernando Mendoza didn't look overmatched early in his first NFL start, but the road got tougher for the Raiders' rookie quarterback over the final three quarters of Sunday's game against the Seahawks.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendozas-first-nfl-td-puts-raiders-up-7-0",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Mendoza scored rushing touchdown in his first NFL start for Raiders.",
+      "source_excerpt": "Fernando Mendoza helped secure a national title at Indiana with a scramble for a touchdown and his first NFL touchdown came the same way.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-lead-seahawks-10-7-at-halftime",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Mendoza brought different skill set to Raiders offense in first NFL start.",
+      "source_excerpt": "It didn't take long for Fernando Mendoza to show that he brings a different skill set to the Raiders offense than Kirk Cousins.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jadarian-price-puts-seahawks-up-14-10-in-third-quarter",
+      "player_name": "Jadarian Price",
+      "team_abbr": "SEA",
+      "category": "general",
+      "summary": "Price scored first NFL touchdown as rookie in Seahawks game against Raiders.",
+      "source_excerpt": "Fernando Mendoza isn't the only rookie who has scored his first NFL touchdown in Las Vegas on Sunday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-shut-down-raiders-in-second-half-of-21-13-win",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Mendoza and Raiders offense struggled in second half, losing 21-13 to Seahawks.",
+      "source_excerpt": "The Raiders led 10-7 at halftime, but the Seahawks took over in the final 30 minutes.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kc-concepcion-6-yard-touchdown-run-ties-browns-texans-at-17-17",
+      "player_name": "KC Concepcion",
+      "team_abbr": "CLE",
+      "category": "general",
+      "summary": "KC Concepcion scores 6-yard TD to tie Browns-Texans game at 17-17 in second half comeback.",
+      "source_excerpt": "KC Concepcion 6-yard touchdown run ties Browns-Texans at 17-17. After going down 17-0 early, the Browns have tied it up against the Texans.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

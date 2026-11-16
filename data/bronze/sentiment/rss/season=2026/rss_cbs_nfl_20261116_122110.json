@@ -1,0 +1,564 @@
+{
+  "fetch_run_id": "7afe8266-adb2-44cd-9015-2de169c18549",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-16T12:21:10.209986+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "dc5e25f4-e5d5-4d4d-b402-78d035dc504b",
+      "url": "https://www.cbssports.com/nfl/news/aidan-hutchinson-injury-lions-nfl-celebrations/",
+      "title": "Aidan Hutchinson injury: Lions star joins bizarre list of NFL players hurt while celebrating",
+      "body_text": "Aidan Hutchinson's sack celebration ended with a significant knee injury, recalling some of the strangest and most painful mishaps in NFL history",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-16T12:03:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "d9236774-4eab-400b-bece-a85a02174282",
+      "url": "https://www.cbssports.com/nfl/news/ravens-vs-chargers-how-to-watch-spread-odds-preview-prediction/",
+      "title": "Ravens vs. Chargers: Can LA get its first win on 'MNF' against the injury-plagued Ravens?",
+      "body_text": "Plus, how to watch, odds, a preview and a prediction for the Monday night matchup",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-16T12:02:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "d29f6b3b-fa8f-4ec7-bcec-28929be65e44",
+      "url": "https://www.cbssports.com/nfl/news/bengals-steelers-sunday-night-football-2026-scorigami/",
+      "title": "Bengals' blowout win over Steelers makes NFL history with 1,100th 'scorigami'",
+      "body_text": "Cincinnati's 38-18 victory became the 1,100th unique final score in NFL history",
+      "author": "John Breech",
+      "published_at": "2026-11-16T12:01:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "27f40a1f-6a9f-4986-9ff6-b7d2ff6d3e96",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-results-cover-32-2026-mvp/",
+      "title": "Cover 32: Two NFL awards are already in the bag, plus game balls, biggest gaffes from Week 10",
+      "body_text": "Tyler Sullivan dives into all of the biggest items from Week 10 in the NFL, including a historic day from Jahmyr Gibbs and statement return to Minnesota for Kirk Cousins",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-16T11:55:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tyler Sullivan",
+        "Jahmyr Gibbs",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0039139",
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "01b08eb8-9a5e-4a16-b24d-e0e7cf3cd7c7",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-grades-packers-vikings-patrick-mahomes/",
+      "title": "NFL Week 10 grades: Packers fail in showdown with Vikings, Patrick Mahomes catches fire",
+      "body_text": "We're handing out grades for every team that played in Week 10",
+      "author": "John Breech",
+      "published_at": "2026-11-16T04:36:08+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "5bbb3cfc-770f-44c1-ba01-de22083a54ed",
+      "url": "https://www.cbssports.com/nfl/news/scorigami-cowboys-49ers-ends-with-score-never-seen-nfl/",
+      "title": "Scorigami: Cowboys-49ers ends with score never before seen in NFL history thanks to Dak Prescott",
+      "body_text": "Dak Prescott's otherwise meaningless two-point conversion helped make history",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-16T01:29:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "dd072da1-2951-425b-bdda-a6bb3f3aa75e",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-winners-and-losers-texans-crumble-against-browns-kirk-cousins-trade-pays-dividends-for-vikings/",
+      "title": "NFL Week 10 winners and losers: Texans crumble against Browns, Kirk Cousins trade pays dividends for Vikings",
+      "body_text": "Houston squandered a three-score lead while Minnesota won by a three-possession margin of its own",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-16T01:03:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Vikings Houston"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "6d98be67-ba00-40e6-be0d-e4773c20001f",
+      "url": "https://www.cbssports.com/prediction/news/bengals-vs-steelers-odds-sunday-night-football-first-touchdown-scorer-picks-nfl-predictions/",
+      "title": "Bengals vs. Steelers odds: Best Sunday Night Football first touchdown scorer picks, NFL predictions",
+      "body_text": "Here are our top picks for first touchdown prediction markets on Sunday Night Football between the Bengals and Steelers",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-16T00:46:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Sunday",
+        "Night Football",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "9702a75b-5ac1-4d9f-9dc0-b11161a1d265",
+      "url": "https://www.cbssports.com/prediction/news/bengals-vs-steelers-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-10/",
+      "title": "Bengals vs. Steelers odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 10",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for NFL Week 10's Sunday Night Football matchup between the Cincinnati Bengals and Pittsburgh Steelers",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-16T00:41:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Sunday Night",
+        "Cincinnati Bengals",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "8d69b666-40f0-42ee-9873-9e1ea2aa46f8",
+      "url": "https://www.cbssports.com/betting/news/steelers-vs-bengals-prediction-odds-betting-preview-start-time-sunday-night-football-picks-best-bets/",
+      "title": "Steelers vs. Bengals prediction, odds, betting preview, start time: Sunday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Steelers vs. Bengals on Sunday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-16T00:38:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "e2702835-8e58-4542-a58f-4a9bcb54aac2",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-free-nba-league-pass-bengals-steelers-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus, free NBA League Pass for Bengals-Steelers, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-16T00:25:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "22df2901-a15a-45f1-b5d1-ce68ad66eb36",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-for-steelers-bengals-nfl-sunday-night-football-picks/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 bonus bets for Steelers-Bengals, NFL Sunday Night Football picks",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-16T00:23:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4852f600-e809-4fa6-b9a6-5213094d1a0b",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-score-55-bonus-for-bengals-steelers-nfl-sunday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Score $55 bonus for Bengals vs. Steelers, NFL Sunday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on all of Sunday's NFL Week 10 action",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-16T00:13:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "733b1e53-38ce-4e86-a0f9-c141cbb765e2",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-receive-55-bonus-steelers-vs-bengals-sunday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Receive $55 bonus for Steelers vs. Bengals on Sunday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 10 Steelers vs. Bengals SNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-16T00:09:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "733d2e7a-de5b-471c-ab69-1fb9569ec4c7",
+      "url": "https://www.cbssports.com/nfl/news/bengals-vs-steelers-prediction-odds-how-to-watch/",
+      "title": "Bengals vs. Steelers prediction: First place in AFC North up for grabs in rivalry battle on 'SNF'",
+      "body_text": "Pittsburgh won the first matchup between the two teams back in Week 3. Plus, how to watch, what to know, and a prediction",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-16T00:03:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "71c89be0-0501-4e98-affc-01ed2fcc139b",
+      "url": "https://www.cbssports.com/betting/news/bengals-vs-steelers-picks-nfl-week-10-prediction-player-props-experts-best-bets-for-sunday-night-football/",
+      "title": "Bengals vs. Steelers picks, NFL Week 10 prediction, player props: Expert's best bets for Sunday Night Football",
+      "body_text": "Back the Over on the 49.5-point total and capitalize on plus-money anytime touchdown value with Tee Higgins and Darnell Washington",
+      "author": "Will Brinson",
+      "published_at": "2026-11-15T23:45:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Back",
+        "Tee Higgins",
+        "Darnell Washington"
+      ],
+      "resolved_player_ids": [
+        "00-0036410",
+        "00-0038558"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "96dead8e-ab11-4501-ab00-bdc173f4509e",
+      "url": "https://www.cbssports.com/nfl/news/brock-bowers-injury-raiders-fernando-mendoza-debut/",
+      "title": "Raiders' Brock Bowers suffers ankle injury, misses majority of Fernando Mendoza's first career start",
+      "body_text": "Mendoza was without his top target for much of his starting debut",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-16T00:36:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brock Bowers",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "579880a2-67a4-472f-9716-99977b48b22b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-overreactions-patriots-lions-demeco-ryans-texans/",
+      "title": "NFL Week 10 overreactions: Patriots to miss playoffs? Texans' DeMeco Ryans on the hot seat?",
+      "body_text": "Drake Maye got hurt, and New England got blown out in Germany as the Pats playoff hopes slip away",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-16T01:14:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "cf862f7a-a790-4a9b-9f65-152250907c35",
+      "url": "https://www.cbssports.com/nfl/news/chiefs-trade-deadline-move-josh-downs-unlocks-mvp-patrick-mahomes/",
+      "title": "Chiefs trade deadline move for Josh Downs unlocks MVP Patrick Mahomes of old",
+      "body_text": "Mahomes' MVP is back thanks to his new downfield deep threat: NFL trade deadline WR addition Josh Downs",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-15T23:10:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Downs",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0038997",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "e153f64c-8af5-4e3c-a18e-e4d9710572d3",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-steelers-bengals-sunday-night-football-betting/",
+      "title": "Use FanDuel promo code to get $200 in bonus bets by targeting Steelers-Bengals, Sunday Night Football betting",
+      "body_text": "Sign up and bet with the latest FanDuel promo code on Sunday to get your bonus bets",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-15T22:25:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "11f5fcfb-6f22-4e03-9e18-c9bd43e4a1d5",
+      "url": "https://www.cbssports.com/nfl/news/why-raiders-fans-planning-stay-seated-fernando-mendoza-first-td/",
+      "title": "LOOK: Fernando Mendoza scores first NFL TD on opening drive vs. Seahawks",
+      "body_text": "Fans had planned to sit during the QB's first TD to honor Mendoza's mother, Elsa, utilizes a wheelchair because of her multiple sclerosis",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-15T21:46:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Seahawks Fans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "937500b5-7d61-4b4f-953e-8005cca066bb",
+      "url": "https://www.cbssports.com/nfl/news/kirk-cousins-vikings-super-bowl-odds-2026/",
+      "title": "With Kirk Cousins back, the Vikings really can win the Super Bowl and here's how",
+      "body_text": "From the 2000 Ravens to the 2015 Broncos, history offers plenty of reasons to believe Minnesota can win with Kirk Cousins",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-15T21:28:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "With Kirk",
+        "Super Bowl",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "03f833d8-28a9-4795-af63-91054e04db77",
+      "url": "https://www.cbssports.com/nfl/news/bills-geno-smith-injury-updates-bills-cade-klubnik/",
+      "title": "Jets' Geno Smith ruled out with ankle injury: Rookie QB Cade Klubnik makes NFL debut",
+      "body_text": "Rookie Cade Klubnik stepped in to open the second half, leading a 10-play, 61-yard scoring drive on his very first NFL possession",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-15T20:51:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Geno Smith",
+        "Cade Klubnik",
+        "Rookie Cade"
+      ],
+      "resolved_player_ids": [
+        "00-0030565",
+        "00-0041056"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "c9d82edc-3d8d-4f60-b1ad-efdb0af89fdb",
+      "url": "https://www.cbssports.com/nfl/news/drake-maye-aidan-hutchinson-injured-patriots-lions-stars-questionable/",
+      "title": "Drake Maye, Aidan Hutchinson injured on same play: Injury updates for Patriots QB, Lions DE",
+      "body_text": "Maye and Hutchinson both went down on the final play of the first drive",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-15T20:00:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0039851",
+        "00-0037236"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "f5abf27a-6141-4be3-b875-6a9ec7a01aad",
+      "url": "https://www.cbssports.com/prediction/news/seahawks-vs-raiders-odds-nfl-week-10-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "Seahawks vs. Raiders odds, NFL Week 10 predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for the NFL Week 10 Seahawks vs. Raiders matchup",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-15T19:50:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "66dea4c2-8c30-4bc5-9eea-4b483a12f00f",
+      "url": "https://www.cbssports.com/prediction/news/49ers-vs-cowboys-nfl-week-10-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "49ers vs. Cowboys NFL Week 10 odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for the NFL Week 10 49ers vs. Cowboys matchup",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-15T19:45:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "cd894476-b2a6-4a9b-bfc3-796a32fb8a60",
+      "url": "https://www.cbssports.com/nfl/news/lions-aidan-hutchinson-injury-update-patriots-germany/",
+      "title": "Lions' Aidan Hutchinson feared to have possible season-ending injury after sack celebration, per report",
+      "body_text": "According to the report, the Lions will get a second opinion once they return to the United States",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-15T21:12:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aidan Hutchinson",
+        "United States"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "7fb8e985-b8bf-4e74-9184-4b989ebd6009",
+      "url": "https://www.cbssports.com/prediction/news/rams-vs-cardinals-odds-nfl-week-10-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "Rams vs. Cardinals odds, NFL Week 10 predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for the Rams vs. Cardinals NFC West matchup in NFL Week 10",
+      "author": "James Holliman",
+      "published_at": "2026-11-15T19:45:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "6d70defc-c1b2-44ac-be9b-e95b26e37b21",
+      "url": "https://www.cbssports.com/prediction/news/49ers-vs-cowboys-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-10/",
+      "title": "49ers vs. Cowboys odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 10",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Sunday's Week 10 matchup between San Francisco and Dallas",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-15T19:50:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "e770c377-0607-4e07-bd2f-5185f4a70530",
+      "url": "https://www.cbssports.com/nfl/news/lions-jahmyr-gibbs-ties-nfl-record-germany-patriots/",
+      "title": "Lions running back Jahmyr Gibbs makes NFL history during Germany game vs. Patriots",
+      "body_text": "Gibbs is making NFL history in Germany",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-15T18:24:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "Patriots Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "cccf6a0d-b786-4cd2-b129-4fe21a99d7b9",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-picks-hub-expert-selections-best-bets-teasers-survivor/",
+      "title": "NFL Week 10 expert picks, odds, best bets, teasers, predictions, survivor picks and more",
+      "body_text": "CBSSports.com and SportsLine break down every single NFL game in Week 10",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-15T18:01:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "98057585-11ec-47ce-ac4c-a347aa788336",
+      "url": "https://www.cbssports.com/prediction/news/nfl-week-10-texans-vs-browns-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "NFL Week 10 Texans vs. Browns odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for Texans vs. Browns in NFL Week 10 action",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-15T16:50:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "868d8c48-988a-4ccf-8873-8d9f6460dad2",
+      "url": "https://www.cbssports.com/betting/news/nfl-picks-against-the-spread-week-10-2026-expert-ats-picks-best-bets-predictions-player-props-nov-15/",
+      "title": "NFL picks against the spread, Week 10 2026: Expert ATS picks, best bets, predictions, player props for Nov. 15",
+      "body_text": "The SportsLine experts have locked in their top Week 10 picks from this week's NFL schedule, see who they are backing and fading here",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-15T16:46:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "d8d3378f-37d6-42ea-ab98-8c920f820b9a",
+      "url": "https://www.cbssports.com/betting/news/vikings-vs-packers-odds-picks-prediction-spread-start-time-nfl-week-10-betting-preview-best-bets/",
+      "title": "Vikings vs. Packers odds, picks, prediction, spread: Start time, NFL Week 10 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Vikings vs. Packers in NFL Week 10",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-15T16:45:45+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "810941ab-5ad1-43d6-a25a-bd03c22a8c2c",
+      "url": "https://www.cbssports.com/prediction/news/chiefs-vs-falcons-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-sunday-nfl-week-10/",
+      "title": "Chiefs vs. Falcons odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for Sunday NFL Week 10",
+      "body_text": "Here's a look at some of the trading markets available at Kalshi for Sunday's Week 10 matchup as Atlanta hosts Kansas City",
+      "author": "James Holliman",
+      "published_at": "2026-11-15T16:41:00+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "ccbccabd-ba3d-4cf8-a41b-d0cf52e23b88",
+      "url": "https://www.cbssports.com/prediction/news/jaguars-vs-titans-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-10/",
+      "title": "Jaguars vs. Titans odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 10",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Sunday's Week 10 matchup between Jacksonville and Tennessee",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-15T16:40:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    }
+  ]
+}

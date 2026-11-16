@@ -1,0 +1,174 @@
+{
+  "batch_id": "da642a92",
+  "season": 2026,
+  "week": 10,
+  "computed_at": "2026-11-16T12:25:30.136490+00:00",
+  "record_count": 15,
+  "records": [
+    {
+      "doc_id": "6d98be67-ba00-40e6-be0d-e4773c20001f",
+      "external_id": "6d98be67-ba00-40e6-be0d-e4773c20001f",
+      "team_abbr": null,
+      "summary": "Analyst provides first touchdown prediction picks for Bengals-Steelers Sunday Night Football matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Here are our top picks for first touchdown prediction markets on Sunday Night Football between the Bengals and Steelers",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "9702a75b-5ac1-4d9f-9dc0-b11161a1d265",
+      "external_id": "9702a75b-5ac1-4d9f-9dc0-b11161a1d265",
+      "team_abbr": null,
+      "summary": "Promotional betting content for Bengals vs. Steelers Week 10 SNF matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a closer look at the top trading markets available at Kalshi for NFL Week 10's Sunday Night Football matchup between the Cincinnati Bengals and Pittsburgh Steelers",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8d69b666-40f0-42ee-9873-9e1ea2aa46f8",
+      "external_id": "8d69b666-40f0-42ee-9873-9e1ea2aa46f8",
+      "team_abbr": null,
+      "summary": "Betting preview and predictions for Steelers vs. Bengals SNF game.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Best bets and betting preview for Steelers vs. Bengals on Sunday Night Football",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "e2702835-8e58-4542-a58f-4a9bcb54aac2",
+      "external_id": "e2702835-8e58-4542-a58f-4a9bcb54aac2",
+      "team_abbr": null,
+      "summary": "DraftKings promotional offer for Bengals-Steelers SNF betting.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "22df2901-a15a-45f1-b5d1-ce68ad66eb36",
+      "external_id": "22df2901-a15a-45f1-b5d1-ce68ad66eb36",
+      "team_abbr": null,
+      "summary": "BetMGM bonus code promotion for Steelers-Bengals SNF Week 10 betting.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "4852f600-e809-4fa6-b9a6-5213094d1a0b",
+      "external_id": "4852f600-e809-4fa6-b9a6-5213094d1a0b",
+      "team_abbr": null,
+      "summary": "Kalshi promo offer for Bengals vs. Steelers Week 10 SNF trading.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on all of Sunday's NFL Week 10 action",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "733b1e53-38ce-4e86-a0f9-c141cbb765e2",
+      "external_id": "733b1e53-38ce-4e86-a0f9-c141cbb765e2",
+      "team_abbr": null,
+      "summary": "Kalshi promotional bonus for Steelers vs. Bengals SNF Week 10.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 10 Steelers vs. Bengals SNF matchup",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7fb8e985-b8bf-4e74-9184-4b989ebd6009",
+      "external_id": "7fb8e985-b8bf-4e74-9184-4b989ebd6009",
+      "team_abbr": null,
+      "summary": "Week 10 betting preview for Rams vs. Cardinals matchup with promotional offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Use the latest Polymarket promo code to make predictions for the Rams vs. Cardinals NFC West matchup in NFL Week 10",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "6d70defc-c1b2-44ac-be9b-e95b26e37b21",
+      "external_id": "6d70defc-c1b2-44ac-be9b-e95b26e37b21",
+      "team_abbr": null,
+      "summary": "Week 10 betting preview for 49ers vs. Cowboys matchup with promotional offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a closer look at the top trading markets available at Kalshi for Sunday's Week 10 matchup between San Francisco and Dallas",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "98057585-11ec-47ce-ac4c-a347aa788336",
+      "external_id": "98057585-11ec-47ce-ac4c-a347aa788336",
+      "team_abbr": null,
+      "summary": "Week 10 betting preview for Texans vs. Browns matchup with promotional offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Use the latest Polymarket promo code to make predictions for Texans vs. Browns in NFL Week 10 action",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "868d8c48-988a-4ccf-8873-8d9f6460dad2",
+      "external_id": "868d8c48-988a-4ccf-8873-8d9f6460dad2",
+      "team_abbr": null,
+      "summary": "SportsLine experts provide Week 10 picks against the spread with top bets and player props.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The SportsLine experts have locked in their top Week 10 picks from this week's NFL schedule, see who they are backing and fading here",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "810941ab-5ad1-43d6-a25a-bd03c22a8c2c",
+      "external_id": "810941ab-5ad1-43d6-a25a-bd03c22a8c2c",
+      "team_abbr": null,
+      "summary": "Week 10 betting preview for Chiefs vs. Falcons matchup with promotional offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a look at some of the trading markets available at Kalshi for Sunday's Week 10 matchup as Atlanta hosts Kansas City",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "ccbccabd-ba3d-4cf8-a41b-d0cf52e23b88",
+      "external_id": "ccbccabd-ba3d-4cf8-a41b-d0cf52e23b88",
+      "team_abbr": null,
+      "summary": "Week 10 betting preview for Jaguars vs. Titans matchup with promotional offer.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's a closer look at the top trading markets available at Kalshi for Sunday's Week 10 matchup between Jacksonville and Tennessee",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "00d9f3e3-9287-3ad2-916b-3443ad4cc56e",
+      "external_id": "00d9f3e3-9287-3ad2-916b-3443ad4cc56e",
+      "team_abbr": null,
+      "summary": "49ers, Chiefs, and Bengals delivered impressive performances in Week 10 with astonishing plays.",
+      "sentiment": 0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The NFL's brightest stars lit up week 10 of the 2026 season with some astonishing plays as the San Francisco 49ers, Kansas City Chiefs and Cincinnati Bengals all won on Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "5",
+      "external_id": "5",
+      "team_abbr": null,
+      "summary": "Analyst reactions to Week 10 games including Bengals/Jags performance and Patrick Mahomes.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Nate Tice & Hayden Winks dive into their instant takeaways from Week 10 of NFL action.",
+      "subject_type": "reporter"
+    }
+  ]
+}
