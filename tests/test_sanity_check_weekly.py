@@ -143,7 +143,7 @@ def _write_weekly(tmp_path: Path, df: pd.DataFrame, age_days: int = 0) -> Path:
     return path
 
 
-def _write_consensus(tmp_path: Path, week: int = WEEK) -> Path:
+def _write_consensus(tmp_path: Path, week: int = WEEK, age_hours: float = 0) -> Path:
     ext_dir = (
         tmp_path
         / "data"
@@ -153,7 +153,8 @@ def _write_consensus(tmp_path: Path, week: int = WEEK) -> Path:
         / f"week={week:02d}"
     )
     ext_dir.mkdir(parents=True, exist_ok=True)
-    path = ext_dir / f"external_{_fname(0).replace('projections_half_ppr_', '')}"
+    ts = (datetime.now() - timedelta(hours=age_hours)).strftime("%Y%m%d_%H%M%S")
+    path = ext_dir / f"external_{ts}.parquet"
     _consensus_df().to_parquet(path, index=False)
     return path
 
@@ -271,6 +272,40 @@ class TestStarRank:
         # disagreement worth a look, so the relaxation is stale-only.
         _write_weekly(sandbox, _weekly_df(cmc_zeroed=True))
         _write_consensus(sandbox)
+
+        criticals, _ = sanity.run_weekly_projection_check(SEASON, WEEK, "half_ppr")
+
+        assert any("McCaffrey" in c for c in criticals)
+
+    def test_early_same_week_snapshot_is_stale_too(self, sandbox):
+        # What actually failed 2026-10-27/11-03/11-10: week=W already existed,
+        # holding the Sunday capture taken two days before the Tuesday board
+        # and before that weekend's games. No fallback happened, so the
+        # missing-partition test above never saw it.
+        _write_weekly(sandbox, _weekly_df(cmc_zeroed=True))
+        _write_consensus(sandbox, age_hours=45)
+
+        criticals, warnings = sanity.run_weekly_projection_check(
+            SEASON, WEEK, "half_ppr"
+        )
+
+        assert not any("McCaffrey" in c for c in criticals)
+        assert any("STALE consensus" in w for w in warnings)
+        assert any("STAR ZEROED" in w and "McCaffrey" in w for w in warnings)
+
+    def test_early_same_week_snapshot_still_catches_a_buried_star(self, sandbox):
+        _write_weekly(sandbox, _weekly_df(cmc_rank_buried=True))
+        _write_consensus(sandbox, age_hours=45)
+
+        criticals, _ = sanity.run_weekly_projection_check(SEASON, WEEK, "half_ppr")
+
+        assert any("McCaffrey" in c for c in criticals)
+
+    def test_snapshot_from_earlier_the_same_day_is_not_stale(self, sandbox):
+        # A few hours' head start is still this week's news: zeroing a star
+        # the consensus ranked that morning stays a critical.
+        _write_weekly(sandbox, _weekly_df(cmc_zeroed=True))
+        _write_consensus(sandbox, age_hours=5)
 
         criticals, _ = sanity.run_weekly_projection_check(SEASON, WEEK, "half_ppr")
 
