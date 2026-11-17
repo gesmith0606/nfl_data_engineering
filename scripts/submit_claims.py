@@ -282,7 +282,15 @@ def submit_one(
     if 400 <= status < 500:
         return FAILED, msg.strip()
     # Yahoo re-serving the form usually means a rejection, but its markup for
-    # that was never captured — treat it as unclear and read back.
+    # that was never captured — treat it as unclear and read back. Say what
+    # came back (stage / buttons / heading) so the next run can be fixed from
+    # evidence: 2026-11-10 a stage-2 POST came back as the form with no claim.
+    if posted.get("form_again"):
+        msg += (
+            f" [form re-served: sent stage {posted.get('sent_stage')}, got stage "
+            f"{posted.get('stage')}, buttons {posted.get('buttons')}, heading "
+            f"{posted.get('heading')!r} — check the Yahoo team page by eye]"
+        )
     return UNKNOWN, msg.strip()
 
 
