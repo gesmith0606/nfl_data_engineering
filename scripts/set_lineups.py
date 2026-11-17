@@ -989,6 +989,14 @@ def main(argv: Optional[list] = None) -> int:
             injury_ctx=injury_ctx,
             news=news_by_sleeper(sentiment_flags(season, week), registry, gsis_map),
         )
+    mismatched = [r for r in rows if r.schedule_mismatch]
+    if mismatched:
+        print(
+            f"WARN: schedule mismatch -- the {season} week {week} schedule has no game "
+            f"for {', '.join(sorted({r.team for r in mismatched}))} but Sleeper projects "
+            f"{', '.join(r.name for r in mismatched)}. Not treated as bye; check the "
+            "schedule file before trusting any BYE line."
+        )
     rec = recommend(
         rows, roster_positions, mine.get("starters") or [], threshold=args.threshold
     )

@@ -49,12 +49,17 @@ def test_reproduces_the_measured_table_for_george_weeks_1_to_9(recs):
 
 
 def test_reproduces_the_league_wide_totals(recs):
+    """Three player-weeks (Downs wk5, Cousins wk6, Allen wk8) read as byes in the first
+    replay only because the registry holds TODAY's team; Sleeper projects them, so the
+    schedule cross-check no longer calls them byes. That moved three baseline columns by
+    <= 8 points league-wide (14989.3 -> 14989.9, 15061.9 -> 15062.5, 14149.0 -> 14157.2);
+    roster 6 is untouched."""
     assert len(recs) == 90
     t = rl.totals(recs, rl._COLS + ["carry_raw", "carry_v1"])
     assert t["set"] == pytest.approx(14993.2, abs=0.1)
-    assert t["v1_blend"] == pytest.approx(14989.3, abs=0.1)
-    assert t["sleeper_only"] == pytest.approx(15061.9, abs=0.1)
-    assert t["ours_only"] == pytest.approx(14149.0, abs=0.1)
+    assert t["v1_blend"] == pytest.approx(14989.9, abs=0.1)
+    assert t["sleeper_only"] == pytest.approx(15062.5, abs=0.1)
+    assert t["ours_only"] == pytest.approx(14157.2, abs=0.1)
     assert t["hindsight"] == pytest.approx(17119.1, abs=0.1)
     assert t["carry_raw"] == pytest.approx(11451.3, abs=0.1)  # 80 roster-weeks
     assert t["carry_v1"] == pytest.approx(12607.2, abs=0.1)
@@ -177,7 +182,7 @@ def _mini(status=None):
                 "ours_kind": "weekly", "ours_label": "mini",
                 "ours_stats": {"q": {"position": "QB", "passing_yards": 250.0}, "w1": {"position": "WR", "receptions": 4.0, "receiving_yards": 40.0},
                                "w2": {"position": "WR", "receptions": 7.0, "receiving_yards": 90.0}},
-                "sleeper_stats": {"q": {"pass_yd": 250.0}, "w1": {"rec": 4.0, "rec_yd": 40.0}, "w2": {"rec": 7.0, "rec_yd": 90.0}},
+                "sleeper_stats": {"w1": {"rec": 4.0, "rec_yd": 40.0}, "w2": {"rec": 7.0, "rec_yd": 90.0}},
                 "kickoffs": {"BUF": "2026-09-27T13:00:00-04:00"},  # SF is on bye
                 "now_sun": "2026-09-27T09:00:00-04:00", "now_pre": "2026-09-27T12:00:00-04:00",
                 "injury": {"reports": {}, "teams_reported": [], "played_prev": None, "sids": ["q", "w1", "w2"]},

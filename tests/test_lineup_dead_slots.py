@@ -294,3 +294,106 @@ def test_render_prints_must_fix_before_the_lineup_table():
     none = render(rows, [], "hdr", "weekly", must_fix=[])
     assert "MUST FIX: none" in none
     assert "MUST FIX" not in render(rows, [], "hdr", "weekly")
+
+
+# --- safety: MUST FIX must never bench a starter who can in fact play -------------------
+
+
+def _build(
+    player_ids,
+    starters,
+    registry,
+    kickoffs,
+    sleeper_proj,
+    injury_ctx=None,
+    positions=None,
+):
+    return build_rows(
+        player_ids=player_ids, starters=starters,
+        roster_positions=positions or ["QB", "WR", "BN"],
+        registry=registry, ours={}, sleeper_proj=sleeper_proj,
+        scoring_settings={"rec": 1.0, "rec_yd": 0.1, "pass_yd": 0.04},
+        kickoffs=kickoffs, now=NOW, injury_ctx=injury_ctx,
+    )  # fmt: skip
+
+
+def test_a_bare_sleeper_out_tag_without_an_official_report_is_not_dead():
+    """No injury context: the tag is the LAST game's ruling. CHECK STATUS, never MUST FIX."""
+    reg = {
+        "w1": {
+            "position": "WR",
+            "team": "BUF",
+            "full_name": "Starter",
+            "injury_status": "Out",
+        },
+        "w2": {"position": "WR", "team": "BUF", "full_name": "Bench"},
+    }
+    proj = {"w1": {"rec": 6.0, "rec_yd": 70.0}, "w2": {"rec": 7.0, "rec_yd": 90.0}}
+    rows = _build(["w1", "w2"], ["0", "w1"], reg, {"BUF": NOW}, proj)
+    starter = next(r for r in rows if r.sleeper_id == "w1")
+    assert starter.status_unconfirmed and not starter.dead
+    rec = recommend(rows, ["QB", "WR", "BN"], ["0", "w1"])
+    assert not [f for f in rec.must_fix if f.out_player is not None]  # nobody benched
+    assert "w1" in rec.starters
+    assert all(
+        f.as_delta() is None or f.as_delta().out_player.sleeper_id != "w1"
+        for f in rec.must_fix
+    )
+    # anything the report says about him is CHECK STATUS, which the ESPN writer never files
+    assert {d.verdict for d in rec.deltas} <= {"CHECK STATUS"}
+
+
+def test_a_bare_doubtful_tag_without_a_report_is_not_dead_either():
+    reg = {"w1": {"position": "WR", "team": "BUF", "injury_status": "Doubtful"}}
+    (row,) = _build(["w1"], ["0", "w1"], reg, {"BUF": NOW}, {"w1": {"rec": 5.0}})
+    assert row.status_unconfirmed and row.status_level is None and not row.dead
+
+
+def test_a_roster_designation_without_a_report_is_still_dead():
+    """IR / PUP / suspended are not last-game rulings: they stay authoritative."""
+    for tag in ("IR", "PUP", "Sus"):
+        reg = {"w1": {"position": "WR", "team": "BUF", "injury_status": tag}}
+        (row,) = _build(["w1"], ["0", "w1"], reg, {"BUF": NOW}, {"w1": {"rec": 5.0}})
+        assert row.dead and row.dead_reason == "OUT", tag
+
+
+def test_a_schedule_missing_one_game_does_not_turn_its_players_into_byes():
+    """BUF @ MIA absent from the kickoffs: both teams' starters project fine."""
+    reg = {
+        "q": {"position": "QB", "team": "MIA", "full_name": "Miami QB"},
+        "w": {"position": "WR", "team": "BUF", "full_name": "Buffalo WR"},
+        "r": {"position": "WR", "team": "SF", "full_name": "Really On Bye"},
+        "k": {"position": "WR", "team": "KC", "full_name": "Plays Fine"},
+    }
+    proj = {
+        "q": {"pass_yd": 250.0},
+        "w": {"rec": 6.0, "rec_yd": 70.0},
+        "r": {},
+        "k": {"rec": 5.0, "rec_yd": 50.0},
+    }
+    rows = _build(
+        ["q", "w", "r", "k"], ["q", "w"], reg, {"KC": NOW}, proj
+    )  # MIA, BUF, SF all missing
+    by = {r.sleeper_id: r for r in rows}
+    assert by["q"].schedule_mismatch and not by["q"].bye and not by["q"].dead
+    assert by["w"].schedule_mismatch and not by["w"].dead
+    assert (
+        by["r"].bye and not by["r"].schedule_mismatch
+    )  # Sleeper agrees: no projection
+    assert not by["k"].bye
+    assert any("schedule has no MIA game" in n for n in by["q"].notes)
+    rec = recommend(rows, ["QB", "WR", "BN"], ["q", "w"])
+    assert [f for f in rec.must_fix if f.out_player is not None] == []  # nobody benched
+
+
+def test_the_schedule_mismatch_warning_reaches_the_cli_output(capsys):
+    import importlib.util
+    import sys
+    from pathlib import Path
+
+    spec = importlib.util.spec_from_file_location(
+        "set_lineups_mismatch",
+        Path(__file__).resolve().parent.parent / "scripts" / "set_lineups.py",
+    )
+    body = Path(spec.origin).read_text(encoding="utf-8")
+    assert "schedule mismatch" in body and "Not treated as bye" in body

@@ -96,6 +96,8 @@ class PlayerRow:
     status_unconfirmed: bool = False
     # OUT / DOUBTFUL / QUESTIONABLE (see LEVEL_*), None when healthy/unknown.
     status_level: Optional[str] = None
+    # The schedule says no game but Sleeper projects him: not treated as bye.
+    schedule_mismatch: bool = False
 
     @property
     def blend(self) -> float:
@@ -614,6 +616,12 @@ def build_rows(
         stats = sleeper_proj.get(pid)
         sl = score_sleeper_stats(stats, scoring_settings, pos) if stats else None
         ko = kickoffs.get(_TEAM_ALIAS.get(team, team))
+        # The schedule is trusted only while Sleeper agrees. A schedule missing
+        # one game would otherwise turn every starter on those two teams into a
+        # MUST FIX (and, on ESPN, a filed move), so a player Sleeper projects
+        # above zero is not on bye: the disagreement is flagged, not acted on.
+        no_game = have_schedule and ko is None and team != "FA"
+        mismatch = no_game and sl is not None and sl > 0
         slot, slot_index = slot_of.get(pid, (None, 999))
         row = PlayerRow(
             sleeper_id=pid,
@@ -626,10 +634,16 @@ def build_rows(
             depth_chart_order=meta.get("depth_chart_order"),
             kickoff=ko,
             locked=bool(ko and now >= ko),
-            bye=have_schedule and ko is None and team != "FA",
+            bye=no_game and not mismatch,
+            schedule_mismatch=mismatch,
             slot=slot,
             slot_index=slot_index,
         )
+        if mismatch:
+            row.notes.append(
+                f"schedule has no {team} game but Sleeper projects {sl:.1f}: "
+                "not treated as bye"
+            )
         if row.bye:
             row.notes.append("BYE")
         if row.locked:
@@ -641,11 +655,18 @@ def build_rows(
                 row.status_unconfirmed = status.unconfirmed_bench_tag
                 row.status_level = status.level
         elif row.injury_status:
-            row.notes.append(str(row.injury_status))
+            # No official report to check against. A roster designation (IR,
+            # PUP, Sus ...) is authoritative, but a bare Out/Doubtful/Questionable
+            # is the LAST game's ruling (see resolve_injury_status): never a
+            # reason to bench anyone on its own. It is flagged unconfirmed, which
+            # makes it CHECK STATUS and keeps it out of MUST FIX and the writer.
             tag = str(row.injury_status)
-            row.status_level = (
-                LEVEL_OUT if tag in _OUT_DESIGNATIONS else _TAG_LEVEL.get(tag)
-            )
+            row.notes.append(tag)
+            if tag in _OUT_DESIGNATIONS:
+                row.status_level = LEVEL_OUT
+            elif tag in BENCHING_TAGS:
+                row.status_unconfirmed = True
+                row.notes.append("tag unconfirmed: no official report loaded")
         if news and news.get(pid):
             row.notes.append(f"news: {news[pid]}")
         if row.ours is None:
