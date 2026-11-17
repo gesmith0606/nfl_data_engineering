@@ -65,12 +65,12 @@ K = 6
 ALIAS = {"LA": "LAR", "JAC": "JAX", "WSH": "WAS"}
 
 
-def _snaps(roots: Sequence[Path], week: int) -> Dict[str, float]:
+def _snaps(roots: Sequence[Path], week: int, season: int) -> Dict[str, float]:
     files = sorted(
         f
         for r in roots
         for f in glob.glob(
-            str(r / f"data/bronze/players/snaps/season=2026/week={week}/*.parquet")
+            str(r / f"data/bronze/players/snaps/season={season}/week={week}/*.parquet")
         )
     )
     if not files:
@@ -83,7 +83,7 @@ def _snaps(roots: Sequence[Path], week: int) -> Dict[str, float]:
     }
 
 
-def _flags(rp: Replay, week: int) -> Dict[str, Dict[str, bool]]:
+def _flags(rp: Replay, week: int, season: int) -> Dict[str, Dict[str, bool]]:
     """Sentiment flags from the last file written before Tuesday evening."""
     cutoff = pd.Timestamp(
         rp.week1_start + (week - 1) * 7 * 86_400_000 + 22 * 3_600_000, unit="ms"
@@ -92,7 +92,9 @@ def _flags(rp: Replay, week: int) -> Dict[str, Dict[str, bool]]:
     for r in rp.roots:
         for f in sorted(
             glob.glob(
-                str(r / f"data/gold/sentiment/season=2026/week={week:02d}/*.parquet")
+                str(
+                    r / f"data/gold/sentiment/season={season}/week={week:02d}/*.parquet"
+                )
             )
         ):
             stamp = pd.to_datetime(
@@ -127,7 +129,10 @@ def attach_features(
         pool = rp.pool(w)
         if pool is None:
             continue
-        s1, s2, flags = _snaps(rp.roots, w - 1), _snaps(rp.roots, w - 2), _flags(rp, w)
+        season = rp.season
+        s1 = _snaps(rp.roots, w - 1, season)
+        s2 = _snaps(rp.roots, w - 2, season)
+        flags = _flags(rp, w, season)
         for r in pool:
             team = ALIAS.get(
                 (reg.get(r["sid"]) or {}).get("team") or "",

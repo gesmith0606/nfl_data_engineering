@@ -118,7 +118,13 @@ def candidate_row(list_name: str, rank: int, r: Mapping[str, Any]) -> Dict[str, 
             # the clearing-price model's reading of the same claim
             "tier": r.get("tier"),
             "pos_rank": r.get("rank"),
-            "bid_p_win": getattr(adv, "p_win", None),
+            # at the bid actually recommended, which the hazard rules can
+            # change from the model's own (a role ending, "no help", a depth cap)
+            "bid_p_win": (
+                r["p_win_at_bid"]
+                if r.get("p_win_at_bid") is not None
+                else getattr(adv, "p_win", None)
+            ),
             "bid_price80": r.get("price80"),
             "bid_ceiling": getattr(adv, "ceiling", None),
             "p_contested": getattr(adv, "p_contested", None),
@@ -214,6 +220,7 @@ def fallback_notes(
     news_age_hours: Optional[float] = None,
     dyn_unknown: int = 0,
     dyn_listed: int = 0,
+    extra_notes: Sequence[str] = (),
 ) -> List[str]:
     """Every place this run quietly substituted a guess for a reading.
 
@@ -259,6 +266,7 @@ def fallback_notes(
             f"dynasty value: unknown for {dyn_unknown} of {dyn_listed} listed names "
             "-- they rank on points alone (printed as ?, not as 0)"
         )
+    out.extend(extra_notes)
     zero = sum(1 for c in recorded if c.get("sleeper_zero"))
     one = sum(1 for c in recorded if c.get("blend_basis") != "both")
     if zero:

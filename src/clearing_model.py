@@ -253,6 +253,23 @@ def obs_from_json(rows: Sequence[Dict[str, object]]) -> List[Obs]:
 # ------------------------------------------------------------------ the report
 
 
+def level(r: Dict[str, object]) -> float:
+    """What a name scores in a week he plays: ``weekly`` when it is set (a name
+    on a bye now has a blend of 0 but still plays the rest of the window)."""
+    w = r.get("weekly")
+    return float(w if w is not None else r["blend"])  # type: ignore[arg-type]
+
+
+def value_from_gain(
+    gain4: float, dyn: float, usd_per_point: float, usd_per_dyn: float
+) -> int:
+    """The ceiling when the gain to MY lineup is known: a claim that does not
+    help the team is worth only his dynasty value, however good his points."""
+    return int(
+        round(usd_per_point * max(0.0, gain4) + usd_per_dyn * max(0.0, float(dyn or 0)))
+    )
+
+
 def advise_all(
     rows: Sequence[Dict[str, object]],
     model: ClearingModel,
@@ -273,16 +290,12 @@ def advise_all(
     for r in rows:
         by_pos[str(r["pos"])].append(r)
     for rs in by_pos.values():
-        rs.sort(key=lambda r: -float(r["blend"]))  # type: ignore[arg-type]
-        repl = (
-            float(rs[REPLACEMENT_RANK - 1]["blend"])  # type: ignore[arg-type]
-            if len(rs) >= REPLACEMENT_RANK
-            else 0.0
-        )
+        rs.sort(key=lambda r: -level(r))
+        repl = level(rs[REPLACEMENT_RANK - 1]) if len(rs) >= REPLACEMENT_RANK else 0.0
         for rank, r in enumerate(rs, start=1):
             r["rank"] = rank
             r["tier"] = tier_of(str(r["pos"]), rank)
-            r["above_free"] = max(0.0, float(r["blend"]) - repl)  # type: ignore[arg-type]
+            r["above_free"] = max(0.0, level(r) - repl)
             value = value_ceiling(
                 float(r["above_free"]),  # type: ignore[arg-type]
                 float(r.get("dyn") or 0),  # type: ignore[arg-type]
@@ -308,7 +321,9 @@ def final_bid(
     all, and in a redraft league "no help" is a refusal. A pure depth add is
     capped at the old floor, not at what it would take to win him.
     """
-    if old and (role_ending or old[1].startswith("WE cut him")):
+    if role_ending:
+        return 1, "his starter is returning — the role is ending, minimum or skip"
+    if old and old[1].startswith("WE cut him"):
         return old
     if no_help_redraft:
         return 1, "rated no help — minimum or nothing"

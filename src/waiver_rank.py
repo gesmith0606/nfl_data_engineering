@@ -40,6 +40,8 @@ from src.roster_optimizer import optimal_lineup
 
 #: Weeks a claim is judged over.
 WINDOW = 4
+#: A fantasy season ends with the NFL regular season; later weeks are not played.
+LAST_WEEK = 18
 #: "Ours and Sleeper's disagree by 2x" -- past this they are not averaged.
 RATIO = 2.0
 #: Four-week points one FantasyCalc dynasty-value unit is worth in a dynasty
@@ -91,16 +93,16 @@ def games_in_window(
     n: int = WINDOW,
 ) -> int:
     """How many of weeks ``week .. week+n-1`` the team plays; unknown = all."""
+    weeks = [k for k in range(week, week + n) if k <= LAST_WEEK]
     if not team or not playing:
-        return n
-    known = [k for k in range(week, week + n) if k in playing]
-    if not known:
-        return n
-    return sum(1 for k in known if team in playing[k]) + (n - len(known))
+        return len(weeks)
+    return sum(1 for k in weeks if k not in playing or team in playing[k])
 
 
 def _week_points(r: Mapping[str, Any], k: int, week: int, playing: Mapping) -> float:
     team = r.get("team")
+    if week + k > LAST_WEEK:
+        return 0.0
     if team and playing.get(week + k) and team not in playing[week + k]:
         return 0.0
     if k == 0 and (r.get("out") or r.get("ir")):

@@ -62,6 +62,7 @@ class TestReplayOfOurWins:
 def test_the_committed_fit_loads_and_prices_a_tier():
     model, note = waiver_wire.load_clearing_model("mantis", 2026, 1000)
     assert "fit on" in note and "NO LEAGUE FIT" not in note
+    assert model.fit_through >= 9  # the report flags a fit that stops short of the week
     adv = model.recommend("RB-top", value=40, budget_left=800)
     assert 1 <= adv.bid <= 200 and 0 < adv.p_win <= 1
 
@@ -69,7 +70,7 @@ def test_the_committed_fit_loads_and_prices_a_tier():
 def test_a_league_without_a_fit_says_it_is_the_prior_alone(tmp_path, monkeypatch):
     monkeypatch.setattr(waiver_wire, "CLEARING_FIT_DIR", tmp_path)
     model, note = waiver_wire.load_clearing_model("la_liga", 2026, 100)
-    assert "NO LEAGUE FIT" in note
+    assert "NO LEAGUE FIT" in note and model.fit_through is None
     # prior only: published-data shares of a $100 budget, so a few dollars at most
     assert model.recommend("WR-top", value=30, budget_left=90).bid <= 10
 

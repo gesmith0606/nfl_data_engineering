@@ -52,8 +52,9 @@ def test_games_in_window_counts_byes_and_trusts_an_unknown_schedule():
     assert wr.games_in_window("AAA", 11, {}) == 4  # no schedule: do not invent a bye
     assert wr.games_in_window(None, 11, play) == 4
     # a window running past the schedule counts only the weeks we know
-    # weeks 16-19: 18 and 19 are not in the schedule, so they count as played
-    assert wr.games_in_window("AAA", 16, _playing(AAA=17)) == 1 + 2
+    # weeks 16-19: the season ends at 18 (19 is not played), and 18 is not in this
+    # schedule so it counts as played: 16 yes, 17 bye, 18 yes
+    assert wr.games_in_window("AAA", 16, _playing(AAA=17)) == 2
 
 
 # ----------------------------------------------------------------- the gain
@@ -136,3 +137,9 @@ def test_every_role_boost_ships_at_zero_until_a_scorecard_moves_it():
     c = _r("a", "TE", 12, flags={"snap_jump": True})
     out = wr.rank_targets([c], _roster(), 11, _playing(), FORMAT, None, dynasty=False)
     assert out[0]["score"] == out[0]["gain4"]
+
+
+def test_a_window_past_the_end_of_the_season_counts_only_the_weeks_played():
+    # week 17 + 4 weeks reaches 20; only 17 and 18 exist
+    c = _r("n", "TE", 12, team="BBB")
+    assert wr.window_gain(c, _roster(), 17, {}, FORMAT) == pytest.approx(6.0)

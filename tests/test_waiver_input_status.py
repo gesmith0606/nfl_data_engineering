@@ -68,3 +68,30 @@ def test_candidate_row_records_the_ranking_components():
         True,
     )
     assert c["list"] == "targets" and c["rank"] == 3
+
+
+def test_extra_notes_ride_along_so_the_block_cannot_say_all_read_when_the_model_guessed():
+    notes = wr.fallback_notes(
+        **_kw(extra_notes=["bid model: no league fit -- bids rest on the prior alone"])
+    )
+    assert notes == ["bid model: no league fit -- bids rest on the prior alone"]
+
+
+def test_the_recorded_win_chance_is_the_one_at_the_bid_actually_recommended():
+    from src import clearing_model as cm
+
+    m = cm.ClearingModel([cm.Obs(3, "RB-top", (30,)), cm.Obs(3, "RB-top", ())])
+    adv = m.recommend("RB-top", value=60, budget_left=800)
+    # a hazard rule dropped the bid to $1: the chance printed must be $1's
+    row = {
+        "sid": "1",
+        "name": "A",
+        "pos": "RB",
+        "blend": 5.0,
+        "advice": adv,
+        "bid": (1, "rated no help"),
+        "p_win_at_bid": m.p_win(1, "RB-top"),
+    }
+    c = wr.candidate_row("targets", 1, row)
+    assert c["bid"] == 1 and c["bid_p_win"] == round(m.p_win(1, "RB-top"), 3)
+    assert c["bid_p_win"] != round(adv.p_win, 3) or adv.bid == 1

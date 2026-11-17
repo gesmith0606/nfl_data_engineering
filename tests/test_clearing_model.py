@@ -167,3 +167,26 @@ def test_a_bid_above_every_rivals_remaining_budget_cannot_lose():
     )  # a tie still loses
     adv = m.recommend("RB-top", value=500, budget_left=1000, rival_cap=12)
     assert adv.bid == 13 and adv.p_win == 1.0  # the cheapest certain win
+
+
+def test_a_role_that_is_ending_is_the_minimum_even_with_no_transaction_history():
+    # `old` is None when the league log gave no history for him; the guard held
+    # only when it was present, so a $31 bid went out for a vanishing role
+    bid, why = cm.final_bid(
+        None, _adv(31), role_ending=True, no_help_redraft=False, depth_cap=None
+    )
+    assert bid == 1 and "role is ending" in why
+
+
+def test_a_name_idle_this_week_is_ranked_and_valued_on_what_he_scores_when_he_plays():
+    rows = [{"pos": "TE", "blend": 8.0 + i, "dyn": 0} for i in range(14)]
+    idle = {"pos": "TE", "blend": 0.0, "weekly": 30.0, "dyn": 0}
+    cm.advise_all([*rows, idle], cm.ClearingModel([]), budget_left=500)
+    assert idle["rank"] == 1 and idle["tier"] == "TE-top"
+    assert idle["above_free"] > 0 and idle["advice"].ceiling > 0
+
+
+def test_the_ceiling_from_lineup_gain_counts_only_what_helps_my_team():
+    assert cm.value_from_gain(0.0, 0, 2.0, 0.02) == 0  # a second QB in a 1-QB league
+    assert cm.value_from_gain(10.0, 1000, 2.0, 0.02) == 40
+    assert cm.value_from_gain(-3.0, -5, 2.0, 0.02) == 0

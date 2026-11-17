@@ -669,12 +669,16 @@ def load_clearing_model(
     if path.is_file():
         d = json.loads(path.read_text(encoding="utf-8"))
         obs = clearing_model.obs_from_json(d["obs"])
+        model = clearing_model.ClearingModel(obs, budget=budget)
+        model.fit_through = int(d["through_week"])
         return (
-            clearing_model.ClearingModel(obs, budget=budget),
+            model,
             f"fit on {len(obs)} name-weeks through week {d['through_week']}",
         )
+    prior_only = clearing_model.ClearingModel([], budget=budget)
+    prior_only.fit_through = None
     return (
-        clearing_model.ClearingModel([], budget=budget),
+        prior_only,
         "NO LEAGUE FIT -- published-data prior only "
         "(run scripts/backtest_clearing_price.py --write-fit)",
     )
@@ -1317,7 +1321,12 @@ def main(argv: Optional[list] = None) -> int:
         type=Path,
         help="ESPN/Yahoo: the site's own available-players list (one per line) -> exact FA pool",
     )
-    ap.add_argument("--top", type=int, default=6, help="free agents shown per position")
+    ap.add_argument(
+        "--top",
+        type=int,
+        default=6,
+        help="the ranked claim list shows 4 x this many names (6 -> 24)",
+    )
     ap.add_argument(
         "--dyn-points",
         type=float,
@@ -1326,7 +1335,10 @@ def main(argv: Optional[list] = None) -> int:
         "worth when ranking claims (a decision, not a fit)",
     )
     ap.add_argument(
-        "--list-size", type=int, default=24, help="names in the ranked claim list"
+        "--list-size",
+        type=int,
+        default=None,
+        help="names in the ranked claim list (default: 4 x --top)",
     )
     ap.add_argument(
         "--usd-per-point",
@@ -1349,6 +1361,7 @@ def main(argv: Optional[list] = None) -> int:
         "computed bids and drop list (never overwrites an existing file)",
     )
     args = ap.parse_args(argv)
+    list_size = args.list_size or args.top * 4
 
     try:
         preset = config.our_league(args.league)
@@ -1777,7 +1790,7 @@ def main(argv: Optional[list] = None) -> int:
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
             + (
-                f" (wins ~{r['advice'].p_win:.0%}"
+                f" (wins ~{r.get('p_win_at_bid', r['advice'].p_win):.0%}"
                 + (f"; ${r['price80']} for 80%" if r.get("price80") else "")
                 + f"; worth ${r['advice'].ceiling})"
                 if r.get("advice") and r.get("bid")
@@ -1851,10 +1864,48 @@ def main(argv: Optional[list] = None) -> int:
             args.usd_per_dyn,
             rival_cap=max_rival_left,
         )
+    # One list per league, ranked by the gain to MY lineup over the next four
+    # weeks (byes included), plus dynasty value where the league keeps players.
+    # Candidates: the top names by blend per position, by dynasty value, and
+    # by market interest -- the full pool is thousands of zeroes.
+    pool_ids = set()
+    for _pos in ("QB", "RB", "WR", "TE"):
+        by_blend = sorted(
+            (r for r in fas if r["pos"] == _pos), key=lambda r: -clearing_model.level(r)
+        )
+        pool_ids.update(r["sid"] for r in by_blend[:25])
+    pool_ids.update(r["sid"] for r in sorted(fas, key=lambda r: -r["dyn"])[:40])
+    pool_ids.update(r["sid"] for r in fas if r["adds"] >= 100_000)
+    ranked = waiver_rank.rank_targets(
+        [r for r in fas if r["sid"] in pool_ids and not r.get("ir")],
+        my_rows,
+        week,
+        playing_by_week,
+        preset.get("roster"),
+        (league or {}).get("roster_positions"),
+        dynasty=dynasty_league and bool(dyn),
+        dyn_points_per_unit=args.dyn_points,
+    )
     for r in fas:
         r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
         if clearing is not None:
             adv = r["advice"]
+            if "gain4" in r:
+                # The ceiling is what he does for MY lineup (plus dynasty value),
+                # not his points over a free agent: a second quarterback in a
+                # one-quarterback league is worth nothing however well he scores.
+                adv = clearing.recommend(
+                    r["tier"],
+                    clearing_model.value_from_gain(
+                        r["gain4"],
+                        r.get("dyn") if dynasty_league else 0,
+                        args.usd_per_point,
+                        args.usd_per_dyn,
+                    ),
+                    my_faab,
+                    max_rival_left,
+                )
+                r["advice"] = adv
             r["price80"] = clearing.price_for(
                 0.8, r["tier"], my_faab // 4 or 1, max_rival_left
             )
@@ -1865,6 +1916,8 @@ def main(argv: Optional[list] = None) -> int:
                 no_help_redraft=r["verdict"] == NO_HELP and not dynasty_league,
                 depth_cap=(max(1, room_median // 5) if r["verdict"] == DEPTH else None),
             )
+            # the chance at the bid actually printed, not at the model's own
+            r["p_win_at_bid"] = clearing.p_win(r["bid"][0], r["tier"], max_rival_left)
             continue
         # A price on a player the report says does not help is incoherent: in
         # a redraft league "no help" is a refusal, so the only honest number
@@ -1896,28 +1949,8 @@ def main(argv: Optional[list] = None) -> int:
             f"weeks + ${args.usd_per_dyn:g}/dynasty-value unit); the most any rival "
             f"has left to bid is ${max_rival_left}"
         )
-    # One list per league, ranked by the gain to MY lineup over the next four
-    # weeks (byes included), plus dynasty value where the league keeps players.
-    # Candidates: the top names by blend per position, by dynasty value, and
-    # by market interest -- the full pool is thousands of zeroes.
-    pool_ids = set()
-    for _pos in ("QB", "RB", "WR", "TE"):
-        by_blend = sorted(
-            (r for r in fas if r["pos"] == _pos), key=lambda r: -r["blend"]
-        )
-        pool_ids.update(r["sid"] for r in by_blend[:25])
-    pool_ids.update(r["sid"] for r in sorted(fas, key=lambda r: -r["dyn"])[:40])
-    pool_ids.update(r["sid"] for r in fas if r["adds"] >= 100_000)
-    ranked = waiver_rank.rank_targets(
-        [r for r in fas if r["sid"] in pool_ids and not r.get("ir")],
-        my_rows,
-        week,
-        playing_by_week,
-        preset.get("roster"),
-        (league or {}).get("roster_positions"),
-        dynasty=dynasty_league and bool(dyn),
-        dyn_points_per_unit=args.dyn_points,
-    )
+    # The same file set_lineups.sentiment_flags read: this week's, else the
+    # latest of any week (so a stale file is still dated, not skipped).
     _news_files = sorted(
         glob.glob(
             str(
@@ -1927,7 +1960,25 @@ def main(argv: Optional[list] = None) -> int:
                 / "*.parquet"
             )
         )
+    ) or sorted(
+        glob.glob(str(set_lineups.SENTIMENT / "season=*" / "week=*" / "*.parquet"))
     )
+    extra_notes: List[str] = []
+    if clearing is not None:
+        if getattr(clearing, "fit_through", None) is None:
+            extra_notes.append(
+                "bid model: no league fit -- bids rest on the published-data prior alone"
+            )
+        elif clearing.fit_through < week - 1:
+            extra_notes.append(
+                f"bid model: the league fit stops at week {clearing.fit_through}, "
+                f"this report is week {week}"
+            )
+    if not slpr_next:
+        extra_notes.append(
+            f"projections: Sleeper's week-{week + 1} numbers are unavailable -- a name "
+            "on a bye this week is valued at 0 for the weeks he plays"
+        )
     input_notes = waiver_record.fallback_notes(
         week=week,
         ours_label=ours_label,
@@ -1949,17 +2000,18 @@ def main(argv: Optional[list] = None) -> int:
         ),
         recorded=[
             waiver_record.candidate_row("targets", i, r)
-            for i, r in enumerate(ranked[: args.list_size], start=1)
+            for i, r in enumerate(ranked[:list_size], start=1)
         ],
         news_age_hours=waiver_record.file_freshness(
             Path(_news_files[-1]) if _news_files else None
         )["age_hours"],
         dyn_unknown=(
-            sum(1 for r in ranked[: args.list_size] if not r.get("dyn_known"))
+            sum(1 for r in ranked[:list_size] if not r.get("dyn_known"))
             if dynasty_league
             else 0
         ),
-        dyn_listed=len(ranked[: args.list_size]),
+        dyn_listed=len(ranked[:list_size]),
+        extra_notes=extra_notes,
     )
     print("\n" + waiver_record.status_block(input_notes))
     print(
@@ -1987,7 +2039,7 @@ def main(argv: Optional[list] = None) -> int:
         " + dynasty value in points" if dynasty_league and dyn else ""
     )
     print(f"\n-- Claim targets (free agents), ranked by {basis} --")
-    listed["targets"] = ranked[: args.list_size]
+    listed["targets"] = ranked[:list_size]
     for i, r in enumerate(listed["targets"], start=1):
         # The rank goes inside the name column: the gate parses a free-agent
         # line by its indentation, and a tag in the margin hides the row.

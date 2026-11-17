@@ -191,19 +191,20 @@ def clearing_bid(
     return model.recommend(row["tier"], value, left)
 
 
-def summarise(label: str, picks: Sequence[tuple]) -> str:
+def summarise(label: str, picks: Sequence[tuple], record: bool = True) -> str:
     """``picks`` = (row, bid). Wins, spend, overpay and points won."""
     wins = [(r, b) for r, b in picks if cm.replay_bid(b, r["rivals"])[0]]
     spend = sum(b for _r, b in wins)
     over = sum(b - clearing_of(r) for r, b in wins)
     pts = sum(r["p4"] for r, _b in wins if r["week"] <= 9)
-    REPORT["policies"][label] = {
-        "n": len(picks),
-        "wins": len(wins),
-        "spend": spend,
-        "overpay": over,
-        "points_4wk": round(pts, 1),
-    }
+    if record:
+        REPORT["policies"][label] = {
+            "n": len(picks),
+            "wins": len(wins),
+            "spend": spend,
+            "overpay": over,
+            "points_4wk": round(pts, 1),
+        }
     return (
         f"  {label:<22}{len(picks):>4}{len(wins):>6}{spend:>8}{over:>9}"
         f"{(spend / len(wins) if wins else 0):>9.1f}{pts:>10.0f}"
@@ -217,6 +218,8 @@ HEAD = f"  {'policy':<22}{'n':>4}{'wins':>6}{'spend':>8}{'overpay':>9}{'$/win':>
 
 
 def run(args: argparse.Namespace) -> int:
+    REPORT.clear()
+    REPORT.update({"policies": {}, "our_claims": []})
     rp = load_replay(
         args.league,
         args.season,
@@ -292,7 +295,9 @@ def run(args: argparse.Namespace) -> int:
         med = paid[len(paid) // 2] if paid else 0
         return ww.suggest_bid(history, [], med, left, row["week"])[0]
 
+    # --out holds the first dial's numbers, the one our own claims use
     for usd in args.usd_per_point:
+        first = usd == args.usd_per_point[0]
         print(
             f"\n-- TEST weeks 6-10, model fit on weeks 2-5, ${usd:g}/point ceiling --"
         )
@@ -309,9 +314,13 @@ def run(args: argparse.Namespace) -> int:
             ],
         }
         for label, p in picks.items():
-            print(summarise(label, p))
+            print(summarise(label, p, record=first))
         print(
-            summarise("hindsight: clearing", [(r, clearing_of(r)) for r in test_rows])
+            summarise(
+                "hindsight: clearing",
+                [(r, clearing_of(r)) for r in test_rows],
+                record=first,
+            )
         )
 
         chase = [
@@ -335,7 +344,7 @@ def run(args: argparse.Namespace) -> int:
                 walk.append(
                     (r, clearing_bid(model, r, budget_left(rp, r["week"]), usd).bid)
                 )
-        print(summarise("clearing, walk-forward", walk))
+        print(summarise("clearing, walk-forward", walk, record=first))
 
     # -- our own claims, each priced only from the weeks before it
     usd = args.usd_per_point[0]
