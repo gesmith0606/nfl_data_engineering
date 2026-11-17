@@ -551,7 +551,7 @@ def run_backtest(
     include_bye_returns: bool = True,
     residual_coverage_ratio: float = 0.0,
     no_dispersion_shrink: bool = False,
-    dispersion_shrink_k: float = DISPERSION_SHRINK_FACTOR,
+    dispersion_shrink_k: Optional[float] = None,
 ) -> pd.DataFrame:
     """Run backtesting across specified seasons and weeks.
 
@@ -643,8 +643,9 @@ def run_backtest(
             "evaluate the shipped config" convention — see
             ``.planning/SEASON_2026_MIDSEASON_RETRO.md``.
         dispersion_shrink_k: Shrink factor toward each position's
-            startable-pool mean (default
-            :data:`dispersion_shrink.SHRINK_FACTOR`; 1.0 is a no-op).
+            startable-pool mean, one value for every position (1.0 is a
+            no-op). None (default) = ``dispersion_shrink.SHRINK_FACTOR_BY_POSITION``,
+            what production ships.
     """
     fetcher = NFLDataFetcher()
     project_root = os.path.join(os.path.dirname(__file__), "..")
@@ -1548,10 +1549,11 @@ def main():
     parser.add_argument(
         "--dispersion-shrink-k",
         type=float,
-        default=DISPERSION_SHRINK_FACTOR,
+        default=None,
         help=(
-            "Shrink factor toward each position's startable-pool mean "
-            "(default 0.8; 1.0 is an explicit no-op)."
+            "Shrink factor toward each position's startable-pool mean, for "
+            "every position (1.0 is an explicit no-op). Omitted = the fitted "
+            "per-position production defaults (WR 1.0, others 0.8)."
         ),
     )
     parser.add_argument(

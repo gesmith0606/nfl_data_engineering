@@ -56,6 +56,9 @@ from sleeper_consensus_anchor import (  # noqa: E402
     resolve_sleeper_anchor_configs,
 )
 from dispersion_shrink import SHRINK_FACTOR as DISPERSION_SHRINK_FACTOR  # noqa: E402
+from dispersion_shrink import (  # noqa: E402
+    SHRINK_FACTOR_BY_POSITION as DISPERSION_SHRINK_BY_POSITION,
+)
 
 #: Minimum share of a position's STARTABLE rows (projected >= 5 pts) that the
 #: Sleeper anchor must match before the run warns. Raw all-rows coverage is
@@ -707,13 +710,14 @@ def main():
     parser.add_argument(
         "--dispersion-shrink-k",
         type=float,
-        default=DISPERSION_SHRINK_FACTOR,
+        default=None,
         help=(
             "Shrink factor for the dispersion lever: adjusted = centre + k * "
-            f"(projected - centre). Default {DISPERSION_SHRINK_FACTOR} "
-            "(1.0 is an explicit no-op; must be in (0, 1]). The per-week "
-            "fitted optimum over 2026 w3-6 was a stable 0.65-0.75, so the "
-            "shipped default is deliberately conservative."
+            "(projected - centre), for EVERY position (1.0 is an explicit "
+            "no-op; must be in (0, 1]). Omitted = the fitted per-position "
+            f"defaults {DISPERSION_SHRINK_BY_POSITION} (WR 1.0 = no shrink; "
+            "leave-one-week-out on 2026 w1-9, see "
+            ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md)."
         ),
     )
     parser.add_argument(
@@ -2319,7 +2323,7 @@ def main():
                 "row(s) calibrated; total projected points "
                 f"{before_total:.1f} -> {after_total:.1f}"
             )
-        elif args.dispersion_shrink_k != 1.0:
+        elif args.dispersion_shrink_k != 1.0:  # None (per-position defaults) also warns
             print(
                 "::warning::Dispersion shrink produced no per-position "
                 "centres (too few startable rows?) — lever was a no-op"
