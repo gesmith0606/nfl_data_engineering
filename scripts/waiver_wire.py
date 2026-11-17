@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import builtins
+import datetime as dt
 import glob
 import re
 import subprocess
@@ -50,7 +51,7 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from src import config, league_context, sleeper_http  # noqa: E402
+from src import config, league_context, sleeper_http, waiver_record  # noqa: E402
 from src.espn_league import PRO_TEAM_MAP  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
@@ -62,7 +63,11 @@ from src.lineup_setter import (  # noqa: E402
     score_ours,
     score_sleeper_stats,
 )
-from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
+from src.sleeper_player_map import (  # noqa: E402
+    _CACHE_PATH as _PLAYERS_CACHE,
+    load_sleeper_players,
+    normalize_name,
+)
 from src.waiver_verdicts import (  # noqa: E402
     NO_HELP,
     STARTS,
@@ -1738,15 +1743,19 @@ def main(argv: Optional[list] = None) -> int:
         "cut wkN, free Nwk): that is the first bid anchor, and "
         "league_context.py's median/p75 only the fallback."
     )
+    # What the report printed, kept for the record (src/waiver_record.py).
+    listed: Dict[str, List[Dict[str, Any]]] = {}
     for pos in ("QB", "RB", "WR", "TE"):
         print(f"\n-- {pos} free agents --")
-        for r in sorted((r for r in fas if r["pos"] == pos), key=lambda r: -r["blend"])[
-            : args.top
-        ]:
+        listed[pos] = sorted(
+            (r for r in fas if r["pos"] == pos), key=lambda r: -r["blend"]
+        )[: args.top]
+        for r in listed[pos]:
             print(line(r))
     hot = sorted((r for r in fas if r["adds"] >= 100_000), key=lambda r: -r["adds"])[
         :10
     ]
+    listed["hot"] = hot
     if hot:
         print("\n-- Most added on Sleeper (48h) still available --")
         for r in hot:
@@ -1757,7 +1766,8 @@ def main(argv: Optional[list] = None) -> int:
             "\n-- Dynasty targets: unrostered by market value "
             "(youth + a path to a role beat one week's points) --"
         )
-        for r in sorted(fas, key=lambda r: -r["dyn"])[: args.top * 2]:
+        listed["dynasty"] = sorted(fas, key=lambda r: -r["dyn"])[: args.top * 2]
+        for r in listed["dynasty"]:
             print(line(r))
 
     unscored = [
@@ -1780,6 +1790,7 @@ def main(argv: Optional[list] = None) -> int:
     # candidate in the same week-7 report: dropping a man in the current
     # lineup is a lineup decision, not a waiver one.
     started = set(starters) | set(baseline["starters"])
+    roster_out: List[Dict[str, Any]] = []
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):
         if normalize_name(r["name"]) in keepers:
             tag = "KEEP"
@@ -1787,6 +1798,10 @@ def main(argv: Optional[list] = None) -> int:
             tag = "START"
         else:
             tag = "bench"
+        roster_out.append(
+            {k: r.get(k) for k in ("sid", "name", "pos", "blend", "dyn", "age")}
+            | {"tag": tag}
+        )
         print(line(r, tag))
     drops = drop_order(
         my_rows,
@@ -1804,24 +1819,142 @@ def main(argv: Optional[list] = None) -> int:
             f"  Keepers protected: {len(keepers)} (from {args.league}_{season}_keepers.txt)"
         )
 
+    claims_msg = None
     if args.emit_claims:
         # The open-slot count lives in the mechanics block the report just
         # printed; read it back rather than recomputing the slot arithmetic
         # a second way, which is how the tag and the drop list diverged.
         slots = re.search(r"\((?P<open>\d+) open", "\n".join(mechanics))
-        print(
-            emit_claims(
-                args.emit_claims,
-                args.league,
-                week,
-                fas,
-                drops,
-                int(slots.group("open")) if slots else 0,
-                manual=platform == "sleeper",
+        claims_msg = emit_claims(
+            args.emit_claims,
+            args.league,
+            week,
+            fas,
+            drops,
+            int(slots.group("open")) if slots else 0,
+            manual=platform == "sleeper",
+        )
+        print(claims_msg)
+
+    def save_record(sanity: Optional[Mapping[str, Any]] = None) -> None:
+        """Freeze this run's listing to ``data/waivers/reports`` (never fatal)."""
+        board = set_lineups._latest(
+            str(
+                set_lineups.GOLD
+                / f"season={season}"
+                / f"week={week}"
+                / "projections_*.parquet"
             )
         )
+        weekly_board = ours_label.startswith("weekly Gold")
+        snap_files = sorted(
+            glob.glob(
+                str(set_lineups.INJURIES / f"season={season}" / "injuries_*.parquet")
+            )
+        )
+        recorded = [
+            waiver_record.candidate_row(name, i, r)
+            for name, rows in listed.items()
+            for i, r in enumerate(rows, start=1)
+        ]
+        fallbacks = waiver_record.fallback_notes(
+            week=week,
+            ours_label=ours_label,
+            weekly_board=weekly_board,
+            guessed_pool=platform != "sleeper"
+            and available is None
+            and not args.rostered_file,
+            draft_size=draft_size,
+            dynasty_missing=dynasty_league and not dyn,
+            news_flags=len(news_flags),
+            official_reports=len(injury_ctx.reports),
+            snap_players=len(snaps),
+            have_history=bool(moves),
+            have_budget=bool(my_faab),
+            bronze_max_week=(
+                int(weekly_df["week"].max())
+                if not weekly_df.empty and "week" in weekly_df
+                else 0
+            ),
+            recorded=recorded,
+        )
+        inputs = {
+            "board": {
+                **waiver_record.file_freshness(board),
+                "kind": "weekly" if weekly_board else "preseason_fallback",
+                "label": ours_label,
+            },
+            "registry": waiver_record.file_freshness(Path(_PLAYERS_CACHE)),
+            "sleeper_projections": {
+                "rows": len(slpr_raw),
+                "fetched": "live at run time",
+            },
+            "trending_adds": {"rows": len(adds), "fetched": "live at run time"},
+            "news": {"flags": len(news_flags)},
+            "injury_report": {
+                "official_reports": len(injury_ctx.reports),
+                "teams_reported": len(injury_ctx.teams_reported),
+                "latest_snapshot": waiver_record.file_freshness(
+                    Path(snap_files[-1]) if snap_files else None
+                ),
+            },
+            "snaps": {"players": len(snaps)},
+            "bronze_weekly": waiver_record.file_freshness(
+                Path(weekly_files[-1]) if weekly_files else None
+            ),
+            "transactions": {"players_with_history": len(moves), "rows": len(tx_rows)},
+            "dynasty_values": {"players": len(dyn)},
+            "pool": {
+                "source": (
+                    "sleeper_all_rosters"
+                    if platform == "sleeper"
+                    else (
+                        "available_file"
+                        if available is not None
+                        else "rostered_file" if args.rostered_file else "adp_guess"
+                    )
+                ),
+                "free_agents_scored": len(fas),
+            },
+            "bidding": {
+                "faab_left": my_faab,
+                "room_median_bid": room_median,
+                "room_max_bid": room_max,
+                "rivals_modelled": rivals_modelled,
+                "rivals_by_position": {p: len(v) for p, v in rivals_by_pos.items()},
+            },
+        }
+        try:
+            rec = waiver_record.build_record(
+                league=args.league,
+                platform=str(platform),
+                season=season,
+                week=week,
+                title=title,
+                generated_at=dt.datetime.now(dt.timezone.utc).isoformat(
+                    timespec="seconds"
+                ),
+                inputs=inputs,
+                candidates=recorded,
+                fallbacks=fallbacks,
+                extras={
+                    "my_roster": roster_out,
+                    "drop_candidates": [r["name"] for r in drops],
+                    "claims_file": str(args.emit_claims) if args.emit_claims else None,
+                    "claims_result": claims_msg,
+                    "sanity": sanity,
+                },
+            )
+            path = waiver_record.write_record(rec)
+            _stdout_print(f"\n  record: {path.relative_to(REPO_ROOT)}")
+        except OSError as exc:
+            _stdout_print(
+                f"\n  WARN: waiver record NOT written ({exc}) -- this run "
+                "cannot be scored later"
+            )
 
     if args.no_gate:
+        save_record()
         return 0
     from src.waiver_sanity import check_report, summarise
 
@@ -1843,6 +1976,14 @@ def main(argv: Optional[list] = None) -> int:
     )
     for f in findings:
         print(f"  [{f.level}] {f.check}: {f.detail}")
+    save_record(
+        {
+            "critical": verdict["critical"],
+            "warnings": verdict["warnings"],
+            "passed": verdict["passed"],
+            "findings": [f"[{f.level}] {f.check}: {f.detail}" for f in findings],
+        }
+    )
     if not verdict["passed"]:
         print(
             f"\n  SANITY FAIL: {verdict['critical']} critical — "
