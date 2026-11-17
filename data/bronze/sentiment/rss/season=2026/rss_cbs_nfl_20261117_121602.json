@@ -1,0 +1,571 @@
+{
+  "fetch_run_id": "d540cb3c-88bd-47a4-9143-154c889192ea",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-17T12:16:02.639940+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "69a15ace-017a-4899-8f05-3b669ed48199",
+      "url": "https://www.cbssports.com/nfl/news/priscos-nfl-week-11-power-rankings-patrick-mahomes-chiefs/",
+      "title": "Prisco's NFL Week 11 Power Rankings: Patrick Mahomes returns to MVP form, which makes Chiefs scary",
+      "body_text": "Pete Prisco shares his Week 11 Power Rankings for the 2026 NFL season, including the Chargers finally climbing out of the basement",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-17T10:01:00+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Patrick Mahomes",
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "01b08eb8-9a5e-4a16-b24d-e0e7cf3cd7c7",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-grades-packers-vikings-patrick-mahomes/",
+      "title": "NFL Week 10 grades: Chargers earn 'A-' for picking up first win, Packers fail in showdown with Vikings",
+      "body_text": "We're handing out grades for every team that played in Week 10",
+      "author": "John Breech",
+      "published_at": "2026-11-17T04:48:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "bbc8a29a-e207-4f7e-8a32-dcee3f4b5dd3",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-claim-55-bonus-for-chargers-vs-ravens-monday-night-football-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Claim $55 bonus for Chargers vs. Ravens, Monday Night Football predictions",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 10 Chargers vs. Ravens MNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-17T00:46:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Monday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "ea27591e-0729-4f58-8ef5-c068e1d6f51a",
+      "url": "https://www.cbssports.com/prediction/news/kalshi-promo-code-cbssports55-receive-55-bonus-ravens-chargers-nfl-week-10-monday-night-football/",
+      "title": "Kalshi promo code CBSSPORTS55: Receive $55 bonus for Ravens vs. Chargers, NFL Week 10 Monday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Monday Night Football between the Chargers and Ravens",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-17T00:40:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "1168102f-95f6-4943-99a2-77f46a5581ea",
+      "url": "https://www.cbssports.com/betting/news/chargers-vs-ravens-odds-prediction-betting-preview-start-time-monday-night-football-picks-best-bets/",
+      "title": "Chargers vs. Ravens odds, prediction, betting preview, start time: Monday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Chargers vs. Ravens on Monday Night Football",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-17T00:04:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "648894f3-3f00-4992-858f-463f24045a44",
+      "url": "https://www.cbssports.com/betting/news/chargers-vs-ravens-odds-nfl-week-10-first-touchdown-scorer-picks-nfl-predictions-for-monday-night-football/",
+      "title": "Chargers vs. Ravens odds: NFL Week 10 first touchdown scorer picks, NFL predictions for Monday Night Football",
+      "body_text": "Here are our top picks for first touchdown prediction markets on Monday Night Football between the Chargers and Ravens to end Week 10",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-16T23:50:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "705385fb-1de7-4b75-aa24-c00f9ce6e010",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-ravens-vs-chargers-monday-night-football/",
+      "title": "Use FanDuel promo code to get $200 in bonus bets for Ravens vs. Chargers on Monday Night Football",
+      "body_text": "Sign up with the latest FanDuel promo code and wager on Monday to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-16T23:24:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Sign"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "d9236774-4eab-400b-bece-a85a02174282",
+      "url": "https://www.cbssports.com/nfl/news/ravens-vs-chargers-how-to-watch-spread-odds-preview-prediction/",
+      "title": "Ravens vs. Chargers prediction: Can L.A. get its first win on 'MNF' against the injury-plagued Ravens?",
+      "body_text": "Plus, how to watch, odds, a preview and a prediction for the Monday night matchup",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-17T00:28:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "dc94f8fe-eac5-4e78-b4db-c4edd2c199f8",
+      "url": "https://www.cbssports.com/betting/news/week-10-nfl-betting-promos-get-over-3000-bonuses-from-betting-apps-sportsbooks-for-ravens-chargers-mnf/",
+      "title": "Week 10 NFL betting promos: Get over $3,000 in bonuses from betting apps, sportsbooks for Ravens-Chargers, MNF",
+      "body_text": "Top Week 10 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-16T23:07:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "bcbb7b66-9e79-4183-9c21-1dfaad3aff43",
+      "url": "https://www.cbssports.com/betting/news/chargers-vs-ravens-odds-picks-player-props-experts-nfl-week-10-best-bets-for-monday-night-football/",
+      "title": "Chargers vs. Ravens odds, picks, player props: Expert's NFL Week 10 best bets for Monday Night Football",
+      "body_text": "CBS Sports NFL expert Will Brinson shares his top picks and props for Monday Night Football in NFL Week 10",
+      "author": "Will Brinson",
+      "published_at": "2026-11-16T22:53:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Will Brinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "9b81ef02-167b-45ee-b968-8a45ff32fbea",
+      "url": "https://www.cbssports.com/nfl/news/sophomore-bounce-back-letdown-will-campbell-quietly-improving-ashton-jeanty-among-2025-first-round-busts/",
+      "title": "Sophomore bounce-back or letdown? Will Campbell quietly improving, Ashton Jeanty among 2025 first-round busts",
+      "body_text": "Last year's top draft picks reached a pivot point in their careers, and not everyone is on the right trajectory",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-16T22:51:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Will Campbell",
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040699",
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "99eb3170-ab0c-4204-9ff4-d64d2eb94066",
+      "url": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-chargers-vs-ravens-on-mnf-blazers-vs-timberwolves-and-more/",
+      "title": "Today's top games to watch, best bets, odds: Chargers vs. Ravens on MNF, Blazers vs. Timberwolves and more",
+      "body_text": "Find best bets and props for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
+      "author": "Scott Erskine",
+      "published_at": "2026-11-16T20:09:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Projection Model"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "238faa27-cc23-42f6-afc0-8ae83ce5d5a8",
+      "url": "https://www.cbssports.com/nfl/news/broncos-chargers-trade-sean-payton-jim-harbaugh-loophole/",
+      "title": "Sean Payton disputes Jim Harbaugh's 'loophole' claim after Broncos-Chargers trade falls apart",
+      "body_text": "The Broncos coach rejected Harbaugh's criticism of the process that derailed Denver's trade for Chargers linebacker Daiyan Henley",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-16T19:05:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sean Payton",
+        "Jim Harbaugh",
+        "The Broncos",
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "5a05e9c7-9014-41dd-8b5f-5bb143d79ce3",
+      "url": "https://www.cbssports.com/nfl/news/joe-burrow-stats-mvp-bengals-qb-2026/",
+      "title": "Joe Burrow isn't just chasing MVP, he's chasing the greatest passing season ever",
+      "body_text": "With 20 touchdown passes during Cincinnati's five-game winning streak, Burrow has separated himself in the MVP race while closing in on historic territory",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-17T02:21:00+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "d76bba5c-a367-444f-9cb7-65597f406567",
+      "url": "https://www.cbssports.com/nfl/news/pick-six-nfl-week-10-losers-grades-every-team-ravens-chargers-picks-monday-night/",
+      "title": "NFL Week 10 losers, plus grades for every team and Ravens-Chargers picks for Monday night",
+      "body_text": "Here's everything you need to know about the NFL for Nov. 16",
+      "author": "John Breech",
+      "published_at": "2026-11-16T18:51:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "bac4393c-da81-428a-ab31-39d5478a6db3",
+      "url": "https://www.cbssports.com/nfl/news/drake-maye-injury-latest-patriots-snakebitten-2026-super-bowl-hangover/",
+      "title": "Drake Maye injury the latest for Patriots amid snakebitten 2026 Super Bowl hangover",
+      "body_text": "From Drake Maye to A.J. Brown, injuries have piled up for New England in 2026",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-16T17:55:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "Super Bowl",
+        "From Drake",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "3328c4c5-0466-4c41-bf1d-01f6bdc04b2f",
+      "url": "https://www.cbssports.com/nfl/news/lamar-jackson-injuries-lost-years-ravens/",
+      "title": "The lost years of Lamar Jackson -- and the greatness still within reach",
+      "body_text": "Injuries keep taking pieces of his prime. How much greatness is still ahead?\n\n\n\nIs this conversation helpful so far?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-16T17:21:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Lamar Jackson"
+      ],
+      "resolved_player_ids": [
+        "00-0034796"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "ecbf3fbe-c50a-459c-9051-b6cb981b7f01",
+      "url": "https://www.cbssports.com/nfl/news/seahawks-starting-qb-sam-darnold-or-drew-lock-battle-2026/",
+      "title": "Sam Darnold or Drew Lock? Breaking down the Seahawks' surprising QB debate",
+      "body_text": "Drew Lock is 4-0 as Seattle's primary quarterback and has dramatically outperformed Sam Darnold in several key metric",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-16T15:59:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sam Darnold",
+        "Drew Lock"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "a38fdc56-ef37-4cdd-a4f7-adee5c7ea213",
+      "url": "https://www.cbssports.com/nfl/draft/news/2027-nfl-mock-draft-six-quarterbacks-jeremiah-smith-week-11/",
+      "title": "2027 NFL mock draft: Six quarterbacks go in the first round but none overcome Jeremiah Smith",
+      "body_text": "Six quarterbacks still come off the board in the first round even with Texas standout Arch Manning and Missouri passer Austin Simmons projected to stay in school",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-16T15:19:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jeremiah Smith",
+        "Arch Manning",
+        "Austin Simmons"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b957091f-8a62-4bf5-9038-bcf0a013866a",
+      "url": "https://www.cbssports.com/nfl/news/joe-burrow-strengthens-mvp-case-with-four-more-tds-college-football-rankings-projections/",
+      "title": "Joe Burrow strengthens MVP case with four more TDs; college football rankings projections",
+      "body_text": "Plus why Kayla Harrison should retire after UFC 334",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-16T14:08:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Joe Burrow",
+        "Kayla Harrison"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "0d6ef443-0b72-4ac7-8124-44fed263dbbe",
+      "url": "https://www.cbssports.com/nfl/news/drake-maye-injury-update-patriots-qb-ankle-out-for-season/",
+      "title": "Drake Maye injury update: Patriots reportedly fear QB fractured ankle, could miss rest of season",
+      "body_text": "Maye remained in Germany for additional testing after injuring his ankle against the Lions",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-16T13:37:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "e4fd8a74-ba51-4f86-af51-120f3bfdf5c2",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-week-11-early-odds-bills-chiefs-bengals/",
+      "title": "NFL Week 11 early odds: Bills, Chiefs favored by 16.5 points; Bengals line jumps after blowout",
+      "body_text": "Buffalo and Kansas City are each favored by 16.5 points as four teams enter Week 11 laying double digits",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-16T12:49:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "e4e2ee4d-cbdc-4d33-9af6-9001a332a76c",
+      "url": "https://www.cbssports.com/nfl/news/2027-nfl-draft-order-team-needs-first-round-picks-week-11/",
+      "title": "2027 NFL Draft order, team needs: Full first-round picks for all 32 teams entering Week 11",
+      "body_text": "The Chargers lead the race for the first overall pick, but the Jets possess the draft capital that could define the opening round",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-16T12:31:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "eca57010-4e48-49be-ab3e-14b8505b8773",
+      "url": "https://www.cbssports.com/nfl/news/steelers-bengals-blowout-nfl-trade-deadline-aaron-rodgers/",
+      "title": "Steelers' receiver problem proves they made a massive NFL trade deadline mistake",
+      "body_text": "Pittsburgh declined to add a receiver at the trade deadline, leaving Aaron Rodgers without the help he needed",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-16T12:18:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "dc5e25f4-e5d5-4d4d-b402-78d035dc504b",
+      "url": "https://www.cbssports.com/nfl/news/aidan-hutchinson-injury-lions-nfl-celebrations/",
+      "title": "Aidan Hutchinson injury: Lions star joins bizarre list of NFL players hurt while celebrating",
+      "body_text": "Aidan Hutchinson's sack celebration ended with a significant knee injury, recalling some of the strangest and most painful mishaps in NFL history",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-16T12:03:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "d29f6b3b-fa8f-4ec7-bcec-28929be65e44",
+      "url": "https://www.cbssports.com/nfl/news/bengals-steelers-sunday-night-football-2026-scorigami/",
+      "title": "Bengals' blowout win over Steelers makes NFL history with 1,100th 'scorigami'",
+      "body_text": "Cincinnati's 38-18 victory became the 1,100th unique final score in NFL history",
+      "author": "John Breech",
+      "published_at": "2026-11-16T12:01:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "27f40a1f-6a9f-4986-9ff6-b7d2ff6d3e96",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-results-cover-32-2026-mvp/",
+      "title": "Cover 32: Two NFL awards already in the bag, plus game balls, biggest gaffes from Week 10",
+      "body_text": "Tyler Sullivan dives into all of the biggest items from Week 10 in the NFL, including a historic day from Jahmyr Gibbs and statement return to Minnesota for Kirk Cousins",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-16T14:23:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tyler Sullivan",
+        "Jahmyr Gibbs",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0039139",
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "5bbb3cfc-770f-44c1-ba01-de22083a54ed",
+      "url": "https://www.cbssports.com/nfl/news/scorigami-cowboys-49ers-ends-with-score-never-seen-nfl/",
+      "title": "Scorigami: Cowboys-49ers ends with score never before seen in NFL history thanks to Dak Prescott",
+      "body_text": "Dak Prescott's otherwise meaningless two-point conversion helped make history",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-16T01:29:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "dd072da1-2951-425b-bdda-a6bb3f3aa75e",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-10-winners-and-losers-texans-crumble-against-browns-kirk-cousins-trade-pays-dividends-for-vikings/",
+      "title": "NFL Week 10 winners and losers: Texans crumble against Browns, Kirk Cousins trade pays dividends for Vikings",
+      "body_text": "Houston squandered a three-score lead while Minnesota won by a three-possession margin of its own",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-16T01:03:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Vikings Houston"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "6d98be67-ba00-40e6-be0d-e4773c20001f",
+      "url": "https://www.cbssports.com/prediction/news/bengals-vs-steelers-odds-sunday-night-football-first-touchdown-scorer-picks-nfl-predictions/",
+      "title": "Bengals vs. Steelers odds: Best Sunday Night Football first touchdown scorer picks, NFL predictions",
+      "body_text": "Here are our top picks for first touchdown prediction markets on Sunday Night Football between the Bengals and Steelers",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-16T00:46:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Sunday",
+        "Night Football",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "9702a75b-5ac1-4d9f-9dc0-b11161a1d265",
+      "url": "https://www.cbssports.com/prediction/news/bengals-vs-steelers-odds-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus-for-nfl-week-10/",
+      "title": "Bengals vs. Steelers odds, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus for NFL Week 10",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for NFL Week 10's Sunday Night Football matchup between the Cincinnati Bengals and Pittsburgh Steelers",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-16T00:41:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Sunday Night",
+        "Cincinnati Bengals",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "8d69b666-40f0-42ee-9873-9e1ea2aa46f8",
+      "url": "https://www.cbssports.com/betting/news/steelers-vs-bengals-prediction-odds-betting-preview-start-time-sunday-night-football-picks-best-bets/",
+      "title": "Steelers vs. Bengals prediction, odds, betting preview, start time: Sunday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Steelers vs. Bengals on Sunday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-16T00:38:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "e2702835-8e58-4542-a58f-4a9bcb54aac2",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-free-nba-league-pass-bengals-steelers-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus, free NBA League Pass for Bengals-Steelers, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-16T00:25:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "22df2901-a15a-45f1-b5d1-ce68ad66eb36",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-for-steelers-bengals-nfl-sunday-night-football-picks/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 bonus bets for Steelers-Bengals, NFL Sunday Night Football picks",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-16T00:23:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4852f600-e809-4fa6-b9a6-5213094d1a0b",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-score-55-bonus-for-bengals-steelers-nfl-sunday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Score $55 bonus for Bengals vs. Steelers, NFL Sunday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on all of Sunday's NFL Week 10 action",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-16T00:13:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "733b1e53-38ce-4e86-a0f9-c141cbb765e2",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-receive-55-bonus-steelers-vs-bengals-sunday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Receive $55 bonus for Steelers vs. Bengals on Sunday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 10 Steelers vs. Bengals SNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-16T00:09:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "fetch_run_id": "d540cb3c-88bd-47a4-9143-154c889192ea",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-17T12:16:02.709249+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648316",
+      "url": "https://www.rotowire.com//football/player/tre-harris-18478",
+      "title": "Tre' Harris: Career-best yardage total in win",
+      "body_text": "Harris secured all five targets for 86 yards in the Chargers' 23-20 win over the Ravens on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-16T09:54:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648315",
+      "url": "https://www.rotowire.com//football/player/mark-andrews-12559",
+      "title": "Mark Andrews: Season-best effort in Brissett's debut",
+      "body_text": "Andrews brought in all eight targets for 82 yards in the Ravens' 23-20 loss to the Chargers on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-16T09:48:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Mark Andrews"
+      ],
+      "resolved_player_ids": [
+        "00-0034753"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648314",
+      "url": "https://www.rotowire.com//football/player/justin-herbert-14446",
+      "title": "Justin Herbert: Efficient in first win of season",
+      "body_text": "Herbert completed 12 of 18 passes for 129 yards with no touchdowns or interceptions and rushed seven times for 51 yards and a touchdown in the Chargers' 23-20 win over the Ravens on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-16T09:44:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648311",
+      "url": "https://www.rotowire.com//football/player/zay-flowers-16919",
+      "title": "Zay Flowers: Solid night marred by key fumble",
+      "body_text": "Flowers brought in six of seven targets for 74 yards and lost a fumble in the Ravens' 23-20 loss to the Chargers on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-16T09:21:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Zay Flowers"
+      ],
+      "resolved_player_ids": [
+        "00-0039064"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648309",
+      "url": "https://www.rotowire.com//football/player/jacoby-brissett-10919",
+      "title": "Jacoby Brissett: Impressive in team debut",
+      "body_text": "Brissett completed 33 of 49 passes for 340 yards with no touchdowns and one interception and added two rushes for two yards in the Ravens' 23-20 loss to the Chargers on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-16T09:15:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    }
+  ]
+}
