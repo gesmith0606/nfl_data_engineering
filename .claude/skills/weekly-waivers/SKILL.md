@@ -27,6 +27,26 @@ on PPR actuals against a half-PPR league, and a QB recommended two days before h
 starter was due back — all three of which the two commands answer directly. If a
 command fails, say so and fix it; do not substitute your own read of the raw data.
 
+## The loop George wants: recommend -> he confirms ONCE -> you file
+One run = one recommendation table for all three leagues, one "yes" from George, then you
+file everything that can be filed and hand him a checklist for what cannot (Mantis, any
+UNKNOWN). No mid-run detours: a dead route is reported by Step 0 and worked around, not
+debugged with him (2026-11-10: an hour went on Yahoo/Bitwarden setup before a single
+waiver decision; George: "its been an hour and we have made no waiver wire decisions").
+Infrastructure fixes go AFTER the claims are filed, or into a separate session.
+
+## Step 0 — Preflight (always first, ~10 s)
+```bash
+python scripts/waiver_preflight.py --build-board
+```
+One screen: git freshness, the week's Gold board (built locally when the Tuesday cron
+failed), last week's unresolved claims, Yahoo API token, ESPN cookies, debug Chrome, and the
+Playwright login — then the ROUTE to use per site for reading and for filing. Follow the
+routes it prints; do not probe the dead ones again. If `last_claims` is FAIL, resolve last
+week's outcomes first (`check_pending_claims.py`, or read the site): a claim that did not
+land changes this week's needs (week 9: Allgeier/Minshew never landed and the week-10 plan
+had to be rebuilt around it).
+
 ## Our leagues are Mantis, La Liga and Feetball — and only those
 `LEAGUE_PRESETS` holds exactly those three. A league that is not George's must never be
 read directly: a whole session's waiver advice was once written for a stranger's team
@@ -43,14 +63,22 @@ says the current week until MNF kicks off.
 upcoming week's Gold board and last week's Bronze actuals, so a checkout that has not
 moved in days is reading stale numbers and may be missing tooling outright (a 7-week-old
 one on 2026-10-20 produced "the pipeline is dead" and "we never built claim automation",
-both false). `waiver_wire.py` prints a warning when HEAD is 3+ days old; believe it. Missing -> `gh workflow run weekly-pipeline.yml --ref main -f season=2026 -f week=N`.
+both false). `waiver_wire.py` prints a warning when HEAD is 3+ days old; believe it. Missing board -> Step 0's `--build-board` builds it locally in ~2 min (the cron's
+sanity gate falsely failed weeks 8-10 by comparing against the PREVIOUS week's consensus;
+fixed 2026-11-10, so `gh workflow run weekly-pipeline.yml --ref main -f season=2026 -f week=N`
+is the other option once that fix is on main).
 
 ## Step 2 — League context BEFORE any recommendation
 ```bash
 python scripts/league_context.py --league mantis
 python scripts/league_context.py --league la_liga --espn-browser   # or ESPN cookies / --espn-json
 ```
-Feetball (Yahoo) has no API: read the Transactions page + each team's FAAB in Chrome.
+Feetball (Yahoo) HAS read-only API access since 2026-10-28 (app `rDgNjgPC`, scope `fspt-r`).
+The token is per machine and gitignored, so FIRST run `python scripts/yahoo_auth.py --check`;
+on a 401 `additional_authorization_required` the machine has a stale pre-approval token —
+restore it from Bitwarden secret `YAHOO_TOKENS` or re-grant, per the runbook's "Yahoo API
+access" section. Do NOT tell George the API is unapproved or fall back to browser workarounds
+before that check. FAAB per team / Transactions still come from the site (Chrome).
 Note from the output: our FAAB left vs every rival's, the room's median/p75 winning
 bid, and what we added/dropped recently (do not re-buy a player we just cut, do not
 repeat a churn pattern that already failed).
@@ -248,11 +276,15 @@ no bid over a quarter of the budget or above the room's own record, every bid ba
 cause — do not present the report with a note.** Gold projections have been gated since
 v7.0; this is the same idea for advice.
 
-## Step 5 — Output
+## Step 5 — Output: ONE table to confirm
 Per league: the context line (our FAAB vs the room), then each claim as
 `player — bid — drop — why (role/value/injury context)`, then "don't claim" with the
 reason for any tempting trending name, then things to re-check before the waiver
 run (practice reports, MNF results). Waivers clear Wednesday morning (all three).
+Number every claim and roster move (IR moves too) across all three leagues and end with
+ONE question: which numbers to file. Say up front which ones will be filed by you (ESPN,
+Yahoo) and which George enters (Mantis, always). His "yes" / "go ahead, not #3" is the
+explicit OK for Step 6 — do not ask again per claim.
 
 ## Step 6 — File the claims (runbook §6; only after George's explicit OK)
 Write the agreed claims to `data/draft/claims_week<N>.yaml` and run the dry run:
@@ -291,3 +323,32 @@ computed one.
 cron. Show the read-back (CONFIRMED / NOT FOUND per claim). Mantis is never submitted: tell
 George to enter the printed checklist in the Sleeper app. After an `outcome UNKNOWN` line, do
 not re-run `--submit` — run `python scripts/check_pending_claims.py --league all` first.
+
+### Chrome-tab route (preflight says Playwright + debug Chrome are both down)
+Used for real on 2026-11-10 (ESPN filed PENDING both claims). Still record every claim in
+`data/draft/claims_week<N>.yaml` first. Then per claim, print the project's own guarded JS —
+never hand-write filing code — and run it with claude-in-chrome `javascript_tool` on a tab of
+that site (ESPN: `fantasy.espn.com/football/team?leagueId=1493260&teamId=1`; Yahoo:
+`football.fantasysports.yahoo.com/f1/658684/10`):
+```bash
+python scripts/tab_snippet.py espn  --add "<name>" --add-id <espnId> --drop "<name>" --drop-id <espnId> --bid N --week <scoringPeriodId>
+python scripts/tab_snippet.py yahoo --add "<name>" --add-id <yahooId> --drop "<name>" --drop-id <yahooId> --bid N [--check-only first]
+python scripts/tab_snippet.py record --league la_liga --add "<name>" --bid N --verdict PENDING --msg "<what came back>"
+```
+Printing a filing snippet writes the ledger's POSTING row; `record` writes the outcome.
+`tab_snippet.py` refuses (exit 2, no JS printed) a drop that is one of our keepers and any add
+the ledger already shows filed in the last 6 days unless it is FAILED (`--force` only after the
+site shows it is truly gone). It does NOT run `submit_claims.py`'s live Step-4b checks, so do
+them in the same tab first: the add's `kona_player_info` status is WAIVERS/FREEAGENT and the
+drop's `onTeamId` is ours (ESPN); Yahoo's `--check-only` lists `drops` (the drop must be in it). ESPN
+ids + the current `scoringPeriodId` come from `kona_player_info` / `mStatus` in the same tab;
+Yahoo ids from the player links on the Players page (`/players/<id>`). ESPN returns
+`transaction.status: PENDING` on success. **Yahoo is multi-stage** (hidden `stage=2`): on
+2026-11-10 the stage-2 POST came back as the form again with no pending claim — now the result
+names the stage/buttons Yahoo sent back. Treat any re-served form as UNKNOWN, record it, never
+re-post, and have George finish that one claim by hand; then capture what his screen showed
+after "Create claim" so the confirm stage can be wired and fixture-tested.
+
+Tool-output gotcha: claude-in-chrome truncates a returned string at ~1 KB, so stash big reads
+on `window.__x` and return them in `slice()`s (rosters ~2.5 KB = 3 slices); return compact
+`name|proj` text, not raw JSON.

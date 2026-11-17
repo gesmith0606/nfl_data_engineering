@@ -111,10 +111,23 @@ def build_checks(week: int) -> List[Check]:
         Check(
             "guards",
             "a league that is not ours is refused by name",
-            "python scripts/waiver_wire.py --league mantis --week N",
-            lambda: "NOT one of our leagues"
-            in _sh(
-                ["scripts/waiver_wire.py", "--league", "mantis", "--week", str(week)]
+            # #158 removed the only foreign presets and a find/replace turned
+            # this probe into "refuse Mantis" — our own league — so it failed
+            # forever. Probe the guard with a synthetic owned:False preset.
+            'python -c "import config; config.our_league(<an owned:False preset>)"',
+            lambda: "our_league("
+            in (REPO_ROOT / "scripts" / "waiver_wire.py").read_text(encoding="utf-8")
+            and (lambda out: "NOT one of our leagues" in out and "MANTIS_OK" in out)(
+                _sh(
+                    [
+                        "-c",
+                        "import sys; sys.path.insert(0, 'src'); import config\n"
+                        "config.LEAGUE_PRESETS['stranger'] = {'owned': False}\n"
+                        "try:\n    config.our_league('stranger')\n"
+                        "except ValueError as e:\n    print(e)\n"
+                        "config.our_league('mantis'); print('MANTIS_OK')",
+                    ]
+                )
             ),
         ),
         # --- pricing ------------------------------------------------------

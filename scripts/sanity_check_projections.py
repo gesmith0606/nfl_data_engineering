@@ -19,7 +19,7 @@ import os
 import argparse
 import glob as globmod
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -3143,6 +3143,9 @@ _WEEKLY_MAX_AGE_DAYS = GOLD_MAX_AGE_DAYS  # 7 days
 # appears in our weekly file ranks within our top-20 at that position.
 _WEEKLY_CONSENSUS_TOP_N = 5
 _WEEKLY_RANK_WINDOW = 20
+# A consensus snapshot captured more than this long before the board predates
+# news the board already has (see _check_weekly_star_rank_sanity).
+_WEEKLY_CONSENSUS_STALE_HOURS = 24
 
 
 def _parse_timestamp_from_filename(fname: str) -> Optional[datetime]:
@@ -3451,7 +3454,9 @@ def run_weekly_projection_check(
     # Determine the best available season for Silver external_projections.
     # The weekly file's season may not have Silver data yet (future season),
     # so we search for the most recent available season <= the target season.
-    ext_crit, ext_warn = _check_weekly_star_rank_sanity(df, pts_col, season, week)
+    ext_crit, ext_warn = _check_weekly_star_rank_sanity(
+        df, pts_col, season, week, board_ts=file_ts
+    )
     criticals.extend(ext_crit)
     warnings.extend(ext_warn)
 
@@ -3484,6 +3489,7 @@ def _check_weekly_star_rank_sanity(
     pts_col: str,
     season: int,
     week: int,
+    board_ts: Optional[datetime] = None,
 ) -> Tuple[List[str], List[str]]:
     """SANITY-M6c: assert consensus top-N stars rank in our weekly top-20.
 
@@ -3504,6 +3510,9 @@ def _check_weekly_star_rank_sanity(
         pts_col: Name of the projected-points column in ``weekly_df``.
         season: Target season year.
         week: Target week number.
+        board_ts: When the weekly board was generated. A consensus snapshot
+            captured more than ``_WEEKLY_CONSENSUS_STALE_HOURS`` earlier is
+            treated as stale; ``None`` skips that test.
 
     Returns:
         ``(criticals, warnings)`` lists.
@@ -3543,9 +3552,24 @@ def _check_weekly_star_rank_sanity(
         return criticals, warnings
 
     # Pick the requested week's partition when it exists; otherwise use latest.
+    # The Tuesday cron (09:13 UTC) runs before that week's consensus lands
+    # (~14:13 UTC), so it nearly always compares against LAST week's
+    # consensus — which still ranks players hurt in the game since as stars
+    # (Lamar 2026-11-03, Mike Evans 11-10, Tyler Warren 10-27). On that stale
+    # fallback a star WE project at exactly 0 (Out on the report / bye) is a
+    # warning, not a critical; a buried star with any nonzero projection
+    # (CMC at RB118 had 0.4) still fails, so the guard keeps its teeth.
     target_week_dir = os.path.join(ext_base, f"week={week:02d}")
+    stale_consensus = False
     if not os.path.isdir(target_week_dir):
         target_week_dir = week_dirs[-1]
+        stale_consensus = ext_season == season
+        if stale_consensus:
+            warnings.append(
+                f"WEEKLY STAR-RANK on STALE consensus: no week={week:02d} partition "
+                f"yet, compared against {os.path.basename(target_week_dir)}; stars "
+                "we project at 0 are reported as warnings."
+            )
 
     ext_files = sorted(globmod.glob(os.path.join(target_week_dir, "*.parquet")))
     if not ext_files:
@@ -3554,6 +3578,26 @@ def _check_weekly_star_rank_sanity(
         )
         print("  [SKIP] Star-rank check (no parquet in external_projections week dir)")
         return criticals, warnings
+
+    # The week's own partition can be stale as well. The Sunday capture is
+    # filed under the UPCOMING week, so on Tuesday week=W exists but holds a
+    # snapshot taken two days earlier, before that weekend's games. That, not
+    # a missing partition, is what failed 2026-10-27, 11-03 and 11-10.
+    snapshot_ts = _parse_timestamp_from_filename(os.path.basename(ext_files[-1]))
+    if (
+        not stale_consensus
+        and ext_season == season
+        and board_ts is not None
+        and snapshot_ts is not None
+        and board_ts - snapshot_ts > timedelta(hours=_WEEKLY_CONSENSUS_STALE_HOURS)
+    ):
+        stale_consensus = True
+        lead_hours = (board_ts - snapshot_ts).total_seconds() / 3600
+        warnings.append(
+            f"WEEKLY STAR-RANK on STALE consensus: "
+            f"{os.path.basename(ext_files[-1])} was captured {lead_hours:.0f}h "
+            "before the board; stars we project at 0 are reported as warnings."
+        )
 
     try:
         ext_df = pd.read_parquet(ext_files[-1])
@@ -3636,6 +3680,18 @@ def _check_weekly_star_rank_sanity(
                 continue
 
             our_rank = int(our_rows["position_rank"].iloc[0])
+            our_pts = float(our_rows[pts_col].iloc[0])
+            if our_rank > _WEEKLY_RANK_WINDOW and stale_consensus and our_pts == 0:
+                warnings.append(
+                    f"WEEKLY STAR ZEROED ({pos}): '{cons_row['player_name']}' was a "
+                    f"consensus star last week; we project 0 this week (Out/bye) — "
+                    "confirm on the injury report."
+                )
+                print(
+                    f"  [WARN] {pos} star '{cons_row['player_name']}': projected 0 "
+                    "(stale consensus; Out/bye)"
+                )
+                continue
             if our_rank > _WEEKLY_RANK_WINDOW:
                 n_failed += 1
                 criticals.append(
