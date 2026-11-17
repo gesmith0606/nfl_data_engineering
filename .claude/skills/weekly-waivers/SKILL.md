@@ -318,3 +318,26 @@ computed one.
 cron. Show the read-back (CONFIRMED / NOT FOUND per claim). Mantis is never submitted: tell
 George to enter the printed checklist in the Sleeper app. After an `outcome UNKNOWN` line, do
 not re-run `--submit` — run `python scripts/check_pending_claims.py --league all` first.
+
+## What the 2026-11-16 waiver rework changed (read before quoting a bid or a rank)
+
+- **Every `waiver_wire.py` run is recorded** to `data/waivers/reports/<league>/season=/week=/report_<stamp>.json`
+  (candidates with rank and score components, bids with reasons, board file, input freshness, and the list of
+  inputs the run did not read). Commit them. `python scripts/waiver_scorecard.py --league mantis --weeks 2-7 9`
+  scores what happened: points over the next 1/2/4 weeks for each add vs the player dropped, the board's #1 and the
+  best free agent at the position; price paid vs clearing price (runner-up bid + 1).
+- **Read the `-- INPUTS NOT READ --` block first.** It lists, above every list, what the run guessed instead of read
+  (no weekly board, pool guessed from ADP, unknown dynasty value, stale news, no demand history). Say what it says
+  before quoting any number it touches. `-- Inputs -- every input was read` means none.
+- **One list per league**, ordered by the gain to MY lineup over the next four weeks, byes included, plus dynasty
+  value in points on Mantis. The claims file is the top of that list, each with its drop. A one-week blend is no
+  longer the order. The dynasty weight (`--dyn-points`) and the bid dials (`--usd-per-point`, `--usd-per-dyn`) are
+  George's decisions, not fits: quote them as such.
+- **Sleeper bids are clearing-price bids** (`BID $2 (wins ~83%; $2 for 80%; worth $123)`): the chance the bid beats
+  every rival, what it takes to be fairly sure, and the ceiling. Most claims have no rival; 73% of Mantis' winning
+  bids were uncontested and $19 would have won the eight that cost $475. A lost bid costs nothing, so never inflate
+  a bid "to be safe": pick the price from the table, or pass. ESPN/Yahoo bids still use the older model.
+- **What was tested and did NOT work** (`scripts/backtest_ranking.py`, `.planning/WAIVER_RANKING_2026-11-16.md`):
+  consensus-base trust rule, bye-aware weights and the snap-share-jump boost did not beat the one-week blend on
+  held-out weeks, and no variant lifts four-week points by 2.0. Do not promise that the list picks better players;
+  say it orders claims by what they do for the lineup.
