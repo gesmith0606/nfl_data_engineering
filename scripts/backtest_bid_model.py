@@ -28,6 +28,15 @@ tested and rejected across two leagues.
 
 Sleeper leagues only: ESPN and Yahoo transaction logs need a logged-in
 browser, which a backtest should not depend on.
+
+**Superseded for Sleeper leagues** by ``scripts/backtest_clearing_price.py``
+and ``src/clearing_model.py``. This script scores a bid by its distance to the
+price that WON, which rewards copying overpayment: 73% of Mantis' winning bids
+had no rival claim (a bidder bidding against himself), and George's 8 winning
+in-season bids cost $475 where the runner-up's bid + 1 would have won all 8 for
+$19. The old ``suggest_bid`` is kept for ESPN / Yahoo, where rival claims are
+not readable, and for the hazard rules (role ending, we cut him) the new model
+still defers to.
 """
 
 from __future__ import annotations

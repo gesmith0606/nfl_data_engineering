@@ -8,6 +8,7 @@ import math
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from src import waiver_record as wr
 
@@ -208,3 +209,18 @@ def test_fallback_notes_name_each_silent_substitution():
         "single projection source",
     ):
         assert needle in joined, needle
+
+
+def test_candidate_row_carries_the_clearing_models_reading_of_the_bid():
+    from src import clearing_model as cm
+
+    m = cm.ClearingModel([cm.Obs(3, "WR-top", (40,)), cm.Obs(3, "WR-top", ())])
+    adv = m.recommend("WR-top", value=50, budget_left=800)
+    c = wr.candidate_row(
+        "targets", 1, _row(advice=adv, tier="WR-top", rank=2, price80=17)
+    )
+    assert c["tier"] == "WR-top" and c["pos_rank"] == 2 and c["bid_price80"] == 17
+    assert c["bid_p_win"] == pytest.approx(round(adv.p_win, 3))
+    assert c["bid_ceiling"] == 50 and 0 < c["p_contested"] < 1
+    # a row the clearing model never priced (ESPN/Yahoo) simply has none
+    assert wr.candidate_row("WR", 1, _row())["bid_p_win"] is None

@@ -78,6 +78,7 @@ def candidate_row(list_name: str, rank: int, r: Mapping[str, Any]) -> Dict[str, 
     has_slpr = slpr is not None and not _isnan(slpr)
     snap = r.get("snap")
     bid = r.get("bid")
+    adv = r.get("advice")
     return _clean(
         {
             "list": list_name,
@@ -107,6 +108,13 @@ def candidate_row(list_name: str, rank: int, r: Mapping[str, Any]) -> Dict[str, 
             "verdict": r.get("verdict"),
             "bid": bid[0] if bid else None,
             "bid_reason": bid[1] if bid else None,
+            # the clearing-price model's reading of the same claim
+            "tier": r.get("tier"),
+            "pos_rank": r.get("rank"),
+            "bid_p_win": getattr(adv, "p_win", None),
+            "bid_price80": r.get("price80"),
+            "bid_ceiling": getattr(adv, "ceiling", None),
+            "p_contested": getattr(adv, "p_contested", None),
             "demand": r.get("demand") or None,
             "injury": r.get("inj") or None,
             "news": r.get("news") or None,

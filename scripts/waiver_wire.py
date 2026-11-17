@@ -32,6 +32,7 @@ import re
 import subprocess
 import time
 import importlib.util
+import json
 import sys
 from pathlib import Path
 from typing import (
@@ -51,7 +52,13 @@ import pandas as pd
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from src import config, league_context, sleeper_http, waiver_record  # noqa: E402
+from src import (  # noqa: E402
+    clearing_model,
+    config,
+    league_context,
+    sleeper_http,
+    waiver_record,
+)
 from src.espn_league import PRO_TEAM_MAP  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
@@ -642,6 +649,34 @@ def thin_at(
             continue
         available += 1
     return required > 0 and available == 0
+
+
+CLEARING_FIT_DIR = REPO_ROOT / "data" / "waivers" / "clearing_fit"
+
+
+def load_clearing_model(
+    league: str, season: int, budget: int
+) -> Tuple[clearing_model.ClearingModel, str]:
+    """The league's fitted clearing-price model, or the prior alone -- said aloud.
+
+    The fit is the table of rival claims per tier that
+    ``scripts/backtest_clearing_price.py --write-fit`` writes from the league's
+    own transaction log (failed claims included). A league with no fit gets the
+    published-data prior only, and the report says that is all it is.
+    """
+    path = CLEARING_FIT_DIR / f"{league}_{season}.json"
+    if path.is_file():
+        d = json.loads(path.read_text(encoding="utf-8"))
+        obs = clearing_model.obs_from_json(d["obs"])
+        return (
+            clearing_model.ClearingModel(obs, budget=budget),
+            f"fit on {len(obs)} name-weeks through week {d['through_week']}",
+        )
+    return (
+        clearing_model.ClearingModel([], budget=budget),
+        "NO LEAGUE FIT -- published-data prior only "
+        "(run scripts/backtest_clearing_price.py --write-fit)",
+    )
 
 
 def suggest_bid(
@@ -1247,6 +1282,19 @@ def main(argv: Optional[list] = None) -> int:
     )
     ap.add_argument("--top", type=int, default=6, help="free agents shown per position")
     ap.add_argument(
+        "--usd-per-point",
+        type=float,
+        default=2.0,
+        help="Sleeper bids: FAAB dollars one four-week point over the free "
+        "replacement is worth (the ceiling a bid is never raised past)",
+    )
+    ap.add_argument(
+        "--usd-per-dyn",
+        type=float,
+        default=0.02,
+        help="Sleeper dynasty bids: FAAB dollars per FantasyCalc value unit",
+    )
+    ap.add_argument(
         "--emit-claims",
         type=Path,
         metavar="PATH",
@@ -1645,6 +1693,13 @@ def main(argv: Optional[list] = None) -> int:
             + f" age{r['age'] or '-':>3}"
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
+            + (
+                f" (wins ~{r['advice'].p_win:.0%}"
+                + (f"; ${r['price80']} for 80%" if r.get("price80") else "")
+                + f"; worth ${r['advice'].ceiling})"
+                if r.get("advice") and r.get("bid")
+                else ""
+            )
             + (f" [{r['demand']}]" if r.get("demand") else "")
             + (
                 f" {'ENDING' if r.get('blocked_returning') else 'RENTAL'}"
@@ -1701,8 +1756,26 @@ def main(argv: Optional[list] = None) -> int:
         r for r in (row(s) for s in registry if s not in rostered) if r and likely_fa(r)
     ]
     dynasty_league = bool(preset.get("dynasty"))
+    clearing = None
+    clearing_note = "not used on this platform (no readable rival claims)"
+    if platform == "sleeper" and my_faab:
+        clearing, clearing_note = load_clearing_model(args.league, season, budget_total)
+        clearing_model.advise_all(
+            fas, clearing, my_faab, args.usd_per_point, args.usd_per_dyn
+        )
     for r in fas:
         r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
+        if clearing is not None:
+            adv = r["advice"]
+            r["price80"] = clearing.price_for(0.8, r["tier"], my_faab // 4 or 1)
+            r["bid"] = clearing_model.final_bid(
+                r.get("bid"),
+                adv,
+                role_ending=bool(r.get("blocked_returning")),
+                no_help_redraft=r["verdict"] == NO_HELP and not dynasty_league,
+                depth_cap=(max(1, room_median // 5) if r["verdict"] == DEPTH else None),
+            )
+            continue
         # A price on a player the report says does not help is incoherent: in
         # a redraft league "no help" is a refusal, so the only honest number
         # is the minimum. In dynasty the verdict is advisory — an asset buy is
@@ -1724,6 +1797,14 @@ def main(argv: Optional[list] = None) -> int:
                     f"depth only — capped at the ${floor} floor, not the "
                     f"${r['bid'][0]} it would take to win him",
                 )
+    if clearing is not None or platform == "sleeper":
+        print(
+            f"BID MODEL = clearing price ({clearing_note}); a claim wins by beating the "
+            "top rival bid, and most claims have none: wins ~N% is the model's chance "
+            "at that bid, '$X for 80%' what it would take to be fairly sure, worth $N "
+            f"the ceiling (${args.usd_per_point:g}/point over the free replacement x 4 "
+            f"weeks + ${args.usd_per_dyn:g}/dynasty-value unit)"
+        )
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "

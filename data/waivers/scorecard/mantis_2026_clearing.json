@@ -1,0 +1,236 @@
+{
+ "policies": {
+  "clearing model": {
+   "n": 96,
+   "wins": 77,
+   "spend": 96,
+   "overpay": 19,
+   "points_4wk": 873.0
+  },
+  "league minimum ($1)": {
+   "n": 96,
+   "wins": 77,
+   "spend": 77,
+   "overpay": 0,
+   "points_4wk": 873.0
+  },
+  "room median so far": {
+   "n": 96,
+   "wins": 80,
+   "spend": 1136,
+   "overpay": 1043,
+   "points_4wk": 910.1
+  },
+  "old model (no rivals)": {
+   "n": 96,
+   "wins": 79,
+   "spend": 315,
+   "overpay": 234,
+   "points_4wk": 877.1
+  },
+  "hindsight: clearing": {
+   "n": 96,
+   "wins": 96,
+   "spend": 1478,
+   "overpay": 0,
+   "points_4wk": 1055.1
+  },
+  "clearing, walk-forward": {
+   "n": 96,
+   "wins": 77,
+   "spend": 95,
+   "overpay": 18,
+   "points_4wk": 873.0
+  }
+ },
+ "our_claims": [
+  {
+   "week": 2,
+   "name": "Carson Wentz",
+   "tier": "QB-top",
+   "paid": 1,
+   "we_won": false,
+   "clearing": 22,
+   "model_bid": 1,
+   "p_win": 0.85,
+   "ceiling": 124,
+   "model_wins": false,
+   "worth_chasing": true,
+   "reason": "only 15% of QB-top names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 3,
+   "name": "Emanuel Wilson",
+   "tier": "RB-deep",
+   "paid": 100,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 1,
+   "p_win": 0.927,
+   "ceiling": 11,
+   "model_wins": true,
+   "worth_chasing": true,
+   "reason": "only 7% of RB-deep names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 3,
+   "name": "Drew Lock",
+   "tier": "QB-deep",
+   "paid": 55,
+   "we_won": true,
+   "clearing": 12,
+   "model_bid": 1,
+   "p_win": 0.927,
+   "ceiling": 67,
+   "model_wins": false,
+   "worth_chasing": true,
+   "reason": "only 7% of QB-deep names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 3,
+   "name": "Adonai Mitchell",
+   "tier": "WR-deep",
+   "paid": 300,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 1,
+   "p_win": 0.927,
+   "ceiling": 0,
+   "model_wins": true,
+   "worth_chasing": false,
+   "reason": "worth about $0 to us \u2014 the minimum or skip"
+  },
+  {
+   "week": 4,
+   "name": "Braelon Allen",
+   "tier": "RB-top",
+   "paid": 160,
+   "we_won": false,
+   "clearing": 451,
+   "model_bid": 1,
+   "p_win": 0.858,
+   "ceiling": 36,
+   "model_wins": false,
+   "worth_chasing": false,
+   "reason": "only 14% of RB-top names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 5,
+   "name": "Jameis Winston",
+   "tier": "QB-top",
+   "paid": 5,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 2,
+   "p_win": 0.792,
+   "ceiling": 106,
+   "model_wins": true,
+   "worth_chasing": true,
+   "reason": "26% of QB-top names draw a rival claim; $1 wins at least half the time"
+  },
+  {
+   "week": 6,
+   "name": "Pat Freiermuth",
+   "tier": "TE-top",
+   "paid": 15,
+   "we_won": false,
+   "clearing": 81,
+   "model_bid": 2,
+   "p_win": 0.922,
+   "ceiling": 72,
+   "model_wins": false,
+   "worth_chasing": false,
+   "reason": "only 15% of TE-top names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 7,
+   "name": "Kendre Miller",
+   "tier": "RB-top",
+   "paid": 55,
+   "we_won": false,
+   "clearing": 72,
+   "model_bid": 1,
+   "p_win": 0.711,
+   "ceiling": 35,
+   "model_wins": false,
+   "worth_chasing": false,
+   "reason": "29% of RB-top names draw a rival claim; $1 wins at least half the time"
+  },
+  {
+   "week": 7,
+   "name": "Jalon Daniels",
+   "tier": "QB-top",
+   "paid": 1,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 2,
+   "p_win": 0.859,
+   "ceiling": 44,
+   "model_wins": true,
+   "worth_chasing": true,
+   "reason": "only 18% of QB-top names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 7,
+   "name": "DeMario Douglas",
+   "tier": "WR-top",
+   "paid": 12,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 1,
+   "p_win": 0.869,
+   "ceiling": 40,
+   "model_wins": true,
+   "worth_chasing": true,
+   "reason": "only 13% of WR-top names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 9,
+   "name": "Gardner Minshew II",
+   "tier": "QB-deep",
+   "paid": 75,
+   "we_won": false,
+   "clearing": 76,
+   "model_bid": 1,
+   "p_win": 0.932,
+   "ceiling": 85,
+   "model_wins": false,
+   "worth_chasing": true,
+   "reason": "only 7% of QB-deep names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 10,
+   "name": "Dalton Schultz",
+   "tier": "TE-top",
+   "paid": 1,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 2,
+   "p_win": 0.877,
+   "ceiling": 63,
+   "model_wins": true,
+   "worth_chasing": true,
+   "reason": "only 18% of TE-top names draw a rival claim, so a few dollars usually wins"
+  },
+  {
+   "week": 4,
+   "name": "Pat Bryant",
+   "tier": "WR-deep",
+   "paid": 1,
+   "we_won": true,
+   "clearing": 1,
+   "model_bid": 1,
+   "p_win": 0.962,
+   "ceiling": 0,
+   "model_wins": true,
+   "worth_chasing": false,
+   "reason": "worth about $0 to us \u2014 the minimum or skip"
+  }
+ ],
+ "our_wins": {
+  "paid": 475,
+  "model_won": 7,
+  "model_spend": 10,
+  "claims_won": 8
+ }
+}
