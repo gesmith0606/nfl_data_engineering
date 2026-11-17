@@ -16,12 +16,15 @@ Pure functions over dicts/DataFrames; the CLI in ``scripts/set_lineups.py`` does
 
 from __future__ import annotations
 
+import dataclasses
 import datetime as dt
 from dataclasses import dataclass, field
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
+from scipy.optimize import linear_sum_assignment
 
 from src.league_scoring import score_with_settings
 from src.roster_optimizer import _SKIP_SLOTS, _SLOT_ELIGIBILITY, optimal_lineup
@@ -55,6 +58,21 @@ _STAT_COLS = list(_WEEKLY_RENAME.values())
 _ID_COLS = ["player_id", "player_name", "position", "recent_team"]
 GAMES_PER_SEASON = 17
 
+# K and team-defense scoring for leagues whose scoring we only know as a
+# ``config.SCORING_CONFIGS`` preset (ESPN, Yahoo): those presets carry offensive
+# rules only, so without this every K/DEF would score 0 and tie. Standard
+# Yahoo-style rules, Sleeper projection key names. Ordering a roster's kickers
+# and defences needs the shape of the scoring, not its exact numbers.
+KDEF_DEFAULT_SCORING: Dict[str, float] = {
+    "fgm_0_19": 3.0, "fgm_20_29": 3.0, "fgm_30_39": 3.0, "fgm_40_49": 4.0,
+    "fgm_50p": 5.0, "xpm": 1.0,
+    "sack": 1.0, "int": 2.0, "fum_rec": 2.0, "def_td": 6.0, "def_st_td": 6.0,
+    "safe": 2.0, "blk_kick": 2.0,
+    "pts_allow_0": 10.0, "pts_allow_1_6": 7.0, "pts_allow_7_13": 4.0,
+    "pts_allow_14_20": 1.0, "pts_allow_21_27": 0.0, "pts_allow_28_34": -1.0,
+    "pts_allow_35p": -4.0,
+}  # fmt: skip
+
 
 @dataclass
 class PlayerRow:
@@ -76,11 +94,47 @@ class PlayerRow:
     notes: List[str] = field(default_factory=list)
     # Sleeper Out/Doubtful not confirmed by the week's official report.
     status_unconfirmed: bool = False
+    # OUT / DOUBTFUL / QUESTIONABLE (see LEVEL_*), None when healthy/unknown.
+    status_level: Optional[str] = None
 
     @property
     def blend(self) -> float:
         vals = [v for v in (self.ours, self.sleeper) if v is not None]
         return round(sum(vals) / len(vals), 2) if vals else 0.0
+
+    @property
+    def ours_eff(self) -> Optional[float]:
+        """OUR projection, or the consensus when our board has no row for him.
+
+        A missing row used to block every SWAP involving the player (2026: 231 of
+        1,818 rostered player-weeks had none) and score 0 in the optimizer.
+        """
+        return self.ours if self.ours is not None else self.sleeper
+
+    @property
+    def sleeper_eff(self) -> Optional[float]:
+        return self.sleeper if self.sleeper is not None else self.ours
+
+    @property
+    def dead_reason(self) -> Optional[str]:
+        """Why he cannot score this week (bye, no team, Out/IR, Doubtful), else None.
+
+        An unconfirmed Sleeper Out/Doubtful tag is NOT dead: that tag is the last
+        game's ruling (see ``resolve_injury_status``); it surfaces as CHECK STATUS.
+        """
+        if self.bye:
+            return "BYE"
+        if self.team in ("", "FA"):
+            return "no NFL team"
+        if self.status_level == LEVEL_OUT:
+            return "OUT"
+        if self.status_level == LEVEL_DOUBTFUL:
+            return "DOUBTFUL"
+        return None
+
+    @property
+    def dead(self) -> bool:
+        return self.dead_reason is not None
 
     def as_optimizer_dict(self, source: str) -> Dict[str, Any]:
         pts = getattr(self, source)
@@ -166,8 +220,15 @@ def build_id_maps(
             p for p in (meta.get("first_name"), meta.get("last_name")) if p
         )
         pos = str(meta.get("position") or "")
-        if name and pos in SKILL_POSITIONS and meta.get("active", True):
+        if name and pos in SKILL_POSITIONS | {"K"} and meta.get("active", True):
             by_name.setdefault((normalize_name(name), pos), str(sid))
+        elif pos == "DEF" and name:
+            # Sleeper keys a defence by its team code ("HOU") and names it
+            # "Houston Texans": index the city+nickname and the bare nickname.
+            by_name.setdefault((normalize_name(name), "DEF"), str(sid))
+            nick = str(meta.get("last_name") or "")
+            if nick:
+                by_name.setdefault((normalize_name(nick), "DEF"), str(sid))
     return by_gsis, by_name
 
 
@@ -278,6 +339,15 @@ _PRACTICE_ABBR = {
 _GAME_RULING_TAGS = {"Out", "Doubtful", "Questionable"}
 # Tags that would bench a starter (Sleeper zeroes its projection for these).
 BENCHING_TAGS = {"Out", "Doubtful"}
+# Roster designations that mean "no game this week" (IR, PUP, suspended, ...).
+_OUT_DESIGNATIONS = {"IR", "PUP", "Sus", "NFI", "COV", "DNR", "NA"}
+# Normalised availability levels (PlayerRow.status_level).
+LEVEL_OUT, LEVEL_DOUBTFUL, LEVEL_QUESTIONABLE = "OUT", "DOUBTFUL", "QUESTIONABLE"
+_TAG_LEVEL = {
+    "Out": LEVEL_OUT,
+    "Doubtful": LEVEL_DOUBTFUL,
+    "Questionable": LEVEL_QUESTIONABLE,
+}
 
 
 @dataclass(frozen=True)
@@ -313,6 +383,9 @@ class InjuryStatus:
     # A Sleeper Out/Doubtful tag the week's official report does not confirm:
     # never bench a starter on it (lineup_deltas -> CHECK STATUS).
     unconfirmed_bench_tag: bool = False
+    # Normalised availability: OUT / DOUBTFUL / QUESTIONABLE, None when healthy
+    # or when the only evidence is an unconfirmed (stale) Sleeper tag.
+    level: Optional[str] = None
 
 
 def _abbr_practice(val: Any) -> Optional[str]:
@@ -427,13 +500,18 @@ def resolve_injury_status(
         unconfirmed = tag in BENCHING_TAGS and not confirmed
         if unconfirmed:
             parts.append(f"Sleeper still says {tag}")
-        return InjuryStatus(", ".join(parts), unconfirmed)
+        return InjuryStatus(
+            ", ".join(parts), unconfirmed, _TAG_LEVEL.get(report.game_status or "")
+        )
 
     if tag is None:
         return None
     label = f"Sleeper: {tag}" + (f" ({body})" if body else "")
     if tag not in _GAME_RULING_TAGS:  # IR / PUP / Sus: roster designation
-        return InjuryStatus(", ".join(p for p in (label, news_age) if p))
+        return InjuryStatus(
+            ", ".join(p for p in (label, news_age) if p),
+            level=LEVEL_OUT if tag in _OUT_DESIGNATIONS else None,
+        )
     if team in ctx.teams_reported:
         where = f"not on {team} wk{week} report"
         stale = True
@@ -451,7 +529,11 @@ def resolve_injury_status(
         parts.append(f"Sleeper practice {sl_practice}")
     if news_age:
         parts.append(news_age)
-    return InjuryStatus(", ".join(parts), stale and tag in BENCHING_TAGS)
+    return InjuryStatus(
+        ", ".join(parts),
+        stale and tag in BENCHING_TAGS,
+        None if stale and tag in BENCHING_TAGS else _TAG_LEVEL.get(tag),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -512,6 +594,7 @@ def build_rows(
     sleeper_id -> Gold sentiment flags (e.g. ``ruled_out,questionable``).
     """
     now = now or dt.datetime.now(tz=ET)
+    have_schedule = bool(kickoffs)  # no schedule -> no bye/lock claims at all
     slot_of = {
         pid: (slot, i)
         for i, (slot, pid) in enumerate(current_slots(roster_positions, starters))
@@ -543,7 +626,7 @@ def build_rows(
             depth_chart_order=meta.get("depth_chart_order"),
             kickoff=ko,
             locked=bool(ko and now >= ko),
-            bye=ko is None and team != "FA",
+            bye=have_schedule and ko is None and team != "FA",
             slot=slot,
             slot_index=slot_index,
         )
@@ -556,8 +639,13 @@ def build_rows(
             if status is not None:
                 row.notes.append(status.text)
                 row.status_unconfirmed = status.unconfirmed_bench_tag
+                row.status_level = status.level
         elif row.injury_status:
             row.notes.append(str(row.injury_status))
+            tag = str(row.injury_status)
+            row.status_level = (
+                LEVEL_OUT if tag in _OUT_DESIGNATIONS else _TAG_LEVEL.get(tag)
+            )
         if news and news.get(pid):
             row.notes.append(f"news: {news[pid]}")
         if row.ours is None:
@@ -624,27 +712,45 @@ def _verdict(
 _RANK = {"SWAP": 2, "CHECK STATUS": 2, "COIN FLIP": 1, "SPLIT": 0}
 
 
-def lineup_deltas(rows: List[PlayerRow], threshold: float = 3.0) -> List[Delta]:
+def lineup_deltas(
+    rows: List[PlayerRow], threshold: float = 3.0, legacy: bool = False
+) -> List[Delta]:
     """Pairwise deltas vs the lineup currently set.
 
     For each current starter, every eligible bench player is a candidate; see
     :func:`_verdict` for the SWAP / COIN FLIP / SPLIT rule. Candidates are taken
     strongest-first (verdict, then the worse of the two margins) and each player
-    appears in at most one delta. Locked and bye bench players are never proposed;
+    appears in at most one delta. Locked bench players are never proposed;
     a locked starter cannot be swapped out. A SWAP that would bench a starter
     whose Sleeper Out/Doubtful tag the week's official report does not confirm
     (``status_unconfirmed``) is downgraded to CHECK STATUS: Sleeper zeroes its
     projection on that tag, so the margin may be nothing but the stale tag.
+
+    Dead players (bye, Out, IR, Doubtful, no team) are not deltas: a dead
+    starter is a MUST FIX (:func:`repair_lineup`) and a dead bench player is
+    never proposed. A player with no row on one board uses the other source
+    (the consensus) instead of blocking the pair. ``legacy=True`` restores the
+    pre-2026-11 behaviour (raw projections, missing row blocks, bye-only
+    filter); the replay keeps it as the baseline the new rule is measured
+    against.
     """
-    starters = [r for r in rows if r.slot and not r.locked]
-    bench = [r for r in rows if not r.slot and not r.locked and not r.bye]
+    if legacy:
+        starters = [r for r in rows if r.slot and not r.locked]
+        bench = [r for r in rows if not r.slot and not r.locked and not r.bye]
+        own = lambda r: r.ours  # noqa: E731
+        slp = lambda r: r.sleeper  # noqa: E731
+    else:
+        starters = [r for r in rows if r.slot and not r.locked and not r.dead]
+        bench = [r for r in rows if not r.slot and not r.locked and not r.dead]
+        own = lambda r: r.ours_eff  # noqa: E731
+        slp = lambda r: r.sleeper_eff  # noqa: E731
     candidates = []
     for s in starters:
         elig = _SLOT_ELIGIBILITY.get(s.slot.upper(), set())
         for b in bench:
             if b.position not in elig:
                 continue
-            m_o, m_s = _margin(b.ours, s.ours), _margin(b.sleeper, s.sleeper)
+            m_o, m_s = _margin(own(b), own(s)), _margin(slp(b), slp(s))
             verdict = _verdict(m_o, m_s, threshold)
             if verdict == "SWAP" and s.status_unconfirmed:
                 verdict = "CHECK STATUS"
@@ -661,6 +767,201 @@ def lineup_deltas(rows: List[PlayerRow], threshold: float = 3.0) -> List[Delta]:
         used.update({b.sleeper_id, s.sleeper_id})
         deltas.append(Delta(verdict, s.slot, s, b, m_o, m_s))
     return deltas
+
+
+# ---------------------------------------------------------------------------
+# Dead slots: starters who cannot score, and empty slots
+# ---------------------------------------------------------------------------
+#
+# 2026 replay, carried-over lineups league-wide: 39 of 105 starters on bye or ruled
+# out were still in (week 8 left Purdy and McCaffrey in). The pairwise rule above
+# ranks on raw projections and cannot see an empty slot, so a dead starter was
+# invisible to it. These functions treat a dead or empty slot as a fix to apply
+# before any SWAP is weighed.
+
+
+def assign_slots(
+    slots: Sequence[str],
+    candidates: Sequence[PlayerRow],
+    value: Callable[[PlayerRow], float] = lambda r: r.blend,
+) -> List[Optional[PlayerRow]]:
+    """Exact best assignment of candidates to slot labels, aligned with ``slots``.
+
+    A maximum-weight matching rather than a greedy fill: with crossing flex
+    slots (W/R + W/T) the greedy answer depends on which slot is filled first.
+    An entry is None when no candidate is eligible for that slot. Unknown slot
+    labels (IDP, ...) are never filled.
+    """
+    out: List[Optional[PlayerRow]] = [None] * len(slots)
+    if not slots or not candidates:
+        return out
+    cost = np.zeros((len(slots), len(candidates)))
+    ok = np.zeros(cost.shape, dtype=bool)
+    for i, slot in enumerate(slots):
+        elig = _SLOT_ELIGIBILITY.get(str(slot).upper(), set())
+        for j, r in enumerate(candidates):
+            if r.position in elig:
+                ok[i, j] = True
+                # the epsilon makes any eligible pairing beat an empty one
+                cost[i, j] = -(max(float(value(r)), 0.0) + 1e-4)
+    for i, j in zip(*linear_sum_assignment(cost)):
+        if ok[i, j]:
+            out[i] = candidates[j]
+    return out
+
+
+@dataclass
+class MustFix:
+    """A starter who cannot score (or an empty slot) and the best replacement."""
+
+    slot: str
+    out_player: Optional[PlayerRow]  # None = nobody in the slot
+    reason: str
+    in_player: Optional[PlayerRow]  # None = no eligible player on the bench
+
+    def line(self) -> str:
+        slot = _SLOT_DISPLAY.get(self.slot, self.slot)
+        who = (
+            f"{self.out_player.name} ({self.out_player.position}, "
+            f"{self.out_player.team}) is {self.reason}"
+            if self.out_player
+            else f"{slot} slot is empty"
+        )
+        if self.in_player is None:
+            return (
+                f"{slot:6s} {who} -> no eligible player on your bench "
+                "(it scores 0 either way: pick someone up)"
+            )
+        r = self.in_player
+        return (
+            f"{slot:6s} {who} -> start {r.name} ({r.position}, {r.team}, "
+            f"proj {r.blend:.1f})"
+        )
+
+    def as_delta(self) -> Optional[Delta]:
+        """The same move as a ``Delta`` (verdict MUST FIX), for the ESPN writer.
+
+        None when it is not a swap of two players (an empty slot, or nobody to
+        bring in)."""
+        if self.out_player is None or self.in_player is None:
+            return None
+        return Delta("MUST FIX", self.slot, self.out_player, self.in_player, None, None)
+
+
+def repair_lineup(
+    rows: Sequence[PlayerRow],
+    roster_positions: Sequence[str],
+    starters: Sequence[str],
+    value: Callable[[PlayerRow], float] = lambda r: r.blend,
+) -> Tuple[List[str], List[MustFix]]:
+    """Replace every dead or empty starting slot; return ``(starters, fixes)``.
+
+    A starter is dead when :attr:`PlayerRow.dead_reason` says so (bye, no team,
+    Out/IR, Doubtful). A slot nobody occupies (``"0"``, or an id that is not on
+    the roster) is repaired the same way. Locked starters are left alone: their
+    game has started and Sleeper will not let them move. Replacements are live,
+    unlocked bench players, assigned together so one man cannot fill two slots;
+    a bench player whose Sleeper Out/Doubtful tag is unconfirmed is not used
+    (we cannot say he plays). A slot with no eligible replacement is vacated.
+    """
+    by_id = {r.sleeper_id: r for r in rows}
+    slots = current_slots(roster_positions, [str(p) for p in starters])
+    started = {pid for _, pid in slots if pid != "0"}
+    problems: List[Tuple[int, str, Optional[PlayerRow], str]] = []
+    for i, (slot, pid) in enumerate(slots):
+        if str(slot).upper() not in _SLOT_ELIGIBILITY:
+            continue  # IDP and other slots we do not model
+        row = by_id.get(pid) if pid != "0" else None
+        if row is None:
+            problems.append((i, slot, None, "empty"))
+        elif not row.locked and row.dead:
+            problems.append((i, slot, row, str(row.dead_reason)))
+    bench = [
+        r
+        for r in rows
+        if r.sleeper_id not in started
+        and not r.locked
+        and not r.dead
+        and not r.status_unconfirmed
+    ]
+    chosen = assign_slots([slot for _, slot, _, _ in problems], bench, value)
+    fixed = [pid for _, pid in slots]
+    fixes: List[MustFix] = []
+    for (i, slot, out, reason), pick in zip(problems, chosen):
+        fixed[i] = pick.sleeper_id if pick else "0"
+        fixes.append(MustFix(slot, out, reason, pick))
+    return fixed, fixes
+
+
+def reslot(
+    rows: Sequence[PlayerRow], roster_positions: Sequence[str], starters: Sequence[str]
+) -> List[PlayerRow]:
+    """Copies of ``rows`` with ``slot``/``slot_index`` set from ``starters``."""
+    slot_of = {
+        pid: (slot, i)
+        for i, (slot, pid) in enumerate(
+            current_slots(roster_positions, [str(p) for p in starters])
+        )
+        if pid != "0"
+    }
+    return [
+        dataclasses.replace(
+            r,
+            slot=slot_of.get(r.sleeper_id, (None, 999))[0],
+            slot_index=slot_of.get(r.sleeper_id, (None, 999))[1],
+        )
+        for r in rows
+    ]
+
+
+def apply_swaps(starters: Sequence[str], deltas: Iterable[Delta]) -> List[str]:
+    """``starters`` with every SWAP delta applied (nothing else is acted on)."""
+    out = [str(p) for p in starters]
+    for d in deltas:
+        if d.verdict == "SWAP":
+            out[out.index(d.out_player.sleeper_id)] = d.in_player.sleeper_id
+    return out
+
+
+@dataclass
+class Recommendation:
+    """What the tool says to do with a lineup: fixes first, then swaps."""
+
+    starters: List[str]  # the lineup after MUST FIX and SWAP, in slot order
+    must_fix: List[MustFix]
+    deltas: List[Delta]  # judged on the lineup AFTER the must-fix repairs
+    rows: List[PlayerRow]  # rows slotted into the repaired lineup
+
+
+def recommend(
+    rows: Sequence[PlayerRow],
+    roster_positions: Sequence[str],
+    starters: Sequence[str],
+    threshold: float = 3.0,
+) -> Recommendation:
+    """MUST FIX repairs, then the deltas of the repaired lineup, then the swaps."""
+    repaired, fixes = repair_lineup(rows, roster_positions, starters)
+    slotted = reslot(rows, roster_positions, repaired)
+    deltas = lineup_deltas(slotted, threshold)
+    return Recommendation(apply_swaps(repaired, deltas), fixes, deltas, slotted)
+
+
+def optimal_starters(
+    rows: Sequence[PlayerRow],
+    roster_positions: Sequence[str],
+    value: Callable[[PlayerRow], float] = lambda r: r.blend,
+) -> List[str]:
+    """Best lineup for a roster with no lineup set yet, in ``roster_positions`` order.
+
+    For ESPN/Yahoo from a pasted roster there is nothing to compare against, so
+    the honest output is the lineup we RECOMMEND. Dead players are never
+    started; ``"0"`` marks a slot nobody eligible can fill. Every slot label
+    the optimizer knows is filled, SUPER_FLEX, K and DEF included (the old
+    allocation keyed slots by display name and left SUPER_FLEX empty).
+    """
+    labels = [p for p in roster_positions if str(p).upper() not in _SKIP_SLOTS]
+    pool = [r for r in rows if not r.dead and not r.status_unconfirmed]
+    return [r.sleeper_id if r else "0" for r in assign_slots(labels, pool, value)]
 
 
 def optimal_by_source(
@@ -682,14 +983,33 @@ def _fmt(v: Optional[float]) -> str:
 
 
 def render(
-    rows: List[PlayerRow], deltas: List[Delta], header: str, ours_label: str
+    rows: List[PlayerRow],
+    deltas: List[Delta],
+    header: str,
+    ours_label: str,
+    must_fix: Optional[List[MustFix]] = None,
+    banner: Optional[str] = None,
 ) -> str:
-    """Plain-text report: current lineup, bench, then the deltas."""
-    lines = [
-        header,
-        "",
-        f"  {'SLOT':7s}{'PLAYER':24s}{'POS':4s}{'TM':4s} {'OURS':>5s} {'SLPR':>5s} {'BLEND':>5s}  NOTES",
-    ]
+    """Plain-text report: MUST FIX first, then the lineup, the bench, the deltas.
+
+    ``must_fix=None`` means the caller did not look (no section); an empty list
+    prints that every starter has a game and is not ruled out.
+    """
+    lines = [header, ""]
+    if banner:
+        lines += [banner, ""]
+    if must_fix is not None:
+        if must_fix:
+            lines.append(f"MUST FIX ({len(must_fix)}): starters who cannot score")
+            lines += ["  " + f.line() for f in must_fix]
+        else:
+            lines.append(
+                "MUST FIX: none -- every starter has a game and is not ruled out"
+            )
+        lines.append("")
+    lines.append(
+        f"  {'SLOT':7s}{'PLAYER':24s}{'POS':4s}{'TM':4s} {'OURS':>5s} {'SLPR':>5s} {'BLEND':>5s}  NOTES"
+    )
     starters = sorted((r for r in rows if r.slot), key=lambda r: r.slot_index)
     bench = sorted((r for r in rows if not r.slot), key=lambda r: r.blend, reverse=True)
     for r in starters + bench:
@@ -705,8 +1025,10 @@ def render(
         "",
     ]
     if deltas:
+        after = " after the MUST FIX moves" if must_fix else ""
         lines.append(
-            "DELTAS vs the lineup currently set (rule: SWAP only when BOTH sources agree by the threshold):"
+            f"DELTAS vs the lineup above{after} "
+            "(rule: SWAP only when BOTH sources agree by the threshold):"
         )
         lines += ["  " + d.line() for d in deltas]
         if any(d.verdict == "CHECK STATUS" for d in deltas):
