@@ -4,27 +4,27 @@ Published board vs Sleeper (consensus) vs trailing-3-game average, matched playe
 
 ## By position (all weeks pooled)
 
-| Pos | n elig | missing | n | MAE ours | MAE Sleeper | MAE t3 | gap | gap (miss=0) | rho ours | rho Sleeper | rho t3 | band cov | SD ratio |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| QB | 259 | 0 | 259 | 6.36 | 6.08 | 6.76 | +0.272 | +0.272 | 0.383 | 0.409 | 0.230 | 0.64 | 1.35 |
-| RB | 399 | 0 | 399 | 5.39 | 5.45 | 6.01 | -0.065 | -0.065 | 0.520 | 0.498 | 0.418 | 0.76 | 0.75 |
-| WR | 543 | 0 | 543 | 5.20 | 5.15 | 5.60 | +0.052 | +0.052 | 0.400 | 0.401 | 0.327 | 0.74 | 0.58 |
-| TE | 238 | 0 | 238 | 4.85 | 4.74 | 5.67 | +0.117 | +0.117 | 0.229 | 0.248 | 0.050 | 0.69 | 0.76 |
-| ALL | 1439 | 0 | 1439 | 5.40 | 5.33 | 5.93 | +0.070 | +0.070 | 0.383 | 0.389 | 0.256 | 0.72 | 0.76 |
+| Pos | n elig | missing | fallback | n | MAE ours | MAE Sleeper | MAE t3 | gap | gap (no fallback) | gap (miss=0) | rho ours | rho Sleeper | rho t3 | band cov | SD ratio |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| QB | 259 | 0 | 2 | 259 | 6.36 | 6.08 | 6.76 | +0.272 | +0.274 | +0.272 | 0.383 | 0.409 | 0.230 | 0.64 | 1.35 |
+| RB | 399 | 0 | 7 | 399 | 5.39 | 5.45 | 6.01 | -0.065 | -0.067 | -0.065 | 0.520 | 0.498 | 0.418 | 0.76 | 0.75 |
+| WR | 543 | 0 | 1 | 543 | 5.20 | 5.15 | 5.60 | +0.052 | +0.052 | +0.052 | 0.400 | 0.401 | 0.327 | 0.74 | 0.58 |
+| TE | 238 | 0 | 1 | 238 | 4.85 | 4.74 | 5.67 | +0.117 | +0.110 | +0.117 | 0.229 | 0.248 | 0.050 | 0.69 | 0.76 |
+| ALL | 1439 | 0 | 11 | 1439 | 5.40 | 5.33 | 5.93 | +0.070 | +0.069 | +0.070 | 0.383 | 0.389 | 0.256 | 0.72 | 0.76 |
 
 ## By week (all positions)
 
-| Week | n elig | missing | MAE ours | MAE Sleeper | MAE t3 | gap | gap (miss=0) |
-|---|---|---|---|---|---|---|---|
-| 1 | 175 | 0 | 6.17 | 5.88 | 6.56 | +0.286 | +0.286 |
-| 2 | 174 | 0 | 5.63 | 5.42 | 6.26 | +0.206 | +0.206 |
-| 3 | 176 | 0 | 5.15 | 5.01 | 5.39 | +0.138 | +0.138 |
-| 4 | 172 | 0 | 5.23 | 5.34 | 5.96 | -0.118 | -0.118 |
-| 5 | 165 | 0 | 5.68 | 5.34 | 6.49 | +0.335 | +0.335 |
-| 6 | 142 | 0 | 4.96 | 5.28 | 5.51 | -0.325 | -0.325 |
-| 7 | 141 | 0 | 5.32 | 5.09 | 5.26 | +0.232 | +0.232 |
-| 8 | 145 | 0 | 5.65 | 5.62 | 6.21 | +0.024 | +0.024 |
-| 9 | 149 | 0 | 4.71 | 4.94 | 5.64 | -0.231 | -0.231 |
+| Week | n elig | missing | fallback rows | MAE ours | MAE Sleeper | MAE t3 | gap | gap (no fallback) | gap (miss=0) |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | 175 | 0 | 0 | 6.17 | 5.88 | 6.56 | +0.286 | +0.286 | +0.286 |
+| 2 | 174 | 0 | 1 | 5.63 | 5.42 | 6.26 | +0.206 | +0.207 | +0.206 |
+| 3 | 176 | 0 | 3 | 5.15 | 5.01 | 5.39 | +0.138 | +0.131 | +0.138 |
+| 4 | 172 | 0 | 1 | 5.23 | 5.34 | 5.96 | -0.118 | -0.119 | -0.118 |
+| 5 | 165 | 0 | 2 | 5.68 | 5.34 | 6.49 | +0.335 | +0.340 | +0.335 |
+| 6 | 142 | 0 | 1 | 4.96 | 5.28 | 5.51 | -0.325 | -0.330 | -0.325 |
+| 7 | 141 | 0 | 1 | 5.32 | 5.09 | 5.26 | +0.232 | +0.233 | +0.232 |
+| 8 | 145 | 0 | 1 | 5.65 | 5.62 | 6.21 | +0.024 | +0.024 | +0.024 |
+| 9 | 149 | 0 | 1 | 4.71 | 4.94 | 5.64 | -0.231 | -0.232 | -0.231 |
 
 ## Week x position
 
@@ -81,4 +81,4 @@ Published board vs Sleeper (consensus) vs trailing-3-game average, matched playe
 | 8 | 367 | 4 |
 | 9 | 361 | 5 |
 
-Definitions: MAE/bias pool matched rows. rho = mean of within (week, position) Spearman, groups of >= 10 (`src/consensus_metrics.py`). `gap (miss=0)` scores eligible players with no board row as 0. band cov = share with floor <= actual <= ceiling. SD ratio = SD(ours)/SD(Sleeper) on matched rows. t3 columns skip players with no prior game (n_t3 in the CSV).
+Definitions: MAE/bias pool matched rows. rho = mean of within (week, position) Spearman, groups of >= 10 (`src/consensus_metrics.py`). `gap (miss=0)` scores eligible players with no board row as 0. `consensus_fallback` rows carry Sleeper's own number, so `gap` flatters us by their share; `gap (no fallback)` drops them from both sides. band cov = share with floor <= actual <= ceiling. SD ratio = SD(ours)/SD(Sleeper) on matched rows. t3 columns skip players with no prior game (n_t3 in the CSV).

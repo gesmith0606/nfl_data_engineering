@@ -158,3 +158,37 @@ def test_markdown_mentions_weeks_without_board(tmp_path):
     md = sc.render_markdown(rows, weeks_without_board=[8], season=2026, scoring="half_ppr")
     assert "Week 8" in md and "no published board" in md.lower()
     assert "| WR |" in md
+
+
+def test_fallback_rows_flatter_the_gap_and_are_counted():
+    """Fallback rows carry Sleeper's number: gap(all rows) < gap(no fallback), count reported."""
+    pw = _fixture()  # ours = actual+1 (MAE 1), consensus = actual+2 (MAE 2): gap -1.0
+    pw["projection_source"] = "hybrid"
+    pw["is_fallback"] = False
+    # make 4 rows consensus-fallback: ours == consensus
+    fb = pw.player_id.isin(["p0", "p1", "p2", "p3"])
+    pw.loc[fb, "ours"] = pw.loc[fb, "consensus"]
+    pw.loc[fb, "projection_source"] = "consensus_fallback"
+    pw.loc[fb, "is_fallback"] = True
+    rows = sc.scorecard_rows(pw)
+    r = rows[(rows.week == "3") & (rows.position == "WR")].iloc[0]
+    assert r.n_fallback == 4
+    assert r.gap_no_fallback == pytest.approx(-1.0)  # the 8 real rows: 1.0 - 2.0
+    assert r.gap > r.gap_no_fallback  # (8*-1 + 4*0)/12 = -0.667: flattered toward zero
+    assert r.gap == pytest.approx(-2 / 3)
+
+
+def test_build_player_weeks_flags_fallback_rows():
+    actuals = _actuals([("a", 2026, 1, "WR", "AAA", 10.0), ("b", 2026, 1, "RB", "BBB", 8.0)])
+    actuals["t3"] = np.nan
+    board = pd.DataFrame(
+        {
+            "player_id": ["a", "b"],
+            "week": [1, 1],
+            "projected_points": [9.0, 7.0],
+            "projection_source": ["hybrid", "consensus_fallback"],
+        }
+    )
+    cons = pd.DataFrame({"player_id": ["a", "b"], "week": [1, 1], "consensus": [9.5, 7.0]})
+    pw = sc.build_player_weeks(board, cons, actuals).set_index("player_id")
+    assert pw.loc["a", "is_fallback"] == False and pw.loc["b", "is_fallback"] == True  # noqa: E712

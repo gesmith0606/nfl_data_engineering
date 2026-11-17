@@ -55,9 +55,14 @@ def load_consensus_week(
         df = df[df["source"] == source]
     if "scoring_format" in df.columns:
         df = df[df["scoring_format"] == scoring]
+    captured = str(df["projected_at"].max()) if "projected_at" in df.columns and len(df) else "unknown"
     df = df.dropna(subset=["player_id", "projected_points"]).rename(columns={"projected_points": "consensus"})
     df = df.sort_values("consensus", ascending=False).drop_duplicates("player_id")
-    return df.reindex(columns=_COLUMNS).reset_index(drop=True)
+    out = df.reindex(columns=_COLUMNS).reset_index(drop=True)
+    # Provenance for the log line: the `week=W` snapshot on a Tuesday run is the
+    # Sunday capture taken before week W-1 finished, so say how old it is.
+    out.attrs["snapshot"] = f"{os.path.basename(files[-1])} (captured {captured})"
+    return out
 
 
 def _short_name(full: pd.Series) -> pd.Series:
@@ -98,6 +103,7 @@ def apply_consensus_fallback(
         ``(board, n_added)``; ``board`` is returned unchanged when nothing is
         missing or the snapshot is absent (that case prints a ``::warning::``).
     """
+    snapshot = (consensus.attrs.get("snapshot") if consensus is not None else None) or "unknown"
     if consensus is None or consensus.empty:
         print(
             f"::warning::Consensus fallback: no consensus snapshot for season={season} week={week}; "
@@ -145,6 +151,7 @@ def apply_consensus_fallback(
     out = out.sort_values("projected_points", ascending=False, kind="stable").reset_index(drop=True)
     print(
         f"Consensus fallback: added {len(rows)} row(s) for consensus>={min_pts:g} player(s) the engine had no "
-        f"basis for ({', '.join(rows['player_name'].head(8))}{'...' if len(rows) > 8 else ''})"
+        f"basis for ({', '.join(rows['player_name'].head(8))}{'...' if len(rows) > 8 else ''}); "
+        f"consensus snapshot: {snapshot}"
     )
     return out, len(rows)

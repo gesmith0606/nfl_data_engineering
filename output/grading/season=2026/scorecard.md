@@ -6,26 +6,26 @@ Week 8: no published board - excluded from every number below.
 
 ## By position (all weeks pooled)
 
-| Pos | n elig | missing | n | MAE ours | MAE Sleeper | MAE t3 | gap | gap (miss=0) | rho ours | rho Sleeper | rho t3 | band cov | SD ratio |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| QB | 231 | 5 | 226 | 6.27 | 6.01 | 6.64 | +0.263 | +0.454 | 0.293 | 0.402 | 0.228 | 0.64 | 1.29 |
-| RB | 356 | 10 | 346 | 5.56 | 5.38 | 5.96 | +0.178 | +0.340 | 0.487 | 0.511 | 0.429 | 0.51 | 1.04 |
-| WR | 492 | 14 | 478 | 5.31 | 5.24 | 5.63 | +0.071 | +0.244 | 0.363 | 0.392 | 0.332 | 0.42 | 0.85 |
-| TE | 215 | 5 | 210 | 5.01 | 4.76 | 5.73 | +0.254 | +0.361 | 0.224 | 0.192 | 0.021 | 0.43 | 1.40 |
-| ALL | 1294 | 34 | 1260 | 5.50 | 5.34 | 5.92 | +0.165 | +0.327 | 0.342 | 0.374 | 0.252 | 0.49 | 1.01 |
+| Pos | n elig | missing | fallback | n | MAE ours | MAE Sleeper | MAE t3 | gap | gap (no fallback) | gap (miss=0) | rho ours | rho Sleeper | rho t3 | band cov | SD ratio |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| QB | 231 | 5 | 0 | 226 | 6.27 | 6.01 | 6.64 | +0.263 | +0.263 | +0.454 | 0.293 | 0.402 | 0.228 | 0.64 | 1.29 |
+| RB | 356 | 10 | 0 | 346 | 5.56 | 5.38 | 5.96 | +0.178 | +0.178 | +0.340 | 0.487 | 0.511 | 0.429 | 0.51 | 1.04 |
+| WR | 492 | 14 | 0 | 478 | 5.31 | 5.24 | 5.63 | +0.071 | +0.071 | +0.244 | 0.363 | 0.392 | 0.332 | 0.42 | 0.85 |
+| TE | 215 | 5 | 0 | 210 | 5.01 | 4.76 | 5.73 | +0.254 | +0.254 | +0.361 | 0.224 | 0.192 | 0.021 | 0.43 | 1.40 |
+| ALL | 1294 | 34 | 0 | 1260 | 5.50 | 5.34 | 5.92 | +0.165 | +0.165 | +0.327 | 0.342 | 0.374 | 0.252 | 0.49 | 1.01 |
 
 ## By week (all positions)
 
-| Week | n elig | missing | MAE ours | MAE Sleeper | MAE t3 | gap | gap (miss=0) |
-|---|---|---|---|---|---|---|---|
-| 1 | 175 | 9 | 6.28 | 6.04 | 6.56 | +0.237 | +0.496 |
-| 2 | 174 | 1 | 5.55 | 5.43 | 6.27 | +0.124 | +0.176 |
-| 3 | 176 | 8 | 5.06 | 5.02 | 5.45 | +0.037 | +0.272 |
-| 4 | 172 | 4 | 5.36 | 5.29 | 5.88 | +0.064 | +0.241 |
-| 5 | 165 | 9 | 5.89 | 5.48 | 6.62 | +0.411 | +0.757 |
-| 6 | 142 | 1 | 5.50 | 5.32 | 5.53 | +0.183 | +0.224 |
-| 7 | 141 | 1 | 5.24 | 5.09 | 5.24 | +0.155 | +0.237 |
-| 9 | 149 | 1 | 5.08 | 4.95 | 5.66 | +0.129 | +0.178 |
+| Week | n elig | missing | fallback rows | MAE ours | MAE Sleeper | MAE t3 | gap | gap (no fallback) | gap (miss=0) |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | 175 | 9 | 0 | 6.28 | 6.04 | 6.56 | +0.237 | +0.237 | +0.496 |
+| 2 | 174 | 1 | 0 | 5.55 | 5.43 | 6.27 | +0.124 | +0.124 | +0.176 |
+| 3 | 176 | 8 | 0 | 5.06 | 5.02 | 5.45 | +0.037 | +0.037 | +0.272 |
+| 4 | 172 | 4 | 0 | 5.36 | 5.29 | 5.88 | +0.064 | +0.064 | +0.241 |
+| 5 | 165 | 9 | 0 | 5.89 | 5.48 | 6.62 | +0.411 | +0.411 | +0.757 |
+| 6 | 142 | 1 | 0 | 5.50 | 5.32 | 5.53 | +0.183 | +0.183 | +0.224 |
+| 7 | 141 | 1 | 0 | 5.24 | 5.09 | 5.24 | +0.155 | +0.155 | +0.237 |
+| 9 | 149 | 1 | 0 | 5.08 | 4.95 | 5.66 | +0.129 | +0.129 | +0.178 |
 
 ## Week x position
 
@@ -76,4 +76,4 @@ Week 8: no published board - excluded from every number below.
 | 6 | 384 |
 | 7 | 376 |
 
-Definitions: MAE/bias pool matched rows. rho = mean of within (week, position) Spearman, groups of >= 10 (`src/consensus_metrics.py`). `gap (miss=0)` scores eligible players with no board row as 0. band cov = share with floor <= actual <= ceiling. SD ratio = SD(ours)/SD(Sleeper) on matched rows. t3 columns skip players with no prior game (n_t3 in the CSV).
+Definitions: MAE/bias pool matched rows. rho = mean of within (week, position) Spearman, groups of >= 10 (`src/consensus_metrics.py`). `gap (miss=0)` scores eligible players with no board row as 0. `consensus_fallback` rows carry Sleeper's own number, so `gap` flatters us by their share; `gap (no fallback)` drops them from both sides. band cov = share with floor <= actual <= ceiling. SD ratio = SD(ours)/SD(Sleeper) on matched rows. t3 columns skip players with no prior game (n_t3 in the CSV).

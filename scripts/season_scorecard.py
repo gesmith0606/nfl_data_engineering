@@ -148,6 +148,10 @@ def build_player_weeks(
     )
     pw = pw.merge(b, on=["player_id", "week"], how="left")
     pw["on_board"] = pw["ours"].notna()
+    if "projection_source" not in pw.columns:
+        pw["projection_source"] = np.nan
+    # Fallback rows carry Sleeper's own number, so they flatter every gap to Sleeper.
+    pw["is_fallback"] = pw["projection_source"].eq("consensus_fallback")
     for c in ("floor", "ceiling"):
         if c not in pw.columns:
             pw[c] = np.nan
@@ -165,6 +169,7 @@ def _group_stats(g: pd.DataFrame) -> dict:
         "n_eligible": len(g),
         "n_missing": int((~g["on_board"]).sum()),
         "n_matched": len(m),
+        "n_fallback": int(g["is_fallback"].sum()) if "is_fallback" in g else 0,
     }
     if m.empty:
         return out
@@ -178,6 +183,13 @@ def _group_stats(g: pd.DataFrame) -> dict:
         n_t3=int(m["t3"].notna().sum()),
     )
     out["gap"] = out["mae_ours"] - out["mae_sleeper"]
+    # Same gap with consensus_fallback rows removed from BOTH sides: those rows are
+    # Sleeper's own number, so leaving them in pulls the gap toward zero.
+    real = m[~m["is_fallback"]] if "is_fallback" in m else m
+    if len(real):
+        out["gap_no_fallback"] = (real["ours"] - real["actual_points"]).abs().mean() - (
+            real["consensus"] - real["actual_points"]
+        ).abs().mean()
     # Holes scored as zero (what a user who opens the board sees for that player).
     filled = g["ours"].fillna(0.0)
     out["mae_ours_filled"] = (filled - g["actual_points"]).abs().mean()
@@ -231,8 +243,8 @@ def scorecard_rows(pw: pd.DataFrame) -> pd.DataFrame:
                 r["rho_ours"], r["rho_sleeper"], r["rho_t3"] = (_mean_rho(g, c) for c in ("ours", "consensus", "t3"))
             rows.append(r)
     cols = [
-        "week", "position", "n_eligible", "n_missing", "n_matched", "mae_ours", "mae_sleeper", "mae_t3", "gap",
-        "bias_ours", "bias_sleeper", "rho_ours", "rho_sleeper", "rho_t3", "mae_ours_filled", "gap_filled",
+        "week", "position", "n_eligible", "n_missing", "n_matched", "n_fallback", "mae_ours", "mae_sleeper", "mae_t3", "gap",
+        "gap_no_fallback", "bias_ours", "bias_sleeper", "rho_ours", "rho_sleeper", "rho_t3", "mae_ours_filled", "gap_filled",
         "band_coverage", "sd_ratio", "n_t3",
     ]  # fmt: skip
     return pd.DataFrame(rows).reindex(columns=cols)
@@ -257,20 +269,20 @@ def render_markdown(rows: pd.DataFrame, weeks_without_board: Iterable[int], seas
     if nb:
         lines += [f"Week {', '.join(str(w) for w in nb)}: no published board - excluded from every number below.", ""]
     lines += ["## By position (all weeks pooled)", "",
-              "| Pos | n elig | missing | n | MAE ours | MAE Sleeper | MAE t3 | gap | gap (miss=0) | rho ours | rho Sleeper | rho t3 | band cov | SD ratio |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
+              "| Pos | n elig | missing | fallback | n | MAE ours | MAE Sleeper | MAE t3 | gap | gap (no fallback) | gap (miss=0) | rho ours | rho Sleeper | rho t3 | band cov | SD ratio |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
     for _, r in rows[rows["week"] == "ALL"].iterrows():
         lines.append(
-            f"| {r.position} | {int(r.n_eligible)} | {int(r.n_missing)} | {int(r.n_matched)} | {f(r.mae_ours)} | {f(r.mae_sleeper)} | "
-            f"{f(r.mae_t3)} | {f(r.gap, 3, True)} | {f(r.gap_filled, 3, True)} | {f(r.rho_ours, 3)} | {f(r.rho_sleeper, 3)} | "
+            f"| {r.position} | {int(r.n_eligible)} | {int(r.n_missing)} | {int(r.n_fallback)} | {int(r.n_matched)} | {f(r.mae_ours)} | {f(r.mae_sleeper)} | "
+            f"{f(r.mae_t3)} | {f(r.gap, 3, True)} | {f(r.gap_no_fallback, 3, True)} | {f(r.gap_filled, 3, True)} | {f(r.rho_ours, 3)} | {f(r.rho_sleeper, 3)} | "
             f"{f(r.rho_t3, 3)} | {f(r.band_coverage)} | {f(r.sd_ratio)} |"
         )
     lines += ["", "## By week (all positions)", "",
-              "| Week | n elig | missing | MAE ours | MAE Sleeper | MAE t3 | gap | gap (miss=0) |", "|---|---|---|---|---|---|---|---|"]  # fmt: skip
+              "| Week | n elig | missing | fallback rows | MAE ours | MAE Sleeper | MAE t3 | gap | gap (no fallback) | gap (miss=0) |", "|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
     for _, r in rows[(rows["week"] != "ALL") & (rows["position"] == "ALL")].iterrows():
         lines.append(
-            f"| {r.week} | {int(r.n_eligible)} | {int(r.n_missing)} | {f(r.mae_ours)} | {f(r.mae_sleeper)} | {f(r.mae_t3)} | "
-            f"{f(r.gap, 3, True)} | {f(r.gap_filled, 3, True)} |"
+            f"| {r.week} | {int(r.n_eligible)} | {int(r.n_missing)} | {int(r.n_fallback)} | {f(r.mae_ours)} | {f(r.mae_sleeper)} | {f(r.mae_t3)} | "
+            f"{f(r.gap, 3, True)} | {f(r.gap_no_fallback, 3, True)} | {f(r.gap_filled, 3, True)} |"
         )
     lines += ["", "## Week x position", "",
               "| Week | Pos | n | missing | MAE ours | MAE Sleeper | MAE t3 | bias ours | rho ours | rho Sleeper |", "|---|---|---|---|---|---|---|---|---|---|"]  # fmt: skip
@@ -287,6 +299,7 @@ def render_markdown(rows: pd.DataFrame, weeks_without_board: Iterable[int], seas
         "",
         "Definitions: MAE/bias pool matched rows. rho = mean of within (week, position) Spearman, groups of >= 10 "
         "(`src/consensus_metrics.py`). `gap (miss=0)` scores eligible players with no board row as 0. "
+        "`consensus_fallback` rows carry Sleeper's own number, so `gap` flatters us by their share; `gap (no fallback)` drops them from both sides. "
         "band cov = share with floor <= actual <= ceiling. SD ratio = SD(ours)/SD(Sleeper) on matched rows. "
         "t3 columns skip players with no prior game (n_t3 in the CSV).",
         "",
@@ -357,6 +370,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         f"n eligible {int(allr.n_eligible)}, missing {int(allr.n_missing)}, MAE ours {allr.mae_ours:.3f} "
         f"Sleeper {allr.mae_sleeper:.3f} t3 {allr.mae_t3:.3f}; gap {allr.gap:+.3f} (miss=0 {allr.gap_filled:+.3f}); "
         f"weeks without board: {no_board or 'none'}"
+    )
+    print(
+        f"gap excluding consensus_fallback rows: {allr.gap_no_fallback:+.3f}; fallback rows: {int(allr.n_fallback)} "
+        f"(by week {({int(r.week): int(r.n_fallback) for r in rows[(rows['position'] == 'ALL') & (rows['week'] != 'ALL')].itertuples()})})"
     )
     print(f"Wrote {out_dir}")
     return 0

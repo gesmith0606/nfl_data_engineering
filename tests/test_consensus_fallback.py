@@ -119,3 +119,50 @@ def test_load_consensus_week_filters_source_scoring_and_takes_latest(tmp_path):
     assert got.set_index("player_id").consensus.to_dict() == {"x": 9.0, "y": 7.0}
     assert list(got.columns) == ["player_id", "player_name", "position", "team", "consensus"]
     assert cf.load_consensus_week(2026, 5, "half_ppr", silver_dir=str(tmp_path)).empty
+
+
+def test_same_short_name_different_player_is_not_a_duplicate():
+    """Week 5 2026: board holds Jalon Daniels (TB) as 'J.Daniels'; Jayden Daniels (WAS)
+    is a different player (different id AND team) and must be added, not skipped or doubled."""
+    board = pd.concat(
+        [
+            _board(),
+            _board().iloc[:1].assign(
+                player_id="jalon", player_name="J.Daniels", position="QB", recent_team="TB", projected_points=8.9
+            ),
+        ],
+        ignore_index=True,
+    )
+    cons = pd.DataFrame(
+        [
+            ("jalon", "Jalon Daniels", "QB", "TB", 15.1),  # on board by id -> not re-added
+            ("jayden", "Jayden Daniels", "QB", "WAS", 17.3),  # missing by id -> added
+        ],
+        columns=["player_id", "player_name", "position", "team", "consensus"],
+    )
+    out, n = cf.apply_consensus_fallback(board, cons, season=2026, week=5)
+    assert n == 1
+    assert not out.player_id.duplicated().any()
+    assert not out.duplicated(["player_name", "position", "recent_team"]).any()
+    assert sorted(out[out.player_name == "J.Daniels"].recent_team) == ["TB", "WAS"]
+
+
+def test_log_line_reports_snapshot_age(tmp_path, capsys):
+    d = tmp_path / "external_projections" / "season=2026" / "week=04"
+    d.mkdir(parents=True)
+    pd.DataFrame(
+        {
+            "player_id": ["d"],
+            "player_name": ["Dee Four"],
+            "position": ["RB"],
+            "team": ["DDD"],
+            "source": "sleeper",
+            "scoring_format": "half_ppr",
+            "projected_points": [11.0],
+            "projected_at": ["2026-10-04T13:49:51+00:00"],
+        }
+    ).to_parquet(d / "external_projections_20261004_134951.parquet")
+    cons = cf.load_consensus_week(2026, 4, "half_ppr", silver_dir=str(tmp_path))
+    cf.apply_consensus_fallback(_board(), cons, season=2026, week=4)
+    out = capsys.readouterr().out
+    assert "external_projections_20261004_134951.parquet" in out and "2026-10-04T13:49:51" in out
