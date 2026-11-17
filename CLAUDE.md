@@ -178,7 +178,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/graph_familiarity.py` | Cross-team familiarity (UC2) — lagged expected-QB map, cold-start flag, reunion pair histories; in hybrid candidate pool (gate verdict: HOLD, ship models unchanged) |
 | `src/graph_correlation.py` | Player correlation network (UC3) — stability-gated CORRELATES edges (QB stacks, game stacks), lineup stack insights, `/api/players/{id}/correlations` |
 | `src/game_archive.py` | Historical game results + player fantasy stats aggregation and querying |
-| `src/lineup_builder.py` | Field lineup builder with starter identification and optimal allocation |
+| `src/lineup_builder.py` | Website team-lineup builder (`/api/lineups`): newest depth-chart SNAPSHOT at or before the week's first kickoff (not the newest row per player), files chosen by the timestamp in their name, bye teams and Out/IR/Doubtful players are non-starters (next man up starts; `injury_status` carries why), `starter_confidence` = trailing 3-week snap share x P(plays), and `df.attrs['degraded_reasons']` -> the API's `degraded` flag when it fell back (old snapshot, no schedule, no injury data) |
 | `src/feature_engineering.py` | 310+ col feature vector assembly from 10 Silver sources |
 | `src/feature_selector.py` | SHAP importance + correlation filtering, CV-validated cutoff |
 | `src/ensemble_training.py` | XGB+LGB+CB+Ridge stacking, walk-forward CV, OOF predictions |

@@ -28,6 +28,26 @@ from lineup_builder import (
 )
 
 
+_availability_patch = None
+
+
+def setUpModule():
+    """These tests build lineups from synthetic depth charts; keep the real schedule and
+    injury files on disk out of them (availability has its own tests)."""
+    global _availability_patch
+    from lineup_builder import _Availability
+
+    _availability_patch = patch(
+        "lineup_builder._availability",
+        side_effect=lambda season, week, teams, proj=None: _Availability(None, {}, []),
+    )
+    _availability_patch.start()
+
+
+def tearDownModule():
+    _availability_patch.stop()
+
+
 # ---------------------------------------------------------------------------
 # Test fixtures
 # ---------------------------------------------------------------------------
@@ -420,7 +440,8 @@ class TestGetTeamStarters(unittest.TestCase):
         mock_dc.return_value = _make_depth_chart(include_defense=False)
         mock_sc.return_value = _make_snap_counts()
 
-        result = get_team_starters(2024, 1, team="KC")
+        # snap share is the TRAILING one (weeks before the week asked about)
+        result = get_team_starters(2024, 2, team="KC")
 
         # Mahomes should have snap_pct = 100
         qb = result[result["position_group"] == "QB"]
@@ -828,7 +849,7 @@ class TestCommitteeAtDepthOne(unittest.TestCase):
             ]
         )
 
-        result = get_team_starters(2024, 1, team="KC")
+        result = get_team_starters(2024, 2, team="KC")  # week 1 snaps are the trailing usage
         rbs = result[result["position_group"] == "RB"]
         self.assertEqual(len(rbs), 2)
         names = list(rbs["player_name"])

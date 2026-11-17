@@ -10,10 +10,12 @@ counts provide empirical confirmation.  When snap count data is unavailable
 the module falls back to depth charts alone.
 """
 
-import glob
+import datetime as dt
 import logging
+import re
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
+from zoneinfo import ZoneInfo
 
 import numpy as np
 import pandas as pd
@@ -174,24 +176,55 @@ except ImportError:  # script-level execution
     from utils import canonical_team as _canonical_team  # type: ignore
 
 
-def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:
+_STAMP = re.compile(r"(\d{8}_\d{6})")
+_ET = ZoneInfo("America/New_York")
+#: A depth-chart snapshot older than this, relative to the week asked about, is stale.
+_MAX_SNAPSHOT_AGE_DAYS = 14
+#: Games played / minutes of status data we trust: see ``_availability``.
+_UNAVAILABLE = {"out", "ir", "pup", "sus", "suspended", "doubtful", "nfi", "cov", "dnr"}
+#: P(plays) for the injury designations that still play some of the time. Same
+#: constants as ``lineup_setter.P_PLAYS_*`` (a test pins them together).
+_P_PLAYS = {"questionable": 0.71, "doubtful": 0.065}
+
+
+def _file_stamp(path: Path) -> Tuple[int, float]:
+    """Sort key for a Bronze/Gold file: the timestamp in its NAME, mtime only as a last
+    resort. A checkout or copy rewrites mtime (the lineup CLI once read a board that was
+    not the newest for weeks 4-7 because of it); the name is the data's own time."""
+    m = _STAMP.search(path.name)
+    if m:
+        return 1, dt.datetime.strptime(m.group(1), "%Y%m%d_%H%M%S").timestamp()
+    return 0, path.stat().st_mtime
+
+
+def _latest_file(paths) -> Optional[Path]:
+    paths = [Path(p) for p in paths]
+    return max(paths, key=_file_stamp) if paths else None
+
+
+def _normalize_depth_chart_schema(
+    df: pd.DataFrame, as_of: Optional[dt.datetime] = None
+) -> pd.DataFrame:
     """Translate the post-draft ESPN/Sleeper depth chart schema to nflverse.
 
     The 2025+ Bronze ingestion (commit ac482a1) uses a different column
     layout than the legacy nflverse `import_depth_charts` output:
 
-      legacy (≤2024) → new (2025+)
-      ─────────────────────────────────
-      club_code      → team
-      full_name      → player_name
-      depth_position → pos_abb
-      depth_team     → pos_rank
-      week           → (absent — single rolling snapshot, not per-week)
+      legacy (<=2024) -> new (2025+)
+      ---------------------------------
+      club_code      -> team
+      full_name      -> player_name
+      depth_position -> pos_abb
+      depth_team     -> pos_rank
+      week           -> (absent: rolling daily snapshots keyed by ``dt``)
 
-    The new schema also has multiple snapshots per player (one row per
-    ingestion day, keyed by ``dt``). We collapse to the most-recent snapshot
-    per (team, gsis_id, pos_abb) and synthesize ``week=1`` so the existing
-    ``week <= target`` filter in :func:`get_team_starters` is a no-op.
+    The Bronze file holds EVERY daily snapshot (289 of them, 773k rows, by mid-November
+    2026). We keep exactly one: the newest snapshot at or before ``as_of`` (the week's
+    first kickoff; the newest overall when ``as_of`` is None). The old code kept the
+    newest ROW per player across all snapshots, so a player cut or traded weeks ago
+    still "started" for his old team. If every snapshot is newer than ``as_of`` the
+    earliest is used and ``df.attrs['snapshot']`` says so. ``week`` is synthesized as 1
+    so legacy week filters stay a no-op.
     """
     # Detect new schema by its signature columns rather than the absence of
     # legacy ones — guards against partial-migration frames that carry one
@@ -213,10 +246,20 @@ def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:
         return df
 
     df = df.copy()
+    info: Dict[str, Any] = {}
     if "dt" in df.columns:
-        df = df.sort_values("dt", ascending=False).drop_duplicates(
-            subset=["team", "gsis_id", "pos_abb"], keep="first"
-        )
+        stamps = pd.to_datetime(df["dt"], utc=True, errors="coerce")
+        snaps = sorted(stamps.dropna().unique())
+        if snaps:
+            eligible = [x for x in snaps if as_of is None or x <= pd.Timestamp(as_of)]
+            chosen = eligible[-1] if eligible else snaps[0]
+            df = df[stamps == chosen]
+            info = {
+                "snapshot": chosen.isoformat(),
+                "predates_data": bool(as_of is not None and not eligible),
+                "as_of": None if as_of is None else pd.Timestamp(as_of).isoformat(),
+            }
+    df = df.drop_duplicates(subset=["team", "gsis_id", "pos_abb"], keep="first")
 
     df = df.rename(
         columns={
@@ -228,26 +271,56 @@ def _normalize_depth_chart_schema(df: pd.DataFrame) -> pd.DataFrame:
     )
     df["position"] = df["depth_position"]
     df["week"] = 1
+    df.attrs["snapshot"] = info
     return df
 
 
-def _load_depth_charts(season: int) -> pd.DataFrame:
-    """Load Bronze depth chart data for the given season.
+def _load_schedule(season: int) -> pd.DataFrame:
+    """Bronze schedule for the season (newest file by name), or an empty frame."""
+    sched_dir = _DATA_DIR / "bronze" / "schedules" / f"season={season}"
+    latest = _latest_file(sched_dir.glob("*.parquet"))
+    if latest is None:
+        return pd.DataFrame()
+    return pd.read_parquet(latest)
 
-    Returns an empty DataFrame if no data is found.
+
+def _week_kickoffs(schedule: pd.DataFrame, week: int) -> List[dt.datetime]:
+    """Kickoff instants (UTC) of every game in ``week``."""
+    if schedule.empty or "week" not in schedule.columns:
+        return []
+    out = []
+    for row in schedule[schedule["week"] == week].itertuples(index=False):
+        try:
+            day = dt.date.fromisoformat(str(row.gameday))
+            hh, mm = str(getattr(row, "gametime", None) or "13:00").split(":")[:2]
+            out.append(
+                dt.datetime(day.year, day.month, day.day, int(hh), int(mm), tzinfo=_ET)
+                .astimezone(dt.timezone.utc)
+            )
+        except (ValueError, TypeError, AttributeError):
+            continue
+    return out
+
+
+def _load_depth_charts(season: int, week: Optional[int] = None) -> pd.DataFrame:
+    """Load Bronze depth chart data for the given season as of ``week``'s first kickoff.
+
+    Returns an empty DataFrame if no data is found. The file is the newest by the
+    timestamp in its name; the snapshot inside it is the newest one at or before the
+    week starts (see :func:`_normalize_depth_chart_schema`).
     """
     dc_dir = _DATA_DIR / "bronze" / "depth_charts" / f"season={season}"
-    parquets = sorted(dc_dir.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
-    if not parquets:
+    latest = _latest_file(dc_dir.glob("*.parquet"))
+    if latest is None:
         logger.warning("No depth chart data for season=%d", season)
         return pd.DataFrame()
-    df = pd.read_parquet(parquets[-1])
-    df = _normalize_depth_chart_schema(df)
+    as_of = None
+    if week is not None:
+        starts = _week_kickoffs(_load_schedule(season), week)
+        as_of = min(starts) if starts else None
+    df = _normalize_depth_chart_schema(pd.read_parquet(latest), as_of=as_of)
     logger.info(
-        "Loaded depth charts: season=%d, rows=%d from %s",
-        season,
-        len(df),
-        parquets[-1].name,
+        "Loaded depth charts: season=%d, rows=%d from %s", season, len(df), latest.name
     )
     return df
 
@@ -270,11 +343,11 @@ def _load_snap_counts(season: int, week: int) -> pd.DataFrame:
     if not sc_dir.exists():
         # Try season-level directory (some ingestion layouts)
         sc_dir = _DATA_DIR / "bronze" / "players" / "snaps" / f"season={season}"
-    parquets = sorted(sc_dir.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
-    if not parquets:
+    latest = _latest_file(sc_dir.glob("*.parquet"))
+    if latest is None:
         logger.debug("No snap count data for season=%d week=%d", season, week)
         return pd.DataFrame()
-    df = pd.read_parquet(parquets[-1])
+    df = pd.read_parquet(latest)
     if "week" in df.columns:
         df = df[df["week"] == week]
     logger.info(
@@ -295,12 +368,94 @@ def _load_projections(season: int, week: int) -> pd.DataFrame:
     if not proj_dir.exists():
         logger.debug("No projection data for season=%d week=%d", season, week)
         return pd.DataFrame()
-    parquets = sorted(proj_dir.glob("*.parquet"), key=lambda p: p.stat().st_mtime)
-    if not parquets:
+    # ``*_derived`` boards are an experiment's output, never the published projections.
+    latest = _latest_file(p for p in proj_dir.glob("*.parquet") if "derived" not in p.name)
+    if latest is None:
         return pd.DataFrame()
-    df = pd.read_parquet(parquets[-1])
+    df = pd.read_parquet(latest)
     logger.info("Loaded projections: season=%d week=%d, rows=%d", season, week, len(df))
     return df
+
+
+def _trailing_snap_share(season: int, week: int, weeks_back: int = 3) -> Dict[Tuple[str, str], float]:
+    """``(TEAM, player name) -> mean offensive snap share`` over the weeks BEFORE ``week``.
+
+    The week's own snap counts are the outcome, not a signal (they do not exist yet for the
+    upcoming week, which is why ``snap_pct`` was empty for every starter, and they are
+    look-ahead for any week already played).
+    """
+    shares: Dict[Tuple[str, str], List[float]] = {}
+    for prior in range(max(1, week - weeks_back), week):
+        snaps = _load_snap_counts(season, prior)
+        if snaps is None or snaps.empty:
+            continue
+        col = "offense_pct" if "offense_pct" in snaps.columns else "snap_pct"
+        if col not in snaps.columns:
+            continue
+        team_col = "team" if "team" in snaps.columns else "club_code"
+        name_col = "player" if "player" in snaps.columns else "full_name"
+        for team, name, val in zip(snaps[team_col], snaps[name_col], snaps[col]):
+            try:
+                shares.setdefault((str(team).upper(), str(name)), []).append(float(val))
+            except (ValueError, TypeError):
+                continue
+    return {k: float(np.mean(v)) for k, v in shares.items()}
+
+
+class _Availability:
+    """Who cannot play in a week, and who is a doubt, from what is on disk.
+
+    * ``bye_teams``: canonical codes with no game in the Bronze schedule for the week
+      (None when the schedule is unavailable).
+    * ``status``: ``gsis_id -> status`` (Out / Questionable / ...), the week's official
+      nflverse injury report first, then the Gold projection's ``injury_status`` for
+      anyone the report does not list.
+    * ``notes``: why anything is degraded, surfaced to the API's ``degraded`` flag.
+    """
+
+    def __init__(self, bye_teams: Optional[Set[str]], status: Dict[str, str], notes: List[str]):
+        self.bye_teams, self.status, self.notes = bye_teams, status, notes
+
+    def is_bye(self, team: str) -> bool:
+        return self.bye_teams is not None and _canonical_team(team) in self.bye_teams
+
+
+def _availability(
+    season: int,
+    week: int,
+    teams: List[str],
+    projections_df: Optional[pd.DataFrame] = None,
+) -> _Availability:
+    notes: List[str] = []
+    # --- bye weeks from the schedule
+    sched = _load_schedule(season)
+    wk = sched[sched["week"] == week] if not sched.empty and "week" in sched.columns else sched
+    bye: Optional[Set[str]] = None
+    if wk.empty:
+        notes.append(f"no schedule for {season} week {week}: bye weeks not applied")
+    else:
+        playing = {_canonical_team(t) for t in list(wk["home_team"]) + list(wk["away_team"])}
+        bye = {_canonical_team(t) for t in teams} - playing
+    # --- injury designations
+    status: Dict[str, str] = {}
+    proj = projections_df if projections_df is not None else _load_projections(season, week)
+    if proj is not None and not proj.empty and {"player_id", "injury_status"} <= set(proj.columns):
+        for pid, st in zip(proj["player_id"], proj["injury_status"]):
+            if isinstance(st, str) and st and st.lower() not in ("active", "nan", "none"):
+                status[str(pid)] = st
+    inj_dir = _DATA_DIR / "bronze" / "players" / "injuries" / f"season={season}"
+    latest = _latest_file(inj_dir.glob("injuries_*.parquet"))
+    official = 0
+    if latest is not None:
+        inj = pd.read_parquet(latest)
+        if {"week", "gsis_id", "report_status"} <= set(inj.columns):
+            for pid, st in zip(inj.loc[inj["week"] == week, "gsis_id"], inj.loc[inj["week"] == week, "report_status"]):
+                if isinstance(st, str) and st:
+                    status[str(pid)] = st  # the official report wins over the projection tag
+                    official += 1
+    if not status and not official:
+        notes.append(f"no injury report or projection statuses for week {week}: Out/Questionable not applied")
+    return _Availability(bye, status, notes)
 
 
 # ---------------------------------------------------------------------------
@@ -382,31 +537,59 @@ def get_team_starters(
     season: int,
     week: int,
     team: Optional[str] = None,
+    projections_df: Optional[pd.DataFrame] = None,
 ) -> pd.DataFrame:
     """Get starting lineup for all teams (or a specific team) for a given week.
 
-    Combines depth charts (official depth) with snap counts (actual usage)
-    to identify the most likely starters.
+    Combines depth charts (official depth) with trailing snap counts (recent usage)
+    and the week's availability (bye, Out / Doubtful / Questionable) to identify who
+    will actually start.
 
     Note:
-        For 2025+ seasons the Bronze depth chart is a single rolling
-        snapshot (no per-week granularity) — :func:`_normalize_depth_chart_schema`
-        synthesizes ``week=1`` so the ``week <= target`` filter is a no-op for
-        any regular-season target. Calling with ``week=0`` returns an empty
-        DataFrame (no valid weeks).
+        For 2025+ seasons the Bronze depth chart is a rolling set of daily snapshots;
+        the one used is the newest at or before the week's first kickoff
+        (:func:`_normalize_depth_chart_schema`), so ``week`` matters. Calling with
+        ``week=0`` returns an empty DataFrame (no valid weeks).
+
+        A player who is on bye, ruled Out, on IR or Doubtful is NOT a starter: the
+        next man up takes the slot, and the unavailable player stays in the frame
+        with ``is_starter=False`` and his status in ``injury_status``. A team on bye
+        has no starters (its depth-chart players are listed with ``injury_status``
+        ``"BYE"``). ``starter_confidence`` is the chance he starts: his recent snap
+        share, times the chance he plays (Questionable = 71%).
+
+        ``df.attrs["degraded_reasons"]`` lists every fallback taken (snapshot older
+        than the week, schedule or injury data missing) so the API can say so rather
+        than serve a guess as fact.
 
     Args:
         season: NFL season year.
         week: Week number (1-18 regular season).
         team: Optional 2/3 letter team abbreviation (e.g. ``"KC"``).
+        projections_df: Gold projections already loaded by the caller; their
+            ``injury_status`` fills in statuses the official report lacks.
 
     Returns:
         DataFrame with columns:
             team, position, position_group, depth_position, player_name,
             player_id, depth_rank, snap_pct, is_starter, starter_confidence,
-            field_position, side (offense / defense).
+            injury_status, field_position, side (offense / defense).
     """
-    dc = _load_depth_charts(season)
+    dc = _load_depth_charts(season, week)
+    degraded: List[str] = []
+    snapshot = dict(getattr(dc, "attrs", {}).get("snapshot") or {})
+    if snapshot.get("predates_data"):
+        degraded.append(
+            f"depth chart: no snapshot at or before week {week} kickoff; using the "
+            f"earliest ({snapshot.get('snapshot')})"
+        )
+    elif snapshot.get("snapshot") and snapshot.get("as_of"):
+        age = (pd.Timestamp(snapshot["as_of"]) - pd.Timestamp(snapshot["snapshot"])).days
+        if age > _MAX_SNAPSHOT_AGE_DAYS:
+            degraded.append(
+                f"depth chart is {age} days older than week {week} "
+                f"(snapshot {snapshot['snapshot']})"
+            )
     if dc.empty:
         logger.error("No depth chart data available for season=%d", season)
         return pd.DataFrame()
@@ -444,20 +627,12 @@ def get_team_starters(
     # the candidate pool — see comment in the per-group loop below.
     dc["is_depth_starter"] = dc["depth_team_ord"] <= 1
 
-    # --- Load snap counts for context (optional) ---
-    snap_df = _load_snap_counts(season, week)
-    snap_lookup: Dict[Tuple[str, str], float] = {}
-    if not snap_df.empty:
-        snap_col = "offense_pct" if "offense_pct" in snap_df.columns else "snap_pct"
-        if snap_col in snap_df.columns:
-            team_col = "team" if "team" in snap_df.columns else "club_code"
-            player_col = "player" if "player" in snap_df.columns else "full_name"
-            for _, row in snap_df.iterrows():
-                key = (str(row.get(team_col, "")).upper(), str(row.get(player_col, "")))
-                try:
-                    snap_lookup[key] = float(row[snap_col])
-                except (ValueError, TypeError):
-                    pass
+    # --- Recent usage: snap share over the PRIOR weeks (the week's own are the outcome) ---
+    snap_lookup = _trailing_snap_share(season, week)
+    avail = _availability(
+        season, week, sorted(dc["club_code"].dropna().astype(str).unique()), projections_df
+    )
+    degraded.extend(avail.notes)
 
     # --- Build result ---
     rows: List[Dict] = []
@@ -517,9 +692,31 @@ def get_team_starters(
             ascending=[True, False, True],
         )
 
-        for rank, (_, row) in enumerate(group_df.head(max_slots).iterrows(), start=1):
+        # Walk the depth chart in order. Anyone unavailable who would have started is
+        # listed as a non-starter and the next man up takes the slot; a team on bye
+        # has no starters at all.
+        on_bye = avail.is_bye(club)
+        picked: List[Tuple[Any, Optional[str]]] = []
+        sidelined: List[Tuple[Any, str]] = []
+        for _, row in group_df.iterrows():
+            st = avail.status.get(str(row.get("gsis_id", "")))
+            reason = (
+                "BYE"
+                if on_bye
+                else (st if st and st.lower() in _UNAVAILABLE else None)
+            )
+            if reason:
+                if len(sidelined) < max_slots:
+                    sidelined.append((row, reason))
+                if on_bye and len(sidelined) >= max_slots:
+                    break
+                continue  # keep walking: the next man up takes his slot
+            picked.append((row, st))
+            if len(picked) >= max_slots:
+                break
+
+        def _emit(row, rank, is_starter, status, confidence):
             snap_pct_val = row["_snap_pct"] if not np.isnan(row["_snap_pct"]) else None
-            confidence = _compute_starter_confidence(True, snap_pct_val)
             rows.append(
                 {
                     "team": club,
@@ -530,17 +727,26 @@ def get_team_starters(
                     "player_id": row.get("gsis_id", ""),
                     "depth_rank": rank,
                     "snap_pct": snap_pct_val,
-                    "is_starter": True,
+                    "is_starter": is_starter,
                     "starter_confidence": round(confidence, 2),
+                    "injury_status": status,
                     "field_position": _assign_field_position(pos_group, rank),
                     "side": side,
                 }
             )
 
+        for rank, (row, st) in enumerate(picked, start=1):
+            snap = row["_snap_pct"] if not np.isnan(row["_snap_pct"]) else None
+            plays = _P_PLAYS.get(str(st).lower(), 1.0)
+            _emit(row, rank, True, st, _compute_starter_confidence(True, snap) * plays)
+        for rank, (row, reason) in enumerate(sidelined, start=len(picked) + 1):
+            _emit(row, rank, False, reason, 0.0)
+
     if not rows:
         return pd.DataFrame()
 
     result = pd.DataFrame(rows)
+    result.attrs["degraded_reasons"] = degraded
     # Sort by team, side (offense first), position group, rank
     side_order = {"offense": 0, "defense": 1}
     result["_side_ord"] = result["side"].map(side_order)
@@ -551,6 +757,7 @@ def get_team_starters(
         columns=["_side_ord", "_pos_ord"]
     )
     result = result.reset_index(drop=True)
+    result.attrs["degraded_reasons"] = degraded
 
     return result
 
@@ -583,9 +790,10 @@ def get_team_lineup_with_projections(
             player_id, projected_points, projected_floor, projected_ceiling,
             snap_pct, depth_rank, is_starter, starter_confidence, side.
     """
-    starters = get_team_starters(season, week, team=team)
+    starters = get_team_starters(season, week, team=team, projections_df=projections_df)
     if starters.empty:
         return starters
+    degraded = list(starters.attrs.get("degraded_reasons") or [])
 
     proj = projections_df if projections_df is not None else _load_projections(season, week)
     if proj.empty:
@@ -683,4 +891,5 @@ def get_team_lineup_with_projections(
             ] = np.nan
         merged = merged.drop(columns=["_proj_team"])
 
+    merged.attrs["degraded_reasons"] = degraded
     return merged
