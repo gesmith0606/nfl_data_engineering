@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-"""Weekly lineup setter: roster -> two projection sources -> league scoring -> deltas.
+"""Weekly lineup setter: roster -> one estimate per player -> P(bench beats starter).
 
     python scripts/set_lineups.py --league mantis
-    python scripts/set_lineups.py --league mantis --week 2 --threshold 2.5
+    python scripts/set_lineups.py --league mantis --week 2 --swap-p 0.60 --lean-p 0.55
 
 Pulls the Sleeper roster, roster_positions and scoring_settings for a league
-preset, scores OUR projections and Sleeper's weekly projections under those exact
-settings (TE premium, 6-pt pass TD, first downs on the Sleeper side), and prints
-only the deltas vs the lineup currently set. A swap is recommended only when both
-sources agree by the threshold (default 3.0 pts); otherwise it is a coin flip.
+preset and builds ONE estimate per player: Sleeper's weekly projection scored under
+those exact settings (TE premium, 6-pt pass TD, first downs), with our projection
+blended in at ``lineup_setter.OURS_WEIGHT`` (fitted on the replay by actual lineup
+points: 0 today). Expected points then carry the injury discount (a Questionable
+player plays ~71% of the time and scores less when he does).
+
+It prints only the deltas vs the lineup currently set, each with P(bench player
+outscores the starter): SWAP at P >= 0.52 (no LEAN band by default: the band just under
+the line lost points on the replay; ``--lean-p`` shows close calls). The
+ESPN writer files a SWAP only at P >= 0.60 (``WRITE_P``) -- it acts, so it asks more.
 
 OURS = the newest weekly Gold parquet for the week, newest by the timestamp in
 its filename (file mtime is rewritten by every checkout). When that board is
@@ -43,7 +49,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from src import config, sleeper_http  # noqa: E402
-from src.league_scoring import unmodeled_offense_keys  # noqa: E402
+from src.league_scoring import (  # noqa: E402
+    scoring_from_format,
+    unmodeled_offense_keys,
+)
 from src.lineup_setter import (  # noqa: E402
     ET,
     _SKIP_SLOTS,
@@ -52,6 +61,8 @@ from src.lineup_setter import (  # noqa: E402
     InjuryContext,
     build_id_maps,
     KDEF_DEFAULT_SCORING,
+    LEAN_P,
+    SWAP_P,
     build_rows,
     full_name_map,
     kickoffs_for_week,
@@ -71,6 +82,9 @@ from src.sleeper_player_map import (  # noqa: E402
     normalize_name,
 )
 
+#: The ESPN writer files a SWAP only at this probability or better (the report's own
+#: SWAP bar is lower: see lineup_setter.SWAP_P).
+WRITE_P = 0.60
 GOLD = REPO_ROOT / "data" / "gold" / "projections"
 SCHEDULES = REPO_ROOT / "data" / "bronze" / "schedules"
 ROSTERS = REPO_ROOT / "data" / "bronze" / "players" / "rosters"
@@ -149,8 +163,11 @@ def load_ours(
                 else dt.datetime.fromtimestamp(weekly.stat().st_mtime, dt.timezone.utc)
             )
             age_h = (dt.datetime.now(dt.timezone.utc) - made).total_seconds() / 3600
+            fmt = re.search(r"projections_(.+?)_[0-9]{8}_", weekly.name)
             return (
-                weekly_gold_to_stats(df),
+                weekly_gold_to_stats(df).assign(
+                    published_format=fmt.group(1) if fmt else None
+                ),
                 f"weekly Gold {weekly.name} ({age_h:.0f}h old)",
             )
         why = (
@@ -380,21 +397,6 @@ def last_week_bench_loss(
         return f"\n  (last week's bench loss unavailable: {type(exc).__name__})"
 
 
-#: config.SCORING_CONFIGS keys -> the Sleeper scoring keys score_with_settings
-#: understands. Same map waiver_wire.scoring_for uses; duplicated rather than
-#: imported because importing one CLI from another drags its whole module in.
-_TO_SLEEPER_KEYS = {
-    "reception": "rec",
-    "rush_yd": "rush_yd",
-    "rec_yd": "rec_yd",
-    "rush_td": "rush_td",
-    "rec_td": "rec_td",
-    "pass_yd": "pass_yd",
-    "pass_td": "pass_td",
-    "interception": "pass_int",
-    "fumble_lost": "fum_lost",
-}
-
 #: ROSTER_CONFIGS uses DST where Sleeper uses DEF.
 _SHAPE_TO_SLEEPER_SLOT = {"DST": "DEF", "SFLEX": "SUPER_FLEX"}
 
@@ -423,11 +425,9 @@ def scoring_for_preset(preset: Mapping[str, Any]) -> Dict[str, float]:
     Mirrors ``waiver_wire.scoring_for`` for the no-league case so both tools
     price a pasted board the same way.
     """
-    base = config.SCORING_CONFIGS[preset["scoring_format"]]
-    mapped = {_TO_SLEEPER_KEYS[k]: v for k, v in base.items() if k in _TO_SLEEPER_KEYS}
     # The presets carry offensive rules only; without K/DEF rules every kicker
     # and defence would score 0 and tie for the slot.
-    return {**KDEF_DEFAULT_SCORING, **mapped}
+    return {**KDEF_DEFAULT_SCORING, **scoring_from_format(preset["scoring_format"])}
 
 
 def resolve_sleeper_id(
@@ -675,24 +675,26 @@ def espn_write(
     season: int,
     week: int,
     apply_changes: bool,
+    write_p: float = WRITE_P,
 ) -> int:
     """File exactly the SWAPs and MUST FIX moves the report just printed. Nothing else.
 
-    The writer deliberately applies the SAME rule the report does -- a SWAP
-    needs OURS *and* Sleeper to agree by the threshold -- rather than the
-    optimizer's full allocation. Two reasons. Filing a move the tool declined
-    to recommend out loud is a surprise, and a surprise in a lineup is
-    indistinguishable from a bug. And the softer verdicts exist precisely
-    because they want a human: COIN FLIP and SPLIT are too close to call, and
-    CHECK STATUS means a Sleeper injury tag the official report has not
-    confirmed. Automating those would be automating the uncertainty away.
+    The writer files only what the report printed as a SWAP, never the
+    optimizer's full allocation, and it asks for more than the report does: a
+    SWAP is filed only at P >= ``WRITE_P`` (0.60). The report calls 53% a SWAP
+    because the expected gain is positive; a script that moves your lineup for
+    you should want a clearer edge. Filing a move the tool declined to
+    recommend out loud is a surprise, and a surprise in a lineup is
+    indistinguishable from a bug. LEAN is too close to call and CHECK STATUS
+    means a Sleeper injury tag the official report has not confirmed:
+    automating those would be automating the uncertainty away.
 
     A MUST FIX move (a starter on bye or ruled out, swapped for the best live
     bench player) is filed the same way: it is printed first, and it is the one
     move no projection source argues with. An EMPTY slot is not filed (there is
     no outgoing player to read the slot from); the report says to fill it by hand.
 
-    Run with ``--threshold 0`` to file every edge the optimizer sees.
+    Run with ``--swap-p 0.5 --write-p 0.5`` to file every edge the optimizer sees.
     """
     from dotenv import load_dotenv
 
@@ -714,9 +716,13 @@ def espn_write(
     slots = espn_slots_by_id(payload, team_id)
     names_by_pid = espn_names_by_id(payload, team_id)
 
-    fileable = ("SWAP", "MUST FIX")
-    swaps = [d for d in deltas if getattr(d, "verdict", "") in fileable]
-    skipped = [d for d in deltas if getattr(d, "verdict", "") not in fileable]
+    def fileable(d: Any) -> bool:
+        if getattr(d, "verdict", "") == "MUST FIX":
+            return True
+        return getattr(d, "verdict", "") == "SWAP" and (d.p or 0.0) >= write_p
+
+    swaps = [d for d in deltas if fileable(d)]
+    skipped = [d for d in deltas if not fileable(d)]
 
     print()
     print(f"ESPN lineup — league {league_id}, team {team_id}, week {week}")
@@ -794,10 +800,22 @@ def main(argv: Optional[list] = None) -> int:
         "LEAGUE_PRESETS, so no login is needed.",
     )
     ap.add_argument(
-        "--threshold",
+        "--swap-p",
         type=float,
-        default=3.0,
-        help="Min margin on BOTH sources for a SWAP",
+        default=SWAP_P,
+        help="SWAP when P(bench player outscores the starter) is at least this",
+    )
+    ap.add_argument(
+        "--lean-p",
+        type=float,
+        default=LEAN_P,
+        help="LEAN (shown, never applied) at this probability or better",
+    )
+    ap.add_argument(
+        "--write-p",
+        type=float,
+        default=WRITE_P,
+        help="--espn-write files a SWAP only at this probability or better",
     )
     ap.add_argument(
         "--espn-write",
@@ -938,7 +956,7 @@ def main(argv: Optional[list] = None) -> int:
     weekly = pd.read_parquet(weekly_files[-1]) if weekly_files else pd.DataFrame()
     gsis_map = roster_gsis_map(rosters)
     ours = ours_by_sleeper_id(
-        score_ours(ours_df, scoring),
+        score_ours(ours_df, scoring, adjust_published=True),
         registry,
         gsis_map=gsis_map,
         full_names=full_name_map(rosters, weekly),
@@ -998,12 +1016,18 @@ def main(argv: Optional[list] = None) -> int:
             "schedule file before trusting any BYE line."
         )
     rec = recommend(
-        rows, roster_positions, mine.get("starters") or [], threshold=args.threshold
+        rows,
+        roster_positions,
+        mine.get("starters") or [],
+        swap_p=args.swap_p,
+        lean_p=args.lean_p,
     )
     deltas = rec.deltas
     header = (
         f"{league.get('name', league_id)} — {username} — {season} week {week} "
-        f"(threshold {args.threshold:.1f} on both sources)"
+        f"(SWAP at P>={args.swap_p:.2f}"
+        + (f", LEAN at P>={args.lean_p:.2f}" if args.lean_p < args.swap_p else "")
+        + ")"
     )
     print(
         render(rows, deltas, header, ours_label, must_fix=rec.must_fix, banner=banner)
@@ -1076,6 +1100,7 @@ def main(argv: Optional[list] = None) -> int:
             season=season,
             week=week,
             apply_changes=args.apply,
+            write_p=args.write_p,
         )
     return 0
 

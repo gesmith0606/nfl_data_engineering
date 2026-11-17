@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import dataclasses
 import datetime as dt
+import math
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple
 from zoneinfo import ZoneInfo
@@ -26,7 +27,13 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import linear_sum_assignment
 
-from src.league_scoring import score_with_settings
+from src.config import SCORING_CONFIGS
+from src.league_scoring import (
+    FD_PER_RECEPTION,
+    FD_PER_RUSH_YARD,
+    score_with_settings,
+    scoring_from_format,
+)
 from src.roster_optimizer import _SKIP_SLOTS, _SLOT_ELIGIBILITY, optimal_lineup
 from src.sleeper_player_map import normalize_name
 
@@ -72,6 +79,43 @@ KDEF_DEFAULT_SCORING: Dict[str, float] = {
     "pts_allow_14_20": 1.0, "pts_allow_21_27": 0.0, "pts_allow_28_34": -1.0,
     "pts_allow_35p": -4.0,
 }  # fmt: skip
+
+
+# --- the single estimate and its spread -------------------------------------------------
+# Fitted on 2026 Mantis weeks 1-5 (replay: ``python scripts/replay_lineups.py --sweep``)
+# and tested on weeks 6-9. Re-fit these when a season of snapshots accumulates.
+#
+# OURS_WEIGHT: share of OUR projection in the one estimate. The replay sweep by
+# actual lineup points says 0: every weight above 0.1 scored fewer points (train and
+# test), although mean absolute error alone would have picked ~0.2.
+OURS_WEIGHT = 0.0
+# Outcome spread around a healthy projection mu: sd = a + b * mu (pooled over QB/RB/WR/TE,
+# fitted on 856 player-weeks, weeks 1-5; weeks 6-9 observed sd 8.15 vs 8.99 predicted).
+# A 12-point receiver gets sd ~7.8, so a 1/3/5 point gap between two of them is
+# 54% / 61% / 69%.
+SIGMA_INTERCEPT, SIGMA_SLOPE, SIGMA_FLOOR = 3.95, 0.318, 2.0
+# Injury expectation (league-wide NFL constants supplied with the 2026-11-15 plan):
+# a Questionable player plays ~71% of the time and, when he does, scores below his
+# healthy average by a position-specific amount; a Doubtful player plays 6-7%.
+# Local check on 82 Questionable player-weeks in the replay: played 67%.
+P_PLAYS_QUESTIONABLE, P_PLAYS_DOUBTFUL = 0.71, 0.065
+QUESTIONABLE_PENALTY: Dict[str, float] = {
+    "QB": 0.08,
+    "RB": 0.16,
+    "TE": 0.18,
+    "WR": 0.22,
+}
+# Verdict thresholds on P(bench player outscores the starter); chosen on weeks 1-5
+# (``replay_lineups.py --sweep``: the highest SWAP threshold within 5% of the best train
+# gain). There is NO LEAN band by default (LEAN_P == SWAP_P): the band just under the
+# SWAP line lost points (P in [0.50, 0.52): 15 pairs, 27% right, -43 pts over weeks 1-9),
+# so showing it as advice would be noise. Lower LEAN_P to show close calls.
+SWAP_P, LEAN_P = 0.52, 0.52
+# Sleeper's own first-down projections run ~2x what happens (see score_sleeper_stats).
+# Replacing them with documented rates cuts the consensus's error (MAE 6.84 -> 6.58,
+# bias +1.5 -> +0.3, n=1,551) but did NOT score more lineup points on the replay
+# (weeks 1-5 +116 vs +136, weeks 6-9 +23 vs +34, noise-sized samples), so it stays off.
+CONSENSUS_FD_FROM_RATES = False
 
 
 @dataclass
@@ -138,6 +182,61 @@ class PlayerRow:
     def dead(self) -> bool:
         return self.dead_reason is not None
 
+    @property
+    def projection(self) -> Optional[float]:
+        """THE estimate for a healthy game: the consensus (Sleeper's projection
+        under the league's scoring), with our projection blended in at
+        :data:`OURS_WEIGHT`. Either alone when the other is missing.
+
+        An unconfirmed Sleeper Out/Doubtful tag zeroes Sleeper's number for a
+        reason that may be a week old, so for him ours is used when we have it.
+        """
+        sl = self.sleeper
+        if self.status_unconfirmed and self.ours is not None:
+            sl = None
+        if sl is not None and self.ours is not None:
+            return (1 - OURS_WEIGHT) * sl + OURS_WEIGHT * self.ours
+        return sl if sl is not None else self.ours
+
+    @property
+    def p_plays(self) -> float:
+        """Probability he plays at all (bye / Out = 0, Doubtful and Questionable per
+        the documented constants)."""
+        if self.bye or self.team in ("", "FA") or self.status_level == LEVEL_OUT:
+            return 0.0
+        if self.status_level == LEVEL_DOUBTFUL:
+            return P_PLAYS_DOUBTFUL
+        if self.status_level == LEVEL_QUESTIONABLE:
+            return P_PLAYS_QUESTIONABLE
+        return 1.0
+
+    @property
+    def active_mean(self) -> float:
+        """Expected points IF he plays: the estimate, less the Questionable/Doubtful
+        penalty for his position."""
+        base = self.projection or 0.0
+        if self.status_level in (LEVEL_QUESTIONABLE, LEVEL_DOUBTFUL):
+            base *= 1 - QUESTIONABLE_PENALTY.get(self.position, 0.2)
+        return max(base, 0.0)
+
+    @property
+    def expected(self) -> float:
+        """P(plays) x (1 - penalty) x projection."""
+        return self.p_plays * self.active_mean
+
+    @property
+    def variance(self) -> float:
+        """Variance of his points: spread when active, plus the chance he does not play
+        (p*sd^2 + p(1-p)*mean^2 for a Bernoulli times a value)."""
+        mu = self.active_mean
+        sd = (
+            max(SIGMA_FLOOR, SIGMA_INTERCEPT + SIGMA_SLOPE * mu)
+            if self.p_plays
+            else 0.0
+        )
+        p = self.p_plays
+        return p * sd * sd + p * (1 - p) * mu * mu
+
     def as_optimizer_dict(self, source: str) -> Dict[str, Any]:
         pts = getattr(self, source)
         return {
@@ -148,20 +247,47 @@ class PlayerRow:
         }
 
 
+def p_bench_outscores(bench: "PlayerRow", starter: "PlayerRow") -> float:
+    """P(bench player scores more than the starter), normal on the expected gap."""
+    gap = bench.expected - starter.expected
+    sd = math.sqrt(bench.variance + starter.variance)
+    if sd <= 0:
+        return 1.0 if gap > 0 else 0.5 if gap == 0 else 0.0
+    return 0.5 * (1 + math.erf(gap / sd / math.sqrt(2)))
+
+
 # ---------------------------------------------------------------------------
 # Scoring
 # ---------------------------------------------------------------------------
 
 
 def score_sleeper_stats(
-    stats: Dict[str, Any], scoring_settings: Dict[str, Any], position: str
+    stats: Dict[str, Any],
+    scoring_settings: Dict[str, Any],
+    position: str,
+    fd_rates: bool = False,
 ) -> float:
     """Score a Sleeper projection stat dict under a league's scoring settings.
 
     Sleeper's projection keys are the same vocabulary as ``scoring_settings``
     (``pass_yd``, ``rec``, ``rec_fd``, ``fum_lost`` ...), so this is a dot product.
     ``bonus_rec_te`` is a per-reception TE premium and only applies to TEs.
+
+    ``fd_rates=True`` replaces Sleeper's own first-down projections with the
+    documented rates (``league_scoring.FD_PER_RECEPTION`` / ``FD_PER_RUSH_YARD``).
+    Sleeper's ``rec_fd`` runs far above what happens: per projected reception it
+    is 1.37 for WR, 1.05 for TE, 0.69 for RB against actual 0.61 / 0.54 / 0.35,
+    which over-projects pass-catchers by ~1.5 points a week under a league that
+    pays 0.5 per first down (2026 replay, n=1,551 player-weeks).
     """
+    if fd_rates:
+        stats = dict(stats)
+        stats["rec_fd"] = FD_PER_RECEPTION.get(position, 0.0) * float(
+            stats.get("rec") or 0
+        )
+        stats["rush_fd"] = FD_PER_RUSH_YARD.get(position, 0.0) * max(
+            float(stats.get("rush_yd") or 0), 0.0
+        )
     total = 0.0
     for key, weight in scoring_settings.items():
         if key == "bonus_rec_te":
@@ -178,7 +304,9 @@ def score_sleeper_stats(
 def weekly_gold_to_stats(df: pd.DataFrame) -> pd.DataFrame:
     """Normalise a weekly Gold parquet (``proj_*`` columns) to plain stat columns."""
     out = df.rename(columns=_WEEKLY_RENAME)
-    keep = [c for c in _ID_COLS + _STAT_COLS if c in out.columns]
+    if "projected_points" in out.columns:  # the board's own, calibrated number
+        out = out.assign(published_points=out["projected_points"])
+    keep = [c for c in _ID_COLS + _STAT_COLS + ["published_points"] if c in out.columns]
     return out[keep].copy()
 
 
@@ -193,11 +321,46 @@ def preseason_to_weekly(
     return out
 
 
-def score_ours(df: pd.DataFrame, scoring_settings: Dict[str, Any]) -> pd.DataFrame:
-    """Score normalised stat rows under league settings -> ``projected_points``."""
+def score_ours(
+    df: pd.DataFrame,
+    scoring_settings: Dict[str, Any],
+    adjust_published: bool = False,
+    first_downs: bool = False,
+) -> pd.DataFrame:
+    """Score normalised stat rows under league settings -> ``projected_points``.
+
+    Default: rebuild the points from the stat lines. That throws away what the
+    board did after the stat lines (anchors, dispersion shrink, ceiling shrink):
+    on 2026 weeks 1-9 the board's published half-PPR points differ from its own
+    re-scored stat lines by 1.4 points per player-week on average.
+
+    ``adjust_published=True`` (the lineup tool) keeps the published number and
+    adds only the scoring DIFFERENCE, computed on the stat lines:
+    ``published + (league rules - the format the board was published in)``,
+    Needs ``published_points`` and ``published_format`` columns; rows without them fall
+    back to the rebuild. ``first_downs=True`` also scores the league's first-down rules
+    from projected receptions / rushing yards; off by default because it made our
+    error WORSE on the 2026 replay (MAE 7.04 -> 7.18 under Mantis scoring: our
+    published points are not short the ~2 points a week the rates add).
+    """
     if df.empty:
         return df.assign(projected_points=pd.Series(dtype=float))
-    scored = score_with_settings(df.assign(projected_points=0.0), scoring_settings)
+    base = df.assign(projected_points=0.0)
+    scored = score_with_settings(base, scoring_settings, model_first_downs=first_downs)
+    if adjust_published and {"published_points", "published_format"} <= set(df.columns):
+        fmt = df["published_format"]
+        # score the stat lines under each distinct format the boards were published in
+        was = pd.Series(np.nan, index=df.index)
+        for name in fmt.dropna().unique():
+            if name in SCORING_CONFIGS:
+                was.loc[fmt == name] = score_with_settings(
+                    base.loc[fmt == name], scoring_from_format(name)
+                )["projected_points"]
+        adj = df["published_points"] + (scored["projected_points"] - was)
+        ok = adj.notna()
+        scored["projected_points"] = (
+            adj.where(ok, scored["projected_points"]).clip(lower=0).round(1)
+        )
     return scored
 
 
@@ -588,6 +751,7 @@ def build_rows(
     now: Optional[dt.datetime] = None,
     injury_ctx: Optional[InjuryContext] = None,
     news: Optional[Dict[str, str]] = None,
+    fd_rates: Optional[bool] = None,
 ) -> List[PlayerRow]:
     """Build one :class:`PlayerRow` per rostered player with both sources + flags.
 
@@ -597,6 +761,7 @@ def build_rows(
     """
     now = now or dt.datetime.now(tz=ET)
     have_schedule = bool(kickoffs)  # no schedule -> no bye/lock claims at all
+    use_rates = CONSENSUS_FD_FROM_RATES if fd_rates is None else fd_rates
     slot_of = {
         pid: (slot, i)
         for i, (slot, pid) in enumerate(current_slots(roster_positions, starters))
@@ -614,7 +779,11 @@ def build_rows(
             or pid
         )
         stats = sleeper_proj.get(pid)
-        sl = score_sleeper_stats(stats, scoring_settings, pos) if stats else None
+        sl = (
+            score_sleeper_stats(stats, scoring_settings, pos, fd_rates=use_rates)
+            if stats
+            else None
+        )
         ko = kickoffs.get(_TEAM_ALIAS.get(team, team))
         # The schedule is trusted only while Sleeper agrees. A schedule missing
         # one game would otherwise turn every starter on those two teams into a
@@ -684,19 +853,27 @@ def build_rows(
 
 @dataclass
 class Delta:
-    verdict: str  # SWAP | CHECK STATUS | COIN FLIP | SPLIT
+    verdict: str  # SWAP | LEAN | CHECK STATUS (legacy rule: COIN FLIP | SPLIT)
     slot: str
     out_player: PlayerRow
     in_player: PlayerRow
-    margin_ours: Optional[float]
-    margin_sleeper: Optional[float]
+    margin_ours: Optional[float] = None  # legacy two-vote rule only
+    margin_sleeper: Optional[float] = None
+    p: Optional[float] = None  # P(in_player outscores out_player)
+    gap: Optional[float] = None  # expected-points gap, in_player minus out_player
 
     def line(self) -> str:
-        m_o = "n/a" if self.margin_ours is None else f"{self.margin_ours:+.1f}"
-        m_s = "n/a" if self.margin_sleeper is None else f"{self.margin_sleeper:+.1f}"
+        if self.p is None:
+            m_o = "n/a" if self.margin_ours is None else f"{self.margin_ours:+.1f}"
+            m_s = (
+                "n/a" if self.margin_sleeper is None else f"{self.margin_sleeper:+.1f}"
+            )
+            detail = f"ours {m_o}, Sleeper {m_s}"
+        else:
+            detail = f"P {self.p:.0%}, {self.gap:+.1f} expected pts"
         line = (
             f"{self.verdict:9s} {self.slot:6s} start {self.in_player.name} "
-            f"over {self.out_player.name}  (ours {m_o}, Sleeper {m_s})"
+            f"over {self.out_player.name}  ({detail})"
         )
         if self.verdict == "CHECK STATUS":
             line += (
@@ -730,63 +907,83 @@ def _verdict(
     return "SPLIT" if known is not None and known >= threshold else None
 
 
-_RANK = {"SWAP": 2, "CHECK STATUS": 2, "COIN FLIP": 1, "SPLIT": 0}
+_RANK = {"SWAP": 2, "CHECK STATUS": 2, "COIN FLIP": 1, "SPLIT": 0}  # legacy rule only
 
 
 def lineup_deltas(
-    rows: List[PlayerRow], threshold: float = 3.0, legacy: bool = False
+    rows: List[PlayerRow],
+    threshold: float = 3.0,
+    legacy: bool = False,
+    swap_p: Optional[float] = None,
+    lean_p: Optional[float] = None,
 ) -> List[Delta]:
     """Pairwise deltas vs the lineup currently set.
 
-    For each current starter, every eligible bench player is a candidate; see
-    :func:`_verdict` for the SWAP / COIN FLIP / SPLIT rule. Candidates are taken
-    strongest-first (verdict, then the worse of the two margins) and each player
-    appears in at most one delta. Locked bench players are never proposed;
-    a locked starter cannot be swapped out. A SWAP that would bench a starter
-    whose Sleeper Out/Doubtful tag the week's official report does not confirm
-    (``status_unconfirmed``) is downgraded to CHECK STATUS: Sleeper zeroes its
-    projection on that tag, so the margin may be nothing but the stale tag.
+    For each current starter, every eligible bench player is a candidate. The rule
+    is a probability, not two votes: P(bench player outscores the starter) from
+    the expected-points gap and each player's spread (:func:`p_bench_outscores`;
+    expected points already carry the injury discount). ``P >= swap_p`` is a SWAP,
+    ``P >= lean_p`` a LEAN (shown, never applied), anything lower is a hold.
+    Candidates are taken most-probable first and each player appears in at most
+    one delta. Locked bench players are never proposed; a locked starter cannot
+    be swapped out. A SWAP that would bench a starter whose Sleeper Out/Doubtful
+    tag the week's official report does not confirm (``status_unconfirmed``) is
+    downgraded to CHECK STATUS.
 
-    Dead players (bye, Out, IR, Doubtful, no team) are not deltas: a dead
-    starter is a MUST FIX (:func:`repair_lineup`) and a dead bench player is
-    never proposed. A player with no row on one board uses the other source
-    (the consensus) instead of blocking the pair. ``legacy=True`` restores the
-    pre-2026-11 behaviour (raw projections, missing row blocks, bye-only
-    filter); the replay keeps it as the baseline the new rule is measured
-    against.
+    Dead players (bye, Out, IR, Doubtful, no team) are not deltas: a dead starter is
+    a MUST FIX (:func:`repair_lineup`) and a dead bench player is never proposed.
+
+    ``legacy=True`` is the original rule (SWAP only when OURS and Sleeper both favour
+    the bench player by ``threshold``; COIN FLIP / SPLIT otherwise, raw projections,
+    a missing row blocks the pair). The replay keeps it as the baseline.
     """
+    swap_p = SWAP_P if swap_p is None else swap_p
+    lean_p = LEAN_P if lean_p is None else lean_p
     if legacy:
         starters = [r for r in rows if r.slot and not r.locked]
         bench = [r for r in rows if not r.slot and not r.locked and not r.bye]
-        own = lambda r: r.ours  # noqa: E731
-        slp = lambda r: r.sleeper  # noqa: E731
     else:
         starters = [r for r in rows if r.slot and not r.locked and not r.dead]
-        bench = [r for r in rows if not r.slot and not r.locked and not r.dead]
-        own = lambda r: r.ours_eff  # noqa: E731
-        slp = lambda r: r.sleeper_eff  # noqa: E731
+        bench = [
+            r
+            for r in rows
+            if not r.slot and not r.locked and not r.dead and not r.status_unconfirmed
+        ]
     candidates = []
     for s in starters:
         elig = _SLOT_ELIGIBILITY.get(s.slot.upper(), set())
         for b in bench:
             if b.position not in elig:
                 continue
-            m_o, m_s = _margin(own(b), own(s)), _margin(slp(b), slp(s))
-            verdict = _verdict(m_o, m_s, threshold)
+            if legacy:
+                m_o, m_s = _margin(b.ours, s.ours), _margin(b.sleeper, s.sleeper)
+                verdict = _verdict(m_o, m_s, threshold)
+                prob = gap = None
+                key = (
+                    _RANK.get(verdict or "", -1),
+                    min((m for m in (m_o, m_s) if m is not None), default=0.0),
+                )
+            else:
+                prob = p_bench_outscores(b, s)
+                gap = b.expected - s.expected
+                m_o = m_s = None
+                verdict = (
+                    "SWAP" if prob >= swap_p else "LEAN" if prob >= lean_p else None
+                )
+                key = (0, prob)
             if verdict == "SWAP" and s.status_unconfirmed:
                 verdict = "CHECK STATUS"
             if verdict:
-                worst = min(m for m in (m_o, m_s) if m is not None)
-                candidates.append((_RANK[verdict], worst, s, b, m_o, m_s, verdict))
+                candidates.append((key, s, b, m_o, m_s, prob, gap, verdict))
     used: set = set()
     deltas: List[Delta] = []
-    for _, _, s, b, m_o, m_s, verdict in sorted(
-        candidates, key=lambda c: (c[0], c[1]), reverse=True
+    for _, s, b, m_o, m_s, prob, gap, verdict in sorted(
+        candidates, key=lambda c: c[0], reverse=True
     ):
         if b.sleeper_id in used or s.sleeper_id in used:
             continue
         used.update({b.sleeper_id, s.sleeper_id})
-        deltas.append(Delta(verdict, s.slot, s, b, m_o, m_s))
+        deltas.append(Delta(verdict, s.slot, s, b, m_o, m_s, prob, gap))
     return deltas
 
 
@@ -804,7 +1001,7 @@ def lineup_deltas(
 def assign_slots(
     slots: Sequence[str],
     candidates: Sequence[PlayerRow],
-    value: Callable[[PlayerRow], float] = lambda r: r.blend,
+    value: Callable[[PlayerRow], float] = lambda r: r.expected,
 ) -> List[Optional[PlayerRow]]:
     """Exact best assignment of candidates to slot labels, aligned with ``slots``.
 
@@ -856,7 +1053,7 @@ class MustFix:
         r = self.in_player
         return (
             f"{slot:6s} {who} -> start {r.name} ({r.position}, {r.team}, "
-            f"proj {r.blend:.1f})"
+            f"expect {r.expected:.1f})"
         )
 
     def as_delta(self) -> Optional[Delta]:
@@ -873,7 +1070,7 @@ def repair_lineup(
     rows: Sequence[PlayerRow],
     roster_positions: Sequence[str],
     starters: Sequence[str],
-    value: Callable[[PlayerRow], float] = lambda r: r.blend,
+    value: Callable[[PlayerRow], float] = lambda r: r.expected,
 ) -> Tuple[List[str], List[MustFix]]:
     """Replace every dead or empty starting slot; return ``(starters, fixes)``.
 
@@ -958,19 +1155,21 @@ def recommend(
     rows: Sequence[PlayerRow],
     roster_positions: Sequence[str],
     starters: Sequence[str],
-    threshold: float = 3.0,
+    swap_p: Optional[float] = None,
+    lean_p: Optional[float] = None,
 ) -> Recommendation:
-    """MUST FIX repairs, then the deltas of the repaired lineup, then the swaps."""
+    """MUST FIX repairs, then the deltas of the repaired lineup, then the swaps
+    (LEANs are reported, never applied)."""
     repaired, fixes = repair_lineup(rows, roster_positions, starters)
     slotted = reslot(rows, roster_positions, repaired)
-    deltas = lineup_deltas(slotted, threshold)
+    deltas = lineup_deltas(slotted, swap_p=swap_p, lean_p=lean_p)
     return Recommendation(apply_swaps(repaired, deltas), fixes, deltas, slotted)
 
 
 def optimal_starters(
     rows: Sequence[PlayerRow],
     roster_positions: Sequence[str],
-    value: Callable[[PlayerRow], float] = lambda r: r.blend,
+    value: Callable[[PlayerRow], float] = lambda r: r.expected,
 ) -> List[str]:
     """Best lineup for a roster with no lineup set yet, in ``roster_positions`` order.
 
@@ -1003,6 +1202,67 @@ def _fmt(v: Optional[float]) -> str:
     return "  -  " if v is None else f"{v:5.1f}"
 
 
+INACTIVE_REPORT_MINUTES = 90  # the NFL's inactive list lands ~90 minutes before kickoff
+
+
+def _when(ko: dt.datetime) -> str:
+    return ko.astimezone(ET).strftime("%a %H:%M")
+
+
+def questionable_fallbacks(rows: Sequence[PlayerRow]) -> List[str]:
+    """For each Questionable starter: who could still replace him once his status is known.
+
+    His inactive report lands ~90 minutes before his kickoff. A bench player who
+    kicks off after that moment can still be started in his slot if he is
+    ruled out; one who kicks off earlier has already locked. So when a
+    Questionable starter plays late, keep a later-kickoff option on the bench
+    (or in FLEX), and when none exists, say so. Dead and locked players are
+    ignored.
+    """
+    out: List[str] = []
+    for s in rows:
+        if not (
+            s.slot
+            and not s.locked
+            and not s.dead
+            and s.status_level == LEVEL_QUESTIONABLE
+            and s.kickoff is not None
+        ):
+            continue
+        know_at = s.kickoff - dt.timedelta(minutes=INACTIVE_REPORT_MINUTES)
+        elig = _SLOT_ELIGIBILITY.get(s.slot.upper(), set())
+        late = [
+            b
+            for b in rows
+            if not b.slot
+            and not b.locked
+            and not b.dead
+            and not b.status_unconfirmed
+            and b.position in elig
+            and b.kickoff is not None
+            and b.kickoff >= know_at
+        ]
+        late.sort(key=lambda b: b.expected, reverse=True)
+        head = (
+            f"{s.name} is Questionable ({s.p_plays:.0%} to play), kicks off "
+            f"{_when(s.kickoff)}; his status is known by {_when(know_at)}"
+        )
+        if late:
+            b = late[0]
+            out.append(
+                f"{head}. Fallback still open: {b.name} ({b.position}, kicks off "
+                f"{_when(b.kickoff)}, expect {b.expected:.1f}) -- keep him on the bench, "
+                "or in FLEX if you want the slot flexible."
+            )
+        else:
+            out.append(
+                f"{head}. NO LATE FALLBACK: every eligible bench player kicks off before "
+                "then, so if he is inactive the slot scores 0. Consider a starter whose "
+                "game is earlier."
+            )
+    return out
+
+
 def render(
     rows: List[PlayerRow],
     deltas: List[Delta],
@@ -1029,34 +1289,50 @@ def render(
             )
         lines.append("")
     lines.append(
-        f"  {'SLOT':7s}{'PLAYER':24s}{'POS':4s}{'TM':4s} {'OURS':>5s} {'SLPR':>5s} {'BLEND':>5s}  NOTES"
+        f"  {'SLOT':7s}{'PLAYER':24s}{'POS':4s}{'TM':4s} {'OURS':>5s} {'SLPR':>5s} {'PROJ':>5s} {'EXPCT':>5s}  NOTES"
     )
     starters = sorted((r for r in rows if r.slot), key=lambda r: r.slot_index)
-    bench = sorted((r for r in rows if not r.slot), key=lambda r: r.blend, reverse=True)
+    bench = sorted(
+        (r for r in rows if not r.slot), key=lambda r: r.expected, reverse=True
+    )
     for r in starters + bench:
         slot = _SLOT_DISPLAY.get(r.slot or "", r.slot) or "BN"
+        proj = _fmt(r.projection)
         lines.append(
-            f"  {slot:7s}{r.name[:23]:24s}{r.position:4s}{r.team:4s} {_fmt(r.ours)} {_fmt(r.sleeper)} {r.blend:5.1f}  {', '.join(r.notes)}"
+            f"  {slot:7s}{r.name[:23]:24s}{r.position:4s}{r.team:4s} {_fmt(r.ours)} {_fmt(r.sleeper)} {proj} {r.expected:5.1f}  {', '.join(r.notes)}"
         )
-    tot_o = sum(r.ours or 0 for r in starters)
-    tot_s = sum(r.sleeper or 0 for r in starters)
     lines += [
         "",
-        f"  Starters total: ours {tot_o:.1f} / Sleeper {tot_s:.1f}   (OURS = {ours_label})",
+        f"  Starters expected: {sum(r.expected for r in starters):.1f}   "
+        f"(PROJ = Sleeper's projection under league scoring"
+        + (f", {OURS_WEIGHT:.0%} ours" if OURS_WEIGHT else "")
+        + "; EXPCT = after the injury discount;",
+        f"  OURS = {ours_label})",
         "",
     ]
+    fallbacks = questionable_fallbacks(rows)
+    if fallbacks:
+        lines.append("QUESTIONABLE STARTERS:")
+        lines += ["  " + f for f in fallbacks]
+        lines.append("")
     if deltas:
         after = " after the MUST FIX moves" if must_fix else ""
-        lines.append(
-            f"DELTAS vs the lineup above{after} "
-            "(rule: SWAP only when BOTH sources agree by the threshold):"
-        )
+        if any(d.p is not None for d in deltas):
+            rule = f"SWAP at P(bench outscores starter) >= {SWAP_P:.2f}"
+            if LEAN_P < SWAP_P:
+                rule += f", LEAN at >= {LEAN_P:.2f} (shown, not applied)"
+        else:
+            rule = "SWAP only when BOTH sources agree by the threshold"
+        lines.append(f"DELTAS vs the lineup above{after} (rule: {rule}):")
         lines += ["  " + d.line() for d in deltas]
         if any(d.verdict == "CHECK STATUS" for d in deltas):
             lines.append(
-                "  (CHECK STATUS: both sources favour the swap, but the starter's "
+                "  (CHECK STATUS: the data favours the swap, but the starter's "
                 "injury tag is unconfirmed for this week -- read the practice report/news first)"
             )
     else:
-        lines.append("No changes: no bench player beats a starter on both sources.")
+        lines.append(
+            f"No changes: no bench player has a {min(LEAN_P, SWAP_P):.0%} chance or "
+            "better of outscoring a starter."
+        )
     return "\n".join(lines)

@@ -29,6 +29,17 @@ _STAT_MAP: Dict[str, str] = {
     "rec_td": "receiving_tds",
 }
 
+# First downs are not on any board, but they are a stable function of the stat we do
+# project. Fit on 2016-2025 regular-season Bronze weekly (65,610 player-weeks):
+# receiving first downs per reception and rushing first downs per rushing yard.
+FD_PER_RECEPTION: Dict[str, float] = {"QB": 0.39, "RB": 0.35, "WR": 0.61, "TE": 0.54}
+FD_PER_RUSH_YARD: Dict[str, float] = {
+    "QB": 0.075,
+    "RB": 0.052,
+    "WR": 0.048,
+    "TE": 0.096,
+}
+
 # Offensive scoring keys we recognize but cannot model (no projection column).
 _UNMODELED_OFFENSE = {
     "rec_fd",
@@ -42,7 +53,9 @@ _UNMODELED_OFFENSE = {
 
 
 def score_with_settings(
-    projections: pd.DataFrame, scoring_settings: Dict[str, Any]
+    projections: pd.DataFrame,
+    scoring_settings: Dict[str, Any],
+    model_first_downs: bool = False,
 ) -> pd.DataFrame:
     """Return a copy of ``projections`` with custom points applied.
 
@@ -52,6 +65,11 @@ def score_with_settings(
     Adds a ``base_season_points`` column preserving the original preset value.
 
     TE premium (``bonus_rec_te``) adds to receptions for TE rows only.
+
+    ``model_first_downs=True`` also scores ``rec_fd`` / ``rush_fd`` from the
+    projected receptions / rushing yards (:data:`FD_PER_RECEPTION`,
+    :data:`FD_PER_RUSH_YARD`). Off by default so existing callers (waivers,
+    draft) keep their numbers; the lineup tool turns it on.
     """
     if projections is None or projections.empty or not scoring_settings:
         return projections
@@ -70,6 +88,20 @@ def score_with_settings(
             te_bonus
         )
 
+    if model_first_downs and "position" in df.columns:
+        pos = df["position"].astype(str).str.upper()
+        rec_fd, rush_fd = scoring_settings.get("rec_fd"), scoring_settings.get(
+            "rush_fd"
+        )
+        if rec_fd and "receptions" in df.columns:
+            rate = pos.map(FD_PER_RECEPTION).fillna(0.0)
+            points = points + df["receptions"].fillna(0) * rate * float(rec_fd)
+        if rush_fd and "rushing_yards" in df.columns:
+            rate = pos.map(FD_PER_RUSH_YARD).fillna(0.0)
+            points = points + df["rushing_yards"].fillna(0).clip(
+                lower=0
+            ) * rate * float(rush_fd)
+
     if "projected_season_points" in df.columns:
         df["base_season_points"] = df["projected_season_points"]
     df["projected_season_points"] = points.round(1)
@@ -78,12 +110,42 @@ def score_with_settings(
     return df
 
 
-def unmodeled_offense_keys(scoring_settings: Dict[str, Any]) -> List[str]:
+def unmodeled_offense_keys(
+    scoring_settings: Dict[str, Any], model_first_downs: bool = False
+) -> List[str]:
     """List offensive scoring rules present in the league but not modeled.
 
     Lets the caller disclose what the custom score omits (first downs, 2-pt
-    conversions, fumbles) rather than implying full fidelity.
+    conversions, fumbles) rather than implying full fidelity. With
+    ``model_first_downs`` the first-down rules are not omitted.
     """
+    skip = {"rec_fd", "rush_fd"} if model_first_downs else set()
     return sorted(
-        k for k in _UNMODELED_OFFENSE if scoring_settings.get(k) not in (None, 0, 0.0)
+        k
+        for k in _UNMODELED_OFFENSE - skip
+        if scoring_settings.get(k) not in (None, 0, 0.0)
     )
+
+
+# config.SCORING_CONFIGS keys -> the Sleeper scoring keys score_with_settings reads.
+_CONFIG_TO_SLEEPER = {
+    "reception": "rec",
+    "rush_yd": "rush_yd",
+    "rec_yd": "rec_yd",
+    "rush_td": "rush_td",
+    "rec_td": "rec_td",
+    "pass_yd": "pass_yd",
+    "pass_td": "pass_td",
+    "interception": "pass_int",
+    "fumble_lost": "fum_lost",
+}
+
+
+def scoring_from_format(scoring_format: str) -> Dict[str, float]:
+    """Sleeper-keyed scoring dict for a ``config.SCORING_CONFIGS`` preset."""
+    from src.config import SCORING_CONFIGS
+
+    base = SCORING_CONFIGS[scoring_format]
+    return {
+        _CONFIG_TO_SLEEPER[k]: v for k, v in base.items() if k in _CONFIG_TO_SLEEPER
+    }

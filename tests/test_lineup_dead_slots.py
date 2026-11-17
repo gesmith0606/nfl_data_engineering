@@ -190,7 +190,7 @@ def test_a_missing_board_row_uses_the_consensus_and_never_blocks():
         _row("s", "WR", 8.0, 8.0, slot="WR"),
         _row("puka", "WR", None, 14.0),  # no row on our board
     ]
-    assert [d.verdict for d in lineup_deltas(rows, 3.0)] == ["SWAP"]
+    assert [d.verdict for d in lineup_deltas(rows)] == ["SWAP"]
     # the pre-fix behaviour: the missing row blocked the pair
     assert [d.verdict for d in lineup_deltas(rows, 3.0, legacy=True)] == ["SPLIT"]
 
@@ -211,7 +211,7 @@ def test_recommend_repairs_first_then_swaps_on_the_repaired_lineup():
         _row("wr1", "WR", 6, 6, slot="WR"),
         _row("wr2", "WR", 14, 14),
     ]
-    rec = recommend(rows, ["QB", "WR", "BN"], ["qb", "wr1"], threshold=3.0)
+    rec = recommend(rows, ["QB", "WR", "BN"], ["qb", "wr1"])
     assert [f.reason for f in rec.must_fix if f.out_player] == ["BYE"]
     assert rec.starters == ["qb2", "wr2"]
     assert [d.verdict for d in rec.deltas] == ["SWAP"]

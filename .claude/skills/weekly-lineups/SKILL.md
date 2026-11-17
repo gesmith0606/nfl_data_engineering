@@ -59,14 +59,29 @@ Higbee are all on bye"), then move on to deltas.
 
 ## The SWAP rule, and what the writer is allowed to file
 
-A **SWAP** needs OURS *and* Sleeper to agree by the threshold (default 3.0). Everything
-softer exists because it wants a human: **COIN FLIP** (too close), **SPLIT** (the sources
-disagree), **CHECK STATUS** (a Sleeper Out/Doubtful the official report has not confirmed).
+Every player has ONE estimate: Sleeper's weekly projection under the league's scoring
+(our projection is blended in at `lineup_setter.OURS_WEIGHT`, which the replay fits at 0:
+more weight scored fewer points). Expected points then carry the injury discount:
+Questionable = 71% to play and QB -8% / RB -16% / TE -18% / WR -22% when he does,
+Doubtful = 6.5%. Each delta prints **P(bench player outscores the starter)** from the gap
+and each player's spread: **SWAP** at P >= 0.52 (no LEAN band: the band just under the
+line lost points, 15 pairs / 27% right; `--lean-p` shows close calls, never applied),
+**CHECK STATUS** (a Sleeper Out/Doubtful the official report has not confirmed).
+Read the P, not the label: 0.52-0.60 is "the expected gain is positive and the old record
+of deviating from Sleeper's order is bad", not "certain". A Questionable starter gets a
+line saying which bench player can still replace him after his inactive report (about 90
+minutes before his kickoff) or that none can.
 
-`--espn-write` files **only the SWAPs and MUST FIX moves the report printed** — never the
-softer verdicts, never the optimizer's full allocation, and never an empty slot (there is
-no outgoing player to read the slot from; fill it by hand). That is deliberate: filing a move the tool declined
-to recommend out loud is indistinguishable from a bug. Dry run first; `--apply` writes.
+Thresholds were chosen on weeks 1-5 of the 2026 Mantis replay and tested on 6-9 (n = 90
+roster-weeks): `python scripts/replay_lineups.py --sweep`. Held out, the tool beat the
+lineups set (+34 pts, 18 swaps, 61% right) but NOT Sleeper's own optimum (+78): the
+sample is too small to say the rule adds anything over "follow Sleeper".
+
+`--espn-write` files **only MUST FIX moves and SWAPs at P >= 0.60** (`--write-p`) — never
+LEAN, CHECK STATUS, the optimizer's full allocation, or an empty slot (there is no
+outgoing player to read the slot from; fill it by hand). A script that moves your lineup
+should want a clearer edge than the report does, and filing a move the tool declined to
+recommend out loud is indistinguishable from a bug. Dry run first; `--apply` writes.
 
 ## Injuries: two rules that pull in opposite directions
 

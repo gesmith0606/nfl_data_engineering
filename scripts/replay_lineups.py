@@ -64,13 +64,23 @@ from src.lineup_setter import (  # noqa: E402
     optimal_by_source,
     ours_by_sleeper_id,
     preseason_to_weekly,
+    LEAN_P,
+    SWAP_P,
+    p_bench_outscores,
     recommend,
+    repair_lineup,
+    reslot,
     roster_gsis_map,
     score_ours,
+    score_sleeper_stats,
     sleeper_to_gsis,
     weekly_gold_to_stats,
 )
-from src.roster_optimizer import _SKIP_SLOTS, optimal_lineup  # noqa: E402
+from src.roster_optimizer import (  # noqa: E402
+    _SKIP_SLOTS,
+    _SLOT_ELIGIBILITY,
+    optimal_lineup,
+)
 
 FIXTURE = (
     REPO_ROOT / "tests" / "fixtures" / "lineup_replay" / "mantis_2026_w1_9.json.gz"
@@ -111,13 +121,62 @@ def save_fixture(data: Mapping[str, Any], path: Path) -> None:
 
 
 def _score_stats(
-    stats: Mapping[str, Mapping[str, Any]], scoring: Mapping[str, Any]
+    stats: Mapping[str, Mapping[str, Any]],
+    scoring: Mapping[str, Any],
+    fmt: Optional[str] = None,
+    adjust: bool = False,
+    first_downs: bool = False,
 ) -> Dict[str, float]:
-    """``{sleeper_id: league points}`` for our stat lines (the same path the CLI uses)."""
+    """``{sleeper_id: league points}`` for our stat lines (the same path the CLI uses).
+
+    ``adjust=False`` rebuilds the points from the stat lines (the original tool);
+    ``adjust=True`` keeps the board's published number and adds the scoring difference
+    (``fmt`` = the format the board was published in), with first downs modelled.
+    """
     if not stats:
         return {}
     df = pd.DataFrame.from_dict(stats, orient="index")
-    return score_ours(df, dict(scoring))["projected_points"].astype(float).to_dict()
+    if adjust:
+        df = df.rename(columns={"published": "published_points"}).assign(
+            published_format=fmt
+        )
+    elif "published" in df.columns:
+        df = df.drop(columns="published")
+    scored = score_ours(
+        df, dict(scoring), adjust_published=adjust, first_downs=first_downs
+    )
+    return scored["projected_points"].astype(float).to_dict()
+
+
+def naive_swaps(rows, roster_positions, starters, margin: float = 1.0):
+    """The bar to beat: repair dead slots, then swap on Sleeper's number alone whenever
+    the bench player is ahead by ``margin`` points (each player once, biggest first)."""
+    repaired, _ = repair_lineup(rows, roster_positions, starters)
+    slotted = reslot(rows, roster_positions, repaired)
+    out = list(repaired)
+    cands = []
+    for s in (r for r in slotted if r.slot and not r.locked and not r.dead):
+        for b in (
+            r
+            for r in slotted
+            if not r.slot and not r.locked and not r.dead and not r.status_unconfirmed
+        ):
+            if b.position not in _SLOT_ELIGIBILITY.get(s.slot.upper(), set()):
+                continue
+            if b.sleeper_eff is None or s.sleeper_eff is None:
+                continue
+            gap = b.sleeper_eff - s.sleeper_eff
+            if gap >= margin:
+                cands.append((gap, s, b))
+    used: set = set()
+    swaps = []
+    for gap, s, b in sorted(cands, key=lambda c: -c[0]):
+        if s.sleeper_id in used or b.sleeper_id in used:
+            continue
+        used |= {s.sleeper_id, b.sleeper_id}
+        out[out.index(s.sleeper_id)] = b.sleeper_id
+        swaps.append((s.sleeper_id, b.sleeper_id))
+    return out, swaps
 
 
 def _injury_ctx(week: int, inj: Mapping[str, Any]) -> InjuryContext:
@@ -158,8 +217,14 @@ def replay_roster_week(
     week: int,
     matchup: Mapping[str, Any],
     prev: Optional[Mapping[str, Any]],
+    swap_p: Optional[float] = None,
+    lean_p: Optional[float] = None,
+    tool_only: bool = False,
 ) -> Dict[str, Any]:
-    """Every lineup variant for one roster-week, in actual points, plus diagnostics."""
+    """Every lineup variant for one roster-week, in actual points, plus diagnostics.
+
+    ``tool_only`` stops after the current tool and the naive baseline (the sweep
+    only needs those)."""
     wk = data["weeks"][str(week)]
     league = data["league"]
     rp, scoring = league["roster_positions"], league["scoring_settings"]
@@ -181,19 +246,28 @@ def replay_roster_week(
     taxi = {t for t in data["taxi"].get(str(rid), []) if t not in starters}
     players = [str(p) for p in matchup["players"] if str(p) not in taxi]
 
-    ours_all = _score_stats(wk["ours_stats"], scoring)
-    # The current tool treats a preseason-pace board as no board at all.
-    ours_tool = {} if wk["ours_kind"] != "weekly" else ours_all
+    ours_all = _score_stats(wk["ours_stats"], scoring)  # rebuilt from stat lines (v1)
+    # The current tool uses the board's published number adjusted for the league's
+    # scoring, and treats a preseason-pace board as no board at all.
+    ours_tool = (
+        {}
+        if wk["ours_kind"] != "weekly"
+        else _score_stats(
+            wk["ours_stats"], scoring, fmt=wk.get("ours_format"), adjust=True
+        )
+    )
     sleeper = wk["sleeper_stats"]
     kick = {t: dt.datetime.fromisoformat(v) for t, v in wk["kickoffs"].items()}
     now_sun = dt.datetime.fromisoformat(wk["now_sun"])
     now_pre = dt.datetime.fromisoformat(wk["now_pre"])
     ictx = _injury_ctx(week, wk["injury"])
 
-    def rows_at(ours, now, ids=players, st=starters):
+    def rows_at(ours, now, ids=players, st=starters, fd_rates=False):
+        # fd_rates=False: Sleeper's own first downs, as the original tool scored them
         return build_rows(
-            ids, st, rp, registry, ours, sleeper, scoring, kick, now, ictx
-        )
+            ids, st, rp, registry, ours, sleeper, scoring, kick, now, ictx,
+            fd_rates=fd_rates,
+        )  # fmt: skip
 
     def row_by_id(rows):
         return {r.sleeper_id: r for r in rows}
@@ -222,18 +296,40 @@ def replay_roster_week(
         )
         for d in legacy
     ]
-    tool_rows = rows_at(ours_tool, now_sun)
-    got = recommend(tool_rows, rp, starters, THRESHOLD)
+    tool_rows = rows_at(ours_tool, now_sun, fd_rates=None)
+    got = recommend(tool_rows, rp, starters, swap_p, lean_p)
     rec["tool"] = _score(got.starters, pts)
+    # the same advice given before the slate (nothing locked), as Sleeper-only is scored
+    got_pre = recommend(
+        rows_at(ours_tool, now_pre, fd_rates=None), rp, starters, swap_p, lean_p
+    )
+    rec["tool_pre"] = _score(got_pre.starters, pts)
+    rec["tool_pre_deltas"] = [
+        dict(
+            v=d.verdict,
+            p=d.p,
+            gain=pts.get(d.in_player.sleeper_id, 0)
+            - pts.get(d.out_player.sleeper_id, 0),
+        )
+        for d in got_pre.deltas
+    ]
+    nv, nv_swaps = naive_swaps(tool_rows, rp, starters)
+    rec["naive"] = _score(nv, pts)
+    rec["naive_swaps"] = [
+        dict(v="NAIVE", gain=pts.get(b, 0) - pts.get(a, 0)) for a, b in nv_swaps
+    ]
     rec["tool_fixes"] = len([f for f in got.must_fix if f.in_player is not None])
     rec["tool_deltas"] = [
         dict(
             v=d.verdict,
+            p=d.p,
             gain=pts.get(d.in_player.sleeper_id, 0)
             - pts.get(d.out_player.sleeper_id, 0),
         )
         for d in got.deltas
     ]
+    if tool_only:
+        return rec
     rec["dead_set"] = dead_in(starters, tool_rows)
     rec["dead_tool"] = dead_in(got.starters, tool_rows)
     rec["zero_set"], rec["zero_tool"] = zeros_in(starters), zeros_in(got.starters)
@@ -256,16 +352,16 @@ def replay_roster_week(
     # --- last week's lineup carried over untouched (nobody fixed a bye)
     if prev is not None:
         carried = [s if s in players else "0" for s in map(str, prev["starters"])]
-        rows_c = rows_at(ours_tool, now_pre, st=carried)
+        rows_c = rows_at(ours_tool, now_pre, st=carried, fd_rates=None)
         rec["carry_raw"] = _score(carried, pts)
         rec["dead_carry"] = dead_in(carried, rows_c)
         rec["zero_carry"] = zeros_in(carried)
         rec["empty_carry"] = carried.count("0")
         rec["carry_tool"] = _score(
-            recommend(rows_c, rp, carried, THRESHOLD).starters, pts
+            recommend(rows_c, rp, carried, swap_p, lean_p).starters, pts
         )
         rec["dead_carry_tool"] = dead_in(
-            recommend(rows_c, rp, carried, THRESHOLD).starters, rows_c
+            recommend(rows_c, rp, carried, swap_p, lean_p).starters, rows_c
         )
         st = list(carried)
         for _ in range(10):  # the old tool, applied repeatedly to the carried lineup
@@ -278,13 +374,17 @@ def replay_roster_week(
             st = nxt
         rec["carry_v1"] = _score(st, pts)
         rec["zero_carry_tool"] = zeros_in(
-            recommend(rows_c, rp, carried, THRESHOLD).starters
+            recommend(rows_c, rp, carried, swap_p, lean_p).starters
         )
     return rec
 
 
 def replay(
-    data: Mapping[str, Any], weeks: Optional[Iterable[int]] = None
+    data: Mapping[str, Any],
+    weeks: Optional[Iterable[int]] = None,
+    swap_p: Optional[float] = None,
+    lean_p: Optional[float] = None,
+    tool_only: bool = False,
 ) -> List[Dict[str, Any]]:
     """Replay every roster-week; ``weeks`` defaults to every week in the fixture."""
     out: List[Dict[str, Any]] = []
@@ -297,7 +397,11 @@ def replay(
             else {}
         )
         for m in wk["matchups"]:
-            out.append(replay_roster_week(data, w, m, prev.get(m["roster_id"])))
+            out.append(
+                replay_roster_week(
+                    data, w, m, prev.get(m["roster_id"]), swap_p, lean_p, tool_only
+                )
+            )
     return out
 
 
@@ -379,6 +483,222 @@ def render_summary(
         out.append("TOT" + " ".join(f"{tm[c]:11.1f}" for c in cols))
         out.append("vs " + " ".join(f"{tm[c] - tm['set']:+11.1f}" for c in cols))
     return "\n".join(out)
+
+
+TRAIN_WEEKS, TEST_WEEKS = range(1, 6), range(6, 10)
+
+
+def _swap_stats(
+    recs: Sequence[Mapping[str, Any]], key: str = "tool_deltas"
+) -> Dict[str, float]:
+    sw = [d for r in recs for d in r.get(key, []) if d["v"] in ("SWAP", "NAIVE")]
+    return dict(
+        swaps=len(sw),
+        hit=(sum(1 for d in sw if d["gain"] > 0) / len(sw)) if sw else float("nan"),
+    )
+
+
+def split_report(recs: Sequence[Mapping[str, Any]]) -> str:
+    """Train (weeks 1-5) / held-out (6-9) / all: points vs the lineup set, with n."""
+    lines = [
+        "Tool vs the lineups set, by split (actual points, rec - set; n = roster-weeks):"
+    ]
+    for lab, ws in (
+        ("weeks 1-5 (fit)", TRAIN_WEEKS),
+        ("weeks 6-9 (held out)", TEST_WEEKS),
+        ("weeks 1-9", range(1, 10)),
+    ):
+        r = [x for x in recs if x["week"] in ws]
+        if not r:
+            continue
+        t = totals(r, ["set", "tool", "tool_pre", "naive", "sleeper_only"])
+        a, b = _swap_stats(r), _swap_stats(r, "naive_swaps")
+        c = _swap_stats(r, "tool_pre_deltas")
+        lines.append(
+            f"  {lab:21s} n={len(r):3d}  tool {t['tool'] - t['set']:+7.1f} "
+            f"({a['swaps']} swaps, {a['hit']:.0%} right)"
+            f"  tool before the slate {t['tool_pre'] - t['set']:+7.1f} "
+            f"({c['swaps']} swaps, {c['hit']:.0%} right)"
+            f"  naive>=1.0 {t['naive'] - t['set']:+7.1f} "
+            f"({b['swaps']} swaps, {b['hit']:.0%} right)"
+            f"  Sleeper-only {t['sleeper_only'] - t['set']:+7.1f}"
+        )
+    return "\n".join(lines)
+
+
+def sweep(
+    data: Mapping[str, Any],
+    weights: Sequence[float] = (0.0, 0.1, 0.2, 0.3, 0.5),
+    ps: Sequence[float] = (0.51, 0.52, 0.53, 0.55, 0.57, 0.60),
+) -> str:
+    """Grid: weight on our projection x SWAP probability, by actual lineup points.
+
+    The constants are chosen on weeks 1-5 only and the held-out columns are read
+    afterwards. First the weight (the smallest within 5% of the best train gain at
+    P=0.53: a heavier blend has to earn its complexity), then the highest SWAP
+    threshold within 5% of the best train gain at that weight."""
+    import src.lineup_setter as ls
+
+    keep = ls.OURS_WEIGHT
+    table: Dict[Tuple[float, float], Dict[str, Any]] = {}
+    try:
+        for w in weights:
+            ls.OURS_WEIGHT = w
+            for p in ps:
+                recs = replay(data, swap_p=p, lean_p=min(p, 0.51), tool_only=True)
+                row = {}
+                for lab, ws in (
+                    ("train", TRAIN_WEEKS),
+                    ("test", TEST_WEEKS),
+                    ("all", range(1, 10)),
+                ):
+                    r = [x for x in recs if x["week"] in ws]
+                    row[lab] = dict(
+                        gain=sum(x["tool"] - x["set"] for x in r), **_swap_stats(r)
+                    )
+                table[(w, p)] = row
+    finally:
+        ls.OURS_WEIGHT = keep
+    out = [
+        "weight on ours x SWAP P: league-wide, rec - set in actual points (swaps, % right)",
+        f"{'w':>4} {'P>=':>5} | {'weeks 1-5':^24} | {'weeks 6-9':^24} | {'weeks 1-9':^24}",
+    ]
+    for (w, p), row in table.items():
+        cells = [
+            f"{row[k]['gain']:+7.1f} ({row[k]['swaps']:2d}, {row[k]['hit']:3.0%})"
+            for k in ("train", "test", "all")
+        ]
+        out.append(f"{w:4.1f} {p:5.2f} | " + " | ".join(f"{c:^24}" for c in cells))
+    ref = 0.53 if 0.53 in ps else ps[len(ps) // 2]
+    top_w = max(table[(w, ref)]["train"]["gain"] for w in weights)
+    best_w = min(w for w in weights if table[(w, ref)]["train"]["gain"] >= 0.95 * top_w)
+    top = max(table[(best_w, p)]["train"]["gain"] for p in ps)
+    best_p = max(p for p in ps if table[(best_w, p)]["train"]["gain"] >= 0.95 * top)
+    out.append(
+        f"chosen on weeks 1-5: OURS_WEIGHT={best_w}, SWAP_P={best_p} "
+        f"(train gain {table[(best_w, best_p)]['train']['gain']:+.1f}; best {top:+.1f})"
+    )
+    return "\n".join(out)
+
+
+def projection_accuracy(data: Mapping[str, Any]) -> str:
+    """MAE of each way of getting a projection under the league's scoring, vs actual points.
+
+    Slice: weekly-board weeks, rostered skill players with a row on both boards and a
+    positive projection on either (the same player-weeks for every column). Under
+    half-PPR scoring the adjusted column is the published number by construction."""
+    scoring = data["league"]["scoring_settings"]
+    registry = data["registry"]
+    rows = []
+    for w, wk in data["weeks"].items():
+        if wk["ours_kind"] != "weekly":
+            continue
+        fmt = wk.get("ours_format")
+        rebuilt = _score_stats(wk["ours_stats"], scoring)
+        adjusted = _score_stats(wk["ours_stats"], scoring, fmt, True)
+        adjusted_fd = _score_stats(wk["ours_stats"], scoring, fmt, True, True)
+        seen = set()
+        for m in wk["matchups"]:
+            for sid, pts in (m["players_points"] or {}).items():
+                if sid in seen or sid not in wk["sleeper_stats"] or sid not in rebuilt:
+                    continue
+                seen.add(sid)
+                pos = registry.get(sid, {}).get("position")
+                if pos not in SKILL_POSITIONS:
+                    continue
+                rows.append(
+                    dict(
+                        actual=float(pts or 0),
+                        consensus=score_sleeper_stats(
+                            wk["sleeper_stats"][sid], scoring, pos
+                        ),
+                        rebuilt=rebuilt[sid],
+                        adjusted=adjusted[sid],
+                        adjusted_fd=adjusted_fd[sid],
+                    )
+                )
+    df = pd.DataFrame(rows)
+    df = df[(df.consensus > 0) | (df.rebuilt > 0)]
+    mae = {
+        c: (df[c] - df.actual).abs().mean()
+        for c in ("consensus", "rebuilt", "adjusted", "adjusted_fd")
+    }
+    return (
+        f"Projection MAE under league scoring, n={len(df)} player-weeks: "
+        f"consensus {mae['consensus']:.2f} | ours rebuilt from stat lines {mae['rebuilt']:.2f} "
+        f"| ours published + scoring difference {mae['adjusted']:.2f} "
+        f"(+ first downs {mae['adjusted_fd']:.2f})"
+    )
+
+
+def pair_accounting(data: Mapping[str, Any], roster: int) -> str:
+    """Brief-style accounting for one roster: every unlocked (starter, bench) pair a rule
+    flags is counted separately (no once-per-player), an hour before the first kickoff.
+    """
+    flagged = []
+    rp, scoring = data["league"]["roster_positions"], data["league"]["scoring_settings"]
+    for w, wk in data["weeks"].items():
+        kick = {t: dt.datetime.fromisoformat(v) for t, v in wk["kickoffs"].items()}
+        now = dt.datetime.fromisoformat(wk["now_pre"])
+        ictx = _injury_ctx(int(w), wk["injury"])
+        ours = (
+            {}
+            if wk["ours_kind"] != "weekly"
+            else _score_stats(wk["ours_stats"], scoring, wk.get("ours_format"), True)
+        )
+        for m in wk["matchups"]:
+            if m["roster_id"] != roster:
+                continue
+            pts = {str(k): float(v or 0) for k, v in m["players_points"].items()}
+            st = [str(x) for x in m["starters"]]
+            taxi = {t for t in data["taxi"].get(str(roster), []) if t not in st}
+            ids = [str(p) for p in m["players"] if str(p) not in taxi]
+            rows = build_rows(
+                ids,
+                st,
+                rp,
+                data["registry"],
+                ours,
+                wk["sleeper_stats"],
+                scoring,
+                kick,
+                now,
+                ictx,
+            )
+            for s in (r for r in rows if r.slot and not r.dead):
+                for b in (
+                    r
+                    for r in rows
+                    if not r.slot and not r.dead and not r.status_unconfirmed
+                ):
+                    if b.position not in _SLOT_ELIGIBILITY.get(s.slot.upper(), set()):
+                        continue
+                    flagged.append(
+                        (
+                            p_bench_outscores(b, s),
+                            (b.sleeper_eff or 0) - (s.sleeper_eff or 0),
+                            pts.get(b.sleeper_id, 0) - pts.get(s.sleeper_id, 0),
+                        )
+                    )
+
+    def line(label, sel):
+        g = [x[2] for x in sel]
+        return (
+            f"  {label:30s} pairs={len(g):3d}  bench outscored starter "
+            f"{sum(1 for v in g if v > 0):3d}  total {sum(g):+7.1f}"
+        )
+
+    return "\n".join(
+        [
+            f"Roster {roster}, pair accounting over {len(data['weeks'])} weeks (every flagged pair counted):",
+            line("naive: Sleeper margin >= 1.0", [x for x in flagged if x[1] >= 1.0]),
+            line(
+                f"tool: P >= {SWAP_P:.2f} (SWAP)",
+                [x for x in flagged if x[0] >= SWAP_P],
+            ),
+            line("tool: P >= 0.60", [x for x in flagged if x[0] >= 0.60]),
+        ]
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -681,6 +1001,11 @@ def main(argv: Optional[List[str]] = None) -> int:
         help="checkout holding data/ (read-only)",
     )
     ap.add_argument("--cache", type=Path, default=REPO_ROOT / "output" / "replay_cache")
+    ap.add_argument(
+        "--sweep",
+        action="store_true",
+        help="grid of the weight on our projection x SWAP probability, by actual points",
+    )
     ap.add_argument("--league", default="mantis")
     ap.add_argument("--season", type=int, default=2026)
     ap.add_argument("--my-roster", type=int, default=6)
@@ -711,17 +1036,21 @@ def main(argv: Optional[List[str]] = None) -> int:
             )
     else:
         data = load_fixture(args.fixture)
-    recs = replay(data, parse_weeks(args.weeks))
-    print(
-        render_summary(
-            recs,
-            (
-                args.roster
-                if args.roster is not None
-                else data["meta"].get("my_roster_id")
-            ),
-        )
+    if args.sweep:
+        print(sweep(data))
+        return 0
+    roster = (
+        args.roster if args.roster is not None else data["meta"].get("my_roster_id")
     )
+    recs = replay(data, parse_weeks(args.weeks))
+    print(render_summary(recs, roster))
+    print()
+    print(split_report(recs))
+    print()
+    print(projection_accuracy(data))
+    if roster is not None:
+        print()
+        print(pair_accounting(data, roster))
     return 0
 
 

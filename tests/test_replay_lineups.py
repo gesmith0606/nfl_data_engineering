@@ -213,3 +213,82 @@ def test_a_saved_sleeper_out_tag_is_replayed_when_a_status_snapshot_exists():
         base["dead_set"] == 1 and r["dead_set"] == 2
     )  # w1 on IR is now a dead starter too
     assert r["tool"] == 16.0 and r["dead_tool"] == 0  # w2 replaces him
+
+
+# --- PR 2: the probability rule, scored on actual points -----------------------------------------
+
+
+def test_the_tool_beats_the_lineups_set_and_the_naive_rule_over_nine_weeks(recs):
+    """League-wide, n=90 roster-weeks. Naive = swap on Sleeper's number alone at >=1.0."""
+    t = rl.totals(recs, ["set", "tool", "naive"])
+    assert t["tool"] > t["naive"] > t["set"]
+    swaps = rl._swap_stats(recs)
+    assert (
+        swaps["swaps"] >= 30 and swaps["hit"] > 0.6
+    )  # a rule that actually fires, and is mostly right
+
+
+def test_held_out_weeks_6_to_9_still_gain_on_the_lineups_set(recs):
+    test = [r for r in recs if r["week"] in rl.TEST_WEEKS]
+    assert len(test) == 40
+    t = rl.totals(test, ["set", "tool"])
+    assert t["tool"] > t["set"]
+
+
+def test_lean_verdicts_are_reported_but_never_applied(recs):
+    assert not [
+        d for r in recs for d in r["tool_deltas"] if d["v"] == "LEAN"
+    ]  # off by default
+    wide = rl.replay(rl.load_fixture(), swap_p=0.52, lean_p=0.50, tool_only=True)
+    lean = [d for r in wide for d in r["tool_deltas"] if d["v"] == "LEAN"]
+    assert (
+        lean and sum(1 for d in lean if d["gain"] > 0) / len(lean) < 0.5
+    )  # and it would have lost
+    # applying a swap changes the lineup; a lean must not: rebuild one week and compare
+    d = rl.load_fixture()
+    wk = d["weeks"]["9"]
+    m = wk["matchups"][0]
+    assert rl.replay_roster_week(d, 9, m, None, swap_p=0.99, lean_p=0.50)[
+        "tool"
+    ] == pytest.approx(
+        rl.replay_roster_week(d, 9, m, None, swap_p=0.99, lean_p=0.99)["tool"]
+    )
+
+
+def test_the_sweep_fits_on_weeks_1_to_5_and_picks_zero_weight_on_ours(data):
+    out = rl.sweep(data, weights=(0.0, 0.5), ps=(0.52, 0.60))
+    assert "chosen on weeks 1-5: OURS_WEIGHT=0.0" in out
+    assert "weeks 6-9" in out
+
+
+def test_the_checked_in_constants_are_what_the_sweep_chooses(data):
+    from src import lineup_setter as ls
+
+    out = rl.sweep(data, weights=(0.0, 0.1, 0.2), ps=(0.51, 0.52, 0.53, 0.55))
+    assert f"OURS_WEIGHT={ls.OURS_WEIGHT}, SWAP_P={ls.SWAP_P}" in out
+
+
+def test_the_adjusted_board_is_no_worse_than_the_rebuild_under_league_scoring(data):
+    out = rl.projection_accuracy(data)
+    import re
+
+    nums = [float(x) for x in re.findall(r"(\d+\.\d\d)", out)]
+    consensus, rebuilt, adjusted = nums[0], nums[1], nums[2]
+    assert adjusted <= rebuilt and consensus < adjusted
+
+
+def test_naive_baseline_swaps_only_when_the_bench_is_ahead_by_the_margin():
+    from src.lineup_setter import PlayerRow
+
+    def row(pid, sl, slot=None):
+        return PlayerRow(pid, f"P{pid}", "WR", "BUF", sleeper=sl, slot=slot)
+
+    rows = [row("s1", 10.0, "WR"), row("s2", 12.0, "FLEX"), row("b", 11.5)]
+    out, swaps = rl.naive_swaps(rows, ["WR", "FLEX", "BN"], ["s1", "s2"], margin=1.0)
+    assert swaps == [("s1", "b")] and out == ["b", "s2"]
+    assert rl.naive_swaps(rows, ["WR", "FLEX", "BN"], ["s1", "s2"], margin=2.0)[1] == []
+
+
+def test_pair_accounting_lists_every_flagged_pair_for_a_roster(data):
+    out = rl.pair_accounting(data, 6)
+    assert "naive: Sleeper margin >= 1.0" in out and "pairs=" in out
