@@ -673,6 +673,22 @@ def main():
         ),
     )
     parser.add_argument(
+        "--no-coverage-guard",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly --ml mode only: disable the default-on serve-time "
+            "feature-coverage guard (src/residual_coverage.py). The guard skips "
+            "a position's residual correction, labels the rows "
+            "projection_source='heuristic' (residual_skip_reason="
+            "'coverage_guard') and prints a ::warning:: when the share of "
+            "populated cells in its feature matrix is under "
+            "residual_coverage.MIN_RATIO of what the model was trained on. "
+            "2026 local data: QB matrix 48%% populated vs 85%% at training and "
+            "the QB residual then scored MAE 6.38 vs 5.97 for the bare heuristic."
+        ),
+    )
+    parser.add_argument(
         "--no-consensus-fallback",
         action="store_true",
         default=False,
@@ -1542,6 +1558,7 @@ def main():
         print(f"Running weekly projection model (Week {args.week})...")
         if args.ml:
             from ml_projection_router import generate_ml_projections
+            from residual_coverage import MIN_RATIO as RESIDUAL_COVERAGE_MIN_RATIO
 
             # Build full assembled feature vector for SHIP positions (QB/RB).
             # SHIP models expect 80+ columns including QBR features that are
@@ -1599,6 +1616,9 @@ def main():
                 depth_charts_df=weekly_depth_df if not weekly_depth_df.empty else None,
                 fresh_rolling=not args.no_fresh_rolling,
                 include_bye_returns=not args.no_bye_returns,
+                coverage_min_ratio=(
+                    None if args.no_coverage_guard else RESIDUAL_COVERAGE_MIN_RATIO
+                ),
             )
         else:
             projections = generate_weekly_projections(

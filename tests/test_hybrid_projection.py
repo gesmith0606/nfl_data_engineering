@@ -541,12 +541,12 @@ class TestApplyResidualCorrection:
         # 2026-10-23: the fallback now stamps RESIDUAL_APPLIED_COL so the
         # board can distinguish 'corrected' from 'fell back'. The
         # projections themselves must still be untouched.
-        from hybrid_projection import RESIDUAL_APPLIED_COL
+        from hybrid_projection import RESIDUAL_APPLIED_COL, RESIDUAL_SKIP_REASON_COL
 
         assert RESIDUAL_APPLIED_COL in result.columns
         assert not result[RESIDUAL_APPLIED_COL].any()
         pd.testing.assert_frame_equal(
-            result.drop(columns=[RESIDUAL_APPLIED_COL]),
+            result.drop(columns=[RESIDUAL_APPLIED_COL, RESIDUAL_SKIP_REASON_COL]),
             sample_heuristic_projections,
         )
 
@@ -570,12 +570,12 @@ class TestApplyResidualCorrection:
         # 2026-10-23: the fallback now stamps RESIDUAL_APPLIED_COL so the
         # board can distinguish 'corrected' from 'fell back'. The
         # projections themselves must still be untouched.
-        from hybrid_projection import RESIDUAL_APPLIED_COL
+        from hybrid_projection import RESIDUAL_APPLIED_COL, RESIDUAL_SKIP_REASON_COL
 
         assert RESIDUAL_APPLIED_COL in result.columns
         assert not result[RESIDUAL_APPLIED_COL].any()
         pd.testing.assert_frame_equal(
-            result.drop(columns=[RESIDUAL_APPLIED_COL]),
+            result.drop(columns=[RESIDUAL_APPLIED_COL, RESIDUAL_SKIP_REASON_COL]),
             sample_heuristic_projections,
         )
 

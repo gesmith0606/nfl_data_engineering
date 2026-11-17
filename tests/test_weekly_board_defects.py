@@ -178,8 +178,17 @@ class TestResidualProvenance:
             ),
             encoding="utf-8",
         ).read()
-        assert src.count("_stamp_residual_applied(heuristic_projections, False)") == 2
-        assert "_stamp_residual_applied(result, True)" in src
+        # PR 2 (2026-11-16): the stamps carry a skip reason and the applied flag is
+        # per row, so pin the invariant itself - no early return of the caller's
+        # frame - not the exact call text.
+        import inspect
+
+        from hybrid_projection import apply_residual_correction
+
+        body = inspect.getsource(apply_residual_correction)
+        assert "return heuristic_projections\n" not in body
+        assert body.count("_stamp_residual_applied(heuristic_projections, False") >= 4
+        assert "_stamp_residual_applied(result, has_features.to_numpy()" in src
 
 
 # ---------------------------------------------------------------------------

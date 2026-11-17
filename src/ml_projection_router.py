@@ -480,6 +480,7 @@ def generate_ml_projections(
     depth_charts_df: Optional[pd.DataFrame] = None,
     fresh_rolling: bool = True,
     include_bye_returns: bool = True,
+    coverage_min_ratio: Optional[float] = None,
 ) -> pd.DataFrame:
     """Generate projections routing each position to ML or heuristic.
 
@@ -514,10 +515,19 @@ def generate_ml_projections(
             baseline with training (see ``.planning/WEEKLY_DOUBLE_LAG_GATE.md``).
         include_bye_returns: Forwarded to ``generate_weekly_projections``
             (default True).
+        coverage_min_ratio: Forwarded to ``apply_residual_correction``: skip a
+            hybrid position's residual when its serve-time feature matrix is
+            less than this fraction as populated as at training (see
+            ``residual_coverage``). None disables it (backtests); the weekly
+            run passes ``residual_coverage.MIN_RATIO``.
 
     Returns:
         Combined projections DataFrame sorted by projected_points desc,
-        with projection_source column indicating 'ml', 'hybrid', or 'heuristic'.
+        with projection_source column indicating 'ml', 'hybrid', or
+        'heuristic'. 'hybrid' means a residual correction was actually added to
+        that row (``residual_correction_applied``); a hybrid-position row whose
+        residual was skipped reads 'heuristic' and carries
+        ``residual_skip_reason``.
     """
     verdicts = _load_ship_gate(model_dir)
 
@@ -588,7 +598,12 @@ def generate_ml_projections(
 
     # ---- Hybrid positions (heuristic + residual correction) ----
     if hybrid_positions and not heuristic_all.empty:
-        from hybrid_projection import apply_residual_correction
+        from hybrid_projection import (
+            RESIDUAL_APPLIED_COL,
+            RESIDUAL_SKIP_REASON_COL,
+            apply_residual_correction,
+            label_projection_source,
+        )
 
         for position in hybrid_positions:
             hybrid_result = heuristic_all[heuristic_all["position"] == position].copy()
@@ -659,8 +674,16 @@ def generate_ml_projections(
                     "residual",
                 )
                 hybrid_result = apply_residual_correction(
-                    hybrid_result, target_df, position, model_dir=residual_dir
+                    hybrid_result,
+                    target_df,
+                    position,
+                    model_dir=residual_dir,
+                    coverage_min_ratio=coverage_min_ratio,
                 )
+            else:
+                # No feature rows at all: nothing was corrected, say so.
+                hybrid_result[RESIDUAL_APPLIED_COL] = False
+                hybrid_result[RESIDUAL_SKIP_REASON_COL] = "no_feature_rows"
 
             # Restore the projected week on the output rows — the merge
             # alignment above set "week" to the feature-row week (W or
@@ -670,7 +693,11 @@ def generate_ml_projections(
 
             # Recalculate floor/ceiling after correction
             hybrid_result = add_floor_ceiling(hybrid_result)
-            hybrid_result["projection_source"] = "hybrid"
+            # Label by what happened, not by the route taken: the correction
+            # may have been skipped (no model / no features / coverage guard).
+            hybrid_result["projection_source"] = label_projection_source(
+                hybrid_result
+            )
             all_projections.append(hybrid_result)
 
     # ---- ML positions (SHIP) ----
