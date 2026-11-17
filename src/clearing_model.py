@@ -154,33 +154,53 @@ class ClearingModel:
             cum.append(run)
         return values, cum
 
-    def p_win(self, bid: int, tier: str) -> float:
-        """Chance a bid of ``bid`` beats every rival (a tie loses)."""
+    def p_win(self, bid: int, tier: str, rival_cap: Optional[int] = None) -> float:
+        """Chance a bid of ``bid`` beats every rival (a tie loses).
+
+        ``rival_cap`` is the most any rival has left to bid. A rival cannot bid
+        what he does not have, so a bid above it wins for certain, however
+        contested the name. Only the live report knows it (Sleeper shows every
+        roster's budget *now*); the backtest cannot, and says so.
+        """
+        if rival_cap is not None and bid > rival_cap:
+            return 1.0
         q = self.p_contested(tier)
         values, cum = self._cdf(tier)
         i = bisect.bisect_left(values, bid)  # values strictly below the bid
         below = cum[i - 1] if i else 0.0
         return (1.0 - q) + q * below * (1.0 - TAIL)
 
-    def price_for(self, p: float, tier: str, hi: Optional[int] = None) -> Optional[int]:
+    def price_for(
+        self,
+        p: float,
+        tier: str,
+        hi: Optional[int] = None,
+        rival_cap: Optional[int] = None,
+    ) -> Optional[int]:
         """Smallest bid that wins with probability ``p``, if one can."""
         for b in range(self.min_bid, (hi or self.budget) + 1):
-            if self.p_win(b, tier) >= p:
+            if self.p_win(b, tier, rival_cap) >= p:
                 return b
         return None
 
-    def recommend(self, tier: str, value: float, budget_left: int) -> Advice:
+    def recommend(
+        self,
+        tier: str,
+        value: float,
+        budget_left: int,
+        rival_cap: Optional[int] = None,
+    ) -> Advice:
         """The bid maximising ``p_win * (value - bid)``, within the cap."""
         cap = max(self.min_bid, min(budget_left, int(budget_left * CAP_SHARE)))
         hi = max(self.min_bid, min(cap, int(value)))
         best, best_u = self.min_bid, float("-inf")
         for b in range(self.min_bid, hi + 1):
-            u = self.p_win(b, tier) * (value - b)
+            u = self.p_win(b, tier, rival_cap) * (value - b)
             if u > best_u + 1e-9:
                 best, best_u = b, u
         q = self.p_contested(tier)
-        pw = self.p_win(best, tier)
-        half = self.price_for(0.5, tier, cap)
+        pw = self.p_win(best, tier, rival_cap)
+        half = self.price_for(0.5, tier, cap, rival_cap)
         if value <= self.min_bid:
             why = f"worth about ${int(value)} to us — the minimum or skip"
         elif q < 0.25:
@@ -202,7 +222,7 @@ class ClearingModel:
             floor=self.min_bid,
             bid=best,
             p_win=pw,
-            p_win_floor=self.p_win(self.min_bid, tier),
+            p_win_floor=self.p_win(self.min_bid, tier, rival_cap),
             ceiling=int(value),
             p_contested=q,
             price_for_half=half,
@@ -239,6 +259,7 @@ def advise_all(
     budget_left: int,
     usd_per_point: float = 2.0,
     usd_per_dyn: float = 0.02,
+    rival_cap: Optional[int] = None,
 ) -> None:
     """Attach ``rank``, ``tier``, ``above_free`` and ``advice`` to free-agent rows.
 
@@ -268,7 +289,7 @@ def advise_all(
                 usd_per_point=usd_per_point,
                 usd_per_dyn=usd_per_dyn,
             )
-            r["advice"] = model.recommend(str(r["tier"]), value, budget_left)
+            r["advice"] = model.recommend(str(r["tier"]), value, budget_left, rival_cap)
 
 
 def final_bid(

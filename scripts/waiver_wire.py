@@ -1445,6 +1445,8 @@ def main(argv: Optional[list] = None) -> int:
     room_median = 0
     room_max = 0
     my_faab = 0
+    # The most any other roster has left to bid: above it a claim cannot lose.
+    max_rival_left: Optional[int] = None
     my_roster_id: Optional[str] = None
     live_available: Optional[Set[str]] = None
     espn_payload: Optional[Mapping[str, Any]] = None
@@ -1475,6 +1477,9 @@ def main(argv: Optional[list] = None) -> int:
             st = bid_stats.get(rid)
             left = budget_total - int(
                 (r.get("settings") or {}).get("waiver_budget_used") or 0
+            )
+            max_rival_left = (
+                left if max_rival_left is None else max(max_rival_left, left)
             )
             # Credible = thin at the spot, has money, and has shown he spends.
             if not st or left < room_median:
@@ -1761,13 +1766,20 @@ def main(argv: Optional[list] = None) -> int:
     if platform == "sleeper" and my_faab:
         clearing, clearing_note = load_clearing_model(args.league, season, budget_total)
         clearing_model.advise_all(
-            fas, clearing, my_faab, args.usd_per_point, args.usd_per_dyn
+            fas,
+            clearing,
+            my_faab,
+            args.usd_per_point,
+            args.usd_per_dyn,
+            rival_cap=max_rival_left,
         )
     for r in fas:
         r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
         if clearing is not None:
             adv = r["advice"]
-            r["price80"] = clearing.price_for(0.8, r["tier"], my_faab // 4 or 1)
+            r["price80"] = clearing.price_for(
+                0.8, r["tier"], my_faab // 4 or 1, max_rival_left
+            )
             r["bid"] = clearing_model.final_bid(
                 r.get("bid"),
                 adv,
@@ -1803,7 +1815,8 @@ def main(argv: Optional[list] = None) -> int:
             "top rival bid, and most claims have none: wins ~N% is the model's chance "
             "at that bid, '$X for 80%' what it would take to be fairly sure, worth $N "
             f"the ceiling (${args.usd_per_point:g}/point over the free replacement x 4 "
-            f"weeks + ${args.usd_per_dyn:g}/dynasty-value unit)"
+            f"weeks + ${args.usd_per_dyn:g}/dynasty-value unit); the most any rival "
+            f"has left to bid is ${max_rival_left}"
         )
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "

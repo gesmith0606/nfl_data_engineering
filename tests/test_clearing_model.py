@@ -156,3 +156,14 @@ def test_final_bid_refuses_no_help_in_redraft_and_caps_depth():
         )[0]
         == 3
     )
+
+
+def test_a_bid_above_every_rivals_remaining_budget_cannot_lose():
+    m = cm.ClearingModel(_obs("RB-top", [300, 250, 400, 0]))
+    assert m.p_win(40, "RB-top") < 0.8
+    assert m.p_win(40, "RB-top", rival_cap=30) == 1.0  # nobody left can bid 31+
+    assert m.p_win(30, "RB-top", rival_cap=30) == m.p_win(
+        30, "RB-top"
+    )  # a tie still loses
+    adv = m.recommend("RB-top", value=500, budget_left=1000, rival_cap=12)
+    assert adv.bid == 13 and adv.p_win == 1.0  # the cheapest certain win
