@@ -302,6 +302,138 @@ class TestPredictions:
         assert resp.status_code == 404
 
 
+class TestOuPickRetiredAtServingBoundary:
+    """.planning/TOTALS_VERDICT.md (2026-06-10, VERDICT: KILL).
+
+    The O/U betting surface must never be served as a recommendation, even
+    from the boards written during the four months the verdict went
+    unenforced -- the API reads those parquets directly.
+
+    Non-vacuity: ``_mock_predictions_df`` ships ``ou_pick=['under','under']``,
+    i.e. exactly the shape a stale board has. Revert the router and these
+    tests fail on 'under' != ''.
+    """
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_list_blanks_ou_pick_from_a_stale_board(self, mock_get):
+        df = _mock_predictions_df()
+        # Guard the fixture itself: if this stops carrying a real side the
+        # tests below would pass for the wrong reason.
+        assert set(df["ou_pick"]) == {"under"}
+
+        mock_get.return_value = df
+        body = client.get("/api/predictions?season=2024&week=17").json()
+
+        assert [p["ou_pick"] for p in body["predictions"]] == ["", ""]
+
+    @patch("web.api.services.prediction_service.get_prediction_by_game")
+    def test_single_game_blanks_ou_pick(self, mock_get):
+        row = _mock_predictions_df().iloc[0]
+        assert row["ou_pick"] == "under"
+
+        mock_get.return_value = row
+        body = client.get(
+            "/api/predictions/2024_17_KC_PIT?season=2024&week=17"
+        ).json()
+
+        assert body["ou_pick"] == ""
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_totals_still_served_as_market_tracking(self, mock_get):
+        """The verdict keeps predicted_total/vegas_total/total_edge as content."""
+        mock_get.return_value = _mock_predictions_df()
+        body = client.get("/api/predictions?season=2024&week=17").json()
+
+        first = body["predictions"][0]
+        assert first["predicted_total"] == pytest.approx(45.5)
+        assert first["vegas_total"] == pytest.approx(46.0)
+        assert first["total_edge"] == pytest.approx(-0.5)
+
+
+class TestAtsPickFollowsCalibratedProbability:
+    """``ats_pick`` is re-derived from ``home_cover_prob`` at the boundary.
+
+    Non-vacuity: the fixture's stored ``ats_pick`` is the home team while
+    ``home_cover_prob`` is below 0.50 (and vice versa), so a passthrough
+    router returns the stored value and fails every assertion here.
+    """
+
+    @staticmethod
+    def _df_with_probs() -> pd.DataFrame:
+        df = _mock_predictions_df()
+        # Row 0: stored pick = home (KC) but the calibrator favours the away
+        # side -> must flip to PIT. Row 1: stored pick = home (BUF) and the
+        # calibrator agrees -> must stay BUF.
+        df["ats_pick"] = ["KC", "BUF"]
+        df["home_cover_prob"] = [0.4469, 0.5243]
+        return df
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_pick_flips_to_match_the_probability(self, mock_get):
+        df = self._df_with_probs()
+        assert df.loc[0, "ats_pick"] == "KC" and df.loc[0, "home_cover_prob"] < 0.50
+
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+
+        assert preds[0]["ats_pick"] == "PIT"
+        assert preds[1]["ats_pick"] == "BUF"
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_pick_never_contradicts_the_probability(self, mock_get):
+        df = self._df_with_probs()
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+
+        probs = dict(zip(df["game_id"], df["home_cover_prob"]))
+        for p in preds:
+            picked_home = p["ats_pick"] == p["home_team"]
+            assert picked_home == (probs[p["game_id"]] >= 0.50), p
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_pick_cover_prob_is_the_picked_sides_not_homes(self, mock_get):
+        """The inversion that fooled the audit itself.
+
+        ``home_cover_prob`` tops out below break-even on a typical board, so
+        reading it directly says "no game clears 52.38%". But most picks are
+        the AWAY side, whose cover probability is ``1 - home_cover_prob`` — on
+        the real week-7 board 4 of 14 recommendations do clear it. The API must
+        serve the probability of the side it actually recommends.
+        """
+        df = self._df_with_probs()
+        # Non-vacuity: row 0 picks away, and its probability is the complement.
+        assert df.loc[0, "home_cover_prob"] < 0.50
+
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+
+        # Row 0: picked PIT (away) -> 1 - 0.4469 = 0.5531, which CLEARS -110.
+        assert preds[0]["ats_pick"] == "PIT"
+        assert preds[0]["pick_cover_prob"] == pytest.approx(0.5531, abs=1e-4)
+        assert preds[0]["pick_cover_prob"] > 0.5238
+        # Row 1: picked BUF (home) -> the home probability, unchanged.
+        assert preds[1]["pick_cover_prob"] == pytest.approx(0.5243, abs=1e-4)
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_pick_cover_prob_is_null_without_a_calibrator(self, mock_get):
+        df = _mock_predictions_df()
+        assert "home_cover_prob" not in df.columns
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+        assert all(p["pick_cover_prob"] is None for p in preds)
+
+    @patch("web.api.services.prediction_service.get_predictions")
+    def test_stored_pick_kept_when_no_calibrator_ran(self, mock_get):
+        """Single-XGBoost boards carry no probability -- pass the pick through."""
+        df = _mock_predictions_df()
+        assert "home_cover_prob" not in df.columns
+
+        mock_get.return_value = df
+        preds = client.get("/api/predictions?season=2024&week=17").json()["predictions"]
+
+        assert [p["ats_pick"] for p in preds] == ["home", "home"]
+
+
 # ---------------------------------------------------------------------------
 # Players
 # ---------------------------------------------------------------------------

@@ -42,7 +42,8 @@ def team_defense_metrics(
     * ``overall_def_rating`` — derived from ``def_sos_rank`` via the same
       rank-to-rating mapping.
     * ``fallback`` / ``fallback_season`` — set when the requested season's
-      silver data is absent and the service walked back (e.g., 2026 → 2025).
+      silver data is absent and the service walked back to the latest
+      season it does hold.
     * ``source_week`` — actual week whose silver row was used (may differ
       from ``requested_week`` when the requested week has no data).
 

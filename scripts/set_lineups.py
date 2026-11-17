@@ -408,6 +408,76 @@ def roster_from_file(path: Path, registry: Mapping[str, Any]) -> list:
     )
 
 
+def _yahoo_grant_present() -> bool:
+    """True when a Yahoo app credential and a stored grant are both on disk.
+
+    Checked before demanding ``--roster-file`` so Feetball stops needing a
+    pasted roster the moment the one-time grant exists.
+    """
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    from src.yahoo_oauth import YahooOAuth
+
+    manager = YahooOAuth()
+    return manager.has_credentials() and os.path.exists(manager.token_path)
+
+
+def yahoo_live_lineup(
+    league_id: str,
+    team_id: str,
+    registry: Mapping[str, Any],
+    roster_positions: Sequence[str],
+) -> Optional[Dict[str, Any]]:
+    """Our Yahoo roster AND the lineup actually set, as Sleeper ids.
+
+    Yahoo's read-only Fantasy API went live for this app on 2026-10-28. Before
+    it, the pasted ``--roster-file`` was the only source and went stale without
+    saying so: the week-8 2026 file was missing a starting QB, a WR1, the
+    kicker and the defense. Reading live also exposes an *unfilled* slot --
+    the Feetball DEF slot was empty with the Bengals on the bench, which a
+    names-only file cannot represent at all.
+
+    Writes remain unavailable (vendor verdict 2026-10-26), so the deltas this
+    enables are real but must be applied by hand.
+
+    Returns None when the grant is absent or the roster cannot be read, so the
+    caller falls back to the file.
+    """
+    from src.yahoo_league import fetch_team_roster
+
+    roster = fetch_team_roster(str(league_id), str(team_id))
+    if not roster:
+        return None
+
+    _by_gsis, by_name = build_id_maps(dict(registry))
+    sid_by_name: Dict[str, str] = {}
+    for player in roster:
+        norm = normalize_name(player["name"])
+        hit = next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
+        if hit:
+            sid_by_name[player["name"]] = hit
+
+    labels = [s for s in roster_positions if str(s).upper() not in _SKIP_SLOTS]
+    by_slot: Dict[str, list] = {}
+    for player in roster:
+        by_slot.setdefault(str(player["slot"]).upper(), []).append(player["name"])
+    starters = []
+    for label in labels:
+        queue = by_slot.get(str(label).upper()) or []
+        sid = ""
+        while queue and not sid:
+            sid = sid_by_name.get(queue.pop(0), "")
+        starters.append(sid or "0")
+
+    print(f"  roster + lineup: read live from Yahoo ({len(roster)} players)")
+    return {
+        "players": list(sid_by_name.values()),
+        "starters": starters,
+        "roster": roster,
+    }
+
+
 def espn_live_lineup(
     league_id: int,
     season: int,
@@ -576,7 +646,9 @@ def espn_write(
     print()
     print(f"ESPN lineup — league {league_id}, team {team_id}, week {week}")
     for d in skipped:
-        print(f"  not filing ({d.verdict}): {d.in_player.name} over {d.out_player.name}")
+        print(
+            f"  not filing ({d.verdict}): {d.in_player.name} over {d.out_player.name}"
+        )
     if not swaps:
         print("  no SWAPs — the lineup already matches what the table recommends")
         return 0
@@ -671,6 +743,7 @@ def main(argv: Optional[list] = None) -> int:
         sys.exit(exc.args[0])
     platform = preset.get("platform")
     espn_live: Optional[Dict[str, Any]] = None
+    yahoo_live: Optional[Dict[str, Any]] = None
     espn_cookies_present = bool(
         os.environ.get("ESPN_S2") and os.environ.get("ESPN_SWID")
     )
@@ -684,10 +757,14 @@ def main(argv: Optional[list] = None) -> int:
         )
     # ESPN publishes its roster to a logged-in caller, so the pasted file is
     # only needed when we have no cookies.
+    yahoo_grant = platform == "yahoo" and _yahoo_grant_present()
     if (
         platform != "sleeper"
         and not args.roster_file
-        and not (platform == "espn" and espn_cookies_present and preset.get("league_id"))
+        and not (
+            platform == "espn" and espn_cookies_present and preset.get("league_id")
+        )
+        and not (yahoo_grant and preset.get("league_id") and preset.get("my_team_id"))
     ):
         sys.exit(
             f"{args.league} is on {platform}, which publishes no roster we can read "
@@ -726,21 +803,42 @@ def main(argv: Optional[list] = None) -> int:
         scoring = scoring_for_preset(preset)
         espn_live = (
             espn_live_lineup(
-                int(str(preset.get("league_id") or 0)), season, registry, roster_positions
+                int(str(preset.get("league_id") or 0)),
+                season,
+                registry,
+                roster_positions,
             )
             if platform == "espn" and preset.get("league_id")
             else None
         )
-        if espn_live:
+        yahoo_live = (
+            yahoo_live_lineup(
+                str(preset.get("league_id") or ""),
+                str(preset.get("my_team_id") or ""),
+                registry,
+                roster_positions,
+            )
+            if yahoo_grant and preset.get("league_id") and preset.get("my_team_id")
+            else None
+        )
+        live = espn_live or yahoo_live
+        if live:
             # The live read wins: a pasted file is only as fresh as the last
             # paste, and a lineup built for a team you no longer have is wrong
             # in a way no optimizer can recover from.
             mine = {
-                "players": espn_live["players"],
-                "starters": espn_live["starters"],
+                "players": live["players"],
+                "starters": live["starters"],
             }
-        else:
+        elif args.roster_file:
             mine = {"players": roster_from_file(args.roster_file, registry)}
+        else:
+            sys.exit(
+                f"{args.league}: could not read the roster live and no "
+                "--roster-file was given. For Yahoo, run "
+                "`python scripts/yahoo_auth.py --check` to see whether the "
+                "grant is still good."
+            )
 
     ours_df, ours_label = load_ours(season, week)
     roster_files = sorted(
@@ -827,17 +925,41 @@ def main(argv: Optional[list] = None) -> int:
             )
             if pid == "0"
         ]
-        if not espn_live:
+        if not (espn_live or yahoo_live):
             print(
                 f"\n  NOTE: {platform} publishes no lineup without a login, so the SLOT"
                 " column above is\n  what we RECOMMEND, not what you have set."
                 " Compare it against your own screen."
+            )
+        elif yahoo_live:
+            print(
+                "\n  NOTE: the lineup above is the one actually set on Yahoo, so the"
+                " deltas are real.\n  Yahoo's API is read-only (vendor verdict"
+                " 2026-10-26), so apply them yourself."
             )
         if unfilled:
             print(
                 f"  Could not fill: {', '.join(unfilled)} — our player registry has no"
                 " D/ST or K\n  entries, so use scripts/stream_dst_k.py for those slots."
             )
+        if yahoo_live:
+            # "Could not fill" above means OUR registry cannot model the slot.
+            # A slot nobody occupies on Yahoo is a different, worse thing: it
+            # scores zero on Sunday, and a names-only roster file could never
+            # show it. Week 8 2026 found DEF empty with the Bengals benched.
+            from src.yahoo_league import starters_by_slot
+
+            occupancy = starters_by_slot(
+                yahoo_live["roster"],
+                [p for p in roster_positions if str(p).upper() not in _SKIP_SLOTS],
+            )
+            empty = [slot for slot, names in occupancy.items() if not names]
+            if empty:
+                print(
+                    f"  EMPTY ON YAHOO: {', '.join(empty)} — no player is in"
+                    " that slot, so it scores 0.\n  Fill it from your bench"
+                    " before kickoff."
+                )
     gaps = unmodeled_offense_keys(scoring)
     if gaps:
         print(f"\n  note: OURS cannot model {', '.join(gaps)} (Sleeper side does)")

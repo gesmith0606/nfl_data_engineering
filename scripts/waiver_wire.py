@@ -33,7 +33,17 @@ import time
 import importlib.util
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple
+from typing import (
+    AbstractSet,
+    Any,
+    Dict,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+)
 
 import pandas as pd
 
@@ -41,6 +51,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from src import config, league_context, sleeper_http  # noqa: E402
+from src.espn_league import PRO_TEAM_MAP  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
     build_id_maps,
@@ -453,8 +464,9 @@ def espn_rivals(
     need: Mapping[str, int],
     bids_by_team: Mapping[str, List[int]],
     room_median: int,
+    playing: Optional[AbstractSet[str]] = None,
 ) -> Dict[str, List[int]]:
-    """Which ESPN rivals are thin at each position AND able to outbid us.
+    """Which ESPN rivals cannot field a position this week AND can outbid us.
 
     The Sleeper branch has had this since the bid model shipped; ESPN had
     nothing, so every site-league bid fell to the room-median floor with a
@@ -496,18 +508,26 @@ def espn_rivals(
         )
         if budget and budget - spent < room_median:
             continue
-        healthy: Dict[str, int] = {}
+        available: Dict[str, int] = {}
         for entry in (team.get("roster") or {}).get("entries") or []:
             player = (entry.get("playerPoolEntry") or {}).get("player") or {}
             pos = _ESPN_POS.get(int(player.get("defaultPositionId") or 0))
             status = str(
                 entry.get("injuryStatus") or player.get("injuryStatus") or ""
             ).upper()
-            if pos and status not in _ESPN_BLOCKED:
-                healthy[pos] = healthy.get(pos, 0) + 1
+            if not pos or status in _ESPN_BLOCKED:
+                continue
+            if playing is not None:
+                abbr = PRO_TEAM_MAP.get(player.get("proTeamId"))
+                if abbr not in playing:
+                    continue
+            available[pos] = available.get(pos, 0) + 1
         median = bids[len(bids) // 2]
         for pos, required in need.items():
-            if healthy.get(pos, 0) <= required:
+            # Nobody to start at all — see thin_at for why neither "lacks a
+            # surplus" nor "short of starters" survived contact with a real
+            # board.
+            if required > 0 and available.get(pos, 0) == 0:
                 out.setdefault(pos, []).append(median)
     return out
 
@@ -571,15 +591,39 @@ def thin_at(
     registry: Mapping[str, Any],
     position: str,
     required: int,
+    playing: Optional[AbstractSet[str]] = None,
 ) -> bool:
-    """Does this team lack a usable surplus at ``position``?
+    """Can this team not put ANYONE on the field at ``position`` this week?
 
-    Counts rostered players at the position who are not on IR/taxi and not
-    carrying a blocking injury status.
+    Counts rostered players at the position who can actually play: not on
+    IR/taxi, not carrying a blocking injury status, and — when ``playing`` is
+    given — not on a bye.
+
+    Two definitions were tried before this one and both over-bid:
+
+    ``healthy <= required`` ("lacks a surplus") is true of nearly every team
+    in a one-QB league by construction. Week 8 2026 it reported three La Liga
+    rivals thin at QB whose quarterbacks all played, and escalated the bid to
+    $14 — a quarter of the budget — for a bye-week fill.
+
+    ``available < required`` ("short of starters") then over-fired in the
+    other direction on multi-slot positions: a Mantis team with two playable
+    wideouts against three WR slots counted as a rival, so a week with four
+    bye teams put most of the league in the market and priced *no-help*
+    wideouts at $94 off the room's dynasty-sized medians.
+
+    What survives is the case where a rival has no choice: nobody to start at
+    all. That team must bid. A team one body short for one week fills from
+    its flex or streams cheaply, and is not who you are bidding against.
+
+    Args:
+        playing: Teams with a game this week. Omit only when the week's
+            kickoffs are unknown; a bye then counts as playable, which is the
+            old, over-counting behaviour.
     """
     reserve = {str(p) for p in (roster.get("reserve") or [])}
     taxi = {str(p) for p in (roster.get("taxi") or [])}
-    healthy = 0
+    available = 0
     for pid in roster.get("players") or []:
         sid = str(pid)
         if sid in reserve or sid in taxi:
@@ -589,8 +633,10 @@ def thin_at(
             continue
         if str(meta.get("injury_status") or "").upper() in BLOCKING_STATUSES:
             continue
-        healthy += 1
-    return healthy <= required
+        if playing is not None and meta.get("team") not in playing:
+            continue
+        available += 1
+    return required > 0 and available == 0
 
 
 def suggest_bid(
@@ -1338,6 +1384,11 @@ def main(argv: Optional[list] = None) -> int:
     tx_rows: List[Dict[str, Any]] = []
     bid_stats: Dict[str, Dict[str, Any]] = {}
     rivals_by_pos: Dict[str, List[int]] = {}
+    # True once a platform branch has actually read every rival's roster and
+    # budget. An empty rivals_by_pos then MEANS nobody can outbid us; while
+    # this is False it only means we never looked, and the bid's reason has to
+    # say so rather than imply the field is clear.
+    rivals_modelled = False
     room_median = 0
     room_max = 0
     my_faab = 0
@@ -1363,6 +1414,7 @@ def main(argv: Optional[list] = None) -> int:
         room_median = all_bids[len(all_bids) // 2] if all_bids else 0
         room_max = max((st["max"] for st in bid_stats.values()), default=0)
         rivals_by_pos: Dict[str, List[int]] = {}
+        rivals_modelled = True
         for r in all_rosters:
             rid = str(r.get("roster_id"))
             if rid == my_rid:
@@ -1375,7 +1427,7 @@ def main(argv: Optional[list] = None) -> int:
             if not st or left < room_median:
                 continue
             for pos in SKILL_POSITIONS:
-                if thin_at(r, registry, pos, need.get(pos, 0)):
+                if thin_at(r, registry, pos, need.get(pos, 0), playing or None):
                     rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
         moves, my_faab, espn_payload, espn_tx = espn_player_moves(
@@ -1428,6 +1480,7 @@ def main(argv: Optional[list] = None) -> int:
                 bid = getattr(row, "bid", None)
                 if bid and not pd.isna(bid):
                     bids_by_team.setdefault(str(row.team), []).append(int(bid))
+            rivals_modelled = True
             rivals_by_pos = espn_rivals(
                 espn_payload,
                 int(preset.get("my_team_id") or 1),
@@ -1440,6 +1493,7 @@ def main(argv: Optional[list] = None) -> int:
                 ),
                 bids_by_team,
                 room_median,
+                playing or None,
             )
 
     ours = ours_by_sleeper_id(
@@ -1544,7 +1598,7 @@ def main(argv: Optional[list] = None) -> int:
                     week,
                     room_max,
                     my_roster_id,
-                    rivals_modelled=platform == "sleeper",
+                    rivals_modelled=rivals_modelled,
                     role_ending=role_ending,
                     floor_divisor=int(preset.get("bid_floor_divisor") or 5),
                 )

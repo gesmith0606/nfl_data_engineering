@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from prediction_backtester import (
     evaluate_line_capture,
     compute_line_capture_summary,
-    evaluate_clv,
+    evaluate_model_vs_close,
 )
 
 
@@ -647,7 +647,7 @@ class TestLineCapturesSummary:
         assert total_from_tiers == summary["n"]
 
     def test_gate_threshold_boundary(self):
-        """Gate: mean > 0.3 at n ≥ 100 represents PASS; ≤ 0.3 is FAIL."""
+        """Gate: mean > 0.3 is PASS; ≤ 0.3 is FAIL (n bar is 150, see module)."""
         # Mean exactly 0.3 → not strictly greater → kill
         captures_at_threshold = [0.3] * 100
         df = self._make_capture_df(captures_at_threshold)
@@ -665,33 +665,44 @@ class TestLineCapturesSummary:
 
 
 # ---------------------------------------------------------------------------
-# evaluate_clv docstring check (regression guard)
+# evaluate_model_vs_close naming check (regression guard)
 # ---------------------------------------------------------------------------
 
-class TestEvaluateClvDocstring:
-    """Regression guard: evaluate_clv must be labelled as model-vs-close."""
+class TestModelVsCloseNaming:
+    """Regression guard: the model-vs-close metric must not be called CLV.
 
-    def test_docstring_contains_warning(self):
-        """evaluate_clv docstring must mention it is NOT true CLV."""
-        doc = evaluate_clv.__doc__ or ""
-        # Either label it explicitly or reference evaluate_line_capture
-        is_labelled = (
-            "NOT true" in doc
-            or "model-vs-close" in doc.lower()
-            or "pseudo-CLV" in doc
-            or "not true" in doc.lower()
+    The warning used to live only in the docstring, and a 2026-10-23 write-up
+    quoted the metric as CLV anyway.  The name now carries the warning; these
+    tests keep it that way.  See
+    ``.planning/CLV_PICK_RULE_AUDIT_2026_10_24.md``.
+    """
+
+    def test_function_name_is_not_clv(self):
+        """The exported symbol must not use the CLV vocabulary."""
+        assert "clv" not in evaluate_model_vs_close.__name__.lower()
+
+    def test_docstring_denies_measuring_line_movement(self):
+        """Docstring must say it is not CLV and point at evaluate_line_capture."""
+        doc = evaluate_model_vs_close.__doc__ or ""
+        lowered = doc.lower()
+        assert "not closing line value" in lowered or "not clv" in lowered, (
+            "evaluate_model_vs_close docstring must state plainly that it is not CLV."
         )
-        assert is_labelled, (
-            "evaluate_clv docstring must clearly label the function as model-vs-close "
-            "(not true CLV).  Add a WARNING note pointing to evaluate_line_capture."
+        assert "one price" in lowered or "only one" in lowered, (
+            "docstring must explain that only ONE price is involved, so line "
+            "movement cannot be measured."
+        )
+        assert "evaluate_line_capture" in doc, (
+            "docstring must point at evaluate_line_capture for true CLV."
         )
 
-    def test_clv_computation_still_correct(self):
-        """evaluate_clv still computes predicted_margin - spread_line correctly."""
+    def test_computation_still_correct(self):
+        """Arithmetic is unchanged: predicted_margin - spread_line."""
         df = pd.DataFrame({
             "predicted_margin": [7.0, -2.0],
             "spread_line": [-3.0, 1.0],
         })
-        result = evaluate_clv(df)
-        assert abs(float(result["clv"].iloc[0]) - 10.0) < 1e-9
-        assert abs(float(result["clv"].iloc[1]) - (-3.0)) < 1e-9
+        result = evaluate_model_vs_close(df)
+        assert abs(float(result["model_vs_close"].iloc[0]) - 10.0) < 1e-9
+        assert abs(float(result["model_vs_close"].iloc[1]) - (-3.0)) < 1e-9
+        assert "clv" not in result.columns

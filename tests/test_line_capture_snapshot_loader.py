@@ -554,3 +554,108 @@ class TestDeriveOpenClose:
         result = _derive_open_close(df, "home_spread")
         import numpy as np
         assert np.isnan(result["open_line"])
+
+
+# ---------------------------------------------------------------------------
+# Betting-week open horizon (open_within_days)
+# ---------------------------------------------------------------------------
+
+class TestOpenWithinDays:
+    """The open must be a price from the betting week.
+
+    Unbounded, the open is the first snapshot EVER captured for a game — a
+    median 109 days before kickoff on the real 2026 history, i.e. a futures
+    price. Capture across that window has sd 3.20 pts against a +0.3 gate
+    threshold, versus 1.32 inside 7 days, and it is a window nobody bets.
+    See .planning/OPEN_PROXY_VALIDATION_2026_10_25.md.
+    """
+
+    def _season_with_a_stale_and_a_recent_price(self, tmp_path):
+        """One game priced -7.0 a hundred days out and -2.0 three days out."""
+        season = 2026
+        commence = datetime(2026, 9, 10, 20, 0, 0)
+        sdir = _season_dir(str(tmp_path), season)
+        for days_out, line in ((100, -7.0), (3, -2.0)):
+            ts = _utc_iso(commence - timedelta(days=days_out))
+            df = _make_snapshot_df(
+                [{
+                    "game_id_ext": "g1",
+                    "commence_time": _utc_iso(commence),
+                    "home_spread": line,
+                    "market": "spreads",
+                    "season": season,
+                }],
+                snapshot_ts=ts,
+            )
+            _write_snapshot(df, sdir, f"snap_{days_out:03d}.parquet")
+        return season, str(tmp_path)
+
+    def test_default_takes_the_stale_open(self, tmp_path):
+        """Unchanged behaviour when the caller does not ask for a window."""
+        season, root = self._season_with_a_stale_and_a_recent_price(tmp_path)
+        row = load_open_close_lines(season=season, snapshot_dir=root).iloc[0]
+        assert row["open_spread"] == -7.0
+        assert row["open_days_before_kickoff"] == pytest.approx(100.0, abs=0.01)
+
+    def test_a_window_excludes_the_stale_open(self, tmp_path):
+        """The regression: -7.0 is four months old and must not be the open."""
+        season, root = self._season_with_a_stale_and_a_recent_price(tmp_path)
+        row = load_open_close_lines(
+            season=season, snapshot_dir=root, open_within_days=7
+        ).iloc[0]
+        # Non-vacuity: the stale price really is present in the fixture and
+        # really does differ, so a no-op implementation fails here.
+        assert row["open_spread"] == -2.0
+        assert row["open_days_before_kickoff"] == pytest.approx(3.0, abs=0.01)
+
+    def test_the_window_never_costs_the_close(self, tmp_path):
+        """Narrowing the open must not change the closing price."""
+        season, root = self._season_with_a_stale_and_a_recent_price(tmp_path)
+        wide = load_open_close_lines(season=season, snapshot_dir=root).iloc[0]
+        narrow = load_open_close_lines(
+            season=season, snapshot_dir=root, open_within_days=7
+        ).iloc[0]
+        assert wide["close_spread"] == narrow["close_spread"] == -2.0
+
+    def test_no_price_in_the_window_yields_no_open_but_keeps_the_close(
+        self, tmp_path
+    ):
+        """Excluded, not fabricated: a game with only a futures price."""
+        season = 2026
+        commence = datetime(2026, 9, 10, 20, 0, 0)
+        sdir = _season_dir(str(tmp_path), season)
+        df = _make_snapshot_df(
+            [{
+                "game_id_ext": "g1",
+                "commence_time": _utc_iso(commence),
+                "home_spread": -7.0,
+                "market": "spreads",
+                "season": season,
+            }],
+            snapshot_ts=_utc_iso(commence - timedelta(days=100)),
+        )
+        _write_snapshot(df, sdir, "snap_100.parquet")
+        row = load_open_close_lines(
+            season=season, snapshot_dir=str(tmp_path), open_within_days=7
+        ).iloc[0]
+        assert pd.isna(row["open_spread"])
+        assert row["close_spread"] == -7.0
+        assert row["n_books_open"] == 0
+
+    def test_derive_open_close_reports_the_horizon(self):
+        """open_days_before_kickoff exists so a stale open is visible."""
+        commence = pd.Timestamp("2026-09-10T20:00:00Z")
+        game_df = pd.DataFrame({
+            "game_id_ext": ["g1", "g1"],
+            "snapshot_ts": [
+                commence - pd.Timedelta(days=40),
+                commence - pd.Timedelta(days=1),
+            ],
+            "commence_time": [commence, commence],
+            "home_spread": [-6.0, -3.0],
+        })
+        wide = _derive_open_close(game_df, "home_spread")
+        assert wide["open_days_before_kickoff"] == pytest.approx(40.0, abs=0.01)
+        narrow = _derive_open_close(game_df, "home_spread", open_within_days=7)
+        assert narrow["open_days_before_kickoff"] == pytest.approx(1.0, abs=0.01)
+        assert narrow["open_line"] == -3.0

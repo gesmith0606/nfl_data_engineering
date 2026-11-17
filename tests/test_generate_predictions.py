@@ -17,9 +17,13 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
+import generate_predictions as gp
 from generate_predictions import (
+    OU_PICK_RETIRED,
+    _normalize_prediction_columns,
     classify_tier,
     classify_tier_prob,
+    derive_ats_pick,
     generate_week_predictions,
 )
 
@@ -191,24 +195,33 @@ class TestGenerateWeekPredictions:
         # confidence_tier should be "low" when edges are NaN (collapsed tier)
         assert den_lv["confidence_tier"] == "low"
 
-    def test_independent_tiers(
+    def test_confidence_tier_is_the_spread_tier(
         self,
         mock_game_features,
         mock_spread_model,
         mock_total_model,
         mock_metadata,
     ):
-        """Confidence tier takes the best (highest) of spread and total tiers."""
+        """Confidence tier describes the ATS pick -- the only pick served."""
         result = generate_week_predictions(
             mock_game_features, 10, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
         )
-        # SF@DAL: spread_edge=-8.5 (high), total_edge=4.0 (high) => confidence_tier=high
+        # SF@DAL: spread_edge=-8.5 (high), total_edge=4.0 (high) => high
         sf_dal = result[result["game_id"] == "2025_10_SF_DAL"].iloc[0]
         assert sf_dal["confidence_tier"] == "high"
 
-        # PHI@NYG: spread_edge=-4.5 (high), total_edge=0.5 (low) => confidence_tier=high
+        # PHI@NYG: spread_edge=-4.5 (high), total_edge=0.5 (low) => high
         phi_nyg = result[result["game_id"] == "2025_10_PHI_NYG"].iloc[0]
         assert phi_nyg["confidence_tier"] == "high"
+
+        # KC@BUF: spread_edge=-0.5 (low), total_edge=-4.0 (high) => LOW.
+        # This is the case the old max(spread, total) collapse got wrong: a
+        # retired totals edge badged the game "high" next to an ATS pick with
+        # half a point of edge. Reverting makes this assertion fail.
+        kc_buf = result[result["game_id"] == "2025_10_KC_BUF"].iloc[0]
+        assert kc_buf["spread_edge"] == pytest.approx(-0.5)
+        assert abs(kc_buf["total_edge"]) >= 3.0
+        assert kc_buf["confidence_tier"] == "low"
 
     def test_output_schema(
         self,
@@ -269,6 +282,189 @@ class TestGenerateWeekPredictions:
 
         with pytest.raises(FileNotFoundError):
             load_model("spread", model_dir="/nonexistent/path")
+
+
+# ---------------------------------------------------------------------------
+# Retired O/U betting surface (.planning/TOTALS_VERDICT.md, VERDICT: KILL)
+# ---------------------------------------------------------------------------
+
+
+class TestOuPickRetired:
+    """``ou_pick`` can never carry a side.
+
+    Non-vacuity: ``mock_game_features`` + the mock total model produce
+    total_edge = [-4.0, +4.0, +0.5, NaN] -- both signs plus a NaN -- so the
+    old rule ("over" if edge > 0 else "under") would label two games "over"
+    and two "under". Every assertion below fails if the fix is reverted.
+    """
+
+    def test_no_side_is_emitted(
+        self,
+        mock_game_features,
+        mock_spread_model,
+        mock_total_model,
+        mock_metadata,
+    ):
+        result = generate_week_predictions(
+            mock_game_features, 10, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
+        )
+        # Fixture guard: the old rule would have had something to say here.
+        signs = result["total_edge"].dropna()
+        assert (signs > 0).any() and (signs < 0).any()
+
+        assert set(result["ou_pick"]) == {OU_PICK_RETIRED}
+        assert not result["ou_pick"].str.lower().isin({"over", "under"}).any()
+
+    def test_an_upstream_side_is_overwritten(self):
+        """The blanking is unconditional, not an "if absent" default.
+
+        A frame reaching _normalize_prediction_columns with a real side -- a
+        legacy caller, or a board regenerated from an old parquet -- must
+        still come out blank. Reverting to the ``if "ou_pick" not in
+        out.columns`` guard makes this fail with 'over'.
+        """
+        df = pd.DataFrame(
+            {
+                "home_team": ["BUF"],
+                "away_team": ["KC"],
+                "spread_edge": [1.0],
+                "total_edge": [5.0],
+                "ou_pick": ["over"],
+            }
+        )
+        out = _normalize_prediction_columns(df)
+        assert out["ou_pick"].tolist() == [OU_PICK_RETIRED]
+
+    def test_market_tracking_columns_retained(
+        self,
+        mock_game_features,
+        mock_spread_model,
+        mock_total_model,
+        mock_metadata,
+    ):
+        """The verdict keeps the totals as content, just not as a bet."""
+        result = generate_week_predictions(
+            mock_game_features, 10, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
+        )
+        for col in ("predicted_total", "vegas_total", "total_edge", "over_prob"):
+            assert col in result.columns, col
+        # And they carry real numbers, not placeholders.
+        assert result["predicted_total"].notna().all()
+        assert result["total_edge"].notna().any()
+
+    def test_schema_unchanged(
+        self,
+        mock_game_features,
+        mock_spread_model,
+        mock_total_model,
+        mock_metadata,
+    ):
+        """ou_pick stays a column -- the DB DDL and API schema depend on it."""
+        result = generate_week_predictions(
+            mock_game_features, 10, mock_spread_model, mock_metadata, mock_total_model, mock_metadata
+        )
+        assert "ou_pick" in result.columns
+        assert result["ou_pick"].dtype == object
+
+
+# ---------------------------------------------------------------------------
+# ATS pick follows the calibrated probability
+# ---------------------------------------------------------------------------
+
+
+class TestAtsPickFollowsProbability:
+    """``ats_pick`` and ``home_cover_prob`` can never disagree.
+
+    They contradicted on 1 of 14 games on the served 2026 wk7 board, because
+    the pick read the edge sign while the tier and the site read the
+    calibrator.
+    """
+
+    @staticmethod
+    def _frame() -> pd.DataFrame:
+        return pd.DataFrame(
+            {
+                "home_team": ["BUF", "DAL", "NYG", "LV"],
+                "away_team": ["KC", "SF", "PHI", "DEN"],
+                # Row 0 and row 1 are the contradictions: the edge sign and
+                # the calibrator point at opposite sides.
+                "spread_edge": [2.0, -2.0, 4.0, -4.0],
+                "total_edge": [1.0, -1.0, 2.0, -2.0],
+                "home_cover_prob": [0.4469, 0.5243, 0.5100, 0.4900],
+            }
+        )
+
+    def test_probability_wins_over_the_edge_sign(self):
+        picks = derive_ats_pick(self._frame())
+        # edge +2.0 says home (BUF), prob 0.4469 says away -> KC
+        assert picks.iloc[0] == "KC"
+        # edge -2.0 says away (SF), prob 0.5243 says home -> DAL
+        assert picks.iloc[1] == "DAL"
+        # the two that already agreed are unchanged
+        assert picks.iloc[2] == "NYG"
+        assert picks.iloc[3] == "DEN"
+
+    def test_pick_and_prob_never_contradict(self):
+        df = self._frame()
+        picks = derive_ats_pick(df)
+        picked_home = picks.eq(df["home_team"])
+        assert (picked_home == (df["home_cover_prob"] >= 0.50)).all()
+
+    def test_falls_back_to_edge_sign_without_a_calibrator(self):
+        """Single-XGBoost path: no probability, so the old rule stands."""
+        df = pd.DataFrame(
+            {
+                "home_team": ["BUF", "DAL", "LV"],
+                "away_team": ["KC", "SF", "DEN"],
+                "spread_edge": [2.0, -2.0, float("nan")],
+                "home_cover_prob": [float("nan")] * 3,
+            }
+        )
+        picks = derive_ats_pick(df)
+        # NaN edge picked home before this change and still does.
+        assert picks.tolist() == ["BUF", "SF", "LV"]
+
+    def test_exact_coin_flip_picks_home(self):
+        df = pd.DataFrame(
+            {
+                "home_team": ["BUF"],
+                "away_team": ["KC"],
+                "spread_edge": [0.0],
+                "home_cover_prob": [0.50],
+            }
+        )
+        assert derive_ats_pick(df).tolist() == ["BUF"]
+
+    def test_normalize_wires_the_probability_through(self):
+        """End-to-end through _normalize_prediction_columns, not just the helper."""
+        out = _normalize_prediction_columns(self._frame())
+        assert out["ats_pick"].tolist() == ["KC", "DAL", "NYG", "DEN"]
+
+    def test_publication_threshold_is_off(self):
+        """No pick is withheld by default -- that is the user's product call.
+
+        On the served 2026 wk7 board only 4 of 14 picked sides clear the -110
+        break-even (52.38%), so gating on it would strip most of the board.
+        The constant exists so it can be switched on deliberately.
+        """
+        assert gp.ATS_PUBLISH_MIN_PROB is None
+
+        df = self._frame()
+        picks = derive_ats_pick(df)
+        # Every picked side here is a near coin flip (max 0.5531)...
+        assert gp.picked_side_prob(df).max() < 0.5238 + 0.05
+        # ...and every row still publishes a team.
+        assert (picks != "").all()
+
+    def test_publication_threshold_suppresses_when_switched_on(self, monkeypatch):
+        """Documents the flip: set the constant and sub-break-even picks blank."""
+        monkeypatch.setattr(gp, "ATS_PUBLISH_MIN_PROB", 0.5238)
+        df = self._frame()
+        picks = derive_ats_pick(df)
+        pick_prob = gp.picked_side_prob(df)
+        assert (picks == "").tolist() == (pick_prob < 0.5238).tolist()
+        # Sanity: the fixture has rows on both sides of the threshold.
+        assert (picks == "").any() and (picks != "").any()
 
 
 # ---------------------------------------------------------------------------
