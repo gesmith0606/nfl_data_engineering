@@ -347,3 +347,47 @@ def test_every_configured_rss_feed_has_a_distinct_live_looking_url():
     hosts = {url.split("/")[2] for url in feeds.values()}
     assert len(hosts) == len(feeds), f"duplicate publisher among {sorted(feeds)}"
     assert "www.nfl.com" not in hosts, "nfl.com no longer publishes RSS (404/301)"
+
+
+class TestSourcesDisagree:
+    """One source says he is inactive, the other says he starts.
+
+    Week 8 2026: Tyler Huntley printed "ours 16.8 slpr 0.0 blend 8.4 ...
+    BENCH+" and was recommended twice. Our engine had zeroed Lamar Jackson off
+    a stale injury tag and promoted his backup; Sleeper carried no week-8
+    projection for Huntley at all. The blend, 8.4, described nobody.
+    """
+
+    HUNTLEY = (
+        "-- QB free agents --\n"
+        "        Tyler Huntley            QB BAL  ours 16.8 slpr  0.0 blend  8.4"
+        " last 16.1 adds    0k dyn 1055 age 28 BENCH+  BID $4 [unclaimed] \n"
+    )
+
+    def _findings(self, text, **kw):
+        kw.setdefault("bye_teams", [])
+        return [f for f in check_report(text, **kw) if f.check == "sources-disagree"]
+
+    def test_flags_a_starter_verdict_when_one_source_says_inactive(self):
+        found = self._findings(self.HUNTLEY)
+        assert len(found) == 1
+        assert found[0].level == "CRITICAL"
+        assert "Tyler Huntley" in found[0].detail
+
+    def test_ordinary_disagreement_is_not_flagged(self):
+        """15.5 vs 18.2 is noise about degree, not about playing."""
+        text = self.HUNTLEY.replace("ours 16.8 slpr  0.0", "ours 15.5 slpr 18.2")
+        assert self._findings(text) == []
+
+    def test_depth_verdict_is_not_flagged(self):
+        """A depth add is not a claim that he starts, so the split is moot."""
+        assert self._findings(self.HUNTLEY.replace("BENCH+ ", "depth  ")) == []
+
+    def test_both_sources_low_is_not_flagged(self):
+        text = self.HUNTLEY.replace("ours 16.8 slpr  0.0", "ours  0.4 slpr  0.0")
+        assert self._findings(text) == []
+
+    def test_missing_source_number_is_not_flagged(self):
+        """ "-" means not scored, which is silence, not disagreement."""
+        text = self.HUNTLEY.replace("ours 16.8 slpr  0.0", "ours    - slpr  0.0")
+        assert self._findings(text) == []

@@ -473,7 +473,13 @@ def _upsert_predictions(
             _safe_float(row.get("total_edge")),
             str(row.get("confidence_tier", "low")),
             str(row.get("ats_pick", "")),
-            str(row.get("ou_pick", "")),
+            # O/U pick retired per .planning/TOTALS_VERDICT.md (VERDICT: KILL,
+            # 2026-06-10) -- the column stays so the predictions table keeps
+            # its shape, but a side is never written, not even from a board
+            # generated before the verdict was enforced. predicted_total /
+            # vegas_total / total_edge still sync as market-tracking content.
+            # See generate_predictions.OU_PICK_RETIRED.
+            "",
             str(row.get("model_version", "P30 Ensemble")),
         ))
 

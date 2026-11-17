@@ -38,6 +38,7 @@ from src import config, sleeper_http  # noqa: E402
 from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
 from src.streaming import (  # noqa: E402
     implied_totals_from_odds,
+    week_games,
     matchup_table,
     swap_verdict,
 )
@@ -128,8 +129,15 @@ def main(argv: Optional[list] = None) -> int:
             str(REPO_ROOT / f"data/bronze/odds_api/snapshots/season={season}/*.parquet")
         )
     )
+    # Scope the snapshot to THIS week's matchups. It carries every game the
+    # books have posted, so without the filter a team's implied total can come
+    # from next week's game instead (see implied_totals_from_odds).
     live = (
-        implied_totals_from_odds(pd.read_parquet(odds_files[-1])) if odds_files else {}
+        implied_totals_from_odds(
+            pd.read_parquet(odds_files[-1]), games=week_games(sched, week)
+        )
+        if odds_files
+        else {}
     )
     weeks = list(range(week, week + args.weeks))
     mt = matchup_table(sched, weeks, current_week_odds=live)

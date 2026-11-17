@@ -643,7 +643,6 @@ export async function POST(req: Request) {
             edge_total: number;
             confidence_tier: string;
             ats_pick: string;
-            ou_pick: string;
           }> };
           const result = await fastapiGet<PredictionPayload>(`/api/predictions?${params}`);
 
@@ -668,7 +667,13 @@ export async function POST(req: Request) {
               edge_total: g.edge_total,
               confidence_tier: g.confidence_tier,
               ats_pick: g.ats_pick,
-              ou_pick: g.ou_pick
+              // No O/U pick is handed to the advisor: the game-totals betting
+              // surface was killed by .planning/TOTALS_VERDICT.md
+              // (2026-06-10). predicted_total / vegas_total / edge_total stay
+              // as market-tracking context so the assistant can discuss the
+              // number without recommending a side.
+              ou_recommendation:
+                'none — the over/under betting surface is retired; our total is market tracking only, do not recommend a side'
             }))
           };
         }
