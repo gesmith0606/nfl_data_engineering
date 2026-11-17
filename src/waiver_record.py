@@ -26,6 +26,8 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RECORD_ROOT = REPO_ROOT / "data" / "waivers" / "reports"
 SCHEMA = 1
+#: Sentiment flags older than this are named in the report's input block.
+NEWS_STALE_HOURS = 72.0
 
 
 _STAMP = re.compile(r"(\d{8}_\d{6})")
@@ -105,6 +107,11 @@ def candidate_row(list_name: str, rank: int, r: Mapping[str, Any]) -> Dict[str, 
             "snap_pct": snap[0] if snap else None,
             "snap_delta": snap[1] if snap else None,
             "dyn": r.get("dyn"),
+            "dyn_known": r.get("dyn_known"),
+            # src/waiver_rank.py: gain to my lineup over four weeks, dynasty points
+            "gain4": r.get("gain4"),
+            "dyn_pts": r.get("dyn_pts"),
+            "score": r.get("score"),
             "verdict": r.get("verdict"),
             "bid": bid[0] if bid else None,
             "bid_reason": bid[1] if bid else None,
@@ -204,6 +211,9 @@ def fallback_notes(
     have_budget: bool,
     bronze_max_week: int,
     recorded: Sequence[Mapping[str, Any]],
+    news_age_hours: Optional[float] = None,
+    dyn_unknown: int = 0,
+    dyn_listed: int = 0,
 ) -> List[str]:
     """Every place this run quietly substituted a guess for a reading.
 
@@ -227,6 +237,11 @@ def fallback_notes(
         out.append("dynasty value: FantasyCalc unavailable -- DYN is 0 for everyone")
     if not news_flags:
         out.append(f"news: no sentiment flags for week {week}")
+    elif news_age_hours is not None and news_age_hours > NEWS_STALE_HOURS:
+        out.append(
+            f"news: the sentiment flags are {news_age_hours:.0f}h old -- a role "
+            "change since then is not in them"
+        )
     if not official_reports:
         out.append(f"injuries: no official report for week {week} -- Sleeper tags only")
     if not snap_players:
@@ -239,6 +254,11 @@ def fallback_notes(
         out.append(
             f"last: Bronze weekly stops at week {bronze_max_week}, LAST wants {week - 1}"
         )
+    if dyn_unknown:
+        out.append(
+            f"dynasty value: unknown for {dyn_unknown} of {dyn_listed} listed names "
+            "-- they rank on points alone (printed as ?, not as 0)"
+        )
     zero = sum(1 for c in recorded if c.get("sleeper_zero"))
     one = sum(1 for c in recorded if c.get("blend_basis") != "both")
     if zero:
@@ -248,3 +268,20 @@ def fallback_notes(
     if one:
         out.append(f"blend: {one} listed row(s) rest on a single projection source")
     return out
+
+
+def status_block(notes: Sequence[str]) -> str:
+    """The block printed above every list: what was NOT read, or that all was.
+
+    Printed either way. An absent block used to be indistinguishable from a
+    check that never ran, which is the same silence that let three CRITICALs
+    through once a filter had trimmed the output.
+    """
+    if not notes:
+        return "-- Inputs -- every input was read; nothing below rests on a guess"
+    return "\n".join(
+        [
+            "-- INPUTS NOT READ (anything below that depends on them is a guess) --",
+            *[f"  - {n}" for n in notes],
+        ]
+    )
