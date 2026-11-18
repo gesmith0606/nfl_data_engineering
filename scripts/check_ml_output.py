@@ -158,8 +158,11 @@ def run_checks(
                     if "is_bye_week" in df.columns
                     else pd.Series(False, index=df.index)
                 )
+                # Consensus-fallback rows are players the engine had no basis
+                # for (no route taken at all) — not a routing failure.
+                fallback_mask = df["projection_source"] == "consensus_fallback"
                 for pos in sorted(expected_hybrid):
-                    pos_rows = df[(df["position"] == pos) & ~bye_mask]
+                    pos_rows = df[(df["position"] == pos) & ~bye_mask & ~fallback_mask]
                     if pos_rows.empty:
                         continue
                     frac = float(

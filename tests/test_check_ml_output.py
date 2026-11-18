@@ -267,3 +267,30 @@ class TestCheck3PartialHybrid:
         with _patch_paths(str(tmp_path)):
             failures, _ = cml.run_checks(2026, 5, "half_ppr")
         assert not any("CHECK3" in f for f in failures)
+
+    def test_consensus_fallback_rows_do_not_count_against_hybrid_share(self, tmp_path):
+        # A week-1 board can carry many consensus_fallback rows (rookies, no
+        # basis): they took no route, so they must not fail the routing check.
+        df = _make_projection_df(wr_source="hybrid", te_source="hybrid")
+        fb = pd.DataFrame(
+            [
+                {
+                    "player_id": f"WRfb_{i}",
+                    "player_name": f"WR Fallback {i}",
+                    "position": "WR",
+                    "recent_team": "KC",
+                    "projected_points": 6.0,
+                    "is_bye_week": False,
+                    "projection_source": "consensus_fallback",
+                    "week": 5,
+                }
+                for i in range(10)
+            ]
+        )
+        df = pd.concat([df, fb], ignore_index=True)
+        _write_gold(df, str(tmp_path), season=2026, week=5, scoring="half_ppr")
+        _write_residual_meta(str(tmp_path), "WR")
+        _write_residual_meta(str(tmp_path), "TE")
+        with _patch_paths(str(tmp_path)):
+            failures, _ = cml.run_checks(2026, 5, "half_ppr")
+        assert not any("CHECK3" in f for f in failures), failures
