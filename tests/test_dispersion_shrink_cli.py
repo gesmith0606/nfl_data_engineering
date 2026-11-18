@@ -70,7 +70,9 @@ class TestBacktestWiring:
     def test_run_backtest_defaults_mirror_production(self):
         params = inspect.signature(backtest_projections.run_backtest).parameters
         assert params["no_dispersion_shrink"].default is False
-        assert params["dispersion_shrink_k"].default == SHRINK_FACTOR
+        # None = the fitted per-position production defaults (WR 1.0, others
+        # SHRINK_FACTOR); the backtest forwards None to apply_dispersion_shrink.
+        assert params["dispersion_shrink_k"].default is None
 
     def test_help_lists_the_opt_out(self):
         out = _help(backtest_projections)

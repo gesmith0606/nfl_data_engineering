@@ -78,7 +78,11 @@ logger = logging.getLogger(__name__)
 
 #: Master switch.  When False, apply_ranking_scores is a no-op that only adds
 #: ranking_score = projected_points.
-USE_RANKING_SCORE: bool = True
+# OFF (2026-11-16): the nudge keys on graph features at (season, week) and the
+# target week has none on a live run (the week-7 runner log reads 'nudged 0 / 376
+# players'), and its own gate was a MISS (WR12 +0.011 vs the +0.025 bar; no RB
+# signal). ranking_score stays on the board, equal to projected_points.
+USE_RANKING_SCORE: bool = False
 
 #: Maximum absolute nudge in fantasy points added to any player's score.
 RANKING_NUDGE_CAP: float = 1.5
