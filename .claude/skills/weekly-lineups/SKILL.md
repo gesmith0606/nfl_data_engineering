@@ -28,26 +28,60 @@ Do not suggest a start/sit before the command has run for that league in this se
 |---|---|---|---|
 | `mantis` | Sleeper | **read live** → real deltas | **No** — ToS §11.1. George sets it in the app. |
 | `la_liga` | ESPN | **read live** (ESPN_S2/ESPN_SWID) → real deltas | **Yes** — `--espn-write`, then `--apply` |
-| `feetball` | Yahoo | **none** — no API access yet | No |
+| `feetball` | Yahoo | **read live** (OAuth grant) when `python scripts/yahoo_auth.py --check` is good → real deltas; else `--roster-file` and a recommendation only | **No** — read-only API (vendor, 2026-10-26). George applies it in the app. |
 
 Two consequences worth stating out loud when you report:
 
-- For **Yahoo**, the SLOT column is a *recommendation*, not a diff. "No changes" there
-  means "nothing beats a starter in the lineup we would pick", not "your lineup is fine".
-  The roster file also goes stale — the La Liga one was 4 days old on 2026-10-24 and wrong
+- For **Yahoo without the grant**, the SLOT column is a *recommendation*, not a diff. "No
+  changes" there means "nothing beats a starter in the lineup we would pick", not "your
+  lineup is fine". The roster file also goes stale — the La Liga one was 4 days old on 2026-10-24 and wrong
   in six places (three dropped players still listed, three adds missing), which produced a
   confident plan for a team George no longer had. Check its date before trusting it.
 - For **Sleeper**, never imply a command can set it. There isn't one.
 
+## Read MUST FIX first — it is the only part nobody argues with
+
+The report opens with **MUST FIX**: every starter on a bye, ruled Out, on IR, Doubtful or
+with no team, and every empty slot, each with the best eligible replacement already
+chosen. These are not judgement calls. In the 2026 Mantis replay, lineups carried over
+untouched held 76 such starters across 80 roster-weeks and scored **1,563 points less**
+than the same lineups after this repair (11,451 -> 13,014); the old SWAP rule recovered
+only 1,156 of it. Start there, say them out loud ("Watson, London, Henry and
+Higbee are all on bye"), then move on to deltas.
+
+- A `no eligible player on your bench` line means the slot scores 0 either way: that is a
+  waiver pickup, not a lineup decision. Hand it to the waivers skill.
+- The deltas that follow are judged on the lineup *after* the MUST FIX moves.
+- A bench player whose Sleeper Out tag is unconfirmed is never used as a replacement.
+- If the header says **CONSENSUS ONLY**, our weekly board is missing or thin and every
+  number is Sleeper's. Say so; do not present it as a two-source agreement. (The tool used
+  to fall back to preseason points / 17 here without saying so.)
+
 ## The SWAP rule, and what the writer is allowed to file
 
-A **SWAP** needs OURS *and* Sleeper to agree by the threshold (default 3.0). Everything
-softer exists because it wants a human: **COIN FLIP** (too close), **SPLIT** (the sources
-disagree), **CHECK STATUS** (a Sleeper Out/Doubtful the official report has not confirmed).
+Every player has ONE estimate: Sleeper's weekly projection under the league's scoring
+(our projection is blended in at `lineup_setter.OURS_WEIGHT`, which the replay fits at 0:
+more weight scored fewer points). Expected points then carry the injury discount:
+Questionable = 71% to play and QB -8% / RB -16% / TE -18% / WR -22% when he does,
+Doubtful = 6.5%. Each delta prints **P(bench player outscores the starter)** from the gap
+and each player's spread: **SWAP** at P >= 0.52 (no LEAN band: the band just under the
+line lost points, 15 pairs / 27% right; `--lean-p` shows close calls, never applied),
+**CHECK STATUS** (a Sleeper Out/Doubtful the official report has not confirmed).
+Read the P, not the label: 0.52-0.60 is "the expected gain is positive and the old record
+of deviating from Sleeper's order is bad", not "certain". A Questionable starter gets a
+line saying which bench player can still replace him after his inactive report (about 90
+minutes before his kickoff) or that none can.
 
-`--espn-write` files **only the SWAPs the table printed** — never the softer verdicts, and
-never the optimizer's full allocation. That is deliberate: filing a move the tool declined
-to recommend out loud is indistinguishable from a bug. Dry run first; `--apply` writes.
+Thresholds were chosen on weeks 1-5 of the 2026 Mantis replay and tested on 6-9 (n = 90
+roster-weeks): `python scripts/replay_lineups.py --sweep`. Held out, the tool beat the
+lineups set (+34 pts, 18 swaps, 61% right) but NOT Sleeper's own optimum (+78): the
+sample is too small to say the rule adds anything over "follow Sleeper".
+
+`--espn-write` files **only MUST FIX moves and SWAPs at P >= 0.60** (`--write-p`) — never
+LEAN, CHECK STATUS, the optimizer's full allocation, or an empty slot (there is no
+outgoing player to read the slot from; fill it by hand). A script that moves your lineup
+should want a clearer edge than the report does, and filing a move the tool declined to
+recommend out loud is indistinguishable from a bug. Dry run first; `--apply` writes.
 
 ## Injuries: two rules that pull in opposite directions
 
@@ -80,8 +114,13 @@ after the player had been ruled out.
 
 ## Finishing the job
 
-- **K and DEF** are unfillable from our registry — `scripts/stream_dst_k.py --pool
+- **K and DEF** are filled from the roster (Sleeper's projection, default K/DEF scoring on
+  ESPN/Yahoo). To pick one up, `scripts/stream_dst_k.py --pool
   data/draft/<league>_2026_dstk_pool.txt`.
+- To judge a rule change, replay it: `python scripts/replay_lineups.py --roster 6` scores
+  set / v1 / current-tool / hindsight lineups in actual points over weeks 1-9 (n=90
+  roster-weeks). `python scripts/snapshot_gameday_inputs.py` on game-day mornings keeps
+  what Sleeper said at the time, so future replays are not graded on today's values.
 - Each run prints **last week's bench loss** with the room median for context. Quote it;
   it is the only feedback loop this skill has.
 - End with one instruction per league, in the imperative, naming the player and the slot.

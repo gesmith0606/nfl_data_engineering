@@ -388,6 +388,13 @@ data/gold/*
 !data/bronze/external_projections/
 !data/bronze/external_projections/**
 !data/bronze/external_projections/**/*.parquet
+# Gameday snapshots of Sleeper's projections + player statuses
+# (scripts/snapshot_gameday_inputs.py). Past injury tags and past projections
+# cannot be recovered afterwards, so a snapshot that exists on one laptop only
+# is a snapshot that does not exist (TD-08/09/10).
+!data/bronze/gameday_inputs/
+!data/bronze/gameday_inputs/**
+!data/bronze/gameday_inputs/**/*.parquet
 !data/silver/external_projections/
 !data/silver/external_projections/**
 !data/silver/external_projections/**/*.parquet

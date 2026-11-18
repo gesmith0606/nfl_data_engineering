@@ -275,7 +275,7 @@ def test_swap_only_when_both_sources_clear_threshold():
         _row("s", "WR", 8.0, 9.0, slot="FLEX"),
         _row("b1", "WR", 12.0, 13.0),  # +4 / +4 -> SWAP
     ]
-    d = lineup_deltas(rows, threshold=3.0)
+    d = lineup_deltas(rows, threshold=3.0, legacy=True)
     assert [x.verdict for x in d] == ["SWAP"]
     assert d[0].in_player.sleeper_id == "b1" and d[0].slot == "FLEX"
 
@@ -288,7 +288,7 @@ def test_coin_flip_when_agree_but_thin_and_split_when_disagree():
         _row("b2", "RB", 14.0, 8.0),  # +4 / -2  -> SPLIT
     ]
     verdicts = {
-        (x.slot, x.in_player.sleeper_id): x.verdict for x in lineup_deltas(rows, 3.0)
+        (x.slot, x.in_player.sleeper_id): x.verdict for x in lineup_deltas(rows, 3.0, legacy=True)
     }
     assert verdicts[("WR", "b1")] == "COIN FLIP"
     assert verdicts[("RB", "b2")] == "SPLIT"
@@ -326,12 +326,13 @@ def test_render_smoke_lists_lineup_bench_and_deltas():
         _row("b", "WR", 12.0, 13.0, injury_status="Q"),
     ]
     rows[1].notes.append("Q")
-    out = render(rows, lineup_deltas(rows, 3.0), "hdr", "preseason pace")
+    out = render(rows, lineup_deltas(rows), "hdr", "preseason pace")
     assert (
         "hdr" in out
         and "SWAP" in out
         and "BN" in out
-        and "Starters total: ours 8.0 / Sleeper 9.0" in out
+        and "Starters expected: 9.0" in out
+        and "P " in out
     )
 
 
@@ -474,7 +475,7 @@ def test_no_swap_on_stale_sleeper_out_tag_check_status_instead():
         _row("s2", "RB", 5.0, 5.0, slot="RB"),
         _row("b2", "RB", 10.0, 10.0),  # healthy starter -> still SWAP
     ]
-    d = {x.out_player.sleeper_id: x for x in lineup_deltas(rows, 3.0)}
+    d = {x.out_player.sleeper_id: x for x in lineup_deltas(rows, 3.0, legacy=True)}
     assert d["moore"].verdict == "CHECK STATUS"
     assert d["s2"].verdict == "SWAP"
     out = render(rows, list(d.values()), "hdr", "x")

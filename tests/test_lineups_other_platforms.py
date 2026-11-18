@@ -52,29 +52,65 @@ def test_scoring_comes_from_the_preset_in_sleeper_keys():
 
 
 def test_an_unfillable_slot_is_marked_rather_than_silently_dropped():
-    """Our registry has no D/ST or K, so those slots cannot be allocated.
+    """A slot nobody eligible can fill is "0", not absent.
 
-    Dropping them would make a 9-slot lineup look complete at 8.
+    Dropping it would make a 9-slot lineup look complete at 8.
     """
     sl = _mod()
+    from src.lineup_setter import PlayerRow
 
-    class Row:
-        def __init__(self, sid, pos, pts):
-            self.sleeper_id, self.pos, self.pts = sid, pos, pts
-
-        def as_optimizer_dict(self, _source):
-            return {
-                "sleeper_id": self.sleeper_id,
-                "position": self.pos,
-                "points": self.pts,
-                "projected_points": self.pts,
-            }
-
-    rows = [Row("qb1", "QB", 20.0), Row("rb1", "RB", 10.0)]
+    rows = [
+        PlayerRow("qb1", "Q1", "QB", "BUF", ours=20.0, sleeper=20.0),
+        PlayerRow("rb1", "R1", "RB", "BUF", ours=10.0, sleeper=10.0),
+    ]
     out = sl.recommended_starters(rows, ["QB", "RB", "DEF"])
     assert out[0] == "qb1" and out[1] == "rb1"
     assert out[2] == "0", "an unfillable slot is '0', not absent"
     assert len(out) == 3
+
+
+def test_recommended_starters_fill_super_flex_k_and_def_and_skip_a_bye():
+    """The old allocation keyed slots by display name: SUPER_FLEX stayed empty,
+    and K/DEF could never be filled because the roster never resolved them."""
+    sl = _mod()
+    from src.lineup_setter import PlayerRow
+
+    rows = [
+        PlayerRow("qb1", "Q1", "QB", "BUF", ours=20.0, sleeper=20.0),
+        PlayerRow("qb2", "Q2", "QB", "BUF", ours=15.0, sleeper=15.0),
+        PlayerRow("k1", "K1", "K", "BUF", ours=None, sleeper=8.0),
+        PlayerRow("HOU", "Houston Texans", "DEF", "HOU", ours=None, sleeper=7.0),
+        PlayerRow("qb3", "Q3 on bye", "QB", "SF", ours=40.0, sleeper=40.0, bye=True),
+    ]
+    out = sl.recommended_starters(rows, ["QB", "SUPER_FLEX", "K", "DEF", "BN"])
+    assert out == ["qb1", "qb2", "k1", "HOU"]
+
+
+def test_a_defence_resolves_by_team_code_not_by_a_site_specific_name():
+    sl = _mod()
+    reg = {
+        "HOU": {"position": "DEF", "first_name": "Houston", "last_name": "Texans", "team": "HOU"},
+        "LAR": {"position": "DEF", "first_name": "Los Angeles", "last_name": "Rams", "team": "LAR"},
+        "11533": {"position": "K", "full_name": "Brandon Aubrey", "team": "DAL", "active": True},
+    }
+    from src.lineup_setter import build_id_maps
+
+    _g, by_name = build_id_maps(reg)
+    assert sl.resolve_sleeper_id("Texans D/ST", reg, by_name) == "HOU"  # ESPN
+    assert sl.resolve_sleeper_id("Houston", reg, by_name, team="Hou", position="DEF") == "HOU"  # Yahoo
+    assert sl.resolve_sleeper_id("Los Angeles Rams", reg, by_name, team="LA", position="DEF") == "LAR"
+    assert sl.resolve_sleeper_id("Brandon Aubrey", reg, by_name) == "11533"
+    assert sl.resolve_sleeper_id("Nobody D/ST", reg, by_name) is None
+
+
+def test_preset_scoring_carries_kicker_and_defence_rules():
+    """Without them every K and DEF scores 0 and ties for the slot."""
+    sl = _mod()
+    from src import config
+
+    scoring = sl.scoring_for_preset(config.our_league("la_liga"))
+    assert scoring["fgm_40_49"] == 4.0 and scoring["pts_allow_0"] > 0 and scoring["sack"] == 1.0
+    assert scoring["rec"] == 0.5  # offensive rules untouched
 
 
 def test_non_sleeper_output_says_it_is_a_recommendation():

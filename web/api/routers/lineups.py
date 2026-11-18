@@ -163,6 +163,18 @@ def get_lineups(
     else:
         df = get_team_starters(season=season, week=week)
 
+    # The builder reports every fallback it took (old depth-chart snapshot, no schedule,
+    # no injury data). Surface that instead of serving a guess as fact.
+    fallbacks = list(getattr(df, "attrs", {}).get("degraded_reasons") or [])
+    if fallbacks:
+        degraded = True
+        logger.warning(
+            "Lineup built from fallbacks for season=%d week=%d: %s",
+            season,
+            week,
+            "; ".join(fallbacks),
+        )
+
     if df.empty:
         # Return an empty envelope (HTTP 200) instead of 404 so the advisor
         # tool ``getTeamRoster`` receives ``{"lineup": []}`` during offseason
@@ -219,7 +231,14 @@ def get_lineups(
         # Compute team projected total from offense projections
         proj_total = None
         if "projected_points" in team_df.columns:
-            off_pts = offense_df["projected_points"].dropna()
+            # only the players who will start: an Out player stays in the frame as a
+            # non-starter and must not count towards the team total
+            starters_only = (
+                offense_df[offense_df["is_starter"]]
+                if "is_starter" in offense_df.columns
+                else offense_df
+            )
+            off_pts = starters_only["projected_points"].dropna()
             if not off_pts.empty:
                 proj_total = round(float(off_pts.sum()), 1)
 

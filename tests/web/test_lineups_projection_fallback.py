@@ -78,7 +78,7 @@ def test_lineups_joins_projection_service_data(monkeypatch) -> None:
     monkeypatch.setattr(
         lineup_builder,
         "get_team_starters",
-        lambda season, week, team=None: _fake_starters(),
+        lambda season, week, team=None, **_kw: _fake_starters(),
     )
     calls = {}
 
@@ -106,7 +106,7 @@ def test_lineups_survive_missing_projections(monkeypatch) -> None:
     monkeypatch.setattr(
         lineup_builder,
         "get_team_starters",
-        lambda season, week, team=None: _fake_starters(),
+        lambda season, week, team=None, **_kw: _fake_starters(),
     )
 
     def raise_not_found(**kwargs):

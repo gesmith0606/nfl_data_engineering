@@ -1,19 +1,32 @@
 #!/usr/bin/env python3
-"""Weekly lineup setter: roster -> two projection sources -> league scoring -> deltas.
+"""Weekly lineup setter: roster -> one estimate per player -> P(bench beats starter).
 
     python scripts/set_lineups.py --league mantis
-    python scripts/set_lineups.py --league mantis --week 2 --threshold 2.5
+    python scripts/set_lineups.py --league mantis --week 2 --swap-p 0.60 --lean-p 0.55
 
 Pulls the Sleeper roster, roster_positions and scoring_settings for a league
-preset, scores OUR projections and Sleeper's weekly projections under those exact
-settings (TE premium, 6-pt pass TD, first downs on the Sleeper side), and prints
-only the deltas vs the lineup currently set. A swap is recommended only when both
-sources agree by the threshold (default 3.0 pts); otherwise it is a coin flip.
+preset and builds ONE estimate per player: Sleeper's weekly projection scored under
+those exact settings (TE premium, 6-pt pass TD, first downs), with our projection
+blended in at ``lineup_setter.OURS_WEIGHT`` (fitted on the replay by actual lineup
+points: 0 today). Expected points then carry the injury discount (a Questionable
+player plays ~71% of the time and scores less when he does).
 
-OURS = the latest weekly Gold parquet for the week. When that board is thin
-(< 150 skill rows — e.g. Week 1 of a new season, where the weekly engine has no
-current-season usage yet) it falls back to preseason pace (season stats / 17) and
-says so. ``*_derived`` boards are never read (see LINEUP_TOOL_ENHANCEMENT.md).
+It prints only the deltas vs the lineup currently set, each with P(bench player
+outscores the starter): SWAP at P >= 0.52 (no LEAN band by default: the band just under
+the line lost points on the replay; ``--lean-p`` shows close calls). The
+ESPN writer files a SWAP only at P >= 0.60 (``WRITE_P``) -- it acts, so it asks more.
+
+OURS = the newest weekly Gold parquet for the week, newest by the timestamp in
+its filename (file mtime is rewritten by every checkout). When that board is
+missing or thin (< 150 skill rows — e.g. Week 1 of a new season, where the weekly
+engine has no current-season usage yet) this tool does NOT fall back to
+preseason pace (season stats / 17): it says CONSENSUS ONLY, loudly, and advises
+on Sleeper's projection alone. ``*_derived`` boards are never read (see
+LINEUP_TOOL_ENHANCEMENT.md).
+
+The report opens with MUST FIX: any starter on bye, ruled Out, on IR, Doubtful,
+or without a team, and any empty slot, each with the best eligible replacement.
+Only then are the bench-vs-starter deltas weighed, on the repaired lineup.
 
 Sleeper only for now; ESPN/Yahoo need a roster reader (tracked in the doc).
 """
@@ -36,7 +49,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from src import config, sleeper_http  # noqa: E402
-from src.league_scoring import unmodeled_offense_keys  # noqa: E402
+from src.league_scoring import (  # noqa: E402
+    scoring_from_format,
+    unmodeled_offense_keys,
+)
 from src.lineup_setter import (  # noqa: E402
     ET,
     _SKIP_SLOTS,
@@ -44,13 +60,17 @@ from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
     InjuryContext,
     build_id_maps,
+    KDEF_DEFAULT_SCORING,
+    LEAN_P,
+    SWAP_P,
     build_rows,
     full_name_map,
     kickoffs_for_week,
-    lineup_deltas,
     official_reports,
+    optimal_starters,
     ours_by_sleeper_id,
     preseason_to_weekly,
+    recommend,
     render,
     roster_gsis_map,
     score_ours,
@@ -62,6 +82,9 @@ from src.sleeper_player_map import (  # noqa: E402
     normalize_name,
 )
 
+#: The ESPN writer files a SWAP only at this probability or better (the report's own
+#: SWAP bar is lower: see lineup_setter.SWAP_P).
+WRITE_P = 0.60
 GOLD = REPO_ROOT / "data" / "gold" / "projections"
 SCHEDULES = REPO_ROOT / "data" / "bronze" / "schedules"
 ROSTERS = REPO_ROOT / "data" / "bronze" / "players" / "rosters"
@@ -73,9 +96,22 @@ REGISTRY_MAX_AGE_DAYS = 0.25
 _SNAP_TS = re.compile(r"(\d{8}_\d{6})")
 
 
+def _stamp(path: str) -> Tuple[int, float]:
+    """Sort key: the timestamp in the filename; mtime only for unstamped files.
+
+    The filesystem's mtime is not the board's time. A checkout, copy or restore
+    rewrites it, and in 2026 that made the tool read a board that was not the
+    newest one for weeks 4-7.
+    """
+    m = _SNAP_TS.search(os.path.basename(path))
+    if m:
+        return 1, dt.datetime.strptime(m.group(1), "%Y%m%d_%H%M%S").timestamp()
+    return 0, os.path.getmtime(path)
+
+
 def _latest(pattern: str, exclude: str = "derived") -> Optional[Path]:
     files = [f for f in glob.glob(pattern) if exclude not in os.path.basename(f)]
-    return Path(max(files, key=os.path.getmtime)) if files else None
+    return Path(max(files, key=_stamp)) if files else None
 
 
 def _default_week(season_hint: Optional[int]) -> Tuple[int, int]:
@@ -88,28 +124,59 @@ def _default_week(season_hint: Optional[int]) -> Tuple[int, int]:
     return (season_hint or season), week
 
 
-def load_ours(season: int, week: int) -> Tuple[pd.DataFrame, str]:
-    """Weekly Gold if healthy, else preseason pace. Returns (stat rows, label)."""
+#: Label prefix when our board is missing or thin. Callers (and the banner) key on it.
+CONSENSUS_ONLY = "CONSENSUS ONLY"
+
+
+def _empty_board() -> pd.DataFrame:
+    from src.lineup_setter import _ID_COLS, _STAT_COLS
+
+    return pd.DataFrame(columns=_ID_COLS + _STAT_COLS)
+
+
+def load_ours(
+    season: int, week: int, allow_preseason: bool = True
+) -> Tuple[pd.DataFrame, str]:
+    """Weekly Gold if healthy, else preseason pace. Returns (stat rows, label).
+
+    ``allow_preseason=False`` (the lineup CLI) refuses the pace fallback: season
+    totals / 17 know nothing about this week's usage, matchup or injuries, and
+    a lineup tool that quietly mixes them in is advising on a different number
+    than it prints. It returns an EMPTY board labelled ``CONSENSUS ONLY ...`` so
+    the caller advises on Sleeper's projection alone and says so. The waiver
+    tools keep the default (they were built around the fallback).
+    """
     weekly = _latest(
         str(GOLD / f"season={season}" / f"week={week}" / "projections_*.parquet")
     )
+    why = f"no weekly board for {season} week {week}"
     if weekly is not None:
         df = pd.read_parquet(weekly)
         skill = (
             df[df["position"].isin(SKILL_POSITIONS)] if "position" in df.columns else df
         )
         if len(skill) >= MIN_WEEKLY_ROWS:
-            age_h = (
-                dt.datetime.now() - dt.datetime.fromtimestamp(weekly.stat().st_mtime)
-            ).total_seconds() / 3600
+            kind, ts = _stamp(str(weekly))
+            made = (
+                dt.datetime.fromtimestamp(ts, dt.timezone.utc)
+                if kind
+                else dt.datetime.fromtimestamp(weekly.stat().st_mtime, dt.timezone.utc)
+            )
+            age_h = (dt.datetime.now(dt.timezone.utc) - made).total_seconds() / 3600
+            fmt = re.search(r"projections_(.+?)_[0-9]{8}_", weekly.name)
             return (
-                weekly_gold_to_stats(df),
+                weekly_gold_to_stats(df).assign(
+                    published_format=fmt.group(1) if fmt else None
+                ),
                 f"weekly Gold {weekly.name} ({age_h:.0f}h old)",
             )
-        print(
-            f"WARN: weekly board {weekly.name} has only {len(skill)} skill rows (< {MIN_WEEKLY_ROWS}); "
-            "falling back to preseason pace"
+        why = (
+            f"newest board {weekly.name} has only {len(skill)} skill rows "
+            f"(< {MIN_WEEKLY_ROWS})"
         )
+        print(f"WARN: {why}")
+    if not allow_preseason:
+        return _empty_board(), f"{CONSENSUS_ONLY} ({why})"
     pre = _latest(
         str(GOLD / "preseason" / f"season={season}" / "season_proj_*.parquet")
     )
@@ -330,21 +397,6 @@ def last_week_bench_loss(
         return f"\n  (last week's bench loss unavailable: {type(exc).__name__})"
 
 
-#: config.SCORING_CONFIGS keys -> the Sleeper scoring keys score_with_settings
-#: understands. Same map waiver_wire.scoring_for uses; duplicated rather than
-#: imported because importing one CLI from another drags its whole module in.
-_TO_SLEEPER_KEYS = {
-    "reception": "rec",
-    "rush_yd": "rush_yd",
-    "rec_yd": "rec_yd",
-    "rush_td": "rush_td",
-    "rec_td": "rec_td",
-    "pass_yd": "pass_yd",
-    "pass_td": "pass_td",
-    "interception": "pass_int",
-    "fumble_lost": "fum_lost",
-}
-
 #: ROSTER_CONFIGS uses DST where Sleeper uses DEF.
 _SHAPE_TO_SLEEPER_SLOT = {"DST": "DEF", "SFLEX": "SUPER_FLEX"}
 
@@ -373,16 +425,42 @@ def scoring_for_preset(preset: Mapping[str, Any]) -> Dict[str, float]:
     Mirrors ``waiver_wire.scoring_for`` for the no-league case so both tools
     price a pasted board the same way.
     """
-    base = config.SCORING_CONFIGS[preset["scoring_format"]]
-    return {_TO_SLEEPER_KEYS[k]: v for k, v in base.items() if k in _TO_SLEEPER_KEYS}
+    # The presets carry offensive rules only; without K/DEF rules every kicker
+    # and defence would score 0 and tie for the slot.
+    return {**KDEF_DEFAULT_SCORING, **scoring_from_format(preset["scoring_format"])}
+
+
+def resolve_sleeper_id(
+    name: str,
+    registry: Mapping[str, Any],
+    by_name: Mapping[Tuple[str, str], str],
+    team: Optional[str] = None,
+    position: Optional[str] = None,
+) -> Optional[str]:
+    """Sleeper id for a roster entry from ESPN/Yahoo/a pasted file, or None.
+
+    A defence is keyed by its team code in Sleeper's registry ("HOU") and named
+    differently by every site ("Texans D/ST", "Houston", "Houston Texans"), so
+    it resolves through the team code (``team`` from the site, else the nickname
+    table) and only then by name. Everyone else resolves by normalised name.
+    """
+    if str(position or "").upper() in ("DEF", "DST", "D/ST") or "D/ST" in name:
+        from src.league_pools import dst_abbr
+
+        abbr = str(team or dst_abbr(name) or "").upper()
+        abbr = {"LA": "LAR", "JAC": "JAX", "WSH": "WAS", "OAK": "LV"}.get(abbr, abbr)
+        if (registry.get(abbr) or {}).get("position") == "DEF":
+            return abbr
+    norm = normalize_name(name)
+    return next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
 
 
 def roster_from_names(names: Sequence[str], registry: Mapping[str, Any]) -> list:
     """Sleeper ids for a list of player names.
 
     Unresolvable names are reported rather than dropped silently: a missing
-    starter changes the lineup, and a D/ST or fullback that our registry has
-    no entry for is a known gap, not a surprise.
+    starter changes the lineup, and a fullback that our registry has no entry
+    for is a known gap, not a surprise. Kickers and D/ST resolve now.
     """
     _by_gsis, by_name = build_id_maps(dict(registry))
     ids, missing = [], []
@@ -390,8 +468,7 @@ def roster_from_names(names: Sequence[str], registry: Mapping[str, Any]) -> list
         name = str(raw).split("#", 1)[0].strip()
         if not name:
             continue
-        norm = normalize_name(name)
-        hit = next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
+        hit = resolve_sleeper_id(name, registry, by_name)
         if hit is None:
             missing.append(name)
         else:
@@ -453,8 +530,13 @@ def yahoo_live_lineup(
     _by_gsis, by_name = build_id_maps(dict(registry))
     sid_by_name: Dict[str, str] = {}
     for player in roster:
-        norm = normalize_name(player["name"])
-        hit = next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
+        hit = resolve_sleeper_id(
+            player["name"],
+            registry,
+            by_name,
+            team=player.get("team"),
+            position=player.get("position"),
+        )
         if hit:
             sid_by_name[player["name"]] = hit
 
@@ -514,8 +596,7 @@ def espn_live_lineup(
     _by_gsis, by_name = build_id_maps(dict(registry))
     sid_by_pid: Dict[int, str] = {}
     for pid, name in names.items():
-        norm = normalize_name(name)
-        hit = next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
+        hit = resolve_sleeper_id(name, registry, by_name)
         if hit:
             sid_by_pid[pid] = hit
 
@@ -580,23 +661,11 @@ def recommended_starters(rows: Sequence[Any], roster_positions: Sequence[str]) -
     is the lineup we RECOMMEND, allocated by the same optimizer, with the
     comparison left to the reader's own screen.
 
-    ``"0"`` marks a slot the roster cannot fill (a missing D/ST, say).
+    Fills every slot the optimizer knows (SUPER_FLEX, K and DEF included), never
+    starts a player who cannot score this week, and marks a slot nobody
+    eligible can fill with ``"0"``.
     """
-    from src.roster_optimizer import optimal_lineup
-
-    pool = [r.as_optimizer_dict("blend") for r in rows]
-    allocated = optimal_lineup(pool, roster_positions=list(roster_positions))
-    by_slot: Dict[str, list] = {
-        slot: [str(p["sleeper_id"]) for p in players]
-        for slot, players in (allocated.get("starters") or {}).items()
-    }
-    out = []
-    for slot in roster_positions:
-        if str(slot).upper() in _SKIP_SLOTS:
-            continue
-        queue = by_slot.get(slot) or []
-        out.append(queue.pop(0) if queue else "0")
-    return out
+    return optimal_starters(rows, roster_positions)
 
 
 def espn_write(
@@ -606,19 +675,26 @@ def espn_write(
     season: int,
     week: int,
     apply_changes: bool,
+    write_p: float = WRITE_P,
 ) -> int:
-    """File exactly the SWAPs the table just printed. Nothing else.
+    """File exactly the SWAPs and MUST FIX moves the report just printed. Nothing else.
 
-    The writer deliberately applies the SAME rule the report does -- a SWAP
-    needs OURS *and* Sleeper to agree by the threshold -- rather than the
-    optimizer's full allocation. Two reasons. Filing a move the tool declined
-    to recommend out loud is a surprise, and a surprise in a lineup is
-    indistinguishable from a bug. And the softer verdicts exist precisely
-    because they want a human: COIN FLIP and SPLIT are too close to call, and
-    CHECK STATUS means a Sleeper injury tag the official report has not
-    confirmed. Automating those would be automating the uncertainty away.
+    The writer files only what the report printed as a SWAP, never the
+    optimizer's full allocation, and it asks for more than the report does: a
+    SWAP is filed only at P >= ``WRITE_P`` (0.60). The report calls 53% a SWAP
+    because the expected gain is positive; a script that moves your lineup for
+    you should want a clearer edge. Filing a move the tool declined to
+    recommend out loud is a surprise, and a surprise in a lineup is
+    indistinguishable from a bug. LEAN is too close to call and CHECK STATUS
+    means a Sleeper injury tag the official report has not confirmed:
+    automating those would be automating the uncertainty away.
 
-    Run with ``--threshold 0`` to file every edge the optimizer sees.
+    A MUST FIX move (a starter on bye or ruled out, swapped for the best live
+    bench player) is filed the same way: it is printed first, and it is the one
+    move no projection source argues with. An EMPTY slot is not filed (there is
+    no outgoing player to read the slot from); the report says to fill it by hand.
+
+    Run with ``--swap-p 0.5 --write-p 0.5`` to file every edge the optimizer sees.
     """
     from dotenv import load_dotenv
 
@@ -640,8 +716,13 @@ def espn_write(
     slots = espn_slots_by_id(payload, team_id)
     names_by_pid = espn_names_by_id(payload, team_id)
 
-    swaps = [d for d in deltas if getattr(d, "verdict", "") == "SWAP"]
-    skipped = [d for d in deltas if getattr(d, "verdict", "") != "SWAP"]
+    def fileable(d: Any) -> bool:
+        if getattr(d, "verdict", "") == "MUST FIX":
+            return True
+        return getattr(d, "verdict", "") == "SWAP" and (d.p or 0.0) >= write_p
+
+    swaps = [d for d in deltas if fileable(d)]
+    skipped = [d for d in deltas if not fileable(d)]
 
     print()
     print(f"ESPN lineup — league {league_id}, team {team_id}, week {week}")
@@ -650,7 +731,7 @@ def espn_write(
             f"  not filing ({d.verdict}): {d.in_player.name} over {d.out_player.name}"
         )
     if not swaps:
-        print("  no SWAPs — the lineup already matches what the table recommends")
+        print("  no SWAPs or MUST FIX moves — the lineup already matches the report")
         return 0
 
     moves, problems = [], []
@@ -719,10 +800,22 @@ def main(argv: Optional[list] = None) -> int:
         "LEAGUE_PRESETS, so no login is needed.",
     )
     ap.add_argument(
-        "--threshold",
+        "--swap-p",
         type=float,
-        default=3.0,
-        help="Min margin on BOTH sources for a SWAP",
+        default=SWAP_P,
+        help="SWAP when P(bench player outscores the starter) is at least this",
+    )
+    ap.add_argument(
+        "--lean-p",
+        type=float,
+        default=LEAN_P,
+        help="LEAN (shown, never applied) at this probability or better",
+    )
+    ap.add_argument(
+        "--write-p",
+        type=float,
+        default=WRITE_P,
+        help="--espn-write files a SWAP only at this probability or better",
     )
     ap.add_argument(
         "--espn-write",
@@ -840,7 +933,15 @@ def main(argv: Optional[list] = None) -> int:
                 "grant is still good."
             )
 
-    ours_df, ours_label = load_ours(season, week)
+    ours_df, ours_label = load_ours(season, week, allow_preseason=False)
+    consensus_only = ours_label.startswith(CONSENSUS_ONLY)
+    banner = (
+        f"*** {ours_label}\n"
+        "*** Every projection below is Sleeper's, re-scored under this league's "
+        "rules. Our model is NOT in this advice."
+        if consensus_only
+        else None
+    )
     roster_files = sorted(
         glob.glob(str(ROSTERS / "season=*" / "**" / "*.parquet"), recursive=True)
     )
@@ -855,7 +956,7 @@ def main(argv: Optional[list] = None) -> int:
     weekly = pd.read_parquet(weekly_files[-1]) if weekly_files else pd.DataFrame()
     gsis_map = roster_gsis_map(rosters)
     ours = ours_by_sleeper_id(
-        score_ours(ours_df, scoring),
+        score_ours(ours_df, scoring, adjust_published=True),
         registry,
         gsis_map=gsis_map,
         full_names=full_name_map(rosters, weekly),
@@ -906,12 +1007,31 @@ def main(argv: Optional[list] = None) -> int:
             injury_ctx=injury_ctx,
             news=news_by_sleeper(sentiment_flags(season, week), registry, gsis_map),
         )
-    deltas = lineup_deltas(rows, threshold=args.threshold)
+    mismatched = [r for r in rows if r.schedule_mismatch]
+    if mismatched:
+        print(
+            f"WARN: schedule mismatch -- the {season} week {week} schedule has no game "
+            f"for {', '.join(sorted({r.team for r in mismatched}))} but Sleeper projects "
+            f"{', '.join(r.name for r in mismatched)}. Not treated as bye; check the "
+            "schedule file before trusting any BYE line."
+        )
+    rec = recommend(
+        rows,
+        roster_positions,
+        mine.get("starters") or [],
+        swap_p=args.swap_p,
+        lean_p=args.lean_p,
+    )
+    deltas = rec.deltas
     header = (
         f"{league.get('name', league_id)} — {username} — {season} week {week} "
-        f"(threshold {args.threshold:.1f} on both sources)"
+        f"(SWAP at P>={args.swap_p:.2f}"
+        + (f", LEAN at P>={args.lean_p:.2f}" if args.lean_p < args.swap_p else "")
+        + ")"
     )
-    print(render(rows, deltas, header, ours_label))
+    print(
+        render(rows, deltas, header, ours_label, must_fix=rec.must_fix, banner=banner)
+    )
     if platform != "sleeper":
         # The delta line below render() says "no bench player beats a starter",
         # which reads as "your lineup is fine". On a pasted roster there IS no
@@ -939,8 +1059,8 @@ def main(argv: Optional[list] = None) -> int:
             )
         if unfilled:
             print(
-                f"  Could not fill: {', '.join(unfilled)} — our player registry has no"
-                " D/ST or K\n  entries, so use scripts/stream_dst_k.py for those slots."
+                f"  Could not fill: {', '.join(unfilled)} — nobody on this roster is"
+                " eligible.\n  scripts/stream_dst_k.py ranks the K/DEF pool to pick one up."
             )
         if yahoo_live:
             # "Could not fill" above means OUR registry cannot model the slot.
@@ -974,11 +1094,13 @@ def main(argv: Optional[list] = None) -> int:
             return 1
         return espn_write(
             preset=preset,
-            deltas=deltas,
+            deltas=list(deltas)
+            + [d for d in (f.as_delta() for f in rec.must_fix) if d is not None],
             espn_live=espn_live,
             season=season,
             week=week,
             apply_changes=args.apply,
+            write_p=args.write_p,
         )
     return 0
 
