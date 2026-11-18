@@ -3,15 +3,28 @@
 check_ml_output.py — Lightweight sanity gate for the weekly hybrid ML run.
 
 Checks that the most-recently-written Gold weekly projection file for a given
-season/week/scoring triple satisfies three invariants:
+season/week/scoring triple satisfies four invariants:
 
-  1. The file exists and is non-empty (>= 50 rows for skill positions).
-  2. At least one of the HYBRID_POSITIONS (WR, TE) appears in
-     ``projection_source`` with value ``'hybrid'``.  If the residual models
-     loaded successfully the TE/WR rows will all carry this tag; if they
-     loaded but produced no rows it indicates a structural failure.
-  3. No skill position has ALL projected_points equal to zero.  An all-zero
-     position means the projection engine produced zero variance outputs —
+  1. The file exists and is readable.
+  2. It has >= 50 skill-position rows (fewer usually means empty Silver input).
+  3. Every routed position (QB, RB, WR, TE - HYBRID_POSITIONS in the router)
+     that has a residual model on disk was actually corrected, or says why not.
+     The board carries ``residual_correction_applied`` (per row) and
+     ``residual_skip_reason``; ``projection_source == 'hybrid'`` is only
+     allowed on corrected rows. Rows skipped on purpose by the serve-time
+     feature-coverage guard (``coverage_guard``) are a WARNING (the guard has
+     already printed its own ``::warning::``); rows skipped for any other
+     reason (``no_model``, ``no_feature_rows``, blank) are a FAILURE when they
+     exceed 5% of a position (the residual silently failed), and so is a
+     ``hybrid`` label on an uncorrected row. ``no_features`` (a player with no
+     populated feature, e.g. a fresh rookie) is tolerated up to 40% of the
+     startable (>= 5 pt) rows. Boards
+     written before the applied flag existed fall back to the legacy
+     ``projection_source == 'hybrid'`` share check for WR/TE.
+     ``consensus_fallback`` rows (players the engine had no basis for) are
+     excluded from every share.
+  4. No skill position has ALL projected_points equal to zero.  An all-zero
+     position means the projection engine produced zero variance outputs -
      either a dead multiplier or missing Silver inputs that silently zeroed
      the heuristic.
 
@@ -32,9 +45,18 @@ from typing import List, Tuple
 import pandas as pd
 
 
-# Positions that must appear as 'hybrid' in projection_source when the
-# residual models are present.  Matches HYBRID_POSITIONS in ml_projection_router.
-_HYBRID_POSITIONS = {"WR", "TE"}
+# Positions routed through a residual model when its files are present.
+# Matches HYBRID_POSITIONS in ml_projection_router (QB/RB joined WR/TE in v4.4).
+_HYBRID_POSITIONS = {"QB", "RB", "WR", "TE"}
+
+# Legacy check (boards without the applied flag) still only covers these two.
+_LEGACY_HYBRID_POSITIONS = {"WR", "TE"}
+
+# Unexplained non-corrections above this share of a position fail the check.
+_MAX_UNEXPLAINED_SHARE = 0.05
+# A player with no populated feature is legitimately uncorrected (fresh
+# rookies, spot starters); only a position-wide collapse is a failure.
+_MAX_NO_FEATURES_SHARE = 0.40
 
 # Minimum number of rows for the sanity check to be meaningful.
 # Fewer than this usually means the Silver input was empty or nearly empty.
@@ -118,75 +140,110 @@ def run_checks(
         )
 
     # ------------------------------------------------------------------
-    # Check 3: hybrid positions present when models are on-disk
+    # Check 3: every routed position was corrected, or says why not
     # ------------------------------------------------------------------
-    if "projection_source" in df.columns:
-        hybrid_rows = df[df["projection_source"] == "hybrid"]
-        hybrid_positions_found = (
-            set(hybrid_rows["position"].unique()) if not hybrid_rows.empty else set()
+    residual_dir = os.path.join(PROJECT_ROOT, "models", "residual")
+    expected = {
+        pos
+        for pos in _HYBRID_POSITIONS
+        if os.path.exists(os.path.join(residual_dir, f"{pos.lower()}_residual.joblib"))
+    }
+    bye_mask = (
+        df["is_bye_week"].fillna(False).astype(bool)
+        if "is_bye_week" in df.columns
+        else pd.Series(False, index=df.index)
+    )
+    src = df["projection_source"] if "projection_source" in df.columns else None
+    fallback_mask = (
+        src == "consensus_fallback" if src is not None else pd.Series(False, index=df.index)
+    )
+
+    if "residual_correction_applied" in df.columns and "position" in df.columns:
+        applied = df["residual_correction_applied"].fillna(False).astype(bool)
+        reason = (
+            df["residual_skip_reason"].fillna("")
+            if "residual_skip_reason" in df.columns
+            else pd.Series("", index=df.index)
         )
-
-        # Only flag when the residual model files actually exist — if the
-        # runner never had them we'd expect all-heuristic output.
-        residual_dir = os.path.join(PROJECT_ROOT, "models", "residual")
-        missing_models = {
-            pos
-            for pos in _HYBRID_POSITIONS
-            if not os.path.exists(
-                os.path.join(residual_dir, f"{pos.lower()}_residual.joblib")
-            )
-        }
-        expected_hybrid = _HYBRID_POSITIONS - missing_models
-
-        if expected_hybrid:
-            absent_hybrid = expected_hybrid - hybrid_positions_found
-            if absent_hybrid:
-                failures.append(
-                    f"CHECK3 FAIL: residual model files exist for "
-                    f"{sorted(expected_hybrid)} but projection_source='hybrid' "
-                    f"is absent for positions: {sorted(absent_hybrid)}. "
-                    f"Residual correction was silently skipped."
-                )
-            else:
-                # Coverage check (post-push review M-2): when the model is
-                # present, ALL non-bye rows at the position should route
-                # hybrid — a single hybrid row among dozens of heuristic
-                # rows means routing silently failed for most players.
-                # Threshold 0.95 leaves room for rare legitimate fallbacks.
-                bye_mask = (
-                    df["is_bye_week"].fillna(False).astype(bool)
-                    if "is_bye_week" in df.columns
-                    else pd.Series(False, index=df.index)
-                )
-                for pos in sorted(expected_hybrid):
-                    pos_rows = df[(df["position"] == pos) & ~bye_mask]
-                    if pos_rows.empty:
-                        continue
-                    frac = float(
-                        (pos_rows["projection_source"] == "hybrid").mean()
+        for pos in sorted(expected):
+            rows = (df["position"] == pos) & ~bye_mask & ~fallback_mask
+            n = int(rows.sum())
+            if n == 0:
+                continue
+            n_app = int((rows & applied).sum())
+            # truthful label: 'hybrid' only on a corrected row
+            if src is not None:
+                bad = int((rows & (src == "hybrid") & ~applied).sum())
+                if bad:
+                    failures.append(
+                        f"CHECK3 FAIL: {bad} {pos} row(s) are labelled "
+                        f"projection_source='hybrid' but residual_correction_applied "
+                        f"is False - the label is not telling the truth."
                     )
-                    if frac < 0.95:
+            skipped = rows & ~applied
+            parts = []
+            for why, cnt in reason[skipped].replace("", "(blank)").value_counts().items():
+                parts.append(f"{why}={cnt}")
+                share = cnt / n
+                if why == "coverage_guard":
+                    warnings.append(
+                        f"CHECK3 WARN: {pos} residual skipped by the feature-coverage "
+                        f"guard for {cnt}/{n} rows - board is heuristic-only for {pos}"
+                    )
+                elif why == "no_features":
+                    # Judge on startable rows: deep-bench players (projected < 5)
+                    # routinely have no feature row (43% of RB rows on 2026
+                    # boards) while only 7-15% of startable rows do.
+                    startable = rows & (df["projected_points"] >= 5)
+                    if int(startable.sum()) >= 5:
+                        share = float((startable & skipped & (reason == "no_features")).sum() / startable.sum())
+                    if share > _MAX_NO_FEATURES_SHARE:
                         failures.append(
-                            f"CHECK3 FAIL: only {frac:.0%} of non-bye {pos} "
-                            f"rows are projection_source='hybrid' "
-                            f"(n={len(pos_rows)}); expected ~100% when the "
-                            f"residual model is present — routing partially "
-                            f"failed."
+                            f"CHECK3 FAIL: {share:.0%} of non-bye {pos} rows have no "
+                            f"populated model feature (n={n}); feature assembly collapsed"
                         )
-                if not failures:
-                    hybrid_counts = (
-                        hybrid_rows.groupby("position").size().to_dict()
+                elif share > _MAX_UNEXPLAINED_SHARE:
+                    failures.append(
+                        f"CHECK3 FAIL: {share:.0%} of non-bye {pos} rows were not "
+                        f"residual-corrected for reason {why!r} (n={n}); the residual "
+                        f"silently failed although models/residual/{pos.lower()}_residual.joblib exists"
                     )
-                    print(
-                        f"  [PASS] hybrid rows by position: "
-                        + ", ".join(
-                            f"{p}={n}" for p, n in sorted(hybrid_counts.items())
-                        )
+            print(
+                f"  [{'PASS' if not skipped.any() else 'INFO'}] {pos}: residual applied "
+                f"{n_app}/{n}" + (f" (not applied: {', '.join(parts)})" if parts else "")
+            )
+    elif src is not None:
+        warnings.append(
+            "CHECK3 WARN: 'residual_correction_applied' absent from Gold file "
+            "(board written by older code); falling back to the legacy "
+            "projection_source='hybrid' share check for WR/TE"
+        )
+        hybrid_rows = df[src == "hybrid"]
+        found = set(hybrid_rows["position"].unique()) if not hybrid_rows.empty else set()
+        legacy = expected & _LEGACY_HYBRID_POSITIONS
+        absent = legacy - found
+        if absent:
+            failures.append(
+                f"CHECK3 FAIL: residual model files exist for {sorted(legacy)} but "
+                f"projection_source='hybrid' is absent for positions: {sorted(absent)}. "
+                f"Residual correction was silently skipped."
+            )
+        else:
+            for pos in sorted(legacy):
+                pos_rows = df[(df["position"] == pos) & ~bye_mask & ~fallback_mask]
+                if pos_rows.empty:
+                    continue
+                frac = float((pos_rows["projection_source"] == "hybrid").mean())
+                if frac < 0.95:
+                    failures.append(
+                        f"CHECK3 FAIL: only {frac:.0%} of non-bye {pos} rows are "
+                        f"projection_source='hybrid' (n={len(pos_rows)}); expected "
+                        f"~100% when the residual model is present - routing partially failed."
                     )
     else:
         warnings.append(
-            "CHECK3 WARN: 'projection_source' column absent from Gold file; "
-            "cannot verify hybrid routing"
+            "CHECK3 WARN: neither 'residual_correction_applied' nor "
+            "'projection_source' present in Gold file; cannot verify residual routing"
         )
 
     # ------------------------------------------------------------------

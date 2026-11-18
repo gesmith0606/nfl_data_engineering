@@ -56,6 +56,9 @@ from sleeper_consensus_anchor import (  # noqa: E402
     resolve_sleeper_anchor_configs,
 )
 from dispersion_shrink import SHRINK_FACTOR as DISPERSION_SHRINK_FACTOR  # noqa: E402
+from dispersion_shrink import (  # noqa: E402
+    SHRINK_FACTOR_BY_POSITION as DISPERSION_SHRINK_BY_POSITION,
+)
 
 #: Minimum share of a position's STARTABLE rows (projected >= 5 pts) that the
 #: Sleeper anchor must match before the run warns. Raw all-rows coverage is
@@ -673,15 +676,48 @@ def main():
         ),
     )
     parser.add_argument(
+        "--no-coverage-guard",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly --ml mode only: disable the default-on serve-time "
+            "feature-coverage guard (src/residual_coverage.py). The guard skips "
+            "a position's residual correction, labels the rows "
+            "projection_source='heuristic' (residual_skip_reason="
+            "'coverage_guard') and prints a ::warning:: when the share of "
+            "populated cells in its feature matrix is under "
+            "residual_coverage.MIN_RATIO of what the model was trained on. "
+            "2026 local data: QB matrix 48%% populated vs 85%% at training and "
+            "the QB residual then scored MAE 6.38 vs 5.97 for the bare heuristic."
+        ),
+    )
+    parser.add_argument(
+        "--no-consensus-fallback",
+        action="store_true",
+        default=False,
+        help=(
+            "Weekly mode only: disable the default-on consensus fallback "
+            "(src/consensus_fallback.py). The engine projects week W from "
+            "week W-1 stats, so a player with no recent game (returning from "
+            "an absence, a week-2/3 debut, a spot starter) has no board row; "
+            "2026 weeks 1-9 dropped 34 of 1,294 consensus>=5 player-weeks "
+            "(Puka Nacua wk4, 30.2 pts) and scoring them as zero doubled the "
+            "gap to Sleeper. With the fallback ON every skill player the "
+            "consensus rates >= 5 gets a row carrying the consensus number "
+            "and projection_source='consensus_fallback'."
+        ),
+    )
+    parser.add_argument(
         "--dispersion-shrink-k",
         type=float,
-        default=DISPERSION_SHRINK_FACTOR,
+        default=None,
         help=(
             "Shrink factor for the dispersion lever: adjusted = centre + k * "
-            f"(projected - centre). Default {DISPERSION_SHRINK_FACTOR} "
-            "(1.0 is an explicit no-op; must be in (0, 1]). The per-week "
-            "fitted optimum over 2026 w3-6 was a stable 0.65-0.75, so the "
-            "shipped default is deliberately conservative."
+            "(projected - centre), for EVERY position (1.0 is an explicit "
+            "no-op; must be in (0, 1]). Omitted = the fitted per-position "
+            f"defaults {DISPERSION_SHRINK_BY_POSITION} (WR 1.0 = no shrink; "
+            "leave-one-week-out on 2026 w1-9, see "
+            ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md)."
         ),
     )
     parser.add_argument(
@@ -1526,6 +1562,7 @@ def main():
         print(f"Running weekly projection model (Week {args.week})...")
         if args.ml:
             from ml_projection_router import generate_ml_projections
+            from residual_coverage import MIN_RATIO as RESIDUAL_COVERAGE_MIN_RATIO
 
             # Build full assembled feature vector for SHIP positions (QB/RB).
             # SHIP models expect 80+ columns including QBR features that are
@@ -1583,6 +1620,9 @@ def main():
                 depth_charts_df=weekly_depth_df if not weekly_depth_df.empty else None,
                 fresh_rolling=not args.no_fresh_rolling,
                 include_bye_returns=not args.no_bye_returns,
+                coverage_min_ratio=(
+                    None if args.no_coverage_guard else RESIDUAL_COVERAGE_MIN_RATIO
+                ),
             )
         else:
             projections = generate_weekly_projections(
@@ -2283,11 +2323,27 @@ def main():
                 "row(s) calibrated; total projected points "
                 f"{before_total:.1f} -> {after_total:.1f}"
             )
-        elif args.dispersion_shrink_k != 1.0:
+        elif args.dispersion_shrink_k != 1.0:  # None (per-position defaults) also warns
             print(
                 "::warning::Dispersion shrink produced no per-position "
                 "centres (too few startable rows?) — lever was a no-op"
             )
+
+    # --- Consensus fallback (default-ON in weekly mode) ------------------
+    # Every skill player the consensus rates >= 5 gets a row. Inserted AFTER
+    # the dispersion shrink so a fallback row carries the consensus number
+    # unmodified, and BEFORE band calibration / the injury invariant so the
+    # row is banded and re-zeroed like any other. See src/consensus_fallback.py.
+    if not args.preseason and not args.no_consensus_fallback:
+        from consensus_fallback import apply_consensus_fallback, load_consensus_week  # noqa: E402
+
+        projections, _n_fallback = apply_consensus_fallback(
+            projections,
+            load_consensus_week(args.season, args.week, args.scoring, silver_dir=SILVER_DIR),
+            season=args.season,
+            week=args.week,
+            injuries_df=injuries_df,
+        )
 
     # Add floor/ceiling after all adjustments (ML router handles this internally).
     # Preseason mode uses projected_season_points (full-season totals), not

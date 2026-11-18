@@ -71,3 +71,24 @@ describe('pickConfidenceLabel', () => {
     expect(pickConfidenceLabel(null, null)).toBe('—');
   });
 });
+
+// The frontend deploys on every push; the backend deploys behind a gate and
+// can lag by days. A backend built before `pick_cover_prob` existed omits the
+// field, so it arrives as `undefined`, not `null`.
+describe('a backend that omits pick_cover_prob', () => {
+  const missing = undefined as unknown as number | null;
+
+  it('claims no edge', () => {
+    expect(clearsBreakEven(missing)).toBe(false);
+  });
+
+  it('falls back to the edge instead of rendering NaN', () => {
+    expect(formatCoverProbCompact(missing, 2.07)).toBe('2.1pt');
+    expect(pickConfidenceLabel(missing, 2.07)).toBe('2.1pt edge');
+  });
+
+  it('shows a dash when the edge is missing too', () => {
+    expect(formatCoverProbCompact(missing, missing)).toBe('—');
+    expect(pickConfidenceLabel(missing, missing)).toBe('—');
+  });
+});

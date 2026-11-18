@@ -1,0 +1,506 @@
+{
+  "fetch_run_id": "d540cb3c-88bd-47a4-9143-154c889192ea",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-17T12:16:00.521871+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-tests-showed-no-major-injury-for-geno-smith",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-tests-showed-no-major-injury-for-geno-smith",
+      "title": "Report: Tests showed no major injury for Geno Smith",
+      "body_text": "Jets quarterback Geno Smith went for tests on his injured ankle on Monday, but it doesn't look like they turned up anything that will keep him from playing against the Chargers in Week 11.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-17T12:08:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Geno Smith"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-c-coleman-shelton-to-miss-4-6-weeks-with-a-hamstring-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-c-coleman-shelton-to-miss-4-6-weeks-with-a-hamstring-injury",
+      "title": "Rams C Coleman Shelton to miss 4-6 weeks with a hamstring injury",
+      "body_text": "The Rams are on their bye this week and that gives them some extra time to figure out how to address the center position before their return to action against the Packers in Week 12.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-17T11:43:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Coleman Shelton",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0034114"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-on-finally-getting-a-win-lets-do-it-every-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jim-harbaugh-on-finally-getting-a-win-lets-do-it-every-week",
+      "title": "Jim Harbaugh on finally getting a win: \"Let's do it every week\"",
+      "body_text": "Before the season, many expected the Chargers not only to get back to the playoffs for the third straight year but to finally make some noise.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T11:32:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-hamilton-ravens-are-disgracing-their-standards",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-hamilton-ravens-are-disgracing-their-standards",
+      "title": "Kyle Hamilton: Ravens are \"disgracing\" their \"standards\"",
+      "body_text": "The Ravens wore all black on Monday night.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T11:15:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Hamilton",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0038038"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-and-chiefs-both-favored-by-16-5-on-sunday-biggest-point-spreads-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-and-chiefs-both-favored-by-16-5-on-sunday-biggest-point-spreads-of-the-season",
+      "title": "Bills and Chiefs both favored by 16.5 on Sunday, biggest point spreads of the season",
+      "body_text": "The Bills and Chiefs are scheduled for a Thanksgiving night showdown, but before that they each have a game on Sunday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-17T10:15:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-on-10-carries-for-10-yards-i-dont-have-an-answer-just-not-good-enough",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-on-10-carries-for-10-yards-i-dont-have-an-answer-just-not-good-enough",
+      "title": "Derrick Henry on 10 carries for 10 yards: I don't have an answer, just not good enough",
+      "body_text": "Overall, the Ravens totaled 15 carries for 16 yards, their lowest rushing output in more than 10 years.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-17T08:53:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-will-participate-in-senior-day-but-wont-comment-on-his-future",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-will-participate-in-senior-day-but-wont-comment-on-his-future",
+      "title": "Arch Manning will participate in Senior Day, but won't comment on his future",
+      "body_text": "Texas quarterback Arch Manning concludes his fourth slate of home games with the Longhorns on Saturday.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T05:20:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Arch Manning",
+        "Senior Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-chargers-run-past-ravens-23-20-for-first-win-of-2026",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-chargers-run-past-ravens-23-20-for-first-win-of-2026",
+      "title": "Monday Night Football: Chargers run past Ravens 23-20 for first win of 2026",
+      "body_text": "The Chargers outrushed the Ravens 160 to 16.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T04:33:22+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henrys-second-td-has-ravens-back-within-a-fg",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henrys-second-td-has-ravens-back-within-a-fg",
+      "title": "Derrick Henry's second TD has Ravens back within a FG",
+      "body_text": "Derrick Henry has 10 carries for 10 yards, but he has two touchdowns.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T03:57:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rex-ryan-politicks-for-job-with-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rex-ryan-politicks-for-job-with-cowboys",
+      "title": "Rex Ryan politicks for job with Cowboys",
+      "body_text": "Rex Ryan is plenty of things.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T03:56:25+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rex Ryan",
+        "Cowboys Rex"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-honors-moves-from-thursday-back-to-saturday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-honors-moves-from-thursday-back-to-saturday",
+      "title": "NFL Honors moves from Thursday back to Saturday",
+      "body_text": "The NFL Honors ceremony is on the move, again.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T03:27:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Saturday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-dt-zeek-biggers-out-for-the-season-with-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-dt-zeek-biggers-out-for-the-season-with-knee-injury",
+      "title": "Dolphins DT Zeek Biggers out for the season with knee injury",
+      "body_text": "Dolphins defensive tackle Zeek Biggers will require season-ending surgery to repair his lateral meniscus, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T03:10:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Zeek Biggers",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040248"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-chargers-lead-ravens-17-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-chargers-lead-ravens-17-10-at-halftime",
+      "title": "Monday Night Football: Chargers lead Ravens 17-10 at halftime",
+      "body_text": "Justin Herbert and Omarion Hampton have touchdown runs for the winless Chargers.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T02:49:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "Justin Herbert",
+        "Omarion Hampton"
+      ],
+      "resolved_player_ids": [
+        "00-0036355",
+        "00-0040666"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-blames-himself-not-the-play-call-for-christian-mccaffreys-late-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/von-miller-blames-himself-not-the-play-call-for-christian-mccaffreys-late-td",
+      "title": "Von Miller blames himself, not the play call, for Christian McCaffrey's late TD",
+      "body_text": "The Cowboys pulled within 38-32 of the 49ers with 3:42 left in the fourth quarter on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T02:17:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Von Miller",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-draws-ravens-to-within-10-7-of-chargers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-draws-ravens-to-within-10-7-of-chargers",
+      "title": "Derrick Henry draws Ravens to within 10-7 of Chargers",
+      "body_text": "The Ravens are on the board.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T02:13:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Derrick Henry",
+        "Chargers The"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-estimate-david-montgomery-as-a-full-participant-but-woody-marks-doesnt-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-estimate-david-montgomery-as-a-full-participant-but-woody-marks-doesnt-practice",
+      "title": "Texans estimate David Montgomery as a full participant, but Woody Marks doesn't practice",
+      "body_text": "The Texans did not practice on Monday, but they were required to release an injury report ahead of Thursday night's game against the Colts.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T01:37:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Montgomery",
+        "Woody Marks",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0035685",
+        "00-0040583"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-runs-for-22-yard-td-giving-chargers-a-7-0-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-runs-for-22-yard-td-giving-chargers-a-7-0-lead",
+      "title": "Justin Herbert runs for 22-yard TD, giving Chargers a 7-0 lead",
+      "body_text": "Justin Herbert's left hand seems just fine.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T01:33:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-defends-xavier-worthy-who-had-no-catches-in-57-snaps",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-defends-xavier-worthy-who-had-no-catches-in-57-snaps",
+      "title": "Andy Reid defends Xavier Worthy, who had no catches in 57 snaps",
+      "body_text": "Chiefs quarterback Patrick Mahomes completed 22 passes to eight different receivers and threw five touchdowns in Sunday's 35-13 win over the Falcons.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T00:55:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andy Reid",
+        "Xavier Worthy",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0039894",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-no-surprises-among-chargers-ravens-inactives",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-no-surprises-among-chargers-ravens-inactives",
+      "title": "Monday Night Football: No surprises among Chargers-Ravens inactives",
+      "body_text": "The Chargers will officially see the return of tight end David Njoku and linebacker Denzel Perryman.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T23:58:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Monday Night",
+        "The Chargers",
+        "David Njoku",
+        "Denzel Perryman"
+      ],
+      "resolved_player_ids": [
+        "00-0033885",
+        "00-0032103"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aidan-hutchinson-has-torn-acl-but-no-additional-damage",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-aidan-hutchinson-has-torn-acl-but-no-additional-damage",
+      "title": "Report: Aidan Hutchinson has torn ACL but no additional damage",
+      "body_text": "Lions defensive end Aidan Hutchinson received a bit of good news after additional testing on his right knee.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T23:23:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-disagrees-with-milton-williamss-claim-that-field-conditions-caused-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabel-disagrees-with-milton-williamss-claim-that-field-conditions-caused-injuries",
+      "title": "Mike Vrabel disagrees with Milton Williams's claim that field conditions caused injuries",
+      "body_text": "On Sunday in Germany, both teams had key players go down with significant injuries.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-16T22:58:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Vrabel",
+        "Milton Williams",
+        "On Sunday"
+      ],
+      "resolved_player_ids": [
+        "00-0016960",
+        "00-0036916"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfls-week-12-flex-decision-is-looming",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfls-week-12-flex-decision-is-looming",
+      "title": "The NFL's Week 12 flex decision is looming",
+      "body_text": "Thanksgiving week will entail a smorgasbord of football.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-16T22:37:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-claim-de-tyrus-wheat-off-of-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-claim-de-tyrus-wheat-off-of-waivers",
+      "title": "Lions claim DE Tyrus Wheat off of waivers",
+      "body_text": "The Lions lost Aidan Hutchinson for the rest of the season on Sunday and they moved to add another defensive end to the roster on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T22:32:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tyrus Wheat",
+        "The Lions",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038742",
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-wr-xavier-gipson-db-tavierre-thomas-to-their-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-sign-wr-xavier-gipson-db-tavierre-thomas-to-their-active-roster",
+      "title": "Giants sign WR Xavier Gipson, DB Tavierre Thomas to their active roster",
+      "body_text": "The Giants signed wide receiver Xavier Gipson and defensive back Tavierre Thomas to their active roster on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T22:30:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Xavier Gipson",
+        "Tavierre Thomas",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0038496",
+        "00-0034488"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-qb-brett-rypien-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-sign-qb-brett-rypien-to-the-practice-squad",
+      "title": "Raiders sign QB Brett Rypien to the practice squad",
+      "body_text": "The Raiders needed another quarterback after trading Kirk Cousins to the Vikings.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T22:11:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brett Rypien",
+        "The Raiders",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0034955",
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-on-confidence-in-christian-parker-were-still-working-through-the-process",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-on-confidence-in-christian-parker-were-still-working-through-the-process",
+      "title": "Brian Schottenheimer on confidence in Christian Parker: We're still working through the process",
+      "body_text": "One constant of the 2026 Cowboys season has been a focus on defensive coordinator Christian Parker's job security in the wake of losses and things aren't any different in the aftermath of Sunday's loss to the 49ers.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T22:05:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Christian Parker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-extensive-officiating-adjustments-worked-but-were-they-necessary",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-extensive-officiating-adjustments-worked-but-were-they-necessary",
+      "title": "The extensive officiating adjustments worked, but were they necessary?",
+      "body_text": "Friday's nationwide ground stop didn't affect any of the NFL teams that needed to travel from one place to the other for Week 10 games.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-16T22:03:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-waive-jamree-kromah",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-waive-jamree-kromah",
+      "title": "Dolphins waive Jamree Kromah",
+      "body_text": "The Dolphins have let go of an edge rusher.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-16T22:00:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jamree Kromah",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0039461"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-qb-easton-stick-from-the-practice-squad-to-the-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-sign-qb-easton-stick-from-the-practice-squad-to-the-active-roster",
+      "title": "Bucs sign QB Easton Stick from the practice squad to the active roster",
+      "body_text": "The Buccaneers signed quarterback Easton Stick from the practice squad to the active roster on Monday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-16T21:54:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Easton Stick",
+        "The Buccaneers"
+      ],
+      "resolved_player_ids": [
+        "00-0035282"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-weve-put-more-on-cam-wards-plate-and-hes-proving-he-can-handle-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/robert-saleh-weve-put-more-on-cam-wards-plate-and-hes-proving-he-can-handle-it",
+      "title": "Robert Saleh: We've put more on Cam Ward's plate and he's proving he can handle it",
+      "body_text": "The Titans lost their third straight game on Sunday, but head coach Robert Saleh continued to like what he saw from quarterback Cam Ward during Jacksonville's 40-23 win.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-16T21:46:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Robert Saleh",
+        "Cam Ward",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    }
+  ]
+}

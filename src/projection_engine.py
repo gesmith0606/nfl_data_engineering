@@ -112,7 +112,13 @@ RB_SNAP_COLLAPSE_MULT: float = 0.60
 # ---------------------------------------------------------------------------
 
 #: Master on/off switch for WR route-slope collapse correction.
-USE_WR_ROUTE_SLOPE_COLLAPSE: bool = True
+#: OFF (2026-11-16): route participation is derived from nflverse
+#: ``pbp_participation``, which is not published until after the postseason, so
+#: every 2026 runner log reads "Route participation: 0 rows" and the lever was
+#: SKIPPED live while still applied in every historical backtest (backtests
+#: overstated production by the lever's claimed +0.036 WR MAE). Re-enable in the
+#: offseason only if an in-season route source exists.
+USE_WR_ROUTE_SLOPE_COLLAPSE: bool = False
 
 #: OLS slope threshold below which a WR is flagged as role-collapsing.
 #: −0.03 validated as optimal on 2022-2024 consensus-matched data.
@@ -138,7 +144,9 @@ WR_ROUTE_SLOPE_COLLAPSE_MULT: float = 0.75
 # ---------------------------------------------------------------------------
 
 #: Master on/off switch for WR TPRR-slope collapse correction.
-USE_WR_TPRR_COLLAPSE: bool = True
+#: OFF (2026-11-16) for the same reason as USE_WR_ROUTE_SLOPE_COLLAPSE: it needs
+#: route participation, which does not exist in-season.
+USE_WR_TPRR_COLLAPSE: bool = False
 
 #: Trailing-TPRR slope threshold below which a WR is flagged.
 WR_TPRR_SLOPE_THRESHOLD: float = -0.02
@@ -288,8 +296,17 @@ def _apply_rb_snap_collapse(
 
     Lag contract: the signal for week ``week`` is computed by
     ``compute_snap_trend_signals`` from snaps in weeks < ``week`` ONLY —
-    week-t offense_pct never influences the week-t signal. Week-t rows are
-    included in the input solely so a signal row exists at week=t.
+    week-t offense_pct never influences the week-t signal.
+
+    ``compute_snap_trend_signals`` only emits a row for a (player, week) that has
+    a snap row. The first version of this function relied on the target week's
+    own snap rows to create those signal rows, which (a) never exist on a live
+    Tuesday run (week ``week`` has not been played), so the lever never fired in
+    production, and (b) in a backtest conditioned the flag on the player having
+    played the target week. The frame handed to the signal computation is now
+    strictly the weeks < ``week`` plus one NaN-valued placeholder row at
+    ``week`` for every back seen earlier this season, so the signal exists for
+    exactly the players who are on the board, live or in a backtest.
 
     Returns the number of RB rows the multiplier was applied to. Raises
     ImportError if rb_role_signals is unavailable (caller handles).
@@ -297,11 +314,18 @@ def _apply_rb_snap_collapse(
     from rb_role_signals import compute_snap_trend_signals
 
     snaps_lagged = snap_counts_df[
-        ((snap_counts_df["season"] == season) & (snap_counts_df["week"] <= week))
+        ((snap_counts_df["season"] == season) & (snap_counts_df["week"] < week))
         | (snap_counts_df["season"] < season)
     ].copy()
     if snaps_lagged.empty:
         return 0
+
+    seen = (
+        snaps_lagged[snaps_lagged["season"] == season][["season", "team", "player", "position"]]
+        .drop_duplicates()
+        .assign(week=week, offense_pct=np.nan)
+    )
+    snaps_lagged = pd.concat([snaps_lagged, seen], ignore_index=True)
 
     pw_map = None
     if weekly_df is not None and not weekly_df.empty:

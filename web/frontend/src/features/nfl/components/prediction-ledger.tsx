@@ -229,7 +229,7 @@ export function PredictionLedger({
                               calibrated cover probability so a bare team
                               abbreviation does not read as a bet we claim an
                               edge on. See @/lib/nfl/pick-confidence. */}
-                          {p.pick_cover_prob !== null && (
+                          {typeof p.pick_cover_prob === 'number' && (
                             <span
                               className={
                                 clearsBreakEven(p.pick_cover_prob)

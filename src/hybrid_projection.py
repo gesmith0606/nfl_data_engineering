@@ -1316,12 +1316,31 @@ def load_residual_model(
 #: months. This column is the outcome, not the intent.
 RESIDUAL_APPLIED_COL: str = "residual_correction_applied"
 
+#: Why a row was NOT corrected ("" when it was): ``no_model``, ``no_features``
+#: (no feature of the model is populated for that player), ``coverage_guard``
+#: (the whole position's feature matrix was too empty, see residual_coverage),
+#: ``no_feature_rows`` (set by the router when no feature rows exist at all).
+RESIDUAL_SKIP_REASON_COL: str = "residual_skip_reason"
+
+
+def label_projection_source(df: pd.DataFrame) -> pd.Series:
+    """``projection_source`` by outcome: ``hybrid`` only where a correction ran.
+
+    The router used to stamp ``hybrid`` on every row of a hybrid position
+    whatever happened inside :func:`apply_residual_correction`.
+    """
+    if RESIDUAL_APPLIED_COL not in df.columns:
+        return pd.Series("heuristic", index=df.index)
+    applied = df[RESIDUAL_APPLIED_COL].fillna(False).astype(bool)
+    return pd.Series(np.where(applied, "hybrid", "heuristic"), index=df.index)
+
 
 def apply_residual_correction(
     heuristic_projections: pd.DataFrame,
     player_features: pd.DataFrame,
     position: str,
     model_dir: Optional[str] = None,
+    coverage_min_ratio: Optional[float] = None,
 ) -> pd.DataFrame:
     """Apply residual correction to heuristic projections.
 
@@ -1358,16 +1377,26 @@ def apply_residual_correction(
             columns matching the model's training features.
         position: Position code ('WR', 'TE', 'QB', 'RB').
         model_dir: Directory containing saved residual models.
+        coverage_min_ratio: Serve-time feature-coverage guard. When the share
+            of populated cells in the feature matrix about to be scored is
+            below this fraction of the model's training share, the position's
+            residual is skipped, the rows are labelled
+            ``residual_skip_reason == "coverage_guard"`` and a GitHub Actions
+            ``::warning::`` is printed. ``None``/0 disables it (the default, so
+            backtests are unchanged); the weekly run passes
+            ``residual_coverage.MIN_RATIO``.
 
     Returns:
-        DataFrame with corrected projected_points. Unchanged if model
-        loading fails or no matching features.
+        DataFrame with corrected projected_points, carrying
+        ``residual_correction_applied`` (per row) and ``residual_skip_reason``.
+        Projections are unchanged if model loading fails, no features match, or
+        the coverage guard trips.
     """
     try:
         model_obj, meta = load_residual_model(position, model_dir)
     except FileNotFoundError:
         logger.warning("No residual model for %s; returning heuristic as-is", position)
-        return _stamp_residual_applied(heuristic_projections, False)
+        return _stamp_residual_applied(heuristic_projections, False, "no_model")
 
     model_type = meta.get("model_type", "ridge")
     features = meta.get("features", [])
@@ -1444,7 +1473,7 @@ def apply_residual_correction(
         logger.warning(
             "No matching features for %s residual model; returning heuristic", position
         )
-        return _stamp_residual_applied(heuristic_projections, False)
+        return _stamp_residual_applied(heuristic_projections, False, "no_features")
 
     logger.info(
         "%s (%s): %d/%d features available after graph enrichment; %d will be imputed",
@@ -1463,7 +1492,7 @@ def apply_residual_correction(
 
     if id_col not in result.columns or feat_id_col not in enrich_df.columns:
         logger.warning("Cannot align features for residual correction")
-        return heuristic_projections
+        return _stamp_residual_applied(heuristic_projections, False, "no_features")
 
     # Merge features onto projections — prefer season+week keyed merge when available
     # to avoid picking stale values when player_features spans multiple weeks.
@@ -1506,7 +1535,29 @@ def apply_residual_correction(
 
     if has_features.sum() == 0:
         logger.warning("No rows with features for %s residual", position)
-        return heuristic_projections
+        return _stamp_residual_applied(heuristic_projections, False, "no_features")
+
+    # Serve-time coverage guard: a model fed a mostly-empty matrix has its holes
+    # silently imputed with training means. Measured on the rows the model will
+    # actually score (players with no populated feature get a zero correction and
+    # never reach it). Skip, label and warn; the warning is print()ed, not
+    # logged: a logging prefix would stop the line starting with "::", and the
+    # Actions runner only treats a line that starts so as a command.
+    if coverage_min_ratio:
+        from residual_coverage import check_coverage, warning_line
+
+        verdict = check_coverage(position, X[has_features], meta, coverage_min_ratio)
+        train_txt = "n/a" if verdict["train"] is None else f"{verdict['train']:.3f}"
+        ratio_txt = "" if verdict["ratio"] is None else f" = {verdict['ratio']:.0%}"
+        print(
+            f"Residual feature coverage ({position}): serve {verdict['serve']:.3f} "
+            f"vs train {train_txt}{ratio_txt} ({int(has_features.sum())} rows scored)"
+        )
+        if not verdict["ok"]:
+            print(warning_line(position, verdict))
+            return _stamp_residual_applied(
+                heuristic_projections, False, "coverage_guard"
+            )
 
     corrections = np.zeros(len(merged))
     if has_features.any():
@@ -1542,7 +1593,9 @@ def apply_residual_correction(
     # Apply correction (floor at 0)
     corrected = merged["projected_points"].values + corrections
     result["projected_points"] = np.clip(corrected, 0.0, None).round(2)
-    result = _stamp_residual_applied(result, True)
+    # Per row: a player with no populated feature got a zero correction, which is
+    # not a correction.
+    result = _stamp_residual_applied(result, has_features.to_numpy(), "no_features")
 
     logger.info(
         "%s residual correction (%s): %d players, mean correction=%.2f%s",
@@ -1629,14 +1682,24 @@ def apply_residual_correction(
     return result
 
 
-def _stamp_residual_applied(df: pd.DataFrame, applied: bool) -> pd.DataFrame:
-    """Return a copy of ``df`` carrying :data:`RESIDUAL_APPLIED_COL`.
+def _stamp_residual_applied(
+    df: pd.DataFrame, applied: Any, reason: str = ""
+) -> pd.DataFrame:
+    """Return a copy of ``df`` carrying :data:`RESIDUAL_APPLIED_COL` and
+    :data:`RESIDUAL_SKIP_REASON_COL`.
 
     Copies rather than mutating because the fallback paths hand back the
     caller's own ``heuristic_projections`` frame.
+
+    Args:
+        df: projections.
+        applied: a bool for every row, or a per-row boolean array.
+        reason: skip reason written on the rows that were not corrected.
     """
     out = df.copy()
-    out[RESIDUAL_APPLIED_COL] = bool(applied)
+    flags = np.broadcast_to(np.asarray(applied, dtype=bool), (len(out),))
+    out[RESIDUAL_APPLIED_COL] = flags
+    out[RESIDUAL_SKIP_REASON_COL] = np.where(flags, "", reason)
     return out
 
 

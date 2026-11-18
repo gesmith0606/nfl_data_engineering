@@ -1,0 +1,46 @@
+{
+  "QB": {
+    "min_week": 3,
+    "n_features": 20,
+    "n_rows": 1458,
+    "nonnan_share": 0.8474,
+    "seasons": [
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "RB": {
+    "min_week": 3,
+    "n_features": 20,
+    "n_rows": 2542,
+    "nonnan_share": 0.839,
+    "seasons": [
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "TE": {
+    "min_week": 3,
+    "n_features": 60,
+    "n_rows": 2650,
+    "nonnan_share": 0.8153,
+    "seasons": [
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "WR": {
+    "min_week": 3,
+    "n_features": 60,
+    "n_rows": 4769,
+    "nonnan_share": 0.8334,
+    "seasons": [
+      2023,
+      2024,
+      2025
+    ]
+  }
+}
