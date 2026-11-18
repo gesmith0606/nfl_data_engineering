@@ -1,0 +1,589 @@
+{
+  "fetch_run_id": "c3363210-21b2-4291-a0a6-abf78891fdad",
+  "source": "pft",
+  "fetched_at": "2026-11-18T12:15:47.980663+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-g-mason-mccormick-dislocated-his-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-steelers-g-mason-mccormick-dislocated-his-ankle",
+      "permalink": "",
+      "title": "Report: Steelers G Mason McCormick dislocated his ankle",
+      "body_text": "Steelers left guard Mason McCormick had to leave last Sunday's loss to the Bengals in an air cast after injuring his ankle and that seemed like a preamble to learning that he was out for the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T12:11:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-unacceptable-that-we-havent-been-able-to-run-the-ball-consistently",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-unacceptable-that-we-havent-been-able-to-run-the-ball-consistently",
+      "permalink": "",
+      "title": "Jesse Minter: \"Unacceptable\" that we haven't been able to run the ball consistently",
+      "body_text": "The Ravens have lost five straight games since a 4-1 start to the season and a look at the team's results running the ball during the two halves of their season presents a big reason why their fortunes have changed.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T12:01:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jesse Minter",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-buccaneers-are-better-than-their-record-says-they-are",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-buccaneers-are-better-than-their-record-says-they-are",
+      "permalink": "",
+      "title": "Dan Campbell says Buccaneers are better than their record says they are",
+      "body_text": "Lions head coach Dan Campbell played in the NFL for Bill Parcells, who liked to say, \"You are what your record says you are.\"",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-18T11:44:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "Bill Parcells"
+      ],
+      "resolved_player_ids": [
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kevin-oconnell-and-jets-connection-resurfaces-not-surprisingly",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kevin-oconnell-and-jets-connection-resurfaces-not-surprisingly",
+      "permalink": "",
+      "title": "The Kevin O'Connell-Jets connection resurfaces, not surprisingly",
+      "body_text": "As the Jets move toward their inevitable next coaching search, folks who cover the Jets have begun to compile the list of possibilities for the successor to Aaron Glenn.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T11:40:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Kevin",
+        "Aaron Glenn"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bud-dupree-was-a-healthy-scratch-after-making-comments-about-chargers-front-office",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bud-dupree-was-a-healthy-scratch-after-making-comments-about-chargers-front-office",
+      "permalink": "",
+      "title": "Bud Dupree was a healthy scratch after making comments about Chargers' front office",
+      "body_text": "One of the interesting, on the surface, storylines arising from Monday night's win by the Chargers over the Ravens came from the fact that L.A. linebacker Bud Dupree was a healthy scratch for the game — three days after he made some pointed comments about the team's front office.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T11:02:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Dupree"
+      ],
+      "resolved_player_ids": [
+        "00-0032146"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-vikings-reunion-could-be-just-getting-started",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-vikings-reunion-could-be-just-getting-started",
+      "permalink": "",
+      "title": "Kirk Cousins, Vikings reunion could be just getting started",
+      "body_text": "Quarterback Kirk Cousins will spend the rest of the 2026 season with the Vikings.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T10:39:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Quarterback Kirk"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-is-on-pace-to-break-the-nfl-record-for-yards-from-scrimmage-in-a-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-is-on-pace-to-break-the-nfl-record-for-yards-from-scrimmage-in-a-season",
+      "permalink": "",
+      "title": "Jahmyr Gibbs is on pace to break the NFL record for yards from scrimmage in a season",
+      "body_text": "The current record belongs to Chris Johnson, who had 2,509 yards for the Titans in 2009.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-18T09:27:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "Chris Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0039139",
+        "00-0035456"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-baker-mayfield-has-a-foot-strain-that-could-keep-him-out-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-baker-mayfield-has-a-foot-strain-that-could-keep-him-out-sunday",
+      "permalink": "",
+      "title": "Report: Baker Mayfield has a foot strain that could keep him out Sunday",
+      "body_text": "Baker Mayfield has a foot strain that \"seems to be trending\" toward the Buccaneers' quarterback not playing in Sunday's game against the Lions, Ian Rapoport of NFL Media reports.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T03:14:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield",
+        "Sunday Baker",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-worked-out-k-matt-prater-on-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-worked-out-k-matt-prater-on-tuesday",
+      "permalink": "",
+      "title": "Chiefs worked out K Matt Prater on Tuesday",
+      "body_text": "The Chiefs worked out free agent kicker Matt Prater on Tuesday, according to the NFL's personnel notice.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T00:10:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matt Prater",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0023853"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-issue-arrest-warrants-for-august-burglary-at-max-iheanachors-home",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-issue-arrest-warrants-for-august-burglary-at-max-iheanachors-home",
+      "permalink": "",
+      "title": "Police issue arrest warrants for August burglary at Max Iheanachor's home",
+      "body_text": "In August, thieves targeted the home of Steelers rookie first-round tackle Max Iheanachor while he was in Buffalo for a preseason game.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T03:12:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Max Iheanachor",
+        "In August"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cowboys-cranks-out-27-13-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cowboys-cranks-out-27-13-million-viewers",
+      "permalink": "",
+      "title": "49ers-Cowboys cranks out 27.13 million viewers",
+      "body_text": "Fox's Sunday tripleheader culminated in the national telecast of the 8-1 49ers at the record-doesn't-matter Cowboys.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T02:57:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-who-were-bumped-by-reconfigured-week-10-schedule-wont-lose-pay",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-who-were-bumped-by-reconfigured-week-10-schedule-wont-lose-pay",
+      "permalink": "",
+      "title": "Officials who were bumped by reconfigured Week 10 schedule won't lose pay",
+      "body_text": "The four officials who worked two games in Week 10 got paid accordingly.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T02:31:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-nc-state-philip-rivers-will-be-one-of-the-lowest-paid-power-4-coaches",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/at-nc-state-philip-rivers-will-be-one-of-the-lowest-paid-power-4-coaches",
+      "permalink": "",
+      "title": "At NC State, Philip Rivers will be one of the lowest-paid Power 4 coaches",
+      "body_text": "Former NFL quarterback Philip Rivers earned $244 million during his playing career.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T02:02:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Philip Rivers"
+      ],
+      "resolved_player_ids": [
+        "00-0022942"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-remains-frustrated-with-four-interception-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/caleb-williams-remains-frustrated-with-four-interception-game",
+      "permalink": "",
+      "title": "Caleb Williams remains frustrated with four interception game",
+      "body_text": "In his last game, Caleb Williams threw four interceptions.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T01:49:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-cb-kamari-lassiter-downgraded-to-a-non-participant-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-cb-kamari-lassiter-downgraded-to-a-non-participant-tuesday",
+      "permalink": "",
+      "title": "Texans CB Kamari Lassiter downgraded to a non-participant Tuesday",
+      "body_text": "The Texans' injury report on Tuesday had only one change from the estimated report on Monday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T22:48:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kamari Lassiter",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039343"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sauce-gardner-charvarius-ward-listed-as-out-of-colts-practice-tuesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sauce-gardner-charvarius-ward-listed-as-out-of-colts-practice-tuesday",
+      "permalink": "",
+      "title": "Sauce Gardner, Charvarius Ward listed as out of Colts practice Tuesday",
+      "body_text": "The Colts listed both of their starting cornerbacks as out of practice on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-17T22:47:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sauce Gardner",
+        "Charvarius Ward",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0037190",
+        "00-0034573"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-jared-harrison-hunte-wydett-williams-to-53-man-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-jared-harrison-hunte-wydett-williams-to-53-man-roster",
+      "permalink": "",
+      "title": "Cardinals sign Jared Harrison-Hunte, Wydett Williams to 53-man roster",
+      "body_text": "The Cardinals announced on Tuesday that they’ve made a series of roster moves.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-17T22:08:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jared Harrison",
+        "Wydett Williams",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-wont-wallow-in-what-ifs-arising-from-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-wont-wallow-in-what-ifs-arising-from-injuries",
+      "permalink": "",
+      "title": "Dan Campbell won't wallow in \"what ifs\" arising from injuries",
+      "body_text": "The Lions have, in recent weeks, lost both linebacker Jack Campbell (neck) and defensive end Aidan Hutchinson (knee) to significant injuries.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T22:05:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Campbell",
+        "The Lions",
+        "Jack Campbell",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0039018",
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-rb-e-j-smith-emmitts-son-to-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-rb-e-j-smith-emmitts-son-to-the-practice-squad",
+      "permalink": "",
+      "title": "Chiefs sign RB E.J. Smith, Emmitt's son, to the practice squad",
+      "body_text": "The Chiefs signed running back E.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T21:57:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-chief-media-coverage-of-joe-buck-troy-aikman-dustup-is-disappointing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-chief-media-coverage-of-joe-buck-troy-aikman-dustup-is-disappointing",
+      "permalink": "",
+      "title": "ESPN chief: Media coverage of Joe Buck, Troy Aikman dustup is \"disappointing\"",
+      "body_text": "The Joe Buck vs.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T21:45:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Buck",
+        "Troy Aikman",
+        "The Joe"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rb-jaydon-blue-to-the-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-sign-rb-jaydon-blue-to-the-active-roster",
+      "permalink": "",
+      "title": "Eagles sign RB Jaydon Blue to the active roster",
+      "body_text": "The Eagles signed running back Jaydon Blue to the active roster on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T21:39:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaydon Blue",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-k-daniel-carlson-to-practice-squad-make-several-more-roster-moves",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-k-daniel-carlson-to-practice-squad-make-several-more-roster-moves",
+      "permalink": "",
+      "title": "Dolphins sign K Daniel Carlson to practice squad, make several more roster moves",
+      "body_text": "The Dolphins have made several roster moves on Tuesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-17T21:28:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Carlson",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0034161"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-officials-who-pulled-double-duty-got-double-pay-as-they-should",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-officials-who-pulled-double-duty-got-double-pay-as-they-should",
+      "permalink": "",
+      "title": "The NFL officials who pulled double duty got double pay (as they should)",
+      "body_text": "Some things go without saying.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-17T21:25:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-put-wandale-robinson-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-put-wandale-robinson-on-injured-reserve",
+      "permalink": "",
+      "title": "Titans put Wan'Dale Robinson on injured reserve",
+      "body_text": "The Titans have been happy with quarterback Cam Ward's recent play, but he'll have to keep it going without his most frequent target in the passing game.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-17T21:21:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dale Robinson",
+        "The Titans",
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-dt-jordan-phillips-will-undergo-season-ending-biceps-surgery",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-dt-jordan-phillips-will-undergo-season-ending-biceps-surgery",
+      "permalink": "",
+      "title": "Dolphins DT Jordan Phillips will undergo season-ending biceps surgery",
+      "body_text": "Dolphins defensive tackle Jordan Phillips injured a biceps in Sunday's loss to the Colts.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T21:14:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Phillips"
+      ],
+      "resolved_player_ids": [
+        "00-0040175"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-put-ol-armaj-reed-adams-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-put-ol-armaj-reed-adams-on-injured-reserve",
+      "permalink": "",
+      "title": "Bills put OL Ar'maj Reed-Adams on injured reserve",
+      "body_text": "The Bills announced a few roster moves on Tuesday, including one that landed a reserve offensive lineman on injured reserve.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-17T21:09:28+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-ol-nick-leverett-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-sign-ol-nick-leverett-to-active-roster",
+      "permalink": "",
+      "title": "Cowboys sign OL Nick Leverett to active roster",
+      "body_text": "The Cowboys made a change to their offensive line group on Tuesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-17T20:49:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Leverett",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0036105"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-wr-luther-burden-has-cleared-concussion-protocol",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-wr-luther-burden-has-cleared-concussion-protocol",
+      "permalink": "",
+      "title": "Bears WR Luther Burden has cleared concussion protocol",
+      "body_text": "Bears wide receiver Luther Burden cleared concussion protocol, coach Ben Johnson said Tuesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T20:44:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Luther Burden",
+        "Ben Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0040735",
+        "00-0034557"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-the-seahawks-this-year-drew-locks-numbers-blow-sam-darnolds-away",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/for-the-seahawks-this-year-drew-locks-numbers-blow-sam-darnolds-away",
+      "permalink": "",
+      "title": "For the Seahawks this year, Drew Lock's numbers blow Sam Darnold's away",
+      "body_text": "When Seahawks coach Mike Macdonald confirmed that Sam Darnold will start in Week 12 against the 49ers, assuming he is medically cleared, it was no surprise: The Seahawks signed Darnold to a three-year, $100 million contract last year and won the Super Bowl with Darnold at the helm.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-17T20:39:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Drew Lock",
+        "Sam Darnold",
+        "When Seahawks",
+        "Mike Macdonald",
+        "The Seahawks",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0035704",
+        "00-0034869"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-wr-quez-watkins-to-the-active-roster-from-the-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-sign-wr-quez-watkins-to-the-active-roster-from-the-practice-squad",
+      "permalink": "",
+      "title": "Colts sign WR Quez Watkins to the active roster from the practice squad",
+      "body_text": "The Colts signed wide receiver Quez Watkins to the 53-player roster from the practice squad on Tuesday, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-17T20:15:44+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Quez Watkins",
+        "The Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0036271"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}

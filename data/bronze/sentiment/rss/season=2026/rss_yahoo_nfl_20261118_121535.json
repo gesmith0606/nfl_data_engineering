@@ -1,0 +1,799 @@
+{
+  "fetch_run_id": "be4b5122-ab07-4e2a-b0a9-88acf550c457",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-18T12:15:35.344461+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "9f6312fb-da39-3812-ac8e-5a3e30a2b20a",
+      "url": "https://sports.yahoo.com/articles/report-baker-mayfield-foot-strain-031454130.html",
+      "title": "Report: Baker Mayfield has a foot strain that could keep him out Sunday",
+      "body_text": "Baker Mayfield has a foot strain that &quot;seems to be trending&quot; toward the Buccaneers' quarterback not playing in Sunday's game against the Lions, Ian Rapoport of NFL Media reports.",
+      "author": "",
+      "published_at": "2026-11-18T03:14:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Sunday Baker",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "24053132-cefd-35c3-b023-49b3dc147c79",
+      "url": "https://sports.yahoo.com/articles/daily-norseman-reacts-survey-different-030748305.html",
+      "title": "Daily Norseman Reacts Survey: A Different Border Battle Awaits",
+      "body_text": "Things are looking up, yes?",
+      "author": "",
+      "published_at": "2026-11-18T03:07:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daily Norseman",
+        "Reacts Survey",
+        "Different Border",
+        "Battle Awaits"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "665c6f09-241d-39cd-9549-e34a92b6bf11",
+      "url": "https://sports.yahoo.com/articles/49ers-cowboys-cranks-27-13-025717865.html",
+      "title": "49ers-Cowboys cranks out 27.13 million viewers",
+      "body_text": "Fox's Sunday tripleheader culminated in the national telecast of the 8-1 49ers at the record-doesn't-matter Cowboys.",
+      "author": "",
+      "published_at": "2026-11-18T02:57:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "40fab9ca-68e9-36a2-acdb-b72640507e47",
+      "url": "https://sports.yahoo.com/articles/pair-ex-seahawks-safeties-teams-024247847.html",
+      "title": "Pair of ex-Seahawks safeties find new teams",
+      "body_text": "D’Anthony Bell and A.J. Finley will be heading to new practice squads entering Week 11.",
+      "author": "",
+      "published_at": "2026-11-18T02:42:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Anthony Bell"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "33c41477-115c-39a9-a4da-4aabca46d181",
+      "url": "https://sports.yahoo.com/articles/officials-were-bumped-reconfigured-week-023158753.html",
+      "title": "Officials who were bumped by reconfigured Week 10 schedule won't lose pay",
+      "body_text": "The four officials who worked two games in Week 10 got paid accordingly.",
+      "author": "",
+      "published_at": "2026-11-18T02:31:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b31ccc33-cf0d-37e5-bf7b-f80df90abbd3",
+      "url": "https://sports.yahoo.com/articles/former-cyclones-performed-week-10-021707403.html",
+      "title": "How former Cyclones performed in Week 10 of the NFL",
+      "body_text": "Ten former Cyclones made appearances in Week 10 of the NFL and played a combined 343 snaps on offense, defense and special teams. Breece Hall – New York Jets In a 31-12 loss to the Buffalo Bills, Hall recorded 11 receptions for 41 yards and four receptions for 67 yards. He appeared on the field […]",
+      "author": "",
+      "published_at": "2026-11-18T02:17:07+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Breece Hall",
+        "New York",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0038120"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "108ad928-1881-4a2a-bc72-6a3a5f7a1f7f",
+      "url": "https://sports.yahoo.com/article/32-teams-32-fantasy-football-facts-to-bully-week-11-020919951.html",
+      "title": "32 Teams. 32 Fantasy football facts to BULLY week 11",
+      "body_text": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 11.",
+      "author": "Hayden Winks,Josh Norris,Matt Harmon",
+      "published_at": "2026-11-18T02:09:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Norris",
+        "Hayden Winks",
+        "Matt Harmon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "033b867f-a85e-3368-848a-00aab1a40927",
+      "url": "https://sports.yahoo.com/articles/trent-williams-49ers-silence-cowboys-015620599.html",
+      "title": "Trent Williams, 49ers silence Cowboys, fans on and off field",
+      "body_text": "The San Francisco 49ers were anticipating a hostile environment when they entered AT&amp;T Stadium on Sunday. That was, until it wasn’t anymore. A sea of 49ers fans took over the...",
+      "author": "",
+      "published_at": "2026-11-18T01:56:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Trent Williams",
+        "The San"
+      ],
+      "resolved_player_ids": [
+        "00-0027857"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "4964eeec-3a03-37e9-92d3-5526d1a1b108",
+      "url": "https://sports.yahoo.com/articles/fred-johnson-finds-nfl-home-013454376.html",
+      "title": "Fred Johnson finds new NFL home after being cut by the Eagles",
+      "body_text": "Big Fred is teaming up with Big Red.",
+      "author": "",
+      "published_at": "2026-11-18T01:34:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fred Johnson",
+        "Eagles Big",
+        "Big Red"
+      ],
+      "resolved_player_ids": [
+        "00-0034951"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "0d8ddbe2-714a-3d51-8a4d-fcd5d1e8fb89",
+      "url": "https://sports.yahoo.com/articles/rams-season-starts-now-012445337.html",
+      "title": "The Rams’ season starts now",
+      "body_text": "After a stretch of four winnable games, the real test starts now for Sean McVay’s Rams",
+      "author": "",
+      "published_at": "2026-11-18T01:24:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "0808ffc2-30d1-3def-bf7d-524ac8813f5a",
+      "url": "https://sports.yahoo.com/articles/miami-dolphins-discussion-week-11-010000666.html",
+      "title": "Miami Dolphins Discussion: Week 11 Game Vs Buffalo Bills Predictions Edition",
+      "body_text": "We ask Miami Dolphins fans for their takes and predictions for the upcoming game against the Buffalo Bills.",
+      "author": "",
+      "published_at": "2026-11-18T01:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Miami Dolphins",
+        "Vs Buffalo",
+        "Bills Predictions",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "c54008a9-c11e-324b-bbbd-7c8088bea6cc",
+      "url": "https://sports.yahoo.com/articles/chiefs-worked-k-matt-prater-001037660.html",
+      "title": "Chiefs worked out K Matt Prater on Tuesday",
+      "body_text": "The Chiefs worked out free agent kicker Matt Prater on Tuesday, according to the NFL's personnel notice.",
+      "author": "",
+      "published_at": "2026-11-18T00:10:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matt Prater",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0023853"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "48294efd-9371-320e-9ee8-0fae5563ceee",
+      "url": "https://sports.yahoo.com/articles/chiefs-sign-former-eagles-offensive-000000830.html",
+      "title": "Chiefs sign former Eagles offensive lineman to practice squad",
+      "body_text": "Kansas City signed three players to the practice squad on Tuesday.",
+      "author": "",
+      "published_at": "2026-11-18T00:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a13b8ae7-e232-307a-94e2-7f2429529806",
+      "url": "https://sports.yahoo.com/articles/denver-broncos-shake-starting-offensive-235916958.html",
+      "title": "Should the Denver Broncos shake-up their starting offensive line?",
+      "body_text": "One of the things that has been irritating many of us this season has been specific areas of offensive line play. I have seen people call out poor performances by Mike McGlinchey and Luke Wattenberg, but the real problem fans seem to see along the offensive line has been from interior guard Ben Powers. Personally, […]",
+      "author": "",
+      "published_at": "2026-11-17T23:59:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos",
+        "Luke Wattenberg",
+        "Ben Powers"
+      ],
+      "resolved_player_ids": [
+        "00-0037278",
+        "00-0034978"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "509bd768-66a5-3754-b96f-c13304ca3c45",
+      "url": "https://sports.yahoo.com/articles/packers-add-2-drop-1-212955525.html",
+      "title": "Packers add 2, drop 1 on Tuesday",
+      "body_text": "WR Coleman Owen has been brought back to the practice squad",
+      "author": "",
+      "published_at": "2026-11-17T23:47:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Coleman Owen"
+      ],
+      "resolved_player_ids": [
+        "00-0040352"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "d531b572-0c84-3f24-9306-fe066ff22d85",
+      "url": "https://sports.yahoo.com/articles/week-11-chicago-bears-power-234500269.html",
+      "title": "Week 11 Chicago Bears power rankings roundup",
+      "body_text": "How are the Bears viewed after their bye week? @SamHouseholder has this week’s power rankings roundup.",
+      "author": "",
+      "published_at": "2026-11-17T23:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "54a9fd1d-7b12-40d7-adf5-ec16f1cc0f06",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-power-rankings-entering-week-11-can-the-browns-keep-winning-in-dramatic-fashion-044135982.html",
+      "title": "NFL Power Rankings entering Week 11: Can the Browns keep winning in dramatic fashion?",
+      "body_text": "The Browns are on a roll in close games, and now their playoff hopes are realistic.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-17T04:41:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "03808682-583c-3633-8cae-108633623d69",
+      "url": "https://sports.yahoo.com/articles/eagles-sign-jaydon-blue-active-165845857.html",
+      "title": "Eagles sign Jaydon Blue to active roster, add NT to practice squad",
+      "body_text": "The Eagles make two roster moves coming out of the bye week.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaydon Blue",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "0e8a2131-7a4f-399d-b5f7-fad8e34aa35c",
+      "url": "https://sports.yahoo.com/articles/roobs-eagles-observations-time-turn-070000324.html",
+      "title": "Roob's Eagles Observations: Time to turn to a Stout disciple who's already here?",
+      "body_text": "Roob answers some of the most pressing questions about the Eagles during their bye week.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles Observations"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "16901ecc-4a64-3e37-a0de-41194b6b6d17",
+      "url": "https://sports.yahoo.com/articles/eagles-continue-reshaping-roster-reportedly-221326007.html",
+      "title": "Eagles continue reshaping roster by reportedly releasing veteran wide receiver",
+      "body_text": "Hollywood Brown's time in Philadelphia comes to an end after just four games.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "45de1aaa-e596-3e2b-8056-d8172f41e6ca",
+      "url": "https://sports.yahoo.com/articles/questions-position-eagles-return-2026-102036178.html",
+      "title": "Questions by position as Eagles return from 2026 bye week",
+      "body_text": "As the Eagles return from their 2026 bye week, here's one question for each position group.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "551a1892-4187-3eba-92d6-729a1150104c",
+      "url": "https://sports.yahoo.com/articles/eagles-sign-zach-ertz-53-134435836.html",
+      "title": "Eagles sign Zach Ertz to 53-man roster in flurry of moves",
+      "body_text": "The Eagles made a flurry of roster moves on Monday, highlighted by signing Zach Ertz to the 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zach Ertz",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0030061"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6420c8f3-fbfc-3757-8eed-22bf6ee64080",
+      "url": "https://sports.yahoo.com/articles/future-eagles-fits-jeremiah-smith-070000656.html",
+      "title": "Future Eagles Fits: Jeremiah Smith headlines an explosive 2027 WR class",
+      "body_text": "How good the Eagles further upgrade their wide receiver corps in the 2027 NFL Draft?",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Future Eagles",
+        "Jeremiah Smith"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7e3e1582-7b3e-36d9-8be1-80f1a93ba2c2",
+      "url": "https://sports.yahoo.com/articles/international-player-joshua-weru-development-070000762.html",
+      "title": "International player Joshua Weru on his development behind the scenes",
+      "body_text": "Joshua Weru has spent the first half of this season on the practice squad working to improve.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joshua Weru"
+      ],
+      "resolved_player_ids": [
+        "00-0040926"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "8645bd21-69ae-3973-8d06-cdc776d402f5",
+      "url": "https://sports.yahoo.com/articles/eagles-add-consultant-coached-under-155319709.html",
+      "title": "Eagles add consultant who coached under Chip Kelly, Doug Pederson, Nick Sirianni",
+      "body_text": "T.J. Paganetti, who spent 10 seasons in two separate stints with the Eagles in a variety of roles, is returning to the club as a consultant.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chip Kelly",
+        "Doug Pederson",
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [
+        "00-0012726"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "89b94027-d1ac-378b-9bc6-1b5c8ac837d4",
+      "url": "https://sports.yahoo.com/articles/updating-eagles-2027-draft-pick-084300132.html",
+      "title": "Updating Eagles' 2027 draft pick after Week 10 bye week",
+      "body_text": "As the Eagles come back from their Week 10 bye week, here's an updated look at their draft pick in the first round in 2027.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Updating Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "92d7fb46-9810-3e2c-b694-1f64ce50c43e",
+      "url": "https://sports.yahoo.com/articles/nfl-flexes-raiders-browns-nbcs-154247566.html",
+      "title": "NFL flexes Raiders-Browns to NBC's Sunday Night Football, Patriots-Chargers out",
+      "body_text": "No. 1 overall pick Fernando Mendoza will lead Las Vegas vs. a hopeful Cleveland side.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Fernando Mendoza",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "a2ead4ec-012e-3da5-b1df-827c488fc456",
+      "url": "https://sports.yahoo.com/articles/eagles-down-1-rb-active-173058718.html",
+      "title": "Eagles down 1 RB on active roster after waiving Blue",
+      "body_text": "Saquon Barkley is now the only running back on the Eagles 53-man roster.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blue Saquon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c6db9cf9-ee1b-3638-8f84-31f78cafb486",
+      "url": "https://sports.yahoo.com/articles/eagles-waiving-veteran-ot-fred-164600222.html",
+      "title": "Eagles waiving veteran OT Fred Johnson",
+      "body_text": "Eagles releasing another veteran during bye week.",
+      "author": "",
+      "published_at": "2026-11-17T23:21:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fred Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0034951"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5c691b16-ed42-4dd6-851f-4a908c113da0",
+      "url": "https://sports.yahoo.com/nfl/live/nfl-news-injury-updates-131219200.html",
+      "title": "NFL news, live updates: Aidan Hutchinson reportedly suffers torn ACL on sack celebration; Patriots QB Drake Maye out indefinitely with ankle injury",
+      "body_text": "Follow along with the latest NFL news coming out of Week 10.",
+      "author": "Yahoo Sports Staff",
+      "published_at": "2026-11-16T13:12:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aidan Hutchinson",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0037236",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "0884b4b9-f7be-3298-b123-c8bebd5f18b3",
+      "url": "https://sports.yahoo.com/articles/team-going-win-afc-230916163.html",
+      "title": "Which team is going to win the AFC?",
+      "body_text": "We are just past the halfway mark in the season and things are beginning to become much more clear. We know who the true contenders are and who became the frauds. That leaves a handful of true contenders in the AFC and this week’s survey is centered around which teams you think will take the […]",
+      "author": "",
+      "published_at": "2026-11-17T23:09:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e6af0a19-9bf2-3fbc-a1b6-7694536f33d8",
+      "url": "https://sports.yahoo.com/articles/jerry-jones-makes-surprising-statement-230535928.html",
+      "title": "Jerry Jones makes surprising statement about 49ers takeover",
+      "body_text": "One of the biggest shockers from the 49ers’ 46-40 road victory against the Cowboys on Sunday was the takeover of AT&amp;T Stadium by San Francisco fans. Cowboys owner Jerry Jones...",
+      "author": "",
+      "published_at": "2026-11-17T23:05:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "7c4d35c8-8bf9-3353-96cd-09835c35f3b1",
+      "url": "https://sports.yahoo.com/articles/lions-create-practice-squad-spot-230510401.html",
+      "title": "Lions create practice squad spot, set stage for Wednesday roster moves",
+      "body_text": "The Detroit Lions have cut Ben Stille from the practice squad, setting the stage for several Wednesday roster moves.",
+      "author": "",
+      "published_at": "2026-11-17T23:05:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Detroit",
+        "Ben Stille"
+      ],
+      "resolved_player_ids": [
+        "00-0037356"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "60a7a5f0-25df-39b3-bf1c-c79d0f4c262f",
+      "url": "https://sports.yahoo.com/articles/patriots-power-rankings-pats-plummet-230259655.html",
+      "title": "Patriots Power Rankings: Pats plummet heading into Week 11",
+      "body_text": "Check out how far down the ladder the experts dropped the Patriots heading into Week 11",
+      "author": "",
+      "published_at": "2026-11-17T23:02:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patriots Power"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "63296f37-dd0f-328c-8252-40c3f2ccbec2",
+      "url": "https://sports.yahoo.com/articles/england-patriots-2026-schedule-scores-230021578.html",
+      "title": "New England Patriots 2026 schedule and scores",
+      "body_text": "Complete New England Patriots schedule and results for the 2026-27 season. All times are Eastern Time.",
+      "author": "",
+      "published_at": "2026-11-17T23:00:21+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New England",
+        "Complete New",
+        "England Patriots",
+        "Eastern Time"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "109ffe5a-0590-3ed7-92b9-751960de2da9",
+      "url": "https://sports.yahoo.com/articles/texans-cb-kamari-lassiter-downgraded-224805625.html",
+      "title": "Texans CB Kamari Lassiter downgraded to a non-participant Tuesday",
+      "body_text": "The Texans' injury report on Tuesday had only one change from the estimated report on Monday.",
+      "author": "",
+      "published_at": "2026-11-17T22:48:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kamari Lassiter",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0039343"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "9246e067-1035-33b7-ad10-dbe2fd642db6",
+      "url": "https://sports.yahoo.com/articles/sauce-gardner-charvarius-ward-listed-224702670.html",
+      "title": "Sauce Gardner, Charvarius Ward listed as out of Colts practice Tuesday",
+      "body_text": "The Colts listed both of their starting cornerbacks as out of practice on Tuesday.",
+      "author": "",
+      "published_at": "2026-11-17T22:47:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sauce Gardner",
+        "Charvarius Ward",
+        "Tuesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0037190",
+        "00-0034573"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "446c3e45-9158-3a94-9691-b534686cb439",
+      "url": "https://sports.yahoo.com/articles/bears-tough-path-playoffs-focused-224500713.html",
+      "title": "Bears have a tough path to the playoffs, but are focused on 1-0",
+      "body_text": "Ben Johnson and Caleb Williams met the media today and made it clear the Bears are focused on 1 thing.",
+      "author": "",
+      "published_at": "2026-11-17T22:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ben Johnson",
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0034557",
+        "00-0039918"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "dcdf8563-d1b0-3e57-8f34-5c594d9882f3",
+      "url": "https://sports.yahoo.com/articles/highs-lows-fernando-mendoza-starting-224400267.html",
+      "title": "Highs and lows of Fernando Mendoza’s starting debut for Las Vegas Raiders",
+      "body_text": "Breaking down the tape from the No. 1 overall pick’s 1st start",
+      "author": "",
+      "published_at": "2026-11-17T22:44:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "Las Vegas",
+        "Raiders Breaking"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "7b2ea671-6e7c-3cd8-b4fa-238443b3b657",
+      "url": "https://sports.yahoo.com/articles/browns-roster-adds-dline-help-223224495.html",
+      "title": "Browns roster adds DLine help; once again, waive recent draft pick and injured DT",
+      "body_text": "The Cleveland Browns roster remains in flux, waiving Carsen Ryan, claiming Jamree Kromah and Elijah Chatman",
+      "author": "",
+      "published_at": "2026-11-17T22:32:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Cleveland",
+        "Carsen Ryan",
+        "Jamree Kromah",
+        "Elijah Chatman"
+      ],
+      "resolved_player_ids": [
+        "00-0039461",
+        "00-0039764"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "2a82e741-01a9-385a-9855-55194b3bcd4a",
+      "url": "https://sports.yahoo.com/articles/wan-dale-robinson-injury-could-223003194.html",
+      "title": "Wan’Dale Robinson injury could cost Giants in 2027 NFL Draft",
+      "body_text": "Ex-Giant Wan’Dale Robinson goes on IR.",
+      "author": "",
+      "published_at": "2026-11-17T22:30:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dale Robinson",
+        "Giant Wan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "cf53ca6c-b78d-3dca-980e-551b3346e166",
+      "url": "https://sports.yahoo.com/articles/arizona-cardinals-place-andrew-wingard-222209318.html",
+      "title": "Arizona Cardinals place Andrew Wingard and Jordan Burch on injured reserve",
+      "body_text": "The Arizona Cardinals are placing safety Andrew Wingard on IR.",
+      "author": "",
+      "published_at": "2026-11-17T22:22:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arizona Cardinals",
+        "Andrew Wingard",
+        "Jordan Burch",
+        "The Arizona"
+      ],
+      "resolved_player_ids": [
+        "00-0035378",
+        "00-0040137"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "517bcf44-0a62-34d1-af18-2541eb814360",
+      "url": "https://sports.yahoo.com/articles/steelers-worked-veteran-safety-221952016.html",
+      "title": "Steelers worked out veteran safety",
+      "body_text": "Pittsburgh has been scouting potential additions to its secondary.",
+      "author": "",
+      "published_at": "2026-11-17T22:19:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "07b6dae3-ae71-336c-8b05-bfededa5edc8",
+      "url": "https://sports.yahoo.com/articles/cardinals-sign-jared-harrison-hunte-220810176.html",
+      "title": "Cardinals sign Jared Harrison-Hunte, Wydett Williams to 53-man roster",
+      "body_text": "The Cardinals announced on Tuesday that they’ve made a series of roster moves.",
+      "author": "",
+      "published_at": "2026-11-17T22:08:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jared Harrison",
+        "Wydett Williams",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "8a58226b-73ac-32f0-bb49-afb048707abe",
+      "url": "https://sports.yahoo.com/articles/tuesday-miami-dolphins-thoughts-earl-220626606.html",
+      "title": "Tuesday Miami Dolphins Thoughts With The Earl",
+      "body_text": "If you were waiting for the opportune moment… that was it.",
+      "author": "",
+      "published_at": "2026-11-17T22:06:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tuesday Miami",
+        "Dolphins Thoughts",
+        "With The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "2a16f3b5-9405-369e-92ff-1edeb9819a3b",
+      "url": "https://sports.yahoo.com/articles/nick-bosa-shocking-drought-comes-220529603.html",
+      "title": "Nick Bosa’s shocking drought comes with a 49ers silver lining",
+      "body_text": "The San Francisco 49ers hold an 8-1 record, the best in the NFC, and yet they still haven’t gotten quite the same type of production out of Nick Bosa that...",
+      "author": "",
+      "published_at": "2026-11-17T22:05:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Bosa",
+        "The San"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "55c71065-c3ed-3a1c-addd-ce27404d817c",
+      "url": "https://sports.yahoo.com/articles/inside-cowboys-historic-defensive-collapse-220000052.html",
+      "title": "Inside the Cowboys historic defensive collapse against the 49ers",
+      "body_text": "Last week was so awful.",
+      "author": "",
+      "published_at": "2026-11-17T22:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "2aaa3dc5-a96e-3d56-86c4-a9b6e30999d3",
+      "url": "https://sports.yahoo.com/articles/chiefs-sign-rb-e-j-215702187.html",
+      "title": "Chiefs sign RB E.J. Smith, Emmitt's son, to the practice squad",
+      "body_text": "The Chiefs signed running back E.J.",
+      "author": "",
+      "published_at": "2026-11-17T21:57:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "9bfb68dc-e3f1-3d59-95be-aff08b681be9",
+      "url": "https://sports.yahoo.com/articles/wandale-robinson-lands-injured-214851225.html",
+      "title": "Wan'Dale Robinson lands on injured reserve",
+      "body_text": "The Titans are down a top wide receiver after Week 10.",
+      "author": "",
+      "published_at": "2026-11-17T21:48:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dale Robinson",
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "a8366cf3-5786-3820-b7ad-661fdd4c479f",
+      "url": "https://sports.yahoo.com/articles/dan-campbell-send-lions-clear-214724383.html",
+      "title": "Dan Campbell sends Lions clear celebration message after Aidan Hutchinson injury",
+      "body_text": "&quot;I think what happened speaks for itself. We're not talking to 8-year-olds here.&quot;",
+      "author": "",
+      "published_at": "2026-11-17T21:47:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dan Campbell",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0002565",
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    }
+  ]
+}

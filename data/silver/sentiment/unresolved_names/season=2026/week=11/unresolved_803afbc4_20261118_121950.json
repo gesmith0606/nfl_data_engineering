@@ -1,0 +1,99 @@
+{
+  "batch_id": "803afbc4",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-18T12:19:50.379850+00:00",
+  "record_count": 10,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-issue-arrest-warrants-for-august-burglary-at-max-iheanachors-home",
+      "player_name": "Max Iheanachor",
+      "team_abbr": "PIT",
+      "category": "legal",
+      "summary": "Police issue arrest warrants for burglary at Steelers rookie tackle Max Iheanachor's home in August.",
+      "source_excerpt": "In August, thieves targeted the home of Steelers rookie first-round tackle Max Iheanachor while he was in Buffalo for a preseason game.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-sign-jared-harrison-hunte-wydett-williams-to-53-man-roster",
+      "player_name": "Wydett Williams",
+      "team_abbr": "ARI",
+      "category": "general",
+      "summary": "Cardinals signed Wydett Williams to 53-man roster.",
+      "source_excerpt": "The Cardinals announced on Tuesday that they've made a series of roster moves.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chiefs-sign-rb-e-j-smith-emmitts-son-to-the-practice-squad",
+      "player_name": "E.J. Smith",
+      "team_abbr": "KC",
+      "category": "general",
+      "summary": "Chiefs signed running back E.J. Smith (Emmitt Smith's son) to practice squad.",
+      "source_excerpt": "The Chiefs signed running back E.J.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-dt-jordan-phillips-will-undergo-season-ending-biceps-surgery",
+      "player_name": "Jordan Phillips",
+      "team_abbr": "MIA",
+      "category": "injury",
+      "summary": "Jordan Phillips will undergo season-ending biceps surgery after injury in Sunday's loss to the Colts.",
+      "source_excerpt": "Dolphins defensive tackle Jordan Phillips injured a biceps in Sunday's loss to the Colts.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl648337",
+      "player_name": "Jalon Daniels",
+      "team_abbr": "TAM",
+      "category": "usage",
+      "summary": "Jalon Daniels trending toward starting Week 11 for Buccaneers against Lions while Baker Mayfield recovers from foot strain.",
+      "source_excerpt": "Daniels \"seems to be trending\" toward drawing the start at quarterback for the Buccaneers on Sunday in Detroit while Baker Mayfield tends to a foot strain, Ian Rapoport of NFL Network reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl648337",
+      "player_name": "Jalon Daniels",
+      "team_abbr": "TB",
+      "category": "usage",
+      "summary": "Daniels is trending toward starting at QB for the Buccaneers in Week 11 while Mayfield recovers from injury.",
+      "source_excerpt": "Daniels \"seems to be trending\" toward drawing the start at quarterback for the Buccaneers on Sunday in Detroit while Baker Mayfield tends to a foot strain, Ian Rapoport of NFL Network reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "92d7fb46-9810-3e2c-b694-1f64ce50c43e",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "No. 1 overall pick Fernando Mendoza leading Raiders against Browns in flexed Sunday Night Football game.",
+      "source_excerpt": "No. 1 overall pick Fernando Mendoza will lead Las Vegas vs. a hopeful Cleveland side.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "2aaa3dc5-a96e-3d56-86c4-a9b6e30999d3",
+      "player_name": "E.J. Smith",
+      "team_abbr": "KC",
+      "category": "general",
+      "summary": "Chiefs signed running back E.J. Smith (Emmitt Smith's son) to practice squad.",
+      "source_excerpt": "The Chiefs signed running back E.J.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/police-issue-arrest-warrants-for-august-burglary-at-max-iheanachors-home",
+      "player_name": "Max Iheanachor",
+      "team_abbr": "PIT",
+      "category": "legal",
+      "summary": "Police issue arrest warrants for burglary at Steelers rookie tackle Max Iheanachor's home in August.",
+      "source_excerpt": "In August, thieves targeted the home of Steelers rookie first-round tackle Max Iheanachor while he was in Buffalo for a preseason game.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-dt-jordan-phillips-will-undergo-season-ending-biceps-surgery",
+      "player_name": "Jordan Phillips",
+      "team_abbr": "MIA",
+      "category": "injury",
+      "summary": "Dolphins DT Jordan Phillips will undergo season-ending biceps surgery after Sunday's loss to Colts.",
+      "source_excerpt": "Dolphins defensive tackle Jordan Phillips injured a biceps in Sunday's loss to the Colts.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

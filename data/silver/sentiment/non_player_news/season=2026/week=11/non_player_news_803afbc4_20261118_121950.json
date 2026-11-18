@@ -1,0 +1,262 @@
+{
+  "batch_id": "803afbc4",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-18T12:19:50.372835+00:00",
+  "record_count": 23,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-unacceptable-that-we-havent-been-able-to-run-the-ball-consistently",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-unacceptable-that-we-havent-been-able-to-run-the-ball-consistently",
+      "team_abbr": "BAL",
+      "summary": "Ravens defensive coordinator Jesse Minter criticizes team's inconsistent rushing attack after 5-game losing streak.",
+      "sentiment": -0.65,
+      "confidence": 0.85,
+      "category": "general",
+      "source_excerpt": "The Ravens have lost five straight games since a 4-1 start to the season and a look at the team's results running the ball during the two halves of their season presents a big reason why their fortunes have changed.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-buccaneers-are-better-than-their-record-says-they-are",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-buccaneers-are-better-than-their-record-says-they-are",
+      "team_abbr": "TB",
+      "summary": "Lions coach Dan Campbell believes Buccaneers are better than their win-loss record suggests.",
+      "sentiment": 0.35,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Lions head coach Dan Campbell played in the NFL for Bill Parcells, who liked to say, 'You are what your record says you are.'",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kevin-oconnell-and-jets-connection-resurfaces-not-surprisingly",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kevin-oconnell-and-jets-connection-resurfaces-not-surprisingly",
+      "team_abbr": "NYJ",
+      "summary": "Kevin O'Connell connected to Jets coaching vacancy as Aaron Glenn's successor.",
+      "sentiment": 0.0,
+      "confidence": 0.65,
+      "category": "general",
+      "source_excerpt": "As the Jets move toward their inevitable next coaching search, folks who cover the Jets have begun to compile the list of possibilities for the successor to Aaron Glenn.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cowboys-cranks-out-27-13-million-viewers",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cowboys-cranks-out-27-13-million-viewers",
+      "team_abbr": "SF",
+      "summary": "49ers-Cowboys game drew 27.13 million viewers on Fox.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Fox's Sunday tripleheader culminated in the national telecast of the 8-1 49ers at the record-doesn't-matter Cowboys.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-wont-wallow-in-what-ifs-arising-from-injuries",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-wont-wallow-in-what-ifs-arising-from-injuries",
+      "team_abbr": "DET",
+      "summary": "Lions coach Dan Campbell addresses team injuries and maintains focus.",
+      "sentiment": 0.0,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "Dan Campbell won't wallow in 'what ifs' arising from injuries",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "d7327157-1eed-41eb-91c2-b5ea6dabf733",
+      "external_id": "d7327157-1eed-41eb-91c2-b5ea6dabf733",
+      "team_abbr": "DAL",
+      "summary": "Cowboys' Brian Schottenheimer facing mounting heat on coaching hot seat entering Week 11.",
+      "sentiment": -0.65,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "Schottenheimer, Shane Steichen and Jim Harbaugh face mounting pressure entering Week 11, while Aaron Glenn's seat is scorching",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "24053132-cefd-35c3-b023-49b3dc147c79",
+      "external_id": "24053132-cefd-35c3-b023-49b3dc147c79",
+      "team_abbr": "MIN",
+      "summary": "Minnesota Vikings fan survey reflects optimism about team direction.",
+      "sentiment": 0.5,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Things are looking up, yes?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0d8ddbe2-714a-3d51-8a4d-fcd5d1e8fb89",
+      "external_id": "0d8ddbe2-714a-3d51-8a4d-fcd5d1e8fb89",
+      "team_abbr": "LAR",
+      "summary": "Rams face upcoming test after stretch of four winnable games under Sean McVay.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "After a stretch of four winnable games, the real test starts now for Sean McVay's Rams",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "0808ffc2-30d1-3def-bf7d-524ac8813f5a",
+      "external_id": "0808ffc2-30d1-3def-bf7d-524ac8813f5a",
+      "team_abbr": "MIA",
+      "summary": "Dolphins fans share predictions for Week 11 matchup against Buffalo Bills.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "We ask Miami Dolphins fans for their takes and predictions for the upcoming game against the Buffalo Bills.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "48294efd-9371-320e-9ee8-0fae5563ceee",
+      "external_id": "48294efd-9371-320e-9ee8-0fae5563ceee",
+      "team_abbr": "KC",
+      "summary": "Chiefs sign former Eagles offensive lineman to practice squad on Tuesday.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Kansas City signed three players to the practice squad on Tuesday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d531b572-0c84-3f24-9306-fe066ff22d85",
+      "external_id": "d531b572-0c84-3f24-9306-fe066ff22d85",
+      "team_abbr": "CHI",
+      "summary": "Week 11 power rankings roundup shows how Bears are viewed after bye week.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "How are the Bears viewed after their bye week? @SamHouseholder has this week's power rankings roundup.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "45de1aaa-e596-3e2b-8056-d8172f41e6ca",
+      "external_id": "45de1aaa-e596-3e2b-8056-d8172f41e6ca",
+      "team_abbr": "PHI",
+      "summary": "Eagles position group analysis after bye week with no specific player impact mentioned.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "As the Eagles return from their 2026 bye week, here's one question for each position group.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8645bd21-69ae-3973-8d06-cdc776d402f5",
+      "external_id": "8645bd21-69ae-3973-8d06-cdc776d402f5",
+      "team_abbr": "PHI",
+      "summary": "T.J. Paganetti returns to Eagles as consultant after previous stints under Kelly, Pederson, Sirianni.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "T.J. Paganetti, who spent 10 seasons in two separate stints with the Eagles in a variety of roles, is returning to the club as a consultant.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "89b94027-d1ac-378b-9bc6-1b5c8ac837d4",
+      "external_id": "89b94027-d1ac-378b-9bc6-1b5c8ac837d4",
+      "team_abbr": "PHI",
+      "summary": "Eagles draft pick update after Week 10 bye week with no specific player impact.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "As the Eagles come back from their Week 10 bye week, here's an updated look at their draft pick in the first round in 2027.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "e6af0a19-9bf2-3fbc-a1b6-7694536f33d8",
+      "external_id": "e6af0a19-9bf2-3fbc-a1b6-7694536f33d8",
+      "team_abbr": "DAL",
+      "summary": "49ers fans takeover AT&T Stadium during 46-40 victory over Cowboys; Jerry Jones responds.",
+      "sentiment": -0.3,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "One of the biggest shockers from the 49ers' 46-40 road victory against the Cowboys on Sunday was the takeover of AT&T Stadium by San Francisco fans.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "517bcf44-0a62-34d1-af18-2541eb814360",
+      "external_id": "517bcf44-0a62-34d1-af18-2541eb814360",
+      "team_abbr": "PIT",
+      "summary": "Steelers scouting secondary depth additions through veteran workouts.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Pittsburgh has been scouting potential additions to its secondary.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "07b6dae3-ae71-336c-8b05-bfededa5edc8",
+      "external_id": "07b6dae3-ae71-336c-8b05-bfededa5edc8",
+      "team_abbr": "ARI",
+      "summary": "Cardinals announced roster moves including signings to 53-man roster.",
+      "sentiment": 0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Cardinals announced on Tuesday that they've made a series of roster moves.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8a58226b-73ac-32f0-bb49-afb048707abe",
+      "external_id": "8a58226b-73ac-32f0-bb49-afb048707abe",
+      "team_abbr": "MIA",
+      "summary": "Miami Dolphins commentary lacking specific player or roster information.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "If you were waiting for the opportune moment\u2026 that was it.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "55c71065-c3ed-3a1c-addd-ce27404d817c",
+      "external_id": "55c71065-c3ed-3a1c-addd-ce27404d817c",
+      "team_abbr": "DAL",
+      "summary": "Cowboys experienced historic defensive collapse in loss to 49ers.",
+      "sentiment": -0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Last week was so awful.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-unacceptable-that-we-havent-been-able-to-run-the-ball-consistently",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jesse-minter-unacceptable-that-we-havent-been-able-to-run-the-ball-consistently",
+      "team_abbr": "BAL",
+      "summary": "Ravens defensive coordinator Jesse Minter criticizes inconsistent run game amid 5-game losing streak.",
+      "sentiment": -0.6,
+      "confidence": 0.85,
+      "category": "general",
+      "source_excerpt": "The Ravens have lost five straight games since a 4-1 start to the season and a look at the team's results running the ball during the two halves of their season presents a big reason why their fortunes have changed.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-buccaneers-are-better-than-their-record-says-they-are",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-campbell-says-buccaneers-are-better-than-their-record-says-they-are",
+      "team_abbr": "DET",
+      "summary": "Lions HC Dan Campbell disputes Bill Parcells philosophy, saying Buccaneers better than record.",
+      "sentiment": 0.0,
+      "confidence": 0.75,
+      "category": "general",
+      "source_excerpt": "Lions head coach Dan Campbell played in the NFL for Bill Parcells, who liked to say, \"You are what your record says you are.\"",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kevin-oconnell-and-jets-connection-resurfaces-not-surprisingly",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-kevin-oconnell-and-jets-connection-resurfaces-not-surprisingly",
+      "team_abbr": "NYJ",
+      "summary": "Kevin O'Connell connected to Jets coaching search following Aaron Glenn's departure.",
+      "sentiment": -0.3,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "As the Jets move toward their inevitable next coaching search, folks who cover the Jets have begun to compile the list of possibilities for the successor to Aaron Glenn.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cowboys-cranks-out-27-13-million-viewers",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-cowboys-cranks-out-27-13-million-viewers",
+      "team_abbr": "SF",
+      "summary": "49ers-Cowboys game generated 27.13 million viewers on Fox's Sunday tripleheader.",
+      "sentiment": 0.5,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "Fox's Sunday tripleheader culminated in the national telecast of the 8-1 49ers at the record-doesn't-matter Cowboys.",
+      "subject_type": "team"
+    }
+  ]
+}

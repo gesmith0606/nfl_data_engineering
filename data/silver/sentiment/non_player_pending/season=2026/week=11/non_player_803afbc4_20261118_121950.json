@@ -1,0 +1,185 @@
+{
+  "batch_id": "803afbc4",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-18T12:19:50.372551+00:00",
+  "record_count": 16,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-who-were-bumped-by-reconfigured-week-10-schedule-wont-lose-pay",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-who-were-bumped-by-reconfigured-week-10-schedule-wont-lose-pay",
+      "team_abbr": null,
+      "summary": "Officials bumped by Week 10 schedule reconfiguration compensated for working two games.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The four officials who worked two games in Week 10 got paid accordingly.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "55b561a9-68fc-452d-b32a-ea168ad77390",
+      "external_id": "55b561a9-68fc-452d-b32a-ea168ad77390",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "e0f5bae3-67f7-4b73-8e8e-f6e10c850615",
+      "external_id": "e0f5bae3-67f7-4b73-8e8e-f6e10c850615",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "d7369c11-b523-4104-8735-5adeb287aac3",
+      "external_id": "d7369c11-b523-4104-8735-5adeb287aac3",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "d746227b-27fd-4937-9edc-835eb67c5b44",
+      "external_id": "d746227b-27fd-4937-9edc-835eb67c5b44",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "9dde03da-eaa2-44f1-821c-e9070a1d072b",
+      "external_id": "9dde03da-eaa2-44f1-821c-e9070a1d072b",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "c4467313-bc1e-421a-b1c4-786a210d9afb",
+      "external_id": "c4467313-bc1e-421a-b1c4-786a210d9afb",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "1e948fc5-82a9-4327-ba62-530a3d615732",
+      "external_id": "1e948fc5-82a9-4327-ba62-530a3d615732",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "19d6b407-2aae-4ef9-9e26-d4a681124c31",
+      "external_id": "19d6b407-2aae-4ef9-9e26-d4a681124c31",
+      "team_abbr": null,
+      "summary": "",
+      "sentiment": null,
+      "confidence": null,
+      "category": null,
+      "source_excerpt": "",
+      "subject_type": "player"
+    },
+    {
+      "doc_id": "d7327157-1eed-41eb-91c2-b5ea6dabf733",
+      "external_id": "d7327157-1eed-41eb-91c2-b5ea6dabf733",
+      "team_abbr": null,
+      "summary": "Aaron Glenn's coaching seat is scorching hot heading into Week 11 amid mounting pressure.",
+      "sentiment": -0.7,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "Schottenheimer, Shane Steichen and Jim Harbaugh face mounting pressure entering Week 11, while Aaron Glenn's seat is scorching",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "665c6f09-241d-39cd-9549-e34a92b6bf11",
+      "external_id": "665c6f09-241d-39cd-9549-e34a92b6bf11",
+      "team_abbr": null,
+      "summary": "49ers-Cowboys game drew 27.13 million viewers on Fox.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Fox's Sunday tripleheader culminated in the national telecast of the 8-1 49ers at the record-doesn't-matter Cowboys.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "33c41477-115c-39a9-a4da-4aabca46d181",
+      "external_id": "33c41477-115c-39a9-a4da-4aabca46d181",
+      "team_abbr": null,
+      "summary": "NFL officials affected by Week 10 schedule changes will receive full pay.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The four officials who worked two games in Week 10 got paid accordingly.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "108ad928-1881-4a2a-bc72-6a3a5f7a1f7f",
+      "external_id": "108ad928-1881-4a2a-bc72-6a3a5f7a1f7f",
+      "team_abbr": null,
+      "summary": "Fantasy football analysis podcast preparing Week 11 coverage with stats and film review.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Josh Norris and Hayden Winks are joined by Matt Harmon to serve up Stats vs. Film ahead of Week 11.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "0884b4b9-f7be-3298-b123-c8bebd5f18b3",
+      "external_id": "0884b4b9-f7be-3298-b123-c8bebd5f18b3",
+      "team_abbr": null,
+      "summary": "AFC contender analysis midseason with evaluation of true contenders versus frauds.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "We are just past the halfway mark in the season and things are beginning to become much more clear. We know who the true contenders are and who became the frauds.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-who-were-bumped-by-reconfigured-week-10-schedule-wont-lose-pay",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-who-were-bumped-by-reconfigured-week-10-schedule-wont-lose-pay",
+      "team_abbr": null,
+      "summary": "Officials bumped from Week 10 schedule due to reconfiguration receive full pay.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The four officials who worked two games in Week 10 got paid accordingly.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-officials-who-pulled-double-duty-got-double-pay-as-they-should",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-nfl-officials-who-pulled-double-duty-got-double-pay-as-they-should",
+      "team_abbr": null,
+      "summary": "Article about NFL officials receiving double pay for double duty.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Some things go without saying.",
+      "subject_type": "reporter"
+    }
+  ]
+}
