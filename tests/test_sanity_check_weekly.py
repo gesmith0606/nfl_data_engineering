@@ -15,6 +15,7 @@ import os
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Dict, Optional
 
 import pandas as pd
 import pytest
@@ -34,17 +35,45 @@ WEEK = 1
 # ---------------------------------------------------------------------------
 
 
+def _inj(
+    status: str = "Out",
+    mult: float = 0.0,
+    unconfirmed: bool = False,
+    pts: float = 0.0,
+) -> Dict:
+    """One star's injury columns and resulting points on the board."""
+    return {"status": status, "mult": mult, "unconfirmed": unconfirmed, "pts": pts}
+
+
+ALL_STARS = [
+    "Star QB1",
+    "Star QB2",
+    "Christian McCaffrey",
+    "Star RB2",
+    "Star WR1",
+    "Star WR2",
+    "Star TE1",
+    "Star TE2",
+]
+
+
 def _weekly_df(
     points_scale: float = 1.0,
     duplicate_rows: bool = False,
     cmc_rank_buried: bool = False,
     negative_points: bool = False,
     cmc_zeroed: bool = False,
+    injured: Optional[Dict[str, Dict]] = None,
 ) -> pd.DataFrame:
     """Build a synthetic weekly Gold projections DataFrame.
 
     Default output is healthy: weekly-scale points, unique player_ids, and
     every consensus star near the top of their position.
+
+    ``injured`` maps a star's name to ``_inj(...)``; when given, the board
+    also carries the injury columns (Active / 1.0 / False for everyone else),
+    as the real board does. Without it the columns are absent, like an old
+    board.
     """
     rows = []
     star_points = {
@@ -81,6 +110,14 @@ def _weekly_df(
                 }
             )
 
+    if injured is not None:
+        for row in rows:
+            spec = injured.get(row["player_name"])
+            row["injury_status"] = spec["status"] if spec else "Active"
+            row["injury_multiplier"] = spec["mult"] if spec else 1.0
+            row["injury_unconfirmed"] = spec["unconfirmed"] if spec else False
+            if spec:
+                row["projected_points"] = spec["pts"]
     if duplicate_rows:
         rows.append(dict(rows[0]))
         rows.append(dict(rows[1]))
@@ -310,6 +347,182 @@ class TestStarRank:
         criticals, _ = sanity.run_weekly_projection_check(SEASON, WEEK, "half_ppr")
 
         assert any("McCaffrey" in c for c in criticals)
+
+
+class TestStarRankAvailability:
+    """A star the board carries as unavailable is an availability disagreement
+    with the consensus, not a model error (2026-11-17: Bowers, Out on the
+    Tuesday board while the 14:13 consensus still had him TE2, failed the
+    deploy gate; the same shape as weeks 8-10)."""
+
+    def _run(self, sandbox, board, **consensus_kw):
+        _write_weekly(sandbox, board)
+        _write_consensus(sandbox, **consensus_kw)
+        return sanity.run_weekly_projection_check(SEASON, WEEK, "half_ppr")
+
+    def test_out_star_on_a_fresh_consensus_is_a_warning(self, sandbox):
+        # What main's week-11 board looks like: Out, multiplier 0.0, 0 points.
+        board = _weekly_df(injured={"Christian McCaffrey": _inj()})
+
+        criticals, warnings = self._run(sandbox, board)
+
+        assert not any("McCaffrey" in c for c in criticals)
+        msg = next(w for w in warnings if "McCaffrey" in w)
+        assert "STAR UNAVAILABLE" in msg
+        assert "Out" in msg
+        assert "RB#" in msg and "ext RB#1" in msg  # both ranks
+        assert "availability" in msg and "not a model error" in msg
+
+    def test_unconfirmed_out_star_is_a_warning(self, sandbox):
+        # A #178 board: 0.4x, flagged, still far outside the window.
+        board = _weekly_df(
+            injured={
+                "Christian McCaffrey": _inj("Out (unconfirmed)", 0.4, True, pts=1.0)
+            }
+        )
+
+        criticals, warnings = self._run(sandbox, board)
+
+        assert not any("McCaffrey" in c for c in criticals)
+        assert any("STAR UNAVAILABLE" in w and "McCaffrey" in w for w in warnings)
+
+    def test_unconfirmed_flag_alone_is_an_explanation(self, sandbox):
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Active", 1.0, True, pts=1.0)}
+        )
+
+        criticals, _ = self._run(sandbox, board)
+
+        assert not any("McCaffrey" in c for c in criticals)
+
+    def test_doubtful_star_is_a_warning(self, sandbox):
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Doubtful", 0.5, False, pts=2.0)}
+        )
+
+        criticals, warnings = self._run(sandbox, board)
+
+        assert not any("McCaffrey" in c for c in criticals)
+        assert any("STAR UNAVAILABLE" in w and "Doubtful" in w for w in warnings)
+
+    @pytest.mark.parametrize("status", ["IR", "PUP", "Injured Reserve", "Suspension"])
+    def test_roster_designations_are_explanations(self, sandbox, status):
+        board = _weekly_df(injured={"Christian McCaffrey": _inj(status, 0.0)})
+
+        criticals, _ = self._run(sandbox, board)
+
+        assert not any("McCaffrey" in c for c in criticals)
+
+    def test_questionable_star_is_still_critical(self, sandbox):
+        # 0.85x cannot bury a star: the injury does not explain this rank.
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Questionable", 0.85, False, pts=0.4)}
+        )
+
+        criticals, _ = self._run(sandbox, board)
+
+        assert any("McCaffrey" in c for c in criticals)
+
+    def test_healthy_buried_star_is_still_critical(self, sandbox):
+        # The CMC-at-RB118 class, on a board that carries the injury columns.
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Active", 1.0, False, pts=0.4)}
+        )
+
+        criticals, _ = self._run(sandbox, board)
+
+        assert any("McCaffrey" in c and "RB#" in c for c in criticals)
+
+    def test_out_status_without_a_discount_is_not_an_explanation(self, sandbox):
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Out", 1.0, False, pts=0.4)}
+        )
+
+        criticals, _ = self._run(sandbox, board)
+
+        assert any("McCaffrey" in c for c in criticals)
+
+    def test_board_without_injury_columns_keeps_the_old_behaviour(self, sandbox):
+        criticals, _ = self._run(sandbox, _weekly_df(cmc_zeroed=True))
+
+        assert any("McCaffrey" in c for c in criticals)
+
+    def test_a_star_inside_the_window_is_not_an_exemption(self, sandbox):
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Out (unconfirmed)", 0.4, True, 8.0)}
+        )
+
+        criticals, warnings = self._run(sandbox, board)
+
+        assert criticals == []
+        assert not any("STAR UNAVAILABLE" in w for w in warnings)
+
+    def test_five_exempted_stars_stay_warnings(self, sandbox):
+        board = _weekly_df(injured={n: _inj() for n in ALL_STARS[:5]})
+
+        criticals, warnings = self._run(sandbox, board)
+
+        assert criticals == []
+        assert sum("STAR UNAVAILABLE" in w for w in warnings) == 5
+
+    def test_six_exempted_stars_trip_the_cap(self, sandbox):
+        board = _weekly_df(injured={n: _inj() for n in ALL_STARS[:6]})
+
+        criticals, _ = self._run(sandbox, board)
+
+        msg = next(c for c in criticals if "STAR EXEMPTIONS" in c)
+        assert "6" in msg and "5" in msg
+
+    def test_the_cap_does_not_hide_a_healthy_buried_star(self, sandbox):
+        injured = {n: _inj() for n in ALL_STARS[:3]}
+        injured["Christian McCaffrey"] = _inj("Active", 1.0, False, pts=0.4)
+        injured["Star RB2"] = _inj("Active", 1.0, False, pts=0.4)
+
+        criticals, _ = self._run(sandbox, _weekly_df(injured=injured))
+
+        assert any("McCaffrey" in c and "WEEKLY STAR RANK" in c for c in criticals)
+        assert not any("STAR EXEMPTIONS" in c for c in criticals)
+
+    def test_stale_consensus_zeroed_star_keeps_the_old_message(self, sandbox):
+        # #168's path is unchanged: it fires first, so the text and the
+        # warning are exactly what they were.
+        board = _weekly_df(injured={"Christian McCaffrey": _inj()})
+
+        criticals, warnings = self._run(sandbox, board, week=WEEK - 1)
+
+        assert not any("McCaffrey" in c for c in criticals)
+        assert any("STAR ZEROED" in w and "McCaffrey" in w for w in warnings)
+        assert not any("STAR UNAVAILABLE" in w for w in warnings)
+
+    def test_stale_consensus_still_catches_a_healthy_buried_star(self, sandbox):
+        board = _weekly_df(
+            injured={"Christian McCaffrey": _inj("Active", 1.0, False, pts=0.4)}
+        )
+
+        criticals, warnings = self._run(sandbox, board, week=WEEK - 1)
+
+        assert any("McCaffrey" in c for c in criticals)
+        assert any("STALE consensus" in w for w in warnings)
+
+    def test_unavailable_nonzero_star_on_stale_consensus_is_a_warning(self, sandbox):
+        # The #168 exemption needs a zero; an unconfirmed 0.4x row is not zero.
+        board = _weekly_df(
+            injured={
+                "Christian McCaffrey": _inj("Out (unconfirmed)", 0.4, True, pts=1.0)
+            }
+        )
+
+        criticals, warnings = self._run(sandbox, board, week=WEEK - 1)
+
+        assert not any("McCaffrey" in c for c in criticals)
+        assert any("STAR UNAVAILABLE" in w for w in warnings)
+
+    def test_run_passes_when_the_only_outside_star_is_explained(self, sandbox):
+        board = _weekly_df(injured={"Star TE2": _inj()})
+
+        criticals, _ = self._run(sandbox, board)
+
+        assert criticals == []
 
 
 class TestHealthyFile:
