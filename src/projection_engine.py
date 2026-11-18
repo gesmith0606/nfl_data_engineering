@@ -17,7 +17,7 @@ Designed to work entirely from DataFrames — no direct S3 calls here.
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 import logging
 import re
 
@@ -2613,6 +2613,29 @@ def add_floor_ceiling(
 # Injury adjustments
 # ---------------------------------------------------------------------------
 
+#: A Sleeper "Out" tag the week's official report has not confirmed. On a
+#: Tuesday the only source is Sleeper, whose tag is the LAST game's ruling, so
+#: it is neither "he is out" nor "he is fine". Fitted on 2026 weeks 2-10,
+#: skill players with consensus >= 5 who were officially Out the week before or
+#: zeroed on a Tuesday board (n=86): 38% played (95% CI 29-49%) and averaged
+#: 4.2 pts against a consensus of 10.9, so the unbiased multiplier is ~0.35-0.4
+#: (MSE-optimal 0.35, CI 0.20-0.53). Zero is wrong by -4.1 pts a player, the
+#: full projection by +6.8, 0.4 by +0.2. Close to the 0.5 already used for
+#: Doubtful, which it is treated as. Applied to the FINISHED board
+#: (:func:`apply_unconfirmed_out_discount`), not at the injury step: the Sleeper
+#: anchor is a value-conserving rank reassignment, so a row discounted before it
+#: is handed back the value of its consensus rank (week-11 replay: effective
+#: 0.65x of consensus, not 0.4x). See .planning/STALE_OUT_TAG_2026_11_17.md.
+UNCONFIRMED_OUT_STATUS = "Out (unconfirmed)"
+UNCONFIRMED_OUT_MULTIPLIER = 0.4
+#: Only players Sleeper's consensus still projects at least this much are
+#: softened: below it 11-19% played and the zero costs 0.2-0.7 pts a player.
+UNCONFIRMED_MIN_CONSENSUS = 5.0
+#: Official game statuses for the coming week post on Friday (120-180 graded
+#: rows in every 2026 snapshot from Saturday morning); Tuesday to Friday
+#: carries 0-15. A build with at least this many graded rows has the report.
+EARLY_WEEK_MAX_OFFICIAL = 40
+
 INJURY_MULTIPLIERS: Dict[str, float] = {
     "Active": 1.0,
     "Questionable": 0.85,
@@ -2638,6 +2661,13 @@ _SLEEPER_TO_REPORT_STATUS = {
     "QUESTIONABLE": "Questionable",
 }
 
+#: Sleeper tags that are roster designations, not a ruling on one game: they
+#: do not go stale and stay a hard zero.
+_ROSTER_DESIGNATION_TAGS = frozenset({"IR", "PUP", "NFI", "SUS"})
+
+
+_LIVE_COLUMNS = ["gsis_id", "report_status", "roster_designation"]
+
 
 def live_injury_report(
     registry: Optional[Dict[str, Any]] = None,
@@ -2661,8 +2691,10 @@ def live_injury_report(
             2026 — so without the crosswalk most designations never join.
 
     Returns:
-        DataFrame with ``gsis_id`` and ``report_status``, empty when no
-        designation resolves to a gsis id.
+        DataFrame with ``gsis_id``, ``report_status`` and ``roster_designation``
+        (True for IR/PUP/NFI/Sus, which stay authoritative; False for a
+        per-game Out/Doubtful/Questionable tag), empty when no designation
+        resolves to a gsis id.
     """
     if registry is None:
         # sleeper_player_map imports ``src.sleeper_http``, so the repo root has
@@ -2681,7 +2713,7 @@ def live_injury_report(
             registry = load_sleeper_players(max_age_days=0)
         except Exception as exc:  # noqa: BLE001 — never kill a projection run
             logger.warning("live_injury_report: registry unavailable (%s)", exc)
-            return pd.DataFrame(columns=["gsis_id", "report_status"])
+            return pd.DataFrame(columns=_LIVE_COLUMNS)
 
     if gsis_by_sleeper is None:
         gsis_by_sleeper = _bronze_gsis_by_sleeper(registry or {})
@@ -2690,17 +2722,20 @@ def live_injury_report(
     for sid, meta in (registry or {}).items():
         if not isinstance(meta, dict):
             continue
-        status = _SLEEPER_TO_REPORT_STATUS.get(
-            str(meta.get("injury_status") or "").upper()
-        )
+        tag = str(meta.get("injury_status") or "").upper()
+        status = _SLEEPER_TO_REPORT_STATUS.get(tag)
         if not status:
             continue
         gsis = meta.get("gsis_id") or gsis_by_sleeper.get(str(sid))
         if gsis:
-            rows.append({"gsis_id": str(gsis), "report_status": status})
-    return pd.DataFrame(rows, columns=["gsis_id", "report_status"]).drop_duplicates(
-        subset=["gsis_id"]
-    )
+            rows.append(
+                {
+                    "gsis_id": str(gsis),
+                    "report_status": status,
+                    "roster_designation": tag in _ROSTER_DESIGNATION_TAGS,
+                }
+            )
+    return pd.DataFrame(rows, columns=_LIVE_COLUMNS).drop_duplicates(subset=["gsis_id"])
 
 
 def _bronze_gsis_by_sleeper(registry: Dict[str, Any]) -> Dict[str, str]:
@@ -2763,6 +2798,120 @@ def merge_injury_sources(
     return merged, len(graded), len(unofficial)
 
 
+def soften_unconfirmed_outs(
+    injuries_df: Optional[pd.DataFrame],
+    consensus_df: Optional[pd.DataFrame],
+    n_official: int,
+    min_consensus: float = UNCONFIRMED_MIN_CONSENSUS,
+    max_official: int = EARLY_WEEK_MAX_OFFICIAL,
+) -> Tuple[Optional[pd.DataFrame], List[str]]:
+    """Take stale-prone Sleeper ``Out`` tags out of the injury frame.
+
+    The returned frame no longer zeroes those players; the returned ids are
+    for :func:`apply_unconfirmed_out_discount`, which prices them at
+    :data:`UNCONFIRMED_OUT_MULTIPLIER` once the board is finished. A row is
+    taken out only when ALL hold: it came from Sleeper's live tag (the
+    official rows carry no ``roster_designation``), the tag is a per-game
+    ``Out`` and not IR/PUP/NFI/Sus, the official report has fewer than
+    ``max_official`` graded rows for the target week (before Friday's report),
+    and the week's consensus still projects the player at ``min_consensus`` or
+    more. Everything else stays in the frame, so an official verdict, a roster
+    designation and a player the consensus has written off stay a hard zero.
+
+    Args:
+        injuries_df: Frame from :func:`merge_injury_sources`.
+        consensus_df: The week's Sleeper consensus (``player_id`` as gsis id,
+            ``projected_points``), skill positions only: a kicker or defence
+            has no row and is therefore never softened.
+        n_official: Graded official rows for the target week.
+        min_consensus: Consensus floor.
+        max_official: Graded-row count at which the official report is
+            considered to have landed.
+
+    Returns:
+        ``(injuries, softened_gsis_ids)``; the input is never mutated.
+    """
+    needed = {"gsis_id", "report_status", "roster_designation"}
+    if (
+        injuries_df is None
+        or injuries_df.empty
+        or consensus_df is None
+        or consensus_df.empty
+        or n_official >= max_official
+        or not needed <= set(injuries_df.columns)
+        or not {"player_id", "projected_points"} <= set(consensus_df.columns)
+    ):
+        return injuries_df, []
+    backed = set(
+        consensus_df.loc[
+            pd.to_numeric(consensus_df["projected_points"], errors="coerce")
+            >= min_consensus,
+            "player_id",
+        ].astype(str)
+    )
+    stale = (
+        injuries_df["report_status"].eq("Out")
+        & injuries_df["roster_designation"].eq(False)
+        & injuries_df["gsis_id"].astype(str).isin(backed)
+    )
+    if not stale.any():
+        return injuries_df, []
+    return (
+        injuries_df.loc[~stale].copy(),
+        sorted(injuries_df.loc[stale, "gsis_id"].astype(str).unique()),
+    )
+
+
+def apply_unconfirmed_out_discount(
+    projections_df: pd.DataFrame,
+    gsis_ids: Sequence[str],
+    multiplier: float = UNCONFIRMED_OUT_MULTIPLIER,
+) -> pd.DataFrame:
+    """Price the players :func:`soften_unconfirmed_outs` released at ``multiplier``.
+
+    Run on the finished board (after every blend and the injury invariant):
+    ``projected_points`` and the ``proj_*`` stat columns are scaled, the
+    status becomes :data:`UNCONFIRMED_OUT_STATUS`, ``injury_multiplier`` the
+    multiplier and ``injury_unconfirmed`` True. The floor drops to 0 (he may not
+    play) and the ceiling stays at his healthy ceiling (if he does, he is a
+    starter), so the band describes the real either/or. Rows at zero are left
+    alone: a player the board has no basis for has nothing to discount.
+
+    Args:
+        projections_df: Finished weekly board with ``injury_status``,
+            ``injury_multiplier`` and ``injury_unconfirmed`` columns.
+        gsis_ids: Ids returned by :func:`soften_unconfirmed_outs`.
+        multiplier: Play-probability multiplier.
+
+    Returns:
+        A copy of the board.
+    """
+    df = projections_df.copy()
+    if "injury_unconfirmed" not in df.columns:
+        df["injury_unconfirmed"] = False
+    if not len(gsis_ids) or df.empty or "projected_points" not in df.columns:
+        return df
+    key = "gsis_id" if "gsis_id" in df.columns else "player_id"
+    hit = df[key].astype(str).isin({str(g) for g in gsis_ids}) & (
+        df["projected_points"] > 0
+    )
+    if not hit.any():
+        return df
+    cols = [
+        c
+        for c in df.columns
+        if (c.startswith("proj_") and c not in ("proj_season", "proj_week"))
+        or c == "projected_points"
+    ]
+    df.loc[hit, cols] = (df.loc[hit, cols] * multiplier).round(2)
+    if "projected_floor" in df.columns:
+        df.loc[hit, "projected_floor"] = 0.0
+    df.loc[hit, "injury_status"] = UNCONFIRMED_OUT_STATUS
+    df.loc[hit, "injury_multiplier"] = multiplier
+    df.loc[hit, "injury_unconfirmed"] = True
+    return df
+
+
 def apply_injury_adjustments(
     projections_df: pd.DataFrame,
     injuries_df: pd.DataFrame,
@@ -2787,6 +2936,7 @@ def apply_injury_adjustments(
     df = projections_df.copy()
     df["injury_status"] = "Active"
     df["injury_multiplier"] = 1.0
+    df["injury_unconfirmed"] = False
 
     if injuries_df is None or injuries_df.empty:
         logger.info("No injury data provided; all players treated as Active")

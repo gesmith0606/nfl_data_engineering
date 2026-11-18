@@ -37,6 +37,9 @@ from projection_engine import (  # noqa: E402
     apply_injury_adjustments,
     live_injury_report,
     merge_injury_sources,
+    soften_unconfirmed_outs,
+    apply_unconfirmed_out_discount,
+    UNCONFIRMED_OUT_MULTIPLIER,
     apply_sentiment_adjustments,
     apply_event_adjustments,
     load_latest_sentiment,
@@ -52,6 +55,7 @@ from scoring_calculator import list_scoring_formats  # noqa: E402
 from utils import download_latest_parquet, latest_parquet_per_dir  # noqa: E402
 from sleeper_consensus_anchor import (  # noqa: E402
     SUPPORTED_POSITIONS as SUPPORTED_CONSENSUS_ANCHOR_POSITIONS,
+    _load_sleeper_week,
     apply_sleeper_anchors,
     resolve_sleeper_anchor_configs,
 )
@@ -757,6 +761,7 @@ def main():
         ),
     )
     args = parser.parse_args()
+    unconfirmed_ids = []  # filled by the weekly injury step
 
     if not args.preseason and not args.week:
         parser.error(
@@ -1684,6 +1689,24 @@ def main():
                     f"Injury sources: {n_official:,} official week-{args.week} "
                     f"verdicts + {n_live:,} live Sleeper designations"
                 )
+                # Before Friday's report the only Out tags are Sleeper's, and
+                # Sleeper's tag is the LAST game's ruling. A tag on a player
+                # the week's consensus still projects (>= 5) is released here
+                # and priced at a play-probability multiplier on the FINISHED
+                # board instead of a zero (38% of such players played; see
+                # projection_engine.UNCONFIRMED_OUT_*). Roster designations,
+                # official verdicts and players the consensus has written off
+                # stay zero.
+                consensus_wk = pd.concat(
+                    [
+                        _load_sleeper_week(args.season, args.week, pos)
+                        for pos in SUPPORTED_CONSENSUS_ANCHOR_POSITIONS
+                    ],
+                    ignore_index=True,
+                )
+                injuries_df, unconfirmed_ids = soften_unconfirmed_outs(
+                    injuries_df, consensus_wk, n_official
+                )
             projections = apply_injury_adjustments(projections, injuries_df)
             injured = (projections["injury_multiplier"] < 1.0).sum()
             print(f"Injury adjustments applied: {injured} players affected")
@@ -2393,6 +2416,25 @@ def main():
                     f"Injury invariant: re-zeroed {resurrected} sidelined "
                     "player(s) revived by a later blend"
                 )
+
+    # --- unconfirmed-Out discount ------------------------------------------
+    # The players soften_unconfirmed_outs released from the injury step (a
+    # Sleeper Out tag, no official week-W status yet, consensus >= 5) were run
+    # through every blend as healthy, so the Sleeper anchor ranked them like the
+    # consensus does. Price the play probability on the finished number.
+    if not args.preseason and not projections.empty:
+        projections = apply_unconfirmed_out_discount(projections, unconfirmed_ids)
+        if projections["injury_unconfirmed"].any():
+            soft = projections[projections["injury_unconfirmed"]]
+            print(
+                f"Unconfirmed Out (Sleeper tag, no official week-{args.week} "
+                f"status yet): {len(soft)} player(s) at "
+                f"{UNCONFIRMED_OUT_MULTIPLIER}x instead of 0: "
+                + ", ".join(
+                    f"{r.player_name} ({r.position}) {r.projected_points:.1f}"
+                    for r in soft.itertuples()
+                )
+            )
 
     # Apply ranking scores (ordering nudges from graph features). This step
     # adds a 'ranking_score' column used ONLY for position_rank / overall_rank

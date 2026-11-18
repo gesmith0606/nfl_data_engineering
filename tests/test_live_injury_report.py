@@ -60,7 +60,7 @@ def test_healthy_and_idless_players_are_dropped():
 def test_empty_registry_yields_empty_frame_with_schema():
     df = live_injury_report({})
     assert df.empty
-    assert list(df.columns) == ["gsis_id", "report_status"]
+    assert list(df.columns) == ["gsis_id", "report_status", "roster_designation"]
 
 
 def test_junk_entries_are_skipped():
