@@ -1508,7 +1508,7 @@ export function MatchupView() {
                         <span>
                           Model {clearsBreakEven(prediction.pick_cover_prob) ? 'picks' : 'leans'}{' '}
                           <span className='text-white/80 font-medium'>{prediction.ats_pick}</span>
-                          {prediction.pick_cover_prob !== null
+                          {typeof prediction.pick_cover_prob === 'number'
                             ? ` — ${formatCoverProb(prediction.pick_cover_prob)}`
                             : ` — ${Math.abs(prediction.spread_edge).toFixed(1)}pt spread edge`}
                         </span>
