@@ -549,6 +549,7 @@ def run_backtest(
     wind_adjust_shrink: float = 0.0539,
     fresh_rolling: bool = True,
     include_bye_returns: bool = True,
+    residual_coverage_ratio: float = 0.0,
     no_dispersion_shrink: bool = False,
     dispersion_shrink_k: float = DISPERSION_SHRINK_FACTOR,
 ) -> pd.DataFrame:
@@ -610,6 +611,9 @@ def run_backtest(
         fresh_rolling: Week W uses games 1..W-1 instead of stopping at W-2
             (default True, SHIPPED; ``--no-fresh-rolling`` reproduces the
             pre-fix double lag — see ``.planning/WEEKLY_DOUBLE_LAG_GATE.md``).
+        residual_coverage_ratio: Serve-time feature-coverage guard for the
+            hybrid residuals (see ``residual_coverage``); 0 (default) leaves the
+            backtest measuring the un-guarded model, as it always has.
         include_bye_returns: Also project players whose team was on bye in
             W-1 (default True; ``--no-bye-returns`` restores the old drop).
         wind_adjust: Apply the high-wind QB/WR/TE bias-shrink lever (see
@@ -989,6 +993,7 @@ def run_backtest(
                         route_df=route_df,
                         fresh_rolling=fresh_rolling,
                         include_bye_returns=include_bye_returns,
+                        coverage_min_ratio=residual_coverage_ratio or None,
                     )
                 else:
                     projections = generate_weekly_projections(
@@ -1618,6 +1623,17 @@ def main():
         ),
     )
     parser.add_argument(
+        "--residual-coverage-ratio",
+        type=float,
+        default=0.0,
+        help=(
+            "With --ml: skip a hybrid position's residual when its serve-time "
+            "feature matrix is less than this fraction as populated as at "
+            "training (production uses residual_coverage.MIN_RATIO = 0.70). "
+            "0 (default) = guard off, the historical backtest behaviour."
+        ),
+    )
+    parser.add_argument(
         "--no-bye-returns",
         action="store_true",
         help=(
@@ -1745,6 +1761,7 @@ def main():
         wind_adjust_shrink=args.wind_adjust_shrink,
         fresh_rolling=not args.no_fresh_rolling,
         include_bye_returns=not args.no_bye_returns,
+        residual_coverage_ratio=args.residual_coverage_ratio,
         no_dispersion_shrink=args.no_dispersion_shrink,
         dispersion_shrink_k=args.dispersion_shrink_k,
     )
