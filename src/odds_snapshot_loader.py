@@ -79,6 +79,7 @@ _SPREAD_OUTPUT_COLS = [
     "close_spread",
     "n_books_open",
     "n_books_close",
+    "open_days_before_kickoff",
 ]
 
 _TOTAL_OUTPUT_COLS = [
@@ -89,6 +90,7 @@ _TOTAL_OUTPUT_COLS = [
     "close_total",
     "n_books_open",
     "n_books_close",
+    "open_days_before_kickoff",
 ]
 
 
@@ -187,6 +189,7 @@ def _coerce_timestamps(df: pd.DataFrame) -> pd.DataFrame:
 def _derive_open_close(
     game_df: pd.DataFrame,
     line_col: str,
+    open_within_days: Optional[float] = None,
 ) -> dict:
     """Compute open-proxy and close consensus for one game × one market.
 
@@ -194,22 +197,36 @@ def _derive_open_close(
     (by ``snapshot_ts``).  The close is the median across bookmakers of the
     *last pre-kickoff* snapshot.
 
+    ``open_within_days`` restricts which snapshots may serve as the open to
+    those within that many days of kickoff.  Without it the open is the first
+    snapshot ever captured for the game, which on the 2026 capture history sits
+    a **median 109 days before kickoff** — a summer futures price, not an
+    opener anybody could bet in the game week.  See
+    ``.planning/OPEN_PROXY_VALIDATION_2026_10_25.md``: measuring capture across
+    that window carries sd 3.20 pts, versus 1.32 inside 7 days.
+
     Args:
         game_df: Filtered DataFrame for one game (one ``game_id_ext``), one
             market, already sorted ascending by ``snapshot_ts``.  Must have
             ``snapshot_ts``, ``commence_time``, and ``line_col`` columns.
         line_col: Column name containing the numeric line value
             (``"home_spread"`` or ``"total_points"``).
+        open_within_days: When set, only snapshots at most this many days
+            before kickoff may be the open.  ``None`` (default) keeps the
+            historical behaviour of taking the first snapshot ever captured.
 
     Returns:
         Dict with keys ``open_line``, ``close_line``, ``n_books_open``,
-        ``n_books_close``.  Values are NaN when data is unavailable.
+        ``n_books_close``, ``open_days_before_kickoff``.  Values are NaN when
+        data is unavailable.  The close is always derived from the full
+        pre-kickoff history, so narrowing the open window never costs a close.
     """
     empty: dict = {
         "open_line": float("nan"),
         "close_line": float("nan"),
         "n_books_open": 0,
         "n_books_close": 0,
+        "open_days_before_kickoff": float("nan"),
     }
 
     valid = game_df.dropna(subset=[line_col, "snapshot_ts", "commence_time"])
@@ -227,24 +244,38 @@ def _derive_open_close(
         )
         return empty
 
-    # First snapshot timestamp (open-proxy).
-    first_ts = pre_kick["snapshot_ts"].min()
-    open_rows = pre_kick[pre_kick["snapshot_ts"] == first_ts]
-
-    # Last snapshot timestamp (close-proxy).
+    # Last snapshot timestamp (close-proxy).  Always the full history.
     last_ts = pre_kick["snapshot_ts"].max()
     close_rows = pre_kick[pre_kick["snapshot_ts"] == last_ts]
-
-    open_line = float(open_rows[line_col].median())
     close_line = float(close_rows[line_col].median())
-    n_books_open = int(open_rows[line_col].notna().sum())
     n_books_close = int(close_rows[line_col].notna().sum())
 
+    # Open candidates, optionally restricted to the betting week.
+    open_candidates = pre_kick
+    if open_within_days is not None:
+        cutoff = commence - pd.Timedelta(days=float(open_within_days))
+        open_candidates = pre_kick[pre_kick["snapshot_ts"] >= cutoff]
+
+    if open_candidates.empty:
+        # No price inside the window.  Returning NaN excludes the game from
+        # capture rather than substituting a price nobody could have bet.
+        return {
+            "open_line": float("nan"),
+            "close_line": close_line,
+            "n_books_open": 0,
+            "n_books_close": n_books_close,
+            "open_days_before_kickoff": float("nan"),
+        }
+
+    first_ts = open_candidates["snapshot_ts"].min()
+    open_rows = open_candidates[open_candidates["snapshot_ts"] == first_ts]
+
     return {
-        "open_line": open_line,
+        "open_line": float(open_rows[line_col].median()),
         "close_line": close_line,
-        "n_books_open": n_books_open,
+        "n_books_open": int(open_rows[line_col].notna().sum()),
         "n_books_close": n_books_close,
+        "open_days_before_kickoff": (commence - first_ts).total_seconds() / 86400.0,
     }
 
 
@@ -252,6 +283,7 @@ def load_open_close_lines(
     season: int,
     market: str = "spreads",
     snapshot_dir: Optional[str] = None,
+    open_within_days: Optional[float] = None,
 ) -> pd.DataFrame:
     """Derive per-game open-proxy and close consensus lines from Bronze snapshots.
 
@@ -265,6 +297,15 @@ def load_open_close_lines(
         market: ``"spreads"`` or ``"totals"``.
         snapshot_dir: Path to the Bronze snapshots root directory.  Defaults to
             ``data/bronze/odds_api/snapshots`` relative to the project root.
+        open_within_days: When set, the open must be a snapshot taken at most
+            this many days before kickoff.  ``None`` (default) preserves the
+            historical behaviour — the first snapshot EVER captured, which on
+            2026 data is a median 109 days out and is therefore a futures
+            price, not a betting-week opener.  Pass ``7`` for line-capture
+            work; see ``.planning/OPEN_PROXY_VALIDATION_2026_10_25.md``, which
+            shows every one of the 93 settled 2026 games still has a snapshot
+            (median 16, 8 of 9 books) inside 7 days, so the narrower window
+            costs no sample.
 
     Returns:
         DataFrame keyed on ``(home_team_nfl, away_team_nfl)`` with columns
@@ -275,6 +316,8 @@ def load_open_close_lines(
             - ``open_spread``: consensus open-proxy home spread.
             - ``close_spread``: consensus closing home spread.
             - ``n_books_open``, ``n_books_close``: bookmaker counts.
+            - ``open_days_before_kickoff``: how far out the open was taken, so
+              a stale open is visible rather than implicit.
 
         Totals market:
             - ``home_team_nfl``, ``away_team_nfl``, ``commence_time``
@@ -323,7 +366,9 @@ def load_open_close_lines(
 
     rows: List[dict] = []
     for game_id_ext, game_df in market_df.groupby("game_id_ext", sort=False):
-        result = _derive_open_close(game_df, line_col)
+        result = _derive_open_close(
+            game_df, line_col, open_within_days=open_within_days
+        )
 
         # Carry through team identity from any row in the group.
         first_row = game_df.iloc[0]
@@ -335,6 +380,7 @@ def load_open_close_lines(
             close_key: result["close_line"],
             "n_books_open": result["n_books_open"],
             "n_books_close": result["n_books_close"],
+            "open_days_before_kickoff": result["open_days_before_kickoff"],
         })
 
     if not rows:
