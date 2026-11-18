@@ -1677,6 +1677,38 @@ def _join_ftn_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     return df
 
 
+def _build_pbp_advanced_in_memory(season: int) -> pd.DataFrame:
+    """Compute Silver-equivalent pbp_advanced rows straight from Bronze PBP.
+
+    ``build_pbp_advanced_silver`` has no caller in any script or workflow (it was
+    a one-off manual build for 2016-2025), so the current season's
+    ``data/silver/players/pbp_advanced`` partition never exists and every
+    pbp_advanced feature (e.g. the RB model's ``deep_target_share_roll4``) was
+    0% populated live. Bronze PBP *is* ingested every Tuesday on the runner, so
+    when the Silver file is missing build the same frame in memory. Fail-open:
+    an empty frame leaves the columns NaN exactly as before.
+    """
+    try:
+        from pbp_advanced_features import (
+            add_pbp_advanced_trailing_features,
+            compute_pbp_advanced_player_week,
+        )
+
+        raw = compute_pbp_advanced_player_week(season, bronze_dir=BRONZE_DIR)
+        if raw is None or raw.empty:
+            return pd.DataFrame()
+        out = add_pbp_advanced_trailing_features(raw)
+        logger.info(
+            "pbp_advanced Silver missing for %d: built %d rows in memory from Bronze PBP",
+            season,
+            len(out),
+        )
+        return out
+    except Exception as exc:  # noqa: BLE001 - never kill feature assembly
+        logger.warning("Could not build pbp_advanced in memory for %d: %s", season, exc)
+        return pd.DataFrame()
+
+
 def _join_pbp_advanced_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
     """Left-join PBP-advanced trailing features if available (2016+).
 
@@ -1712,6 +1744,8 @@ def _join_pbp_advanced_features(df: pd.DataFrame, season: int) -> pd.DataFrame:
             logger.info("Loaded Silver pbp_advanced features from %s", adv_files[-1])
         except Exception as exc:
             logger.warning("Failed to read Silver pbp_advanced features: %s", exc)
+    if not adv_files:
+        adv_df = _build_pbp_advanced_in_memory(season)
 
     join_cols = ["player_id", "season", "week"]
     if not adv_df.empty:

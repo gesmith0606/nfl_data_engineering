@@ -39,6 +39,14 @@ from ranking_score import (
 # ---------------------------------------------------------------------------
 
 
+@pytest.fixture(autouse=True)
+def _nudge_enabled(monkeypatch):
+    """The shipped default is OFF (2026-11-16: no-op live, gate missed); these
+    tests exercise the mechanism, so switch it on. Tests that care about the
+    flag set it themselves."""
+    monkeypatch.setattr(rs, "USE_RANKING_SCORE", True)
+
+
 def _make_projections(n: int = 6, position: str = "WR") -> pd.DataFrame:
     """Minimal projections DataFrame with the required columns."""
     return pd.DataFrame(

@@ -1,0 +1,72 @@
+{
+  "batch_id": "debdf89b",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-17T12:20:23.496808+00:00",
+  "record_count": 7,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-will-participate-in-senior-day-but-wont-comment-on-his-future",
+      "player_name": "Arch Manning",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Texas QB Arch Manning participates in Senior Day but remains silent on NFL draft decision.",
+      "source_excerpt": "Texas quarterback Arch Manning concludes his fourth slate of home games with the Longhorns on Saturday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "fb65f3d6-8d5f-377a-94a2-3be7c05997e2",
+      "player_name": "Kaelon Black",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Kaelon Black highlighted as top waiver wire target for Week 11 fantasy football.",
+      "source_excerpt": "Cam Ward, Kaelon Black, and Jordyn Tyson highlight the top waiver wire fantasy football targets entering Week 11",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "fb65f3d6-8d5f-377a-94a2-3be7c05997e2",
+      "player_name": "Jordyn Tyson",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Jordyn Tyson highlighted as top waiver wire target for Week 11 fantasy football.",
+      "source_excerpt": "Cam Ward, Kaelon Black, and Jordyn Tyson highlight the top waiver wire fantasy football targets entering Week 11",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "44bc1a18-0430-39b3-ac85-24712eb14bbb",
+      "player_name": "Hollywood Brown",
+      "team_abbr": "KC",
+      "category": "general",
+      "summary": "Former Chiefs WR Hollywood Brown clears waivers, indicating no other team claimed him.",
+      "source_excerpt": "Chiefs News: Former Chiefs WR Hollywood Brown clears waivers.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "6e91ac93-5d47-3b57-8733-8094578782f1",
+      "player_name": "Dominic Zvada",
+      "team_abbr": "NYG",
+      "category": "general",
+      "summary": "Giants headline mentions Dominic Zvada among 5 key players for playoff run.",
+      "source_excerpt": "Giants news: 5 key Giants for playoff run, Dominic Zvada, more.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "7cff7dd5-5414-3cfa-96ac-6620136ab205",
+      "player_name": "Kaelon Black",
+      "team_abbr": "SF",
+      "category": "general",
+      "summary": "49ers rookie Kaelon Black developed into RB partner with Christian McCaffrey in elite run game.",
+      "source_excerpt": "The San Francisco 49ers' run game is one of the best in the league, thanks to the tandem of Christian McCaffrey and rookie Kaelon Black.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/arch-manning-will-participate-in-senior-day-but-wont-comment-on-his-future",
+      "player_name": "Arch Manning",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Texas QB Arch Manning will participate in Senior Day but remains silent on NFL future plans.",
+      "source_excerpt": "Texas quarterback Arch Manning concludes his fourth slate of home games with the Longhorns on Saturday.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

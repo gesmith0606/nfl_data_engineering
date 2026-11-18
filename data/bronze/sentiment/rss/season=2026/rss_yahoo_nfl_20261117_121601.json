@@ -1,0 +1,782 @@
+{
+  "fetch_run_id": "d540cb3c-88bd-47a4-9143-154c889192ea",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-17T12:16:01.977505+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "a2c3aecc-01a9-3c62-85f3-a2f4c391fd6c",
+      "url": "https://sports.yahoo.com/articles/could-bills-sign-suddenly-available-120424836.html",
+      "title": "Could the Bills sign this suddenly available veteran WR?",
+      "body_text": "The former first-round pick has cleared waivers",
+      "author": "",
+      "published_at": "2026-11-17T12:04:24+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "2659910d-af2c-304b-ae6b-b570c60094db",
+      "url": "https://sports.yahoo.com/articles/poll-team-win-nfc-north-120326811.html",
+      "title": "POLL: Which team will win the NFC North?",
+      "body_text": "After Week 10, there’s a three-way tie in the NFC North. Which team will walk away with the division title?",
+      "author": "",
+      "published_at": "2026-11-17T12:03:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "After Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "160a384a-d44f-3591-9049-756f55c1b189",
+      "url": "https://sports.yahoo.com/articles/bengals-tuesday-trenches-statement-made-120000953.html",
+      "title": "Bengals Tuesday Trenches: A statement made, a trap incoming",
+      "body_text": "The Cincinnati Bengals beat the Pittsburgh Steelers in Week 10. No. The Cincinnati Bengals beat the Pittsburgh Steelers in Week 10 on Sunday Night Football. Still no. The Cincinnati Bengals absolutely dominated the Pittsburgh Steelers in Week 10 on Sunday Night Football and took firm control of the AFC North! There it is! This wasn’t […]",
+      "author": "",
+      "published_at": "2026-11-17T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Tuesday",
+        "The Cincinnati",
+        "Pittsburgh Steelers",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "2c1b5b56-8983-3ec1-858f-8d9e074d3980",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-nyj-aggressive-120000040.html",
+      "title": "New York Jets News: NYJ to be Aggressive in HC Trade Market?",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-17T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Trade Market"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "2f0a9027-f963-3e80-9691-321632f9f613",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-dallas-t-even-120000899.html",
+      "title": "Cowboys news: Dallas can’t even take a moral victory from 49ers game",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-17T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "8599f9c0-afdb-338f-816f-142d8fecf0db",
+      "url": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-120000163.html",
+      "title": "Tampa Bay Buccaneers news: Bucs have tough matchup vs. Lions, but there’s hope",
+      "body_text": "The Tampa Bay Buccaneers are facing off against the Detroit Lions in Week 11.",
+      "author": "",
+      "published_at": "2026-11-17T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tampa Bay",
+        "The Tampa",
+        "Bay Buccaneers",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "9d4f74ac-697a-3edc-afd2-a3cd52b780e5",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-growth-shows-120000213.html",
+      "title": "Tennessee Titans news: Growth shows after loss vs. Jaguars",
+      "body_text": "The Tennessee Titans are looking at the positives after losing to the Jacksonville Jaguars.",
+      "author": "",
+      "published_at": "2026-11-17T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "Jaguars The",
+        "Jacksonville Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "fb65f3d6-8d5f-377a-94a2-3be7c05997e2",
+      "url": "https://sports.yahoo.com/articles/best-week-11-fantasy-football-120000130.html",
+      "title": "Best Week 11 fantasy football waiver wire pickups at QB, RB, WR, TE",
+      "body_text": "Cam Ward, Kaelon Black, and Jordyn Tyson highlight the top waiver wire fantasy football targets entering Week 11",
+      "author": "",
+      "published_at": "2026-11-17T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Best Week",
+        "Cam Ward",
+        "Kaelon Black",
+        "Jordyn Tyson"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "0a14fb2d-d0fc-3e4b-b01e-d66c3e38f195",
+      "url": "https://sports.yahoo.com/articles/washington-offensive-identity-beginning-shape-114919869.html",
+      "title": "Washington’s offensive identity is beginning to take shape|Commanders Film Session",
+      "body_text": "Film session breaking down the development of Washington’s offense",
+      "author": "",
+      "published_at": "2026-11-17T11:49:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Commanders Film",
+        "Session Film"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "262cd82b-5867-307e-84a3-710f96420257",
+      "url": "https://sports.yahoo.com/articles/terps-nfl-week-10-stefon-114000079.html",
+      "title": "Terps in the NFL Week 10: Stefon Diggs scores in victory to keep Commanders season alive",
+      "body_text": "Diggs’ last-minute catch-and-run score sealed the deal in a crucial win for Washington.",
+      "author": "",
+      "published_at": "2026-11-17T11:40:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "08b9456e-702b-32fc-9d67-69f816ecd054",
+      "url": "https://sports.yahoo.com/articles/jim-harbaugh-finally-getting-win-113200292.html",
+      "title": "Jim Harbaugh on finally getting a win: &quot;Let's do it every week&quot;",
+      "body_text": "Before the season, many expected the Chargers not only to get back to the playoffs for the third straight year but to finally make some noise.",
+      "author": "",
+      "published_at": "2026-11-17T11:32:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jim Harbaugh"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "b5e8c0f5-a93b-35ab-97c1-5109783e21b6",
+      "url": "https://sports.yahoo.com/articles/kyle-hamilton-ravens-disgracing-standards-111546238.html",
+      "title": "Kyle Hamilton: Ravens are &quot;disgracing&quot; their &quot;standards&quot;",
+      "body_text": "The Ravens wore all black on Monday night.",
+      "author": "",
+      "published_at": "2026-11-17T11:15:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyle Hamilton",
+        "The Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0038038"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "b072f192-f561-3a1f-8b73-348ec6984812",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-110529106.html",
+      "title": "Fantasy football Start ‘Em, Sit ‘Em: 16 players to start or sit in Week 11",
+      "body_text": "USA TODAY Sports breaks down eight players to start and eight players to sit ahead of Week 11 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-11-17T11:05:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "58fd7b85-d4c9-3026-b108-630555e4d8aa",
+      "url": "https://sports.yahoo.com/articles/team-win-super-bowl-season-110450954.html",
+      "title": "Can your team win the Super Bowl this season? Ranking NFL contenders, pretenders by tier",
+      "body_text": "The NFL is wide open this season. What does that mean for your favorite team's chances of winning the Super Bowl?",
+      "author": "",
+      "published_at": "2026-11-17T11:04:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "6689afb4-e409-359f-99f7-fab23ae6e326",
+      "url": "https://sports.yahoo.com/articles/patriots-fall-afc-playoff-picture-174210254.html",
+      "title": "Patriots playoff chances take a massive hit in Week 10",
+      "body_text": "Assessing the AFC standings and playoff picture after the Patriots’ loss on Sunday.",
+      "author": "",
+      "published_at": "2026-11-17T11:00:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "44bc1a18-0430-39b3-ac85-24712eb14bbb",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-former-chiefs-wr-110000123.html",
+      "title": "Chiefs News: Former Chiefs WR Hollywood Brown clears waivers",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-17T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Former Chiefs",
+        "Hollywood Brown"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "6e91ac93-5d47-3b57-8733-8094578782f1",
+      "url": "https://sports.yahoo.com/articles/giants-news-5-key-giants-110000409.html",
+      "title": "Giants news: 5 key Giants for playoff run, Dominic Zvada, more",
+      "body_text": "New York Giants headlines for Tuesday.",
+      "author": "",
+      "published_at": "2026-11-17T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dominic Zvada",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "8670941b-ec9c-3074-a124-1e3116caa264",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-back-practice-110000604.html",
+      "title": "The Bear’s Den: Bears back at practice with Monangai, Burden",
+      "body_text": "The first post-bye week practice is in the books, and both Kyle Monangai and Luther Burden III were full participants.",
+      "author": "",
+      "published_at": "2026-11-17T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Burden The",
+        "Kyle Monangai",
+        "Luther Burden III"
+      ],
+      "resolved_player_ids": [
+        "00-0040236",
+        "00-0040735"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "ac081637-0d1b-340c-9660-d815d70ed67b",
+      "url": "https://sports.yahoo.com/articles/bengals-news-cincinnati-playoff-odds-110000795.html",
+      "title": "Bengals News: Cincinnati’s playoff odds are surging",
+      "body_text": "The league is on notice.",
+      "author": "",
+      "published_at": "2026-11-17T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "d3b7a6d1-bc6e-3824-a3fa-478d4233b88d",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-looking-ahead-110000261.html",
+      "title": "Cleveland Browns news: Looking ahead to a stress-free week",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 17 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-17T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "46bca1df-5c04-3a7c-9d3f-aea9cc40cc61",
+      "url": "https://sports.yahoo.com/articles/nfl-power-rankings-week-11-105531497.html",
+      "title": "NFL power rankings Week 11: 49ers remain No. 1, but who is AFC's best team?",
+      "body_text": "After winning their fifth in a row, the Bengals cracked the top five − but how high did they land?",
+      "author": "",
+      "published_at": "2026-11-17T10:55:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "630579f5-3dce-3437-896b-895880372697",
+      "url": "https://sports.yahoo.com/articles/bills-chiefs-both-favored-16-101551295.html",
+      "title": "Bills and Chiefs both favored by 16.5 on Sunday, biggest point spreads of the season",
+      "body_text": "The Bills and Chiefs are scheduled for a Thanksgiving night showdown, but before that they each have a game on Sunday.",
+      "author": "",
+      "published_at": "2026-11-17T10:15:51+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "3d5c4892-3ee6-3025-8e00-bbb6b94e82cd",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-minnesota-100200477.html",
+      "title": "Golden Nuggets: We’re on to Minnesota",
+      "body_text": "Your daily San Francisco 49ers news for Tuesday, November 17th, 2026",
+      "author": "",
+      "published_at": "2026-11-17T10:02:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Minnesota Your",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "d5909a19-d13e-39c7-ac93-da28b50fd016",
+      "url": "https://sports.yahoo.com/articles/jets-vs-chargers-opening-odds-080000086.html",
+      "title": "Jets vs. Chargers Opening Odds: Bolts favored in Week 11",
+      "body_text": "The Los Angeles Chargers are turning the page to their next game against the New York Jets.",
+      "author": "",
+      "published_at": "2026-11-17T08:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chargers Opening",
+        "The Los",
+        "Angeles Chargers",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "6e739710-0568-336b-854d-f01909a24a71",
+      "url": "https://sports.yahoo.com/articles/chargers-nightmare-temporarily-ends-mnf-062554657.html",
+      "title": "Chargers' nightmare temporarily ends on MNF, but does it change anything?",
+      "body_text": "The Los Angeles Chargers secured their first win of the season on &quot;Monday Night Football,&quot; and have another chance at success on a short week.",
+      "author": "",
+      "published_at": "2026-11-17T06:25:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Los",
+        "Angeles Chargers",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "66e765ae-d590-30c4-bf74-4eabc96eb95a",
+      "url": "https://sports.yahoo.com/articles/chargers-join-exclusive-club-win-053527266.html",
+      "title": "Chargers join exclusive club with win over Ravens that Eagles fans won’t be happy about",
+      "body_text": "The Chargers not only picked up their first win of the season, they did it on Monday Night Football.",
+      "author": "",
+      "published_at": "2026-11-17T05:35:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chargers",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c75b4eb2-c1c9-34e0-b87f-6a6b1001d74a",
+      "url": "https://sports.yahoo.com/articles/ravens-reach-low-primetime-loss-053015346.html",
+      "title": "Ravens reach new low in primetime loss to previously-winless Chargers",
+      "body_text": "The Ravens gifted the Chargers with their first win of the 2026 season.",
+      "author": "",
+      "published_at": "2026-11-17T05:30:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chargers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "29063db0-0437-459f-a1f0-b534788b8474",
+      "url": "https://sports.yahoo.com/fantasy/article/post-week-10-peoples-panic-meter-are-the-patriots-finished-051934492.html",
+      "title": "Post-Week 10 People's Panic Meter: Are the Patriots FINISHED?!",
+      "body_text": "The panic levels are rising after another week of shocking and disappointing fantasy performances! Matt Harmon and Justin Boone are back to tackle your biggest fantasy concerns, taking your submissions and determining which players are actually worth panicking over after a subpar Week 10. The two also dive into the top 10 waiver wire targets for Week 11, highlighting the players who could make an immediate impact on your fantasy roster, plus the candidates you should consider dropping as you look to improve your team heading into Week 11.",
+      "author": "Matt Harmon,Justin Boone",
+      "published_at": "2026-11-17T05:19:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Panic Meter",
+        "Matt Harmon",
+        "Justin Boone"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "26bc846b-a48a-38cb-b2ff-679fc29976ca",
+      "url": "https://sports.yahoo.com/articles/steelers-playoff-odds-skyrocket-ravens-051655698.html",
+      "title": "Steelers playoff odds skyrocket after Ravens loss",
+      "body_text": "Steelers playoff odds see significant increase after Ravens loss.",
+      "author": "",
+      "published_at": "2026-11-17T05:16:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "cac05d0c-5d35-4510-b59f-2f6d0b6b558e",
+      "url": "https://sports.yahoo.com/article/week-11-waiver-wire-targets-051333806.html",
+      "title": "Week 11 waiver wire targets",
+      "body_text": "Josh Norris and Joel Smyth highlight the players you need to target on the waiver wire ahead of Week 11.",
+      "author": "Hayden Winks, Josh Norris,Josh Norris,Joel Smyth",
+      "published_at": "2026-11-17T05:13:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Josh Norris",
+        "Joel Smyth"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "9ad1cd29-92a6-311e-a706-9220013cef99",
+      "url": "https://sports.yahoo.com/articles/ravens-report-card-week-10-050931529.html",
+      "title": "Ravens Report Card, Week 10: Poor run defense and costly turnovers doom the Ravens",
+      "body_text": "The Baltimore Ravens dropped their fifth consecutive game on Monday night, losing to the previously winless Los Angeles Chargers by three points (23-20). Here are report card grades for the team’s position groups from another disheartening defeat in Week 10. Quarterback: B- In his debut with the Ravens, Jacoby Brissett wound up airing the ball […]",
+      "author": "",
+      "published_at": "2026-11-17T05:09:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens Report",
+        "Ravens The",
+        "Baltimore Ravens",
+        "Los Angeles",
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "38372794-e77f-3e5a-bcfa-d8964cb11e6c",
+      "url": "https://sports.yahoo.com/articles/12-takeaways-nfl-week-10-044441828.html",
+      "title": "12 takeaways from NFL Week 10",
+      "body_text": "On the Eagles’ Week 11 opponent, the NFC East, a new Texas team to dislike, and much more.",
+      "author": "",
+      "published_at": "2026-11-17T04:44:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "54a9fd1d-7b12-40d7-adf5-ec16f1cc0f06",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-power-rankings-entering-week-11-can-the-browns-keep-winning-in-dramatic-fashion-044135982.html",
+      "title": "NFL Power Rankings entering Week 11: Can the Browns keep winning in dramatic fashion?",
+      "body_text": "The Browns are on a roll in close games, and now their playoff hopes are realistic.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-17T04:41:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "The Browns"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "dba9918e-e130-3795-952a-94c48bed4d3b",
+      "url": "https://sports.yahoo.com/articles/justin-herbert-chargers-break-ravens-043846219.html",
+      "title": "Justin Herbert, Chargers break through. Ravens run nowhere. MNF winners and losers",
+      "body_text": "Justin Herbert helped the Los Angeles Chargers earn their first win of 2026, and dealt the Baltimore Ravens' flickering playoff hopes a fatal blow.",
+      "author": "",
+      "published_at": "2026-11-17T04:38:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Justin Herbert",
+        "Los Angeles",
+        "Baltimore Ravens"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "f5a2183e-41ee-3c82-8bfb-de953e38490b",
+      "url": "https://sports.yahoo.com/articles/xavier-gipson-back-third-stint-043731499.html",
+      "title": "Xavier Gipson back for third stint as Giants returner",
+      "body_text": "Charlie Jones, who was playing through a thumb injury that made it difficult to catch the ball, was released.",
+      "author": "",
+      "published_at": "2026-11-17T04:37:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Xavier Gipson",
+        "Charlie Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0038496",
+        "00-0038576"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "f7774e8b-b070-3271-8281-4513fe85d2ec",
+      "url": "https://sports.yahoo.com/articles/packers-wr-clears-waivers-set-223729244.html",
+      "title": "Packers WR clears waivers, set up for practice squad return",
+      "body_text": "WR Coleman Owen cleared waivers, and the Packers have opened up a roster spot on their practice squad",
+      "author": "",
+      "published_at": "2026-11-17T04:34:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Coleman Owen"
+      ],
+      "resolved_player_ids": [
+        "00-0040352"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "0e83dd7c-d93e-38ea-a646-18829a142cb5",
+      "url": "https://sports.yahoo.com/articles/monday-night-football-chargers-run-043322853.html",
+      "title": "Monday Night Football: Chargers run past Ravens 23-20 for first win of 2026",
+      "body_text": "The Chargers outrushed the Ravens 160 to 16.",
+      "author": "",
+      "published_at": "2026-11-17T04:33:22+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "23fa10dd-ed98-4933-a55d-fc10a032001e",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/2027-nfl-draft-order-titans-take-over-no-1-spot-after-chargers-grab-first-win-of-season-in-week-10-042533879.html",
+      "title": "2027 NFL Draft order: Titans take over No. 1 spot after Chargers grab first win of season in Week 10",
+      "body_text": "The Chargers have now joined the Jets and Titans at just 1-8 on the season.",
+      "author": "Ryan Young",
+      "published_at": "2026-11-16T04:37:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "fc3c04e6-565f-440d-8a21-3967b6dd2f23",
+      "url": "https://sports.yahoo.com/nfl/live/ravens-chargers-score-live-updates-inactives-highlights-stats-where-to-watch-monday-night-football-week-10-235215311.html",
+      "title": "Chargers get their first win as the Ravens' disappointing season gets even worse",
+      "body_text": "Jacoby Brissett had to pass often during his first game as Baltimore's starting quarterback.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-16T23:50:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "2773927a-79e3-3413-af52-eed4e2cb781a",
+      "url": "https://sports.yahoo.com/articles/rex-ryan-politicks-job-cowboys-035625858.html",
+      "title": "Rex Ryan politicks for job with Cowboys",
+      "body_text": "Rex Ryan is plenty of things.",
+      "author": "",
+      "published_at": "2026-11-17T03:56:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rex Ryan",
+        "Cowboys Rex"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "f6dadacc-f078-474a-8f2b-23ae39f66c34",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/cowboys-coach-brian-schottenheimer-again-declines-to-support-dc-christian-parker-after-struggles-brutal-loss-to-49ers-034748804.html",
+      "title": "Cowboys coach Brian Schottenheimer again declines to support DC Christian Parker after struggles, brutal loss to 49ers",
+      "body_text": "Brian Schottenheimer said they are taking a &quot;deep dive&quot; at everything amid their defensive woes.",
+      "author": "Ryan Young",
+      "published_at": "2026-11-17T03:47:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Christian Parker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "72daffd8-fefa-32dd-b9a4-5f56269c2b23",
+      "url": "https://sports.yahoo.com/articles/nfl-honors-moves-thursday-back-032750195.html",
+      "title": "NFL Honors moves from Thursday back to Saturday",
+      "body_text": "The NFL Honors ceremony is on the move, again.",
+      "author": "",
+      "published_at": "2026-11-17T03:27:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saturday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0501d639-e781-3a56-8771-9204f09dcc44",
+      "url": "https://sports.yahoo.com/articles/dolphins-zeek-biggers-set-season-032655788.html",
+      "title": "Dolphins' Zeek Biggers set for season-ending knee surgery",
+      "body_text": "Miami Dolphins defensive lineman Zeek Biggers will undergo season-ending surgery to repair a torn lateral meniscus suffered in Week 10",
+      "author": "",
+      "published_at": "2026-11-17T03:26:55+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zeek Biggers",
+        "Miami Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0040248"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "ee81cf9c-6ab6-3893-aaa0-8124721c7486",
+      "url": "https://sports.yahoo.com/articles/dolphins-dt-zeek-biggers-season-031002998.html",
+      "title": "Dolphins DT Zeek Biggers out for the season with knee injury",
+      "body_text": "Dolphins defensive tackle Zeek Biggers will require season-ending surgery to repair his lateral meniscus, Ian Rapoport of NFL Media reports.",
+      "author": "",
+      "published_at": "2026-11-17T03:10:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zeek Biggers",
+        "Ian Rapoport"
+      ],
+      "resolved_player_ids": [
+        "00-0040248"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "83d207ec-cf11-34ee-8908-a90d4f773f74",
+      "url": "https://sports.yahoo.com/articles/ramalytics-rams-deploy-offensive-wrinkle-030645972.html",
+      "title": "RAMalytics: How will Rams deploy their new offensive wrinkle?",
+      "body_text": "Rams helped their passing game with “pony personnel”. Can they also find momentum in the run game?",
+      "author": "",
+      "published_at": "2026-11-17T03:06:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "7cff7dd5-5414-3cfa-96ac-6620136ab205",
+      "url": "https://sports.yahoo.com/articles/49ers-rookie-kaelon-black-developed-025103805.html",
+      "title": "49ers rookie Kaelon Black has developed RB tandem with Christian McCaffrey",
+      "body_text": "The San Francisco 49ers' run game is one of the best in the league, thanks to the tandem of Christian McCaffrey and rookie Kaelon Black.",
+      "author": "",
+      "published_at": "2026-11-17T02:51:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kaelon Black",
+        "The San"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "f0fe8792-f1cb-3ac3-ac19-74d89da2abde",
+      "url": "https://sports.yahoo.com/articles/monday-night-football-chargers-lead-024944638.html",
+      "title": "Monday Night Football: Chargers lead Ravens 17-10 at halftime",
+      "body_text": "Justin Herbert and Omarion Hampton have touchdown runs for the winless Chargers.",
+      "author": "",
+      "published_at": "2026-11-17T02:49:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Justin Herbert",
+        "Omarion Hampton"
+      ],
+      "resolved_player_ids": [
+        "00-0036355",
+        "00-0040666"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "4254c0d7-162e-3740-861e-d4be1c664d1d",
+      "url": "https://sports.yahoo.com/articles/rams-offensive-line-woes-even-022657741.html",
+      "title": "Rams offensive line woes get even worse with latest injured reserve shakeup",
+      "body_text": "The tail end of the Rams’ season is set to be a brutal stretch for an injured Los Angeles offensive line. Both Rams starting and backup centers, Coleman Shelton and...",
+      "author": "",
+      "published_at": "2026-11-17T02:26:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Los Angeles",
+        "Both Rams",
+        "Coleman Shelton"
+      ],
+      "resolved_player_ids": [
+        "00-0034114"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "6dacd305-cc33-3e63-984c-2f1c3d6d0487",
+      "url": "https://sports.yahoo.com/articles/von-miller-blames-himself-not-021737535.html",
+      "title": "Von Miller blames himself, not the play call, for Christian McCaffrey's late TD",
+      "body_text": "The Cowboys pulled within 38-32 of the 49ers with 3:42 left in the fourth quarter on Sunday.",
+      "author": "",
+      "published_at": "2026-11-17T02:17:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Von Miller",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0027940"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "36391063-689b-3ed2-ab79-b152d3cec14b",
+      "url": "https://sports.yahoo.com/articles/marvin-harrison-jr-estimated-dnp-014209243.html",
+      "title": "Marvin Harrison Jr. estimated as DNP for practice Monday",
+      "body_text": "Houston Texans wide receiver Marvin Harrison Jr. was estimated as a DNP for practice Monday after the team conducted a walkthrough.",
+      "author": "",
+      "published_at": "2026-11-17T01:42:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Marvin Harrison Jr",
+        "Monday Houston"
+      ],
+      "resolved_player_ids": [
+        "00-0039849"
+      ],
+      "team_hint": "HOU"
+    }
+  ]
+}

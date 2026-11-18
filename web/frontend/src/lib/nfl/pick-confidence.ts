@@ -23,8 +23,8 @@ export function formatCoverProb(prob: number): string {
 
 /** Compact form for a badge, e.g. `'52.4%'`. */
 export function formatCoverProbCompact(prob: number | null, spreadEdge: number | null): string {
-  if (prob !== null) return `${(prob * 100).toFixed(1)}%`;
-  if (spreadEdge !== null) return `${Math.abs(spreadEdge).toFixed(1)}pt`;
+  if (typeof prob === 'number') return `${(prob * 100).toFixed(1)}%`;
+  if (typeof spreadEdge === 'number') return `${Math.abs(spreadEdge).toFixed(1)}pt`;
   return '—';
 }
 
@@ -34,7 +34,7 @@ export function formatCoverProbCompact(prob: number | null, spreadEdge: number |
  * Below it we are not claiming an edge, and the UI should not imply one.
  */
 export function clearsBreakEven(prob: number | null): boolean {
-  return prob !== null && prob >= BREAK_EVEN_PROB;
+  return typeof prob === 'number' && prob >= BREAK_EVEN_PROB;
 }
 
 /**
@@ -47,7 +47,7 @@ export function pickConfidenceLabel(
   prob: number | null,
   spreadEdge: number | null
 ): string {
-  if (prob !== null) return formatCoverProb(prob);
-  if (spreadEdge !== null) return `${Math.abs(spreadEdge).toFixed(1)}pt edge`;
+  if (typeof prob === 'number') return formatCoverProb(prob);
+  if (typeof spreadEdge === 'number') return `${Math.abs(spreadEdge).toFixed(1)}pt edge`;
   return '—';
 }

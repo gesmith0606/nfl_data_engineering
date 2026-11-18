@@ -89,7 +89,7 @@ ever shipped, reconcile the two rather than stacking them.
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import Dict, List, Mapping, Optional, Sequence, Tuple, Union
 
 import pandas as pd
 
@@ -101,6 +101,27 @@ SUPPORTED_POSITIONS: Tuple[str, ...] = ("QB", "RB", "WR", "TE")
 #: 1.0 is a no-op; 0.8 is the shipped prior (see the module docstring's
 #: walk-forward table).  Values outside (0, 1] are rejected.
 SHRINK_FACTOR: float = 0.8
+
+#: Per-position shrink factors (the shipped default). Fitted 2026-11-16 by
+#: leave-one-week-out on faithful 2026 w1-9 replay boards (699-column feature
+#: vector, runner-equivalent coverage), scored against ACTUALS on matched cons>=5
+#: rows; ``k`` tried over 0.50-1.00 with the Sleeper anchor at its shipped 0.5:
+#:
+#: * WR -> 1.0 (no shrink): held-out MAE 5.215 -> 5.173 (-0.043, n=542; 95% CI
+#:   [-0.085, -0.002]) and 5.016 -> 4.973 on weeks 6-9 alone (-0.042, n=202,
+#:   CI [-0.112, +0.025]); better in 7 of 9 folds. The WR board is already
+#:   under-dispersed (SD 0.58 x Sleeper's), so pulling it further in over-compresses.
+#: * QB keeps 0.8: k=1.0 was +0.052 worse (CI [-0.043, +0.150]).
+#: * RB, TE keep 0.8: held-out gains of -0.008 / -0.010 with CIs that include 0 and
+#:   a chosen k that wanders 0.9-1.0 by fold = small and mixed, so no change.
+#:
+#: See .planning/PROJECTION_CALIBRATION_FIT_2026_11.md for every fold.
+SHRINK_FACTOR_BY_POSITION: Dict[str, float] = {
+    "QB": SHRINK_FACTOR,
+    "RB": SHRINK_FACTOR,
+    "WR": 1.0,
+    "TE": SHRINK_FACTOR,
+}
 
 #: Minimum projected points for a row to contribute to its position's
 #: centre.  Matches ``consensus_metrics.CONSENSUS_MIN_PTS`` so the centre is
@@ -224,7 +245,7 @@ def _eligible_mask(
 
 def apply_dispersion_shrink(
     proj_df: pd.DataFrame,
-    k: float = SHRINK_FACTOR,
+    k: Union[float, Mapping[str, float], None] = None,
     positions: Sequence[str] = SUPPORTED_POSITIONS,
     points_col: str = "projected_points",
     min_centre_pts: float = MIN_CENTRE_PTS,
@@ -236,7 +257,10 @@ def apply_dispersion_shrink(
 
     Args:
         proj_df: One week's projections with ``position`` and ``points_col``.
-        k: Shrink factor in (0, 1]; 1.0 is an explicit no-op.
+        k: Shrink factor in (0, 1]; 1.0 is an explicit no-op. ``None`` (the
+            default) uses :data:`SHRINK_FACTOR_BY_POSITION`; a float applies to
+            every position; a mapping overrides individual positions and falls
+            back to the per-position defaults for the rest.
         positions: Positions to adjust.
         points_col: Points column, adjusted in place.
         min_centre_pts: Minimum points to contribute to a position's centre.
@@ -260,8 +284,15 @@ def apply_dispersion_shrink(
     Raises:
         ValueError: If ``k`` is outside ``(0, 1]``.
     """
-    if not 0.0 < k <= 1.0:
-        raise ValueError(f"dispersion shrink k must be in (0, 1], got {k!r}")
+    if k is None:
+        k_by_pos: Dict[str, float] = dict(SHRINK_FACTOR_BY_POSITION)
+    elif isinstance(k, Mapping):
+        k_by_pos = {**SHRINK_FACTOR_BY_POSITION, **dict(k)}
+    else:
+        k_by_pos = {pos: float(k) for pos in SUPPORTED_POSITIONS}
+    for pos, kv in k_by_pos.items():
+        if not 0.0 < kv <= 1.0:
+            raise ValueError(f"dispersion shrink k must be in (0, 1], got {kv!r} for {pos}")
 
     proj = proj_df.copy()
     if FLAG_COL not in proj.columns:
@@ -272,7 +303,7 @@ def apply_dispersion_shrink(
         proj.empty
         or "position" not in proj.columns
         or points_col not in proj.columns
-        or k == 1.0
+        or all(k_by_pos.get(p, SHRINK_FACTOR) == 1.0 for p in positions)
     ):
         return proj, stats
 
@@ -299,6 +330,9 @@ def apply_dispersion_shrink(
     )
 
     for pos, centre in centres.items():
+        k = k_by_pos.get(pos, SHRINK_FACTOR)
+        if k == 1.0:
+            continue  # explicit no-op for this position: untouched, unflagged
         mask = eligible & (proj["position"] == pos)
         if not mask.any():
             continue
