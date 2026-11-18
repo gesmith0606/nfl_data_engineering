@@ -26,21 +26,41 @@ from __future__ import annotations
 
 import argparse
 import builtins
+import datetime as dt
 import glob
 import re
 import subprocess
 import time
 import importlib.util
+import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Set, Tuple
+from typing import (
+    AbstractSet,
+    Any,
+    Dict,
+    List,
+    Mapping,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+)
 
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from src import config, league_context, sleeper_http  # noqa: E402
+from src import (  # noqa: E402
+    clearing_model,
+    config,
+    league_context,
+    sleeper_http,
+    waiver_rank,
+    waiver_record,
+)
+from src.espn_league import PRO_TEAM_MAP  # noqa: E402
 from src.lineup_setter import (  # noqa: E402
     SKILL_POSITIONS,
     build_id_maps,
@@ -51,7 +71,11 @@ from src.lineup_setter import (  # noqa: E402
     score_ours,
     score_sleeper_stats,
 )
-from src.sleeper_player_map import load_sleeper_players, normalize_name  # noqa: E402
+from src.sleeper_player_map import (  # noqa: E402
+    _CACHE_PATH as _PLAYERS_CACHE,
+    load_sleeper_players,
+    normalize_name,
+)
 from src.waiver_verdicts import (  # noqa: E402
     NO_HELP,
     STARTS,
@@ -453,8 +477,9 @@ def espn_rivals(
     need: Mapping[str, int],
     bids_by_team: Mapping[str, List[int]],
     room_median: int,
+    playing: Optional[AbstractSet[str]] = None,
 ) -> Dict[str, List[int]]:
-    """Which ESPN rivals are thin at each position AND able to outbid us.
+    """Which ESPN rivals cannot field a position this week AND can outbid us.
 
     The Sleeper branch has had this since the bid model shipped; ESPN had
     nothing, so every site-league bid fell to the room-median floor with a
@@ -496,18 +521,26 @@ def espn_rivals(
         )
         if budget and budget - spent < room_median:
             continue
-        healthy: Dict[str, int] = {}
+        available: Dict[str, int] = {}
         for entry in (team.get("roster") or {}).get("entries") or []:
             player = (entry.get("playerPoolEntry") or {}).get("player") or {}
             pos = _ESPN_POS.get(int(player.get("defaultPositionId") or 0))
             status = str(
                 entry.get("injuryStatus") or player.get("injuryStatus") or ""
             ).upper()
-            if pos and status not in _ESPN_BLOCKED:
-                healthy[pos] = healthy.get(pos, 0) + 1
+            if not pos or status in _ESPN_BLOCKED:
+                continue
+            if playing is not None:
+                abbr = PRO_TEAM_MAP.get(player.get("proTeamId"))
+                if abbr not in playing:
+                    continue
+            available[pos] = available.get(pos, 0) + 1
         median = bids[len(bids) // 2]
         for pos, required in need.items():
-            if healthy.get(pos, 0) <= required:
+            # Nobody to start at all — see thin_at for why neither "lacks a
+            # surplus" nor "short of starters" survived contact with a real
+            # board.
+            if required > 0 and available.get(pos, 0) == 0:
                 out.setdefault(pos, []).append(median)
     return out
 
@@ -571,15 +604,39 @@ def thin_at(
     registry: Mapping[str, Any],
     position: str,
     required: int,
+    playing: Optional[AbstractSet[str]] = None,
 ) -> bool:
-    """Does this team lack a usable surplus at ``position``?
+    """Can this team not put ANYONE on the field at ``position`` this week?
 
-    Counts rostered players at the position who are not on IR/taxi and not
-    carrying a blocking injury status.
+    Counts rostered players at the position who can actually play: not on
+    IR/taxi, not carrying a blocking injury status, and — when ``playing`` is
+    given — not on a bye.
+
+    Two definitions were tried before this one and both over-bid:
+
+    ``healthy <= required`` ("lacks a surplus") is true of nearly every team
+    in a one-QB league by construction. Week 8 2026 it reported three La Liga
+    rivals thin at QB whose quarterbacks all played, and escalated the bid to
+    $14 — a quarter of the budget — for a bye-week fill.
+
+    ``available < required`` ("short of starters") then over-fired in the
+    other direction on multi-slot positions: a Mantis team with two playable
+    wideouts against three WR slots counted as a rival, so a week with four
+    bye teams put most of the league in the market and priced *no-help*
+    wideouts at $94 off the room's dynasty-sized medians.
+
+    What survives is the case where a rival has no choice: nobody to start at
+    all. That team must bid. A team one body short for one week fills from
+    its flex or streams cheaply, and is not who you are bidding against.
+
+    Args:
+        playing: Teams with a game this week. Omit only when the week's
+            kickoffs are unknown; a bye then counts as playable, which is the
+            old, over-counting behaviour.
     """
     reserve = {str(p) for p in (roster.get("reserve") or [])}
     taxi = {str(p) for p in (roster.get("taxi") or [])}
-    healthy = 0
+    available = 0
     for pid in roster.get("players") or []:
         sid = str(pid)
         if sid in reserve or sid in taxi:
@@ -589,8 +646,42 @@ def thin_at(
             continue
         if str(meta.get("injury_status") or "").upper() in BLOCKING_STATUSES:
             continue
-        healthy += 1
-    return healthy <= required
+        if playing is not None and meta.get("team") not in playing:
+            continue
+        available += 1
+    return required > 0 and available == 0
+
+
+CLEARING_FIT_DIR = REPO_ROOT / "data" / "waivers" / "clearing_fit"
+
+
+def load_clearing_model(
+    league: str, season: int, budget: int
+) -> Tuple[clearing_model.ClearingModel, str]:
+    """The league's fitted clearing-price model, or the prior alone -- said aloud.
+
+    The fit is the table of rival claims per tier that
+    ``scripts/backtest_clearing_price.py --write-fit`` writes from the league's
+    own transaction log (failed claims included). A league with no fit gets the
+    published-data prior only, and the report says that is all it is.
+    """
+    path = CLEARING_FIT_DIR / f"{league}_{season}.json"
+    if path.is_file():
+        d = json.loads(path.read_text(encoding="utf-8"))
+        obs = clearing_model.obs_from_json(d["obs"])
+        model = clearing_model.ClearingModel(obs, budget=budget)
+        model.fit_through = int(d["through_week"])
+        return (
+            model,
+            f"fit on {len(obs)} name-weeks through week {d['through_week']}",
+        )
+    prior_only = clearing_model.ClearingModel([], budget=budget)
+    prior_only.fit_through = None
+    return (
+        prior_only,
+        "NO LEAGUE FIT -- published-data prior only "
+        "(run scripts/backtest_clearing_price.py --write-fit)",
+    )
 
 
 def suggest_bid(
@@ -1060,6 +1151,7 @@ def emit_claims(
     open_active: int,
     manual: bool,
     limit: int = 3,
+    dynasty: bool = False,
 ) -> str:
     """Write a claims file for submit_claims.py from the report's own numbers.
 
@@ -1085,11 +1177,21 @@ def emit_claims(
     """
     if path.exists():
         return f"  --emit-claims: {path} already exists, left untouched"
+    # Redraft: only names that help this lineup. Dynasty: a young asset reads
+    # "no help" this week by design, so anything the ranking scored positive
+    # is a candidate. Either way the order is the ranking's, not raw blend.
     worth_claiming = [
-        r for r in fas if r.get("verdict") in (STARTS, BENCH_UP) and not r.get("bye")
+        r
+        for r in fas
+        if not r.get("bye")
+        and (
+            r.get("verdict") in (STARTS, BENCH_UP)
+            or (dynasty and r.get("score", 0) > 0)
+        )
     ]
     picks = sorted(
-        (r for r in worth_claiming if r.get("bid")), key=lambda r: -r["blend"]
+        (r for r in worth_claiming if r.get("bid")),
+        key=lambda r: (-r.get("score", 0), -r["blend"]),
     )[:limit]
     if not picks:
         # Two very different situations used to share one message. On ESPN and
@@ -1113,7 +1215,24 @@ def emit_claims(
             # An open slot costs no player, so the drop list does not advance.
             drop, spare = None, spare - 1
         elif used < len(drops):
-            drop, used = drops[used]["name"], used + 1
+            # A dynasty swap has to be an upgrade somewhere: either the claim
+            # helps my lineup, or the player coming in is worth more than the
+            # one going out. Without this the weakest-DYNASTY-value drop
+            # (DeMario Douglas, 1,187) was offered up for a depth quarterback
+            # worth 979.
+            d = drops[used]
+            if (
+                dynasty
+                and r.get("gain4", 0) <= 0
+                and (r.get("dyn") or 0) <= (d.get("dyn") or 0)
+            ):
+                lines.append(
+                    f"  # {r['name']} ${bid} -- not worth dropping {d['name']} "
+                    f"(dynasty value {r.get('dyn') or 0} vs {d.get('dyn') or 0}, "
+                    "no lineup gain)"
+                )
+                continue
+            drop, used = d["name"], used + 1
         else:
             # No slot and no droppable player left: say so rather than
             # emitting a claim the site would reject.
@@ -1123,7 +1242,9 @@ def emit_claims(
             f"  - {{league: {league}, add: {r['name']}, "
             + (f"drop: {drop}, " if drop else "")
             + f"bid: {bid}, priority: {i}}}"
-            + f"  # {r['verdict']}, {why}"
+            + f"  # {r['verdict']}, "
+            + (f"gain4 {r['gain4']:+.1f}, " if "gain4" in r else "")
+            + why
         )
     header = [
         f"# Week {week} {league} claims — generated by scripts/waiver_wire.py.",
@@ -1135,7 +1256,13 @@ def emit_claims(
             "# Sleeper cannot be filed by script (ToS): enter these in the app."
         )
     path.write_text("\n".join(header + ["claims:"] + lines) + "\n", encoding="utf-8")
-    return f"  --emit-claims: wrote {len(lines)} claims to {path}"
+    n_claims = sum(1 for ln in lines if ln.lstrip().startswith("- {"))
+    skipped = len(lines) - n_claims
+    return f"  --emit-claims: wrote {n_claims} claims to {path}" + (
+        f" ({skipped} candidate(s) left as comments: no drop worth making)"
+        if skipped
+        else ""
+    )
 
 
 def main(argv: Optional[list] = None) -> int:
@@ -1194,7 +1321,38 @@ def main(argv: Optional[list] = None) -> int:
         type=Path,
         help="ESPN/Yahoo: the site's own available-players list (one per line) -> exact FA pool",
     )
-    ap.add_argument("--top", type=int, default=6, help="free agents shown per position")
+    ap.add_argument(
+        "--top",
+        type=int,
+        default=6,
+        help="the ranked claim list shows 4 x this many names (6 -> 24)",
+    )
+    ap.add_argument(
+        "--dyn-points",
+        type=float,
+        default=waiver_rank.DYN_POINTS_PER_UNIT,
+        help="dynasty leagues: four-week points one FantasyCalc value unit is "
+        "worth when ranking claims (a decision, not a fit)",
+    )
+    ap.add_argument(
+        "--list-size",
+        type=int,
+        default=None,
+        help="names in the ranked claim list (default: 4 x --top)",
+    )
+    ap.add_argument(
+        "--usd-per-point",
+        type=float,
+        default=2.0,
+        help="Sleeper bids: FAAB dollars one four-week point over the free "
+        "replacement is worth (the ceiling a bid is never raised past)",
+    )
+    ap.add_argument(
+        "--usd-per-dyn",
+        type=float,
+        default=0.02,
+        help="Sleeper dynasty bids: FAAB dollars per FantasyCalc value unit",
+    )
     ap.add_argument(
         "--emit-claims",
         type=Path,
@@ -1203,6 +1361,7 @@ def main(argv: Optional[list] = None) -> int:
         "computed bids and drop list (never overwrites an existing file)",
     )
     args = ap.parse_args(argv)
+    list_size = args.list_size or args.top * 4
 
     try:
         preset = config.our_league(args.league)
@@ -1227,12 +1386,19 @@ def main(argv: Optional[list] = None) -> int:
     # Sleeper uses LAR/JAX-style abbreviations; nflverse schedules use LA for the Rams.
     playing = set(kickoffs) | ({"LAR"} if "LA" in kickoffs else set())
     all_teams: Set[str] = set()
+    # Teams with a game in each of the next four weeks: a bye in the window
+    # costs a claim a quarter of his value (src/waiver_rank.py).
+    playing_by_week: Dict[int, Set[str]] = {}
     if sched_file:
         _sched = pd.read_parquet(sched_file)
         all_teams = {
             "LAR" if t == "LA" else str(t)
             for t in set(_sched["home_team"]) | set(_sched["away_team"])
         }
+        for _w in range(week, week + waiver_rank.WINDOW):
+            _k = set_lineups.kickoffs_for_week(_sched, _w)
+            if _k:
+                playing_by_week[_w] = set(_k) | ({"LAR"} if "LA" in _k else set())
     # Dynasty presets: FantasyCalc market value + age next to every row ({} otherwise).
     dyn = league_context.dynasty_values_for_preset(preset, config.ROSTER_CONFIGS)
     _, by_name = build_id_maps(registry)
@@ -1338,9 +1504,16 @@ def main(argv: Optional[list] = None) -> int:
     tx_rows: List[Dict[str, Any]] = []
     bid_stats: Dict[str, Dict[str, Any]] = {}
     rivals_by_pos: Dict[str, List[int]] = {}
+    # True once a platform branch has actually read every rival's roster and
+    # budget. An empty rivals_by_pos then MEANS nobody can outbid us; while
+    # this is False it only means we never looked, and the bid's reason has to
+    # say so rather than imply the field is clear.
+    rivals_modelled = False
     room_median = 0
     room_max = 0
     my_faab = 0
+    # The most any other roster has left to bid: above it a claim cannot lose.
+    max_rival_left: Optional[int] = None
     my_roster_id: Optional[str] = None
     live_available: Optional[Set[str]] = None
     espn_payload: Optional[Mapping[str, Any]] = None
@@ -1363,6 +1536,7 @@ def main(argv: Optional[list] = None) -> int:
         room_median = all_bids[len(all_bids) // 2] if all_bids else 0
         room_max = max((st["max"] for st in bid_stats.values()), default=0)
         rivals_by_pos: Dict[str, List[int]] = {}
+        rivals_modelled = True
         for r in all_rosters:
             rid = str(r.get("roster_id"))
             if rid == my_rid:
@@ -1371,11 +1545,14 @@ def main(argv: Optional[list] = None) -> int:
             left = budget_total - int(
                 (r.get("settings") or {}).get("waiver_budget_used") or 0
             )
+            max_rival_left = (
+                left if max_rival_left is None else max(max_rival_left, left)
+            )
             # Credible = thin at the spot, has money, and has shown he spends.
             if not st or left < room_median:
                 continue
             for pos in SKILL_POSITIONS:
-                if thin_at(r, registry, pos, need.get(pos, 0)):
+                if thin_at(r, registry, pos, need.get(pos, 0), playing or None):
                     rivals_by_pos.setdefault(pos, []).append(st["median"])
     elif platform == "espn" and args.espn_browser:
         moves, my_faab, espn_payload, espn_tx = espn_player_moves(
@@ -1428,6 +1605,7 @@ def main(argv: Optional[list] = None) -> int:
                 bid = getattr(row, "bid", None)
                 if bid and not pd.isna(bid):
                     bids_by_team.setdefault(str(row.team), []).append(int(bid))
+            rivals_modelled = True
             rivals_by_pos = espn_rivals(
                 espn_payload,
                 int(preset.get("my_team_id") or 1),
@@ -1440,12 +1618,17 @@ def main(argv: Optional[list] = None) -> int:
                 ),
                 bids_by_team,
                 room_median,
+                playing or None,
             )
 
     ours = ours_by_sleeper_id(
         score_ours(ours_df, scoring), registry, gsis_map=gsis_map, full_names=names
     )
     slpr_raw = set_lineups.load_sleeper_projections(season, week)
+    try:  # a name on a bye now still plays the other three weeks of the window
+        slpr_next = set_lineups.load_sleeper_projections(season, week + 1)
+    except SystemExit:
+        slpr_next = {}
     last = ours_by_sleeper_id(
         last_week_actuals(season, week - 1, scoring),
         registry,
@@ -1519,6 +1702,7 @@ def main(argv: Optional[list] = None) -> int:
             "news": news.get(sid, ""),
             "adp": adp_rank(sid, meta),
             "dyn": (dyn.get(sid) or {}).get("value", 0),
+            "dyn_known": sid in dyn,
             "age": meta.get("age"),
             # Is he actually on the field, and is that rising? Projections and
             # trending adds both say a player is interesting; neither says he
@@ -1528,6 +1712,15 @@ def main(argv: Optional[list] = None) -> int:
             # Out/Doubtful: no bar for "weakest bench". Bye: same, and never a drop.
             "out": str(meta.get("injury_status") or "").upper() in ("OUT", "DOUBTFUL"),
             "bye": bool(kickoffs) and meta.get("team") not in playing,
+            # What he scores in a week he plays: this week's blend, unless he
+            # is idle, then Sleeper's number for next week.
+            "weekly": (
+                score_sleeper_stats(slpr_next.get(sid) or {}, scoring, pos)
+                if bool(kickoffs)
+                and meta.get("team") not in playing
+                and slpr_next.get(sid)
+                else None
+            ),
             # Same-position team-mates who cannot play: the candidate's role
             # may be on loan from them (see RENTAL in the report legend).
             # What the room has paid for him before: price a claim off this,
@@ -1544,7 +1737,7 @@ def main(argv: Optional[list] = None) -> int:
                     week,
                     room_max,
                     my_roster_id,
-                    rivals_modelled=platform == "sleeper",
+                    rivals_modelled=rivals_modelled,
                     role_ending=role_ending,
                     floor_divisor=int(preset.get("bid_floor_divisor") or 5),
                 )
@@ -1580,12 +1773,29 @@ def main(argv: Optional[list] = None) -> int:
                 if r.get("snap")
                 else " snap   -   "
             )
-            + (f" dyn{r['dyn']:5d}" if dyn else "")
+            + (
+                (f" dyn{r['dyn']:5d}" if r.get("dyn_known") else " dyn    ?")
+                if dyn
+                else ""
+            )
+            + (
+                f" gain4 {r['gain4']:+5.1f}"
+                + (f" dynpts {r['dyn_pts']:3.0f}" if r.get("dyn_pts") else "")
+                if "gain4" in r
+                else ""
+            )
             # Age prints everywhere, not just dynasty: the gate's young-drop
             # check reads it, and Feetball is a keeper league too.
             + f" age{r['age'] or '-':>3}"
             + (f" {r['verdict']:7}" if r.get("verdict") else "")
             + (f" BID ${r['bid'][0]}" if r.get("bid") else "")
+            + (
+                f" (wins ~{r.get('p_win_at_bid', r['advice'].p_win):.0%}"
+                + (f"; ${r['price80']} for 80%" if r.get("price80") else "")
+                + f"; worth ${r['advice'].ceiling})"
+                if r.get("advice") and r.get("bid")
+                else ""
+            )
             + (f" [{r['demand']}]" if r.get("demand") else "")
             + (
                 f" {'ENDING' if r.get('blocked_returning') else 'RENTAL'}"
@@ -1642,8 +1852,73 @@ def main(argv: Optional[list] = None) -> int:
         r for r in (row(s) for s in registry if s not in rostered) if r and likely_fa(r)
     ]
     dynasty_league = bool(preset.get("dynasty"))
+    clearing = None
+    clearing_note = "not used on this platform (no readable rival claims)"
+    if platform == "sleeper" and my_faab:
+        clearing, clearing_note = load_clearing_model(args.league, season, budget_total)
+        clearing_model.advise_all(
+            fas,
+            clearing,
+            my_faab,
+            args.usd_per_point,
+            args.usd_per_dyn,
+            rival_cap=max_rival_left,
+        )
+    # One list per league, ranked by the gain to MY lineup over the next four
+    # weeks (byes included), plus dynasty value where the league keeps players.
+    # Candidates: the top names by blend per position, by dynasty value, and
+    # by market interest -- the full pool is thousands of zeroes.
+    pool_ids = set()
+    for _pos in ("QB", "RB", "WR", "TE"):
+        by_blend = sorted(
+            (r for r in fas if r["pos"] == _pos), key=lambda r: -clearing_model.level(r)
+        )
+        pool_ids.update(r["sid"] for r in by_blend[:25])
+    pool_ids.update(r["sid"] for r in sorted(fas, key=lambda r: -r["dyn"])[:40])
+    pool_ids.update(r["sid"] for r in fas if r["adds"] >= 100_000)
+    ranked = waiver_rank.rank_targets(
+        [r for r in fas if r["sid"] in pool_ids and not r.get("ir")],
+        my_rows,
+        week,
+        playing_by_week,
+        preset.get("roster"),
+        (league or {}).get("roster_positions"),
+        dynasty=dynasty_league and bool(dyn),
+        dyn_points_per_unit=args.dyn_points,
+    )
     for r in fas:
         r["verdict"] = waiver_verdict(r["pos"], r["blend"], baseline)
+        if clearing is not None:
+            adv = r["advice"]
+            if "gain4" in r:
+                # The ceiling is what he does for MY lineup (plus dynasty value),
+                # not his points over a free agent: a second quarterback in a
+                # one-quarterback league is worth nothing however well he scores.
+                adv = clearing.recommend(
+                    r["tier"],
+                    clearing_model.value_from_gain(
+                        r["gain4"],
+                        r.get("dyn") if dynasty_league else 0,
+                        args.usd_per_point,
+                        args.usd_per_dyn,
+                    ),
+                    my_faab,
+                    max_rival_left,
+                )
+                r["advice"] = adv
+            r["price80"] = clearing.price_for(
+                0.8, r["tier"], my_faab // 4 or 1, max_rival_left
+            )
+            r["bid"] = clearing_model.final_bid(
+                r.get("bid"),
+                adv,
+                role_ending=bool(r.get("blocked_returning")),
+                no_help_redraft=r["verdict"] == NO_HELP and not dynasty_league,
+                depth_cap=(max(1, room_median // 5) if r["verdict"] == DEPTH else None),
+            )
+            # the chance at the bid actually printed, not at the model's own
+            r["p_win_at_bid"] = clearing.p_win(r["bid"][0], r["tier"], max_rival_left)
+            continue
         # A price on a player the report says does not help is incoherent: in
         # a redraft league "no help" is a refusal, so the only honest number
         # is the minimum. In dynasty the verdict is advisory — an asset buy is
@@ -1665,6 +1940,80 @@ def main(argv: Optional[list] = None) -> int:
                     f"depth only — capped at the ${floor} floor, not the "
                     f"${r['bid'][0]} it would take to win him",
                 )
+    if clearing is not None or platform == "sleeper":
+        print(
+            f"BID MODEL = clearing price ({clearing_note}); a claim wins by beating the "
+            "top rival bid, and most claims have none: wins ~N% is the model's chance "
+            "at that bid, '$X for 80%' what it would take to be fairly sure, worth $N "
+            f"the ceiling (${args.usd_per_point:g}/point over the free replacement x 4 "
+            f"weeks + ${args.usd_per_dyn:g}/dynasty-value unit); the most any rival "
+            f"has left to bid is ${max_rival_left}"
+        )
+    # The same file set_lineups.sentiment_flags read: this week's, else the
+    # latest of any week (so a stale file is still dated, not skipped).
+    _news_files = sorted(
+        glob.glob(
+            str(
+                set_lineups.SENTIMENT
+                / f"season={season}"
+                / f"week={week:02d}"
+                / "*.parquet"
+            )
+        )
+    ) or sorted(
+        glob.glob(str(set_lineups.SENTIMENT / "season=*" / "week=*" / "*.parquet"))
+    )
+    extra_notes: List[str] = []
+    if clearing is not None:
+        if getattr(clearing, "fit_through", None) is None:
+            extra_notes.append(
+                "bid model: no league fit -- bids rest on the published-data prior alone"
+            )
+        elif clearing.fit_through < week - 1:
+            extra_notes.append(
+                f"bid model: the league fit stops at week {clearing.fit_through}, "
+                f"this report is week {week}"
+            )
+    if not slpr_next:
+        extra_notes.append(
+            f"projections: Sleeper's week-{week + 1} numbers are unavailable -- a name "
+            "on a bye this week is valued at 0 for the weeks he plays"
+        )
+    input_notes = waiver_record.fallback_notes(
+        week=week,
+        ours_label=ours_label,
+        weekly_board=ours_label.startswith("weekly Gold"),
+        guessed_pool=platform != "sleeper"
+        and available is None
+        and not args.rostered_file,
+        draft_size=draft_size,
+        dynasty_missing=dynasty_league and not dyn,
+        news_flags=len(news_flags),
+        official_reports=len(injury_ctx.reports),
+        snap_players=len(snaps),
+        have_history=bool(moves),
+        have_budget=bool(my_faab),
+        bronze_max_week=(
+            int(weekly_df["week"].max())
+            if not weekly_df.empty and "week" in weekly_df
+            else 0
+        ),
+        recorded=[
+            waiver_record.candidate_row("targets", i, r)
+            for i, r in enumerate(ranked[:list_size], start=1)
+        ],
+        news_age_hours=waiver_record.file_freshness(
+            Path(_news_files[-1]) if _news_files else None
+        )["age_hours"],
+        dyn_unknown=(
+            sum(1 for r in ranked[:list_size] if not r.get("dyn_known"))
+            if dynasty_league
+            else 0
+        ),
+        dyn_listed=len(ranked[:list_size]),
+        extra_notes=extra_notes,
+    )
+    print("\n" + waiver_record.status_block(input_notes))
     print(
         "FIT = vs MY roster: STARTS (beats a starter he can replace), BENCH+ (beats my "
         "weakest non-keeper bench at his position), depth (pure add), no help. "
@@ -1684,26 +2033,24 @@ def main(argv: Optional[list] = None) -> int:
         "cut wkN, free Nwk): that is the first bid anchor, and "
         "league_context.py's median/p75 only the fallback."
     )
-    for pos in ("QB", "RB", "WR", "TE"):
-        print(f"\n-- {pos} free agents --")
-        for r in sorted((r for r in fas if r["pos"] == pos), key=lambda r: -r["blend"])[
-            : args.top
-        ]:
-            print(line(r))
+    # What the report printed, kept for the record (src/waiver_record.py).
+    listed: Dict[str, List[Dict[str, Any]]] = {}
+    basis = "gain to my best lineup over the next 4 weeks, byes included" + (
+        " + dynasty value in points" if dynasty_league and dyn else ""
+    )
+    print(f"\n-- Claim targets (free agents), ranked by {basis} --")
+    listed["targets"] = ranked[:list_size]
+    for i, r in enumerate(listed["targets"], start=1):
+        # The rank goes inside the name column: the gate parses a free-agent
+        # line by its indentation, and a tag in the margin hides the row.
+        print(line({**r, "name": f"#{i} {r['name']}"}))
     hot = sorted((r for r in fas if r["adds"] >= 100_000), key=lambda r: -r["adds"])[
         :10
     ]
+    listed["hot"] = hot
     if hot:
         print("\n-- Most added on Sleeper (48h) still available --")
         for r in hot:
-            print(line(r))
-
-    if dyn:
-        print(
-            "\n-- Dynasty targets: unrostered by market value "
-            "(youth + a path to a role beat one week's points) --"
-        )
-        for r in sorted(fas, key=lambda r: -r["dyn"])[: args.top * 2]:
             print(line(r))
 
     unscored = [
@@ -1726,6 +2073,7 @@ def main(argv: Optional[list] = None) -> int:
     # candidate in the same week-7 report: dropping a man in the current
     # lineup is a lineup decision, not a waiver one.
     started = set(starters) | set(baseline["starters"])
+    roster_out: List[Dict[str, Any]] = []
     for r in sorted(my_rows, key=lambda r: r["dyn"] if dyn else r["blend"]):
         if normalize_name(r["name"]) in keepers:
             tag = "KEEP"
@@ -1733,6 +2081,10 @@ def main(argv: Optional[list] = None) -> int:
             tag = "START"
         else:
             tag = "bench"
+        roster_out.append(
+            {k: r.get(k) for k in ("sid", "name", "pos", "blend", "dyn", "age")}
+            | {"tag": tag}
+        )
         print(line(r, tag))
     drops = drop_order(
         my_rows,
@@ -1750,24 +2102,123 @@ def main(argv: Optional[list] = None) -> int:
             f"  Keepers protected: {len(keepers)} (from {args.league}_{season}_keepers.txt)"
         )
 
+    claims_msg = None
     if args.emit_claims:
         # The open-slot count lives in the mechanics block the report just
         # printed; read it back rather than recomputing the slot arithmetic
         # a second way, which is how the tag and the drop list diverged.
         slots = re.search(r"\((?P<open>\d+) open", "\n".join(mechanics))
-        print(
-            emit_claims(
-                args.emit_claims,
-                args.league,
-                week,
-                fas,
-                drops,
-                int(slots.group("open")) if slots else 0,
-                manual=platform == "sleeper",
+        claims_msg = emit_claims(
+            args.emit_claims,
+            args.league,
+            week,
+            fas,
+            drops,
+            int(slots.group("open")) if slots else 0,
+            manual=platform == "sleeper",
+            dynasty=dynasty_league,
+        )
+        print(claims_msg)
+
+    def save_record(sanity: Optional[Mapping[str, Any]] = None) -> None:
+        """Freeze this run's listing to ``data/waivers/reports`` (never fatal)."""
+        board = set_lineups._latest(
+            str(
+                set_lineups.GOLD
+                / f"season={season}"
+                / f"week={week}"
+                / "projections_*.parquet"
             )
         )
+        weekly_board = ours_label.startswith("weekly Gold")
+        snap_files = sorted(
+            glob.glob(
+                str(set_lineups.INJURIES / f"season={season}" / "injuries_*.parquet")
+            )
+        )
+        recorded = [
+            waiver_record.candidate_row(name, i, r)
+            for name, rows in listed.items()
+            for i, r in enumerate(rows, start=1)
+        ]
+        fallbacks = input_notes
+        inputs = {
+            "board": {
+                **waiver_record.file_freshness(board),
+                "kind": "weekly" if weekly_board else "preseason_fallback",
+                "label": ours_label,
+            },
+            "registry": waiver_record.file_freshness(Path(_PLAYERS_CACHE)),
+            "sleeper_projections": {
+                "rows": len(slpr_raw),
+                "fetched": "live at run time",
+            },
+            "trending_adds": {"rows": len(adds), "fetched": "live at run time"},
+            "news": {"flags": len(news_flags)},
+            "injury_report": {
+                "official_reports": len(injury_ctx.reports),
+                "teams_reported": len(injury_ctx.teams_reported),
+                "latest_snapshot": waiver_record.file_freshness(
+                    Path(snap_files[-1]) if snap_files else None
+                ),
+            },
+            "snaps": {"players": len(snaps)},
+            "bronze_weekly": waiver_record.file_freshness(
+                Path(weekly_files[-1]) if weekly_files else None
+            ),
+            "transactions": {"players_with_history": len(moves), "rows": len(tx_rows)},
+            "dynasty_values": {"players": len(dyn)},
+            "pool": {
+                "source": (
+                    "sleeper_all_rosters"
+                    if platform == "sleeper"
+                    else (
+                        "available_file"
+                        if available is not None
+                        else "rostered_file" if args.rostered_file else "adp_guess"
+                    )
+                ),
+                "free_agents_scored": len(fas),
+            },
+            "bidding": {
+                "faab_left": my_faab,
+                "room_median_bid": room_median,
+                "room_max_bid": room_max,
+                "rivals_modelled": rivals_modelled,
+                "rivals_by_position": {p: len(v) for p, v in rivals_by_pos.items()},
+            },
+        }
+        try:
+            rec = waiver_record.build_record(
+                league=args.league,
+                platform=str(platform),
+                season=season,
+                week=week,
+                title=title,
+                generated_at=dt.datetime.now(dt.timezone.utc).isoformat(
+                    timespec="seconds"
+                ),
+                inputs=inputs,
+                candidates=recorded,
+                fallbacks=fallbacks,
+                extras={
+                    "my_roster": roster_out,
+                    "drop_candidates": [r["name"] for r in drops],
+                    "claims_file": str(args.emit_claims) if args.emit_claims else None,
+                    "claims_result": claims_msg,
+                    "sanity": sanity,
+                },
+            )
+            path = waiver_record.write_record(rec)
+            _stdout_print(f"\n  record: {path.relative_to(REPO_ROOT)}")
+        except OSError as exc:
+            _stdout_print(
+                f"\n  WARN: waiver record NOT written ({exc}) -- this run "
+                "cannot be scored later"
+            )
 
     if args.no_gate:
+        save_record()
         return 0
     from src.waiver_sanity import check_report, summarise
 
@@ -1789,6 +2240,14 @@ def main(argv: Optional[list] = None) -> int:
     )
     for f in findings:
         print(f"  [{f.level}] {f.check}: {f.detail}")
+    save_record(
+        {
+            "critical": verdict["critical"],
+            "warnings": verdict["warnings"],
+            "passed": verdict["passed"],
+            "findings": [f"[{f.level}] {f.check}: {f.detail}" for f in findings],
+        }
+    )
     if not verdict["passed"]:
         print(
             f"\n  SANITY FAIL: {verdict['critical']} critical — "

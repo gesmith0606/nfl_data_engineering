@@ -10,14 +10,41 @@ not from one week's projections. Full checklist: `docs/WEEKLY_WAIVER_RUNBOOK.md`
 
 ## Is this skill still any good? Run the audit, don't take my word
 ```bash
-python scripts/audit_waiver_skill.py          # 19 falsifiable checks, exit 1 on any failure
+python scripts/audit_waiver_skill.py          # 21 falsifiable checks, exit 1 on any failure
 python scripts/audit_waiver_skill.py --offline # the 8 that need no league data
+python scripts/backtest_recommendations.py --league mantis --top-k 3   # the advice score
 ```
-Every check is a claim plus the command that settles it, across guards, pricing, coverage,
-sentiment, parity, outcomes and rule provenance. **100/100 as of 2026-10-23** — and if a rule
-regresses the number drops by itself, which is the point. An earlier 72->100 score for this
-skill was a judgement call on a rubric written by the agent doing the work: a claim with no way
-to be wrong, i.e. the exact thing every invariant here exists to prevent.
+It prints **two** numbers and you need both. **MACHINERY 100/100, ADVICE 50/100 as of
+2026-10-27.** Machinery asks whether the tool has a property — a guard exists, a tag comes from
+something published, the bid model beats a naive rule on bids somebody already made. Nineteen
+of the twenty-one checks are that, and **not one of them can fail because a recommendation was
+wrong**: week 8 2026 this audit read 100/100 while four recommendations in a row had to be
+corrected by hand. One number let "the machinery is sound" be read as "the advice is good",
+which it was never evidence for.
+
+The advice checks score the board's own waiver-tier ranking against what those players then
+did. It clears a shuffled ranking comfortably (+3.2 pts/wk vs a flat null) but **ties a
+heuristic with no model behind it at all** — rank the same tier by last week's box score and
+you do just as well (edge -0.05, MDE 1.03, n=6 weeks). So: the ranking is not noise, and it is
+not yet worth the pipeline. Read the failing check as the finding it is, not as a broken test.
+
+**Where it loses is only the very top** (`.planning/WAIVER_RANKING_FLAT_TOP.md`, both rooms,
+2026 w2-7). At k=10/20/40 the board beats the box score by +0.36 to +0.51; at k=1 it loses. One
+step down the tier it is calibrated (ranks 6-10 vs 11-20: claims +1.94, reality +1.88); at the
+top it claims three times the gap that exists (ranks 1-5 vs 6-10: claims +1.12, reality +0.37).
+So **the board's #1 waiver name is not meaningfully better than its #5-10** -- treat the top ten
+as one candidate set and break the tie on role, snaps and news, which is what Step 3c does. It
+is not a position (WR loses in Mantis and gains in La Liga) and not inactives (85% vs 84% played).
+
+Only 2026 weeks 2-7 are eligible, because every 2024 and 2025 board on disk was written *after*
+the games it covers. Regenerating them would not help — rosters, depth charts and injury
+reports are overwritten in place, so a rebuilt board sees what the engine could not have seen.
+The sample grows by one week a week.
+
+An earlier 72->100 score for this skill was a judgement call on a rubric written by the agent
+doing the work: a claim with no way to be wrong, i.e. the exact thing every invariant here
+exists to prevent. A single 100/100 that could not move on bad advice was the same mistake
+wearing a lab coat.
 
 ## Gate — no recommendation before the tools have run
 Do not name a player, a bid or a drop until `league_context.py` AND `waiver_wire.py`
@@ -352,3 +379,26 @@ after "Create claim" so the confirm stage can be wired and fixture-tested.
 Tool-output gotcha: claude-in-chrome truncates a returned string at ~1 KB, so stash big reads
 on `window.__x` and return them in `slice()`s (rosters ~2.5 KB = 3 slices); return compact
 `name|proj` text, not raw JSON.
+
+## What the 2026-11-16 waiver rework changed (read before quoting a bid or a rank)
+
+- **Every `waiver_wire.py` run is recorded** to `data/waivers/reports/<league>/season=/week=/report_<stamp>.json`
+  (candidates with rank and score components, bids with reasons, board file, input freshness, and the list of
+  inputs the run did not read). Commit them. `python scripts/waiver_scorecard.py --league mantis --weeks 2-7 9`
+  scores what happened: points over the next 1/2/4 weeks for each add vs the player dropped, the board's #1 and the
+  best free agent at the position; price paid vs clearing price (runner-up bid + 1).
+- **Read the `-- INPUTS NOT READ --` block first.** It lists, above every list, what the run guessed instead of read
+  (no weekly board, pool guessed from ADP, unknown dynasty value, stale news, no demand history). Say what it says
+  before quoting any number it touches. `-- Inputs -- every input was read` means none.
+- **One list per league**, ordered by the gain to MY lineup over the next four weeks, byes included, plus dynasty
+  value in points on Mantis. The claims file is the top of that list, each with its drop. A one-week blend is no
+  longer the order. The dynasty weight (`--dyn-points`) and the bid dials (`--usd-per-point`, `--usd-per-dyn`) are
+  George's decisions, not fits: quote them as such.
+- **Sleeper bids are clearing-price bids** (`BID $2 (wins ~83%; $2 for 80%; worth $123)`): the chance the bid beats
+  every rival, what it takes to be fairly sure, and the ceiling. Most claims have no rival; 73% of Mantis' winning
+  bids were uncontested and $19 would have won the eight that cost $475. A lost bid costs nothing, so never inflate
+  a bid "to be safe": pick the price from the table, or pass. ESPN/Yahoo bids still use the older model.
+- **What was tested and did NOT work** (`scripts/backtest_ranking.py`, `.planning/WAIVER_RANKING_2026-11-16.md`):
+  consensus-base trust rule, bye-aware weights and the snap-share-jump boost did not beat the one-week blend on
+  held-out weeks, and no variant lifts four-week points by 2.0. Do not promise that the list picks better players;
+  say it orders claims by what they do for the lineup.

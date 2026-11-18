@@ -38,7 +38,8 @@ def test_a_critical_finding_takes_the_exit_code():
 def test_the_gate_can_be_skipped_explicitly():
     src = inspect.getsource(waiver_wire.main)
     assert '"--no-gate"' in src
-    assert "if args.no_gate:\n        return 0" in src
+    # --no-gate still freezes the run (src/waiver_record.py) before returning
+    assert "if args.no_gate:\n        save_record()\n        return 0" in src
 
 
 def test_printing_is_captured_for_the_gate_to_read():
