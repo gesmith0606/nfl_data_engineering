@@ -3143,6 +3143,34 @@ _WEEKLY_MAX_AGE_DAYS = GOLD_MAX_AGE_DAYS  # 7 days
 # appears in our weekly file ranks within our top-20 at that position.
 _WEEKLY_CONSENSUS_TOP_N = 5
 _WEEKLY_RANK_WINDOW = 20
+# A consensus star outside the window whose board row says he is not expected
+# to play (see _injury_explanation) is an availability disagreement, a warning.
+# More than this many such exemptions in one run is CRITICAL, so a broken
+# injury layer cannot hide behind the exemption. Chosen from the boards on disk
+# (81 boards, 2024-2026): 33 live 2026 boards (weeks 1-11) carried at most ONE
+# explained star outside the window (Bowers, Lamar Jackson, Nico Collins); the
+# only boards above 3 are two regenerated 2024 week-10 files (6: Hurts and
+# Engram Out; Kamara, Barkley, St. Brown and A.J. Brown Doubtful).
+_WEEKLY_MAX_EXEMPT_STARS = 5
+# Board statuses that mean "not expected to play". Questionable is absent on
+# purpose: a 0.85x multiplier cannot bury a star, so it explains nothing.
+# Roster designations reach the board as "Out" (the live Sleeper feed maps
+# IR/PUP/NFI/Sus to it); the spelled-out forms cover older boards and the
+# nflverse vocabulary.
+_UNAVAILABLE_STATUSES = frozenset(
+    {
+        "out",
+        "doubtful",
+        "ir",
+        "injured reserve",
+        "pup",
+        "physically unable to perform",
+        "nfi",
+        "sus",
+        "suspension",
+        "out (unconfirmed)",
+    }
+)
 # A consensus snapshot captured more than this long before the board predates
 # news the board already has (see _check_weekly_star_rank_sanity).
 _WEEKLY_CONSENSUS_STALE_HOURS = 24
@@ -3484,6 +3512,25 @@ def run_weekly_projection_check(
     return criticals, warnings
 
 
+def _injury_explanation(row: pd.Series) -> Optional[str]:
+    """The board row's own claim that the player is not expected to play.
+
+    Returns the status text when ``injury_unconfirmed`` is true (a Sleeper-only
+    Out tag priced as a play probability) or ``injury_multiplier`` is below 1.0
+    with an Out/Doubtful/roster-designation ``injury_status``; ``None`` for a
+    healthy row, a Questionable one, or a board without the injury columns.
+    """
+    status = row.get("injury_status")
+    status_txt = "" if pd.isna(status) else str(status).strip()
+    flag = row.get("injury_unconfirmed")
+    if pd.notna(flag) and bool(flag):
+        return status_txt or "Out (unconfirmed)"
+    mult = pd.to_numeric(row.get("injury_multiplier"), errors="coerce")
+    if status_txt.lower() in _UNAVAILABLE_STATUSES and pd.notna(mult) and mult < 1.0:
+        return status_txt
+    return None
+
+
 def _check_weekly_star_rank_sanity(
     weekly_df: pd.DataFrame,
     pts_col: str,
@@ -3646,6 +3693,7 @@ def _check_weekly_star_rank_sanity(
 
     n_checked = 0
     n_failed = 0
+    exempted: List[str] = []
 
     for pos in _FANTASY_POSITIONS:
         our_pos = weekly[weekly["position"] == pos].copy()
@@ -3692,6 +3740,34 @@ def _check_weekly_star_rank_sanity(
                     "(stale consensus; Out/bye)"
                 )
                 continue
+            explanation = (
+                _injury_explanation(our_rows.iloc[0])
+                if our_rank > _WEEKLY_RANK_WINDOW
+                else None
+            )
+            if explanation is not None:
+                cons_rank = int(top_consensus.index.get_loc(cons_row.name)) + 1
+                mult = pd.to_numeric(
+                    our_rows["injury_multiplier"].iloc[0], errors="coerce"
+                )
+                exempted.append(f"{cons_row['player_name']} ({pos}, {explanation})")
+                warnings.append(
+                    f"WEEKLY STAR UNAVAILABLE ({pos}): '{cons_row['player_name']}' "
+                    f"is consensus {pos} top-{_WEEKLY_CONSENSUS_TOP_N} "
+                    f"(ext {pos}#{cons_rank}) but ranks {pos}#{our_rank} in our "
+                    f"weekly file (window: top-{_WEEKLY_RANK_WINDOW}); the board "
+                    f"has him {explanation} (injury_multiplier "
+                    f"{'n/a' if pd.isna(mult) else format(mult, 'g')}, "
+                    f"{our_pts:.1f} pts). That is an availability disagreement "
+                    "with the consensus, not a model error — confirm on the "
+                    "injury report."
+                )
+                print(
+                    f"  [WARN] {pos} star '{cons_row['player_name']}': our rank "
+                    f"{pos}#{our_rank} > top-{_WEEKLY_RANK_WINDOW}, explained by "
+                    f"{explanation}"
+                )
+                continue
             if our_rank > _WEEKLY_RANK_WINDOW:
                 n_failed += 1
                 criticals.append(
@@ -3711,12 +3787,30 @@ def _check_weekly_star_rank_sanity(
                     f"our rank {pos}#{our_rank} within top-{_WEEKLY_RANK_WINDOW}"
                 )
 
+    if len(exempted) > _WEEKLY_MAX_EXEMPT_STARS:
+        criticals.append(
+            f"WEEKLY STAR EXEMPTIONS: {len(exempted)} of {n_checked} consensus "
+            f"stars are outside our top-{_WEEKLY_RANK_WINDOW} and excused by "
+            f"injury status (cap {_WEEKLY_MAX_EXEMPT_STARS}): "
+            f"{'; '.join(exempted)}. An injury layer that excuses this many "
+            "stars needs a look."
+        )
+        print(
+            f"  [FAIL] Star-rank check: {len(exempted)} stars excused by injury "
+            f"status exceeds the cap of {_WEEKLY_MAX_EXEMPT_STARS}"
+        )
     if n_checked == 0:
         warnings.append(
             "WEEKLY STAR-RANK SKIPPED: no position overlap between weekly file "
             "and Silver external_projections."
         )
         print("  [SKIP] Star-rank check (no position overlap)")
+    elif n_failed == 0 and exempted:
+        print(
+            f"  [PASS] Star-rank check: no unexplained misses "
+            f"({len(exempted)} of {n_checked} consensus stars outside our "
+            f"top-{_WEEKLY_RANK_WINDOW} are explained by injury status)"
+        )
     elif n_failed == 0:
         print(
             f"  [PASS] Star-rank check: all {n_checked} consensus stars "
