@@ -1,0 +1,528 @@
+{
+  "fetch_run_id": "082eb5d7-7fba-4c27-b238-4a9510641311",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-19T12:15:28.962881+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-the-sacks-are-going-to-come-for-abdul-carter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-the-sacks-are-going-to-come-for-abdul-carter",
+      "title": "John Harbaugh: The sacks are going to come for Abdul Carter",
+      "body_text": "Giants linebacker Abdul Carter scores well in a number of metrics that measure pass rush, but that hasn't shown up in the ones that's most obvious to those watching the game.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-19T11:56:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "John Harbaugh",
+        "Abdul Carter"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-price-nfls-top-punt-returner-shows-he-can-make-an-impact-on-vikings-offense-too",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/myles-price-nfls-top-punt-returner-shows-he-can-make-an-impact-on-vikings-offense-too",
+      "title": "Myles Price, NFL's top punt returner, shows he can make an impact on Vikings' offense, too",
+      "body_text": "The Vikings have a big weapon on special teams in return man Myles Price, who is leading the league in punt return average, total yards and touchdowns, and is third in the league in both kickoff return average and total yards.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-19T10:51:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Myles Price",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0040506"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-can-become-the-first-qb-ever-with-4-touchdowns-in-6-consecutive-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-can-become-the-first-qb-ever-with-4-touchdowns-in-6-consecutive-games",
+      "title": "Joe Burrow can become the first QB ever with 4+ touchdowns in 6 consecutive games",
+      "body_text": "Burrow and Peyton Manning are the only QBs ever with 4 TDs in 5 straight games. If Burrow does it again on Monday night, he'll be the first in NFL history to do it in 6 straight games.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-19T08:48:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Burrow",
+        "Peyton Manning",
+        "If Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0010346"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-wont-use-aidan-hutchinson-injury-as-a-teaching-moment",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-payton-wont-use-aidan-hutchinson-injury-as-a-teaching-moment",
+      "title": "Sean Payton won't use Aidan Hutchinson injury as a teaching moment",
+      "body_text": "Lions coach Dan Campbell has made his position clear regarding player celebrations, in the aftermath of defensive end Aidan Hutchinson's season-ending knee injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-19T05:05:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Payton",
+        "Aidan Hutchinson",
+        "Dan Campbell"
+      ],
+      "resolved_player_ids": [
+        "00-0037236",
+        "00-0002565"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-the-brian-flores-defense-its-not-just-a-fad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-the-brian-flores-defense-its-not-just-a-fad",
+      "title": "Kyle Shanahan on the Brian Flores defense: \"It's not just a fad\"",
+      "body_text": "49ers coach says the Minnesota defense puts pressure on everyone involved.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-19T04:02:34+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Brian Flores"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-i-dont-think-ive-played-my-best-football",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-bosa-i-dont-think-ive-played-my-best-football",
+      "title": "Nick Bosa: I don't think I've played my best football",
+      "body_text": "49ers defensive end Nick Bosa's only stats in Sunday's 46-40 win over the Cowboys were one quarterback hit, four pressures and three penalties in 34 snaps.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T03:25:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Nick Bosa"
+      ],
+      "resolved_player_ids": [
+        "00-0035717"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-did-not-practice-wednesday-with-ankle-quad-injuries",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-did-not-practice-wednesday-with-ankle-quad-injuries",
+      "title": "Brock Bowers did not practice Wednesday with ankle, quad injuries",
+      "body_text": "Raiders coach Klint Kubiak called tight end Brock Bowers \"day-to-day\" earlier this week, but Wednesday was not the day.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T02:57:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Bowers",
+        "Klint Kubiak"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-is-the-first-pick-in-the-ufl-draft",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-is-the-first-pick-in-the-ufl-draft",
+      "title": "Diego Pavia is the first pick in the UFL draft",
+      "body_text": "Quarterback Diego Pavia went unselected in the 2026 NFL draft.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-19T02:44:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Diego Pavia",
+        "Quarterback Diego"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-dre-greenlaw-dont-practice-wednesday-49ers-hope-they-can-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-dre-greenlaw-dont-practice-wednesday-49ers-hope-they-can-on-thursday",
+      "title": "Mike Evans, Dre Greenlaw don't practice Wednesday, 49ers hope they can on Thursday",
+      "body_text": "Wide receiver Mike Evans didn't travel with the 49ers for last Sunday's game in Dallas, but he was in Colorado Springs with the team as they prepare for their game against the Vikings in Mexico City.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T23:30:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Evans",
+        "Dre Greenlaw",
+        "Thursday Wide",
+        "Colorado Springs",
+        "Mexico City"
+      ],
+      "resolved_player_ids": [
+        "00-0031408",
+        "00-0034982"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-bengals-on-sunday-night-football-draws-21-519-million-viewers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-bengals-on-sunday-night-football-draws-21-519-million-viewers",
+      "title": "Steelers-Bengals on Sunday Night Football draws 21.519 million viewers",
+      "body_text": "The game was never competitive.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-18T23:06:18+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marlon-humphrey-apologizes-for-saying-baltimore-is-best-at-making-criminals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/marlon-humphrey-apologizes-for-saying-baltimore-is-best-at-making-criminals",
+      "title": "Marlon Humphrey apologizes for saying Baltimore is \"best at making criminals\"",
+      "body_text": "Ravens cornerback Marlon Humphrey found himself in some hot water for comments he made about Baltimore on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T23:05:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Marlon Humphrey"
+      ],
+      "resolved_player_ids": [
+        "00-0033281"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-hockenson-andrew-van-ginkel-listed-as-limited-participants-on-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-hockenson-andrew-van-ginkel-listed-as-limited-participants-on-wednesday",
+      "title": "T.J. Hockenson, Andrew Van Ginkel listed as limited participants on Wednesday",
+      "body_text": "Vikings tight end T.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T22:40:09+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Andrew Van",
+        "Wednesday Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-get-carnell-tate-back-at-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-get-carnell-tate-back-at-practice",
+      "title": "Titans get Carnell Tate back at practice",
+      "body_text": "The Titans won't be getting wide receiver Wan'Dale Robinson back on the field this season, but they could be getting first-round pick Carnell Tate back in the lineup against the Cowboys this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T21:40:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Carnell Tate",
+        "The Titans",
+        "Dale Robinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dalton-kincaid-christian-benford-listed-as-out-of-bills-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dalton-kincaid-christian-benford-listed-as-out-of-bills-practice",
+      "title": "Dalton Kincaid, Christian Benford listed as out of Bills practice",
+      "body_text": "The Bills listed starters on both sides of the ball as out of practice on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T22:02:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dalton Kincaid",
+        "Christian Benford",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0038933",
+        "00-0037288"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-claim-ol-ajani-cornelius-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-claim-ol-ajani-cornelius-off-waivers",
+      "title": "Eagles claim OL Ajani Cornelius off waivers",
+      "body_text": "The Eagles have added an offensive lineman.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-18T21:56:49+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Ajani Cornelius",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0040017"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-says-hes-done-doing-backflips-after-aidan-hutchinson-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-says-hes-done-doing-backflips-after-aidan-hutchinson-injury",
+      "title": "Cam Skattebo says he's done doing backflips after Aidan Hutchinson injury",
+      "body_text": "Giants running back Cam Skattebo's penchant for backflips became a talking point during his recovery from last season's ankle injury, but he resumed doing them after touchdowns upon his return to action this fall.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T21:49:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0037236"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-injury-report-confirms-baker-mayfield-a-non-participant-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bucs-injury-report-confirms-baker-mayfield-a-non-participant-wednesday",
+      "title": "Bucs' injury report confirms Baker Mayfield a non-participant Wednesday",
+      "body_text": "Baker Mayfield was officially out of practice Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T21:41:50+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Baker Mayfield",
+        "Wednesday Baker"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-aidan-hutchinson-on-ir-activate-kerby-joseph",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-place-aidan-hutchinson-on-ir-activate-kerby-joseph",
+      "title": "Lions place Aidan Hutchinson on IR, activate Kerby Joseph",
+      "body_text": "While one Lions player is out, another is on his way back in.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-18T21:37:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aidan Hutchinson",
+        "Kerby Joseph"
+      ],
+      "resolved_player_ids": [
+        "00-0037236",
+        "00-0037667"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-rbs-bhayshul-tuten-chris-rodriguez-were-limited-in-practice-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-rbs-bhayshul-tuten-chris-rodriguez-were-limited-in-practice-wednesday",
+      "title": "Jaguars RBs Bhayshul Tuten, Chris Rodriguez were limited in practice Wednesday",
+      "body_text": "The Jaguars listed their top two running backs as limited participants in practice on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T21:25:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bhayshul Tuten",
+        "Chris Rodriguez",
+        "Wednesday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040719",
+        "00-0038611"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-luther-burden-rb-kyle-monangai-full-participants-wednesday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/wr-luther-burden-rb-kyle-monangai-full-participants-wednesday",
+      "title": "WR Luther Burden, RB Kyle Monangai full participants Wednesday",
+      "body_text": "Wide receiver Luther Burden III (concussion) and running back Kyle Monangai (toe) were full participants for the Bears on Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T21:22:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Luther Burden",
+        "Kyle Monangai",
+        "Wednesday Wide",
+        "Luther Burden III"
+      ],
+      "resolved_player_ids": [
+        "00-0040735",
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-wrs-michael-pittman-roman-wilson-return-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-wrs-michael-pittman-roman-wilson-return-to-practice",
+      "title": "Steelers WRs Michael Pittman, Roman Wilson return to practice",
+      "body_text": "The Steelers are opening the practice window for several players on Wednesday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-18T19:44:31+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Michael Pittman",
+        "Roman Wilson",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0036252",
+        "00-0039739"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-wont-practice-wednesday-with-groin-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-wont-practice-wednesday-with-groin-injury",
+      "title": "Kenneth Walker won't practice Wednesday with groin injury",
+      "body_text": "Kenneth Walker's groin injury will keep him out for at least another day.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-18T20:03:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kenneth Walker"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-j-reed-returns-to-lions-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/d-j-reed-returns-to-lions-practice",
+      "title": "D.J. Reed returns to Lions practice",
+      "body_text": "The Lions have gotten plenty of bad injury news on defense in recent weeks, but there was a positive development at practice on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T21:15:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-max-llewellyn-from-practice-squad-sign-jack-browning-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dolphins-sign-max-llewellyn-from-practice-squad-sign-jack-browning-to-practice-squad",
+      "title": "Dolphins sign Max Llewellyn from practice squad, sign Jack Browning to practice squad",
+      "body_text": "The Dolphins signed edge rusher Max Llewellyn to the active roster from the practice squad. the team announced Wednesday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T21:02:07+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Max Llewellyn",
+        "Jack Browning",
+        "The Dolphins"
+      ],
+      "resolved_player_ids": [
+        "00-0041531",
+        "00-0039477"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-montgomery-has-no-injury-designation-for-thursday-woody-marks-ruled-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-montgomery-has-no-injury-designation-for-thursday-woody-marks-ruled-out",
+      "title": "David Montgomery has no injury designation for Thursday; Woody Marks ruled out",
+      "body_text": "The Texans ruled one running back out for Thursday night's game against the Colts, but they're set to get another one back in the lineup.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T20:54:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "David Montgomery",
+        "Woody Marks",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0035685",
+        "00-0040583"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wont-put-jordan-addison-on-ir",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-wont-put-jordan-addison-on-ir",
+      "title": "Vikings won't put Jordan Addison on IR",
+      "body_text": "When Vikings head coach Kevin O'Connell announced that wide receiver Jordan Addison needed thumb surgery earlier this week, he said that an injured reserve stint was a possibility.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T20:42:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Addison",
+        "When Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0038994"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-christian-parker-still-has-a-bright-future-with-the-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brian-schottenheimer-christian-parker-still-has-a-bright-future-with-the-cowboys",
+      "title": "Brian Schottenheimer: Christian Parker still has a bright future with the Cowboys",
+      "body_text": "Brian Schottenheimer confirmed Mike Pettine will take over as the Cowboys' defensive play-caller on Sunday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-18T20:23:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brian Schottenheimer",
+        "Christian Parker",
+        "Cowboys Brian",
+        "Mike Pettine"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-earning-their-first-win-chargers-are-favored-to-win-their-second-vs-jets",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-earning-their-first-win-chargers-are-favored-to-win-their-second-vs-jets",
+      "title": "After earning their first win, Chargers are favored to win their second vs. Jets",
+      "body_text": "The Chargers finally won a game on Monday.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-18T19:59:03+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jets The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darren-waller-tommy-tremble-out-of-practice-for-panthers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/darren-waller-tommy-tremble-out-of-practice-for-panthers",
+      "title": "Darren Waller, Tommy Tremble out of practice for Panthers",
+      "body_text": "The Panthers practiced without their top two tight ends on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T19:56:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Darren Waller",
+        "Tommy Tremble",
+        "Panthers The"
+      ],
+      "resolved_player_ids": [
+        "00-0031610",
+        "00-0037005"
+      ],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mannion-to-continue-calling-offensive-plays-for-eagles-joe-milton-to-remain-at-qb",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sean-mannion-to-continue-calling-offensive-plays-for-eagles-joe-milton-to-remain-at-qb",
+      "title": "Sean Mannion to continue calling offensive plays for Eagles, Joe Milton to remain at QB",
+      "body_text": "Eagles head coach Nick Sirianni said that the team would talk about changes to roles and responsibilities on the coaching staff during their bye week, but he said on Wednesday that they decided against any major ones.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-18T19:42:47+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sean Mannion",
+        "Joe Milton",
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [
+        "00-0032245",
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    }
+  ]
+}

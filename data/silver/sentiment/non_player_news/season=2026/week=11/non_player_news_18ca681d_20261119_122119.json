@@ -1,0 +1,185 @@
+{
+  "batch_id": "18ca681d",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-19T12:21:19.749082+00:00",
+  "record_count": 16,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-the-brian-flores-defense-its-not-just-a-fad",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-the-brian-flores-defense-its-not-just-a-fad",
+      "team_abbr": "SF",
+      "summary": "Shanahan says Brian Flores' Minnesota defense scheme puts sustained pressure and is not a temporary trend.",
+      "sentiment": 0.0,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "49ers coach says the Minnesota defense puts pressure on everyone involved.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "cd75a521-c781-4a57-b8fd-ebbc5233f7b3",
+      "external_id": "cd75a521-c781-4a57-b8fd-ebbc5233f7b3",
+      "team_abbr": "DAL",
+      "summary": "Cowboys make defensive coaching changes with Mike Pettine named play caller while Christian Parker retains coordinator title amid defensive struggles.",
+      "sentiment": -0.3,
+      "confidence": 0.75,
+      "category": "coaching_change",
+      "source_excerpt": "Christian Parker will remain on as the defensive coordinator, at least in title",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "56ba0420-1b6d-3e35-85d2-7fd93b8a3555",
+      "external_id": "56ba0420-1b6d-3e35-85d2-7fd93b8a3555",
+      "team_abbr": "HOU",
+      "summary": "Houston Texans debut new Nike 'Rivalries' uniform on Thursday Night Football with nod to Oilers heritage.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The Houston Texans will debut their Nike \"Rivalries\" uniform on Thursday Night Football. They include a nod to the Oilers team that came before them in the city.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "064248d6-8e1c-3332-8b0e-f388848718f7",
+      "external_id": "064248d6-8e1c-3332-8b0e-f388848718f7",
+      "team_abbr": "CAR",
+      "summary": "Panthers may seek replacement QB prospect from College Station if Fitzgerald continues to struggle.",
+      "sentiment": -0.4,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "If Fitzgerald continues to struggle, could the Panthers look for a replacement in College Station?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "9323d1db-919d-3adf-ab85-711f0083a70b",
+      "external_id": "9323d1db-919d-3adf-ab85-711f0083a70b",
+      "team_abbr": "TEN",
+      "summary": "Tennessee Titans eyeing upset win vs. Dallas Cowboys in Week 11.",
+      "sentiment": 0.3,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "The Tennessee Titans are eyeing a win against the Dallas Cowboys.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b6aa93d1-b30a-3d37-84d3-c25c9f4a7684",
+      "external_id": "b6aa93d1-b30a-3d37-84d3-c25c9f4a7684",
+      "team_abbr": "ARI",
+      "summary": "Arizona Cardinals season has underperformed; article questions if team is done and what comes next.",
+      "sentiment": -0.6,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "This season hasn't gone as planned",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c6ef19ee-4612-3d6d-a7f4-98e375f43321",
+      "external_id": "c6ef19ee-4612-3d6d-a7f4-98e375f43321",
+      "team_abbr": "TB",
+      "summary": "Scheme analysis of Buccaneers' offense and defense ahead of Week 11 matchup with Lions.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Breaking down the offensive and defensive schemes of the Tampa Bay Buccaneers, the Detroit Lions' Week 11 opponent.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "d880c537-4943-3a95-9134-6386e208dd34",
+      "external_id": "d880c537-4943-3a95-9134-6386e208dd34",
+      "team_abbr": "DAL",
+      "summary": "Christian Parker stripped of play-calling duties with Cowboys; fallout coverage.",
+      "sentiment": -0.6,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Fallout from Christian Parker being stripped of play-calling duties",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "5254279a-5fcd-3cdc-b878-48e646e79ad9",
+      "external_id": "5254279a-5fcd-3cdc-b878-48e646e79ad9",
+      "team_abbr": "NE",
+      "summary": "Patriots addressing defensive issues and missed tackles as priority post-bye.",
+      "sentiment": -0.4,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "The Patriots defense has struggled lately, and missed tackles are part of the issue.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "c03222aa-dc89-3511-9cfb-6e619a6f7655",
+      "external_id": "c03222aa-dc89-3511-9cfb-6e619a6f7655",
+      "team_abbr": "DEN",
+      "summary": "Broncos (4-6) aim to start second half strong against Raiders with Sean Payton confident in team toughness.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Denver Broncos are back to business this week and will host the Las Vegas Raiders on Sunday. Despite a 4-6 record, Head Coach Sean Payton knows they'll be a tough team to beat.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "fedfb21e-f746-304b-a229-c86af130c274",
+      "external_id": "fedfb21e-f746-304b-a229-c86af130c274",
+      "team_abbr": "CLE",
+      "summary": "Cleveland Browns news roundup for November 19 edition.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the November 19 edition of the Daily Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "805293d8-38a4-32e4-82b3-482e119b703e",
+      "external_id": "805293d8-38a4-32e4-82b3-482e119b703e",
+      "team_abbr": "DAL",
+      "summary": "Former Eagles coach Christian Parker stripped of play-calling duties with Dallas Cowboys.",
+      "sentiment": -0.5,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "Former Eagles coach Christian Parker will no longer call plays for the Dallas Cowboys defense.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "ac26736b-bc55-30c3-b56a-eea42e3ac7d4",
+      "external_id": "ac26736b-bc55-30c3-b56a-eea42e3ac7d4",
+      "team_abbr": "CAR",
+      "summary": "Panthers defense improving with injured players returning before Saints matchup.",
+      "sentiment": 0.5,
+      "confidence": 0.5,
+      "category": "injury",
+      "source_excerpt": "The Carolina Panthers have some good news to report regarding their injuries going into their matchup with the Saints.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0a837a31-48bb-3b3e-b550-5b8dbfb52304",
+      "external_id": "0a837a31-48bb-3b3e-b550-5b8dbfb52304",
+      "team_abbr": "SF",
+      "summary": "49ers coach Kyle Shanahan discusses Minnesota's Brian Flores defensive scheme.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "49ers coach says the Minnesota defense puts pressure on everyone involved.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "fe50ce08-97c3-3809-817d-49e70c9703bf",
+      "external_id": "fe50ce08-97c3-3809-817d-49e70c9703bf",
+      "team_abbr": "AFC",
+      "summary": "AFC North playoff picture sees Bengals leading division while Browns remain competitive.",
+      "sentiment": 0.0,
+      "confidence": 0.4,
+      "category": "general",
+      "source_excerpt": "The AFC North could once again product multiple playoff teams.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-the-brian-flores-defense-its-not-just-a-fad",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-on-the-brian-flores-defense-its-not-just-a-fad",
+      "team_abbr": "SF",
+      "summary": "49ers coach Kyle Shanahan discusses Minnesota's Brian Flores defense and its impact on opposing offenses.",
+      "sentiment": 0.0,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "49ers coach says the Minnesota defense puts pressure on everyone involved.",
+      "subject_type": "coach"
+    }
+  ]
+}

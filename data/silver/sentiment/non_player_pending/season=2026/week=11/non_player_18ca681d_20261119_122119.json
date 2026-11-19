@@ -1,0 +1,130 @@
+{
+  "batch_id": "18ca681d",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-19T12:21:19.748643+00:00",
+  "record_count": 11,
+  "records": [
+    {
+      "doc_id": "73e02208-c0a4-44da-8d76-feb0b48b1f43",
+      "external_id": "73e02208-c0a4-44da-8d76-feb0b48b1f43",
+      "team_abbr": null,
+      "summary": "Week 11 NFL odds and lines overview for all 13 matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "A look at the latest Week 11 NFL odds and updated lines for all 13 matchups.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "97f968b5-fdae-48ce-836d-7d4b083b44e1",
+      "external_id": "97f968b5-fdae-48ce-836d-7d4b083b44e1",
+      "team_abbr": null,
+      "summary": "Generic Week 11 NFL picks article with no specific player or injury information mentioned.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Tyler Sullivan picks every game on the Week 11 schedule, including five locks against the spread",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "887af1e2-0b0e-3516-bc50-58f4542d29bf",
+      "external_id": "887af1e2-0b0e-3516-bc50-58f4542d29bf",
+      "team_abbr": null,
+      "summary": "Generic Week 11 straight-up picks article with confidence levels for 13 NFL games.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "David Fucillo makes picks for all 13 NFL games with levels of confidence ahead of Week 11.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "fb7a65ff-50e0-39b9-ad59-e4e9606ab926",
+      "external_id": "fb7a65ff-50e0-39b9-ad59-e4e9606ab926",
+      "team_abbr": null,
+      "summary": "Christopher Hart provides straight-up predictions for all Week 11 matchups in 2026 season.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Mile High Report's Christopher Hart predicts the straight-up winners for every Week 11 matchup of the 2026 season.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "8ef0a203-6e88-4d62-b4d0-85abf62f42d7",
+      "external_id": "8ef0a203-6e88-4d62-b4d0-85abf62f42d7",
+      "team_abbr": null,
+      "summary": "How to watch Thursday Night Football game between Colts and Texans.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "How to watch this week's Thursday Night Football game between the Colts and the Texans.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "417d2903-50e8-33bb-8004-6c33864b8abd",
+      "external_id": "417d2903-50e8-33bb-8004-6c33864b8abd",
+      "team_abbr": null,
+      "summary": "NFL Week 11 features Texans vs Colts AFC South matchup on Thursday Night Football.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The NFL regular season rolls into Week 11 with an AFC South battle featuring the Texans and Colts on Thursday Night Football.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "f31b3ca2-7a1e-395e-a229-db4a1b4dda75",
+      "external_id": "f31b3ca2-7a1e-395e-a229-db4a1b4dda75",
+      "team_abbr": null,
+      "summary": "Three NFL Thanksgiving games scheduled this season, including two divisional matchups.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "There are three NFL Thanksgiving games this season, including two divisional clashes.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0b7838c4-8cf9-38fe-a620-9d23be460cbe",
+      "external_id": "0b7838c4-8cf9-38fe-a620-9d23be460cbe",
+      "team_abbr": null,
+      "summary": "Commanders-Bengals Week 11 Monday Night Football matchup is rematch of 2024 thriller.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Hogs Haven looks at factors that affect this Week 11 meeting between the Bengals & Commanders on Monday Night Football.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "e236375f-2346-3fd3-b75f-684f13ae803f",
+      "external_id": "e236375f-2346-3fd3-b75f-684f13ae803f",
+      "team_abbr": null,
+      "summary": "NFL analyst Sam Farmer predicts 49ers improve to 9-1 and Chargers defeat Jets in Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Sam Farmer makes his predictions for Week 11 of the NFL season, with the 49ers beating the Vikings in Mexico City and the Chargers defeating the Jets.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "80638c5b-7905-3976-8286-f5871e73dfa5",
+      "external_id": "80638c5b-7905-3976-8286-f5871e73dfa5",
+      "team_abbr": null,
+      "summary": "Thursday Night Football features Colts at Texans with viewing information provided.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "This week's \"Thursday Night Football\" matchup features the Colts heading to Reliant Stadium to take on the Texans. Here's how to watch.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "09044a4e-ece8-3fe7-8069-e4908d0fae05",
+      "external_id": "09044a4e-ece8-3fe7-8069-e4908d0fae05",
+      "team_abbr": null,
+      "summary": "Tom Brady has become a well-regarded NFL broadcaster despite initial criticism.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "The former NFL quarterback was widely derided when he starter his job in the Fox booth. But he has shown a human side and explains the game beautifully",
+      "subject_type": "reporter"
+    }
+  ]
+}

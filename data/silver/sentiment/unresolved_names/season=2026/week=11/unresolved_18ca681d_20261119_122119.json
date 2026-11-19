@@ -1,0 +1,27 @@
+{
+  "batch_id": "18ca681d",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-19T12:21:19.757598+00:00",
+  "record_count": 2,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/diego-pavia-is-the-first-pick-in-the-ufl-draft",
+      "player_name": "Diego Pavia",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Pavia went unselected in 2026 NFL draft but was selected first in UFL draft.",
+      "source_excerpt": "Quarterback Diego Pavia went unselected in the 2026 NFL draft.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "5448dc2f-390e-3f34-8e38-08baaefb02d9",
+      "player_name": "Makai Lemon",
+      "team_abbr": "PHI",
+      "category": "general",
+      "summary": "Eagles have been statistically poor through nine games but have reinforcements like Makai Lemon and Dallas Goedert.",
+      "source_excerpt": "The Eagles haven't been this statistically bad through nine games in more than 50 years.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

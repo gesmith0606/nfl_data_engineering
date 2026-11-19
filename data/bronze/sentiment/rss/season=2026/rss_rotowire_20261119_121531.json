@@ -1,0 +1,86 @@
+{
+  "fetch_run_id": "082eb5d7-7fba-4c27-b238-4a9510641311",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-19T12:15:31.150999+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648549",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "title": "Ladd McConkey: Limited in Wednesday's practice",
+      "body_text": "McConkey (back) was a limited participant in Wednesday's practice.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-18T04:17:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648539",
+      "url": "https://www.rotowire.com//football/player/jaylen-waddle-15404",
+      "title": "Jaylen Waddle: Practices fully Wednesday",
+      "body_text": "Waddle (concussion) was a full participant in Wednesday's practice.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-18T03:06:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jaylen Waddle",
+        "Wednesday Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648536",
+      "url": "https://www.rotowire.com//football/player/devonta-smith-15406",
+      "title": "DeVonta Smith: Limited in return to practice",
+      "body_text": "Smith (hamstring) was a limited participant in Wednesday's practice.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-18T02:59:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648534",
+      "url": "https://www.rotowire.com//football/player/geno-smith-8743",
+      "title": "Geno Smith: Limited, but plans to play Sunday",
+      "body_text": "Smith (ankle), who was a limited participant in Wednesday's walkthrough practice, said afterward that he intends to play in Sunday's game against the Chargers, Rich Cimini of ESPN.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-18T02:53:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Geno Smith",
+        "Sunday Smith",
+        "Rich Cimini"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648532",
+      "url": "https://www.rotowire.com//football/player/michael-pittman-14378",
+      "title": "Michael Pittman: Limited in first practice back",
+      "body_text": "Pittman (foot) was limited in his return to practice Wednesday, Teresa Varley of the Steelers' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-18T02:44:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Michael Pittman",
+        "Teresa Varley"
+      ],
+      "resolved_player_ids": [
+        "00-0036252"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
