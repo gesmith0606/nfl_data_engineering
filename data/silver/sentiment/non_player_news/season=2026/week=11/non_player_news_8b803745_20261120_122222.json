@@ -1,0 +1,185 @@
+{
+  "batch_id": "8b803745",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-20T12:22:22.171148+00:00",
+  "record_count": 16,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-to-retire-andre-reeds-no-83-in-2027",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-to-retire-andre-reeds-no-83-in-2027",
+      "team_abbr": "BUF",
+      "summary": "Bills will retire Andre Reed's No. 83 jersey in 2027 to honor the franchise's top receiver in history.",
+      "sentiment": 0.0,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "The Bills will be retiring the number of the top wide receiver in franchise history next year.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-texans-beat-up-on-colts-26-3",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-texans-beat-up-on-colts-26-3",
+      "team_abbr": "HOU",
+      "summary": "Texans defeated Colts 26-3 on Thursday Night Football to improve to 4-6 and keep slim playoff hopes alive.",
+      "sentiment": 0.0,
+      "confidence": 0.95,
+      "category": "general",
+      "source_excerpt": "The Texans moved to 4-6 to keep their slim playoff hopes alive.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-explored-all-options-before-deciding-to-stay-in-minnesota-this-week",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-explored-all-options-before-deciding-to-stay-in-minnesota-this-week",
+      "team_abbr": "MIN",
+      "summary": "Vikings staying in Minnesota for Mexico City game while 49ers prepare in Colorado Springs at altitude.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "As Sunday's Mexico City game between the Vikings and 49ers approaches, one of the big issues is the decision of the 49ers to spend the week at altitude in Colorado Springs while the Vikings opted to stay in Minnesota.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-work-to-get-a-stadium-deal-in-illinois-by-december-3",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-work-to-get-a-stadium-deal-in-illinois-by-december-3",
+      "team_abbr": "CHI",
+      "summary": "Bears working toward new stadium deal in Illinois by December 3.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "The Bears continue to work toward getting a new stadium deal in place.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "a7c1087c-ae9b-49d0-9e8d-826dc64199db",
+      "external_id": "a7c1087c-ae9b-49d0-9e8d-826dc64199db",
+      "team_abbr": "HOU",
+      "summary": "Texans look to bounce back after rough Week 10 loss against lowly Colts in Thursday Night Football matchup.",
+      "sentiment": -0.3,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Houston looks to bounce back on 'TNF' vs. lowly Indy after rough Week 10 loss",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "597763dc-db69-4b7e-8ea7-580acfdd8597",
+      "external_id": "597763dc-db69-4b7e-8ea7-580acfdd8597",
+      "team_abbr": "MIN",
+      "summary": "Vikings prepared facility for altitude acclimation ahead of Mexico City game vs 49ers.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Minnesota transformed part of its facility to help the team adjust to the altitude it will face in Mexico City",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "da45ea8e-f91e-421f-ac75-dfb5d49d7296",
+      "external_id": "da45ea8e-f91e-421f-ac75-dfb5d49d7296",
+      "team_abbr": "SF",
+      "summary": "49ers' aging roster with significant injury history attempting Super Bowl run.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "The 49ers have defied the odds en route to a record-setting star, but can they keep it up?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1bb0a76d-5ec9-3f82-9b70-7e0d9e98d003",
+      "external_id": "1bb0a76d-5ec9-3f82-9b70-7e0d9e98d003",
+      "team_abbr": "NYJ",
+      "summary": "Jets face critical Week 11 matchup with Chargers with playoff implications.",
+      "sentiment": -0.3,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Toilet Bowl Between NYJ, Chargers has Huge Implications",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1bb0a76d-5ec9-3f82-9b70-7e0d9e98d003",
+      "external_id": "1bb0a76d-5ec9-3f82-9b70-7e0d9e98d003",
+      "team_abbr": "LAC",
+      "summary": "Chargers face critical Week 11 matchup with Jets with playoff implications.",
+      "sentiment": -0.3,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Toilet Bowl Between NYJ, Chargers has Huge Implications",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "31e41478-6c3d-3fdd-a7dd-0928467431f1",
+      "external_id": "31e41478-6c3d-3fdd-a7dd-0928467431f1",
+      "team_abbr": "NE",
+      "summary": "Patriots defense facing scrutiny with questions about performance and offensive line.",
+      "sentiment": -0.4,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "What's wrong with the Patriots defense?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "9dc1f529-f466-345a-af70-e48b70874475",
+      "external_id": "9dc1f529-f466-345a-af70-e48b70874475",
+      "team_abbr": "HOU",
+      "summary": "Texans dominate Colts 26-3 on Thursday Night Football in Week 11.",
+      "sentiment": 1.0,
+      "confidence": 0.95,
+      "category": "general",
+      "source_excerpt": "Indianapolis' offense generated no good football as Houston cruised to a simple home win.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "3c6006ba-38ad-33f2-9381-43ed6c9e1816",
+      "external_id": "3c6006ba-38ad-33f2-9381-43ed6c9e1816",
+      "team_abbr": "HOU",
+      "summary": "Texans defeated Colts 26-3 on Thursday, improving to 4-6 and keeping playoff hopes alive.",
+      "sentiment": 0.6,
+      "confidence": 0.8,
+      "category": "general",
+      "source_excerpt": "The Texans moved to 4-6 to keep their slim playoff hopes alive.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-to-retire-andre-reeds-no-83-in-2027",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-to-retire-andre-reeds-no-83-in-2027",
+      "team_abbr": "BUF",
+      "summary": "Bills will retire Andre Reed's No. 83 in 2027, honoring the franchise's top wide receiver in team history.",
+      "sentiment": 0.5,
+      "confidence": 0.95,
+      "category": "general",
+      "source_excerpt": "The Bills will be retiring the number of the top wide receiver in franchise history next year.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-texans-beat-up-on-colts-26-3",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-texans-beat-up-on-colts-26-3",
+      "team_abbr": "HOU",
+      "summary": "Texans defeated Colts 26-3 to improve to 4-6 and keep playoff hopes alive.",
+      "sentiment": 0.7,
+      "confidence": 0.85,
+      "category": "general",
+      "source_excerpt": "The Texans moved to 4-6 to keep their slim playoff hopes alive.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-explored-all-options-before-deciding-to-stay-in-minnesota-this-week",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-explored-all-options-before-deciding-to-stay-in-minnesota-this-week",
+      "team_abbr": "MIN",
+      "summary": "Vikings staying in Minnesota for Mexico City game while 49ers prepare in Colorado altitude.",
+      "sentiment": 0.0,
+      "confidence": 0.7,
+      "category": "weather",
+      "source_excerpt": "As Sunday's Mexico City game between the Vikings and 49ers approaches, one of the big issues is the decision of the 49ers to spend the week at altitude in Colorado Springs while the Vikings opted to stay in Minnesota.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-work-to-get-a-stadium-deal-in-illinois-by-december-3",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-work-to-get-a-stadium-deal-in-illinois-by-december-3",
+      "team_abbr": "CHI",
+      "summary": "Bears working on new stadium deal in Illinois by December 3 deadline.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Bears continue to work toward getting a new stadium deal in place.",
+      "subject_type": "team"
+    }
+  ]
+}

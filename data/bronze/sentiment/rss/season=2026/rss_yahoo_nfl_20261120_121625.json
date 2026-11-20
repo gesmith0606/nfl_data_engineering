@@ -1,0 +1,811 @@
+{
+  "fetch_run_id": "a6b7d6f1-ca31-41c6-9c4e-ded836a51cba",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-20T12:16:25.335560+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "4b1c2031-a216-3fc1-b699-eb41d93bc0ed",
+      "url": "https://sports.yahoo.com/articles/bills-retire-andre-reeds-no-120918749.html",
+      "title": "Bills to retire Andre Reed's No. 83 in 2027",
+      "body_text": "The Bills will be retiring the number of the top wide receiver in franchise history next year.",
+      "author": "",
+      "published_at": "2026-11-20T12:09:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Andre Reed",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "1bb0a76d-5ec9-3f82-9b70-7e0d9e98d003",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-toilet-bowl-120000339.html",
+      "title": "New York Jets News: Toilet Bowl Between NYJ, Chargers has Huge Implications",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Toilet Bowl",
+        "Huge Implications"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "31e41478-6c3d-3fdd-a7dd-0928467431f1",
+      "url": "https://sports.yahoo.com/articles/postpulpit-mailbag-wrong-patriots-defense-120000713.html",
+      "title": "#PostPulpit mailbag: What’s wrong with the Patriots defense?",
+      "body_text": "The latest edition of our Patriots mailbag answers questions about the team's defense, offensive line, and more.",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "440d667b-3532-3c2e-bc7c-221fca79b645",
+      "url": "https://sports.yahoo.com/articles/tampa-bay-buccaneers-news-bucs-120000261.html",
+      "title": "Tampa Bay Buccaneers news: Bucs figuring out Baker Mayfield’s status vs. Lions",
+      "body_text": "The Tampa Bay Buccaneers are facing the Detroit Lions in Week 11, but they may not have Baker Mayfield.",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tampa Bay",
+        "Baker Mayfield",
+        "Lions The",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "511aed6a-a922-380b-9564-6dd558c9cb7d",
+      "url": "https://sports.yahoo.com/articles/5-questions-enemy-ahead-steelers-120000293.html",
+      "title": "5 questions with the enemy ahead of Steelers-Eagles",
+      "body_text": "A conversation with Brandon Gowton of Bleeding Green Nation",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brandon Gowton",
+        "Bleeding Green"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "648c6ce7-4e20-3b19-9d3a-d13e39f48d6c",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-christian-parker-speaks-120000684.html",
+      "title": "Cowboys news: Christian Parker speaks after recent demotion",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Parker",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "96d9db66-e0ad-3eb4-96ab-8685349b3896",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-optimism-brewing-120000758.html",
+      "title": "Tennessee Titans news: Optimism brewing before Cowboys game",
+      "body_text": "The Tennessee Titans are getting ready to go up against the Dallas Cowboys.",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "fb7807bc-7860-3ca6-9158-ce363117bd92",
+      "url": "https://sports.yahoo.com/articles/defensive-coordinator-vance-joseph-praises-120000738.html",
+      "title": "Defensive Coordinator Vance Joseph praises Riley Moss for his resilience and toughness",
+      "body_text": "On the day Riley Moss was extended, Defensive Coordinator Vance Joseph had glowing praise for the fourth-year cornerback.",
+      "author": "",
+      "published_at": "2026-11-20T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Defensive Coordinator",
+        "Vance Joseph",
+        "Riley Moss"
+      ],
+      "resolved_player_ids": [
+        "00-0038552"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "35a2dc7c-c003-3f99-b2f7-e195cd676a1e",
+      "url": "https://sports.yahoo.com/articles/c-j-stroud-knew-kind-115526638.html",
+      "title": "C.J. Stroud: I knew what kind of player I could be, amazing to be in this groove",
+      "body_text": "After a rough end to the 2025 season, Texans quarterback C.J.",
+      "author": "",
+      "published_at": "2026-11-20T11:55:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "751ebd9c-c85d-35cc-91f6-00aa429262d7",
+      "url": "https://sports.yahoo.com/articles/bengals-vs-commanders-odds-expert-113000063.html",
+      "title": "Bengals vs. Commanders odds, expert picks, and our prediction for Week 11 matchup",
+      "body_text": "The Bengals are big favorites going into Monday Night Football. How will this play out?",
+      "author": "",
+      "published_at": "2026-11-20T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bengals",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "f11a0ab3-95c3-30e8-ad94-216bf59d9dfe",
+      "url": "https://sports.yahoo.com/articles/drake-maye-injury-know-patriots-195552414.html",
+      "title": "Drake Maye injury: Everything we know about the Patriots QB’s status",
+      "body_text": "Maye suffered an ankle injury in Week 10 that forced him out of the Patriots’ loss to the Lions.",
+      "author": "",
+      "published_at": "2026-11-20T11:10:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "0bf55ee0-fa96-3e3b-b8a2-04e9fb0b4d40",
+      "url": "https://sports.yahoo.com/articles/ravens-upgrade-vega-ioane-2nd-110000976.html",
+      "title": "Ravens upgrade Vega Ioane on 2nd injury report of Week 11",
+      "body_text": "The Ravens upgraded Vega Ioane on Thursday’s injury report, but Nnamdi Madubuike missed his second straight practice.",
+      "author": "",
+      "published_at": "2026-11-20T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vega Ioane",
+        "The Ravens",
+        "Nnamdi Madubuike"
+      ],
+      "resolved_player_ids": [
+        "00-0036130"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "26f6185b-ad32-33e9-bdd4-44d47a5b4c33",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-let-video-110000107.html",
+      "title": "Cleveland Browns news: Let the video games begin!",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 20 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-20T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "2b02bc2e-57ed-3cdd-af38-4789660db310",
+      "url": "https://sports.yahoo.com/articles/bengals-news-ja-marr-chase-110000928.html",
+      "title": "Bengals News: Ja’Marr Chase and Tee Higgins eyeing NFL history",
+      "body_text": "We are witnessing one of the best passing attacks of All-Time",
+      "author": "",
+      "published_at": "2026-11-20T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Marr Chase",
+        "Tee Higgins"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "70884f74-02fb-318d-ae2c-576924695c9f",
+      "url": "https://sports.yahoo.com/articles/bear-den-jeffery-simmons-practicing-110000143.html",
+      "title": "The Bear’s Den: Jeffery Simmons practicing, learning defense",
+      "body_text": "Jeffery Simmons reports that he’s spent the bye week learning the Chicago Bears defense",
+      "author": "",
+      "published_at": "2026-11-20T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Jeffery Simmons",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "9b7b682e-d40a-32d8-93f9-ae31d8b37971",
+      "url": "https://sports.yahoo.com/articles/broncos-aim-hit-stride-just-110000849.html",
+      "title": "Broncos aim to hit their stride at just the right time",
+      "body_text": "The Broncos look to carry momentum from the bye and look to build on their success as the season enters the stretch run.",
+      "author": "",
+      "published_at": "2026-11-20T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "9c802539-188c-31be-b52f-8313041c6b78",
+      "url": "https://sports.yahoo.com/articles/giants-news-matt-nagy-takes-110000928.html",
+      "title": "Giants news: Matt Nagy takes accountability, Abdul Carter sacks, more",
+      "body_text": "New York Giants headlines for Friday.",
+      "author": "",
+      "published_at": "2026-11-20T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matt Nagy",
+        "Abdul Carter",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "630bd267-6042-3dcc-bdd2-380b81da8f04",
+      "url": "https://sports.yahoo.com/articles/ashton-jeantys-bad-season-running-102015860.html",
+      "title": "Ashton Jeanty's bad season running the ball overshadows his receiving production",
+      "body_text": "Jeanty is second in the NFL in both catches and receiving yards for a running back this season.",
+      "author": "",
+      "published_at": "2026-11-20T10:20:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "1eca8997-f801-35c0-8241-bad30b1bf924",
+      "url": "https://sports.yahoo.com/articles/golden-nuggets-sunday-feature-jake-100400564.html",
+      "title": "Golden Nuggets: Sunday will feature Jake Brendel vs Blake Brandel",
+      "body_text": "Your daily San Francisco 49ers news for Friday, November 20th, 2026",
+      "author": "",
+      "published_at": "2026-11-20T10:04:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Jake Brendel",
+        "Blake Brandel",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0032701",
+        "00-0036347"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "2f05234f-4e0a-3c5e-9a5d-42fb83d9fc3b",
+      "url": "https://sports.yahoo.com/articles/rams-star-nacua-suspended-personal-093818291.html",
+      "title": "Rams star Nacua suspended for personal conduct violation",
+      "body_text": "Puka Nacua is given a three-game suspension for violating the NFL's personal conduct policy, although the Los Angeles Rams wide receiver was already out injured.",
+      "author": "",
+      "published_at": "2026-11-20T09:38:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Puka Nacua",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "03808682-583c-3633-8cae-108633623d69",
+      "url": "https://sports.yahoo.com/articles/eagles-sign-jaydon-blue-active-165845857.html",
+      "title": "Eagles sign Jaydon Blue to active roster, add NT to practice squad",
+      "body_text": "The Eagles make two roster moves coming out of the bye week.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaydon Blue",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0040586"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "332086d4-d813-3600-9a6a-cb0c349db72c",
+      "url": "https://sports.yahoo.com/articles/arnold-ebiketie-no-hard-feelings-092135884.html",
+      "title": "Arnold Ebiketie: No hard feelings after trade to Bengals falls through",
+      "body_text": "Arnold Ebiketie is back with the Eagles after the trade with the Bengals fell through last week.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arnold Ebiketie"
+      ],
+      "resolved_player_ids": [
+        "00-0038116"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3f5fb10d-6810-3511-b588-d92b78172368",
+      "url": "https://sports.yahoo.com/articles/eagles-steelers-matchups-watch-week-070000672.html",
+      "title": "Eagles-Steelers matchups to watch in Week 11",
+      "body_text": "Here are some key matchups to watch as the Eagles host the Steelers in Week 11.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5448dc2f-390e-3f34-8e38-08baaefb02d9",
+      "url": "https://sports.yahoo.com/articles/roobs-bye-week-stats-awful-070000905.html",
+      "title": "Roob's bye week stats: It's awful but we do have Makai Lemon and Dallas Goedert",
+      "body_text": "The Eagles haven't been this statistically bad through nine games in more than 50 years.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Makai Lemon",
+        "Dallas Goedert",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "5aea5d43-8b7f-3147-afde-969c822db25c",
+      "url": "https://sports.yahoo.com/articles/whats-different-confidence-joe-milton-070000148.html",
+      "title": "‘What's different? My confidence': Joe Milton used bye week to master offense",
+      "body_text": "A more settled, more prepared Milton could go a long way toward ending the Eagles' losing streak.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "690a7eda-8b00-3170-b63e-fd2f16b26cff",
+      "url": "https://sports.yahoo.com/articles/eagles-injury-zack-baun-misses-145132911.html",
+      "title": "Eagles injury update: Zack Baun misses 2nd straight practice",
+      "body_text": "Here's the latest Eagles injury update from Thursday's practice ahead of the Steelers game.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zack Baun"
+      ],
+      "resolved_player_ids": [
+        "00-0036418"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "77d38f80-6a4e-332a-88c2-235112eff1c0",
+      "url": "https://sports.yahoo.com/articles/eagles-castoff-fred-johnson-joins-092401704.html",
+      "title": "Eagles castoff Fred Johnson joins Andy Reid on Chiefs practice squad",
+      "body_text": "Fred Johnson was signed to the Chiefs practice squad shortly after being released by the Eagles.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fred Johnson",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0034951"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "805293d8-38a4-32e4-82b3-482e119b703e",
+      "url": "https://sports.yahoo.com/articles/christian-parker-stripped-play-calling-100432854.html",
+      "title": "Christian Parker stripped of play-calling duties with Cowboys",
+      "body_text": "Former Eagles coach Christian Parker will no longer call plays for the Dallas Cowboys defense.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Christian Parker",
+        "Cowboys Former",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "838a4d12-fbc6-39af-ac58-7a4638058b08",
+      "url": "https://sports.yahoo.com/articles/eagles-injury-offensive-reinforcements-return-154934840.html",
+      "title": "Eagles injury update: Offensive reinforcements return after bye week",
+      "body_text": "Both DeVonta Smith and Dontayvion Wicks returned to Eagles practice on Wednesday after the bye week.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dontayvion Wicks"
+      ],
+      "resolved_player_ids": [
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "89b94027-d1ac-378b-9bc6-1b5c8ac837d4",
+      "url": "https://sports.yahoo.com/articles/updating-eagles-2027-draft-pick-084300132.html",
+      "title": "Updating Eagles' 2027 draft pick after Week 10 bye week",
+      "body_text": "As the Eagles come back from their Week 10 bye week, here's an updated look at their draft pick in the first round in 2027.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Updating Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8b8b1500-7a71-361c-b537-c422b59a576f",
+      "url": "https://sports.yahoo.com/articles/back-100-devonta-smith-defends-070000975.html",
+      "title": "Back at 100%, DeVonta Smith defends playing in Panthers game",
+      "body_text": "DeVonta Smith is back at 100% and defended the decision to play him back in Week 6.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "9dc1f529-f466-345a-af70-e48b70874475",
+      "url": "https://sports.yahoo.com/articles/winners-losers-texans-rout-colts-232800325.html",
+      "title": "Winners, losers as Texans rout Colts 26-3 on Thursday Night Football",
+      "body_text": "Indianapolis' offense generated no good football as Houston cruised to a simple home win.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Football Indianapolis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "b064037b-215d-352c-a84f-68701f30639b",
+      "url": "https://sports.yahoo.com/articles/steelers-vs-eagles-betting-guide-070000411.html",
+      "title": "Steelers vs Eagles betting guide: Odds, props and picks",
+      "body_text": "Joe Milton gets another crack at it at QB, but he'll have much more help this time around.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "ca0a6a2e-a220-3248-9d47-579753b55bde",
+      "url": "https://sports.yahoo.com/articles/nick-sirianni-sticking-sean-mannion-130240518.html",
+      "title": "Nick Sirianni sticking with Sean Mannion, Joe Milton out of bye",
+      "body_text": "Nick Sirianni is sticking with OC Sean Mannion and QB Joe Milton as the Eagles return from the bye week.",
+      "author": "",
+      "published_at": "2026-11-20T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Sirianni",
+        "Sean Mannion",
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0032245",
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6d173989-c61e-35ff-8360-29666510b8cd",
+      "url": "https://sports.yahoo.com/articles/c-j-stroud-throws-three-061833573.html",
+      "title": "C.J. Stroud throws for three TDs in easy win",
+      "body_text": "While C.J. Stroud passed for just 194 yards, he did throw a trio of touchdown strikes during a 23-point win over Indy in Week 11.",
+      "author": "",
+      "published_at": "2026-11-20T06:18:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e8b1d57f-49d2-39d4-a4a3-ab9a9972ac5e",
+      "url": "https://sports.yahoo.com/articles/colts-bench-daniel-jones-shane-051040006.html",
+      "title": "Will Colts bench Daniel Jones? Shane Steichen to 'evaluate everything'",
+      "body_text": "After the Colts were throttled by the Texans in Week 11, Shane Steichen was noncommittal about Daniel Jones' status as the team's starting QB.",
+      "author": "",
+      "published_at": "2026-11-20T05:10:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Will Colts",
+        "Daniel Jones",
+        "Shane Steichen"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "696869fa-5556-394b-a84b-59b98545d6db",
+      "url": "https://sports.yahoo.com/articles/shane-steichen-daniel-jones-remaining-051026899.html",
+      "title": "Shane Steichen on Daniel Jones remaining the starter: &quot;We'll evaluate everything&quot;",
+      "body_text": "Anthony Richardson could finally get a chance to show what he can do.",
+      "author": "",
+      "published_at": "2026-11-20T05:10:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Shane Steichen",
+        "Daniel Jones",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0039164"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "837b7f5b-3428-49ac-9751-1d55066bdd53",
+      "url": "https://sports.yahoo.com/nfl/article/as-nfc-south-threatens-another-sub-500-division-winner-does-nfl-playoff-structure-need-makeover-itll-take-an-egregious-deal-050414027.html",
+      "title": "As NFC South threatens another sub-.500 division winner, does NFL playoff structure need makeover? 'It'll take an egregious deal'",
+      "body_text": "Expect conversations to continue to simmer, while also expecting momentum for change to remain slow in a league that values tradition and divisional competition.",
+      "author": "Jori Epstein",
+      "published_at": "2026-11-20T05:04:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "3c6254c7-4537-4c35-ba8b-eebde35bfd40",
+      "url": "https://sports.yahoo.com/nfl/article/after-thursdays-loss-will-colts-give-anthony-richardson-another-real-shot-045047816.html",
+      "title": "After Thursday's loss, will Colts give Anthony Richardson another real shot?",
+      "body_text": "Daniel Jones struggled again. Will Anthony Richardson get another chance? Or has that ship mostly sailed?",
+      "author": "Eric Edholm",
+      "published_at": "2026-11-20T04:50:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "After Thursday",
+        "Anthony Richardson",
+        "Daniel Jones",
+        "Will Anthony"
+      ],
+      "resolved_player_ids": [
+        "00-0039164",
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "6bfb4789-82ad-4065-8529-af628b556227",
+      "url": "https://sports.yahoo.com/nfl/live/texans-run-over-ineffective-colts-for-easy-26-3-victory-winning-first-home-game-this-season-041509292.html",
+      "title": "Texans run over ineffective Colts for easy 26-3 victory, winning first home game this season",
+      "body_text": "Indianapolis essentially waved its white flag with eight minutes remaining, replacing Daniel Jones with Anthony Richardson.",
+      "author": "Ian Casselberry",
+      "published_at": "2026-11-19T23:47:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daniel Jones",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "0d8f4536-f900-348d-afed-22d43b109c49",
+      "url": "https://sports.yahoo.com/articles/kayshon-boutte-injures-hip-against-043133193.html",
+      "title": "Kayshon Boutte injures hip against Colts",
+      "body_text": "Houston Texans WR Kayshon Boutte unable to return against Indianapolis",
+      "author": "",
+      "published_at": "2026-11-20T04:31:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kayshon Boutte",
+        "Colts Houston"
+      ],
+      "resolved_player_ids": [
+        "00-0038608"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "46ef4bf4-5f81-3b45-877e-cafa36d7b765",
+      "url": "https://sports.yahoo.com/articles/colts-surrender-26-unanswered-points-043022661.html",
+      "title": "Colts surrender 26 unanswered points as Daniel Jones benched in blowout road loss to Texans",
+      "body_text": "Houston, the problem here is the Indianapolis Colts offense is broken and has not reached the end zone in 17 consecutive drives.",
+      "author": "",
+      "published_at": "2026-11-20T04:30:22+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daniel Jones",
+        "Texans Houston",
+        "Indianapolis Colts"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "23fa10dd-ed98-4933-a55d-fc10a032001e",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/2027-nfl-draft-order-titans-take-over-no-1-spot-after-chargers-grab-first-win-of-season-042551913.html",
+      "title": "2027 NFL Draft order: Titans take over No. 1 spot after Chargers grab first win of season",
+      "body_text": "There are three teams with identical 1-8 records vying for the top pick.",
+      "author": "Ryan Young",
+      "published_at": "2026-11-16T04:37:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "bf20c92d-7fc4-3b9f-a185-1afb77a060c6",
+      "url": "https://sports.yahoo.com/articles/c-j-stroud-texans-care-042318694.html",
+      "title": "C.J. Stroud, Texans take care of business vs. cratering Colts: TNF winners, losers",
+      "body_text": "The Texans did what they needed to do Thursday night against the division-rival Colts. Here are the winners and losers of &quot;TNF.&quot;",
+      "author": "",
+      "published_at": "2026-11-20T04:23:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "3c6006ba-38ad-33f2-9381-43ed6c9e1816",
+      "url": "https://sports.yahoo.com/articles/thursday-night-football-texans-beat-041310062.html",
+      "title": "Thursday Night Football: Texans beat up on Colts, 26-3",
+      "body_text": "The Texans moved to 4-6 to keep their slim playoff hopes alive.",
+      "author": "",
+      "published_at": "2026-11-20T04:13:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "11255821-863e-3db2-b97f-16710463bb78",
+      "url": "https://sports.yahoo.com/articles/jeffery-simmons-says-knee-injury-040556272.html",
+      "title": "Jeffery Simmons says knee injury won't keep him from playing",
+      "body_text": "Bears defensive tackle Jeffery Simmons emerged from the bye week that has had him limited in practice this week.",
+      "author": "",
+      "published_at": "2026-11-20T04:05:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "b826ab89-a277-3d16-8230-1f8f7e5a1fc7",
+      "url": "https://sports.yahoo.com/articles/nfl-playoff-picture-week-11-033117567.html",
+      "title": "NFL playoff picture Week 11: Texans mounting late wild-card charge?",
+      "body_text": "Where the projected NFL playoff picture stands with Week 11 underway.",
+      "author": "",
+      "published_at": "2026-11-20T03:31:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "dd6171b5-e34d-3e70-ab22-bfd1d153d4a6",
+      "url": "https://sports.yahoo.com/articles/buccaneers-lions-thursday-injury-report-032001150.html",
+      "title": "Buccaneers at Lions: Thursday injury report for Week 11",
+      "body_text": "The Tampa Bay Buccaneers received some encouraging news Thursday as they continued preparations for their Week 11 matchup against the Detroit Lions. After missing Wednesday’s practice, quarterback Baker Mayfield (foot/right thumb) returned to the practice field Thursday as a limited participant. It’s a positive development for the veteran quarterback, whose availability for Sunday has been […]",
+      "author": "",
+      "published_at": "2026-11-20T03:20:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Tampa",
+        "Bay Buccaneers",
+        "Detroit Lions",
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "d323948b-c176-3abc-8c79-2db2d15680f8",
+      "url": "https://sports.yahoo.com/articles/chris-braswell-carted-off-against-031759000.html",
+      "title": "Chris Braswell carted off against Indy",
+      "body_text": "Houston Texans DE Chris Braswell suffers knee injury in Week 11",
+      "author": "",
+      "published_at": "2026-11-20T03:17:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chris Braswell",
+        "Indy Houston"
+      ],
+      "resolved_player_ids": [
+        "00-0039902"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "1b39df3a-9678-4093-853f-9cc8a64604da",
+      "url": "https://sports.yahoo.com/nfl/article/lions-aidan-hutchinson-says-his-jumping-celebration-days-are-over-after-torn-acl-thats-the-last-time-i-go-airborne-025843386.html",
+      "title": "Lions' Aidan Hutchinson says his jumping celebration days are over after torn ACL: 'That's the last time I go airborne'",
+      "body_text": "Hutchinson suffered the torn ACL while jumping up to celebrate sacking Patriots QB Drake Maye in Detroit's 35-10 win.",
+      "author": "Ian Casselberry",
+      "published_at": "2026-11-20T02:58:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aidan Hutchinson",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0037236",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    }
+  ]
+}

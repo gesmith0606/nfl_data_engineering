@@ -1,0 +1,568 @@
+{
+  "fetch_run_id": "a6b7d6f1-ca31-41c6-9c4e-ded836a51cba",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-20T12:16:25.889326+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "d3f1d6f7-8da3-40c0-8d92-b11579f8a24c",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-picks-best-bets-49ers-vikings-bengals-commanders/",
+      "title": "NFL Week 11 picks, best bets: 49ers over Vikings in prime time? Bengals cover vs. Commanders",
+      "body_text": "Jordan Dajani gives his picks for Week 11 of the 2026 NFL season",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-20T11:00:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Commanders Jordan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "55b561a9-68fc-452d-b32a-ea168ad77390",
+      "url": "https://www.cbssports.com/nfl/news/priscos-week-11-nfl-picks-odds-expert-picks-predictions/",
+      "title": "Prisco's Week 11 NFL picks: Cowboys rout Titans, 49ers over Vikings, Panthers edge Ravens",
+      "body_text": "Pete Prisco reveals all of his Week 11 picks, including the Jaguars to handle the Giants on the road",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-20T04:33:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Ravens Pete"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "8ccc6701-f19d-4892-950f-f6c7a54a3540",
+      "url": "https://www.cbssports.com/nfl/news/bengals-duo-could-break-nfl-record-jamarr-chase-tee-higgins-historic-pace/",
+      "title": "Bengals duo could break NFL record that has stood for 31 years: Ja'Marr Chase and Tee Higgins on historic pace",
+      "body_text": "Ja'Marr Chase and Tee Higgins could make NFL history for the red hot Bengals",
+      "author": "John Breech",
+      "published_at": "2026-11-20T02:07:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marr Chase",
+        "Tee Higgins"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "804fce46-5ccd-494e-aa04-10124e908d03",
+      "url": "https://www.cbssports.com/nfl/news/bills-to-retire-andre-reeds-no-83-during-the-2027-season/",
+      "title": "Bills to retire franchise legend Andre Reed's No. 83 during the 2027 season",
+      "body_text": "Reed is Buffalo's career leader in every major receiving category",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-20T00:46:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Andre Reed"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "5d45a13c-079a-4108-9d07-aa32141fd72f",
+      "url": "https://www.cbssports.com/betting/news/week-11-nfl-betting-promos-get-almost-4000-in-bonuses-betting-apps-sportsbooks-texans-vs-colts/",
+      "title": "Week 11 NFL betting promos: Get almost $4,000 in bonuses from betting apps, sportsbooks for Texans vs. Colts",
+      "body_text": "Top Week 11 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-20T00:35:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Colts Top",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "e51494c4-d765-4f47-9540-a3daf9c83e9f",
+      "url": "https://www.cbssports.com/prediction/news/colts-vs-texans-odds-first-touchdown-scorer-picks-odds-predictions-thursday-night-football/",
+      "title": "Colts vs. Texans odds, first touchdown scorer picks, odds, predictions for Thursday Night Football",
+      "body_text": "We look at first touchdown scorer prediction markets at Kalshi for Colts vs. Texans NFL Week 11 Thursday Night Football",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-20T00:32:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "705385fb-1de7-4b75-aa24-c00f9ce6e010",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-colts-texans-thursday-night-football/",
+      "title": "Use FanDuel promo code to get $200 bonus bets by targeting Colts vs. Texans on Thursday Night Football",
+      "body_text": "Sign up and bet with the latest FanDuel promo code when you place your Thursday Night Football bets",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-20T00:04:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Football Sign"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "36ecd115-7aa4-4128-a2ea-88d4975f943c",
+      "url": "https://www.cbssports.com/betting/news/texans-vs-colts-odds-prediction-line-betting-preview-start-time-thursday-night-football-picks-best-bets/",
+      "title": "Texans vs. Colts odds, prediction, line, betting preview, start time: Thursday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Colts vs. Texans on Thursday Night Football",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-20T00:04:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "a7c1087c-ae9b-49d0-9e8d-826dc64199db",
+      "url": "https://www.cbssports.com/nfl/news/texans-vs-colts-how-to-watch-odds-preview-prediction/",
+      "title": "Texans vs. Colts prediction: Houston looks to bounce back on 'TNF' vs. lowly Indy after rough Week 10 loss",
+      "body_text": "Plus, how to watch, what to know and a prediction before the 'Thursday Night Football' matchup",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-20T00:38:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "1e442a8c-0dae-497c-b420-f289c0333884",
+      "url": "https://www.cbssports.com/betting/news/colts-vs-texans-odds-picks-prediction-nfl-week-11-best-bets-player-props-for-thursday-night-football/",
+      "title": "Colts vs. Texans odds, picks, prediction: NFL Week 11 best bets, player props for Thursday Night Football",
+      "body_text": "Why backing the under on a 44-point total and targeting rushing props for David Montgomery and Daniel Jones create the best betting value for this divisional clash",
+      "author": "Will Brinson",
+      "published_at": "2026-11-19T23:45:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "Football Why",
+        "David Montgomery",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035685",
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "958659f4-9402-43bb-b058-8cffbe2a4839",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-secure-55-bonus-colts-vs-texans-thursday-night-football-picks/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Secure $55 bonus for Colts vs. Texans, Thursday Night Football picks",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Colts vs. Texans TNF",
+      "author": "James Holliman",
+      "published_at": "2026-11-19T23:43:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thursday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "ea27591e-0729-4f58-8ef5-c068e1d6f51a",
+      "url": "https://www.cbssports.com/prediction/news/kalshi-promo-code-cbssports55-grab-55-bonus-for-texans-vs-colts-nfl-thursday-night-football-predictions/",
+      "title": "Kalshi promo code CBSSPORTS55: Grab $55 bonus for Texans vs. Colts, NFL Thursday Night Football predictions",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Thursday's games",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-19T23:41:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thursday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "d5df3a07-6e4e-4973-a749-6bab7f73d392",
+      "url": "https://www.cbssports.com/nfl/news/how-aidan-hutchinson-injury-could-grant-lions-a-salary-cap-credit-in-2027/",
+      "title": "How Aidan Hutchinson injury could grant Lions a salary cap credit in 2027",
+      "body_text": "The Lions would not be the first team to receive cap relief for an injured player",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-19T23:37:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "How Aidan",
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "9f68f07f-ec40-465c-9c87-a5c3db71cf46",
+      "url": "https://www.cbssports.com/nfl/news/rams-puka-nacua-suspended-three-games-will-serve-ban-during-injured-reserve-stint/",
+      "title": "Rams' Puka Nacua suspended three games, will serve ban during injured reserve stint",
+      "body_text": "The NFL threatened Nacua with potential \"banishment\" from the league for future violations of the personal conduct policy",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-19T21:46:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "0678b376-262b-402f-aebc-6d67c7e12259",
+      "url": "https://www.cbssports.com/nfl/news/what-cowboys-christian-parker-said-defensive-coordinator-demotion/",
+      "title": "What Cowboys' Christian Parker said about demotion: DC considered leaving, pushed back on decision",
+      "body_text": "Parker mulled departing Dallas after Brian Schottenheimer took defensive play-calling",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-19T23:20:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "What Cowboys",
+        "Christian Parker",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "c3f8efeb-c959-4a22-9b48-6789b7d7bf70",
+      "url": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-texans-vs-colts-no-8-houston-vs-no-11-kansas-and-more/",
+      "title": "Today's top games to watch, best bets, odds: Texans vs. Colts, No. 8 Houston vs. No. 11 Kansas and more",
+      "body_text": "Find best bets and props for the biggest games in sports on Thursday from the SportsLine Projection Model and top CBS Sports experts",
+      "author": "Gene Menez",
+      "published_at": "2026-11-19T20:38:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Projection Model"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "c5ba092e-2b03-4f2c-978d-f2e1109ae23f",
+      "url": "https://www.cbssports.com/nfl/news/robert-kraft-bill-belichick-advance-hall-of-fame-selection-process/",
+      "title": "Robert Kraft, Bill Belichick advance in Pro Football HoF selection process after last year's snub",
+      "body_text": "The two were snubbed in last year's vote",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-19T18:51:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Robert Kraft",
+        "Bill Belichick",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "cf42fb30-84cd-4c31-bade-c7e1e7a7d1d9",
+      "url": "https://www.cbssports.com/nfl/news/revisiting-chiefs-2026-nfl-draft-kansas-city-justified-trading-up-mansoor-delane/",
+      "title": "Revisiting the Chiefs' 2026 NFL Draft: Was Kansas City justified in trading up for Mansoor Delane?",
+      "body_text": "Trading up for Mansoor Delane has paid off in the secondary, but Peter Woods' slow start and an ignored wide receiver room leave lingering questions about Kansas City's first-round approach",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-19T18:07:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Was Kansas",
+        "Mansoor Delane",
+        "Peter Woods",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "608823cc-599e-4cdc-9080-2a1431e31b42",
+      "url": "https://www.cbssports.com/nfl/news/ravens-send-marlon-humphrey-home-after-controversial-baltimore-comments/",
+      "title": "Ravens send Marlon Humphrey home after his controversial comments, sit him for Week 11 game",
+      "body_text": "The decision comes after the cornerback faced backlash, including criticism from the city's mayor, for claiming on his podcast that Baltimore is 'best at making criminals'",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-19T17:50:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marlon Humphrey"
+      ],
+      "resolved_player_ids": [
+        "00-0033281"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "597763dc-db69-4b7e-8ea7-580acfdd8597",
+      "url": "https://www.cbssports.com/nfl/news/vikings-create-altitude-chamber-for-49ers-mexico-city-game/",
+      "title": "Vikings have a secret weapon to fight altitude heading into showdown with 49ers in Mexico City",
+      "body_text": "Minnesota transformed part of its facility to help the team adjust to the altitude it will face in Mexico City",
+      "author": "John Breech",
+      "published_at": "2026-11-19T17:12:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mexico City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "5fa3500a-4f56-4dd4-9b02-7e9a20e337f2",
+      "url": "https://www.cbssports.com/nfl/news/pick-six-biggest-storylines-predictions-heading-nfl-week-11/",
+      "title": "Pick Six: Biggest storylines and noteworthy predictions heading into NFL's Week 11",
+      "body_text": "Here's everything you need to know about the NFL for Nov. 19",
+      "author": "John Breech",
+      "published_at": "2026-11-19T16:36:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pick Six"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "da45ea8e-f91e-421f-ac75-dfb5d49d7296",
+      "url": "https://www.cbssports.com/nfl/news/49ers-fountain-youth-can-nfls-oldest-most-injured-team-win-super-bowl/",
+      "title": "The 49ers' Fountain of Youth: Can the NFL's oldest and most injured team win the Super Bowl?",
+      "body_text": "The 49ers have defied the odds en route to a record-setting star, but can they keep it up?",
+      "author": "Douglas Clawson",
+      "published_at": "2026-11-19T16:41:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "be46fc7c-83a9-47ea-92ac-a2133cb0ddb4",
+      "url": "https://www.cbssports.com/nfl/news/patriots-morgan-moses-possible-tell-seahawks-super-bowl-ryan-paganetti/",
+      "title": "Patriots offensive lineman had possible tell that tipped off Seahawks in Super Bowl, other teams",
+      "body_text": "Moses' hand placement may have given away whether the Patriots were passing or running on any given snap",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-19T15:34:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "89f8f3c1-47ac-488c-9893-d9030c7685f6",
+      "url": "https://www.cbssports.com/nfl/news/are-woody-marks-and-david-montgomery-playing-tonight-texans-rushing-attack-short-handed-vs-colts/",
+      "title": "Are Woody Marks and David Montgomery playing tonight? Texans' rushing attack short-handed vs. Colts",
+      "body_text": "Both of Houston's two RBs are on the injury report ahead of the Week 11 matchup against Indy",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-19T15:24:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Are Woody",
+        "David Montgomery",
+        "Colts Both"
+      ],
+      "resolved_player_ids": [
+        "00-0035685"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "0b0e2743-7d55-4180-b59a-023ed928dc07",
+      "url": "https://www.cbssports.com/nfl/news/most-important-week-11-games-nfl-playoff-races/",
+      "title": "Most important Week 11 games for NFL playoff races: Can anyone gain separation in NFC North or NFC South?",
+      "body_text": "Plus, can the Giants bounce back?",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-20T02:53:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "2200d8fc-3f0c-4b43-ad58-aa919ed8375e",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-experts-picks-colts-at-texans-vikings-vs-49ers/",
+      "title": "NFL Week 11 picks: Our experts face off on Colts at Texans, Vikings vs. 49ers and more",
+      "body_text": "CBS Sports writers Jordan Dajani and Jared Dubin predict this weekend's top games",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-19T15:52:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Dajani",
+        "Jared Dubin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "d7093b99-385e-4ef5-9a25-154830a933dc",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-spread-predictions-best-bets-week-11-2026/",
+      "title": "Week 11 NFL odds, picks, predictions: Computer model backs Cowboys and Saints",
+      "body_text": "SportsLine's advanced model has simulated every game in the Week 11 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-19T14:08:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "1825a115-d7e4-4190-b14b-03e53c49199d",
+      "url": "https://www.cbssports.com/nfl/news/nfl-experts-make-week-11-picks-lamelo-ball-driving-timberwolves-success-no-1-no-3-teams-in-top-25-lose/",
+      "title": "NFL experts make Week 11 picks; LaMelo Ball driving Timberwolves' success; No. 1, No. 3 teams in Top 25 lose",
+      "body_text": "Plus, LSU makes its call on RJ Luis Jr.",
+      "author": "Austin Nivison",
+      "published_at": "2026-11-19T13:58:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2dc14210-ceab-4b7f-a615-ff048cd6d3f3",
+      "url": "https://www.cbssports.com/nfl/news/grading-every-trade-deadline-acquisitions-new-team-debut-kirk-cousins/",
+      "title": "Grading every trade deadline acquisition's new team debut: Kirk Cousins, two WRs get near 'A'",
+      "body_text": "Many midseason movers had strong debuts for their new teams",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-19T15:39:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "d982afec-2f05-4737-93ad-c649264013c1",
+      "url": "https://www.cbssports.com/nfl/news/week-11-super-bowl-stock-report-kirk-cousins-vikings-drake-maye-patriots/",
+      "title": "Week 11 Super Bowl stock report: Kirk Cousins raises Vikings' ceiling, Drake Maye injury tanks Patriots",
+      "body_text": "We assess the NFL title race after Week 10 and identify three upcoming games that could reshape the Super Bowl picture",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-19T12:58:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Kirk Cousins",
+        "Drake Maye"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "7d383c66-0398-494b-b818-cd84819d3a5b",
+      "url": "https://www.cbssports.com/nfl/news/grading-nfl-quarterbacks-on-rookie-contracts-caleb-williams-c-j-stroud/",
+      "title": "Grading NFL quarterbacks on rookie contracts: Caleb Williams, C.J. Stroud kick careers into high gear",
+      "body_text": "A few young quarterbacks have aced their tests in 2026",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-19T12:56:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "8aa64c58-e1b7-4127-8ca9-9b4c78b1a27a",
+      "url": "https://www.cbssports.com/nfl/news/it-wouldnt-shock-me-if-for-week-11-jared-goffs-tony-pollard/",
+      "title": "It wouldn't shock me if ... for Week 11: New WR crashes OROY race, Jared Goff's pesky streak continues",
+      "body_text": "Plus, Tony Pollard could shine in his first game back in Dallas",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-19T14:19:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jared Goff",
+        "Tony Pollard"
+      ],
+      "resolved_player_ids": [
+        "00-0033106",
+        "00-0035261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "b402c6bd-3117-4548-b18f-69d3dcd66f72",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-injury-report-chiefs-kenneth-walker-iii-lions-kerby-joseph/",
+      "title": "NFL Week 11 injury report: Latest update on Chiefs' Kenneth Walker III; Lions' Kerby Joseph practices fully",
+      "body_text": "Get the latest Week 11 injury updates on Kenneth Walker III, Kerby Joseph, Baker Mayfield, Mike Evans and other notable NFL players",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-19T01:17:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kenneth Walker III",
+        "Kerby Joseph",
+        "Baker Mayfield",
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0038134",
+        "00-0037667",
+        "00-0034855",
+        "00-0031408"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "47373068-164f-4063-93ca-7b411bd6b9fd",
+      "url": "https://www.cbssports.com/nfl/news/giants-cam-skattebo-backflip-celebrations-aidan-hutchinson-injury/",
+      "title": "Giants' Cam Skattebo to halt backflip celebrations after Aidan Hutchinson jumping celebration injury",
+      "body_text": "Hutchinson suffered a season-ending knee injury while jumping to celebrate a sack in Week 10",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-18T23:43:27+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0037236"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "727658c9-7e03-44d0-b9b4-62055d99cfd9",
+      "url": "https://www.cbssports.com/nfl/news/ravens-pro-bowl-cb-marlon-humphrey-apologizes-baltimore-best-making-criminals/",
+      "title": "Ravens CB Marlon Humphrey apologizes after saying Baltimore is 'best at making criminals'",
+      "body_text": "Humphrey criticized the city where he has played all 10 of his NFL seasons on his podcast before apologizing Wednesday afternoon",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-18T23:22:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Marlon Humphrey"
+      ],
+      "resolved_player_ids": [
+        "00-0033281"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "84ebfb62-1af0-477d-8f88-260ce00c28a4",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-handling-defensive-coordinator-christian-parker-mike-pettine/",
+      "title": "Cowboys' handling of DC Christian Parker is bizarre, leaving Dallas with more questions than answers",
+      "body_text": "Dallas head coach Brian Schottenheimer maintains Parker has an \"incredibly bright future\" with the Cowboys despite taking play-calling away from his first-year coordinator",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-18T22:41:54+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Christian Parker",
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    }
+  ]
+}

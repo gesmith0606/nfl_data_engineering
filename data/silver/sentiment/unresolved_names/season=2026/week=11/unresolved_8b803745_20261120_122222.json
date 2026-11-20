@@ -1,0 +1,99 @@
+{
+  "batch_id": "8b803745",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-20T12:22:22.179937+00:00",
+  "record_count": 10,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-te-marlin-klein-scores-first-career-td-texans-lead-26-3",
+      "player_name": "Marlin Klein",
+      "team_abbr": "HOU",
+      "category": "general",
+      "summary": "Rookie TE Marlin Klein scores first career TD as Texans lead 26-3.",
+      "source_excerpt": "Rookie TE Marlin Klein scores first career TD, Texans lead 26-3",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-add-carson-beck-to-injury-report-as-a-limited-participant",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals QB Carson Beck added to injury report as limited participant Thursday.",
+      "source_excerpt": "The Cardinals made an unwelcome addition to their injury report on Thursday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-matt-gay-dealing-with-a-hip-injury-the-raiders-worked-out-three-kickers",
+      "player_name": "Matt Gay",
+      "team_abbr": "LV",
+      "category": "injury",
+      "summary": "Raiders kicker Matt Gay dealing with hip injury; team works out replacement kickers.",
+      "source_excerpt": "Raiders kicker Matt Gay had a limited practice Wednesday with a hip injury.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "804fce46-5ccd-494e-aa04-10124e908d03",
+      "player_name": "Andre Reed",
+      "team_abbr": "BUF",
+      "category": "general",
+      "summary": "Bills to retire franchise legend Andre Reed's No. 83 during 2027 season; career leader in all major receiving categories.",
+      "source_excerpt": "Reed is Buffalo's career leader in every major receiving category",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "0678b376-262b-402f-aebc-6d67c7e12259",
+      "player_name": "Christian Parker",
+      "team_abbr": "DAL",
+      "category": "general",
+      "summary": "Cowboys DC Christian Parker considered leaving after Brian Schottenheimer took over defensive play-calling duties.",
+      "source_excerpt": "Parker mulled departing Dallas after Brian Schottenheimer took defensive play-calling",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "cf42fb30-84cd-4c31-bade-c7e1e7a7d1d9",
+      "player_name": "Mansoor Delane",
+      "team_abbr": "KC",
+      "category": "general",
+      "summary": "2026 draft pick Mansoor Delane has performed well in secondary, but wide receiver room remains overlooked.",
+      "source_excerpt": "Trading up for Mansoor Delane has paid off in the secondary, but Peter Woods' slow start and an ignored wide receiver room leave lingering questions about Kansas City's first-round approach",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-ham-will-return-to-penn-state-radio-booth-following-medical-emergency",
+      "player_name": "Jack Ham",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Pro Football Hall of Fame linebacker Jack Ham returning to Penn State radio booth after medical emergency.",
+      "source_excerpt": "Pro Football Hall of Fame linebacker Jack Ham announced he will return to the Penn State radio booth on Saturday, two weeks after a medical emergency.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-te-marlin-klein-scores-first-career-td-texans-lead-26-3",
+      "player_name": "Marlin Klein",
+      "team_abbr": "HOU",
+      "category": "general",
+      "summary": "Rookie TE Marlin Klein scores first career touchdown as Texans lead 26-3.",
+      "source_excerpt": "Rookie TE Marlin Klein scores first career TD, Texans lead 26-3",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-add-carson-beck-to-injury-report-as-a-limited-participant",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals QB Carson Beck added to injury report as limited participant Thursday.",
+      "source_excerpt": "The Cardinals made an unwelcome addition to their injury report on Thursday.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-matt-gay-dealing-with-a-hip-injury-the-raiders-worked-out-three-kickers",
+      "player_name": "Matt Gay",
+      "team_abbr": "LV",
+      "category": "injury",
+      "summary": "Raiders kicker Matt Gay dealing with hip injury, prompting team to work out replacement kickers.",
+      "source_excerpt": "Raiders kicker Matt Gay had a limited practice Wednesday with a hip injury.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

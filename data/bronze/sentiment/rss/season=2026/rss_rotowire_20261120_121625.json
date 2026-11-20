@@ -1,0 +1,89 @@
+{
+  "fetch_run_id": "a6b7d6f1-ca31-41c6-9c4e-ded836a51cba",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-20T12:16:25.962093+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648765",
+      "url": "https://www.rotowire.com//football/player/tyler-warren-18534",
+      "title": "Tyler Warren: Good yardage on one catch",
+      "body_text": "Warren brought in one of five targets for 22 yards in the Colts' 26-3 loss to the Texans on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-19T09:06:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Tyler Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0040128"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648764",
+      "url": "https://www.rotowire.com//football/player/daniel-jones-13491",
+      "title": "Daniel Jones: Another forgettable performance in loss",
+      "body_text": "Jones completed 12 of 27 passes for 144 yards with no touchdowns and one interception and rushed once for three yards in the Colts' 26-3 loss to the Texans on Thursday before being replaced by Anthony Richardson with 7:51 remaining.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-19T09:02:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Daniel Jones",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0039164"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648763",
+      "url": "https://www.rotowire.com//football/player/cj-stroud-16886",
+      "title": "C.J. Stroud: Keeps piling up TDs in win",
+      "body_text": "Stroud completed 21 of 26 passes for 194 yards with three touchdowns and one interception and rushed six times for 27 yards in the Texans' 26-3 win over the Colts on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-19T08:53:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648762",
+      "url": "https://www.rotowire.com//football/player/jonathan-taylor-14455",
+      "title": "Jonathan Taylor: Minimal production with 15 touches",
+      "body_text": "Taylor rushed 11 times for 21 yards and brought in four of five targets for six yards in the Colts' 26-3 loss to the Texans on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-19T08:47:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jonathan Taylor"
+      ],
+      "resolved_player_ids": [
+        "00-0036223"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648761",
+      "url": "https://www.rotowire.com//football/player/nico-collins-15200",
+      "title": "Nico Collins: Gets into end zone Thursday",
+      "body_text": "Collins secured three of five targets for 58 yards and a touchdown in the Texans' 26-3 win over the Colts on Thursday.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-19T08:42:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Nico Collins",
+        "Thursday Collins"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "IND"
+    }
+  ]
+}

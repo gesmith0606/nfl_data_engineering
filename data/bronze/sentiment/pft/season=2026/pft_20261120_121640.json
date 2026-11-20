@@ -1,0 +1,579 @@
+{
+  "fetch_run_id": "aac9c2f8-72ab-4037-87ef-b6adbdcb19aa",
+  "source": "pft",
+  "fetched_at": "2026-11-20T12:16:40.617363+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-to-retire-andre-reeds-no-83-in-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-to-retire-andre-reeds-no-83-in-2027",
+      "permalink": "",
+      "title": "Bills to retire Andre Reed's No. 83 in 2027",
+      "body_text": "The Bills will be retiring the number of the top wide receiver in franchise history next year.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-20T12:09:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Reed",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-i-knew-what-kind-of-player-i-could-be-amazing-to-be-in-this-groove",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-i-knew-what-kind-of-player-i-could-be-amazing-to-be-in-this-groove",
+      "permalink": "",
+      "title": "C.J. Stroud: I knew what kind of player I could be, amazing to be in this groove",
+      "body_text": "After a rough end to the 2025 season, Texans quarterback C.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-20T11:55:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeantys-bad-season-running-the-ball-overshadows-his-receiving-production",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ashton-jeantys-bad-season-running-the-ball-overshadows-his-receiving-production",
+      "permalink": "",
+      "title": "Ashton Jeanty's bad season running the ball overshadows his receiving production",
+      "body_text": "Jeanty is second in the NFL in both catches and receiving yards for a running back this season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-20T10:20:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ashton Jeanty"
+      ],
+      "resolved_player_ids": [
+        "00-0040122"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-montgomery-credits-the-offensive-line-after-his-first-big-game-as-a-texan",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/david-montgomery-credits-the-offensive-line-after-his-first-big-game-as-a-texan",
+      "permalink": "",
+      "title": "David Montgomery credits the offensive line after his first big game as a Texan",
+      "body_text": "Montgomery totaled 124 yards as the Texans beat the Colts, 26-3.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-20T09:07:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "David Montgomery",
+        "Texan Montgomery"
+      ],
+      "resolved_player_ids": [
+        "00-0035685"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-daniel-jones-being-the-starter-well-evaluate-everything",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/shane-steichen-on-daniel-jones-being-the-starter-well-evaluate-everything",
+      "permalink": "",
+      "title": "Shane Steichen on Daniel Jones remaining the starter: \"We'll evaluate everything\"",
+      "body_text": "Anthony Richardson could finally get a chance to show what he can do.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-20T05:10:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Shane Steichen",
+        "Daniel Jones",
+        "Anthony Richardson"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0039164"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-texans-beat-up-on-colts-26-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-texans-beat-up-on-colts-26-3",
+      "permalink": "",
+      "title": "Thursday Night Football: Texans beat up on Colts, 26-3",
+      "body_text": "The Texans moved to 4-6 to keep their slim playoff hopes alive.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T04:13:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "The Texans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-says-knee-injury-wont-keep-him-from-playing",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-says-knee-injury-wont-keep-him-from-playing",
+      "permalink": "",
+      "title": "Jeffery Simmons says knee injury won't keep him from playing",
+      "body_text": "Bears defensive tackle Jeffery Simmons emerged from the bye week that has had him limited in practice this week.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-20T04:05:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons"
+      ],
+      "resolved_player_ids": [
+        "00-0035643"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-ham-will-return-to-penn-state-radio-booth-following-medical-emergency",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jack-ham-will-return-to-penn-state-radio-booth-following-medical-emergency",
+      "permalink": "",
+      "title": "Jack Ham will return to Penn State radio booth following medical emergency",
+      "body_text": "Pro Football Hall of Fame linebacker Jack Ham announced he will return to the Penn State radio booth on Saturday, two weeks after a medical emergency.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T03:55:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jack Ham",
+        "Penn State",
+        "Pro Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-explored-all-options-before-deciding-to-stay-in-minnesota-this-week",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-explored-all-options-before-deciding-to-stay-in-minnesota-this-week",
+      "permalink": "",
+      "title": "Vikings explored all options before deciding to stay in Minnesota this week",
+      "body_text": "As Sunday's Mexico City game between the Vikings and 49ers approaches, one of the big issues is the decision of the 49ers to spend the week at altitude in Colorado Springs while the Vikings opted to stay in Minnesota.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-20T03:48:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "As Sunday",
+        "Mexico City",
+        "Colorado Springs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-te-marlin-klein-scores-first-career-td-texans-lead-26-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rookie-te-marlin-klein-scores-first-career-td-texans-lead-26-3",
+      "permalink": "",
+      "title": "Rookie TE Marlin Klein scores first career TD, Texans lead 26-3",
+      "body_text": "C.J.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T03:32:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Marlin Klein"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacuas-suspension-arises-from-diversion-program",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacuas-suspension-arises-from-diversion-program",
+      "permalink": "",
+      "title": "Puka Nacua's suspension arises from diversion program",
+      "body_text": "The NFL's statement announcing the three-game suspension for Rams receiver Puka Nacua didn't specify the reason for it.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-20T03:20:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-c-j-stroud-texans-lead-colts-17-3-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-c-j-stroud-texans-lead-colts-17-3-at-halftime",
+      "permalink": "",
+      "title": "Thursday Night Football: C.J. Stroud, Texans lead Colts 17-3 at halftime",
+      "body_text": "Stroud threw two touchdown passes in the first half.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T02:54:53+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-strouds-second-td-gives-texans-14-3-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-strouds-second-td-gives-texans-14-3-lead",
+      "permalink": "",
+      "title": "C.J. Stroud's second TD gives Texans 14-3 lead",
+      "body_text": "The Texans took advantage of Kamari Lassiter's interception of Daniel Jones, driving 85 yards in 12 plays for their second touchdown.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T02:17:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Texans",
+        "Kamari Lassiter",
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0039343",
+        "00-0035710"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-connects-with-nico-collins-to-give-texans-7-3-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/c-j-stroud-connects-with-nico-collins-to-give-texans-7-3-lead",
+      "permalink": "",
+      "title": "C.J. Stroud connects with Nico Collins to give Texans 7-3 lead",
+      "body_text": "The Texans were outplayed for most of the first quarter, but they have a 7-3 lead.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T02:02:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nico Collins",
+        "The Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0036554"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-de-chris-braswell-seriously-injures-leg-on-opening-kickoff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/texans-de-chris-braswell-seriously-injures-leg-on-opening-kickoff",
+      "permalink": "",
+      "title": "Texans DE Chris Braswell seriously injures leg on opening kickoff",
+      "body_text": "Texans defensive end Chris Braswell was seriously injured on the opening kickoff.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T01:29:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chris Braswell"
+      ],
+      "resolved_player_ids": [
+        "00-0039902"
+      ],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-limited-in-his-return-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-limited-in-his-return-to-practice",
+      "permalink": "",
+      "title": "Mike Evans limited in his return to practice",
+      "body_text": "49ers wide receiver Mike Evans was a limited participant in his return to practice Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T00:34:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-sauce-gardner-is-officially-inactive-vs-texans",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/thursday-night-football-sauce-gardner-is-officially-inactive-vs-texans",
+      "permalink": "",
+      "title": "Thursday Night Football: Sauce Gardner is officially inactive vs. Texans",
+      "body_text": "It's official: Colts cornerback Sauce Gardner will not play Thursday night.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T23:59:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thursday Night",
+        "Sauce Gardner"
+      ],
+      "resolved_player_ids": [
+        "00-0037190"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-rb-pierre-strong",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/packers-waive-rb-pierre-strong",
+      "permalink": "",
+      "title": "Packers waive RB Pierre Strong",
+      "body_text": "The Packers made room for Micah Parsons' return on Thursday, waiving running back Pierre Strong Jr.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T23:28:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Pierre Strong",
+        "The Packers",
+        "Micah Parsons",
+        "Pierre Strong Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0038098",
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-work-to-get-a-stadium-deal-in-illinois-by-december-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-work-to-get-a-stadium-deal-in-illinois-by-december-3",
+      "permalink": "",
+      "title": "Bears work to get a stadium deal in Illinois by December 3",
+      "body_text": "The Bears continue to work toward getting a new stadium deal in place.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-19T23:10:39+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-on-possibly-playing-18-games-just-part-of-the-deal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kirk-cousins-on-possibly-playing-18-games-just-part-of-the-deal",
+      "permalink": "",
+      "title": "Kirk Cousins on possibly playing 18 games: \"Just part of the deal\"",
+      "body_text": "Because Vikings quarterback Kirk Cousins was traded after the Vikings' bye but before the Raiders' bye, Cousins won't have a bye in 2026.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-19T22:54:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins",
+        "Because Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-add-carson-beck-to-injury-report-as-a-limited-participant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-add-carson-beck-to-injury-report-as-a-limited-participant",
+      "permalink": "",
+      "title": "Cardinals add Carson Beck to injury report as a limited participant",
+      "body_text": "The Cardinals made an unwelcome addition to their injury report on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-19T22:52:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "The Cardinals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zack-baun-remains-out-of-eagles-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/zack-baun-remains-out-of-eagles-practice",
+      "permalink": "",
+      "title": "Zack Baun remains out of Eagles practice",
+      "body_text": "The Eagles remained without a key defensive player at practice on Thursday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-19T22:42:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Zack Baun",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036418"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-returns-to-limited-participation-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-returns-to-limited-participation-thursday",
+      "permalink": "",
+      "title": "Brock Bowers returns to limited participation Thursday",
+      "body_text": "Raiders tight end Brock Bowers returned to limited participation on Thursday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T22:42:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Thursday Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/research-moves-closer-to-identifying-cte-in-living-patients",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/research-moves-closer-to-identifying-cte-in-living-patients",
+      "permalink": "",
+      "title": "Research moves closer to identifying CTE in living patients",
+      "body_text": "The ability to detect CTE only through autopsies prevents football players from knowing whether they have it during their careers.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-19T22:37:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-working-through-some-things-with-justin-reid-after-he-requests-release",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-working-through-some-things-with-justin-reid-after-he-requests-release",
+      "permalink": "",
+      "title": "Saints \"working through some things\" with Justin Reid after he requests release",
+      "body_text": "It appears safety Justin Reid and the Saints are parting ways.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-19T22:33:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0034361"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-matt-gay-dealing-with-a-hip-injury-the-raiders-worked-out-three-kickers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/with-matt-gay-dealing-with-a-hip-injury-the-raiders-worked-out-three-kickers",
+      "permalink": "",
+      "title": "With Matt Gay dealing with a hip injury, the Raiders worked out three kickers",
+      "body_text": "Raiders kicker Matt Gay had a limited practice Wednesday with a hip injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T22:27:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "With Matt",
+        "Matt Gay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daron-bland-remained-out-of-practice-thursday-but-joey-porter-jr-again-was-a-full-participant",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daron-bland-remained-out-of-practice-thursday-but-joey-porter-jr-again-was-a-full-participant",
+      "permalink": "",
+      "title": "DaRon Bland remained out of practice Thursday, but Joey Porter Jr. again was a full participant",
+      "body_text": "Cowboys cornerback DaRon Bland (ankle) did not participate in practice for a second consecutive day Thursday, but cornerback Joey Porter Jr.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-19T22:05:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joey Porter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039167"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-officially-listed-as-limited-in-return-to-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/baker-mayfield-officially-listed-as-limited-in-return-to-practice",
+      "permalink": "",
+      "title": "Baker Mayfield officially listed as limited in return to practice",
+      "body_text": "Buccaneers quarterback Baker Mayfield described himself as limited in his return to practice on Thursday and the team's injury report said the same thing later in the day.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-19T21:57:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Baker Mayfield"
+      ],
+      "resolved_player_ids": [
+        "00-0034855"
+      ],
+      "team_hint": "TB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-on-injury-report-fully-participates-in-practice-despite-illness",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-burrow-on-injury-report-fully-participates-in-practice-despite-illness",
+      "permalink": "",
+      "title": "Joe Burrow on injury report, fully participates in practice despite illness",
+      "body_text": "Bengals quarterback Joe Burrow landed on the team's first injury report of the week, but it doesn't look like anything that should interfere with his availability for Monday night's game against the Commanders.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-19T21:49:58+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-pittman-upgraded-to-full-participant-on-thursday-injury-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/michael-pittman-upgraded-to-full-participant-on-thursday-injury-report",
+      "permalink": "",
+      "title": "Michael Pittman upgraded to full participant on Thursday injury report",
+      "body_text": "The Steelers are getting closer to having two key receivers back for Week 11, but there is a concern with a key defender.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-19T21:39:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Pittman",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0036252"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
