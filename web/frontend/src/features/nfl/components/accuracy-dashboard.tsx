@@ -19,6 +19,7 @@ import { formatGap } from '@/lib/nfl/consensus';
 import { gradeGap, gradeMae } from '@/lib/nfl/accuracy-grade';
 import { cn } from '@/lib/utils';
 import { SectionOverline } from './section-heading';
+import { Live2026Table } from './live-2026-table';
 import modelMetrics from '../config/model-metrics.json';
 
 /** Overall backtest metrics generated from the v4.2 production backtest artifact. */
@@ -312,8 +313,8 @@ function ConsensusLeaderboard() {
           header lives in a separate Card above it (dynasty-view pattern). */}
       <Card>
         <CardHeader>
-          <SectionOverline>Head to Head</SectionOverline>
-          <CardTitle className='wc-display'>Consensus Leaderboard</CardTitle>
+          <SectionOverline>2022–24 backtest</SectionOverline>
+          <CardTitle className='wc-display'>2022–24 backtest: Consensus Leaderboard</CardTitle>
           <CardDescription>
             Lower MAE is better. A negative gap means we were closer than the consensus in that sample. Grade reflects the
             size of that gap — A+/A win decisively, B is a statistical tie, C/D trail.
@@ -424,6 +425,9 @@ function WeeklyGradingTeaser() {
 export function AccuracyDashboard() {
   return (
     <div className='space-y-[var(--gap-section)]'>
+      {/* 2026 live results first, so backtest rows can't be mistaken for them */}
+      <Live2026Table live={LIVE} />
+
       {/* LEAD — model vs. consensus proof */}
       <ConsensusLeaderboard />
       <ConsensusMethodology />

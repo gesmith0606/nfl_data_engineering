@@ -117,13 +117,89 @@
     "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble; historical, not current)"
   },
   "live2026": {
-    "source": "output/grading/season=2026/scorecard.md",
-    "weeks": "1–9",
-    "ourMae": 5.50,
-    "sleeperMae": 5.34,
-    "trailing3Mae": 5.92,
-    "gap": 0.165,
-    "ats": { "value": 47.1, "record": "41-46-6", "n": 93, "weeks": "1–6" }
+    "source": "output/grading/season=2026/scorecard.csv",
+    "weeks": "1–7, 9",
+    "weeks_covered": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9
+    ],
+    "ourMae": 5.5019,
+    "sleeperMae": 5.3364,
+    "trailing3Mae": 5.9219,
+    "gap": 0.1655,
+    "overall": {
+      "n": 1260,
+      "ourMae": 5.5019,
+      "sleeperMae": 5.3364,
+      "trailing3Mae": 5.9219,
+      "gap": 0.1655,
+      "rhoOurs": 0.342,
+      "rhoSleeper": 0.374,
+      "bandCoverage": 0.488
+    },
+    "positions": [
+      {
+        "position": "QB",
+        "n": 226,
+        "ourMae": 6.2742,
+        "sleeperMae": 6.0114,
+        "trailing3Mae": 6.6412,
+        "gap": 0.2628,
+        "rhoOurs": 0.293,
+        "rhoSleeper": 0.402,
+        "bandCoverage": 0.637
+      },
+      {
+        "position": "RB",
+        "n": 346,
+        "ourMae": 5.5618,
+        "sleeperMae": 5.3835,
+        "trailing3Mae": 5.9641,
+        "gap": 0.1783,
+        "rhoOurs": 0.487,
+        "rhoSleeper": 0.511,
+        "bandCoverage": 0.514
+      },
+      {
+        "position": "WR",
+        "n": 478,
+        "ourMae": 5.3078,
+        "sleeperMae": 5.2364,
+        "trailing3Mae": 5.6345,
+        "gap": 0.0714,
+        "rhoOurs": 0.363,
+        "rhoSleeper": 0.392,
+        "bandCoverage": 0.423
+      },
+      {
+        "position": "TE",
+        "n": 210,
+        "ourMae": 5.0137,
+        "sleeperMae": 4.76,
+        "trailing3Mae": 5.7322,
+        "gap": 0.2537,
+        "rhoOurs": 0.224,
+        "rhoSleeper": 0.192,
+        "bandCoverage": 0.433
+      }
+    ],
+    "generated_from": {
+      "path": "output/grading/season=2026/scorecard.csv",
+      "last_commit_date": "2026-11-16"
+    },
+    "updated": "2026-11-16",
+    "ats": {
+      "value": 47.1,
+      "record": "41-46-6",
+      "n": 93,
+      "weeks": "1–6"
+    }
   },
   "consensus": {
     "generatedFrom": "consensus_matched_sleeper_half_ppr_20260823_023112.csv",
