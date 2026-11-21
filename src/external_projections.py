@@ -15,6 +15,7 @@ source is silently omitted; only the available sources land in Silver.
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -47,14 +48,33 @@ _DEFAULT_BRONZE_ROOT = _PROJECT_ROOT / "data" / "bronze" / "external_projections
 _DEFAULT_GOLD_ROOT = _PROJECT_ROOT / "data" / "gold" / "projections"
 
 
+# Same key game_archive._latest_parquet uses (not imported: that module needs
+# src/ on sys.path for a bare ``scoring_calculator`` import).
+_FILENAME_TS_RE = re.compile(r"(\d{8}_\d{6})")
+
+
+def _filename_sort_key(p: Path) -> tuple:
+    m = _FILENAME_TS_RE.search(p.name)
+    return (m.group(1) if m else "", p.name)
+
+
 def _latest_parquet(directory: Path) -> Optional[Path]:
-    """Return the most recently modified .parquet in directory or None."""
+    """Return the newest .parquet in directory by filename-embedded timestamp.
+
+    Never mtime: in a git checkout every file carries the checkout's mtime, so
+    ties resolve arbitrarily. Falls back to name sort without a timestamp.
+    """
     if not directory.exists():
         return None
-    parquets = list(directory.glob("*.parquet"))
-    if not parquets:
-        return None
-    return max(parquets, key=lambda p: p.stat().st_mtime)
+    parquets = sorted(directory.glob("*.parquet"), key=_filename_sort_key)
+    return parquets[-1] if parquets else None
+
+
+def _week_dirs(parent: Path, week: int) -> List[Path]:
+    """Candidate ``week=`` dirs under *parent*: unpadded first (what
+    generate_projections.py writes), then zero-padded (what predictions and
+    Bronze ingesters write)."""
+    return [parent / f"week={week}", parent / f"week={week:02d}"]
 
 
 @dataclass(frozen=True)
@@ -80,13 +100,12 @@ class SilverConsolidator:
 
         Returns empty DataFrame on any error (D-06 fail-open).
         """
-        week_dir = (
-            self.bronze_root
-            / source
-            / f"season={self.season}"
-            / f"week={self.week:02d}"
-        )
-        latest = _latest_parquet(week_dir)
+        season_dir = self.bronze_root / source / f"season={self.season}"
+        latest = None
+        for week_dir in _week_dirs(season_dir, self.week):
+            latest = _latest_parquet(week_dir)
+            if latest is not None:
+                break
         if latest is None:
             return pd.DataFrame(columns=_SILVER_COLUMNS)
         try:
@@ -106,15 +125,8 @@ class SilverConsolidator:
     def read_ours(self) -> pd.DataFrame:
         """Read our latest Gold projection Parquet, normalize to long format."""
         # Try scoring-format-specific subdirectory first.
-        candidates = [
-            self.gold_root
-            / f"season={self.season}"
-            / f"week={self.week:02d}"
-            / self.scoring_format,
-            self.gold_root
-            / f"season={self.season}"
-            / f"week={self.week:02d}",
-        ]
+        week_dirs = _week_dirs(self.gold_root / f"season={self.season}", self.week)
+        candidates = [d / self.scoring_format for d in week_dirs] + week_dirs
         latest: Optional[Path] = None
         for cand in candidates:
             latest = _latest_parquet(cand)
@@ -169,6 +181,7 @@ class SilverConsolidator:
             return df
         try:
             from src.player_name_resolver import PlayerNameResolver
+
             resolver = PlayerNameResolver()
         except Exception as exc:
             logger.warning("PlayerNameResolver unavailable: %s", exc)
@@ -230,9 +243,7 @@ class SilverConsolidator:
         if df.empty:
             logger.warning("No external projections to write (D-06 fail-open)")
             return None
-        week_dir = (
-            silver_root / f"season={self.season}" / f"week={self.week:02d}"
-        )
+        week_dir = silver_root / f"season={self.season}" / f"week={self.week:02d}"
         week_dir.mkdir(parents=True, exist_ok=True)
         ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         out_path = week_dir / f"external_projections_{ts}.parquet"
