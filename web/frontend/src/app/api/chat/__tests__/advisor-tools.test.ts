@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST } from '../route';
+import { resetChatLimiter } from '@/lib/rate-limit/chat-limiter';
 import { getSubscriptionStatus } from '@/lib/billing/subscription';
 import { streamText } from 'ai';
 
@@ -61,6 +62,7 @@ describe('advisor tools — Phase 83 (TOOL-01/TOOL-02)', () => {
   const originalGoogleKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
   beforeEach(() => {
+    resetChatLimiter();
     vi.clearAllMocks();
     process.env.GOOGLE_GENERATIVE_AI_API_KEY = 'test-key';
     mockGetSubscriptionStatus.mockResolvedValue({

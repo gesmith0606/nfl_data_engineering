@@ -3,6 +3,12 @@ import { google } from '@ai-sdk/google';
 import { createGroq } from '@ai-sdk/groq';
 import { z } from 'zod';
 import { getSubscriptionStatus } from '@/lib/billing/subscription';
+import {
+  checkBodySize,
+  checkRateLimit,
+  clientIp,
+  type LimitResult
+} from '@/lib/rate-limit/chat-limiter';
 import { resolveDefaultWeek } from '@/lib/week-context';
 import { TEAM_FULL_NAMES, getTeamFullName } from '@/lib/nfl/team-meta';
 import {
@@ -211,7 +217,26 @@ export async function POST(req: Request) {
     );
   }
 
-  const body = (await req.json()) as { messages: UIMessage[]; leagues?: unknown };
+  const reject = (r: LimitResult & { ok: false }) =>
+    Response.json(
+      { error: r.error },
+      {
+        status: r.status,
+        headers: r.retryAfter ? { 'Retry-After': String(r.retryAfter) } : undefined
+      }
+    );
+
+  let body: { messages: UIMessage[]; leagues?: unknown };
+  try {
+    body = (await req.json()) as { messages: UIMessage[]; leagues?: unknown };
+  } catch {
+    return Response.json({ error: 'Invalid request.' }, { status: 400 });
+  }
+  const tooBig = checkBodySize(body?.messages);
+  if (tooBig && !tooBig.ok) return reject(tooBig);
+  const rate = checkRateLimit(clientIp(req));
+  if (!rate.ok) return reject(rate);
+
   const messages = body.messages;
   // Connected Sleeper leagues sent by the client (see use-persistent-chat).
   // Sanitized server-side; the first entry is the primary league.
