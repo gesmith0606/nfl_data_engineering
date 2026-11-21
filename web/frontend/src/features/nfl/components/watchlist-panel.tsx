@@ -37,6 +37,8 @@ export function WatchlistPanel() {
 
   const projById = useMemo(() => {
     const m = new Map<string, number>();
+    // Never show season totals (or an unpublished week) as this week's points.
+    if (slate?.available === false || slate?.is_season_total) return m;
     for (const p of slate?.projections ?? []) {
       m.set(p.player_id, p.projected_points);
     }

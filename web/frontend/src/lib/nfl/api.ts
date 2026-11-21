@@ -99,12 +99,14 @@ export async function fetchProjections(
   position?: string,
   team?: string,
   limit?: number,
+  board?: 'preseason',
 ): Promise<ProjectionResponse> {
   const params = new URLSearchParams({
     season: String(season),
     week: String(week),
     scoring,
   });
+  if (board) params.set("board", board);
   if (position && position !== "ALL") params.set("position", position);
   if (team) params.set("team", team);
   // Always request the full slate when neither team nor position is filtered.

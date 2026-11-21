@@ -10,6 +10,7 @@ import {
   parseAdvisorLeagues,
   type AdvisorLeague
 } from './league-context';
+import { projectionToolStatus } from '@/lib/nfl/projection-status';
 
 export const maxDuration = 30;
 
@@ -261,7 +262,7 @@ export async function POST(req: Request) {
             // payload doesn't enter the model context.
             limit: '1000'
           });
-          type ProjectionPayload = { projections: Array<{
+          type ProjectionPayload = { available?: boolean; is_season_total?: boolean; message?: string | null; latest_available_week?: number | null; projections: Array<{
             player_name: string;
             player_id: string;
             team: string;
@@ -276,6 +277,8 @@ export async function POST(req: Request) {
           if (!result.ok) {
             return { found: false, message: result.message };
           }
+          const status = projectionToolStatus(result.data, week, season);
+          if (status.unavailable) return status.result;
           if (!result.data.projections?.length) {
             return { found: false, message: `No projection data for week ${week} of ${season}.` };
           }
@@ -303,7 +306,8 @@ export async function POST(req: Request) {
             injury_status: match.injury_status ?? 'Active',
             scoring_format: scoring,
             season,
-            week
+            week,
+            ...status.extra
           };
         }
       }),
@@ -330,7 +334,7 @@ export async function POST(req: Request) {
             // payload doesn't enter the model context.
             limit: '1000'
           });
-          type ComparePayload = { projections: Array<{
+          type ComparePayload = { available?: boolean; is_season_total?: boolean; message?: string | null; latest_available_week?: number | null; projections: Array<{
             player_name: string;
             team: string;
             position: string;
@@ -344,6 +348,8 @@ export async function POST(req: Request) {
           if (!result.ok) {
             return { found: false, message: result.message };
           }
+          const status = projectionToolStatus(result.data, week, season);
+          if (status.unavailable) return status.result;
           if (!result.data.projections?.length) {
             return { found: false, message: `No projection data for week ${week} of ${season}.` };
           }
@@ -363,6 +369,7 @@ export async function POST(req: Request) {
             scoring_format: scoring,
             season,
             week,
+            ...status.extra,
             player1: p1
               ? {
                   name: p1.player_name,
@@ -557,6 +564,10 @@ export async function POST(req: Request) {
               data_as_of: string | null;
               source_path: string | null;
             };
+            available?: boolean;
+            is_season_total?: boolean;
+            message?: string | null;
+            latest_available_week?: number | null;
           };
           const result = await fastapiGet<RankingsPayload>(`/api/projections?${params}`);
 
@@ -574,6 +585,16 @@ export async function POST(req: Request) {
           // we got from latest-week (they should agree but meta is closer to
           // the actual read).
           const dataAsOf = result.data.meta?.data_as_of ?? resolvedDataAsOf;
+
+          const status = projectionToolStatus(result.data, resolvedWeek, season);
+          if (status.unavailable) {
+            return {
+              ...status.result,
+              resolved_week: resolvedWeek,
+              resolved_week_auto: resolvedWeekAuto,
+              data_as_of: dataAsOf
+            };
+          }
 
           if (!result.data.projections?.length) {
             return {
@@ -610,6 +631,7 @@ export async function POST(req: Request) {
             resolved_week: resolvedWeek,
             resolved_week_auto: resolvedWeekAuto,
             data_as_of: dataAsOf,
+            ...status.extra,
             rankings: ranked
           };
         }
