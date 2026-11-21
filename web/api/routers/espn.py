@@ -79,9 +79,20 @@ def import_league(body: EspnImportRequest) -> EspnImportResponse:
         cookies["SWID"] = swid
 
     try:
-        payload = fetch_league(body.league_id, body.season, cookies=cookies or None)
-    except PermissionError as exc:
-        raise HTTPException(status_code=401, detail=str(exc))
+        payload = fetch_league(
+            body.league_id,
+            body.season,
+            cookies=cookies or None,
+            allow_env_cookies=False,  # never use the server owner's cookies
+        )
+    except PermissionError:
+        raise HTTPException(
+            status_code=401,
+            detail=(
+                "Private league — paste your own ESPN_S2 and SWID cookies "
+                "(from an account in this league) to import it."
+            ),
+        )
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
     except requests.RequestException:

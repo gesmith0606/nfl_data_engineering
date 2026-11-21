@@ -141,6 +141,7 @@ def fetch_league(
     cookies: Optional[Dict[str, str]] = None,
     timeout: int = 30,
     scoring_period: Optional[int] = None,
+    allow_env_cookies: bool = True,
 ) -> Dict[str, Any]:
     """Fetch a league payload from ESPN's v3 fantasy API.
 
@@ -154,6 +155,10 @@ def fetch_league(
         scoring_period: Optional ``scoringPeriodId`` (week). Required for
                    ``mTransactions2`` history — without it ESPN returns only
                    the current period's lineup moves.
+        allow_env_cookies: When False and ``cookies`` is None, send NO cookies
+                   instead of the server's ESPN_S2/ESPN_SWID. Public web
+                   routes must pass False so callers can't ride the
+                   owner's session.
 
     Returns:
         Parsed league JSON dict.
@@ -164,7 +169,7 @@ def fetch_league(
         LookupError: 404 — no such league for that season.
         requests.RequestException: Other network/HTTP failures.
     """
-    if cookies is None:
+    if cookies is None and allow_env_cookies:
         cookies = cookies_from_env()
     url = f"{ESPN_API_BASE}/seasons/{season}/segments/0/leagues/{league_id}"
     params = [("view", v) for v in (views or list(DEFAULT_VIEWS))]
@@ -179,10 +184,10 @@ def fetch_league(
     )
     if response.status_code == 401:
         raise PermissionError(
-            "ESPN returned 401 — private league. Set ESPN_S2 + ESPN_SWID in "
-            ".env (DevTools > Application > Cookies > fantasy.espn.com) with "
-            "an account that is a member of this league; espn_s2 expires "
-            "~yearly."
+            "ESPN returned 401 — private league. Provide ESPN_S2 + ESPN_SWID "
+            "cookies (DevTools > Application > Cookies > fantasy.espn.com) "
+            "from an account that is a member of this league; espn_s2 "
+            "expires ~yearly."
         )
     if response.status_code == 404:
         raise LookupError(
