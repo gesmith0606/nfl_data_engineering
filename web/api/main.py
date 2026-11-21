@@ -50,11 +50,12 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 # CORS -- allow Next.js dev server and any configured origins
 # ---------------------------------------------------------------------------
-# Never send allow-credentials. The API uses no cookies (auth is the
-# X-API-Key header), and the HF Spaces proxy in front of prod echoes ANY
-# Origin back as allow-origin on its own -- so a credentials header from us,
-# even with an explicit origin list, combines into "any origin, with
-# credentials" (seen live 2026-11-21).
+# Never send allow-credentials. Nothing cross-origin needs it: the browser
+# reaches this API same-origin through the Vercel rewrite, and auth is the
+# X-API-Key header. The HF Spaces proxy in front of prod echoes ANY Origin
+# back as allow-origin on its own -- so a credentials header from us, even
+# with an explicit origin list, combines into "any origin, with credentials"
+# (seen live 2026-11-21).
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
