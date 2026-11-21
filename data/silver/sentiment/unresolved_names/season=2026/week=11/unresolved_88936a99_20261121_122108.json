@@ -1,0 +1,63 @@
+{
+  "batch_id": "88936a99",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-21T12:21:08.276616+00:00",
+  "record_count": 6,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-listed-as-questionable-but-josh-johnson-is-expected-to-start",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Carson Beck listed as questionable for Chiefs game; Josh Johnson expected to start.",
+      "source_excerpt": "Josh Johnson is expected to start Sunday's game against the Chiefs, but the Cardinals have not ruled out Carson Beck.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "aed8c5ab-a76a-43ff-bc6f-f571ed35f2e6",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Carson Beck did not practice Friday due to back spasms, forcing Cardinals to consider starting fourth quarterback in five weeks.",
+      "source_excerpt": "Carson Beck did not practice Friday due to a back injury",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "a45d50ba-5af7-37fb-91be-b609e8acba52",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Rookie QB Fernando Mendoza getting challenging test schedule early in career with Raiders.",
+      "source_excerpt": "Raiders have 7 weeks to build foundation for Fernando Mendoza. If the Raiders wanted to ease Fernando Mendoza into his new job, they have a peculiar way of showing it. First came the Seahawks, who turned his starting debut into...",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "f72d3b51-ab4c-3ed7-8ab3-3b1da9473ee5",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Rookie QB Mendoza faces Denver Broncos in another challenging test; learning defensive schemes rapidly.",
+      "source_excerpt": "Fernando Mendoza's tests not getting any easier. Broncos will show how much rookie learned. Fernando Mendoza compared what Mike Macdonald did to him Sunday to playing chess.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "48d5e0c9-d5e1-3f11-92ef-8d1e02e4e78d",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza's arm and legs will be key for Raiders against Denver's stingy defense.",
+      "source_excerpt": "Denver defense ranked 9th in points allowed this season but susceptible to air and ground attacks",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-listed-as-questionable-but-josh-johnson-is-expected-to-start",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Carson Beck listed as questionable; Josh Johnson expected to start for Cardinals vs Chiefs.",
+      "source_excerpt": "Josh Johnson is expected to start Sunday's game against the Chiefs, but the Cardinals have not ruled out Carson Beck.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

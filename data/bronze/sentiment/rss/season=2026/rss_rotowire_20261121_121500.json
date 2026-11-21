@@ -1,0 +1,90 @@
+{
+  "fetch_run_id": "0b0c6fa3-4dee-4679-bcf6-93bd3a4c1c77",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-21T12:15:00.114230+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648882",
+      "url": "https://www.rotowire.com//football/player/davante-adams-9455",
+      "title": "Davante Adams: Not in line to be ready following bye",
+      "body_text": "With regard to the availability of Adams (hamstring)  -- who remains on IR -- head coach Sean McVay said Friday \"we'll take it a week at a time\" with the wideout, while adding that he doesn't \"think he's ready quite yet,\" Zach Edwards of the Rams' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-20T03:18:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Davante Adams",
+        "Zach Edwards"
+      ],
+      "resolved_player_ids": [
+        "00-0031381"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648881",
+      "url": "https://www.rotowire.com//football/player/dandre-swift-14394",
+      "title": "D'Andre Swift: Welcoming back Monangai",
+      "body_text": "Swift will be rejoined in the Bears backfield by Kyle Monangai (toe) on Sunday against the Saints, Larry Mayer of the team's official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-20T03:13:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Andre Swift",
+        "Monangai Swift",
+        "Kyle Monangai",
+        "Larry Mayer"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648854",
+      "url": "https://www.rotowire.com//football/player/jaylen-waddle-15404",
+      "title": "Jaylen Waddle: Good to go for Sunday's game",
+      "body_text": "Waddle (concussion) doesn't carry an injury designation for Sunday's game against the Raiders after practicing fully this week.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-20T01:57:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jaylen Waddle"
+      ],
+      "resolved_player_ids": [
+        "00-0036613"
+      ],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648850",
+      "url": "https://www.rotowire.com//football/player/saquon-barkley-12507",
+      "title": "Saquon Barkley: In clear for Week 11 action",
+      "body_text": "Barkley (hamstring) told EJ Smith of PHLY Sports on Friday that he \"feels better physically\" after the team's Week 10 bye, and the running back doesn't have a designation for Sunday's contest against the Steelers.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-20T01:38:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648847",
+      "url": "https://www.rotowire.com//football/player/ladd-mcconkey-17724",
+      "title": "Ladd McConkey: Listed questionable for Week 11",
+      "body_text": "McConkey (back) is listed as questionable for Sunday's game against the Jets.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-20T01:34:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    }
+  ]
+}

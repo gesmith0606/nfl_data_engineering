@@ -1,6 +1,6 @@
 {
   "source": "ftn",
-  "fetched_at": "2026-11-18T12:19:58.800177+00:00",
+  "fetched_at": "2026-11-21T12:21:17.859718+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -957,7 +957,7 @@
     {
       "player_name": "Daniel Jones",
       "position": "QB",
-      "team": "IND",
+      "team": "FA",
       "external_rank": 137,
       "rank": 137
     },

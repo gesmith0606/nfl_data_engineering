@@ -1,0 +1,119 @@
+{
+  "batch_id": "88936a99",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-21T12:21:08.269120+00:00",
+  "record_count": 10,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-saw-something-in-liam-coen-that-other-teams-didnt",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-saw-something-in-liam-coen-that-other-teams-didnt",
+      "team_abbr": "JAX",
+      "summary": "Jaguars identified Liam Coen as top coaching candidate and restructured front office to hire him.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The Jaguars identified Coen as their No. 1 candidate and re-shaped their front office to get him, at a time when other teams weren't even interviewing him.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "28d860e7-464c-44ce-8285-0c6e98f1e9e6",
+      "external_id": "28d860e7-464c-44ce-8285-0c6e98f1e9e6",
+      "team_abbr": "SF",
+      "summary": "49ers forced to take travel detour in Week 11 that costs them NFL record for most miles traveled.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The 49ers are taking a detour in Week 11 that's going to cost them the NFL record for most miles traveled",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "5a28eef23-8e85-47b4-92a5-3c86700d8e7b",
+      "external_id": "5a28eef23-8e85-47b4-92a5-3c86700d8e7b",
+      "team_abbr": "DAL",
+      "summary": "Jerry Jones calls Cowboys bad team; demotes Christian Parker but retains on staff.",
+      "sentiment": -0.6,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "Jones feels Dallas is a bad team right now, but he defended the puzzling decision to demote Parker and keep him on staff",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "5f6c0325-c962-3d05-843b-f0035f8b60b0",
+      "external_id": "5f6c0325-c962-3d05-843b-f0035f8b60b0",
+      "team_abbr": "DAL",
+      "summary": "Jerry Jones characterizes Dallas Cowboys as a 'bad team,' suggesting organizational concerns.",
+      "sentiment": -0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Here is today's Dallas Cowboys news. Jerry Jones says Dallas is a 'bad team'",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "ec81fd41-28c9-332b-8d82-7be266e49bce",
+      "external_id": "ec81fd41-28c9-332b-8d82-7be266e49bce",
+      "team_abbr": "DET",
+      "summary": "Detroit Lions fans express confidence and predict winner against Buccaneers this week.",
+      "sentiment": 0.5,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Detroit Lions fans discuss their confidence level in the team and predict the winner of this week's game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8d94b3c7-e606-3f87-8e52-75c081ce1dbc",
+      "external_id": "8d94b3c7-e606-3f87-8e52-75c081ce1dbc",
+      "team_abbr": "WAS",
+      "summary": "Washington's confidence surges after Week 10 road victory over Giants; face Cincinnati Monday.",
+      "sentiment": 0.7,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Confidence spiked after the Wk 10 road win over the Giants on Thursday, but a Monday night showdown with Cincinnati will test Washington's mettle",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "75053628-23d9-366a-99b2-0f8309354d15",
+      "external_id": "75053628-23d9-366a-99b2-0f8309354d15",
+      "team_abbr": "JAX",
+      "summary": "Jaguars identified Liam Coen as top coaching candidate and restructured front office to hire him.",
+      "sentiment": 0.8,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Jaguars identified Coen as their No. 1 candidate and re-shaped their front office to get him, at a time when other teams weren't even interviewing him.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "aa33d52c-7374-3560-aa5a-4bb3281c5056",
+      "external_id": "aa33d52c-7374-3560-aa5a-4bb3281c5056",
+      "team_abbr": "NYG",
+      "summary": "Giants head coach John Harbaugh endorses Cam Skattebo's anti-backflip stance.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "But the Giants head coach is not going to do a backflip to celebrate no more backflips by his running back.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "42a1fa60-f5f5-38f1-874d-4bebb6c792f7",
+      "external_id": "42a1fa60-f5f5-38f1-874d-4bebb6c792f7",
+      "team_abbr": "DAL",
+      "summary": "Cowboys seeking consistency in home matchup vs. Titans.",
+      "sentiment": -0.3,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Are the Cowboys in for another dogfight at home this week?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-saw-something-in-liam-coen-that-other-teams-didnt",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-saw-something-in-liam-coen-that-other-teams-didnt",
+      "team_abbr": "JAX",
+      "summary": "Jaguars identified Liam Coen as top candidate and restructured front office to hire him.",
+      "sentiment": 0.6,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Jaguars identified Coen as their No. 1 candidate and re-shaped their front office to get him, at a time when other teams weren't even interviewing him.",
+      "subject_type": "coach"
+    }
+  ]
+}
