@@ -19,6 +19,7 @@ import pytest
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from band_calibration import (  # noqa: E402
+    BAND_SOURCE_COL,
     FLAG_COL,
     HI_QUANTILE,
     LO_QUANTILE,
@@ -27,6 +28,7 @@ from band_calibration import (  # noqa: E402
     apply_calibrated_bands,
     fit_band_offsets,
     load_completed_player_weeks,
+    mark_band_source,
 )
 
 rng = np.random.default_rng(20261021)
@@ -330,3 +332,52 @@ class TestCLIWiring:
         band = src.index("projections, _band_stats = apply_calibrated_bands(")
         invariant = src.index("# --- injury invariant")
         assert shrink < band < invariant
+
+
+class TestBandSourceProvenance:
+    """An empty fit used to leave the old +/-mult band in place with only a log line."""
+
+    def test_calibrated_rows_are_labelled_and_nothing_else_changes(self):
+        off = fit_band_offsets(_history("WR"))
+        board = _board(("WR", "RB"))
+        out, _ = apply_calibrated_bands(board, off)
+        labelled = mark_band_source(out)
+        wr = labelled.position == "WR"
+        assert (labelled.loc[wr, BAND_SOURCE_COL] == "calibrated").all()
+        assert (labelled.loc[~wr, BAND_SOURCE_COL] == "uncalibrated_fallback").all()
+        pd.testing.assert_frame_equal(labelled.drop(columns=[BAND_SOURCE_COL]), out)
+
+    def test_empty_fit_labels_every_row_uncalibrated_and_keeps_points_and_band(self):
+        board = _board(("WR",))
+        out, _ = apply_calibrated_bands(board, {})
+        labelled = mark_band_source(out)
+        assert (labelled[BAND_SOURCE_COL] == "uncalibrated_fallback").all()
+        for col in ("projected_points", "projected_floor", "projected_ceiling"):
+            pd.testing.assert_series_equal(board[col], labelled[col])
+
+    def test_width_change_never_touches_points_or_ranks(self):
+        off = fit_band_offsets(_history("WR", spread_slope=0.9))
+        board = _board(("WR", "RB"))
+        out, _ = apply_calibrated_bands(board, off)
+        keep = [
+            c
+            for c in board.columns
+            if c not in ("projected_floor", "projected_ceiling")
+        ]
+        pd.testing.assert_frame_equal(
+            board[keep], out[keep].drop(columns=[FLAG_COL], errors="ignore")
+        )
+        assert (
+            out.projected_points.rank().tolist()
+            == board.projected_points.rank().tolist()
+        )
+
+    def test_cli_warns_loudly_when_the_fit_is_empty(self):
+        src = open(
+            os.path.join(
+                os.path.dirname(__file__), "..", "scripts", "generate_projections.py"
+            ),
+            encoding="utf-8",
+        ).read()
+        assert "::warning::Band calibration" in src
+        assert "mark_band_source(projections)" in src
