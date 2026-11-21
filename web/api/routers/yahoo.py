@@ -19,11 +19,13 @@ the user pastes the code into ``POST /api/yahoo/connect``).
 
 from __future__ import annotations
 
+import hmac
 import logging
 import os
+import re
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
@@ -38,6 +40,27 @@ from src.yahoo_oauth import DEFAULT_REDIRECT_URI, YahooAuthError, YahooOAuth
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/yahoo", tags=["yahoo"])
+
+# Yahoo's league_key: "<game_id or 'nfl'>.l.<league_id>", e.g. 461.l.12345.
+_LEAGUE_KEY_RE = re.compile(r"^(?:\d+|nfl)\.l\.\d+$")
+
+
+def require_owner(request: Request) -> None:
+    """Gate token-touching routes behind the server API key, always.
+
+    The token file is server-global (one Yahoo account), so these routes must
+    never be anonymous: when API_KEY is unset the routes are disabled rather
+    than open.
+    """
+    key = os.getenv("API_KEY", "")
+    if not key:
+        raise HTTPException(
+            status_code=403,
+            detail="Yahoo league sync is owner-only and disabled on this server",
+        )
+    provided = request.headers.get("X-API-Key", "")
+    if not hmac.compare_digest(provided.encode(), key.encode()):
+        raise HTTPException(status_code=403, detail="Invalid or missing API key")
 
 
 def _oauth() -> YahooOAuth:
@@ -111,7 +134,7 @@ def yahoo_status() -> YahooStatus:
     )
 
 
-@router.get("/auth-url", response_model=YahooAuthUrl)
+@router.get("/auth-url", response_model=YahooAuthUrl, dependencies=[Depends(require_owner)])
 def yahoo_auth_url() -> YahooAuthUrl:
     """Authorization URL the user opens once to grant access."""
     oauth = _oauth()
@@ -127,7 +150,7 @@ def yahoo_auth_url() -> YahooAuthUrl:
     )
 
 
-@router.get("/callback", response_class=HTMLResponse)
+@router.get("/callback", response_class=HTMLResponse, dependencies=[Depends(require_owner)])
 def yahoo_callback(code: str = Query("")) -> HTMLResponse:
     """OAuth redirect target — exchanges the code and stores tokens."""
     if not code:
@@ -146,7 +169,7 @@ def yahoo_callback(code: str = Query("")) -> HTMLResponse:
     )
 
 
-@router.post("/connect", response_model=YahooStatus)
+@router.post("/connect", response_model=YahooStatus, dependencies=[Depends(require_owner)])
 def yahoo_connect(body: YahooConnectRequest) -> YahooStatus:
     """oob fallback: user pastes the on-screen code here."""
     try:
@@ -173,7 +196,7 @@ def _require_connected() -> YahooOAuth:
     return oauth
 
 
-@router.get("/leagues", response_model=List[YahooLeague])
+@router.get("/leagues", response_model=List[YahooLeague], dependencies=[Depends(require_owner)])
 def yahoo_leagues(
     season: Optional[int] = Query(None, description="Season (default: current year)"),
 ) -> List[YahooLeague]:
@@ -236,9 +259,11 @@ def _parse_roster_players(team_frag: Dict[str, Any]) -> List[YahooRosterPlayer]:
     return players
 
 
-@router.get("/league/{league_key}/teams", response_model=YahooTeamsResponse)
+@router.get("/league/{league_key}/teams", response_model=YahooTeamsResponse, dependencies=[Depends(require_owner)])
 def yahoo_league_teams(league_key: str) -> YahooTeamsResponse:
     """All teams in a league with rosters; flags the connected user's team."""
+    if not _LEAGUE_KEY_RE.match(league_key):
+        raise HTTPException(status_code=422, detail="Invalid Yahoo league_key")
     oauth = _require_connected()
     node = fetch_yahoo_json(f"/league/{league_key}/teams/roster/players", oauth)
     content = node.get("fantasy_content") if isinstance(node, dict) else None

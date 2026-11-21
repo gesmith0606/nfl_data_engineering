@@ -5,6 +5,7 @@ Run locally with:
     uvicorn web.api.main:app --reload --host 0.0.0.0 --port 8000
 """
 
+import hmac
 import logging
 import os
 import traceback
@@ -49,10 +50,14 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 # CORS -- allow Next.js dev server and any configured origins
 # ---------------------------------------------------------------------------
+# Credentials are only safe with an explicit origin list: with "*" Starlette
+# echoes ANY Origin back alongside allow-credentials. The API uses no cookies,
+# so a wildcard config runs credential-less.
+_CORS_WILDCARD = any(o.strip() == "*" for o in CORS_ORIGINS)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
-    allow_credentials=True,
+    allow_credentials=not _CORS_WILDCARD,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -86,7 +91,7 @@ async def api_key_auth(request: Request, call_next):  # type: ignore[no-untyped-
     """
     if API_KEY and request.url.path not in _AUTH_EXEMPT_PATHS:
         provided = request.headers.get("X-API-Key", "")
-        if provided != API_KEY:
+        if not hmac.compare_digest(provided.encode(), API_KEY.encode()):
             return JSONResponse(
                 status_code=401,
                 content={"detail": "Invalid or missing API key"},

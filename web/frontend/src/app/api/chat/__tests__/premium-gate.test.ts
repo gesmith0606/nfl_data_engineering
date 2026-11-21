@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST } from '../route';
+import { resetChatLimiter } from '@/lib/rate-limit/chat-limiter';
 import { getSubscriptionStatus } from '@/lib/billing/subscription';
 import { streamText } from 'ai';
 
@@ -38,6 +39,7 @@ describe('POST /api/chat premium gate', () => {
   const originalGoogleKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
   beforeEach(() => {
+    resetChatLimiter();
     vi.clearAllMocks();
     process.env.GOOGLE_GENERATIVE_AI_API_KEY = 'test-key';
     mockStreamText.mockReturnValue({
@@ -96,5 +98,45 @@ describe('POST /api/chat premium gate', () => {
     const res = await POST(chatRequest());
     expect(res.status).toBe(200);
     expect(mockStreamText).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('POST /api/chat abuse limits', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    resetChatLimiter();
+    process.env.GOOGLE_GENERATIVE_AI_API_KEY = 'test-key';
+    mockGetSubscriptionStatus.mockResolvedValue({
+      billingEnabled: false,
+      signedIn: false,
+      premium: false,
+      hasAccess: true
+    });
+    mockStreamText.mockReturnValue({
+      toUIMessageStreamResponse: () => new Response('stream')
+    } as never);
+  });
+
+  const post = (messages: unknown[]) =>
+    POST(
+      new Request('https://x.test/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-forwarded-for': '7.7.7.7' },
+        body: JSON.stringify({ messages })
+      })
+    );
+
+  it('413s oversized conversations before spending tokens', async () => {
+    const msg = { role: 'user', parts: [{ type: 'text', text: 'a' }] };
+    const res = await post(Array(31).fill(msg));
+    expect(res.status).toBe(413);
+    expect(mockStreamText).not.toHaveBeenCalled();
+  });
+
+  it('429s with Retry-After after 10 requests in a minute', async () => {
+    for (let i = 0; i < 10; i++) expect((await post([])).status).toBe(200);
+    const res = await post([]);
+    expect(res.status).toBe(429);
+    expect(res.headers.get('Retry-After')).toBeTruthy();
   });
 });
