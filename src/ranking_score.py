@@ -241,6 +241,33 @@ def _compute_position_nudge(
 # ---------------------------------------------------------------------------
 
 
+def assign_ranks(df: pd.DataFrame, overall: bool = True) -> pd.DataFrame:
+    """Recompute ``position_rank`` (and ``overall_rank``) from one score column.
+
+    The score is ``ranking_score`` when present, else ``projected_points``, so
+    the two ranks are mutually consistent. Ties break by row order
+    (``method="first"``). Rows are NOT re-sorted here; callers sort by
+    ``overall_rank`` if they want the board in rank order.
+
+    Args:
+        df: Board with ``position`` and ``projected_points``.
+        overall: Also (re)assign ``overall_rank`` (dense 1..N).
+
+    Returns:
+        A copy with refreshed rank columns.
+    """
+    out = df.copy()
+    if out.empty:
+        return out
+    col = "ranking_score" if "ranking_score" in out.columns else "projected_points"
+    out["position_rank"] = (
+        out.groupby("position")[col].rank(ascending=False, method="first").astype(int)
+    )
+    if overall:
+        out["overall_rank"] = out[col].rank(ascending=False, method="first").astype(int)
+    return out
+
+
 def apply_ranking_scores(
     projections_df: pd.DataFrame,
     graph_df: Optional[pd.DataFrame],
