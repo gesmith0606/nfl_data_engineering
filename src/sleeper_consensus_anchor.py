@@ -246,6 +246,19 @@ def _load_sleeper_week(
     return df[["player_id", "position", "projected_points"]].copy()
 
 
+def _live_mask(df: pd.DataFrame, points_col: str = "projected_points") -> "pd.Series":
+    """Rows that carry a live projection: points > 0 and not injury-zeroed.
+
+    Zero rows (Out / bye / no-projection) must stay zero, so they are kept out
+    of the anchor's value pool instead of being dealt a live number (or taking
+    one away from a live player).
+    """
+    live = df[points_col] > 0
+    if "injury_multiplier" in df.columns:
+        live &= df["injury_multiplier"].fillna(1.0) != 0.0
+    return live
+
+
 def build_sleeper_lookup(
     proj_df: pd.DataFrame,
     season: int,
@@ -293,6 +306,9 @@ def build_sleeper_lookup(
     ):
         return empty, stats
     proj_pos = proj_df[proj_df["position"] == position]
+    if "projected_points" in proj_pos.columns:
+        # Same row set as the blend's pool, so numerator and denominator agree.
+        proj_pos = proj_pos[_live_mask(proj_pos)]
     stats["n_proj_pos_rows"] = int(len(proj_pos))
     startable_ids: set = set()
     if "projected_points" in proj_pos.columns:
@@ -357,7 +373,7 @@ def apply_consensus_anchor_blend(
     ):
         return proj
 
-    is_pos = proj["position"] == position
+    is_pos = (proj["position"] == position) & _live_mask(proj, points_col)
     if is_pos.sum() < 2:
         return proj
 
