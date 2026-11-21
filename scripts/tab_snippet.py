@@ -140,6 +140,22 @@ def keeper_drop(league: str, drop: Optional[str]) -> bool:
     return wc.player_key(drop) in wc.load_keepers(REPO_ROOT / path)
 
 
+def keeper_ids_path(league: str) -> Path:
+    """Optional ``{platform_id: keeper name}`` JSON for a league's keepers."""
+    return REPO_ROOT / "data" / "draft" / f"{league}_2026_keeper_ids.json"
+
+
+def keeper_drop_id(league: str, drop_id: Optional[str]) -> Optional[str]:
+    """The keeper name behind ``drop_id`` (None when it is not a known keeper id)."""
+    path = keeper_ids_path(league)
+    if not drop_id or not path.is_file():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get(str(drop_id))
+    except (ValueError, OSError):
+        return None
+
+
 def main(argv: Optional[list] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -175,6 +191,8 @@ def main(argv: Optional[list] = None) -> int:
     r.add_argument("--verdict", required=True, choices=VERDICTS)
     r.add_argument("--msg", default="")
     a = ap.parse_args(argv)
+    if a.cmd != "record" and bool(a.drop) != bool(a.drop_id):
+        ap.error("--drop and --drop-id must be given together (or neither)")
 
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
     if a.cmd == "record":
@@ -201,6 +219,10 @@ def main(argv: Optional[list] = None) -> int:
     if keeper_drop(league, a.drop):
         print(f"REFUSED: {a.drop} is one of our {league} keepers — never a drop")
         return 2
+    kept = keeper_drop_id(league, a.drop_id)
+    if kept:
+        print(f"REFUSED: drop id {a.drop_id} is our {league} keeper {kept} — never a drop")
+        return 2
     if posting:
         why = ledger_blocks(league, a.add_id)
         if why and not a.force:
@@ -219,6 +241,12 @@ def main(argv: Optional[list] = None) -> int:
                 )
                 + "\n"
             )
+    if a.drop_id:
+        print(
+            "NOT CHECKED (no live data in this route): drop-on-roster, FAAB left, "
+            "and that drop-id really is the player named by --drop "
+            f"(keeper ids only known if {keeper_ids_path(league).name} exists)"
+        )
     print(js)
     return 0
 
