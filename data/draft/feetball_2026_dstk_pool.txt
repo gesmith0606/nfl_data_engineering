@@ -1,49 +1,19 @@
-# Feetball W8 DEF/K pool — availability read LIVE from the Yahoo API
-# (fspt-r) on 2026-10-28. No site projections: SLPR + VEGAS rank these.
-# MINE reflects the live roster: Pineiro (SF, on bye) at K, Bengals at DEF.
-MINE|K|Eddy Pineiro|
-MINE|DEF|CIN|
-K|Ka'imi Fairbairn|
-K|Tyler Loop|
-K|Cairo Santos|
-K|Cameron Dicker|
-K|Chase McLaughlin|
-K|Tyler Bass|
-K|Harrison Mevis|
-K|Andy Borregales|
-K|Trey Smack|
-K|Dominic Zvada|
-K|Matt Gay|
-K|Chad Ryland|
-K|Andre Szmyt|
-K|Nick Folk|
-K|Ryan Fitzgerald|
-K|Wil Lutz|
-K|Jason Sanders|
-K|Joey Slye|
-K|Drew Stevens|
-K|Daniel Carlson|
-K|Zane Gonzalez|
-K|Riley Patterson|
-K|Charlie Smyth|
-K|Jake Moody|
-K|Jake Elliott|
-DEF|PHI|
-DEF|CLE|
-DEF|BUF|
-DEF|LAC|
-DEF|CHI|
-DEF|NO|
-DEF|NYG|
-DEF|GB|
-DEF|LV|
-DEF|TB|
-DEF|DET|
-DEF|ATL|
-DEF|TEN|
-DEF|NYJ|
-DEF|WAS|
-DEF|IND|
-DEF|ARI|
-DEF|MIA|
-DEF|DAL|
+# Feetball W11 DEF/K pool — read LIVE from Yahoo 2026-11-17 (Yahoo week-11 projections)
+MINE|DEF|NYG|5.30
+MINE|K|Tyler Bass|10.42
+DEF|BUF|9.24
+DEF|DET|9.12
+DEF|CHI|8.46
+DEF|SF|7.43
+DEF|NYJ|7.38
+DEF|PHI|7.35
+DEF|CIN|7.13
+DEF|CAR|6.81
+DEF|DAL|6.74
+DEF|LV|5.62
+K|Ka'imi Fairbairn|10.99
+K|Cairo Santos|9.97
+K|Wil Lutz|9.44
+K|Chris Boswell|9.44
+K|Cameron Dicker|9.00
+K|Ryan Fitzgerald|8.89

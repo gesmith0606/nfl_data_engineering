@@ -1,24 +1,19 @@
-# feetball 2026 (Yahoo, /f1/658684/10) — read 2026-10-28 live from the Yahoo
-# Fantasy API (fspt-r), league_key 470.l.658684, season 2026, current_week 8.
-# IR slot: Jacory Croskey-Merritt, Jalen Hurts, Jadarian Price
-# Lineup as set on Yahoo: QB Love | RB Henry, Jeanty | WR Wilson, Brown, Jefferson
-#   | TE Loveland | W/R/T Burden | K Pineiro | DEF (EMPTY — Bengals on bench)
+# feetball 2026 (Yahoo, /f1/658684/10) — read LIVE 2026-11-17 ~21:50 via claude-in-chrome (replaces the 11-10 read: Darnold dropped, Malik Washington added Nov 14).
+# IR slot: Jacory Croskey-Merritt, Jalen Hurts
 Jordan Love
 Derrick Henry
-Ashton Jeanty
-Garrett Wilson
-A.J. Brown
+Christian McCaffrey
 Justin Jefferson
+Ladd McConkey
+Garrett Wilson
+Brenton Strange
+Ashton Jeanty
 Colston Loveland
 Luther Burden III
-Christian McCaffrey
-Brenton Strange
+A.J. Brown
 Emeka Egbuka
-Ladd McConkey
 Devaughn Vele
-MarShawn Lloyd
+Malik Washington
+Jadarian Price
 Jacory Croskey-Merritt
 Jalen Hurts
-Jadarian Price
-Eddy Pineiro
-Bengals
