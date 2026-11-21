@@ -877,3 +877,52 @@ jobs:
               body:   body,
               labels: ["pipeline-failure", "automated"],
             });
+
+  # --------------------------------------------------------------------------
+  # Job 4: resolve-failure-issues
+  # The opener above never closed its issues, so a green run left stale
+  # "Weekly Pipeline Failed" issues open (#110, #162, #164, #165). On a
+  # SUCCESSFUL run, close every open issue the opener created: title prefix
+  # "Weekly Pipeline Failed", label pipeline-failure, authored by the Actions
+  # bot. Other pipeline-failure issues (data freshness, ML fallback,
+  # completeness escalation) have other titles and are left alone.
+  # --------------------------------------------------------------------------
+  resolve-failure-issues:
+    name: Close stale pipeline-failure issues
+    runs-on: ubuntu-latest
+    needs: [compute-week, run-pipeline]
+    if: success()
+
+    steps:
+      - name: Close issues from earlier failed runs
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const runUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const prefix = "Weekly Pipeline Failed";
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              state: "open",
+              labels: "pipeline-failure",
+              per_page: 100,
+            });
+            const stale = issues.filter(i =>
+              !i.pull_request &&
+              i.title.startsWith(prefix) &&
+              i.user && i.user.login === "github-actions[bot]");
+            for (const i of stale) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: i.number,
+                body: `Closing: the weekly pipeline succeeded in [run ${process.env.GITHUB_RUN_ID}](${runUrl}).`,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: i.number,
+                state: "closed", state_reason: "completed",
+              });
+              core.info(`Closed #${i.number}: ${i.title}`);
+            }
+            core.info(`Closed ${stale.length} stale failure issue(s).`);
