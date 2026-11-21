@@ -103,43 +103,41 @@ SCORING_FORMATS: list = ["half_ppr", "ppr", "standard"]
 
 
 # ---------------------------------------------------------------------------
-# Season / week auto-detection (mirrors daily_sentiment_pipeline.py)
+# Season / week auto-detection (schedule-based, shared with the weekly cron)
 # ---------------------------------------------------------------------------
 
 
-def detect_nfl_week(
-    _today: Optional[datetime.date] = None,
-) -> tuple:
-    """Auto-detect current NFL season and week from today's date.
+def resolve_playing_week(_today: Optional[datetime.date] = None, root=None) -> tuple:
+    """Resolve the (season, week, source) being PLAYED today from the schedule.
 
-    The NFL season starts the first Thursday on or after September 5.
-    Each week is 7 days.  Before Week 1 of the current year's season,
-    we treat the date as belonging to the prior season's off-season.
+    Reuses ``scripts.resolve_pipeline_week.resolve_target_week``: a week stays
+    "upcoming" until its last game (the Monday-night game) is played, so on a
+    Sunday that is exactly the week in progress, on a Thursday-night-game day it
+    is that week, and on the Sunday of week 18 in January it is season N week 18
+    (never season N+1). ``source == "schedule-final"`` means the regular season
+    is over; the caller should no-op. The old "Thursday on/after Sep 5" calendar
+    rule resolved 2026-09-08 to 2025 week 18 and is only the resolver's
+    no-schedule fallback now.
 
     Args:
-        _today: Override today's date (for testing only).  If None,
-            uses ``datetime.date.today()``.
+        _today: Override today's date (testing only).
+        root: Override the schedules root (testing only).
 
     Returns:
-        Tuple of (season_year, week_number).
+        Tuple of (season, week, source).
     """
-    today = _today if _today is not None else datetime.date.today()
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
+    from scripts import resolve_pipeline_week as rpw
 
-    def week1_thursday(yr: int) -> datetime.date:
-        sep5 = datetime.date(yr, 9, 5)
-        days_ahead = (3 - sep5.weekday()) % 7
-        return sep5 + datetime.timedelta(days=days_ahead)
+    return rpw.resolve_target_week(
+        _today or datetime.date.today(), root=root or rpw.SCHEDULES_ROOT
+    )
 
-    anchor = week1_thursday(today.year)
-    if today < anchor:
-        season = today.year - 1
-        anchor = week1_thursday(season)
-    else:
-        season = today.year
 
-    days_since = (today - anchor).days
-    week = max(1, min((days_since // 7) + 1, 18))
-
+def detect_nfl_week(_today: Optional[datetime.date] = None, root=None) -> tuple:
+    """Return ``(season, week)`` being played today (see ``resolve_playing_week``)."""
+    season, week, _ = resolve_playing_week(_today, root)
     return season, week
 
 
@@ -148,9 +146,7 @@ def detect_nfl_week(
 # ---------------------------------------------------------------------------
 
 
-def _load_latest_gold_projections(
-    season: int, week: int, scoring: str
-) -> tuple:
+def _load_latest_gold_projections(season: int, week: int, scoring: str) -> tuple:
     """Load the latest Gold projection file for a given season/week/scoring.
 
     Args:
@@ -335,9 +331,7 @@ def _undo_and_reapply(
         return refreshed, summary
 
     # Case A — Gold file has injury columns; undo then re-apply
-    logger.info(
-        "Case A: undoing old injury multipliers and re-applying fresh ones"
-    )
+    logger.info("Case A: undoing old injury multipliers and re-applying fresh ones")
 
     # Build a working copy.
     work = df.copy()
@@ -372,9 +366,9 @@ def _undo_and_reapply(
     can_undo = old_mult > 0.0
     # Restore projected values for rows that were NOT fully zeroed
     for col in scalable_present:
-        work.loc[can_undo, col] = (
-            work.loc[can_undo, col] / old_mult[can_undo]
-        ).round(4)
+        work.loc[can_undo, col] = (work.loc[can_undo, col] / old_mult[can_undo]).round(
+            4
+        )
 
     # -----------------------------------------------------------------------
     # Now apply fresh injury adjustments using the upstream function.
@@ -415,14 +409,32 @@ def _undo_and_reapply(
         changed_mask = old_status != new_status
         summary["status_changed"] = int(changed_mask.sum())
 
-        new_outs = (new_status.isin(["Out", "IR", "Injured Reserve",
-                                     "PUP", "Physically Unable to Perform",
-                                     "Suspension"])).sum()
+        new_outs = (
+            new_status.isin(
+                [
+                    "Out",
+                    "IR",
+                    "Injured Reserve",
+                    "PUP",
+                    "Physically Unable to Perform",
+                    "Suspension",
+                ]
+            )
+        ).sum()
         new_q = (new_status == "Questionable").sum()
         cleared = (
-            (old_status.isin(["Out", "IR", "Injured Reserve",
-                               "PUP", "Physically Unable to Perform",
-                               "Suspension"]))
+            (
+                old_status.isin(
+                    [
+                        "Out",
+                        "IR",
+                        "Injured Reserve",
+                        "PUP",
+                        "Physically Unable to Perform",
+                        "Suspension",
+                    ]
+                )
+            )
             & (new_status == "Active")
         ).sum()
         summary["new_outs"] = int(new_outs)
@@ -432,9 +444,7 @@ def _undo_and_reapply(
     if "injury_multiplier" in refreshed.columns:
         new_mult = refreshed["injury_multiplier"]
         old_mult_aligned = old_mult.reindex(refreshed.index).fillna(1.0)
-        summary["multiplier_changed"] = int(
-            (new_mult != old_mult_aligned).sum()
-        )
+        summary["multiplier_changed"] = int((new_mult != old_mult_aligned).sum())
 
     return refreshed, summary
 
@@ -547,9 +557,7 @@ def _write_gold_output(
     Returns:
         Absolute path to the written file.
     """
-    partition = os.path.join(
-        GOLD_DIR, f"projections/season={season}/week={week}"
-    )
+    partition = os.path.join(GOLD_DIR, f"projections/season={season}/week={week}")
     os.makedirs(partition, exist_ok=True)
     filename = f"projections_{scoring}_{ts}.parquet"
     output_path = os.path.join(partition, filename)
@@ -604,7 +612,9 @@ def run_backtest_probe(season: int, weeks: list) -> None:
             )
         )
         if not files:
-            print(f"    No Gold projections found for season={season} week={week} — skipping")
+            print(
+                f"    No Gold projections found for season={season} week={week} — skipping"
+            )
             continue
 
         gold_df = pd.read_parquet(files[-1])
@@ -660,9 +670,9 @@ def run_backtest_probe(season: int, weeks: list) -> None:
             if not pos_impact.empty:
                 print("    By position:")
                 for _, row in pos_impact.iterrows():
-                    pts_before_pos = gold_df[
-                        gold_df["position"] == row["position"]
-                    ]["projected_points"].sum()
+                    pts_before_pos = gold_df[gold_df["position"] == row["position"]][
+                        "projected_points"
+                    ].sum()
                     print(
                         f"      {row['position']}: {int(row['n_affected'])} players, "
                         f"pts now {row['pts_lost']:.1f} vs before {pts_before_pos:.1f}"
@@ -752,7 +762,15 @@ def main() -> int:
     # Auto-detect season / week if not supplied
     # -----------------------------------------------------------------------
     if args.season is None or args.week is None:
-        auto_season, auto_week = detect_nfl_week()
+        auto_season, auto_week, source = resolve_playing_week()
+        if source == "schedule-final" and args.season is None and args.week is None:
+            logger.info(
+                "Regular season %d is over (final week %d played) - nothing to "
+                "refresh; pass --season/--week to force.",
+                auto_season,
+                auto_week,
+            )
+            return 0
         season = args.season if args.season is not None else auto_season
         week = args.week if args.week is not None else auto_week
         logger.info(
