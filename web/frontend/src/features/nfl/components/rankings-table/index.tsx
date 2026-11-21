@@ -77,10 +77,11 @@ export function RankingsTable() {
   const [position, setPosition] = useState<Position>('ALL');
   const [search, setSearch] = useState('');
 
-  // Fetch all players (week=1 for preseason/season-long, high limit)
+  // Season-long board: ask for the preseason board explicitly (week=1 now
+  // means week 1's weekly points once the season has started).
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [...nflKeys.all, 'rankings', { scoring }],
-    queryFn: () => fetchProjections(2026, 1, scoring, undefined, undefined, 1000)
+    queryFn: () => fetchProjections(2026, 1, scoring, undefined, undefined, 1000, 'preseason')
   });
 
   const rankedPlayers = useMemo(() => {

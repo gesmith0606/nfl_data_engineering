@@ -1297,6 +1297,13 @@ export function MatchupView() {
 
   return (
     <FadeIn className='space-y-[var(--gap-section)]'>
+      {projData?.available === false && (
+        <div className='rounded-lg border border-[var(--wc-yellow,#ffd84d)]/25 bg-[rgba(255,216,77,0.06)] px-4 py-2.5 text-sm'>
+          <span className='font-semibold'>Week {resolvedWeek} not published yet</span>{' '}
+          — {projData.message ?? 'player projections publish Tuesday.'} Player
+          ratings below are unavailable until then.
+        </div>
+      )}
       {/* Controls — mobile: 3-column grid of equal selects so all fit at 375px;
        *  sm+: flex-wrap natural widths. */}
       <div className='grid grid-cols-3 gap-[var(--space-2)] sm:flex sm:flex-wrap sm:items-center sm:gap-[var(--gap-stack)]'>

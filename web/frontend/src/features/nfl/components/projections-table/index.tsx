@@ -84,7 +84,10 @@ export function ProjectionsTable({ freeTier = false }: { freeTier?: boolean }) {
   // missing/stale, so the backend serves season-total-scale numbers under
   // the requested week's label instead (e.g. Josh Allen "393.7" for "Week
   // 1"). meta.source flags this — relabel instead of implying weekly points.
-  const isPreseasonFallback = data?.meta?.source === 'preseason_fallback';
+  const isPreseasonFallback =
+    data?.is_season_total === true || data?.meta?.source === 'preseason_fallback';
+  const notPublished =
+    data?.available === false || data?.meta?.source === 'not_published';
 
   const allProjections = data?.projections ?? [];
   // Free tier (auth keys present, no premium): top-50 per position, no
@@ -206,6 +209,30 @@ export function ProjectionsTable({ freeTier = false }: { freeTier?: boolean }) {
             <Button variant='outline' size='sm' onClick={() => void refetch()}>
               Retry
             </Button>
+          }
+        />
+      ) : notPublished ? (
+        <EmptyState
+          icon={Icons.info}
+          title={`Week ${week} projections aren't published yet`}
+          description={
+            data?.message ??
+            `Week ${week} projections publish Tuesday${
+              data?.latest_available_week
+                ? `; latest available is week ${data.latest_available_week}`
+                : ''
+            }.`
+          }
+          action={
+            data?.latest_available_week ? (
+              <Button
+                variant='outline'
+                size='sm'
+                onClick={() => setWeek(data.latest_available_week as number)}
+              >
+                View week {data.latest_available_week}
+              </Button>
+            ) : undefined
           }
         />
       ) : projections.length === 0 ? (

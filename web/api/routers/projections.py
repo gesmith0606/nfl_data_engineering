@@ -20,6 +20,11 @@ from ..services import projection_service
 
 router = APIRouter(prefix="/projections", tags=["projections"])
 
+_SEASON_TOTAL_MESSAGE = (
+    "Preseason projections: projected_points are full-season TOTALS, "
+    "not points for this week."
+)
+
 
 def _df_to_projection_list(df, scoring_format: str) -> list:
     """Convert a projection DataFrame to a list of PlayerProjection dicts."""
@@ -98,8 +103,16 @@ def list_projections(
     position: Optional[str] = Query(None, description="QB / RB / WR / TE / K"),
     team: Optional[str] = Query(None, description="Team abbreviation"),
     limit: int = Query(1000, ge=1, le=1000, description="Max results"),
+    board: Optional[str] = Query(
+        None,
+        description="'preseason' = explicitly request the season-total preseason board",
+    ),
 ) -> ProjectionResponse:
     """Return player projections for the given season, week, and scoring format.
+
+    When the week's board is not published yet (season underway) the response
+    is HTTP 200 with ``available=false`` and an empty list -- never season
+    totals. Rows that ARE season totals carry ``is_season_total=true``.
 
     Default ``limit`` is the API ceiling (1000) so unfiltered callers — like
     the matchups page, which builds 32 team rosters from a single fetch —
@@ -118,6 +131,26 @@ def list_projections(
             detail=f"Invalid position. Choose from: {sorted(VALID_POSITIONS)}",
         )
 
+    if board == "preseason":
+        try:
+            df = projection_service.get_preseason_projections(
+                season, scoring, position, team, limit
+            )
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc))
+        return ProjectionResponse(
+            season=season,
+            week=week,
+            scoring_format=scoring,
+            projections=_df_to_projection_list(df, scoring),
+            generated_at=datetime.now(timezone.utc).isoformat(),
+            available=True,
+            source="preseason_fallback",
+            is_season_total=True,
+            message=_SEASON_TOTAL_MESSAGE,
+            meta=ProjectionMeta(season=season, week=week, source="preseason_fallback"),
+        )
+
     try:
         df = projection_service.get_projections(
             season=season,
@@ -127,23 +160,57 @@ def list_projections(
             team=team,
             limit=limit,
         )
+    except projection_service.ProjectionsNotPublished as exc:
+        # Season is underway but this week's board does not exist: say so
+        # explicitly instead of serving season totals as weekly points.
+        latest = exc.latest_week
+        return ProjectionResponse(
+            season=season,
+            week=week,
+            scoring_format=scoring,
+            projections=[],
+            generated_at=datetime.now(timezone.utc).isoformat(),
+            available=False,
+            source="not_published",
+            is_season_total=False,
+            latest_available_week=latest,
+            message=(
+                f"Week {week} projections publish Tuesday; latest available is "
+                f"week {latest}."
+                if latest
+                else f"Week {week} projections are not published yet."
+            ),
+            meta=ProjectionMeta(
+                season=season,
+                week=week,
+                source="not_published",
+                latest_available_week=latest,
+            ),
+        )
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
 
     projections = _df_to_projection_list(df, scoring)
     meta_info = projection_service.get_projection_meta(season=season, week=week)
+    is_total = meta_info.source == "preseason_fallback"
     return ProjectionResponse(
         season=season,
         week=week,
         scoring_format=scoring,
         projections=projections,
         generated_at=datetime.now(timezone.utc).isoformat(),
+        available=True,
+        source=meta_info.source,
+        is_season_total=is_total,
+        latest_available_week=meta_info.latest_available_week,
+        message=_SEASON_TOTAL_MESSAGE if is_total else None,
         meta=ProjectionMeta(
             season=meta_info.season,
             week=meta_info.week,
             data_as_of=meta_info.data_as_of,
             source_path=meta_info.source_path,
             source=meta_info.source,
+            latest_available_week=meta_info.latest_available_week,
         ),
     )
 
@@ -187,9 +254,7 @@ def projections_comparison(
             status_code=400, detail=f"Invalid scoring format: {scoring}"
         )
     if position and position.upper() not in VALID_POSITIONS:
-        raise HTTPException(
-            status_code=400, detail=f"Invalid position: {position}"
-        )
+        raise HTTPException(status_code=400, detail=f"Invalid position: {position}")
 
     payload = projection_service.get_comparison(
         season=season,
@@ -227,4 +292,5 @@ def top_projections(
         position=position,
         team=None,
         limit=limit,
+        board=None,
     )

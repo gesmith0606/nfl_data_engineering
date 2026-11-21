@@ -86,7 +86,8 @@ export interface ProjectionMeta {
   week: number;
   data_as_of: string | null;
   source_path: string | null;
-  source: 'weekly' | 'preseason_fallback' | string;
+  source: 'weekly' | 'preseason_fallback' | 'not_published' | string;
+  latest_available_week?: number | null;
 }
 
 export interface ProjectionResponse {
@@ -96,6 +97,12 @@ export interface ProjectionResponse {
   projections: PlayerProjection[];
   generated_at: string;
   meta?: ProjectionMeta | null;
+  /** false => week's board not published yet; `projections` is empty. */
+  available?: boolean;
+  /** true => rows are preseason SEASON TOTALS, not this week's points. */
+  is_season_total?: boolean;
+  message?: string | null;
+  latest_available_week?: number | null;
 }
 
 /** Envelope for a list of game predictions. */

@@ -70,6 +70,7 @@ class ProjectionMetaInfo:
     data_as_of: Optional[str]
     source_path: Optional[str]
     source: str = "weekly"
+    latest_available_week: Optional[int] = None
 
 
 # ---------------------------------------------------------------------------
@@ -172,6 +173,72 @@ def _should_apply_fallback(season: int) -> bool:
     incorrectly return preseason projections in place of valid backtest data.
     """
     return season >= datetime.now(tz=timezone.utc).year
+
+
+class ProjectionsNotPublished(FileNotFoundError):
+    """The requested week has no weekly board yet, but the season has started.
+
+    Subclasses ``FileNotFoundError`` so every existing caller that already
+    handles "no data" keeps working, while the projections router can catch it
+    first and answer with an explicit "not published" payload. Crucially the
+    service never substitutes the preseason board (season totals) here.
+    """
+
+    def __init__(self, season: int, week: int, latest_week: Optional[int]):
+        self.season = season
+        self.week = week
+        self.latest_week = latest_week
+        super().__init__(
+            f"Week {week} projections for season={season} are not published yet"
+            + (f"; latest available is week {latest_week}" if latest_week else "")
+        )
+
+
+def _weekly_boards(season: int) -> dict:
+    """Map week -> newest parquet for every published weekly board."""
+    season_dir = GOLD_PROJECTIONS_DIR / f"season={season}"
+    boards: dict = {}
+    if not season_dir.exists():
+        return boards
+    for week_dir in season_dir.glob("week=*"):
+        try:
+            wk = int(week_dir.name.split("=", 1)[1])
+        except (IndexError, ValueError):
+            continue
+        path = _latest_parquet(week_dir)
+        if path is not None:
+            boards[wk] = path
+    return boards
+
+
+def _resolve_weekly_state(
+    season: int, week: int, parquet_path: Optional[Path]
+) -> Tuple[str, Optional[int]]:
+    """Decide what a ``(season, week)`` request may serve.
+
+    Returns ``(state, latest_available_week)`` where state is ``"weekly"``,
+    ``"preseason_fallback"`` or ``"not_published"``.
+
+    The preseason board (season totals) is only legitimate before the season's
+    first weekly board exists. Once the season has started -- more than one
+    weekly board, or any non-stale one -- a request for an unpublished week must
+    never fall back to season totals, and an existing (merely old) board is
+    served as-is rather than replaced by them.
+    """
+    if not _should_apply_fallback(season):
+        return "weekly", None
+    boards = _weekly_boards(season)
+    latest = max(boards) if boards else None
+    started = len(boards) > 1 or any(
+        not _weekly_file_is_stale(p) for p in boards.values()
+    )
+    if parquet_path is not None:
+        if started or not _weekly_file_is_stale(parquet_path):
+            return "weekly", latest
+        return "preseason_fallback", latest
+    if started:
+        return "not_published", latest
+    return "preseason_fallback", latest
 
 
 def _normalize_preseason_df(
@@ -306,6 +373,23 @@ def _get_preseason_projections_parquet(
     return df
 
 
+def get_preseason_projections(
+    season: int,
+    scoring_format: str,
+    position: Optional[str] = None,
+    team: Optional[str] = None,
+    limit: int = 200,
+) -> pd.DataFrame:
+    """Explicitly read the preseason SEASON-TOTAL board (week stamped as 1).
+
+    For season-long views (the Season Rankings page) that previously relied on
+    the implicit week-1 fallback. Raises ``FileNotFoundError`` if absent.
+    """
+    return _get_preseason_projections_parquet(
+        season, 1, scoring_format, position, team, limit
+    )
+
+
 def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
     """Return source-parquet metadata for a given season/week.
 
@@ -322,11 +406,19 @@ def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
     week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
     parquet_path = _latest_parquet(week_dir) if week_dir.exists() else None
 
-    # Mirror the _get_projections_parquet fallback so the envelope reports
+    # Mirror the _get_projections_parquet decision so the envelope reports
     # the file actually served, not the one that was requested.
-    if _should_apply_fallback(season) and (
-        parquet_path is None or _weekly_file_is_stale(parquet_path)
-    ):
+    state, latest_week = _resolve_weekly_state(season, week, parquet_path)
+    if state == "not_published":
+        return ProjectionMetaInfo(
+            season=season,
+            week=week,
+            data_as_of=None,
+            source_path=None,
+            source="not_published",
+            latest_available_week=latest_week,
+        )
+    if state == "preseason_fallback":
         preseason_dir = _preseason_dir(season)
         preseason_path = (
             _latest_parquet(preseason_dir) if preseason_dir.exists() else None
@@ -338,6 +430,7 @@ def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
                 data_as_of=_iso_utc(preseason_path.stat().st_mtime),
                 source_path=_project_relative(preseason_path),
                 source="preseason_fallback",
+                latest_available_week=latest_week,
             )
 
     if parquet_path is None:
@@ -488,9 +581,10 @@ def _get_projections_parquet(
             week_dir, f"projections_{scoring_format}_*.parquet"
         ) or _latest_parquet(week_dir)
 
-    if _should_apply_fallback(season) and (
-        parquet_path is None or _weekly_file_is_stale(parquet_path)
-    ):
+    state, latest_week = _resolve_weekly_state(season, week, parquet_path)
+    if state == "not_published":
+        raise ProjectionsNotPublished(season, week, latest_week)
+    if state == "preseason_fallback":
         try:
             return _get_preseason_projections_parquet(
                 season, week, scoring_format, position, team, limit
@@ -532,7 +626,28 @@ def _get_projections_parquet(
         "proj_season": "season",
         "proj_week": "week",
     }
+    # Gold weekly boards write the stat columns already ``proj_``-prefixed
+    # (proj_passing_yards, proj_receptions, ...), which the unprefixed map above
+    # never matched -> every per-stat field served null.
+    rename_map.update(
+        {
+            "proj_passing_yards": "proj_pass_yards",
+            "proj_passing_tds": "proj_pass_tds",
+            "proj_rushing_yards": "proj_rush_yards",
+            "proj_rushing_tds": "proj_rush_tds",
+            "proj_receptions": "proj_rec",
+            "proj_receiving_yards": "proj_rec_yards",
+            "proj_receiving_tds": "proj_rec_tds",
+        }
+    )
+    # Weekly boards carry both ``season``/``week`` and ``proj_season``/
+    # ``proj_week``; renaming the latter onto the former made duplicate columns,
+    # so row.get("season") returned a Series and the router coerced it to 0.
+    for src, dst in (("proj_season", "season"), ("proj_week", "week")):
+        if src in df.columns and dst in df.columns:
+            df = df.drop(columns=[src])
     df = df.rename(columns={k: v for k, v in rename_map.items() if k in df.columns})
+    df = df.loc[:, ~df.columns.duplicated()]
     df["scoring_format"] = scoring_format
 
     if position:
@@ -851,12 +966,16 @@ def get_comparison(
         )
     except FileNotFoundError:
         live_ours = None
-    if live_ours is not None and not live_ours.empty and "player_id" in live_ours.columns:
+    if (
+        live_ours is not None
+        and not live_ours.empty
+        and "player_id" in live_ours.columns
+    ):
         ours_map = dict(
             zip(live_ours["player_id"].astype(str), live_ours["projected_points"])
         )
-        wide["ours"] = wide["player_id"].astype(str).map(ours_map).combine_first(
-            wide["ours"]
+        wide["ours"] = (
+            wide["player_id"].astype(str).map(ours_map).combine_first(wide["ours"])
         )
 
     wide["delta_vs_ours"] = wide.apply(_comparison_delta, axis=1)
@@ -1026,7 +1145,10 @@ def get_player_projection_weeks(
 
         if "recent_team" in df.columns and "team" not in df.columns:
             df = df.rename(columns={"recent_team": "team"})
-        if "projected_season_points" in df.columns and "projected_points" not in df.columns:
+        if (
+            "projected_season_points" in df.columns
+            and "projected_points" not in df.columns
+        ):
             df = df.rename(columns={"projected_season_points": "projected_points"})
 
         match = df[df["player_id"].astype(str) == str(player_id)]

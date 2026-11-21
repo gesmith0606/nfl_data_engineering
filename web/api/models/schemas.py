@@ -217,8 +217,13 @@ class ProjectionMeta(BaseModel):
         description=(
             "'weekly' when the Gold weekly parquet was used; "
             "'preseason_fallback' when the weekly file was missing or stale "
-            "and the preseason projections were served instead."
+            "and the preseason projections were served instead; "
+            "'not_published' when the season has started but this week's board "
+            "does not exist yet (the projections list is then empty)."
         ),
+    )
+    latest_available_week: Optional[int] = Field(
+        None, description="Highest week with a published weekly board, if any."
     )
 
 
@@ -237,6 +242,30 @@ class ProjectionResponse(BaseModel):
             "Parquet backend; may be null for PostgreSQL."
         ),
     )
+    available: bool = Field(
+        True,
+        description=(
+            "False when the requested week's board is not published yet; "
+            "``projections`` is then empty. Never substituted with another "
+            "week's or the preseason board."
+        ),
+    )
+    source: Optional[str] = Field(
+        None,
+        description="'weekly' | 'preseason_fallback' | 'not_published' (mirrors meta.source)",
+    )
+    is_season_total: bool = Field(
+        False,
+        description=(
+            "True when rows are PRESEASON SEASON TOTALS (source="
+            "'preseason_fallback'), not this week's points."
+        ),
+    )
+    message: Optional[str] = Field(
+        None,
+        description="Human-readable status for the unavailable/season-total cases.",
+    )
+    latest_available_week: Optional[int] = None
 
 
 class LatestWeekResponse(BaseModel):
