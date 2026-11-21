@@ -135,7 +135,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data/bronze/schedules/ data/bronze/depth_charts/ 2>/dev/null || true
+          # One add per path (a multi-path add stages nothing if one is missing).
+          for p in data/bronze/schedules/ data/bronze/depth_charts/; do
+            if [ ! -e "$p" ]; then
+              echo "::warning::commit path $p is absent on the runner - not staged"
+              continue
+            fi
+            git add -A "$p" || echo "::warning::git add failed for $p"
+          done
           if git diff --cached --quiet; then
             echo "No reference data changes to commit"
           else

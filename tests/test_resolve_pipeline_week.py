@@ -144,7 +144,7 @@ def test_cli_precedence_inputs_over_schedule(
     monkeypatch.setenv("GITHUB_OUTPUT", str(out))
     monkeypatch.delenv("PIPELINE_WEEK_OVERRIDE", raising=False)
     assert rpw.main() == 0
-    assert out.read_text() == "season=2024\nweek=10\n"
+    assert out.read_text() == "season=2024\nweek=10\noffseason=false\n"
     assert "workflow_dispatch" in capsys.readouterr().out
 
 
@@ -155,3 +155,64 @@ def test_cli_override_variable(monkeypatch, capsys) -> None:
     monkeypatch.setenv("PIPELINE_WEEK_OVERRIDE", "2023:7")
     assert rpw.main() == 0
     assert "season=2023\nweek=7" in capsys.readouterr().out
+
+
+def _cli_env(monkeypatch, tmp_path, today: dt.date, root: Path) -> Path:
+    out = tmp_path / "gh_out"
+    for k in ("INPUT_SEASON", "INPUT_WEEK", "PIPELINE_WEEK_OVERRIDE"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("GITHUB_OUTPUT", str(out))
+
+    class _D(dt.date):
+        @classmethod
+        def today(cls):
+            return today
+
+    monkeypatch.setattr(rpw.dt, "date", _D)
+    monkeypatch.setattr(rpw, "SCHEDULES_ROOT", root)
+    monkeypatch.setattr(
+        rpw,
+        "resolve_target_week",
+        lambda t, root=root, _orig=rpw.resolve_target_week: _orig(t, root=root),
+    )
+    return out
+
+
+def test_cli_mid_season_not_offseason(sched_root, monkeypatch, capsys, tmp_path):
+    out = _cli_env(monkeypatch, tmp_path, dt.date(2026, 9, 22), sched_root)
+    assert rpw.main() == 0
+    assert out.read_text() == "season=2026\nweek=3\noffseason=false\n"
+    assert "::warning::" not in capsys.readouterr().out
+
+
+def test_cli_day_after_final_game_is_offseason(
+    sched_root, monkeypatch, capsys, tmp_path
+):
+    # Final REG game 2027-01-10; the 11th is the first day with nothing left.
+    out = _cli_env(monkeypatch, tmp_path, dt.date(2027, 1, 11), sched_root)
+    assert rpw.main() == 0
+    assert out.read_text() == "season=2026\nweek=18\noffseason=true\n"
+    assert "::warning::" in capsys.readouterr().out
+
+
+def test_cli_final_game_day_still_week_18(sched_root, monkeypatch, tmp_path):
+    out = _cli_env(monkeypatch, tmp_path, dt.date(2027, 1, 10), sched_root)
+    assert rpw.main() == 0
+    assert out.read_text() == "season=2026\nweek=18\noffseason=false\n"
+
+
+def test_cli_january_tuesday_offseason_and_never_season_2027(
+    sched_root, monkeypatch, tmp_path
+):
+    # 2027-01-12 (Tuesday cron): must stay season 2026, never roll to 2027 wk1.
+    out = _cli_env(monkeypatch, tmp_path, dt.date(2027, 1, 12), sched_root)
+    assert rpw.main() == 0
+    assert out.read_text() == "season=2026\nweek=18\noffseason=true\n"
+
+
+def test_cli_dispatch_inputs_never_offseason(sched_root, monkeypatch, tmp_path):
+    out = _cli_env(monkeypatch, tmp_path, dt.date(2027, 3, 1), sched_root)
+    monkeypatch.setenv("INPUT_SEASON", "2026")
+    monkeypatch.setenv("INPUT_WEEK", "18")
+    assert rpw.main() == 0
+    assert out.read_text() == "season=2026\nweek=18\noffseason=false\n"

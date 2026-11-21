@@ -469,11 +469,15 @@ def _match_players(our_df: pd.DataFrame, consensus_df: pd.DataFrame) -> pd.DataF
 
 def _load_predictions(season: int, week: int) -> pd.DataFrame:
     """Load latest game predictions from Gold layer."""
-    pattern = os.path.join(
-        GOLD_DIR,
-        f"predictions/season={season}/week={week}/predictions_*.parquet",
-    )
-    files = sorted(globmod.glob(pattern))
+    # Predictions are written zero-padded (week=07); accept unpadded too.
+    files = []
+    for wk in (f"{week:02d}", f"{week}"):
+        pattern = os.path.join(
+            GOLD_DIR, f"predictions/season={season}/week={wk}/predictions_*.parquet"
+        )
+        files = sorted(globmod.glob(pattern))
+        if files:
+            break
     if not files:
         return pd.DataFrame()
 
