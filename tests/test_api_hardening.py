@@ -36,12 +36,16 @@ def test_cors_wildcard_has_no_credentials(monkeypatch):
     assert "access-control-allow-credentials" not in r.headers
 
 
-def test_cors_explicit_list_keeps_credentials(monkeypatch):
+def test_cors_explicit_list_never_sends_credentials(monkeypatch):
+    # The HF proxy adds its own reflected allow-origin, so ours must never
+    # contribute allow-credentials, allowed origin or not.
     c = _client(monkeypatch, "https://ok.example")
     r = c.get("/api/health", headers={"Origin": "https://ok.example"})
-    assert r.headers.get("access-control-allow-credentials") == "true"
+    assert r.headers.get("access-control-allow-origin") == "https://ok.example"
+    assert "access-control-allow-credentials" not in r.headers
     r = c.get("/api/health", headers={"Origin": EVIL})
     assert "access-control-allow-origin" not in r.headers
+    assert "access-control-allow-credentials" not in r.headers
 
 
 def test_yahoo_anonymous_leagues_forbidden(monkeypatch):

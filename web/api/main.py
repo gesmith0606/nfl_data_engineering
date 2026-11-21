@@ -50,14 +50,15 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 # CORS -- allow Next.js dev server and any configured origins
 # ---------------------------------------------------------------------------
-# Credentials are only safe with an explicit origin list: with "*" Starlette
-# echoes ANY Origin back alongside allow-credentials. The API uses no cookies,
-# so a wildcard config runs credential-less.
-_CORS_WILDCARD = any(o.strip() == "*" for o in CORS_ORIGINS)
+# Never send allow-credentials. The API uses no cookies (auth is the
+# X-API-Key header), and the HF Spaces proxy in front of prod echoes ANY
+# Origin back as allow-origin on its own -- so a credentials header from us,
+# even with an explicit origin list, combines into "any origin, with
+# credentials" (seen live 2026-11-21).
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
-    allow_credentials=not _CORS_WILDCARD,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
