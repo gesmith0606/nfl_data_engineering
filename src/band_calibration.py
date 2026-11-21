@@ -91,6 +91,12 @@ MIN_BIN_ROWS: int = 10
 #: Provenance column added to every returned frame.
 FLAG_COL: str = "band_calibration_flag"
 
+#: Per-row band provenance written on the published board: ``calibrated`` when
+#: :func:`apply_calibrated_bands` rebuilt the band, ``uncalibrated_fallback``
+#: when the row kept whatever band an upstream layer attached (empty fit, a
+#: position with no offsets, or a zeroed row).
+BAND_SOURCE_COL: str = "band_source"
+
 
 def fit_band_offsets(
     hist_df: pd.DataFrame,
@@ -264,6 +270,23 @@ def apply_calibrated_bands(
         )
 
     return proj, stats
+
+
+def mark_band_source(proj_df: pd.DataFrame) -> pd.DataFrame:
+    """Write :data:`BAND_SOURCE_COL` from the calibration flag; touches nothing else.
+
+    Call after :func:`apply_calibrated_bands` (also when the fit was empty) so
+    the scorecard can split band coverage by source. Rows are never reordered
+    and no other column changes.
+    """
+    out = proj_df.copy()
+    flagged = (
+        out[FLAG_COL].fillna(False).astype(bool)
+        if FLAG_COL in out.columns
+        else pd.Series(False, index=out.index)
+    )
+    out[BAND_SOURCE_COL] = np.where(flagged, "calibrated", "uncalibrated_fallback")
+    return out
 
 
 def load_completed_player_weeks(

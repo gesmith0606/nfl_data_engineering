@@ -2396,6 +2396,7 @@ def main():
             apply_calibrated_bands,
             fit_band_offsets,
             load_completed_player_weeks,
+            mark_band_source,
         )
 
         _band_hist = load_completed_player_weeks(
@@ -2404,9 +2405,10 @@ def main():
         _band_offsets = fit_band_offsets(_band_hist)
         if not _band_offsets:
             print(
-                "Band calibration: no fitted positions "
+                "::warning::Band calibration: no fitted positions "
                 f"({len(_band_hist)} completed player-week(s) available) — "
-                "keeping the existing floor/ceiling band"
+                "keeping the existing floor/ceiling band (band_source="
+                "uncalibrated_fallback)"
             )
         else:
             projections, _band_stats = apply_calibrated_bands(
@@ -2423,6 +2425,7 @@ def main():
                 f"{len(_band_hist)} completed player-week(s) of season "
                 f"{args.season} (weeks < {args.week})"
             )
+        projections = mark_band_source(projections)
 
     # --- injury invariant ------------------------------------------------
     # Every blend that runs after apply_injury_adjustments (the Sleeper
