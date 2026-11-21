@@ -26,7 +26,35 @@ permissions:
   contents: write
 
 jobs:
+  # Target season/week comes from the schedule-parquet resolver (the same one
+  # weekly-pipeline uses), NOT a day-of-year rule: that rule filed week-18
+  # data under season=2027/week=1 in January. workflow_dispatch inputs win.
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      season: ${{ steps.nfl_week.outputs.season }}
+      week: ${{ steps.nfl_week.outputs.week }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            scripts/resolve_pipeline_week.py
+            data/bronze/schedules
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - run: pip install --quiet pandas pyarrow
+      - name: Resolve season/week from the schedule
+        id: nfl_week
+        env:
+          INPUT_SEASON: ${{ github.event.inputs.season }}
+          INPUT_WEEK: ${{ github.event.inputs.week }}
+          PIPELINE_WEEK_OVERRIDE: ${{ vars.PIPELINE_WEEK_OVERRIDE }}
+        run: python scripts/resolve_pipeline_week.py
+
   ingest:
+    needs: resolve
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,31 +74,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Resolve season/week
-        id: resolve
-        run: |
-          SEASON="${{ github.event.inputs.season }}"
-          WEEK="${{ github.event.inputs.week }}"
-          if [ -z "$SEASON" ]; then
-            SEASON=$(date +%Y)
-          fi
-          if [ -z "$WEEK" ]; then
-            # Approximate current NFL week from calendar (Sept = W1)
-            DAY_OF_YEAR=$(date +%j)
-            # NFL season starts ~ day 246 (Sept 3) — week = (day - 246) / 7 + 1
-            WEEK=$(( (10#$DAY_OF_YEAR - 246) / 7 + 1 ))
-            if [ $WEEK -lt 1 ]; then WEEK=1; fi
-            if [ $WEEK -gt 18 ]; then WEEK=18; fi
-          fi
-          echo "season=$SEASON" >> $GITHUB_OUTPUT
-          echo "week=$WEEK" >> $GITHUB_OUTPUT
-
       - name: Ingest ${{ matrix.source }} projections
         continue-on-error: true
         run: |
           python scripts/ingest_external_projections_${{ matrix.source }}.py \
-            --season ${{ steps.resolve.outputs.season }} \
-            --week ${{ steps.resolve.outputs.week }} \
+            --season ${{ needs.resolve.outputs.season }} \
+            --week ${{ needs.resolve.outputs.week }} \
             --scoring ${{ github.event.inputs.scoring || 'half_ppr' }} \
           || echo "::warning::${{ matrix.source }} ingest failed (see step logs above)"
 
@@ -78,12 +87,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: bronze-${{ matrix.source }}-${{ steps.resolve.outputs.season }}-w${{ steps.resolve.outputs.week }}
+          name: bronze-${{ matrix.source }}-${{ needs.resolve.outputs.season }}-w${{ needs.resolve.outputs.week }}
           path: data/bronze/external_projections/${{ matrix.source == 'yahoo' && 'yahoo_proxy_fp' || matrix.source }}/
           if-no-files-found: warn
 
   consolidate:
-    needs: ingest
+    needs: [resolve, ingest]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -99,21 +108,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Resolve season/week
-        id: resolve
-        run: |
-          SEASON="${{ github.event.inputs.season }}"
-          WEEK="${{ github.event.inputs.week }}"
-          if [ -z "$SEASON" ]; then SEASON=$(date +%Y); fi
-          if [ -z "$WEEK" ]; then
-            DAY_OF_YEAR=$(date +%j)
-            WEEK=$(( (10#$DAY_OF_YEAR - 246) / 7 + 1 ))
-            if [ $WEEK -lt 1 ]; then WEEK=1; fi
-            if [ $WEEK -gt 18 ]; then WEEK=18; fi
-          fi
-          echo "season=$SEASON" >> $GITHUB_OUTPUT
-          echo "week=$WEEK" >> $GITHUB_OUTPUT
 
       - name: Count baseline Bronze files (pre-download)
         id: baseline
@@ -165,8 +159,8 @@ jobs:
         if: steps.freshness.outputs.skip != 'true'
         run: |
           python scripts/silver_external_projections_transformation.py \
-            --season ${{ steps.resolve.outputs.season }} \
-            --week ${{ steps.resolve.outputs.week }} \
+            --season ${{ needs.resolve.outputs.season }} \
+            --week ${{ needs.resolve.outputs.week }} \
             --scoring ${{ github.event.inputs.scoring || 'half_ppr' }}
 
       - name: Commit Silver
@@ -178,6 +172,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "data(external-projections): refresh season=${{ steps.resolve.outputs.season }} week=${{ steps.resolve.outputs.week }}"
+            git commit -m "data(external-projections): refresh season=${{ needs.resolve.outputs.season }} week=${{ needs.resolve.outputs.week }}"
             git push
           fi

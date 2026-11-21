@@ -20,8 +20,12 @@ Priority order (unchanged from the workflow):
   3. Schedule-driven upcoming week
   4. Calendar fallback
 
-Prints ``season=`` / ``week=`` lines and appends them to ``$GITHUB_OUTPUT``
-when set.
+Prints ``season=`` / ``week=`` / ``offseason=`` lines and appends them to
+``$GITHUB_OUTPUT`` when set.  ``offseason=true`` only when the schedule says
+every regular-season game of the latest season is over (source
+``schedule-final``) AND the target was auto-computed; explicit dispatch inputs
+or the override variable always yield ``offseason=false`` so a manual re-run of
+any week still works.
 """
 
 from __future__ import annotations
@@ -121,6 +125,7 @@ def main() -> int:
     input_week = os.environ.get("INPUT_WEEK", "").strip()
     override = os.environ.get("PIPELINE_WEEK_OVERRIDE", "").strip()
 
+    offseason = False
     if input_season and input_week:
         season, week = int(input_season), int(input_week)
         print(f"Using workflow_dispatch inputs: season={season} week={week}")
@@ -136,13 +141,22 @@ def main() -> int:
             print(
                 "::warning::no schedule parquet found — fell back to the calendar rule"
             )
+        offseason = source == "schedule-final"
+        if offseason:
+            print(
+                f"::warning::regular season {season} is over (final week {week} "
+                "already played) — offseason=true, projection generation is skipped"
+            )
 
     github_output = os.environ.get("GITHUB_OUTPUT", "")
     if github_output:
         with open(github_output, "a", encoding="utf-8") as fh:
-            fh.write(f"season={season}\nweek={week}\n")
+            fh.write(
+                f"season={season}\nweek={week}\noffseason={str(offseason).lower()}\n"
+            )
     print(f"season={season}")
     print(f"week={week}")
+    print(f"offseason={str(offseason).lower()}")
     return 0
 
 

@@ -69,6 +69,9 @@ jobs:
     outputs:
       season: ${{ steps.nfl_week.outputs.season }}
       week:   ${{ steps.nfl_week.outputs.week }}
+      # "true" once every regular-season game of the latest season is played
+      # (auto-computed target only; dispatch inputs/override force false).
+      offseason: ${{ steps.nfl_week.outputs.offseason }}
 
     steps:
       # The resolver reads the committed schedule parquet (TD-09), so the
@@ -112,6 +115,10 @@ jobs:
     name: "Run Pipeline — Season ${{ needs.compute-week.outputs.season }} Week ${{ needs.compute-week.outputs.week }}"
     runs-on: ubuntu-latest
     needs: compute-week
+    # Offseason (season over, resolver says schedule-final): do not re-run the
+    # last regular-season week every Tuesday. The preseason (schedule says
+    # week 1 is upcoming) is NOT offseason and still runs as before.
+    if: needs.compute-week.outputs.offseason != 'true'
     # Hard ceiling (post-push review): the informal budget is ~60 min; a
     # stalled PBP download must not silently burn the 6h GHA default.
     timeout-minutes: 90
