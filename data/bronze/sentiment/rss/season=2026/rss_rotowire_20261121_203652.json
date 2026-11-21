@@ -1,0 +1,98 @@
+{
+  "fetch_run_id": "01b2cd1f-cdbd-4136-adf9-55f1d8de6e7e",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-21T20:36:52.281154+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648977",
+      "url": "https://www.rotowire.com//football/player/michael-pittman-14378",
+      "title": "Michael Pittman: Will not return this week",
+      "body_text": "Pittman (foot) is not expected to be activated from injured reserve for Sunday's game against the Eagles, Brooke Pryor of ESPN reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-21T12:07:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Michael Pittman",
+        "Brooke Pryor"
+      ],
+      "resolved_player_ids": [
+        "00-0036252"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648971",
+      "url": "https://www.rotowire.com//football/player/carson-beck-19287",
+      "title": "Carson Beck: Officially ruled out",
+      "body_text": "Beck (back) has been ruled out for Sunday's game at Kansas City, Darren Urban of the Cardinals' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-21T11:26:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Carson Beck",
+        "Kansas City",
+        "Darren Urban"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648968",
+      "url": "https://www.rotowire.com//football/player/tyjae-spears-16941",
+      "title": "Tyjae Spears: Lands on injured reserve",
+      "body_text": "The Titans placed Spears (knee) on injured reserve Saturday, Jim Wyatt of the Titans' official site reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-21T10:45:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Tyjae Spears",
+        "The Titans",
+        "Jim Wyatt"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648967",
+      "url": "https://www.rotowire.com//football/player/josh-jacobs-13582",
+      "title": "Josh Jacobs: Practicing Saturday",
+      "body_text": "Jacobs (finger) is participating in Saturday's practice session, Bill Huber of SI.com reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-21T10:30:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Practicing Saturday",
+        "Bill Huber"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl648966",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "title": "Rachaad White: Expected to play Monday",
+      "body_text": "White (heel) is trending toward being available for Monday's game against the Bengals, Tashan Reed of The Washington Post reports.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-21T09:53:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Rachaad White",
+        "Monday White",
+        "Tashan Reed",
+        "The Washington"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "CIN"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "batch_id": "7bd17b3c",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-21T20:40:15.143156+00:00",
+  "record_count": 8,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-first-21-chapters-of-quarterback-of-the-future-are-available",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-first-21-chapters-of-quarterback-of-the-future-are-available",
+      "team_abbr": null,
+      "summary": "PFT anniversary book chapters released.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "For the 25th anniversary of the launch of PFT, I decided to post the rewritten Quarterback of the Future \u2014 one chapter per day.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-after-selling-birmingham-city-stake-buys-piece-of-chelsea",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-after-selling-birmingham-city-stake-buys-piece-of-chelsea",
+      "team_abbr": null,
+      "summary": "Tom Brady invests in Chelsea FC.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Tom Brady's exit from the English soccer business was only temporary.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "c7680f9d-1708-4865-be6f-220b77001e68",
+      "external_id": "c7680f9d-1708-4865-be6f-220b77001e68",
+      "team_abbr": null,
+      "summary": "Tom Brady commentary on current top-performing NFL quarterback.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "There is one QB who's playing at a higher level than any other QB in the league right now, according to Brady",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "fba780e5-3d35-3b1c-aa21-e47213caeaa1",
+      "external_id": "fba780e5-3d35-3b1c-aa21-e47213caeaa1",
+      "team_abbr": null,
+      "summary": "Analysis of potential HC or OC options for Philadelphia.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Analyzing a potential HC or OC option for Philadelphia.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "59867692-9b38-3563-a165-baa5df1ece42",
+      "external_id": "59867692-9b38-3563-a165-baa5df1ece42",
+      "team_abbr": null,
+      "summary": "Players to watch for Saints visit to Bears in Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Take a look at @BryanOrenchuk's players to watch for New Orleans as the Saints visit Soldier Field in Week 11!",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "2d51d8f1-620d-3e53-8de0-ff7fb3aa858b",
+      "external_id": "2d51d8f1-620d-3e53-8de0-ff7fb3aa858b",
+      "team_abbr": null,
+      "summary": "Discussion about win total needed to claim NFC North division title given competitive quality.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "The NFC North is crazy good. How many wins is it going to take for a team to win the division?",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "2bff3d7c-d14e-3813-a547-58f6d55a148e",
+      "external_id": "2bff3d7c-d14e-3813-a547-58f6d55a148e",
+      "team_abbr": null,
+      "summary": "Generic Week 11 prediction article for Raiders-Broncos game with no specific player information.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Who do you got in Week 11?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-first-21-chapters-of-quarterback-of-the-future-are-available",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-first-21-chapters-of-quarterback-of-the-future-are-available",
+      "team_abbr": null,
+      "summary": "PFT post about Quarterback of the Future book chapters for 25th anniversary.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "For the 25th anniversary of the launch of PFT, I decided to post the rewritten Quarterback of the Future \u2014 one chapter per day.",
+      "subject_type": "reporter"
+    }
+  ]
+}

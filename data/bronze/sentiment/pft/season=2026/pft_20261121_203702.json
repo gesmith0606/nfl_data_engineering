@@ -1,0 +1,582 @@
+{
+  "fetch_run_id": "a98b0390-7ecb-4545-8c96-bc764bc8a2c7",
+  "source": "pft",
+  "fetched_at": "2026-11-21T20:37:02.180472+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-owner-mark-davis-hated-the-madden-movie",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/raiders-owner-mark-davis-hated-the-madden-movie",
+      "permalink": "",
+      "title": "Raiders owner Mark Davis hated the Madden movie",
+      "body_text": "Did anyone read the script before allowing the Raiders' name and logo to be used?",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T13:12:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mark Davis"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-shane-steichen-be-back-in-2027",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/will-shane-steichen-be-back-in-2027",
+      "permalink": "",
+      "title": "Will Shane Steichen be back in 2027?",
+      "body_text": "After the 2025 season ended, Colts owner Carlie Irsay-Gordon put both G.M.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T20:26:55+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Will Shane",
+        "Carlie Irsay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-place-rb-tyjae-spears-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-place-rb-tyjae-spears-on-injured-reserve",
+      "permalink": "",
+      "title": "Titans place RB Tyjae Spears on injured reserve",
+      "body_text": "The Titans have placed running back Tyjae Spears on injured reserve, the team announced.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-21T20:18:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyjae Spears",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-cb-daron-bland-on-injured-reserve",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-place-cb-daron-bland-on-injured-reserve",
+      "permalink": "",
+      "title": "Cowboys place CB DaRon Bland on injured reserve",
+      "body_text": "Cowboys cornerback DaRon Bland injured an ankle in Sunday's loss to the 49ers.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-21T19:58:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-didnt-know-puka-nacua-had-surgery-when-agreeing-to-suspension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-didnt-know-puka-nacua-had-surgery-when-agreeing-to-suspension",
+      "permalink": "",
+      "title": "NFL didn't know Puka Nacua had surgery when agreeing to suspension",
+      "body_text": "The sudden decision of the NFL to suspend receiver Puka Nacua three games raises plenty of relevant questions.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T12:40:34+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-fans-death-after-fight-at-49ers-cowboys-game-we-had-no-record-of-an-incident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-fans-death-after-fight-at-49ers-cowboys-game-we-had-no-record-of-an-incident",
+      "permalink": "",
+      "title": "Jerry Jones on fan's death after fight at 49ers-Cowboys game: \"We had no record of an incident\"",
+      "body_text": "This week, a fan died after falling during a fight at AT&T Stadium.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T14:52:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-downgrade-carson-beck-out-out-josh-johnson-will-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-downgrade-carson-beck-out-out-josh-johnson-will-start",
+      "permalink": "",
+      "title": "Cardinals downgrade Carson Beck to out; Josh Johnson will start",
+      "body_text": "As expected, Cardinals rookie quarterback Carson Beck won't be making his second career start on Sunday at Kansas City.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T19:47:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "Josh Johnson",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0026300"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-is-set-for-his-return-on-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-wr-mike-evans-is-set-for-his-return-on-sunday",
+      "permalink": "",
+      "title": "49ers WR Mike Evans is \"set for his return\" on Sunday",
+      "body_text": "Evans last played in Week 6, due to an Achilles injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T19:09:49+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Evans",
+        "Sunday Evans"
+      ],
+      "resolved_player_ids": [
+        "00-0031408"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-saw-something-in-liam-coen-that-other-teams-didnt",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-saw-something-in-liam-coen-that-other-teams-didnt",
+      "permalink": "",
+      "title": "Jaguars saw something in Liam Coen that other teams didn't",
+      "body_text": "The Jaguars identified Coen as their No. 1 candidate and re-shaped their front office to get him, at a time when other teams weren't even interviewing him.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-21T09:37:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Liam Coen",
+        "The Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-de-jaylen-harrell-is-hospitalized-after-serious-car-accident",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/titans-de-jaylen-harrell-is-hospitalized-after-serious-car-accident",
+      "permalink": "",
+      "title": "Titans DE Jaylen Harrell is hospitalized after \"serious car accident\"",
+      "body_text": "Titans defensive end Jaylen Harrell has been involved in a \"serious car accident.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T17:53:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Harrell"
+      ],
+      "resolved_player_ids": [
+        "00-0039436"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-add-ed-oliver-to-injury-report-list-him-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-add-ed-oliver-to-injury-report-list-him-as-questionable",
+      "permalink": "",
+      "title": "Bills add Ed Oliver to injury report, list him as questionable",
+      "body_text": "The Bills made a late addition to their injury report for Sunday's game against the Dolphins.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-21T17:40:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Ed Oliver",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-rule-out-nick-herbig",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-rule-out-nick-herbig",
+      "permalink": "",
+      "title": "Steelers rule out Nick Herbig",
+      "body_text": "The Steelers will not have linebacker Nick Herbig against the Eagles.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-21T17:29:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Herbig",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0038577"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-first-21-chapters-of-quarterback-of-the-future-are-available",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/the-first-21-chapters-of-quarterback-of-the-future-are-available",
+      "permalink": "",
+      "title": "The first 21 chapters of Quarterback of the Future are available",
+      "body_text": "For the 25th anniversary of the launch of PFT, I decided to post the rewritten Quarterback of the Future — one chapter per day.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T15:23:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-after-selling-birmingham-city-stake-buys-piece-of-chelsea",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-after-selling-birmingham-city-stake-buys-piece-of-chelsea",
+      "permalink": "",
+      "title": "Tom Brady, after selling Birmingham City stake, buys piece of Chelsea",
+      "body_text": "Tom Brady's exit from the English soccer business was only temporary.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T14:30:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Brady",
+        "Birmingham City",
+        "Chelsea Tom"
+      ],
+      "resolved_player_ids": [
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daiyan-henley-being-out-with-a-knee-injury-changes-nothing-about-the-failed-trade-to-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daiyan-henley-being-out-with-a-knee-injury-changes-nothing-about-the-failed-trade-to-broncos",
+      "permalink": "",
+      "title": "Daiyan Henley being out with a knee injury changes nothing about the failed trade to Broncos",
+      "body_text": "The failed trade of Chargers linebacker Daiyan Henley returned to the front burner on Friday, with the news that Henley will miss Sunday's game against the Jets due to a knee injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T13:58:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daiyan Henley",
+        "Broncos The"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philadelphia-mayor-wants-the-eagles-to-play-in-a-dome",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/philadelphia-mayor-wants-the-eagles-to-play-in-a-dome",
+      "permalink": "",
+      "title": "Philadelphia mayor wants the Eagles to play in a dome",
+      "body_text": "The Eagles will become an indoor team if the mayor of Philadelphia gets her way.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-21T12:21:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bud-dupree-requests-release-from-chargers-who-havent-granted-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bud-dupree-requests-release-from-chargers-who-havent-granted-it",
+      "permalink": "",
+      "title": "Bud Dupree requests release from Chargers, who haven't granted it",
+      "body_text": "As the season continues to unfold — and as the trade deadline fades into the rear-view mirror — unhappy players have only one option: To request a release.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T04:03:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bud Dupree"
+      ],
+      "resolved_player_ids": [
+        "00-0032146"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-will-undergo-knee-surgery-and-likely-miss-the-rest-of-the-season",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/puka-nacua-will-undergo-knee-surgery-and-likely-miss-the-rest-of-the-season",
+      "permalink": "",
+      "title": "Puka Nacua will undergo knee surgery and likely miss the rest of the season",
+      "body_text": "Sean McVay says Nacua will miss \"a couple months.\"",
+      "author": "Mike Florio",
+      "published_at": "2026-11-20T17:24:22+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nicolas-cage-on-his-john-madden-misfire-im-not-frank-caliendo",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nicolas-cage-on-his-john-madden-misfire-im-not-frank-caliendo",
+      "permalink": "",
+      "title": "Nicolas Cage on his John Madden misfire: \"I'm not Frank Caliendo\"",
+      "body_text": "This whole thing is antithetical to my identity.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-21T02:58:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nicolas Cage",
+        "John Madden",
+        "Frank Caliendo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-listed-as-questionable-but-josh-johnson-is-expected-to-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-listed-as-questionable-but-josh-johnson-is-expected-to-start",
+      "permalink": "",
+      "title": "Carson Beck listed as questionable, but Josh Johnson is expected to start",
+      "body_text": "Josh Johnson is expected to start Sunday's game against the Chiefs, but the Cardinals have not ruled out Carson Beck.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-21T00:08:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck",
+        "Josh Johnson"
+      ],
+      "resolved_player_ids": [
+        "00-0026300"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-doesnt-know-whether-he-will-play-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-doesnt-know-whether-he-will-play-sunday",
+      "permalink": "",
+      "title": "Brock Bowers doesn't know whether he will play Sunday",
+      "body_text": "Raiders tight end Brock Bowers is listed as questionable for Sunday's game against the Broncos.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T23:37:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Sunday Raiders"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-talanoa-hufanga-wr-jaylen-waddle-cb-riley-moss-set-to-return-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/s-talanoa-hufanga-wr-jaylen-waddle-cb-riley-moss-set-to-return-sunday",
+      "permalink": "",
+      "title": "S Talanoa Hufanga, WR Jaylen Waddle, CB Riley Moss set to return Sunday",
+      "body_text": "The Broncos' injury report Friday was not about who has a status, but who doesn't.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T22:03:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Talanoa Hufanga",
+        "Jaylen Waddle",
+        "Riley Moss",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0036564",
+        "00-0036613",
+        "00-0038552"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-officially-place-daniel-jones-on-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-officially-place-daniel-jones-on-waivers",
+      "permalink": "",
+      "title": "Colts officially place Daniel Jones on waivers",
+      "body_text": "Daniel Jones is officially on the waiver wire.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-20T22:00:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-rule-out-lb-daiyan-henley-list-wr-ladd-mcconkey-as-questionable",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/chargers-rule-out-lb-daiyan-henley-list-wr-ladd-mcconkey-as-questionable",
+      "permalink": "",
+      "title": "Chargers rule out LB Daiyan Henley, list WR Ladd McConkey as questionable",
+      "body_text": "Chargers linebacker Daiyan Henley missed practice this week with knee soreness, and the team has ruled him out for Sunday's game against the Jets.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T21:48:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-consider-requiring-minimum-night-stays-for-international-games",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-will-consider-requiring-minimum-night-stays-for-international-games",
+      "permalink": "",
+      "title": "NFL will consider requiring minimum-night stays for international games",
+      "body_text": "After the 49ers and the Rams took dramatically different approaches to their arrival in Melbourne for the first-ever Australia game, we raised the question of whether the league should require teams to get there early enough to advance the goal of promoting American football to international audiences.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-20T21:36:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-officially-waive-s-justin-reid",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saints-officially-waive-s-justin-reid",
+      "permalink": "",
+      "title": "Saints officially waive S Justin Reid",
+      "body_text": "Safety Justin Reid already penned his good-bye missive to the Saints, but his departure did not become official until 4 p.m.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T21:28:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Reid",
+        "Safety Justin"
+      ],
+      "resolved_player_ids": [
+        "00-0034361"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-add-rb-rachaad-white-to-the-injury-report-as-limited-with-a-heel-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-add-rb-rachaad-white-to-the-injury-report-as-limited-with-a-heel-injury",
+      "permalink": "",
+      "title": "Commanders add RB Rachaad White to the injury report as limited with a heel injury",
+      "body_text": "The Commanders added running back Rachaad White to the injury report Friday.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T21:20:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bhayshul-tuten-returns-to-practice-has-no-injury-designation-for-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bhayshul-tuten-returns-to-practice-has-no-injury-designation-for-sunday",
+      "permalink": "",
+      "title": "Bhayshul Tuten returns to practice, has no injury designation for Sunday",
+      "body_text": "The Jaguars are set to have their top running back in the lineup against the Giants on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-20T21:16:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bhayshul Tuten",
+        "Sunday The"
+      ],
+      "resolved_player_ids": [
+        "00-0040719"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-matt-gay-questionable-for-raiders-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-matt-gay-questionable-for-raiders-broncos",
+      "permalink": "",
+      "title": "Brock Bowers, Matt Gay questionable for Raiders-Broncos",
+      "body_text": "There’s a chance quarterback Fernando Mendoza will have his top target for his second start.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-20T21:08:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Bowers",
+        "Matt Gay",
+        "Broncos There",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-lb-bobby-okereke-will-miss-a-third-consecutive-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/panthers-lb-bobby-okereke-will-miss-a-third-consecutive-game",
+      "permalink": "",
+      "title": "Panthers LB Bobby Okereke will miss a third consecutive game",
+      "body_text": "Panthers linebacker Bobby Okereke will miss his third consecutive game with a foot injury.",
+      "author": "Charean Williams",
+      "published_at": "2026-11-20T20:23:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Bobby Okereke"
+      ],
+      "resolved_player_ids": [
+        "00-0035687"
+      ],
+      "team_hint": "CAR"
+    }
+  ]
+}

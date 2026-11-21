@@ -1,0 +1,81 @@
+{
+  "batch_id": "7bd17b3c",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-21T20:40:15.149554+00:00",
+  "record_count": 8,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-downgrade-carson-beck-out-out-josh-johnson-will-start",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals rookie QB Carson Beck ruled out for game vs Kansas City; Josh Johnson will start instead.",
+      "source_excerpt": "As expected, Cardinals rookie quarterback Carson Beck won't be making his second career start on Sunday at Kansas City.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "nfl648971",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Carson Beck ruled out Sunday at Kansas City with back injury.",
+      "source_excerpt": "Beck (back) has been ruled out for Sunday's game at Kansas City, Darren Urban of the Cardinals' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.rotowire.com/rss/nfl648971",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Carson Beck ruled out Sunday at Kansas City with back injury.",
+      "source_excerpt": "Beck (back) has been ruled out for Sunday's game at Kansas City, Darren Urban of the Cardinals' official site reports.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "3e66fddc-da61-4d8d-8369-10e10a746cff",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": null,
+      "category": "general",
+      "summary": "Fernando Mendoza making second NFL start in Week 11, rookie QB encore.",
+      "source_excerpt": "Joe Burrow's historic MVP push, Tampa Bay's dominant rushing attack and Fernando Mendoza's second NFL start highlight three overlooked Week 11 games worth watching",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "fbf15833-4865-40dd-885a-3d7999cbccba",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals QB Carson Beck ruled out vs Chiefs; 40-year-old Josh Johnson to start.",
+      "source_excerpt": "Cardinals QB Carson Beck ruled out, 40-year-old Josh Johnson to start vs. Chiefs. The 40-year-old Johnson is on the 15th team in his NFL career.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "7ac0f16f-c7d1-390b-b891-6e8b74f5462d",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Fernando Mendoza preparing for his second career start against Denver Broncos defense.",
+      "source_excerpt": "Returning Raider Nation's questions for the week.",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "4670d18c-f719-3753-86fc-9d794bb04504",
+      "player_name": "Bill Croskey-Merritt",
+      "team_abbr": "WAS",
+      "category": "usage",
+      "summary": "Bill Croskey-Merritt could get increased offensive opportunities for Washington against Bengals with Rachaad White injured.",
+      "source_excerpt": "With Rachaad White nursing a heel injury, Washington could potentially get a timely boost from Bill Croskey-Merritt against Cincinnati's 20th-ranked run defense",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-downgrade-carson-beck-out-out-josh-johnson-will-start",
+      "player_name": "Carson Beck",
+      "team_abbr": "ARI",
+      "category": "injury",
+      "summary": "Cardinals rookie QB Carson Beck ruled out for Week 2; Josh Johnson to start vs Chiefs.",
+      "source_excerpt": "As expected, Cardinals rookie quarterback Carson Beck won't be making his second career start on Sunday at Kansas City.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

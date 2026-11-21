@@ -1,0 +1,791 @@
+{
+  "fetch_run_id": "01b2cd1f-cdbd-4136-adf9-55f1d8de6e7e",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-21T20:36:51.779082+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "637ffadd-d779-3517-97a5-fb784e6ec563",
+      "url": "https://sports.yahoo.com/articles/bears-chance-prove-key-prediction-203000075.html",
+      "title": "Bears have a chance to prove a key prediction wrong in Week 11 vs. Saints",
+      "body_text": "The Saints will want to get Travis Etienne going, but stopping the run shouldn’t be a problem for the Bears.",
+      "author": "",
+      "published_at": "2026-11-21T20:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saints The",
+        "Travis Etienne"
+      ],
+      "resolved_player_ids": [
+        "00-0036973"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "31c201ad-4f31-310b-b158-a95c0c3b2a62",
+      "url": "https://sports.yahoo.com/articles/espn-overreacting-puka-nacua-injury-202856762.html",
+      "title": "ESPN is overreacting to Puka Nacua’s injury",
+      "body_text": "Jeremy Fowler is overreacting to Puka Nacua’s situation with the Rams",
+      "author": "",
+      "published_at": "2026-11-21T20:28:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Puka Nacua",
+        "Jeremy Fowler"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "fabf4d58-9849-36c8-b758-4b4378e5486e",
+      "url": "https://sports.yahoo.com/articles/titans-place-rb-tyjae-spears-201857534.html",
+      "title": "Titans place RB Tyjae Spears on injured reserve",
+      "body_text": "The Titans have placed running back Tyjae Spears on injured reserve, the team announced.",
+      "author": "",
+      "published_at": "2026-11-21T20:18:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tyjae Spears",
+        "The Titans"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "bef46d6b-1282-3080-a475-f7acca488904",
+      "url": "https://sports.yahoo.com/articles/steelers-activate-wr-roman-wilson-201249844.html",
+      "title": "Steelers activate WR Roman Wilson ahead of Eagles matchup",
+      "body_text": "Pittsburgh makes a flurry of roster moves ahead of Week 11.",
+      "author": "",
+      "published_at": "2026-11-21T20:12:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Roman Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0039739"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "184d7a66-acb6-4fea-bbd9-37595e074022",
+      "url": "https://sports.yahoo.com/fantasy/article/nfl-injury-tracker-week-11-latest-news-fantasy-implications-as-chiefs-kenneth-walker-iii-groin-out-again-rams-puka-nacua-knee-likely-done-for-the-season-200803087.html",
+      "title": "NFL injury tracker Week 11: Latest news, fantasy implications as Chiefs' Kenneth Walker III (groin) out again; Rams' Puka Nacua (knee) likely done for the season",
+      "body_text": "Everything you need to know injury-wise for Week 11 of the NFL season.",
+      "author": "Ben Zweiman,Sean Leahy",
+      "published_at": "2026-11-16T18:31:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kenneth Walker III",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0038134",
+        "00-0039075"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "b2e2bc37-bdc4-3f2a-991f-e2672257cea8",
+      "url": "https://sports.yahoo.com/articles/jaguars-vs-giants-staff-roundtable-200254800.html",
+      "title": "Jaguars vs. Giants: Staff roundtable and game picks for Week 11",
+      "body_text": "Big Cat Country previews the Jaguars’ Week 11 matchup against the Giants.",
+      "author": "",
+      "published_at": "2026-11-21T20:02:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Big Cat"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "93ceac11-cc3a-38df-84f4-15907c4ba3bb",
+      "url": "https://sports.yahoo.com/articles/numbers-cowboys-vs-titans-200000323.html",
+      "title": "What the numbers say about Cowboys vs Titans",
+      "body_text": "The Cowboys take on the Titans at AT&amp;T Stadium this week",
+      "author": "",
+      "published_at": "2026-11-21T20:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Titans The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "5a06963d-b496-3837-aa22-01930d2f9b48",
+      "url": "https://sports.yahoo.com/articles/cowboys-place-cb-daron-bland-195856112.html",
+      "title": "Cowboys place CB DaRon Bland on injured reserve",
+      "body_text": "Cowboys cornerback DaRon Bland injured an ankle in Sunday's loss to the 49ers.",
+      "author": "",
+      "published_at": "2026-11-21T19:58:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "5c691b16-ed42-4dd6-851f-4a908c113da0",
+      "url": "https://sports.yahoo.com/nfl/live/nfl-news-injury-updates-131219200.html",
+      "title": "NFL news, live updates: Colts release Daniel Jones, Anthony Richardson Sr. to start at QB; Puka Nacua potentially out for season after knee surgery",
+      "body_text": "Follow along with the latest NFL news heading into Week 11.",
+      "author": "Yahoo Sports Staff",
+      "published_at": "2026-11-16T13:12:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Daniel Jones",
+        "Anthony Richardson Sr",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0039164",
+        "00-0039075"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "149c0310-d16c-345a-a0e0-d1eace722db7",
+      "url": "https://sports.yahoo.com/articles/seahawks-news-analyzing-seahawks-contract-194617719.html",
+      "title": "Seahawks News: Analyzing the Seahawks’ contract restructures",
+      "body_text": "The Seahawks made some changes. Financially, that is.",
+      "author": "",
+      "published_at": "2026-11-21T19:46:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Seahawks News",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "3a8f1b2f-1953-3697-b57e-346104c94d45",
+      "url": "https://sports.yahoo.com/articles/giants-golden-chance-validate-record-194025485.html",
+      "title": "Giants have golden chance to validate their record against ‘really good’ Jaguars",
+      "body_text": "How rude. Or how insightful.",
+      "author": "",
+      "published_at": "2026-11-21T19:40:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaguars How"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "fbf15833-4865-40dd-885a-3d7999cbccba",
+      "url": "https://sports.yahoo.com/nfl/article/cardinals-qb-carson-beck-ruled-out-40-year-old-josh-johnson-to-start-vs-chiefs-192807401.html",
+      "title": "Cardinals QB Carson Beck ruled out, 40-year-old Josh Johnson to start vs. Chiefs",
+      "body_text": "The 40-year-old Johnson is on the 15th team in his NFL career.",
+      "author": "Kari Anderson",
+      "published_at": "2026-11-20T18:34:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carson Beck",
+        "Josh Johnson",
+        "Chiefs The"
+      ],
+      "resolved_player_ids": [
+        "00-0026300"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "fba780e5-3d35-3b1c-aa21-e47213caeaa1",
+      "url": "https://sports.yahoo.com/articles/eagles-want-shane-steichen-back-191920537.html",
+      "title": "Should the Eagles want Shane Steichen back?",
+      "body_text": "Analyzing a potential HC or OC option for Philadelphia.",
+      "author": "",
+      "published_at": "2026-11-21T19:19:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Shane Steichen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "b74ad053-4c6e-3d3c-9e29-ec8424ebf1f2",
+      "url": "https://sports.yahoo.com/articles/ultimate-fans-game-break-open-191434426.html",
+      "title": "Ultimate Fans: THIS is the game to break open the rushing attack",
+      "body_text": "Denver needs to figure out how to get the run game involved more and the Raiders’ run defense is the perfect time to do that.",
+      "author": "",
+      "published_at": "2026-11-21T19:14:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ultimate Fans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LV"
+    },
+    {
+      "external_id": "59867692-9b38-3563-a165-baa5df1ece42",
+      "url": "https://sports.yahoo.com/articles/chicago-bears-vs-orleans-saints-190000658.html",
+      "title": "Chicago Bears vs. New Orleans Saints: Week 11 Players to Watch",
+      "body_text": "Take a look at @BryanOrenchuk’s players to watch for New Orleans as the Saints visit Soldier Field in Week 11!",
+      "author": "",
+      "published_at": "2026-11-21T19:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "New Orleans",
+        "Watch Take",
+        "Soldier Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "5532f39c-39d0-3357-9d1c-36bf746a4501",
+      "url": "https://sports.yahoo.com/articles/falcons-draft-2027-five-prospects-184702249.html",
+      "title": "Falcons Draft 2027: Five Prospects for Falcons Fans to Watch for Week 12 of College Football",
+      "body_text": "Five prospects who should be on Atlanta’s radar are playing today. Check ‘em out.",
+      "author": "",
+      "published_at": "2026-11-21T18:47:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Falcons Draft",
+        "Five Prospects",
+        "Falcons Fans",
+        "College Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "03ff986c-b546-3bea-81cd-e5e9b2a25dc7",
+      "url": "https://sports.yahoo.com/articles/bengals-news-bengals-pursue-justin-184547775.html",
+      "title": "Bengals News: Should Bengals pursue Justin Reid?",
+      "body_text": "While the Bengals didn’t make a trade at the deadline, they do have some waiver wire options.",
+      "author": "",
+      "published_at": "2026-11-21T18:45:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Should Bengals",
+        "Justin Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0034361"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "cfbacbb7-ceb0-3f7a-9eb5-e5a6bf4c1707",
+      "url": "https://sports.yahoo.com/articles/steelers-wrs-michael-pittman-jr-184443687.html",
+      "title": "Steelers WRs Michael Pittman Jr., Roman Wilson expected to play vs. Eagles",
+      "body_text": "The Steelers receiver room looks like it will be fully healthy for Week 11.",
+      "author": "",
+      "published_at": "2026-11-21T18:44:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Michael Pittman Jr",
+        "Roman Wilson",
+        "Eagles The"
+      ],
+      "resolved_player_ids": [
+        "00-0036252",
+        "00-0039739"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8ca97d00-fbdb-3b98-869e-8ebc978e702d",
+      "url": "https://sports.yahoo.com/articles/dan-quinn-lucas-patrick-start-183501517.html",
+      "title": "Dan Quinn: Lucas Patrick to start at center vs Bengals",
+      "body_text": "Dan Quinn gives after-practice updates on the Commanders as they prepare to host the Bengals on Monday Night Football",
+      "author": "",
+      "published_at": "2026-11-21T18:35:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dan Quinn",
+        "Lucas Patrick",
+        "Bengals Dan",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0033082"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "16c092db-f2e6-3f57-baf4-68b25b23857f",
+      "url": "https://sports.yahoo.com/articles/chiefs-cardinals-5-things-watch-183000639.html",
+      "title": "Chiefs-Cardinals: 5 Things to Watch in Week 11 matchup",
+      "body_text": "5 things to watch for as Kansas City squares off with Arizona on Sunday afternoon.",
+      "author": "",
+      "published_at": "2026-11-21T18:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "a6639f16-0ed7-3acb-a53a-5e422857c59c",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-3-bold-takes-183000924.html",
+      "title": "NFL predictions: 3 bold takes on the Cowboys vs Titans game",
+      "body_text": "3 bold predictions for the Cowboys vs Titans game",
+      "author": "",
+      "published_at": "2026-11-21T18:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "e3664b91-f1ab-30f4-97bf-1adf6cf4bd02",
+      "url": "https://sports.yahoo.com/articles/buffalo-bills-dt-ed-oliver-182909082.html",
+      "title": "Buffalo Bills DT Ed Oliver questionable for Week 11 vs. Miami Dolphins",
+      "body_text": "The Buffalo Bills received surprising injury news regarding Ed Oliver ahead of Week 11 game vs. Miami Dolphins",
+      "author": "",
+      "published_at": "2026-11-21T18:29:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "Ed Oliver",
+        "Miami Dolphins",
+        "The Buffalo"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "3c71edb1-9ccc-3998-b073-f4caf14cd68a",
+      "url": "https://sports.yahoo.com/articles/eagles-news-makai-lemon-max-182754642.html",
+      "title": "Eagles News: Makai Lemon or Max Iheanachor?",
+      "body_text": "Philadelphia Eagles news and links for 11/21/26.",
+      "author": "",
+      "published_at": "2026-11-21T18:27:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles News",
+        "Makai Lemon",
+        "Max Iheanachor",
+        "Philadelphia Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7ac0f16f-c7d1-390b-b891-6e8b74f5462d",
+      "url": "https://sports.yahoo.com/articles/raiders-mailbag-fernando-mendoza-look-180400421.html",
+      "title": "Raiders Mailbag: How will Fernando Mendoza look in 2nd career start against Denver Broncos’ defense?",
+      "body_text": "Returning Raider Nation’s questions for the week.",
+      "author": "",
+      "published_at": "2026-11-21T18:04:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Raiders Mailbag",
+        "Fernando Mendoza",
+        "Denver Broncos",
+        "Returning Raider"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "f1b8c5d4-cd0a-30f5-b673-bf0f826e6de5",
+      "url": "https://sports.yahoo.com/articles/three-things-m-looking-york-180000053.html",
+      "title": "Three Things I’m Looking at in the New York Jets vs Los Angeles Chargers Game",
+      "body_text": "Can Geno Smith lead the Jets to a win on Sunday?",
+      "author": "",
+      "published_at": "2026-11-21T18:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Three Things",
+        "New York",
+        "Los Angeles",
+        "Chargers Game",
+        "Can Geno"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "fac0b7fc-fc6d-3112-9923-ee862923c400",
+      "url": "https://sports.yahoo.com/articles/caleb-williams-moved-4-pick-180000832.html",
+      "title": "Caleb Williams (the least intercepted QB ever) has moved on from that 4 pick anomaly",
+      "body_text": "In Caleb Williams’ last game, he did something extremely out of character, and odds are he won't do it ever again.",
+      "author": "",
+      "published_at": "2026-11-21T18:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "In Caleb"
+      ],
+      "resolved_player_ids": [
+        "00-0039918"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "94ddd52f-e215-3c47-b00b-5bd9d27745ed",
+      "url": "https://sports.yahoo.com/articles/chargers-vs-york-jets-watch-175734357.html",
+      "title": "Chargers vs. New York Jets: How to watch, start time, odds and prediction",
+      "body_text": "Everything you need to know about the Chargers vs. New York Jets on Sunday, including how to watch, start time, betting odds and a score prediction.",
+      "author": "",
+      "published_at": "2026-11-21T17:57:34+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "532348b8-d1ba-38ed-b75d-b5a550e71641",
+      "url": "https://sports.yahoo.com/articles/newfound-momentum-chargers-aim-second-174433937.html",
+      "title": "With newfound momentum, Chargers aim for second straight win against reeling Jets",
+      "body_text": "The Chargers are in prime position to pick up a second straight win Sunday against the New York Jets, but they'll have to do it without Daiyan Henley.",
+      "author": "",
+      "published_at": "2026-11-21T17:44:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jets The",
+        "New York",
+        "Daiyan Henley"
+      ],
+      "resolved_player_ids": [
+        "00-0038553"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "3578c997-96f2-3d67-8172-5f6ea230548f",
+      "url": "https://sports.yahoo.com/articles/bills-add-ed-oliver-injury-174038071.html",
+      "title": "Bills add Ed Oliver to injury report, list him as questionable",
+      "body_text": "The Bills made a late addition to their injury report for Sunday's game against the Dolphins.",
+      "author": "",
+      "published_at": "2026-11-21T17:40:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ed Oliver",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0035230"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "06cfcfe0-4436-39bc-a762-9fd5a70050c9",
+      "url": "https://sports.yahoo.com/articles/stampede-blue-reacts-results-week-173500481.html",
+      "title": "Stampede Blue Reacts results (Week 12): Colts fan confidence falls to 12% as frustration reaches new low",
+      "body_text": "With Daniel Jones now out of the picture, Colts fans appear more discouraged than ever about the direction of the franchise.",
+      "author": "",
+      "published_at": "2026-11-21T17:35:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Stampede Blue",
+        "With Daniel"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "abae3ead-f2d4-3d9b-bc16-614cc9beecf7",
+      "url": "https://sports.yahoo.com/articles/steelers-edge-nick-herbig-vs-173223207.html",
+      "title": "Steelers EDGE Nick Herbig OUT vs. Eagles",
+      "body_text": "Steelers EDGE Nick Herbig will not play vs. Eagles.",
+      "author": "",
+      "published_at": "2026-11-21T17:32:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Herbig",
+        "Eagles Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0038577"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "b84a5c01-5710-3504-92e0-90b2591339d2",
+      "url": "https://sports.yahoo.com/articles/steelers-rule-nick-herbig-172950178.html",
+      "title": "Steelers rule out Nick Herbig",
+      "body_text": "The Steelers will not have linebacker Nick Herbig against the Eagles.",
+      "author": "",
+      "published_at": "2026-11-21T17:29:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nick Herbig",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0038577"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "05bd9199-d033-3c1e-84b0-a299866671e5",
+      "url": "https://sports.yahoo.com/articles/nfl-week-11-betting-advice-170700397.html",
+      "title": "NFL Week 11 betting advice: Eagles-Steelers pick and props",
+      "body_text": "Are you betting on the Birds?",
+      "author": "",
+      "published_at": "2026-11-21T17:07:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e036c026-7593-341b-9786-f1972463aeae",
+      "url": "https://sports.yahoo.com/articles/browns-roster-6-players-ir-170658806.html",
+      "title": "Browns roster: 6 players on IR, 3 who could return in 2026 after the bye week",
+      "body_text": "The Cleveland Browns roster includes 6 players on IR, including RB Raheim Sanders and 2 others who could return",
+      "author": "",
+      "published_at": "2026-11-21T17:06:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Cleveland",
+        "Raheim Sanders"
+      ],
+      "resolved_player_ids": [
+        "00-0040466"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "90a41ca3-5545-352b-b85c-57e6fde67c58",
+      "url": "https://sports.yahoo.com/articles/sportsbooks-favor-rams-playoffs-170050112.html",
+      "title": "Sportsbooks favor the Rams to make the playoffs",
+      "body_text": "Oddsmakers are higher on the Rams than prediction models.",
+      "author": "",
+      "published_at": "2026-11-21T17:00:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "fb4a46fe-ed8a-3f7d-9908-1358dfbeba79",
+      "url": "https://sports.yahoo.com/articles/seahawks-hold-quenton-nelson-49ers-170000545.html",
+      "title": "Should the Seahawks hold Quenton Nelson out of the 49ers game?",
+      "body_text": "If Quenton Nelson is healthy, he should play against San Francisco, right? Maybe not.",
+      "author": "",
+      "published_at": "2026-11-21T17:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Quenton Nelson",
+        "If Quenton",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0034342"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "52e94ca8-b7e2-386c-b80c-d3d77dfdbce0",
+      "url": "https://sports.yahoo.com/articles/5-dolphins-watch-bills-163000224.html",
+      "title": "5 Dolphins to watch at Bills",
+      "body_text": "In a rebuilding year, the Dolphins can still cause big problems for Buffalo",
+      "author": "",
+      "published_at": "2026-11-21T16:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "16d795a9-b3cf-3de9-a13e-6fcca1badfc1",
+      "url": "https://sports.yahoo.com/articles/luke-schoonmaker-questionable-week-11-162010561.html",
+      "title": "Luke Schoonmaker questionable for Week 11",
+      "body_text": "Luke Schoonmaker hoping to overcome illness to play against Titans",
+      "author": "",
+      "published_at": "2026-11-21T16:20:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Luke Schoonmaker"
+      ],
+      "resolved_player_ids": [
+        "00-0038547"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "2d51d8f1-620d-3e53-8de0-ff7fb3aa858b",
+      "url": "https://sports.yahoo.com/articles/day-many-wins-win-nfc-160000547.html",
+      "title": "Question of the Day: How many wins will it take to win the NFC North?",
+      "body_text": "The NFC North is crazy good. How many wins is it going to take for a team to win the division? You tell us!",
+      "author": "",
+      "published_at": "2026-11-21T16:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "4670d18c-f719-3753-86fc-9d794bb04504",
+      "url": "https://sports.yahoo.com/articles/could-bill-croskey-merritt-washington-154500684.html",
+      "title": "Could Bill Croskey-Merritt be Washington’s needed offensive weapon against the Bengals? - Daily Slop",
+      "body_text": "With Rachaad White nursing a heel injury, Washington could potentially get a timely boost from Bill Croskey-Merritt against Cincinnati's 20th-ranked run defense",
+      "author": "",
+      "published_at": "2026-11-21T15:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Could Bill",
+        "Daily Slop",
+        "With Rachaad",
+        "Bill Croskey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "54489382-48ee-346b-8315-cd2382962810",
+      "url": "https://sports.yahoo.com/articles/antonio-brown-critical-steelers-wr-153000920.html",
+      "title": "Antonio Brown critical of Steelers WR DK Metcalf amidst struggles",
+      "body_text": "Antonio Brown shared some advice with DK Metcalf amidst his drop issues.",
+      "author": "",
+      "published_at": "2026-11-21T15:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Antonio Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0027793"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "b37b483e-b2bd-3bc3-a0d2-76499a078342",
+      "url": "https://sports.yahoo.com/articles/college-football-draft-targets-cowboys-153000626.html",
+      "title": "College football draft targets for the Cowboys: Week 12",
+      "body_text": "Who are your favorite draft prospects right now?",
+      "author": "",
+      "published_at": "2026-11-21T15:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "2bff3d7c-d14e-3813-a547-58f6d55a148e",
+      "url": "https://sports.yahoo.com/articles/raiders-broncos-predictions-150600630.html",
+      "title": "Raiders-Broncos predictions",
+      "body_text": "Who do you got in Week 11?",
+      "author": "",
+      "published_at": "2026-11-21T15:06:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "ca88e88a-5df4-3c19-bd0b-9b8d3f51bef8",
+      "url": "https://sports.yahoo.com/articles/nfl-predictions-hope-without-faith-150440848.html",
+      "title": "NFL predictions: Hope, without faith, is how we’re viewing the Panthers until further notice",
+      "body_text": "The Panthers have a lot to prove before fans trust them to live up to their potential",
+      "author": "",
+      "published_at": "2026-11-21T15:04:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "236f5b6c-a063-3971-9ebb-d97c3ed6863e",
+      "url": "https://sports.yahoo.com/articles/broncos-vs-raiders-3-players-150000342.html",
+      "title": "Broncos vs. Raiders: 3 Players to Watch in Week 11",
+      "body_text": "These three players for the Denver Broncos need to perform at a high level to defeat the Las Vegas Raiders on Sunday.",
+      "author": "",
+      "published_at": "2026-11-21T15:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "272b0f38-4023-3eeb-92fa-1eea563ca10f",
+      "url": "https://sports.yahoo.com/articles/miami-dolphins-offensive-line-review-150000471.html",
+      "title": "Miami Dolphins offensive line review: Tracking the guards in Week 10",
+      "body_text": "A weekly scorecard tracking the development of Dolphin guards Kadyn Proctor and Jonah Savaiinaea.",
+      "author": "",
+      "published_at": "2026-11-21T15:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Miami Dolphins",
+        "Kadyn Proctor",
+        "Jonah Savaiinaea"
+      ],
+      "resolved_player_ids": [
+        "00-0040742"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "2d948ea1-560b-36ae-a3b9-839e57cc00b7",
+      "url": "https://sports.yahoo.com/articles/bears-discussion-saints-preview-bye-150000687.html",
+      "title": "Bears Discussion: Saints preview, bye week reflection, 2027 NFL Draft safety prospects",
+      "body_text": "Tune in to the latest Bears for Breakfast episode as the guys talk Bears-Saints!",
+      "author": "",
+      "published_at": "2026-11-21T15:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bears Discussion"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "b6e81191-47a0-3f72-9429-5930c9af96f3",
+      "url": "https://sports.yahoo.com/articles/previewing-york-jets-opposition-los-150000859.html",
+      "title": "Previewing the New York Jets’ opposition: Los Angeles Chargers",
+      "body_text": "The Jets are on the road to take on the Los Angeles Chargers on Sunday",
+      "author": "",
+      "published_at": "2026-11-21T15:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Los Angeles",
+        "Chargers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "b70a9886-37fc-3c63-9829-869cd2f6ddca",
+      "url": "https://sports.yahoo.com/articles/saints-vs-bears-key-matchups-150000322.html",
+      "title": "Saints vs. Bears: Key Matchups",
+      "body_text": "After falling to 3-6, the Saints need to utilize these key matchups to comeout with a win on Sunday.",
+      "author": "",
+      "published_at": "2026-11-21T15:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Key Matchups"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "c3e31805-84f4-3c2d-b70f-ffb55d4b64d6",
+      "url": "https://sports.yahoo.com/articles/cardinals-qb-issues-continue-beck-150000678.html",
+      "title": "Cardinals QB issues continue: Beck or Johnson to start?",
+      "body_text": "Remember in training camp this position had a glute of talent?",
+      "author": "",
+      "published_at": "2026-11-21T15:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    }
+  ]
+}
