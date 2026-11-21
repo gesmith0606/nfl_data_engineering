@@ -204,15 +204,24 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add \
+          # One add per path: a single multi-path `git add` stages NOTHING if
+          # any one pathspec is missing, which used to drop the whole day's
+          # data behind "No new data to commit". A missing path is now a
+          # visible warning and the other paths still stage.
+          for p in \
             data/bronze/sentiment/ \
             data/silver/sentiment/ \
             data/gold/sentiment/ \
             data/gold/projections/ \
             data/bronze/players/rosters_live/ \
             data/bronze/players/injuries/ \
-            data/external/ \
-            2>/dev/null || true
+            data/external/; do
+            if [ ! -e "$p" ]; then
+              echo "::warning::commit path $p is absent on the runner - not staged"
+              continue
+            fi
+            git add "$p" || echo "::warning::git add failed for $p"
+          done
           if git diff --cached --quiet; then
             echo "No new data to commit"
           else
