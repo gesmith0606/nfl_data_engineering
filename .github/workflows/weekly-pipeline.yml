@@ -580,6 +580,17 @@ jobs:
             "output/grading/season=$SEASON/scorecard.* not refreshed this run" \
             python scripts/season_scorecard.py --season "$SEASON" --scoring half_ppr
 
+      # 7c. Rebuild the website's 2026 live accuracy block from the scorecard
+      # just written, so the accuracy dashboard and landing page never show a
+      # stale week. Rewrites only the `live2026` key of model-metrics.json.
+      # Non-blocking, same as the scorecard.
+      - name: Refresh website live-accuracy block from the scorecard
+        continue-on-error: true
+        run: |
+          scripts/ci_optional.sh "website live-accuracy block" \
+            "model-metrics.json live2026 block not refreshed this run" \
+            python scripts/generate_frontend_metrics.py --live-only
+
       # ------------------------------------------------------------------
       # 8. Sanity check — validate what THIS run produced: the weekly Gold
       # partition (freshness, duplicates, star ranks, weekly-scale points).
@@ -733,6 +744,7 @@ jobs:
           # week. Tracking them is what makes a regression visible in week 3
           # instead of week 7.
           git add output/grading/ 2>/dev/null || true
+          git add web/frontend/src/features/nfl/config/model-metrics.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new Gold projections to commit"
           else

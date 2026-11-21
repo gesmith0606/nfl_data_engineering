@@ -357,7 +357,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     out_dir = args.out_dir or os.path.join(_ROOT, "output", "grading", f"season={args.season}")
     os.makedirs(out_dir, exist_ok=True)
-    rows.round(4).to_csv(os.path.join(out_dir, f"scorecard{args.label}.csv"), index=False)
+    rows.round(6).to_csv(os.path.join(out_dir, f"scorecard{args.label}.csv"), index=False)
     miss = pw[~pw["on_board"]][["week", "player_id", "player_name", "position", "recent_team", "consensus", "actual_points"]]
     miss.sort_values(["week", "consensus"], ascending=[True, False]).to_csv(
         os.path.join(out_dir, f"scorecard_missing{args.label}.csv"), index=False
