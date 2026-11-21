@@ -185,7 +185,7 @@ S3 key pattern: `dataset/season=YYYY/week=WW/filename_YYYYMMDD_HHMMSS.parquet`
 | `src/model_training.py` | Walk-forward CV framework, single-model training (legacy) |
 | `src/prediction_backtester.py` | ATS/O-U evaluation, holdout validation, profit analysis. `evaluate_model_vs_close` (formerly `evaluate_clv`, renamed 2026-10-25) = `predicted_margin - spread_line` (spread edge vs the close, **not** CLV); true CLV = `evaluate_line_capture` (open vs close) |
 | `src/scoring_calculator.py` | Fantasy points — single dict + vectorized DataFrame |
-| `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie fallback, Vegas multiplier |
+| `src/projection_engine.py` | Weekly/preseason projections; bye week, rookie fallback, Vegas multiplier; injury layer: official report over live Sleeper tags, and before Friday's report (< 40 graded official rows) a Sleeper `Out` tag on a non-IR/PUP/NFI/Sus player the week's consensus still projects >= 5 becomes `Out (unconfirmed)` at 0.4x (`injury_unconfirmed` column) instead of a zero — 38% of such players played (n=86), see `.planning/STALE_OUT_TAG_2026_11_17.md` |
 | `src/hybrid_projection.py` | Hybrid heuristic+ML approach; trains ML on residuals (Phase 53) |
 | `src/unified_evaluation.py` | Production heuristic for backtest evaluation (Phase 54) |
 | `src/bayesian_projection.py` | Bayesian hierarchical model for posterior intervals (Phase 56) |
