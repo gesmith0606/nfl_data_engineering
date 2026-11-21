@@ -180,6 +180,53 @@ def test_espn_live_lineup_reads_the_lineup_that_is_set(monkeypatch):
     assert "sid_bn" in out["players"], "the bench player is still on the roster"
 
 
+def test_espn_live_lineup_finds_the_dst_in_a_def_slot(monkeypatch):
+    """ESPN labels slot 16 ``DST``; the preset's slot list calls it ``DEF``.
+
+    ``slots_from_shape`` renames ROSTER_CONFIGS' DST to Sleeper's DEF, but the
+    ESPN read kept ESPN's label, so the D/ST George had started was never
+    matched: the report said "DEF slot is empty -> start Carolina" and then
+    "Could not fill: DEF" every week (2026 week 11), with the Panthers in
+    slot 16 the whole time.
+    """
+    m = _mod()
+    from src.config import LEAGUE_PRESETS
+
+    payload = {
+        "teams": [
+            {
+                "id": 1,
+                "roster": {
+                    "entries": [
+                        {"playerId": 10, "lineupSlotId": 0,
+                         "playerPoolEntry": {"id": 10, "player": {"fullName": "Brock Purdy", "defaultPositionId": 1}}},
+                        {"playerId": -16029, "lineupSlotId": 16,
+                         "playerPoolEntry": {"id": -16029, "player": {"fullName": "Panthers D/ST", "defaultPositionId": 16}}},
+                    ]
+                },
+            }
+        ]
+    }
+    ids = {"Brock Purdy": "sid_qb", "Panthers D/ST": "CAR"}
+
+    monkeypatch.setattr(m, "build_id_maps", lambda reg: ({}, {}))
+    monkeypatch.setattr(m, "resolve_sleeper_id", lambda name, *a, **k: ids.get(name))
+
+    import src.espn_league as espn_league
+
+    monkeypatch.setattr(espn_league, "cookies_from_env", lambda: {"SWID": "{S}", "espn_s2": "x"})
+    monkeypatch.setattr(espn_league, "fetch_league", lambda *a, **k: payload)
+    monkeypatch.setattr(espn_league, "find_my_team_id", lambda *a, **k: 1)
+
+    slots = m.slots_from_shape(LEAGUE_PRESETS["la_liga"])
+    assert slots[-1] == "DEF", "the preset names the slot DEF, ESPN names it DST"
+
+    out = m.espn_live_lineup(123, 2026, {}, slots)
+
+    assert out["starters"][0] == "sid_qb"
+    assert out["starters"][-1] == "CAR", "the started D/ST must fill the DEF slot"
+
+
 def test_espn_live_lineup_returns_none_without_cookies(monkeypatch):
     """No cookies means fall back to the pasted file, not a half-read lineup."""
     m = _mod()
