@@ -186,6 +186,11 @@ jobs:
       # season in one call so the graph trailing windows (wr_def_trail_*,
       # te_def_trail_*) have cross-season context from week 1 onward.
       # ------------------------------------------------------------------
+      # REQUIRED vs OPTIONAL inputs: see scripts/ci_optional.sh (the one
+      # place that defines it). player_weekly / snap_counts below are
+      # REQUIRED and fail the run; injuries, rosters, ngs, pfr_weekly, qbr
+      # and pbp are OPTIONAL and wrapped so a failure warns loudly (+ run
+      # summary line) but never blocks the board.
       - name: Bronze — ingest player_weekly
         id: bronze_player_weekly
         run: |
@@ -214,21 +219,20 @@ jobs:
         # re-checks live. (The old hard-coded 2024 season cap was removed
         # 2026-07-02 after import_injuries([2025]) returned 6,068 rows.)
         run: |
-          python scripts/bronze_ingestion_simple.py \
-            --season "$SEASON" \
-            --week   "$WEEK"   \
-            --data-type injuries \
-            || echo "::warning::injuries ingest returned no data for season $SEASON — projections proceed without weekly injury adjustments"
+          scripts/ci_optional.sh "injuries ingest (season $SEASON)" \
+            "projections proceed without weekly injury adjustments" \
+            python scripts/bronze_ingestion_simple.py \
+              --season "$SEASON" --week "$WEEK" --data-type injuries
 
       - name: Bronze — ingest rosters
         id: bronze_rosters
         # Rosters are season-level; allow failure without blocking the pipeline.
         continue-on-error: true
         run: |
-          python scripts/bronze_ingestion_simple.py \
-            --season "$SEASON" \
-            --week   "$WEEK"   \
-            --data-type rosters
+          scripts/ci_optional.sh "rosters ingest (season $SEASON)" \
+            "roster-derived features may be stale" \
+            python scripts/bronze_ingestion_simple.py \
+              --season "$SEASON" --week "$WEEK" --data-type rosters
 
       # ------------------------------------------------------------------
       # 5b. Bronze — season-level data for ML feature assembly
@@ -255,10 +259,10 @@ jobs:
         run: |
           PREV_SEASON=$(( SEASON - 1 ))
           for s in "$PREV_SEASON" "$SEASON"; do
-            python scripts/bronze_ingestion_simple.py \
-              --season "$s" \
-              --data-type ngs \
-              || echo "::warning::NGS ingest failed for season $s — graph NGS features will be NaN"
+            scripts/ci_optional.sh "NGS ingest (season $s)" \
+              "graph NGS features will be NaN" \
+              python scripts/bronze_ingestion_simple.py \
+                --season "$s" --data-type ngs
           done
 
       - name: Bronze — ingest PFR weekly (season-level)
@@ -267,10 +271,10 @@ jobs:
         run: |
           PREV_SEASON=$(( SEASON - 1 ))
           for s in "$PREV_SEASON" "$SEASON"; do
-            python scripts/bronze_ingestion_simple.py \
-              --season "$s" \
-              --data-type pfr_weekly \
-              || echo "::warning::PFR weekly ingest failed for season $s — PFR features will be NaN"
+            scripts/ci_optional.sh "PFR weekly ingest (season $s)" \
+              "PFR features will be NaN" \
+              python scripts/bronze_ingestion_simple.py \
+                --season "$s" --data-type pfr_weekly
           done
 
       - name: Bronze — ingest QBR (season-level)
@@ -279,11 +283,10 @@ jobs:
         run: |
           PREV_SEASON=$(( SEASON - 1 ))
           for s in "$PREV_SEASON" "$SEASON"; do
-            python scripts/bronze_ingestion_simple.py \
-              --season "$s" \
-              --data-type qbr \
-              --frequency weekly \
-              || echo "::warning::QBR ingest failed for season $s — QBR features will be NaN"
+            scripts/ci_optional.sh "QBR ingest (season $s)" \
+              "QBR features will be NaN (QBR 2024+ is absent upstream)" \
+              python scripts/bronze_ingestion_simple.py \
+                --season "$s" --data-type qbr --frequency weekly
           done
 
       - name: Bronze — ingest PBP + participation (current and prior season)
@@ -298,11 +301,10 @@ jobs:
         run: |
           PREV_SEASON=$(( SEASON - 1 ))
           for s in "$PREV_SEASON" "$SEASON"; do
-            python scripts/bronze_ingestion_simple.py \
-              --season "$s" \
-              --data-type pbp \
-              --include-participation \
-              || echo "::warning::PBP ingest failed for season $s — graph WR/TE features will be NaN"
+            scripts/ci_optional.sh "PBP ingest (season $s)" \
+              "graph WR/TE features will be NaN" \
+              python scripts/bronze_ingestion_simple.py \
+                --season "$s" --data-type pbp --include-participation
           done
 
       # ------------------------------------------------------------------
