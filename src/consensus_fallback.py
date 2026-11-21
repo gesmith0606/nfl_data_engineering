@@ -72,11 +72,9 @@ def _short_name(full: pd.Series) -> pd.Series:
 
 
 def _rank(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
-    df["position_rank"] = df.groupby("position")["projected_points"].rank(ascending=False, method="first").astype(int)
-    if "overall_rank" in df.columns:
-        df["overall_rank"] = df["projected_points"].rank(ascending=False, method="first").astype(int)
-    return df
+    from ranking_score import assign_ranks
+
+    return assign_ranks(df, overall="overall_rank" in df.columns)
 
 
 def apply_consensus_fallback(

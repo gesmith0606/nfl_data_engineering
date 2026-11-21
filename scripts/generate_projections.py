@@ -2556,6 +2556,19 @@ def main():
         except ImportError as _e:
             print(f"WARN: ranking_score module not available: {_e}")
 
+    # overall_rank is assigned early (engine / ML router) and goes stale once the
+    # injury, Vegas, anchor, shrink and invariant stages edit projected_points
+    # (2026 w11: 329/383 rows stale, a 0.0-point K at rank 15). Recompute it with
+    # the same score as position_rank, then keep the board in rank order.
+    if not args.preseason and not projections.empty:
+        from ranking_score import assign_ranks  # noqa: E402
+
+        projections = (
+            assign_ranks(projections)
+            .sort_values("overall_rank")
+            .reset_index(drop=True)
+        )
+
     print(f"\nProjections generated: {len(projections):,} players")
 
     # -----------------------------------------------------------------------
