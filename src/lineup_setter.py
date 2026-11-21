@@ -706,19 +706,56 @@ def resolve_injury_status(
 # ---------------------------------------------------------------------------
 
 
+class KickoffMap(Dict[str, dt.datetime]):
+    """``team -> kickoff`` plus ``unparsed``: teams whose game row we could not read.
+
+    A team in ``unparsed`` HAS a game this week, so it is never a bye.
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.unparsed: set = set()
+
+
+DEFAULT_KICKOFF = "13:00"
+
+
 def kickoffs_for_week(schedule: pd.DataFrame, week: int) -> Dict[str, dt.datetime]:
-    """``team -> kickoff (ET, tz-aware)`` for every team playing in *week*."""
+    """``team -> kickoff (ET, tz-aware)`` for every team playing in *week*.
+
+    A game row with a missing/garbled ``gametime`` keeps the game at a default
+    kickoff (printed as a warning). A row whose date cannot be read puts both
+    teams in ``.unparsed`` instead: absent from the map, but not on bye. A bye
+    is only ever a team with no game row at all.
+    """
     wk = schedule[schedule["week"] == week]
-    out: Dict[str, dt.datetime] = {}
+    out = KickoffMap()
     for row in wk.itertuples(index=False):
+        home, away = str(row.home_team), str(row.away_team)
         try:
-            day = dt.date.fromisoformat(str(row.gameday))
-            hh, mm = str(row.gametime or "13:00").split(":")[:2]
-            ko = dt.datetime(day.year, day.month, day.day, int(hh), int(mm), tzinfo=ET)
+            day = dt.date.fromisoformat(str(row.gameday)[:10])
         except (ValueError, TypeError):
+            print(
+                f"  WARNING: schedule row {away}@{home} wk{week} has an unreadable "
+                f"gameday ({row.gameday!r}): not treated as bye"
+            )
+            out.unparsed.update((home, away))
             continue
-        out[str(row.home_team)] = ko
-        out[str(row.away_team)] = ko
+        gt = row.gametime
+        try:
+            if pd.isna(gt):
+                raise ValueError("missing")
+            hh, mm = str(gt).split(":")[:2]
+            clock = (int(hh), int(mm))
+        except (ValueError, TypeError):
+            print(
+                f"  WARNING: schedule row {away}@{home} wk{week} has no usable "
+                f"gametime ({gt!r}): assuming {DEFAULT_KICKOFF}"
+            )
+            clock = tuple(int(x) for x in DEFAULT_KICKOFF.split(":"))
+        ko = dt.datetime(day.year, day.month, day.day, *clock, tzinfo=ET)
+        out[home] = ko
+        out[away] = ko
     return out
 
 
@@ -789,7 +826,12 @@ def build_rows(
         # one game would otherwise turn every starter on those two teams into a
         # MUST FIX (and, on ESPN, a filed move), so a player Sleeper projects
         # above zero is not on bye: the disagreement is flagged, not acted on.
-        no_game = have_schedule and ko is None and team != "FA"
+        no_game = (
+            have_schedule
+            and ko is None
+            and team != "FA"
+            and _TEAM_ALIAS.get(team, team) not in getattr(kickoffs, "unparsed", ())
+        )
         mismatch = no_game and sl is not None and sl > 0
         slot, slot_index = slot_of.get(pid, (None, 999))
         row = PlayerRow(

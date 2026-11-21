@@ -65,7 +65,9 @@ def _payload():
 
 
 def _delta(i, verdict, p):
-    out = PlayerRow(f"o{i}", f"{NAMES[i]} Starter", "WR", "BUF", ours=5, sleeper=5, slot="WR")
+    out = PlayerRow(
+        f"o{i}", f"{NAMES[i]} Starter", "WR", "BUF", ours=5, sleeper=5, slot="WR"
+    )
     inn = PlayerRow(f"i{i}", f"{NAMES[i]} Bench", "WR", "BUF", ours=9, sleeper=9)
     return Delta(verdict, "WR", out, inn, p=p, gap=4.0)
 

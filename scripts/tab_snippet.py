@@ -221,7 +221,9 @@ def main(argv: Optional[list] = None) -> int:
         return 2
     kept = keeper_drop_id(league, a.drop_id)
     if kept:
-        print(f"REFUSED: drop id {a.drop_id} is our {league} keeper {kept} — never a drop")
+        print(
+            f"REFUSED: drop id {a.drop_id} is our {league} keeper {kept} — never a drop"
+        )
         return 2
     if posting:
         why = ledger_blocks(league, a.add_id)
