@@ -1,33 +1,20 @@
-James Cook III
-Derrick Henry
-Tee Higgins
-Rashee Rice
-Tyler Warren
-Mike Evans
-Brian Thomas Jr.
-J.K. Dobbins
-Brock Purdy
-Xavier Worthy
-Tyjae Spears
-Keenan Allen
-Braelon Allen
-Devaughn Vele
-Emmett Johnson
+# la_liga 2026 (ESPN) — every OTHER team's rostered players, read LIVE 2026-11-17 via claude-in-chrome (mRoster, other 11 teams)
 Ja'Marr Chase
 Ashton Jeanty
 Breece Hall
 Ladd McConkey
 Jadarian Price
-Michael Pittman Jr.
 Matthew Golden
-Chris Godwin Jr.
 Dallas Goedert
 Trevor Lawrence
 Denzel Boston
 Jared Goff
-Oronde Gadsden
-Kaleb Johnson
-Isaiah Davis
+Tyler Allgeier
+Germie Bernard
+49ers D/ST
+Brenton Strange
+Zach Charbonnet
+Jaguars D/ST
 Saquon Barkley
 Chase Brown
 Zay Flowers
@@ -40,22 +27,25 @@ Alec Pierce
 Jordan Mason
 Dylan Sampson
 Woody Marks
-Dontayvion Wicks
-Kayshon Boutte
-Cam Ward
+Jaleel McLaughlin
+KC Concepcion
+Makai Lemon
+Packers D/ST
 Jaxon Smith-Njigba
 Josh Allen
 DeVonta Smith
 Davante Adams
 David Montgomery
-Marvin Harrison Jr.
 Rico Dowdle
 Rachaad White
 Kyle Monangai
-RJ Harvey
-Dalton Schultz
-Emanuel Wilson
-Darren Waller
+Steelers D/ST
+T.J. Hockenson
+Jonah Coleman
+Lions D/ST
+Chris Rodriguez Jr.
+Konata Mumpfield
+Corey Kiner
 Bijan Robinson
 Jeremiyah Love
 Kyren Williams
@@ -63,14 +53,15 @@ Jameson Williams
 Bhayshul Tuten
 Harold Fannin Jr.
 Courtland Sutton
-Michael Wilson
-Jayden Reed
 Patrick Mahomes
 Mark Andrews
 Brian Robinson Jr.
 Tank Dell
-Marcus Mariota
+Chiefs D/ST
 Chris Bell
+Mack Hollins
+C.J. Stroud
+Audric Estime
 Amon-Ra St. Brown
 Kenneth Walker III
 Chris Olave
@@ -80,17 +71,17 @@ Parker Washington
 Dak Prescott
 Stefon Diggs
 Mike Washington Jr.
-Jonah Coleman
-Tank Bigsby
+Texans D/ST
 Tre Tucker
-Kimani Vidal
-George Holani
 Kendre Miller
+Tyreek Hill
+Tyler Higbee
+Rams D/ST
+Bears D/ST
 Justin Jefferson
 Omarion Hampton
 Garrett Wilson
 Travis Etienne Jr.
-Terry McLaurin
 Jayden Daniels
 Sam LaPorta
 Aaron Jones Sr.
@@ -100,7 +91,9 @@ Romeo Doubs
 Hunter Henry
 Adonai Mitchell
 Jordan Love
-Malik Washington
+Pierre Strong Jr.
+Commanders D/ST
+Elijah Mitchell
 Christian McCaffrey
 A.J. Brown
 Malik Nabers
@@ -112,10 +105,11 @@ Isaiah Likely
 Josh Downs
 Jacory Croskey-Merritt
 Khalil Shakir
-Jalen McMillan
+Ravens D/ST
 Alvin Kamara
-Baker Mayfield
 Malachi Fields
+Chig Okonkwo
+Ryan Flournoy
 Puka Nacua
 Drake London
 Trey McBride
@@ -126,11 +120,12 @@ Jaylen Warren
 Kenny Gainwell
 George Kittle
 Wan'Dale Robinson
-Travis Hunter
 Travis Kelce
 Bo Nix
 Tyler Shough
+Browns D/ST
 Calvin Ridley
+Justice Hill
 CeeDee Lamb
 Quinshon Judkins
 Cam Skattebo
@@ -140,27 +135,29 @@ Kyle Pitts Sr.
 Caleb Williams
 Blake Corum
 Deebo Samuel Sr.
+Seahawks D/ST
 Matthew Stafford
-Juwan Johnson
 Kaelon Black
-Kenyon Sadiq
-Sam Darnold
-Jaylen Wright
+Seth McGowan
+Caleb Douglas
+Devin Singletary
+Colby Parkinson
 Jonathan Taylor
 Nico Collins
 George Pickens
 Tetairoa McMillan
 Bucky Irving
-Jalen Hurts
-Jake Ferguson
 Chuba Hubbard
-Quentin Johnston
-Zach Charbonnet
 Jalen Coker
 Dalton Kincaid
 Bryce Young
-Kalif Raymond
 Ollie Gordon II
+J.J. McCarthy
+Brandon Aiyuk
+Buccaneers D/ST
+Bills D/ST
+Pat Bryant
+Kaleb Johnson
 Jahmyr Gibbs
 Brock Bowers
 Javonte Williams
@@ -168,10 +165,12 @@ Luther Burden III
 DJ Moore
 Justin Herbert
 Rhamondre Stevenson
-KC Concepcion
-Chris Rodriguez Jr.
+Broncos D/ST
 Keaton Mitchell
 Jordyn Tyson
-Emari Demercado
-Roman Wilson
-Makai Lemon
+Vikings D/ST
+DeMario Douglas
+Antonio Williams
+Kirk Cousins
+Fernando Mendoza
+Treylon Burks

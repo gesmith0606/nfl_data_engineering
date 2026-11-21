@@ -1808,7 +1808,8 @@ def main(argv: Optional[list] = None) -> int:
 
     stale = checkout_age_warning()
     if stale:
-        print(stale)
+        # builtins.print: the local ``print`` defined below is unbound here.
+        builtins.print(stale)
     # Everything from here is both printed and kept, so the report can check
     # itself at the end. A gate you have to remember to run is a gate that
     # gets skipped — that is how an hour of hand-rolled analysis happened.

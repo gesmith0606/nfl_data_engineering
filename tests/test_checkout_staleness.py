@@ -77,3 +77,35 @@ def test_unparseable_output_is_silent(monkeypatch):
         waiver_wire.subprocess, "run", lambda *a, **k: _Result(0, "not-a-timestamp")
     )
     assert checkout_age_warning() is None
+
+
+def test_main_does_not_call_bare_print_above_its_local_print():
+    """main() defines a local ``print``, so a bare call above it is unbound.
+
+    The stale-checkout warning sits above that definition and only fires on an
+    old checkout, which CI never has: it crashed the report with
+    UnboundLocalError on the one run that needed the warning. Read the source.
+    """
+    import ast
+
+    source = Path(waiver_wire.__file__).read_text(encoding="utf-8")
+    main = next(
+        n
+        for n in ast.parse(source).body
+        if isinstance(n, ast.FunctionDef) and n.name == "main"
+    )
+    shadow = next(
+        i
+        for i, n in enumerate(main.body)
+        if isinstance(n, ast.FunctionDef) and n.name == "print"
+    )
+    bare = [
+        call.lineno
+        for stmt in main.body[:shadow]
+        if not isinstance(stmt, (ast.FunctionDef, ast.ClassDef))
+        for call in ast.walk(stmt)
+        if isinstance(call, ast.Call)
+        and isinstance(call.func, ast.Name)
+        and call.func.id == "print"
+    ]
+    assert bare == [], f"bare print() before the local print in main(): {bare}"

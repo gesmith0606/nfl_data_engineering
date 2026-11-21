@@ -1,16 +1,16 @@
+# la_liga 2026 (ESPN, teamId=1) - read LIVE 2026-11-17 via claude-in-chrome (mRoster). 0 IR slots.
 James Cook III
 Derrick Henry
 Tee Higgins
 Rashee Rice
 Tyler Warren
 Mike Evans
-Brian Thomas Jr.
 J.K. Dobbins
 Brock Purdy
 Xavier Worthy
-Tyjae Spears
 Keenan Allen
 Braelon Allen
 Devaughn Vele
+Omar Cooper Jr.
 Emmett Johnson
-Colts D/ST
+Keon Coleman
