@@ -114,7 +114,16 @@
   "testsPassing": 4090,
   "atsAccuracy": {
     "value": 53.0,
-    "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble)"
+    "context": "Against the spread (sealed 2024 holdout, v2.0 ensemble; historical, not current)"
+  },
+  "live2026": {
+    "source": "output/grading/season=2026/scorecard.md",
+    "weeks": "1–9",
+    "ourMae": 5.50,
+    "sleeperMae": 5.34,
+    "trailing3Mae": 5.92,
+    "gap": 0.165,
+    "ats": { "value": 47.1, "record": "41-46-6", "n": 93, "weeks": "1–6" }
   },
   "consensus": {
     "generatedFrom": "consensus_matched_sleeper_half_ppr_20260823_023112.csv",

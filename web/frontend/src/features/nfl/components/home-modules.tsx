@@ -8,9 +8,10 @@ import { SectionHeading } from './section-heading';
 import modelMetrics from '../config/model-metrics.json';
 
 const CONSENSUS = modelMetrics.consensus;
+const LIVE = modelMetrics.live2026;
 
 /* -------------------------------------------------------------------------- */
-/* Proof strip — "we beat the consensus" credibility band under the header.   */
+/* Proof strip — "graded vs the consensus" band under the header.   */
 /* Broadcast stat-pill treatment: near-black pill, mint-tinted border,        */
 /* condensed 800 numerals — wins mint, losses muted gray (honest receipts).   */
 /* Whole strip links to the full track record on /dashboard/accuracy.         */
@@ -22,9 +23,9 @@ export function ProofStrip() {
   return (
     <Link
       href='/dashboard/accuracy'
-      aria-label={`We beat the expert consensus overall by ${formatGap(
+      aria-label={`Graded against the expert consensus: ${formatGap(
         overall.gap
-      )} MAE — open the full track record`}
+      )} MAE in the 2022-24 backtest, +${LIVE.gap.toFixed(3)} behind Sleeper in 2026 live — open the full track record`}
       className='group focus-visible:ring-ring/50 block rounded-[var(--radius-lg)] focus-visible:ring-[3px] focus-visible:outline-none'
     >
       {/* Broadcast stat-pill container: near-black bg, mint-tinted border */}
@@ -40,13 +41,20 @@ export function ProofStrip() {
           <span
             className='wc-display text-[length:var(--fs-lg)] leading-none text-white'
           >
-            Beat the Consensus
+            Graded vs the Consensus
           </span>
         </div>
 
         {/* Overall gap — condensed 800, mint for wins */}
         <span className='text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/60'>
-          Overall MAE gap{' '}
+          2026 live MAE gap{' '}
+          <span
+            className='wc-display text-[26px] font-extrabold tabular-nums'
+            style={{ color: '#9aa3b8' }}
+          >
+            +{LIVE.gap.toFixed(3)}
+          </span>{' '}
+          vs Sleeper (wks {LIVE.weeks}) · 2022–24 backtest{' '}
           <span
             className='wc-display text-[26px] font-extrabold tabular-nums'
             style={{ color: overall.win ? 'var(--wc-mint,#91edd0)' : '#9aa3b8' }}
