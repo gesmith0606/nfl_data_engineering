@@ -2,11 +2,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Gx01Body } from '@/components/gx01';
 import { Scorebug } from '@/components/nfl/scorebug';
+import modelMetrics from '@/features/nfl/config/model-metrics.json';
+
+const LIVE = modelMetrics.live2026;
+const LIVE_GAP = LIVE.gap.toFixed(3);
+const LIVE_MAE = LIVE.ourMae.toFixed(2);
+const LIVE_SLEEPER = LIVE.sleeperMae.toFixed(2);
+const LIVE_T3 = LIVE.trailing3Mae.toFixed(2);
 
 export const metadata: Metadata = {
   title: 'GIQ — Graded against the consensus. Here’s the receipt.',
   description:
-    'NFL fantasy projections graded head-to-head against the Sleeper and ESPN consensus every week. In a 2022–24 backtest we beat both; in 2026 live (weeks 1–9) we trail Sleeper by 0.165 MAE. Wins and losses are published.'
+    `NFL fantasy projections graded head-to-head against the Sleeper and ESPN consensus every week. In a 2022–24 backtest we beat both; in 2026 live (weeks ${LIVE.weeks}) we trail Sleeper by ${LIVE_GAP} MAE. Wins and losses are published.`
 };
 
 /**
@@ -35,8 +42,8 @@ const NAV_ITEMS = [
 ] as const;
 
 const RECEIPTS = [
-  { num: '+0.165', label: '2026 LIVE, WKS 1–9 · vs Sleeper · behind', win: false },
-  { num: '5.50', label: '2026 LIVE MAE · Sleeper 5.34 · trailing-3 5.92', win: false },
+  { num: `+${LIVE_GAP}`, label: `2026 LIVE, WKS ${LIVE.weeks} · vs Sleeper · behind`, win: false },
+  { num: LIVE_MAE, label: `2026 LIVE MAE · Sleeper ${LIVE_SLEEPER} · trailing-3 ${LIVE_T3}`, win: false },
   { num: '−0.54', label: '2022–24 BACKTEST · vs Sleeper · 7,009 wks', win: true },
   { num: '−0.47', label: '2022–24 BACKTEST · vs ESPN · 6,721 wks', win: true }
 ] as const;
@@ -176,8 +183,8 @@ export default function MarketingHome() {
         </div>
         <p className='relative z-[2] mt-6 max-w-[660px] text-center text-sm text-[#9aa3b8]'>
           MAE gap (ours minus theirs; negative = we were closer). Backtest: 2022–2024,
-          weeks 3–18, half-PPR. 2026 live, weeks 1–9: 5.50 MAE vs Sleeper 5.34 (+0.165
-          behind), ahead of a trailing-3-week baseline (5.92); behind Sleeper at every
+          weeks 3–18, half-PPR. 2026 live, weeks {LIVE.weeks}: {LIVE_MAE} MAE vs Sleeper {LIVE_SLEEPER} (+{LIVE_GAP}
+          behind), ahead of a trailing-3-week baseline ({LIVE_T3}); behind Sleeper at every
           position. No Yahoo receipt yet — not because they won, but because Yahoo doesn’t
           publish historical projections, so a backtest against them is impossible for
           anyone to run. We’re logging their live 2026 numbers every week; that

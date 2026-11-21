@@ -7,6 +7,10 @@ Usage:
     python scripts/generate_frontend_metrics.py \
         --csv output/backtest/backtest_half_ppr_ml_fullfeatures_consensus_20260610_213405.csv \
         --tests 2242
+
+    # Refresh ONLY the 2026 live block (reads the tracked season scorecard,
+    # leaves every other key in model-metrics.json untouched):
+    python scripts/generate_frontend_metrics.py --live-only
 """
 
 import argparse
@@ -18,6 +22,7 @@ from pathlib import Path
 import pandas as pd
 
 OUTPUT_PATH = Path("web/frontend/src/features/nfl/config/model-metrics.json")
+SCORECARD_PATH = Path("output/grading/season=2026/scorecard.csv")
 
 MODEL_LABELS = {
     "heuristic": "Heuristic",
@@ -151,9 +156,92 @@ def build_consensus_section(csv_path: Path) -> dict:
     }
 
 
+def format_weeks(weeks: list) -> str:
+    """Render sorted week numbers as a label: [1,2,3,4,5,6,7,9] -> '1–7, 9'."""
+    runs: list = []
+    for w in sorted(weeks):
+        if runs and w == runs[-1][1] + 1:
+            runs[-1][1] = w
+        else:
+            runs.append([w, w])
+    return ", ".join(str(a) if a == b else f"{a}–{b}" for a, b in runs)
+
+
+def _commit_date(path: Path) -> str:
+    """Last-commit date (YYYY-MM-DD) of a tracked file; '' if unavailable."""
+    try:
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", str(path)],
+            capture_output=True, text=True, timeout=30,
+        )
+        return out.stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return ""
+
+
+def build_live_section(csv_path: Path, ats: dict = None, updated: str = None) -> dict:
+    """Build the ``live2026`` block from the season scorecard CSV only.
+
+    Reads the pooled ``week == 'ALL'`` rows (per position + ``ALL``) and the
+    per-week rows (only to list which weeks actually have a published board).
+    ``gap`` is ours minus Sleeper, so positive = behind Sleeper.
+    """
+    df = pd.read_csv(csv_path, dtype={"week": str})
+    required = {"week", "position", "n_matched", "mae_ours", "mae_sleeper",
+                "mae_t3", "gap", "rho_ours", "rho_sleeper", "band_coverage"}
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"Scorecard CSV missing columns: {sorted(missing)}")
+
+    pooled = df[df["week"] == "ALL"].set_index("position")
+    if "ALL" not in pooled.index:
+        raise ValueError(f"Scorecard has no pooled ALL/ALL row: {csv_path}")
+    weeks = sorted({int(w) for w in df["week"] if w != "ALL"})
+
+    def _row(pos: str) -> dict:
+        r = pooled.loc[pos]
+        return {
+            "n": int(r["n_matched"]),
+            "ourMae": round(float(r["mae_ours"]), 4),
+            "sleeperMae": round(float(r["mae_sleeper"]), 4),
+            "trailing3Mae": round(float(r["mae_t3"]), 4),
+            "gap": round(float(r["gap"]), 4),
+            "rhoOurs": round(float(r["rho_ours"]), 3),
+            "rhoSleeper": round(float(r["rho_sleeper"]), 3),
+            "bandCoverage": round(float(r["band_coverage"]), 3),
+        }
+
+    overall = _row("ALL")
+    commit_date = _commit_date(csv_path)
+    block = {
+        "source": str(csv_path),
+        "weeks": format_weeks(weeks),
+        "weeks_covered": weeks,
+        # Flat keys kept for existing consumers (stat strips, home modules).
+        "ourMae": overall["ourMae"],
+        "sleeperMae": overall["sleeperMae"],
+        "trailing3Mae": overall["trailing3Mae"],
+        "gap": overall["gap"],
+        "overall": overall,
+        "positions": [
+            {"position": pos, **_row(pos)}
+            for pos in ["QB", "RB", "WR", "TE"] if pos in pooled.index
+        ],
+        "generated_from": {"path": str(csv_path), "last_commit_date": commit_date},
+        "updated": updated or commit_date,
+    }
+    if ats is not None:
+        block["ats"] = ats
+    return block
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--csv", required=True, type=Path)
+    parser.add_argument("--csv", type=Path, default=None,
+                        help="Backtest CSV (required unless --live-only)")
+    parser.add_argument("--live-only", action="store_true",
+                        help="Only regenerate the live2026 block from the scorecard CSV")
+    parser.add_argument("--scorecard", type=Path, default=SCORECARD_PATH)
     parser.add_argument("--consensus-csv", type=Path, default=None,
                         help="Matched-pairs CSV from backtest --vs-consensus; "
                              "adds a model-vs-consensus section")
@@ -161,11 +249,22 @@ def main() -> None:
                         help="Passing test count (auto-collected if omitted)")
     args = parser.parse_args()
 
+    existing = json.loads(OUTPUT_PATH.read_text()) if OUTPUT_PATH.exists() else {}
+    # The ATS record is not in the scorecard CSV; carry it over unchanged.
+    live = build_live_section(args.scorecard, ats=existing.get("live2026", {}).get("ats"))
+    if args.live_only:
+        existing["live2026"] = live
+        OUTPUT_PATH.write_text(json.dumps(existing, indent=2, ensure_ascii=False) + "\n")
+        print(f"Wrote live2026 block to {OUTPUT_PATH} (weeks {live['weeks']})")
+        return
+    if args.csv is None:
+        parser.error("--csv is required unless --live-only")
     tests = args.tests if args.tests is not None else count_tests()
     metrics = build_metrics(args.csv, tests)
+    metrics["live2026"] = live
     if args.consensus_csv is not None:
         metrics["consensus"] = build_consensus_section(args.consensus_csv)
-    OUTPUT_PATH.write_text(json.dumps(metrics, indent=2) + "\n")
+    OUTPUT_PATH.write_text(json.dumps(metrics, indent=2, ensure_ascii=False) + "\n")
     print(f"Wrote {OUTPUT_PATH}")
     print(f"  overall MAE {metrics['overall']['mae']}, "
           f"{metrics['overall']['playerWeeks']} player-weeks, "
