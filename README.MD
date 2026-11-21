@@ -114,8 +114,9 @@ Per-position recency weights (v4.2); weights were previously 50%/30%/20%.
 **Backtesting results (v4.3):**
 
 - Heuristic (2022-2024, Weeks 3-18, Half-PPR): overall MAE 4.71
-- Game ensemble (v3.0, sealed 2024 holdout): 52.9% OOF ATS, calibrated cover/over probabilities
-- **Overall consensus performance**: matched gap −0.086 vs Sleeper projections (we beat Sleeper on QB/WR/TE; RB +0.26 deficit)
+- Game ensemble (v3.0, sealed 2024 holdout; historical, 2026-06): 52.9% OOF ATS, calibrated cover/over probabilities. **2026 live, weeks 1–6: ATS 41-46-6 (47.1%, n=93) — no demonstrated edge, no CLV evidence (claim retracted 2026-10-24).**
+- **Consensus performance, 2022–24 backtest (historical, 2026-06)**: matched gap −0.086 vs Sleeper projections (ahead on QB/WR/TE; RB +0.26 deficit)
+- **Consensus performance, 2026 live, weeks 1–9 (`output/grading/season=2026/scorecard.md`)**: MAE 5.50 vs Sleeper 5.34, gap +0.165 (we are behind at every position: QB +0.263, TE +0.254, RB +0.178, WR +0.071); ahead of a trailing-3-week baseline (5.92)
 
 ### Draft Tool
 

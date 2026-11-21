@@ -42,7 +42,7 @@ export const PREMIUM_SURFACES = {
   lineups: {
     title: 'Lineup Builder',
     description:
-      'Field-view optimal lineups with projected points at every slot — built from the same model that beats the consensus.'
+      'Field-view optimal lineups with projected points at every slot — built from the same projections we grade weekly against the consensus.'
   },
   draft: {
     title: 'Draft Tools',

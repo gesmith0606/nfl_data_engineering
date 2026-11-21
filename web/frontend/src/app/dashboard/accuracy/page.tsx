@@ -5,11 +5,11 @@ import { FadeIn } from '@/lib/motion-primitives';
 export const metadata = {
   title: 'Model vs. Consensus',
   description:
-    'Our fantasy projections vs the Sleeper expert consensus: matched-pairs MAE by position across 2022-2024 (10,417 player-weeks, Half-PPR). We beat the consensus overall.',
+    'Our fantasy projections vs the Sleeper expert consensus: matched-pairs MAE by position across 2022-2024 (10,417 player-weeks, Half-PPR). 2022-24 backtest: ahead overall. 2026 live (weeks 1–9): 5.50 MAE vs Sleeper 5.34, +0.165 behind.',
   openGraph: {
     title: 'Model vs. Consensus | NFL Analytics',
     description:
-      'Our fantasy projections benchmarked against the expert consensus — matched-pairs MAE by position (2022-2024). We beat the consensus overall.',
+      'Our fantasy projections benchmarked against the expert consensus — matched-pairs MAE by position (2022-2024). 2022-24 backtest: ahead overall. 2026 live (weeks 1–9): +0.165 MAE behind Sleeper.',
     url: 'https://frontend-jet-seven-33.vercel.app/dashboard/accuracy'
   },
   twitter: {

@@ -91,7 +91,7 @@ export default async function PricingPage() {
             PRICING
           </div>
           <h1 className='wc-display text-[clamp(32px,4.5vw,56px)] font-extrabold leading-[1.08] tracking-[0.03em]'>
-            The model that beats the consensus.
+            Graded weekly against the consensus.
             <br />
             <span className='text-[var(--wc-yellow,#ffd84d)]'>Now in your lineup.</span>
           </h1>

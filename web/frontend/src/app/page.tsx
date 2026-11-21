@@ -4,9 +4,9 @@ import { Gx01Body } from '@/components/gx01';
 import { Scorebug } from '@/components/nfl/scorebug';
 
 export const metadata: Metadata = {
-  title: 'GIQ — We beat the consensus. Here’s the receipt.',
+  title: 'GIQ — Graded against the consensus. Here’s the receipt.',
   description:
-    'NFL fantasy projections graded head-to-head against the Sleeper and ESPN consensus on three seasons of matched player-weeks — we beat both overall, and the misses are published too.'
+    'NFL fantasy projections graded head-to-head against the Sleeper and ESPN consensus every week. In a 2022–24 backtest we beat both; in 2026 live (weeks 1–9) we trail Sleeper by 0.165 MAE. Wins and losses are published.'
 };
 
 /**
@@ -35,11 +35,10 @@ const NAV_ITEMS = [
 ] as const;
 
 const RECEIPTS = [
-  { num: '−0.54', label: 'OVERALL vs Sleeper · 7,009 wks', win: true },
-  { num: '−0.47', label: 'OVERALL vs ESPN · 6,721 wks', win: true },
-  { num: '−0.45', label: 'TE · beats both', win: true },
-  { num: '−1.66', label: 'QB · beats both', win: true },
-  { num: '−0.47', label: 'RB · beats both', win: true }
+  { num: '+0.165', label: '2026 LIVE, WKS 1–9 · vs Sleeper · behind', win: false },
+  { num: '5.50', label: '2026 LIVE MAE · Sleeper 5.34 · trailing-3 5.92', win: false },
+  { num: '−0.54', label: '2022–24 BACKTEST · vs Sleeper · 7,009 wks', win: true },
+  { num: '−0.47', label: '2022–24 BACKTEST · vs ESPN · 6,721 wks', win: true }
 ] as const;
 
 /* Stability-gated UC3 correlation edges — real values from the shipped
@@ -123,14 +122,14 @@ export default function MarketingHome() {
           <div key={top} className='wc-yard-line' style={{ top }} />
         ))}
         <h1 className='wc-display relative z-[2] text-center text-[clamp(38px,5.5vw,72px)] font-extrabold leading-[1.05] tracking-[0.03em] text-white [text-shadow:0_4px_24px_rgba(0,0,0,0.5)]'>
-          We beat the consensus.
+          Graded against the consensus.
           <br />
           <span className='text-[var(--wc-yellow,#ffd84d)]'>Here’s the receipt.</span>
         </h1>
         <p className='relative z-[2] mt-3 max-w-[680px] text-center text-lg text-[#e6eaf2]'>
           Graded head-to-head against the Sleeper and ESPN expert consensus on three
-          seasons of matched player-weeks — identical scoring, identical rows, sealed
-          holdouts. We beat both overall, and the misses stay published.
+          seasons of matched player-weeks — identical scoring, identical rows. We publish the
+          head-to-head every week, wins and losses.
         </p>
 
         <div className='relative z-[2] mt-16 hidden md:block'>
@@ -176,8 +175,10 @@ export default function MarketingHome() {
           ))}
         </div>
         <p className='relative z-[2] mt-6 max-w-[660px] text-center text-sm text-[#9aa3b8]'>
-          MAE gap, 2022–2024, weeks 3–18, half-PPR, both sides scored under identical
-          rules. No Yahoo receipt yet — not because they won, but because Yahoo doesn’t
+          MAE gap (ours minus theirs; negative = we were closer). Backtest: 2022–2024,
+          weeks 3–18, half-PPR. 2026 live, weeks 1–9: 5.50 MAE vs Sleeper 5.34 (+0.165
+          behind), ahead of a trailing-3-week baseline (5.92); behind Sleeper at every
+          position. No Yahoo receipt yet — not because they won, but because Yahoo doesn’t
           publish historical projections, so a backtest against them is impossible for
           anyone to run. We’re logging their live 2026 numbers every week; that
           head-to-head gets published by midseason.
@@ -209,7 +210,7 @@ export default function MarketingHome() {
             'sealed holdouts',
             'EPA · CPOE · NGS',
             'conformal ~80% bands',
-            'graded vs closing line'
+            'graded weekly vs Sleeper'
           ].map((chip) => (
             <span
               key={chip}
@@ -372,7 +373,8 @@ export default function MarketingHome() {
         </SectionTitle>
         <SectionSub>
           An ensemble model with calibrated cover probabilities — edges flagged when we
-          disagree with the market, closing-line value tracked all season.
+          disagree with the market, record published. 2026 ATS so far: 47.1% (41-46-6) —
+          no demonstrated edge against the spread.
         </SectionSub>
         <div className='mt-12 flex flex-wrap justify-center gap-x-10 gap-y-8'>
           <Scorebug compact awayTeam='DET' homeTeam='KC' awayScore={31} homeScore={27} detail={['Edge', 'High']} />
@@ -422,7 +424,7 @@ export default function MarketingHome() {
           G<span className='text-[var(--wc-mint,#91edd0)]'>IQ</span>
         </div>
         <p className='mt-2 text-xs text-[#8892ad]'>
-          Every pick graded against the closing line. Misses stay on the board — that’s
+          Every pick graded and published. Misses stay on the board — that’s
           the point.
         </p>
       </footer>

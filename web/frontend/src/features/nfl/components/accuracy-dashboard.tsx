@@ -26,6 +26,7 @@ const OVERALL_METRICS = modelMetrics.overall;
 
 /** Matched-pairs benchmark vs the Sleeper expert consensus. */
 const CONSENSUS = modelMetrics.consensus;
+const LIVE = modelMetrics.live2026;
 const CONSENSUS_WINS = CONSENSUS.positions.filter((p) => p.win).length;
 
 const MODEL_NOTES: Record<string, string> = {
@@ -269,13 +270,13 @@ function ConsensusLeaderboard() {
       <section className='relative flex flex-col gap-[var(--space-2)] overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-[var(--surface-scoreboard)] px-[var(--space-5)] py-[var(--space-5)] shadow-sm md:px-[var(--space-6)] md:py-[var(--space-6)]'>
         <div className='text-[var(--wc-yellow,#ffd84d)] relative inline-flex w-fit items-center gap-[var(--space-1)] text-[length:var(--fs-xs)] leading-none font-semibold tracking-[0.14em] uppercase'>
           <Icons.sparkles className='size-[var(--space-3)]' />
-          {CONSENSUS_WINS} of {positions.length} positions + overall
+          2022–24 backtest: ahead at {CONSENSUS_WINS} of {positions.length} positions + overall
         </div>
         <h2 className='wc-display relative text-[length:var(--fs-h1)] leading-[var(--lh-h1)] text-white'>
-          We beat the expert consensus
+          Graded against the expert consensus
         </h2>
         <p className='relative max-w-3xl text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/70'>
-          Measured head-to-head vs {benchmark}, {seasons} &middot;{' '}
+          Backtest, measured head-to-head vs {benchmark}, {seasons} &middot;{' '}
           <span className='font-semibold text-white'>
             {overall.playerWeeks.toLocaleString()} matched player-weeks
           </span>
@@ -286,6 +287,17 @@ function ConsensusLeaderboard() {
             {formatGap(overall.gap)}
           </span>
           ).
+        </p>
+        <p className='relative max-w-3xl text-[length:var(--fs-sm)] leading-[var(--lh-sm)] text-white/70'>
+          <span className='font-semibold text-white'>
+            2026 live, weeks {LIVE.weeks}:
+          </span>{' '}
+          MAE <span className='tabular-nums'>{LIVE.ourMae.toFixed(2)}</span> vs Sleeper{' '}
+          <span className='tabular-nums'>{LIVE.sleeperMae.toFixed(2)}</span> (gap{' '}
+          <span className={cn('font-bold tabular-nums', DANGER_TEXT)}>
+            +{LIVE.gap.toFixed(3)}
+          </span>
+          , behind); ahead of a trailing-3-week baseline ({LIVE.trailing3Mae.toFixed(2)}).
         </p>
         <a
           href='#methodology'
@@ -303,7 +315,7 @@ function ConsensusLeaderboard() {
           <SectionOverline>Head to Head</SectionOverline>
           <CardTitle className='wc-display'>Consensus Leaderboard</CardTitle>
           <CardDescription>
-            Lower MAE is better. A negative gap means we beat the consensus. Grade reflects the
+            Lower MAE is better. A negative gap means we were closer than the consensus in that sample. Grade reflects the
             size of that gap — A+/A win decisively, B is a statistical tie, C/D trail.
           </CardDescription>
         </CardHeader>

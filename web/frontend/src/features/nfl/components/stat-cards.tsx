@@ -28,10 +28,8 @@ export function OverviewStatCards() {
       />
       <StatPill
         label='ATS Accuracy'
-        value={`${modelMetrics.atsAccuracy.value.toFixed(1)}%`}
-        sublabel='Against the spread (sealed 2024 holdout)'
-        trend='+3.0%'
-        trendDirection='up'
+        value={`${modelMetrics.live2026.ats.value.toFixed(1)}%`}
+        sublabel={`2026 live, weeks ${modelMetrics.live2026.ats.weeks}: ${modelMetrics.live2026.ats.record} (n=${modelMetrics.live2026.ats.n}) · sealed 2024 holdout: ${modelMetrics.atsAccuracy.value.toFixed(1)}%`}
         railColor='var(--wc-peri,#5b67c7)'
       />
       <StatPill
