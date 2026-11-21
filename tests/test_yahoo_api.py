@@ -4,11 +4,18 @@ No network: all tests run credential-less and assert the fail-closed
 behavior of each endpoint.
 """
 
+import pytest
 from fastapi.testclient import TestClient
 
 from web.api.main import app
 
-client = TestClient(app)
+client = TestClient(app, headers={"X-API-Key": "test-owner-key"})
+
+
+@pytest.fixture(autouse=True)
+def _owner_key(monkeypatch):
+    # Yahoo routes are owner-only: they need the server API key to be set.
+    monkeypatch.setenv("API_KEY", "test-owner-key")
 
 
 def test_status_reports_disconnected(monkeypatch):
