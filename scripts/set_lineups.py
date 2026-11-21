@@ -452,6 +452,39 @@ def resolve_sleeper_id(
         if (registry.get(abbr) or {}).get("position") == "DEF":
             return abbr
     norm = normalize_name(name)
+    # Same-name players are never guessed between (a wrong twin that is Out
+    # would turn a healthy starter into a MUST FIX the writer files): narrow by
+    # position and team, and give up (None) when more than one still matches.
+    cands = [
+        str(sid)
+        for sid, meta in registry.items()
+        if isinstance(meta, dict)
+        and meta.get("active", True)
+        and str(meta.get("position") or "") in SKILL_POSITIONS | {"K"}
+        and normalize_name(
+            meta.get("full_name")
+            or " ".join(p for p in (meta.get("first_name"), meta.get("last_name")) if p)
+        )
+        == norm
+    ]
+    if len(cands) > 1:
+        for attr, want in (("position", position), ("team", team)):
+            if want:
+                narrowed = [
+                    c
+                    for c in cands
+                    if str(registry[c].get(attr) or "").upper() == str(want).upper()
+                ]
+                cands = narrowed or cands
+        if len(cands) > 1:
+            teams = ", ".join(f"{c}/{registry[c].get('team')}" for c in cands)
+            print(
+                f"  AMBIGUOUS NAME: '{name}' matches several active players "
+                f"({teams}): left unresolved, no move is generated for them"
+            )
+            return None
+    if cands:
+        return cands[0]
     return next((sid for (n, _pos), sid in by_name.items() if n == norm), None)
 
 
@@ -560,6 +593,26 @@ def yahoo_live_lineup(
     }
 
 
+def _espn_team_pos(
+    payload: Mapping[str, Any], team_id: int
+) -> Dict[int, Tuple[Any, Any]]:
+    """``{playerId: (NFL team code, position)}`` for one ESPN team, to pin twins."""
+    from src.espn_league import POSITION_ID_MAP, PRO_TEAM_MAP
+
+    team = next((t for t in (payload.get("teams") or []) if t.get("id") == team_id), {})
+    out: Dict[int, Tuple[Any, Any]] = {}
+    for entry in (team.get("roster") or {}).get("entries") or []:
+        pool = entry.get("playerPoolEntry") or {}
+        pid = pool.get("id") or entry.get("playerId")
+        player = pool.get("player") or {}
+        if pid is not None:
+            out[int(pid)] = (
+                PRO_TEAM_MAP.get(player.get("proTeamId")),
+                POSITION_ID_MAP.get(player.get("defaultPositionId")),
+            )
+    return out
+
+
 def espn_live_lineup(
     league_id: int,
     season: int,
@@ -595,8 +648,12 @@ def espn_live_lineup(
     slots = espn_slots_by_id(payload, team_id)
     _by_gsis, by_name = build_id_maps(dict(registry))
     sid_by_pid: Dict[int, str] = {}
+    meta_by_pid = _espn_team_pos(payload, team_id)
     for pid, name in names.items():
-        hit = resolve_sleeper_id(name, registry, by_name)
+        team_code, pos_code = meta_by_pid.get(pid, (None, None))
+        hit = resolve_sleeper_id(
+            name, registry, by_name, team=team_code, position=pos_code
+        )
         if hit:
             sid_by_pid[pid] = hit
 

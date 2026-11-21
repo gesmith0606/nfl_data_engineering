@@ -106,7 +106,7 @@ ESPN_SUBMIT_JS = r"""(async (A) => {
  if (!sw) return refuse('SWID cookie not readable in this tab');
  const member = decodeURIComponent(sw);
  const reads = 'https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/'
-   + `${A.season}/segments/0/leagues/${A.lid}?view=mTeam`;
+   + `${A.season}/segments/0/leagues/${A.lid}?view=mTeam&view=mRoster`;
  const L = await (await fetch(reads, {credentials: 'include'})).json();
  const team = (L.teams || []).find(t => t.id === A.body.teamId);
  const owners = ((team || {}).owners || []).map(o => String(o).toUpperCase());
@@ -115,6 +115,13 @@ ESPN_SUBMIT_JS = r"""(async (A) => {
  }
  const add = (A.body.items || []).find(i => i.type === 'ADD');
  if (!add) return refuse('claim has no ADD item');
+ const drop = (A.body.items || []).find(i => i.type === 'DROP');
+ if (drop) {
+   const held = (((team || {}).roster || {}).entries || []).map(e => e.playerId);
+   if (!held.includes(drop.playerId)) {
+     return refuse(`player ${drop.playerId} is no longer on our roster (drop)`);
+   }
+ }
  const filt = {players: {filterIds: {value: [add.playerId]},
                          filterStatus: {value: ['FREEAGENT', 'WAIVERS']}}};
  const pr = await fetch(reads.split('?')[0] + `?scoringPeriodId=${A.body.scoringPeriodId}`

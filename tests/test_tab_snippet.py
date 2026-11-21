@@ -6,6 +6,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import scripts.tab_snippet as ts  # noqa: E402
@@ -171,3 +173,41 @@ def test_keeper_is_never_a_drop(tmp_path, monkeypatch, capsys):
     assert rc == 2
     assert "keepers" in capsys.readouterr().out
     assert not (tmp_path / "ledger.jsonl").exists()
+
+
+def _yahoo(*extra):
+    return ["yahoo", "--add", "Tyler Shough", "--add-id", "41825", "--bid", "2", *extra]
+
+
+def test_drop_id_without_drop_name_is_an_argparse_error(tmp_path, monkeypatch, capsys):
+    # Audit gap 1: --drop-id alone skipped the by-name keeper guard entirely.
+    monkeypatch.setattr(ts, "LEDGER", tmp_path / "ledger.jsonl")
+    for extra in (["--drop-id", "30973"], ["--drop", "Sam Darnold"]):
+        with pytest.raises(SystemExit) as e:
+            ts.main(_yahoo(*extra))
+        assert e.value.code == 2
+    capsys.readouterr()
+    assert not (tmp_path / "ledger.jsonl").exists()
+
+
+def test_keeper_id_with_a_non_keeper_name_is_refused(tmp_path, monkeypatch, capsys):
+    # The name guard passes ("Sam Darnold" is no keeper) but the id is a keeper's.
+    monkeypatch.setattr(ts, "LEDGER", tmp_path / "ledger.jsonl")
+    ids = tmp_path / "ids.json"
+    ids.write_text(json.dumps({"61234": "Luther Burden III"}))
+    monkeypatch.setattr(ts, "keeper_ids_path", lambda league: ids)
+    rc = ts.main(_yahoo("--drop", "Sam Darnold", "--drop-id", "61234"))
+    out = capsys.readouterr().out
+    assert rc == 2 and "keeper" in out and "await" not in out
+    assert not (tmp_path / "ledger.jsonl").exists()
+
+
+def test_non_keeper_drop_with_matching_pair_still_prints_and_flags_unchecked(
+    tmp_path, monkeypatch, capsys
+):
+    monkeypatch.setattr(ts, "LEDGER", tmp_path / "ledger.jsonl")
+    monkeypatch.setattr(ts, "keeper_ids_path", lambda league: tmp_path / "none.json")
+    rc = ts.main(_yahoo("--drop", "Sam Darnold", "--drop-id", "30973"))
+    out = capsys.readouterr().out
+    assert rc == 0 and "await" in out
+    assert "NOT CHECKED" in out and "FAAB" in out and "drop-id" in out

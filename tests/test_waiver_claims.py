@@ -981,6 +981,12 @@ def test_espn_submit_rechecks_waiver_status_before_posting():
     assert js.index("now.status !== A.expect") < js.index("method: 'POST'")
 
 
+def test_espn_submit_rechecks_the_drop_is_still_on_our_roster_before_posting():
+    js = ws.ESPN_SUBMIT_JS
+    assert "view=mRoster" in js  # the same pre-POST fetch now carries rosters
+    assert js.index("no longer on our roster") < js.index("method: 'POST'")
+
+
 def test_only_our_leagues_can_be_advised_on():
     """A preset kept as a roster-shape example is never mistaken for ours."""
     assert config.our_league("mantis")["my_user"] == "Gforceee"
