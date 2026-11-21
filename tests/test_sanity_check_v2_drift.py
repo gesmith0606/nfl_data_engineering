@@ -506,3 +506,80 @@ def test_dqal_rank_gap_passes_when_gaps_small(tmp_path, monkeypatch):
 
     assert criticals == []
     assert warnings == []
+
+
+# ===========================================================================
+# --roster-drift warn mode (deploy-web: drift must not block a code deploy)
+# ===========================================================================
+
+
+def _drift_run(tmp_path, monkeypatch, n_drifted: int, mode: str):
+    """Top-50 board where the first ``n_drifted`` players moved off KC in Sleeper."""
+    monkeypatch.setattr(sanity, "_SLEEPER_CACHE_DIR", str(tmp_path / ".cache"))
+    df = _build_fake_top50(include_kyler_on_ari=False)
+    sleeper = _build_fake_sleeper(kyler_team="KC")
+    for i in range(1, n_drifted + 1):
+        sleeper[f"p{i}"]["team"] = "IND"
+    resp = _mock_sleeper_response(200, sleeper)
+    with patch.object(sanity, "_load_our_projections", return_value=df), patch.object(
+        sanity.requests, "get", return_value=resp
+    ):
+        return sanity._check_roster_drift_top50("half_ppr", 2026, drift_mode=mode)
+
+
+def test_warn_mode_single_mismatch_is_warning_naming_player(tmp_path, monkeypatch):
+    criticals, warnings = _drift_run(tmp_path, monkeypatch, 1, "warn")
+    assert criticals == []
+    drift = [w for w in warnings if "non-blocking" in w]
+    assert len(drift) == 1
+    assert "Player 1" in drift[0] and "KC" in drift[0] and "IND" in drift[0]
+
+
+def test_warn_mode_mass_drift_stays_critical(tmp_path, monkeypatch):
+    n = sanity.ROSTER_DRIFT_MASS_THRESHOLD + 1
+    criticals, _ = _drift_run(tmp_path, monkeypatch, n, "warn")
+    assert any("ROSTER DRIFT MASS" in c for c in criticals)
+    assert sum("Gold says" in c for c in criticals) == n
+
+
+def test_warn_mode_at_threshold_is_still_warning(tmp_path, monkeypatch):
+    criticals, warnings = _drift_run(
+        tmp_path, monkeypatch, sanity.ROSTER_DRIFT_MASS_THRESHOLD, "warn"
+    )
+    assert criticals == []
+    assert len([w for w in warnings if "non-blocking" in w]) == (
+        sanity.ROSTER_DRIFT_MASS_THRESHOLD
+    )
+
+
+def test_default_mode_single_mismatch_still_critical(tmp_path, monkeypatch):
+    criticals, warnings = _drift_run(tmp_path, monkeypatch, 1, "critical")
+    assert len(criticals) == 1 and "Player 1" in criticals[0]
+    assert not any("non-blocking" in w for w in warnings)
+
+
+def test_invalid_mode_rejected(tmp_path, monkeypatch):
+    with pytest.raises(ValueError):
+        _drift_run(tmp_path, monkeypatch, 0, "bogus")
+
+
+def test_printed_output_names_player_and_both_teams(tmp_path, monkeypatch, capsys):
+    _drift_run(tmp_path, monkeypatch, 1, "critical")
+    out = capsys.readouterr().out
+    assert "1 mismatches" in out
+    line = next(ln for ln in out.splitlines() if "Player 1" in ln)
+    assert "KC" in line and "IND" in line
+
+
+def test_ci_report_emits_warning_summary_and_output(tmp_path, monkeypatch, capsys):
+    summ, outp = tmp_path / "s.md", tmp_path / "o.txt"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summ))
+    monkeypatch.setenv("GITHUB_OUTPUT", str(outp))
+    _, warnings = _drift_run(tmp_path, monkeypatch, 1, "warn")
+    sanity._emit_roster_drift_ci_report(warnings, "warn")
+    assert "::warning::ROSTER DRIFT (non-blocking): Player 1" in capsys.readouterr().out
+    assert "daily-sentiment" in summ.read_text() and "Player 1" in summ.read_text()
+    assert "roster_drift_count=1" in outp.read_text()
+    outp.write_text("")
+    sanity._emit_roster_drift_ci_report(warnings, "critical")  # no-op
+    assert outp.read_text() == ""
