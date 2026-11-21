@@ -54,11 +54,20 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      # Roster drift vs Sleeper is NON-BLOCKING here (<= 5 of the top 50): the
+      # backend image is built from a git clone, so a blocked deploy serves
+      # the same stale board the live site already has and only withholds the
+      # code fix. The daily-sentiment roster refresh is what clears drift.
+      # Mass drift (> 5) stays critical. Self-heal dispatch of daily-sentiment
+      # is deliberately absent: it needs `actions: write` (this workflow has
+      # `actions: read`) and no workflow here dispatches another.
       - name: Run sanity check
+        id: sanity
         run: |
           python scripts/sanity_check_projections.py \
             --scoring half_ppr \
-            --season 2026
+            --season 2026 \
+            --roster-drift warn
         # Exit code 1 on CRITICAL issues -> blocks deployment
 
       # Weekly partition gate (SANITY-M6): validates the weekly Gold

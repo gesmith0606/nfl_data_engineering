@@ -12,6 +12,7 @@ Covers:
 
 import datetime
 import os
+import pathlib
 import sys
 import tempfile
 import unittest
@@ -26,6 +27,7 @@ from scripts.sunday_projection_refresh import (
     SCALABLE_ALWAYS_COLS,
     _undo_and_reapply,
     detect_nfl_week,
+    resolve_playing_week,
     _load_latest_gold_projections,
     _write_gold_output,
 )
@@ -49,7 +51,12 @@ def _make_gold_df(with_injury_cols: bool = True) -> pd.DataFrame:
     """
     data = {
         "player_id": ["p1", "p2", "p3", "p4"],
-        "player_name": ["Active Player", "Questionable Player", "Out Player", "Healthy Player"],
+        "player_name": [
+            "Active Player",
+            "Questionable Player",
+            "Out Player",
+            "Healthy Player",
+        ],
         "position": ["QB", "RB", "WR", "TE"],
         "projected_points": [22.0, 10.2, 0.0, 8.5],
         "passing_yards": [300.0, 0.0, 0.0, 0.0],
@@ -71,10 +78,12 @@ def _make_gold_df(with_injury_cols: bool = True) -> pd.DataFrame:
 
 def _inj_df(player_name: str, status: str) -> pd.DataFrame:
     """Build a minimal one-row injury DataFrame for testing."""
-    return pd.DataFrame({
-        "player_name": [player_name],
-        "report_status": [status],
-    })
+    return pd.DataFrame(
+        {
+            "player_name": [player_name],
+            "report_status": [status],
+        }
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -89,10 +98,12 @@ class TestUndoReapplyCaseA(unittest.TestCase):
         """Player improves from Questionable→Active: points should be restored."""
         gold = _make_gold_df(with_injury_cols=True)
         # Fresh injury report clears the Questionable player to Active
-        fresh_inj = pd.DataFrame({
-            "player_name": ["Questionable Player"],
-            "report_status": ["Active"],
-        })
+        fresh_inj = pd.DataFrame(
+            {
+                "player_name": ["Questionable Player"],
+                "report_status": ["Active"],
+            }
+        )
         result, summary = _undo_and_reapply(gold, fresh_inj)
         row = result[result["player_name"] == "Questionable Player"].iloc[0]
 
@@ -189,10 +200,12 @@ class TestNoDoubleApplication(unittest.TestCase):
     def test_same_injury_idempotent(self):
         """Applying the same injury report twice yields the same projected points."""
         gold = _make_gold_df(with_injury_cols=True)
-        fresh_inj = pd.DataFrame({
-            "player_name": ["Questionable Player"],
-            "report_status": ["Questionable"],
-        })
+        fresh_inj = pd.DataFrame(
+            {
+                "player_name": ["Questionable Player"],
+                "report_status": ["Questionable"],
+            }
+        )
         # First refresh
         first, _ = _undo_and_reapply(gold, fresh_inj)
         # Second refresh (same injury data applied to already-refreshed output)
@@ -315,14 +328,18 @@ class TestEmptyDataGrace(unittest.TestCase):
 
     def test_gold_without_player_name_col_survives(self):
         """Gold file missing join columns should gracefully return df unchanged."""
-        gold = pd.DataFrame({
-            "player_id": ["p1"],
-            "projected_points": [10.0],
-        })
-        inj = pd.DataFrame({
-            "player_name": ["Player X"],
-            "report_status": ["Out"],
-        })
+        gold = pd.DataFrame(
+            {
+                "player_id": ["p1"],
+                "projected_points": [10.0],
+            }
+        )
+        inj = pd.DataFrame(
+            {
+                "player_name": ["Player X"],
+                "report_status": ["Out"],
+            }
+        )
         # Should not raise — just return df with injury columns added as Active
         result, _ = _undo_and_reapply(gold, inj)
         self.assertIsInstance(result, pd.DataFrame)
@@ -334,38 +351,65 @@ class TestEmptyDataGrace(unittest.TestCase):
 
 
 class TestDetectNFLWeek(unittest.TestCase):
-    """Smoke tests for the NFL calendar auto-detection."""
+    """detect_nfl_week is schedule-based (shared resolver), not a calendar rule."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = pathlib.Path(self._tmp.name)
+        # 2024 REG shape: wk1 Thu Sep 5 .. Mon Sep 9, wk2 Sep 12-16, wk18 Jan 5 2025.
+        rows = [
+            (1, "2024-09-05"),
+            (1, "2024-09-08"),
+            (1, "2024-09-09"),
+            (2, "2024-09-12"),
+            (2, "2024-09-15"),
+            (2, "2024-09-16"),
+            (7, "2024-10-17"),
+            (7, "2024-10-20"),
+            (7, "2024-10-21"),
+            (18, "2025-01-04"),
+            (18, "2025-01-05"),
+        ]
+        d = self.root / "season=2024"
+        d.mkdir(parents=True)
+        pd.DataFrame(
+            {
+                "season": 2024,
+                "game_type": "REG",
+                "week": [w for w, _ in rows],
+                "gameday": [g for _, g in rows],
+            }
+        ).to_parquet(d / "schedules_20240801_000000.parquet", index=False)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _d(self, today):
+        return detect_nfl_week(_today=today, root=self.root)
 
     def test_returns_tuple(self):
-        """detect_nfl_week returns a (season, week) tuple."""
-        result = detect_nfl_week(_today=datetime.date(2024, 10, 15))
+        result = self._d(datetime.date(2024, 10, 20))
         self.assertIsInstance(result, tuple)
         self.assertEqual(len(result), 2)
 
-    def test_week_in_valid_range(self):
-        """Detected week must be in 1-18."""
-        _, week = detect_nfl_week(_today=datetime.date(2024, 10, 15))
-        self.assertGreaterEqual(week, 1)
-        self.assertLessEqual(week, 18)
+    def test_sunday_resolves_to_week_being_played(self):
+        self.assertEqual(self._d(datetime.date(2024, 10, 20)), (2024, 7))
 
-    def test_season_reasonable(self):
-        """Detected season should be within 2 years of an in-season date."""
-        season, _ = detect_nfl_week(_today=datetime.date(2024, 10, 15))
-        self.assertGreaterEqual(season, 2022)
-        self.assertLessEqual(season, 2026)
+    def test_week1_kickoff_thursday(self):
+        self.assertEqual(self._d(datetime.date(2024, 9, 5)), (2024, 1))
 
-    def test_known_date_week1_2024(self):
-        """September 6, 2024 (a Friday) should resolve to season=2024, week=1."""
-        season, week = detect_nfl_week(_today=datetime.date(2024, 9, 6))
-        self.assertEqual(season, 2024)
-        self.assertEqual(week, 1)
+    def test_january_week18_sunday_stays_in_prior_season(self):
+        self.assertEqual(self._d(datetime.date(2025, 1, 5)), (2024, 18))
 
-    def test_preseason_before_week1_uses_prior_year(self):
-        """May 15, 2025 (pre-season) should detect as prior season (2024, week 18)."""
-        season, week = detect_nfl_week(_today=datetime.date(2025, 5, 15))
-        self.assertEqual(season, 2024)
-        # Week should be capped at 18
-        self.assertEqual(week, 18)
+    def test_preseason_resolves_to_upcoming_week1_not_prior_week18(self):
+        # The calendar rule returned (2024, 18) here; the schedule says wk1.
+        self.assertEqual(self._d(datetime.date(2024, 8, 20)), (2024, 1))
+
+    def test_season_over_is_schedule_final(self):
+        season, week, source = resolve_playing_week(
+            datetime.date(2025, 1, 20), root=self.root
+        )
+        self.assertEqual((season, week, source), (2024, 18, "schedule-final"))
 
 
 # ---------------------------------------------------------------------------
@@ -384,6 +428,7 @@ class TestWriteGoldOutput(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             # Temporarily override GOLD_DIR
             import scripts.sunday_projection_refresh as spr
+
             original_gold_dir = spr.GOLD_DIR
             spr.GOLD_DIR = tmpdir
             try:
@@ -406,22 +451,24 @@ class TestRoundTripWorkflow(unittest.TestCase):
 
     def _base_gold(self) -> pd.DataFrame:
         """Build a Gold df where injuries were already applied on Tuesday."""
-        return pd.DataFrame({
-            "player_name": ["QB1", "RB1", "WR1", "TE1"],
-            "position": ["QB", "RB", "WR", "TE"],
-            # These are post-injury-application values:
-            # QB1: Active (22.0 raw * 1.0 = 22.0)
-            # RB1: Questionable (14.0 raw * 0.85 = 11.9)
-            # WR1: Out (18.0 raw * 0.0 = 0.0)
-            # TE1: Active (9.0 raw * 1.0 = 9.0)
-            "projected_points": [22.0, 11.9, 0.0, 9.0],
-            "rushing_yards": [20.0, 85.0 * 0.85, 0.0, 5.0],
-            "receiving_yards": [0.0, 15.0 * 0.85, 0.0, 60.0],
-            "injury_status": ["Active", "Questionable", "Out", "Active"],
-            "injury_multiplier": [1.0, 0.85, 0.0, 1.0],
-            "projected_floor": [12.0, 5.5, 0.0, 4.0],
-            "projected_ceiling": [38.0, 20.0, 0.0, 16.0],
-        })
+        return pd.DataFrame(
+            {
+                "player_name": ["QB1", "RB1", "WR1", "TE1"],
+                "position": ["QB", "RB", "WR", "TE"],
+                # These are post-injury-application values:
+                # QB1: Active (22.0 raw * 1.0 = 22.0)
+                # RB1: Questionable (14.0 raw * 0.85 = 11.9)
+                # WR1: Out (18.0 raw * 0.0 = 0.0)
+                # TE1: Active (9.0 raw * 1.0 = 9.0)
+                "projected_points": [22.0, 11.9, 0.0, 9.0],
+                "rushing_yards": [20.0, 85.0 * 0.85, 0.0, 5.0],
+                "receiving_yards": [0.0, 15.0 * 0.85, 0.0, 60.0],
+                "injury_status": ["Active", "Questionable", "Out", "Active"],
+                "injury_multiplier": [1.0, 0.85, 0.0, 1.0],
+                "projected_floor": [12.0, 5.5, 0.0, 4.0],
+                "projected_ceiling": [38.0, 20.0, 0.0, 16.0],
+            }
+        )
 
     def test_rb_clears_to_active(self):
         """RB was Questionable Tuesday; clears Active Sunday — points increase."""
@@ -473,10 +520,12 @@ class TestRoundTripWorkflow(unittest.TestCase):
         """Fresh report matches Tuesday status exactly — values unchanged."""
         gold = self._base_gold()
         # Same statuses as what was applied on Tuesday
-        fresh = pd.DataFrame({
-            "player_name": ["QB1", "RB1", "TE1"],
-            "report_status": ["Active", "Questionable", "Active"],
-        })
+        fresh = pd.DataFrame(
+            {
+                "player_name": ["QB1", "RB1", "TE1"],
+                "report_status": ["Active", "Questionable", "Active"],
+            }
+        )
         result, summary = _undo_and_reapply(gold, fresh)
 
         # QB1: 22.0 / 1.0 * 1.0 = 22.0
