@@ -565,6 +565,21 @@ jobs:
             --output-root output/grading \
           || echo "::warning::grade_shadow exited non-zero for $SEASON weeks $WEEKS"
 
+      # 7d. Season scorecard — per week x position MAE / bias / rank-corr of
+      # the PUBLISHED board vs Sleeper vs trailing-3. Regenerated every run so
+      # it no longer depends on someone remembering to run it by hand; the
+      # Gold commit step below stages output/grading/ (scorecard.{csv,md} and
+      # scorecard_missing.csv live in output/grading/season=YYYY/). Weeks with
+      # no published board are skipped by the script (listed in the .md).
+      # Non-blocking: a failure is a ::warning:: + run-summary line only.
+      - name: Season scorecard (published board vs Sleeper vs trailing-3)
+        id: season_scorecard
+        continue-on-error: true
+        run: |
+          scripts/ci_optional.sh "season scorecard (season $SEASON)" \
+            "output/grading/season=$SEASON/scorecard.* not refreshed this run" \
+            python scripts/season_scorecard.py --season "$SEASON" --scoring half_ppr
+
       # ------------------------------------------------------------------
       # 8. Sanity check — validate what THIS run produced: the weekly Gold
       # partition (freshness, duplicates, star ranks, weekly-scale points).
