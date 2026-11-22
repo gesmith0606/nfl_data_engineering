@@ -1,0 +1,218 @@
+{
+  "batch_id": "a020263e",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-22T12:18:10.227393+00:00",
+  "record_count": 19,
+  "records": [
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "team_abbr": null,
+      "summary": "NFL playoff picture updated for Week 11 with Vikings-49ers game being significant for NFC playoff race.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-loss-to-virginia-bill-belichicks-bowl-hopes-come-down-to-nc-state-game",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-loss-to-virginia-bill-belichicks-bowl-hopes-come-down-to-nc-state-game",
+      "team_abbr": null,
+      "summary": "Bill Belichick's college bowl eligibility hopes depend on upcoming NC State game after loss to Virginia.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "It all comes down to next Saturday, potentially.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/loss-to-cincinnati-eliminates-deion-sanders-colorado-from-bowl-eligibility",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/loss-to-cincinnati-eliminates-deion-sanders-colorado-from-bowl-eligibility",
+      "team_abbr": null,
+      "summary": "Deion Sanders' Colorado team eliminated from bowl eligibility after loss to Cincinnati in fourth season.",
+      "sentiment": -0.6,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "Deion Sanders's fourth season at Colorado will end without a bowl game.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfc-north-continues-its-historic-dominance",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfc-north-continues-its-historic-dominance",
+      "team_abbr": null,
+      "summary": "NFC North division continues historic dominance with 27-10 overall record and 21-4 non-division record.",
+      "sentiment": 0.8,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "They're 27-10 overall, and 21-4 in games outside the division.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "9aa0c78c-d3be-4065-a990-98882ccf0138",
+      "external_id": "9aa0c78c-d3be-4065-a990-98882ccf0138",
+      "team_abbr": null,
+      "summary": "Promotional content for Titans vs. Cowboys Week 11 betting.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Use the latest Polymarket promo code to make predictions for Titans vs. Cowboys in NFL Week 11 action",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "5f46e0d8-33cc-41a1-8f44-7c2c1cd79306",
+      "external_id": "5f46e0d8-33cc-41a1-8f44-7c2c1cd79306",
+      "team_abbr": null,
+      "summary": "Week 11 betting preview for Ravens vs. Panthers matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Here's everything bettors need to know for Ravens vs. Panthers in NFL Week 11",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "97138ff9-738a-3d14-9796-2416e0460747",
+      "external_id": "97138ff9-738a-3d14-9796-2416e0460747",
+      "team_abbr": null,
+      "summary": "Opinion piece on Brian Flores vs. Kyle Shanahan coaching matchup for Sunday Night Football.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Brian Flores and the Vikings' blitz machine will meet Kyle Shanahan and 49ers' offensive wizardry on \"Sunday Night Football.\"",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "1969d216-6365-413e-8ca8-e10d0cd7bf07",
+      "external_id": "1969d216-6365-413e-8ca8-e10d0cd7bf07",
+      "team_abbr": null,
+      "summary": "Game broadcast information with incorrect team pairing mentioned.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Find out how to watch the Jaguars vs. Giants game this week.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "474e598f-6ac3-3755-a794-a3e1bf3bf6c3",
+      "external_id": "474e598f-6ac3-3755-a794-a3e1bf3bf6c3",
+      "team_abbr": null,
+      "summary": "NFL Week 11 broadcast coverage maps and scheduling information.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "Find the NFL Week 11 games airing in your area Sunday with FOX and CBS coverage maps, broadcast information and TV assignments.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "460cd328-a0f9-4a72-9364-906d636f0c74",
+      "external_id": "460cd328-a0f9-4a72-9364-906d636f0c74",
+      "team_abbr": null,
+      "summary": "Fantasy analyst Hayden Winks provides RB rankings and analysis for Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Hayden Winks lays out the blueprint to the running back position in Week 11.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "09fc8aa7-e07b-402a-b921-686caf533ad9",
+      "external_id": "09fc8aa7-e07b-402a-b921-686caf533ad9",
+      "team_abbr": null,
+      "summary": "Fantasy analyst Hayden Winks provides QB/TE/DEF/K rankings and analysis for Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Hayden Winks lays out the blueprint to the onesie positions in Week 11: QB, TE, DEF and K.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "38da5122-0f76-33c6-910f-7098126bb549",
+      "external_id": "38da5122-0f76-33c6-910f-7098126bb549",
+      "team_abbr": null,
+      "summary": "College football game result; not relevant to NFL fantasy football.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "In their final road game of the season, the Washington State Cougars were dominated by the Texas State Bobcats, 42-14.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7d9c52c6-eaa4-4564-ada1-04853f384d39",
+      "external_id": "7d9c52c6-eaa4-4564-ada1-04853f384d39",
+      "team_abbr": null,
+      "summary": "Fantasy analyst Hayden Winks provides WR rankings and analysis for Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Fantasy football analyst Hayden Winks lays out the blueprint for the WR position in Week 11.",
+      "subject_type": "reporter"
+    },
+    {
+      "doc_id": "ef9178fc-ad65-3379-8145-d35f7a340765",
+      "external_id": "ef9178fc-ad65-3379-8145-d35f7a340765",
+      "team_abbr": null,
+      "summary": "College football game result; not relevant to NFL fantasy football.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "One flaw was corrected tonight, but too many others weren't, and K-State's season will again end before December.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "7a845252-796c-3c36-a3db-b7bc743c646c",
+      "external_id": "7a845252-796c-3c36-a3db-b7bc743c646c",
+      "team_abbr": null,
+      "summary": "Game preview and viewing information for Bears vs. Saints matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Here's everything you need to know about the Bears-Saints game.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "team_abbr": null,
+      "summary": "NFL playoff picture updated for Week 11 with Vikings-49ers game highlighted as significant in NFC race.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-loss-to-virginia-bill-belichicks-bowl-hopes-come-down-to-nc-state-game",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/after-loss-to-virginia-bill-belichicks-bowl-hopes-come-down-to-nc-state-game",
+      "team_abbr": null,
+      "summary": "Bill Belichick's bowl eligibility hopes depend on North Carolina State game outcome after loss to Virginia.",
+      "sentiment": -0.3,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "It all comes down to next Saturday, potentially.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/loss-to-cincinnati-eliminates-deion-sanders-colorado-from-bowl-eligibility",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/loss-to-cincinnati-eliminates-deion-sanders-colorado-from-bowl-eligibility",
+      "team_abbr": null,
+      "summary": "Deion Sanders' fourth season at Colorado ends without bowl eligibility after loss to Cincinnati.",
+      "sentiment": -0.6,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "Deion Sanders's fourth season at Colorado will end without a bowl game.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfc-north-continues-its-historic-dominance",
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfc-north-continues-its-historic-dominance",
+      "team_abbr": null,
+      "summary": "NFC North continues dominant performance with 27-10 record overall, 21-4 outside division play.",
+      "sentiment": 0.8,
+      "confidence": 0.9,
+      "category": "general",
+      "source_excerpt": "They're 27-10 overall, and 21-4 in games outside the division.",
+      "subject_type": "team"
+    }
+  ]
+}

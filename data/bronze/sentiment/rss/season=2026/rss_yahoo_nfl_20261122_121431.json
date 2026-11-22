@@ -1,0 +1,796 @@
+{
+  "fetch_run_id": "f0cfcb60-2ef9-4db7-81fe-77ccbf6431cc",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-22T12:14:31.029235+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "1db26d0b-db5d-37c4-92cd-f3d728c26025",
+      "url": "https://sports.yahoo.com/articles/rams-playing-today-nfl-week-120257461.html",
+      "title": "Are the Rams playing today? NFL Week 11 schedule, next game, NFC West standings",
+      "body_text": "The Los Angeles Rams are tied for second place in the NFC West entering Week 11 and are fresh off three straight wins. Here's what's next for LA:",
+      "author": "",
+      "published_at": "2026-11-22T12:02:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Los",
+        "Angeles Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "97138ff9-738a-3d14-9796-2416e0460747",
+      "url": "https://sports.yahoo.com/articles/brian-flores-vs-kyle-shanahan-120239207.html",
+      "title": "Brian Flores vs. Kyle Shanahan is ultimate 'Sunday Night Football' chess match | Opinion",
+      "body_text": "Brian Flores and the Vikings' blitz machine will meet Kyle Shanahan and 49ers' offensive wizardry on &quot;Sunday Night Football.&quot;",
+      "author": "",
+      "published_at": "2026-11-22T12:02:39+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brian Flores",
+        "Kyle Shanahan",
+        "Sunday Night",
+        "Opinion Brian"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "02782e77-b57e-3eec-b920-784db910b65b",
+      "url": "https://sports.yahoo.com/articles/ravens-panthers-kickoff-time-tv-120000515.html",
+      "title": "Ravens at Panthers: Kickoff time, TV channel, odds, and more",
+      "body_text": "Here’s how to watch, stream, and listen to Ravens vs. Panthers on Sunday afternoon!",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "07a55f7f-fa80-3043-8478-a0b13c0bdfb9",
+      "url": "https://sports.yahoo.com/articles/jets-vs-chargers-preview-prediction-120000225.html",
+      "title": "Jets vs. Chargers: Preview, prediction, what to watch for in Week 11",
+      "body_text": "An inside look at Sunday's Jets-Chargers matchup in San Diego:",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "San Diego"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "15378ce5-7cf9-39d7-8eab-fa48c5d4bad2",
+      "url": "https://sports.yahoo.com/articles/discussion-today-game-must-win-120000850.html",
+      "title": "Discussion: Is today’s game a must win for the Panthers?",
+      "body_text": "Do the Carolina Panthers have to win today to have any shot at making the playoffs?",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Carolina Panthers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "325a1172-b895-3294-bb58-5474d37578c3",
+      "url": "https://sports.yahoo.com/articles/nfl-week-11-expert-picks-120000995.html",
+      "title": "NFL Week 11 expert picks, score predictions: Bucs vs. Lions",
+      "body_text": "Tampa Bay Buccaneers vs. Detroit Lions NFL Week 11 expert picks from the Pride of Detroit staff.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Tampa",
+        "Bay Buccaneers",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "5f22d910-2c15-3ee0-8fd9-53e97638d171",
+      "url": "https://sports.yahoo.com/articles/post-texans-sunday-schedule-watch-120000825.html",
+      "title": "Post-Texans Sunday Schedule: How to watch, TV schedule, and more",
+      "body_text": "Wanna watch a non-Texans game? We can help you with that.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Texans Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "762ca9c8-dbf9-382e-863b-67627854a198",
+      "url": "https://sports.yahoo.com/articles/even-john-harbaugh-wonders-going-120000872.html",
+      "title": "Even John Harbaugh wonders ‘what are we going to do with this opportunity?’",
+      "body_text": "Most Giants’ key playrs have not been in this position before.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Even John",
+        "Most Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "8086d59e-6c01-3d20-bdcb-823b78cb5f3b",
+      "url": "https://sports.yahoo.com/articles/jaguars-vs-giants-watch-week-120000003.html",
+      "title": "Jaguars vs. Giants: How to Watch Week 11",
+      "body_text": "Game time, TV/radio schedule, betting odds, and more for Jaguars vs. Giants in Week 11.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Watch Week"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "84bd7c24-0c31-35d5-85c9-1ac7d5852743",
+      "url": "https://sports.yahoo.com/articles/stefon-diggs-250-000-extra-120000419.html",
+      "title": "Stefon Diggs has 250,000 extra reasons to find the end zone against Cincinnati - Daily Slop",
+      "body_text": "Stefon Diggs sits two TDs shy of a $250k incentive as Washington preps for a Monday night stadium blackout against the Bengals.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Stefon Diggs",
+        "Daily Slop"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "a94a46dc-19dd-384f-94f4-bcf3c9fc3903",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-daron-bland-ir-120000915.html",
+      "title": "Cowboys news: DaRon Bland on IR, future in Dallas in doubt",
+      "body_text": "Here’s today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "b239e41a-ee34-338b-af01-7e5b3201c5d0",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-jets-look-120000128.html",
+      "title": "New York Jets News: Jets look for third win against Chargers in Week 11 action",
+      "body_text": "Happy gameday, Jets fans! Today the Jets take the field in Los Angeles against the Chargers. This is a matchup between a pair of teams having disappointing seasons. The Chargers just got their first win of the season in Week 10. Can the Jets get their third win of the year? We will find out […]",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Los Angeles",
+        "The Chargers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "beca67e6-1499-360c-adc2-54460a5c43ef",
+      "url": "https://sports.yahoo.com/articles/broncos-vs-raiders-watch-game-120000743.html",
+      "title": "Broncos vs. Raiders: How to watch, game time, TV schedule, game preview and more",
+      "body_text": "The Denver Broncos took first place in the AFC West from the Kansas City Chiefs, but they took it back while Denver was relaxing on their bye week. They do control their destiny, however, so all they have to do is keep winning and that starts in Week 11 at home against the Las Vegas […]",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Kansas City",
+        "Las Vegas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "ffaaf328-94bc-3b6f-976f-6de1a1b68efc",
+      "url": "https://sports.yahoo.com/articles/watch-steelers-vs-eagles-120000612.html",
+      "title": "How to watch Steelers vs. Eagles",
+      "body_text": "How to watch Pittsburgh Steelers vs. Philadelphia Eagles.",
+      "author": "",
+      "published_at": "2026-11-22T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eagles How",
+        "Pittsburgh Steelers",
+        "Philadelphia Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "09ecbc24-954a-3f2f-a3cb-289a6bce15f1",
+      "url": "https://sports.yahoo.com/articles/bengals-news-sunday-rooting-guide-114800617.html",
+      "title": "Bengals News: Sunday Rooting Guide",
+      "body_text": "Cincinnati has their eyes on a number of games on Sunday for playoff seeding purposes.",
+      "author": "",
+      "published_at": "2026-11-22T11:48:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Sunday Rooting",
+        "Guide Cincinnati"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "77af81b6-cf55-4ef9-98a1-05ee7497bdcb",
+      "url": "https://sports.yahoo.com/nfl/article/jacksonville-jaguars-vs-new-york-giants-how-to-watch-today-start-time-where-to-stream-and-more-114800579.html",
+      "title": "Jacksonville Jaguars vs. New York Giants: How to watch today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Jaguars vs. Giants game this week.",
+      "author": "Liz Kocan",
+      "published_at": "2026-11-22T11:48:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jacksonville Jaguars",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "1332b92d-46e7-398a-ac6a-ddfdd9e9698a",
+      "url": "https://sports.yahoo.com/articles/plays-set-tone-bengals-defensive-113000770.html",
+      "title": "The plays that have set the tone for the Bengals’ defensive turnaround this season",
+      "body_text": "The Bengals defense is playing at a level that can lead this team to a Super Bowl championship.",
+      "author": "",
+      "published_at": "2026-11-22T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bengals",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "afa8e93a-e849-41ad-a953-538281977e01",
+      "url": "https://sports.yahoo.com/nfl/article/tampa-bay-buccaneers-vs-detroit-lions-how-to-watch-the-nfl-week-11-game-channel-streaming-info-and-more-113000369.html",
+      "title": "Tampa Bay Buccaneers vs. Detroit Lions: How to watch the NFL Week 11 game, channel, streaming info and more",
+      "body_text": "How to watch the Green Bay Packers vs. New England Patriots game this Sunday.",
+      "author": "Danica Creahan,Liz Kocan",
+      "published_at": "2026-11-22T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tampa Bay",
+        "Detroit Lions",
+        "Green Bay",
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "b586ccae-79e0-3b71-995e-4d4d96b6b746",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-good-day-113000006.html",
+      "title": "Cleveland Browns news: A good day to have NFL Sunday Ticket",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 22 edition of the Sunday Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-22T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Sunday Ticket",
+        "Sunday Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "1969d216-6365-413e-8ca8-e10d0cd7bf07",
+      "url": "https://sports.yahoo.com/nfl/article/las-vegas-raiders-vs-denver-broncos-how-to-watch-today-start-time-where-to-stream-and-more-112600415.html",
+      "title": "Las Vegas Raiders vs. Denver Broncos: How to watch today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Jaguars vs. Giants game this week.",
+      "author": "Liz Kocan",
+      "published_at": "2026-11-22T11:26:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Las Vegas",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "9afb4642-fddc-3e45-aec9-a01d2645b236",
+      "url": "https://sports.yahoo.com/articles/sunday-patriots-notes-mike-vrabel-112052918.html",
+      "title": "Sunday Patriots Notes: Mike Vrabel’s team faces a test of adversity",
+      "body_text": "Notes and thoughts on the Patriots’ challenges, the playoff outlook, and more.",
+      "author": "",
+      "published_at": "2026-11-22T11:20:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday Patriots",
+        "Mike Vrabel"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "6c198ff4-b6eb-34b9-a96e-15e6b8ce4564",
+      "url": "https://sports.yahoo.com/articles/browns-playing-today-nfl-week-110540228.html",
+      "title": "Are the Browns playing today? NFL Week 11 schedule",
+      "body_text": "The Cleveland Browns are 6-4 heading into Week 11. Here's whether Deshaun Watson and company will be playing this week or not.",
+      "author": "",
+      "published_at": "2026-11-22T11:05:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Cleveland",
+        "Deshaun Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0033537"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "edf733e4-7bc1-3109-8cb7-f0aa5ba0a2ef",
+      "url": "https://sports.yahoo.com/articles/seahawks-playing-today-nfl-week-110533927.html",
+      "title": "Are the Seahawks playing today? NFL Week 11 schedule, next game",
+      "body_text": "Drew Lock and the Seahawks hit the bye at 6-4, hoping Sam Darnold is back for the 49ers rematch. Here's when Seattle plays next.",
+      "author": "",
+      "published_at": "2026-11-22T11:05:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drew Lock",
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0035704",
+        "00-0034869"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "ec77aa67-9f7f-3ecc-81ba-5b371bd373fc",
+      "url": "https://sports.yahoo.com/articles/packers-playing-today-nfl-week-110531036.html",
+      "title": "Are the Packers playing today? NFL Week 11 schedule, next game,",
+      "body_text": "Jordan Love and the Packers are off in Week 11 after an eight-sack loss. Here's when Green Bay plays next and where it stands.",
+      "author": "",
+      "published_at": "2026-11-22T11:05:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jordan Love",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "474e598f-6ac3-3755-a794-a3e1bf3bf6c3",
+      "url": "https://sports.yahoo.com/articles/nfl-game-tv-area-today-110414291.html",
+      "title": "What NFL game is on TV in your area today? Week 11 coverage map",
+      "body_text": "Find the NFL Week 11 games airing in your area Sunday with FOX and CBS coverage maps, broadcast information and TV assignments.",
+      "author": "",
+      "published_at": "2026-11-22T11:04:14+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5da126eb-b9a4-3615-92a0-1f9b937cd099",
+      "url": "https://sports.yahoo.com/articles/steelers-max-iheanachor-spotlight-matchup-110341505.html",
+      "title": "Steelers' Max Iheanachor in spotlight in matchup with Eagles' Makai Lemon",
+      "body_text": "Pittsburgh will also be hoping to get receivers Michael Pittman Jr. and Roman Wilson back in the lineup after injuries slowed them in the first half of the season.",
+      "author": "",
+      "published_at": "2026-11-22T11:03:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Max Iheanachor",
+        "Makai Lemon",
+        "Michael Pittman Jr",
+        "Roman Wilson"
+      ],
+      "resolved_player_ids": [
+        "00-0036252",
+        "00-0039739"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1b65e949-7c80-3cc1-910b-9371d42739a8",
+      "url": "https://sports.yahoo.com/articles/falcons-playing-today-nfl-week-110327536.html",
+      "title": "Are the Falcons playing today? NFL Week 11 schedule, next game, standings",
+      "body_text": "The Atlanta Falcons are 3-7 heading into Week 11 of the 2026 NFL season. Find out if Bijan Robinson will be playing this week.",
+      "author": "",
+      "published_at": "2026-11-22T11:03:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Atlanta",
+        "Bijan Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0038542"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "1314a96d-d02f-3200-944c-33bfe28eb407",
+      "url": "https://sports.yahoo.com/articles/broncos-offense-aiming-turn-flashes-110000423.html",
+      "title": "Broncos offense aiming to turn flashes into consistency",
+      "body_text": "The Broncos have shown flashes of offensive potential, but Bo Nix and Co. need to put together more consistent games.",
+      "author": "",
+      "published_at": "2026-11-22T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Broncos",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "86b83203-f74d-3cc3-a552-ca04f6237826",
+      "url": "https://sports.yahoo.com/articles/patriots-playing-today-nfl-week-105941742.html",
+      "title": "Are the Patriots playing today? NFL Week 11 schedule, AFC standings",
+      "body_text": "Drake Maye's ankle injury hangs over the Patriots Week 11 bye. Here's when New England plays nexAre the t and where it stands.",
+      "author": "",
+      "published_at": "2026-11-22T10:59:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Drake Maye",
+        "Patriots Week",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0039851"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "9268b0a7-fabb-3fad-b42e-0989c45ef5c4",
+      "url": "https://sports.yahoo.com/articles/nfl-games-today-week-11-105818164.html",
+      "title": "What NFL games are on today? Week 11 TV channels, Sunday schedule, results",
+      "body_text": "The NFL Week 11 schedule has several matchups that could alter the league's playoff picture. Here's how to watch every game on Sunday.",
+      "author": "",
+      "published_at": "2026-11-22T10:58:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0d6e96fe-fd0a-3bb1-9d7c-aaf1f7e446f8",
+      "url": "https://sports.yahoo.com/articles/looking-back-steelers-historic-losing-100515096.html",
+      "title": "Looking back at Steelers' historic losing streak vs Eagles in Philadelphia",
+      "body_text": "Many of the Steelers' biggest names who helped them win their six Super Bowls failed to win in the home of their in-state rivals.",
+      "author": "",
+      "published_at": "2026-11-22T10:05:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Philadelphia Many",
+        "Super Bowls"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1a14e907-6cfd-3fc4-a123-5bed1f9d7190",
+      "url": "https://sports.yahoo.com/articles/nfl-playoff-picture-2026-updated-095445480.html",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 11",
+      "body_text": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "author": "",
+      "published_at": "2026-11-22T09:54:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Playoff Picture"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "c07c5d3c-6805-3c6a-8735-92d6e5e3d269",
+      "url": "https://sports.yahoo.com/articles/chicago-bears-vs-orleans-saints-063312673.html",
+      "title": "Chicago Bears vs. New Orleans Saints Picks and Predictions",
+      "body_text": "The WCG crew is unaminous in their Bears vs Saints pick. How do you see this game going?",
+      "author": "",
+      "published_at": "2026-11-22T06:33:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "New Orleans",
+        "Saints Picks",
+        "Predictions The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "c9826c42-b4f6-3d1e-8fd3-51e33d3f52ce",
+      "url": "https://sports.yahoo.com/articles/nfl-picks-against-spread-week-062300926.html",
+      "title": "NFL Picks Against the Spread: Week 11 Games",
+      "body_text": "﻿﻿﻿﻿﻿﻿﻿﻿﻿Which bets do you like the most?﻿",
+      "author": "",
+      "published_at": "2026-11-22T06:23:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Picks Against"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "460cd328-a0f9-4a72-9364-906d636f0c74",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-rb-blueprint-for-week-11-211540068.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' RB Blueprint for Week 11",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint to the running back position in Week 11.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-18T21:15:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "09fc8aa7-e07b-402a-b921-686caf533ad9",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-qbtedefk-blueprint-for-week-11-200938137.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' QB/TE/DEF/K Blueprint for Week 11",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint to the onesie positions in Week 11: QB, TE, DEF and K.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-19T20:09:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "38da5122-0f76-33c6-910f-7098126bb549",
+      "url": "https://sports.yahoo.com/articles/washington-state-blown-texas-state-045949089.html",
+      "title": "Washington State blown out by Texas State, 42-14",
+      "body_text": "In their final road game of the season, the Washington State Cougars were dominated by the Texas State Bobcats, 42-14. WSU (2-9, 1-6 in Pac-12) got in front early with the games’ first points on a Daniel Blood touchdown reception, then proceeded to allow 42 unanswered to TSU (7-4, 5-2). The Cougars got out to […]",
+      "author": "",
+      "published_at": "2026-11-22T04:59:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Washington State",
+        "Texas State",
+        "Daniel Blood",
+        "The Cougars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "7d9c52c6-eaa4-4564-ada1-04853f384d39",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-wr-blueprint-for-week-11-221227817.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' WR Blueprint for Week 11",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint for the WR position in Week 11.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-19T22:12:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "ef9178fc-ad65-3379-8145-d35f7a340765",
+      "url": "https://sports.yahoo.com/articles/final-ot-arizona-35-kansas-044538653.html",
+      "title": "FINAL (OT): Arizona 35, Kansas State 28",
+      "body_text": "One flaw was corrected tonight, but too many others weren’t, and K-State’s season will again end before December.",
+      "author": "",
+      "published_at": "2026-11-22T04:45:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kansas State"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "17b61bfd-04f2-35e9-b2a0-b762604a8cea",
+      "url": "https://sports.yahoo.com/articles/titans-place-tyjae-spears-injured-041718450.html",
+      "title": "Titans place Tyjae Spears on injured reserve",
+      "body_text": "This is probably the end of the road for the Tyjae Spears in Tennessee",
+      "author": "",
+      "published_at": "2026-11-22T04:17:18+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tyjae Spears"
+      ],
+      "resolved_player_ids": [
+        "00-0039032"
+      ],
+      "team_hint": "TEN"
+    },
+    {
+      "external_id": "7a845252-796c-3c36-a3db-b7bc743c646c",
+      "url": "https://sports.yahoo.com/articles/bears-vs-saints-watch-listen-040000428.html",
+      "title": "Bears vs. Saints: How to Watch and Listen, Odds, Previews, and More",
+      "body_text": "Here’s everything you need to know about the Bears-Saints game.",
+      "author": "",
+      "published_at": "2026-11-22T04:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "More Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "2eae0b77-f378-342c-9608-5665b791c9b1",
+      "url": "https://sports.yahoo.com/articles/j-j-mccarthy-showing-improved-034825545.html",
+      "title": "J.J. McCarthy showing improved touch on passes since joining Giants",
+      "body_text": "One of the knocks on J.J. McCarthy during his relatively brief time with the Vikings was his inability to throw anything other than a fastball.",
+      "author": "",
+      "published_at": "2026-11-22T03:48:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Giants One"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "0547dd77-0ed4-3546-a05e-b0158f68cb6a",
+      "url": "https://sports.yahoo.com/articles/ravens-discussion-predictions-week-11-032231242.html",
+      "title": "Ravens Discussion: Predictions for Week 11 matchup vs. Panthers",
+      "body_text": "The Baltimore Ravens will face the Carolina Panthers on the road in Week 11, looking to snap a five-game losing streak and keep their slim hopes of a late-season turnaround alive. Here are Baltimore Beatdown’s predictions for this contest. Stephen Bopst At this point, it’s difficult to pick the Ravens. They are coming off one […]",
+      "author": "",
+      "published_at": "2026-11-22T03:22:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ravens Discussion",
+        "Panthers The",
+        "Baltimore Ravens",
+        "Carolina Panthers",
+        "Baltimore Beatdown",
+        "Stephen Bopst"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "632b2953-d0c2-3a6d-95e5-49155d636af0",
+      "url": "https://sports.yahoo.com/articles/afc-north-preview-week-11-030256080.html",
+      "title": "AFC North Preview, Week 11: Bengals look to keep separating from the pack",
+      "body_text": "Updated Standings: Pittsburgh Steelers Matchup: @ Philadelphia Eagles, 1:00pm EST The Steelers came out flat last week despite coming off their bye week. In a primetime spot with the chance to take a first-place lead in the division, the Steelers punted on four of their first five drives. They didn’t score a touchdown until the […]",
+      "author": "",
+      "published_at": "2026-11-22T03:02:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "North Preview",
+        "Updated Standings",
+        "Pittsburgh Steelers",
+        "Philadelphia Eagles",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6e3be911-db9a-31cd-89da-4dc4837075cf",
+      "url": "https://sports.yahoo.com/articles/matthew-stafford-gets-emotional-puka-024354711.html",
+      "title": "Matthew Stafford gets emotional about Puka Nacua’s surgery and human cost of football",
+      "body_text": "Rams QB Matthew Stafford reacts emotionally to Puka Nacua's season-ending surgery, opening up about his own injuries and the difficult choices athletes face.",
+      "author": "",
+      "published_at": "2026-11-22T02:43:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c8145e5c-b57a-30d4-8d65-fb1e3e04e0bf",
+      "url": "https://sports.yahoo.com/articles/puka-nacua-injury-report-devastating-024157103.html",
+      "title": "Puka Nacua injury report is devastating news for Rams",
+      "body_text": "Rams wide receiver Puka Nacua is expected to miss the rest of the season, according to ESPN.",
+      "author": "",
+      "published_at": "2026-11-22T02:41:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Puka Nacua",
+        "Rams Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "616df393-9f93-358a-bb41-ede606c77564",
+      "url": "https://sports.yahoo.com/articles/knee-surgery-complicates-puka-nacuas-023708964.html",
+      "title": "Knee surgery complicates Puka Nacua's future",
+      "body_text": "Timeline for recovery make mean he won't be 100 percent before free agency.",
+      "author": "",
+      "published_at": "2026-11-22T02:37:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "433f5bae-2cc1-395c-82e4-a0e9cdb07651",
+      "url": "https://sports.yahoo.com/articles/surprising-number-titans-fans-think-022700617.html",
+      "title": "A surprising number of Titans fans think they will beat the Cowboys",
+      "body_text": "Can the Titans get their second win of the season tomorrow?",
+      "author": "",
+      "published_at": "2026-11-22T02:27:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cowboys Can"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "687ba952-8495-4699-82a5-5808032e83e0",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/rams-wr-puka-nacua-reportedly-out-4-5-months-following-knee-surgery-will-be-sidelined-for-playoffs-022252192.html",
+      "title": "Rams WR Puka Nacua reportedly out 4-5 months following knee surgery, will be sidelined for playoffs",
+      "body_text": "Even if Sean McVay's team finds its way into the postseason, it won't have its top receiver, according to an ESPN report.",
+      "author": "Andy Backstrom",
+      "published_at": "2026-11-22T02:22:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "4e66af43-de42-38e7-83eb-95e7da46a760",
+      "url": "https://sports.yahoo.com/articles/matthew-stafford-glad-puka-nacua-021616584.html",
+      "title": "Matthew Stafford glad Puka Nacua is protecting his long-term health",
+      "body_text": "Rams quarterback Matthew Stafford is glad Puka Nacua is paying attention to his health after all the wide receiver has done for the Rams.",
+      "author": "",
+      "published_at": "2026-11-22T02:16:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matthew Stafford",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0026498",
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    }
+  ]
+}
