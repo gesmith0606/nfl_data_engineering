@@ -71,6 +71,23 @@ jobs:
         run: pip install -r requirements.txt
 
       # ----------------------------------------------------------------
+      # 3b. Resolve the season ONCE for every step below. `$(date +%Y)` was
+      # wrong for January: weeks 17-18 and the playoffs of season N are
+      # played in N+1, so the roster board / injury partition would have
+      # targeted a season that has no games yet. The resolver reads the
+      # committed schedule parquet; `refresh_season` ignores dispatch inputs
+      # (a sentiment backfill season has no preseason board to correct,
+      # Phase 69-01) and flips to the new season only from March.
+      # ----------------------------------------------------------------
+      - name: Resolve season
+        id: resolve
+        env:
+          INPUT_SEASON: ${{ inputs.season }}
+          INPUT_WEEK: ${{ inputs.week }}
+          PIPELINE_WEEK_OVERRIDE: ${{ vars.PIPELINE_WEEK_OVERRIDE }}
+        run: python scripts/resolve_pipeline_week.py
+
+      # ----------------------------------------------------------------
       # 4. Run pipeline
       # ANTHROPIC_API_KEY is OPTIONAL per D-06 (phase 61 CONTEXT):
       # - Missing key = rule-based extraction only (model path uses rule signals).
@@ -103,12 +120,13 @@ jobs:
           # to RuleExtractor still kicks in if Claude calls error mid-run,
           # so this env var alone never hard-fails the daily cron.
           EXTRACTOR_MODE: ${{ (vars.ENABLE_LLM_ENRICHMENT == 'true') && 'claude_primary' || '' }}
-          INPUT_SEASON: ${{ inputs.season }}
-          INPUT_WEEK: ${{ inputs.week }}
+          # Same resolver output as every other step (dispatch inputs win).
+          RESOLVED_SEASON: ${{ steps.resolve.outputs.season }}
+          RESOLVED_WEEK: ${{ steps.resolve.outputs.week }}
         run: |
           python scripts/daily_sentiment_pipeline.py \
-            ${INPUT_SEASON:+--season "$INPUT_SEASON"} \
-            ${INPUT_WEEK:+--week "$INPUT_WEEK"} \
+            --season "$RESOLVED_SEASON" \
+            --week "$RESOLVED_WEEK" \
             --verbose
 
       # ----------------------------------------------------------------
@@ -138,6 +156,7 @@ jobs:
       - name: Refresh rosters from Sleeper
         env:
           SLEEPER_API_UNREACHABLE: ${{ vars.SLEEPER_API_UNREACHABLE || 'false' }}
+          REFRESH_SEASON: ${{ steps.resolve.outputs.refresh_season }}
         run: |
           # Roster refresh always targets the CURRENT preseason year,
           # independent of sentiment-backfill `inputs.season`. A historical
@@ -145,7 +164,7 @@ jobs:
           # to apply corrections to, which crashed the step (Phase 69-01).
           # TD-03 (Phase 75): replace hardcoded 2026 with auto-detected current year.
           python scripts/refresh_rosters.py \
-            --season $(date +%Y)
+            --season "$REFRESH_SEASON"
 
       # ----------------------------------------------------------------
       # 5b. Refresh external rankings caches (Sleeper / FantasyPros /
@@ -160,8 +179,10 @@ jobs:
       #     his FP weekly ranks once the season starts.
       # ----------------------------------------------------------------
       - name: Refresh external rankings caches
+        env:
+          REFRESH_SEASON: ${{ steps.resolve.outputs.refresh_season }}
         run: |
-          python scripts/refresh_external_rankings.py --season $(date +%Y) \
+          python scripts/refresh_external_rankings.py --season "$REFRESH_SEASON" \
             || echo "::warning::External rankings refresh failed — website will serve existing caches"
 
       # ----------------------------------------------------------------
@@ -179,8 +200,9 @@ jobs:
       #     Fail-open: an unpublished season or nflverse blip only warns.
       # ----------------------------------------------------------------
       - name: Refresh official injury report (nflverse)
+        env:
+          SEASON: ${{ steps.resolve.outputs.refresh_season }}
         run: |
-          SEASON=$(date +%Y)
           python scripts/bronze_ingestion_simple.py --season "$SEASON" --data-type injuries \
             || echo "::warning::injury report ingest failed for $SEASON — lineup/waiver tools fall back to Sleeper tags"
           SEASON="$SEASON" python - <<'PY'

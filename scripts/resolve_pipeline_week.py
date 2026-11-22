@@ -120,6 +120,23 @@ def resolve_target_week(
     return season, week, "calendar"
 
 
+def refresh_season(today: Optional[dt.date] = None, root: Path = SCHEDULES_ROOT) -> int:
+    """Season that roster / rankings / injury refreshes should target today.
+
+    Ignores dispatch inputs and the override variable on purpose: those steps
+    always want the live season, never a sentiment-backfill season.  In-season
+    (including the January weeks 17-18 and playoffs) this is the schedule's
+    season; once every regular-season game is played (offseason) it switches to
+    the new season from March on (Jan-Feb still belong to the season that just
+    ended) - the same rule as weekly-reference-refresh.yml.
+    """
+    today = today or dt.date.today()
+    season, _, source = resolve_target_week(today, root)
+    if source == "schedule-final":
+        return today.year if today.month >= 3 else today.year - 1
+    return season
+
+
 def main() -> int:
     input_season = os.environ.get("INPUT_SEASON", "").strip()
     input_week = os.environ.get("INPUT_WEEK", "").strip()
@@ -148,12 +165,15 @@ def main() -> int:
                 "already played) — offseason=true, projection generation is skipped"
             )
 
+    refresh = refresh_season(dt.date.today(), SCHEDULES_ROOT)
     github_output = os.environ.get("GITHUB_OUTPUT", "")
     if github_output:
         with open(github_output, "a", encoding="utf-8") as fh:
             fh.write(
                 f"season={season}\nweek={week}\noffseason={str(offseason).lower()}\n"
+                f"refresh_season={refresh}\n"
             )
+    print(f"refresh_season={refresh}")
     print(f"season={season}")
     print(f"week={week}")
     print(f"offseason={str(offseason).lower()}")

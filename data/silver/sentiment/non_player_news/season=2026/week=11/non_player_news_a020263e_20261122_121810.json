@@ -1,0 +1,273 @@
+{
+  "batch_id": "a020263e",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-22T12:18:10.227731+00:00",
+  "record_count": 24,
+  "records": [
+    {
+      "doc_id": "1db26d0b-db5d-37c4-92cd-f3d728c26025",
+      "external_id": "1db26d0b-db5d-37c4-92cd-f3d728c26025",
+      "team_abbr": "LAR",
+      "summary": "Rams tied for second in NFC West with three straight wins entering Week 11.",
+      "sentiment": 0.5,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Los Angeles Rams are tied for second place in the NFC West entering Week 11 and are fresh off three straight wins.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "02782e77-b57e-3eec-b920-784db910b65b",
+      "external_id": "02782e77-b57e-3eec-b920-784db910b65b",
+      "team_abbr": "BAL",
+      "summary": "Ravens vs. Panthers Week 11 matchup logistics and viewing information.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Here's how to watch, stream, and listen to Ravens vs. Panthers on Sunday afternoon!",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "02782e77-b57e-3eec-b920-784db910b65b",
+      "external_id": "02782e77-b57e-3eec-b920-784db910b65b",
+      "team_abbr": "CAR",
+      "summary": "Ravens vs. Panthers Week 11 matchup logistics and viewing information.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Here's how to watch, stream, and listen to Ravens vs. Panthers on Sunday afternoon!",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "07a55f7f-fa80-3043-8478-a0b13c0bdfb9",
+      "external_id": "07a55f7f-fa80-3043-8478-a0b13c0bdfb9",
+      "team_abbr": "NYJ",
+      "summary": "Jets vs. Chargers Week 11 preview and matchup analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "An inside look at Sunday's Jets-Chargers matchup in San Diego:",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "07a55f7f-fa80-3043-8478-a0b13c0bdfb9",
+      "external_id": "07a55f7f-fa80-3043-8478-a0b13c0bdfb9",
+      "team_abbr": "LAC",
+      "summary": "Jets vs. Chargers Week 11 preview and matchup analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "An inside look at Sunday's Jets-Chargers matchup in San Diego:",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "15378ce5-7cf9-39d7-8eab-fa48c5d4bad2",
+      "external_id": "15378ce5-7cf9-39d7-8eab-fa48c5d4bad2",
+      "team_abbr": "CAR",
+      "summary": "Panthers face critical playoff implications in Week 11 contest.",
+      "sentiment": -0.3,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Do the Carolina Panthers have to win today to have any shot at making the playoffs?",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "325a1172-b895-3294-bb58-5474d37578c3",
+      "external_id": "325a1172-b895-3294-bb58-5474d37578c3",
+      "team_abbr": "TB",
+      "summary": "Buccaneers vs. Lions Week 11 expert predictions and analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Tampa Bay Buccaneers vs. Detroit Lions NFL Week 11 expert picks from the Pride of Detroit staff.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "325a1172-b895-3294-bb58-5474d37578c3",
+      "external_id": "325a1172-b895-3294-bb58-5474d37578c3",
+      "team_abbr": "DET",
+      "summary": "Buccaneers vs. Lions Week 11 expert predictions and analysis.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Tampa Bay Buccaneers vs. Detroit Lions NFL Week 11 expert picks from the Pride of Detroit staff.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "5f22d910-2c15-3ee0-8fd9-53e97638d171",
+      "external_id": "5f22d910-2c15-3ee0-8fd9-53e97638d171",
+      "team_abbr": "HOU",
+      "summary": "Post-Texans Sunday NFL schedule and viewing guide.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Wanna watch a non-Texans game? We can help you with that.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "762ca9c8-dbf9-382e-863b-67627854a198",
+      "external_id": "762ca9c8-dbf9-382e-863b-67627854a198",
+      "team_abbr": "NYG",
+      "summary": "John Harbaugh questions on seizing playoff opportunity as Giants prepare for critical matchup.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Most Giants' key playrs have not been in this position before.",
+      "subject_type": "coach"
+    },
+    {
+      "doc_id": "8086d59e-6c01-3d20-bdcb-823b78cb5f3b",
+      "external_id": "8086d59e-6c01-3d20-bdcb-823b78cb5f3b",
+      "team_abbr": "JAX",
+      "summary": "Jaguars vs. Giants Week 11 viewing information and schedule details.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Game time, TV/radio schedule, betting odds, and more for Jaguars vs. Giants in Week 11.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "8086d59e-6c01-3d20-bdcb-823b78cb5f3b",
+      "external_id": "8086d59e-6c01-3d20-bdcb-823b78cb5f3b",
+      "team_abbr": "NYG",
+      "summary": "Jaguars vs. Giants Week 11 viewing information and schedule details.",
+      "sentiment": 0.0,
+      "confidence": 0.0,
+      "category": "general",
+      "source_excerpt": "Game time, TV/radio schedule, betting odds, and more for Jaguars vs. Giants in Week 11.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b239e41a-ee34-338b-af01-7e5b3201c5d0",
+      "external_id": "b239e41a-ee34-338b-af01-7e5b3201c5d0",
+      "team_abbr": "NYJ",
+      "summary": "Jets face Chargers in Week 11 seeking third win of season.",
+      "sentiment": 0.0,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Jets look for third win against Chargers in Week 11 action",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "beca67e6-1499-360c-adc2-54460a5c43ef",
+      "external_id": "beca67e6-1499-360c-adc2-54460a5c43ef",
+      "team_abbr": "DEN",
+      "summary": "Broncos host Raiders in Week 11 after losing AFC West lead during bye week.",
+      "sentiment": 0.1,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "Denver Broncos took first place in the AFC West from Kansas City Chiefs, but they took it back while Denver was relaxing on their bye week.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "ffaaf328-94bc-3b6f-976f-6de1a1b68efc",
+      "external_id": "ffaaf328-94bc-3b6f-976f-6de1a1b68efc",
+      "team_abbr": "PIT",
+      "summary": "Steelers play Eagles; broadcast information provided.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "How to watch Pittsburgh Steelers vs. Philadelphia Eagles.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "09ecbc24-954a-3f2f-a3cb-289a6bce15f1",
+      "external_id": "09ecbc24-954a-3f2f-a3cb-289a6bce15f1",
+      "team_abbr": "CIN",
+      "summary": "Bengals monitoring multiple Sunday games for playoff seeding implications.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Cincinnati has their eyes on a number of games on Sunday for playoff seeding purposes.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "77af81b6-cf55-4ef9-98a1-05ee7497bdcb",
+      "external_id": "77af81b6-cf55-4ef9-98a1-05ee7497bdcb",
+      "team_abbr": "JAX",
+      "summary": "Jaguars face Giants; viewing information provided.",
+      "sentiment": 0.0,
+      "confidence": 0.3,
+      "category": "general",
+      "source_excerpt": "Find out how to watch the Jaguars vs. Giants game this week.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1332b92d-46e7-398a-ac6a-ddfdd9e9698a",
+      "external_id": "1332b92d-46e7-398a-ac6a-ddfdd9e9698a",
+      "team_abbr": "CIN",
+      "summary": "Bengals defense showing Super Bowl-caliber performance this season.",
+      "sentiment": 0.7,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Bengals defense is playing at a level that can lead this team to a Super Bowl championship.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "afa8e93a-e849-41ad-a953-538281977e01",
+      "external_id": "afa8e93a-e849-41ad-a953-538281977e01",
+      "team_abbr": "TB",
+      "summary": "Buccaneers vs. Lions Week 11 game broadcast details provided.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "How to watch the Green Bay Packers vs. New England Patriots game this Sunday.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "b586ccae-79e0-3b71-995e-4d4d96b6b746",
+      "external_id": "b586ccae-79e0-3b71-995e-4d4d96b6b746",
+      "team_abbr": "CLE",
+      "summary": "General Cleveland Browns news roundup from November 22.",
+      "sentiment": 0.0,
+      "confidence": 0.1,
+      "category": "general",
+      "source_excerpt": "The latest Cleveland Browns news and notes from around the NFL in the November 22 edition of the Sunday Dawg Chow.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "1a14e907-6cfd-3fc4-a123-5bed1f9d7190",
+      "external_id": "1a14e907-6cfd-3fc4-a123-5bed1f9d7190",
+      "team_abbr": "MIN",
+      "summary": "Vikings-49ers game highlighted as significant for NFC playoff race in Week 11.",
+      "sentiment": 0.0,
+      "confidence": 0.2,
+      "category": "general",
+      "source_excerpt": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "0547dd77-0ed4-3546-a05e-b0158f68cb6a",
+      "external_id": "0547dd77-0ed4-3546-a05e-b0158f68cb6a",
+      "team_abbr": "BAL",
+      "summary": "Ravens face Panthers in Week 11 looking to end five-game losing streak.",
+      "sentiment": -0.6,
+      "confidence": 0.7,
+      "category": "general",
+      "source_excerpt": "The Baltimore Ravens will face the Carolina Panthers on the road in Week 11, looking to snap a five-game losing streak and keep their slim hopes of a late-season turnaround alive.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "632b2953-d0c2-3a6d-95e5-49155d636af0",
+      "external_id": "632b2953-d0c2-3a6d-95e5-49155d636af0",
+      "team_abbr": "PIT",
+      "summary": "Steelers came out flat following bye week despite playoff opportunity against Eagles.",
+      "sentiment": -0.5,
+      "confidence": 0.6,
+      "category": "general",
+      "source_excerpt": "The Steelers came out flat last week despite coming off their bye week. In a primetime spot with the chance to take a first-place lead in the division, the Steelers punted on four of their first five drives.",
+      "subject_type": "team"
+    },
+    {
+      "doc_id": "433f5bae-2cc1-395c-82e4-a0e9cdb07651",
+      "external_id": "433f5bae-2cc1-395c-82e4-a0e9cdb07651",
+      "team_abbr": "TEN",
+      "summary": "Some Titans fans optimistic about achieving second win against Cowboys.",
+      "sentiment": -0.3,
+      "confidence": 0.5,
+      "category": "general",
+      "source_excerpt": "Can the Titans get their second win of the season tomorrow?",
+      "subject_type": "team"
+    }
+  ]
+}

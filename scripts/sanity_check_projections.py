@@ -1237,7 +1237,35 @@ def _check_projection_distribution(
     return criticals, warnings
 
 
-def run_sanity_check(scoring: str, season: int) -> int:
+def _emit_roster_drift_ci_report(drift_warnings: List[str], mode: str) -> None:
+    """Surface non-blocking roster drift to GitHub Actions.
+
+    Emits one ``::warning::`` per drifted player, appends a remediation note to
+    ``$GITHUB_STEP_SUMMARY`` and writes ``roster_drift_count`` to
+    ``$GITHUB_OUTPUT`` when those env vars exist. No-op outside warn mode.
+    """
+    if mode != "warn":
+        return
+    drifted = [w for w in drift_warnings if w.startswith("ROSTER DRIFT (non-blocking)")]
+    for w in drifted:
+        print(f"::warning::{w}")
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary and drifted:
+        with open(summary, "a") as fh:
+            fh.write("### Roster drift (non-blocking)\n")
+            for w in drifted:
+                fh.write(f"- {w}\n")
+            fh.write(
+                "\nThe deploy proceeded. To clear it, run the `daily-sentiment` "
+                "workflow: its roster refresh rewrites the board from Sleeper.\n"
+            )
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:
+        with open(out, "a") as fh:
+            fh.write(f"roster_drift_count={len(drifted)}\n")
+
+
+def run_sanity_check(scoring: str, season: int, roster_drift: str = "critical") -> int:
     """Run the full sanity check and print report. Returns exit code."""
     print("=" * 70)
     print(f"  NFL Projection Sanity Check — {scoring.upper()}, Season {season}")
@@ -1700,9 +1728,18 @@ def run_sanity_check(scoring: str, season: int) -> int:
     print("  DQAL-03 CARRY-OVER ASSERTIONS")
     print("-" * 70)
 
-    drift_crit, drift_warn = _check_roster_drift_top50(scoring, season)
+    # Everything appended from here on happens AFTER the CRITICAL ISSUES /
+    # WARNINGS sections and the SUMMARY counts were printed, so it is
+    # re-listed in a recap before RESULT (the 2026-11-21 deploy log said
+    # "1 mismatches" and "Critical issues: 0" without ever naming the player).
+    n_criticals_printed, n_warnings_printed = len(criticals), len(warnings)
+
+    drift_crit, drift_warn = _check_roster_drift_top50(
+        scoring, season, drift_mode=roster_drift
+    )
     criticals.extend(drift_crit)
     warnings.extend(drift_warn)
+    drift_warnings = list(drift_warn)
 
     key_crit, key_warn = _assert_api_key_when_enrichment_enabled()
     criticals.extend(key_crit)
@@ -1757,6 +1794,18 @@ def run_sanity_check(scoring: str, season: int) -> int:
     dist_crit, dist_warn = _check_projection_distribution(scoring, season)
     criticals.extend(dist_crit)
     warnings.extend(dist_warn)
+
+    late_crit = criticals[n_criticals_printed:]
+    late_warn = warnings[n_warnings_printed:]
+    if late_crit or late_warn:
+        print("\n" + "-" * 70)
+        print("  CHECKS RUN AFTER THE SUMMARY (not counted above)")
+        print("-" * 70)
+        for c in late_crit:
+            print(f"  [CRITICAL] {c}")
+        for w in late_warn:
+            print(f"  [WARNING]  {w}")
+    _emit_roster_drift_ci_report(drift_warnings, roster_drift)
 
     # Return code
     if criticals:
@@ -2243,7 +2292,17 @@ def _fetch_sleeper_canonical_cached() -> Tuple[Dict[str, Dict], Optional[str]]:
     return players, None
 
 
-def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], List[str]]:
+# deploy-web runs roster drift in "warn" mode: one transaction between the daily
+# roster refresh and a deploy must not block a code fix. More than this many of
+# the top 50 mismatching signals a broken board, not one transaction, and stays
+# critical even in warn mode.
+ROSTER_DRIFT_MASS_THRESHOLD = 5
+ROSTER_DRIFT_MODES = ("critical", "warn")
+
+
+def _check_roster_drift_top50(
+    scoring: str, season: int, drift_mode: str = "critical"
+) -> Tuple[List[str], List[str]]:
     """SANITY-05: top-50 PPR players' teams must match Sleeper canonical.
 
     For each of the top-50 players in latest Gold projections (by
@@ -2263,10 +2322,17 @@ def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], Lis
         scoring: Scoring format passed to ``_load_our_projections`` (e.g.
             ``"half_ppr"``).
         season: Target season year for Gold projection lookup.
+        drift_mode: ``"critical"`` (default) reports every mismatch as a
+            CRITICAL. ``"warn"`` reports up to ``ROSTER_DRIFT_MASS_THRESHOLD``
+            mismatches as WARNINGs (the board is refreshed by the daily roster
+            refresh, not by withholding a code deploy); more than that stays
+            CRITICAL.
 
     Returns:
         ``(criticals, warnings)`` — both lists of human-readable messages.
     """
+    if drift_mode not in ROSTER_DRIFT_MODES:
+        raise ValueError(f"drift_mode must be one of {ROSTER_DRIFT_MODES}")
     criticals: List[str] = []
     warnings: List[str] = []
     try:
@@ -2379,6 +2445,25 @@ def _check_roster_drift_top50(scoring: str, season: int) -> Tuple[List[str], Lis
             f"  [FAIL] Roster drift vs Sleeper canonical  "
             f"({len(criticals)} mismatches)"
         )
+        for msg in criticals:
+            print(f"         {msg}")
+    if drift_mode == "warn" and criticals:
+        if len(criticals) > ROSTER_DRIFT_MASS_THRESHOLD:
+            criticals.append(
+                f"ROSTER DRIFT MASS: {len(criticals)} of the top 50 mismatch "
+                f"Sleeper (> {ROSTER_DRIFT_MASS_THRESHOLD}) — the board looks "
+                f"broken, not just one transaction behind"
+            )
+        else:
+            warnings.extend(
+                m.replace("ROSTER DRIFT:", "ROSTER DRIFT (non-blocking):", 1)
+                for m in criticals
+            )
+            criticals = []
+            print(
+                f"  [WARN] roster drift downgraded to warning "
+                f"(<= {ROSTER_DRIFT_MASS_THRESHOLD}; --roster-drift warn)"
+            )
     return criticals, warnings
 
 
@@ -3886,6 +3971,14 @@ def main() -> int:
         default=DEFAULT_LIVE_FRONTEND,
         help=f"Deployed frontend URL (default: {DEFAULT_LIVE_FRONTEND})",
     )
+    parser.add_argument(
+        "--roster-drift",
+        choices=list(ROSTER_DRIFT_MODES),
+        default="critical",
+        help="critical (default): any top-50 team mismatch vs Sleeper fails. "
+        "warn: report up to %d mismatches as warnings (more stays critical)."
+        % ROSTER_DRIFT_MASS_THRESHOLD,
+    )
     args = parser.parse_args()
 
     run_projections = (
@@ -3940,7 +4033,9 @@ def main() -> int:
 
     # --- Projection checks ---
     if run_projections:
-        projection_exit = run_sanity_check(args.scoring, args.season)
+        projection_exit = run_sanity_check(
+            args.scoring, args.season, roster_drift=args.roster_drift
+        )
 
     # --- Weekly projection checks (the partition the website serves) ---
     if run_weekly:

@@ -1,0 +1,27 @@
+{
+  "batch_id": "a020263e",
+  "season": 2026,
+  "week": 11,
+  "computed_at": "2026-11-22T12:18:10.234317+00:00",
+  "record_count": 2,
+  "records": [
+    {
+      "doc_id": "d24384ff-9d5a-48d0-abe9-510e4e378d61",
+      "player_name": "Fernando Mendoza",
+      "team_abbr": "LV",
+      "category": "general",
+      "summary": "Week 11 betting picks mention Raiders facing tough task.",
+      "source_excerpt": "Need some last-minute advice on how to bet the Week 11 slate? Allow us to be of assistance",
+      "extractor": "claude_primary"
+    },
+    {
+      "doc_id": "5da126eb-b9a4-3615-92a0-1f9b937cd099",
+      "player_name": "Max Iheanachor",
+      "team_abbr": "PIT",
+      "category": "general",
+      "summary": "Steelers' Max Iheanachor featured in matchup against Eagles' Makai Lemon.",
+      "source_excerpt": "Pittsburgh will also be hoping to get receivers Michael Pittman Jr. and Roman Wilson back in the lineup after injuries slowed them in the first half of the season.",
+      "extractor": "claude_primary"
+    }
+  ]
+}

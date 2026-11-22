@@ -1,0 +1,110 @@
+{
+  "fetch_run_id": "1c247a64-4ff5-4cf8-8a7f-b5dacd81099d",
+  "source": "rotowire",
+  "fetched_at": "2026-11-22T12:14:38.820271+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl649027",
+      "url": "https://www.rotowire.com//football/player/puka-nacua-16790",
+      "permalink": "",
+      "title": "Puka Nacua: Out even for playoffs",
+      "body_text": "Nacua (knee) is expected to be sidelined 4-to-5 months after undergoing MCL surgery, which means he likely won't be able to return to action even if the Rams advance to the Super Bowl, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-21T05:26:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Puka Nacua",
+        "Super Bowl",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0039075"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "nfl648990",
+      "url": "https://www.rotowire.com//football/player/jacory-croskey-merritt-18811",
+      "permalink": "",
+      "title": "Jacory Croskey-Merritt: Expected to return for MNF",
+      "body_text": "Croskey-Merritt (groin) is slated to be activated from IR in time to play in Monday's game against the Bengals, Matt Zenitz of CBS Sports reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-21T03:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jacory Croskey",
+        "Matt Zenitz"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "nfl648989",
+      "url": "https://www.rotowire.com//football/player/kyren-williams-15807",
+      "permalink": "",
+      "title": "Kyren Williams: Dealing with sore toe",
+      "body_text": "Head coach Sean McVay said Saturday that Williams is tending to a sore toe but is expected to play Wednesday against the Packers, Sarah Barshop of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-21T01:56:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyren Williams",
+        "Sarah Barshop"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl648986",
+      "url": "https://www.rotowire.com//football/player/joe-burrow-14442",
+      "permalink": "",
+      "title": "Joe Burrow: Officially cleared for Monday Night Football",
+      "body_text": "Burrow (illness) does not have an injury designation ahead of Monday's game against the Commanders. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-21T01:31:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Burrow",
+        "Monday Night",
+        "Football Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "nfl648983",
+      "url": "https://www.rotowire.com//football/player/rachaad-white-15802",
+      "permalink": "",
+      "title": "Rachaad White: Questionable for Monday",
+      "body_text": "White (heel) is listed as questionable for Monday's game versus the Bengals. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-21T01:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "Monday White"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "CIN"
+    }
+  ]
+}
