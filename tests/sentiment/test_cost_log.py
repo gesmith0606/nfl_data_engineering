@@ -221,3 +221,20 @@ def test_running_total_respects_base_dir_override(tmp_path) -> None:
 
     assert log_a.running_total_usd(2025, 17) == pytest.approx(0.05)
     assert log_b.running_total_usd(2025, 17) == 0.0
+
+
+def test_default_ledger_is_redirected_under_pytest(tmp_path, monkeypatch) -> None:
+    """The suite-wide fixture must keep CostLog() out of the repo's ledger."""
+    from src.sentiment.processing import cost_log as cl
+
+    assert cl.CostLog().base_dir != cl._DEFAULT_BASE_DIR
+    assert cl._PROJECT_ROOT not in cl.CostLog().base_dir.parents
+
+    monkeypatch.setenv(cl.COST_LOG_DIR_ENV, str(tmp_path))
+    assert cl.CostLog().base_dir == tmp_path
+
+    # Unset -> the production default; an explicit base_dir always wins.
+    monkeypatch.delenv(cl.COST_LOG_DIR_ENV)
+    assert cl.CostLog().base_dir == cl._DEFAULT_BASE_DIR
+    monkeypatch.setenv(cl.COST_LOG_DIR_ENV, "/nonexistent")
+    assert cl.CostLog(base_dir=tmp_path).base_dir == tmp_path
