@@ -26,6 +26,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { nflSeasonYear } from '@/lib/nfl/season';
 import { parseAsInteger, useQueryStates } from 'nuqs';
 
 import {
@@ -59,7 +60,7 @@ export interface UseWeekParamsResult {
   dataAsOf: string | null;
 }
 
-const DEFAULT_FALLBACK_SEASON = new Date().getFullYear();
+const DEFAULT_FALLBACK_SEASON = nflSeasonYear();
 const DEFAULT_FALLBACK_WEEK = 1;
 
 export function useWeekParams(

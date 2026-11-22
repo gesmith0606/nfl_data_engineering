@@ -30,7 +30,12 @@ import pandas as pd
 # same convention game_service.py uses for game_archive.
 from game_archive import get_player_game_log
 
-from ..config import DATA_DIR, GOLD_PROJECTIONS_DIR, WEEKLY_STALENESS_THRESHOLD_DAYS
+from ..config import (
+    DATA_DIR,
+    GOLD_PROJECTIONS_DIR,
+    WEEKLY_STALENESS_THRESHOLD_DAYS,
+    current_nfl_season,
+)
 from ..db import get_connection, is_db_enabled
 
 logger = logging.getLogger(__name__)
@@ -171,8 +176,12 @@ def _should_apply_fallback(season: int) -> bool:
     Only current and future seasons warrant a freshness check.  Historical
     seasons have intentionally frozen data — treating them as stale would
     incorrectly return preseason projections in place of valid backtest data.
+
+    "Current" is the NFL season, not the calendar year: in January the season
+    that started the previous autumn is still being played (weeks 17-18 and
+    the playoffs), and must keep its freshness protection.
     """
-    return season >= datetime.now(tz=timezone.utc).year
+    return season >= current_nfl_season()
 
 
 class ProjectionsNotPublished(FileNotFoundError):

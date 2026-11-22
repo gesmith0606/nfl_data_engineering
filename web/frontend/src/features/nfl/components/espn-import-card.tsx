@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { nflSeasonYear } from '@/lib/nfl/season';
 import { importEspnLeague } from '@/lib/nfl/api';
 import type { EspnImportResponse, EspnTeam } from '@/lib/nfl/types';
 import { Input } from '@/components/ui/input';
@@ -51,7 +52,7 @@ const teamColumns: BroadcastColumn<EspnTeam>[] = [
  *  Cookies are sent straight to the one ESPN call and never stored. */
 export function EspnImportCard() {
   const [leagueId, setLeagueId] = useState('');
-  const [season, setSeason] = useState(String(new Date().getFullYear()));
+  const [season, setSeason] = useState(String(nflSeasonYear()));
   const [espnS2, setEspnS2] = useState('');
   const [swid, setSwid] = useState('');
   const [showPrivate, setShowPrivate] = useState(false);
