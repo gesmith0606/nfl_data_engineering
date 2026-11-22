@@ -14,7 +14,6 @@ import logging
 import math
 import os
 import time
-from datetime import datetime, timezone
 from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
 
 import pandas as pd
@@ -494,7 +493,15 @@ def _require_user_roster(
 
 
 def _current_year() -> int:
-    return datetime.now(timezone.utc).year
+    """Default season for league lookups: the NFL season, not the calendar year.
+
+    In January-February a user's leagues for the season that started last
+    autumn are still live (playoffs); the calendar year would look up next
+    season's leagues, which do not exist yet.
+    """
+    from ..config import current_nfl_season
+
+    return current_nfl_season()
 
 
 def _to_user(payload: Any) -> Optional[SleeperUser]:

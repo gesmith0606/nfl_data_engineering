@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { nflSeasonYear } from '@/lib/nfl/season';
 import { useQuery } from '@tanstack/react-query';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -125,7 +126,7 @@ function PicksHeading() {
  * unavailable or there are no games yet (offseason) so the page never breaks.
  */
 export function ModelsPicks() {
-  const probeSeason = new Date().getFullYear();
+  const probeSeason = nflSeasonYear();
 
   const weekQuery = useQuery({
     queryKey: ['models-picks', 'latest-week', probeSeason],

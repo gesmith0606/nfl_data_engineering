@@ -19,6 +19,7 @@
  */
 
 import { useCallback, useEffect, useState } from 'react';
+import { nflSeasonYear } from '@/lib/nfl/season';
 import type { ReactNode } from 'react';
 import {
   fetchLeagueDraftPrep,
@@ -589,7 +590,7 @@ function LeagueHome({
     setLoading(true);
     setError(null);
 
-    const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
+    const seasonYear = parseInt(league.season, 10) || nflSeasonYear();
 
     Promise.all([
       fetchLeagueRosterReport(league.league_id, league.user_id, seasonYear),
@@ -833,7 +834,7 @@ function MyWeekView({
     let cancelled = false;
     setLoading(true);
     setError(null);
-    const seasonYear = parseInt(league.season, 10) || new Date().getFullYear();
+    const seasonYear = parseInt(league.season, 10) || nflSeasonYear();
     fetchLeagueMyWeek(league.league_id, league.user_id, seasonYear, week)
       .then((d) => {
         if (!cancelled) setData(d);

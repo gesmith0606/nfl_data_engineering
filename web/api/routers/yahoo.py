@@ -198,13 +198,13 @@ def _require_connected() -> YahooOAuth:
 
 @router.get("/leagues", response_model=List[YahooLeague], dependencies=[Depends(require_owner)])
 def yahoo_leagues(
-    season: Optional[int] = Query(None, description="Season (default: current year)"),
+    season: Optional[int] = Query(None, description="Season (default: current NFL season)"),
 ) -> List[YahooLeague]:
     """NFL leagues for the connected Yahoo account."""
-    from datetime import datetime, timezone
+    from ..config import current_nfl_season
 
     oauth = _require_connected()
-    use_season = season or datetime.now(timezone.utc).year
+    use_season = season or current_nfl_season()
     candidates = _user_league_candidates(str(use_season), oauth)
     return [
         YahooLeague(

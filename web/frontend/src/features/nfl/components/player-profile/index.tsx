@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/EmptyState';
 import { Icons } from '@/components/icons';
 import { FadeIn } from '@/lib/motion-primitives';
-import { toolSeason } from '@/lib/nfl/season';
+import { nflSeasonYear, toolSeason } from '@/lib/nfl/season';
 import type { RosPlayer } from '@/lib/nfl/types';
 import {
   currentWeekQueryOptions,
@@ -42,7 +42,7 @@ const SCORING = 'half_ppr' as const;
  */
 export function PlayerProfile({ playerId }: PlayerProfileProps) {
   const { data: cw } = useQuery(currentWeekQueryOptions());
-  const season = cw?.season ?? new Date().getFullYear();
+  const season = cw?.season ?? nflSeasonYear();
   const week = cw?.week ?? 1;
 
   const {
