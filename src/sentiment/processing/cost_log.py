@@ -30,6 +30,7 @@ Design guarantees
 from __future__ import annotations
 
 import logging
+import os
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -58,6 +59,17 @@ HAIKU_4_5_RATES = {
 # ``src/sentiment/processing/cost_log.py`` ⇒ 4 parents = repo root.
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _DEFAULT_BASE_DIR = _PROJECT_ROOT / "data" / "ops" / "llm_costs"
+
+# Overrides the default ledger directory. The test suite sets it (see
+# tests/conftest.py) so a pipeline built without an explicit ``cost_log``
+# cannot write fake records into the tracked production ledger.
+COST_LOG_DIR_ENV = "LLM_COST_LOG_DIR"
+
+
+def default_base_dir() -> Path:
+    """Ledger root: ``$LLM_COST_LOG_DIR`` when set, else ``data/ops/llm_costs``."""
+    override = os.environ.get(COST_LOG_DIR_ENV)
+    return Path(override) if override else _DEFAULT_BASE_DIR
 
 
 # ---------------------------------------------------------------------------
@@ -161,10 +173,12 @@ class CostLog:
 
         Args:
             base_dir: Directory that holds the ``season=YYYY/week=WW/``
-                partitions. Defaults to ``data/ops/llm_costs/`` under the
-                project root.
+                partitions. Defaults to ``$LLM_COST_LOG_DIR`` when set, else
+                ``data/ops/llm_costs/`` under the project root.
         """
-        self.base_dir = Path(base_dir) if base_dir is not None else _DEFAULT_BASE_DIR
+        self.base_dir = (
+            Path(base_dir) if base_dir is not None else default_base_dir()
+        )
 
     # ------------------------------------------------------------------
     # Helpers
