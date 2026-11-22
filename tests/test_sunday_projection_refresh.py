@@ -547,3 +547,103 @@ class TestRoundTripWorkflow(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestFillZeroedLivePlayers(unittest.TestCase):
+    """A player cleared from Out on Sunday must not stay at 0.0 (2026 w11)."""
+
+    def _board(self):
+        return pd.DataFrame(
+            {
+                "player_id": ["te1", "te2", "wr1", "wr2", "rb1", "k1"],
+                "player_name": [
+                    "B.Star",
+                    "A.Healthy",
+                    "O.Out",
+                    "B.Bye",
+                    "N.Nocons",
+                    "K.Kick",
+                ],
+                "position": ["TE", "TE", "WR", "WR", "RB", "K"],
+                "projected_points": [0.0, 11.0, 0.0, 0.0, 0.0, 0.0],
+                "projected_floor": [0.0, 6.0, 0.0, 0.0, 0.0, 0.0],
+                "projected_ceiling": [0.0, 16.0, 0.0, 0.0, 0.0, 0.0],
+                "injury_status": [
+                    "Questionable",
+                    "Active",
+                    "Out",
+                    "Active",
+                    "Active",
+                    "Active",
+                ],
+                "injury_multiplier": [0.85, 1.0, 0.0, 1.0, 1.0, 1.0],
+                "is_bye_week": [False, False, False, True, False, False],
+                "projection_source": ["hybrid"] * 6,
+                "position_rank": [71, 1, 90, 91, 60, 1],
+                "overall_rank": [156, 59, 200, 201, 180, 300],
+            }
+        )
+
+    def _consensus(self):
+        return pd.DataFrame(
+            {
+                "player_id": ["te1", "wr1", "wr2", "k1"],
+                "consensus": [14.0, 12.0, 13.0, 8.0],
+            }
+        )
+
+    def test_cleared_player_takes_consensus_times_multiplier(self):
+        from scripts.sunday_projection_refresh import _fill_zeroed_live_players
+
+        out, filled, still_zero = _fill_zeroed_live_players(
+            self._board(), self._consensus()
+        )
+        star = out[out.player_id == "te1"].iloc[0]
+        self.assertAlmostEqual(star.projected_points, 14.0 * 0.85, places=2)
+        self.assertEqual(star.projection_source, "consensus_fallback")
+        self.assertLessEqual(star.projected_floor, star.projected_points)
+        self.assertGreaterEqual(star.projected_ceiling, star.projected_points)
+        self.assertEqual(filled, ["B.Star"])
+        self.assertEqual(still_zero, ["N.Nocons"])
+
+    def test_out_bye_and_non_skill_rows_stay_zero(self):
+        from scripts.sunday_projection_refresh import _fill_zeroed_live_players
+
+        out, _, _ = _fill_zeroed_live_players(self._board(), self._consensus())
+        for pid in ("wr1", "wr2", "k1", "rb1"):
+            self.assertEqual(
+                out[out.player_id == pid].iloc[0].projected_points, 0.0, pid
+            )
+        # The healthy row is untouched.
+        healthy = out[out.player_id == "te2"].iloc[0]
+        self.assertEqual(healthy.projected_points, 11.0)
+        self.assertEqual(healthy.projection_source, "hybrid")
+
+    def test_no_consensus_leaves_the_board_unchanged_and_reports(self):
+        from scripts.sunday_projection_refresh import _fill_zeroed_live_players
+
+        board = self._board()
+        out, filled, still_zero = _fill_zeroed_live_players(board, pd.DataFrame())
+        pd.testing.assert_frame_equal(out, board)
+        self.assertEqual(filled, [])
+        self.assertEqual(sorted(still_zero), ["B.Star", "N.Nocons"])
+
+    def test_ranks_follow_points_after_the_fill(self):
+        from scripts.sunday_projection_refresh import (
+            _fill_zeroed_live_players,
+            _rerank,
+        )
+
+        board = self._board()
+        # Tuesday's score column: stale once the refresh moves points.
+        board["ranking_score"] = board["projected_points"]
+        board["season"], board["week"] = 2026, 11
+        out, _, _ = _fill_zeroed_live_players(board, self._consensus())
+        out = _rerank(out, 2026, 11)
+        self.assertEqual(out.overall_rank.tolist(), sorted(out.overall_rank.tolist()))
+        te = out[out.position == "TE"].sort_values("projected_points", ascending=False)
+        self.assertEqual(te.player_id.tolist(), ["te1", "te2"])
+        self.assertEqual(te.position_rank.tolist(), [1, 2])
+        self.assertEqual(
+            sorted(out.overall_rank.tolist()), list(range(1, len(out) + 1))
+        )

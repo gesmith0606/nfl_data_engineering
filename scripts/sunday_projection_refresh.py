@@ -62,10 +62,17 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from nfl_data_integration import NFLDataFetcher  # noqa: E402
+from consensus_fallback import (  # noqa: E402
+    FALLBACK_SOURCE,
+    SKILL_POSITIONS,
+    load_consensus_week,
+)
 from projection_engine import (  # noqa: E402
     INJURY_MULTIPLIERS,
+    add_floor_ceiling,
     apply_injury_adjustments,
 )
+from ranking_score import apply_ranking_scores, assign_ranks  # noqa: E402
 
 logging.basicConfig(
     format="%(asctime)s %(levelname)-8s %(message)s",
@@ -454,6 +461,95 @@ def _undo_and_reapply(
 # ---------------------------------------------------------------------------
 
 
+def _fill_zeroed_live_players(
+    refreshed: pd.DataFrame, consensus: pd.DataFrame
+) -> tuple:
+    """Give a consensus number to live skill players the board has at 0.0.
+
+    The undo step cannot recover a player whose stored multiplier was 0 (Out):
+    the file holds 0, so a player upgraded to Questionable or Active on Sunday
+    stayed at 0.0 projected points with a playable status (2026 w11: Brock
+    Bowers, Out on Tuesday, Questionable on Sunday, TE#71 -- which also failed
+    the deploy gate's star-rank check). A live player at 0.0 is always wrong,
+    so those rows take the week's consensus projection times the fresh injury
+    multiplier and are labelled ``projection_source="consensus_fallback"``,
+    the same convention the Tuesday board uses when the engine has no basis.
+    Their ``proj_*`` stat columns stay 0: only the point total is known.
+
+    Rows left alone: bye weeks, non-skill positions, a zero multiplier
+    (Out/IR/Doubtful-zeroed), and players the consensus does not carry.
+
+    Args:
+        refreshed: Board after the fresh injury adjustments.
+        consensus: Output of ``load_consensus_week`` (may be empty).
+
+    Returns:
+        ``(board, names_filled, names_still_zero)``.
+    """
+    needed = {"player_id", "position", "projected_points", "injury_multiplier"}
+    if not needed.issubset(refreshed.columns):
+        return refreshed, [], []
+    out = refreshed.copy()
+    bye = (
+        out["is_bye_week"].fillna(False).astype(bool)
+        if "is_bye_week" in out.columns
+        else pd.Series(False, index=out.index)
+    )
+    mult = pd.to_numeric(out["injury_multiplier"], errors="coerce").fillna(1.0)
+    stuck = (
+        (pd.to_numeric(out["projected_points"], errors="coerce").fillna(0.0) <= 0.0)
+        & (mult > 0.0)
+        & out["position"].isin(SKILL_POSITIONS)
+        & ~bye
+    )
+    if not stuck.any():
+        return out, [], []
+
+    lookup = {}
+    if consensus is not None and not consensus.empty:
+        lookup = dict(
+            zip(
+                consensus["player_id"].astype(str), consensus["consensus"].astype(float)
+            )
+        )
+    points = out.loc[stuck, "player_id"].astype(str).map(lookup)
+    fill = points[points > 0.0]
+    names = out.get("player_name", out["player_id"]).astype(str)
+    still_zero = names[stuck & ~out.index.isin(fill.index)].tolist()
+    if fill.empty:
+        return out, [], still_zero
+
+    idx = fill.index
+    out.loc[idx, "projected_points"] = (fill * mult.loc[idx]).round(2)
+    if "projection_source" in out.columns:
+        out.loc[idx, "projection_source"] = FALLBACK_SOURCE
+    bands = add_floor_ceiling(out.loc[idx])
+    for col in ("projected_floor", "projected_ceiling"):
+        if col in bands.columns and col in out.columns:
+            out.loc[idx, col] = bands[col]
+    return out, names.loc[idx].tolist(), still_zero
+
+
+def _rerank(refreshed: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
+    """Recompute both ranks from the refreshed points and sort by them.
+
+    The board carries a ``ranking_score`` column that the ranks are derived
+    from; it was computed on Tuesday, so it must be rebuilt from the refreshed
+    ``projected_points`` first or the ranks stay where they were. No graph
+    frame is passed, so the score equals the points (the graph nudge is off;
+    if it is ever switched on this refresh ranks without it).
+    """
+    if refreshed.empty or "position_rank" not in refreshed.columns:
+        return refreshed
+    out = refreshed
+    if "ranking_score" in out.columns:
+        out = apply_ranking_scores(out, None, season, week)
+    out = assign_ranks(out, overall="overall_rank" in out.columns)
+    if "overall_rank" in out.columns:
+        out = out.sort_values("overall_rank").reset_index(drop=True)
+    return out
+
+
 def _write_refresh_summary(
     season: int,
     week: int,
@@ -836,6 +932,27 @@ def main() -> int:
 
         # Undo old multipliers and re-apply fresh ones
         refreshed, summary = _undo_and_reapply(gold_df, injuries_df)
+
+        # Live players the undo step left at 0.0 take the consensus number,
+        # then both ranks are recomputed: the refresh moves points, and the
+        # stored ranks were never updated (2026 w11: 34 stale TE ranks).
+        refreshed, filled, still_zero = _fill_zeroed_live_players(
+            refreshed, load_consensus_week(season, week, scoring)
+        )
+        summary["consensus_filled"] = len(filled)
+        summary["live_but_zero"] = len(still_zero)
+        if filled:
+            print(
+                f"[sunday-refresh] {scoring}: {len(filled)} live player(s) at 0.0 "
+                f"took the consensus projection: {', '.join(filled)}"
+            )
+        if still_zero:
+            print(
+                f"::warning::Sunday refresh ({scoring}): {len(still_zero)} live "
+                f"player(s) remain at 0.0 with no consensus number: "
+                f"{', '.join(still_zero)}"
+            )
+        refreshed = _rerank(refreshed, season, week)
 
         # Write output
         output_path = None
