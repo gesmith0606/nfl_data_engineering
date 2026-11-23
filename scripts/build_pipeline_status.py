@@ -172,6 +172,52 @@ def summarize_runs(runs: List[Dict[str, Any]]) -> Dict[str, Any]:
     return {"last_run": last_run, "recent": recent, "success_rate": success_rate}
 
 
+def llm_cost_summary(base_dir: Optional[Path] = None) -> Optional[Dict[str, Any]]:
+    """Week-to-date and season-to-date LLM extraction cost from the ledger.
+
+    Reads the committed ``data/ops/llm_costs`` ledger. ``latest_week`` is the
+    highest (season, week) partition that has records; ``season_to_date``
+    sums every week of that season. Returns ``None`` when the ledger is
+    empty/absent or unreadable (fail-open: never blanks the dashboard).
+    """
+    try:
+        sys.path.insert(0, str(PROJECT_ROOT))
+        from src.sentiment.processing.cost_log import CostLog
+
+        log = CostLog(base_dir=base_dir)
+        rows = []
+        for part in log.partitions():
+            stats = log.summarize_partition(part)
+            if stats["calls"]:
+                rows.append(
+                    (
+                        int(part.parent.name.split("=")[1]),
+                        int(part.name.split("=")[1]),
+                        stats,
+                    )
+                )
+        if not rows:
+            return None
+        season, week, latest = max(rows, key=lambda r: (r[0], r[1]))
+        in_season = [r[2] for r in rows if r[0] == season]
+        return {
+            "latest_week": {
+                "season": season,
+                "week": week,
+                "calls": latest["calls"],
+                "usd": round(latest["cost_usd"], 6),
+            },
+            "season_to_date": {
+                "season": season,
+                "calls": sum(x["calls"] for x in in_season),
+                "usd": round(sum(x["cost_usd"] for x in in_season), 6),
+            },
+        }
+    except Exception as exc:  # noqa: BLE001 — fail-open
+        logger.warning("Could not summarise LLM cost ledger: %s", exc)
+        return None
+
+
 def build_status(repo: str, token: str) -> Dict[str, Any]:
     """Assemble the full pipeline-status document.
 
@@ -201,6 +247,7 @@ def build_status(repo: str, token: str) -> Dict[str, Any]:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "repo": repo,
         "workflows": workflows_out,
+        "llm_costs": llm_cost_summary(),
     }
 
 

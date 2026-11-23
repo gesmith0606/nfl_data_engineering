@@ -130,6 +130,33 @@ jobs:
             --verbose
 
       # ----------------------------------------------------------------
+      # 4a. Compact the LLM cost ledger. SentimentPipeline writes one tiny
+      #     parquet per batched Claude call into data/ops/llm_costs/; fold
+      #     them into ONE file per run so the commit below adds a single
+      #     small file instead of dozens. Exactly-once (compacted files list
+      #     their source files; see src/sentiment/processing/cost_log.py).
+      #     Fail-open: a compaction error must never fail the cron, and the
+      #     un-compacted per-call files simply get committed instead.
+      #     Prints only counts/tokens/USD - never prompts or keys.
+      # ----------------------------------------------------------------
+      - name: Compact LLM cost ledger
+        run: |
+          if [ -d data/ops/llm_costs ]; then
+            LINES=$(python -m src.sentiment.processing.cost_log) \
+              || echo "::warning::LLM cost ledger compaction failed - per-call files left in place"
+          fi
+          {
+            echo "### LLM extraction cost"
+            if [ -n "${LINES:-}" ]; then
+              echo '```'
+              echo "$LINES"
+              echo '```'
+            else
+              echo "No LLM calls recorded this run (enrichment off or no new documents)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ----------------------------------------------------------------
       # 4b. Health summary — always runs, even on failure (if: always()).
       # Emits GitHub Actions notice annotations so reviewers can see at a
       # glance which extraction path was authoritative.  Never echoes the
@@ -237,7 +264,13 @@ jobs:
             data/gold/projections/ \
             data/bronze/players/rosters_live/ \
             data/bronze/players/injuries/ \
-            data/external/; do
+            data/external/ \
+            data/ops/llm_costs/; do
+            # The cost ledger only exists on days with LLM calls: absent is
+            # normal there, so skip it silently instead of warning.
+            if [ ! -e "$p" ] && [ "$p" = "data/ops/llm_costs/" ]; then
+              continue
+            fi
             if [ ! -e "$p" ]; then
               echo "::warning::commit path $p is absent on the runner - not staged"
               continue

@@ -29,13 +29,15 @@ Design guarantees
 
 from __future__ import annotations
 
+import argparse
 import logging
 import os
+import sys
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
+from typing import Dict, List, Optional, Set
 
 import pandas as pd
 
@@ -51,8 +53,8 @@ logger = logging.getLogger(__name__)
 HAIKU_4_5_RATES = {
     "input": 1.00,
     "output": 5.00,
-    "cache_read": 0.10,       # cached-input tokens cost ~10% of normal input
-    "cache_creation": 1.25,   # cache-write costs ~1.25x normal input
+    "cache_read": 0.10,  # cached-input tokens cost ~10% of normal input
+    "cache_creation": 1.25,  # cache-write costs ~1.25x normal input
 }
 
 # Project root anchoring follows the ``llm_enrichment.py`` convention —
@@ -64,6 +66,29 @@ _DEFAULT_BASE_DIR = _PROJECT_ROOT / "data" / "ops" / "llm_costs"
 # tests/conftest.py) so a pipeline built without an explicit ``cost_log``
 # cannot write fake records into the tracked production ledger.
 COST_LOG_DIR_ENV = "LLM_COST_LOG_DIR"
+
+
+# Per-call files are ``llm_costs_<YYYYMMDD>_<HHMMSS>_<callid>.parquet``; the
+# compacted per-run ledger files are ``llm_costs_run_<...>.parquet`` and carry a
+# ``source_file`` column naming every per-call file folded into them.
+COMPACT_PREFIX = "llm_costs_run_"
+_LEDGER_GLOB = "llm_costs_*.parquet"
+_COLS = [
+    "call_id",
+    "doc_count",
+    "input_tokens",
+    "output_tokens",
+    "cache_read_input_tokens",
+    "cache_creation_input_tokens",
+    "cost_usd",
+    "ts",
+    "season",
+    "week",
+]
+
+
+def _is_compacted(path: Path) -> bool:
+    return path.name.startswith(COMPACT_PREFIX)
 
 
 def default_base_dir() -> Path:
@@ -176,9 +201,7 @@ class CostLog:
                 partitions. Defaults to ``$LLM_COST_LOG_DIR`` when set, else
                 ``data/ops/llm_costs/`` under the project root.
         """
-        self.base_dir = (
-            Path(base_dir) if base_dir is not None else default_base_dir()
-        )
+        self.base_dir = Path(base_dir) if base_dir is not None else default_base_dir()
 
     # ------------------------------------------------------------------
     # Helpers
@@ -276,29 +299,190 @@ class CostLog:
         Returns:
             Total USD cost across all calls recorded for the partition.
         """
-        partition = self._partition_dir(season, week)
-        if not partition.exists():
-            return 0.0
+        df = self.read_partition(season, week)
+        return float(df["cost_usd"].sum()) if len(df) else 0.0
 
-        files = sorted(partition.glob("llm_costs_*.parquet"))
-        if not files:
-            return 0.0
+    # ------------------------------------------------------------------
+    # Reading (exactly-once view over per-call + compacted files)
+    # ------------------------------------------------------------------
 
-        total = 0.0
+    def _covered_sources(self, files: List[Path]) -> Set[str]:
+        """Per-call filenames already folded into some compacted file."""
+        covered: Set[str] = set()
         for path in files:
-            try:
-                df = pd.read_parquet(path, columns=["cost_usd"])
-            except Exception as exc:  # noqa: BLE001 — fail-open on read too
-                logger.warning(
-                    "CostLog: failed to read %s (%s); skipping",
-                    path,
-                    exc,
-                )
+            if not _is_compacted(path):
                 continue
-            if "cost_usd" in df.columns and len(df) > 0:
-                total += float(df["cost_usd"].sum())
+            try:
+                df = pd.read_parquet(path, columns=["source_file"])
+            except Exception as exc:  # noqa: BLE001 — fail-open
+                logger.warning("CostLog: cannot read %s (%s)", path, exc)
+                continue
+            covered.update(df["source_file"].astype(str))
+        return covered
 
-        return total
+    def read_partition(self, season: int, week: int) -> pd.DataFrame:
+        """Every call row in a partition, each call counted exactly once.
+
+        Reads compacted and per-call files alike. A per-call file that a
+        compacted file already lists in ``source_file`` is skipped, so the
+        window between "compacted file renamed in" and "sources deleted"
+        (or a crash inside it) never double counts.
+
+        Returns:
+            DataFrame with the ledger columns (empty when nothing is there).
+        """
+        return self._read_dir(self._partition_dir(season, week))
+
+    def _read_dir(self, partition: Path) -> pd.DataFrame:
+        if not partition.exists():
+            return pd.DataFrame(columns=_COLS)
+        files = sorted(partition.glob(_LEDGER_GLOB))
+        covered = self._covered_sources(files)
+        frames = []
+        for path in files:
+            if not _is_compacted(path) and path.name in covered:
+                continue
+            try:
+                df = pd.read_parquet(path)
+            except Exception as exc:  # noqa: BLE001 — fail-open on read too
+                logger.warning("CostLog: failed to read %s (%s); skipping", path, exc)
+                continue
+            if len(df):
+                frames.append(df[[c for c in _COLS if c in df.columns]])
+        if not frames:
+            return pd.DataFrame(columns=_COLS)
+        return pd.concat(frames, ignore_index=True)
+
+    def partitions(self) -> List[Path]:
+        """Every ``season=*/week=*`` directory under the ledger root."""
+        if not self.base_dir.exists():
+            return []
+        return sorted(p for p in self.base_dir.glob("season=*/week=*") if p.is_dir())
+
+    # ------------------------------------------------------------------
+    # Compaction
+    # ------------------------------------------------------------------
+
+    def compact_partition(
+        self, season: int, week: int, run_id: Optional[str] = None
+    ) -> Optional[Path]:
+        """Fold a partition's per-call files into ONE compacted parquet.
+
+        Exactly-once mechanism: the compacted file lists each folded
+        per-call filename in ``source_file`` and readers skip any per-call
+        file so listed. Order of operations is (1) write temp file, fsync,
+        (2) atomic rename into place, (3) delete sources. A crash after (2)
+        leaves both on disk but ``read_partition`` counts each call once,
+        and the next compaction just deletes the already-covered leftovers
+        without folding them again. Compacted files are never re-folded.
+
+        Fail-open: any error logs a warning and leaves the per-call files.
+
+        Returns:
+            Path of the new compacted file, or ``None`` if there was
+            nothing to fold (or compaction failed).
+        """
+        return self._compact_dir(self._partition_dir(season, week), run_id)
+
+    def _compact_dir(self, partition: Path, run_id: Optional[str]) -> Optional[Path]:
+        tmp: Optional[Path] = None
+        try:
+            if not partition.exists():
+                return None
+            files = sorted(partition.glob(_LEDGER_GLOB))
+            covered = self._covered_sources(files)
+            per_call = [f for f in files if not _is_compacted(f)]
+            for f in per_call:  # crash remnants: already inside a compacted file
+                if f.name in covered:
+                    f.unlink()
+            to_fold = [f for f in per_call if f.name not in covered]
+
+            frames = []
+            folded: List[Path] = []
+            for f in to_fold:
+                try:
+                    df = pd.read_parquet(f)
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning("CostLog: skip unreadable %s (%s)", f, exc)
+                    continue
+                df = df[[c for c in _COLS if c in df.columns]].copy()
+                df["source_file"] = f.name
+                frames.append(df)
+                folded.append(f)
+            if not frames:
+                return None
+
+            out_df = pd.concat(frames, ignore_index=True)
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+            suffix = run_id or uuid.uuid4().hex[:6]
+            final = partition / f"{COMPACT_PREFIX}{stamp}_{suffix}.parquet"
+            tmp = partition / f".{final.name}.tmp"  # not matched by the ledger glob
+            out_df.to_parquet(tmp, index=False)
+            with open(tmp, "rb") as fh:
+                os.fsync(fh.fileno())
+            os.replace(tmp, final)
+            tmp = None
+            for f in folded:
+                f.unlink()
+            return final
+        except Exception as exc:  # noqa: BLE001 — fail-open
+            logger.warning("CostLog: compaction of %s failed (%s)", partition, exc)
+            if tmp is not None:
+                try:
+                    tmp.unlink()
+                except OSError:
+                    pass
+            return None
+
+    def summarize_partition(self, partition: Path) -> Dict[str, float]:
+        """Call count and token/USD totals for one partition directory."""
+        df = self._read_dir(partition)
+        out: Dict[str, float] = {"calls": int(len(df))}
+        for col in ("input_tokens", "output_tokens", "cost_usd"):
+            out[col] = float(df[col].sum()) if len(df) else 0.0
+        return out
+
+
+def compact_all(
+    base_dir: Optional[Path] = None,
+    season: Optional[int] = None,
+    week: Optional[int] = None,
+) -> List[str]:
+    """Compact the selected partitions; return one summary line per partition.
+
+    With neither ``season`` nor ``week``, every partition holding per-call
+    files is compacted. Each line reports the calls folded in THIS run.
+    """
+    log = CostLog(base_dir=base_dir)
+    lines: List[str] = []
+    for part in log.partitions():
+        s = int(part.parent.name.split("=")[1])
+        w = int(part.name.split("=")[1])
+        if (season is not None and s != season) or (week is not None and w != week):
+            continue
+        out = log._compact_dir(part, None)
+        if out is None:
+            continue
+        df = pd.read_parquet(out)
+        lines.append(
+            f"season={s} week={w:02d} calls={len(df)} "
+            f"input_tokens={int(df['input_tokens'].sum())} "
+            f"output_tokens={int(df['output_tokens'].sum())} "
+            f"usd={float(df['cost_usd'].sum()):.6f} "
+            f"week_total_usd={log.running_total_usd(s, w):.6f}"
+        )
+    return lines
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    """CLI: ``python -m src.sentiment.processing.cost_log [--season Y] [--week W]``."""
+    ap = argparse.ArgumentParser(description="Compact the LLM cost ledger.")
+    ap.add_argument("--season", type=int)
+    ap.add_argument("--week", type=int)
+    args = ap.parse_args(argv)
+    for line in compact_all(season=args.season, week=args.week):
+        print(line)
+    return 0
 
 
 # ---------------------------------------------------------------------------
@@ -315,6 +499,12 @@ __all__ = [
     "HAIKU_4_5_RATES",
     "CostLog",
     "CostRecord",
+    "compact_all",
     "compute_cost_usd",
+    "main",
     "new_call_id",
 ]
+
+
+if __name__ == "__main__":  # pragma: no cover
+    sys.exit(main())
