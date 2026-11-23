@@ -5,26 +5,7 @@ paths:
 ---
 # Python Security
 
-> This file extends [common/security.md](../common/security.md) with Python specific content.
-
-## Secret Management
-
-```python
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-api_key = os.environ["OPENAI_API_KEY"]  # Raises KeyError if missing
-```
-
-## Security Scanning
-
-- Use **bandit** for static security analysis:
-  ```bash
-  bandit -r src/
-  ```
-
-## Reference
-
-See skill: `django-security` for Django-specific security guidelines (if applicable).
+- Secrets come from the environment / `.env` (gitignored). Never hardcode or commit them. Nothing in this repo blocks a committed key automatically, so check the diff before every commit.
+  Read required ones with `os.environ["NAME"]` so a missing key fails loudly.
+- Static analysis: `bandit -r src/` (not in `requirements.txt`; install ad hoc).
+- The `secrets-handling` skill covers credential hygiene.

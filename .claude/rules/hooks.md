@@ -5,15 +5,6 @@ paths:
 ---
 # Python Hooks
 
-> This file extends [common/hooks.md](../common/hooks.md) with Python specific content.
+Configure PostToolUse hooks in `~/.claude/settings.json`: black auto-format on edited `.py` files; optionally a type check.
 
-## PostToolUse Hooks
-
-Configure in `~/.claude/settings.json`:
-
-- **black/ruff**: Auto-format `.py` files after edit
-- **mypy/pyright**: Run type checking after editing `.py` files
-
-## Warnings
-
-- Warn about `print()` statements in edited files (use `logging` module instead)
+Warn about `print()` in edited library code (use `logging`).
