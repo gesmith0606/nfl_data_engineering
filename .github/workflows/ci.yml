@@ -83,6 +83,7 @@ jobs:
               - 'scripts/**'
               - 'tests/**'
               - 'requirements.txt'
+              - 'pyproject.toml'
               - '.github/workflows/ci.yml'
 
       - name: Setup Python
@@ -102,6 +103,25 @@ jobs:
         # collection time and need httpx for TestClient. Without these every
         # backend run fails on ModuleNotFoundError before a single test runs.
         run: pip install -r requirements.txt -r web/requirements.txt httpx
+
+      - name: Python 3.9 syntax check (backend image runs 3.9)
+        if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
+        # CI runs 3.11 but the HF Spaces backend runs 3.9; nothing else catches
+        # 3.10+ syntax (match, parenthesised with, ...) before the image build.
+        # Syntax only: `X | Y` annotations or 3.10+ stdlib calls still need tests.
+        run: |
+          python - <<'PYEOF'
+          import ast, pathlib, sys
+          bad = []
+          for d in ("src", "web/api"):
+              for p in sorted(pathlib.Path(d).rglob("*.py")):
+                  try:
+                      ast.parse(p.read_text(encoding="utf-8"), filename=str(p), feature_version=(3, 9))
+                  except SyntaxError as e:
+                      bad.append(f"{p}:{e.lineno}: {e.msg}")
+          print("\n".join(bad) or "ok: src/ and web/api parse as Python 3.9")
+          sys.exit(1 if bad else 0)
+          PYEOF
 
       - name: Run pytest
         if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
@@ -123,6 +143,22 @@ jobs:
             echo "::error::Warning count ${WARNINGS} exceeds budget ${BUDGET} — fix the new warnings (see pytest_output.txt) rather than raising the budget."
             exit 1
           fi
+
+      - name: Package installs (pyproject.toml) and both import styles agree
+        if: steps.changes.outputs.python == 'true' || github.event_name == 'workflow_dispatch'
+        # After pytest on purpose: the editable install must not change the
+        # environment the tests ran in. --no-deps: dependencies are already
+        # installed above; this only proves the package metadata/layout works.
+        run: |
+          pip install -e . --no-deps
+          cd "$RUNNER_TEMP"
+          python - <<'PYEOF'
+          import config, projection_engine, scoring_calculator, lineup_setter, ranking_score
+          import src.config as sc
+          import src.projection_engine
+          assert config is sc and config.SCORING_CONFIGS is sc.SCORING_CONFIGS
+          print("installed package imports OK; config alias guard holds")
+          PYEOF
 
   # ------------------------------------------------------------------
   # Data completeness gate — fail-closed data-existence invariant check
