@@ -1118,6 +1118,11 @@ def check_assertion(v: Dict[str, Any], a: Dict[str, Any], root: Path = ROOT) -> 
 
         if kind in ("source_must_not_contain", "source_must_contain"):
             patterns = _as_list(a["file"])
+            missing = [
+                p for p in patterns if not re.search(r"[*?]", p) and not expand(root, p)
+            ]
+            if missing:  # a literal path (e.g. README.MD) must exist, exact case
+                return Result("FAIL", f"{lab}: literal file(s) not found: {missing}")
             files = sorted({f for p in patterns for f in expand(root, p)})
             if not files:
                 return Result("FAIL", f"{lab}: no file matches {patterns}")

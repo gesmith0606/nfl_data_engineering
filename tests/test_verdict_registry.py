@@ -42,6 +42,10 @@ def test_registry_shape_by_ruling():
     assert vr.shape_errors(REG) == []
 
 
+def _has_wild(p):
+    return "*" in p or "?" in p
+
+
 def _registry_paths(reg):
     """Every literal path / glob the registry names."""
     paths = []
@@ -51,8 +55,9 @@ def _registry_paths(reg):
         for k in ("script", "glob"):
             if k in a:
                 paths.append(a[k])
-        if isinstance(a.get("file"), str):
-            paths.append(a["file"])
+        for p in vr._as_list(a.get("file", [])):
+            if isinstance(a.get("file"), str) or not _has_wild(p):
+                paths.append(p)  # literals must exist; list globs may be empty
         if "workflow" in a and a["workflow"] != "*":
             paths.append(f".github/workflows/{a['workflow']}")
         for s in a.get("scripts", []):
@@ -120,6 +125,24 @@ def test_case_mismatch_is_detected_even_on_a_case_insensitive_filesystem(tmp_pat
         ]
     }
     assert any("does not exist" in e for e in vr.schema_errors(reg, tmp_path))
+
+
+def test_wrong_case_literal_inside_a_glob_list_fails(tmp_path):
+    """The claim bans list globs + README.MD; a wrong-case README entry used to vanish."""
+    (tmp_path / "web").mkdir()
+    (tmp_path / "web" / "a.tsx").write_text("x")
+    (tmp_path / "README.MD").write_text("x")
+    a = {
+        "kind": "source_must_not_contain",
+        "file": ["web/*.tsx", "README.md"],
+        "pattern": "zzz",
+    }
+    r = vr.check_assertion(V, a, tmp_path)
+    assert r.status == "FAIL" and "README.md" in r.detail
+    assert (
+        vr.check_assertion(V, dict(a, file=["web/*.tsx", "README.MD"]), tmp_path).status
+        == "PASS"
+    )
 
 
 def test_registry_json_is_valid_json():
