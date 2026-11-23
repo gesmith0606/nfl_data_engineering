@@ -42,8 +42,9 @@ import datetime as dt
 import json
 import os
 import sys
+import time
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Optional
+from typing import Any, Callable, Dict, List, Mapping, Optional
 
 import pandas as pd
 
@@ -121,6 +122,38 @@ def write_snapshot(
     return path
 
 
+# A capture is the only copy of this moment that will ever exist, so a thin one
+# must not be filed as if it were complete. A normal capture has ~960 projection
+# rows and ~1,000 statuses; these floors sit well below that and well above a
+# mid-update or rate-limited response.
+MIN_PROJECTION_ROWS = 300
+MIN_STATUS_ROWS = 500
+FETCH_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = 10
+
+
+def _with_retries(
+    fetch: Callable[[], pd.DataFrame], min_rows: int, what: str
+) -> pd.DataFrame:
+    """Call ``fetch`` until it returns at least ``min_rows`` rows (or attempts run out).
+
+    One 429/5xx used to lose the capture for good: the fetch helper returns an
+    empty payload on any error and the run simply went red.
+    """
+    frame = pd.DataFrame()
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        frame = fetch()
+        if len(frame) >= min_rows:
+            return frame
+        print(
+            f"{what}: {len(frame)} rows (< {min_rows}) on attempt "
+            f"{attempt}/{FETCH_ATTEMPTS}"
+        )
+        if attempt < FETCH_ATTEMPTS:
+            time.sleep(RETRY_BACKOFF_SECONDS * attempt)
+    return frame
+
+
 def snapshot(
     season: int, week: int, root: Path = ROOT, now: Optional[dt.datetime] = None
 ) -> List[Path]:
@@ -130,19 +163,31 @@ def snapshot(
     url = config.SENTIMENT_CONFIG["sleeper_projections_url"].format(
         season=season, week=week
     )
-    proj = projections_frame(sleeper_http.fetch_sleeper_json(url))
-    if proj.empty:
+    proj = _with_retries(
+        lambda: projections_frame(sleeper_http.fetch_sleeper_json(url)),
+        MIN_PROJECTION_ROWS,
+        "Sleeper projections",
+    )
+    if len(proj) < MIN_PROJECTION_ROWS:
         print(
-            f"NO SNAPSHOT: Sleeper projections empty for {season} week {week} ({url})"
+            f"NO SNAPSHOT: Sleeper projections has {len(proj)} rows for {season} "
+            f"week {week}, below the {MIN_PROJECTION_ROWS}-row floor ({url})"
         )
     else:
         written.append(
             write_snapshot(proj, root, season, week, "sleeper_projections", now)
         )
     # force_refresh: a snapshot of a stale cache is a snapshot of the wrong moment
-    status = status_frame(load_sleeper_players(force_refresh=True))
-    if status.empty:
-        print("NO SNAPSHOT: Sleeper player registry empty")
+    status = _with_retries(
+        lambda: status_frame(load_sleeper_players(force_refresh=True)),
+        MIN_STATUS_ROWS,
+        "Sleeper player registry",
+    )
+    if len(status) < MIN_STATUS_ROWS:
+        print(
+            f"NO SNAPSHOT: Sleeper player registry has {len(status)} rows, below "
+            f"the {MIN_STATUS_ROWS}-row floor"
+        )
     elif _registry_age_hours() > 1:
         # the fetch failed and the loader fell back to an old cache: do not file
         # last Tuesday's injury tags under today's timestamp
