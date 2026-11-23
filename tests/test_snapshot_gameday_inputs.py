@@ -5,6 +5,7 @@ from __future__ import annotations
 import datetime as dt
 
 import pandas as pd
+import pytest
 
 from scripts import snapshot_gameday_inputs as snap
 
@@ -22,6 +23,14 @@ REGISTRY = {
     "777": {"position": "WR", "team": None, "injury_status": None},  # unsigned, untagged
 }  # fmt: skip
 NOW = dt.datetime(2026, 11, 8, 12, 4, 34)
+
+
+@pytest.fixture(autouse=True)
+def _small_fixture_floors(monkeypatch):
+    """The fixtures here hold a handful of rows; the real floors are tested below."""
+    monkeypatch.setattr(snap, "MIN_PROJECTION_ROWS", 1)
+    monkeypatch.setattr(snap, "MIN_STATUS_ROWS", 1)
+    monkeypatch.setattr(snap.time, "sleep", lambda s: None)
 
 
 def _run(tmp_path, monkeypatch, proj=PROJ, registry=REGISTRY, age_h=0.0):
@@ -100,3 +109,95 @@ def test_a_stale_registry_cache_is_not_filed_under_todays_timestamp(
     paths = _run(tmp_path, monkeypatch, age_h=30.0)
     assert [p.name.split("_20")[0] for p in paths] == ["sleeper_projections"]
     assert "30h old" in capsys.readouterr().out
+
+
+def test_adp_only_rows_are_dropped_but_projected_rows_kept():
+    raw = {
+        "1": {"stats": {"adp_dd_ppr": 1000.0}},
+        "2": {"stats": {"adp_dd_ppr": 50.0, "pts_ppr": 12.0}},
+    }
+    assert list(snap.projections_frame(raw)["sleeper_player_id"]) == ["2"]
+
+
+def _main(tmp_path, monkeypatch, proj, registry, resolved, argv=()):
+    from scripts import resolve_pipeline_week as rpw
+
+    monkeypatch.setattr(snap.sleeper_http, "fetch_sleeper_json", lambda *a, **k: proj)
+    monkeypatch.setattr(snap, "load_sleeper_players", lambda **k: registry)
+    monkeypatch.setattr(snap, "_registry_age_hours", lambda: 0.0)
+    monkeypatch.setattr(rpw, "resolve_target_week", lambda today: resolved)
+    return snap.main(["--root", str(tmp_path), *argv])
+
+
+def test_main_exits_nonzero_when_nothing_captured(tmp_path, monkeypatch):
+    rc = _main(tmp_path, monkeypatch, {}, {}, (2026, 12, "schedule"))
+    assert rc == 1 and not list(tmp_path.rglob("*.parquet"))
+
+
+def test_main_exits_nonzero_when_only_one_file_written(tmp_path, monkeypatch):
+    assert _main(tmp_path, monkeypatch, PROJ, {}, (2026, 12, "schedule")) == 1
+
+
+def test_main_uses_resolved_week_and_padded_layout(tmp_path, monkeypatch):
+    assert _main(tmp_path, monkeypatch, PROJ, REGISTRY, (2026, 12, "schedule")) == 0
+    assert len(list((tmp_path / "season=2026" / "week=12").glob("*.parquet"))) == 2
+
+
+def test_main_offseason_skips_cleanly_but_explicit_week_overrides(
+    tmp_path, monkeypatch, capsys
+):
+    final = (2026, 18, "schedule-final")
+    assert _main(tmp_path, monkeypatch, PROJ, REGISTRY, final) == 0
+    assert "OFFSEASON" in capsys.readouterr().out
+    assert not list(tmp_path.rglob("*.parquet"))
+    argv = ["--season", "2026", "--week", "5"]
+    assert _main(tmp_path, monkeypatch, PROJ, REGISTRY, final, argv) == 0
+    assert (tmp_path / "season=2026" / "week=05").is_dir()
+
+
+def test_main_writes_ci_outputs_and_summary(tmp_path, monkeypatch):
+    out, summ = tmp_path / "out.txt", tmp_path / "summ.md"
+    monkeypatch.setenv("GITHUB_OUTPUT", str(out))
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summ))
+    _main(tmp_path, monkeypatch, PROJ, REGISTRY, (2026, 12, "schedule"))
+    assert "week=12" in out.read_text() and "offseason=false" in out.read_text()
+    assert "rows" in summ.read_text() and "bytes" in summ.read_text()
+
+
+def test_a_thin_capture_is_not_filed_as_complete(tmp_path, monkeypatch):
+    """A mid-update response with a few rows must go red, not get committed."""
+    monkeypatch.setattr(snap, "MIN_PROJECTION_ROWS", 300)
+    monkeypatch.setattr(snap, "MIN_STATUS_ROWS", 500)
+    written = _run(tmp_path, monkeypatch)  # fixtures are far below the floors
+    assert written == []
+    assert list(tmp_path.rglob("*.parquet")) == []
+
+
+def test_one_failed_fetch_is_retried_before_the_capture_is_lost(tmp_path, monkeypatch):
+    calls = {"n": 0}
+
+    def flaky(*a, **k):
+        calls["n"] += 1
+        return {} if calls["n"] == 1 else PROJ  # first call: 429/5xx -> {}
+
+    monkeypatch.setattr(snap.sleeper_http, "fetch_sleeper_json", flaky)
+    monkeypatch.setattr(snap, "load_sleeper_players", lambda **k: REGISTRY)
+    monkeypatch.setattr(snap, "_registry_age_hours", lambda: 0.0)
+    written = snap.snapshot(2026, 9, root=tmp_path, now=NOW)
+    assert calls["n"] == 2
+    assert len(written) == 2
+
+
+def test_retries_stop_after_the_attempt_limit(tmp_path, monkeypatch):
+    calls = {"n": 0}
+
+    def dead(*a, **k):
+        calls["n"] += 1
+        return {}
+
+    monkeypatch.setattr(snap.sleeper_http, "fetch_sleeper_json", dead)
+    monkeypatch.setattr(snap, "load_sleeper_players", lambda **k: REGISTRY)
+    monkeypatch.setattr(snap, "_registry_age_hours", lambda: 0.0)
+    written = snap.snapshot(2026, 9, root=tmp_path, now=NOW)
+    assert calls["n"] == snap.FETCH_ATTEMPTS
+    assert [p.name.split("_2026")[0] for p in written] == ["sleeper_status"]

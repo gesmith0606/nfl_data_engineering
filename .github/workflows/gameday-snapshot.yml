@@ -1,0 +1,143 @@
+name: Gameday Snapshot
+
+# ---------------------------------------------------------------------------
+# Why this exists
+# ---------------------------------------------------------------------------
+# Sleeper overwrites its weekly projections and player injury tags continuously.
+# scripts/snapshot_gameday_inputs.py saves dated copies so lineup replays
+# (scripts/replay_lineups.py, src/lineup_setter.py) can use what was known when
+# lineups locked. A missed capture can NEVER be recovered, so this workflow is
+# deliberately loud: no continue-on-error, a red run is the correct signal.
+#
+# ---------------------------------------------------------------------------
+# Schedule
+# ---------------------------------------------------------------------------
+# GitHub cron is UTC and ignores DST (EDT = UTC-4 through early Nov, EST =
+# UTC-5 after). Same convention as sunday-refresh.yml: where one UTC time can't
+# serve both offsets, run two passes. Inactives post 90 min before kickoff, so
+# the target is "after inactives, before lock". Sun/Mon/Thu-night captures sit
+# before UTC midnight where possible; the script resolves the week on the
+# US/Eastern date, so a Monday-night run at 00:00 UTC Tuesday is still that week.
+#
+#   cron          UTC         ET (EST)     ET (EDT)    window
+#   0 16 * * 4    Thu 16:00   Thu 11:00    Thu 12:00   Thursday daytime (Thanksgiving 12:30 ET games;
+#                                                      otherwise the week's midweek status snapshot)
+#   30 20 * * 4   Thu 20:30   Thu 15:30    Thu 16:30   Thursday late afternoon (Thanksgiving 16:30 ET game;
+#                                                      a harmless extra capture on ordinary Thursdays)
+#   0 0 * * 5     Fri 00:00   Thu 19:00    Thu 20:00   Thursday night (kickoff ~20:15 ET)
+#   0 16 * * 0    Sun 16:00   Sun 11:00    Sun 12:00   Sunday early (13:00 ET), pass 1 (post-inactives in EDT)
+#   0 17 * * 0    Sun 17:00   Sun 12:00    Sun 13:00   Sunday early, pass 2 (post-inactives in EST)
+#   45 19 * * 0   Sun 19:45   Sun 14:45    Sun 15:45   Sunday late (16:05/16:25 ET)
+#   0 0 * * 1     Mon 00:00   Sun 19:00    Sun 20:00   Sunday night (kickoff ~20:20 ET)
+#   0 0 * * 2     Tue 00:00   Mon 19:00    Mon 20:00   Monday night (kickoff ~20:15 ET)
+#   0 15 * * 2    Tue 15:00   Tue 10:00    Tue 11:00   Tuesday, waiver-day view (after MNF, before claims)
+#
+# 9 runs/week. Saturday games (late season) are not scheduled: use
+# workflow_dispatch (gh workflow run gameday-snapshot.yml).
+# Footprint: ~87 KB per capture (2 zstd parquet files) -> ~0.8 MB/week,
+# ~14 MB per full season in the public repo.
+#
+# Offseason: the script exits 0 with offseason=true when every regular-season
+# game is played; the commit step then finds nothing and the run stays green.
+on:
+  schedule:
+    - cron: "0 16 * * 4"
+    - cron: "30 20 * * 4"
+    - cron: "0 0 * * 5"
+    - cron: "0 16 * * 0"
+    - cron: "0 17 * * 0"
+    - cron: "45 19 * * 0"
+    - cron: "0 0 * * 1"
+    - cron: "0 0 * * 2"
+    - cron: "0 15 * * 2"
+
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "NFL season year (e.g. 2026). Blank = auto-detect."
+        required: false
+        type: string
+      week:
+        description: "NFL week (1-18). Blank = auto-detect."
+        required: false
+        type: string
+
+# Never cancel: a cancelled run is a lost snapshot.
+concurrency:
+  group: gameday-snapshot
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    name: Snapshot Sleeper projections + statuses
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # Exits 1 if Sleeper returned no projections or no statuses. NO
+      # continue-on-error on purpose. Writes season/week/offseason outputs and
+      # a row-count + byte-size table to the step summary.
+      - name: Capture Sleeper snapshot
+        id: capture
+        env:
+          IN_SEASON: ${{ inputs.season }}
+          IN_WEEK: ${{ inputs.week }}
+        run: |
+          ARGS=""
+          if [ -n "$IN_SEASON" ]; then ARGS="$ARGS --season $IN_SEASON"; fi
+          if [ -n "$IN_WEEK" ]; then ARGS="$ARGS --week $IN_WEEK"; fi
+          python scripts/snapshot_gameday_inputs.py $ARGS
+
+      # House pattern (odds-capture.yml): one git add per path, bot identity,
+      # rebase-and-retry push loop.
+      - name: Commit snapshot to repo
+        env:
+          SEASON: ${{ steps.capture.outputs.season }}
+          WEEK: ${{ steps.capture.outputs.week }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/bronze/gameday_inputs/ 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "Nothing to commit (offseason)"
+            echo "Nothing committed (offseason)." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -m "data(gameday): Sleeper projections + statuses snapshot — ${SEASON} wk${WEEK}
+
+          Automated pre-kickoff capture (scripts/snapshot_gameday_inputs.py)."
+
+            for attempt in 1 2 3; do
+              if git push origin main 2>&1; then
+                echo "Pushed snapshot (attempt ${attempt})"
+                break
+              fi
+              echo "Push attempt ${attempt} rejected; rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || {
+                echo "::error::Rebase conflict on gameday snapshot commit — manual intervention required"
+                exit 1
+              }
+              if [ "$attempt" = "3" ]; then
+                echo "::error::Push rejected 3 times after rebase — bailing"
+                exit 1
+              fi
+            done
+          fi

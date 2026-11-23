@@ -8,8 +8,8 @@ Why: the lineup replay (``scripts/replay_lineups.py``) could only use the
 Sleeper projections the API serves today for past weeks, and the registry file
 ``data/bronze/players/sleeper_players.json`` is overwritten in place, so every
 past injury tag was gone. A replay that is graded on "what was known at kickoff"
-needs the values as they stood then. Run this on game-day mornings (and the
-evening before a Thursday game) and every later replay can use them.
+needs the values as they stood then. ``.github/workflows/gameday-snapshot.yml``
+runs it shortly before each NFL game window (Thu/Sun/Mon) and on Tuesday.
 
 Writes, under ``data/bronze/gameday_inputs/season=YYYY/week=WW/``:
 
@@ -19,8 +19,20 @@ Writes, under ``data/bronze/gameday_inputs/season=YYYY/week=WW/``:
                                            depth_chart_order
 
 Same ``raw_payload`` shape as ``data/bronze/external_projections/sleeper``, so
-anything that reads that can read these. Fails open (D-06): no payload, no file,
-exit 0, a loud line saying so.
+anything that reads that can read these. Players whose payload holds only ``adp_*``
+keys (no projected stat, ~85% of Sleeper's rows) are dropped: they score zero
+under any league's scoring, and the files are committed to a public repo.
+
+Fails LOUD (not open): a missed snapshot is unrecoverable, so ``main`` exits 1
+when either file could not be written. The one exit-0 case is the offseason
+(schedule says every regular-season game is played), unless --season/--week
+are both given explicitly.
+
+With no --season/--week the week is the schedule-based "upcoming" week from
+``scripts/resolve_pipeline_week.py``, evaluated on the US/Eastern date (the
+Monday-night window is already Tuesday in UTC). When ``$GITHUB_OUTPUT`` /
+``$GITHUB_STEP_SUMMARY`` are set, writes ``season=``/``week=``/``offseason=``
+outputs and a summary list.
 """
 
 from __future__ import annotations
@@ -28,9 +40,11 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import os
 import sys
+import time
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Optional
+from typing import Any, Callable, Dict, List, Mapping, Optional
 
 import pandas as pd
 
@@ -63,7 +77,9 @@ def projections_frame(raw: Any) -> pd.DataFrame:
     rows = []
     for pid, v in (raw or {}).items():
         stats = v.get("stats") if isinstance(v, dict) and "stats" in v else v
-        if isinstance(stats, dict) and stats:  # nothing projected: not worth a row
+        if isinstance(stats, dict) and any(
+            not str(k).startswith("adp_") for k in stats
+        ):  # nothing projected (empty / ADP-only): not worth a row
             rows.append(
                 {"sleeper_player_id": str(pid), "raw_payload": json.dumps(stats)}
             )
@@ -102,8 +118,40 @@ def write_snapshot(
     out = root / f"season={season}" / f"week={week:02d}"
     out.mkdir(parents=True, exist_ok=True)
     path = out / f"{kind}_{now:%Y%m%d_%H%M%S}.parquet"
-    df.to_parquet(path, index=False)
+    df.to_parquet(path, index=False, compression="zstd")
     return path
+
+
+# A capture is the only copy of this moment that will ever exist, so a thin one
+# must not be filed as if it were complete. A normal capture has ~960 projection
+# rows and ~1,000 statuses; these floors sit well below that and well above a
+# mid-update or rate-limited response.
+MIN_PROJECTION_ROWS = 300
+MIN_STATUS_ROWS = 500
+FETCH_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = 10
+
+
+def _with_retries(
+    fetch: Callable[[], pd.DataFrame], min_rows: int, what: str
+) -> pd.DataFrame:
+    """Call ``fetch`` until it returns at least ``min_rows`` rows (or attempts run out).
+
+    One 429/5xx used to lose the capture for good: the fetch helper returns an
+    empty payload on any error and the run simply went red.
+    """
+    frame = pd.DataFrame()
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        frame = fetch()
+        if len(frame) >= min_rows:
+            return frame
+        print(
+            f"{what}: {len(frame)} rows (< {min_rows}) on attempt "
+            f"{attempt}/{FETCH_ATTEMPTS}"
+        )
+        if attempt < FETCH_ATTEMPTS:
+            time.sleep(RETRY_BACKOFF_SECONDS * attempt)
+    return frame
 
 
 def snapshot(
@@ -115,19 +163,31 @@ def snapshot(
     url = config.SENTIMENT_CONFIG["sleeper_projections_url"].format(
         season=season, week=week
     )
-    proj = projections_frame(sleeper_http.fetch_sleeper_json(url))
-    if proj.empty:
+    proj = _with_retries(
+        lambda: projections_frame(sleeper_http.fetch_sleeper_json(url)),
+        MIN_PROJECTION_ROWS,
+        "Sleeper projections",
+    )
+    if len(proj) < MIN_PROJECTION_ROWS:
         print(
-            f"NO SNAPSHOT: Sleeper projections empty for {season} week {week} ({url})"
+            f"NO SNAPSHOT: Sleeper projections has {len(proj)} rows for {season} "
+            f"week {week}, below the {MIN_PROJECTION_ROWS}-row floor ({url})"
         )
     else:
         written.append(
             write_snapshot(proj, root, season, week, "sleeper_projections", now)
         )
     # force_refresh: a snapshot of a stale cache is a snapshot of the wrong moment
-    status = status_frame(load_sleeper_players(force_refresh=True))
-    if status.empty:
-        print("NO SNAPSHOT: Sleeper player registry empty")
+    status = _with_retries(
+        lambda: status_frame(load_sleeper_players(force_refresh=True)),
+        MIN_STATUS_ROWS,
+        "Sleeper player registry",
+    )
+    if len(status) < MIN_STATUS_ROWS:
+        print(
+            f"NO SNAPSHOT: Sleeper player registry has {len(status)} rows, below "
+            f"the {MIN_STATUS_ROWS}-row floor"
+        )
     elif _registry_age_hours() > 1:
         # the fetch failed and the loader fell back to an old cache: do not file
         # last Tuesday's injury tags under today's timestamp
@@ -199,6 +259,37 @@ def read_status(
     }
 
 
+def _et_today() -> dt.date:
+    """Today's date in US/Eastern (the runner is UTC; MNF ends after UTC midnight)."""
+    from zoneinfo import ZoneInfo
+
+    return dt.datetime.now(ZoneInfo("America/New_York")).date()
+
+
+def _emit_ci(
+    season: int, week: int, offseason: bool, paths: List[Path], rows: Dict[str, int]
+) -> None:
+    """Workflow outputs + step summary; a no-op outside GitHub Actions."""
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:
+        with open(out, "a", encoding="utf-8") as fh:
+            fh.write(
+                f"season={season}\nweek={week}\noffseason={str(offseason).lower()}\n"
+            )
+    summ = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summ:
+        lines = [f"### Gameday snapshot: {season} week {week}"]
+        if offseason:
+            lines.append("Offseason: regular season is over, nothing captured.")
+        for p in paths:
+            n, size = rows.get(p.name, 0), p.stat().st_size
+            lines.append(f"- `{p.name}`: {n} rows, {size:,} bytes")
+        if not offseason and len(paths) < 2:
+            lines.append("**INCOMPLETE CAPTURE: run failed**")
+        with open(summ, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(lines) + "\n")
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -209,13 +300,24 @@ def main(argv: Optional[List[str]] = None) -> int:
     args = ap.parse_args(argv)
     season, week = args.season, args.week
     if not (season and week):
-        from scripts import set_lineups
+        from scripts import resolve_pipeline_week as rpw
 
-        s, w = set_lineups._default_week(season)
+        s, w, source = rpw.resolve_target_week(_et_today())
+        if source == "schedule-final":
+            print(f"OFFSEASON: {s} regular season is over; nothing to snapshot")
+            _emit_ci(season or s, week or w, True, [], {})
+            return 0
         season, week = season or s, week or w
     paths = snapshot(season, week, args.root)
+    rows = {p.name: len(pd.read_parquet(p)) for p in paths}
     for p in paths:
         print(f"saved {p.relative_to(REPO_ROOT) if p.is_relative_to(REPO_ROOT) else p}")
+    _emit_ci(season, week, False, paths, rows)
+    if len(paths) < 2:
+        print(
+            f"::error::incomplete snapshot for {season} week {week}: {len(paths)}/2 files"
+        )
+        return 1
     return 0
 
 
