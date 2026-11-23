@@ -1,0 +1,1355 @@
+{
+ "schema_version": 1,
+ "_about": "See docs/VERDICT_REGISTRY.md. A KILL/HOLD ships with its entry in the same change.",
+ "unregistered_ok": [
+  {
+   "kind": "argparse_flag",
+   "script": "scripts/generate_projections.py",
+   "flag": "--preseason",
+   "reason": "mode selector (preseason vs weekly), not a model lever"
+  },
+  {
+   "kind": "argparse_flag",
+   "script": "scripts/generate_projections.py",
+   "flag": "--include-kickers",
+   "reason": "scope: adds K rows to the board; not a model lever"
+  },
+  {
+   "kind": "argparse_flag",
+   "script": "scripts/sunday_projection_refresh.py",
+   "flag": "--dry-run",
+   "reason": "operational: computes the refresh but writes no output; cannot change a published board"
+  },
+  {
+   "kind": "argparse_flag",
+   "script": "scripts/sunday_projection_refresh.py",
+   "flag": "--backtest-probe",
+   "reason": "diagnostic: analysis-only probe over --weeks, documented as not writing Gold output"
+  }
+ ],
+ "verdicts": [
+  {
+   "id": "totals-ou-pick",
+   "subject": "Game-totals over/under pick",
+   "ruling": "KILL",
+   "date": "2026-06-10",
+   "doc": ".planning/TOTALS_VERDICT.md",
+   "note": "No subgroup cleared the gates; ou_pick blanked at every boundary by PR #161, merged 2026-11-17T21:15:35-05:00 (= 2026-11-18T02:15:35Z). The 2026-11-17 09:20 UTC cron board (predictions_20261117_092007) ran BEFORE the merge and legitimately still carries picks; enforced_since is the merge instant, compared against the full filename timestamp (UTC) with >=, so same-day boards are checked.",
+   "enforced_since": "2026-11-18T02:15:35Z",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "generate_predictions",
+     "name": "OU_PICK_RETIRED",
+     "expected": ""
+    },
+    {
+     "kind": "module_constant",
+     "module": "web.api.routers.predictions",
+     "name": "OU_PICK_RETIRED",
+     "expected": ""
+    },
+    {
+     "kind": "source_must_contain",
+     "file": "scripts/sync_gold_to_db.py",
+     "pattern": "OU_PICK_RETIRED"
+    },
+    {
+     "kind": "data_column_blank",
+     "glob": "data/gold/predictions/season=2026/week=*/predictions_*.parquet",
+     "column": "ou_pick",
+     "enforced_since": "2026-11-18T02:15:35Z"
+    }
+   ]
+  },
+  {
+   "id": "sleeper-anchor-wr",
+   "subject": "Sleeper consensus anchor, WR (default-on)",
+   "ruling": "SHIP",
+   "date": "2026-08-22",
+   "doc": ".planning/SLEEPER_CONSENSUS_ANCHOR_GATE.md",
+   "note": "Blend w=0.5, default-on in weekly mode; --no-sleeper-anchor opts out. Cron must never pass it.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-sleeper-anchor",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-sleeper-anchor"
+    },
+    {
+     "kind": "module_constant_contains",
+     "module": "sleeper_consensus_anchor",
+     "name": "SHIPPED_DEFAULT_CONFIGS",
+     "item": {
+      "position": "WR",
+      "mode": "blend",
+      "weight": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "sleeper-anchor-rb",
+   "subject": "Sleeper consensus anchor, RB",
+   "ruling": "SHIP",
+   "date": "2026-09-23",
+   "doc": ".planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md",
+   "note": "Shipped 2026-09-23 per project docs; the gate doc's own tail still reads HOLD (written before the engine re-gate).",
+   "enforcement": [
+    {
+     "kind": "module_constant_contains",
+     "module": "sleeper_consensus_anchor",
+     "name": "SHIPPED_DEFAULT_CONFIGS",
+     "item": {
+      "position": "RB",
+      "mode": "blend",
+      "weight": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "sleeper-anchor-te",
+   "subject": "Sleeper consensus anchor, TE",
+   "ruling": "SHIP",
+   "date": "2026-09-23",
+   "doc": ".planning/SLEEPER_ANCHOR_QB_RB_TE_GATE.md",
+   "note": "Shipped 2026-09-23 per project docs; TE weight 0.75 remains unshipped.",
+   "enforcement": [
+    {
+     "kind": "module_constant_contains",
+     "module": "sleeper_consensus_anchor",
+     "name": "SHIPPED_DEFAULT_CONFIGS",
+     "item": {
+      "position": "TE",
+      "mode": "blend",
+      "weight": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "sleeper-anchor-qb",
+   "subject": "Sleeper consensus anchor, QB",
+   "ruling": "SHIP",
+   "date": "2026-10-21",
+   "doc": ".planning/SEASON_2026_MIDSEASON_RETRO.md",
+   "note": "QB blend w=0.5 added to SHIPPED_DEFAULT_CONFIGS after QB fell from best to worst position.",
+   "enforcement": [
+    {
+     "kind": "module_constant_contains",
+     "module": "sleeper_consensus_anchor",
+     "name": "SHIPPED_DEFAULT_CONFIGS",
+     "item": {
+      "position": "QB",
+      "mode": "blend",
+      "weight": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "dispersion-shrink",
+   "subject": "Per-position dispersion shrink",
+   "ruling": "SHIP",
+   "date": "2026-10-21",
+   "doc": ".planning/SEASON_2026_MIDSEASON_RETRO.md",
+   "note": "Default-on weekly; k per position refit 2026-11-16. --no-dispersion-shrink must not be passed by cron.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-dispersion-shrink",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-dispersion-shrink"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--dispersion-shrink-k"
+    }
+   ]
+  },
+  {
+   "id": "consensus-fallback",
+   "subject": "Consensus fallback rows for unprojected skill players",
+   "ruling": "SHIP",
+   "date": "2026-11-17",
+   "doc": ".planning/STALE_OUT_TAG_2026_11_17.md",
+   "note": "PR #169; default-on weekly. Date is the doc date, not the merge date.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-consensus-fallback",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-consensus-fallback"
+    }
+   ]
+  },
+  {
+   "id": "band-calibration",
+   "subject": "Floor/ceiling band calibration",
+   "ruling": "SHIP",
+   "date": "2026-10-21",
+   "doc": ".planning/MODEL_ASSESSMENT_2026_10_21.md",
+   "note": "Coverage 29.8% -> 83.2%; default-on weekly.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-band-calibration",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-band-calibration"
+    }
+   ]
+  },
+  {
+   "id": "fresh-rolling",
+   "subject": "Fresh rolling features (games 1..W-1)",
+   "ruling": "SHIP",
+   "date": "2026-09-23",
+   "doc": ".planning/WEEKLY_DOUBLE_LAG_GATE.md",
+   "note": "Default-on; --no-fresh-rolling reproduces the old double lag and must not be in the cron.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-fresh-rolling",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-fresh-rolling"
+    }
+   ]
+  },
+  {
+   "id": "bye-returns",
+   "subject": "Bye/injury returns stay on the board",
+   "ruling": "SHIP",
+   "date": "2026-09-23",
+   "doc": ".planning/WEEKLY_DOUBLE_LAG_GATE.md",
+   "note": "Default-on; --no-bye-returns must not be in the cron.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-bye-returns",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-bye-returns"
+    }
+   ]
+  },
+  {
+   "id": "residual-coverage-guard",
+   "subject": "Residual-model serve-time coverage guard",
+   "ruling": "SHIP",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "Default-on; skips a position's residual when features are <70% as populated as at training. Date is the doc date.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-coverage-guard",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-coverage-guard"
+    }
+   ]
+  },
+  {
+   "id": "preseason-consensus-anchor",
+   "subject": "Preseason consensus anchor, all positions",
+   "ruling": "SHIP",
+   "date": "2026-07-08",
+   "doc": ".planning/ROADMAP.md",
+   "note": "Default-on in --preseason; --no-consensus-anchor disables. ROADMAP.md only records the v8.2 ship; no ruling doc fixes the behaviour. Weights pinned in 'preseason-consensus-weights'.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-consensus-anchor",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--no-consensus-anchor"
+    }
+   ]
+  },
+  {
+   "id": "hybrid-ml-routing",
+   "subject": "Hybrid ML router (--ml) in the weekly cron",
+   "ruling": "SHIP",
+   "date": "2026-06-12",
+   "doc": ".planning/MODEL_AUDIT_2026_06_12.md",
+   "note": "v4.3 made --ml the primary path; the Tuesday cron must keep passing it (fallback run is heuristic-only by design).",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--ml",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_pass",
+     "workflow": "weekly-pipeline.yml",
+     "script": "scripts/generate_projections.py",
+     "flag": "--ml"
+    }
+   ]
+  },
+  {
+   "id": "early-season-prior",
+   "subject": "Early-season prior (weeks 3-6)",
+   "ruling": "HOLD",
+   "date": "2026-08-09",
+   "doc": ".planning/EARLY_SEASON_PRIOR_GATE.md",
+   "note": "Deconfounded verdict HOLD (0.053 of 0.10 bar). Only a --shadow-tag run may pass it.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--early-season-prior",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--early-season-prior"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--early-season-prior-weight"
+    }
+   ]
+  },
+  {
+   "id": "adp-prior",
+   "subject": "Draft-time ADP early-season prior",
+   "ruling": "HOLD",
+   "date": "2026-08-18",
+   "doc": ".planning/ADP_EARLY_SEASON_GATE.md",
+   "note": "HOLD, 23% of gate bar walk-forward.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--adp-prior",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--adp-prior"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--adp-prior-weight"
+    }
+   ]
+  },
+  {
+   "id": "qb-starter-floor",
+   "subject": "QB starter-tier floor",
+   "ruling": "HOLD",
+   "date": "2026-08-09",
+   "doc": ".planning/QB_STARTER_FLOOR_GATE.md",
+   "note": "HOLD (v2 worse than v1).",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--qb-starter-floor",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--qb-starter-floor"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--qb-starter-floor-haircut"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--depth-chart-as-of"
+    }
+   ]
+  },
+  {
+   "id": "rb-tail-calibration",
+   "subject": "RB magnitude-tail calibration",
+   "ruling": "HOLD",
+   "date": "2026-08-09",
+   "doc": ".planning/RB_TAIL_CALIBRATION_GATE.md",
+   "note": "HOLD at 79% of gate bar; JOINT_LEVER_GATE.md also HOLD.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--rb-tail-calibration",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--rb-tail-calibration"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--rb-tail-low-weight"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--rb-tail-high-shrink"
+    }
+   ]
+  },
+  {
+   "id": "wr-tiebreak",
+   "subject": "WR near-tie tie-break",
+   "ruling": "HOLD",
+   "date": "2026-08-09",
+   "doc": ".planning/WR_TIEBREAK_GATE.md",
+   "note": "HOLD at 16% of gate bar.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--wr-tiebreak",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--wr-tiebreak"
+    }
+   ]
+  },
+  {
+   "id": "ecr-anchor",
+   "subject": "WR weekly-ECR ordinal anchor",
+   "ruling": "HOLD",
+   "date": "2026-08-18",
+   "doc": ".planning/WR_ECR_ORDINAL_GATE.md",
+   "note": "HOLD on the shuffle-test criterion despite primary gate clearing.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--ecr-anchor",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--ecr-anchor"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--ecr-anchor-mode"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--ecr-anchor-weight"
+    }
+   ]
+  },
+  {
+   "id": "wind-adjust",
+   "subject": "High-wind QB/WR/TE bias shrink",
+   "ruling": "HOLD",
+   "date": "2026-08-16",
+   "doc": ".planning/WIND_LEVER_2026_08_16.md",
+   "note": "Status HOLD.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--wind-adjust",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--wind-adjust"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--wind-adjust-shrink"
+    }
+   ]
+  },
+  {
+   "id": "props-blend",
+   "subject": "Weekly prop-implied blend",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-07-08",
+   "doc": ".planning/PROP_IMPLIED_DECISION.md",
+   "note": "Opt-in on purpose; Sept+ in-season gate pending.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--props-blend",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--props-blend"
+    }
+   ]
+  },
+  {
+   "id": "season-props-blend",
+   "subject": "Season-futures preseason blend",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-08-02",
+   "doc": ".planning/PROP_IMPLIED_DECISION.md",
+   "note": "Opt-in on purpose; forward gate vs 2026 season-end actuals.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--season-props-blend",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--season-props-blend"
+    }
+   ]
+  },
+  {
+   "id": "vacated-opportunity",
+   "subject": "Vacated-opportunity preseason boost (graph UC1)",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-07-09",
+   "doc": ".planning/GRAPH_USECASES_2026_07.md",
+   "note": "Opt-in on purpose (RB Spearman +0.016).",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--vacated-opportunity",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--vacated-opportunity"
+    }
+   ]
+  },
+  {
+   "id": "sentiment-multiplier",
+   "subject": "Sentiment multiplier / team sentiment edge",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-08-09",
+   "doc": ".planning/STATE.md",
+   "note": "STATE.md thread 6 records --use-sentiment as BUILT, opt-in, event-based (Phase 61 D-03), with default-ON gated on in-season eval like --props-blend. The earlier citation (SENTIMENT_ROLE_LEVER.md) rules on a role-change lever, not on this flag. Applies to projections and to game predictions.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--use-sentiment",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--use-sentiment"
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_predictions.py",
+     "flag": "--use-sentiment",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_predictions.py",
+     "flag": "--use-sentiment"
+    }
+   ]
+  },
+  {
+   "id": "structured-events",
+   "subject": "Structured event adjustments",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-08-09",
+   "doc": ".planning/SENTIMENT_ROLE_LEVER.md",
+   "note": "SENTIMENT_ROLE_LEVER.md covers --use-events directly: it describes the bounded Phase 61 D-03 multipliers and says the existing ship gate is vacuous (0 event weeks) and 'must not be read as a real pass'. So opt-in is the state of record; the doc does not issue a SHIP verdict for default-on.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--use-events",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--use-events"
+    }
+   ]
+  },
+  {
+   "id": "conformal-bands",
+   "subject": "Conformal quantile bands (--conformal-bands)",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-06-12",
+   "doc": ".planning/MODEL_AUDIT_2026_06_12.md",
+   "note": "Actual state: opt-in and NOT in the cron; shipped calibrated bands (band-calibration) made it unnecessary. Do not describe as active.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--conformal-bands",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--conformal-bands"
+    }
+   ]
+  },
+  {
+   "id": "uc2-familiarity",
+   "subject": "Cross-team familiarity features (graph UC2)",
+   "ruling": "HOLD",
+   "date": "2026-07-09",
+   "doc": ".planning/GRAPH_USECASES_2026_07.md",
+   "note": "Infrastructure merged, models unchanged; candidate pool only.",
+   "enforcement_gap": "No flag or constant gates it; it is a SHAP candidate pool in hybrid_projection._FAMILIARITY_FEATURES. Needs a shipped-feature-list check against model metadata."
+  },
+  {
+   "id": "ensemble-ep-features",
+   "subject": "Team-EP aggregate ensemble features",
+   "ruling": "HOLD",
+   "date": "2026-08-21",
+   "doc": ".planning/ENSEMBLE_EP_FEATURES_GATE.md",
+   "note": "Final verdict DO-NOT-PROMOTE (sealed 2025 -2.95pt); not in models/ensemble.",
+   "enforcement_gap": "Needs a check on models/ensemble metadata feature list; no code flag exists."
+  },
+  {
+   "id": "dead-wr-route-slope",
+   "subject": "WR route-slope collapse",
+   "ruling": "DEAD",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "Route participation does not exist in-season; switched off.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "projection_engine",
+     "name": "USE_WR_ROUTE_SLOPE_COLLAPSE",
+     "expected": false
+    }
+   ]
+  },
+  {
+   "id": "dead-wr-tprr",
+   "subject": "WR TPRR collapse",
+   "ruling": "DEAD",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "Same dead input; switched off.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "projection_engine",
+     "name": "USE_WR_TPRR_COLLAPSE",
+     "expected": false
+    }
+   ]
+  },
+  {
+   "id": "dead-ranking-nudge",
+   "subject": "Graph ranking nudge",
+   "ruling": "DEAD",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "Fired on 0 players live; its own gate was a MISS.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "ranking_score",
+     "name": "USE_RANKING_SCORE",
+     "expected": false
+    }
+   ]
+  },
+  {
+   "id": "rb-snap-collapse",
+   "subject": "RB snap-share collapse correction",
+   "ruling": "SHIP",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "Fixed (reads pre-week signal), not deleted; weak evidence stated in the doc.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "projection_engine",
+     "name": "USE_RB_SNAP_COLLAPSE",
+     "expected": true
+    }
+   ]
+  },
+  {
+   "id": "veteran-prior-blend",
+   "subject": "Veteran prior blend",
+   "ruling": "SHIP",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "The cited doc only records that the blend fires (27-79% of rows change, wk 7 / wk 4); it does NOT say the flag must stay on for train/serve consistency. No ruling doc: the flag being ON is the decision of record on 2026-11-23, pinned because projection_engine.py line comments describe it as the master switch.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "projection_engine",
+     "name": "USE_VETERAN_PRIOR_BLEND",
+     "expected": true
+    }
+   ]
+  },
+  {
+   "id": "espn-live-draft-rest",
+   "subject": "ESPN live-draft capture over REST",
+   "ruling": "KILL",
+   "date": "2026-06-15",
+   "doc": ".planning/phases/89-espn-draft-adapter/89-SPIKE-FINDINGS.md",
+   "note": "mDraftDetail is empty mid-draft; only the draft-room page via CDP works.",
+   "enforcement": [
+    {
+     "kind": "source_must_contain",
+     "file": "src/espn_adapter.py",
+     "pattern": "NO-GO \\(REST\\)"
+    }
+   ]
+  },
+  {
+   "id": "claim-clv",
+   "subject": "Public 'closing-line value' claim",
+   "ruling": "KILL",
+   "date": "2026-10-24",
+   "doc": ".planning/CLV_PICK_RULE_AUDIT_2026_10_24.md",
+   "note": "The '+0.37 CLV' was the spread edge vs the close, retracted; no CLV evidence exists. Scope: frontend source (.ts/.tsx/.md/.json) and README.MD; a line that negates or retracts the claim is allowed. docs/ is out of scope: dated architecture docs legitimately describe the v2.1 CLV tracking as built in March 2026.",
+   "enforcement": [
+    {
+     "kind": "source_must_not_contain",
+     "file": [
+      "web/frontend/src/**/*.tsx",
+      "web/frontend/src/**/*.ts",
+      "web/frontend/src/**/*.md",
+      "web/frontend/src/**/*.json",
+      "README.MD"
+     ],
+     "pattern": "(?i)closing[- ]line value|\\bCLV\\b|beat(s|ing)? the clos",
+     "unless": "(?i)\\b(no|not|never|without|retract\\w*|isn'?t|wasn'?t)\\b"
+    }
+   ]
+  },
+  {
+   "id": "claim-beat-consensus",
+   "subject": "Present-tense 'we beat the consensus'",
+   "ruling": "KILL",
+   "date": "2026-10-21",
+   "doc": ".planning/SEASON_2026_MIDSEASON_RETRO.md",
+   "note": "DECISION OF RECORD (no ruling doc): the cited retro only REPORTS the 2026 w1-6 gap to Sleeper (+0.093 MAE after the QB anchor; it also states the sealed-2025 -0.086) and does not itself ban landing-page wording; the ban on present-tense 'we beat the consensus' is recorded here on 2026-11-23. Dated backtest claims (a line with a year, 'sealed', 'backtest' or 'historical') stay allowed. Scope: frontend source and README.MD; docs/ is out of scope (docs/ACCURACY_COMPETITION.md quotes the dated 2022-24 result). Allowed by the 'unless' regex: code comments (definition of a negative gap) and the data-driven ternary pill label in accuracy-dashboard.tsx (win ? 'Beat Consensus' : 'Trailing'), which renders only when the live gap is negative; it is not static copy.",
+   "enforcement": [
+    {
+     "kind": "source_must_not_contain",
+     "file": [
+      "web/frontend/src/**/*.tsx",
+      "web/frontend/src/**/*.ts",
+      "web/frontend/src/**/*.md",
+      "web/frontend/src/**/*.json",
+      "README.MD"
+     ],
+     "pattern": "(?i)\\b(we|our (model|projections?|board)|giq)\\s+(beat|beats|outperform|outperforms|outrank|outranks)\\b|\\b(beats?|outperforms?|outranks?)\\s+(the\\s+)?(sleeper|espn|consensus|fantasypros|yahoo)\\b",
+     "unless": "(?i)\\b20\\d\\d\\b|sealed|backtest|historical|\\bwas\\b|\\bwere\\b|\\bdid\\b|^\\s*(//|\\*|/\\*)|\\?\\s*['\\\"]beat consensus['\\\"]\\s*:"
+    }
+   ]
+  },
+  {
+   "id": "claim-ats-53",
+   "subject": "53.0% ATS (sealed 2024) as a current figure",
+   "ruling": "KILL",
+   "date": "2026-10-24",
+   "doc": ".planning/CLV_PICK_RULE_AUDIT_2026_10_24.md",
+   "note": "2026 live ATS is 47.1% (n=93); the 53.0% is historical only. README is tracked as README.MD (exact case matters on Linux CI). docs/ is out of scope: NFL_DATA_MODEL_IMPLEMENTATION_GUIDE.md:829,834 and NFL_GAME_PREDICTION_DATA_MODEL.md:680 still quote '53.0% ATS' without a holdout qualifier on that line but are dated March 2026 version footers (reported, not suppressed).",
+   "enforcement": [
+    {
+     "kind": "source_must_not_contain",
+     "file": [
+      "web/frontend/src/**/*.tsx",
+      "web/frontend/src/**/*.ts",
+      "web/frontend/src/**/*.md",
+      "web/frontend/src/**/*.json",
+      "README.MD"
+     ],
+     "pattern": "(?i)\\b53(\\.0)?\\s?%\\s?(ATS|against the spread)",
+     "unless": "(?i)2024|holdout|historical|sealed|retract"
+    }
+   ]
+  },
+  {
+   "id": "sleeper-anchor-shipped-set",
+   "subject": "Sleeper anchor: the whole shipped config set and its override flags",
+   "ruling": "SHIP",
+   "date": "2026-10-21",
+   "doc": ".planning/SEASON_2026_MIDSEASON_RETRO.md",
+   "note": "Pins the full SHIPPED_DEFAULT_CONFIGS tuple (positions, order, mode, weights; WR/RB/TE per SLEEPER_ANCHOR_QB_RB_TE_GATE.md, QB per the retro). A value change, an extra position or a cron-passed override neutralises the ship: --consensus-anchor-src REPLACES the whole shipped set (resolve_sleeper_anchor_configs), and the extra-* flags replace one position's config. TE weight 0.75 is NOT shipped.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "sleeper_consensus_anchor",
+     "name": "SHIPPED_DEFAULT_CONFIGS",
+     "expected": [
+      {
+       "position": "WR",
+       "mode": "blend",
+       "weight": 0.5
+      },
+      {
+       "position": "RB",
+       "mode": "blend",
+       "weight": 0.5
+      },
+      {
+       "position": "TE",
+       "mode": "blend",
+       "weight": 0.5
+      },
+      {
+       "position": "QB",
+       "mode": "blend",
+       "weight": 0.5
+      }
+     ]
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-src",
+     "expected": null
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-extra-position",
+     "expected": null
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-extra-mode",
+     "expected": "blend"
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-extra-weight",
+     "expected": 0.5
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-src"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-position"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-mode"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-weight"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-extra-position"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-extra-mode"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--consensus-anchor-extra-weight"
+    }
+   ]
+  },
+  {
+   "id": "dispersion-shrink-values",
+   "subject": "Dispersion shrink factors",
+   "ruling": "SHIP",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "Per-position k fitted leave-one-week-out on 2026 w1-9: QB/RB/TE 0.8, WR 1.0 (no shrink). SHRINK_FACTOR 0.8 is the base from the 2026-10-21 ship (retro). MIN_CENTRE_PTS 5.0 is the startable-pool cutoff described in CLAUDE.md; the fit doc does not restate it. --dispersion-shrink-k applies ONE k to every position and must never be in a cron.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "dispersion_shrink",
+     "name": "SHRINK_FACTOR",
+     "expected": 0.8
+    },
+    {
+     "kind": "module_constant",
+     "module": "dispersion_shrink",
+     "name": "SHRINK_FACTOR_BY_POSITION",
+     "expected": {
+      "QB": 0.8,
+      "RB": 0.8,
+      "WR": 1.0,
+      "TE": 0.8
+     }
+    },
+    {
+     "kind": "module_constant",
+     "module": "dispersion_shrink",
+     "name": "MIN_CENTRE_PTS",
+     "expected": 5.0
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--dispersion-shrink-k",
+     "expected": null
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--dispersion-shrink-k"
+    }
+   ]
+  },
+  {
+   "id": "residual-coverage-ratio",
+   "subject": "Residual coverage guard threshold",
+   "ruling": "SHIP",
+   "date": "2026-11-16",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "MIN_RATIO 0.70: skip a position's residual when serve-time feature coverage is under 70% of training. The cited doc says the guard stays quiet at 94-102% but does not fix the 0.70 value; no ruling doc for the number (recorded in the src comment and CLAUDE.md). MIN_RATIO 0.0 would silently disable the guard.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "residual_coverage",
+     "name": "MIN_RATIO",
+     "expected": 0.7
+    }
+   ]
+  },
+  {
+   "id": "vegas-beta",
+   "subject": "Per-position Vegas damping exponent",
+   "ruling": "SHIP",
+   "date": "2026-06-12",
+   "doc": ".planning/MODEL_AUDIT_2026_06_12.md",
+   "note": "QB 0.25 shipped (strictly dominates no-Vegas for QB per the src comment); RB/WR/TE 0.0 (no beta helps RB; WR/TE route through the residual hybrid). The audit doc records the QB VEGAS_BETA result and the post-fix measurement but does not list the full table; the src comment above VEGAS_BETA carries the numbers. Raising RB/WR/TE re-enables the matchup/Vegas lever that is HOLD.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "projection_engine",
+     "name": "VEGAS_BETA",
+     "expected": {
+      "QB": 0.25,
+      "RB": 0.0,
+      "WR": 0.0,
+      "TE": 0.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "preseason-consensus-weights",
+   "subject": "Preseason consensus anchor weights",
+   "ruling": "SHIP",
+   "date": "2026-07-08",
+   "doc": ".planning/ROADMAP.md",
+   "note": "No ruling doc fixes these numbers (ROADMAP.md only records the v8.2 ship; rationale is in the src/consensus_anchor.py comment block and CLAUDE.md). Pinned values: QB .7 RB .6 WR .6 TE .5 K .8, low-sample floor .85.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "consensus_anchor",
+     "name": "DEFAULT_CONSENSUS_WEIGHTS",
+     "expected": {
+      "QB": 0.7,
+      "RB": 0.6,
+      "WR": 0.6,
+      "TE": 0.5,
+      "K": 0.8
+     }
+    },
+    {
+     "kind": "module_constant",
+     "module": "consensus_anchor",
+     "name": "LOW_SAMPLE_WEIGHT",
+     "expected": 0.85
+    }
+   ]
+  },
+  {
+   "id": "lineup-ours-weight-zero",
+   "subject": "Lineup tool: our projections get zero weight",
+   "ruling": "SHIP",
+   "date": "2026-11-15",
+   "doc": ".planning/LINEUP_TOOL_ENHANCEMENT.md",
+   "note": "No ruling doc for the fitted constants: the doc is the original plan (both-sources-agree-by-3.0 rule) that the fit superseded. The ruling is the replay sweep recorded in the src/lineup_setter.py comments (fit weeks 1-5, tested 6-9: every OURS_WEIGHT above 0.1 scored fewer actual points) and CLAUDE.md's lineup_setter row. Sleeper's projection under league scoring is the one estimate. CONSENSUS_FD_FROM_RATES False: did not score more lineup points, stays off.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "lineup_setter",
+     "name": "OURS_WEIGHT",
+     "expected": 0.0
+    },
+    {
+     "kind": "module_constant",
+     "module": "lineup_setter",
+     "name": "CONSENSUS_FD_FROM_RATES",
+     "expected": false
+    }
+   ]
+  },
+  {
+   "id": "lineup-swap-thresholds",
+   "subject": "Lineup tool: SWAP 0.52, no LEAN band, writer 0.60",
+   "ruling": "SHIP",
+   "date": "2026-11-15",
+   "doc": ".planning/LINEUP_TOOL_ENHANCEMENT.md",
+   "note": "No ruling doc (see lineup-ours-weight-zero). SWAP_P 0.52 chosen on weeks 1-5 replay; LEAN_P == SWAP_P because the band just under the line lost points (P in [0.50,0.52): 15 pairs, 27% right, -43 pts); WRITE_P 0.60 because the ESPN writer acts and asks more. The argparse defaults of --swap-p/--lean-p/--write-p resolve through the imported constants and are pinned by value. The cron must never run the writer (--espn-write/--apply) or override a threshold.",
+   "enforcement": [
+    {
+     "kind": "module_constant",
+     "module": "lineup_setter",
+     "name": "SWAP_P",
+     "expected": 0.52
+    },
+    {
+     "kind": "module_constant",
+     "module": "lineup_setter",
+     "name": "LEAN_P",
+     "expected": 0.52
+    },
+    {
+     "kind": "module_constant",
+     "module": "set_lineups",
+     "name": "WRITE_P",
+     "expected": 0.6
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/set_lineups.py",
+     "flag": "--swap-p",
+     "expected": 0.52
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/set_lineups.py",
+     "flag": "--lean-p",
+     "expected": 0.52
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/set_lineups.py",
+     "flag": "--write-p",
+     "expected": 0.6
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/set_lineups.py",
+     "flag": "--espn-write",
+     "expected": false
+    },
+    {
+     "kind": "argparse_default",
+     "script": "scripts/set_lineups.py",
+     "flag": "--apply",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/set_lineups.py",
+     "flag": "--swap-p"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/set_lineups.py",
+     "flag": "--lean-p"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/set_lineups.py",
+     "flag": "--write-p"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/set_lineups.py",
+     "flag": "--espn-write"
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/set_lineups.py",
+     "flag": "--apply"
+    }
+   ]
+  },
+  {
+   "id": "constrain-team-totals",
+   "subject": "Team-total constraint (--constrain)",
+   "ruling": "SHIP_OPT_IN",
+   "date": "2026-04-01",
+   "doc": ".planning/PROJECT.md",
+   "note": "PROJECT.md lists 'game-level constraints (opt-in)' in the shipped milestone; MODEL_AUDIT_2026_06_12.md records that implied_totals loading is gated on --constrain. Neither doc rules on the default. State of record: default False and the cron does not pass it. OBSERVATION (not a violation of this entry): generate_projections.py loads implied totals only under --constrain, while the audit says live production always passes implied totals - worth a human check that the Vegas multiplier is not silently a no-op in the cron.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_projections.py",
+     "flag": "--constrain",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_not_pass",
+     "workflow": "*",
+     "script": "scripts/generate_projections.py",
+     "flag": "--constrain"
+    }
+   ]
+  },
+  {
+   "id": "game-ensemble-selection",
+   "subject": "Game predictions use the shipped ensemble (--ensemble)",
+   "ruling": "SHIP",
+   "date": "2026-08-15",
+   "doc": ".planning/ENSEMBLE_HEALTH_2026_08_15.md",
+   "note": "--ensemble selects the shipped XGB+LGB+CB+Ridge ensemble (models/ensemble/) instead of the v1.4 single model; it is NOT an operational flag. ENSEMBLE_HEALTH keeps the shipped ensemble; it does not rule on the flag itself. Dropping it from the cron silently publishes the old model.",
+   "enforcement": [
+    {
+     "kind": "argparse_default",
+     "script": "scripts/generate_predictions.py",
+     "flag": "--ensemble",
+     "expected": false
+    },
+    {
+     "kind": "workflow_must_pass",
+     "workflow": "weekly-pipeline.yml",
+     "script": "scripts/generate_predictions.py",
+     "flag": "--ensemble"
+    }
+   ]
+  },
+  {
+   "id": "passthrough-publishers",
+   "subject": "No unreviewed flag passthrough into publishers",
+   "ruling": "SHIP",
+   "date": "2026-11-23",
+   "doc": ".planning/PROJECTION_CALIBRATION_FIT_2026_11.md",
+   "note": "DECISION OF RECORD (no ruling doc): that doc states the cron command is 'generate_projections.py --ml with no opt-ins'. A ${{ inputs.* / vars.* }} expansion or an unlisted shell variable on a publisher command line can inject any flag past the token scan, so each must be allowlisted with a reason.",
+   "enforcement": [
+    {
+     "kind": "workflow_no_flag_passthrough",
+     "workflow": "*",
+     "scripts": [
+      "scripts/generate_projections.py",
+      "scripts/generate_predictions.py",
+      "scripts/sunday_projection_refresh.py"
+     ],
+     "allow_expressions": [
+      {
+       "workflow": "sunday-refresh.yml",
+       "expression": "inputs.season && format('--season {0}', inputs.season) || ''",
+       "reason": "builds only --season from a typed workflow_dispatch input; sunday_projection_refresh has no model flags"
+      },
+      {
+       "workflow": "sunday-refresh.yml",
+       "expression": "inputs.week && format('--week {0}', inputs.week) || ''",
+       "reason": "builds only --week from a typed input"
+      },
+      {
+       "workflow": "sunday-refresh.yml",
+       "expression": "inputs.scoring || 'all'",
+       "reason": "value of --scoring (ppr/half_ppr/standard/all), not a flag"
+      }
+     ],
+     "allow_vars": [
+      {
+       "name": "SEASON",
+       "reason": "step env: resolved season, passed as --season \"$SEASON\""
+      },
+      {
+       "name": "WEEK",
+       "reason": "step env: resolved week, passed as --week \"$WEEK\""
+      },
+      {
+       "name": "ML_FLAG",
+       "reason": "weekly-pipeline shadow step: ML_FLAG is only ever '' or '--ml', and that command also carries --shadow-tag"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "value_levers": [
+  {
+   "module": "sleeper_consensus_anchor",
+   "name": "SHIPPED_DEFAULT_CONFIGS"
+  },
+  {
+   "module": "dispersion_shrink",
+   "name": "SHRINK_FACTOR"
+  },
+  {
+   "module": "dispersion_shrink",
+   "name": "SHRINK_FACTOR_BY_POSITION"
+  },
+  {
+   "module": "residual_coverage",
+   "name": "MIN_RATIO"
+  },
+  {
+   "module": "projection_engine",
+   "name": "VEGAS_BETA"
+  },
+  {
+   "module": "consensus_anchor",
+   "name": "DEFAULT_CONSENSUS_WEIGHTS"
+  },
+  {
+   "module": "lineup_setter",
+   "name": "OURS_WEIGHT"
+  },
+  {
+   "module": "lineup_setter",
+   "name": "SWAP_P"
+  },
+  {
+   "module": "lineup_setter",
+   "name": "LEAN_P"
+  },
+  {
+   "module": "set_lineups",
+   "name": "WRITE_P"
+  },
+  {
+   "script": "scripts/set_lineups.py",
+   "flag": "--swap-p"
+  },
+  {
+   "script": "scripts/set_lineups.py",
+   "flag": "--lean-p"
+  },
+  {
+   "script": "scripts/set_lineups.py",
+   "flag": "--write-p"
+  },
+  {
+   "script": "scripts/generate_projections.py",
+   "flag": "--dispersion-shrink-k"
+  },
+  {
+   "script": "scripts/generate_projections.py",
+   "flag": "--consensus-anchor-src"
+  },
+  {
+   "script": "scripts/generate_projections.py",
+   "flag": "--consensus-anchor-extra-weight"
+  }
+ ],
+ "attribute_write_allowlist": []
+}
