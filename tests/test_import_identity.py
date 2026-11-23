@@ -32,10 +32,10 @@ def _both(name):
     "name",
     [
         "config",
-        pytest.param("projection_engine", marks=pytest.mark.xfail(strict=True, reason=_DUP)),
-        pytest.param("ranking_score", marks=pytest.mark.xfail(strict=True, reason=_DUP)),
-        pytest.param("scoring_calculator", marks=pytest.mark.xfail(strict=True, reason=_DUP)),
-        pytest.param("utils", marks=pytest.mark.xfail(strict=True, reason=_DUP)),
+        pytest.param("projection_engine", marks=pytest.mark.xfail(strict=True, raises=AssertionError, reason=_DUP)),
+        pytest.param("ranking_score", marks=pytest.mark.xfail(strict=True, raises=AssertionError, reason=_DUP)),
+        pytest.param("scoring_calculator", marks=pytest.mark.xfail(strict=True, raises=AssertionError, reason=_DUP)),
+        pytest.param("utils", marks=pytest.mark.xfail(strict=True, raises=AssertionError, reason=_DUP)),
     ],
 )
 def test_same_module_object_both_ways(name):
@@ -48,7 +48,7 @@ def test_config_state_is_shared():
     assert flat.SCORING_CONFIGS is pkg.SCORING_CONFIGS
 
 
-@pytest.mark.xfail(strict=True, reason=_DUP + " -- a USE_* flag flipped on one is not seen by the other")
+@pytest.mark.xfail(strict=True, raises=AssertionError, reason=_DUP + " -- a USE_* flag flipped on one is not seen by the other")
 @pytest.mark.parametrize(
     "name,flag",
     [
