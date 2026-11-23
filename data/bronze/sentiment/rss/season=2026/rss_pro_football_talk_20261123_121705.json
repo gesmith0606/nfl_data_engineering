@@ -1,0 +1,475 @@
+{
+  "fetch_run_id": "f3eb4b6e-6e67-4525-9d33-05664f21659a",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-23T12:17:05.831783+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-offense-took-late-jags-fg-personally-we-cant-give-them-that-confidence",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/j-j-mccarthy-offense-took-late-jags-fg-personally-we-cant-give-them-that-confidence",
+      "title": "J.J. McCarthy: Offense took late Jags FG personally, we can't give them that confidence",
+      "body_text": "One of the biggest moments in Sunday's game between the Giants and Jaguars came with just over three minutes to play when Jaguars head coach Liam Coen elected to kick a field goal rather than go for it from New York's 9-yard-line.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T12:09:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-did-not-have-a-rushing-attempt-in-sundays-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-allen-did-not-have-a-rushing-attempt-in-sundays-win",
+      "title": "Josh Allen did not have a rushing attempt in Sunday's win",
+      "body_text": "Bills quarterback Josh Allen has built his career on being a two-way threat with the ball in his hands, but he did not play that way against the Dolphins on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T12:02:06+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Josh Allen"
+      ],
+      "resolved_player_ids": [
+        "00-0034857"
+      ],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-on-unretiring-the-backflip-when-energy-calls-for-it-it-calls-for-it",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cam-skattebo-on-unretiring-the-backflip-when-energy-calls-for-it-it-calls-for-it",
+      "title": "Cam Skattebo on unretiring the backflip: When energy calls for it, it calls for it",
+      "body_text": "Cam Skattebo said during the week that he was retiring his celebratory backflip because he didn't want to risk a similar injury to the one suffered by Lions defensive end Aidan Hutchinson in Week 10, but the retirement proved to be a very brief one.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T11:48:55+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0037236"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-has-52-career-rushing-tds-ties-barry-sanders-for-most-before-turning-25",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-has-52-career-rushing-tds-ties-barry-sanders-for-most-before-turning-25",
+      "title": "Jahmyr Gibbs has 52 career rushing TDs, ties Barry Sanders for most before turning 25",
+      "body_text": "Two Lions running backs now share the NFL record for the most rushing touchdowns before turning 25 years old.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-23T09:57:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahmyr Gibbs",
+        "Barry Sanders",
+        "Two Lions"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lose-right-tackle-colton-mckivitz-for-season-with-fractured-dislocated-ankle",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-lose-right-tackle-colton-mckivitz-for-season-with-fractured-dislocated-ankle",
+      "title": "49ers lose right tackle Colton McKivitz for season with fractured, dislocated ankle",
+      "body_text": "The 49ers lost starting right tackle Colton McKivitz for the season on Sunday night with a serious ankle injury.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-23T08:56:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 11",
+      "body_text": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-23T05:01:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Playoff Picture"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-49ers-move-to-9-1-with-dominant-35-10-victory-over-vikings",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-49ers-move-to-9-1-with-dominant-35-10-victory-over-vikings",
+      "title": "Sunday Night Football: 49ers move to 9-1 with dominant 35-10 victory over Vikings",
+      "body_text": "George Kittle caught two touchdowns as San Francisco became the first team to score at least 30 points against Minnesota in 2026.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T04:25:41+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Vikings George",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-touchdown-gives-49ers-35-10-lead-in-fourth-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-mccaffrey-touchdown-gives-49ers-35-10-lead-in-fourth-quarter",
+      "title": "Christian McCaffrey touchdown gives 49ers 35-10 lead in fourth quarter",
+      "body_text": "It's just about all but over in Mexico City. 49ers running back Christian McCaffrey capped a 13-play, 98-yard drive with a 6-yard touchdown to give San Francisco a 35-10 lead with 13:26 left in the fourth quarter.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T03:57:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mexico City",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jevon-holland-on-controversial-parker-washington-call-shoutout-vegas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jevon-holland-on-controversial-parker-washington-call-shoutout-vegas",
+      "title": "Jevón Holland on controversial Parker Washington call: \"Shoutout Vegas\"",
+      "body_text": "Back when the NFL hated gambling, it feared that widespread legalized sports betting would prompt fans to think the fix is in.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T03:49:46+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Parker Washington",
+        "Shoutout Vegas"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-calls-dk-metcalfs-ejection-disappointing-wont-comment-on-message-to-him",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-calls-dk-metcalfs-ejection-disappointing-wont-comment-on-message-to-him",
+      "title": "Aaron Rodgers calls DK Metcalf's ejection \"disappointing,\" won't comment on message to him",
+      "body_text": "On certain subjects, Steelers quarterback Aaron Rodgers doesn't stop talking.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T03:27:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nixs-12th-td-pass-of-the-season-gives-broncos-10-0-lead-over-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nixs-12th-td-pass-of-the-season-gives-broncos-10-0-lead-over-raiders",
+      "title": "Bo Nix's 12th TD pass of the season gives Broncos 10-0 lead over Raiders",
+      "body_text": "The Broncos have gotten into the end zone.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-22T22:06:39+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Raiders The"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-throws-first-touchdown-pass-raiders-trail-broncos-17-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendoza-throws-first-touchdown-pass-raiders-trail-broncos-17-10",
+      "title": "Fernando Mendoza throws first touchdown pass, Raiders trail Broncos 17-10",
+      "body_text": "Fernando Mendoza ran it into the end zone for his first professional touchdown last week.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-22T22:44:26+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lead-raiders-17-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-lead-raiders-17-10-at-halftime",
+      "title": "Broncos lead Raiders 17-10 at halftime",
+      "body_text": "The Broncos got out to a 17-0 lead, but the Raiders have settled in after a rough start to narrow that advantage to 17-10 at halftime.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-22T23:04:59+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendozas-second-td-pass-tied-raiders-broncos-at-17-17",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/fernando-mendozas-second-td-pass-tied-raiders-broncos-at-17-17",
+      "title": "Fernando Mendoza's second TD pass tied Raiders-Broncos at 17-17",
+      "body_text": "The Raiders are back in business.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-22T23:41:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza",
+        "The Raiders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-move-to-8-2-with-38-24-victory-over-raiders",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-move-to-8-2-with-38-24-victory-over-raiders",
+      "title": "Broncos move to 8-2 with 38-24 victory over Raiders",
+      "body_text": "A pick-six off of Fernando Mendoza late in the fourth quarter sealed Denver's win.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T00:48:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-give-jameis-winston-a-td-replays-appear-to-show-he-was-down-before-scoring",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-give-jameis-winston-a-td-replays-appear-to-show-he-was-down-before-scoring",
+      "title": "Officials give Jameis Winston a TD, replays appear to show he was down before scoring",
+      "body_text": "The officials gave Giants quarterback Jameis Winston a touchdown on a fourth-and-goal tush push today against the Jaguars, but on replay it's not at all clear that Winston actually scored.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-22T22:19:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jameis Winston"
+      ],
+      "resolved_player_ids": [
+        "00-0031503"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-deny-jaguars-td-on-sensational-catch-by-parker-washington",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/officials-deny-jaguars-td-on-sensational-catch-by-parker-washington",
+      "title": "Officials deny Jaguars TD on sensational catch by Parker Washington",
+      "body_text": "Washington appeared to make a superb touchdown catch, but the officials and the replay office ruled it incomplete.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-23T00:14:42+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Parker Washington"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-earn-their-most-impressive-win-of-the-season-with-upset-of-jaguars",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-earn-their-most-impressive-win-of-the-season-with-upset-of-jaguars",
+      "title": "Giants earn their most impressive win of the season with upset of Jaguars",
+      "body_text": "The NFC East leaders surprised the AFC South leaders today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-23T00:55:23+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jaguars The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-i-was-told-ball-switched-hands-on-parker-washington-catch",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-i-was-told-ball-switched-hands-on-parker-washington-catch",
+      "title": "Liam Coen: I was told ball switched hands on Parker Washington catch",
+      "body_text": "The Giants held off the Jaguars on Sunday, but the outcome might have been different if referees had made a different ruling on a pass to Jaguars wideout Parker Washington early in the fourth quarter.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T01:25:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen",
+        "Parker Washington",
+        "The Giants"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-everything-said-kick-fg-late-in-fourth-going-for-it-a-hope-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/liam-coen-everything-said-kick-fg-late-in-fourth-going-for-it-a-hope-play",
+      "title": "Liam Coen: Everything said kick FG late in fourth, going for it a \"hope play\"",
+      "body_text": "Jaguars head coach Liam Coen opted to kick a field goal from the 9-yard-line and cut the Giants' lead to 23-18 with just over three minutes to play in Sunday's game, but hopes of winning the game with a touchdown went up in smoke when the Giants picked up two first downs and ran out the clock.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T01:53:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Liam Coen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-parker-washington-didnt-control-ball-until-he-was-out-of-bounds",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-says-parker-washington-didnt-control-ball-until-he-was-out-of-bounds",
+      "title": "NFL says Parker Washington didn't control ball until he was out of bounds",
+      "body_text": "Sunday's game between the Jaguars and Giants included a controversial decision in the fourth quarter on a play that looked like a touchdown catch by Jacksonville receiver Parker Washington.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T02:28:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Parker Washington"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-end-touchdown-drought-lead-chargers-10-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-end-touchdown-drought-lead-chargers-10-3",
+      "title": "Jets end touchdown drought, lead Chargers 10-3",
+      "body_text": "The Jets have found their way back to the end zone.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-22T21:42:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-lead-chargers-17-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-lead-chargers-17-10-at-halftime",
+      "title": "Jets lead Chargers 17-10 at halftime",
+      "body_text": "The Jets didn't score a touchdown in Weeks 9 or 10, but they doubled down on them in the first half of their Week 11 game against the Chargers.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-22T22:24:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-beat-chargers-27-24-to-end-five-game-losing-streak",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jets-beat-chargers-27-24-to-end-five-game-losing-streak",
+      "title": "Jets beat Chargers 27-24 to end five-game losing streak",
+      "body_text": "The Jets scored on their first five possessions and then ran out the clock on the Chargers from there.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-22T23:53:30+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-49ers-lead-vikings-28-10-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sunday-night-football-49ers-lead-vikings-28-10-at-halftime",
+      "title": "Sunday Night Football: 49ers lead Vikings 28-10 at halftime",
+      "body_text": "QB Brock Purdy threw three TD passes in the first half, two of which went to TE George Kittle.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T03:01:01+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sunday Night",
+        "Brock Purdy",
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0033288"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-rt-colton-mckivitz-carted-off-in-an-air-cast-with-apparent-significant-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-rt-colton-mckivitz-carted-off-in-an-air-cast-with-apparent-significant-injury",
+      "title": "49ers RT Colton McKivitz carted off in an air cast with apparent significant injury",
+      "body_text": "49ers right tackle Colton McKivitz has suffered a significant injury in the second quarter of Sunday night's matchup against the Vikings.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T02:29:36+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittles-second-td-gives-49ers-14-7-lead",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/george-kittles-second-td-gives-49ers-14-7-lead",
+      "title": "George Kittle's second TD gives 49ers 14-7 lead",
+      "body_text": "Once again, George Kittle has made it into the end zone.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T02:12:28+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "George Kittle"
+      ],
+      "resolved_player_ids": [
+        "00-0033288"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-td-ties-vikings-49ers-at-7-7-late-in-first-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-jones-td-ties-vikings-49ers-at-7-7-late-in-first-quarter",
+      "title": "Aaron Jones TD ties Vikings-49ers at 7-7 late in first quarter",
+      "body_text": "The Vikings have tied things up in Mexico City.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T02:00:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Jones",
+        "The Vikings",
+        "Mexico City"
+      ],
+      "resolved_player_ids": [
+        "00-0033293"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dk-metcalfs-2025-suspension-can-be-factor-in-discipline-for-sundays-ejection",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dk-metcalfs-2025-suspension-can-be-factor-in-discipline-for-sundays-ejection",
+      "title": "DK Metcalf's 2025 suspension can be factor in discipline for Sunday's ejection",
+      "body_text": "Steelers receiver DK Metcalf was ejected from Sunday's 19-16 loss to the Eagles.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T02:00:17+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-caps-first-drive-with-td-pass-to-george-kittle-49ers-lead-7-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-caps-first-drive-with-td-pass-to-george-kittle-49ers-lead-7-0",
+      "title": "Brock Purdy caps first drive with TD pass to George Kittle, 49ers lead 7-0",
+      "body_text": "Much was made about the matchup between 49ers head coach Kyle Shanahan and Vikings defensive coordinator Brian Flores in advance of Sunday night's matchup between San Francisco and Minnesota.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T01:33:58+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy",
+        "George Kittle",
+        "Kyle Shanahan",
+        "Brian Flores",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0033288"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

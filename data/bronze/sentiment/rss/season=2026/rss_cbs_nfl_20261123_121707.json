@@ -1,0 +1,546 @@
+{
+  "fetch_run_id": "f3eb4b6e-6e67-4525-9d33-05664f21659a",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-23T12:17:07.577915+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "bb84054a-ed78-4daa-b98e-03f78871f990",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-early-odds-bills-over-chiefs-thanksgiving-steelers/",
+      "title": "NFL Week 12 early odds: Bills favored over Chiefs for Thanksgiving showdown, Steelers home underdogs",
+      "body_text": "The Bears are road favorites for their Thanksgiving matchup in Detroit",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-23T12:00:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "c93b16a7-2653-4939-ac26-a4d9599bd929",
+      "url": "https://www.cbssports.com/nfl/news/why-steelers-regretting-dk-metcalf-150-million-contract-trading-george-pickens/",
+      "title": "Steelers gave DK Metcalf $150 million, traded George Pickens. Now they're paying for both decisions",
+      "body_text": "The Steelers wanted a more dependable receiver; instead, Metcalf has delivered disappointing production and familiar distractions.",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-23T11:00:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "George Pickens",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "cac83c65-f118-44e9-a73c-bdac756eae5a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-grades-every-team-cowboys-earn-a-high-flying-win-steelers-nearly-fail/",
+      "title": "NFL Week 11 grades for every team: 49ers earn 'A+' for dominating Vikings, Steelers nearly fail",
+      "body_text": "We're handing out grades for every team that played in Week 11",
+      "author": "John Breech",
+      "published_at": "2026-11-23T04:44:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "4d3f900f-7ece-42d5-a276-d1a646742f7e",
+      "url": "https://www.cbssports.com/nfl/news/vikings-nfl-obscure-fair-catch-kick-rule-71-yard-field-goal-49ers/",
+      "title": "Vikings utilize NFL's obscure fair-catch kick rule to attempt 71-yard field goal against 49ers",
+      "body_text": "If made, Will Reichard's field goal would have made NFL history",
+      "author": "John Breech",
+      "published_at": "2026-11-23T03:28:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Will Reichard"
+      ],
+      "resolved_player_ids": [
+        "00-0039404"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "5280f204-e4eb-45e4-ac5f-fd5caabffe47",
+      "url": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-celebrates-game-clinching-drive-with-backflip/",
+      "title": "Cam Skattebo flips: Giants RB celebrates game-clinching drive with backflip days after retiring it",
+      "body_text": "Skattebo said he'd retire his celebration in the wake of Aidan Hutchinson's injury",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T01:40:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0037236"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "cbae0e9d-ba08-4e71-9eeb-cf9a097239e4",
+      "url": "https://www.cbssports.com/prediction/news/vikings-vs-49ers-odds-best-sunday-night-football-mexico-city-first-touchdown-scorer-picks-nfl-predictions/",
+      "title": "Vikings vs. 49ers odds: Best Sunday Night Football Mexico City first touchdown scorer picks, NFL predictions",
+      "body_text": "Here are our top picks for first touchdown prediction markets on the Vikings and 49ers' Sunday Night Football game in Mexico City",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-23T01:14:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Sunday",
+        "Night Football",
+        "Mexico City",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "e6df2e8b-76ec-4569-8cd2-8211ecbcbb3f",
+      "url": "https://www.cbssports.com/betting/news/49ers-vs-vikings-prediction-odds-betting-preview-sunday-night-football-picks-best-bets-mexico-city/",
+      "title": "49ers vs. Vikings prediction, odds, betting preview: Sunday Night Football picks, best bets for Mexico City",
+      "body_text": "Best bets and betting preview for 49ers vs. Vikings on Sunday Night Football in Mexico City",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-23T01:09:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Mexico City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "68a23664-83f9-4ca1-9ea7-18ff3ab6ee70",
+      "url": "https://www.cbssports.com/prediction/news/week-11-vikings-vs-49ers-odds-picks-kalshi-promo-code-cbssports55-for-55-bonus-for-sunday-night-football/",
+      "title": "Week 11 Vikings vs. 49ers odds, picks: Kalshi promo code CBSSPORTS55 for $55 bonus for Sunday Night Football",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Sunday Night Football in Mexico City as Minnesota faces San Francisco in Week 11",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-23T01:09:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Here",
+        "Mexico City",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "3961e05a-f288-46b1-ae8f-3422364eea7b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-winners-losers-cowboys-offense-makes-history-get-right-win-steelers-slump/",
+      "title": "NFL Week 11 winners and losers: Cowboys offense makes history in get-right win, Steelers slump",
+      "body_text": "Dallas scored on all but one possession in a bounce-back victory, while Pittsburgh's postseason hopes took a hit",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-23T01:07:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "34f53f08-b457-4391-9fb5-a3f79da04373",
+      "url": "https://www.cbssports.com/nfl/news/justin-herbert-concussion-protocol-update-jets/",
+      "title": "Justin Herbert in concussion protocol after loss to Jets: Chargers QB played entire game",
+      "body_text": "Herbert took some big shots late in the game but did not exit",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T01:05:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "e4b86912-9f7a-4efc-bc8d-5e69d5acb81e",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-bets-free-nba-league-pass-on-vikings-49ers-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus bets, free NBA League Pass on Vikings-49ers, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-23T00:57:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "28870201-6cd2-4a10-a638-3476f29dc957",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-score-55-bonus-for-49ers-vikings-nfl-sunday-night-football-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Score $55 bonus for 49ers-Vikings, NFL Sunday Night Football predictions",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on all of Sunday's NFL Week 11 action",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-23T00:46:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "ea27591e-0729-4f58-8ef5-c068e1d6f51a",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-claim-55-bonus-for-vikings-49ers-nfl-sunday-night-football-picks/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Claim $55 bonus for Vikings vs. 49ers, NFL Sunday Night Football picks",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Sunday's NFL games",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-23T00:45:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "e6cc18db-59d2-4fc3-a6f0-8feb7bc32906",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-earn-55-bonus-vikings-vs-49ers-sunday-night-football-mexico-city/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Earn $55 bonus for Vikings vs. 49ers, Sunday Night Football in Mexico City",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the NFL Week 11 Vikings vs. 49ers SNF matchup",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-23T00:36:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "Mexico City",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "ca61dfdc-5461-44f3-bc3d-d0516fc3ede7",
+      "url": "https://www.cbssports.com/betting/news/vikings-vs-49ers-picks-predictions-player-props-experts-best-bets-for-nfl-week-11-sunday-night-football/",
+      "title": "Vikings vs. 49ers picks, predictions, player props: Expert's best bets for NFL Week 11 Sunday Night Football",
+      "body_text": "Brian Flores brings a 5-0 mark against Kyle Shanahan into Mexico City as an underdog gets the nod to win outright, alongside prime targets for George Kittle and Justin Jefferson",
+      "author": "Will Brinson",
+      "published_at": "2026-11-23T00:01:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Brian",
+        "Kyle Shanahan",
+        "Mexico City",
+        "George Kittle",
+        "Justin Jefferson"
+      ],
+      "resolved_player_ids": [
+        "00-0033288",
+        "00-0036322"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "b7621ef3-6ccf-4b63-9a8f-50085d340082",
+      "url": "https://www.cbssports.com/prediction/news/sunday-night-football-vikings-vs-49ers-odds-predictions-use-polymarket-promo-code-cbssports-for-25-bonus/",
+      "title": "Sunday Night Football Vikings vs. 49ers odds, predictions: Use Polymarket promo code CBSSPORTS for $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for Vikings vs. 49ers in NFL Week 11 action",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-22T23:45:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Vikings",
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "95a6a1d8-389d-4a62-8a1f-7cf5f638cea7",
+      "url": "https://www.cbssports.com/nfl/news/what-happens-now-steelers-embattled-receiver-dk-metcalf/",
+      "title": "DK Metcalf's bad season just got worse. What happens now for Steelers embattled receiver?",
+      "body_text": "It's safe for Metcalf to be considered the worst trade acquisition in Steelers history. Now he faces a possible suspension and an uncertain future in Pittsburgh",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-23T01:12:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "b0ce90c7-2f34-4c56-95fd-a3aac949b94e",
+      "url": "https://www.cbssports.com/nfl/news/week-11-overreactions-jesse-minter-one-and-done-offensive-player-year-award-winner-emerging/",
+      "title": "Week 11 overreactions: Jesse Minter one-and-done? Offensive Player of the Year award winner emerging?",
+      "body_text": "Plus, the Steelers are once again facing a familiar end to their season",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T02:00:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jesse Minter",
+        "Offensive Player"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "e0f5bae3-67f7-4b73-8e8e-f6e10c850615",
+      "url": "https://www.cbssports.com/betting/news/use-betmgm-bonus-code-cbssports-to-get-1500-bonus-bets-vikings-49ers-sunday-night-football-betting/",
+      "title": "Use BetMGM bonus code CBSSPORTS to get $1,500 bonus bets for Vikings vs. 49ers, Sunday Night Football betting",
+      "body_text": "Use the latest MGM promo code CBSSPORTS to get $1,500 in bonus bets if your first bet loses for NFL betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-22T23:01:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "705385fb-1de7-4b75-aa24-c00f9ce6e010",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-vikings-49ers-sunday-night-football-betting/",
+      "title": "Use FanDuel promo code to get $200 in bonus bets for Vikings-49ers, Sunday Night Football betting",
+      "body_text": "Sign up to wager on NFL Week 11 on Sunday with the latest FanDuel promo code to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-22T22:46:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "0ec23909-8d7e-4efb-b0f2-13f0909a3479",
+      "url": "https://www.cbssports.com/nfl/news/dk-metcalf-ejected-steelers-receiver-tossed-after-poking-cooper-dejean-eye/",
+      "title": "DK Metcalf ejected: Steelers WR tossed after poking Cooper DeJean in the eye, could face suspension",
+      "body_text": "Metcalf had more penalty than receiving yards against the Eagles, in jeopardy of suspension as repeat offender",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-22T22:45:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "94da636f-c932-42a2-8702-6ededebba7ce",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-titans-final-score-scorigami-2026/",
+      "title": "Cowboys vs. Titans ends in historic scorigami after late Tennessee touchdown",
+      "body_text": "The Cowboys' 51-30 victory became the 1,101st unique final score in NFL history after a late Titans touchdown",
+      "author": "John Breech",
+      "published_at": "2026-11-22T21:41:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "05d5aec7-aead-4c3e-a5ab-5382f9911878",
+      "url": "https://www.cbssports.com/nfl/news/derrick-henry-injury-ravens-star-rb-leaves-evaluated-concussion-after-scoring-touchdown/",
+      "title": "Derrick Henry injury: Ravens star RB clears concussion protocol after leaving game post-TD",
+      "body_text": "Baltimore avoids yet another key loss to injury",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-22T22:09:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Derrick Henry"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "BAL"
+    },
+    {
+      "external_id": "8cfe80b3-9773-4169-a358-fdb0209f0259",
+      "url": "https://www.cbssports.com/nfl/news/eagles-jalen-hurts-update-super-bowl-mvp-qb-team-facility-good-spirits/",
+      "title": "Eagles' Jalen Hurts update: Super Bowl MVP QB has been in team facility, 'in good spirits'",
+      "body_text": "Hurts has stayed close with his teammates and coaches despite being sidelined with blood clots",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-22T21:09:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jalen Hurts",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "96244f95-a8ea-4dd5-a94d-810c46b134e8",
+      "url": "https://www.cbssports.com/nfl/news/titans-carnell-tate-touchdown-cowboys/",
+      "title": "Titans' Carnell Tate stuns Cowboys with one of NFL season's strangest touchdowns",
+      "body_text": "The Titans rookie appeared to be down after catching a pass from Cam Ward, but he got back up and sprinted to the end zone",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-22T20:32:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Carnell Tate",
+        "The Titans",
+        "Cam Ward"
+      ],
+      "resolved_player_ids": [
+        "00-0040676"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "b874a671-016f-434e-9b83-c7b500e613e3",
+      "url": "https://www.cbssports.com/prediction/news/week-11-nfl-raiders-vs-broncos-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "Week 11 NFL Raiders vs. Broncos odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for Raiders vs. Broncos in NFL Week 11 action",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-22T20:00:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "b34d40c0-afdd-4722-a80d-86c28289db27",
+      "url": "https://www.cbssports.com/betting/news/jaguars-vs-giants-odds-picks-prediction-spread-start-time-nfl-week-11-betting-preview-best-bets/",
+      "title": "Jaguars vs. Giants odds, picks, prediction, spread: Start time, NFL Week 11 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Jaguars vs. Giants in NFL Week 11",
+      "author": "James Holliman",
+      "published_at": "2026-11-22T19:50:43+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "18c9c54e-8e6d-426a-9811-a852ad10fc76",
+      "url": "https://www.cbssports.com/prediction/news/jets-vs-chargers-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus-for-nfl-week-11/",
+      "title": "Jets vs. Chargers odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus for NFL Week 11",
+      "body_text": "Use the latest Polymarket promo code to make Jets vs. Chargers predictions and NFL Week 11 picks",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-22T19:45:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "e96501c6-162a-4ccc-ac0e-9dce926aea4d",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-expert-picks-odds-best-bets-teasers-predictions-survivor-picks/",
+      "title": "NFL Week 11 expert picks, odds, best bets, teasers, predictions, survivor picks: Who wins 49ers or Vikings?",
+      "body_text": "NFL Week 11 odds, how to watch, streaming: Expert selections, best bets, teasers, survivor picks and more\n\nCBSSports.com and SportsLine break down every single NFL game in Week 17",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-22T18:08:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "84975826-88a5-4dd0-8336-25de8af627d0",
+      "url": "https://www.cbssports.com/prediction/news/buccaneers-vs-lions-odds-picks-use-kalshi-promo-code-cbssports55-for-55-bonus-for-picks-for-nfl-week-11/",
+      "title": "Buccaneers vs. Lions odds, picks: Use Kalshi promo code CBSSPORTS55 for $55 bonus for picks for NFL Week 11",
+      "body_text": "We'll break down the prediction markets available at Kalshi for Bucs vs. Lions in NFL Week 11 action",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-22T17:05:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "5f46e0d8-33cc-41a1-8f44-7c2c1cd79306",
+      "url": "https://www.cbssports.com/betting/news/ravens-vs-panthers-odds-picks-prediction-spread-start-time-betting-preview-best-bets-for-nfl-week-11/",
+      "title": "Ravens vs. Panthers odds, picks, prediction, spread: Start time, betting preview, best bets for NFL Week 11",
+      "body_text": "Here's everything bettors need to know for Ravens vs. Panthers in NFL Week 11",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-22T16:40:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "486378f7-a6f1-47fd-8f76-9a61b1bbef9a",
+      "url": "https://www.cbssports.com/prediction/news/nfl-week-11-cardinals-vs-chiefs-odds-picks-predictions-use-kalshi-promo-code-cbssports55-for-55-bonus/",
+      "title": "NFL Week 11 Cardinals vs. Chiefs odds, picks, predictions: Use Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Sunday's game between Arizona and Kansas City in NFL Week 11",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-22T17:03:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "9aa0c78c-d3be-4065-a990-98882ccf0138",
+      "url": "https://www.cbssports.com/prediction/news/titans-vs-cowboys-odds-predictions-use-polymarket-promo-code-cbssports-to-get-a-25-bonus-in-nfl-week-11/",
+      "title": "Titans vs. Cowboys odds, predictions: Use Polymarket promo code CBSSPORTS to get a $25 bonus in NFL Week 11",
+      "body_text": "Use the latest Polymarket promo code to make predictions for Titans vs. Cowboys in NFL Week 11 action",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-22T17:14:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "e406b53a-3d29-4f19-b0f5-0d85ea79e51a",
+      "url": "https://www.cbssports.com/betting/news/week-11-nfl-odds-picks-brinsons-best-bets-player-props-anytime-td-scorers-for-sunday/",
+      "title": "Week 11 NFL odds, picks: Brinson's best bets, player props, anytime TD scorers for Sunday",
+      "body_text": "Steer clear of bloated double-digit spreads, grab the extra points with Philadelphia, and count on Dak Prescott to clear his passing total in a shootout",
+      "author": "Will Brinson",
+      "published_at": "2026-11-22T16:31:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Steer",
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "47863f50-9d04-4347-8cde-4282f998aa04",
+      "url": "https://www.cbssports.com/betting/news/steelers-vs-eagles-odds-picks-prediction-spread-nfl-week-11-start-time-betting-preview-best-bets/",
+      "title": "Steelers vs. Eagles odds, picks, prediction, spread: NFL Week 11 start time, betting preview, best bets",
+      "body_text": "Here's everything you need to know before placing any wagers on Steelers vs. Eagles in NFL Week 11",
+      "author": "James Holliman",
+      "published_at": "2026-11-22T16:29:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "88907e4c-f36f-4cf6-b7a4-24bd0e2725a4",
+      "url": "https://www.cbssports.com/betting/news/saints-vs-bears-odds-picks-prediction-spread-start-time-nfl-week-11-betting-preview-best-bets/",
+      "title": "Saints vs. Bears odds, picks, prediction, spread: Start time, NFL Week 11 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Saints vs. Bears in NFL Week 11",
+      "author": "James Holliman",
+      "published_at": "2026-11-22T16:25:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "fetch_run_id": "9ce6f3f2-6f65-49b5-9a18-44fe094b0974",
+  "source": "rotowire",
+  "fetched_at": "2026-11-23T12:17:15.021166+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl649325",
+      "url": "https://www.rotowire.com//football/player/deebo-samuel-13429",
+      "permalink": "",
+      "title": "Deebo Samuel: Five touches in Week 11",
+      "body_text": "Samuel logged two carries for 27 yards, gathered in three of four targets for 20 yards and returned two kickoffs for 57 yards during Sunday's 35-10 win against the Vikings in Mexico City. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-22T09:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Deebo Samuel",
+        "Mexico City"
+      ],
+      "resolved_player_ids": [
+        "00-0035719"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "nfl649326",
+      "url": "https://www.rotowire.com//football/player/jordan-mason-16163",
+      "permalink": "",
+      "title": "Jordan Mason: Team's leading rusher in lopsided loss",
+      "body_text": "Mason rushed 11 times for 38 yards while catching his lone target for minus-1 yard in Sunday's 35-10 loss to the 49ers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-22T09:02:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Mason"
+      ],
+      "resolved_player_ids": [
+        "00-0037525"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl649324",
+      "url": "https://www.rotowire.com//football/player/aaron-jones-11763",
+      "permalink": "",
+      "title": "Aaron Jones: Quiet after first-quarter TD",
+      "body_text": "Jones rushed eight times for 30 yards and a touchdown while catching his lone target for 13 yards in Sunday's 35-10 loss to the 49ers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-22T09:01:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0033293"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl649323",
+      "url": "https://www.rotowire.com//football/player/tj-hockenson-13610",
+      "permalink": "",
+      "title": "T.J. Hockenson: Six receptions in return",
+      "body_text": "Hockenson (wrist) caught six of seven targets for 55 yards in Sunday's 35-10 loss to the 49ers. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-22T09:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "nfl649321",
+      "url": "https://www.rotowire.com//football/player/kirk-cousins-8057",
+      "permalink": "",
+      "title": "Kirk Cousins: Stymied by 49ers again",
+      "body_text": "Cousins completed 26 of 38 passes for 235 yards, no touchdowns and one interception in Sunday's 35-10 loss to the 49ers. He also rushed once for no gain. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-22T08:55:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "SF"
+    }
+  ]
+}
