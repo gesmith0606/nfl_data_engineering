@@ -8,8 +8,8 @@ Why: the lineup replay (``scripts/replay_lineups.py``) could only use the
 Sleeper projections the API serves today for past weeks, and the registry file
 ``data/bronze/players/sleeper_players.json`` is overwritten in place, so every
 past injury tag was gone. A replay that is graded on "what was known at kickoff"
-needs the values as they stood then. Run this on game-day mornings (and the
-evening before a Thursday game) and every later replay can use them.
+needs the values as they stood then. ``.github/workflows/gameday-snapshot.yml``
+runs it shortly before each NFL game window (Thu/Sun/Mon) and on Tuesday.
 
 Writes, under ``data/bronze/gameday_inputs/season=YYYY/week=WW/``:
 
@@ -19,8 +19,20 @@ Writes, under ``data/bronze/gameday_inputs/season=YYYY/week=WW/``:
                                            depth_chart_order
 
 Same ``raw_payload`` shape as ``data/bronze/external_projections/sleeper``, so
-anything that reads that can read these. Fails open (D-06): no payload, no file,
-exit 0, a loud line saying so.
+anything that reads that can read these. Players whose payload holds only ``adp_*``
+keys (no projected stat, ~85% of Sleeper's rows) are dropped: they score zero
+under any league's scoring, and the files are committed to a public repo.
+
+Fails LOUD (not open): a missed snapshot is unrecoverable, so ``main`` exits 1
+when either file could not be written. The one exit-0 case is the offseason
+(schedule says every regular-season game is played), unless --season/--week
+are both given explicitly.
+
+With no --season/--week the week is the schedule-based "upcoming" week from
+``scripts/resolve_pipeline_week.py``, evaluated on the US/Eastern date (the
+Monday-night window is already Tuesday in UTC). When ``$GITHUB_OUTPUT`` /
+``$GITHUB_STEP_SUMMARY`` are set, writes ``season=``/``week=``/``offseason=``
+outputs and a summary list.
 """
 
 from __future__ import annotations
@@ -28,6 +40,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional
@@ -63,7 +76,9 @@ def projections_frame(raw: Any) -> pd.DataFrame:
     rows = []
     for pid, v in (raw or {}).items():
         stats = v.get("stats") if isinstance(v, dict) and "stats" in v else v
-        if isinstance(stats, dict) and stats:  # nothing projected: not worth a row
+        if isinstance(stats, dict) and any(
+            not str(k).startswith("adp_") for k in stats
+        ):  # nothing projected (empty / ADP-only): not worth a row
             rows.append(
                 {"sleeper_player_id": str(pid), "raw_payload": json.dumps(stats)}
             )
@@ -102,7 +117,7 @@ def write_snapshot(
     out = root / f"season={season}" / f"week={week:02d}"
     out.mkdir(parents=True, exist_ok=True)
     path = out / f"{kind}_{now:%Y%m%d_%H%M%S}.parquet"
-    df.to_parquet(path, index=False)
+    df.to_parquet(path, index=False, compression="zstd")
     return path
 
 
@@ -199,6 +214,37 @@ def read_status(
     }
 
 
+def _et_today() -> dt.date:
+    """Today's date in US/Eastern (the runner is UTC; MNF ends after UTC midnight)."""
+    from zoneinfo import ZoneInfo
+
+    return dt.datetime.now(ZoneInfo("America/New_York")).date()
+
+
+def _emit_ci(
+    season: int, week: int, offseason: bool, paths: List[Path], rows: Dict[str, int]
+) -> None:
+    """Workflow outputs + step summary; a no-op outside GitHub Actions."""
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:
+        with open(out, "a", encoding="utf-8") as fh:
+            fh.write(
+                f"season={season}\nweek={week}\noffseason={str(offseason).lower()}\n"
+            )
+    summ = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summ:
+        lines = [f"### Gameday snapshot: {season} week {week}"]
+        if offseason:
+            lines.append("Offseason: regular season is over, nothing captured.")
+        for p in paths:
+            n, size = rows.get(p.name, 0), p.stat().st_size
+            lines.append(f"- `{p.name}`: {n} rows, {size:,} bytes")
+        if not offseason and len(paths) < 2:
+            lines.append("**INCOMPLETE CAPTURE: run failed**")
+        with open(summ, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(lines) + "\n")
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -209,13 +255,24 @@ def main(argv: Optional[List[str]] = None) -> int:
     args = ap.parse_args(argv)
     season, week = args.season, args.week
     if not (season and week):
-        from scripts import set_lineups
+        from scripts import resolve_pipeline_week as rpw
 
-        s, w = set_lineups._default_week(season)
+        s, w, source = rpw.resolve_target_week(_et_today())
+        if source == "schedule-final":
+            print(f"OFFSEASON: {s} regular season is over; nothing to snapshot")
+            _emit_ci(season or s, week or w, True, [], {})
+            return 0
         season, week = season or s, week or w
     paths = snapshot(season, week, args.root)
+    rows = {p.name: len(pd.read_parquet(p)) for p in paths}
     for p in paths:
         print(f"saved {p.relative_to(REPO_ROOT) if p.is_relative_to(REPO_ROOT) else p}")
+    _emit_ci(season, week, False, paths, rows)
+    if len(paths) < 2:
+        print(
+            f"::error::incomplete snapshot for {season} week {week}: {len(paths)}/2 files"
+        )
+        return 1
     return 0
 
 
