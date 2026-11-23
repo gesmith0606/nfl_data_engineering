@@ -124,6 +124,17 @@ def _scoring_board(directory: Path, scoring_format: str) -> Optional[Path]:
     """
     exact = _latest_parquet(directory, f"projections_{scoring_format}_*.parquet")
     if exact is not None:
+        if scoring_format != "half_ppr":
+            # ppr/standard are derived from the half_ppr board and share its
+            # timestamp. If half_ppr has moved on (a Sunday injury refresh
+            # whose derivation failed), the derived board carries stale
+            # injuries: answer "not published" rather than serve it.
+            source = _latest_parquet(directory, "projections_half_ppr_*.parquet")
+            if (
+                source is not None
+                and _filename_sort_key(source)[0] > _filename_sort_key(exact)[0]
+            ):
+                return None
         return exact
     legacy = [
         p
@@ -218,10 +229,19 @@ class ProjectionsNotPublished(FileNotFoundError):
     service never substitutes the preseason board (season totals) here.
     """
 
-    def __init__(self, season: int, week: int, latest_week: Optional[int]):
+    def __init__(
+        self,
+        season: int,
+        week: int,
+        latest_week: Optional[int],
+        week_has_other_format: bool = False,
+    ):
         self.season = season
         self.week = week
         self.latest_week = latest_week
+        # True when the week has a board, just not one servable for the
+        # requested scoring format.
+        self.week_has_other_format = week_has_other_format
         super().__init__(
             f"Week {week} projections for season={season} are not published yet"
             + (f"; latest available is week {latest_week}" if latest_week else "")
@@ -622,7 +642,12 @@ def _get_projections_parquet(
 
     state, latest_week = _resolve_weekly_state(season, week, parquet_path)
     if state == "not_published":
-        raise ProjectionsNotPublished(season, week, latest_week)
+        raise ProjectionsNotPublished(
+            season,
+            week,
+            latest_week,
+            week_has_other_format=week in _weekly_boards(season),
+        )
     if state == "preseason_fallback":
         try:
             return _get_preseason_projections_parquet(

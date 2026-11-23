@@ -177,7 +177,7 @@ def list_projections(
             message=(
                 f"No {scoring} board is published for week {week} yet "
                 "(other scoring formats may be available)."
-                if latest and latest >= week
+                if exc.week_has_other_format
                 else (
                     f"Week {week} projections publish Tuesday; latest available "
                     f"is week {latest}."

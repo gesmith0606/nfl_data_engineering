@@ -120,3 +120,73 @@ def test_legacy_unscoped_board_still_served_for_any_format(client):
         d.mkdir(parents=True)
         _board(9.0).to_parquet(d / f"projections_{TS}.parquet", index=False)
     assert _get(client, "ppr")["projections"][0]["projected_points"] == 9.0
+
+
+# --- review findings (2026-11-23) -------------------------------------------
+
+
+def _touch(directory, name):
+    import pandas as _pd
+
+    directory.mkdir(parents=True, exist_ok=True)
+    _pd.DataFrame({"player_id": ["a"], "projected_points": [1.0]}).to_parquet(
+        directory / name, index=False
+    )
+
+
+def test_a_derived_board_older_than_half_ppr_is_not_served(tmp_path):
+    """Sunday refresh wrote a new half_ppr board; derivation failed."""
+    from web.api.services import projection_service as ps
+
+    d = tmp_path / "week=11"
+    _touch(d, "projections_half_ppr_20261117_092008.parquet")
+    _touch(d, "projections_ppr_20261117_092008.parquet")
+    assert ps._scoring_board(d, "ppr").name == "projections_ppr_20261117_092008.parquet"
+
+    _touch(d, "projections_half_ppr_20261122_190745.parquet")  # refreshed
+    assert ps._scoring_board(d, "ppr") is None  # stale injuries: refuse
+    assert (
+        ps._scoring_board(d, "half_ppr").name
+        == "projections_half_ppr_20261122_190745.parquet"
+    )
+
+    _touch(d, "projections_ppr_20261122_190745.parquet")  # derived again
+    assert ps._scoring_board(d, "ppr").name == "projections_ppr_20261122_190745.parquet"
+
+
+def test_our_board_in_the_external_comparison_is_the_half_ppr_one(tmp_path):
+    """Three formats share a timestamp; name sort would pick 'standard'."""
+    from src import external_projections as ep
+
+    d = tmp_path / "week=11"
+    for fmt in ("half_ppr", "ppr", "standard"):
+        _touch(d, f"projections_{fmt}_20261122_190745.parquet")
+    assert (
+        ep._latest_gold_board(d, "half_ppr").name
+        == "projections_half_ppr_20261122_190745.parquet"
+    )
+    assert ep._latest_gold_board(d, "standard").name.startswith("projections_standard_")
+
+    legacy = tmp_path / "week=3"
+    _touch(legacy, "weekly_20260922_090000.parquet")  # old unscoped name
+    assert (
+        ep._latest_gold_board(legacy, "half_ppr").name
+        == "weekly_20260922_090000.parquet"
+    )
+
+    only_other = tmp_path / "week=4"
+    _touch(only_other, "projections_ppr_20260929_090000.parquet")
+    assert ep._latest_gold_board(only_other, "half_ppr") is None
+
+
+def test_recommendation_backtest_never_scores_a_derived_board(tmp_path, monkeypatch):
+    import pandas as _pd
+
+    from src import recommendation_backtest as rb
+
+    d = tmp_path / "season=2026" / "week=11"
+    for fmt in ("standard", "ppr", "half_ppr"):
+        _touch(d, f"projections_{fmt}_20261117_092008.parquet")
+    monkeypatch.setattr(rb, "GOLD", tmp_path)
+    picked = rb.pre_kickoff_board(2026, 11, _pd.Timestamp("2026-11-19 20:15:00"))
+    assert picked is not None and "projections_half_ppr_" in picked

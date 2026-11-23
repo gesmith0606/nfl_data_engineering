@@ -84,15 +84,31 @@ def derive_board(
         else pd.Series(False, index=out.index)
     )
     unknown = skill & (rec.isna() | fallback)
-    delta = (rec.fillna(0.0) * reception_delta(target)).where(~unknown, 0.0)
+    base_pts = pd.to_numeric(out["projected_points"], errors="coerce").fillna(0.0)
+    # A row at 0.0 (Out, bye, no projection) stays at 0.0 in every format:
+    # reception points must not resurrect a player the board has zeroed.
+    zero = base_pts <= 0.0
+    delta = (rec.fillna(0.0) * reception_delta(target)).where(~unknown & ~zero, 0.0)
+    # Standard scoring cannot take a player below zero; where the full delta
+    # does not fit, the result is a floor rather than a derivation.
+    clipped = (base_pts + delta) < 0.0
 
     for col in ("projected_points", "projected_floor", "projected_ceiling"):
         if col in out.columns:
             out[col] = (out[col] + delta).clip(lower=0.0).round(2)
+    moved = delta != 0.0
+    if "projected_floor" in out.columns:
+        out.loc[moved, "projected_floor"] = out.loc[
+            moved, ["projected_floor", "projected_points"]
+        ].min(axis=1)
+    if "projected_ceiling" in out.columns:
+        out.loc[moved, "projected_ceiling"] = out.loc[
+            moved, ["projected_ceiling", "projected_points"]
+        ].max(axis=1)
 
     out["scoring_format"] = target
     out["derived_from"] = derived_from or ""
-    out["scoring_derivation_flag"] = unknown.astype(bool)
+    out["scoring_derivation_flag"] = (unknown | clipped).astype(bool)
 
     if "ranking_score" in out.columns:
         season = (

@@ -128,3 +128,53 @@ def test_derive_week_dir_reuses_source_timestamp(tmp_path):
     df = pd.read_parquet(written[0])
     assert (df.derived_from == "projections_half_ppr_20261122_190745.parquet").all()
     assert derive_week_dir(tmp_path / "week=99") == []
+
+
+# --- review findings (2026-11-23) -------------------------------------------
+
+
+def _edge_board():
+    return pd.DataFrame(
+        {
+            "player_id": ["z", "c", "q", "ok"],
+            "player_name": ["Z.Zeroed", "C.Clipped", "Q.Scaled", "O.Kay"],
+            "position": ["WR", "WR", "WR", "WR"],
+            # zeroed (Out) player who still carries a reception projection
+            "projected_points": [0.0, 0.2, 8.5, 10.0],
+            "projected_floor": [0.0, 0.1, 5.0, 6.0],
+            "projected_ceiling": [0.0, 0.9, 12.0, 14.0],
+            "proj_receptions": [4.0, 1.0, 5.1, 6.0],
+            "projection_source": ["hybrid"] * 4,
+            "position_rank": [4, 3, 2, 1],
+            "overall_rank": [4, 3, 2, 1],
+        }
+    )
+
+
+def test_a_zeroed_player_stays_zero_in_every_format():
+    for target in ("ppr", "standard"):
+        out = derive_board(_edge_board(), target).set_index("player_id")
+        assert out.loc["z", "projected_points"] == 0.0
+        assert out.loc["z", "projected_floor"] == 0.0
+        assert out.loc["z", "projected_ceiling"] == 0.0
+
+
+def test_a_standard_row_clipped_at_zero_is_flagged():
+    out = derive_board(_edge_board(), "standard").set_index("player_id")
+    assert out.loc["c", "projected_points"] == 0.0  # 0.2 - 0.5 would be negative
+    assert bool(out.loc["c", "scoring_derivation_flag"]) is True
+    assert bool(out.loc["ok", "scoring_derivation_flag"]) is False
+
+
+def test_the_band_still_contains_the_points_after_the_shift():
+    for target in ("ppr", "standard"):
+        out = derive_board(_edge_board(), target)
+        live = out[out.projected_points > 0]
+        assert (live.projected_floor <= live.projected_points + 1e-9).all()
+        assert (live.projected_ceiling >= live.projected_points - 1e-9).all()
+
+
+def test_the_delta_uses_the_injury_scaled_reception_projection():
+    # Q.Scaled: 6.0 receptions at multiplier 0.85 is stored as 5.1
+    out = derive_board(_edge_board(), "ppr").set_index("player_id")
+    assert out.loc["q", "projected_points"] == pytest.approx(8.5 + 0.5 * 5.1, abs=0.011)

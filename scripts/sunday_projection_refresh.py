@@ -892,6 +892,10 @@ def main() -> int:
     # Determine which scoring formats to process
     # -----------------------------------------------------------------------
     formats_to_run = SCORING_FORMATS if args.scoring == "all" else [args.scoring]
+    if args.scoring in DERIVED_FORMATS:
+        # A derived format refreshed on its own would get a new, newer file
+        # that disagrees with half_ppr. Refresh half_ppr and derive from it.
+        formats_to_run = ["half_ppr", args.scoring]
 
     # -----------------------------------------------------------------------
     # Fetch fresh injury data once (shared across all scoring formats)
@@ -927,7 +931,19 @@ def main() -> int:
 
         if scoring in DERIVED_FORMATS and half_board is not None:
             half_df, half_summary, half_name, half_source = half_board
-            derived = derive_board(half_df, scoring, derived_from=half_name)
+            try:
+                derived = derive_board(half_df, scoring, derived_from=half_name)
+            except Exception as exc:  # noqa: BLE001 — half_ppr is already out
+                # The API refuses a derived board older than the newest
+                # half_ppr board, so this format reads "not published" until
+                # the next successful derivation rather than serving stale
+                # injuries.
+                print(
+                    f"::warning::Sunday refresh: could not derive {scoring} from "
+                    f"the refreshed half_ppr board ({exc}); {scoring} is "
+                    "unpublished for this week until it is derived again"
+                )
+                continue
             output_path = None
             if not args.dry_run:
                 output_path = _write_gold_output(derived, season, week, scoring, ts)
