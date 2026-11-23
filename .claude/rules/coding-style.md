@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Python Coding Style
 
 - Follow **PEP 8**; type annotations on all function signatures.

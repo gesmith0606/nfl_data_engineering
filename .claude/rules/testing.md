@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Python Testing
 
 - Framework: **pytest** (`python -m pytest tests/ -v`; config in `pytest.ini`, collects `tests/` only).

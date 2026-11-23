@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Python Security
 
 - Secrets come from the environment / `.env` (gitignored; the pre-commit hook blocks key patterns). Never hardcode or commit them.

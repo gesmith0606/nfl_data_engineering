@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Python Patterns
 
 - `typing.Protocol` for duck-typed interfaces (e.g. `DraftAdapter` in `src/draft_adapter.py`).
