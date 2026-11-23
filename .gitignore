@@ -492,6 +492,8 @@ data/silver/fp_ecr/
 !data/ops/llm_costs/
 !data/ops/llm_costs/**
 !data/ops/llm_costs/**/*.parquet
+# ...but never the hidden temp file a compaction writes before its rename.
+data/ops/llm_costs/**/.*.tmp
 
 # External rankings cache (ADVR-03): commit the Sleeper/FantasyPros/ESPN JSON
 # so compareExternalRankings never returns empty on first deploy.
