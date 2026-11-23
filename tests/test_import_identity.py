@@ -62,10 +62,9 @@ def test_flag_flip_visible_through_both_paths(name, flag, monkeypatch):
     assert getattr(pkg, flag) == getattr(flat, flag)
 
 
-def test_pyproject_py_modules_matches_src():
-    """pyproject.toml hardcodes src/*.py in py-modules; fail when it goes stale."""
-    text = (ROOT / "pyproject.toml").read_text()
-    block = re.search(r"^py-modules = \[(.*?)^\]", text, re.S | re.M).group(1)
-    listed = set(re.findall(r'"([^"]+)"', block))
-    actual = {p.stem for p in (ROOT / "src").glob("*.py") if p.stem != "__init__"}
-    assert listed == actual, (sorted(actual - listed), sorted(listed - actual))
+def test_setup_py_discovers_every_src_module():
+    """setup.py globs src/*.py, so a new module is packaged without an edit."""
+    text = (ROOT / "setup.py").read_text()
+    assert '.glob("*.py")' in text and "py_modules" in text
+    assert "py-modules = [" not in (ROOT / "pyproject.toml").read_text()
+

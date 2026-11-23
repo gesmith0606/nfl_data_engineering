@@ -84,6 +84,7 @@ jobs:
               - 'tests/**'
               - 'requirements.txt'
               - 'pyproject.toml'
+              - 'setup.py'
               # Workflow command lines and the verdict registry are inputs to
               # tests/test_verdict_registry.py (a HOLD flag passed by a cron is
               # a violation), so a workflow-only change must run the suite.
