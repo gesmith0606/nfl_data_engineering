@@ -58,7 +58,7 @@ def _filename_sort_key(p: Path) -> tuple:
     return (m.group(1) if m else "", p.name)
 
 
-def _latest_parquet(directory: Path) -> Optional[Path]:
+def _latest_parquet(directory: Path, pattern: str = "*.parquet") -> Optional[Path]:
     """Return the newest .parquet in directory by filename-embedded timestamp.
 
     Never mtime: in a git checkout every file carries the checkout's mtime, so
@@ -66,8 +66,33 @@ def _latest_parquet(directory: Path) -> Optional[Path]:
     """
     if not directory.exists():
         return None
-    parquets = sorted(directory.glob("*.parquet"), key=_filename_sort_key)
+    parquets = sorted(directory.glob(pattern), key=_filename_sort_key)
     return parquets[-1] if parquets else None
+
+
+_GOLD_SCORING_FORMATS = ("ppr", "half_ppr", "standard")
+
+
+def _latest_gold_board(directory: Path, scoring_format: str) -> Optional[Path]:
+    """Newest Gold board for exactly ``scoring_format``.
+
+    A week directory holds one board per scoring format, and the ppr/standard
+    boards are derived from the half_ppr one with the SAME timestamp, so "the
+    newest parquet" is decided by name and would be the standard board. Only
+    files with no ``projections_<format>_`` prefix (older, unscoped boards)
+    are accepted as a fallback.
+    """
+    exact = _latest_parquet(directory, f"projections_{scoring_format}_*.parquet")
+    if exact is not None or not directory.exists():
+        return exact
+    legacy = [
+        f
+        for f in directory.glob("*.parquet")
+        if not any(
+            f.name.startswith(f"projections_{x}_") for x in _GOLD_SCORING_FORMATS
+        )
+    ]
+    return max(legacy, key=_filename_sort_key) if legacy else None
 
 
 def _week_dirs(parent: Path, week: int) -> List[Path]:
@@ -129,7 +154,7 @@ class SilverConsolidator:
         candidates = [d / self.scoring_format for d in week_dirs] + week_dirs
         latest: Optional[Path] = None
         for cand in candidates:
-            latest = _latest_parquet(cand)
+            latest = _latest_gold_board(cand, self.scoring_format)
             if latest is not None:
                 break
         if latest is None:

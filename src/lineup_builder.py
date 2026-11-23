@@ -369,7 +369,14 @@ def _load_projections(season: int, week: int) -> pd.DataFrame:
         logger.debug("No projection data for season=%d week=%d", season, week)
         return pd.DataFrame()
     # ``*_derived`` boards are an experiment's output, never the published projections.
-    latest = _latest_file(p for p in proj_dir.glob("*.parquet") if "derived" not in p.name)
+    # The ppr/standard boards are re-scores of the half_ppr one (same timestamp);
+    # this builder is half_ppr-based, so skip them rather than tie-break by name.
+    latest = _latest_file(
+        p
+        for p in proj_dir.glob("*.parquet")
+        if "derived" not in p.name
+        and not p.name.startswith(("projections_ppr_", "projections_standard_"))
+    )
     if latest is None:
         return pd.DataFrame()
     df = pd.read_parquet(latest)

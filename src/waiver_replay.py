@@ -140,7 +140,7 @@ def board_for(
     best, best_at = None, None
     for r in roots:
         for f in glob.glob(
-            str(r / f"data/gold/projections/season={season}/week={week}/*.parquet")
+            str(r / f"data/gold/projections/season={season}/week={week}/projections_half_ppr_*.parquet")
         ):
             at = rb.board_stamp(f)
             if at is not None and at < kickoff and (best_at is None or at > best_at):

@@ -480,6 +480,23 @@ jobs:
           fi
 
       # ------------------------------------------------------------------
+      # 7-derive. ppr + standard boards. The three formats differ only in
+      # points per reception, so they are derived from the half_ppr board
+      # just published (half + 0.5*rec / half - 0.5*rec, bands shifted the
+      # same, ranks rebuilt) and written beside it with the SAME timestamp.
+      # Without this the API had no ppr/standard weekly board and served
+      # half_ppr numbers under those labels (found 2026-11-23). Non-blocking:
+      # on failure the API answers "not published" for those two formats.
+      # ------------------------------------------------------------------
+      - name: Gold — derive ppr + standard weekly boards
+        id: derive_scoring_boards
+        if: steps.gold_projections.outcome == 'success'
+        continue-on-error: true
+        run: |
+          python scripts/derive_scoring_boards.py --season "$SEASON" --week "$WEEK" \
+          || echo "::warning::ppr/standard board derivation failed for season $SEASON week $WEEK — those formats show 'not published' until fixed"
+
+      # ------------------------------------------------------------------
       # 7a. SHADOW board — early-season prior (2026 weeks 3-6 shadow run)
       #
       # Re-runs the exact production command (same --ml/heuristic mode the

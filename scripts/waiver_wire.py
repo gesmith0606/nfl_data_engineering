@@ -2128,7 +2128,7 @@ def main(argv: Optional[list] = None) -> int:
                 set_lineups.GOLD
                 / f"season={season}"
                 / f"week={week}"
-                / "projections_*.parquet"
+                / "projections_half_ppr_*.parquet"
             )
         )
         weekly_board = ours_label.startswith("weekly Gold")

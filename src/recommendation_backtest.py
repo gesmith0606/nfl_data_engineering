@@ -92,6 +92,12 @@ def pre_kickoff_board(season: int, week: int, kickoff: pd.Timestamp) -> Optional
     best: Optional[str] = None
     best_at: Optional[pd.Timestamp] = None
     for f in glob.glob(str(GOLD / f"season={season}" / f"week={week}" / "*.parquet")):
+        # ppr/standard boards are derived from half_ppr and share its stamp;
+        # the engine's own board is the half_ppr one.
+        if os.path.basename(f).startswith(
+            ("projections_ppr_", "projections_standard_")
+        ):
+            continue
         at = board_stamp(f)
         if at is None or at >= kickoff:
             continue

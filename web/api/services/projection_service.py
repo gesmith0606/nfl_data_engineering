@@ -110,6 +110,42 @@ def _latest_parquet(directory: Path, pattern: str = "*.parquet") -> Optional[Pat
     return parquets[-1]
 
 
+_SCORING_FORMATS = ("ppr", "half_ppr", "standard")
+
+
+def _scoring_board(directory: Path, scoring_format: str) -> Optional[Path]:
+    """Newest weekly board for exactly *scoring_format*, never another format's.
+
+    Older partitions hold unscoped files (no ``projections_<format>_`` prefix);
+    those are still served for any format. But once a partition has
+    scoring-named boards and none is for the requested format, return ``None``
+    rather than a different format's points under this format's label (until
+    2026-11, ppr/standard silently received half_ppr numbers).
+    """
+    exact = _latest_parquet(directory, f"projections_{scoring_format}_*.parquet")
+    if exact is not None:
+        if scoring_format != "half_ppr":
+            # ppr/standard are derived from the half_ppr board and share its
+            # timestamp. If half_ppr has moved on (a Sunday injury refresh
+            # whose derivation failed), the derived board carries stale
+            # injuries: answer "not published" rather than serve it.
+            source = _latest_parquet(directory, "projections_half_ppr_*.parquet")
+            if (
+                source is not None
+                and _filename_sort_key(source)[0] > _filename_sort_key(exact)[0]
+            ):
+                return None
+        return exact
+    legacy = [
+        p
+        for p in directory.glob("*.parquet")
+        if not any(p.name.startswith(f"projections_{f}_") for f in _SCORING_FORMATS)
+    ]
+    if len(legacy) != len(list(directory.glob("*.parquet"))):
+        return None  # scoring-named boards exist, but not for this format
+    return max(legacy, key=_filename_sort_key) if legacy else None
+
+
 # Project root anchored off this file: web/api/services/projection_service.py
 # -> parents[0]=services, [1]=api, [2]=web, [3]=<project>
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -193,10 +229,19 @@ class ProjectionsNotPublished(FileNotFoundError):
     service never substitutes the preseason board (season totals) here.
     """
 
-    def __init__(self, season: int, week: int, latest_week: Optional[int]):
+    def __init__(
+        self,
+        season: int,
+        week: int,
+        latest_week: Optional[int],
+        week_has_other_format: bool = False,
+    ):
         self.season = season
         self.week = week
         self.latest_week = latest_week
+        # True when the week has a board, just not one servable for the
+        # requested scoring format.
+        self.week_has_other_format = week_has_other_format
         super().__init__(
             f"Week {week} projections for season={season} are not published yet"
             + (f"; latest available is week {latest_week}" if latest_week else "")
@@ -399,7 +444,9 @@ def get_preseason_projections(
     )
 
 
-def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
+def get_projection_meta(
+    season: int, week: int, scoring_format: Optional[str] = None
+) -> ProjectionMetaInfo:
     """Return source-parquet metadata for a given season/week.
 
     Never raises: when no data exists, returns a ``ProjectionMetaInfo`` with
@@ -413,7 +460,12 @@ def get_projection_meta(season: int, week: int) -> ProjectionMetaInfo:
         )
 
     week_dir = GOLD_PROJECTIONS_DIR / f"season={season}" / f"week={week}"
-    parquet_path = _latest_parquet(week_dir) if week_dir.exists() else None
+    if not week_dir.exists():
+        parquet_path = None
+    elif scoring_format:
+        parquet_path = _scoring_board(week_dir, scoring_format)
+    else:
+        parquet_path = _latest_parquet(week_dir)
 
     # Mirror the _get_projections_parquet decision so the envelope reports
     # the file actually served, not the one that was requested.
@@ -586,13 +638,16 @@ def _get_projections_parquet(
     # parquet for older partitions written before scoring-named files existed.
     parquet_path = None
     if week_dir.exists():
-        parquet_path = _latest_parquet(
-            week_dir, f"projections_{scoring_format}_*.parquet"
-        ) or _latest_parquet(week_dir)
+        parquet_path = _scoring_board(week_dir, scoring_format)
 
     state, latest_week = _resolve_weekly_state(season, week, parquet_path)
     if state == "not_published":
-        raise ProjectionsNotPublished(season, week, latest_week)
+        raise ProjectionsNotPublished(
+            season,
+            week,
+            latest_week,
+            week_has_other_format=week in _weekly_boards(season),
+        )
     if state == "preseason_fallback":
         try:
             return _get_preseason_projections_parquet(
@@ -1134,9 +1189,7 @@ def get_player_projection_weeks(
         if not week_dir.exists():
             continue
 
-        parquet_path = _latest_parquet(
-            week_dir, f"projections_{scoring_format}_*.parquet"
-        ) or _latest_parquet(week_dir)
+        parquet_path = _scoring_board(week_dir, scoring_format)
         if parquet_path is None:
             continue
 

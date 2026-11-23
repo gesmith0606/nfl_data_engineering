@@ -73,6 +73,7 @@ from projection_engine import (  # noqa: E402
     apply_injury_adjustments,
 )
 from ranking_score import apply_ranking_scores, assign_ranks  # noqa: E402
+from scoring_derivation import DERIVED_FORMATS, derive_board  # noqa: E402
 
 logging.basicConfig(
     format="%(asctime)s %(levelname)-8s %(message)s",
@@ -891,6 +892,10 @@ def main() -> int:
     # Determine which scoring formats to process
     # -----------------------------------------------------------------------
     formats_to_run = SCORING_FORMATS if args.scoring == "all" else [args.scoring]
+    if args.scoring in DERIVED_FORMATS:
+        # A derived format refreshed on its own would get a new, newer file
+        # that disagrees with half_ppr. Refresh half_ppr and derive from it.
+        formats_to_run = ["half_ppr", args.scoring]
 
     # -----------------------------------------------------------------------
     # Fetch fresh injury data once (shared across all scoring formats)
@@ -914,9 +919,52 @@ def main() -> int:
 
     ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     any_refreshed = False
+    # ppr/standard differ from half_ppr only in reception points, so when
+    # half_ppr is in this run they are DERIVED from its refreshed board (same
+    # timestamp) instead of refreshed on their own: three independent
+    # refreshes could fill/zero different players and leave the formats
+    # disagreeing about who is playing.
+    half_board = None  # (refreshed df, summary, file name, source path)
 
     for scoring in formats_to_run:
         logger.info("Processing scoring format: %s", scoring)
+
+        if scoring in DERIVED_FORMATS and half_board is not None:
+            half_df, half_summary, half_name, half_source = half_board
+            try:
+                derived = derive_board(half_df, scoring, derived_from=half_name)
+            except Exception as exc:  # noqa: BLE001 — half_ppr is already out
+                # The API refuses a derived board older than the newest
+                # half_ppr board, so this format reads "not published" until
+                # the next successful derivation rather than serving stale
+                # injuries.
+                print(
+                    f"::warning::Sunday refresh: could not derive {scoring} from "
+                    f"the refreshed half_ppr board ({exc}); {scoring} is "
+                    "unpublished for this week until it is derived again"
+                )
+                continue
+            output_path = None
+            if not args.dry_run:
+                output_path = _write_gold_output(derived, season, week, scoring, ts)
+                any_refreshed = True
+            print(
+                f"[sunday-refresh] {scoring}: derived from refreshed half_ppr "
+                f"({int(derived['scoring_derivation_flag'].sum())} row(s) kept at "
+                "half_ppr points, no reception projection)"
+            )
+            _write_refresh_summary(
+                season=season,
+                week=week,
+                scoring=scoring,
+                source_file=half_source,
+                output_file=output_path,
+                summary=half_summary,
+                refreshed=derived,
+                injuries_df=injuries_df,
+                dry_run=args.dry_run,
+            )
+            continue
 
         # Load latest Gold projection
         gold_df, source_path = _load_latest_gold_projections(season, week, scoring)
@@ -959,6 +1007,14 @@ def main() -> int:
         if not args.dry_run:
             output_path = _write_gold_output(refreshed, season, week, scoring, ts)
             any_refreshed = True
+
+        if scoring == "half_ppr":
+            half_board = (
+                refreshed,
+                summary,
+                os.path.basename(output_path or source_path or ""),
+                source_path,
+            )
 
         _write_refresh_summary(
             season=season,

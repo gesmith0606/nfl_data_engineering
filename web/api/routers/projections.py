@@ -175,10 +175,15 @@ def list_projections(
             is_season_total=False,
             latest_available_week=latest,
             message=(
-                f"Week {week} projections publish Tuesday; latest available is "
-                f"week {latest}."
-                if latest
-                else f"Week {week} projections are not published yet."
+                f"No {scoring} board is published for week {week} yet "
+                "(other scoring formats may be available)."
+                if exc.week_has_other_format
+                else (
+                    f"Week {week} projections publish Tuesday; latest available "
+                    f"is week {latest}."
+                    if latest
+                    else f"Week {week} projections are not published yet."
+                )
             ),
             meta=ProjectionMeta(
                 season=season,
@@ -191,7 +196,9 @@ def list_projections(
         raise HTTPException(status_code=404, detail=str(exc))
 
     projections = _df_to_projection_list(df, scoring)
-    meta_info = projection_service.get_projection_meta(season=season, week=week)
+    meta_info = projection_service.get_projection_meta(
+        season=season, week=week, scoring_format=scoring
+    )
     is_total = meta_info.source == "preseason_fallback"
     return ProjectionResponse(
         season=season,
