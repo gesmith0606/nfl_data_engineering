@@ -22,6 +22,8 @@ name: Gameday Snapshot
 #   cron          UTC         ET (EST)     ET (EDT)    window
 #   0 16 * * 4    Thu 16:00   Thu 11:00    Thu 12:00   Thursday daytime (Thanksgiving 12:30 ET games;
 #                                                      otherwise the week's midweek status snapshot)
+#   30 20 * * 4   Thu 20:30   Thu 15:30    Thu 16:30   Thursday late afternoon (Thanksgiving 16:30 ET game;
+#                                                      a harmless extra capture on ordinary Thursdays)
 #   0 0 * * 5     Fri 00:00   Thu 19:00    Thu 20:00   Thursday night (kickoff ~20:15 ET)
 #   0 16 * * 0    Sun 16:00   Sun 11:00    Sun 12:00   Sunday early (13:00 ET), pass 1 (post-inactives in EDT)
 #   0 17 * * 0    Sun 17:00   Sun 12:00    Sun 13:00   Sunday early, pass 2 (post-inactives in EST)
@@ -30,16 +32,17 @@ name: Gameday Snapshot
 #   0 0 * * 2     Tue 00:00   Mon 19:00    Mon 20:00   Monday night (kickoff ~20:15 ET)
 #   0 15 * * 2    Tue 15:00   Tue 10:00    Tue 11:00   Tuesday, waiver-day view (after MNF, before claims)
 #
-# 8 runs/week. Saturday games (late season) are not scheduled: use
+# 9 runs/week. Saturday games (late season) are not scheduled: use
 # workflow_dispatch (gh workflow run gameday-snapshot.yml).
-# Footprint: ~87 KB per capture (2 zstd parquet files) -> ~0.7 MB/week,
-# ~12.5 MB per full season in the public repo.
+# Footprint: ~87 KB per capture (2 zstd parquet files) -> ~0.8 MB/week,
+# ~14 MB per full season in the public repo.
 #
 # Offseason: the script exits 0 with offseason=true when every regular-season
 # game is played; the commit step then finds nothing and the run stays green.
 on:
   schedule:
     - cron: "0 16 * * 4"
+    - cron: "30 20 * * 4"
     - cron: "0 0 * * 5"
     - cron: "0 16 * * 0"
     - cron: "0 17 * * 0"
