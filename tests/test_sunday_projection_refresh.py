@@ -647,3 +647,73 @@ class TestFillZeroedLivePlayers(unittest.TestCase):
         self.assertEqual(
             sorted(out.overall_rank.tolist()), list(range(1, len(out) + 1))
         )
+
+
+class TestRefreshKeepsFormatsInStep(unittest.TestCase):
+    """A half_ppr refresh must leave ppr/standard derived from the refreshed board."""
+
+    def test_all_three_formats_written_consistently(self):
+        import scripts.sunday_projection_refresh as spr
+
+        board = pd.DataFrame(
+            {
+                "player_id": ["wr1", "qb1"],
+                "player_name": ["Receiver One", "Passer One"],
+                "position": ["WR", "QB"],
+                "season": [2026, 2026],
+                "week": [11, 11],
+                "proj_receptions": [6.0, 0.0],
+                "projected_points": [12.0, 20.0],
+                "projected_floor": [6.0, 12.0],
+                "projected_ceiling": [20.0, 30.0],
+                "projection_source": ["hybrid", "hybrid"],
+                "injury_status": ["Active", "Active"],
+                "injury_multiplier": [1.0, 1.0],
+                "position_rank": [1, 1],
+                "overall_rank": [2, 1],
+                "ranking_score": [12.0, 20.0],
+            }
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            wd = pathlib.Path(tmp) / "projections" / "season=2026" / "week=11"
+            wd.mkdir(parents=True)
+            board.to_parquet(wd / "projections_half_ppr_20261122_100000.parquet")
+            # A stale Tuesday-era ppr board must NOT be refreshed on its own.
+            stale = board.assign(projected_points=[99.0, 99.0])
+            stale.to_parquet(wd / "projections_ppr_20261122_100000.parquet")
+
+            inj = pd.DataFrame(
+                {"player_name": ["Receiver One"], "report_status": ["Questionable"]}
+            )
+            saved = (spr.GOLD_DIR, spr._get_fresh_injuries, spr.load_consensus_week)
+            argv = sys.argv
+            try:
+                spr.GOLD_DIR = tmp
+                spr._get_fresh_injuries = lambda s, w: inj
+                spr.load_consensus_week = lambda s, w, sc: pd.DataFrame()
+                sys.argv = ["x", "--season", "2026", "--week", "11"]
+                self.assertEqual(spr.main(), 0)
+            finally:
+                spr.GOLD_DIR, spr._get_fresh_injuries, spr.load_consensus_week = saved
+                sys.argv = argv
+
+            def newest(fmt):
+                f = sorted(wd.glob(f"projections_{fmt}_*.parquet"))[-1]
+                return f, pd.read_parquet(f).set_index("player_id")
+
+            fh, half = newest("half_ppr")
+            fp, ppr = newest("ppr")
+            fs, std = newest("standard")
+            ts = fh.name.split("half_ppr_")[1]
+            self.assertTrue(fp.name.endswith(ts) and fs.name.endswith(ts))
+            # Questionable -> x0.85 on points AND receptions (6.0 -> 5.1)
+            self.assertAlmostEqual(half.loc["wr1", "projected_points"], 10.2, places=2)
+            self.assertAlmostEqual(
+                ppr.loc["wr1", "projected_points"], 10.2 + 0.5 * 5.1, places=2
+            )
+            self.assertAlmostEqual(
+                std.loc["wr1", "projected_points"], 10.2 - 0.5 * 5.1, places=2
+            )
+            self.assertEqual(ppr.loc["qb1", "projected_points"], 20.0)
+            self.assertEqual(std.loc["qb1", "projected_points"], 20.0)
+            self.assertTrue((ppr.derived_from == fh.name).all())

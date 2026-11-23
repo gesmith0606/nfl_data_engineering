@@ -147,7 +147,7 @@ def load_ours(
     tools keep the default (they were built around the fallback).
     """
     weekly = _latest(
-        str(GOLD / f"season={season}" / f"week={week}" / "projections_*.parquet")
+        str(GOLD / f"season={season}" / f"week={week}" / "projections_half_ppr_*.parquet")
     )
     why = f"no weekly board for {season} week {week}"
     if weekly is not None:

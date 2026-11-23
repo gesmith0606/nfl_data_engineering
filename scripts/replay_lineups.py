@@ -841,7 +841,7 @@ def collect_inputs(
             glob.glob(
                 str(
                     data_root
-                    / f"data/gold/projections/season={season}/week={w}/projections_*.parquet"
+                    / f"data/gold/projections/season={season}/week={w}/projections_half_ppr_*.parquet"
                 )
             ),
             to_utc(cutoff),
