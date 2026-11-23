@@ -338,17 +338,40 @@ class CostLog:
             return pd.DataFrame(columns=_COLS)
         files = sorted(partition.glob(_LEDGER_GLOB))
         covered = self._covered_sources(files)
-        frames = []
+        per_call = []
+        compacted = []
         for path in files:
-            if not _is_compacted(path) and path.name in covered:
+            is_compacted = _is_compacted(path)
+            if not is_compacted and path.name in covered:
                 continue
             try:
                 df = pd.read_parquet(path)
             except Exception as exc:  # noqa: BLE001 — fail-open on read too
                 logger.warning("CostLog: failed to read %s (%s); skipping", path, exc)
+                if is_compacted:
+                    # Its per-call sources are already deleted, so every call
+                    # it held silently leaves the total. Say so where a
+                    # workflow run will show it.
+                    print(
+                        f"::warning::LLM cost ledger: compacted file {path.name} "
+                        f"is unreadable ({exc}); its calls are missing from the "
+                        "running total"
+                    )
                 continue
-            if len(df):
-                frames.append(df[[c for c in _COLS if c in df.columns]])
+            if not len(df):
+                continue
+            if is_compacted:
+                compacted.append(df)
+            else:
+                per_call.append(df[[c for c in _COLS if c in df.columns]])
+        frames = list(per_call)
+        if compacted:
+            # Two compactions that raced fold the same per-call files into two
+            # compacted files. One (source file, call) pair is one call.
+            both = pd.concat(compacted, ignore_index=True)
+            if "source_file" in both.columns:
+                both = both.drop_duplicates(subset=["source_file", "call_id"])
+            frames.append(both[[c for c in _COLS if c in both.columns]])
         if not frames:
             return pd.DataFrame(columns=_COLS)
         return pd.concat(frames, ignore_index=True)
@@ -461,6 +484,15 @@ def compact_all(
         if (season is not None and s != season) or (week is not None and w != week):
             continue
         out = log._compact_dir(part, None)
+        left = [f for f in part.glob(_LEDGER_GLOB) if not _is_compacted(f)]
+        if left:
+            # _compact_dir is fail-open and returns None both for "nothing to
+            # fold" and for "failed"; files still here mean it did not fold.
+            print(
+                f"::warning::LLM cost ledger: {len(left)} per-call file(s) left "
+                f"uncompacted in season={s}/week={w:02d} (compaction failed or "
+                "a file is unreadable)"
+            )
         if out is None:
             continue
         df = pd.read_parquet(out)

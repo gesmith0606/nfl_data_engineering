@@ -178,7 +178,8 @@ def llm_cost_summary(base_dir: Optional[Path] = None) -> Optional[Dict[str, Any]
     Reads the committed ``data/ops/llm_costs`` ledger. ``latest_week`` is the
     highest (season, week) partition that has records; ``season_to_date``
     sums every week of that season. Returns ``None`` when the ledger is
-    empty/absent or unreadable (fail-open: never blanks the dashboard).
+    empty/absent, and ``{"status": "unavailable", ...}`` when it could not be
+    read (fail-open: never blanks the dashboard).
     """
     try:
         sys.path.insert(0, str(PROJECT_ROOT))
@@ -215,7 +216,10 @@ def llm_cost_summary(base_dir: Optional[Path] = None) -> Optional[Dict[str, Any]
         }
     except Exception as exc:  # noqa: BLE001 — fail-open
         logger.warning("Could not summarise LLM cost ledger: %s", exc)
-        return None
+        # Not ``None``: that already means "no spend recorded". A reader must
+        # be able to tell "nothing spent" from "could not read the ledger"
+        # (e.g. pandas missing on the runner that builds this snapshot).
+        return {"status": "unavailable", "reason": type(exc).__name__}
 
 
 def build_status(repo: str, token: str) -> Dict[str, Any]:

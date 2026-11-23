@@ -397,3 +397,94 @@ def test_dashboard_llm_cost_block(tmp_path) -> None:
     assert block["latest_week"]["usd"] == pytest.approx(0.06)
     assert block["season_to_date"]["calls"] == 5
     assert block["season_to_date"]["season"] == 2026
+
+
+def _write_flat_calls(log, n, season=2026, week=12):
+    for i in range(n):
+        log.write_record(
+            CostRecord(
+                call_id=f"c{i:07d}",
+                doc_count=1,
+                input_tokens=100,
+                output_tokens=50,
+                cache_read_input_tokens=0,
+                cache_creation_input_tokens=0,
+                cost_usd=0.01,
+                ts=f"2026-11-24T12:00:{i:02d}+00:00",
+                season=season,
+                week=week,
+            )
+        )
+
+
+def test_two_compactions_that_folded_the_same_files_count_once(tmp_path) -> None:
+    """Racing compactions leave two compacted files over the same sources."""
+    import shutil
+
+    log = CostLog(base_dir=tmp_path)
+    _write_flat_calls(log, 4)
+    part = log._partition_dir(2026, 12)
+    backup = tmp_path / "backup"
+    shutil.copytree(part, backup)
+
+    first = log.compact_partition(2026, 12, run_id="aaaaaa")
+    assert first is not None
+    # Second racer: it saw the same per-call files before the first deleted them.
+    held = tmp_path / "held.parquet"
+    shutil.move(str(first), str(held))
+    for f in backup.iterdir():
+        shutil.copy(f, part / f.name)
+    second = log.compact_partition(2026, 12, run_id="bbbbbb")
+    assert second is not None
+    shutil.move(str(held), str(first))
+
+    assert len(list(part.glob("llm_costs_run_*.parquet"))) == 2
+    df = log.read_partition(2026, 12)
+    assert len(df) == 4
+    assert log.running_total_usd(2026, 12) == pytest.approx(0.04)
+
+
+def test_an_unreadable_compacted_file_is_announced(tmp_path, capsys) -> None:
+    log = CostLog(base_dir=tmp_path)
+    _write_flat_calls(log, 3)
+    out = log.compact_partition(2026, 12)
+    out.write_bytes(b"not a parquet file")
+
+    assert log.running_total_usd(2026, 12) == 0.0
+    assert "::warning::LLM cost ledger: compacted file" in capsys.readouterr().out
+
+
+def test_cli_warns_when_per_call_files_are_left_uncompacted(
+    tmp_path, capsys, monkeypatch
+) -> None:
+    from src.sentiment.processing import cost_log as cl
+
+    log = CostLog(base_dir=tmp_path)
+    _write_flat_calls(log, 2)
+    monkeypatch.setattr(cl.CostLog, "_compact_dir", lambda self, part, run_id: None)
+    assert cl.compact_all(base_dir=tmp_path) == []
+    assert "2 per-call file(s) left uncompacted" in capsys.readouterr().out
+
+
+def test_dashboard_block_distinguishes_unreadable_from_no_spend(
+    tmp_path, monkeypatch
+) -> None:
+    import sys as _sys
+
+    import pathlib as _pl
+
+    _sys.path.insert(0, str(_pl.Path(__file__).resolve().parents[2] / "scripts"))
+    import build_pipeline_status as bps
+
+    assert bps.llm_cost_summary(base_dir=tmp_path) is None  # nothing recorded
+
+    from src.sentiment.processing import cost_log as cl
+
+    def boom(self):
+        raise ModuleNotFoundError("pandas")
+
+    monkeypatch.setattr(cl.CostLog, "partitions", boom)
+    assert bps.llm_cost_summary(base_dir=tmp_path) == {
+        "status": "unavailable",
+        "reason": "ModuleNotFoundError",
+    }
