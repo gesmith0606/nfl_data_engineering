@@ -214,6 +214,8 @@ cython_debug/
 # Holdout-use ledger must be durable in git — it records sealed-gate
 # evaluations so holdout erosion is visible across clones/reviewers.
 !.planning/holdout_ledger.json
+# Verdict registry: rulings tied to code (docs/VERDICT_REGISTRY.md); CI reads it.
+!.planning/verdicts.json
 # Serve-time coverage guard reference (src/residual_coverage.py). Read at
 # request time by the weekly run; must ship with the checkout (TD-08/09/10).
 !src/residual_feature_coverage.json
