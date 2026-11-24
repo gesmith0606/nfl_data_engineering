@@ -1,0 +1,88 @@
+{
+  "fetch_run_id": "9c4cd648-1442-4e2c-9ea8-264108fa2d26",
+  "source": "rss_rotowire",
+  "fetched_at": "2026-11-24T12:17:38.967401+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl649581",
+      "url": "https://www.rotowire.com//football/player/chig-okonkwo-16042",
+      "title": "Chig Okonkwo: Productive with four catches in win",
+      "body_text": "Okonkwo brought in four of five targets for 66 yards in the Commanders' 22-20 win over the Bengals on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-23T09:15:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Chig Okonkwo"
+      ],
+      "resolved_player_ids": [
+        "00-0037809"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl649578",
+      "url": "https://www.rotowire.com//football/player/antonio-williams-19237",
+      "title": "Antonio Williams: Career-best totals in win",
+      "body_text": "Williams brought in nine of 11 targets for 122 yards in the Commanders' 22-20 win over the Bengals on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-23T09:10:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Antonio Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0036188"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl649576",
+      "url": "https://www.rotowire.com//football/player/jacory-croskey-merritt-18811",
+      "title": "Jacory Croskey-Merritt: Scores TD in return from injury",
+      "body_text": "Croskey-Merritt rushed 13 times for 54 yards and a touchdown and brought in two of three targets for 23 yards in the Commanders' 22-20 win over the Bengals on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-23T09:06:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Jacory Croskey"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl649574",
+      "url": "https://www.rotowire.com//football/player/mike-gesicki-12764",
+      "title": "Mike Gesicki: Team-high yardage total in loss",
+      "body_text": "Gesicki brought in five of six targets for 77 yards in the Bengals' 22-20 loss to the Commanders on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-23T09:01:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Mike Gesicki"
+      ],
+      "resolved_player_ids": [
+        "00-0034829"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.rotowire.com/rss/nfl649572",
+      "url": "https://www.rotowire.com//football/player/chase-brown-16934",
+      "title": "Chase Brown: Forgettable rushing night in loss",
+      "body_text": "Brown rushed six times for six yards and brought in five of eight targets for 30 yards in the Bengals' 22-20 loss to the Commanders on Monday night.\n\n        Visit RotoWire.com for more analysis on this update.",
+      "author": null,
+      "published_at": "2026-11-23T08:56:00+00:00",
+      "source": "rss_rotowire",
+      "candidate_names": [
+        "Chase Brown"
+      ],
+      "resolved_player_ids": [
+        "00-0038597"
+      ],
+      "team_hint": "CIN"
+    }
+  ]
+}

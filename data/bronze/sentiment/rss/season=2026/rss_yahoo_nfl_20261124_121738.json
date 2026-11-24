@@ -1,0 +1,787 @@
+{
+  "fetch_run_id": "9c4cd648-1442-4e2c-9ea8-264108fa2d26",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-24T12:17:38.216680+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "602c1bce-2485-3f23-a0f3-fc2c317c2753",
+      "url": "https://sports.yahoo.com/articles/nfl-playoff-picture-49ers-vikings-133000859.html",
+      "title": "NFL playoff picture after 49ers-Vikings",
+      "body_text": "Here is the NFL playoff picture after a wild Sunday of action",
+      "author": "",
+      "published_at": "2026-11-24T12:00:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikings Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "1f0d295f-5f94-38c0-9d2f-346c68401888",
+      "url": "https://sports.yahoo.com/articles/cowboys-news-offense-learns-keep-120000448.html",
+      "title": "Cowboys news: Offense learns how to keep pressure on, defense makes key adjustment",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-24T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "4d898a7e-5721-3d4a-9bbe-d11e17bc6adb",
+      "url": "https://sports.yahoo.com/articles/veteran-offseason-pickups-yet-prove-120000643.html",
+      "title": "Veteran offseason pickups have yet to prove their value to the Patriots",
+      "body_text": "Headlined by A.J. Brown and Romeo Doubs, a look at how the Patriots’ veteran additions have performed so far.",
+      "author": "",
+      "published_at": "2026-11-24T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Patriots Headlined",
+        "Romeo Doubs"
+      ],
+      "resolved_player_ids": [
+        "00-0037816"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "4e2c34cf-194e-32c6-823f-dddad728e055",
+      "url": "https://sports.yahoo.com/articles/tennessee-titans-news-jobs-line-120000773.html",
+      "title": "Tennessee Titans news: Jobs are on the line after Cowboys loss",
+      "body_text": "The Tennessee Titans are embarrassed after their loss against the Dallas Cowboys.",
+      "author": "",
+      "published_at": "2026-11-24T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "586ed4b5-0bcc-38a1-bc17-249f502b51e6",
+      "url": "https://sports.yahoo.com/articles/survey-lions-beat-bears-thanksgiving-120000478.html",
+      "title": "Survey: Will the Lions beat the Bears on Thanksgiving?",
+      "body_text": "Will the Detroit Lions keep their 6-game winning streak alive against the Chicago Bears on Thanksgiving Day?",
+      "author": "",
+      "published_at": "2026-11-24T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Chicago Bears",
+        "Thanksgiving Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "b0d39a19-19ac-3064-8b6d-0dc029958d40",
+      "url": "https://sports.yahoo.com/articles/bengals-tuesday-trenches-wasted-opportunity-120000584.html",
+      "title": "Bengals Tuesday Trenches: Wasted opportunity, and perspective",
+      "body_text": "Hopefully hey bounce back against the Saints!",
+      "author": "",
+      "published_at": "2026-11-24T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals Tuesday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "e2c30662-ba8d-3803-8a42-0faeca14a657",
+      "url": "https://sports.yahoo.com/articles/york-jets-news-put-more-120000519.html",
+      "title": "New York Jets News: Put Some More Respect on Geno Smith’s Name",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-24T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Put Some",
+        "More Respect",
+        "Geno Smith",
+        "Name Your"
+      ],
+      "resolved_player_ids": [
+        "00-0030565"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "d9093e6e-c28a-3f89-8d3f-babce91603c3",
+      "url": "https://sports.yahoo.com/articles/fantasy-football-start-em-sit-110956571.html",
+      "title": "Fantasy football Start ‘Em, Sit ‘Em: 16 players to start or sit in Week 12",
+      "body_text": "USA TODAY Sports breaks down eight players to start and eight players to sit ahead of Week 12 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-11-24T11:09:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "1cd7a6d0-1601-3aa1-872c-c89b3cb29934",
+      "url": "https://sports.yahoo.com/articles/cleveland-browns-news-pondering-playoff-110000156.html",
+      "title": "Cleveland Browns news: Pondering some playoff possibilities",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 24 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-24T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "6d88f338-5b37-3b2f-80e6-2f89a21d419f",
+      "url": "https://sports.yahoo.com/articles/giants-news-cb-greg-newsome-110000383.html",
+      "title": "Giants news: CB Greg Newsome injury, Dennard Wilson interview, more",
+      "body_text": "New York Giants headlines for Tuesday.",
+      "author": "",
+      "published_at": "2026-11-24T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Greg Newsome",
+        "Dennard Wilson",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0036996"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "87c89dba-0280-34f5-81c5-f6308a3cca1c",
+      "url": "https://sports.yahoo.com/articles/bear-den-bears-face-compressed-110000508.html",
+      "title": "The Bear’s Den: Bears face compressed week, Thursday game",
+      "body_text": "Thursday’s Turkey Day game against the Detroit Lions inches closer for the Chicago Bears",
+      "author": "",
+      "published_at": "2026-11-24T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Turkey Day",
+        "Detroit Lions",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "8cdb33eb-ce30-3c1c-8806-cacac4ceb2f4",
+      "url": "https://sports.yahoo.com/articles/chiefs-news-thanksgiving-night-could-110000772.html",
+      "title": "Chiefs News: Thanksgiving night could be rainy in Buffalo",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-24T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Buffalo The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "c0981a41-90f2-341c-914c-0060a8d9aa9b",
+      "url": "https://sports.yahoo.com/articles/nfl-teams-play-thanksgiving-guide-105836803.html",
+      "title": "What NFL teams play on Thanksgiving? Your guide to Turkey Day football",
+      "body_text": "This year the NFL schedule has three games on Thanksgiving. Here's everything you need to know about the teams, matchups and times on Thursday.",
+      "author": "",
+      "published_at": "2026-11-24T10:58:36+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Turkey Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0c04117c-f3bb-3fae-b229-a6bc5ca126b4",
+      "url": "https://sports.yahoo.com/articles/patriots-try-3-kickers-ahead-100000828.html",
+      "title": "Patriots try out 3 kickers ahead of Chargers game",
+      "body_text": "The Patriots brought in five total specialists on Monday.",
+      "author": "",
+      "published_at": "2026-11-24T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "9b277ccb-2bae-32cb-b40e-07bd15ce88a5",
+      "url": "https://sports.yahoo.com/articles/49ers-win-mexico-bills-stay-065934069.html",
+      "title": "49ers win in Mexico and Bills stay top - NFL week 11",
+      "body_text": "The San Francisco 49ers and Buffalo Bills remain the pacesetters in each conference of the NFL.",
+      "author": "",
+      "published_at": "2026-11-24T09:51:35+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The San",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "fb103ec3-a920-3ab7-90a8-186f1480c25e",
+      "url": "https://sports.yahoo.com/articles/dan-quinn-scars-game-losses-091811974.html",
+      "title": "Dan Quinn: Scars from our late-game losses run deep, glad Jayden Daniels won it for us",
+      "body_text": "&quot;I couldn't have been more proud of Jayden at the end of the game,&quot; Quinn said after the Commanders' 22-20 win.",
+      "author": "",
+      "published_at": "2026-11-24T09:18:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dan Quinn",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "0a59296b-167a-3b3e-90de-27d77b97f43b",
+      "url": "https://sports.yahoo.com/articles/inside-tape-jeremiah-trotter-jr-125541219.html",
+      "title": "Inside the Tape: Jeremiah Trotter Jr. Is Becoming a Cornerstone at LB",
+      "body_text": "Box scores give you the what. Film gives you the why.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeremiah Trotter Jr",
+        "Is Becoming"
+      ],
+      "resolved_player_ids": [
+        "00-0039826"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "0c34841f-ca93-3b73-9856-7f0cc2614af0",
+      "url": "https://sports.yahoo.com/articles/nfl-thanksgiving-schedule-chiefs-bills-125541392.html",
+      "title": "NFL Thanksgiving schedule: Chiefs-Bills, Eagles-Cowboys, Bears-Lions on the menu",
+      "body_text": "The Packers will battle the Rams on Thanksgiving Eve, while the Broncos will square off against the Steelers on Black Friday.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Packers",
+        "Thanksgiving Eve",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "0e9b87cf-5051-332e-a53e-bd1b66b31f34",
+      "url": "https://sports.yahoo.com/articles/eagles-injury-report-zack-baun-123614956.html",
+      "title": "Eagles injury report: Zack Baun, Dontayvion Wicks ruled out vs. Steelers",
+      "body_text": "Here's the latest Eagles injury report on Friday as the Eagles get ready to host the Steelers on Sunday.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zack Baun",
+        "Dontayvion Wicks",
+        "Steelers Here"
+      ],
+      "resolved_player_ids": [
+        "00-0036418",
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "251e8847-9a7e-3399-89e9-cb8ca3e22731",
+      "url": "https://sports.yahoo.com/articles/eagles-notebook-nolan-smith-reacts-070000193.html",
+      "title": "Eagles notebook: Nolan Smith reacts to the Jordan Davis trade",
+      "body_text": "In the latest Eagles notebook: Nolan Smith reacts to the Jordan Davis trade, we go through nicknames and Sean Mannion gets a vote of confidence.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Nolan Smith",
+        "Jordan Davis",
+        "Sean Mannion"
+      ],
+      "resolved_player_ids": [
+        "00-0039013",
+        "00-0037073",
+        "00-0032245"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3f5fb10d-6810-3511-b588-d92b78172368",
+      "url": "https://sports.yahoo.com/articles/eagles-steelers-matchups-watch-week-070000672.html",
+      "title": "Eagles-Steelers matchups to watch in Week 11",
+      "body_text": "Here are some key matchups to watch as the Eagles host the Steelers in Week 11.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "62365988-5a85-34f3-ab40-fabfdb064452",
+      "url": "https://sports.yahoo.com/articles/finally-glimpse-eagles-defense-supposed-070000666.html",
+      "title": "Finally a glimpse of what the Eagles' defense is supposed to look like",
+      "body_text": "Eagles defense brings some much-needed juice back to the team.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "62f54b0f-2531-36e5-87e1-4f664c80e8ce",
+      "url": "https://sports.yahoo.com/articles/future-eagles-fits-five-interior-070000630.html",
+      "title": "Future Eagles Fits: Five interior defensive linemen to watch in 2027 NFL draft",
+      "body_text": "The interior of the Eagles' defensive line has quickly become a position to monitor.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Future Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7414188d-1eeb-3486-905c-24d2e84c1c00",
+      "url": "https://sports.yahoo.com/articles/saquon-barkley-healthier-bye-hoping-070000520.html",
+      "title": "Saquon Barkley healthier after bye, hoping to salvage his season",
+      "body_text": "Eagles running back Saquon Barkley isn't 100% after the bye week but he is feeling better for the second half of the season.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Saquon Barkley"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7d4dbb19-e17d-3bfb-8154-5d621ab53564",
+      "url": "https://sports.yahoo.com/articles/eagles-snap-counts-eli-stowers-070000388.html",
+      "title": "Eagles snap counts: Eli Stowers doesn't play on offense vs. Steelers",
+      "body_text": "Here's a look at how the Eagles divvied up snaps for five tight ends against the Steelers",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Eli Stowers",
+        "Steelers Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "882fb66c-7158-32b9-b85f-577966b28b63",
+      "url": "https://sports.yahoo.com/articles/updating-eagles-2027-draft-pick-070000619.html",
+      "title": "Updating Eagles' 2027 draft pick after win over Steelers",
+      "body_text": "The Eagles won a game on Sunday but their 2027 first-round pick suffered for it.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Updating Eagles",
+        "Steelers The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "90913bdf-665b-395c-99f2-aac616689b3a",
+      "url": "https://sports.yahoo.com/articles/mr-rocket-finally-hits-target-070000530.html",
+      "title": "Mr. Rocket finally hits his target to ice a much-needed win",
+      "body_text": "Joe Milton had an up-and-down game but made a play to ice the win over the Steelers in the fourth quarter.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "ad190794-9013-3b5b-8d14-e8170e8ed400",
+      "url": "https://sports.yahoo.com/articles/eagles-place-zack-baun-dontayvion-111708760.html",
+      "title": "Eagles place Zack Baun, Dontayvion Wicks on IR in roster flurry",
+      "body_text": "The Eagles continue to deal with injury setbacks.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Zack Baun",
+        "Dontayvion Wicks",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036418",
+        "00-0038393"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c47bf882-52c5-30cd-a92f-bdc617858ba1",
+      "url": "https://sports.yahoo.com/articles/eagles-vs-steelers-predictions-week-070000593.html",
+      "title": "Eagles vs. Steelers predictions for Week 11 of the 2026 NFL season",
+      "body_text": "Here's a look at our Eagles-Steelers predictions for Week 11 of the 2026 NFL season.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cc06f548-2f5a-3d9c-a382-c47935055c1e",
+      "url": "https://sports.yahoo.com/articles/5-potential-landing-spots-brandon-173500686.html",
+      "title": "5 potential landing spots for Brandon Aiyuk after 49ers release",
+      "body_text": "The 2020 first-round pick is set to be a free agent. These teams may make sense for the star wideout.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "e9d00570-41c7-3f9a-a116-75d135a11eb6",
+      "url": "https://sports.yahoo.com/articles/eagles-injury-quinyon-mitchell-dnp-170757654.html",
+      "title": "Eagles injury update: Quinyon Mitchell a DNP to start Thanksgiving week",
+      "body_text": "The Eagles released their first injury report of a short week before playing the Cowboys on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Quinyon Mitchell",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039888"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "eb921ebe-d70a-3948-a5dd-47a560166f5a",
+      "url": "https://sports.yahoo.com/articles/nfl-not-suspending-dk-metcalf-161404906.html",
+      "title": "NFL not suspending DK Metcalf for his actions vs. Eagles on Sunday",
+      "body_text": "The NFL is reportedly not suspending DK Metcalf for trying to poke Cooper DeJean in the eye.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Sunday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "eb9e4392-f22e-379d-8b80-f66edd0baafa",
+      "url": "https://sports.yahoo.com/articles/please-welcome-braden-mann-wonderful-070000226.html",
+      "title": "Please welcome Braden Mann to the wonderful world of Roob's Eagles Stats",
+      "body_text": "The defining stats after the Eagles' third win of the season.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Braden Mann",
+        "Eagles Stats"
+      ],
+      "resolved_player_ids": [
+        "00-0036313"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "f711614a-2e14-3478-bb9f-bfff10aacbda",
+      "url": "https://sports.yahoo.com/articles/eagles-grades-position-win-over-193257322.html",
+      "title": "Eagles grades by position after win over Steelers",
+      "body_text": "Here are our Eagles grades by position after their 19-16 win over the Steelers.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Steelers Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "fae75272-f147-3ca4-a678-498a3c8699d6",
+      "url": "https://sports.yahoo.com/articles/riq-woolen-annoyed-benching-happy-070000326.html",
+      "title": "Riq Woolen ‘annoyed' by benching but happy for an Eagles win",
+      "body_text": "Riq Woolen was annoyed and frustrated when he was removed Sunday but was still happy the Eagles beat the Steelers.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Riq Woolen"
+      ],
+      "resolved_player_ids": [
+        "00-0037079"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "fca458af-f694-37ce-973b-81a442c7aac9",
+      "url": "https://sports.yahoo.com/articles/roobs-observations-eagles-defensive-statement-104323433.html",
+      "title": "Roob's Observations as Eagles' defensive statement sparks win over Steelers",
+      "body_text": "After seven straight losses, the Eagles get back on track with a win over Pittsburgh.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Steelers After"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "fcaf9a71-600a-3817-a0c2-fa93ea0de2e3",
+      "url": "https://sports.yahoo.com/articles/roobs-observations-why-earth-johnny-070000795.html",
+      "title": "Roob's Observations: Why on Earth is Johnny Mundt playing more than Eli Stowers?",
+      "body_text": "The Eagles invested a second-round pick on Stowers in the 2026 NFL Draft.",
+      "author": "",
+      "published_at": "2026-11-24T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Johnny Mundt",
+        "Eli Stowers",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0033246"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e4d7ae86-ab19-3d4f-b8da-889c0cc59350",
+      "url": "https://sports.yahoo.com/articles/bears-vs-lions-injury-report-060344712.html",
+      "title": "Bears vs. Lions Injury Report: Chicago has 3 DNP, and Detroit has 4",
+      "body_text": "The Chicago Bears and Detroit Lions issued their first injury report for Thursday’s game. @wiltfongjr has the details here.",
+      "author": "",
+      "published_at": "2026-11-24T06:03:44+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Lions Injury",
+        "The Chicago",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "172a5674-e09d-347a-94fe-10160e588ec9",
+      "url": "https://sports.yahoo.com/articles/commanders-stun-bengals-walk-off-050946977.html",
+      "title": "Commanders stun Bengals on walk-off field goal as Jayden Daniels leads improbable drive",
+      "body_text": "Jayden Daniels connected with rookie Antonio Williams on two long pass plays, moving the Commanders 64 yards in 34 seconds to set up Drew Stevens’ 26-yard field goal as time expired.",
+      "author": "",
+      "published_at": "2026-11-24T05:09:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Antonio Williams",
+        "Drew Stevens"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036188"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1a14e907-6cfd-3fc4-a123-5bed1f9d7190",
+      "url": "https://sports.yahoo.com/articles/nfl-playoff-picture-2026-updated-095445480.html",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 11",
+      "body_text": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "author": "",
+      "published_at": "2026-11-24T05:01:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Playoff Picture"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "0f7dff09-8ac6-4879-8bc7-6158f271bb8e",
+      "url": "https://sports.yahoo.com/nfl/breaking-news/article/2027-nfl-draft-order-titans-hold-no-1-spot-as-chargers-dolphins-also-fall-to-1-9-after-week-11-045229505.html",
+      "title": "2027 NFL Draft order: Titans hold No. 1 spot as Chargers, Dolphins also fall to 1-9 after Week 11",
+      "body_text": "The Titans fell to the Cowboys 51-30 on Sunday afternoon, and still are on track to have the first pick in the 2027 NFL Draft.",
+      "author": "Ryan Young",
+      "published_at": "2026-11-23T01:08:58+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Titans"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "4b1a73b4-d571-3f8e-a405-b9d8f5e9a66f",
+      "url": "https://sports.yahoo.com/articles/bills-path-one-seed-bengals-045008847.html",
+      "title": "The Bills have a new path to the one seed after the Bengals’ loss",
+      "body_text": "There is a new scenario where the Bills can clinch the AFC’s one seed now that the Bengals lost.",
+      "author": "",
+      "published_at": "2026-11-24T04:50:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "5391fd33-7dd3-4100-8552-6d3b467b420e",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-power-rankings-entering-week-12-is-it-time-to-start-taking-the-giants-seriously-044447574.html",
+      "title": "NFL Power Rankings entering Week 12: Is it time to start taking the Giants seriously?",
+      "body_text": "The Giants' upset win over the Jaguars changes things. It boosts their chances of making the playoffs as a division champion.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-24T04:44:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "The Giants"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "e37c2be9-9ce1-388b-bb8f-33e810b24981",
+      "url": "https://sports.yahoo.com/articles/commanders-stay-playoff-race-bengals-044027337.html",
+      "title": "As Commanders stay in playoff race, Bengals' rivals rejoice: MNF winners and losers",
+      "body_text": "While the Commanders kept their postseason hopes alive with a last-second win on &quot;Monday Night Football,&quot; the Bengals' playoff standing weakened.",
+      "author": "",
+      "published_at": "2026-11-24T04:40:27+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "As Commanders",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "7f9301a3-a9d3-3b3e-bcf6-ea6b99abe89f",
+      "url": "https://sports.yahoo.com/articles/rams-open-free-agent-upgrade-043341759.html",
+      "title": "Rams open to free-agent ‘upgrade’ with just four receivers left on roster",
+      "body_text": "When Sean McVay sends three wide receivers onto the field against the Packers on Wednesday night, he can look down the sideline and find exactly one more.",
+      "author": "",
+      "published_at": "2026-11-24T04:33:41+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "When Sean"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "49cb3946-c4a4-3b44-821f-d19221c06b4d",
+      "url": "https://sports.yahoo.com/articles/jaguars-gained-ground-afc-playoff-043325685.html",
+      "title": "The Jaguars gained ground in the AFC playoff standings after the Bengals loss on Monday",
+      "body_text": "The Jaguars got some help from a sloppy Bengals team on Monday night",
+      "author": "",
+      "published_at": "2026-11-24T04:33:25+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Jaguars",
+        "Monday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "a8e9ee8b-9850-38ca-9902-b85577786431",
+      "url": "https://sports.yahoo.com/articles/monday-night-football-commanders-rally-043203785.html",
+      "title": "Monday Night Football: Commanders rally for 22-20 win over Bengals",
+      "body_text": "There were no late mistakes for the Commanders this time.",
+      "author": "",
+      "published_at": "2026-11-24T04:32:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Bengals There"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "2be79b69-79b0-3de7-a296-f892e6caa915",
+      "url": "https://sports.yahoo.com/articles/vikings-football-fine-art-catastrophizing-042610141.html",
+      "title": "Vikings Football and the Fine Art of Catastrophizing",
+      "body_text": "Because nobody does it like we do",
+      "author": "",
+      "published_at": "2026-11-24T04:26:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikings Football",
+        "Fine Art",
+        "Catastrophizing Because"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "1ccfa95d-5697-4786-ab8d-ce52686945eb",
+      "url": "https://sports.yahoo.com/nfl/live/bengals-commanders-score-live-updates-week-11-inactives-highlights-stats-where-to-watch-monday-night-football-231005627.html",
+      "title": "Commanders QB Jayden Daniels hits a pair of big passes to set up game-winning field goal to beat Bengals",
+      "body_text": "The Bengals offense had some struggles against Washington's defense.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-23T23:10:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Bengals The"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "42ae2302-4bf8-360d-b1cb-dd6b3e8bdb73",
+      "url": "https://sports.yahoo.com/articles/lights-briefly-delay-commanders-bengals-032705475.html",
+      "title": "Lighting error briefly leaves Commanders-Bengals ‘MNF’ game in dark as Roger Goodell looks on",
+      "body_text": "A brief power outage at Northwest Stadium paused Monday night’s game between the Bengals and Commanders.",
+      "author": "",
+      "published_at": "2026-11-24T03:27:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Roger Goodell",
+        "Northwest Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    }
+  ]
+}

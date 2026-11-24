@@ -1,0 +1,563 @@
+{
+  "fetch_run_id": "9c4cd648-1442-4e2c-9ea8-264108fa2d26",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-24T12:17:38.900141+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "cac83c65-f118-44e9-a73c-bdac756eae5a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-grades-every-team-cowboys-earn-a-high-flying-win-steelers-nearly-fail/",
+      "title": "NFL Week 11 grades for every team: Commanders earn 'A-' for stunning Monday win",
+      "body_text": "We're handing out grades for every team that played in Week 11",
+      "author": "John Breech",
+      "published_at": "2026-11-24T05:01:47+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "fd26853d-f63f-4a2b-99d2-ef83e7e13cbd",
+      "url": "https://www.cbssports.com/nfl/news/2026-nfl-playoff-picture-standings-49ers-reign-over-nfc-jaguars-slip-in-afc/",
+      "title": "2026 NFL playoff picture, standings: 49ers reign over NFC, Jaguars slip in AFC, wild-card battles heat up",
+      "body_text": "A comprehensive look at all seven seeds in the AFC and NFC and the teams on the outside looking in",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-24T04:33:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "5f9a105d-84a0-45e4-b990-efdc748a2c78",
+      "url": "https://www.cbssports.com/betting/news/bengals-vs-commanders-odds-prediction-betting-preview-start-time-monday-night-football-picks-best-bets/",
+      "title": "Bengals vs. Commanders odds, prediction, betting preview, start time: Monday Night Football picks, best bets",
+      "body_text": "Best bets and betting preview for Bengals vs. Commanders on Monday Night Football",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-24T00:47:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "c78685a7-f53e-43b9-929b-1d64ff8439b5",
+      "url": "https://www.cbssports.com/prediction/news/bengals-vs-commanders-odds-first-touchdown-scorer-picks-week-11-nfl-predictions-for-monday-night-football/",
+      "title": "Bengals vs. Commanders odds: First touchdown scorer picks, Week 11 NFL predictions for Monday Night Football",
+      "body_text": "Here are our top picks for first touchdown prediction markets on Bengals vs. Commanders in NFL Week 11 on Monday Night Football",
+      "author": "James Holliman",
+      "published_at": "2026-11-24T00:43:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "38417f8f-a335-48d6-b8c1-49c3f5667ce7",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-earn-55-bonus-for-commanders-vs-bengals-monday-night-football-picks/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Earn $55 bonus for Commanders vs. Bengals, Monday Night Football picks",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Monday Night Football",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-24T00:38:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Monday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "a4d9ae51-ec61-49b7-bc27-f12a29943b16",
+      "url": "https://www.cbssports.com/prediction/news/bengals-vs-commanders-picks-odds-mnf-prediction-use-polymarket-promo-code-cbssports-to-get-a-25-bonus/",
+      "title": "Bengals vs. Commanders picks, odds, MNF prediction: Use Polymarket promo code CBSSPORTS to get a $25 bonus",
+      "body_text": "Use the latest Polymarket promo code to make predictions for Cincinnati vs. Washington on Monday Night Football",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-24T00:08:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "9bcd32a8-e0d4-4414-8888-fa8e280762bc",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-250-bonus-bets-commanders-vs-bengals-monday-night-football/",
+      "title": "Use FanDuel promo code to get $250 in bonus bets for Commanders vs. Bengals on Monday Night Football",
+      "body_text": "Sign up to wager on NFL Week 11 on Monday Night Football with the latest FanDuel promo code to get your bonus bets",
+      "author": "James Holliman",
+      "published_at": "2026-11-23T23:54:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Football Sign"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "032f56e0-bafe-4de4-ae04-b72c9a991a89",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-earn-55-bonus-bengals-vs-commanders-monday-night-football/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Earn $55 bonus for Bengals vs. Commanders on Monday Night Football",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on the Bengals vs. Commanders MNF matchup in NFL Week 11",
+      "author": "James Holliman",
+      "published_at": "2026-11-23T23:50:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Monday Night",
+        "Football New"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "5d45a13c-079a-4108-9d07-aa32141fd72f",
+      "url": "https://www.cbssports.com/betting/news/week-11-nfl-betting-promos-get-nearly-4000-in-bonuses-betting-apps-sportsbooks-commanders-bengals/",
+      "title": "Week 11 NFL betting promos: Get nearly $4,000 in bonuses from betting apps, sportsbooks for Commanders-Bengals",
+      "body_text": "Top Week 11 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-23T23:50:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bengals Top",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "358a23ea-0b32-45a2-a44d-d2c5bbc1267b",
+      "url": "https://www.cbssports.com/betting/news/bengals-vs-commanders-odds-nfl-week-11-picks-player-props-expert-has-best-bets-for-monday-night-football/",
+      "title": "Bengals vs. Commanders odds, NFL Week 11 picks, player props: Expert has best bets for Monday Night Football",
+      "body_text": "CBS Sports NFL expert Will Brinson shares his top picks and props for Monday Night Football in NFL Week 11",
+      "author": "Will Brinson",
+      "published_at": "2026-11-23T23:45:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Monday Night",
+        "Will Brinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "1222c46f-c61c-426c-92ac-6db311b0487f",
+      "url": "https://www.cbssports.com/nfl/news/micah-parsons-injury-update-packers-return-rams-2026/",
+      "title": "Micah Parsons injury update: Packers star cleared to make 2026 debut vs. Rams in Week 12",
+      "body_text": "Green Bay's star pass rusher is set to make his 2026 debut against Los Angeles after missing nearly a year because of multiple knee injuries",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-23T23:44:04+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Micah Parsons",
+        "Green Bay",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "57fc6c49-4a92-4bab-8552-95081ac3e031",
+      "url": "https://www.cbssports.com/nfl/news/brandon-aiyuk-landing-spots-commanders-steelers-49ers/",
+      "title": "Brandon Aiyuk landing spots: Commanders, Steelers among four potential fits for former 49ers star",
+      "body_text": "A reunion with Jayden Daniels, an NFC West revenge tour and two potential AFC opportunities headline Aiyuk's most intriguing options",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-23T23:06:20+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0036261",
+        "00-0039910"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "91519f71-3752-4676-8f4c-0cbffa3553b5",
+      "url": "https://www.cbssports.com/nfl/news/dk-metcalf-not-suspended-nfl-ejected-steelers-loss-eagles-cooper-dejean-eyes/",
+      "title": "DK Metcalf will not be suspended by the NFL after getting ejected during Steelers' loss to Eagles",
+      "body_text": "Metcalf may face other discipline by the NFL for his actions",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-23T21:19:06+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Eagles Metcalf"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "bb7083f7-3498-470d-b60b-e258fd2ea1c0",
+      "url": "https://www.cbssports.com/nfl/news/cardinals-fire-defensive-coordinator-nick-rallis-per-reports/",
+      "title": "Cardinals fire defensive coordinator Nick Rallis, per reports",
+      "body_text": "Rallis is out after working with the Cardinals since 2023. Teryl Austin will serve as Arizona's temporary DC",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-23T21:03:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Nick Rallis",
+        "Teryl Austin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "30ca0450-47b0-492f-8ae6-7d0ee7132615",
+      "url": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-bengals-vs-commanders-on-mnf-grizzlies-vs-hornets-and-more/",
+      "title": "Today's top games to watch, best bets, odds: Bengals vs. Commanders on MNF, Grizzlies vs. Hornets and more",
+      "body_text": "Find best bets and props for the biggest games in sports on Monday from the SportsLine Projection Model and top CBS Sports experts",
+      "author": "Scott Erskine",
+      "published_at": "2026-11-23T20:30:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Projection Model"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "77010404-8eea-428b-9b92-3fe3028a56a1",
+      "url": "https://www.cbssports.com/nfl/news/commanders-vs-bengals-prediction-odds-how-to-watch-mnf-matchup/",
+      "title": "Commanders vs. Bengals prediction: Cincinnati looks to extend lead in AFC North in 'MNF' matchup",
+      "body_text": "How to watch, what to know and a prediction for the Monday night contest in DC",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-23T20:27:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "05c3133f-977f-42df-bbbb-4089005504f0",
+      "url": "https://www.cbssports.com/nfl/news/49ers-longtime-general-manager-john-lynch-reach-extension/",
+      "title": "49ers, longtime general manager John Lynch reach extension",
+      "body_text": "Lynch currently presides over the NFC's best team",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-23T20:02:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "John Lynch"
+      ],
+      "resolved_player_ids": [
+        "00-0010188"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "5f5e5b9e-55e6-4a3a-a7e1-e4d66d3c857d",
+      "url": "https://www.cbssports.com/nfl/news/brandon-aiyuk-released-former-49ers-wr-looks-to-resume-career-after-years-away/",
+      "title": "Brandon Aiyuk released: Former 49ers WR looks to resume career after years away",
+      "body_text": "Aiyuk hasn't played in a game since suffering an injury in 2024, has yet to take a snap under 2025 four-year extension",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-23T19:55:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "0ae7950f-51aa-408f-9bb0-490b9279c071",
+      "url": "https://www.cbssports.com/nfl/news/pick-six-nfl-week-11-losers-grades-every-team-bengals-commanders-picks-monday-night-football/",
+      "title": "Pick Six: NFL Week 11 losers, plus grades for every team and Bengals-Commanders picks for Monday night",
+      "body_text": "Here's everything you need to know about the NFL for Nov. 23",
+      "author": "John Breech",
+      "published_at": "2026-11-23T18:29:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Pick Six"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "22dc8d2b-24ad-4d0e-916a-ca077c62de70",
+      "url": "https://www.cbssports.com/nfl/news/steelers-dk-metcalf-denies-poke-eagles-cooper-dejean-eye/",
+      "title": "Steelers' DK Metcalf denies trying to poke Eagles' Cooper DeJean in the eye",
+      "body_text": "Metcalf was ejected from the game and will likely face further discipline from the NFL",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-23T18:31:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e8ea109f-d43b-4815-929b-f924df31a606",
+      "url": "https://www.cbssports.com/nfl/news/josh-jacobs-finger-not-expected-play-rams-packers-thanksgiving-eve-showdown-green-bay-replacement/",
+      "title": "Josh Jacobs (finger) not expected to play in Rams-Packers Thanksgiving Eve showdown: Who Green Bay could use",
+      "body_text": "Jacobs suffered the finger injury in Week 9",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T18:00:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Jacobs",
+        "Packers Thanksgiving",
+        "Who Green"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "fb1f503c-06b5-4d44-98dd-21e7b0e4188b",
+      "url": "https://www.cbssports.com/nfl/news/jayden-daniels-relationship-lsu-alum-joe-burrow-its-all-love-beef/",
+      "title": "Jayden Daniels on relationship with fellow LSU alum Joe Burrow amid jersey number complaint",
+      "body_text": "Daniels and Burrow meet for the second time on 'Monday Night Football'",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T17:14:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jayden Daniels",
+        "Joe Burrow",
+        "Monday Night"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036442"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "5f32b981-9c42-47c8-ab6a-67d32533ad14",
+      "url": "https://www.cbssports.com/nfl/news/parker-washington-non-catch-controversy-jevon-holland-vegas-nfl-call-correct/",
+      "title": "Parker Washington non-catch controversy: Jevón Holland says 'Shout out Vegas,' NFL says call was correct",
+      "body_text": "Holland's tongue-in-cheek comment likely won't sit well at the league office",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T14:05:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Parker Washington"
+      ],
+      "resolved_player_ids": [
+        "00-0038606"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "fb80fc17-cfcf-43b2-b755-b07926d5cd50",
+      "url": "https://www.cbssports.com/nfl/news/49ers-giants-cowboys-earn-top-grades-in-nfl-week-11-fallout-from-tarik-skubals-historic-mets-deal/",
+      "title": "49ers, Giants, Cowboys earn top grades in NFL Week 11; fallout from Tarik Skubal's historic Mets deal",
+      "body_text": "Plus why the Big Ten faces a bleak CFP outlook",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-23T13:57:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tarik Skubal",
+        "Big Ten"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "b16b2554-2541-461a-80f2-391c30ec6799",
+      "url": "https://www.cbssports.com/nfl/news/cover-32-afc-contender-risk-missing-playoffs-entirely-plus-game-balls-gaffes-week-11/",
+      "title": "Cover 32: AFC contender is at risk of missing playoffs entirely, plus game balls, biggest gaffes from Week 11",
+      "body_text": "Tyler Sullivan dives into all of the biggest items from Week 11 in the NFL, including DK Metcalf's ejection and Brock Purdy's stellar day against the Vikings defense",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-23T13:49:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tyler Sullivan",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "bb84054a-ed78-4daa-b98e-03f78871f990",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-early-odds-bills-over-chiefs-thanksgiving-steelers/",
+      "title": "NFL Week 12 early odds: Bills favored over Chiefs for Thanksgiving showdown, Steelers home underdogs",
+      "body_text": "The Bears are road favorites for their Thanksgiving matchup in Detroit",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-23T13:15:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "c93b16a7-2653-4939-ac26-a4d9599bd929",
+      "url": "https://www.cbssports.com/nfl/news/why-steelers-regretting-dk-metcalf-150-million-contract-trading-george-pickens/",
+      "title": "Steelers gave DK Metcalf $150 million, traded George Pickens. Now they're paying for both decisions",
+      "body_text": "The Steelers wanted a more dependable receiver. Instead, Metcalf has delivered disappointing production and familiar distractions.",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-23T16:39:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "George Pickens",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0037247"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4d3f900f-7ece-42d5-a276-d1a646742f7e",
+      "url": "https://www.cbssports.com/nfl/news/vikings-nfl-obscure-fair-catch-kick-rule-71-yard-field-goal-49ers/",
+      "title": "Vikings utilize NFL's obscure fair-catch kick rule to attempt 71-yard field goal against 49ers",
+      "body_text": "If made, Will Reichard's field goal would have made NFL history",
+      "author": "John Breech",
+      "published_at": "2026-11-23T03:28:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Will Reichard"
+      ],
+      "resolved_player_ids": [
+        "00-0039404"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "5280f204-e4eb-45e4-ac5f-fd5caabffe47",
+      "url": "https://www.cbssports.com/nfl/news/cam-skattebo-giants-celebrates-game-clinching-drive-with-backflip/",
+      "title": "Cam Skattebo flips: Giants RB celebrates game-clinching drive with backflip days after retiring it",
+      "body_text": "Skattebo said he'd retire his celebration in the wake of Aidan Hutchinson's injury",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T01:40:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Cam Skattebo",
+        "Aidan Hutchinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040715",
+        "00-0037236"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "cbae0e9d-ba08-4e71-9eeb-cf9a097239e4",
+      "url": "https://www.cbssports.com/prediction/news/vikings-vs-49ers-odds-best-sunday-night-football-mexico-city-first-touchdown-scorer-picks-nfl-predictions/",
+      "title": "Vikings vs. 49ers odds: Best Sunday Night Football Mexico City first touchdown scorer picks, NFL predictions",
+      "body_text": "Here are our top picks for first touchdown prediction markets on the Vikings and 49ers' Sunday Night Football game in Mexico City",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-23T01:14:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Sunday",
+        "Night Football",
+        "Mexico City",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "e6df2e8b-76ec-4569-8cd2-8211ecbcbb3f",
+      "url": "https://www.cbssports.com/betting/news/49ers-vs-vikings-prediction-odds-betting-preview-sunday-night-football-picks-best-bets-mexico-city/",
+      "title": "49ers vs. Vikings prediction, odds, betting preview: Sunday Night Football picks, best bets for Mexico City",
+      "body_text": "Best bets and betting preview for 49ers vs. Vikings on Sunday Night Football in Mexico City",
+      "author": "Blake Von Hagen",
+      "published_at": "2026-11-23T01:09:46+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Mexico City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "68a23664-83f9-4ca1-9ea7-18ff3ab6ee70",
+      "url": "https://www.cbssports.com/prediction/news/week-11-vikings-vs-49ers-odds-picks-kalshi-promo-code-cbssports55-for-55-bonus-for-sunday-night-football/",
+      "title": "Week 11 Vikings vs. 49ers odds, picks: Kalshi promo code CBSSPORTS55 for $55 bonus for Sunday Night Football",
+      "body_text": "Here's a closer look at the top trading markets available at Kalshi for Sunday Night Football in Mexico City as Minnesota faces San Francisco in Week 11",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-23T01:09:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Night",
+        "Football Here",
+        "Mexico City",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "3961e05a-f288-46b1-ae8f-3422364eea7b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-11-winners-losers-cowboys-offense-makes-history-get-right-win-steelers-slump/",
+      "title": "NFL Week 11 winners and losers: Cowboys offense makes history in get-right win, Steelers slump",
+      "body_text": "Dallas scored on all but one possession in a bounce-back victory, while Pittsburgh's postseason hopes took a hit",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-23T01:07:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "34f53f08-b457-4391-9fb5-a3f79da04373",
+      "url": "https://www.cbssports.com/nfl/news/justin-herbert-concussion-protocol-update-jets/",
+      "title": "Justin Herbert in concussion protocol after loss to Jets: Chargers QB played entire game",
+      "body_text": "Herbert took some big shots late in the game but did not exit",
+      "author": "Zachary Pereles",
+      "published_at": "2026-11-23T01:05:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "e4b86912-9f7a-4efc-bc8d-5e69d5acb81e",
+      "url": "https://www.cbssports.com/betting/news/use-draftkings-promo-code-to-get-200-bonus-bets-free-nba-league-pass-on-vikings-49ers-sunday-night-football/",
+      "title": "Use DraftKings promo code to get $200 bonus bets, free NBA League Pass on Vikings-49ers, Sunday Night Football",
+      "body_text": "DraftKings offers $200 in bonus bets and three free months of NBA League Pass after your first $5 wager for NFL betting on Sunday",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-23T00:57:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "League Pass",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "28870201-6cd2-4a10-a638-3476f29dc957",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-score-55-bonus-for-49ers-vikings-nfl-sunday-night-football-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Score $55 bonus for 49ers-Vikings, NFL Sunday Night Football predictions",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on all of Sunday's NFL Week 11 action",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-23T00:46:10+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Sunday Night",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    }
+  ]
+}

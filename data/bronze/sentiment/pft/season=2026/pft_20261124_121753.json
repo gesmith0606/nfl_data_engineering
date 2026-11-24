@@ -1,0 +1,565 @@
+{
+  "fetch_run_id": "ad617be0-31a8-4d12-8ffb-ff8272b431a6",
+  "source": "pft",
+  "fetched_at": "2026-11-24T12:17:53.947815+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/uncalled-illegal-formation-if-there-was-one-wouldnt-have-resulted-in-10-second-runoff",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/uncalled-illegal-formation-if-there-was-one-wouldnt-have-resulted-in-10-second-runoff",
+      "permalink": "",
+      "title": "Uncalled illegal formation (if there was one) wouldn't have resulted in 10-second runoff",
+      "body_text": "Yes, the officials missed an apparent issue with the clock last night, after the Commanders kicked a game-winning field goal.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T10:54:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lights-went-out-on-monday-night-because-routine-maintenance-schedule-wasnt-changed",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lights-went-out-on-monday-night-because-routine-maintenance-schedule-wasnt-changed",
+      "permalink": "",
+      "title": "Lights went out on Monday night because routine maintenance schedule wasn't changed",
+      "body_text": "As unexpected (and unwanted) developments at Northwest Stadium go, worse things than the lights going out can happen — and have happened.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T11:22:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Northwest Stadium"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-passed-for-146-yards-in-fourth-quarter-after-totaling-143-in-first-three",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-passed-for-146-yards-in-fourth-quarter-after-totaling-143-in-first-three",
+      "permalink": "",
+      "title": "Jayden Daniels passed for 146 yards in fourth quarter after totaling 143 in first three",
+      "body_text": "When the fourth quarter started on Monday night, the Commanders trailed the Bengals 17-13.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-24T10:02:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-scars-from-our-late-game-losses-run-deep-glad-jayden-daniels-won-it-for-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-scars-from-our-late-game-losses-run-deep-glad-jayden-daniels-won-it-for-us",
+      "permalink": "",
+      "title": "Dan Quinn: Scars from our late-game losses run deep, glad Jayden Daniels won it for us",
+      "body_text": "\"I couldn't have been more proud of Jayden at the end of the game,\" Quinn said after the Commanders' 22-20 win.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-24T09:18:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dan Quinn",
+        "Jayden Daniels"
+      ],
+      "resolved_player_ids": [
+        "00-0039910"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-11",
+      "permalink": "",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 11",
+      "body_text": "Sunday night's Vikings-49ers game is a very big one in the NFC playoff race.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-24T05:01:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Playoff Picture"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/clock-operator-robbed-bengals-of-one-final-play",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/clock-operator-robbed-bengals-of-one-final-play",
+      "permalink": "",
+      "title": "Clock operator robbed Bengals of one final play",
+      "body_text": "The Bengals-Commanders game carries a small but not insignificant asterisk.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T04:41:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-commanders-rally-for-22-20-win-over-bengals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-commanders-rally-for-22-20-win-over-bengals",
+      "permalink": "",
+      "title": "Monday Night Football: Commanders rally for 22-20 win over Bengals",
+      "body_text": "There were no late mistakes for the Commanders this time.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-24T04:32:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Bengals There"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-plans-to-consider-ejecting-lsu-on-december-3",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sec-plans-to-consider-ejecting-lsu-on-december-3",
+      "permalink": "",
+      "title": "SEC plans to consider ejecting LSU on December 3",
+      "body_text": "The supposed \"chaos\" in college sports could still result in the SEC kicking LSU out of the conference.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T04:22:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-joe-burrows-second-td-pass-puts-bengals-up-17-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-joe-burrows-second-td-pass-puts-bengals-up-17-10",
+      "permalink": "",
+      "title": "Monday Night Football: Joe Burrow's second TD pass puts Bengals up 17-10",
+      "body_text": "The lights are back on and both offenses have put up points in the third quarter.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-24T03:20:20+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night",
+        "Joe Burrow"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-is-getting-frustrated",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/stefon-diggs-is-getting-frustrated",
+      "permalink": "",
+      "title": "Stefon Diggs is getting frustrated",
+      "body_text": "Stefon Diggs is getting upset.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T02:52:26+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Stefon Diggs"
+      ],
+      "resolved_player_ids": [
+        "00-0031588"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tee-higgins-touchdown-highlights-inconsistency-of-replay-review",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tee-higgins-touchdown-highlights-inconsistency-of-replay-review",
+      "permalink": "",
+      "title": "Tee Higgins touchdown highlights inconsistency of replay review",
+      "body_text": "Just when we thought we were out when it comes to not knowing what a catch is, they pull us back in.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T02:45:29+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tee Higgins"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bengals-lead-10-7-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/monday-night-football-bengals-lead-10-7-at-halftime",
+      "permalink": "",
+      "title": "Monday Night Football: Bengals lead 10-7 at halftime",
+      "body_text": "Both offenses took some time to get going on a rainy night in Washington.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-24T02:43:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Monday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-get-on-the-board-in-second-quarter-lead-3-0",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bengals-get-on-the-board-in-second-quarter-lead-3-0",
+      "permalink": "",
+      "title": "Bengals get on the board in second quarter, lead 3-0",
+      "body_text": "The Bengals offense is off to a slow start, but they have still taken a lead in the second quarter of Monday night's game in Washington.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-24T02:11:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bengals"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/making-sense-of-liam-coens-nonsensical-decision-to-kick-a-late-field-goal",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/making-sense-of-liam-coens-nonsensical-decision-to-kick-a-late-field-goal",
+      "permalink": "",
+      "title": "Making sense of Liam Coen's nonsensical decision to kick a late field goal",
+      "body_text": "Jacksonville's loss to the Giants on Sunday included a nonsensical decision with 3:43 to play.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T02:08:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Liam Coen"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-list-chuck-clark-dj-wonnum-as-out-of-mondays-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-list-chuck-clark-dj-wonnum-as-out-of-mondays-practice",
+      "permalink": "",
+      "title": "Lions list Chuck Clark, DJ Wonnum as out of Monday's practice",
+      "body_text": "A pair of Lions defensive starters would have missed practice on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-24T02:02:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Chuck Clark"
+      ],
+      "resolved_player_ids": [
+        "00-0033294"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/theo-benedet-kyler-gordon-listed-as-out-of-bears-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/theo-benedet-kyler-gordon-listed-as-out-of-bears-practice",
+      "permalink": "",
+      "title": "Theo Benedet, Kyler Gordon listed as out of Bears practice",
+      "body_text": "The Bears listed three players as out of practice on their first injury report ahead of Thursday afternoon's game in Detroit.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-24T01:56:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Theo Benedet",
+        "Kyler Gordon",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039459",
+        "00-0038111"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-aaron-rodgers-is-our-quarterback",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-aaron-rodgers-is-our-quarterback",
+      "permalink": "",
+      "title": "Mike McCarthy: Aaron Rodgers is our quarterback",
+      "body_text": "Before an NFL team benches its starting quarterback, someone asks the coach whether the quarterback could be benched.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-24T01:34:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rachaad-white-active-for-commanders-dax-hill-active-for-bengals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rachaad-white-active-for-commanders-dax-hill-active-for-bengals",
+      "permalink": "",
+      "title": "Rachaad White active for Commanders, Dax Hill active for Bengals",
+      "body_text": "Running backs Jacory Croskey-Merritt and Rachaad White will both be available for the Commanders against the Bengals.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T23:50:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rachaad White",
+        "Dax Hill",
+        "Bengals Running",
+        "Jacory Croskey"
+      ],
+      "resolved_player_ids": [
+        "00-0037256"
+      ],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-cb-trevon-diggs-ot-bobby-hart-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/seahawks-sign-cb-trevon-diggs-ot-bobby-hart-to-active-roster",
+      "permalink": "",
+      "title": "Seahawks sign CB Trevon Diggs, OT Bobby Hart to active roster",
+      "body_text": "The Seahawks returned from their bye week by adding a pair of veteran players to their 53-man roster.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T23:31:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Trevon Diggs",
+        "Bobby Hart",
+        "The Seahawks"
+      ],
+      "resolved_player_ids": [
+        "00-0036361",
+        "00-0031622"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-reid-cleared-waivers-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-reid-cleared-waivers-on-monday",
+      "permalink": "",
+      "title": "Justin Reid cleared waivers on Monday",
+      "body_text": "Daniel Jones wasn't the only veteran to become a free agent on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T23:25:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Justin Reid",
+        "Monday Daniel"
+      ],
+      "resolved_player_ids": [
+        "00-0034361"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-defense-needed-a-fresh-voice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-lafleur-defense-needed-a-fresh-voice",
+      "permalink": "",
+      "title": "Mike LaFleur: Defense needed a fresh voice",
+      "body_text": "Cardinals head coach Mike LaFleur made a significant change to his coaching staff on Monday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T23:20:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-primetime-documentary-is-in-the-works",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-nfl-primetime-documentary-is-in-the-works",
+      "permalink": "",
+      "title": "Report: NFL Primetime documentary is in the works",
+      "body_text": "The recent passing of Tom Jackson has sparked much discussion about ESPN's NFL Primetime, which was for years a mandatory Sunday evening destination for football fans everywhere.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T23:13:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tom Jackson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-cleared-to-play-wednesday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-cleared-to-play-wednesday-night",
+      "permalink": "",
+      "title": "Micah Parsons cleared to play Wednesday night",
+      "body_text": "Parsons is set to make his first game appearance since last year's torn ACL.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T22:51:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-listed-as-out-of-chiefs-practice-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kenneth-walker-listed-as-out-of-chiefs-practice-monday",
+      "permalink": "",
+      "title": "Kenneth Walker listed as out of Chiefs practice Monday",
+      "body_text": "Running back Kenneth Walker has missed the last two Chiefs games and Kansas City's first practice report of the week doesn't find him on an upward trajectory ahead of Thursday's road game in Buffalo.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T22:40:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kenneth Walker",
+        "Monday Running",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-clears-waivers-becomes-free-agent",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/daniel-jones-clears-waivers-becomes-free-agent",
+      "permalink": "",
+      "title": "Daniel Jones clears waivers, becomes free agent",
+      "body_text": "As expected, former Colts quarterback Daniel Jones has cleared waivers.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T22:37:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Daniel Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0035710"
+      ],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-list-greg-rousseau-dalton-kincaid-as-limited-on-mondays-practice-report",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-list-greg-rousseau-dalton-kincaid-as-limited-on-mondays-practice-report",
+      "permalink": "",
+      "title": "Bills list Greg Rousseau, Dalton Kincaid as limited on Monday's practice report",
+      "body_text": "The Bills did not hold a practice on Monday, but they did issue an estimated injury report ahead of Thursday's game against the Chiefs.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-23T22:33:21+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Greg Rousseau",
+        "Dalton Kincaid",
+        "The Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0036914",
+        "00-0038933"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-have-gone-five-straight-games-without-ever-trailing-for-first-time-since-1985",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-have-gone-five-straight-games-without-ever-trailing-for-first-time-since-1985",
+      "permalink": "",
+      "title": "Bears have gone five straight games without ever trailing for first time since 1985",
+      "body_text": "The Bears' win over the Saints on Sunday was their fifth consecutive game taking a first-quarter lead and winning without ever trailing.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-23T22:26:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-texans-draws-tepid-12-23-million-on-thursday-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-texans-draws-tepid-12-23-million-on-thursday-night",
+      "permalink": "",
+      "title": "Colts-Texans draws tepid 12.23 million on Thursday night",
+      "body_text": "No, they can't all be winners.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T22:20:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "IND"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-among-eagles-listed-as-limited-on-monday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/saquon-barkley-among-eagles-listed-as-limited-on-monday",
+      "permalink": "",
+      "title": "Saquon Barkley among Eagles listed as limited on Monday",
+      "body_text": "After defeating the Steelers on Sunday for their third victory of the season, the Eagles have several players on their first injury report of a short week as they'll play the Cowboys on Thanksgiving.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-23T22:09:10+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "Monday After"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnolds-lawyer-seeks-sanctions-for-discovery-violation",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/terrion-arnolds-lawyer-seeks-sanctions-for-discovery-violation",
+      "permalink": "",
+      "title": "Terrion Arnold's lawyer seeks sanctions for discovery violation",
+      "body_text": "Seahawks cornerback Terrion Arnold remains on paid leave with eight felony charges pending in Florida.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-23T19:35:05+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Terrion Arnold"
+      ],
+      "resolved_player_ids": [
+        "00-0039903"
+      ],
+      "team_hint": "SEA"
+    }
+  ]
+}
