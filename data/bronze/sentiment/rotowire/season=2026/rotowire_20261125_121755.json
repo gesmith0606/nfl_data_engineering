@@ -1,0 +1,118 @@
+{
+  "fetch_run_id": "b74e4aca-3e5d-40e9-b406-853b2c95cffe",
+  "source": "rotowire",
+  "fetched_at": "2026-11-25T12:17:55.658780+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl649701",
+      "url": "https://www.rotowire.com//football/player/mason-rudolph-12629",
+      "permalink": "",
+      "title": "Mason Rudolph: Will start Friday against Denver",
+      "body_text": "Rudolph will start Friday's game against the Broncos, Tom Pelissero of The Ringer and Netflix reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-24T08:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mason Rudolph",
+        "Denver Rudolph",
+        "Tom Pelissero",
+        "The Ringer"
+      ],
+      "resolved_player_ids": [
+        "00-0034771"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl649700",
+      "url": "https://www.rotowire.com//football/player/aaron-rodgers-4307",
+      "permalink": "",
+      "title": "Aaron Rodgers: Benched by Pittsburgh",
+      "body_text": "Rodgers has been benched by the Steelers, and Mason Rudolph will start Friday's game against the Broncos, Tom Pelissero of The Ringer and Netflix reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-24T08:21:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pittsburgh Rodgers",
+        "Mason Rudolph",
+        "Tom Pelissero",
+        "The Ringer"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "nfl649624",
+      "url": "https://www.rotowire.com//football/player/dallas-goedert-12860",
+      "permalink": "",
+      "title": "Dallas Goedert: In clear for Week 12",
+      "body_text": "The Eagles listed Goedert (shin) as a full participant in Tuesday's walkthrough practice. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-24T03:13:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas Goedert",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl649623",
+      "url": "https://www.rotowire.com//football/player/saquon-barkley-12507",
+      "permalink": "",
+      "title": "Saquon Barkley: Upgrades to full participation",
+      "body_text": "The Eagles listed Barkley (neck/illness) as a full participant in Tuesday's walkthrough practice. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-24T03:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Saquon Barkley",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0034844"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "nfl649618",
+      "url": "https://www.rotowire.com//football/player/brandon-aiyuk-14386",
+      "permalink": "",
+      "title": "Brandon Aiyuk: Set to visit Commanders",
+      "body_text": "Aiyuk, per agent Drew Rosenhaus, is scheduled to visit the Commanders on Wednesday, Adam Schefter of ESPN reports. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-24T02:40:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Commanders Aiyuk",
+        "Drew Rosenhaus",
+        "Adam Schefter"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "WAS"
+    }
+  ]
+}

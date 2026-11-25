@@ -1,0 +1,813 @@
+{
+  "fetch_run_id": "60eeb311-f1fb-42c5-a62d-02d4ceb6058f",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-25T12:17:44.563631+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "511e28c3-d321-4eb1-bc7b-6b2c418e7912",
+      "url": "https://sports.yahoo.com/nfl/article/nfl-week-12-how-to-watch-every-football-game-this-week-during-the-2026-season-120716775.html",
+      "title": "NFL Week 12: How to watch every football game this week during the 2026 season",
+      "body_text": "Here's how you can keep up with every NFL game, from this weekend to the 2027 Super Bowl.",
+      "author": "Danica Creahan",
+      "published_at": "2026-09-08T10:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5095c3c2-5152-31a9-a29b-8ed7defdb0f4",
+      "url": "https://sports.yahoo.com/nfl/articles/josh-jacobs-playing-tonight-injury-120526868.html",
+      "title": "Is Josh Jacobs playing tonight? Injury update for Packers RB",
+      "body_text": "RB Josh Jacobs is hoping to soon return from a finger injury for the Packers. Here's what we know about his status for Week 12 against the Rams.",
+      "author": "",
+      "published_at": "2026-11-25T12:05:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Is Josh",
+        "Josh Jacobs"
+      ],
+      "resolved_player_ids": [
+        "00-0035700"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "eed411c7-cdd3-3217-a1e6-508f1d5eb3e6",
+      "url": "https://sports.yahoo.com/nfl/articles/micah-parsons-playing-vs-rams-120412846.html",
+      "title": "Is Micah Parsons playing vs. Rams? Latest on Packers star's injury recovery",
+      "body_text": "Micah Parsons should have the green light to return for Green Bay, with the Packers star expected to make his season debut Wednesday vs. the Rams.",
+      "author": "",
+      "published_at": "2026-11-25T12:04:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Is Micah",
+        "Micah Parsons",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "3bdd93f4-e03f-3323-890f-7162dff3db04",
+      "url": "https://sports.yahoo.com/nfl/articles/packers-rams-game-primer-watch-120000476.html",
+      "title": "Packers-Rams Game Primer: How to watch, odds, kickoff time, & more",
+      "body_text": "Get your streaming subscriptions figured out before game time tonight.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Rams Game"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "4ebcbed9-5f86-3c69-afff-7fb30ca41b91",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-secret-superstars-2026-week-120000441.html",
+      "title": "NFL Secret Superstars 2026: Week 11’s surprise standouts in the NFC",
+      "body_text": "Rookie Ted Hurst scored two touchdowns for Tampa Bay’s iffy passing game. Giants cornerbacks Paulson Adebo and Deonte Banks shut down Jacksonville's receivers over and over. And Ji'Ayir Brown's pick-six of Kirk Cousins sparked the 49ers' Sunday night rout.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Secret Superstars",
+        "Rookie Ted",
+        "Tampa Bay",
+        "Paulson Adebo",
+        "Deonte Banks",
+        "Ayir Brown",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0036937",
+        "00-0039000",
+        "00-0029604"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "531cfec6-20fd-35cf-8e88-124a4ae71770",
+      "url": "https://sports.yahoo.com/nfl/articles/full-list-week-12-straight-120000608.html",
+      "title": "Full list of Week 12 straight-up picks with confidence levels",
+      "body_text": "David Fucillo makes picks for all 16 NFL games with levels of confidence ahead of Week 12.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "David Fucillo"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "586bf1cf-16f8-311e-9fbb-2c1963adefae",
+      "url": "https://sports.yahoo.com/nfl/articles/2026-nfl-week-12-hart-120000342.html",
+      "title": "2026 NFL Week 12: Hart’s Picks",
+      "body_text": "Mile High Report’s Christopher Hart predicts the straight-up winners for every Week 12 matchup of the 2026 season.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Picks Mile",
+        "High Report",
+        "Christopher Hart"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5dfd860d-48d8-3a8c-aeea-a2ad64ef301c",
+      "url": "https://sports.yahoo.com/nfl/articles/york-jets-news-did-jets-120000332.html",
+      "title": "New York Jets News: Did Jets win the Aaron Rodgers Debate After Steelers Benching Decision?",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Did Jets",
+        "Aaron Rodgers",
+        "Debate After",
+        "Steelers Benching"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "95f13b33-68ed-36a4-8705-8014f6b271f4",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-secret-superstars-2026-week-120000788.html",
+      "title": "NFL Secret Superstars 2026: Week 11’s surprise standouts in the AFC",
+      "body_text": "Jack Bech posted career highs and helped Fernando Mendoza compete against Denver without Brock Bowers. Hunter Nourzad filled in admirably for Trey Smith on a rolling Chiefs line. And Dolphins rookie linebacker Jacob Rodriguez is starting to look like a cornerstone.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Secret Superstars",
+        "Jack Bech",
+        "Fernando Mendoza",
+        "Brock Bowers",
+        "Hunter Nourzad",
+        "Trey Smith",
+        "And Dolphins",
+        "Jacob Rodriguez"
+      ],
+      "resolved_player_ids": [
+        "00-0040729",
+        "00-0039338",
+        "00-0039827",
+        "00-0036660"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "dc9609a5-2a24-3b1f-9b5c-ff2807921e38",
+      "url": "https://sports.yahoo.com/nfl/articles/tampa-bay-buccaneers-news-bucs-120000208.html",
+      "title": "Tampa Bay Buccaneers news: Bucs turn focus to Panthers matchup",
+      "body_text": "The Tampa Bay Buccaneers are getting ready for Week 12 against the Detroit Lions.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tampa Bay",
+        "The Tampa",
+        "Bay Buccaneers",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "e1491ee0-857a-36bf-99bb-595411f01bc7",
+      "url": "https://sports.yahoo.com/nfl/articles/tennessee-titans-news-week-12-120000743.html",
+      "title": "Tennessee Titans news: Week 12 vs. Jaguars provides hope",
+      "body_text": "The Tennessee Titans are eyeing their second win against the Jacksonville Jaguars.",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Tennessee Titans",
+        "The Tennessee",
+        "Jacksonville Jaguars"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "ed683544-7341-30bc-859a-cea2c93f55c1",
+      "url": "https://sports.yahoo.com/nfl/articles/cowboys-news-dak-prescott-sights-120000745.html",
+      "title": "Cowboys news: Dak Prescott’s sights set on the playoffs",
+      "body_text": "Here is today’s Dallas Cowboys news",
+      "author": "",
+      "published_at": "2026-11-25T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "c493ccf3-ee94-3482-9488-d1853f8e7846",
+      "url": "https://sports.yahoo.com/nfl/articles/terps-nfl-week-11-deonte-114000374.html",
+      "title": "Terps in the NFL Week 11: Deonte Banks shines in upset win over Jaguars",
+      "body_text": "Week 11 of the NFL season concluded with 13 Maryland football alumni seeing the field.",
+      "author": "",
+      "published_at": "2026-11-25T11:40:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Deonte Banks",
+        "Jaguars Week"
+      ],
+      "resolved_player_ids": [
+        "00-0039000"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "32bdb626-4405-3225-aa0d-6c8bf252d1b9",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-game-tonight-thanksgiving-eve-113106417.html",
+      "title": "Is there an NFL game tonight? Thanksgiving Eve matchup, Week 12 schedule",
+      "body_text": "The NFL has introduced a &quot;Thanksgiving Eve&quot; game to its calendar in 2026. Here's what to know about the league's full Thanksgiving week schedule.",
+      "author": "",
+      "published_at": "2026-11-25T11:31:06+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "03963645-01d6-3940-a777-ffc830aa5a88",
+      "url": "https://sports.yahoo.com/nfl/articles/unique-element-chiefs-offensive-line-113000112.html",
+      "title": "This unique element of Chiefs offensive line will be vital for Bills to exploit on Thanksgiving night",
+      "body_text": "Pinpointing what is asked of Chiefs offensive tackles in Andy Reid’s scheme",
+      "author": "",
+      "published_at": "2026-11-25T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "fe3b893e-6ca2-3a31-8353-56b2ff21dde4",
+      "url": "https://sports.yahoo.com/nfl/articles/3-bengals-legends-still-alive-113000164.html",
+      "title": "3 Bengals legends still alive in Pro Football Hall of Fame race for Class of 2027",
+      "body_text": "Three former Bengals greats are on the latest list for Pro Football Hall of Fame nominations.",
+      "author": "",
+      "published_at": "2026-11-25T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Pro Football"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "72415c5e-436d-3bf0-8b5a-030582a9143e",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-took-usual-practice-112813598.html",
+      "title": "Aaron Rodgers took his usual practice reps on Tuesday, did his usual midweek press conference",
+      "body_text": "For the Steelers, Tuesday unfolded in the usual way that it would unfold with a game coming on Friday — even if late Tuesday night included a highly unexpected curveball.",
+      "author": "",
+      "published_at": "2026-11-25T11:28:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "74d767a0-ebba-3078-a144-9dd3b9c04cc7",
+      "url": "https://sports.yahoo.com/nfl/articles/channel-rams-vs-packers-today-112045207.html",
+      "title": "What channel is the Rams vs Packers on today? Time, schedule to watch NFL game Wednesday",
+      "body_text": "The Green Bay Packers take on the Los Angeles Rams in a rare Wednesday night NFL game. Here's how to watch it.",
+      "author": "",
+      "published_at": "2026-11-25T11:20:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Wednesday The",
+        "Green Bay",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "59284c2d-5ef3-3f9d-9cc8-b9f3d9681ecc",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-numbers-similar-mason-111743236.html",
+      "title": "Aaron Rodgers' numbers this year are similar to Mason Rudolph's career with the Steelers",
+      "body_text": "The Steelers have benched Aaron Rodgers for Mason Rudolph, which means they're replacing a quarterback who has given them mediocre production this year with a quarterback who has given them mediocre production throughout his career.",
+      "author": "",
+      "published_at": "2026-11-25T11:17:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Mason Rudolph",
+        "Steelers The"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "ae8175b6-1db9-488f-90c4-725deaa1f38e",
+      "url": "https://sports.yahoo.com/nfl/article/2027-nfl-mock-draft-20-jets-get-aggressive-for-a-qb-but-its-not-arch-manning-who-is-a-top-3-pick-111138558.html",
+      "title": "2027 NFL mock draft 2.0: Jets get aggressive for a QB but it's not Arch Manning who is a top-3 pick",
+      "body_text": "Like in my first mock draft of this season, I still have the Jets trading up to the top spot to get a quarterback. Step on up, Drew Mestemaker.",
+      "author": "Nate Tice",
+      "published_at": "2026-11-25T11:11:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Arch Manning",
+        "Drew Mestemaker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "14e15a84-f34e-3e42-93f7-755a7cbe5099",
+      "url": "https://sports.yahoo.com/nfl/articles/move-bench-aaron-rodgers-reportedly-110332369.html",
+      "title": "Move to bench Aaron Rodgers reportedly was &quot;coach's decision&quot;",
+      "body_text": "The timing of the decision remains unclear.",
+      "author": "",
+      "published_at": "2026-11-25T11:03:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "f99f37de-0fe7-385f-ba4c-7ea16313b636",
+      "url": "https://sports.yahoo.com/nfl/articles/why-nfl-game-wednesday-scheduling-110300750.html",
+      "title": "Why is there an NFL game on Wednesday? Scheduling quirk explained",
+      "body_text": "Here's why the NFL is playing a game on Wednesday night to kick off Week 12 before the Thanksgiving slate.",
+      "author": "",
+      "published_at": "2026-11-25T11:03:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0289513e-a2c6-3504-ac0d-72dcb128cda3",
+      "url": "https://sports.yahoo.com/nfl/articles/watch-bills-vs-chiefs-week-110000123.html",
+      "title": "Here’s how to watch Bills vs. Chiefs in Week 12",
+      "body_text": "All the ways to catch the action live when the Buffalo Bills take on the Kansas City Chiefs on Thanksgiving night in Week 12 of NFL action",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Buffalo Bills",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "075a2547-fb83-35bf-bbae-212eec828bef",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-week-12-picks-chiefs-110000655.html",
+      "title": "NFL Week 12 picks: Chiefs prevail over Bills; 49ers defeat Seahawks",
+      "body_text": "Sam Farmer makes his picks and predictions for Week 12 of the NFL season, with the Chiefs beating the Bills on Thanksgiving and the 49ers winning again.",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Seahawks Sam"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "32509cf3-e190-3773-a687-c861f2365f4b",
+      "url": "https://sports.yahoo.com/nfl/articles/another-qb-cardinals-could-interested-110000147.html",
+      "title": "Another QB the Cardinals could be interested in",
+      "body_text": "It’s raining quarterbacks",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "5501b05e-fee6-3d26-a504-6f78d262d8e2",
+      "url": "https://sports.yahoo.com/nfl/articles/bengals-news-playoff-projections-cincinnati-110000154.html",
+      "title": "Bengals News: Playoff projections for Cincinnati",
+      "body_text": "Your daily dose of Bengals news.",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Cincinnati Your"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "5b5fb3cb-7e0c-3da2-88b2-59e229fe4247",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-power-rankings-week-12-110000015.html",
+      "title": "NFL Power Rankings Week 12: Commanders on the rise after back-to-back wins",
+      "body_text": "The Commanders are 4-5-1 after a primetime win over the Bengals",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "6a0c0770-993a-313e-a1c3-c559718bbdaf",
+      "url": "https://sports.yahoo.com/nfl/articles/houston-texans-news-wednesday-november-110000327.html",
+      "title": "Houston Texans News: Wednesday November 25, 2026",
+      "body_text": "Your one-stop shop for Houston Texans, local sports, and news from around the league for Wednesday November 25, 2026.",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Houston Texans",
+        "Wednesday November"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "HOU"
+    },
+    {
+      "external_id": "7656ea8f-f7eb-3578-8e68-d6da463810b9",
+      "url": "https://sports.yahoo.com/nfl/articles/giants-news-playoff-outlook-cb-110000161.html",
+      "title": "Giants news: Playoff outlook, CB Greg Newsome placed on IR, more",
+      "body_text": "New York Giants headlines for Wednesday.",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Greg Newsome",
+        "New York"
+      ],
+      "resolved_player_ids": [
+        "00-0036996"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "a8840e71-1a76-3772-93ed-f6d1e43dd310",
+      "url": "https://sports.yahoo.com/nfl/articles/chiefs-news-andy-reid-mac-110000160.html",
+      "title": "Chiefs News: Andy Reid’s Mac & Cheese recipe is exposed",
+      "body_text": "The latest Chiefs news, brought fresh to you every morning!",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs News",
+        "Andy Reid"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "cd46c20e-ae58-39ec-a15d-7c67aa772220",
+      "url": "https://sports.yahoo.com/nfl/articles/steelers-week-12-power-rankings-110000544.html",
+      "title": "Steelers Week 12 power rankings roundup: The terrible tumble continues",
+      "body_text": "Pittsburgh Steelers Week 12 power rankings roundup.",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Steelers Week",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "f34c31a3-2ce8-3a81-b50f-b246b3f224bb",
+      "url": "https://sports.yahoo.com/nfl/articles/cleveland-browns-news-looking-buck-110000827.html",
+      "title": "Cleveland Browns news: Looking to buck a trend against the Raiders",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 25 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-25T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Raiders The",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "bbe7f40b-214c-35f3-b1b3-9d171bb8a2b1",
+      "url": "https://sports.yahoo.com/nfl/articles/netflix-subscription-watch-rams-vs-102049129.html",
+      "title": "Do I need a Netflix subscription to watch Rams vs Packers?",
+      "body_text": "Quarterback Matthew Stafford and the Los Angeles Rams will spend Thanksgiving at home but will play a game against the Green Bay Packers first.",
+      "author": "",
+      "published_at": "2026-11-25T10:20:49+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Quarterback Matthew",
+        "Los Angeles",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "7ac4c400-edb5-3cc0-860f-40a0fb9112fa",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-stares-down-sour-101609466.html",
+      "title": "Aaron Rodgers stares down sour finish to storied career with benching | Opinion",
+      "body_text": "With Aaron Rodgers headed to the bench, the four-time NFL MVP could be seeing his career come to an end that few could have envisioned.",
+      "author": "",
+      "published_at": "2026-11-25T10:16:09+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Opinion With"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "f8f0198b-daa9-3e3c-8bd8-54ff7720c2f4",
+      "url": "https://sports.yahoo.com/nfl/articles/steelers-turn-mason-rudolph-one-101233284.html",
+      "title": "Steelers turn to Mason Rudolph one more time on star-crossed journey together",
+      "body_text": "Pittsburgh drafted Mason Rudolph in 2018 and has routinely passed him over as a starter. The 31-year-old veteran is now tasked with replacing Aaron Rodgers.",
+      "author": "",
+      "published_at": "2026-11-25T10:12:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mason Rudolph",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "e663d7fc-7b53-3935-818d-f7b98393a6dc",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-playoff-bracket-week-12-101231388.html",
+      "title": "NFL playoff bracket Week 12: Updated look at AFC, NFC playoff pictures",
+      "body_text": "The 2026 NFL playoffs are still a ways away, but already, fans are looking ahead to what the playoff bracket could look like heading into Week 12.",
+      "author": "",
+      "published_at": "2026-11-25T10:12:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "ab0559b1-1bd2-38ee-8d7c-416a45616f09",
+      "url": "https://sports.yahoo.com/nfl/articles/intelligent-blitzes-jacoby-brissett-sort-100013385.html",
+      "title": "Intelligent blitzes to Jacoby Brissett for (sort of) MVP: the trends that have defined this NFL season",
+      "body_text": "NFL coaches are in a forever war for marginal gains. Here are the schemes they’re using in 2026 to get a crucial advantage over their opponents",
+      "author": "",
+      "published_at": "2026-11-25T10:00:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jacoby Brissett"
+      ],
+      "resolved_player_ids": [
+        "00-0033119"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "15bb92dd-2d4f-3808-95eb-baf5e45c6586",
+      "url": "https://sports.yahoo.com/nfl/articles/golden-nuggets-seattle-100000998.html",
+      "title": "Golden Nuggets: We’re on to Seattle",
+      "body_text": "Your daily San Francisco 49ers news for Wednesday, November 25th, 2026",
+      "author": "",
+      "published_at": "2026-11-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Seattle Your",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "c3dd4edc-7312-31c6-8341-9d5f28ca8190",
+      "url": "https://sports.yahoo.com/nfl/articles/patriots-playoff-competitor-benches-starting-100000672.html",
+      "title": "Patriots’ playoff competitor benches starting QB",
+      "body_text": "One of the Patriots’ playoff competitors has benched its starting quarterback.",
+      "author": "",
+      "published_at": "2026-11-25T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "a709cba3-eef8-39c7-8954-75a40300aceb",
+      "url": "https://sports.yahoo.com/nfl/articles/bears-lions-first-thanksgiving-game-094353891.html",
+      "title": "Bears-Lions is first Thanksgiving game ever with both teams on 5+ game winning streaks",
+      "body_text": "One of the best Thanksgiving games ever will take place Thursday in Detroit.",
+      "author": "",
+      "published_at": "2026-11-25T09:43:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "f9a22134-aa89-3e76-862f-8be648679ca9",
+      "url": "https://sports.yahoo.com/nfl/articles/patriots-practice-2-absentees-chargers-093152513.html",
+      "title": "Patriots practice update: 2 new absentees before Chargers game",
+      "body_text": "The Patriots were back at practice on Tuesday.",
+      "author": "",
+      "published_at": "2026-11-25T09:31:52+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Patriots"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "afb91abe-0fe5-4c2a-923d-d65d27031063",
+      "url": "https://sports.yahoo.com/nfl/article/aaron-rodgers-benching-marks-new-era-for-the-steelers-in-so-many-ways-081632219.html",
+      "title": "Aaron Rodgers' benching marks new era for the Steelers in so many ways",
+      "body_text": "The Steelers benched former MVP Aaron Rodgers in favor of backup Mason Rudolph. And that move signals more than just a change at quarterback.",
+      "author": "Kate Magdziuk",
+      "published_at": "2026-11-25T08:16:32+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers",
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "a01f24cd-0f4f-4e5c-9b61-d8ddccd5be29",
+      "url": "https://sports.yahoo.com/nfl/article/if-aaron-rodgers-is-done-for-the-season-why-are-steelers-rolling-with-mason-rudolph-073016953.html",
+      "title": "If Aaron Rodgers is done for the season, why are Steelers rolling with Mason Rudolph?",
+      "body_text": "The questions facing Pittsburgh's medium- to long-term future: How do the Steelers weigh their playoff contention this year against their QB outlook longer term?",
+      "author": "Jori Epstein",
+      "published_at": "2026-11-25T07:30:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "If Aaron",
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "0d5e97bd-c110-38cd-acef-b878a06dfc3e",
+      "url": "https://sports.yahoo.com/nfl/articles/vikes-views-missing-playoffs-nfc-070800950.html",
+      "title": "Vikes Views: Who is Missing the Playoffs in the NFC?",
+      "body_text": "The Minnesota Vikings got off to a hot start and were the last undefeated team in the NFL. However they’ve lost three of the last four and are currently the sixth seed in the NFC. There are going to be good teams that will miss. If we assume the 49ers with the NFC West and […]",
+      "author": "",
+      "published_at": "2026-11-25T07:08:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikes Views",
+        "The Minnesota"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "00e0009b-aa70-3f27-a76c-38a417d9789f",
+      "url": "https://sports.yahoo.com/nfl/articles/mike-mccarthy-backed-aaron-rodgers-061901007.html",
+      "title": "Mike McCarthy backed Aaron Rodgers as Steelers QB. He benched him a day later.",
+      "body_text": "Mike McCarthy was clear Monday that Aaron Rodgers was the Steelers starting quarterback. A day later, that changed.",
+      "author": "",
+      "published_at": "2026-11-25T06:19:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "6aad2d13-9012-4571-aedb-09915c495911",
+      "url": "https://sports.yahoo.com/fantasy/article/fantasy-football-rankings-hayden-winks-wr-blueprint-for-week-12-211412865.html",
+      "title": "Fantasy Football Rankings: Hayden Winks' WR Blueprint for Week 12",
+      "body_text": "Fantasy football analyst Hayden Winks lays out the blueprint for the WR position in Week 12.",
+      "author": "Hayden Winks",
+      "published_at": "2026-11-24T21:14:12+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Fantasy Football",
+        "Hayden Winks"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "ecf5fd30-361e-3871-9d78-0d3d7e5cb266",
+      "url": "https://sports.yahoo.com/nfl/articles/steelers-benching-aaron-rodgers-could-053205534.html",
+      "title": "Steelers stunningly bench Aaron Rodgers with bizarre late-night announcement",
+      "body_text": "Four-time NFL MVP Aaron Rodgers has been benched by the Pittsburgh Steelers and Mason Rudolph will start against the Denver Broncos on Friday.",
+      "author": "",
+      "published_at": "2026-11-25T05:32:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pittsburgh Steelers",
+        "Mason Rudolph",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d3b4b674-396a-3a3a-baba-487ad13a1678",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-yanks-fine-49ers-player-052350728.html",
+      "title": "NFL yanks fine for 49ers player’s controversial hit on Jaxon Smith-Njigba",
+      "body_text": "This also removes a strike from Mustapha’s potential path to a one-game suspension.",
+      "author": "",
+      "published_at": "2026-11-25T05:23:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jaxon Smith",
+        "Njigba This"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "80c7cc0e-4ade-48c8-806b-61404ae5d388",
+      "url": "https://sports.yahoo.com/nfl/article/aaron-rodgers-couldnt-play-forever-and-he-might-have-an-unceremonious-end-at-age-42-051331424.html",
+      "title": "Aaron Rodgers couldn't play forever, and he might have an unceremonious end at age 42",
+      "body_text": "There were four MVPs, 10 Pro Bowls, a Super Bowl championship, dozens of highlights that defied belief over 22 seasons, and it all seems to end with a quick statement from the team after most of Pittsburgh had gone to sleep.",
+      "author": "Frank Schwab",
+      "published_at": "2026-11-25T05:13:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pro Bowls",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "6802ed26-c471-3a46-928a-7914ee01fd20",
+      "url": "https://sports.yahoo.com/nfl/articles/pittsburgh-benching-aaron-rodgers-051220752.html",
+      "title": "Pittsburgh benching Aaron Rodgers",
+      "body_text": "The Steelers announced late Tuesday night that Aaron Rodgers will not play in Week 12 and Mason Rudolph will draw the start instead.",
+      "author": "",
+      "published_at": "2026-11-25T05:12:20+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers",
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}
