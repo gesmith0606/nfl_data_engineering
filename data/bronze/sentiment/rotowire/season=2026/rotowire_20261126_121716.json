@@ -1,0 +1,107 @@
+{
+  "fetch_run_id": "2ed6b330-5bd8-42c4-bdca-20ba97b06b7b",
+  "source": "rotowire",
+  "fetched_at": "2026-11-26T12:17:16.246892+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl649906",
+      "url": "https://www.rotowire.com//football/player/matthew-stafford-5971",
+      "permalink": "",
+      "title": "Matthew Stafford: Modest numbers in Week 12 win",
+      "body_text": "Stafford completed 16 of 23 passes for 141 yards with no touchdowns and one interception and rushed once for no gain in the Rams' 26-13 win over the Packers on Wednesday night. He also committed a fumble recovered by Los Angeles. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-25T09:25:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Stafford",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl649905",
+      "url": "https://www.rotowire.com//football/player/jordan-love-14371",
+      "permalink": "",
+      "title": "Jordan Love: Struggles against Rams in loss",
+      "body_text": "Love completed 17 of 29 passes for 198 yards with one touchdown and two interceptions and rushed once for seven yards in the Packers' 26-13 loss to the Rams on Wednesday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-25T09:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Love"
+      ],
+      "resolved_player_ids": [
+        "00-0036264"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl649904",
+      "url": "https://www.rotowire.com//football/player/matthew-golden-18500",
+      "permalink": "",
+      "title": "Matthew Golden: Inefficient night in loss",
+      "body_text": "Golden secured one of five targets for 39 yards in the Packers' 26-13 loss to the Rams on Wednesday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-25T09:11:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Matthew Golden"
+      ],
+      "resolved_player_ids": [
+        "00-0040667"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl649903",
+      "url": "https://www.rotowire.com//football/player/tucker-kraft-16649",
+      "permalink": "",
+      "title": "Tucker Kraft: Limited to three catches in loss",
+      "body_text": "Kraft brought in three of five targets for 24 yards in the Packers' 26-13 loss to the Rams on Wednesday night. He also lost a fumble. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-25T09:05:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "nfl649902",
+      "url": "https://www.rotowire.com//football/player/kyren-williams-15807",
+      "permalink": "",
+      "title": "Kyren Williams: Completely overshadowed by Corum",
+      "body_text": "Williams rushed 12 times for 46 yards and a touchdown and brought in four of five targets for 19 yards in the Rams' 26-13 win over the Packers on Wednesday night. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-25T09:00:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyren Williams",
+        "Corum Williams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "GB"
+    }
+  ]
+}

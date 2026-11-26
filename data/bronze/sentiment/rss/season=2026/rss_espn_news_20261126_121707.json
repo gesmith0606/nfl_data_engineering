@@ -1,0 +1,431 @@
+{
+  "fetch_run_id": "e12ea285-c4d2-44e4-a5de-e1f325e2a829",
+  "source": "rss_espn_news",
+  "fetched_at": "2026-11-26T12:17:07.203429+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 27,
+  "items": [
+    {
+      "external_id": "US-EN-50596920",
+      "url": "https://www.espn.com/nfl/story/_/id/50596920/pittsburgh-steelers-aaron-rodgers-mike-mccarthy-next",
+      "title": "How did things get so bad for Aaron Rodgers, Mike McCarthy, and what's next?",
+      "body_text": "The news out of Pittsburgh shook the NFL landscape, and ESPN's insiders share insights on the QB, the coach and their futures.",
+      "author": "Brooke Pryor and Jeremy Fowler and Ben Solak and Dan Graziano and Kalyn Kahler",
+      "published_at": "2026-11-26T06:02:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50595660",
+      "url": "https://www.espn.com/nfl/story/_/id/50595660/rodgers-heard-mccarthy-benching",
+      "title": "Steelers cut Rodgers after QB rips McCarthy in scorched-earth interview",
+      "body_text": "Aaron Rodgers was waived after he spoke about coach Mike McCarthy on \"The Pat McAfee Show.\"",
+      "author": "ESPN",
+      "published_at": "2026-11-26T06:02:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Pat"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-50597187",
+      "url": "https://www.espn.com/nfl/story/_/id/50597187/sources-confirm-aaron-rodgers-allegations-mike-mccarthy",
+      "title": "Sources corroborate Rodgers' shocking McCarthy allegations: 'It's all true'",
+      "body_text": "NFL sources have corroborated Aaron Rodgers' account of Mike McCarthy to ESPN reporters, confirming the star QB's allegations about the Steelers coach.",
+      "author": null,
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-50597534",
+      "url": "https://www.espn.com/nfl/story/_/id/50597534/sources-mike-mccarthy-steelers-full-support",
+      "title": "Sources: McCarthy has Steelers' full support after Rodgers' bombshell interview",
+      "body_text": "Mike McCarthy has the full support of the Steelers organization and will remain the team's coach after Aaron Rodgers' allegations, sources told NFL Network and ESPN.",
+      "author": "Brooke Pryor",
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "US-EN-50600753",
+      "url": "https://www.espn.com/nfl/story/_/id/50600753/rams-kam-kinchens-ejected-hit-christian-watson",
+      "title": "Rams' Kinchens ejected after hit on Watson leaves WR with concussion",
+      "body_text": "Rams safety Kam Kinchens was ejected for a hit along the sideline that left Packers wide receiver Christian Watson with a concussion Wednesday night.",
+      "author": "Sarah Barshop",
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Kam Kinchens",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-50602564",
+      "url": "https://www.espn.com/nfl/story/_/id/50602564/packers-micah-parsons-accountability-rams-return",
+      "title": "Parsons 'highly, highly disappointed' with Packers' performance in his return",
+      "body_text": "\"That wasn't a championship attitude, competitiveness, drive,\" Micah Parsons said of Green Bay allowing the Rams to rush for a season-high 241 yards.",
+      "author": "Rob Demovsky",
+      "published_at": "2026-11-26T07:44:54+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Micah Parsons",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-50595281",
+      "url": "https://www.espn.com/nfl/story/_/id/50595281/brandon-aiyuk-finishes-visit-commanders",
+      "title": "Aiyuk signing with Commanders, reunites with college QB Daniels",
+      "body_text": "Wide receiver Brandon Aiyuk is signing with the Commanders on their practice squad, the team announced.",
+      "author": "John Keim",
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Daniels Wide",
+        "Brandon Aiyuk"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-50595254",
+      "url": "https://www.espn.com/nfl/story/_/id/50595254/falcons-aware-insinuations-pearce-trying-call-ex-gf",
+      "title": "Falcons 'aware' of insinuations Pearce still trying to contact ex Jackson",
+      "body_text": "Kevin Stefanski said he and the team are aware of assertions made by Rickea Jackson that insinuated James Pearce Jr. is still trying to contact her.",
+      "author": "Marc Raimondi",
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Jackson Kevin",
+        "Rickea Jackson",
+        "James Pearce Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0040578"
+      ],
+      "team_hint": "ATL"
+    },
+    {
+      "external_id": "US-EN-50600128",
+      "url": "https://www.espn.com/nfl/story/_/id/50600128/tony-romo-job-sports-gambling-company-jake-paul",
+      "title": "Romo takes job with sports gambling company co-founded by Paul",
+      "body_text": "Former CBS NFL analyst Tony Romo has taken a job with Betr, with the company saying he will make predictions and engage with fans across platforms.",
+      "author": null,
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Paul Former",
+        "Tony Romo"
+      ],
+      "resolved_player_ids": [
+        "00-0021678"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50563331",
+      "url": "https://www.espn.com/nfl/story/_/id/50563331/week-11-most-gain-lose-2026-season-pickens-mccarthy",
+      "title": "👀 11 players who have the most to gain or lose over the rest of the season",
+      "body_text": "Big money on the line for George Pickens and Brian Branch? QB1 role at stake for J.J. McCarthy? Here are 11 players with something to prove over the next seven weeks.",
+      "author": "Bill Barnwell",
+      "published_at": "2026-11-26T07:43:47+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "George Pickens",
+        "Brian Branch"
+      ],
+      "resolved_player_ids": [
+        "00-0037247",
+        "00-0039141"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50599736",
+      "url": "https://www.espn.com/nfl/story/_/id/50599736/2026-nfl-week-12-los-angeles-rams-green-bay-packers",
+      "title": "Rams take Packers' dinner in first Thanksgiving Eve game",
+      "body_text": "The night was full of interceptions and injuries with the Rams taking the W.",
+      "author": "Sarah Barshop and Rob Demovsky",
+      "published_at": "2026-11-26T04:43:33+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "US-EN-50582929",
+      "url": "https://www.espn.com/nfl/story/_/id/50582929/week-12-buzz-fantasy-predictions-graziano-fowler-2026",
+      "title": "Latest NFL Week 12 buzz: Fits for Daniel Jones? Still no head coach changes?",
+      "body_text": "Where could Daniel Jones land? What's the latest on coaching hot seats? What's next for Puka Nacua? And who is getting MVP love in league circles?",
+      "author": "Jeremy Fowler and Dan Graziano",
+      "published_at": "2026-11-25T21:33:35+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Daniel Jones",
+        "Puka Nacua"
+      ],
+      "resolved_player_ids": [
+        "00-0035710",
+        "00-0039075"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50587341",
+      "url": "https://www.espn.com/nfl/story/_/id/50587341/brandon-aiyuk-commanders-questions",
+      "title": "Will Brandon Aiyuk fit in Washington? What to expect, his role and fantasy impact",
+      "body_text": "Our experts answer the biggest questions surrounding Aiyuk agreeing to join the Commanders practice squad.",
+      "author": "John Keim and Nick Wagoner and Matt Bowen and Michael F Florio",
+      "published_at": "2026-11-25T21:33:35+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Will Brandon"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "US-EN-50582822",
+      "url": "https://www.espn.com/nfl/story/_/id/50582822/thanksgiving-games-picks-schedule-fantasy-odds-2026",
+      "title": "Guide to the NFL's Thanksgiving schedule: Matchup previews, predictions, picks and nuggets",
+      "body_text": "We have the top storylines, bold predictions, stats to know, fantasy/betting nuggets and more for three Thursday games in Week 12.",
+      "author": "NFL Nation, Pamela Maldonado, Eric Moody, Seth Walder",
+      "published_at": "2026-11-26T00:00:59+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50577887",
+      "url": "https://www.espn.com/nfl/story/_/id/50577887/nfl-week-12-uniforms",
+      "title": "Rams and Cowboys top Week 12 uniforms",
+      "body_text": "Here's a look at what each NFL team is wearing in Week 12, led by an alternate uniform for the Los Angeles Rams.",
+      "author": "Anthony Gharib",
+      "published_at": "2026-11-26T00:01:00+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-50583319",
+      "url": "https://www.espn.com/nfl/story/_/id/50583319/joe-milton-build-momentum-thanksgiving-start-dallas-cowboys",
+      "title": "From practice squad to prime time: A look at Joe Milton's big chance on Thanksgiving",
+      "body_text": "Ex-Cowboys QB Milton is set to headline the Eagles' Thanksgiving game, can he make the most of it?",
+      "author": "Tim McManus",
+      "published_at": "2026-11-25T13:13:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "US-EN-50573980",
+      "url": "https://www.espn.com/nfl/story/_/id/50573980/dallas-cowboys-nfc-east-dak-prescott",
+      "title": "To stay alive in NFC East, Cowboys need first back-to-back wins in a year",
+      "body_text": "If Dallas is going to catch up to New York in the division, it needs to start stringing wins together.",
+      "author": "Todd Archer",
+      "published_at": "2026-11-25T13:14:05+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "If Dallas",
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "US-EN-50584512",
+      "url": "https://www.espn.com/nfl/story/_/id/50584512/minnesota-vikings-kirk-cousins-flores-defense",
+      "title": "Can Vikings' offense win when the defense doesn't dominate?",
+      "body_text": "If the offense with Kirk Cousins at the helm can't get going, a deep playoff run might not be in the offing.",
+      "author": "Kevin Seifert",
+      "published_at": "2026-11-25T13:14:16+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Can Vikings",
+        "Kirk Cousins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "US-EN-50588158",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/50588158/facts-feelings-fantasy-advice-week-12",
+      "title": "Facts vs. Feelings: The facts you need to feel right about your flex decisions",
+      "body_text": "Making a tough flex decision this week?  Here are some hard facts to help you feel good about the decision.",
+      "author": "Liz Loza",
+      "published_at": "2026-11-25T16:08:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50572372",
+      "url": "https://www.espn.com/fantasy/football/story/_/id/50572372/fantasy-playbook-projections-lineup-locks-week-12-shadow",
+      "title": "The Playbook: Shadow Reports, lineup locks and projected scores for Week 12",
+      "body_text": "An all-encompassing look at the matchups to exploit or avoid and lineup locks in fantasy, as well as projected scores for all NFL games.",
+      "author": "Mike Clay",
+      "published_at": "2026-11-25T16:08:23+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "The Playbook",
+        "Shadow Reports"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50543051",
+      "url": "https://www.espn.com/nfl/story/_/id/50543051/seahawks-mike-macdonald-camcorder-super-bowl-game-film",
+      "title": "From a camcorder to a Super Bowl mantra, inside Mike Macdonald's love for game film",
+      "body_text": "We go back to the 1980s to uncover how football bonded the 38-year-old Seahawks coach and his father.",
+      "author": "Lindsey Thiry",
+      "published_at": "2026-11-24T11:00:21+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl",
+        "Mike Macdonald"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "US-EN-50573798",
+      "url": "https://www.espn.com/espn/betting/story/_/id/50573798/nfl-2026-betting-survivor-pools-upsets-circa-splash",
+      "title": "Resale markets, upsets and Thanksgiving: How NFL survivor pools have been upended",
+      "body_text": "Why spend up to nearly $80,000 in order to win a survivor contest over halfway through the NFL season?",
+      "author": "Doug Greenberg",
+      "published_at": "2026-11-25T13:47:37+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50570870",
+      "url": "https://www.espn.com/espn/betting/story/_/id/50570870/2026-nfl-week-12-schedule-odds-point-spreads-totals",
+      "title": "Week 12 betting odds for every game: Tight spreads galore on holiday week slate",
+      "body_text": "Odds, spreads, totals and FPI predictions for every NFL game in Week 12.",
+      "author": "ESPN",
+      "published_at": "2026-11-25T13:47:38+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49745176",
+      "url": "https://www.espn.com/nfl/story/_/id/49745176/2026-nfl-playoff-predictions-afc-nfc-odds-super-bowl",
+      "title": "NFL playoff picture: Updated projections, chances to make the postseason",
+      "body_text": "We're looking ahead to how the 14-team playoff picture could line up -- and who will win divisions -- en route to the Super Bowl.",
+      "author": "ESPN staff",
+      "published_at": "2026-11-23T19:55:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49794361",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/49794361/2027-nfl-draft-order-projections-first-round-picks",
+      "title": "Projecting the 2027 NFL draft order: Which teams could have an early pick?",
+      "body_text": "ESPN's Football Power Index projects the 2027 NFL draft order for Round 1, complete with each team's chances to pick in the top five, in the top 10 and at No. 1.",
+      "author": "ESPN staff",
+      "published_at": "2026-11-23T19:55:55+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Football Power"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-49881131",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/49881131/2027-nfl-draft-risers-questions-college-football-prospects",
+      "title": "NFL draft risers, notes off Saturday's college games: An elite CB class? Two WRs in the top five?",
+      "body_text": "Leonard Moore, Ashton Hampton and Ellis Robinson IV all in the top 10? And Jeremiah Smith and Charlie Becker both in the top five? Here's our draft spin off CFB Week 12.",
+      "author": "Mel Kiper Jr. and Jordan Reid",
+      "published_at": "2026-11-23T16:03:28+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Leonard Moore",
+        "Ashton Hampton",
+        "Ellis Robinson IV",
+        "And Jeremiah",
+        "Charlie Becker"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "US-EN-50502243",
+      "url": "https://www.espn.com/nfl/draft2027/story/_/id/50502243/2027-nfl-mock-draft-reid-midseason-32-first-round-predictions",
+      "title": "Reid's midseason NFL mock draft: 32 prospect landing spots, four QBs and one big trade",
+      "body_text": "Which NFL team could land Drew Mestemaker? Who needs Chris Cole, Ashton Hampton or Jamari Johnson? Jordan Reid projected first-round picks for 2027 -- and a trade.",
+      "author": "Jordan Reid",
+      "published_at": "2026-11-26T00:24:09+00:00",
+      "source": "rss_espn_news",
+      "candidate_names": [
+        "Drew Mestemaker",
+        "Chris Cole",
+        "Ashton Hampton",
+        "Jamari Johnson",
+        "Jordan Reid"
+      ],
+      "resolved_player_ids": [
+        "00-0019661"
+      ],
+      "team_hint": null
+    }
+  ]
+}

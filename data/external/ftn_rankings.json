@@ -1,6 +1,6 @@
 {
   "source": "ftn",
-  "fetched_at": "2026-11-21T12:21:17.859718+00:00",
+  "fetched_at": "2026-11-26T12:17:34.306355+00:00",
   "players": [
     {
       "player_name": "Ja'Marr Chase",
@@ -1202,7 +1202,7 @@
     {
       "player_name": "Aaron Rodgers",
       "position": "QB",
-      "team": "PIT",
+      "team": "FA",
       "external_rank": 177,
       "rank": 172
     },

@@ -1,0 +1,592 @@
+{
+  "fetch_run_id": "8af26640-7ffc-4abf-94b9-58e8dc21e8a3",
+  "source": "pft",
+  "fetched_at": "2026-11-26T12:17:20.228843+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-jones-im-on-text-threads-with-former-packers-none-are-on-aaron-rodgers-side",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-jones-im-on-text-threads-with-former-packers-none-are-on-aaron-rodgers-side",
+      "permalink": "",
+      "title": "James Jones: I'm on text threads with former Packers, none are on Aaron Rodgers' side",
+      "body_text": "In the dispute between Steelers coach Mike McCarthy and ex-Steelers quarterback Aaron Rodgers, players who were with both of them in Green Bay are squarely on McCarthy's side.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T10:57:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Jones",
+        "Aaron Rodgers",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0025465",
+        "00-0023459"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-brandon-aiyuk-and-i-put-the-past-behind-us",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jayden-daniels-brandon-aiyuk-and-i-put-the-past-behind-us",
+      "permalink": "",
+      "title": "Jayden Daniels: Brandon Aiyuk and I put the past behind us",
+      "body_text": "Commanders quarterback Jayden Daniels and Brandon Aiyuk were once Arizona State teammates and close friends, but Aiyuk seemed to burn those bridges this year, when he posted several critical comments about Daniels on social media.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T09:42:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jayden Daniels",
+        "Brandon Aiyuk",
+        "Arizona State"
+      ],
+      "resolved_player_ids": [
+        "00-0039910",
+        "00-0036261"
+      ],
+      "team_hint": "WAS"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-12",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-12",
+      "permalink": "",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 12",
+      "body_text": "The five-game football feast surrounding Thanksgiving has major playoff implications for all 10 teams playing around the holiday, and it started with the Rams moving into playoff position with a win over the Packers.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T05:01:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Playoff Picture"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-lang-blasts-despicable-aaron-rodgers-comments-about-mike-mccarthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/t-j-lang-blasts-despicable-aaron-rodgers-comments-about-mike-mccarthy",
+      "permalink": "",
+      "title": "T.J. Lang blasts \"despicable\" Aaron Rodgers comments about Mike McCarthy",
+      "body_text": "T.J.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T05:24:31+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-shut-down-packers-in-second-half-for-a-26-13-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-shut-down-packers-in-second-half-for-a-26-13-win",
+      "permalink": "",
+      "title": "Rams shut down Packers in second half for a 26-13 win in NFL's first Thanksgiving Eve game",
+      "body_text": "The Rams running game powered them to their fifth straight win.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T04:30:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "The Rams"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-thanksgiving-and-week-12-2026-nfl-picks",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-thanksgiving-and-week-12-2026-nfl-picks",
+      "permalink": "",
+      "title": "PFT's Thanksgiving and Week 12 2026 NFL picks",
+      "body_text": "All games picked for one of the most compelling weeks of the season.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-25T17:36:47+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-our-way-home-is-free-on-thursday-and-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/on-our-way-home-is-free-on-thursday-and-friday",
+      "permalink": "",
+      "title": "On Our Way Home is free on Thursday and Friday",
+      "body_text": "The holiday season is here.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T04:09:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "On Our",
+        "Way Home",
+        "Friday The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-move-ahead-20-13-on-blake-corum-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-move-ahead-20-13-on-blake-corum-td",
+      "permalink": "",
+      "title": "Rams move ahead 20-13 on Blake Corum TD",
+      "body_text": "The Rams took more than eight minutes off the clock before taking the lead.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T03:22:56+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Blake Corum",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-ruled-out-with-a-concussion",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-ruled-out-with-a-concussion",
+      "permalink": "",
+      "title": "Christian Watson ruled out with a concussion",
+      "body_text": "Rams safety Kamren Kinchens was disqualified for the hit that injured Watson.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T03:09:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson",
+        "Kamren Kinchens"
+      ],
+      "resolved_player_ids": [
+        "00-0038124",
+        "00-0039834"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/heres-a-roadmap-to-the-aaron-rodgers-developments-one-of-the-craziest-stories-in-years",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/heres-a-roadmap-to-the-aaron-rodgers-developments-one-of-the-craziest-stories-in-years",
+      "permalink": "",
+      "title": "Here's a roadmap to the Aaron Rodgers developments, one of the craziest stories in years",
+      "body_text": "If you were traveling on Wednesday or otherwise not plugged in for one of the most rollicking, unpredictable days in years if not ever, you're in luck.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T02:59:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-gets-first-sack-of-season-packers-and-rams-tied-13-13-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/micah-parsons-gets-first-sack-of-season-packers-and-rams-tied-13-13-at-halftime",
+      "permalink": "",
+      "title": "Micah Parsons gets first sack of season, Packers and Rams tied 13-13 at halftime",
+      "body_text": "Parsons's sack came just before end of the first half in Los Angeles.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T02:48:27+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Micah Parsons",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-s-kamren-kinchens-ejected-for-hit-on-christian-watson",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-s-kamren-kinchens-ejected-for-hit-on-christian-watson",
+      "permalink": "",
+      "title": "Rams S Kamren Kinchens ejected for hit on Christian Watson",
+      "body_text": "Rams safety Kamren Kinchens was ejected from Wednesday night's game against the Packers after a hit on wide receiver Christian Watson.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T02:40:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kamren Kinchens",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0039834",
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-christian-watson-cut-rams-lead-to-13-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jordan-love-christian-watson-cut-rams-lead-to-13-10",
+      "permalink": "",
+      "title": "Jordan Love, Christian Watson cut Rams lead to 13-10",
+      "body_text": "The points keep coming in the first half at SoFi Stadium.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T02:13:25+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jordan Love",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyren-williams-makes-it-13-3-rams-in-second-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyren-williams-makes-it-13-3-rams-in-second-quarter",
+      "permalink": "",
+      "title": "Kyren Williams makes it 13-3 Rams in second quarter",
+      "body_text": "The Rams have had the ball three times and all three drives have ended in points.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T02:04:52+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyren Williams",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0037840"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-extend-lead-to-6-0-after-tucker-kraft-fumble",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-extend-lead-to-6-0-after-tucker-kraft-fumble",
+      "permalink": "",
+      "title": "Rams extend lead to 6-0 after Tucker Kraft fumble",
+      "body_text": "The Rams doubled their lead after forcing the first turnover of Wednesday night's game.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T01:44:01+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tucker Kraft",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0038996"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-lead-3-0-christian-watson-makes-quick-return-from-thigh-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-lead-3-0-christian-watson-makes-quick-return-from-thigh-injury",
+      "permalink": "",
+      "title": "Rams lead 3-0, Christian Watson makes quick return from thigh injury",
+      "body_text": "The Rams are out to an early lead at SoFi Stadium.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T01:28:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Christian Watson",
+        "The Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-should-have-known-aaron-rodgers-mike-mccarthy-couldnt-co-exist",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-should-have-known-aaron-rodgers-mike-mccarthy-couldnt-co-exist",
+      "permalink": "",
+      "title": "Steelers should have known Aaron Rodgers, Mike McCarthy couldn't co-exist",
+      "body_text": "Someone in the organization should have said a reunion cannot happen.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T01:05:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-g-m-omar-khan-called-aaron-rodgers-directly-to-inform-him-of-the-benching",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-g-m-omar-khan-called-aaron-rodgers-directly-to-inform-him-of-the-benching",
+      "permalink": "",
+      "title": "Report: G.M. Omar Khan called Aaron Rodgers directly to inform him of the benching",
+      "body_text": "As expected, the Steelers view the events that resulted in the benching and eventual release of quarterback Aaron Rodgers differently than Rodgers does.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T00:26:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Omar Khan",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-inactive-for-wednesday-nights-game-micah-parsons-officially-active",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/josh-jacobs-inactive-for-wednesday-nights-game-micah-parsons-officially-active",
+      "permalink": "",
+      "title": "Josh Jacobs inactive for Wednesday night's game, Micah Parsons officially active",
+      "body_text": "Packers running back Josh Jacobs returned to practice this week, but a return to game action will have to wait a little longer.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T00:13:12+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Jacobs",
+        "Micah Parsons"
+      ],
+      "resolved_player_ids": [
+        "00-0035700",
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/romeo-doubs-alijah-vera-tucker-return-to-patriots-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/romeo-doubs-alijah-vera-tucker-return-to-patriots-practice",
+      "permalink": "",
+      "title": "Romeo Doubs, Alijah Vera-Tucker return to Patriots practice",
+      "body_text": "A.J.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T00:06:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Romeo Doubs",
+        "Alijah Vera"
+      ],
+      "resolved_player_ids": [
+        "00-0037816"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-fully-participates-in-seahawks-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-fully-participates-in-seahawks-practice",
+      "permalink": "",
+      "title": "Sam Darnold fully participates in Seahawks practice",
+      "body_text": "Seahawks quarterback Sam Darnold remains on track to return to the lineup for Sunday's game against the 49ers.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T23:41:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-officially-put-jk-dobbins-on-suspended-list",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/broncos-officially-put-jk-dobbins-on-suspended-list",
+      "permalink": "",
+      "title": "Broncos officially put JK Dobbins on suspended list",
+      "body_text": "Broncos head coach Sean Payton announced on Tuesday that running back JK Dobbins was being suspended for conduct detrimental to the team and the move became official on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T23:34:33+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sean Payton"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-listed-as-limited-in-vikings-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-listed-as-limited-in-vikings-practice",
+      "permalink": "",
+      "title": "Kyler Murray listed as limited in Vikings practice",
+      "body_text": "Vikings quarterback Kyler Murray's practice status changed on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T22:55:45+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyler Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-claim-qb-kedon-slovis-off-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cardinals-claim-qb-kedon-slovis-off-waivers",
+      "permalink": "",
+      "title": "Cardinals claim QB Kedon Slovis off waivers",
+      "body_text": "Quarterback Kedon Slovis is back in Arizona.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T22:44:24+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kedon Slovis",
+        "Quarterback Kedon"
+      ],
+      "resolved_player_ids": [
+        "00-0039577"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-aaron-rodgers-made-an-ultimatum-outside-his-job-description",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-aaron-rodgers-made-an-ultimatum-outside-his-job-description",
+      "permalink": "",
+      "title": "Mike McCarthy: Aaron Rodgers made an ultimatum outside his job description",
+      "body_text": "Steelers head coach Mike McCarthy said today that he decided that Aaron Rodgers would no longer be the starting quarterback because of an ultimatum that Rodgers made.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-25T22:31:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-mccarthy-has-the-full-support-of-the-steelers-organization",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-mike-mccarthy-has-the-full-support-of-the-steelers-organization",
+      "permalink": "",
+      "title": "Report: Mike McCarthy \"has the full support\" of the Steelers organization",
+      "body_text": "The Steelers are planning no \"immediate\" changes.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-25T21:58:50+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-confirms-he-said-1-2-3-packers-at-halftime-last-sunday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-confirms-he-said-1-2-3-packers-at-halftime-last-sunday",
+      "permalink": "",
+      "title": "Mike McCarthy confirms he said \"1-2-3 Packers\" at halftime last Sunday",
+      "body_text": "Aaron Rodgers said a number of things that caught the attention of the football world on Wednesday and one of the comments that drew a big response had to do with something that happened in the locker room at halftime of last Sunday's loss to the Eagles.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T21:57:57+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Sunday Aaron"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-release-aaron-rodgers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-release-aaron-rodgers",
+      "permalink": "",
+      "title": "Steelers release Aaron Rodgers",
+      "body_text": "Rodgers was benched on Tuesday night and is off the team after his scathing response to the move on Wednesday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T21:45:23+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-nate-hobbs-re-sign-brandin-cooks-to-practice-squad",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-activate-nate-hobbs-re-sign-brandin-cooks-to-practice-squad",
+      "permalink": "",
+      "title": "49ers activate Nate Hobbs, re-sign Brandin Cooks to practice squad",
+      "body_text": "Cornerback Nate Hobbs has not played in a game since signing with the 49ers in March, but that could change against the Seahawks this weekend.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-25T21:27:13+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nate Hobbs",
+        "Brandin Cooks",
+        "Cornerback Nate"
+      ],
+      "resolved_player_ids": [
+        "00-0036871",
+        "00-0031236"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-could-try-to-not-pay-aaron-rodgers-the-balance-of-his-22-million-salary",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-could-try-to-not-pay-aaron-rodgers-the-balance-of-his-22-million-salary",
+      "permalink": "",
+      "title": "Steelers could try to not pay Aaron Rodgers the balance of his $22 million salary",
+      "body_text": "If/when the Steelers release quarterback Aaron Rodgers, they'll have to decide whether to willingly pay the balance of his $22 million base salary, or whether to fight.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-25T21:22:06+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

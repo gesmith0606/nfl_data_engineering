@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "e12ea285-c4d2-44e4-a5de-e1f325e2a829",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-26T12:17:09.135121+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "506db3ad-746e-4b55-b68b-cdbc1e5675bf",
+      "url": "https://www.cbssports.com/nfl/news/bills-vs-chiefs-prediction-odds-how-to-watch-thanksgiving/",
+      "title": "Bills vs. Chiefs prediction: Which team wins latest chapter in Josh Allen-Patrick Mahomes saga?",
+      "body_text": "Legendary quarterbacks close out the holiday slate in one of the biggest games of the season",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-26T11:00:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Allen",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "83ec1448-f509-4d07-b986-9fabece8a84f",
+      "url": "https://www.cbssports.com/nfl/news/lions-vs-bears-thanksgiving-prediction-odds-how-to-watch/",
+      "title": "Lions vs. Bears Thanksgiving prediction: Which team will be take control of NFC North?",
+      "body_text": "Sole possession of first place in the NFC North is on the line at Ford Field as two 8-2 rivals clash on Thanksgiving with long winning streaks",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-26T11:00:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bears Thanksgiving",
+        "Ford Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "d8ccb4e2-b775-41a5-9b4c-0ecdf60c295b",
+      "url": "https://www.cbssports.com/nfl/news/thanksgiving-games-black-friday-nfl-expert-picks-lions-bears-steelers/",
+      "title": "Thanksgiving and Black Friday NFL expert picks: Can Lions fend off Bears? Do Steelers save their season?",
+      "body_text": "CBSSports.com and SportsLine break down the Thanksgiving Eve, Thanksgiving triple-header, and the Black Friday games",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-26T04:00:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Can Lions",
+        "Do Steelers",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "de254f4e-08fd-4425-aaed-cee85b5678c3",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-games-2026-schedule-black-friday-rams-packers/",
+      "title": "2026 NFL Thanksgiving schedule: What to know about Thanksgiving and Black Friday games",
+      "body_text": "A look at the Thanksgiving week slate and all of its fixings you need in time for Turkey Day",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-26T04:00:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Turkey Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c6845447-cf1b-482c-b666-7c42fa070e5f",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-2026-ranking-most-memorable-halftime-shows/",
+      "title": "NFL on Thanksgiving halftime shows: Ranking the 10 most memorable performances",
+      "body_text": "A look at some of the most iconic performances from Turkey Days of the past",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-26T03:04:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Turkey Days"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e931ae77-3cbf-451d-b2a4-14df2accd318",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-12-nfl-picks-odds-expert-picks/",
+      "title": "Prisco's Week 12 NFL picks: Cowboys feast on Eagles, Bills win thriller over Chiefs",
+      "body_text": "Pete Prisco reveals all of his Week 12 picks, including the Steelers to upset the Broncos on Black Friday",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-26T03:02:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Chiefs Pete",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "fdc2dccb-58cf-4ae4-848c-8a028cd715b1",
+      "url": "https://www.cbssports.com/betting/news/packers-vs-rams-odds-picks-prediction-nfl-week-12-best-bets-player-props-for-thanksgiving-eve/",
+      "title": "Packers vs. Rams odds, picks, prediction: NFL Week 12 best bets, player props for Thanksgiving Eve",
+      "body_text": "Will Brinson breaks down his top value plays for Packers vs. Rams on Thanksgiving Eve, including a lean on the total and some anytime touchdown scorers",
+      "author": "Will Brinson",
+      "published_at": "2026-11-26T00:00:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Will Brinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c2be881a-0923-4b8c-9614-ed3b8fc3f612",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-injury-report-updates-kenneth-walker-brock-purdy-sam-darnold/",
+      "title": "NFL Week 12 injury report: Thanksgiving game statuses, latest updates for Sam Darnold, Brock Purdy",
+      "body_text": "Brock Purdy missed Wednesday's practice with an ankle injury, while Sam Darnold appears on track to return for a pivotal NFC West matchup",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-26T00:01:26+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sam Darnold",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0037834"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "70d68844-4367-4b45-bac6-1c350e6f35e7",
+      "url": "https://www.cbssports.com/prediction/news/packers-vs-rams-first-touchdown-scorer-odds-for-nfl-thanksgiving-eve-game-picks-include-christian-watson/",
+      "title": "Packers vs. Rams first touchdown scorer odds for NFL Thanksgiving Eve game: Picks include Christian Watson",
+      "body_text": "Here's a look at first touchdown scorer prediction markets available at Kalshi for Packers vs. Rams NFL Week 12 on Thanksgiving Eve",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-25T23:45:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "38417f8f-a335-48d6-b8c1-49c3f5667ce7",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-claim-55-bonus-for-rams-vs-packers-thanksgiving-eve-nfl-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Claim $55 bonus for Rams vs. Packers, Thanksgiving Eve NFL predictions",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Packers vs. Rams Thanksgiving Eve",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-25T23:42:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thanksgiving Eve",
+        "New Kalshi",
+        "Rams Thanksgiving"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "ed51c4a3-9957-45a1-b195-cc4c82b17171",
+      "url": "https://www.cbssports.com/betting/news/rams-vs-packers-picks-odds-prediction-spread-thanksgiving-eve-start-time-nfl-betting-preview-best-bets/",
+      "title": "Rams vs. Packers picks, odds, prediction, spread: Thanksgiving Eve start time, NFL betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Packers vs. Rams on Wednesday in NFL Week 12",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-25T23:39:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c165ff60-6759-4bc9-82a8-227887acc112",
+      "url": "https://www.cbssports.com/nfl/news/best-kalshi-promo-code-cbssports55-pocket-55-bonus-rams-vs-packers-thanksgiving-eve-nfl-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Pocket $55 bonus for Rams vs. Packers, Thanksgiving Eve NFL predictions",
+      "body_text": "Get a $55 bonus with the Kalshi promo code CBSSPORTS55 for Rams vs. Packers on Thanksgiving Eve 2026",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-25T23:30:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "6706f19f-b550-4480-ac3a-9fda7bade485",
+      "url": "https://www.cbssports.com/prediction/news/packers-vs-rams-predictions-odds-2026-thanksgiving-eve-use-polymarket-promo-code-cbssports-for-25-bonus/",
+      "title": "Packers vs. Rams predictions, odds, 2026 Thanksgiving Eve: Use Polymarket promo code CBSSPORTS for $25 bonus",
+      "body_text": "Get a $25 bonus with the Polymarket promo code CBSSPORTS for Packers vs. Rams on Thanksgiving Eve.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-25T23:10:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "9bcd32a8-e0d4-4414-8888-fa8e280762bc",
+      "url": "https://www.cbssports.com/betting/news/use-fanduel-promo-code-to-get-200-bonus-bets-by-targeting-rams-vs-packers-nfl-thanksgiving-eve-2026/",
+      "title": "Use FanDuel promo code to get $200 bonus bets by targeting Rams vs. Packers, NFL Thanksgiving Eve 2026",
+      "body_text": "Sign up and bet with the latest FanDuel promo code on Wednesday to get your bonus bets",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-25T22:41:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "203a1eb6-bda0-483a-be49-e15c09af79f1",
+      "url": "https://www.cbssports.com/nfl/news/rams-vs-packers-prediction-odds-how-to-watch-thanksgiving-eve/",
+      "title": "Rams vs. Packers prediction: Can Green Bay continue success with deep ball? Will L.A. overcome injuries?",
+      "body_text": "Micah Parsons makes his season debut for Green Bay as an injury-depleted Los Angeles offense leans on its ground attack in the NFL's first Thanksgiving Eve showdown",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-25T22:42:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Can Green",
+        "Micah Parsons",
+        "Green Bay",
+        "Los Angeles",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [
+        "00-0036932"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "da47cbb1-da62-4541-a06d-83ee28113eec",
+      "url": "https://www.cbssports.com/nfl/news/steelers-mike-mccarthy-responds-to-aaron-rodgers-after-pat-mcafee-interview/",
+      "title": "Mike McCarthy responds to Aaron Rodgers, confirms QB gave him 'ultimatum:' 'I know how to win'",
+      "body_text": "McCarthy responded to Rodgers' tirade against him",
+      "author": "Austin Nivison",
+      "published_at": "2026-11-25T23:11:02+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "44d8efdf-7190-4333-a8b3-671c7bdb4b28",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-released-steelers-players-react-mike-mccarthy-controversy/",
+      "title": "Steelers players react to Aaron Rodgers' release as some teammates back QB amid Mike McCarthy controversy",
+      "body_text": "Steelers players spoke favorably about Aaron Rodgers after his release, while team sources reportedly corroborated portions of the quarterback's explosive criticism of Mike McCarthy",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-25T21:59:57+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "3b724430-d25e-4ab8-a041-5c10c3a7bfdc",
+      "url": "https://www.cbssports.com/nfl/news/steelers-release-aaron-rodgers-following-benching-qbs-criticism-mike-mccarthy/",
+      "title": "Steelers release Aaron Rodgers following criticism of Mike McCarthy: Possible landing spots for QB",
+      "body_text": "Rodgers will get a chance to finish his career elsewhere if he chooses",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-25T21:59:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "f191446a-3f30-4ade-80cb-620e76729894",
+      "url": "https://www.cbssports.com/betting/news/week-12-thanksgiving-nfl-odds-picks-brinsons-best-bets-player-props-anytime-td-scorers-for-sunday/",
+      "title": "Week 12 Thanksgiving NFL odds, picks: Brinson's best bets, player props, anytime TD scorers for Sunday",
+      "body_text": "Backing Chicago to win outright in Detroit, grabbing the points with Philadelphia against Dallas and targeting the Under in a high-stakes showdown between Kansas City and Buffalo",
+      "author": "Will Brinson",
+      "published_at": "2026-11-25T20:47:00+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sunday Backing",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e0f0c2bd-dee6-4e16-9daa-8095118530aa",
+      "url": "https://www.cbssports.com/prediction/news/aaron-rodgers-next-team-predictions-patriots-ravens-favored-to-land-quarterback-after-steelers-release/",
+      "title": "Aaron Rodgers next team predictions: Patriots, Ravens favored to land quarterback after Steelers release",
+      "body_text": "With Aaron Rodgers' time in the Steel City over, here's a closer look at where he could land, according to Kalshi",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-25T20:33:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "With Aaron",
+        "Steel City"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "880690fd-d0cd-48b6-a4d9-b20b06c17d7a",
+      "url": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-packers-vs-rams-clippers-vs-grizzlies-and-more/",
+      "title": "Today's top games to watch, best bets, odds: Packers vs. Rams, Clippers vs. Grizzlies and more",
+      "body_text": "Find best bets and props for the biggest games in sports on Wednesday from the SportsLine Projection Model and top CBS Sports experts",
+      "author": "Scott Erskine",
+      "published_at": "2026-11-25T19:50:13+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Projection Model"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "7bdd0c23-8afe-4bd6-9c58-43c64f431168",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-unleases-on-steelers-mike-mccarthy-pat-mcafee-interview/",
+      "title": "Aaron Rodgers unleashes on Mike McCarthy: Unpacking everything Steelers QB said after benching",
+      "body_text": "Rodgers confirmed that his time in Pittsburgh is over, while accusing the Steelers coach of sleeping through meetings",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-25T22:32:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "29636334-7f0e-4b29-b128-8c7b1bcde01e",
+      "url": "https://www.cbssports.com/nfl/news/steelers-bench-aaron-rodgers-make-qb-inactive-friday-broncos/",
+      "title": "Steelers bench Aaron Rodgers, turn to Mason Rudolph to start vs. Broncos",
+      "body_text": "Pittsburgh made the call to bench Rodgers after offensive struggles led to consecutive losses following a 6-2 start",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-25T19:44:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Mason Rudolph",
+        "Broncos Pittsburgh"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "5baff80d-eed2-4495-912f-5e358e27f62e",
+      "url": "https://www.cbssports.com/nfl/news/former-49ers-wr-brandon-aiyuk-to-sign-with-commanders/",
+      "title": "Brandon Aiyuk to sign with Commanders' practice squad days after leaving 49ers",
+      "body_text": "San Francisco's former wideout is officially getting a fresh start",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-25T20:05:41+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "55b9334a-be56-416f-97c8-67a5603db928",
+      "url": "https://www.cbssports.com/nfl/news/agents-take-puka-nacua-predicament-where-future-rams-stands/",
+      "title": "Agent's Take: The Puka Nacua predicament and where his future with Rams stands after injury",
+      "body_text": "Nacua's rookie contract is expiring, leaving LA with a decision to make on the wide receiver this offseason",
+      "author": "Joel Corry",
+      "published_at": "2026-11-25T17:31:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "The Puka"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "6103fa9f-9832-46f0-b63c-0f1ceb17687a",
+      "url": "https://www.cbssports.com/nfl/news/nfl-on-thanksgiving-cheat-sheet-everything-you-to-know-three-holiday-games/",
+      "title": "NFL on Thanksgiving cheat sheet: Everything you need to know to impress relatives during three holiday games",
+      "body_text": "A look at everything you need to know about Bears-Lions, Eagles-Cowboys and Chiefs-Bills",
+      "author": "JP Acosta",
+      "published_at": "2026-11-25T17:13:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "c0a05bec-5786-48f4-8331-16b4b3b3d2ec",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-injury-report-micah-parsons-cleared-kenneth-walker-iii-practices/",
+      "title": "NFL Thanksgiving injury report: Micah Parsons cleared for season debut, Chiefs' Kenneth Walker III out",
+      "body_text": "Injury reports for every NFL team playing on Wednesday and Thursday in Week 12",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-25T16:57:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Micah Parsons",
+        "Kenneth Walker III"
+      ],
+      "resolved_player_ids": [
+        "00-0036932",
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "9370c869-3c0c-48bd-8cc7-31849ea015a8",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-brother-theory-why-qb-was-shockingly-benched-steelers/",
+      "title": "Aaron Rodgers' brother has a theory on why QB was shockingly benched by Steelers",
+      "body_text": "Jordan Rodgers believes GM Omar Khan intervened to make the change rather than Mike McCarthy after the quarterback took subtle shots at the front office",
+      "author": "John Breech",
+      "published_at": "2026-11-25T16:32:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Steelers Jordan",
+        "Omar Khan"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "17d27a41-7111-4b54-bafa-5fad2791bffa",
+      "url": "https://www.cbssports.com/nfl/news/priscos-nfl-week-12-power-rankings-thanksgiving-games/",
+      "title": "Prisco's NFL Week 12 Power Rankings: Thanksgiving feast offers a proving ground for contenders",
+      "body_text": "Pete Prisco shares his Week 12 Power Rankings for the 2026 NFL season, including the Jaguars falling five spots",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-25T16:16:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Pete Prisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "d634d6d2-721e-4101-82f3-89a63896f1cf",
+      "url": "https://www.cbssports.com/nfl/news/steelers-bench-aaron-rodgers-why-and-what-it-means-mason-rudolph/",
+      "title": "Biggest questions on Aaron Rodgers benching: Why did Steelers make abrupt quarterback change?",
+      "body_text": "Pittsburgh made a difficult decision while setting in motion their plans for the QB position moving forward",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-25T19:51:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "bab7f883-745c-433f-b1d0-e6b0df87e350",
+      "url": "https://www.cbssports.com/nfl/news/predicting-full-14-team-nfl-playoff-bracket-nfl-week-12/",
+      "title": "Predicting full 14-team NFL playoff bracket for NFL Week 12: How Aaron Rodgers' benching impacts AFC race",
+      "body_text": "All 32 teams are still alive in the playoff race, but only 14 will be making the postseason, and we projected the full list here",
+      "author": "John Breech",
+      "published_at": "2026-11-25T15:14:08+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "How Aaron"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "2fef3dbb-8fad-4db5-b5ab-25ed8ec109ce",
+      "url": "https://www.cbssports.com/nfl/news/week-12-qb-power-rankings-brock-purdy-joe-burrow-dak-prescott/",
+      "title": "NFL Week 12 QB Power Rankings: Brock Purdy swipes No. 1 spot from Joe Burrow, Dak Prescott into top five",
+      "body_text": "Brock Purdy takes the top spot from Joe Burrow, and Dak Prescott soars into the top five",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-25T14:54:56+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Power Rankings",
+        "Brock Purdy",
+        "Joe Burrow",
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0036442",
+        "00-0033077"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "9edfa464-828a-441c-b9dd-fc89a8aea80d",
+      "url": "https://www.cbssports.com/nfl/news/one-bold-prediction-each-nfl-thanksgiving-game-cowboys-dak-prescott-feast-eagles/",
+      "title": "One bold prediction for each NFL Thanksgiving game, including Cowboys' Dak Prescott to feast on Eagles",
+      "body_text": "One bold prediction for each of the NFL rivalry showcases on Thanksgiving",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-25T14:37:55+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "Eagles One"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1d0e102a-e16a-49f8-9932-14f4771c7f45",
+      "url": "https://www.cbssports.com/nfl/news/week-12-expert-picks-best-bets-lions-spoil-bears-thanksgiving/",
+      "title": "NFL Week 12 expert picks, best bets: Lions spoil Bears Thanksgiving, Patrick Mahomes picks up rare win",
+      "body_text": "Tyler Sullivan picks every game on the Week 12 schedule, including five locks against the spread",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-25T14:18:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bears Thanksgiving",
+        "Patrick Mahomes",
+        "Tyler Sullivan"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e0a3f4fc-ac30-4e92-b256-ecb454b8f401",
+      "url": "https://www.cbssports.com/nfl/news/steelers-bench-aaron-rodgers-nfl-tennessee-alabama-cfp-rankings-cubs-teruaki-sato-mlb/",
+      "title": "Steelers bench Aaron Rodgers; Tennessee jumps Alabama in CFP rankings; Cubs land Teruaki Sato",
+      "body_text": "Plus Pete Prisco's Week 12 NFL Power Rankings",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-25T13:50:08+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Teruaki Sato",
+        "Plus Pete",
+        "Power Rankings"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "a1c19d53-2ee6-4e15-b87e-dd2c745ccd67",
+      "url": "https://www.cbssports.com/nfl/news/nfl-playoff-picture-ranking-afc-wild-card-contenders-chiefs-raiders/",
+      "title": "NFL playoff picture: Ranking AFC wild card contenders, from Super Bowl-hopeful Chiefs to rebuilding Raiders",
+      "body_text": "Outside of Kansas City, the battle for a wild card berth in this conference is wide open",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-25T13:17:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Super Bowl",
+        "Raiders Outside",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    }
+  ]
+}

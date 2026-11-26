@@ -1,0 +1,800 @@
+{
+  "fetch_run_id": "e12ea285-c4d2-44e4-a5de-e1f325e2a829",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-26T12:17:08.663256+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "90970046-5fe7-3b4b-978f-1a2c7fa95fc6",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-put-steelers-teammates-120346078.html",
+      "title": "Aaron Rodgers put Steelers teammates in 'incredible bind' by roasting McCarthy",
+      "body_text": "Aaron Rodgers put his Pittsburgh Steelers teammates in a lose-lose situation when he criticized Mike McCarthy on &quot;The Pat McAfee Show,&quot; a former player said.",
+      "author": "",
+      "published_at": "2026-11-26T12:03:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pittsburgh Steelers",
+        "The Pat"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "9a630f3c-02b3-390d-88fd-538ed7efa2eb",
+      "url": "https://sports.yahoo.com/nfl/articles/joe-milton-eagles-qb-starting-120308859.html",
+      "title": "Who is Joe Milton? Eagles QB starting Thanksgiving with Jalen Hurts sidelined",
+      "body_text": "Joe Milton is making his third career NFL start on Thanksgiving against his former team, the Cowboys. Here's what to know about the Eagles QB.",
+      "author": "",
+      "published_at": "2026-11-26T12:03:08+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Jalen Hurts"
+      ],
+      "resolved_player_ids": [
+        "00-0039398",
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "74ff936f-f190-3d9a-9986-5f9055900fcd",
+      "url": "https://sports.yahoo.com/nfl/articles/happened-jalen-hurts-know-eagles-120159149.html",
+      "title": "What happened to Jalen Hurts? What to know about Eagles QB's blood clots",
+      "body_text": "The Eagles have been without Jalen Hurts since Week 6 of the 2026 NFL season, as the QB is dealing with blood clots in his lungs.",
+      "author": "",
+      "published_at": "2026-11-26T12:01:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jalen Hurts",
+        "The Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0036389"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "06ae0c61-a242-3276-9552-2ec92f2f44b4",
+      "url": "https://sports.yahoo.com/nfl/articles/york-jets-news-happy-thanksgiving-120000500.html",
+      "title": "New York Jets News: Happy Thanksgiving, Spend Time With Your Loved Ones",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Happy Thanksgiving",
+        "Spend Time",
+        "With Your",
+        "Loved Ones"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "2210c162-72bf-36c4-acab-1e0009cb4387",
+      "url": "https://sports.yahoo.com/nfl/articles/2027-csr-nfl-thankful-mock-120000943.html",
+      "title": "2027 CSR NFL “Thankful” Mock Draft",
+      "body_text": "Scarf down some Panthers Mock Draft as you digest your turkey!",
+      "author": "",
+      "published_at": "2026-11-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mock Draft",
+        "Panthers Mock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CAR"
+    },
+    {
+      "external_id": "c1c24a13-4705-395b-b7a1-24117ca516f6",
+      "url": "https://sports.yahoo.com/nfl/articles/cowboys-news-just-business-mike-120000918.html",
+      "title": "Cowboys news: It’s all just business for Mike Pettine",
+      "body_text": "Here is today's Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mike Pettine",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "d0dd26e1-bf8d-37cc-8808-ece84ceec5df",
+      "url": "https://sports.yahoo.com/nfl/articles/davis-webb-optimistic-jonah-coleman-120000679.html",
+      "title": "Davis Webb optimistic Jonah Coleman and Broncos’ rushing attack can have success versus Steelers",
+      "body_text": "Last Sunday against the Las Vegas Raiders, Denver Broncos running back Jonah Coleman had a standout performance. Coleman’s 111 yards and three touchdowns earned him AFC Offensive Player of the Week honors. There’s no doubt he was a key reason the Broncos earn their eighth victory of the season. As the regular season continues, Coleman’s […]",
+      "author": "",
+      "published_at": "2026-11-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Davis Webb",
+        "Jonah Coleman",
+        "Steelers Last",
+        "Las Vegas",
+        "Denver Broncos",
+        "Offensive Player"
+      ],
+      "resolved_player_ids": [
+        "00-0033550"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d19fee8b-8ce2-3e8b-aa34-2cc7ba1cee4a",
+      "url": "https://sports.yahoo.com/nfl/articles/brady-spags-little-thanksgiving-cooking-120000018.html",
+      "title": "Brady, Spags, and a little Thanksgiving cooking",
+      "body_text": "A look at Joe Brady’s history against Kansas City and what cold, rainy weather could mean for Buffalo’s offense.",
+      "author": "",
+      "published_at": "2026-11-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Brady",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e25ecee3-fa8b-3cf6-874e-fb1a7688223b",
+      "url": "https://sports.yahoo.com/nfl/articles/bgn-memories-eagles-owned-cowboys-120000675.html",
+      "title": "BGN Memories: The Eagles have OWNED the Cowboys on Thanksgiving. Both times!",
+      "body_text": "Traditionally, things have gone very well for the Eagles on Thanksgiving in Dallas.",
+      "author": "",
+      "published_at": "2026-11-26T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "554bee39-d1ac-300f-bcb5-5ccd0b03c884",
+      "url": "https://sports.yahoo.com/nfl/articles/lions-honoring-jack-campbell-wearing-113057836.html",
+      "title": "Lions honoring Jack Campbell by wearing No. 46 wristbands on Thanksgiving",
+      "body_text": "Jack Campbell's teammates are continuing to find ways to honor the LB. Now they are sporting No. 46 wristbands during games.",
+      "author": "",
+      "published_at": "2026-11-26T11:30:57+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jack Campbell",
+        "Thanksgiving Jack"
+      ],
+      "resolved_player_ids": [
+        "00-0039018"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "7e761870-eebd-37fd-a95d-e9952ed18fc8",
+      "url": "https://sports.yahoo.com/nfl/articles/watch-lions-vs-bears-tv-112953512.html",
+      "title": "How to watch Lions vs. Bears: TV, streaming, radio, more",
+      "body_text": "TV, online streaming, announcer, and kickoff time information for Detroit Lions vs. Chicago Bears on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-26T11:29:53+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e8e98dad-a588-3fac-9920-5d12e9c98142",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-playoff-picture-does-packers-230449210.html",
+      "title": "NFL playoff picture: What does Packers-Rams mean for NFC standings?",
+      "body_text": "What does the Thanksgiving Eve game between the Rams and the Packers mean for the NFC playoff picture?",
+      "author": "",
+      "published_at": "2026-11-26T11:24:13+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "3d88dae1-d327-4534-9d64-ff08e042dd6e",
+      "url": "https://sports.yahoo.com/nfl/article/chicago-bears-vs-detroit-lions-how-to-watch-the-thanksgiving-day-early-game-today-start-time-where-to-stream-and-more-112224988.html",
+      "title": "Chicago Bears vs. Detroit Lions: How to watch the Thanksgiving Day early game today, start time, where to stream and more",
+      "body_text": "Find out how to watch the Lions vs. Bears Thanksgiving game this week.",
+      "author": "Liz Kocan",
+      "published_at": "2026-11-25T20:29:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chicago Bears",
+        "Detroit Lions",
+        "Thanksgiving Day",
+        "Bears Thanksgiving"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "9d6d3cec-4c6f-31f8-8033-8a94abf0258b",
+      "url": "https://sports.yahoo.com/nfl/articles/cowboys-playoff-picture-odds-remaining-111630163.html",
+      "title": "Cowboys playoff picture: Odds, remaining schedule, NFC East standings",
+      "body_text": "The Dallas Cowboys enter their Thanksgiving game making a postseason push. Here's a look at their playoff chances before facing the Eagles in Week 12.",
+      "author": "",
+      "published_at": "2026-11-26T11:16:30+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "35eab5ed-2947-328c-8045-e7a0ad7108aa",
+      "url": "https://sports.yahoo.com/nfl/articles/thanksgiving-football-family-nfl-test-111554194.html",
+      "title": "Thanksgiving is for football, family – and NFL to test viewership 'ceiling'",
+      "body_text": "NFL fans will be exposed to five standalone games on five different media entities within 48 hours over Thanksgiving week as the league tests its ratings ceiling.",
+      "author": "",
+      "published_at": "2026-11-26T11:15:54+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0249de23-1a75-334d-890f-9a18621a6056",
+      "url": "https://sports.yahoo.com/betting/articles/lions-playoff-picture-odds-remaining-110543894.html",
+      "title": "Lions playoff picture: Odds, remaining schedule, NFC North standings",
+      "body_text": "The Lions are hoping to make it back to the NFL playoffs. Here's a look at their chances of winning the NFC North as they prepare to face the Bears.",
+      "author": "",
+      "published_at": "2026-11-26T11:05:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "8aac854f-eaa5-39d7-b7ad-6a0528cfb795",
+      "url": "https://sports.yahoo.com/nfl/articles/kenneth-walker-iii-misses-3rd-110500029.html",
+      "title": "Kenneth Walker III misses 3rd straight game with groin injury as Chiefs face Bills",
+      "body_text": "KC Chiefs running back Kenneth Walker III, the Super Bowl MVP, will miss his third straight game, this one on Thanksgiving against the Buffalo Bills.",
+      "author": "",
+      "published_at": "2026-11-26T11:05:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kenneth Walker III",
+        "Super Bowl",
+        "Buffalo Bills"
+      ],
+      "resolved_player_ids": [
+        "00-0038134"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "00b764e2-d7ec-3c71-b148-2a9078694c6c",
+      "url": "https://sports.yahoo.com/nfl/articles/tv-channel-cowboys-vs-eagles-110238932.html",
+      "title": "What TV channel is Cowboys vs Eagles on Thanksgiving? Time, streaming",
+      "body_text": "The Cowboys are hosting the Eagles on Thanksgiving in 2026. Here's what to know, including kickoff time, TV channel, streaming and more.",
+      "author": "",
+      "published_at": "2026-11-26T11:02:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "edf5d301-8592-34de-8c8a-e3a502fd3f19",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-thanksgiving-games-tv-channels-110231585.html",
+      "title": "NFL Thanksgiving games: TV channels for all three NFL games Thursday",
+      "body_text": "Thanksgiving is here, and with it will come a marquee slate of three NFL matchups. Here's how to watch the NFL Thanksgiving games for 2026.",
+      "author": "",
+      "published_at": "2026-11-26T11:02:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thursday Thanksgiving"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "735ab29c-a2fc-3b73-b10a-8b028d5dfeb2",
+      "url": "https://sports.yahoo.com/nfl/articles/bears-playoff-picture-odds-remaining-110228666.html",
+      "title": "Bears playoff picture: Odds, remaining schedule, NFC North standings",
+      "body_text": "The Chicago Bears enter Thanksgiving in position to make the NFL playoffs again. Here's a look at their chances before facing the Lions in Week 12.",
+      "author": "",
+      "published_at": "2026-11-26T11:02:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Chicago"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "17f841e6-52bb-316b-910f-e65588a32aac",
+      "url": "https://sports.yahoo.com/nfl/articles/commanders-favored-road-week-12-110000764.html",
+      "title": "Commanders favored on the road in Week 12 vs Cardinals in Arizona - Inside the Matchup",
+      "body_text": "Hogs Haven looks at key factors that affect this Week 12 road game between the Commanders & Cardinals",
+      "author": "",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Matchup Hogs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "2aaa49a2-3f0f-3128-a210-a49248aadc4b",
+      "url": "https://sports.yahoo.com/nfl/articles/cleveland-browns-news-afc-north-110000699.html",
+      "title": "Cleveland Browns news: The AFC North is a wacky and wild place",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 26 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "2d87b2e7-1121-3d74-bdc4-e665ab066b5d",
+      "url": "https://sports.yahoo.com/nfl/articles/horse-tracks-happy-thanksgiving-broncos-110000509.html",
+      "title": "Horse Tracks: Happy Thanksgiving to all of Broncos Country!",
+      "body_text": "Happy Thanksgiving, Broncos Country!",
+      "author": "",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Horse Tracks",
+        "Happy Thanksgiving",
+        "Broncos Country"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "436662bb-1079-3827-9b63-7a7084f18304",
+      "url": "https://sports.yahoo.com/nfl/articles/bear-den-happy-game-day-110000052.html",
+      "title": "The Bear’s Den: Happy Game Day, Happy Thanksgiving!",
+      "body_text": "The Chicago Bears are in Detroit today for the early Thanksgiving day game to take on the Detroit Lions",
+      "author": "",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "Happy Game",
+        "Happy Thanksgiving",
+        "The Chicago",
+        "Detroit Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "83440079-7731-41bd-bade-7797e320039a",
+      "url": "https://sports.yahoo.com/nfl/article/what-channel-is-thanksgiving-football-on-how-to-stream-the-bears-vs-lions-eagles-vs-cowboys-and-chiefs-vs-bills-games-today-110000466.html",
+      "title": "What channel is Thanksgiving football on? How to stream the Bears vs. Lions, Eagles vs. Cowboys and Chiefs vs. Bills games today",
+      "body_text": "Find out how to watch all the NFL action this Thursday.",
+      "author": "Liz Kocan,Danica Creahan",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "ac828d70-4758-33f8-a970-b109c0df28ec",
+      "url": "https://sports.yahoo.com/nfl/articles/giants-news-abdul-carter-honored-110000316.html",
+      "title": "Giants news: Abdul Carter honored, storylines for Colts, more",
+      "body_text": "New York Giants headlines for Thanksgiving Day 2026.",
+      "author": "",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Abdul Carter",
+        "New York",
+        "Thanksgiving Day"
+      ],
+      "resolved_player_ids": [
+        "00-0040677"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "b071b7f3-b872-3dc3-b600-3aa3cc0aeb00",
+      "url": "https://sports.yahoo.com/nfl/articles/why-shemar-stewart-not-playing-110000936.html",
+      "title": "Why is Shemar Stewart not playing? Al Golden weighs in",
+      "body_text": "Golden’s comments on Stewart’s lack of playing time don’t exactly inspire confidence.",
+      "author": "",
+      "published_at": "2026-11-26T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Shemar Stewart",
+        "Al Golden"
+      ],
+      "resolved_player_ids": [
+        "00-0040756"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "326b17d3-9a82-37b4-a8b2-4d11c2d549a3",
+      "url": "https://sports.yahoo.com/nfl/articles/james-jones-im-text-threads-105756723.html",
+      "title": "James Jones: I'm on text threads with former Packers, none are on Aaron Rodgers' side",
+      "body_text": "In the dispute between Steelers coach Mike McCarthy and ex-Steelers quarterback Aaron Rodgers, players who were with both of them in Green Bay are squarely on McCarthy's side.",
+      "author": "",
+      "published_at": "2026-11-26T10:57:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "James Jones",
+        "Aaron Rodgers",
+        "Green Bay"
+      ],
+      "resolved_player_ids": [
+        "00-0025465",
+        "00-0023459"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "db8e3f7b-916c-393b-9ecd-1d8c5d00fe8a",
+      "url": "https://sports.yahoo.com/nfl/articles/mike-mccarthy-aaron-rodgers-strip-104615818.html",
+      "title": "Mike McCarthy, Aaron Rodgers strip each other of graceful endings. Go figure | Opinion",
+      "body_text": "Mike McCarthy, right or wrong, stripped Aaron Rodgers of a graceful NFL ending, writes columnist Jarrett Bell. Rodgers quickly repaid the favor.",
+      "author": "",
+      "published_at": "2026-11-26T10:46:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Opinion Mike",
+        "Jarrett Bell"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "107f79f3-da3a-3fcf-a61a-9993e668d532",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-team-played-most-thanksgiving-104540442.html",
+      "title": "Which NFL team has played the most Thanksgiving games? Records for all 32 clubs",
+      "body_text": "The Detroit Lions and Dallas Cowboys are NFL Thanksgiving staples. Which team has more wins? Here's a look at the holiday record of all 32 NFL teams.",
+      "author": "",
+      "published_at": "2026-11-26T10:45:40+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Detroit",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "7ead8d0f-4482-3fa6-8990-0503c9dac131",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-games-today-thanksgiving-schedule-103029457.html",
+      "title": "NFL games today: Thanksgiving schedule, times, TV channels, how to watch",
+      "body_text": "The NFL is serving up a tripleheader of games on Thanksgiving this years. Here's a look at the matchups and how you can watch.",
+      "author": "",
+      "published_at": "2026-11-26T10:30:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "9c2a87a6-7115-3376-a79c-a7456c891d62",
+      "url": "https://sports.yahoo.com/nfl/articles/why-lions-cowboys-always-play-103022978.html",
+      "title": "Why do Lions and Cowboys always play Thanksgiving? History, tradition",
+      "body_text": "Why do the Lions and Cowboys always play on Thanksgiving? Full history of each team's tradition explained.",
+      "author": "",
+      "published_at": "2026-11-26T10:30:22+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "e724d243-a836-3960-8ebc-b7b6821db7aa",
+      "url": "https://sports.yahoo.com/nfl/articles/dallas-cowboys-thanksgiving-day-record-102928866.html",
+      "title": "What is Dallas Cowboys' Thanksgiving Day record? All-time results, history",
+      "body_text": "The Dallas Cowboys' Thanksgiving tradition dates back to 1966. See how it started and how each game has gone.",
+      "author": "",
+      "published_at": "2026-11-26T10:29:28+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys",
+        "Thanksgiving Day",
+        "The Dallas"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "de1975ee-d1da-3862-8d6f-2e90bb6e486e",
+      "url": "https://sports.yahoo.com/nfl/articles/detroit-lions-thanksgiving-day-record-101517534.html",
+      "title": "What is Detroit Lions' Thanksgiving Day record? All-time results, history",
+      "body_text": "The Detroit Lions have hosted a Thanksgiving game since 1934. Here's why, plus a list of results from each of their Turkey Day games:",
+      "author": "",
+      "published_at": "2026-11-26T10:15:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Detroit Lions",
+        "Thanksgiving Day",
+        "The Detroit",
+        "Turkey Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "535c36e5-e3f4-394f-9c9e-5140289b46de",
+      "url": "https://sports.yahoo.com/nfl/articles/golden-nuggets-thankful-mac-jones-101300766.html",
+      "title": "Golden Nuggets: Thankful for Mac Jones",
+      "body_text": "Your daily San Francisco 49ers news for Thursday, November 26th, 2026",
+      "author": "",
+      "published_at": "2026-11-26T10:13:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "Mac Jones",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [
+        "00-0036972"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "337273e1-a37a-3396-9ffb-e216954e12b9",
+      "url": "https://sports.yahoo.com/nfl/articles/tv-channel-lions-vs-bears-100556409.html",
+      "title": "What TV channel is Lions vs Bears on Thanksgiving? Time, streaming",
+      "body_text": "The Lions host the Bears to open up the NFL Thanksgiving slate. Here's how you can watch the game between two NFC rivals.",
+      "author": "",
+      "published_at": "2026-11-26T10:05:56+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Lions"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "f9e8e9c4-3656-3a74-9a62-5229dac55ee4",
+      "url": "https://sports.yahoo.com/nfl/articles/why-four-time-mvp-rodgers-143721436.html",
+      "title": "Four-time MVP Rodgers released and may have played last NFL game",
+      "body_text": "Aaron Rodgers is replaced as the Pittsburgh Steelers' starting quarterback, then criticises head coach Mike McCarthy before being released with immediate effect.",
+      "author": "",
+      "published_at": "2026-11-26T09:44:50+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "2301e9b2-39d0-3a25-86f2-d66be794913e",
+      "url": "https://sports.yahoo.com/nfl/articles/rams-report-card-blake-corum-081605070.html",
+      "title": "Rams report card: Blake Corum does heavy lifting: Who gets A’s?",
+      "body_text": "Blake Corum rushed for 184 yards to lead the Rams to a 26-13 win over the Packers, securing their fifth straight victory to move to 7-4.",
+      "author": "",
+      "published_at": "2026-11-26T08:16:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Blake Corum"
+      ],
+      "resolved_player_ids": [
+        "00-0039738"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "749df13b-1bf0-3016-ab69-619005795f53",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-sets-fire-6-073138451.html",
+      "title": "Aaron Rodgers sets fire to 6 decades of coaching stability in Pittsburgh – All aTwitter",
+      "body_text": "In an interview on the Pat McAfee show, AR decides to do a ‘tell all’ on head coach Mike McCarthy, burning down the house and forcing the Steelers to release him",
+      "author": "",
+      "published_at": "2026-11-26T07:31:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "af6d38c5-2b8b-301d-926d-eae9bf598bc7",
+      "url": "https://sports.yahoo.com/nfl/articles/trent-mcduffie-proved-worth-win-072611951.html",
+      "title": "Trent McDuffie proved worth in win over Packers",
+      "body_text": "Trent McDuffie allowed just one reception for 12 yards on 26 coverage matchups",
+      "author": "",
+      "published_at": "2026-11-26T07:26:11+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Packers Trent"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "f574a912-132a-3fc5-afbe-52e8c1948122",
+      "url": "https://sports.yahoo.com/nfl/articles/rams-send-playoff-message-win-072117482.html",
+      "title": "Rams send playoff message with win vs. Packers: They are not dead yet",
+      "body_text": "Coach Sean McVay and the Los Angeles Rams have managed to overcome a slow start to the season and are very much in the playoff picture.",
+      "author": "",
+      "published_at": "2026-11-26T07:21:17+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Coach Sean",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "0e9d4ac9-853f-3c76-9037-58ecb06bfd69",
+      "url": "https://sports.yahoo.com/nfl/articles/lions-owner-martha-firestone-ford-071402089.html",
+      "title": "Lions’ late owner Martha Firestone Ford will be on Matthew Stafford’s mind as he watches ex-team play on Thanksgiving",
+      "body_text": "Rams quarterback Matthew Stafford remembers late Lions owner Martha Firestone Ford while spending his first full Thanksgiving at home with his family.",
+      "author": "",
+      "published_at": "2026-11-26T07:14:02+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Martha Firestone",
+        "Matthew Stafford",
+        "Thanksgiving Rams"
+      ],
+      "resolved_player_ids": [
+        "00-0026498"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "05211359-f63d-3542-9538-b843cd71067f",
+      "url": "https://sports.yahoo.com/nfl/articles/know-talent-dak-prescott-reflects-070000639.html",
+      "title": "‘I know the talent he has': Dak Prescott reflects on his time with Joe Milton",
+      "body_text": "Prescott served as a mentor to Milton while they were in Dallas together.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0039398"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "08589dea-474e-3816-8cd6-5a4ab5958628",
+      "url": "https://sports.yahoo.com/betting/articles/eagles-vs-cowboys-betting-guide-111809896.html",
+      "title": "Eagles vs Cowboys betting guide: Odds, props and picks",
+      "body_text": "Dallas dominated the Birds in the first matchup five weeks ago. Will Thanksgiving be a different result?",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Will Thanksgiving"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "0a59296b-167a-3b3e-90de-27d77b97f43b",
+      "url": "https://sports.yahoo.com/articles/inside-tape-jeremiah-trotter-jr-125541219.html",
+      "title": "Inside the Tape: Jeremiah Trotter Jr. Is Becoming a Cornerstone at LB",
+      "body_text": "Box scores give you the what. Film gives you the why.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeremiah Trotter Jr",
+        "Is Becoming"
+      ],
+      "resolved_player_ids": [
+        "00-0039826"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "0c34841f-ca93-3b73-9856-7f0cc2614af0",
+      "url": "https://sports.yahoo.com/articles/nfl-thanksgiving-schedule-chiefs-bills-125541392.html",
+      "title": "NFL Thanksgiving schedule: Chiefs-Bills, Eagles-Cowboys, Bears-Lions on the menu",
+      "body_text": "The Packers will battle the Rams on Thanksgiving Eve, while the Broncos will square off against the Steelers on Black Friday.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Packers",
+        "Thanksgiving Eve",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "174f6b65-9820-3061-b5ab-8b497d42e479",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-sign-defensive-tackle-gabe-170600713.html",
+      "title": "Eagles sign defensive tackle Gabe Hall to active roster, elevate two for Cowboys",
+      "body_text": "Gabe Hall gets the promotion after recording his first career sack against the Steelers.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Gabe Hall",
+        "Cowboys Gabe"
+      ],
+      "resolved_player_ids": [
+        "00-0039265"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "418b1a7a-d222-3d75-b573-eb71baf33736",
+      "url": "https://sports.yahoo.com/articles/vic-fangio-delivers-good-news-133639686.html",
+      "title": "Vic Fangio delivers good news on Quinyon Mitchell for Thanksgiving",
+      "body_text": "Vic Fangio said he thinks Quinyon Mitchell will be fine as the Eagles gear up for a high-powered Cowboys offense on Thursday.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vic Fangio",
+        "Quinyon Mitchell",
+        "Thanksgiving Vic"
+      ],
+      "resolved_player_ids": [
+        "00-0039888"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4ff9a655-216d-31cd-b794-60a3769e9d8c",
+      "url": "https://sports.yahoo.com/articles/most-memorable-thanksgiving-moments-nfl-144207437.html",
+      "title": "Most memorable Thanksgiving moments in NFL history",
+      "body_text": "From star performances to unforgettable blunders, here are 10 iconic NFL moments on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "59547f9e-0a2a-349d-b8d5-9acc59fe6f27",
+      "url": "https://sports.yahoo.com/nfl/articles/switch-flips-jeremiah-trotter-jr-234338967.html",
+      "title": "The switch that flips for Jeremiah Trotter Jr. when he takes the field",
+      "body_text": "Jeremiah Trotter Jr. is a quiet guy off the field but all that changes when it's game time.",
+      "author": "",
+      "published_at": "2026-11-26T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeremiah Trotter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039826"
+      ],
+      "team_hint": null
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "fetch_run_id": "defc32a6-2e0f-4c29-bc19-d169f433c36f",
+  "source": "sleeper",
+  "fetched_at": "2026-11-26T12:17:12.262378+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 19,
+  "items": [
+    {
+      "sleeper_player_id": "10219",
+      "resolved_player_id": "00-0038611",
+      "player_name": "Chris Rodriguez Jr.",
+      "team": "JAX",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-11-23T15:20:16.385000+00:00",
+      "trending_count": 483309,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "4017",
+      "resolved_player_id": "00-0033537",
+      "player_name": "Deshaun Watson",
+      "team": "CLE",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-11-25T04:00:04.241000+00:00",
+      "trending_count": 442024,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12718",
+      "resolved_player_id": "00-0040590",
+      "player_name": "Konata Mumpfield",
+      "team": "LAR",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-11-26T05:45:13.708000+00:00",
+      "trending_count": 369414,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "5995",
+      "resolved_player_id": "00-0034975",
+      "player_name": "Justice Hill",
+      "team": "BAL",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-11-23T15:15:16.231000+00:00",
+      "trending_count": 305406,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "4147",
+      "resolved_player_id": "00-0033526",
+      "player_name": "Samaje Perine",
+      "team": "CIN",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-11-25T00:15:04.042000+00:00",
+      "trending_count": 226440,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12540",
+      "resolved_player_id": "00-0040705",
+      "player_name": "Chimere Dike",
+      "team": "TEN",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-11-23T16:30:16.689000+00:00",
+      "trending_count": 222012,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "1373",
+      "resolved_player_id": "00-0030565",
+      "player_name": "Geno Smith",
+      "team": "NYJ",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-11-25T05:40:05.244000+00:00",
+      "trending_count": 185788,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13269",
+      "resolved_player_id": null,
+      "player_name": "Fernando Mendoza",
+      "team": "LV",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-11-25T02:35:03.834000+00:00",
+      "trending_count": 172656,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "3271",
+      "resolved_player_id": "00-0033110",
+      "player_name": "Tyler Higbee",
+      "team": "LAR",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-11-26T04:55:15.102000+00:00",
+      "trending_count": 163917,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "4972",
+      "resolved_player_id": "00-0034771",
+      "player_name": "Mason Rudolph",
+      "team": "PIT",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-11-25T21:50:10.669000+00:00",
+      "trending_count": 147134,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13317",
+      "resolved_player_id": null,
+      "player_name": "Ted Hurst III",
+      "team": "TB",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-11-23T20:50:18.284000+00:00",
+      "trending_count": 146880,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12533",
+      "resolved_player_id": "00-0040242",
+      "player_name": "Jacory Croskey-Merritt",
+      "team": "WAS",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-11-24T11:30:47.448000+00:00",
+      "trending_count": 141381,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12469",
+      "resolved_player_id": "00-0040162",
+      "player_name": "Dylan Sampson",
+      "team": "CLE",
+      "position": "RB",
+      "news_body": "",
+      "news_date": "2026-11-16T04:45:33.567000+00:00",
+      "trending_count": 119530,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "12496",
+      "resolved_player_id": "00-0040154",
+      "player_name": "Tai Felton",
+      "team": "MIN",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-11-25T23:05:11.162000+00:00",
+      "trending_count": 108300,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "13276",
+      "resolved_player_id": null,
+      "player_name": "Omar Cooper Jr.",
+      "team": "NYJ",
+      "position": "WR",
+      "news_body": "",
+      "news_date": "2026-11-25T18:00:10.369000+00:00",
+      "trending_count": 106576,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "5119",
+      "resolved_player_id": "00-0034794",
+      "player_name": "Jason Sanders",
+      "team": "NYJ",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-11-23T10:40:16.016000+00:00",
+      "trending_count": 104460,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "11565",
+      "resolved_player_id": "00-0039923",
+      "player_name": "J.J. McCarthy",
+      "team": "NYG",
+      "position": "QB",
+      "news_body": "",
+      "news_date": "2026-11-25T03:35:04.157000+00:00",
+      "trending_count": 92373,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "4066",
+      "resolved_player_id": "00-0033881",
+      "player_name": "Evan Engram",
+      "team": "DEN",
+      "position": "TE",
+      "news_body": "",
+      "news_date": "2026-11-24T02:20:21.788000+00:00",
+      "trending_count": 84072,
+      "source": "sleeper"
+    },
+    {
+      "sleeper_player_id": "6650",
+      "resolved_player_id": "00-0035358",
+      "player_name": "Chase McLaughlin",
+      "team": "TB",
+      "position": "K",
+      "news_body": "",
+      "news_date": "2026-11-24T00:40:20.130000+00:00",
+      "trending_count": 76368,
+      "source": "sleeper"
+    }
+  ]
+}
