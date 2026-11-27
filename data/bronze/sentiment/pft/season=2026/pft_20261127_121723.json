@@ -1,0 +1,581 @@
+{
+  "fetch_run_id": "32ae7cea-0387-48e0-b5ca-ba97a3c446eb",
+  "source": "pft",
+  "fetched_at": "2026-11-27T12:17:23.943473+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-eagles-dont-quit-so-happy-to-be-on-this-team",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-eagles-dont-quit-so-happy-to-be-on-this-team",
+      "permalink": "",
+      "title": "Joe Milton: Eagles don't quit, so happy to be on this team",
+      "body_text": "Six weeks ago, Joe Milton was on the Cowboys' practice squad.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T10:59:16+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kickers-made-the-difference-as-harrison-butker-missed-tyler-bass-won-the-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kickers-made-the-difference-as-harrison-butker-missed-tyler-bass-won-the-game",
+      "permalink": "",
+      "title": "Kickers made the difference as Harrison Butker missed, Tyler Bass won the game",
+      "body_text": "The Thanksgiving night game between the Bills and Chiefs was billed as the battle of two great quarterbacks, Josh Allen and Patrick Mahomes.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T10:04:03+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Harrison Butker",
+        "Tyler Bass",
+        "The Thanksgiving",
+        "Josh Allen",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033303",
+        "00-0036162",
+        "00-0034857",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-new-york-overturned-rashee-rice-catch-not-a-call-i-agree-with",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-new-york-overturned-rashee-rice-catch-not-a-call-i-agree-with",
+      "permalink": "",
+      "title": "Andy Reid: New York overturned Rashee Rice catch, not a call I agree with",
+      "body_text": "The most pivotal call on Thanksgiving night was a replay review that went against the Chiefs.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T09:48:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andy Reid",
+        "New York",
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-12",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-12",
+      "permalink": "",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 12",
+      "body_text": "After an all-time great Thanksgiving for football, the Bears are in first place in the NFC North, the Cowboys have fallen far out of contention in the NFC East, and the Bills are in the lead for the No. 1 seed in the AFC.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T05:30:00+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Playoff Picture"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "BUF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-bass-hits-walk-off-57-yard-field-goal-bills-beat-chiefs-13-10",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tyler-bass-hits-walk-off-57-yard-field-goal-bills-beat-chiefs-13-10",
+      "permalink": "",
+      "title": "Tyler Bass hits walk-off 57-yard field goal, Bills beat Chiefs 13-10",
+      "body_text": "Buffalo overcame some nasty weather to once again defeat Kansas City in the regular season.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T04:51:59+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Tyler Bass",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [
+        "00-0036162"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-confronts-cowboys-fans-after-comeback-win",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nick-sirianni-confronts-cowboys-fans-after-comeback-win",
+      "permalink": "",
+      "title": "Nick Sirianni is pulled away from fans after comeback win",
+      "body_text": "Good or bad, right or wrong, Eagles coach Nick Sirianni has had from time to time the demeanor of a fan who won a contest to be the head coach for a day.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T02:08:51+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Nick Sirianni"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-mike-mccarthy-he-was-outstanding-as-the-head-coach",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jerry-jones-on-mike-mccarthy-he-was-outstanding-as-the-head-coach",
+      "permalink": "",
+      "title": "Jerry Jones on Mike McCarthy: \"He was outstanding as the head coach\"",
+      "body_text": "The recent remarks from former Steelers quarterback Aaron Rodgers regarding Steelers coach Mike McCarthy have raised plenty of questions, posed to plenty of people.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T03:25:48+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jerry Jones",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emmett-johnson-td-gives-chiefs-10-7-lead-early-in-third-quarter",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/emmett-johnson-td-gives-chiefs-10-7-lead-early-in-third-quarter",
+      "permalink": "",
+      "title": "Emmett Johnson TD gives Chiefs 10-7 lead early in third quarter",
+      "body_text": "The Chiefs got a little something going at the end of the first half.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T03:15:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Emmett Johnson",
+        "The Chiefs"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-on-current-steelers-situation-its-a-dumpster-fire",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-tomlin-on-current-steelers-situation-its-a-dumpster-fire",
+      "permalink": "",
+      "title": "Mike Tomlin on current Steelers situation: \"It's a dumpster fire\"",
+      "body_text": "Former Steelers coach speaks at length about this week's events.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T03:01:30+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mike Tomlin",
+        "Former Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-lead-chiefs-7-3-at-halftime-on-thanksgiving-night",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bills-lead-chiefs-7-3-at-halftime-on-thanksgiving-night",
+      "permalink": "",
+      "title": "Bills lead Chiefs 7-3 at halftime on Thanksgiving night",
+      "body_text": "Nasty weather in Western New York has limited offensive production for both Buffalo and Kansas City.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T02:52:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Western New",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-i-didnt-simulate-snap-count-on-false-starts-lions-crying-about-a-them-problem",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jeffery-simmons-i-didnt-simulate-snap-count-on-false-starts-lions-crying-about-a-them-problem",
+      "permalink": "",
+      "title": "Jeffery Simmons: I didn't simulate snap count on false starts, Lions are \"crying\" about a them problem",
+      "body_text": "Long before the Bears beat the Lions on a last-second touchdown catch by wide receiver Rome Odunze, one of the storylines of the game was a run of false start penalties by the Lions.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-27T02:48:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jeffery Simmons",
+        "Rome Odunze"
+      ],
+      "resolved_player_ids": [
+        "00-0035643",
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-misses-practice-again-on-thursday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-misses-practice-again-on-thursday",
+      "permalink": "",
+      "title": "Brock Purdy misses practice again on Thursday",
+      "body_text": "The 49ers remained without the leader of their offense at Thursday's practice.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-27T02:22:42+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Brock Purdy",
+        "Thursday The"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cook-touchdown-gives-bills-7-0-lead-over-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/james-cook-touchdown-gives-bills-7-0-lead-over-chiefs",
+      "permalink": "",
+      "title": "James Cook touchdown gives Bills 7-0 lead over Chiefs",
+      "body_text": "There is some nasty weather in Western New York on Thanksgiving night.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T02:12:32+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "James Cook",
+        "Chiefs There",
+        "Western New"
+      ],
+      "resolved_player_ids": [
+        "00-0037248"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-mount-furious-comeback-beat-cowboys-39-38-in-thanksgiving-classic",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-mount-furious-comeback-beat-cowboys-39-38-in-thanksgiving-classic",
+      "permalink": "",
+      "title": "Eagles mount furious comeback, beat Cowboys 39-38 in Thanksgiving classic",
+      "body_text": "What looked like a blowout turned into a great one, as Philadelphia stormed back to win in Dallas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T01:34:11+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-make-a-game-of-it-with-blocked-punt-for-touchdown",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-make-a-game-of-it-with-blocked-punt-for-touchdown",
+      "permalink": "",
+      "title": "Eagles make a game of it with blocked punt for touchdown",
+      "body_text": "The Eagles are back in it after blocking a punt and returning it for a touchdown in the fourth quarter in Dallas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T00:36:09+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Eagles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dalton-kincaid-active-christian-benford-inactive-for-bills-chiefs",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dalton-kincaid-active-christian-benford-inactive-for-bills-chiefs",
+      "permalink": "",
+      "title": "Dalton Kincaid active, Christian Benford inactive for Bills-Chiefs",
+      "body_text": "The Bills will have one of their key offensive weapons for tonight's game against the Chiefs, but they won't have a key defender.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T00:04:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dalton Kincaid",
+        "Christian Benford",
+        "Chiefs The"
+      ],
+      "resolved_player_ids": [
+        "00-0038933",
+        "00-0037288"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/penalties-and-forward-progress-ruling-help-cowboys-score-before-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/penalties-and-forward-progress-ruling-help-cowboys-score-before-halftime",
+      "permalink": "",
+      "title": "Penalties and forward progress ruling help Cowboys score before halftime",
+      "body_text": "The Cowboys lead the Eagles 28-10.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T23:26:08+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-offense-rolling-over-eagles-defense-in-dallas",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cowboys-offense-rolling-over-eagles-defense-in-dallas",
+      "permalink": "",
+      "title": "Cowboys' offense rolling over Eagles' defense in Dallas",
+      "body_text": "The Eagles have had no answer for the Cowboys' Javonte Williams, CeeDee Lamb and George Pickens.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T23:03:04+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dallas The",
+        "Javonte Williams",
+        "George Pickens"
+      ],
+      "resolved_player_ids": [
+        "00-0036997",
+        "00-0037247"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-dejean-exits-with-concussion-and-cowboys-take-lead-over-eagles",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/cooper-dejean-exits-with-concussion-and-cowboys-take-lead-over-eagles",
+      "permalink": "",
+      "title": "Cooper DeJean exits with concussion and Cowboys take lead over Eagles",
+      "body_text": "The Cowboys have taken an early lead in Dallas and the Eagles have lost a top defensive player.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T22:06:17+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Eagles The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-stun-lions-on-late-rome-odunze-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-stun-lions-on-late-rome-odunze-td",
+      "permalink": "",
+      "title": "Bears stun Lions on late Rome Odunze TD",
+      "body_text": "The Bears came through at the end of a wild second half in Detroit.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T21:41:14+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rome Odunze",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-clears-waivers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-clears-waivers",
+      "permalink": "",
+      "title": "Aaron Rodgers clears waivers",
+      "body_text": "Rodgers becomes a free agent.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T21:40:37+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-up-to-three-touchdowns-lions-up-35-24",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-up-to-three-touchdowns-lions-up-35-24",
+      "permalink": "",
+      "title": "Jahmyr Gibbs up to three touchdowns, Lions up 35-24",
+      "body_text": "Gibbs broke free for 70 yards this time.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T20:56:18+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-remains-out-of-cardinals-practice",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/carson-beck-remains-out-of-cardinals-practice",
+      "permalink": "",
+      "title": "Carson Beck remains out of Cardinals practice",
+      "body_text": "It looks like the Cardinals are on track to be without Carson Beck against the Commanders this week.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T20:50:36+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Carson Beck"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-on-packers-run-game-struggles-were-trying",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/matt-lafleur-on-packers-run-game-struggles-were-trying",
+      "permalink": "",
+      "title": "Matt LaFleur on Packers' run-game struggles: \"We're trying\"",
+      "body_text": "The Packers weren't able to stop the run on Wednesday against the Rams.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-26T20:46:43+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "The Packers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-back-within-26-24-on-dandre-swift-td-run",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-back-within-26-24-on-dandre-swift-td-run",
+      "permalink": "",
+      "title": "Bears back within 26-24 on D'Andre Swift TD run",
+      "body_text": "The Bears and Lions are lighting up the scoreboard in the second half.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T20:31:38+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Andre Swift",
+        "The Bears"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-cowboys-inactives-set-for-thanksgiving",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/eagles-cowboys-inactives-set-for-thanksgiving",
+      "permalink": "",
+      "title": "Eagles-Cowboys inactives set for Thanksgiving",
+      "body_text": "The inactives are set for the Thanksgiving Day game in Dallas.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-26T20:26:02+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Thanksgiving The",
+        "Thanksgiving Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-scores-again-lions-lead-26-17",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jahmyr-gibbs-scores-again-lions-lead-26-17",
+      "permalink": "",
+      "title": "Jahmyr Gibbs scores again, Lions lead 26-17",
+      "body_text": "Gibbs is up to 17 touchdowns on the season.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T20:23:19+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "DET"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-cut-lions-lead-to-19-17-on-kyle-monangais-second-td",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-cut-lions-lead-to-19-17-on-kyle-monangais-second-td",
+      "permalink": "",
+      "title": "Bears cut Lions lead to 19-17 on Kyle Monangai's second TD",
+      "body_text": "The Bears opened the second half with a touchdown drive.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T20:12:41+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Kyle Monangai",
+        "The Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0040236"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-up-19-10-on-bears-at-halftime",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-up-19-10-on-bears-at-halftime",
+      "permalink": "",
+      "title": "Lions score nine quick points before halftime, lead Bears 19-10",
+      "body_text": "A safety and a touchdown have the home team up after 30 minutes of play.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T19:38:15+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-activate-michael-pittman-jr-sign-max-hurleman-to-active-roster",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-activate-michael-pittman-jr-sign-max-hurleman-to-active-roster",
+      "permalink": "",
+      "title": "Steelers activate Michael Pittman Jr., sign Max Hurleman to active roster",
+      "body_text": "Mason Rudolph will have wide receiver Michael Pittman Jr. available as a target in his first start of the 2026 season.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-26T19:24:54+00:00",
+      "source": "pft",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Pittman Jr",
+        "Max Hurleman",
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0036252",
+        "00-0040618",
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

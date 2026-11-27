@@ -1,0 +1,583 @@
+{
+  "fetch_run_id": "04d09119-acd9-491c-a05d-a5791b41fd28",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-27T12:17:08.508161+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "c6db18d3-cd91-4675-aa86-96ca7a476cae",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-grades-thanksgiving-bears-earn-b-packers-get-d/",
+      "title": "NFL Week 12 grades for Thanksgiving: Cowboys choke their way to a 'D,' Bears earn 'B' for big win",
+      "body_text": "Caleb Williams delivers late magic to Rome Odunze in a wild shootout, while Detroit's defense collapses and Jordan Love struggles without Christian Watson",
+      "author": "John Breech",
+      "published_at": "2026-11-27T05:13:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "Rome Odunze",
+        "Jordan Love",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0039919",
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "e4500ebb-bf40-479a-8ffe-48b646f6917b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-overreactions-bears-a-shoo-in-nfc-north-title-joe-milton-full-time-qb1/",
+      "title": "NFL Thanksgiving overreactions: Bears a shoo-in for NFC North title? Should Joe Milton be a full-time QB1?",
+      "body_text": "Plus, is Jahmyr Gibbs truly an MVP candidate?",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-27T05:07:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Should Joe",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "67faa936-fa87-433f-910d-73e45e5db3e7",
+      "url": "https://www.cbssports.com/nfl/news/jerry-jones-calls-mike-mccarthy-outstanding-refutes-aaron-rodgers-accusations/",
+      "title": "Jerry Jones  refutes Aaron Rodgers' accusations, calls Mike McCarthy 'outstanding'",
+      "body_text": "Rodgers accused McCarthy of being late to meetings, sleeping in meetings and being behind on film prep",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-27T04:49:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e931ae77-3cbf-451d-b2a4-14df2accd318",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-12-nfl-picks-odds-expert-picks/",
+      "title": "Prisco's Week 12 NFL picks: Browns over Raiders, Steelers overcome issues to upset Broncos",
+      "body_text": "Pete Prisco reveals all of his Week 12 picks, including the Steelers to upset the Broncos on Black Friday",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-27T03:42:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Broncos Pete",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "1b2b2b01-c38c-4e99-9ade-4d98f2982378",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-picks-our-experts-face-off-on-bears-at-lions-chiefs-at-bills-and-more/",
+      "title": "NFL Week 12 picks: Our experts face off on Broncos at Steelers, Seahawks at 49ers and more",
+      "body_text": "CBS Sports writers Jordan Dajani and Jared Dubin predict this weekend's top games",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-27T03:39:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jordan Dajani",
+        "Jared Dubin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "1b358b8f-d874-4189-8d58-7cc0f2e4bd4d",
+      "url": "https://www.cbssports.com/nfl/news/former-steelers-coach-mike-tomlin-aaron-rodgers-mike-mccarthy-saga-dumpster-fire/",
+      "title": "Former Steelers coach Mike Tomlin on Aaron Rodgers-Mike McCarthy saga: 'It's a dumpster fire'",
+      "body_text": "Tomlin revealed his thoughts on the entire Rodgers-McCarthy mess on Thursday night",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-27T03:37:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Former Steelers",
+        "Mike Tomlin",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "80cb5cba-5411-4d75-bddf-5b945df58c65",
+      "url": "https://www.cbssports.com/prediction/news/best-kalshi-promo-code-cbssports55-earn-55-bonus-for-bills-chiefs-nfl-thanksgiving-day/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Earn $55 bonus for Bills vs. Chiefs, NFL on Thanksgiving Day",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on a strong Thanksgiving Day schedule in NFL Week 12",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-27T00:36:22+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thanksgiving Day",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "38417f8f-a335-48d6-b8c1-49c3f5667ce7",
+      "url": "https://www.cbssports.com/betting/news/best-kalshi-promo-code-cbssports55-receive-55-bonus-bills-chiefs-thanksgiving-day-nfl/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Receive $55 bonus for Bills vs. Chiefs, Thanksgiving Day NFL",
+      "body_text": "New Kalshi users can get a $55 bonus after making $25+ in trades on Thanksgiving Day NFL games",
+      "author": "Chinmay Vaidya",
+      "published_at": "2026-11-27T00:31:19+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thanksgiving Day",
+        "New Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "eb9d29d1-5ff0-4a69-be6e-7363eee11b1c",
+      "url": "https://www.cbssports.com/betting/news/week-12-nfl-betting-promos-get-nearly-4000-in-bonuses-from-betting-apps-sportsbooks-for-nfl-thanksgiving/",
+      "title": "Week 12 NFL betting promos: Get nearly $4,000 in bonuses from betting apps, sportsbooks for NFL Thanksgiving",
+      "body_text": "Top Week 12 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-26T23:54:40+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Top",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "d14a9fef-0c22-42cb-bd3c-6c3c232480b8",
+      "url": "https://www.cbssports.com/betting/news/chiefs-bills-odds-picks-prediction-start-time-2026-nfl-thanksgiving-betting-preview-best-bets/",
+      "title": "Chiefs vs. Bills odds, picks, prediction, start time: 2026 NFL Thanksgiving betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Bills vs. Chiefs on Thanksgiving in NFL Week 12",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-26T23:43:08+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "6e2c52f3-1fd0-467d-8f5b-e2e74c807c78",
+      "url": "https://www.cbssports.com/prediction/news/chiefs-vs-bills-odds-nfl-thanksgiving-picks-prediction-use-polymarket-promo-code-cbssports-25-bonus/",
+      "title": "Chiefs vs. Bills odds, NFL Thanksgiving picks, prediction: Use Polymarket promo code CBSSPORTS for $25 bonus",
+      "body_text": "Get a $25 bonus with the Polymarket promo code CBSSPORTS for Bills vs. Chiefs on Thanksgiving.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-26T23:40:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "3f3777cb-39bc-4ccd-93cb-11e609b24c29",
+      "url": "https://www.cbssports.com/prediction/news/2026-nfl-thanksgiving-odds-bills-chiefs-predictions-picks-use-kalshi-promo-code-cbssports55-55-bonus/",
+      "title": "2026 NFL Thanksgiving odds, Bills-Chiefs predictions, picks: Use Kalshi promo code CBSSPORTS55 for $55 bonus",
+      "body_text": "Get a $55 bonus with the Kalshi promo code CBSSPORTS55 for Bills vs. Chiefs on Thanksgiving.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-26T23:16:50+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Use Kalshi"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "8371a2bf-94a5-4d14-a909-c90129e1fffe",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-predictions-colston-loveland-thanksgiving/",
+      "title": "It wouldn't shock me if ... for NFL Week 12: Steelers fall out of playoff picture minus Aaron Rodgers",
+      "body_text": "Our five bold calls for Week 12 include a career day for Quinshon Judkins and mounting pressure on the Seahawks to play Drew Lock",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-26T21:44:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Quinshon Judkins",
+        "Drew Lock"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0040784",
+        "00-0035704"
+      ],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "506db3ad-746e-4b55-b68b-cdbc1e5675bf",
+      "url": "https://www.cbssports.com/nfl/news/bills-vs-chiefs-prediction-odds-how-to-watch-thanksgiving/",
+      "title": "Bills vs. Chiefs prediction: Which team wins latest chapter of Josh Allen-Patrick Mahomes saga?",
+      "body_text": "Legendary quarterbacks close out the holiday slate in one of the biggest games of the season",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-26T21:30:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Josh Allen",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0034857",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "2c5d621c-6ce7-4687-be03-26bdb2f1db32",
+      "url": "https://www.cbssports.com/betting/news/eagles-vs-cowboys-odds-picks-prediction-start-time-betting-preview-best-bets-for-nfl-thanksgiving-day/",
+      "title": "Eagles vs. Cowboys odds, picks, prediction, start time: Betting preview, best bets for NFL Thanksgiving Day",
+      "body_text": "Here's everything bettors need to know for Eagles vs. Cowboys on Thanksgiving in NFL Week 12",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-26T20:23:03+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8727ca8d-8160-40e2-aeda-7e5af18fd0c3",
+      "url": "https://www.cbssports.com/nfl/news/steelers-president-mike-mccarthy-after-aaron-rodgers-insubordination/",
+      "title": "Steelers president backs Mike McCarthy after Aaron Rodgers release: 'Insubordination can't be tolerated'",
+      "body_text": "Rooney said the Steelers could not tolerate Rodgers' ultimatum or his decision to criticize McCarthy publicly days before a key game",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-26T18:04:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d8ccb4e2-b775-41a5-9b4c-0ecdf60c295b",
+      "url": "https://www.cbssports.com/nfl/news/thanksgiving-games-black-friday-nfl-expert-picks-lions-bears-steelers/",
+      "title": "Thanksgiving and Black Friday NFL expert picks: Can Eagles pull upset? Do Steelers save their season?",
+      "body_text": "CBSSports.com and SportsLine break down the Thanksgiving Eve, Thanksgiving triple-header, and the Black Friday games",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-26T17:59:27+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Can Eagles",
+        "Do Steelers",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8a9c0d14-9577-42e6-96ef-5969a903ef3a",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-packers-teammates-mike-mccarthy-steelers/",
+      "title": "Aaron Rodgers' former Packers teammates rip QB over Mike McCarthy criticism: 'None are on 12's side'",
+      "body_text": "Former Packers players criticized Rodgers for attacking McCarthy publicly and putting his ex-Steelers teammates in an uncomfortable position",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-26T17:48:21+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Former Packers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "55b532b1-b111-4ece-b021-1802c987bf37",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-2026-grateful/",
+      "title": "What all 32 NFL teams should be thankful for this Thanksgiving",
+      "body_text": "From MVP candidates Joe Burrow and Brock Purdy to promising rookies, new coaches and future draft picks, here is one reason each of the NFL's 32 teams can give thanks",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-26T16:56:18+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving From",
+        "Joe Burrow",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0036442",
+        "00-0037834"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "b84ad5a8-ff04-4fde-b069-f362d63940e2",
+      "url": "https://www.cbssports.com/betting/news/week-12-nfl-betting-lines-odds-spreads-totals/",
+      "title": "Week 12 NFL odds, lines, totals, spreads for every game, including Bears-Lions, Cowboys-Eagles, Bills-Chiefs",
+      "body_text": "A look at the latest Week 12 NFL odds, spreads, and totals for all 16 games, including Thanksgiving matchups.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-26T16:40:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "63b70c16-6b22-4b0f-abec-99fec6273262",
+      "url": "https://www.cbssports.com/betting/news/bears-vs-lions-odds-picks-prediction-start-time-2026-nfl-thanksgiving-day-betting-preview-best-bets/",
+      "title": "Bears vs. Lions odds, picks, prediction, start time: 2026 NFL Thanksgiving Day betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Lions vs. Bears on Thanksgiving in NFL Week 12",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-26T16:31:11+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "f191446a-3f30-4ade-80cb-620e76729894",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-brinsons-best-bets-player-props-anytime-td-scorers-for-week-12-thanksgiving-day-games/",
+      "title": "NFL odds, picks: Brinson's best bets, player props, anytime TD scorers for Week 12 Thanksgiving Day games",
+      "body_text": "Back Chicago to win outright in Detroit, grab the points with Philadelphia against Dallas and target the Under in a high-stakes showdown between Kansas City and Buffalo",
+      "author": "Will Brinson",
+      "published_at": "2026-11-26T16:07:48+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Day",
+        "Back Chicago",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "e0f0c2bd-dee6-4e16-9daa-8095118530aa",
+      "url": "https://www.cbssports.com/prediction/news/aaron-rodgers-next-team-predictions-patriots-and-ravens-are-in-the-mix-but-retirement-the-most-likely-option/",
+      "title": "Aaron Rodgers next team predictions: Patriots and Ravens are in the mix, but retirement the most likely option",
+      "body_text": "With Aaron Rodgers' time in the Steel City over, here's a closer look at where he could land, according to Kalshi",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-26T15:56:51+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "With Aaron",
+        "Steel City"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "83ec1448-f509-4d07-b986-9fabece8a84f",
+      "url": "https://www.cbssports.com/nfl/news/lions-vs-bears-thanksgiving-prediction-odds-how-to-watch/",
+      "title": "Lions vs. Bears Thanksgiving prediction: Which team will take control of NFC North?",
+      "body_text": "Sole possession of first place in the NFC North is on the line at Ford Field as two 8-2 rivals clash on Thanksgiving with long winning streaks",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-26T14:46:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Bears Thanksgiving",
+        "Ford Field"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "2820521a-dbb2-4a97-88e0-42fe35a0fdf9",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-lines-spreads-picks-predictions-best-bets-week-12-2026/",
+      "title": "Week 12 NFL odds, picks, predictions: Computer model backs Vikings and Dolphins",
+      "body_text": "SportsLine's advanced model has simulated every game on the Week 12 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-26T14:45:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "2e4fa967-bec1-4ea9-baf6-62ce22e87734",
+      "url": "https://www.cbssports.com/nfl/news/steelers-aaron-rodgers-mccarthy-corum-rams-packers-thanksgiving-nfl/",
+      "title": "Steelers cut Aaron Rodgers after McCarthy blowup; Blake Corum and Rams run wild vs. Packers",
+      "body_text": "Plus, NFL Thanksgiving picks and the college football rivalries that could shake up the CFP race",
+      "author": "Austin Nivison",
+      "published_at": "2026-11-26T13:50:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Blake Corum",
+        "Packers Plus"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0039738"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "90059e40-380b-43be-8a1c-e9df8dfbb805",
+      "url": "https://www.cbssports.com/nfl/news/will-mike-mccarthy-survive-aaron-rodgers-backlash-steelers/",
+      "title": "Will Mike McCarthy survive Aaron Rodgers' backlash? Steelers reportedly standing by coach, but for how long?",
+      "body_text": "The next seven games may determine McCarthy's future in Pittsburgh beyond 2026",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-26T13:29:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Will Mike",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "469322ae-ea45-40f8-a46f-44507f578a50",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-vs-eagles-thanksgiving-how-to-watch-odds-preview-prediction/",
+      "title": "Cowboys vs. Eagles prediction: Dallas looks for first win streak of 2026 vs. ex-QB on Thanksgiving",
+      "body_text": "How to watch, what to know and a prediction for the Thanksgiving clash between NFC East rivals",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-26T13:00:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving How"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "de254f4e-08fd-4425-aaed-cee85b5678c3",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-games-2026-schedule-black-friday-rams-packers/",
+      "title": "2026 NFL Thanksgiving schedule: What to know about Thanksgiving and Black Friday games",
+      "body_text": "A look at the Thanksgiving week slate and all of its fixings you need in time for Turkey Day",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-26T04:00:42+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Turkey Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c6845447-cf1b-482c-b666-7c42fa070e5f",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-2026-ranking-most-memorable-halftime-shows/",
+      "title": "NFL on Thanksgiving halftime shows: Ranking the 10 most memorable performances",
+      "body_text": "A look at some of the most iconic performances from Turkey Days of the past",
+      "author": "Shanna McCarriston",
+      "published_at": "2026-11-26T03:04:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Turkey Days"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "fdc2dccb-58cf-4ae4-848c-8a028cd715b1",
+      "url": "https://www.cbssports.com/betting/news/packers-vs-rams-odds-picks-prediction-nfl-week-12-best-bets-player-props-for-thanksgiving-eve/",
+      "title": "Packers vs. Rams odds, picks, prediction: NFL Week 12 best bets, player props for Thanksgiving Eve",
+      "body_text": "Will Brinson breaks down his top value plays for Packers vs. Rams on Thanksgiving Eve, including a lean on the total and some anytime touchdown scorers",
+      "author": "Will Brinson",
+      "published_at": "2026-11-26T00:00:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Will Brinson"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c2be881a-0923-4b8c-9614-ed3b8fc3f612",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-injury-report-updates-kenneth-walker-brock-purdy-sam-darnold/",
+      "title": "NFL Week 12 injury report: Thanksgiving game statuses, latest updates for Sam Darnold, Brock Purdy",
+      "body_text": "Brock Purdy missed Wednesday's practice with an ankle injury, while Sam Darnold appears on track to return for a pivotal NFC West matchup",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-26T00:01:26+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Sam Darnold",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0034869",
+        "00-0037834"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "70d68844-4367-4b45-bac6-1c350e6f35e7",
+      "url": "https://www.cbssports.com/prediction/news/packers-vs-rams-first-touchdown-scorer-odds-for-nfl-thanksgiving-eve-game-picks-include-christian-watson/",
+      "title": "Packers vs. Rams first touchdown scorer odds for NFL Thanksgiving Eve game: Picks include Christian Watson",
+      "body_text": "Here's a look at first touchdown scorer prediction markets available at Kalshi for Packers vs. Rams NFL Week 12 on Thanksgiving Eve",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-25T23:45:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0038124"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "ed51c4a3-9957-45a1-b195-cc4c82b17171",
+      "url": "https://www.cbssports.com/betting/news/rams-vs-packers-picks-odds-prediction-spread-thanksgiving-eve-start-time-nfl-betting-preview-best-bets/",
+      "title": "Rams vs. Packers picks, odds, prediction, spread: Thanksgiving Eve start time, NFL betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Packers vs. Rams on Wednesday in NFL Week 12",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-25T23:39:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "c165ff60-6759-4bc9-82a8-227887acc112",
+      "url": "https://www.cbssports.com/nfl/news/best-kalshi-promo-code-cbssports55-pocket-55-bonus-rams-vs-packers-thanksgiving-eve-nfl-predictions/",
+      "title": "Best Kalshi promo code CBSSPORTS55: Pocket $55 bonus for Rams vs. Packers, Thanksgiving Eve NFL predictions",
+      "body_text": "Get a $55 bonus with the Kalshi promo code CBSSPORTS55 for Rams vs. Packers on Thanksgiving Eve 2026",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-25T23:30:34+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Best Kalshi",
+        "Thanksgiving Eve"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "6706f19f-b550-4480-ac3a-9fda7bade485",
+      "url": "https://www.cbssports.com/prediction/news/packers-vs-rams-predictions-odds-2026-thanksgiving-eve-use-polymarket-promo-code-cbssports-for-25-bonus/",
+      "title": "Packers vs. Rams predictions, odds, 2026 Thanksgiving Eve: Use Polymarket promo code CBSSPORTS for $25 bonus",
+      "body_text": "Get a $25 bonus with the Polymarket promo code CBSSPORTS for Packers vs. Rams on Thanksgiving Eve.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-25T23:10:23+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Use Polymarket"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "GB"
+    }
+  ]
+}

@@ -1,0 +1,787 @@
+{
+  "fetch_run_id": "04d09119-acd9-491c-a05d-a5791b41fd28",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-27T12:17:07.876388+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "1fc69975-6f9a-3f7e-be22-e8645454a721",
+      "url": "https://sports.yahoo.com/nfl/articles/cowboys-news-playoff-hopes-come-120000137.html",
+      "title": "Cowboys news: Playoff hopes come crashing down in embarrassing loss",
+      "body_text": "Here is today’s Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "37ca565f-e669-3df8-b6c7-1fa198fdcc52",
+      "url": "https://sports.yahoo.com/betting/articles/bengals-vs-saints-odds-expert-120000306.html",
+      "title": "Bengals vs. Saints odds, expert picks, and our prediction for Week 12 matchup",
+      "body_text": "Who do the experts and odds makers believe in more when the Saints come marching into Bengal territory.",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "40382af3-b0cc-31d4-ad92-f4ed9ab650ff",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-thanksgiving-winners-losers-120000767.html",
+      "title": "NFL Thanksgiving Winners & Losers",
+      "body_text": "3 winners and 3 losers from Turkey Day.",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Winners",
+        "Turkey Day"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "5ac5505f-cde8-3946-8c32-dc2fc2d44077",
+      "url": "https://sports.yahoo.com/nfl/articles/postpulpit-mailbag-offense-evolve-tommy-120000567.html",
+      "title": "#PostPulpit mailbag: How will the offense evolve for Tommy DeVito?",
+      "body_text": "The latest edition of our Patriots mailbag answers questions about the QB situation, the O-line, and more.",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "90f6c736-0c01-33c3-84bc-2ec7521d8262",
+      "url": "https://sports.yahoo.com/nfl/articles/bills-vs-chiefs-week-12-120000466.html",
+      "title": "Bills vs. Chiefs Week 12 postgame analysis: Buffalo’s defense too much for KC",
+      "body_text": "The Buffalo Bills gained a huge advantage over their biggest rivals, the Kansas City Chiefs, with a 13-10 primetime win",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Chiefs Week",
+        "The Buffalo",
+        "Kansas City"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "935b821f-ddb7-348a-8e77-daafa9059914",
+      "url": "https://sports.yahoo.com/nfl/articles/york-jets-news-miracle-run-120000004.html",
+      "title": "New York Jets News: A Miracle run to the Playoffs? Are you Saying There’s a Chance?",
+      "body_text": "Your daily links to the New York Jets",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets News",
+        "Saying There"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "b8df5fb2-961c-34c1-a27b-0d7b07455edc",
+      "url": "https://sports.yahoo.com/nfl/articles/broncos-vs-steelers-weather-forecast-120000724.html",
+      "title": "Broncos vs. Steelers weather forecast looking windy and wet",
+      "body_text": "The Denver Broncos and Pittsburgh Steelers game today will be wet, cold, and very windy. All can impact how an offense might perform or a defense might tackle.",
+      "author": "",
+      "published_at": "2026-11-27T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Denver",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "51b33173-e1e6-3910-afad-9f85dde48483",
+      "url": "https://sports.yahoo.com/nfl/articles/patriots-defense-preparing-every-quarterback-115543779.html",
+      "title": "Patriots defense preparing for every Chargers quarterback possibility",
+      "body_text": "With Justin Herbert’s status unclear, D.J. Uiagalelei might draw the start on Sunday.",
+      "author": "",
+      "published_at": "2026-11-27T11:55:43+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "With Justin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "c61d50db-dce3-367c-aaf5-9ed2ec565597",
+      "url": "https://sports.yahoo.com/nfl/articles/channel-steelers-vs-broncos-game-114546527.html",
+      "title": "What channel is the Steelers vs. Broncos game on today? Start time, schedule, streaming",
+      "body_text": "Two teams positioned for the AFC playoffs will meet the day after Thanksgiving for a game with major implications for the conference race.",
+      "author": "",
+      "published_at": "2026-11-27T11:45:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "407247b8-d383-4a52-8ca3-fa5de2ae0237",
+      "url": "https://sports.yahoo.com/nfl/article/denver-broncos-vs-pittsburgh-steelers-how-to-watch-the-2026-black-friday-nfl-game-200100799.html",
+      "title": "Denver Broncos vs. Pittsburgh Steelers: How to watch the 2026 Black Friday NFL game",
+      "body_text": "Shake off the turkey coma and get your shopping done early, because there's more NFL action on tap.",
+      "author": "Danica Creahan",
+      "published_at": "2026-11-26T20:01:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos",
+        "Pittsburgh Steelers",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "ffe9c8aa-ed09-3328-a3f8-a8974512e001",
+      "url": "https://sports.yahoo.com/nfl/articles/know-mason-rudolph-steelers-qb-113137777.html",
+      "title": "What to know about Mason Rudolph, Steelers QB replacing Aaron Rodgers",
+      "body_text": "Mason Rudolph spent years as the backup rarely talked about. Now he's starting for the Steelers, and he says the rest of this season is an audition.",
+      "author": "",
+      "published_at": "2026-11-27T11:31:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Mason Rudolph",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "2ba96fd2-fd02-3a5b-99d5-d4e6917e7636",
+      "url": "https://sports.yahoo.com/nfl/articles/broncos-vs-steelers-watch-game-113000918.html",
+      "title": "Broncos vs. Steelers: How to watch, game time, TV schedule, game preview and more",
+      "body_text": "Here’s how to watch today’s Black Friday game between the Denver Broncos and Pittsburgh Steelers in Week 12.",
+      "author": "",
+      "published_at": "2026-11-27T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Denver Broncos",
+        "Pittsburgh Steelers"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "94ce94c1-da7c-3b32-8f9a-0729d7f90e58",
+      "url": "https://sports.yahoo.com/nfl/articles/3-keys-cincinnati-bengals-victory-111500152.html",
+      "title": "3 keys to a Cincinnati Bengals victory vs. New Orleans Saints",
+      "body_text": "Mike Gesicki could be a major factor in the Bengals finding a way to beat the Saints.",
+      "author": "",
+      "published_at": "2026-11-27T11:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cincinnati Bengals",
+        "New Orleans",
+        "Saints Mike"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "b9d763a1-5f7d-4a50-b063-620eed63519b",
+      "url": "https://sports.yahoo.com/nfl/article/how-to-watch-every-sunday-nfl-football-game-during-week-12-of-the-2026-season-111533125.html",
+      "title": "How to watch every Sunday NFL football game during Week 12 of the 2026 season",
+      "body_text": "How you can keep up with every NFL game this Sunday.",
+      "author": "Danica Creahan",
+      "published_at": "2026-09-12T19:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "40709ead-31d7-3630-880f-80303edbf243",
+      "url": "https://sports.yahoo.com/nfl/articles/nfl-game-today-black-friday-110239475.html",
+      "title": "Is there an NFL game today? Black Friday matchup, Week 12 schedule",
+      "body_text": "The NFL is playing a primetime game on Black Friday again in 2026. Here's what to know about the league's full Thanksgiving week schedule.",
+      "author": "",
+      "published_at": "2026-11-27T11:02:39+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "08173c39-c7c9-314d-9f49-c90409dbe234",
+      "url": "https://sports.yahoo.com/nfl/articles/bear-den-ice-man-cometh-110000092.html",
+      "title": "The Bear’s Den: The Ice Man Cometh, beats Detroit Lions",
+      "body_text": "The Chicago Bears and the Iceman were tested by the Detroit Lions, and the Bears brought home a critical divisional win",
+      "author": "",
+      "published_at": "2026-11-27T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Bear",
+        "The Ice",
+        "Man Cometh",
+        "Detroit Lions",
+        "The Chicago"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "11855217-58e7-3e6b-b70b-e3053b4c4b90",
+      "url": "https://sports.yahoo.com/nfl/articles/remaining-opponent-scares-washington-fans-110000208.html",
+      "title": "Which remaining opponent scares Washington fans most? Here is how Hogs Haven voted in Week 12 - survey results",
+      "body_text": "Consecutive prime-time victories over Giants & Bengals have erased gloom of the 1-3 start; with Dallas stumbling on Thanksgiving, Washington is squarely in the NFC East hunt",
+      "author": "",
+      "published_at": "2026-11-27T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Hogs Haven"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CIN"
+    },
+    {
+      "external_id": "3a810fd2-4f2c-354d-b156-a7eb9c2bcfe8",
+      "url": "https://sports.yahoo.com/nfl/articles/watch-steelers-vs-broncos-110000288.html",
+      "title": "How to watch Steelers vs. Broncos",
+      "body_text": "How to watch Steelers vs. Broncos.",
+      "author": "",
+      "published_at": "2026-11-27T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Broncos How"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4af55677-c5a5-3c91-88c5-3c04bb434707",
+      "url": "https://sports.yahoo.com/nfl/articles/cleveland-browns-news-one-bye-110000415.html",
+      "title": "Cleveland Browns news: The one about bye weeks and No. 1 draft picks",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 27 edition of the Daily Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-27T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Daily Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "94d0b658-4dcf-3e52-aa79-1cc83b4811ae",
+      "url": "https://sports.yahoo.com/nfl/articles/broncos-must-build-recent-offensive-110000390.html",
+      "title": "Broncos must build on recent offensive success",
+      "body_text": "Bo Nix and the Broncos have shown what the offense is capable of, but the challenge is now building on that success.",
+      "author": "",
+      "published_at": "2026-11-27T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "6a23e9ae-6cc0-383f-b639-b9d4477d6a7b",
+      "url": "https://sports.yahoo.com/nfl/articles/joe-milton-eagles-dont-quit-105916883.html",
+      "title": "Joe Milton: Eagles don't quit, so happy to be on this team",
+      "body_text": "Six weeks ago, Joe Milton was on the Cowboys' practice squad.",
+      "author": "",
+      "published_at": "2026-11-27T10:59:16+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "12ce4d67-9d97-3cdb-b956-f81a3cf11248",
+      "url": "https://sports.yahoo.com/nfl/articles/happened-aaron-rodgers-steelers-benching-104723552.html",
+      "title": "What happened with Aaron Rodgers and the Steelers? From benching to release",
+      "body_text": "Aaron Rodgers is no longer the Steelers quarterback. Here's a breakdown of all the drama following his explosive comments about Mike McCarthy.",
+      "author": "",
+      "published_at": "2026-11-27T10:47:23+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "a6ae1d99-5252-3606-9544-c57dfd4d7073",
+      "url": "https://sports.yahoo.com/nfl/articles/ex-patriots-quarterback-joe-milton-103915147.html",
+      "title": "Ex-Patriots quarterback Joe Milton steals the show on Thanksgiving",
+      "body_text": "The former sixth-round draft pick led the Eagles to a come-from-behind win on Thursday.",
+      "author": "",
+      "published_at": "2026-11-27T10:39:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Thanksgiving The"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6a6490b4-b06b-369a-897e-dc72e9d6869e",
+      "url": "https://sports.yahoo.com/nfl/articles/kickers-made-difference-harrison-butker-100403422.html",
+      "title": "Kickers made the difference as Harrison Butker missed, Tyler Bass won the game",
+      "body_text": "The Thanksgiving night game between the Bills and Chiefs was billed as the battle of two great quarterbacks, Josh Allen and Patrick Mahomes.",
+      "author": "",
+      "published_at": "2026-11-27T10:04:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Harrison Butker",
+        "Tyler Bass",
+        "The Thanksgiving",
+        "Josh Allen",
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033303",
+        "00-0036162",
+        "00-0034857",
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "51f66f18-217a-3d5d-b6a3-cc03aa1435a3",
+      "url": "https://sports.yahoo.com/nfl/articles/patriots-vs-chargers-weather-forecast-100000819.html",
+      "title": "Patriots vs. Chargers weather forecast: It won’t matter, and that’s good for New England",
+      "body_text": "Up-to-date weather forecast for Sunday’s game between the Patriots and Chargers.",
+      "author": "",
+      "published_at": "2026-11-27T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New England"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "05211359-f63d-3542-9538-b843cd71067f",
+      "url": "https://sports.yahoo.com/nfl/articles/know-talent-dak-prescott-reflects-070000639.html",
+      "title": "‘I know the talent he has': Dak Prescott reflects on his time with Joe Milton",
+      "body_text": "Prescott served as a mentor to Milton while they were in Dallas together.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0039398"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "08589dea-474e-3816-8cd6-5a4ab5958628",
+      "url": "https://sports.yahoo.com/betting/articles/eagles-vs-cowboys-betting-guide-111809896.html",
+      "title": "Eagles vs Cowboys betting guide: Odds, props and picks",
+      "body_text": "Dallas dominated the Birds in the first matchup five weeks ago. Will Thanksgiving be a different result?",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Will Thanksgiving"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "174f6b65-9820-3061-b5ab-8b497d42e479",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-sign-defensive-tackle-gabe-170600713.html",
+      "title": "Eagles sign defensive tackle Gabe Hall to active roster, elevate two for Cowboys",
+      "body_text": "Gabe Hall gets the promotion after recording his first career sack against the Steelers.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Gabe Hall",
+        "Cowboys Gabe"
+      ],
+      "resolved_player_ids": [
+        "00-0039265"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "19644dc9-1fdd-3126-9e8a-40c2736ea557",
+      "url": "https://sports.yahoo.com/nfl/articles/roobs-observations-joe-milton-leads-140935543.html",
+      "title": "Roob's Observations as Joe Milton leads Eagles' miraculous comeback over Cowboys",
+      "body_text": "The Eagles pulled off the largest Thanksgiving comeback in NFL history, beating the Cowboys 39-38 after trailing 31-10 in the third quarter.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Cowboys The"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1dc646dd-6bd6-35f6-9452-51d805083359",
+      "url": "https://sports.yahoo.com/nfl/articles/ty-robinson-plays-role-unlikely-070000793.html",
+      "title": "Ty Robinson plays role of unlikely hero in Eagles' Thanksgiving win",
+      "body_text": "Ty Robinson played the role of unlikely hero in the Eagles' 39-38 comeback win on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ty Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040662"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "2de07562-9548-35f3-b82a-a75dd9002e40",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-grades-position-wild-comeback-001000424.html",
+      "title": "Eagles grades by position after wild comeback over Cowboys on Thanksgiving",
+      "body_text": "Here's a look at the report card after the Eagles' thrilling 39-38 win over the Cowboys on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "38d5f193-c9eb-30ff-a2f0-ba3926230db7",
+      "url": "https://sports.yahoo.com/nfl/articles/caleb-williams-bears-pull-off-140935815.html",
+      "title": "Caleb Williams, Bears pull off stunning Thanksgiving 39-35 win over Lions",
+      "body_text": "Caleb Williams and Rome Odunze played Thanksgiving heroes for the Chicago Bears in a 39-35 victory on Thursday.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Caleb Williams",
+        "Lions Caleb",
+        "Rome Odunze",
+        "Chicago Bears"
+      ],
+      "resolved_player_ids": [
+        "00-0039918",
+        "00-0039919"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "3e5f5acd-d8d9-33dd-8a69-189e6ac4efbc",
+      "url": "https://sports.yahoo.com/nfl/articles/joe-miltons-magical-performance-leads-070000836.html",
+      "title": "Joe Milton's magical performance leads Eagles to historic comeback vs. Cowboys",
+      "body_text": "He joined the Eagles 41 days ago. This was his third career start. And he did this?",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "4ff9a655-216d-31cd-b794-60a3769e9d8c",
+      "url": "https://sports.yahoo.com/articles/most-memorable-thanksgiving-moments-nfl-144207437.html",
+      "title": "Most memorable Thanksgiving moments in NFL history",
+      "body_text": "From star performances to unforgettable blunders, here are 10 iconic NFL moments on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "59547f9e-0a2a-349d-b8d5-9acc59fe6f27",
+      "url": "https://sports.yahoo.com/nfl/articles/switch-flips-jeremiah-trotter-jr-234338967.html",
+      "title": "The switch that flips for Jeremiah Trotter Jr. when he takes the field",
+      "body_text": "Jeremiah Trotter Jr. is a quiet guy off the field but all that changes when it's game time.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jeremiah Trotter Jr"
+      ],
+      "resolved_player_ids": [
+        "00-0039826"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "7e5f876a-e80d-31c7-b476-d74342971762",
+      "url": "https://sports.yahoo.com/nfl/articles/roobs-eagles-observations-why-tanking-070000178.html",
+      "title": "In Roob's Eagles Observations: Why tanking doesn't make sense in the NFL",
+      "body_text": "A short week for the Eagles means two sets of Obs.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "In Roob",
+        "Eagles Observations"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "80245676-f10e-32d2-870c-f38035abfb5e",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-roster-swap-add-lb-162937470.html",
+      "title": "Eagles make a roster swap, add LB to 53-man roster",
+      "body_text": "The Eagles on Tuesday signed LB Chance Campbell to their 53-man roster and waived OL Jake Majors.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "The Eagles",
+        "Chance Campbell",
+        "Jake Majors"
+      ],
+      "resolved_player_ids": [
+        "00-0037312",
+        "00-0040422"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8b8ed3b7-261d-387e-a002-5bf2c72bc3cc",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-cowboys-predictions-week-12-070000860.html",
+      "title": "Eagles at Cowboys predictions for Week 12 of 2026 NFL season",
+      "body_text": "Here are our predictions for Eagles-Cowboys on Thanksgiving in Week 12.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9e6f834c-eaee-3524-8e7e-ff7476cdf5b3",
+      "url": "https://sports.yahoo.com/nfl/articles/winners-losers-eagles-stun-cowboys-204000403.html",
+      "title": "Winners, losers as Eagles stun Cowboys 39-38 in Thanksgiving thriller",
+      "body_text": "Former Cowboy Joe Milton led an improbable comeback against Dak Prescott and Co. for a Thanksgiving stunner.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Former Cowboy",
+        "Joe Milton",
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0039398",
+        "00-0033077"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a293e072-5209-326c-ac6d-dd992423d50a",
+      "url": "https://sports.yahoo.com/nfl/articles/cooper-dejean-ruled-concussion-against-140935170.html",
+      "title": "Cooper DeJean ruled out with concussion against Cowboys on Thanksgiving",
+      "body_text": "The Eagles lost one of their best players within the first few minutes against Dallas.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a9202d50-87e8-3e9e-be24-d546d6af1f0c",
+      "url": "https://sports.yahoo.com/nfl/articles/devonta-smith-could-barely-walk-070000324.html",
+      "title": "DeVonta Smith could barely walk but he still finished off crazy win",
+      "body_text": "DeVonta Smith had a career game on Thanksgiving and proved he's just as tough as he is talented.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c21f0644-4145-31c7-a087-be0e50d30828",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-injury-dallas-goedert-questionable-140935504.html",
+      "title": "Eagles injury update: Dallas Goedert ruled out vs. Cowboys",
+      "body_text": "After Cooper DeJean went down in the first quarter, another Eagle has an injury status early in the game.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Goedert",
+        "Cowboys After"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c9ee86b1-f529-322a-b007-4fca2ce00bdb",
+      "url": "https://sports.yahoo.com/nfl/articles/why-hard-sack-dak-prescott-234338875.html",
+      "title": "Why is it so hard to sack Dak Prescott?",
+      "body_text": "The Cowboys have allowed one or no sacks in seven of their 11 games.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "The Cowboys"
+      ],
+      "resolved_player_ids": [
+        "00-0033077"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "cb4b4d4f-c680-3ebe-ac2d-50cc2fa66397",
+      "url": "https://sports.yahoo.com/nfl/articles/did-eagles-just-end-aaron-152000311.html",
+      "title": "Did the Eagles just end Aaron Rodgers' Hall of Fame career?",
+      "body_text": "After being released by the Steelers on Wednesday, Aaron Rodgers' career could be over.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "d6c83384-aae4-37d9-9634-784f777e1230",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-injury-good-news-latest-194125144.html",
+      "title": "Eagles injury update: Some good news in latest report",
+      "body_text": "There was some good news in the Eagles' injury report on Tuesday afternoon.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "dbb801a2-a2d7-3523-8ac4-e6747c831e3d",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-cowboys-matchups-watch-week-234338917.html",
+      "title": "Eagles-Cowboys matchups to watch in Week 12 on Thanksgiving",
+      "body_text": "Here are some key Eagles-Cowboys matchups to watch in Week 12 as the two teams face off on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e338339d-c416-3675-8416-0569242038cf",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-notebook-time-aggressive-offense-070000615.html",
+      "title": "Eagles notebook: Time to get aggressive on offense vs. Cowboys",
+      "body_text": "In the latest Eagles notebook: The need to be aggressive on offense, Jonathan Greenard's sack celebration and more.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e6776de4-5575-3abc-8386-35ec92e58a91",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-injury-quinyon-mitchell-good-140257041.html",
+      "title": "Eagles injury update: Quinyon Mitchell good to go; 2 ruled out",
+      "body_text": "Quinyon Mitchell is expected to play Thursday after being listed as a full participant Wednesday.",
+      "author": "",
+      "published_at": "2026-11-27T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Quinyon Mitchell"
+      ],
+      "resolved_player_ids": [
+        "00-0039888"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "6b162aaf-9f39-46ae-9791-1c7c3ed96ddd",
+      "url": "https://sports.yahoo.com/nfl/article/will-anyone-else-sign-aaron-rodgers-after-he-torched-steelers-breaking-down-5-questions-including-most-logical-match-065446773.html",
+      "title": "Will anyone else sign Aaron Rodgers after he torched Steelers? Breaking down 5 questions, including most logical match",
+      "body_text": "There is a laundry list of reasons why other teams would not sign the man who just aired quite a bit of dirty laundry. And yet: NFL teams have operated off far less logical desperation before.",
+      "author": "Jori Epstein",
+      "published_at": "2026-11-27T06:54:46+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "f1c2d3bb-bd88-3e3e-a530-b4a54aa9ae88",
+      "url": "https://sports.yahoo.com/nfl/articles/vikes-views-ya-got-atlanta-064000208.html",
+      "title": "Vikes Views: Who Ya Got? Atlanta Falcons at Minnesota Vikings",
+      "body_text": "The Minnesota Vikings schedule appears to lighten up this week with the low-flying Atlanta Falcons headed north. The Falcons have the third-worst passing defense in the NFL, allowing 239 yards per game through the air. The Vikings offense should be able to move the ball against a very mediocre defense. When Atlanta has the ball, […]",
+      "author": "",
+      "published_at": "2026-11-27T06:40:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Vikes Views",
+        "Ya Got",
+        "Atlanta Falcons",
+        "Minnesota Vikings",
+        "The Minnesota",
+        "The Falcons",
+        "The Vikings",
+        "When Atlanta"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    }
+  ]
+}

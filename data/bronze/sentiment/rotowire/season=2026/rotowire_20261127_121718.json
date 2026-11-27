@@ -1,0 +1,102 @@
+{
+  "fetch_run_id": "6619a125-cbfb-4a14-bf21-4a965348e327",
+  "source": "rotowire",
+  "fetched_at": "2026-11-27T12:17:18.221687+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl650077",
+      "url": "https://www.rotowire.com//football/player/josh-downs-16689",
+      "permalink": "",
+      "title": "Josh Downs: Limited to one catch Thursday",
+      "body_text": "Downs secured one of four targets for 13 yards in the Chiefs' 13-10 loss to the Bills on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-26T09:35:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Josh Downs",
+        "Thursday Downs"
+      ],
+      "resolved_player_ids": [
+        "00-0038997"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl650076",
+      "url": "https://www.rotowire.com//football/player/dj-moore-12477",
+      "permalink": "",
+      "title": "DJ Moore: Pair of grabs in Week 12 win",
+      "body_text": "Moore hauled in two of six targets for 15 yards in the Bills' 13-10 win over the Chiefs on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-26T09:32:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl650074",
+      "url": "https://www.rotowire.com//football/player/dalton-kincaid-16697",
+      "permalink": "",
+      "title": "Dalton Kincaid: Two catches in return",
+      "body_text": "Kincaid brought in both targets for 13 yards in the Bills' 13-10 loss to the Chiefs on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-26T09:28:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Dalton Kincaid"
+      ],
+      "resolved_player_ids": [
+        "00-0038933"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl650073",
+      "url": "https://www.rotowire.com//football/player/rashee-rice-16963",
+      "permalink": "",
+      "title": "Rashee Rice: Forgettable numbers in loss",
+      "body_text": "Rice brought in two of five targets for 19 yards in the Chiefs' 13-10 loss to the Bills on Thursday. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-26T09:23:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rashee Rice"
+      ],
+      "resolved_player_ids": [
+        "00-0039067"
+      ],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "nfl650071",
+      "url": "https://www.rotowire.com//football/player/patrick-mahomes-11839",
+      "permalink": "",
+      "title": "Patrick Mahomes: Unremarkable numbers in loss",
+      "body_text": "Mahomes completed 16 of 29 passes for 174 yards with no touchdowns or interceptions and rushed three times for two yards in the Chiefs' 13-10 loss to the Bills on Thursday. He also fumbled twice but recovered on each occasion. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-26T09:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Patrick Mahomes"
+      ],
+      "resolved_player_ids": [
+        "00-0033873"
+      ],
+      "team_hint": "KC"
+    }
+  ]
+}
