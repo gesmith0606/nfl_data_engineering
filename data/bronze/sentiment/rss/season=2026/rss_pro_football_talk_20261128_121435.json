@@ -1,0 +1,529 @@
+{
+  "fetch_run_id": "34e74af9-8b38-4bb0-9648-876e310adb2d",
+  "source": "rss_pro_football_talk",
+  "fetched_at": "2026-11-28T12:14:35.470433+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 30,
+  "items": [
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-rudolph-aftermath-of-aaron-rodgers-on-pat-mcafee-was-challenging-for-steelers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-rudolph-aftermath-of-aaron-rodgers-on-pat-mcafee-was-challenging-for-steelers",
+      "title": "Mason Rudolph: Aftermath of Aaron Rodgers on Pat McAfee was challenging for Steelers",
+      "body_text": "\"We obviously had a lot of stuff we had to filter through, and a lot of aftermath with his visit on national television,\" Rudolph said.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-28T11:13:57+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mason Rudolph",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-guard-bill-murray-out-for-season-after-torn-achilles-in-first-career-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/rams-guard-bill-murray-out-for-season-after-torn-achilles-in-first-career-start",
+      "title": "Rams guard Bill Murray out for season after torn Achilles in first career start",
+      "body_text": "A former undrafted rookie defensive lineman, Murray worked for years to reach the point where he could start on the offensive line.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-28T08:41:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bill Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0036093"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-admits-he-hasnt-spent-enough-time-with-the-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-mccarthy-admits-he-hasnt-spent-enough-time-with-the-defense",
+      "title": "Mike McCarthy admits he hasn't spent enough time with the defense",
+      "body_text": "McCarthy vows to take a closer look at the situation in the offseason.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-28T04:46:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-brock-purdys-ankle-sprain-is-more-mid-than-low",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyle-shanahan-brock-purdys-ankle-sprain-is-more-mid-than-low",
+      "title": "Kyle Shanahan: Brock Purdy's ankle sprain is \"more mid than low\"",
+      "body_text": "49ers quarterback Brock Purdy emerged from Sunday's win over the Vikings with an ankle injury.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-28T01:00:29+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-sam-darnold-when-healthy-i-think-hes-done-a-good-job",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-macdonald-on-sam-darnold-when-healthy-i-think-hes-done-a-good-job",
+      "title": "Mike Macdonald on Sam Darnold, when healthy: \"I think he's done a good job\"",
+      "body_text": "Quarterback Sam Darnold is back as Seattle's starter this week, after missing two games due to quad and rib injuries.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-28T00:44:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mike Macdonald",
+        "Sam Darnold",
+        "Quarterback Sam"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-12",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-playoff-picture-2026-updated-afc-and-nfc-standings-bracket-tiebreakers-for-week-12",
+      "title": "NFL Playoff Picture 2026: Updated AFC and NFC standings, bracket, tiebreakers for Week 12",
+      "body_text": "The Steelers' dominant win over the Broncos showed they remain in the thick of the playoff race after the Aaron Rodgers fiasco.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T22:30:00+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Playoff Picture",
+        "The Steelers",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/no-aaron-rodgers-no-problem-steelers-crush-broncos-with-dominant-defense",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/no-aaron-rodgers-no-problem-steelers-crush-broncos-with-dominant-defense",
+      "title": "No Aaron Rodgers? No problem. Steelers crush Broncos with dominant defense",
+      "body_text": "Mason Rudolph did enough on a day when the Steelers' defense made life miserable for Bo Nix.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T22:53:33+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "No Aaron",
+        "Mason Rudolph",
+        "Bo Nix"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0039732"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-ruled-out-dj-uiagalelei-to-make-first-start-vs-patriots",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/justin-herbert-ruled-out-dj-uiagalelei-to-make-first-start-vs-patriots",
+      "title": "Justin Herbert ruled out, DJ Uiagalelei to make first start vs. Patriots",
+      "body_text": "It is officially going to be DJ Uiagalelei vs.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T22:52:37+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "NE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-announce-mac-jones-will-start-vs-seahawks-brock-purdy-is-out",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/49ers-announce-mac-jones-will-start-vs-seahawks-brock-purdy-is-out",
+      "title": "49ers announce Mac Jones will start vs. Seahawks, Brock Purdy is out",
+      "body_text": "Purdy's ankle injury will force him to miss his first game of the season.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T22:45:12+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mac Jones",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0036972",
+        "00-0037834"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-sanctity-of-the-locker-room-doesnt-protect-the-coach-from-accountability",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-sanctity-of-the-locker-room-doesnt-protect-the-coach-from-accountability",
+      "title": "Aaron Rodgers: Sanctity of the locker room doesn't protect the coach from accountability",
+      "body_text": "With Al Michaels calling today's game in Pittsburgh, ex-Steelers quarterback Aaron Rodgers texted Michaels to give his side of the nasty breakup he just had with the team and head coach Mike McCarthy.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T22:36:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Al Michaels"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-officially-off-injury-report-set-to-start-vs-49ers",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-officially-off-injury-report-set-to-start-vs-49ers",
+      "title": "Sam Darnold officially off injury report, set to start vs. 49ers",
+      "body_text": "Sam Darnold is officially back.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T22:22:44+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Sam Darnold"
+      ],
+      "resolved_player_ids": [
+        "00-0034869"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-mccaffrey-gives-up-no-11-to-brandon-aiyuk",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/luke-mccaffrey-gives-up-no-11-to-brandon-aiyuk",
+      "title": "Luke McCaffrey gives up No. 11 to Brandon Aiyuk",
+      "body_text": "Receiver Brandon Aiyuk is back, and he'll be back in the only number he's ever worn in the NFL.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T21:35:21+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Receiver Brandon"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-not-practicing-on-friday-putting-mac-jones-in-line-to-start",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-purdy-not-practicing-on-friday-putting-mac-jones-in-line-to-start",
+      "title": "Brock Purdy not practicing on Friday, putting Mac Jones in line to start",
+      "body_text": "It looks like 49ers quarterback Brock Purdy will not be able to play Sunday's game against the Seahawks.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T21:27:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Purdy",
+        "Mac Jones"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0036972"
+      ],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-ls-rex-sunahara-to-four-year-extension",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/browns-sign-ls-rex-sunahara-to-four-year-extension",
+      "title": "Browns sign LS Rex Sunahara to four-year extension",
+      "body_text": "The Browns have signed a key special teams contributor to a new deal.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T21:19:43+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Rex Sunahara",
+        "The Browns"
+      ],
+      "resolved_player_ids": [
+        "00-0036443"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-throws-directly-to-jalen-ramsey-for-pick-six-as-steelers-dominate-the-first-half",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bo-nix-throws-directly-to-jalen-ramsey-for-pick-six-as-steelers-dominate-the-first-half",
+      "title": "Bo Nix throws directly to Jalen Ramsey for pick-six as Steelers dominate the first half",
+      "body_text": "The Broncos' offense has been awful today.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T21:19:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Jalen Ramsey",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0039732",
+        "00-0033055"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-rule-out-jordan-addison-christian-darrisaw-isaiah-rodgers-for-week-12",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/vikings-rule-out-jordan-addison-christian-darrisaw-isaiah-rodgers-for-week-12",
+      "title": "Vikings rule out Jordan Addison, Christian Darrisaw, Isaiah Rodgers for Week 12",
+      "body_text": "The Vikings will not have a few key players when they host the Falcons on Sunday.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T20:06:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jordan Addison",
+        "Christian Darrisaw",
+        "Isaiah Rodgers",
+        "The Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0038994",
+        "00-0036616",
+        "00-0036222"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-questionable-for-sunday-night-vs-browns",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brock-bowers-questionable-for-sunday-night-vs-browns",
+      "title": "Brock Bowers questionable for Sunday night vs. Browns",
+      "body_text": "The Raiders may get tight end Brock Bowers back for Sunday's game against the Browns.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T21:09:16+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brock Bowers",
+        "Browns The"
+      ],
+      "resolved_player_ids": [
+        "00-0039338"
+      ],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alex-singleton-tackles-jaylen-warren-in-the-end-zone-for-a-safety-as-steelers-lead-14-5",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/alex-singleton-tackles-jaylen-warren-in-the-end-zone-for-a-safety-as-steelers-lead-14-5",
+      "title": "Alex Singleton tackles Jaylen Warren in the end zone for a safety as Steelers lead 14-5",
+      "body_text": "The Broncos' offense can't do anything, but the defense has done something.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T21:00:38+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Alex Singleton",
+        "Jaylen Warren",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0031898",
+        "00-0037228"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-had-an-absolutely-fantastic-experience-coaching-with-mike-mccarthy",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/dan-quinn-had-an-absolutely-fantastic-experience-coaching-with-mike-mccarthy",
+      "title": "Dan Quinn had an \"absolutely fantastic experience\" coaching with Mike McCarthy",
+      "body_text": "With Wednesday's rant from former Steelers quarterback Aaron Rodgers painting a negative picture about Steelers coach Mike McCarthy that extended to his time with both the Packers and the Cowboys, those who have worked with him in those places will inevitably be asked about McCarthy.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T20:56:15+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Dan Quinn",
+        "With Wednesday",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-rudolph-hits-dk-metcalf-for-touchdown-pass-as-steelers-take-14-0-lead-over-broncos",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mason-rudolph-hits-dk-metcalf-for-touchdown-pass-as-steelers-take-14-0-lead-over-broncos",
+      "title": "Mason Rudolph hits DK Metcalf for touchdown pass as Steelers take 14-0 lead over Broncos",
+      "body_text": "It's been all Steelers in the first quarter in Pittsburgh.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T20:39:27+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0034771"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tee-higgins-did-not-practice-friday-questionable-for-sunday-vs-saints",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tee-higgins-did-not-practice-friday-questionable-for-sunday-vs-saints",
+      "title": "Tee Higgins did not practice Friday, questionable for Sunday vs. Saints",
+      "body_text": "Bengals receiver Tee Higgins did not practice on Friday, but the injury should not keep him out of Sunday's game against the Saints.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T20:36:48+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Tee Higgins",
+        "Saints Bengals"
+      ],
+      "resolved_player_ids": [
+        "00-0036410"
+      ],
+      "team_hint": "NO"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-iii-praises-the-eagles-possibly-criticizes-the-cowboys",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/joe-milton-iii-praises-the-eagles-possibly-criticizes-the-cowboys",
+      "title": "Joe Milton III praises the Eagles, possibly criticizes the Cowboys",
+      "body_text": "Eagles quarterback Joe Milton III returned to Texas on Thursday and threw a significant wrench into the Cowboys' postseason plans (and, possibly, Philly's thinly-veiled soft tank).",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T20:36:14+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Joe Milton III",
+        "Cowboys Eagles"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-score-first-as-t-j-watt-recovers-bo-nix-fumble-in-end-zone",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/steelers-score-first-as-t-j-watt-recovers-bo-nix-fumble-in-end-zone",
+      "title": "Steelers score first as T.J. Watt recovers Bo Nix fumble in end zone",
+      "body_text": "There hasn't been any offense on display in Pittsburgh so far on Black Friday, but there has been a touchdown.",
+      "author": "Michael David Smith",
+      "published_at": "2026-11-27T20:26:45+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Bo Nix",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [
+        "00-0039732"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-off-injury-report-likely-to-be-no-2-qb-vs-falcons",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/kyler-murray-off-injury-report-likely-to-be-no-2-qb-vs-falcons",
+      "title": "Kyler Murray off injury report, likely to be No. 2 QB vs. Falcons",
+      "body_text": "Vikings quarterback Kyler Murray is officially off the injury report for Sunday's game against the Falcons.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T20:22:24+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Kyler Murray",
+        "Falcons Vikings"
+      ],
+      "resolved_player_ids": [
+        "00-0035228"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-will-not-play-sunday-vs-cardinals",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-will-not-play-sunday-vs-cardinals",
+      "title": "Brandon Aiyuk will not play Sunday vs. Cardinals",
+      "body_text": "While receiver Brandon Aiyuk joined the Commanders earlier this week, but his debut with the team will have to wait.",
+      "author": "Myles Simmons",
+      "published_at": "2026-11-27T19:42:54+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Brandon Aiyuk",
+        "Cardinals While"
+      ],
+      "resolved_player_ids": [
+        "00-0036261"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-cb-amik-robertson-to-miss-second-straight-game",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/commanders-cb-amik-robertson-to-miss-second-straight-game",
+      "title": "Commanders CB Amik Robertson to miss second straight game",
+      "body_text": "The Commanders got a win over the Bengals without cornerback Amik Robertson and they'll try to do it again when they face the Cardinals on Sunday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-27T19:16:51+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Amik Robertson",
+        "The Commanders"
+      ],
+      "resolved_player_ids": [
+        "00-0036375"
+      ],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-call-colston-loveland-week-to-week-with-a-knee-injury",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/bears-call-colston-loveland-week-to-week-with-a-knee-injury",
+      "title": "Bears call Colston Loveland week-to-week with a knee injury",
+      "body_text": "Bears tight end Colston Loveland went for tests on his injured knee after leaving Thursday's game in the first quarter and the team updated his condition on Friday.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-27T19:11:10+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Colston Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-got-no-support-from-the-thanksgiving-broadcasts",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/aaron-rodgers-got-no-support-from-the-thanksgiving-broadcasts",
+      "title": "Aaron Rodgers got no support from the Thanksgiving broadcasts",
+      "body_text": "The day after former Steelers quarterback Aaron Rodgers went on TV and aired dirty laundry from the Pittsburgh locker room, none of the former quarterbacks (or other former players) who appear on TV supported him.",
+      "author": "Mike Florio",
+      "published_at": "2026-11-27T19:07:40+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rule-out-wr-jahan-dotson-lg-matthew-bergeron",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/falcons-rule-out-wr-jahan-dotson-lg-matthew-bergeron",
+      "title": "Falcons rule out WR Jahan Dotson, LG Matthew Bergeron",
+      "body_text": "The Falcons have ruled out a couple of offensive starters for Sunday's game against the Vikings.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-27T19:04:19+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Jahan Dotson",
+        "Matthew Bergeron",
+        "The Falcons"
+      ],
+      "resolved_player_ids": [
+        "00-0037741",
+        "00-0039048"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-cole-holcomb-inactive-for-the-steelers-on-friday",
+      "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lb-cole-holcomb-inactive-for-the-steelers-on-friday",
+      "title": "LB Cole Holcomb inactive for the Steelers on Friday",
+      "body_text": "The most notable absence on the Steelers side of the field on Friday afternoon will be Aaron Rodgers, but the team also has players still on their roster who will not be playing against the Broncos.",
+      "author": "Josh Alper",
+      "published_at": "2026-11-27T18:50:02+00:00",
+      "source": "rss_pro_football_talk",
+      "candidate_names": [
+        "Cole Holcomb",
+        "Friday The",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0035286",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    }
+  ]
+}

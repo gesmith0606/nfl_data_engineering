@@ -1,0 +1,594 @@
+{
+  "fetch_run_id": "34e74af9-8b38-4bb0-9648-876e310adb2d",
+  "source": "rss_cbs_nfl",
+  "fetched_at": "2026-11-28T12:14:37.178100+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 36,
+  "items": [
+    {
+      "external_id": "1cef0989-9ec8-437d-b223-70a705d23d8c",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-injury-report-brock-purdy-justin-herbert-out/",
+      "title": "NFL Week 12 injury report: Brock Purdy, Justin Herbert out as QB health dwindles across league",
+      "body_text": "Final injury reports for every team playing on Sunday in Week 12",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-28T02:36:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brock Purdy",
+        "Justin Herbert"
+      ],
+      "resolved_player_ids": [
+        "00-0037834",
+        "00-0036355"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "9241c60e-6cd3-4962-a0a0-d3085048f3f0",
+      "url": "https://www.cbssports.com/nfl/news/aaron-rodgers-barred-from-steelers-facility-qb-went-scorched-earth-on-mike-mccarthy/",
+      "title": "Aaron Rodgers claims he was 'barred' from Steelers' facility: Why QB went scorched earth on Mike McCarthy",
+      "body_text": "Here's why the QB went scorched earth on Mike McCarthy",
+      "author": "John Breech",
+      "published_at": "2026-11-28T00:15:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "51564755-ac19-442d-b0d4-8e2807d6498b",
+      "url": "https://www.cbssports.com/nfl/news/chargers-poised-to-start-dj-uiagalelei-with-justin-herbert-ruled-out-for-week-12/",
+      "title": "Chargers poised to start DJ Uiagalelei with Justin Herbert ruled out for Week 12",
+      "body_text": "Uiagalelei's first career start marks a new low for Los Angeles' maligned offense",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-28T03:43:58+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Justin Herbert",
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [
+        "00-0036355"
+      ],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "01f5317c-b2b3-4188-a676-8471d67d9d43",
+      "url": "https://www.cbssports.com/nfl/news/black-friday-scorigami-steelers-broncos-final-score-nfl-history/",
+      "title": "Black Friday scorigami: Steelers-Broncos ends with final score that's never happened before in NFL history",
+      "body_text": "The Broncos and Steelers combined to make NFL history on Black Friday",
+      "author": "John Breech",
+      "published_at": "2026-11-27T23:27:44+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "The Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "75814057-3c6c-43aa-9d6c-9e7bcf125c14",
+      "url": "https://www.cbssports.com/nfl/news/mason-rudolph-defense-can-steady-steelers-but-real-progress-far-off/",
+      "title": "Mason Rudolph and Steelers defense can clean up Aaron Rodgers' mess, but the franchise's problems run deeper",
+      "body_text": "Pittsburgh's post-Rodgers resurgence offers hope for this season, but the organization's long-term problems aren't going away",
+      "author": "Ryan Wilson",
+      "published_at": "2026-11-27T23:45:17+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mason Rudolph",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "03a861cb-7e39-4063-a870-7a651f725db7",
+      "url": "https://www.cbssports.com/nfl/news/rick-pitino-takes-jab-at-aaron-rodgers-steelers-mike-mccarthy-comments/",
+      "title": "Rick Pitino takes thinly veiled jab at Aaron Rodgers over scathing Mike McCarthy comments",
+      "body_text": "Rodgers' bombshell comments left an impression on the entire sports world",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-27T21:57:31+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Rick Pitino",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "2820521a-dbb2-4a97-88e0-42fe35a0fdf9",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-betting-lines-spreads-picks-predictions-today-week-12-2026/",
+      "title": "Week 12 NFL odds, picks, predictions: Computer model backs Vikings and Dolphins",
+      "body_text": "SportsLine's advanced model has simulated every game on the Week 12 NFL schedule 10,000 times and locked in its NFL best bets today",
+      "author": "Ross Kelly",
+      "published_at": "2026-11-27T21:25:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "78e046c2-222d-4903-9a57-e77b17f0c310",
+      "url": "https://www.cbssports.com/nfl/news/broncos-troll-steelers-aaron-rodgers-discount-double-check-celebration-safety/",
+      "title": "Broncos troll Steelers, Aaron Rodgers with 'discount double-check' celebration after safety",
+      "body_text": "Denver's Alex Singleton got a jab in against Rodgers' former team",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-27T21:24:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Alex Singleton"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0031898"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "19c7c1ea-2c7a-43c9-b6a1-381bac286a8f",
+      "url": "https://www.cbssports.com/nfl/news/bears-te-colston-loveland-second-opinion-knee-injury-thanksgiving-win/",
+      "title": "Bears feared to lose another TE long-term as Colston Loveland looks for second opinion on knee injury",
+      "body_text": "The second-year tight end ihurt his knee on Thanksgiving. as Chicago pushes for the NFC's top seed",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-27T19:15:33+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Colston Loveland"
+      ],
+      "resolved_player_ids": [
+        "00-0040126"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "aefded14-68ec-4970-8119-028d2b0404e7",
+      "url": "https://www.cbssports.com/nfl/news/cowboys-brian-schottenheimer-job-security-after-disaster-loss-i-dont-worry-about-that/",
+      "title": "Cowboys coach Brian Schottenheimer on job security after latest disastrous loss: 'I don't worry about that'",
+      "body_text": "Schottenheimer is once again under fire in the wake of another brutal defeat",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-27T19:06:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Brian Schottenheimer"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "80dfaeca-187a-426b-b9a1-141e35455a76",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-brinsons-best-bets-player-props-anytime-td-scorers-for-sundays-week-12-games/",
+      "title": "NFL odds, picks: Brinson's best bets, player props, anytime TD scorers for Sunday's Week 12 games",
+      "body_text": "Target a Kirk Cousins revenge spot against Atlanta, catch points with Indianapolis and Miami, and bet on a Quinshon Judkins breakout",
+      "author": "Will Brinson",
+      "published_at": "2026-11-27T18:56:07+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Kirk Cousins",
+        "Quinshon Judkins"
+      ],
+      "resolved_player_ids": [
+        "00-0029604",
+        "00-0040784"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "af5133ed-8f68-4a02-9ffe-3477db1cb19a",
+      "url": "https://www.cbssports.com/nfl/news/polymarket-promo-code-cbssports-pocket-25-bonus-steelers-vs-broncos-nfl-black-friday-predictions/",
+      "title": "Polymarket promo code CBSSPORTS: Pocket $25 bonus for Steelers vs. Broncos, NFL Black Friday predictions",
+      "body_text": "Get a $25 bonus with the Polymarket promo code CBSSPORTS for Steelers-Broncos on Black Friday.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-27T18:40:28+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "67faa936-fa87-433f-910d-73e45e5db3e7",
+      "url": "https://www.cbssports.com/nfl/news/jerry-jones-calls-mike-mccarthy-outstanding-refutes-aaron-rodgers-accusations/",
+      "title": "Jerry Jones, Brian Schottenheimer refute Aaron Rodgers' accusations: Mike McCarthy 'was outstanding'",
+      "body_text": "Rodgers accused McCarthy of being late to meetings, sleeping in meetings and being behind on film prep",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-27T18:38:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "Brian Schottenheimer",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "e2ed00b0-e140-4daf-9175-58775f126885",
+      "url": "https://www.cbssports.com/nfl/news/best-kalshi-promo-code-cbssports55-pocket-55-bonus-broncos-vs-steelers-nfl-black-friday-predictions/",
+      "title": "Best  Kalshi promo code CBSSPORTS55: Pocket $55 bonus for Broncos vs. Steelers, NFL Black Friday predictions",
+      "body_text": "Get a $55 bonus with the Kalshi promo code CBSSPORTS55 for Steelers-Broncos on Black Friday.",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-27T18:30:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "aa38ef9e-359f-46d4-b2fe-43f9c1b26fd7",
+      "url": "https://www.cbssports.com/prediction/news/broncos-vs-steelers-odds-first-touchdown-scorer-picks-nfl-predictions-black-friday-game-kalshi/",
+      "title": "Broncos vs. Steelers odds, first touchdown scorer picks: NFL predictions for Black Friday game at Kalshi",
+      "body_text": "Here's a look at first touchdown scorer prediction markets available at Kalshi for Broncos NFL Week 12 on Black Friday",
+      "author": "Nick Stellini",
+      "published_at": "2026-11-27T18:27:37+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Kalshi Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4a8b353b-2c79-4cf9-bdb5-fc4000ddf021",
+      "url": "https://www.cbssports.com/prediction/news/broncos-vs-steelers-odds-picks-black-friday-preview-get-25-bonus-with-polymarket-promo-code-cbssports/",
+      "title": "Broncos vs. Steelers odds, picks, Black Friday preview: Get $25 bonus with Polymarket promo code CBSSPORTS",
+      "body_text": "Get a $25 bonus with the Polymarket promo code CBSSPORTS for Steelers vs. Broncos on Black Friday",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-27T18:26:35+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "6bff0567-0dc8-4591-9c45-dd09834a751f",
+      "url": "https://www.cbssports.com/betting/news/steelers-vs-broncos-odds-picks-prediction-black-friday-start-time-nfl-week-12-betting-preview-best-bets/",
+      "title": "Steelers vs. Broncos odds, picks, prediction, Black Friday start time: NFL Week 12 betting preview, best bets",
+      "body_text": "Here's everything bettors need to know for Steelers vs. Broncos on Black Friday in NFL Week 12",
+      "author": "Owen OBrien",
+      "published_at": "2026-11-27T18:17:39+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "efdf81ad-16a6-4417-9753-f213726165d9",
+      "url": "https://www.cbssports.com/nfl/news/broncos-steelers-why-nfl-cant-schedule-primetime-black-friday-game/",
+      "title": "Broncos at Steelers: Why the NFL isn't allowed to schedule the Black Friday game for primetime",
+      "body_text": "For the fourth straight year, the Black Friday game will kick off at 3 p.m. ET",
+      "author": "John Breech",
+      "published_at": "2026-11-27T17:47:01+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "285321db-54a1-48da-b555-31410012917f",
+      "url": "https://www.cbssports.com/nfl/news/did-chiefs-get-hosed-by-nfl-clock-controversy-breaking-down-the-final-seconds-of-bills-wild-thanksgiving-win/",
+      "title": "Did Chiefs get hosed by NFL clock controversy? Breaking down the final seconds of Bills' wild Thanksgiving win",
+      "body_text": "The Bills may have gotten a boost from a friendly clock operator in Buffalo",
+      "author": "John Breech",
+      "published_at": "2026-11-27T17:34:59+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Did Chiefs",
+        "The Bills"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "KC"
+    },
+    {
+      "external_id": "11607e17-acf1-4c71-8b1f-4191d0b25a5e",
+      "url": "https://www.cbssports.com/nfl/news/dallas-cowboys-coach-candidates-if-jerry-jones-fires-brian-schottenheimer/",
+      "title": "A premature, unauthorized, tiered ranking of every possible Dallas Cowboys coach -- should Jerry Jones need it",
+      "body_text": "With Brian Schottenheimer on the hot seat after a disastrous 5-7 start, here is a look at who Jerry Jones could target, from big names like Bill Belichick to proven winners like Mike Tomlin",
+      "author": "Jared Dubin",
+      "published_at": "2026-11-27T17:08:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Dallas Cowboys",
+        "Jerry Jones",
+        "With Brian",
+        "Bill Belichick",
+        "Mike Tomlin"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DAL"
+    },
+    {
+      "external_id": "5e5e0639-e030-4a38-8638-1b094a416a05",
+      "url": "https://www.cbssports.com/nfl/news/jaguars-wr-parker-washington-out-week-12-considered-week-to-week-shoulder-injury-playoffs/",
+      "title": "Jaguars lose WR Parker Washington, RB Bhayshul Tuten to injury as playoffs draw near",
+      "body_text": "Jacksonville's top target is evaluated week-to-week with a shoulder issue, while leading rusher Bhayshul Tuten is also out",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-27T22:21:36+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Parker Washington",
+        "Bhayshul Tuten"
+      ],
+      "resolved_player_ids": [
+        "00-0038606",
+        "00-0040719"
+      ],
+      "team_hint": "JAX"
+    },
+    {
+      "external_id": "eb9d29d1-5ff0-4a69-be6e-7363eee11b1c",
+      "url": "https://www.cbssports.com/betting/news/week-12-nfl-betting-promos-get-nearly-4000-in-bonuses-from-betting-apps-sportsbooks-for-nfl-black-friday/",
+      "title": "Week 12 NFL betting promos: Get nearly $4,000 in bonuses from betting apps, sportsbooks for NFL Black Friday",
+      "body_text": "Top Week 12 NFL betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet",
+      "author": "Ryan Wooden",
+      "published_at": "2026-11-27T16:22:15+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Top Week",
+        "Fanatics Sportsbook",
+        "Hard Rock"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b84ad5a8-ff04-4fde-b069-f362d63940e2",
+      "url": "https://www.cbssports.com/betting/news/week-12-nfl-betting-lines-spreads-odds-totals/",
+      "title": "Week 12 NFL odds, lines, totals, spreads for every game, including Broncos-Steelers, 49ers-Seahawks",
+      "body_text": "A look at the latest Week 12 NFL odds, spreads, and totals for all 16 games, including Steelers vs. Broncos on Black Friday",
+      "author": "Dustin Baker",
+      "published_at": "2026-11-27T16:15:25+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "9c3bd71c-edae-4e00-a423-340def1d5abf",
+      "url": "https://www.cbssports.com/nfl/news/steelers-vs-broncos-prediction-why-mason-rudolph-lead-upset-aaron-rodgers/",
+      "title": "Steelers vs. Broncos prediction: Why Mason Rudolph can lead upset after Aaron Rodgers drama",
+      "body_text": "Rudolph is replacing Rodgers, who was surprisingly benched on Tuesday night and then went on a scorched-earth tirade against his now-former head coach",
+      "author": "Bryan DeArdo",
+      "published_at": "2026-11-27T17:25:24+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Why Mason",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "29523dbc-7afa-4e89-989b-1fd0e80c8af1",
+      "url": "https://www.cbssports.com/nfl/news/2027-nfl-draft-remaining-games-determine-draft-order-including-no-1-overall/",
+      "title": "2027 NFL Draft: Remaining games that will determine the draft order, including No. 1 overall",
+      "body_text": "A late-season clash between one-win teams Miami and Los Angeles leads a slate of critical showdowns with major quarterback dominoes and trade leverage at stake",
+      "author": "Josh Edwards",
+      "published_at": "2026-11-27T15:39:12+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "0293c779-4f34-490c-a37d-1a91bc2df9f2",
+      "url": "https://www.cbssports.com/nfl/news/ranking-nfl-thanksgiving-2026-beef-nick-sirianni-andy-reid-aaron-rodgers/",
+      "title": "Thanksgiving Beef: Nick Sirianni vs. fan, Andy Reid vs. the refs, Aaron Rodgers vs. the world",
+      "body_text": "A thrilling holiday tripleheader delivered historic comebacks alongside heated sideline blowups, controversial officiating decisions and growing fan frustration",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-27T15:36:52+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Thanksgiving Beef",
+        "Nick Sirianni",
+        "Andy Reid",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "2069727a-ce04-4056-ac11-7abc4299ab8b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-bold-predictions-vikings-sack-record-j-j-mccarthy-giants/",
+      "title": "Week 12 bold predictions: Vikings set season sack record, J.J. McCarthy has best game of career",
+      "body_text": "Plus, Derrick Henry gets back to his old ways against the Houston Texans",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-27T15:19:49+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Derrick Henry",
+        "Houston Texans"
+      ],
+      "resolved_player_ids": [
+        "00-0032764"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "d159694a-0fdb-48eb-a376-3f3fd1e894d3",
+      "url": "https://www.cbssports.com/betting/news/broncos-vs-steelers-nfl-friday-picks-is-pittsburgh-better-with-mason-rudolph-replacing-aaron-rodgers/",
+      "title": "Broncos vs. Steelers NFL Friday picks: Is Pittsburgh better with Mason Rudolph replacing Aaron Rodgers?",
+      "body_text": "The Black Friday Broncos vs. Steelers game just got a lost more interesting",
+      "author": "Matt Severance",
+      "published_at": "2026-11-27T16:08:29+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Is Pittsburgh",
+        "Mason Rudolph",
+        "Aaron Rodgers",
+        "The Black",
+        "Friday Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0034771",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "8663a8a1-23b8-428a-9342-c442b1a7ed20",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-expert-picks-hub-odds-best-bets-49ers-seahawks/",
+      "title": "NFL Week 12 expert picks hub: Who wins 49ers-Seahawks showdown? Will Vikings rebound?",
+      "body_text": "CBSSports.com and SportsLine break down every single NFL game in Week 12",
+      "author": "Carter Bahns",
+      "published_at": "2026-11-27T14:13:32+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Will Vikings"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "422a5e98-c031-4a80-a2ad-f793f6b456ab",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-picks-odds-best-bets-broncos-steelers-49ers-seahawks/",
+      "title": "NFL Week 12 picks, odds, best bets: Broncos pile on Steelers' troubles, 49ers cover vs. Seahawks",
+      "body_text": "Jordan Dajani gives his picks for Week 12 of the 2026 NFL season",
+      "author": "Jordan Dajani",
+      "published_at": "2026-11-27T13:59:09+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Seahawks Jordan"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "207fd9e3-7d5b-4d98-afc6-5c46c7847c85",
+      "url": "https://www.cbssports.com/nfl/news/tom-brady-torches-aaron-rodgers-after-steelers-release-mike-mccarthy/",
+      "title": "Tom Brady torches Aaron Rodgers for 'private things becoming public' after Steelers' release",
+      "body_text": "The seven-time Super Bowl champion expressed disapproval of how Rodgers handled his beef with Mike McCarthy",
+      "author": "Brad Crawford",
+      "published_at": "2026-11-27T13:42:53+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Tom Brady",
+        "Aaron Rodgers",
+        "Super Bowl"
+      ],
+      "resolved_player_ids": [
+        "00-0019596",
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "2c57ccc8-191e-44ae-92d7-9beae8b6c92c",
+      "url": "https://www.cbssports.com/nfl/news/hope-is-gone-for-dak-prescott-cowboys-thanksgiving-loss-eagles/",
+      "title": "Hope is now gone for Cowboys' season after historic Thanksgiving collapse vs. Eagles",
+      "body_text": "After two franchise-record meltdowns this season, the Cowboys can say goodbye to their NFC East title hopes",
+      "author": "Garrett Podell",
+      "published_at": "2026-11-27T16:11:16+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Eagles After"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "0bf950ad-c08e-48b5-814d-83ea2d3eb46e",
+      "url": "https://www.cbssports.com/betting/news/nfl-odds-picks-predictions-broncos-seahawks-keys-to-parlays-involving-favorites-underdogs-in-week-12/",
+      "title": "NFL odds, picks, predictions: Broncos, Seahawks keys to parlays involving favorites, underdogs in Week 12",
+      "body_text": "SportsLine football expert Mike Tierney locks in his top parlays for Week 12 NFL games",
+      "author": "Brandon Gustafson",
+      "published_at": "2026-11-27T13:00:30+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Mike Tierney"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SEA"
+    },
+    {
+      "external_id": "c6db18d3-cd91-4675-aa86-96ca7a476cae",
+      "url": "https://www.cbssports.com/nfl/news/nfl-week-12-grades-thanksgiving-bears-earn-b-packers-get-d/",
+      "title": "NFL Week 12 grades for Black Friday and Thanksgiving: Steelers ace post Aaron Rodgers test",
+      "body_text": "Caleb Williams delivers late magic to Rome Odunze in a wild shootout, while Detroit's defense collapses and Jordan Love struggles without Christian Watson",
+      "author": "John Breech",
+      "published_at": "2026-11-27T22:58:05+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Black Friday",
+        "Aaron Rodgers",
+        "Caleb Williams",
+        "Rome Odunze",
+        "Jordan Love",
+        "Christian Watson"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0039918",
+        "00-0039919",
+        "00-0036264",
+        "00-0038124"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "e4500ebb-bf40-479a-8ffe-48b646f6917b",
+      "url": "https://www.cbssports.com/nfl/news/nfl-thanksgiving-overreactions-bears-a-shoo-in-nfc-north-title-joe-milton-full-time-qb1/",
+      "title": "NFL Thanksgiving overreactions: Bears a shoo-in for NFC North title? Should Joe Milton be a full-time QB1?",
+      "body_text": "Plus, is Jahmyr Gibbs truly an MVP candidate?",
+      "author": "Tyler Sullivan",
+      "published_at": "2026-11-27T05:07:38+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Should Joe",
+        "Jahmyr Gibbs"
+      ],
+      "resolved_player_ids": [
+        "00-0039139"
+      ],
+      "team_hint": "CHI"
+    },
+    {
+      "external_id": "e931ae77-3cbf-451d-b2a4-14df2accd318",
+      "url": "https://www.cbssports.com/nfl/news/pete-priscos-week-12-nfl-picks-odds-expert-picks/",
+      "title": "Prisco's Week 12 NFL picks: Browns over Raiders, Steelers overcome issues to upset Broncos",
+      "body_text": "Pete Prisco reveals all of his Week 12 picks, including the Steelers to upset the Broncos on Black Friday",
+      "author": "Pete Prisco",
+      "published_at": "2026-11-27T03:42:14+00:00",
+      "source": "rss_cbs_nfl",
+      "candidate_names": [
+        "Broncos Pete",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    }
+  ]
+}

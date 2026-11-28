@@ -1,0 +1,805 @@
+{
+  "fetch_run_id": "34e74af9-8b38-4bb0-9648-876e310adb2d",
+  "source": "rss_yahoo_nfl",
+  "fetched_at": "2026-11-28T12:14:36.778643+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 50,
+  "items": [
+    {
+      "external_id": "4432721a-0036-3320-809d-c03a2c19e091",
+      "url": "https://sports.yahoo.com/nfl/articles/cowboys-news-jerry-jones-everything-120000593.html",
+      "title": "Cowboys news: Jerry Jones will ‘question everything’ after Eagles loss",
+      "body_text": "Here is today's Dallas Cowboys news.",
+      "author": "",
+      "published_at": "2026-11-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jerry Jones",
+        "Dallas Cowboys"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7cfdc981-fd43-3d2b-818b-1f477932d1a6",
+      "url": "https://sports.yahoo.com/nfl/articles/steelers-stock-report-27-5-120000782.html",
+      "title": "Steelers stock report after 27-5 win over Broncos",
+      "body_text": "Pittsburgh Steelers stock report after their dominant Black Friday win.",
+      "author": "",
+      "published_at": "2026-11-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Broncos Pittsburgh",
+        "Black Friday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "907f49a2-0da6-3442-a64d-983b602130dd",
+      "url": "https://sports.yahoo.com/nfl/articles/cardinals-extend-defensive-backs-120000765.html",
+      "title": "Should the Cardinals extend any of these defensive backs?",
+      "body_text": "This time of year, contract extensions are offered",
+      "author": "",
+      "published_at": "2026-11-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "ARI"
+    },
+    {
+      "external_id": "caca243d-08e0-3b70-a0d1-a88a74db72e0",
+      "url": "https://sports.yahoo.com/nfl/articles/york-jets-flight-connections-11-120000672.html",
+      "title": "New York Jets Flight Connections 11/28/26",
+      "body_text": "Happy Saturday, Jets fans! We are one day away from the Jets taking the field in Miami for a game against the Dolphins. It is a golden opportunity for this team to get on its first winning streak of the season as it heads into the bye. The Jets will be looking to avenge a […]",
+      "author": "",
+      "published_at": "2026-11-28T12:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York",
+        "Jets Flight",
+        "Happy Saturday",
+        "The Jets"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "d1abb1f8-3a1b-3fe1-bcc7-8349ecade1f9",
+      "url": "https://sports.yahoo.com/nfl/articles/cleveland-browns-news-one-more-113000737.html",
+      "title": "Cleveland Browns news: One more sleep until Sunday night",
+      "body_text": "The latest Cleveland Browns news and notes from around the NFL in the November 28 edition of the Saturday Dawg Chow.",
+      "author": "",
+      "published_at": "2026-11-28T11:30:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cleveland Browns",
+        "Saturday Dawg"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "31c5ea43-b69d-3aa7-9c15-b6c7c7c27de8",
+      "url": "https://sports.yahoo.com/nfl/articles/bengals-news-joe-burrow-pushing-111200584.html",
+      "title": "Bengals News: Joe Burrow Pushing to Break NFL Record",
+      "body_text": "The Bengals dropped a very winnable game to the Commanders on Monday night (how many conversations did you have about this at your Thanksgiving get-togethers)? To boot, after a tumultuous week surrounding the Pittsburgh Steelers, they grabbed a huge win on Black Friday against the Denver Broncos. To put it bluntly, Cincinnati can ill-afford another […]",
+      "author": "",
+      "published_at": "2026-11-28T11:12:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bengals News",
+        "Joe Burrow",
+        "Record The",
+        "Pittsburgh Steelers",
+        "Black Friday",
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [
+        "00-0036442"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "49cf4baf-a271-32ad-b0c2-cb6e9a647413",
+      "url": "https://sports.yahoo.com/nfl/articles/3-point-stance-time-mike-110059915.html",
+      "title": "3-Point Stance: It’s time for Mike Vrabel’s culture to deliver",
+      "body_text": "New England’s 2025 fundamentals have faltered",
+      "author": "",
+      "published_at": "2026-11-28T11:00:59+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Point Stance",
+        "Mike Vrabel",
+        "New England"
+      ],
+      "resolved_player_ids": [
+        "00-0016960"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "09d50da2-34ed-364e-819c-beaa4b6c3f96",
+      "url": "https://sports.yahoo.com/nfl/articles/giants-news-j-j-mccarthy-110000734.html",
+      "title": "Giants news: J.J. McCarthy’s deep ball issues, playoff picture, more",
+      "body_text": "New York Giants headlines for Saturday.",
+      "author": "",
+      "published_at": "2026-11-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "New York"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "931e6c9f-f311-3e6a-9c66-90b56f88f9e6",
+      "url": "https://sports.yahoo.com/nfl/articles/5-takeaways-steelers-27-5-110000846.html",
+      "title": "5 takeaways from the Steelers’ 27-5 win over the Denver Broncos",
+      "body_text": "Takeaways, overreactions and analysis from the Steelers’ Week 12 win.",
+      "author": "",
+      "published_at": "2026-11-28T11:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Denver Broncos"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "695fc934-3269-3f28-afc7-16d81ed77490",
+      "url": "https://sports.yahoo.com/nfl/articles/golden-nuggets-immaculate-time-not-100000968.html",
+      "title": "Golden Nuggets: Immaculate time to not trade your back up QB",
+      "body_text": "Your daily San Francisco 49ers news for Saturday, November 28th, 2026",
+      "author": "",
+      "published_at": "2026-11-28T10:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Golden Nuggets",
+        "San Francisco"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "9d08901c-1d00-3b32-96c2-b7ed7d49f42e",
+      "url": "https://sports.yahoo.com/nfl/articles/rams-guard-bill-murray-season-084133862.html",
+      "title": "Rams guard Bill Murray out for season after torn Achilles in first career start",
+      "body_text": "A former undrafted rookie defensive lineman, Murray worked for years to reach the point where he could start on the offensive line.",
+      "author": "",
+      "published_at": "2026-11-28T08:41:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Bill Murray"
+      ],
+      "resolved_player_ids": [
+        "00-0036093"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "05211359-f63d-3542-9538-b843cd71067f",
+      "url": "https://sports.yahoo.com/nfl/articles/know-talent-dak-prescott-reflects-070000639.html",
+      "title": "‘I know the talent he has': Dak Prescott reflects on his time with Joe Milton",
+      "body_text": "Prescott served as a mentor to Milton while they were in Dallas together.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dak Prescott",
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0033077",
+        "00-0039398"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "06b8d3a2-4260-343e-bdc7-dfb1da7085d4",
+      "url": "https://sports.yahoo.com/nfl/articles/inside-tape-joe-milton-makes-120517172.html",
+      "title": "Inside the Tape: Joe Milton makes the impossible look routine against Dallas",
+      "body_text": "Joe Milton finished 21-for-31 for 331 yards and three touchdown passes.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Dallas Joe"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "164b4f16-a8b1-33a7-8329-430df0aeb149",
+      "url": "https://sports.yahoo.com/nfl/articles/jake-elliott-proves-again-hes-103906297.html",
+      "title": "Jake Elliott proves again he's one of the great long-distance kickers in history",
+      "body_text": "Elliot is the second kicker in NFL history with two last-minute 59-yard game winners while trailing.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jake Elliott"
+      ],
+      "resolved_player_ids": [
+        "00-0033787"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "19644dc9-1fdd-3126-9e8a-40c2736ea557",
+      "url": "https://sports.yahoo.com/nfl/articles/roobs-observations-joe-milton-leads-140935543.html",
+      "title": "Roob's Observations as Joe Milton leads Eagles' miraculous comeback over Cowboys",
+      "body_text": "The Eagles pulled off the largest Thanksgiving comeback in NFL history, beating the Cowboys 39-38 after trailing 31-10 in the third quarter.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton",
+        "Cowboys The"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1dc646dd-6bd6-35f6-9452-51d805083359",
+      "url": "https://sports.yahoo.com/nfl/articles/ty-robinson-plays-role-unlikely-070000793.html",
+      "title": "Ty Robinson plays role of unlikely hero in Eagles' Thanksgiving win",
+      "body_text": "Ty Robinson played the role of unlikely hero in the Eagles' 39-38 comeback win on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Ty Robinson"
+      ],
+      "resolved_player_ids": [
+        "00-0040662"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "1dc92030-711b-3a3e-8747-9cdd94aa16be",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-ready-ride-joe-miltons-070000598.html",
+      "title": "Eagles ready to ride Joe Milton's confidence (and arm) as far as it takes them",
+      "body_text": "Joe Milton has a strong right arm and a ton of confidence; the Eagles are ready to rally behind him for a run.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "2de07562-9548-35f3-b82a-a75dd9002e40",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-grades-position-wild-comeback-001000424.html",
+      "title": "Eagles grades by position after wild comeback over Cowboys on Thanksgiving",
+      "body_text": "Here's a look at the report card after the Eagles' thrilling 39-38 win over the Cowboys on Thanksgiving.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Here"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "3e5f5acd-d8d9-33dd-8a69-189e6ac4efbc",
+      "url": "https://sports.yahoo.com/nfl/articles/joe-miltons-magical-performance-leads-070000836.html",
+      "title": "Joe Milton's magical performance leads Eagles to historic comeback vs. Cowboys",
+      "body_text": "He joined the Eagles 41 days ago. This was his third career start. And he did this?",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "54327a9a-b63f-305c-9099-f39a02c63b22",
+      "url": "https://sports.yahoo.com/nfl/articles/waiting-10-remarkable-joe-milton-130336242.html",
+      "title": "Waiting for 10 remarkable Joe Milton stats? Here they are!",
+      "body_text": "Weeks after joining the Eagles, Milton completed 21 of 31 attempts for 331 yards and added a 15-yard rushing touchdown on Thursday.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Joe Milton"
+      ],
+      "resolved_player_ids": [
+        "00-0039398"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "7e5f876a-e80d-31c7-b476-d74342971762",
+      "url": "https://sports.yahoo.com/nfl/articles/roobs-eagles-observations-why-tanking-070000178.html",
+      "title": "In Roob's Eagles Observations: Why tanking doesn't make sense in the NFL",
+      "body_text": "A short week for the Eagles means two sets of Obs.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "In Roob",
+        "Eagles Observations"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "8b8ed3b7-261d-387e-a002-5bf2c72bc3cc",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-cowboys-predictions-week-12-070000860.html",
+      "title": "Eagles at Cowboys predictions for Week 12 of 2026 NFL season",
+      "body_text": "Here are our predictions for Eagles-Cowboys on Thanksgiving in Week 12.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9e6f834c-eaee-3524-8e7e-ff7476cdf5b3",
+      "url": "https://sports.yahoo.com/nfl/articles/winners-losers-eagles-stun-cowboys-204000403.html",
+      "title": "Winners, losers as Eagles stun Cowboys 39-38 in Thanksgiving thriller",
+      "body_text": "Former Cowboy Joe Milton led an improbable comeback against Dak Prescott and Co. for a Thanksgiving stunner.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Former Cowboy",
+        "Joe Milton",
+        "Dak Prescott"
+      ],
+      "resolved_player_ids": [
+        "00-0039398",
+        "00-0033077"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "9f55d87f-3c4b-374e-9706-a419da0b5e65",
+      "url": "https://sports.yahoo.com/nfl/articles/inspired-steelers-move-rodgers-exit-180731845.html",
+      "title": "Inspired Steelers move on from Rodgers' exit with cathartic 27-5 win over sloppy Broncos",
+      "body_text": "Two days after cutting quarterback Aaron Rodgers, his former teammates picked up the pieces with an impassioned performance.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Inspired Steelers",
+        "Broncos Two",
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "a293e072-5209-326c-ac6d-dd992423d50a",
+      "url": "https://sports.yahoo.com/nfl/articles/cooper-dejean-ruled-concussion-against-140935170.html",
+      "title": "Cooper DeJean ruled out with concussion against Cowboys on Thanksgiving",
+      "body_text": "The Eagles lost one of their best players within the first few minutes against Dallas.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving The"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "a9202d50-87e8-3e9e-be24-d546d6af1f0c",
+      "url": "https://sports.yahoo.com/nfl/articles/devonta-smith-could-barely-walk-070000324.html",
+      "title": "DeVonta Smith could barely walk but he still finished off crazy win",
+      "body_text": "DeVonta Smith had a career game on Thanksgiving and proved he's just as tough as he is talented.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "c21f0644-4145-31c7-a087-be0e50d30828",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-injury-dallas-goedert-questionable-140935504.html",
+      "title": "Eagles injury update: Dallas Goedert ruled out vs. Cowboys",
+      "body_text": "After Cooper DeJean went down in the first quarter, another Eagle has an injury status early in the game.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dallas Goedert",
+        "Cowboys After"
+      ],
+      "resolved_player_ids": [
+        "00-0034351"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "cb4b4d4f-c680-3ebe-ac2d-50cc2fa66397",
+      "url": "https://sports.yahoo.com/nfl/articles/did-eagles-just-end-aaron-152000311.html",
+      "title": "Did the Eagles just end Aaron Rodgers' Hall of Fame career?",
+      "body_text": "After being released by the Steelers on Wednesday, Aaron Rodgers' career could be over.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "e338339d-c416-3675-8416-0569242038cf",
+      "url": "https://sports.yahoo.com/nfl/articles/eagles-notebook-time-aggressive-offense-070000615.html",
+      "title": "Eagles notebook: Time to get aggressive on offense vs. Cowboys",
+      "body_text": "In the latest Eagles notebook: The need to be aggressive on offense, Jonathan Greenard's sack celebration and more.",
+      "author": "",
+      "published_at": "2026-11-28T07:00:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Jonathan Greenard"
+      ],
+      "resolved_player_ids": [
+        "00-0036224"
+      ],
+      "team_hint": "PHI"
+    },
+    {
+      "external_id": "c0f6cb90-7bd4-3ad6-af9c-99ab29e655a2",
+      "url": "https://sports.yahoo.com/betting/articles/nfl-predictions-jets-look-first-064531770.html",
+      "title": "NFL predictions: Jets look for first AFC East victory under Aaron Glenn against tanking Dolphins",
+      "body_text": "The Jets look for payback against the Dolphins on Sunday",
+      "author": "",
+      "published_at": "2026-11-28T06:45:31+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Glenn",
+        "Dolphins The"
+      ],
+      "resolved_player_ids": [
+        "00-0006034"
+      ],
+      "team_hint": "MIA"
+    },
+    {
+      "external_id": "94216fc4-19c1-350e-8ad3-737f1b6849ce",
+      "url": "https://sports.yahoo.com/nfl/articles/telling-jaxon-smith-njigba-stat-064121814.html",
+      "title": "The telling Jaxon-Smith Njigba stat that makes 49ers-Seahawks showdown even more interesting",
+      "body_text": "The 49ers' chances of beating the Seahawks Sunday don't bode well because of a key statistic.",
+      "author": "",
+      "published_at": "2026-11-28T06:41:21+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Smith Njigba",
+        "Seahawks Sunday"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "8ea0ba1b-8eb2-3299-973b-968c034356d5",
+      "url": "https://sports.yahoo.com/nfl/articles/malik-nabers-top-giants-receiver-055103197.html",
+      "title": "Malik Nabers a top Giants receiver without knowing ‘what’s a catch nowadays’",
+      "body_text": "Malik Nabers knows he makes a lot of big receptions for the Giants, but he is just as confused as every NFL fan once replay review gets involved.",
+      "author": "",
+      "published_at": "2026-11-28T05:51:03+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Malik Nabers"
+      ],
+      "resolved_player_ids": [
+        "00-0039337"
+      ],
+      "team_hint": "NYG"
+    },
+    {
+      "external_id": "f2d7cc7f-62ba-3029-8ac7-11a9811627f8",
+      "url": "https://sports.yahoo.com/nfl/articles/rams-sign-tight-end-away-054500672.html",
+      "title": "Rams sign tight end away NFC West rival’s practice squad",
+      "body_text": "With injuries affecting the tight end room, the Rams poach from 49ers practice squad",
+      "author": "",
+      "published_at": "2026-11-28T05:45:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": "SF"
+    },
+    {
+      "external_id": "84ec3b9c-786f-3df5-8103-ebd204b8d58b",
+      "url": "https://sports.yahoo.com/nfl/articles/jets-getting-much-needed-defensive-052048067.html",
+      "title": "Jets getting much-needed defensive reinforcement with David Onyemata’s return",
+      "body_text": "Jets defensive tackle David Onyemata will return Sunday against Miami after missing nearly 10 weeks following core-muscle surgery.",
+      "author": "",
+      "published_at": "2026-11-28T05:20:48+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "David Onyemata"
+      ],
+      "resolved_player_ids": [
+        "00-0033051"
+      ],
+      "team_hint": "NYJ"
+    },
+    {
+      "external_id": "efca0aeb-e97a-3645-b60e-714ae8a7938d",
+      "url": "https://sports.yahoo.com/nfl/articles/mike-mccarthy-admits-hasnt-spent-044615309.html",
+      "title": "Mike McCarthy admits he hasn't spent enough time with the defense",
+      "body_text": "McCarthy vows to take a closer look at the situation in the offseason.",
+      "author": "",
+      "published_at": "2026-11-28T04:46:15+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "b9ccdc66-b201-3c7e-9f05-7b241b875ae2",
+      "url": "https://sports.yahoo.com/college-football/articles/no-7-texas-texas-m-011805122.html",
+      "title": "No. 3 Texas at Texas A&M final score: Longhorns defense holds late in 16-6 win",
+      "body_text": "Will Muschamp’s defense forced two turnovers on downs in the fourth quarter.",
+      "author": "",
+      "published_at": "2026-11-28T04:01:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Will Muschamp"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "078baee5-0250-3c0c-81fe-8cf0bbaade55",
+      "url": "https://sports.yahoo.com/nfl/articles/5-quick-hitters-silver-black-034138925.html",
+      "title": "5 quick hitters with Silver and Black Pride: Browns’ offense can take advantage of Raiders’ interior",
+      "body_text": "We ask about the Raiders’ weakness on defense, how rookie QB Fernando Mendoza has been, and more.",
+      "author": "",
+      "published_at": "2026-11-28T03:41:38+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Black Pride",
+        "Fernando Mendoza"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "11571144-cbc6-46ec-9ddc-78330a3b82a1",
+      "url": "https://sports.yahoo.com/nfl/article/steelers-wr-dk-metcalf-clarifies-he-wasnt-shouting-out-aaron-rodgers-via-sign-language-after-scoring-td-031011429.html",
+      "title": "Steelers WR DK Metcalf clarifies he wasn't shouting out Aaron Rodgers via sign language after scoring TD",
+      "body_text": "Metcalf said after the game he was actually referring to his own number.",
+      "author": "Jack Baer",
+      "published_at": "2026-11-27T22:14:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "d63e478f-a383-387c-ac4a-de0a995fbcee",
+      "url": "https://sports.yahoo.com/nfl/articles/raiders-vs-browns-week-12-023505046.html",
+      "title": "Raiders vs. Browns Week 12 picks: Cleveland’s chances still being viewed as a toss-up",
+      "body_text": "The Browns are favored on Sunday Night Football, but some are picking the Raiders to squeak out a road victory.",
+      "author": "",
+      "published_at": "2026-11-28T02:35:05+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Browns Week",
+        "The Browns",
+        "Sunday Night"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "CLE"
+    },
+    {
+      "external_id": "c2b0465d-8370-30c8-897b-b0b80c9feb71",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-calls-tom-brady-020010713.html",
+      "title": "Aaron Rodgers calls out Tom Brady for comments on locker room ‘sanctity’",
+      "body_text": "Rodgers drew the criticism of Brady — and numerous analysts around the NFL — after his appearance on “The Pat McAfee Show” on Wednesday.",
+      "author": "",
+      "published_at": "2026-11-28T02:00:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Tom Brady",
+        "The Pat"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "c2b0465d-8370-30c8-897b-b0b80c9feb71",
+      "url": "https://sports.yahoo.com/nfl/articles/aaron-rodgers-calls-tom-brady-020010713.html",
+      "title": "Aaron Rodgers calls out Tom Brady for comments on locker room ‘sanctity’",
+      "body_text": "Rodgers drew the criticism of Brady — and numerous analysts around the NFL — after his appearance on “The Pat McAfee Show” on Wednesday.",
+      "author": "",
+      "published_at": "2026-11-28T02:00:10+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "Tom Brady",
+        "The Pat"
+      ],
+      "resolved_player_ids": [
+        "00-0023459",
+        "00-0019596"
+      ],
+      "team_hint": null
+    },
+    {
+      "external_id": "29e4055d-5cc3-3a09-b06c-2612c7cae872",
+      "url": "https://sports.yahoo.com/nfl/articles/brock-purdy-ruled-vs-seahawks-015045378.html",
+      "title": "Brock Purdy ruled out vs. Seahawks. Can Mac Jones carry 49ers offense?",
+      "body_text": "Brock Purdy did not practice all week with a mid ankle sprain he suffered against the Vikings. Kyle Shanahan is optimistic his QB will be back soon.",
+      "author": "",
+      "published_at": "2026-11-28T01:50:45+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Brock Purdy",
+        "Can Mac",
+        "Kyle Shanahan"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "MIN"
+    },
+    {
+      "external_id": "6473d54c-75bb-31d4-ae62-6d37374f0526",
+      "url": "https://sports.yahoo.com/nfl/articles/dj-uiagalelei-start-week-12-014926302.html",
+      "title": "DJ Uiagalelei to start in Week 12",
+      "body_text": "Los Angeles Chargers QB DJ Uiagalelei will be under center in Week 12",
+      "author": "",
+      "published_at": "2026-11-28T01:49:26+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Los Angeles"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "LAC"
+    },
+    {
+      "external_id": "9f31af04-b281-4dac-b405-6855f411bc81",
+      "url": "https://sports.yahoo.com/nfl/article/steelers-players-express-support-for-mike-mccarthy-after-winning-first-game-since-aaron-rodgers-divorce-014433345.html",
+      "title": "Steelers players express support for Mike McCarthy after winning first game since Aaron Rodgers divorce",
+      "body_text": "The Steelers had some things to discuss after Aaron Rodgers unleashed a laundry list of grievances against the head coach.",
+      "author": "Jack Baer",
+      "published_at": "2026-11-28T01:44:33+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers",
+        "The Steelers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "416410f3-97d7-396f-be91-6ae740316e2e",
+      "url": "https://sports.yahoo.com/nfl/articles/steelers-credit-t-j-watt-012701174.html",
+      "title": "Steelers credit T.J. Watt, Cam Heyward for leadership amidst adverse week",
+      "body_text": "T.J. Watt, Cam Heyward, and Jalen Ramsey helped lead the Steelers out of a dark week",
+      "author": "",
+      "published_at": "2026-11-28T01:27:01+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Cam Heyward",
+        "Jalen Ramsey"
+      ],
+      "resolved_player_ids": [
+        "00-0033055"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "c67b4ec7-8e92-3adb-b3e8-007093aafd26",
+      "url": "https://sports.yahoo.com/nfl/articles/rams-snag-49ers-tight-end-012547454.html",
+      "title": "Rams snag 49ers tight end from practice squad amid injury crisis",
+      "body_text": "Injuries have not been kind to the Rams this season. In the team’s Thanksgiving Eve win over the Packers, Los Angeles lost tight ends Davis Allen and Tyler Higbee. Allen...",
+      "author": "",
+      "published_at": "2026-11-28T01:25:47+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Thanksgiving Eve",
+        "Los Angeles",
+        "Davis Allen",
+        "Tyler Higbee"
+      ],
+      "resolved_player_ids": [
+        "00-0039074",
+        "00-0033110"
+      ],
+      "team_hint": "GB"
+    },
+    {
+      "external_id": "8752f98a-6548-35fb-a1a3-19588d7bb8da",
+      "url": "https://sports.yahoo.com/nfl/articles/undrafted-rookie-could-rams-best-011500594.html",
+      "title": "Undrafted rookie could be the Rams best option at tight end",
+      "body_text": "Dan Villari has playmaker potential, is he ready?",
+      "author": "",
+      "published_at": "2026-11-28T01:15:00+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Dan Villari"
+      ],
+      "resolved_player_ids": [
+        "00-0041422"
+      ],
+      "team_hint": "LA"
+    },
+    {
+      "external_id": "aee8e286-5cd0-35b8-a0d9-31c3219fd9d7",
+      "url": "https://sports.yahoo.com/nfl/articles/steelers-locker-room-prideful-muted-011037103.html",
+      "title": "Steelers locker room 'prideful' but muted after win amid Aaron Rodgers firestorm",
+      "body_text": "The tight end rallied the team with a fiery speech after one of his best friends was released for criticizing coach Mike McCarthy.",
+      "author": "",
+      "published_at": "2026-11-28T01:10:37+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Aaron Rodgers"
+      ],
+      "resolved_player_ids": [
+        "00-0023459"
+      ],
+      "team_hint": "PIT"
+    },
+    {
+      "external_id": "4131452d-4346-3a68-9560-dc29e7f6fad5",
+      "url": "https://sports.yahoo.com/nfl/articles/john-harbaugh-wife-perfectly-sums-010619133.html",
+      "title": "John Harbaugh’s wife perfectly sums up NFL Thanksgiving Day drama",
+      "body_text": "John Harbaugh could run for mayor of what his wife calls “Crazy Town.”",
+      "author": "",
+      "published_at": "2026-11-28T01:06:19+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "John Harbaugh",
+        "Thanksgiving Day",
+        "Crazy Town"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": null
+    },
+    {
+      "external_id": "225715fc-8eb9-32b4-a93c-8b555a2f7782",
+      "url": "https://sports.yahoo.com/nfl/articles/kyle-shanahan-brock-purdys-ankle-010029930.html",
+      "title": "Kyle Shanahan: Brock Purdy's ankle sprain is &quot;more mid than low&quot;",
+      "body_text": "49ers quarterback Brock Purdy emerged from Sunday's win over the Vikings with an ankle injury.",
+      "author": "",
+      "published_at": "2026-11-28T01:00:29+00:00",
+      "source": "rss_yahoo_nfl",
+      "candidate_names": [
+        "Kyle Shanahan",
+        "Brock Purdy"
+      ],
+      "resolved_player_ids": [
+        "00-0037834"
+      ],
+      "team_hint": "MIN"
+    }
+  ]
+}

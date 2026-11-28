@@ -1,0 +1,104 @@
+{
+  "fetch_run_id": "f3d7aed0-16bc-499f-a13d-e72b8ec2eb15",
+  "source": "rotowire",
+  "fetched_at": "2026-11-28T12:14:43.697190+00:00",
+  "season": 2026,
+  "week": null,
+  "item_count": 5,
+  "items": [
+    {
+      "external_id": "nfl650213",
+      "url": "https://www.rotowire.com//football/player/michael-pittman-14378",
+      "permalink": "",
+      "title": "Michael Pittman: Just one catch in return to lineup",
+      "body_text": "Pittman caught one of two targets for seven yards in Friday's 27-5 win over the Broncos. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-27T04:54:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Michael Pittman"
+      ],
+      "resolved_player_ids": [
+        "00-0013013"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl650197",
+      "url": "https://www.rotowire.com//football/player/dk-metcalf-13424",
+      "permalink": "",
+      "title": "DK Metcalf: Finds end zone against Broncos",
+      "body_text": "Metcalf caught three of four targets for 36 yards and a touchdown in Friday's 27-5 win over Denver. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-27T04:27:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Broncos Metcalf"
+      ],
+      "resolved_player_ids": [],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl650193",
+      "url": "https://www.rotowire.com//football/player/rico-dowdle-14657",
+      "permalink": "",
+      "title": "Rico Dowdle: Leading rusher in Week 12 win",
+      "body_text": "Dowdle carried the ball 11 times for 71 yards in Friday's 27-5 win over the Broncos. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-27T04:22:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Rico Dowdle"
+      ],
+      "resolved_player_ids": [
+        "00-0036139"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl650190",
+      "url": "https://www.rotowire.com//football/player/jaylen-warren-15984",
+      "permalink": "",
+      "title": "Jaylen Warren: Held in check against Denver",
+      "body_text": "Warren carried the ball 20 times for 46 yards and caught one of two targets for zero yards in Friday's 27-5 win over the Broncos. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-27T04:18:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Jaylen Warren",
+        "Denver Warren"
+      ],
+      "resolved_player_ids": [
+        "00-0037228"
+      ],
+      "team_hint": "DEN"
+    },
+    {
+      "external_id": "nfl650188",
+      "url": "https://www.rotowire.com//football/player/mason-rudolph-12629",
+      "permalink": "",
+      "title": "Mason Rudolph: Avoids mistakes in Friday's win",
+      "body_text": "Rudolph completed nine of 15 passes for 142 yards and a touchdown in Friday's 27-5 win over the Broncos. Visit RotoWire.com for more analysis on this update.",
+      "author": "",
+      "published_at": "2026-11-27T04:12:00+00:00",
+      "source": "rotowire",
+      "score": 0,
+      "num_comments": 0,
+      "candidate_names": [
+        "Mason Rudolph"
+      ],
+      "resolved_player_ids": [
+        "00-0034771"
+      ],
+      "team_hint": "DEN"
+    }
+  ]
+}

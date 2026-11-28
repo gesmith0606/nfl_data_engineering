@@ -1,6 +1,6 @@
 {
   "source": "sleeper",
-  "fetched_at": "2026-11-27T12:17:31.591096+00:00",
+  "fetched_at": "2026-11-28T12:14:52.594393+00:00",
   "players": [
     {
       "player_name": "Bijan Robinson",
@@ -62,7 +62,7 @@
       "player_name": "Jaxon Smith-Njigba",
       "position": "WR",
       "team": "SEA",
-      "external_rank": 6,
+      "external_rank": 5,
       "sleeper_id": "9488",
       "rank": 8
     },
@@ -107,12 +107,20 @@
       "rank": 13
     },
     {
+      "player_name": "Justin Jefferson",
+      "position": "WR",
+      "team": "MIN",
+      "external_rank": 11,
+      "sleeper_id": "6794",
+      "rank": 14
+    },
+    {
       "player_name": "Omarion Hampton",
       "position": "RB",
       "team": "LAC",
       "external_rank": 12,
       "sleeper_id": "12507",
-      "rank": 14
+      "rank": 15
     },
     {
       "player_name": "Ashton Jeanty",
@@ -120,14 +128,6 @@
       "team": "LV",
       "external_rank": 12,
       "sleeper_id": "12527",
-      "rank": 15
-    },
-    {
-      "player_name": "Justin Jefferson",
-      "position": "WR",
-      "team": "MIN",
-      "external_rank": 12,
-      "sleeper_id": "6794",
       "rank": 16
     },
     {
@@ -235,19 +235,19 @@
       "rank": 29
     },
     {
-      "player_name": "Malik Nabers",
-      "position": "WR",
-      "team": "NYG",
-      "external_rank": 26,
-      "sleeper_id": "11632",
-      "rank": 30
-    },
-    {
       "player_name": "Todd Gurley",
       "position": "RB",
       "team": null,
       "external_rank": 27,
       "sleeper_id": "2315",
+      "rank": 30
+    },
+    {
+      "player_name": "Malik Nabers",
+      "position": "WR",
+      "team": "NYG",
+      "external_rank": 27,
+      "sleeper_id": "11632",
       "rank": 31
     },
     {
@@ -427,20 +427,12 @@
       "rank": 53
     },
     {
-      "player_name": "D'Andre Swift",
-      "position": "RB",
-      "team": "CHI",
-      "external_rank": 44,
-      "sleeper_id": "6790",
-      "rank": 54
-    },
-    {
       "player_name": "Bhayshul Tuten",
       "position": "RB",
       "team": "JAX",
       "external_rank": 44,
       "sleeper_id": "12490",
-      "rank": 55
+      "rank": 54
     },
     {
       "player_name": "Bryce Ford-Wheaton",
@@ -448,7 +440,7 @@
       "team": null,
       "external_rank": 44,
       "sleeper_id": "9499",
-      "rank": 56
+      "rank": 55
     },
     {
       "player_name": "Quinshon Judkins",
@@ -456,13 +448,21 @@
       "team": "CLE",
       "external_rank": 45,
       "sleeper_id": "12512",
+      "rank": 56
+    },
+    {
+      "player_name": "D'Andre Swift",
+      "position": "RB",
+      "team": "CHI",
+      "external_rank": 46,
+      "sleeper_id": "6790",
       "rank": 57
     },
     {
       "player_name": "Bo Nix",
       "position": "QB",
       "team": "DEN",
-      "external_rank": 45,
+      "external_rank": 46,
       "sleeper_id": "11563",
       "rank": 58
     },
@@ -470,7 +470,7 @@
       "player_name": "Tyler Warren",
       "position": "TE",
       "team": "IND",
-      "external_rank": 49,
+      "external_rank": 48,
       "sleeper_id": "12518",
       "rank": 59
     },
@@ -843,19 +843,19 @@
       "rank": 105
     },
     {
+      "player_name": "Sam Darnold",
+      "position": "QB",
+      "team": "SEA",
+      "external_rank": 92,
+      "sleeper_id": "4943",
+      "rank": 106
+    },
+    {
       "player_name": "Hunter Henry",
       "position": "TE",
       "team": "NE",
       "external_rank": 92,
       "sleeper_id": "3214",
-      "rank": 106
-    },
-    {
-      "player_name": "Sam Darnold",
-      "position": "QB",
-      "team": "SEA",
-      "external_rank": 93,
-      "sleeper_id": "4943",
       "rank": 107
     },
     {
@@ -1214,7 +1214,7 @@
       "player_name": "Bryce Young",
       "position": "QB",
       "team": "CAR",
-      "external_rank": 131,
+      "external_rank": 130,
       "sleeper_id": "9228",
       "rank": 152
     },
@@ -2395,11 +2395,11 @@
       "rank": 299
     },
     {
-      "player_name": "Zack Moss",
-      "position": "RB",
-      "team": null,
+      "player_name": "Kirk Cousins",
+      "position": "QB",
+      "team": "MIN",
       "external_rank": 260,
-      "sleeper_id": "6845",
+      "sleeper_id": "1166",
       "rank": 300
     }
   ]
