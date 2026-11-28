@@ -233,3 +233,114 @@ Combined MAE: 5.440 -> 5.364, gap to Sleeper +0.169 -> +0.093.
    (-0.053 overall); its window is weeks 3-6, so it is next-season value.
 7. Bye-week zeroing, the units-bug sanity check, and `projection_source`
    being uninformative.
+
+## Week 7 forward check (graded 2026-10-27)
+
+First unseen week for the three levers shipped 2026-10-22 (PR #134). Graded
+board: `data/gold/projections/season=2026/week=7/projections_half_ppr_20261022_221655.parquet`
+(commit `0d919e74`). It is the file the harness picked (lexically last in the
+directory) and it carries all three levers: QB `sleeper_anchor_flag` 29/35,
+`dispersion_shrink_flag` 164, `band_calibration_flag` 341. Actuals ingested
+2026-10-27, all 28 teams / 14 games present. Half-PPR, consensus>=5.
+
+**Timing caveat.** The board was written at 22:16 ET Thursday, after NE @ CHI
+kicked off (20:15). The engine reads weeks 1-6 only, so no week-7 outcome can
+leak in; the exposure is that the 24 NE/CHI rows saw an injury report from
+after their kickoff. Every headline number is shown both ways below.
+
+### Scoreboard (the shipped board)
+
+| metric | w3-6 with levers | w7, all rows | w7, excl. NE/CHI | Sleeper w7 (all / excl.) |
+|---|---|---|---|---|
+| matched n | 633 | 140 | 128 | |
+| overall MAE gap vs Sleeper | +0.093 | **+0.127** | **+0.102** | |
+| QB MAE gap | (5.582 MAE) | -0.091 (5.434) | -0.037 (5.517) | |
+| RB / WR / TE gap | | +0.408 / +0.100 / +0.004 | +0.317 / +0.109 / -0.063 | |
+| QB Spearman | 0.350 | 0.512 | 0.428 | 0.498 / 0.431 |
+| QB top-12 hit rate | 60.4% | 58.3% | 58.3% | 50.0% / 58.3% |
+| band coverage (live proj with an actual) | 83.2% | **79.7%** (n=271) | 80.8% (n=250) | |
+| coverage QB / RB / WR / TE | 85 / 81 / 84 / 84 | 70.0 / 80.3 / 81.0 / 81.4 | 67.9 / 81.7 / 82.2 / 83.6 | |
+| below floor / above ceiling | | 8.1% / 12.2% | 7.6% / 11.6% | |
+
+Harness output: `output/grading/season=2026/week=07_report.md`. Its cumulative
+w3-7 table (overall gap +0.161, QB +0.491) grades the boards that were
+*served*: w3-6 are pre-lever boards (no flag columns), so that table is not a
+lever measurement.
+
+### Counterfactuals (shadow boards)
+
+Re-ran the generator (`--ml`, as the cron does) into
+`projections_shadow/w7*`: a control with all levers on, then
+`--no-sleeper-anchor`, `--no-dispersion-shrink`, `--no-band-calibration`. The
+CLI has no QB-only anchor switch (`--no-sleeper-anchor` drops all four
+positions), so the QB-anchor counterfactual is the control board with its QB
+rows swapped for the no-anchor board's QB rows. That is valid because the
+anchor, the shrink and the band fit all work per position pool; nothing was
+hand-rolled.
+
+Lever effect = MAE with the lever minus MAE without it (negative = lever
+helps), paired bootstrap SE over the 140 matched rows:
+
+| lever | all rows | excl. NE/CHI | SE (all rows) | w3-6 claim |
+|---|---|---|---|---|
+| Sleeper anchor, all 4 positions | -0.041 | -0.043 | 0.081 | (RB/TE/WR shipped earlier) |
+| QB anchor only, overall MAE | **+0.027** | **+0.065** | 0.026 | -0.035 |
+| QB anchor only, QB MAE | **+0.138** | **+0.185** | 0.132 | -0.326 (5.908 -> 5.582) |
+| QB anchor, QB Spearman / top-12 | 0.454 vs 0.460 off; 50.0% vs 58.3% off | 0.351 vs 0.359; 50.0% vs 66.7% | | +0.143 rho / +14.6pp |
+| Dispersion shrink, overall | **+0.029** | +0.014 | 0.044 | -0.050 |
+| Dispersion shrink, QB / RB / WR / TE gap | +0.120 / -0.087 / +0.079 / +0.016 | | QB 0.079 | |
+| Band calibration, coverage | 81.2% vs 28.9% off | 83.1% vs 30.1% off | | 29.8% -> 83.2% |
+| Band calibration, MAE | 0.000 (touches bands only) | | | |
+
+**Caveat on the counterfactuals: the control does not reproduce the shipped
+board.** The control's overall gap is +0.178 against the shipped board's
++0.127, QB +0.142 against -0.091. Three things drifted between 2026-10-22 and
+the rerun: (1) the local injury report now runs to 2026-10-24, which zeroes
+about 16 more players who were Active on the shipped board (M.Evans, R.Rice,
+T.Warren, D.Montgomery...); board total falls 2119.7 -> 1887.0. (2) b9e41c20
+(bye-week zeroing and others) landed after the board was made. (3) The local
+run's hybrid models ran with most features imputed (QB lgb 2/20, WR ridge 6/60,
+"No usage data for season 2026") where CI's week-8 run had 20/20 and 60/60.
+That puts the QB level about 1.1 pts lower (mean of QB rows >=5 pts: 14.87
+against 15.98). So the lever deltas are measured against a degraded replica.
+They are the right tool for comparing levers with each other, but they are not
+a precise replay of production.
+
+### Verdicts
+
+- **Band calibration: held up.** 79.7% overall (80.8% excluding NE/CHI)
+  against the ~80% target, down from 83.2% walk-forward, which is the expected
+  shrinkage on the first unseen week. One weak spot: **QB covered only 70%**
+  (n of about 30), and the misses lean high (12% above the ceiling against 8%
+  below the floor). Watch it for two more weeks before widening QB.
+- **QB Sleeper anchor: didn't hold up on week 7. Too noisy to call, and the
+  direction is wrong.** The shipped board's QB numbers look good (gap -0.091,
+  rho 0.512, beat Sleeper's top-12), but the counterfactual says the anchor did
+  not cause them. The same board without the QB anchor was better on all three
+  QB metrics: MAE -0.138, rho +0.006, top-12 +1 QB. Excluding NE/CHI it was
+  better again (+2 QBs). The effect is about one SE on n=27, so this is not
+  evidence of harm. It is the first contradiction of the w3-6 result, though,
+  and Sleeper's own week-7 QB top-12 (50%) was worse than ours unanchored. Keep
+  shipping it, and re-grade the QB-only splice after weeks 8-9.
+- **Dispersion shrink: didn't hold up on week 7, within noise.** +0.029 overall
+  against the claimed -0.050 (SE 0.044). It helped RB (-0.087) and hurt WR
+  (+0.079) and QB (+0.120). The w3-6 gain was pooled across positions; if the
+  WR/QB pattern repeats in week 8, the per-position k needs revisiting.
+- **The anchor overall (all four positions) still helps**: -0.041, carried by
+  RB and TE. WR's anchor was slightly negative this week.
+
+### Week-8 board (first fully clean forward test): NOT PUBLISHED
+
+The 2026-10-27 09:21 UTC weekly-pipeline run (40480134979) built a week-8
+board from main with all three levers active: QB anchor 28/36 rows (startable
+coverage 93%), dispersion shrink on 154 rows, band calibration on all four
+positions, hybrid models at full feature coverage. **The sanity gate then
+failed it and the commit step was skipped**, so there is no week-8 board on
+main or locally. Issue #162 is open. The failures: `Lamar Jackson` at 0.00 pts
+(QB#30) and `Tyler Warren` at TE#70. Both are on the engine's "returning from a
+missed game" list, and at 09:28 Tuesday there were 0 official week-8 injury
+verdicts against 559 live Sleeper designations. The likely cause is a stale
+last-game Out tag zeroing them. Unverified: the board artifact was not
+inspected. No concurrent session has written a pre-lever week-8 board, because
+nothing exists there at all. A clean week-8 board still needs to be generated
+before Thursday's kickoff, or the week-8 forward test is lost.

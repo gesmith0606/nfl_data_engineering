@@ -660,7 +660,10 @@ def espn_live_lineup(
     labels = [s for s in roster_positions if str(s).upper() not in _SKIP_SLOTS]
     by_label: Dict[str, list] = {}
     for pid, slot_id in slots.items():
-        by_label.setdefault(LINEUP_SLOT_MAP.get(slot_id, ""), []).append(pid)
+        # ESPN calls slot 16 "DST"; slots_from_shape names it "DEF". Same rename,
+        # or the started D/ST never matches and reads as an empty slot.
+        label = LINEUP_SLOT_MAP.get(slot_id, "")
+        by_label.setdefault(_SHAPE_TO_SLEEPER_SLOT.get(label, label), []).append(pid)
     starters = []
     for label in labels:
         queue = by_label.get(str(label).upper()) or by_label.get(str(label)) or []
